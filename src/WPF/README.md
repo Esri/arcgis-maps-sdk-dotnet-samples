@@ -2,449 +2,449 @@
 
 ## Analysis
 
-* [Line of Sight (GeoElement)](samples/Analysis/LineOfSightGeoElement)
+* [Line of Sight (GeoElement)](ArcGISRuntime.WPF.Viewer/samples/Analysis/LineOfSightGeoElement)
 
 This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.
 
-* [Line of sight from location](samples/Analysis/LineOfSightLocation)
+* [Line of sight from location](ArcGISRuntime.WPF.Viewer/samples/Analysis/LineOfSightLocation)
 
 This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.
 
-* [Query feature count and extent](samples/Analysis/QueryFeatureCountAndExtent)
+* [Query feature count and extent](ArcGISRuntime.WPF.Viewer/samples/Analysis/QueryFeatureCountAndExtent)
 
 This sample demonstrates how to query a feature table, in this case returning a count, for features that are within the visible extent or that meet specified criteria.
 
-* [Viewshed (GeoElement)](samples/Analysis/ViewshedGeoElement)
+* [Viewshed (GeoElement)](ArcGISRuntime.WPF.Viewer/samples/Analysis/ViewshedGeoElement)
 
 This sample demonstrates how to display a live viewshed analysis for a moving GeoElement. The analysis is offset vertically so that the viewpoint is from the top of the GeoElement (in this case, a model of a tank).
 
-* [Viewshed (Location)](samples/Analysis/ViewshedLocation)
+* [Viewshed (Location)](ArcGISRuntime.WPF.Viewer/samples/Analysis/ViewshedLocation)
 
 This sample demonstrates the configurable properties of viewshed analysis, including frustum color, heading, pitch, distances, angles, and location.
 
-* [Viewshed for camera](samples/Analysis/ViewshedCamera)
+* [Viewshed for camera](ArcGISRuntime.WPF.Viewer/samples/Analysis/ViewshedCamera)
 
 This sample demonstrates how to create a `LocationViewshed` to display interactive viewshed results in the scene view. The viewshed observer is defined by the scene view camera to evaluate visible and obstructed areas of the scene from that location.
 
 ## Data
 
-* [Edit and sync features](samples/Data/EditAndSyncFeatures)
+* [Edit and sync features](ArcGISRuntime.WPF.Viewer/samples/Data/EditAndSyncFeatures)
 
 This sample demonstrates how to synchronize offline edits with a feature service.
 
-* [Feature layer (GeoPackage)](samples/Data/FeatureLayerGeoPackage)
+* [Feature layer (GeoPackage)](ArcGISRuntime.WPF.Viewer/samples/Data/FeatureLayerGeoPackage)
 
 This sample demonstrates how to open a GeoPackage and show a GeoPackage feature table in a feature layer.
 
-* [Feature layer (shapefile)](samples/Data/FeatureLayerShapefile)
+* [Feature layer (shapefile)](ArcGISRuntime.WPF.Viewer/samples/Data/FeatureLayerShapefile)
 
 This sample demonstrates how to open a shapefile stored on the device and display it as a feature layer with default symbology.
 
-* [Feature layer query](samples/Data/FeatureLayerQuery)
+* [Feature layer query](ArcGISRuntime.WPF.Viewer/samples/Data/FeatureLayerQuery)
 
 This sample demonstrates how to query a feature layer via feature table.
 
-* [Generate geodatabase](samples/Data/GenerateGeodatabase)
+* [Generate geodatabase](ArcGISRuntime.WPF.Viewer/samples/Data/GenerateGeodatabase)
 
 This sample demonstrates how to take a feature service offline by generating a geodatabase.
 
-* [Geodatabase transactions](samples/Data/GeodatabaseTransactions)
+* [Geodatabase transactions](ArcGISRuntime.WPF.Viewer/samples/Data/GeodatabaseTransactions)
 
 This sample demonstrates how to manage edits to a local geodatabase inside of transactions.
 
-* [List related features](samples/Data/ListRelatedFeatures)
+* [List related features](ArcGISRuntime.WPF.Viewer/samples/Data/ListRelatedFeatures)
 
 This sample demonstrates how to query features related to an identified feature.
 
-* [Raster layer (GeoPackage)](samples/Data/RasterLayerGeoPackage)
+* [Raster layer (GeoPackage)](ArcGISRuntime.WPF.Viewer/samples/Data/RasterLayerGeoPackage)
 
 This sample demonstrates how to open a GeoPackage and show a GeoPackage raster in a raster layer.
 
-* [Read a GeoPackage](samples/Data/ReadGeoPackage)
+* [Read a GeoPackage](ArcGISRuntime.WPF.Viewer/samples/Data/ReadGeoPackage)
 
 This sample demonstrates how to open a GeoPackage file from the local file system and list the available GeoPackageRasters and GeoPackageFeatureTables from the GeoPackage. Users can add and remove the selected datasets as RasterLayers or FeatureLayers to the map.
 
-* [Read shapefile metadata](samples/Data/ReadShapefileMetadata)
+* [Read shapefile metadata](ArcGISRuntime.WPF.Viewer/samples/Data/ReadShapefileMetadata)
 
 This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.
 
-* [Service feature table (cache)](samples/Data/ServiceFeatureTableCache)
+* [Service feature table (cache)](ArcGISRuntime.WPF.Viewer/samples/Data/ServiceFeatureTableCache)
 
 This sample demonstrates how to use a feature service in on interaction cache mode.
 
-* [Service feature table (manual cache)](samples/Data/ServiceFeatureTableManualCache)
+* [Service feature table (manual cache)](ArcGISRuntime.WPF.Viewer/samples/Data/ServiceFeatureTableManualCache)
 
 This sample demonstrates how to use a feature service in manual cache mode.
 
-* [Service feature table (no cache)](samples/Data/ServiceFeatureTableNoCache)
+* [Service feature table (no cache)](ArcGISRuntime.WPF.Viewer/samples/Data/ServiceFeatureTableNoCache)
 
 This sample demonstrates how to use a feature service in on interaction no cache mode.
 
-* [Statistical query](samples/Data/StatisticalQuery)
+* [Statistical query](ArcGISRuntime.WPF.Viewer/samples/Data/StatisticalQuery)
 
 This sample demonstrates how to query a feature table to get statistics for a specified field.
 
-* [Statistical query group and sort results](samples/Data/StatsQueryGroupAndSort)
+* [Statistical query group and sort results](ArcGISRuntime.WPF.Viewer/samples/Data/StatsQueryGroupAndSort)
 
 This sample demonstrates how to query a feature table to get statistics for a specified field and to group and sort the results.
 
-* [Symbolize a shapefile](samples/Data/SymbolizeShapefile)
+* [Symbolize a shapefile](ArcGISRuntime.WPF.Viewer/samples/Data/SymbolizeShapefile)
 
 This sample demonstrates how to apply a custom renderer to a shapefile displayed by a feature layer.
 
 ## Geometry
 
-* [Format coordinates](samples/Geometry/FormatCoordinates)
+* [Format coordinates](ArcGISRuntime.WPF.Viewer/samples/Geometry/FormatCoordinates)
 
 This sample demonstrates how to convert between `MapPoint` and string representations of a point using various coordinate systems.
 
 ## GeometryEngine
 
-* [List transformations by suitability](samples/GeometryEngine/ListTransformations)
+* [List transformations by suitability](ArcGISRuntime.WPF.Viewer/samples/GeometryEngine/ListTransformations)
 
 This sample demonstrates how to use the TransformationCatalog to get a list of available DatumTransformations that can be used to project a Geometry between two different SpatialReferences, and how to use one of the transformations to perform the GeometryEngine.project operation. The TransformationCatalog is also used to set the location of files upon which grid-based transformations depend, and to find the default transformation used for the two SpatialReferences.
 
-* [Project with specific transformation](samples/GeometryEngine/ProjectWithSpecificTransformation)
+* [Project with specific transformation](ArcGISRuntime.WPF.Viewer/samples/GeometryEngine/ProjectWithSpecificTransformation)
 
 This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
 
 ## Geoprocessing
 
-* [Analyze hotspots](samples/Geoprocessing/AnalyzeHotspots)
+* [Analyze hotspots](ArcGISRuntime.WPF.Viewer/samples/Geoprocessing/AnalyzeHotspots)
 
 This sample demonstrates how to execute the GeoprocessingTask asynchronously to calculate a hotspot analysis based on the frequency of 911 calls. It calculates the frequency of these calls within a given study area during a specified constrained time period set between 1/1/1998 and 5/31/1998.
 
-* [List geodatabase versions](samples/Geoprocessing/ListGeodatabaseVersions)
+* [List geodatabase versions](ArcGISRuntime.WPF.Viewer/samples/Geoprocessing/ListGeodatabaseVersions)
 
 This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.
 
-* [Viewshed (Geoprocessing)](samples/Geoprocessing/AnalyzeViewshed)
+* [Viewshed (Geoprocessing)](ArcGISRuntime.WPF.Viewer/samples/Geoprocessing/AnalyzeViewshed)
 
 This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
 
 ## GraphicsOverlay
 
-* [Add graphics (SimpleRenderer)](samples/GraphicsOverlay/AddGraphicsRenderer)
+* [Add graphics (SimpleRenderer)](ArcGISRuntime.WPF.Viewer/samples/GraphicsOverlay/AddGraphicsRenderer)
 
 This sample demonstrates how you add graphics and set a renderer on a graphic overlays.
 
-* [Add graphics with symbols](samples/GraphicsOverlay/AddGraphicsWithSymbols)
+* [Add graphics with symbols](ArcGISRuntime.WPF.Viewer/samples/GraphicsOverlay/AddGraphicsWithSymbols)
 
 This sample demonstrates how to add various types of graphics to a `GraphicsOverlay`.
 
-* [Animate 3D Graphic](samples/GraphicsOverlay/Animate3DGraphic)
+* [Animate 3D Graphic](ArcGISRuntime.WPF.Viewer/samples/GraphicsOverlay/Animate3DGraphic)
 
 This sample demonstrates how to animate a graphic's position and follow it using a camera controller.
 
-* [Identify graphics](samples/GraphicsOverlay/IdentifyGraphics)
+* [Identify graphics](ArcGISRuntime.WPF.Viewer/samples/GraphicsOverlay/IdentifyGraphics)
 
 This sample demonstrates how to identify graphics in a graphics overlay. When you tap on a graphic on the map, you will see an alert message displayed.
 
-* [Sketch graphics on the map](samples/GraphicsOverlay/SketchOnMap)
+* [Sketch graphics on the map](ArcGISRuntime.WPF.Viewer/samples/GraphicsOverlay/SketchOnMap)
 
 This sample demonstrates how to interactively sketch and edit graphics in the map view and display them in a graphics overlay. You can sketch a variety of geometry types and undo or redo operations.
 
-* [Surface placement](samples/GraphicsOverlay/SurfacePlacements)
+* [Surface placement](ArcGISRuntime.WPF.Viewer/samples/GraphicsOverlay/SurfacePlacements)
 
 This sample demonstrates how to position graphics using different Surface Placements.
 
 ## Hydrography
 
-* [Select ENC features](samples/Hydrography/SelectEncFeatures)
+* [Select ENC features](ArcGISRuntime.WPF.Viewer/samples/Hydrography/SelectEncFeatures)
 
 This sample demonstrates how to select an ENC feature.
 
 ## Layers
 
-* [ArcGIS map image layer (URL)](samples/Layers/ArcGISMapImageLayerUrl)
+* [ArcGIS map image layer (URL)](ArcGISRuntime.WPF.Viewer/samples/Layers/ArcGISMapImageLayerUrl)
 
 This sample demonstrates how to add an ArcGISMapImageLayer as a base layer in a map. The ArcGISMapImageLayer comes from an ArcGIS Server sample web service.
 
-* [ArcGIS raster function (service)](samples/Layers/RasterLayerRasterFunction)
+* [ArcGIS raster function (service)](ArcGISRuntime.WPF.Viewer/samples/Layers/RasterLayerRasterFunction)
 
 This sample demonstrates how to show a raster layer on a map based on an image service layer that has a raster function applied.
 
-* [ArcGIS raster layer (service)](samples/Layers/RasterLayerImageServiceRaster)
+* [ArcGIS raster layer (service)](ArcGISRuntime.WPF.Viewer/samples/Layers/RasterLayerImageServiceRaster)
 
 This sample demonstrates how to show a raster layer on a map based on an image service layer.
 
-* [ArcGIS scene layer (URL)](samples/Layers/SceneLayerUrl)
+* [ArcGIS scene layer (URL)](ArcGISRuntime.WPF.Viewer/samples/Layers/SceneLayerUrl)
 
 This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.
 
-* [ArcGIS tiled layer (URL)](samples/Layers/ArcGISTiledLayerUrl)
+* [ArcGIS tiled layer (URL)](ArcGISRuntime.WPF.Viewer/samples/Layers/ArcGISTiledLayerUrl)
 
 This sample demonstrates how to add an ArcGISTiledLayer as a base layer in a map. The ArcGISTiledLayer comes from an ArcGIS Server sample web service.
 
-* [ArcGIS vector tiled layer (URL)](samples/Layers/ArcGISVectorTiledLayerUrl)
+* [ArcGIS vector tiled layer (URL)](ArcGISRuntime.WPF.Viewer/samples/Layers/ArcGISVectorTiledLayerUrl)
 
 This sample demonstrates how to create a ArcGISVectorTiledLayer and bind this to a Basemap which is used in the creation of a map.
 
-* [Blend renderer](samples/Layers/ChangeBlendRenderer)
+* [Blend renderer](ArcGISRuntime.WPF.Viewer/samples/Layers/ChangeBlendRenderer)
 
 This sample demonstrates how to use blend renderer on a raster layer. You can get a hillshade blended with either a colored raster or color ramp.
 
-* [Change feature layer renderer](samples/Layers/ChangeFeatureLayerRenderer)
+* [Change feature layer renderer](ArcGISRuntime.WPF.Viewer/samples/Layers/ChangeFeatureLayerRenderer)
 
 This sample demonstrates how to change renderer for a feature layer. It also shows how to reset the renderer back to the default.
 
-* [Change sublayer visibility](samples/Layers/ChangeSublayerVisibility)
+* [Change sublayer visibility](ArcGISRuntime.WPF.Viewer/samples/Layers/ChangeSublayerVisibility)
 
 This sample demonstrates how to show or hide sublayers of a map image layer.
 
-* [Create a feature collection layer from a portal item](samples/Layers/FeatureCollectionLayerFromPortal)
+* [Create a feature collection layer from a portal item](ArcGISRuntime.WPF.Viewer/samples/Layers/FeatureCollectionLayerFromPortal)
 
 This sample demonstrates opening a feature collection saved as a portal item.
 
-* [Create a new feature collection layer](samples/Layers/CreateFeatureCollectionLayer)
+* [Create a new feature collection layer](ArcGISRuntime.WPF.Viewer/samples/Layers/CreateFeatureCollectionLayer)
 
 This sample demonstrates how to create a new feature collection with several feature collection tables. The collection is displayed in the map as a feature collection layer.
 
-* [Display scene](samples/Layers/DisplayScene)
+* [Display scene](ArcGISRuntime.WPF.Viewer/samples/Layers/DisplayScene)
 
 Demonstrates how to display a scene with an elevation data source. An elevation data source allows objects to be viewed in 3D, like this picture of Mt. Everest.
 
-* [Export tiles](samples/Layers/ExportTiles)
+* [Export tiles](ArcGISRuntime.WPF.Viewer/samples/Layers/ExportTiles)
 
 This sample demonstrates how to export tiles from a map server.
 
-* [Feature collection layer from query result](samples/Layers/FeatureCollectionLayerFromQuery)
+* [Feature collection layer from query result](ArcGISRuntime.WPF.Viewer/samples/Layers/FeatureCollectionLayerFromQuery)
 
 This sample demonstrates how to create a feature collection layer to show a query result from a service feature table.
 
-* [Feature layer (feature service)](samples/Layers/FeatureLayerUrl)
+* [Feature layer (feature service)](ArcGISRuntime.WPF.Viewer/samples/Layers/FeatureLayerUrl)
 
 This sample demonstrates how to show a feature layer on a map using the URL to the service.
 
-* [Feature layer definition expression](samples/Layers/FeatureLayerDefinitionExpression)
+* [Feature layer definition expression](ArcGISRuntime.WPF.Viewer/samples/Layers/FeatureLayerDefinitionExpression)
 
 This sample demonstrates how to apply definition expression to a feature layer for filtering features. It also shows how to reset the definition expression.
 
-* [Feature layer dictionary renderer](samples/Layers/FeatureLayerDictionaryRenderer)
+* [Feature layer dictionary renderer](ArcGISRuntime.WPF.Viewer/samples/Layers/FeatureLayerDictionaryRenderer)
 
 Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.
 
-* [Feature Layer Rendering Mode (Map)](samples/Layers/FeatureLayerRenderingModeMap)
+* [Feature Layer Rendering Mode (Map)](ArcGISRuntime.WPF.Viewer/samples/Layers/FeatureLayerRenderingModeMap)
 
 This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.
 
-* [Feature layer rendering mode (Scene)](samples/Layers/FeatureLayerRenderingModeScene)
+* [Feature layer rendering mode (Scene)](ArcGISRuntime.WPF.Viewer/samples/Layers/FeatureLayerRenderingModeScene)
 
 This sample demonstrates how to use load settings to change the preferred rendering mode for a scene. Static rendering mode only redraws features periodically when a sceneview is navigating, while dynamic mode dynamically re-renders as the scene moves.
 
-* [Feature layer selection](samples/Layers/FeatureLayerSelection)
+* [Feature layer selection](ArcGISRuntime.WPF.Viewer/samples/Layers/FeatureLayerSelection)
 
 This sample demonstrates how to select features in a feature layer by tapping a MapView.
 
-* [Identify WMS features](samples/Layers/WmsIdentify)
+* [Identify WMS features](ArcGISRuntime.WPF.Viewer/samples/Layers/WmsIdentify)
 
 This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.
 
-* [Raster hillshade renderer](samples/Layers/RasterHillshade)
+* [Raster hillshade renderer](ArcGISRuntime.WPF.Viewer/samples/Layers/RasterHillshade)
 
 This sample demonstrates how to use a hillshade renderer on a raster layer. Hillshade renderers can adjust a grayscale raster (usually of terrain) according to a hypothetical sun position (azimuth and altitude).
 
-* [Raster layer (file)](samples/Layers/RasterLayerFile)
+* [Raster layer (file)](ArcGISRuntime.WPF.Viewer/samples/Layers/RasterLayerFile)
 
 This sample demonstrates how to use a raster layer created from a local raster file.
 
-* [Raster rendering rule](samples/Layers/RasterRenderingRule)
+* [Raster rendering rule](ArcGISRuntime.WPF.Viewer/samples/Layers/RasterRenderingRule)
 
 This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.
 
-* [Raster RGB renderer](samples/Layers/RasterRgbRenderer)
+* [Raster RGB renderer](ArcGISRuntime.WPF.Viewer/samples/Layers/RasterRgbRenderer)
 
 This sample demonstrates how to use an RGB renderer on a raster layer. An RGB renderer is used to adjust the color bands of a multi-spectral image.
 
-* [Stretch renderer](samples/Layers/ChangeStretchRenderer)
+* [Stretch renderer](ArcGISRuntime.WPF.Viewer/samples/Layers/ChangeStretchRenderer)
 
 This sample demonstrates how to use stretch renderer on a raster layer.
 
-* [Time-based query](samples/Layers/TimeBasedQuery)
+* [Time-based query](ArcGISRuntime.WPF.Viewer/samples/Layers/TimeBasedQuery)
 
 This sample demonstrates how to apply a time-based parameter to a feature layer query.
 
-* [Web TiledLayer](samples/Layers/Web_TiledLayer)
+* [Web TiledLayer](ArcGISRuntime.WPF.Viewer/samples/Layers/Web_TiledLayer)
 
 This sample demonstrates how to load a web tiled layer from a non-ArcGIS service, including how to include proper attribution.
 
-* [WMS layer (URL)](samples/Layers/WMSLayerUrl)
+* [WMS layer (URL)](ArcGISRuntime.WPF.Viewer/samples/Layers/WMSLayerUrl)
 
 This sample demonstrates how to add a layer from a WMS service to a map.
 
-* [WMS service catalog](samples/Layers/WmsServiceCatalog)
+* [WMS service catalog](ArcGISRuntime.WPF.Viewer/samples/Layers/WmsServiceCatalog)
 
 This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.
 
-* [WMTS layer](samples/Layers/WMTSLayer)
+* [WMTS layer](ArcGISRuntime.WPF.Viewer/samples/Layers/WMTSLayer)
 
 This sample demonstrates how to display a WMTS layer on a map via a Uri and WmtsLayerInfo.
 
 ## LocalServer
 
-* [Dynamic workspace Raster](samples/LocalServer/DynamicWorkspaceRaster)
+* [Dynamic workspace Raster](ArcGISRuntime.WPF.Viewer/samples/LocalServer/DynamicWorkspaceRaster)
 
 This sample demonstrates how to dynamically add a local Raster to a map using Local Server.
 
-* [Dynamic workspace shapefile](samples/LocalServer/DynamicWorkspaceShapefile)
+* [Dynamic workspace shapefile](ArcGISRuntime.WPF.Viewer/samples/LocalServer/DynamicWorkspaceShapefile)
 
 This sample demonstrates how to dynamically add a local shapefile to a map using Local Server.
 
-* [Local Server Feature Layer](samples/LocalServer/LocalServerFeatureLayer)
+* [Local Server Feature Layer](ArcGISRuntime.WPF.Viewer/samples/LocalServer/LocalServerFeatureLayer)
 
 This sample demonstrates how to display a Feature Layer service by a Local Server feature service.
 
-* [Local Server Geoprocessing](samples/LocalServer/LocalServerGeoprocessing)
+* [Local Server Geoprocessing](ArcGISRuntime.WPF.Viewer/samples/LocalServer/LocalServerGeoprocessing)
 
 This sample demonstrates how to perform geoprocessing tasks using Local Server.
 
-* [Local Server Map Image Layer](samples/LocalServer/LocalServerMapImageLayer)
+* [Local Server Map Image Layer](ArcGISRuntime.WPF.Viewer/samples/LocalServer/LocalServerMapImageLayer)
 
 This sample demonstrates how to display a Map Image Layer from a local map service
 
-* [Local Server Services](samples/LocalServer/LocalServerServices)
+* [Local Server Services](ArcGISRuntime.WPF.Viewer/samples/LocalServer/LocalServerServices)
 
 This sample demonstrates how to control local server and manage running services.
 
 ## Location
 
-* [Display device location](samples/Location/DisplayDeviceLocation)
+* [Display device location](ArcGISRuntime.WPF.Viewer/samples/Location/DisplayDeviceLocation)
 
 This sample demonstrates how you can enable location services and switch between different types of auto pan modes.
 
 ## Map
 
-* [Access load status](samples/Map/AccessLoadStatus)
+* [Access load status](ArcGISRuntime.WPF.Viewer/samples/Map/AccessLoadStatus)
 
 This sample demonstrates how to access the Maps' LoadStatus. The LoadStatus will be considered loaded when the following are true: The Map has a valid SpatialReference and the Map has an been set to the MapView.
 
-* [Author a map](samples/Map/AuthorMap)
+* [Author a map](ArcGISRuntime.WPF.Viewer/samples/Map/AuthorMap)
 
 This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). Saving a map to arcgis.com requires an ArcGIS Online login.
 
-* [Change basemap](samples/Map/ChangeBasemap)
+* [Change basemap](ArcGISRuntime.WPF.Viewer/samples/Map/ChangeBasemap)
 
 This sample demonstrates how to dynamically change the basemap displayed in a Map.
 
-* [Display a map](samples/Map/DisplayMap)
+* [Display a map](ArcGISRuntime.WPF.Viewer/samples/Map/DisplayMap)
 
 This sample demonstrates how to display a map with a basemap.
 
-* [Manage bookmarks](samples/Map/ManageBookmarks)
+* [Manage bookmarks](ArcGISRuntime.WPF.Viewer/samples/Map/ManageBookmarks)
 
 This sample demonstrates how to access and add bookmarks to a map.
 
-* [Open map (URL)](samples/Map/OpenMapURL)
+* [Open map (URL)](ArcGISRuntime.WPF.Viewer/samples/Map/OpenMapURL)
 
 This sample demonstrates loading a webmap in a map from a Uri.
 
-* [Open mobile map (map package)](samples/Map/OpenMobileMap)
+* [Open mobile map (map package)](ArcGISRuntime.WPF.Viewer/samples/Map/OpenMobileMap)
 
 This sample demonstrates how to open a mobile map from a map package.
 
-* [Search a portal for maps](samples/Map/SearchPortalMaps)
+* [Search a portal for maps](ArcGISRuntime.WPF.Viewer/samples/Map/SearchPortalMaps)
 
 This sample demonstrates searching a portal for web maps and loading them in the map view. You can search ArcGIS Online public web maps using tag values or browse the web maps in your account. OAuth is used to authenticate with ArcGIS Online to access items in your account.
 
-* [Set initial map area](samples/Map/SetInitialMapArea)
+* [Set initial map area](ArcGISRuntime.WPF.Viewer/samples/Map/SetInitialMapArea)
 
 This sample demonstrates how to set the initial viewpoint from envelope defined by minimum (x,y) and maximum (x,y) values. The map's InitialViewpoint is set to this viewpoint before the map is loaded into the MapView. Upon loading the map zoom to this initial area.
 
-* [Set initial map location](samples/Map/SetInitialMapLocation)
+* [Set initial map location](ArcGISRuntime.WPF.Viewer/samples/Map/SetInitialMapLocation)
 
 This sample creates a map with a standard ESRI Imagery with Labels basemap that is centered on a latitude and longitude location and zoomed into a specific level of detail.
 
-* [Set map spatial reference](samples/Map/SetMapSpatialReference)
+* [Set map spatial reference](ArcGISRuntime.WPF.Viewer/samples/Map/SetMapSpatialReference)
 
 This sample demonstrates how you can set the spatial reference on a Map and all the layers would project accordingly.
 
-* [Set min & max scale](samples/Map/SetMinMaxScale)
+* [Set min & max scale](ArcGISRuntime.WPF.Viewer/samples/Map/SetMinMaxScale)
 
 This sample demonstrates how to set the minimum and maximum scale of a Map. Setting the minimum and maximum scale for the Map can be useful in keeping the user focused at a certain level of detail.
 
 ## MapView
 
-* [Change viewpoint](samples/MapView/ChangeViewpoint)
+* [Change viewpoint](ArcGISRuntime.WPF.Viewer/samples/MapView/ChangeViewpoint)
 
 This sample demonstrates different ways in which you can change the viewpoint or visible area of the map.
 
-* [Display drawing status](samples/MapView/DisplayDrawingStatus)
+* [Display drawing status](ArcGISRuntime.WPF.Viewer/samples/MapView/DisplayDrawingStatus)
 
 This sample demonstrates how to use the DrawStatus value of the MapView to notify user that the MapView is drawing.
 
-* [Display layer view state](samples/MapView/DisplayLayerViewState)
+* [Display layer view state](ArcGISRuntime.WPF.Viewer/samples/MapView/DisplayLayerViewState)
 
 This sample demonstrates how to get view status for layers in a map.
 
-* [Feature layer time offset](samples/MapView/FeatureLayerTimeOffset)
+* [Feature layer time offset](ArcGISRuntime.WPF.Viewer/samples/MapView/FeatureLayerTimeOffset)
 
 This sample demonstrates how to show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.
 
-* [GeoView viewpoint synchronization](samples/MapView/GeoViewSync)
+* [GeoView viewpoint synchronization](ArcGISRuntime.WPF.Viewer/samples/MapView/GeoViewSync)
 
 This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with each other.
 
-* [Map rotation](samples/MapView/MapRotation)
+* [Map rotation](ArcGISRuntime.WPF.Viewer/samples/MapView/MapRotation)
 
 This sample demonstrates how to rotate a map.
 
-* [Show callout](samples/MapView/ShowCallout)
+* [Show callout](ArcGISRuntime.WPF.Viewer/samples/MapView/ShowCallout)
 
 This sample illustrates how to show callouts on a map in response to user interaction.
 
-* [Show magnifier](samples/MapView/ShowMagnifier)
+* [Show magnifier](ArcGISRuntime.WPF.Viewer/samples/MapView/ShowMagnifier)
 
 This sample demonstrates how you can tap and hold on a map to get the magnifier. You can also pan while tapping and holding to move the magnifier across the map.
 
-* [Take screenshot](samples/MapView/TakeScreenshot)
+* [Take screenshot](ArcGISRuntime.WPF.Viewer/samples/MapView/TakeScreenshot)
 
 This sample demonstrates how you can take screenshot of a map. Click 'take screenshot' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.
 
 ## Network Analysis
 
-* [Find a route](samples/Network Analysis/FindRoute)
+* [Find a route](ArcGISRuntime.WPF.Viewer/samples/Network Analysis/FindRoute)
 
 This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.
 
 ## Search
 
-* [Find address](samples/Search/FindAddress)
+* [Find address](ArcGISRuntime.WPF.Viewer/samples/Search/FindAddress)
 
 This sample demonstrates how you can use the LocatorTask API to geocode an address and display it with a pin on the map. Tapping the pin displays the reverse-geocoded address in a callout.
 
-* [Find place](samples/Search/FindPlace)
+* [Find place](ArcGISRuntime.WPF.Viewer/samples/Search/FindPlace)
 
 This sample demonstrates how to use geocode functionality to search for points of interest, around a location or within an extent.
 
 ## Symbology
 
-* [Distance composite symbol](samples/Symbology/UseDistanceCompositeSym)
+* [Distance composite symbol](ArcGISRuntime.WPF.Viewer/samples/Symbology/UseDistanceCompositeSym)
 
 This sample demonstrates how to create a `DistanceCompositeSceneSymbol` with unique marker symbols to display at various distances from the camera.
 
-* [Feature layer extrusion](samples/Symbology/FeatureLayerExtrusion)
+* [Feature layer extrusion](ArcGISRuntime.WPF.Viewer/samples/Symbology/FeatureLayerExtrusion)
 
 This sample demonstrates how to apply extrusion to a renderer on a feature layer.
 
-* [Render picture markers](samples/Symbology/RenderPictureMarkers)
+* [Render picture markers](ArcGISRuntime.WPF.Viewer/samples/Symbology/RenderPictureMarkers)
 
 This sample demonstrates how to create picture marker symbols from a URL and embedded resources.
 
-* [Render simple markers](samples/Symbology/RenderSimpleMarkers)
+* [Render simple markers](ArcGISRuntime.WPF.Viewer/samples/Symbology/RenderSimpleMarkers)
 
 This sample adds a point graphic to a graphics overlay symbolized with a red circle specified via a SimpleMarkerSymbol.
 
-* [Render unique values](samples/Symbology/RenderUniqueValues)
+* [Render unique values](ArcGISRuntime.WPF.Viewer/samples/Symbology/RenderUniqueValues)
 
 This sample demonstrate how to use a unique value renderer to style different features in a feature layer with different symbols. Features do not have a symbol property for you to set, renderers should be used to define the symbol for features in feature layers. The unique value renderer allows for separate symbols to be used for features that have specific attribute values in a defined field.
 
-* [Simple renderer](samples/Symbology/SimpleRenderers)
+* [Simple renderer](ArcGISRuntime.WPF.Viewer/samples/Symbology/SimpleRenderers)
 
 This sample demonstrates how to create a simple renderer and add it to a graphics overlay. Renderers define the symbology for all graphics in a graphics overlay (unless they are overridden by setting the symbol directly on the graphic). Simple renderers can also be defined on feature layers using the same code.
 
 ## Tutorial
 
-* [Author, edit, and save a map](samples/Tutorial/AuthorEditSaveMap)
+* [Author, edit, and save a map](ArcGISRuntime.WPF.Viewer/samples/Tutorial/AuthorEditSaveMap)
 
 This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). It is also the solution to the [Author, edit, and save maps to your portal tutorial](https://developers.arcgis.com/net/latest/wpf/guide/author-edit-and-save-maps-to-your-portal.htm). Saving a map to arcgis.com requires an ArcGIS Online login.
 

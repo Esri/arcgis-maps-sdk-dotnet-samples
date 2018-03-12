@@ -376,7 +376,7 @@ This sample demonstrates how you can take screenshot of a map. Click 'capture' b
 
 ## Network Analysis
 
-* [Find a route](Xamarin.Android/Samples/Network Analysis/FindRoute)
+* [Find a route](Xamarin.Android/Samples/Network%20Analysis/FindRoute)
 
 This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.
 

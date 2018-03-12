@@ -376,7 +376,7 @@ This sample demonstrates how you can take screenshot of a map. The app has a Scr
 
 ## Network Analysis
 
-* [Find route](Xamarin.iOS/Samples/Network Analysis/FindRoute)
+* [Find route](Xamarin.iOS/Samples/Network%20Analysis/FindRoute)
 
 This sample illustrates how to solve a simple route between two locations.
 

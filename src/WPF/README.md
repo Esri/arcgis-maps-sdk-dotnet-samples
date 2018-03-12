@@ -402,7 +402,7 @@ This sample demonstrates how you can take screenshot of a map. Click 'take scree
 
 ## Network Analysis
 
-* [Find a route](ArcGISRuntime.WPF.Viewer/Samples/Network Analysis/FindRoute)
+* [Find a route](ArcGISRuntime.WPF.Viewer/Samples/Network%20Analysis/FindRoute)
 
 This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.
 

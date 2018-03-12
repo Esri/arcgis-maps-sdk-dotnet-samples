@@ -55,7 +55,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
         private async void Initialize()
         {
             // Create a tile cache and load it with the SanFrancisco streets tpk
-            TileCache _tileCache = new TileCache(await GetTpkPath());
+            TileCache _tileCache = new TileCache(GetTpkPath());
 
             // Create the corresponding layer based on the tile cache
             ArcGISTiledLayer _tileLayer = new ArcGISTiledLayer(_tileCache);
@@ -230,7 +230,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
         }
 
         // Get the path to the tile package used for the basemap
-        private async Task<string> GetTpkPath()
+        private static string GetTpkPath()
         {
             return DataManager.GetDataFolder("3f1bbf0ec70b409a975f5c91f363fe7d", "SanFrancisco.tpk");
         }

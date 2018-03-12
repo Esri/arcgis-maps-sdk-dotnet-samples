@@ -12,8 +12,6 @@ using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
-using System.IO;
-using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using UIKit;
 
@@ -28,9 +26,6 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         "")]
     public class RasterHillshade : UIViewController
     {
-        // Constant holding offset where the MapView control should start.
-        private const int YPageOffset = 60;
-
         // Button to show the hillshade parameters inputs.
         private UIButton _applyHillshadeButton;
 
@@ -77,7 +72,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             Map map = new Map(Basemap.CreateStreetsVector());
 
             // Get the file name for the local raster dataset.
-            string filepath = await GetRasterPath();
+            string filepath = GetRasterPath();
 
             // Load the raster file.
             Raster rasterFile = new Raster(filepath);
@@ -104,7 +99,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         
         private void CreateLayout()
         {
-            this.View.BackgroundColor = UIColor.White;
+            View.BackgroundColor = UIColor.White;
 
             // Create the map view control.
             _myMapView = new MapView();
@@ -162,7 +157,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             View.Add(_applyHillshadeRendererUI);
         }
 
-        private async Task<string> GetRasterPath()
+        private static string GetRasterPath()
         {
             return DataManager.GetDataFolder("134d60f50e184e8fa56365f44e5ce3fb", "srtm-hillshade", "srtm.tiff");
         }

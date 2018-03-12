@@ -144,7 +144,7 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
 
             // Create the model graphic for the plane
             // Get the path to the 3D model
-            string modelPath = await GetModelPath();
+            string modelPath = GetModelPath();
             // Create the scene symbol from the path to the model
             ModelSceneSymbol plane3DSymbol = await ModelSceneSymbol.CreateAsync(new Uri(modelPath), 1.0);
             // Create the graphic with an initial location and the plane symbol
@@ -178,7 +178,7 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             _animationTimer.Stop();
 
             // Get mission data
-            _missionData = await GetMissionData(mission);
+            _missionData = GetMissionData(mission);
 
             // Draw mission route on the inset
             // Create a collection of points to hold the mission
@@ -200,10 +200,10 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             _animationTimer.Start();
         }
 
-        private async Task<MissionFrame[]> GetMissionData(string mission)
+        private MissionFrame[] GetMissionData(string mission)
         {
             // Get the path to the file
-            string filePath = await GetMissionFilePath(mission);
+            string filePath = GetMissionFilePath(mission);
 
             // Read the file text
             string fileContents = File.ReadAllText(filePath);
@@ -218,7 +218,7 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
                 .ToArray();
         }
 
-        private async Task<string> GetMissionFilePath(string mission)
+        private string GetMissionFilePath(string mission)
         {
             string itemId = _missionToItemId[mission];
             string filename = mission + ".csv";
@@ -271,7 +271,7 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             }
         }
 
-        private async Task<string> GetModelPath()
+        private static string GetModelPath()
         {
             return DataManager.GetDataFolder("681d6f7694644709a7c830ec57a2d72b", "Bristol.dae");
         }

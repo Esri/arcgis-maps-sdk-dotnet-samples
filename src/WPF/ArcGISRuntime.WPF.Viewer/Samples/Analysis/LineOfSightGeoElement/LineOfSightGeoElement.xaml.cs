@@ -97,7 +97,7 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
 
             // Add the taxi to the scene
             // Create the model symbol for the taxi
-            ModelSceneSymbol taxiSymbol = await ModelSceneSymbol.CreateAsync(new Uri(await GetModelUri()));
+            ModelSceneSymbol taxiSymbol = await ModelSceneSymbol.CreateAsync(new Uri(GetModelUri()));
             // Set the anchor position for the mode; ensures that the model appears above the ground
             taxiSymbol.AnchorPosition = SceneSymbolAnchorPosition.Bottom;
             // Create the graphic from the taxi starting point and the symbol
@@ -209,10 +209,9 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
             }
         }
 
-        private async Task<string> GetModelUri()
+        private static string GetModelUri()
         {
             // Returns the taxi model
-
             return DataManager.GetDataFolder("3af5cfec0fd24dac8d88aea679027cb9", "dolmus.3ds");
         }
 

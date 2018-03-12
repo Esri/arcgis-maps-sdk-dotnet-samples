@@ -12,8 +12,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.ChangeStretchRenderer
@@ -49,7 +47,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeStretchRenderer
             await myMap.LoadAsync();
 
             // Get the file name
-            String filepath = await GetRasterPath();
+            String filepath = GetRasterPath();
 
             // Load the raster file
             Raster myRasterFile = new Raster(filepath);
@@ -77,7 +75,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeStretchRenderer
             string myRendererTypeChoice = RendererTypes.SelectedValue.ToString();
 
             // Create an IEnumerable from an empty list of doubles for the gamma values in the stretch render
-            IEnumerable<double> myGammaValues = new List<double> { };
+            IEnumerable<double> myGammaValues = new List<double>();
 
             // Create a color ramp for the stretch renderer
             ColorRamp myColorRamp = ColorRamp.Create(PresetColorRampType.DemLight, 1000);
@@ -102,7 +100,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeStretchRenderer
                     MinMaxStretchParameters myMinMaxStretchParameters = new MinMaxStretchParameters(myMinValues, myMaxValues);
 
                     // Create the stretch renderer based on the user defined min/max stretch values, empty gamma values, statistic estimates, and a predefined color ramp 
-                    myStretchRenderer = new Esri.ArcGISRuntime.Rasters.StretchRenderer(myMinMaxStretchParameters, myGammaValues, true, myColorRamp);
+                    myStretchRenderer = new StretchRenderer(myMinMaxStretchParameters, myGammaValues, true, myColorRamp);
 
                     break;
 
@@ -115,7 +113,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeStretchRenderer
                     PercentClipStretchParameters myPercentClipStretchParameters = new PercentClipStretchParameters(Convert.ToDouble(Input_Parameter1.Text), Convert.ToDouble(Input_Parameter2.Text));
 
                     // Create the percent clip renderer based on the user defined min/max percent clip values, empty gamma values, statistic estimates, and a predefined color ramp 
-                    myStretchRenderer = new Esri.ArcGISRuntime.Rasters.StretchRenderer(myPercentClipStretchParameters, myGammaValues, true, myColorRamp);
+                    myStretchRenderer = new StretchRenderer(myPercentClipStretchParameters, myGammaValues, true, myColorRamp);
 
                     break;
 
@@ -128,7 +126,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeStretchRenderer
                     StandardDeviationStretchParameters myStandardDeviationStretchParameters = new StandardDeviationStretchParameters(Convert.ToDouble(Input_Parameter1.Text));
 
                     // Create the standard deviation renderer based on the user defined standard deviation value, empty gamma values, statistic estimates, and a predefined color ramp 
-                    myStretchRenderer = new Esri.ArcGISRuntime.Rasters.StretchRenderer(myStandardDeviationStretchParameters, myGammaValues, true, myColorRamp);
+                    myStretchRenderer = new StretchRenderer(myStandardDeviationStretchParameters, myGammaValues, true, myColorRamp);
 
                     break;
             }
@@ -202,7 +200,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeStretchRenderer
             }
         }
 
-        private async Task<string> GetRasterPath()
+        private static string GetRasterPath()
         {
             return DataManager.GetDataFolder("95392f99970d4a71bd25951beb34a508", "shasta", "ShastaBW.tif");
         }

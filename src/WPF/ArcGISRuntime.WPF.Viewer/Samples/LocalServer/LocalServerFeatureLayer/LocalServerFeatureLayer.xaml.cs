@@ -54,7 +54,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
             }
 
             // Load the sample data and get the path
-            string myfeatureServicePath = await GetFeatureLayerPath();
+            string myfeatureServicePath = GetFeatureLayerPath();
 
             // Create the feature service to serve the local data
             _localFeatureService = new LocalFeatureService(myfeatureServicePath);
@@ -98,7 +98,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
             }
         }
 
-        private async Task<string> GetFeatureLayerPath()
+        private static string GetFeatureLayerPath()
         {
             return DataManager.GetDataFolder("4e94fec734434d1288e6ebe36c3c461f", "PointsOfInterest.mpk");
         }

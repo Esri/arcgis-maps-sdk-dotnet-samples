@@ -29,9 +29,6 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
     [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public class RenderPictureMarkers : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
@@ -77,11 +74,11 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
             _myMapView.GraphicsOverlays.Add(overlay);
 
             // Add graphics using different source types
-            await CreatePictureMarkerSymbolFromUrl(overlay);
+            CreatePictureMarkerSymbolFromUrl(overlay);
             await CreatePictureMarkerSymbolFromResources(overlay);
         }
 
-        private async Task CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
+        private void CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
         {
             // Create uri to the used image
             var symbolUri = new Uri(

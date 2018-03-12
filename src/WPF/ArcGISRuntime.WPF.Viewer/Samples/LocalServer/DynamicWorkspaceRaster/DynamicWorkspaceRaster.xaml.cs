@@ -13,7 +13,6 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceRaster
@@ -51,7 +50,7 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceRaster
                 await LocalServer.Instance.StartAsync();
 
                 // Load the sample data
-                await LoadRasterPaths();
+                LoadRasterPaths();
 
                 // Enable the 'choose Raster' button
                 MyChooseButton.IsEnabled = true;
@@ -65,7 +64,7 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceRaster
         private async void StartLocalMapService(string filename, string path)
         {
             // Start a service from the blank MPK
-            String mapServiceUrl = await GetMpkPath();
+            String mapServiceUrl = GetMpkPath();
 
             // Create the local map service
             _localMapService = new LocalMapService(mapServiceUrl);
@@ -119,28 +118,26 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceRaster
             MyMapView.Map.OperationalLayers.Add(imageryLayer);
         }
 
-        private async Task<string> GetMpkPath()
+        private static string GetMpkPath()
         {
             // Gets the path to the blank map package
-
             return DataManager.GetDataFolder("ea619b4f0f8f4d108c5b87e90c1b5be0", "mpk_blank.mpk");
         }
 
-        private async Task<String> LoadRasterPaths()
+        private static string LoadRasterPaths()
         {
             // Gets the path to the Raster package
-
             return DataManager.GetDataFolder("80b43ba48f524a8eb0cb54f0f1ee9a5f", "usa_raster.tif");
         }
 
-        private async void MyChooseButton_Click(object sender, RoutedEventArgs e)
+        private void MyChooseButton_Click(object sender, RoutedEventArgs e)
         {
             // Allow the user to specify a file path - create the dialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog()
             {
                 DefaultExt = ".tif",
                 Filter = "Rasters|*.tif",
-                InitialDirectory = Path.GetDirectoryName(await LoadRasterPaths()) ?? "C:\\"
+                InitialDirectory = Path.GetDirectoryName(LoadRasterPaths()) ?? "C:\\"
             };
 
             // Show the dialog and get the results

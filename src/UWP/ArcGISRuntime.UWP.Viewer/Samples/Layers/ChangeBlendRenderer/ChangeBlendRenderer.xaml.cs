@@ -13,8 +13,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
 {
@@ -61,7 +59,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
             Azimuth_Slider.Value = 180;
 
             // Load the raster file using a path on disk
-            Raster myRasterImagery = new Raster(await GetRasterPath_Imagery());
+            Raster myRasterImagery = new Raster(GetRasterPath_Imagery());
 
             // Create the raster layer from the raster
             RasterLayer myRasterLayerImagery = new RasterLayer(myRasterImagery);
@@ -92,7 +90,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
             UpdateRenderer.IsEnabled = true;
         }
 
-        private async void OnUpdateRendererClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void OnUpdateRendererClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             // Define the RasterLayer that will be used to display in the map
             RasterLayer rasterLayer_ForDisplayInMap;
@@ -110,7 +108,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
                 // parameters in the BlendRenderer constructor
 
                 // Load the raster file using a path on disk
-                Raster raster_Imagery = new Raster(await GetRasterPath_Imagery());
+                Raster raster_Imagery = new Raster(GetRasterPath_Imagery());
 
                 // Create the raster layer from the raster
                 rasterLayer_ForDisplayInMap = new RasterLayer(raster_Imagery);
@@ -127,7 +125,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
                 // in the BlendRenderer constructor
 
                 // Load the raster file using a path on disk
-                Raster raster_Elevation = new Raster(await GetRasterPath_Elevation());
+                Raster raster_Elevation = new Raster(GetRasterPath_Elevation());
 
                 // Create the raster layer from the raster
                 rasterLayer_ForDisplayInMap = new RasterLayer(raster_Elevation);
@@ -138,7 +136,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
             }
 
             // Define the parameters used by the BlendRenderer constructor
-            Raster raster_ForMakingBlendRenderer = new Raster(await GetRasterPath_Elevation());
+            Raster raster_ForMakingBlendRenderer = new Raster(GetRasterPath_Elevation());
             IEnumerable<double> myOutputMinValues = new List<double> { 9 };
             IEnumerable<double> myOutputMaxValues = new List<double> { 255 };
             IEnumerable<double> mySourceMinValues = new List<double> { };
@@ -171,12 +169,12 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
             MyMapView.Map.Basemap = new Basemap(rasterLayer_ForDisplayInMap);
         }
 
-        private async Task<string> GetRasterPath_Imagery()
+        private static string GetRasterPath_Imagery()
         {
             return DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");
         }
 
-        private async Task<string> GetRasterPath_Elevation()
+        private static string GetRasterPath_Elevation()
         {
             return DataManager.GetDataFolder("caeef9aa78534760b07158bb8e068462", "Shasta_Elevation.tif");
         }

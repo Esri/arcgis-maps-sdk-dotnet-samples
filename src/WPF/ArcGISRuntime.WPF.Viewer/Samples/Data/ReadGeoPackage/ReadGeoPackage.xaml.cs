@@ -13,9 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.ReadGeoPackage
 {
@@ -48,7 +46,7 @@ namespace ArcGISRuntime.WPF.Samples.ReadGeoPackage
             MyMapView.Map = new Map(BasemapType.Streets, 39.7294, -104.8319, 11);
 
             // Get the full path to the GeoPackage on the device
-            string myGeoPackagePath = await GetGeoPackagePath();
+            string myGeoPackagePath = GetGeoPackagePath();
 
             // Open the GeoPackage
             GeoPackage myGeoPackage = await GeoPackage.OpenAsync(myGeoPackagePath);
@@ -176,7 +174,7 @@ namespace ArcGISRuntime.WPF.Samples.ReadGeoPackage
             }
         }
 
-        private async Task<string> GetGeoPackagePath()
+        private static string GetGeoPackagePath()
         {
             return DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");
         }

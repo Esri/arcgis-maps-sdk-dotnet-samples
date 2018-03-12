@@ -35,7 +35,7 @@ namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Apply an imagery basemap to the map
             Map myMap = new Map(Basemap.CreateImagery());

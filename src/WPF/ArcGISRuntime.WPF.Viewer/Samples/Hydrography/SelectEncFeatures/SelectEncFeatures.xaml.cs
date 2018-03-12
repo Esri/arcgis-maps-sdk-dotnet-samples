@@ -9,15 +9,11 @@
 
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.SelectEncFeatures
 {
@@ -43,10 +39,7 @@ namespace ArcGISRuntime.WPF.Samples.SelectEncFeatures
             MyMapView.Map = new Map(Basemap.CreateOceans());
 
             // Get the path to the ENC Exchange Set
-            string encPath = await GetEncPath();
-
-            // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set
-            List<Envelope> dataSetExtents = new List<Envelope>();
+            string encPath = GetEncPath();
 
             // Create the cell and layer
             EncLayer myEncLayer = new EncLayer(new EncCell(encPath));
@@ -113,7 +106,7 @@ namespace ArcGISRuntime.WPF.Samples.SelectEncFeatures
             MyMapView.ShowCalloutAt(e.Location, definition);
         }
 
-        private async Task<String> GetEncPath()
+        private static string GetEncPath()
         {
             return DataManager.GetDataFolder("a490098c60f64d3bbac10ad131cc62c7", "GB5X01NW.000");
         }

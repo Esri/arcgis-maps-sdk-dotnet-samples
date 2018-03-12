@@ -13,8 +13,6 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using UIKit;
 
@@ -103,7 +101,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             await myMap.LoadAsync();
 
             // Get the file name
-            string filepath = await GetRasterPath();
+            string filepath = GetRasterPath();
 
             // Load the raster file
             Raster myRasterFile = new Raster(filepath);
@@ -270,7 +268,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             }
 
             // Create an IEnumerable from an empty list of doubles for the gamma values in the stretch render
-            IEnumerable<double> myGammaValues = new List<double> { };
+            IEnumerable<double> myGammaValues = new List<double>();
 
             // Create a color ramp for the stretch renderer
             ColorRamp myColorRamp = ColorRamp.Create(PresetColorRampType.DemLight, 1000);
@@ -333,7 +331,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             myRasterLayer.Renderer = myStretchRenderer;
         }
 
-        private async Task<string> GetRasterPath()
+        private static string GetRasterPath()
         {
             return DataManager.GetDataFolder("95392f99970d4a71bd25951beb34a508", "shasta", "ShastaBW.tif");
         }

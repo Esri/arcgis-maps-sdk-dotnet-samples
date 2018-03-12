@@ -10,9 +10,7 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.UWP.Samples.FeatureLayerGeoPackage
 {
@@ -38,7 +36,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerGeoPackage
             MyMapView.Map = new Map(BasemapType.LightGrayCanvasVector, 39.7294, -104.8319, 9);
 
             // Get the full path
-            string geoPackagePath = await GetGeoPackagePath();
+            string geoPackagePath = GetGeoPackagePath();
 
             // Open the GeoPackage
             GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
@@ -57,7 +55,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerGeoPackage
             MyMapView.Map.OperationalLayers.Add(newLayer);
         }
 
-        private async Task<string> GetGeoPackagePath()
+        private static string GetGeoPackagePath()
 
         {
             return DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");

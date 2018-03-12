@@ -12,8 +12,6 @@ using Esri.ArcGISRuntime.Rasters;
 using ArcGISRuntime.Samples.Managers;
 using System;
 using Xamarin.Forms;
-using System.IO;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 
@@ -52,7 +50,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             await myMap.LoadAsync();
 
             // Get the file name
-            string filepath = await GetRasterPath();
+            string filepath = GetRasterPath();
 
             // Load the raster file
             Raster myRasterFile = new Raster(filepath);
@@ -203,7 +201,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             myRasterLayer.Renderer = myStretchRenderer;
         }
 
-        private async Task<string> GetRasterPath()
+        private static string GetRasterPath()
         {
             return DataManager.GetDataFolder("95392f99970d4a71bd25951beb34a508", "shasta", "ShastaBW.tif");
         }

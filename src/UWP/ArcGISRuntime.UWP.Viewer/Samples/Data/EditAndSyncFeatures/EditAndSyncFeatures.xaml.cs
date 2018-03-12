@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -69,7 +68,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
         private async void Initialize()
         {
             // Create a tile cache and load it with the SanFrancisco streets tpk
-            TileCache tileCache = new TileCache(await GetTpkPath());
+            TileCache tileCache = new TileCache(GetTpkPath());
 
             // Create the corresponding layer based on the tile cache
             ArcGISTiledLayer tileLayer = new ArcGISTiledLayer(tileCache);
@@ -434,7 +433,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
 
         // Get the path to the tile package used for the basemap
         // (this is plumbing for the sample viewer)
-        private async Task<string> GetTpkPath()
+        private static string GetTpkPath()
         {
             return DataManager.GetDataFolder("3f1bbf0ec70b409a975f5c91f363fe7d", "SanFrancisco.tpk");
         }

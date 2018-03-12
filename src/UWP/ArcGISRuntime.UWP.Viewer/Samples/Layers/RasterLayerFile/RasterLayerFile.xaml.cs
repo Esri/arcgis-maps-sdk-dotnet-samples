@@ -8,12 +8,9 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.UWP.Samples.RasterLayerFile
 {
@@ -42,7 +39,7 @@ namespace ArcGISRuntime.UWP.Samples.RasterLayerFile
             await myMap.LoadAsync();
 
             // Get the file name
-            String filepath = await GetRasterPath();
+            String filepath = GetRasterPath();
 
             // Load the raster file
             Raster myRasterFile = new Raster(filepath);
@@ -63,9 +60,9 @@ namespace ArcGISRuntime.UWP.Samples.RasterLayerFile
             MyMapView.Map = myMap;
         }
 
-        private async Task<string> GetRasterPath()
+        private static string GetRasterPath()
         {
-            return DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd","raster-file",  "Shasta.tif");
+            return DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");
         }
     }
 }

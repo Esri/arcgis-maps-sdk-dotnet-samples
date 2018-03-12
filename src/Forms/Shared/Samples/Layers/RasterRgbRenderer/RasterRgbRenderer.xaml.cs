@@ -12,9 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.RasterRgbRenderer
@@ -44,7 +42,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             Map map = new Map(Basemap.CreateStreets());
 
             // Get the file name for the local raster dataset.
-            String filepath = await GetRasterPath();
+            String filepath = GetRasterPath();
 
             // Load the raster file
             Raster rasterFile = new Raster(filepath);
@@ -177,7 +175,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             }
         }
 
-        private async Task<string> GetRasterPath()
+        private static string GetRasterPath()
         {
             return DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "raster-file", "Shasta.tif");
         }

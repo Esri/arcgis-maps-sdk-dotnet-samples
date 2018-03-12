@@ -15,8 +15,6 @@ using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.ChangeStretchRenderer
@@ -147,7 +145,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             await myMap.LoadAsync();
 
             // Get the file name
-            string filepath = await GetRasterPath();
+            string filepath = GetRasterPath();
 
             // Load the raster file
             Raster myRasterFile = new Raster(filepath);
@@ -323,7 +321,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             }
         }
 
-        private async Task<string> GetRasterPath()
+        private static string GetRasterPath()
         {
             return DataManager.GetDataFolder("95392f99970d4a71bd25951beb34a508", "shasta", "ShastaBW.tif");
         }

@@ -13,11 +13,8 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.SelectEncFeatures
@@ -46,7 +43,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             Map myMap = new Map(Basemap.CreateOceans());
 
             // Get the path to the ENC Exchange Set
-            string encPath = await GetEncPath();
+            string encPath = GetEncPath();
 
             // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set
             List<Envelope> dataSetExtents = new List<Envelope>();
@@ -119,7 +116,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             MyMapView.ShowCalloutAt(e.Location, definition);
         }
 
-        private async Task<String> GetEncPath()
+        private static string GetEncPath()
         {
             return DataManager.GetDataFolder("a490098c60f64d3bbac10ad131cc62c7", "GB5X01NW.000");
         }

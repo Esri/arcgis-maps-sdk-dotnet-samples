@@ -65,11 +65,11 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
             _myMapView.GraphicsOverlays.Add(overlay);
 
             // Add graphics using different source types
-            await CreatePictureMarkerSymbolFromUrl(overlay);
+            CreatePictureMarkerSymbolFromUrl(overlay);
             await CreatePictureMarkerSymbolFromResources(overlay);
         }
 
-        private async Task CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
+        private static void CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
         {
             // Create uri to the used image
             var symbolUri = new Uri(

@@ -18,7 +18,6 @@ using ArcGISRuntime.Samples.Managers;
 using System;
 using System.Linq;
 using System.IO;
-using System.Reflection;
 using Xamarin.Forms;
 
 #if WINDOWS_UWP
@@ -181,7 +180,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             _generateGdbJob.JobChanged += GenerateGdbJobChanged;
 
             // Handle the progress changed event (to show progress bar)
-            _generateGdbJob.ProgressChanged += ((object sender, EventArgs e) =>
+            _generateGdbJob.ProgressChanged += ((sender, e) =>
             {
                 UpdateProgressBar();
             });
@@ -304,7 +303,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             });
         }
 
-        private async void UpdateProgressBar()
+        private void UpdateProgressBar()
         {
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI

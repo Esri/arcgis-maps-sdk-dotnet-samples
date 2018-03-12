@@ -13,8 +13,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
-using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -51,7 +49,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
             MyMapView.Map = new Map(Basemap.CreateLightGrayCanvasVector());
 
             // Load the tiled layer and get the path
-            string rasterPath = await GetRasterPath();
+            string rasterPath = GetRasterPath();
 
             // Create a tile cache using the path to the raster
             TileCache myTileCache = new TileCache(rasterPath);
@@ -90,7 +88,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
             }
 
             // Get the path to the geoprocessing task
-            string gpServiceUrl = await GetGpPath();
+            string gpServiceUrl = GetGpPath();
 
             // Create the geoprocessing service
             _gpService = new LocalGeoprocessingService(gpServiceUrl, GeoprocessingServiceType.AsynchronousSubmitWithMapServiceResult);
@@ -158,7 +156,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
             {
                 MessageBox.Show("Job Failed");
                 return;
-            };
+            }
 
             // Return if not succeeded
             if (_gpJob.Status != JobStatus.Succeeded) { return; }
@@ -195,12 +193,12 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
             });
         }
 
-        private async Task<string> GetRasterPath()
+        private static string GetRasterPath()
         {
             return DataManager.GetDataFolder("f7c7b4a30fb9415896ba0d1921fe014b", "RasterHillshade.tpk");
         }
 
-        private async Task<string> GetGpPath()
+        private static string GetGpPath()
         {
             return DataManager.GetDataFolder("da9e565a52ca41c1937cff1a01017068", "Contour.gpk");
         }

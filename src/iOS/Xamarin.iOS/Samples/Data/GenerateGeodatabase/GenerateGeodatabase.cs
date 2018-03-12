@@ -338,7 +338,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             });
         }
 
-        private async void UpdateProgressBar()
+        private void UpdateProgressBar()
         {
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI

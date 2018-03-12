@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
             View.AddSubviews(_myMapView);
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Apply an imagery basemap to the map
             Map myMap = new Map(Basemap.CreateImagery());

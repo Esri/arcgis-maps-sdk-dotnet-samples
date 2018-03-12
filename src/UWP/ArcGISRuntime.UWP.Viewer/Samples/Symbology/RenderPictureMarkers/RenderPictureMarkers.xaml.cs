@@ -11,7 +11,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -55,11 +54,11 @@ namespace ArcGISRuntime.UWP.Samples.RenderPictureMarkers
             MyMapView.GraphicsOverlays.Add(overlay);
 
             // Add graphics using different source types
-            await CreatePictureMarkerSymbolFromUrl(overlay);
+            CreatePictureMarkerSymbolFromUrl(overlay);
             await CreatePictureMarkerSymbolFromResources(overlay);
         }
 
-        private async Task CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
+        private void CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
         {
             // Create uri to the used image
             var symbolUri = new Uri(

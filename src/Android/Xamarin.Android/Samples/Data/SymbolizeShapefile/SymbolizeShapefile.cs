@@ -15,8 +15,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI.Controls;
-using System.IO;
-using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.SymbolizeShapefile
@@ -71,7 +69,7 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
             myMap.InitialViewpoint = viewpoint;
 
             // Create a shapefile feature table from the shapefile path
-            ShapefileFeatureTable myFeatureTable = new ShapefileFeatureTable(await GetShapefilePath());
+            ShapefileFeatureTable myFeatureTable = new ShapefileFeatureTable(GetShapefilePath());
 
             // Create a layer from the feature table
             _shapefileFeatureLayer = new FeatureLayer(myFeatureTable);
@@ -133,7 +131,7 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
             }
         }
 
-        private async Task<string> GetShapefilePath()
+        private static string GetShapefilePath()
         {
             return DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "Subdivisions.shp");
         }

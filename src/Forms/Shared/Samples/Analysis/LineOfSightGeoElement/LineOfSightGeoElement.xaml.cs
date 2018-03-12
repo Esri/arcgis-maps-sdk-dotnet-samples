@@ -14,8 +14,6 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
-using System.IO;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 #if WINDOWS_UWP
@@ -104,7 +102,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
 
             // Add the taxi to the scene
             // Create the model symbol for the taxi
-            ModelSceneSymbol taxiSymbol = await ModelSceneSymbol.CreateAsync(new Uri(await GetModelUri()));
+            ModelSceneSymbol taxiSymbol = await ModelSceneSymbol.CreateAsync(new Uri(GetModelUri()));
             // Set the anchor position for the mode; ensures that the model appears above the ground
             taxiSymbol.AnchorPosition = SceneSymbolAnchorPosition.Bottom;
             // Create the graphic from the taxi starting point and the symbol
@@ -214,7 +212,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             }
         }
 
-        private async Task<string> GetModelUri()
+        private static string GetModelUri()
         {
             // Returns the taxi model
 

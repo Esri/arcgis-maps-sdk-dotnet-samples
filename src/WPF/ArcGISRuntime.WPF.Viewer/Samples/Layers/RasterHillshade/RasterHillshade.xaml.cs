@@ -11,8 +11,6 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.RasterHillshade
 {
@@ -53,7 +51,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterHillshade
             Map map = new Map(Basemap.CreateStreets());
 
             // Get the file name for the local raster dataset
-            String filepath = await GetRasterPath();
+            String filepath = GetRasterPath();
 
             // Load the raster file
             Raster rasterFile = new Raster(filepath);
@@ -101,7 +99,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterHillshade
             _rasterLayer.Renderer = hillshadeRenderer;
         }
 
-        private async Task<string> GetRasterPath()
+        private static string GetRasterPath()
         {
             return DataManager.GetDataFolder("134d60f50e184e8fa56365f44e5ce3fb", "srtm-hillshade", "srtm.tiff");
         }

@@ -9,9 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using ArcGISRuntime.Samples.Managers;
-using System.IO;
 using Esri.ArcGISRuntime.Data;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.UWP.Samples.FeatureLayerShapefile
 {
@@ -37,7 +35,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerShapefile
             MyMapView.Map = new Map(Basemap.CreateStreetsVector());
 
             // Get the path to the downloaded shapefile
-            string filepath = await GetShapefilePath();
+            string filepath = GetShapefilePath();
 
             // Open the shapefile
             ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
@@ -52,7 +50,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerShapefile
             await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
         }
 
-        private async Task<string> GetShapefilePath()
+        private static string GetShapefilePath()
         {
             return DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "Public_Art.shp");
         }

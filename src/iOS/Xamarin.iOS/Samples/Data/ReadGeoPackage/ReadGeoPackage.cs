@@ -16,17 +16,15 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ReadGeoPackage
 {
     [Register("ReadGeoPackage")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+	[Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
+    [Shared.Attributes.Sample(
         "Read a GeoPackage",
         "Data",
         "This sample demonstrates how to open a GeoPackage file from the local file system and list the available GeoPackageRasters and GeoPackageFeatureTables from the GeoPackage. Users can add and remove the selected datasets as RasterLayers or FeatureLayers to the map.",
@@ -87,7 +85,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             _myMapView.Map = new Map(BasemapType.Streets, 39.7294, -104.8319, 11);
 
             // Get the full path to the GeoPackage on the device
-            string myGeoPackagePath = await GetGeoPackagePath();
+            string myGeoPackagePath = GetGeoPackagePath();
 
             // Open the GeoPackage
             GeoPackage myGeoPackage = await GeoPackage.OpenAsync(myGeoPackagePath);
@@ -179,7 +177,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             View.AddSubviews(_myMapView, _myUISegmentedControl);
         }
 
-        private void _MyUISegmentedControl_ValueChanged(object sender, System.EventArgs e)
+        private void _MyUISegmentedControl_ValueChanged(object sender, EventArgs e)
         {
             // Get the UISegmentedControl that raised the event
             var myUISegmentedControl = sender as UISegmentedControl;
@@ -221,12 +219,12 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             UIPopoverPresentationController presentationPopover = myUIAlertController.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = this.View;
+                presentationPopover.SourceView = View;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
 
             // Display the list of layers to add to the map
-            this.PresentViewController(myUIAlertController, true, null);
+            PresentViewController(myUIAlertController, true, null);
         }
 
         private void Action_AddLayerToMap(string layerName)
@@ -278,12 +276,12 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             UIPopoverPresentationController presentationPopover = layersActionSheet.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = this.View;
+                presentationPopover.SourceView = View;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
 
             // Display the list of layers to add/remove
-            this.PresentViewController(layersActionSheet, true, null);
+            PresentViewController(layersActionSheet, true, null);
         }
 
         private void Action_RemoveLayerFromMap(string layerName)
@@ -317,7 +315,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             }
         }
 
-        private async Task<string> GetGeoPackagePath()
+        private static string GetGeoPackagePath()
         {
             return DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");
         }

@@ -10,9 +10,7 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.LocalServices;
 using System;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -71,14 +69,14 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             lstServices.ItemsSource = LocalServer.Instance.Services.Select(m => m.Name + " : " + m.Url);
         }
 
-        private async Task CreateServices()
+        private void CreateServices()
         {
             try
             {
                 // Arrange the data before starting the services
-                string mapServicePath = await GetMpkPath();
-                string featureServicePath = await GetFeatureLayerPath();
-                string geoprocessingPath = await GetGpPath();
+                string mapServicePath = GetMpkPath();
+                string featureServicePath = GetFeatureLayerPath();
+                string geoprocessingPath = GetGpPath();
 
                 // Create each service but don't start any
                 _localMapService = new LocalMapService(mapServicePath);
@@ -182,17 +180,17 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             }
         }
 
-        private async Task<string> GetMpkPath()
+        private static string GetMpkPath()
         {
             return DataManager.GetDataFolder("dee5d8060a6048a4b063484199a9546b", "RelationshipID.mpk");
         }
 
-        private async Task<string> GetFeatureLayerPath()
+        private static string GetFeatureLayerPath()
         {
             return DataManager.GetDataFolder("4e94fec734434d1288e6ebe36c3c461f", "PointsOfInterest.mpk");
         }
 
-        private async Task<string> GetGpPath()
+        private static string GetGpPath()
         {
             return DataManager.GetDataFolder("da9e565a52ca41c1937cff1a01017068", "Contour.gpk");
         }
@@ -205,7 +203,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
                 await LocalServer.Instance.StartAsync();
 
                 // Create the services
-                await CreateServices();
+                CreateServices();
             }
             catch (Exception ex)
             {

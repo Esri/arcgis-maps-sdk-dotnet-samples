@@ -42,7 +42,7 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateTopographic());

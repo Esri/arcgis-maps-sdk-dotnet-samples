@@ -16,7 +16,6 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Foundation;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
@@ -84,7 +83,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
             _tankOverlay.Renderer = renderer3D;
 
             // Create the tank graphic - get the model path.
-            string modelPath = await GetModelPath();
+            string modelPath = GetModelPath();
             // - Create the symbol and make it 10x larger (to be the right size relative to the scene).
             ModelSceneSymbol tankSymbol = await ModelSceneSymbol.CreateAsync(new Uri(modelPath), 10);
             // - Adjust the position.
@@ -174,10 +173,9 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
             }
         }
 
-        private async Task<string> GetModelPath()
+        private static string GetModelPath()
         {
             // Returns the tank model.
-
             return DataManager.GetDataFolder("07d62a792ab6496d9b772a24efea45d0", "bradle.3ds");
         }
 

@@ -12,7 +12,9 @@ using ArcGISRuntime.Samples.Shared.Models;
 using ArcGISRuntime.UWP.Viewer.Dialogs;
 using Esri.ArcGISRuntime.Security;
 using System;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.Foundation.Metadata;
 using Windows.UI.Core;
@@ -187,5 +189,45 @@ namespace ArcGISRuntime.UWP.Viewer
         {
             e.Handled = true;
         }
+
+        private void OnSearchQuerySubmitted(SearchBox searchBox, SearchBoxQueryChangedEventArgs searchBoxQueryChangedEventArgs)
+        {
+            if (SearchToggleButton.IsChecked.HasValue && SearchToggleButton.IsChecked.Value)
+            {
+                SearchBox.Visibility = Visibility.Collapsed;
+                SearchToggleButton.Visibility = Visibility.Visible;
+                SearchToggleButton.IsChecked = false;
+            }
+            var categoriesList = SampleManager.Current.FullTree.Search(SampleSearchFunc);
+            if (categoriesList == null)
+            {
+                return;
+            }
+            categories.ItemsSource = categoriesList.Items;
+
+            categories.SelectedIndex = 0;
+        }
+
+        private void OnSearchToggleChecked(object sender, RoutedEventArgs e)
+        {
+            if (SearchToggleButton.IsChecked.HasValue && SearchToggleButton.IsChecked.Value)
+            {
+                SearchBox.Visibility = Visibility.Visible;
+                SearchToggleButton.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                SearchBox.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private bool SampleSearchFunc(SampleInfo sample)
+        {
+            string searchText = SearchBox.QueryText.ToLower();
+            return sample.SampleName.ToLower().Contains(searchText) ||
+                   sample.Category.ToLower().Contains(searchText) ||
+                   sample.Description.ToLower().Contains(searchText);
+        }
+
     }
 }

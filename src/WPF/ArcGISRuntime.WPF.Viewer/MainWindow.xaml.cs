@@ -172,6 +172,7 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             string searchText = SearchFilterBox.Text.ToLower();
             return sample.SampleName.ToLower().Contains(searchText) ||
+                   sample.Category.ToLower().Contains(searchText) ||
                    sample.Description.ToLower().Contains(searchText);
         }
     }

@@ -34,7 +34,8 @@ namespace ArcGISRuntime.Samples.Desktop
                 // Set category data context
                 Categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
 
-                SelectSample(SampleManager.Current.AllSamples.First());
+                // Open all categories
+                OpenCategoryLeaves();
             }
             catch (Exception ex)
             {
@@ -105,23 +106,17 @@ namespace ArcGISRuntime.Samples.Desktop
             }
         }
 
-        private bool _openCategoryLeafs = true;
-
-        private void Categories_Click(object sender, RoutedEventArgs e)
+        private void OpenCategoryLeaves()
         {
-            if (_openCategoryLeafs)
+            if (Categories.Items.Count > 0)
             {
-                _openCategoryLeafs = false;
-                if (Categories.Items.Count > 0)
-                {
-                    var firstTreeViewItem = Categories.Items[0] as TreeViewItem;
-                    if (firstTreeViewItem != null) firstTreeViewItem.IsSelected = true;
+                var firstTreeViewItem = Categories.Items[0] as TreeViewItem;
+                if (firstTreeViewItem != null) firstTreeViewItem.IsSelected = true;
 
-                    foreach (var item in Categories.Items)
-                    {
-                        var treeViewItem = item as TreeViewItem;
-                        if (treeViewItem != null) treeViewItem.IsExpanded = true;
-                    }
+                foreach (var item in Categories.Items)
+                {
+                    var treeViewItem = item as TreeViewItem;
+                    if (treeViewItem != null) treeViewItem.IsExpanded = true;
                 }
             }
         }
@@ -138,18 +133,23 @@ namespace ArcGISRuntime.Samples.Desktop
             DescriptionContainer.Visibility = Visibility.Visible;
         }
 
-        private void Close_Click(object sender, RoutedEventArgs e)
+        private void SearchFilterBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            CloseNavigation.Visibility = Visibility.Collapsed;
-            OpenNavigation.Visibility = Visibility.Visible;
-            Root.ColumnDefinitions[0].MaxWidth = 0;
+            var results =
+                SampleManager.Current.FullTree.Search(SampleSearchFunc);
+
+            // Set category data context
+            Categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(results);
+
+            // Open all
+            OpenCategoryLeaves();
         }
 
-        private void Open_Click(object sender, RoutedEventArgs e)
+        private bool SampleSearchFunc(SampleInfo sample)
         {
-            OpenNavigation.Visibility = Visibility.Collapsed;
-            CloseNavigation.Visibility = Visibility.Visible;
-            Root.ColumnDefinitions[0].MaxWidth = 535;
+            string searchText = SearchFilterBox.Text.ToLower();
+            return sample.SampleName.ToLower().Contains(searchText) ||
+                   sample.Description.ToLower().Contains(searchText);
         }
     }
 }

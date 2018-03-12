@@ -51,8 +51,7 @@
             </Border>
         </DataTemplate>
     </Window.Resources>
-
-    <Grid x:Name="Root">
+    <Grid x:Name="Root" Background="#F7F8F8">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="50"/>
@@ -71,26 +70,24 @@
             <TextBlock Text="ArcGIS Runtime SDK for .NET Samples" Foreground="White" FontSize="32" 
                        FontWeight="Bold" VerticalAlignment="Center" Margin="40,0,0,0"/>
         </Grid>
-
-        <!-- Tab level-->
         <Grid Grid.Row="1" Grid.Column="0">
-            <!-- Main navigation  -->
-            <Grid Margin="60,0,0,0">
-                <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
-                    <RadioButton Content="ALL" Click="Categories_Click" Margin="5" 
-                             GroupName="MainTabs" IsChecked="false" 
-                             FontSize="24" Style="{DynamicResource HeaderToggleButtonStyle}"></RadioButton>
-                </StackPanel>
-            </Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+        <Label Content="Search: " VerticalContentAlignment="Center"></Label>
+            <TextBox Grid.Column="1" x:Name="SearchFilterBox" TextChanged="SearchFilterBox_OnTextChanged" Margin="10,10,10,10" VerticalContentAlignment="Center"></TextBox>
         </Grid>
-
-        <Grid Grid.Row="2" Grid.Column="0" Background="#FFF2F2F2" x:Name="NavigationPane">
+        <Grid Grid.Row="2" Grid.Column="0"  x:Name="NavigationPane">
+                
             <!-- Categories treeview -->
             <TreeView x:Name="Categories" 
 						  Background="#F7F8F8"
 						  ItemsSource="{Binding}" 
 						  Visibility="Visible" 
                           Margin="0,-1,0,0"
+                          Grid.Row="1"
+                          Grid.ColumnSpan="2"
 						  SelectedItemChanged="categories_SelectedItemChanged"
                           BorderBrush="Transparent" FontSize="18">
                 <TreeView.ItemContainerStyle>
@@ -99,14 +96,6 @@
                         <Setter Property="Margin" Value="1" />
                     </Style>
                 </TreeView.ItemContainerStyle>
-                <!--<TreeView.Resources>
-                    <HierarchicalDataTemplate DataType="{x:Type TreeViewItem}" ItemsSource="{Binding Items}">
-                        <TextBlock Text="{Binding Path=Name}"  FontSize="20"/>
-                    </HierarchicalDataTemplate>
-                    <DataTemplate DataType="{x:Type models:SampleInfo}" >
-                        <TextBlock Text="{Binding Path=SampleName}"  FontSize="16"/>
-                    </DataTemplate>
-                </TreeView.Resources>-->
             </TreeView>
         </Grid>
 
@@ -159,19 +148,6 @@
                     </ListView>
                 </Grid>
             </Grid>
-        </Grid>
-
-        <Grid Margin="0,80,0,0" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Button x:Name="CloseNavigation" 
-                                Click="Close_Click" Margin="5" BorderBrush="Transparent" Background="Transparent"
-                        ToolTip="Hide navigation pane" >
-                <Image Source="Assets/appbar.layout.collapse.left.variant.png" Width="40" Height="40"></Image>
-            </Button>
-            <Button x:Name="OpenNavigation" Visibility="Collapsed"
-                                Click="Open_Click" Margin="5" BorderBrush="Transparent" Background="Transparent"
-                        ToolTip="Show navigation pane">
-                <Image Source="Assets/appbar.layout.expand.right.variant.png" Width="40" Height="40"></Image>
-            </Button>
         </Grid>
     </Grid>
 </Window>

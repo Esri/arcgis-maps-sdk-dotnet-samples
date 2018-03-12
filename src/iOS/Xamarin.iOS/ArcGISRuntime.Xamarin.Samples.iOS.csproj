@@ -303,7 +303,7 @@
     <None Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <None Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
     <None Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
-    <None Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
+    <None Include="Samples\Network Analysis\FindRoute\FindRoute.jpg" />
     <None Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <None Include="Samples\Search\FindPlace\FindPlace.jpg" />
     <None Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
@@ -413,7 +413,7 @@
     <Compile Include="Samples\MapView\ShowCallout\ShowCallout.cs" />
     <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.cs" />
     <Compile Include="Samples\MapView\TakeScreenshot\TakeScreenshot.cs" />
-    <Compile Include="Samples\NetworkAnalysis\FindRoute\FindRoute.cs" />
+    <Compile Include="Samples\Network Analysis\FindRoute\FindRoute.cs" />
     <Compile Include="Samples\Search\FindAddress\FindAddress.cs" />
     <Compile Include="Samples\Search\FindPlace\FindPlace.cs" />
     <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.cs" />

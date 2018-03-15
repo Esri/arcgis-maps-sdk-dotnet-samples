@@ -65,7 +65,10 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private void OnFrameNavigated(object sender, Navigation.NavigationEventArgs e)
         {
-            _currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            if (Frame.CanGoBack)
+            {
+                _currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            }
         }
 
         protected override void OnNavigatedTo(Navigation.NavigationEventArgs e)

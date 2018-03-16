@@ -20,7 +20,7 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntime.UWP.Samples.FeatureLayerExtrusion
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "FeatureLayerExtrusion",
+        "Feature Layer Extrusion",
         "Symbology",
         "This sample demonstrates how to apply extrusion to a renderer on a feature layer.",
         "")]

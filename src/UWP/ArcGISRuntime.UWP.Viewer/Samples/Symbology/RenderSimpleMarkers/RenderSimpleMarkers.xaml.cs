@@ -25,7 +25,7 @@ namespace ArcGISRuntime.UWP.Samples.RenderSimpleMarkers
     {
         public RenderSimpleMarkers()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization 
             Initialize();

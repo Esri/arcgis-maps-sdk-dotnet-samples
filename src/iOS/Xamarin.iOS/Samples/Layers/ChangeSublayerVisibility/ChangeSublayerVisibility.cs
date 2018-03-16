@@ -36,7 +36,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             Title = "Change sublayer visibility";
         }
 
-        public async override void ViewDidLoad()
+        public override async void ViewDidLoad()
         {
             base.ViewDidLoad();
 
@@ -71,7 +71,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
                 if (mapImageLayer.Sublayers.Count > 0)
                 {
                     sublayersTableView.mapImageLayer = mapImageLayer;
-                    this.NavigationController.PushViewController(sublayersTableView, true);
+                    NavigationController.PushViewController(sublayersTableView, true);
                 }
             };
 

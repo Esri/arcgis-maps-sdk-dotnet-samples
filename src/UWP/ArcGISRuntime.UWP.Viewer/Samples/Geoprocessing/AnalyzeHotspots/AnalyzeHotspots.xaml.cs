@@ -36,7 +36,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
 
         public AnalyzeHotspots()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization 
             Initialize();

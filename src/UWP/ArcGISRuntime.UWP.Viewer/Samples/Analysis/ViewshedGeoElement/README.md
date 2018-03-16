@@ -4,6 +4,6 @@ This sample demonstrates how to display a live viewshed analysis for a moving Ge
 
 <img src="ViewshedGeoElement.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 Tap on the scene to see the tank move to that point.

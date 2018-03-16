@@ -12,8 +12,6 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.LocalServices;
 using Esri.ArcGISRuntime.Mapping;
 using System;
-using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
@@ -22,7 +20,8 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
         "Local Server Feature Layer",
         "LocalServer",
         "This sample demonstrates how to display a Feature Layer service by a Local Server feature service.",
-        "Sample data is downloaded automatically from ArcGIS Online by the sample viewer.")]
+        "Sample data is downloaded automatically from ArcGIS Online by the sample viewer.",
+        "Featured")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("4e94fec734434d1288e6ebe36c3c461f")]
     public partial class LocalServerFeatureLayer
     {
@@ -54,7 +53,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
             }
 
             // Load the sample data and get the path
-            string myfeatureServicePath = await GetFeatureLayerPath();
+            string myfeatureServicePath = GetFeatureLayerPath();
 
             // Create the feature service to serve the local data
             _localFeatureService = new LocalFeatureService(myfeatureServicePath);
@@ -98,7 +97,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
             }
         }
 
-        private async Task<string> GetFeatureLayerPath()
+        private static string GetFeatureLayerPath()
         {
             return DataManager.GetDataFolder("4e94fec734434d1288e6ebe36c3c461f", "PointsOfInterest.mpk");
         }

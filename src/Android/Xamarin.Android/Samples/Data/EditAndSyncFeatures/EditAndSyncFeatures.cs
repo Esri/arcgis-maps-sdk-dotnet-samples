@@ -339,7 +339,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             generateGdbJob.JobChanged += GenerateGdbJobChanged;
 
             // Handle the progress changed event with an inline (lambda) function to show the progress bar
-            generateGdbJob.ProgressChanged += ((object sender, EventArgs e) =>
+            generateGdbJob.ProgressChanged += ((sender, e) =>
             {
                 // Get the job
                 GenerateGeodatabaseJob job = sender as GenerateGeodatabaseJob;

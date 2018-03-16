@@ -34,7 +34,7 @@ namespace ArcGISRuntime.UWP.Samples.ArcGISVectorTiledLayerUrl
 
         public ArcGISVectorTiledLayerUrl()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
             Initialize();

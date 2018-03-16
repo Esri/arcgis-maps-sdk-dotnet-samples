@@ -4,6 +4,6 @@ This sample demonstrates a `LocationLineOfSight` analysis that shows segments th
 
 <img src="LineOfSightLocation.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 Click to define a location for the observer, then again to define the target. The result will show visible segments in cyan and obstructed ones in magenta.

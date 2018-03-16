@@ -35,7 +35,8 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         "Animate 3D Graphic",
         "GraphicsOverlay",
         "This sample demonstrates how to animate a graphic's position and follow it using a camera controller.",
-        "Click-and-drag to pan the sceneview, orbiting the moving plane. Click 'Camera' to toggle between the default and the orbiting camera controller.\nThe plane's route is shown on the inset map in the bottom left corner of the screen. The progress through the plane's mission is shown in a slider within the stats panel. Click 'Stats' to toggle stats display. Drag the slider to seek through the mission (like you might seek through a song). Tap 'Mission' to choose from a list of alternative routes. \n\nNote that this is a graphics-intensive sample; performance may be degraded in certain situations (such as using a simulator).")]
+        "Click-and-drag to pan the sceneview, orbiting the moving plane. Click 'Camera' to toggle between the default and the orbiting camera controller.\nThe plane's route is shown on the inset map in the bottom left corner of the screen. The progress through the plane's mission is shown in a slider within the stats panel. Click 'Stats' to toggle stats display. Drag the slider to seek through the mission (like you might seek through a song). Tap 'Mission' to choose from a list of alternative routes. \n\nNote that this is a graphics-intensive sample; performance may be degraded in certain situations (such as using a simulator).",
+        "Featured")]
     public class Animate3DGraphic : Activity
     {
         // Hold references to UI components so that they can be accessed by the sample programmatically
@@ -166,7 +167,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
             // Create the model graphic for the plane
             // Get the path to the 3D model
-            string modelPath = await GetModelPath();
+            string modelPath = GetModelPath();
             // Create the scene symbol from the path to the model
             ModelSceneSymbol plane3DSymbol = await ModelSceneSymbol.CreateAsync(new Uri(modelPath), 1.0);
             // Create the graphic with an initial location and the plane symbol
@@ -202,7 +203,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             _animationTimer.Stop();
 
             // Get mission data
-            _missionData = await GetMissionData(mission);
+            _missionData = GetMissionData(mission);
 
             // Draw mission route on the inset
             // Create a collection of points to hold the mission
@@ -224,10 +225,10 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             _animationTimer.Start();
         }
 
-        private async Task<MissionFrame[]> GetMissionData(string mission)
+        private MissionFrame[] GetMissionData(string mission)
         {
             // Get the path to the file
-            string filePath = await GetMissionFilePath(mission);
+            string filePath = GetMissionFilePath(mission);
 
             // Read the file text
             string fileContents = File.ReadAllText(filePath);
@@ -242,7 +243,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 .ToArray();
         }
 
-        private async Task<string> GetMissionFilePath(string mission)
+        private string GetMissionFilePath(string mission)
         {
             string itemId = _missionToItemId[mission];
             string filename = mission + ".csv";
@@ -297,7 +298,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             }
         }
 
-        private async Task<string> GetModelPath()
+        private string GetModelPath()
         {
             return DataManager.GetDataFolder("681d6f7694644709a7c830ec57a2d72b", "Bristol.dae");
         }

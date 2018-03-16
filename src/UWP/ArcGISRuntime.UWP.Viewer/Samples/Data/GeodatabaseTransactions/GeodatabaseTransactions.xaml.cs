@@ -98,12 +98,12 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
                     GenerateGeodatabaseJob generateGdbJob = gdbTask.GenerateGeodatabase(gdbParams, localGeodatabasePath);
 
                     // Handle the job changed event and check the status of the job; store the geodatabase when it's ready
-                    generateGdbJob.JobChanged += (s, e) =>
+                    generateGdbJob.JobChanged += async (s, e) =>
                     {
                         // See if the job succeeded
                         if (generateGdbJob.Status == JobStatus.Succeeded)
                         {
-                            this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                             {
                                 // Hide the progress control and update the message
                                 LoadingProgressBar.Visibility = Visibility.Collapsed;
@@ -112,7 +112,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
                         }
                         else if (generateGdbJob.Status == JobStatus.Failed)
                         {
-                            this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                             {
                                 // Hide the progress control and report the exception
                                 LoadingProgressBar.Visibility = Visibility.Collapsed;
@@ -128,7 +128,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
             catch (Exception ex)
             {
                 // Show a message for the exception encountered
-                this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => 
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => 
                 {
                     MessageDialog dialog = new MessageDialog("Unable to create offline database: " + ex.Message);
                     dialog.ShowAsync();
@@ -161,24 +161,24 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
 
                 // Create a new feature layer to show the table in the map
                 var layer = new FeatureLayer(table);
-                this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MyMapView.Map.OperationalLayers.Add(layer));
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MyMapView.Map.OperationalLayers.Add(layer));
             }
 
             // Handle the transaction status changed event
             _localGeodatabase.TransactionStatusChanged += GdbTransactionStatusChanged;
 
             // Zoom the map view to the extent of the generated local datasets
-            this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 MyMapView.SetViewpointGeometryAsync(_marineTable.Extent);
                 StartEditingButton.IsEnabled = true;
             });
         }
 
-        private void GdbTransactionStatusChanged(object sender, TransactionStatusChangedEventArgs e)
+        private async void GdbTransactionStatusChanged(object sender, TransactionStatusChangedEventArgs e)
         {
             // Update UI controls based on whether the geodatabase has a current transaction
-            this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 // These buttons should be enabled when there IS a transaction
                 AddBirdButton.IsEnabled = e.IsInTransaction;
@@ -194,7 +194,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
         private string GetGdbPath()
         {
             // Get the UWP-specific path for storing the geodatabase
-            string folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
+            string folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
             return Path.Combine(folder, "savethebay.geodatabase");
         }
 

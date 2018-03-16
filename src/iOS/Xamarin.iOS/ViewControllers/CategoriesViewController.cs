@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
-using CoreGraphics;
 using Foundation;
 using UIKit;
 
@@ -26,7 +25,7 @@ namespace ArcGISRuntime
 
 		}
 
-        public UISearchController SearchController { get; set; }
+	    private UISearchController SearchController { get; set; }
 
         public override void ViewDidLoad()
 		{
@@ -45,24 +44,22 @@ namespace ArcGISRuntime
             searchUpdater.UpdateSearchResults += searchResultsController.Search;
 
             // Create a new search controller
-            SearchController = new UISearchController(searchResultsController);
-            SearchController.SearchResultsUpdater = searchUpdater;
+		    SearchController = new UISearchController(searchResultsController) {SearchResultsUpdater = searchUpdater};
 
-            // Display the search controller
-            SearchController.SearchBar.Frame = new CGRect(SearchController.SearchBar.Frame.X, SearchController.SearchBar.Frame.Y, SearchController.SearchBar.Frame.Width, 44f);
+		    // Display the search controller
             TableView.TableHeaderView = SearchController.SearchBar;
             DefinesPresentationContext = true;
 
         }
 
-        public class CategoryDataSource : UITableViewSource
+	    private class CategoryDataSource : UITableViewSource
 		{
 			private readonly UITableViewController _controller;
 			private readonly List<SearchableTreeNode> _data;
 
-			static readonly string CellId = "cellid";
+		    private const string CellId = "cellid";
 
-			public CategoryDataSource(UITableViewController controller, List<SearchableTreeNode> data)
+		    public CategoryDataSource(UITableViewController controller, List<SearchableTreeNode> data)
 			{
 				_data = data;
 				_controller = controller;

@@ -12,8 +12,6 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.UWP.Samples.FeatureLayerDictionaryRenderer
 {
@@ -48,13 +46,13 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerDictionaryRenderer
             await MyMapView.SetViewpointAsync(new Viewpoint(centerGeometry, 201555));
 
             // Get the path to the geodatabase
-            string geodbFilePath = await GetGeodatabasePath();
+            string geodbFilePath = GetGeodatabasePath();
 
             // Load the geodatabase from local storage
             Geodatabase baseGeodatabase = await Geodatabase.OpenAsync(geodbFilePath);
 
             // Get the path to the symbol dictionary
-            string symbolFilepath = await GetStyleDictionaryPath();
+            string symbolFilepath = GetStyleDictionaryPath();
 
             // Load the symbol dictionary from local storage
             //     Note that the type of the symbol definition must be explicitly provided along with the file name
@@ -84,13 +82,13 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerDictionaryRenderer
         }
 
         // Get the file path for the style dictionary
-        private async Task<string> GetStyleDictionaryPath()
+        private static string GetStyleDictionaryPath()
         {
             return DataManager.GetDataFolder("e34835bf5ec5430da7cf16bb8c0b075c", "mil2525d.stylx");
         }
 
         // Get the file path for the geodatabase
-        private async Task<string> GetGeodatabasePath()
+        private static string GetGeodatabasePath()
         {
             return DataManager.GetDataFolder("e0d41b4b409a49a5a7ba11939d8535dc", "militaryoverlay.geodatabase");
         }

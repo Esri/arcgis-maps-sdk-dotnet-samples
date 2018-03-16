@@ -13,8 +13,6 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using UIKit;
@@ -27,7 +25,8 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
         "Blend renderer",
         "Layers",
         "This sample demonstrates how to use blend renderer on a raster layer. You can get a hillshade blended with either a colored raster or color ramp.",
-        "Tap on the 'Update Renderer' button to change the settings for the blend renderer. The sample allows you to change the Altitude, Azimuth, SlopeType and ColorRamp. If you use None as the ColorRamp, a standard hill shade raster output is displayed. For all the other ColorRamp types an elevation raster is used.")]
+        "Tap on the 'Update Renderer' button to change the settings for the blend renderer. The sample allows you to change the Altitude, Azimuth, SlopeType and ColorRamp. If you use None as the ColorRamp, a standard hill shade raster output is displayed. For all the other ColorRamp types an elevation raster is used.",
+        "Featured")]
     public class ChangeBlendRenderer : UIViewController
     {
         // Global reference to a label for Altitude
@@ -125,7 +124,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             _Azimuth_Slider.Value = 180;
 
             // Load the raster file using a path on disk
-            Raster myRasterImagery = new Raster(await GetRasterPath_Imagery());
+            Raster myRasterImagery = new Raster(GetRasterPath_Imagery());
 
             // Create the raster layer from the raster
             RasterLayer myRasterLayerImagery = new RasterLayer(myRasterImagery);
@@ -187,7 +186,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             // Get all the SlopeType names from the PresetColorRampType Enumeration and put them 
             // in an array of strings, then set the UITableView.Source to the array
             _SlopeTypes = new UITableView();
-            string[] mySlopeTypes = System.Enum.GetNames(typeof(SlopeType));
+            string[] mySlopeTypes = Enum.GetNames(typeof(SlopeType));
             _SlopeTypes.Source = new TableSource(mySlopeTypes, this);
             _SlopeTypes.SeparatorColor = UIColor.Yellow;
 
@@ -200,7 +199,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             // Get all the ColorRamp names from the PresetColorRampType Enumeration and put them 
             // in an array of strings, then set the UITableView.Source to the array
             _ColorRamps = new UITableView();
-            string[] myPresetColorRampTypes = System.Enum.GetNames(typeof(PresetColorRampType));
+            string[] myPresetColorRampTypes = Enum.GetNames(typeof(PresetColorRampType));
             _ColorRamps.Source = new TableSource(myPresetColorRampTypes, this);
             _ColorRamps.SeparatorColor = UIColor.Yellow;
 
@@ -217,7 +216,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             View.AddSubviews(_Label_Altitude, _Altitude_Slider, _Label_Azimuth, _Azimuth_Slider, _Label_SlopeTypes, _SlopeTypes, _Label_ColorRamps, _ColorRamps, _UpdateRenderer, _myMapView);
         }
 
-        private async void OnUpdateRendererClicked(object sender, EventArgs e)
+        private void OnUpdateRendererClicked(object sender, EventArgs e)
         {
             try
             {
@@ -255,7 +254,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
                     // parameters in the BlendRenderer constructor
 
                     // Load the raster file using a path on disk
-                    Raster raster_Imagery = new Raster(await GetRasterPath_Imagery());
+                    Raster raster_Imagery = new Raster(GetRasterPath_Imagery());
 
                     // Create the raster layer from the raster
                     rasterLayer_ForDisplayInMap = new RasterLayer(raster_Imagery);
@@ -273,7 +272,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
                     // in the BlendRenderer constructor
 
                     // Load the raster file using a path on disk
-                    Raster raster_Elevation = new Raster(await GetRasterPath_Elevation());
+                    Raster raster_Elevation = new Raster(GetRasterPath_Elevation());
 
                     // Create the raster layer from the raster
                     rasterLayer_ForDisplayInMap = new RasterLayer(raster_Elevation);
@@ -285,13 +284,13 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 
 
                 // Define the parameters used by the BlendRenderer constructor
-                Raster raster_ForMakingBlendRenderer = new Raster(await GetRasterPath_Elevation());
+                Raster raster_ForMakingBlendRenderer = new Raster(GetRasterPath_Elevation());
                 IEnumerable<double> myOutputMinValues = new List<double> { 9 };
                 IEnumerable<double> myOutputMaxValues = new List<double> { 255 };
-                IEnumerable<double> mySourceMinValues = new List<double> { };
-                IEnumerable<double> mySourceMaxValues = new List<double> { };
-                IEnumerable<double> myNoDataValues = new List<double> { };
-                IEnumerable<double> myGammas = new List<double> { };
+                IEnumerable<double> mySourceMinValues = new List<double>();
+                IEnumerable<double> mySourceMaxValues = new List<double>();
+                IEnumerable<double> myNoDataValues = new List<double>();
+                IEnumerable<double> myGammas = new List<double>();
 
                 // Get the user choice for the SlopeType
                 UITableViewSource myUITableViewSource_SlopeType = _SlopeTypes.Source;
@@ -343,12 +342,12 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             }
         }
 
-        private async Task<string> GetRasterPath_Imagery()
+        private static string GetRasterPath_Imagery()
         {
             return DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");
         }
 
-        private async Task<string> GetRasterPath_Elevation()
+        private static string GetRasterPath_Elevation()
         {
             return DataManager.GetDataFolder("caeef9aa78534760b07158bb8e068462", "Shasta_Elevation.tif");
         }

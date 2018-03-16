@@ -134,7 +134,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 
             // Create a button to apply new renderer
             var stopButton = new UIBarButtonItem() { Title = "Stop", Style = UIBarButtonItemStyle.Plain };
-            stopButton.Clicked += OnStopButtonClicked; ;
+            stopButton.Clicked += OnStopButtonClicked;
 
             // Add the buttons to the toolbar
             SetToolbarItems(new UIBarButtonItem[] {startButton,

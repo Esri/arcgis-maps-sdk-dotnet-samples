@@ -14,7 +14,6 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Drawing;
 
@@ -53,7 +52,7 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
                 await LocalServer.Instance.StartAsync();
 
                 // Load the sample data
-                await LoadShapefilePaths();
+                LoadShapefilePaths();
 
                 // Enable the 'choose shapefile' button
                 MyChooseButton.IsEnabled = true;
@@ -67,7 +66,7 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
         private async void StartLocalMapService(string filename, string path)
         {
             // Start a service from the blank MPK
-            String mapServiceUrl = await GetMpkPath();
+            String mapServiceUrl = GetMpkPath();
 
             // Create the local map service
             _localMapService = new LocalMapService(mapServiceUrl);
@@ -128,28 +127,26 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
             }
         }
 
-        private async Task<String> GetMpkPath()
+        private static string GetMpkPath()
         {
             // Gets the path to the blank map package
-
             return DataManager.GetDataFolder("ea619b4f0f8f4d108c5b87e90c1b5be0", "mpk_blank.mpk");
         }
 
-        private async Task<String> LoadShapefilePaths()
+        private static string LoadShapefilePaths()
         {
             // Gets the path to the shapefile package
-
             return DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "TrailBikeNetwork.shp");
         }
 
-        private async void MyChooseButton_Click(object sender, RoutedEventArgs e)
+        private void MyChooseButton_Click(object sender, RoutedEventArgs e)
         {
             // Allow the user to specify a file path - create the dialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog()
             {
                 DefaultExt = ".shp",
                 Filter = "Shapefiles|*.shp",
-                InitialDirectory = Path.GetDirectoryName(await LoadShapefilePaths())
+                InitialDirectory = Path.GetDirectoryName(LoadShapefilePaths())
             };
 
             // Show the dialog and get the results

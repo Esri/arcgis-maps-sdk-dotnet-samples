@@ -12,9 +12,7 @@ using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using UIKit;
 
@@ -82,7 +80,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             Map myMap = new Map(Basemap.CreateStreets());
 
             // Get the file name for the local raster dataset.
-            String filepath = await GetRasterPath();
+            String filepath = GetRasterPath();
 
             // Load the raster file
             Raster rasterFile = new Raster(filepath);
@@ -175,7 +173,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             View.Add(_updateRendererUI);
         }
 
-        private async Task<string> GetRasterPath()
+        private static string GetRasterPath()
         {
             return DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");
         }
@@ -568,13 +566,13 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
     public class RgbValuePickerModel : UIPickerViewModel
     {
         // Array of red values (0-255).
-        private int[] _redValues = Enumerable.Range(0, 256).ToArray<int>();
+        private int[] _redValues = Enumerable.Range(0, 256).ToArray();
 
         // Array of green values (0-255).
-        private int[] _greenValues = Enumerable.Range(0, 256).ToArray<int>();
+        private int[] _greenValues = Enumerable.Range(0, 256).ToArray();
 
         // Array of blue values (0-255).
-        private int[] _blueValues = Enumerable.Range(0, 256).ToArray<int>();
+        private int[] _blueValues = Enumerable.Range(0, 256).ToArray();
 
         // Currently selected red, green, and blue values.
         private int _selectedRed = 0;

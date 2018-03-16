@@ -4,6 +4,6 @@ This sample demonstrates how to open a shapefile stored on the device, read meta
 
 <img src="ReadShapefileMetadata.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 The shapefile will be downloaded from an ArcGIS Online portal automatically.

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
+using Esri.ArcGISRuntime.Security;
 using Foundation;
 using UIKit;
 
@@ -21,39 +22,29 @@ namespace ArcGISRuntime
     public class SearchResultsViewController : UITableViewController
     {
         private readonly UIViewController _parentViewController;
-        private readonly List<object> _visibleSamples = new List<object>();
+        private List<SampleInfo> _visibleSamples = new List<SampleInfo>();
         private readonly IList<SearchableTreeNode> _categories;
-        private readonly List<SampleInfo> _sampleItems = new List<SampleInfo>();
+        private List<SampleInfo> _sampleItems = new List<SampleInfo>();
+        private LoadingOverlay _loadPopup;
 
         public SearchResultsViewController(UIViewController controller, IList<SearchableTreeNode> categories)
         {
             _parentViewController = controller;
             _categories = categories;
-
-            CreateLists();
+            
+            // Using the allsamples list avoids duplicate sample entries in the 'featured' category
+            _sampleItems = SampleManager.Current.AllSamples.ToList();
         }
 
-        public void CreateLists()
+        public override void ViewDidLayoutSubviews()
         {
-            // Parse out the samples from the categories
-            List<object> categoryItems = _categories.SelectMany(category => category.Items).ToList();
-
-            // Create a flat list of samples
-            foreach (var item in categoryItems)
-            {
-                _sampleItems.Add(item as SampleInfo);
-            }
+            // Magic number is the row height for the view controller
+            TableView.ContentInset = new UIEdgeInsets(44, 0, 0, 0);
         }
+
         public void Search(string searchText)
         {
-            _visibleSamples.Clear();
-            foreach (var item in _sampleItems.Where(c => c.Description.ToLower().Contains(searchText.ToLower()) ||
-            c.SampleName.ToLower().Contains(searchText.ToLower()) ||
-            c.Instructions.ToLower().Contains(searchText.ToLower())))
-                _visibleSamples.Add(item.SampleName);
-
-            Console.WriteLine();
-
+            _visibleSamples = _sampleItems.Where(c => SampleManager.Current.SampleSearchFunc(c, searchText)).ToList();
             TableView.ReloadData();
         }
 
@@ -81,16 +72,38 @@ namespace ArcGISRuntime
         {
             UITableViewCell searchCell = tableView.DequeueReusableCell("SearchCell") ?? new UITableViewCell(UITableViewCellStyle.Default, "SearchCell");
 
-            searchCell.TextLabel.Text = _visibleSamples[indexPath.Row].ToString();
+            searchCell.TextLabel.Text = _visibleSamples[indexPath.Row].SampleName;
             return searchCell;
         }
 
-        public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
+        public override async void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
             try
             {
-                var item = SampleManager.Current.SampleToControl(_sampleItems[indexPath.Row]);
-                _parentViewController.NavigationController.PushViewController((UIViewController)item, true);
+                var sample = _visibleSamples[indexPath.Row];
+
+                if (sample.OfflineDataItems != null)
+                {
+                    // Show progress overlay
+                    var bounds = UIScreen.MainScreen.Bounds;
+
+                    _loadPopup = new LoadingOverlay(bounds);
+                    _parentViewController.ParentViewController.View.Add(_loadPopup);
+
+                    // Ensure data present
+                    await DataManager.EnsureSampleDataPresent(sample);
+
+                    // Hide progress overlay
+                    _loadPopup.Hide();
+                }
+                // Clear credentials (if any) from previous sample runs
+                foreach (Credential cred in AuthenticationManager.Current.Credentials)
+                {
+                    AuthenticationManager.Current.RemoveCredential(cred);
+                }
+
+                var control = (UIViewController)SampleManager.Current.SampleToControl(sample);
+                _parentViewController.NavigationController.PushViewController(control, true);
             }
             catch (Exception ex)
             {

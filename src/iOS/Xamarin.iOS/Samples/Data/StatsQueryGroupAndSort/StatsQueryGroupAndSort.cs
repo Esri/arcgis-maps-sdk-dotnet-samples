@@ -78,7 +78,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 
         private void CreateLayout()
         {
-            this.View.BackgroundColor = UIColor.White;
+            View.BackgroundColor = UIColor.White;
 
             // Create a stack view to organize the query controls
             _controlsStackView = new UIStackView();
@@ -159,7 +159,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             fieldsTable.TableView.Source = groupFieldsDataSource;
 
             // Show the table view
-            this.NavigationController.PushViewController(fieldsTable, true);
+            NavigationController.PushViewController(fieldsTable, true);
         }
 
         // Show fields the user can choose to sort results with (must be one of the group by fields)
@@ -169,7 +169,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             UITableViewController sortFieldsTable = new UITableViewController(UITableViewStyle.Plain);            
 
             // Get the current list of group fields and create/update the sort field choices
-            IEnumerable<KeyValuePair<string,bool>> sortFieldChoices = _groupByFields.Where(field => field.Value == true);
+            IEnumerable<KeyValuePair<string,bool>> sortFieldChoices = _groupByFields.Where(field => field.Value);
             foreach (KeyValuePair<string, bool> sortChoice in sortFieldChoices)
             {
                 // If this group field is not in the list of available order fields, add it to the list
@@ -200,7 +200,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             sortFieldsTable.TableView.Source = sortFieldsDataSource;
 
             // Show the table view
-            this.NavigationController.PushViewController(sortFieldsTable, true);
+            NavigationController.PushViewController(sortFieldsTable, true);
         }
 
         private void ShowStatDefinitions(object sender, EventArgs e)
@@ -224,7 +224,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             statsTable.SetEditing(true, true);
 
             // Show the table view
-            this.NavigationController.PushViewController(statsTable, true);
+            NavigationController.PushViewController(statsTable, true);
         }
 
         private async void ExecuteStatisticsQuery(object sender, EventArgs e)
@@ -249,7 +249,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             // Specify the selected group fields (if any)
             if (_groupByFields != null)
             {
-                foreach (KeyValuePair<string,bool> groupField in _groupByFields.Where(field => field.Value == true))
+                foreach (KeyValuePair<string,bool> groupField in _groupByFields.Where(field => field.Value))
                 {
                     statQueryParams.GroupByFieldNames.Add(groupField.Key);
                 }
@@ -280,7 +280,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             statResultsTable.TableView.Source = statResultsDataSource;
             
             // Show the table view
-            this.NavigationController.PushViewController(statResultsTable, true);
+            NavigationController.PushViewController(statResultsTable, true);
         }
 
         private void ShowAlert(string title, string message)
@@ -327,7 +327,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         // Constructor that takes an array of the available field names
         public StatDefinitionModel(string[] fieldNames)
         {
-            this._fieldNames = fieldNames;
+            _fieldNames = fieldNames;
         }
 
         // Property to expose the currently selected definition in the picker
@@ -454,7 +454,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
                     tableView.BeginUpdates();
                                         
                     // Insert a new row at the top of table display
-                    tableView.InsertRows(new NSIndexPath[] { NSIndexPath.FromRowSection(0, 0)}, UITableViewRowAnimation.Fade);
+                    tableView.InsertRows(new[] { NSIndexPath.FromRowSection(0, 0)}, UITableViewRowAnimation.Fade);
                     
                     // Insert the chosen statistic in the underlying collection
                     _statisticDefinitions.Insert(0, statDef);
@@ -478,7 +478,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             {
                 // Remove the selected row from the table and the underlying collection of statistic definitions
                 _statisticDefinitions.RemoveAt(indexPath.Row);
-                tableView.DeleteRows(new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
+                tableView.DeleteRows(new[] { indexPath }, UITableViewRowAnimation.Fade);
             }
         }
 
@@ -527,7 +527,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             NSIndexPath lastRowIndex = NSIndexPath.FromRowSection(tableView.NumberOfRowsInSection(0), 0);
 
             // Add the insert placeholder row at the end of table display
-            tableView.InsertRows(new NSIndexPath[] { lastRowIndex }, UITableViewRowAnimation.Fade);
+            tableView.InsertRows(new[] { lastRowIndex }, UITableViewRowAnimation.Fade);
 
             // Create a new StatisticDefinition and add it to the underlying data
             _statisticDefinitions.Add(new StatisticDefinition(AddNewStatFieldName, StatisticType.Count, ""));
@@ -543,7 +543,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             UITableViewCell cell = new UITableViewCell(UITableViewCellStyle.Subtitle, null);
 
             // Get the corresponding StatisticDefinition for this row
-            StatisticDefinition definition = _statisticDefinitions[indexPath.Row] as StatisticDefinition;
+            StatisticDefinition definition = _statisticDefinitions[indexPath.Row];
 
             // Set the cell text with the field name
             cell.TextLabel.Text = definition.OnFieldName;
@@ -812,7 +812,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             });
 
             // Add the buttons to the toolbar
-            toolbar.SetItems(new UIBarButtonItem[] { addButton, doneButton }, true);
+            toolbar.SetItems(new[] { addButton, doneButton }, true);
 
             // Define the location of the statistic picker
             controlY = controlY + 200;

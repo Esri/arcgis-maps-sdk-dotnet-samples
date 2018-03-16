@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
@@ -14,12 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Drawing;
-using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
 {
@@ -27,8 +22,9 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
         "Line of Sight (GeoElement)",
         "Analysis",
         "This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.",
-        "Use the slider to adjust the height of the observer.")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
+        "Use the slider to adjust the height of the observer.",
+        "Featured")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
     public partial class LineOfSightGeoElement
     {
         // URL of the elevation service - provides elevation component of the scene
@@ -59,6 +55,7 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
 
         // For taxi animation - tracks animation state
         private int _pointIndex = 0;
+
         private int _frameIndex = 0;
         private readonly int _frameMax = 150;
 
@@ -66,7 +63,7 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization 
+            // Setup the control references and execute initialization
             Initialize();
         }
 
@@ -97,7 +94,7 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
 
             // Add the taxi to the scene
             // Create the model symbol for the taxi
-            ModelSceneSymbol taxiSymbol = await ModelSceneSymbol.CreateAsync(new Uri(await GetModelUri()));
+            ModelSceneSymbol taxiSymbol = await ModelSceneSymbol.CreateAsync(new Uri(GetModelUri()));
             // Set the anchor position for the mode; ensures that the model appears above the ground
             taxiSymbol.AnchorPosition = SceneSymbolAnchorPosition.Bottom;
             // Create the graphic from the taxi starting point and the symbol
@@ -211,13 +208,13 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
             }
         }
 
-        private async Task<string> GetModelUri()
+        private static string GetModelUri()
         {
             // Returns the taxi model
 
             return DataManager.GetDataFolder("3af5cfec0fd24dac8d88aea679027cb9", "dolmus.3ds");
         }
-        
+
         private void MyHeightSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             // Update the height of the observer based on the slider value

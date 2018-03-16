@@ -12,8 +12,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
-using System.IO;
-using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using UIKit;
 
@@ -25,7 +23,8 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         "Read shapefile metadata",
         "Data",
         "This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.",
-        "The shapefile will be downloaded from an ArcGIS Online portal automatically.")]
+        "The shapefile will be downloaded from an ArcGIS Online portal automatically.",
+        "Featured")]
     public class ReadShapefileMetadata : UIViewController
     {
         // Create a MapView control to display a map
@@ -64,7 +63,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             Map streetMap = new Map(Basemap.CreateStreetsVector());
 
             // Get the path to the downloaded shapefile
-            string filepath = await GetShapefilePath();
+            string filepath = GetShapefilePath();
 
             // Open the shapefile
             ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
@@ -88,7 +87,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             _myMapView.Map = streetMap;
         }
 
-        private async Task<string> GetShapefilePath()
+        private static string GetShapefilePath()
         {
             return DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "TrailBikeNetwork.shp");
         }

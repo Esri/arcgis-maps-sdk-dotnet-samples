@@ -105,7 +105,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
 
             // Create and add a layout to the page
             Grid layout = new Grid();
-            this.Content = layout;
+            Content = layout;
 
             // Add the webview to the page
             layout.Children.Add(htmlView);

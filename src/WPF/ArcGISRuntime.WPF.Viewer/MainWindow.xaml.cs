@@ -11,6 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -34,7 +35,8 @@ namespace ArcGISRuntime.Samples.Desktop
                 // Set category data context
                 Categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
 
-                SelectSample(SampleManager.Current.AllSamples.First());
+                // Select the first item
+                ((List<TreeViewItem>)Categories.DataContext).First().IsSelected = true;
             }
             catch (Exception ex)
             {
@@ -49,13 +51,32 @@ namespace ArcGISRuntime.Samples.Desktop
                 var sample = e.AddedItems[0] as SampleInfo;
                 SelectSample(sample);
                 ((ListView)sender).SelectedItem = null;
+                DetailsRegion.Visibility = Visibility.Visible;
+                CategoriesRegion.Visibility = Visibility.Collapsed;
+
+                // Unselect all categories
+                ((List<TreeViewItem>)Categories.DataContext).ForEach(item => item.IsSelected = false);
             }
         }
 
         private void categories_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var sample = (((TreeViewItem)e.NewValue).DataContext as SampleInfo);
-            SelectSample(sample);
+            var context = (e.NewValue as TreeViewItem);
+            if (context == null) {return;}
+            var sample = context.DataContext as SampleInfo;
+            var category = context.DataContext as SearchableTreeNode;
+            if (category != null)
+            {
+                CategoriesList.ItemsSource = category.Items;
+                DetailsRegion.Visibility = Visibility.Collapsed;
+                CategoriesRegion.Visibility = Visibility.Visible;
+            }
+            else if (sample != null)
+            {
+                SelectSample(sample);
+                DetailsRegion.Visibility = Visibility.Visible;
+                CategoriesRegion.Visibility = Visibility.Collapsed;
+            }
         }
 
         private async void SelectSample(SampleInfo selectedSample)
@@ -91,6 +112,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 SampleContainer.Content = new WPF.Viewer.ErrorPage(exception);
             }
             CategoriesRegion.Visibility = Visibility.Collapsed;
+            SampleContainer.Visibility = Visibility.Visible;
         }
 
         private static void ClearCredentials()
@@ -105,23 +127,17 @@ namespace ArcGISRuntime.Samples.Desktop
             }
         }
 
-        private bool _openCategoryLeafs = true;
-
-        private void Categories_Click(object sender, RoutedEventArgs e)
+        private void OpenCategoryLeaves()
         {
-            if (_openCategoryLeafs)
+            if (Categories.Items.Count > 0)
             {
-                _openCategoryLeafs = false;
-                if (Categories.Items.Count > 0)
-                {
-                    var firstTreeViewItem = Categories.Items[0] as TreeViewItem;
-                    if (firstTreeViewItem != null) firstTreeViewItem.IsSelected = true;
+                var firstTreeViewItem = Categories.Items[0] as TreeViewItem;
+                if (firstTreeViewItem != null) firstTreeViewItem.IsSelected = true;
 
-                    foreach (var item in Categories.Items)
-                    {
-                        var treeViewItem = item as TreeViewItem;
-                        if (treeViewItem != null) treeViewItem.IsExpanded = true;
-                    }
+                foreach (var item in Categories.Items)
+                {
+                    var treeViewItem = item as TreeViewItem;
+                    if (treeViewItem != null) treeViewItem.IsExpanded = true;
                 }
             }
         }
@@ -130,26 +146,31 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             SampleContainer.Visibility = Visibility.Visible;
             DescriptionContainer.Visibility = Visibility.Collapsed;
+            CategoriesRegion.Visibility = Visibility.Collapsed;
         }
 
         private void Description_Click(object sender, RoutedEventArgs e)
         {
             SampleContainer.Visibility = Visibility.Collapsed;
             DescriptionContainer.Visibility = Visibility.Visible;
+            CategoriesRegion.Visibility = Visibility.Collapsed;
         }
 
-        private void Close_Click(object sender, RoutedEventArgs e)
+        private void SearchFilterBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            CloseNavigation.Visibility = Visibility.Collapsed;
-            OpenNavigation.Visibility = Visibility.Visible;
-            Root.ColumnDefinitions[0].MaxWidth = 0;
+            var results =
+                SampleManager.Current.FullTree.Search(SampleSearchFunc);
+
+            // Set category data context
+            Categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(results);
+
+            // Open all
+            OpenCategoryLeaves();
         }
 
-        private void Open_Click(object sender, RoutedEventArgs e)
+        private bool SampleSearchFunc(SampleInfo sample)
         {
-            OpenNavigation.Visibility = Visibility.Collapsed;
-            CloseNavigation.Visibility = Visibility.Visible;
-            Root.ColumnDefinitions[0].MaxWidth = 535;
+            return SampleManager.Current.SampleSearchFunc(sample, SearchFilterBox.Text);
         }
     }
 }

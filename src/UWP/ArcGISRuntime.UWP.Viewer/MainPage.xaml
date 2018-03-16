@@ -9,7 +9,7 @@
     <Page.Resources>
         <DataTemplate x:Key="SmallFeaturedListItemTemplate">
             <Grid>
-                <TextBlock Text="{Binding Name}" FontSize="18" Margin="10,5,10,5"/>
+                <TextBlock Text="{Binding Name}" FontSize="18" Grid.Column="1" Margin="10,5,10,5"/>
             </Grid>
         </DataTemplate>
 
@@ -78,7 +78,8 @@
                     <VisualState.Setters>
                         <Setter Target="ApplicationTitle.FontSize" Value="16"/>
                         <Setter Target="ApplicationTitle.Margin" Value="12,0,0,0"/>
-                        <Setter Target="SearchToggleButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="SearchToggleButton.Visibility" Value="Visible"/>
+                        <Setter Target="SearchBox.Visibility" Value="Collapsed"/>
                         <Setter Target="samplesListView.Visibility" Value="Visible"/>
                         <Setter Target="samplesGridView.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
@@ -95,6 +96,8 @@
                     <VisualState.Setters>
                         <Setter Target="ApplicationTitle.FontSize" Value="16"/>
                         <Setter Target="ApplicationTitle.Margin" Value="12,0,0,0"/>
+                        <Setter Target="SearchToggleButton.Visibility" Value="Visible"/>
+                        <Setter Target="SearchBox.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
                 <!-- 
@@ -108,6 +111,9 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="RootSplitView.DisplayMode" Value="Inline"/>
+                        <Setter Target="SearchBox.Visibility" Value="Visible"/>
+                        <Setter Target="SearchToggleButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="SearchToggleButton.IsChecked" Value="False"/>
                     </VisualState.Setters>
                 </VisualState>
                 <!-- 
@@ -120,8 +126,11 @@
                         <AdaptiveTrigger MinWindowWidth="1024" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="RootSplitView.IsPaneOpen" Value="True" />
+                        <Setter Target="RootSplitView.IsPaneOpen" Value="true" />
                         <Setter Target="RootSplitView.DisplayMode" Value="Inline"/>
+                        <Setter Target="SearchBox.Visibility" Value="Visible"/>
+                        <Setter Target="SearchToggleButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="SearchToggleButton.IsChecked" Value="False"/>
                     </VisualState.Setters>
                 </VisualState>
                 <!-- 
@@ -134,8 +143,12 @@
                         <AdaptiveTrigger MinWindowWidth="1366" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="RootSplitView.IsPaneOpen" Value="True" />
+                        <Setter Target="RootSplitView.IsPaneOpen" Value="true" />
                         <Setter Target="RootSplitView.DisplayMode" Value="Inline"/>
+                        <Setter Target="SearchBox.Visibility" Value="Visible"/>
+                        <Setter Target="SearchToggleButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="SearchToggleButton.IsChecked" Value="False"/>
+                        <!--<Setter Target="samplesGridView.ItemTemplate" Value="{StaticResource WideSampleItemTemplate}"/>-->
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -164,13 +177,28 @@
                         Style="{StaticResource SplitViewTogglePaneButtonStyle}"
                       IsChecked="{Binding IsPaneOpen, ElementName=RootSplitView, Mode=TwoWay}"
                       RelativePanel.AlignLeftWithPanel="True" />
+
+
+
+
+
             <TextBlock x:Name="CatetoryTitle" 
                        Margin="0,0,0,0"
                        RelativePanel.RightOf="TogglePaneButton"
                        RelativePanel.AlignVerticalCenterWith="TogglePaneButton"
-                       Text="{Binding ElementName=categories, Path=SelectedItem.Name}"
+                       Text="{Binding ElementName=Categories, Path=SelectedItem.Name}"
                        Foreground="{StaticResource PrimaryColor}"
                        FontSize="24"></TextBlock>
+            <SearchBox x:Name="SearchBox" RelativePanel.AlignRightWithPanel="True" 
+                            RelativePanel.AlignVerticalCenterWith="CatetoryTitle" 
+                            Width="240" PlaceholderText="i.e. ArcGISTileLayer" Margin="20,0"
+                            QueryChanged="OnSearchQuerySubmitted"></SearchBox>
+            <ToggleButton Style="{StaticResource SearchToggleButtonStyle}" x:Name="SearchToggleButton"
+                          Visibility="Collapsed"
+                          Width="60"
+                          Foreground="{StaticResource SecondaryColor}"
+                          RelativePanel.AlignRightWithPanel="true" Checked="OnSearchToggleChecked"
+                          RelativePanel.AlignBottomWithPanel="true"></ToggleButton>
         </RelativePanel>
         <!-- 
         ============================
@@ -182,7 +210,7 @@
                 x:Name="RootSplitView"
                 IsPaneOpen="False" DisplayMode="Overlay">
             <SplitView.Pane>
-                <ListView x:Name="categories"
+                <ListView x:Name="Categories"
 					    ItemsSource="{Binding}" 
 				        SelectionChanged="OnCategoriesSelectionChanged"
 				        Background="Transparent"
@@ -192,8 +220,10 @@
             </SplitView.Pane>
             <SplitView.Content>
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource SecondaryBackgroundColor}">
-                    <GridView x:Name="samplesGridView" 
-                              ItemsSource="{Binding ElementName=categories, Path=SelectedItem.Items}" 
+                    <!--HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"-->
+
+                    <GridView x:Name="SamplesGridView" 
+                              ItemsSource="{Binding ElementName=Categories, Path=SelectedItem.Items}" 
                               ItemTemplate="{StaticResource StantardSampleItemTemplate}" 
                               SelectionMode="None"
                               Background="Transparent" Margin="1,0,0,0">
@@ -204,8 +234,8 @@
                         </GridView.ItemContainerStyle>
                     </GridView>
 
-                    <ListView x:Name="samplesListView" Visibility="Collapsed" 
-                              SelectionMode="None" ItemsSource="{Binding ElementName=categories, Path=SelectedItem.Items}" 
+                    <ListView x:Name="SamplesListView" Visibility="Collapsed" 
+                              SelectionMode="None" ItemsSource="{Binding ElementName=Categories, Path=SelectedItem.Items}" 
                               ItemTemplate="{StaticResource SmallSampleItemTemplate}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">

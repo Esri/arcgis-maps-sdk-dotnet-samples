@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
 
         public FeatureLayerDefinitionExpression()
         {
-            this.Title = "Feature layer definition expression";
+            Title = "Feature layer definition expression";
         }
 
         public override void ViewDidLoad()

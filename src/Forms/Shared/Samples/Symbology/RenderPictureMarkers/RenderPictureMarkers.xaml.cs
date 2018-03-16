@@ -57,11 +57,11 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
             MyMapView.GraphicsOverlays.Add(overlay);
 
             // Add graphics using different source types
-            await CreatePictureMarkerSymbolFromUrl(overlay);
+            CreatePictureMarkerSymbolFromUrl(overlay);
             await CreatePictureMarkerSymbolFromResources(overlay);
         }
 
-        private async Task CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
+        private void CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
         {
             // Create uri to the used image
             var symbolUri = new Uri(
@@ -69,7 +69,7 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
 
             // Create new symbol using asynchronous factory method from uri
             PictureMarkerSymbol campsiteSymbol = new PictureMarkerSymbol(symbolUri);
-   
+
             // Optionally set the size (if not set, the size in pixels of the image will be used)
             campsiteSymbol.Height = 18;
             campsiteSymbol.Width = 18;

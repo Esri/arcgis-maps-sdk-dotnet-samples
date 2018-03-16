@@ -216,8 +216,6 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                     // Set the basemap to Oceans
                     myMap.Basemap = Basemap.CreateOceans();
                     break;
-                default:
-                    break;
             }
         }
 

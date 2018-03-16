@@ -48,7 +48,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
             InitializeComponent();
 
             // Get the view model (defined as a resource in the XAML)
-            _mapViewModel = this.FindResource("MapViewModel") as MapViewModel;
+            _mapViewModel = FindResource("MapViewModel") as MapViewModel;
 
             // Pass the current map view to the view model
             _mapViewModel.AppMapView = MyMapView;
@@ -298,7 +298,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
             Map newMap = new Map(Basemap.CreateLightGrayCanvasVector());
 
             // Store the new map 
-            this.Map = newMap;
+            Map = newMap;
         }
 
         public bool MapIsSaved

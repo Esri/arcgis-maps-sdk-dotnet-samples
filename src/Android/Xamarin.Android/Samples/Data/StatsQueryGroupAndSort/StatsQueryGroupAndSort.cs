@@ -219,7 +219,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             if (_groupByFields != null)
             {
                 // Find fields in the dictionary with a 'true' value and add them to the group by field names
-                foreach (KeyValuePair<string, bool> groupField in _groupByFields.Where(field => field.Value == true))
+                foreach (KeyValuePair<string, bool> groupField in _groupByFields.Where(field => field.Value))
                 {
                     statQueryParams.GroupByFieldNames.Add(groupField.Key);
                 }
@@ -311,10 +311,10 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             LinearLayout dialogView = null;
 
             // Get the context for creating the dialog controls
-            Android.Content.Context ctx = this.Activity.ApplicationContext;
+            Android.Content.Context ctx = Activity.ApplicationContext;
 
             // Set a dialog title
-            this.Dialog.SetTitle("Statistics Definitions");
+            Dialog.SetTitle("Statistics Definitions");
 
             // Call OnCreateView on the base
             base.OnCreateView(inflater, container, savedInstanceState);
@@ -407,7 +407,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             dialogView.AddView(buttonView);
 
             // Create a list view and an instance of a custom list adapter to show the statistic definitions
-            StatDefinitionListAdapter listAdapter = new StatDefinitionListAdapter(this.Activity, _statisticDefinitions);
+            StatDefinitionListAdapter listAdapter = new StatDefinitionListAdapter(Activity, _statisticDefinitions);
             _statDefListView = new ListView(ctx);
             _statDefListView.Adapter = listAdapter;
 
@@ -491,7 +491,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
                 _statisticDefinitions.Add(statDef);
 
                 // Raise a notification that the data have changed
-                this.NotifyDataSetChanged();
+                NotifyDataSetChanged();
             }
         }
 
@@ -505,7 +505,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
                 _statisticDefinitions.RemoveAt(position);
 
                 // Raise a notification that the data have changed
-                this.NotifyDataSetChanged();
+                NotifyDataSetChanged();
             }
         }
 
@@ -887,7 +887,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             _resultsDictionary.TryGetValue(_groupNames[groupPosition], out result);
 
             // Return a string concatenated from the field name and value at the specified position
-            return result.ElementAt(childPosition).Key + " : " + result.ElementAt(childPosition).Value.ToString();
+            return result.ElementAt(childPosition).Key + " : " + result.ElementAt(childPosition).Value;
         }
 
         // Return the ID for the specified item

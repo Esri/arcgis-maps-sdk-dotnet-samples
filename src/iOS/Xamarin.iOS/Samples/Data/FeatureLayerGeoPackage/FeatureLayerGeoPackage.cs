@@ -12,8 +12,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
-using System.IO;
-using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 
@@ -25,7 +23,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
         "Feature layer (GeoPackage)",
         "Data",
         "This sample demonstrates how to open a GeoPackage and show a GeoPackage feature table in a feature layer.",
-        "The GeoPackage will be downloaded from an ArcGIS Online portal automatically.")]
+        "The GeoPackage will be downloaded from an ArcGIS Online portal automatically.",
+        "Featured")]
     public class FeatureLayerGeoPackage : UIViewController
     {
         // Create and hold reference to the used MapView
@@ -57,7 +56,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
             _myMapView.Map = new Map(BasemapType.LightGrayCanvasVector, 39.7294, -104.8319, 9);
 
             // Get the full path
-            string geoPackagePath = await GetGeoPackagePath();
+            string geoPackagePath = GetGeoPackagePath();
 
             // Open the GeoPackage
             GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
@@ -76,7 +75,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
             _myMapView.Map.OperationalLayers.Add(newLayer);
         }
 
-        private async Task<string> GetGeoPackagePath()
+        private static string GetGeoPackagePath()
         {
             return DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");
         }

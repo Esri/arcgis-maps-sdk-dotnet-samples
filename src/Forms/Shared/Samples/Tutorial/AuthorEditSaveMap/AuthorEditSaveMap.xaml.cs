@@ -47,7 +47,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             InitializeComponent();
 
             // Get the view model (defined as a resource in the XAML)
-            _mapViewModel = this.Resources["MapViewModel"] as MapViewModel;
+            _mapViewModel = Resources["MapViewModel"] as MapViewModel;
 
             // Pass the map view to the map view model
             _mapViewModel.AppMapView = MyMapView;
@@ -349,15 +349,13 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             Map newMap = new Map(Basemap.CreateTopographic());
 
             // Store the new map 
-            this.Map = newMap;
+            Map = newMap;
         }
 
         // Raises the PropertyChanged event        
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            var propertyChangedHandler = PropertyChanged;
-            if (propertyChangedHandler != null)
-                propertyChangedHandler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

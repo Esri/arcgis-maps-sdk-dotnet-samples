@@ -92,7 +92,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         {
             base.ViewDidLayoutSubviews();
 
-            nfloat pageOffset = this.NavigationController.TopLayoutGuide.Length;
+            nfloat pageOffset = NavigationController.TopLayoutGuide.Length;
 
             // Place the MapView
             myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
@@ -351,7 +351,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             generateGdbJob.JobChanged += GenerateGdbJobChanged;
 
             // Handle the progress changed event with an inline (lambda) function to show the progress bar
-            generateGdbJob.ProgressChanged += ((object sender, EventArgs e) =>
+            generateGdbJob.ProgressChanged += ((sender, e) =>
             {
                 // Get the job
                 GenerateGeodatabaseJob job = sender as GenerateGeodatabaseJob;

@@ -141,7 +141,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             {
                 if (args.Event.Action == KeyEventActions.Down && args.KeyCode == Keycode.Enter)
                 {
-                    InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
+                    InputMethodManager imm = (InputMethodManager)GetSystemService(InputMethodService);
                     imm.HideSoftInputFromWindow(_myStateEntry.WindowToken, 0);
                     BtnZoomToFeatures_Click(_myStateEntry, null);
                 }

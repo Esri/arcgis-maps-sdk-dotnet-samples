@@ -36,12 +36,14 @@ namespace ArcGISRuntime.Samples.Managers
         /// <summary>
         /// A list of all samples.
         /// </summary>
+        /// <remarks>This is public on purpose. Other solutions that consume 
+        /// this project reference it directly.</remarks>
         public IList<SampleInfo> AllSamples { get; set; }
 
         /// <summary>
         /// A collection of all samples organized by category.
         /// </summary>
-        public SearchableTreeNode FullTree { get; set; }
+        public SearchableTreeNode FullTree { get; private set; }
 
         /// <summary>
         /// The sample that is currently being shown to the user.
@@ -54,7 +56,7 @@ namespace ArcGISRuntime.Samples.Managers
         public void Initialize()
         {
             // Get the currently-executing assembly.
-            Assembly samplesAssembly = this.GetType().GetTypeInfo().Assembly;
+            Assembly samplesAssembly = GetType().GetTypeInfo().Assembly;
 
             // Get the list of all samples in the assembly.
             AllSamples = CreateSampleInfos(samplesAssembly).OrderBy(info => info.Category)
@@ -63,6 +65,10 @@ namespace ArcGISRuntime.Samples.Managers
 
             // Create a tree from the list of all samples.
             FullTree = BuildFullTree(AllSamples);
+
+            // Add a special category for featured samples.
+            SearchableTreeNode featured = new SearchableTreeNode("Featured", AllSamples.Where(sample => sample.Tags.Contains("Featured")));
+            FullTree.Items.Insert(0, featured);
         }
 
         /// <summary>
@@ -98,9 +104,11 @@ namespace ArcGISRuntime.Samples.Managers
         /// Creates a <c>SearchableTreeNode</c> representing the entire 
         /// collection of samples, organized by category.
         /// </summary>
+        /// <remarks>This is public on purpose. Other solutions that 
+        /// consume this project reference it directly.</remarks>
         /// <param name="allSamples">A list of all samples.</param>
         /// <returns>A <c>SearchableTreeNode</c> with all samples organized by category.</returns>
-        private static SearchableTreeNode BuildFullTree(IEnumerable<SampleInfo> allSamples)
+        public static SearchableTreeNode BuildFullTree(IEnumerable<SampleInfo> allSamples)
         {
             // This code only supports one level of nesting.
             return new SearchableTreeNode(
@@ -133,6 +141,20 @@ namespace ArcGISRuntime.Samples.Managers
         public object SampleToControl(SampleInfo sampleModel)
         {
             return Activator.CreateInstance(sampleModel.SampleType);
+        }
+
+        /// <summary>
+        /// Common sample search predicate implementation
+        /// </summary>
+        /// <param name="sample">Sample to evaluate</param>
+        /// <param name="searchText">Query</param>
+        /// <returns><c>true</c> if the sample matches the query.</returns>
+        public bool SampleSearchFunc(SampleInfo sample, string searchText)
+        {
+            searchText = searchText.ToLower();
+            return sample.SampleName.ToLower().Contains(searchText) ||
+                   sample.Category.ToLower().Contains(searchText) ||
+                   sample.Description.ToLower().Contains(searchText);
         }
     }
 }

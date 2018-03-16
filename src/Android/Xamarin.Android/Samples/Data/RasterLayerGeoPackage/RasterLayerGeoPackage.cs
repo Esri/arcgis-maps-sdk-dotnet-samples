@@ -8,13 +8,11 @@
 // language governing permissions and limitations under the License.
 
 using System.Linq;
-using System.IO;
 using Android.App;
 using Android.OS;
 using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
-using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Rasters;
@@ -49,7 +47,7 @@ namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
             _myMapView.Map = new Map(BasemapType.LightGrayCanvas, 39.5517, -104.8589, 12);
 
             // Get the full path
-            string geoPackagePath = await GetGeoPackagePath();
+            string geoPackagePath = GetGeoPackagePath();
 
             // Open the GeoPackage
             GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
@@ -68,7 +66,7 @@ namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
             _myMapView.Map.OperationalLayers.Add(newLayer);
         }
 
-        private async Task<string> GetGeoPackagePath()
+        private static string GetGeoPackagePath()
         {
             return DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");
         }

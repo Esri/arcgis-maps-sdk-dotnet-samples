@@ -132,8 +132,6 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
 
         private void CreateLayout()
         {
-            nfloat height = 80;
-
             //set up UIStackView for laying out controls
             var stackView = new UIStackView(new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height));
             stackView.Axis = UILayoutConstraintAxis.Vertical;

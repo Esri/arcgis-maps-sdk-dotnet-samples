@@ -74,7 +74,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             });
 
             // Set the sketch editor as the page's data context
-            this.BindingContext = MyMapView.SketchEditor;
+            BindingContext = MyMapView.SketchEditor;
         }
 
         #region Graphic and symbol helpers

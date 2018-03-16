@@ -60,7 +60,7 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
             SetContentView(layout);
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Apply an imagery basemap to the map
             Map myMap = new Map(Basemap.CreateImagery());

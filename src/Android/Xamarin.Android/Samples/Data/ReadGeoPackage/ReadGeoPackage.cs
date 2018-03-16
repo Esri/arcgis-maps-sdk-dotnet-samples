@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System.Linq;
-using System.IO;
 using Android.App;
 using Android.OS;
 using Android.Widget;
@@ -16,7 +15,6 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
-using System.Threading.Tasks;
 using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -77,7 +75,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             _myMapView.Map = new Map(BasemapType.Streets, 39.7294, -104.8319, 11);
 
             // Get the full path to the GeoPackage on the device
-            string myGeoPackagePath = await GetGeoPackagePath();
+            string myGeoPackagePath = GetGeoPackagePath();
 
             // Open the GeoPackage
             GeoPackage myGeoPackage = await GeoPackage.OpenAsync(myGeoPackagePath);
@@ -182,7 +180,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             if (myLayerSelection != null)
             {
                 // Get the human-readable name of the layer 
-                string myLayerName = myLayerSelection.ToString();
+                string myLayerName = myLayerSelection;
 
                 // Get the layer from the HybridDictionary (it could be either a RasterLayer
                 // or a FeatureLayer - both inherit from the abstract/base Layer class)
@@ -314,7 +312,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             SetContentView(layout);
         }
 
-        private async Task<string> GetGeoPackagePath()
+        private static string GetGeoPackagePath()
         {
             return DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");
         }

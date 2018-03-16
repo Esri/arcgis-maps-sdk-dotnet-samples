@@ -13,7 +13,7 @@ namespace ArcGISRuntime
     {
         public WaitPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

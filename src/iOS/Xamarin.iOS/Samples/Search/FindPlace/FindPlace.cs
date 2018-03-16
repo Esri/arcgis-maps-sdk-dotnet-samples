@@ -248,7 +248,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             _mySuggestionView.Source = _mySuggestionSource;
 
             // Enable tap-for-info pattern on results
-            _myMapView.GeoViewTapped += _myMapView_GeoViewTapped; ;
+            _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
 
             // Listen for taps on the search buttons
             _mySearchButton.TouchUpInside += _mySearchButton_Clicked;

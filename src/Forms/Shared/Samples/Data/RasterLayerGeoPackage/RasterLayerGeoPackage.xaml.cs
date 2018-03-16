@@ -11,9 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
@@ -42,7 +40,7 @@ namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
             MyMapView.Map = new Map(BasemapType.LightGrayCanvas, 39.5517, -104.8589, 12);
 
             // Get the full path
-            string geoPackagePath = await GetGeoPackagePath();
+            string geoPackagePath = GetGeoPackagePath();
 
             // Open the GeoPackage
             GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
@@ -61,7 +59,7 @@ namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
             MyMapView.Map.OperationalLayers.Add(newLayer);
         }
 
-        private async Task<string> GetGeoPackagePath()
+        private static string GetGeoPackagePath()
 
         {
             return DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");

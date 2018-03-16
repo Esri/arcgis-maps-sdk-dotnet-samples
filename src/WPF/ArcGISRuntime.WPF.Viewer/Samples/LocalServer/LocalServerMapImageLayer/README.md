@@ -4,7 +4,7 @@ This sample demonstrates how to display a Map Image Layer from a local map servi
 
 <img src="LocalServerMapImageLayer.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions.
 Sample data is loaded in the background. 

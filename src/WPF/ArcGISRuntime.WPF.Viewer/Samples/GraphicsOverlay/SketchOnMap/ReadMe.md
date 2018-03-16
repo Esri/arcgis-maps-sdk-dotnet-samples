@@ -4,7 +4,7 @@ This sample demonstrates how to interactively sketch and edit graphics in the ma
 
 <img src="SketchOnMap.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 1. Click the 'Sketch' button.
 2. Choose a sketch type from the drop down list.

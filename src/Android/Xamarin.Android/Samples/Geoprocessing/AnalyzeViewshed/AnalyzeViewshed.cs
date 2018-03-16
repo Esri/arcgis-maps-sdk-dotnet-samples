@@ -163,7 +163,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
                 {
                     var alertBuilder = new AlertDialog.Builder(this);
                     alertBuilder.SetTitle("Sample error");
-                    alertBuilder.SetMessage("An error occurred. " + ex.ToString());
+                    alertBuilder.SetMessage("An error occurred. " + ex);
                     alertBuilder.Show();
                 }
             }

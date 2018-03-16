@@ -126,14 +126,6 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
 
         private void CreateLayout()
         {
-            // Store the main view's width and height
-            var appViewWidth = View.Bounds.Width;
-            var appViewHeight = View.Bounds.Height;
-
-            // Define an offset from the top of the page (to account for the iOS status bar)
-            var yPageOffset = 60;
-
-
             // Create a new MapView
             _myMapView = new MapView();
 

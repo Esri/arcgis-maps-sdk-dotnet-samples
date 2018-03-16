@@ -16,10 +16,10 @@ namespace ArcGISRuntime.Samples.Shared.Models
     public class SearchableTreeNode
     {
         // Name of this node in the tree.
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
         // List of child items. These are expected to be other SearchableTreeNodes or SampleInfos.
-        public List<object> Items { get; set; }
+        public List<object> Items { get; private set; }
 
         /// <summary>
         /// Creates a new SearchableTreeNode from a list of items.

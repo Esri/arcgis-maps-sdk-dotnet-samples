@@ -65,7 +65,10 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private void OnFrameNavigated(object sender, Navigation.NavigationEventArgs e)
         {
-            _currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            if (Frame.CanGoBack)
+            {
+                _currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            }
         }
 
         protected override void OnNavigatedTo(Navigation.NavigationEventArgs e)
@@ -84,8 +87,8 @@ namespace ArcGISRuntime.UWP.Viewer
             // Create categories list. Also add Featured there as a single category.
             var categoriesList = SampleManager.Current.FullTree;
 
-            categories.ItemsSource = categoriesList.Items;
-            categories.SelectedIndex = 0;
+            Categories.ItemsSource = categoriesList.Items;
+            Categories.SelectedIndex = 0;
             ((Frame)Window.Current.Content).Navigated += OnFrameNavigated;
         }
 
@@ -187,5 +190,42 @@ namespace ArcGISRuntime.UWP.Viewer
         {
             e.Handled = true;
         }
+
+        private void OnSearchQuerySubmitted(SearchBox searchBox, SearchBoxQueryChangedEventArgs searchBoxQueryChangedEventArgs)
+        {
+            if (SearchToggleButton.IsChecked.HasValue && SearchToggleButton.IsChecked.Value)
+            {
+                SearchBox.Visibility = Visibility.Collapsed;
+                SearchToggleButton.Visibility = Visibility.Visible;
+                SearchToggleButton.IsChecked = false;
+            }
+            var categoriesList = SampleManager.Current.FullTree.Search(SampleSearchFunc);
+            if (categoriesList == null)
+            {
+                return;
+            }
+            Categories.ItemsSource = categoriesList.Items;
+
+            Categories.SelectedIndex = 0;
+        }
+
+        private void OnSearchToggleChecked(object sender, RoutedEventArgs e)
+        {
+            if (SearchToggleButton.IsChecked.HasValue && SearchToggleButton.IsChecked.Value)
+            {
+                SearchBox.Visibility = Visibility.Visible;
+                SearchToggleButton.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                SearchBox.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private bool SampleSearchFunc(SampleInfo sample)
+        {
+            return SampleManager.Current.SampleSearchFunc(sample, SearchBox.QueryText);
+        }
+
     }
 }

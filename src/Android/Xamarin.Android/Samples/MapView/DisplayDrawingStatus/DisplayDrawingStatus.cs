@@ -43,7 +43,7 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Hook up the DrawStatusChanged event
             _myMapView.DrawStatusChanged += OnDrawStatusChanged;

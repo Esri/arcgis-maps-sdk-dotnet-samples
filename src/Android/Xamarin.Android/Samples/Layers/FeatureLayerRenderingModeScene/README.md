@@ -4,6 +4,6 @@ This sample demonstrates how to use load settings to change the preferred render
 
 <img src="FeatureLayerRenderingModeScene.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 Press the 'Animated Zoom' button to trigger a zoom. Observe the differences between the two scenes. Static is on top, dynamic on bottom.

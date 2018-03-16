@@ -46,7 +46,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeViewshed
 
         public AnalyzeViewshed()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
             Initialize();
@@ -158,7 +158,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeViewshed
                 }
                 else
                 {
-                    var message = new MessageDialog("An error occurred. " + ex.ToString(), "Sample error");
+                    var message = new MessageDialog("An error occurred. " + ex, "Sample error");
                     await message.ShowAsync();
                 }
             }

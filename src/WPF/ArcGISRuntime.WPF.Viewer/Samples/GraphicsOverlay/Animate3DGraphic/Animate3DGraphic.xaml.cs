@@ -31,7 +31,8 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
         "Animate 3D Graphic",
         "GraphicsOverlay",
         "This sample demonstrates how to animate a graphic's position and follow it using a camera controller.",
-        "Click-and-drag to pan the SceneView, orbiting the moving plane. Click \"Don't Follow\" to switch to the default camera controller, which does not orbit the plane.\nThe plane's route is shown on the inset map in the bottom left corner of the window. The progress through the plane's mission is shown in a slider at the top of the window. Drag the slider to seek through the mission (like you might seek through a song). The play speed can be adjusted to either be slower or faster using the slider in the panel on the right.\nThere is a drop-down box on the top left part of the window for selecting a mission (route) for the plane.\n\nNote that this is a graphics-intensive sample; performance may be degraded in certain situations (such as viewing over Remote Desktop).")]
+        "Click-and-drag to pan the SceneView, orbiting the moving plane. Click \"Don't Follow\" to switch to the default camera controller, which does not orbit the plane.\nThe plane's route is shown on the inset map in the bottom left corner of the window. The progress through the plane's mission is shown in a slider at the top of the window. Drag the slider to seek through the mission (like you might seek through a song). The play speed can be adjusted to either be slower or faster using the slider in the panel on the right.\nThere is a drop-down box on the top left part of the window for selecting a mission (route) for the plane.\n\nNote that this is a graphics-intensive sample; performance may be degraded in certain situations (such as viewing over Remote Desktop).",
+        "Featured")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("290f0c571c394461a8b58b6775d0bd63", "681d6f7694644709a7c830ec57a2d72b", "e87c154fb9c2487f999143df5b08e9b1", "5a9b60cee9ba41e79640a06bcdf8084d", "12509ffdc684437f8f2656b0129d2c13")]
     public partial class Animate3DGraphic
     {
@@ -148,7 +149,7 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
 
             // Create the model graphic for the plane
             // Get the path to the 3D model
-            string modelPath = await GetModelPath();
+            string modelPath = GetModelPath();
             // Create the scene symbol from the path to the model
             ModelSceneSymbol plane3DSymbol = await ModelSceneSymbol.CreateAsync(new Uri(modelPath), 1.0);
             // Create the graphic with an initial location and the plane symbol
@@ -184,7 +185,7 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
             _animationTimer.Stop();
 
             // Get mission data
-            _missionData = await GetMissionData(mission);
+            _missionData = GetMissionData(mission);
 
             // Draw mission route on the inset
             // Create a collection of points to hold the mission
@@ -206,10 +207,10 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
             _animationTimer.Start();
         }
 
-        private async Task<MissionFrame[]> GetMissionData(string mission)
+        private MissionFrame[] GetMissionData(string mission)
         {
             // Get the path to the file
-            string filePath = await GetMissionFilePath(mission);
+            string filePath = GetMissionFilePath(mission);
 
             // Read the file text
             string fileContents = File.ReadAllText(filePath);
@@ -224,7 +225,7 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
                 .ToArray();
         }
 
-        private async Task<string> GetMissionFilePath(string mission)
+        private string GetMissionFilePath(string mission)
         {
             string itemId = _missionToItemId[mission];
             string filename = mission + ".csv";
@@ -277,7 +278,7 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
             }
         }
 
-        private async Task<string> GetModelPath()
+        private static string GetModelPath()
         {
             return DataManager.GetDataFolder("681d6f7694644709a7c830ec57a2d72b", "Bristol.dae");
         }

@@ -12,8 +12,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.ChangeStretchRenderer
@@ -22,7 +20,8 @@ namespace ArcGISRuntime.WPF.Samples.ChangeStretchRenderer
         "Stretch renderer",
         "Layers",
         "This sample demonstrates how to use stretch renderer on a raster layer.",
-        "Choose a stretch renderer type from the dropdown listbox to change the settings for the stretch renderer.\nThe sample allows you to change the stretch type and the parameters for each type. Click/tap the 'Update Renderer' button to update the raster.\nExperiment with settings for the various types for stretch parameters. For example, setting the renderer to use stretch parameters:\nMin Max with a min value of 50 and a max value of 200 will stretch between these pixel values. A higher min value will remove more of the lighter pixels values whilst a lower max will remove more of the darker.\nPercent Clip with a min value of 2 and a max value of 98 will stretch from 2% to 98% of the pixel values histogram. A lower min and higher max percentage will render using more of the original raster histogram.\nStandard Deviation with a factor of 2.0 will stretch 2 standard deviations from the mean. A higher factor (further from the mean) will render using more of the original raster histogram.")]
+        "Choose a stretch renderer type from the dropdown listbox to change the settings for the stretch renderer.\nThe sample allows you to change the stretch type and the parameters for each type. Click/tap the 'Update Renderer' button to update the raster.\nExperiment with settings for the various types for stretch parameters. For example, setting the renderer to use stretch parameters:\nMin Max with a min value of 50 and a max value of 200 will stretch between these pixel values. A higher min value will remove more of the lighter pixels values whilst a lower max will remove more of the darker.\nPercent Clip with a min value of 2 and a max value of 98 will stretch from 2% to 98% of the pixel values histogram. A lower min and higher max percentage will render using more of the original raster histogram.\nStandard Deviation with a factor of 2.0 will stretch 2 standard deviations from the mean. A higher factor (further from the mean) will render using more of the original raster histogram.",
+        "Featured")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
     public partial class ChangeStretchRenderer
     {
@@ -49,7 +48,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeStretchRenderer
             await myMap.LoadAsync();
 
             // Get the file name
-            String filepath = await GetRasterPath();
+            String filepath = GetRasterPath();
 
             // Load the raster file
             Raster myRasterFile = new Raster(filepath);
@@ -77,7 +76,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeStretchRenderer
             string myRendererTypeChoice = RendererTypes.SelectedValue.ToString();
 
             // Create an IEnumerable from an empty list of doubles for the gamma values in the stretch render
-            IEnumerable<double> myGammaValues = new List<double> { };
+            IEnumerable<double> myGammaValues = new List<double>();
 
             // Create a color ramp for the stretch renderer
             ColorRamp myColorRamp = ColorRamp.Create(PresetColorRampType.DemLight, 1000);
@@ -102,7 +101,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeStretchRenderer
                     MinMaxStretchParameters myMinMaxStretchParameters = new MinMaxStretchParameters(myMinValues, myMaxValues);
 
                     // Create the stretch renderer based on the user defined min/max stretch values, empty gamma values, statistic estimates, and a predefined color ramp 
-                    myStretchRenderer = new Esri.ArcGISRuntime.Rasters.StretchRenderer(myMinMaxStretchParameters, myGammaValues, true, myColorRamp);
+                    myStretchRenderer = new StretchRenderer(myMinMaxStretchParameters, myGammaValues, true, myColorRamp);
 
                     break;
 
@@ -115,7 +114,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeStretchRenderer
                     PercentClipStretchParameters myPercentClipStretchParameters = new PercentClipStretchParameters(Convert.ToDouble(Input_Parameter1.Text), Convert.ToDouble(Input_Parameter2.Text));
 
                     // Create the percent clip renderer based on the user defined min/max percent clip values, empty gamma values, statistic estimates, and a predefined color ramp 
-                    myStretchRenderer = new Esri.ArcGISRuntime.Rasters.StretchRenderer(myPercentClipStretchParameters, myGammaValues, true, myColorRamp);
+                    myStretchRenderer = new StretchRenderer(myPercentClipStretchParameters, myGammaValues, true, myColorRamp);
 
                     break;
 
@@ -128,7 +127,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeStretchRenderer
                     StandardDeviationStretchParameters myStandardDeviationStretchParameters = new StandardDeviationStretchParameters(Convert.ToDouble(Input_Parameter1.Text));
 
                     // Create the standard deviation renderer based on the user defined standard deviation value, empty gamma values, statistic estimates, and a predefined color ramp 
-                    myStretchRenderer = new Esri.ArcGISRuntime.Rasters.StretchRenderer(myStandardDeviationStretchParameters, myGammaValues, true, myColorRamp);
+                    myStretchRenderer = new StretchRenderer(myStandardDeviationStretchParameters, myGammaValues, true, myColorRamp);
 
                     break;
             }
@@ -202,7 +201,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeStretchRenderer
             }
         }
 
-        private async Task<string> GetRasterPath()
+        private static string GetRasterPath()
         {
             return DataManager.GetDataFolder("95392f99970d4a71bd25951beb34a508", "shasta", "ShastaBW.tif");
         }

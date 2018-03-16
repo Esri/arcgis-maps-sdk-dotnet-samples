@@ -4,6 +4,6 @@ This sample demonstrates how to open a GeoPackage and show a GeoPackage raster i
 
 <img src="RasterLayerGeoPackage.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 The GeoPackage will be downloaded from an ArcGIS Online portal automatically.

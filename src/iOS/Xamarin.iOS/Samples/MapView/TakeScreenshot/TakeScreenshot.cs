@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
 
         public TakeScreenshot()
         {
-            this.Title = "Take screenshot";
+            Title = "Take screenshot";
         }
 
         public override void ViewDidLoad()

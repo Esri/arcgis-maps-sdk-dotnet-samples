@@ -182,7 +182,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
 
                 // Let the user draw on the map view using the chosen sketch mode
                 SketchCreationMode creationMode = (SketchCreationMode)_sketchModeDictionary[sketchModeName];
-                Esri.ArcGISRuntime.Geometry.Geometry geometry = await _myMapView.SketchEditor.StartAsync(creationMode, true);
+                Geometry geometry = await _myMapView.SketchEditor.StartAsync(creationMode, true);
 
                 // Create and add a graphic from the geometry the user drew
                 Graphic graphic = CreateGraphic(geometry);
@@ -211,7 +211,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                 if (editGraphic == null) { return; }
 
                 // Let the user make changes to the graphic's geometry, await the result (updated geometry)
-                Esri.ArcGISRuntime.Geometry.Geometry newGeometry = await _myMapView.SketchEditor.StartAsync(editGraphic.Geometry);
+                Geometry newGeometry = await _myMapView.SketchEditor.StartAsync(editGraphic.Geometry);
 
                 // Display the updated geometry in the graphic
                 editGraphic.Geometry = newGeometry;
@@ -296,7 +296,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         }
 
         #region Graphic and symbol helpers
-        private Graphic CreateGraphic(Esri.ArcGISRuntime.Geometry.Geometry geometry)
+        private Graphic CreateGraphic(Geometry geometry)
         {
             // Create a graphic to display the specified geometry
             Symbol symbol = null;
@@ -373,7 +373,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             {
                 // Let the user draw on the map view using the chosen sketch mode
                 SketchCreationMode creationMode = (SketchCreationMode)_sketchModeDictionary[sketchModeName];
-                Esri.ArcGISRuntime.Geometry.Geometry geometry = await _myMapView.SketchEditor.StartAsync(creationMode, true);
+                Geometry geometry = await _myMapView.SketchEditor.StartAsync(creationMode, true);
 
                 // Create and add a graphic from the geometry the user drew
                 Graphic graphic = CreateGraphic(geometry);
@@ -402,7 +402,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                 if (editGraphic == null) { return; }
 
                 // Let the user make changes to the graphic's geometry, await the result (updated geometry)
-                Esri.ArcGISRuntime.Geometry.Geometry newGeometry = await _myMapView.SketchEditor.StartAsync(editGraphic.Geometry);
+                Geometry newGeometry = await _myMapView.SketchEditor.StartAsync(editGraphic.Geometry);
 
                 // Display the updated geometry in the graphic
                 editGraphic.Geometry = newGeometry;

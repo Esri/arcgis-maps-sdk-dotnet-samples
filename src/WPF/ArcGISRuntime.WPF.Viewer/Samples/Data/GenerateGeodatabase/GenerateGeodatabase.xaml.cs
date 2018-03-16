@@ -55,7 +55,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
         private async void Initialize()
         {
             // Create a tile cache and load it with the SanFrancisco streets tpk
-            TileCache _tileCache = new TileCache(await GetTpkPath());
+            TileCache _tileCache = new TileCache(GetTpkPath());
 
             // Create the corresponding layer based on the tile cache
             ArcGISTiledLayer _tileLayer = new ArcGISTiledLayer(_tileCache);
@@ -169,7 +169,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
             _generateGdbJob.JobChanged += GenerateGdbJobChanged;
 
             // Handle the progress changed event (to show progress bar)
-            _generateGdbJob.ProgressChanged += ((object sender, EventArgs e) =>
+            _generateGdbJob.ProgressChanged += ((sender, e) =>
             {
                 UpdateProgressBar();
             });
@@ -230,7 +230,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
         }
 
         // Get the path to the tile package used for the basemap
-        private async Task<string> GetTpkPath()
+        private static string GetTpkPath()
         {
             return DataManager.GetDataFolder("3f1bbf0ec70b409a975f5c91f363fe7d", "SanFrancisco.tpk");
         }
@@ -275,7 +275,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
 
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI
-            this.Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 // Hide the progress bar and re-enable button if the job is finished
                 if (job.Status == JobStatus.Succeeded || job.Status == JobStatus.Failed)
@@ -297,7 +297,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
         {
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI
-            this.Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 // Update the progress bar value
                 MyProgressBar.Value = _generateGdbJob.Progress / 1.0;

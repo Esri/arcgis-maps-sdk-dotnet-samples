@@ -13,7 +13,7 @@ using System.Windows.Controls;
 
 namespace ArcGISRuntime.WPF.Viewer
 {
-    internal class Helpers
+    internal static class Helpers
     {
         /// <summary>
         /// Creates a usable list of <c>TreeViewItem</c>.
@@ -24,6 +24,12 @@ namespace ArcGISRuntime.WPF.Viewer
         {
             // Create the list of tree view items.
             List<TreeViewItem> categories = new List<TreeViewItem>();
+
+            // This happens when there are no search results.
+            if (fullTree == null)
+            {
+                return categories;
+            }
 
             // For each category in the tree, create a category item.
             foreach (var category in fullTree.Items)

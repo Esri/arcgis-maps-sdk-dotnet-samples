@@ -28,7 +28,7 @@ namespace ArcGISRuntime.UWP.Samples.UseDistanceCompositeSym
 
         public UseDistanceCompositeSym()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             // Create the Scene, basemap, graphic, and composite symbol
             Initialize();

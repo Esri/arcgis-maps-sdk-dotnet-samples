@@ -11,8 +11,6 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.LocalServices;
 using Esri.ArcGISRuntime.Mapping;
 using System;
-using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.LocalServerMapImageLayer
@@ -47,7 +45,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerMapImageLayer
                 await LocalServer.Instance.StartAsync();
 
                 // Get the path to the map package that will be served
-                string datapath = await GetDataPath();
+                string datapath = GetDataPath();
 
                 // Create the Map Service from the data
                 _localMapService = new LocalMapService(datapath);
@@ -72,11 +70,11 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerMapImageLayer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(String.Format("Please ensure that local server is installed prior to using the sample. See instructions in readme.md or metadata.json. Message: {0}", ex.Message), "Local Server failed to start");
+                MessageBox.Show(string.Format("Please ensure that local server is installed prior to using the sample. See instructions in readme.md or metadata.json. Message: {0}", ex.Message), "Local Server failed to start");
             }
         }
 
-        private async Task<string> GetDataPath()
+        private static string GetDataPath()
         {
             return DataManager.GetDataFolder("dee5d8060a6048a4b063484199a9546b", "RelationshipID.mpk");
         }

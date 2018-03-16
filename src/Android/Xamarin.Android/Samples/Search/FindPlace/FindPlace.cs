@@ -396,7 +396,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             List<String> results = (await GetSuggestResults(searchText, locationText, true)).ToList();
 
             // Quit if there are no results
-            if (results == null || results.Count() == 0) { return; }
+            if (results == null || !results.Any()) { return; }
 
             // Create an array adapter to provide autocomplete suggestions
             ArrayAdapter adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, results);
@@ -450,7 +450,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             string locationText = _myLocationBox.Text;
 
             // Run the search
-            await UpdateSearch(searchText, locationText, false);
+            await UpdateSearch(searchText, locationText);
         }
 
         /// <summary>

@@ -61,7 +61,7 @@ namespace ArcGISRuntime.WPF.Samples.SketchOnMap
             config.AllowMove = true;
 
             // Set the sketch editor as the page's data context
-            this.DataContext = MyMapView.SketchEditor;
+            DataContext = MyMapView.SketchEditor;
         }
 
         #region Graphic and symbol helpers

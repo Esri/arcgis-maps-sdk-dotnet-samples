@@ -68,7 +68,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
         private async void Initialize()
         {
             // Create a tile cache and load it with the SanFrancisco streets tpk
-            TileCache tileCache = new TileCache(await GetTpkPath());
+            TileCache tileCache = new TileCache(GetTpkPath());
 
             // Create the corresponding layer based on the tile cache
             ArcGISTiledLayer tileLayer = new ArcGISTiledLayer(tileCache);
@@ -276,7 +276,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
             generateGdbJob.JobChanged += GenerateGdbJobChanged;
 
             // Handle the progress changed event with an inline (lambda) function to show the progress bar
-            generateGdbJob.ProgressChanged += ((object sender, EventArgs e) =>
+            generateGdbJob.ProgressChanged += ((sender, e) =>
             {
                 // Get the job
                 GenerateGeodatabaseJob job = sender as GenerateGeodatabaseJob;
@@ -430,7 +430,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
 
         // Get the path to the tile package used for the basemap
         // (this is plumbing for the sample viewer)
-        private async Task<string> GetTpkPath()
+        private static string GetTpkPath()
         {
             return DataManager.GetDataFolder("3f1bbf0ec70b409a975f5c91f363fe7d", "SanFrancisco.tpk");
         }
@@ -476,7 +476,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI
             // The dispatcher takes an Action, provided here as a lambda function
-            this.Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 // Hide the progress bar if the job is finished
                 if (job.Status == JobStatus.Succeeded || job.Status == JobStatus.Failed)
@@ -498,7 +498,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI
             // The dispatcher takes an Action, provided here as a lambda function
-            this.Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 // Update the progress bar value
                 MyProgressBar.Value = progress;
@@ -518,7 +518,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI
             // The dispatcher takes an Action, provided here as a lambda function
-            this.Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 // Update the progress bar as appropriate
                 if (job.Status == JobStatus.Succeeded || job.Status == JobStatus.Failed)

@@ -139,7 +139,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
 
             public WebViewWrapper(WebKit.WKWebView view)
             {
-                this.webview = view;
+                webview = view;
 
                 // Add the webview as a subview
                 AddSubview(webview);

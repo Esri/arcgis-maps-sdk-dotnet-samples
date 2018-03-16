@@ -10,8 +10,6 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
-using System.IO;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.FeatureLayerShapefile
@@ -20,7 +18,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
         "Feature layer (shapefile)",
         "Data",
         "This sample demonstrates how to open a shapefile stored on the device and display it as a feature layer with default symbology.",
-        "The shapefile will be downloaded from an ArcGIS Online portal automatically.")]
+        "The shapefile will be downloaded from an ArcGIS Online portal automatically.",
+        "Featured")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
     public partial class FeatureLayerShapefile : ContentPage
     {
@@ -40,7 +39,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
             MyMapView.Map = new Map(Basemap.CreateStreets());
 
             // Get the path to the downloaded shapefile
-            string filepath = await GetShapefilePath();
+            string filepath = GetShapefilePath();
 
             // Open the shapefile
             ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
@@ -55,7 +54,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
             await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
         }
 
-        private async Task<string> GetShapefilePath()
+        private static string GetShapefilePath()
         {
             return DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "Public_Art.shp");
         }

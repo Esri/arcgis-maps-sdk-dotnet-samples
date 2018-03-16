@@ -213,7 +213,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
         private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
             // Get current assembly that contains the image
-            var currentAssembly = this.GetType().GetTypeInfo().Assembly;
+            var currentAssembly = GetType().GetTypeInfo().Assembly;
 
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
@@ -398,7 +398,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             string locationText = MyLocationBox.Text;
 
             // Run the search
-            UpdateSearch(searchText, locationText, false);
+            UpdateSearch(searchText, locationText);
         }
 
         /// <summary>

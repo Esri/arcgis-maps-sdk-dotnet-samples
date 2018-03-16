@@ -19,7 +19,8 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightLocation
         "Line of sight from location",
         "Analysis",
         "This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.",
-        "Click to define a location for the observer, then again to define the target. The result will show visible segments in cyan and obstructed ones in magenta.")]
+        "Click to define a location for the observer, then again to define the target. The result will show visible segments in cyan and obstructed ones in magenta.",
+        "Featured")]
     public sealed partial class LineOfSightLocation
     {
         // URL for an image service to use as an elevation source
@@ -39,7 +40,7 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightLocation
 
         public LineOfSightLocation()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             // Create the Scene, basemap, line of sight analysis, and analysis overlay
             Initialize();

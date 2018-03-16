@@ -13,8 +13,6 @@ using Android.Widget;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
-using System.IO;
-using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.FeatureLayerShapefile
@@ -25,7 +23,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
         "Feature layer (shapefile)",
         "Data",
         "This sample demonstrates how to open a shapefile stored on the device and display it as a feature layer with default symbology.",
-        "The shapefile will be downloaded from an ArcGIS Online portal automatically.")]
+        "The shapefile will be downloaded from an ArcGIS Online portal automatically.",
+        "Featured")]
     public class FeatureLayerShapefile : Activity
     {
         private MapView _myMapView;
@@ -47,7 +46,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
             _myMapView.Map = new Map(Basemap.CreateStreets());
 
             // Get the path to the downloaded shapefile
-            string filepath = await GetShapefilePath();
+            string filepath = GetShapefilePath();
 
             // Open the shapefile
             ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
@@ -62,7 +61,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
             await _myMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
         }
 
-        private async Task<string> GetShapefilePath()
+        private static string GetShapefilePath()
         {
             return DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "Public_Art.shp");
         }

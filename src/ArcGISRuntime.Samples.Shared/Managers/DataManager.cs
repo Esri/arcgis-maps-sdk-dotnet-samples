@@ -58,7 +58,7 @@ namespace ArcGISRuntime.Samples.Managers
 
             // Write the __sample.config file. This is used to ensure that cached data did not go out-of-date.
             string configFilePath = Path.Combine(dataDir, "__sample.config");
-            File.WriteAllText(configFilePath, "Data downloaded: " + DateTime.Now);
+            File.WriteAllText(configFilePath, @"Data downloaded: " + DateTime.Now);
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace ArcGISRuntime.Samples.Managers
             {
                 foreach (var entry in archive.Entries.Where(m => !String.IsNullOrWhiteSpace(m.Name)))
                 {
-                    var path = Path.Combine(folder, entry.FullName);
+                    string path = Path.Combine(folder, entry.FullName);
                     Directory.CreateDirectory(Path.GetDirectoryName(path));
                     entry.ExtractToFile(path, true);
                 }
@@ -131,11 +131,10 @@ namespace ArcGISRuntime.Samples.Managers
         /// </summary>
         internal static string GetDataFolder()
         {
-            string appDataFolder = "";
 #if NETFX_CORE
-            appDataFolder  = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+            string appDataFolder  = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 #else
-            appDataFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
+            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 #endif
             string sampleDataFolder = Path.Combine(appDataFolder, "ArcGISRuntimeSampleData");
 
@@ -158,11 +157,11 @@ namespace ArcGISRuntime.Samples.Managers
         /// Gets the path to an item on disk. 
         /// The item must have already been downloaded for the path to be valid.
         /// </summary>
-        /// <param name="itemID">ID of the portal item.</param>
+        /// <param name="itemId">ID of the portal item.</param>
         /// <param name="pathParts">Components of the path.</param>
-        internal static string GetDataFolder(string itemID, params string[] pathParts)
+        internal static string GetDataFolder(string itemId, params string[] pathParts)
         {
-            return Path.Combine(GetDataFolder(itemID), Path.Combine(pathParts));
+            return Path.Combine(GetDataFolder(itemId), Path.Combine(pathParts));
         }
     }
 }

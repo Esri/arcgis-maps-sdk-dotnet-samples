@@ -24,7 +24,8 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         "Viewshed (Location)",
         "Analysis",
         "This sample demonstrates the configurable properties of viewshed analysis, including frustum color, heading, pitch, distances, angles, and location.",
-        "Tap anywhere in the scene to change the viewshed observer location.")]
+        "Tap anywhere in the scene to change the viewshed observer location.",
+        "Featured")]
     public class ViewshedLocation : UIViewController
     {
         // Create and hold reference to the used SceneView.

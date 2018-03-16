@@ -37,7 +37,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
 
         public FeatureLayerRenderingModeMap()
         {
-            this.Title = "Feature Layer Rendering Mode (Map)";
+            Title = "Feature Layer Rendering Mode (Map)";
         }
         
         public override void ViewDidLoad()

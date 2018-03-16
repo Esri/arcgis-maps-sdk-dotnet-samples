@@ -100,7 +100,7 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
                         // See if the job succeeded
                         if (generateGdbJob.Status == JobStatus.Succeeded)
                         {
-                            this.Dispatcher.Invoke(() =>
+                            Dispatcher.Invoke(() =>
                             {
                                 // Hide the progress control and update the message
                                 LoadingProgressBar.Visibility = Visibility.Collapsed;
@@ -109,7 +109,7 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
                         }
                         else if (generateGdbJob.Status == JobStatus.Failed)
                         {
-                            this.Dispatcher.Invoke(() =>
+                            Dispatcher.Invoke(() =>
                             {
                                 // Hide the progress control and report the exception
                                 LoadingProgressBar.Visibility = Visibility.Collapsed;
@@ -125,7 +125,7 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
             catch (Exception ex)
             {
                 // Show a message for the exception encountered
-                this.Dispatcher.Invoke(() => MessageBox.Show("Unable to create offline database: " + ex.Message));
+                Dispatcher.Invoke(() => MessageBox.Show("Unable to create offline database: " + ex.Message));
             }
         }
 
@@ -152,14 +152,14 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
 
                 // Create a new feature layer to show the table in the map
                 var layer = new FeatureLayer(table);
-                this.Dispatcher.Invoke(() => MyMapView.Map.OperationalLayers.Add(layer));
+                Dispatcher.Invoke(() => MyMapView.Map.OperationalLayers.Add(layer));
             }
 
             // Handle the transaction status changed event
             _localGeodatabase.TransactionStatusChanged += GdbTransactionStatusChanged;
 
             // Zoom the map view to the extent of the generated local datasets
-            this.Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 MyMapView.SetViewpointGeometryAsync(_marineTable.Extent);
                 StartEditingButton.IsEnabled = true;
@@ -169,7 +169,7 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
         private void GdbTransactionStatusChanged(object sender, TransactionStatusChangedEventArgs e)
         {
             // Update UI controls based on whether the geodatabase has a current transaction
-            this.Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 // These buttons should be enabled when there IS a transaction
                 AddBirdButton.IsEnabled = e.IsInTransaction;

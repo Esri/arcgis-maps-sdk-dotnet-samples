@@ -102,11 +102,13 @@
     <Content Include="Properties\ArcGISRuntime.Windows.Samples.rd.xml" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Samples\Data\ReadGeoPackage\metadata.json" />
+    <Content Include="Samples\GeometryEngine\SpatialOperations\SpatialOperations.jpg" />
     <Content Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
     <Content Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.jpg" />
     <Content Include="Samples\Layers\ChangeBlendRenderer\metadata.json" />
     <Content Include="Samples\GeometryEngine\ListTransformations\metadata.json" />
     <Content Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
+    <Content Include="Samples\GeometryEngine\SpatialOperations\metadata.json" />
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
@@ -321,12 +323,15 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml.cs">
-		<DependentUpon>ViewshedGeoElement.xaml</DependentUpon>
-	</Compile>
+    <Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml.cs">
+      <DependentUpon>ViewshedGeoElement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GeometryEngine\SpatialOperations\SpatialOperations.xaml.cs">
+      <DependentUpon>SpatialOperations.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.xaml.cs">
       <DependentUpon>ListTransformations.xaml</DependentUpon>
-    </Compile>	
+    </Compile>
     <Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml.cs">
       <DependentUpon>Animate3DGraphic.xaml</DependentUpon>
     </Compile>
@@ -482,7 +487,7 @@
     </Compile>
     <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
       <DependentUpon>RasterHillshade.xaml</DependentUpon>
-    </Compile>    
+    </Compile>
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml.cs">
       <DependentUpon>RasterLayerFile.xaml</DependentUpon>
     </Compile>
@@ -615,14 +620,18 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<Page Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
+    <Page Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeometryEngine\SpatialOperations\SpatialOperations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\GeometryEngine\ListTransformations\ListTransformations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>	
+    </Page>
     <Page Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

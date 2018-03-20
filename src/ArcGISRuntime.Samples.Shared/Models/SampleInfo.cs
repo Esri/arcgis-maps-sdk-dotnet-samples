@@ -13,6 +13,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using TypeInfo = System.Reflection.TypeInfo;
+#if _SSG_TOOLING_
+using Microsoft.CodeAnalysis;
+#endif
 
 namespace ArcGISRuntime.Samples.Shared.Models
 {
@@ -39,7 +43,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
         /// <summary>
         /// The name of the sample as it appears in code.
         /// </summary>
-        public string FormalName { get { return SampleType.Name; } }
+        public string FormalName { get; }
 
         /// <summary>
         /// The human-readable category of the sample.
@@ -74,7 +78,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
         /// The expected filename of the sample's image, without path.
         /// This is intened for use on Windows.
         /// </summary>
-        public string Image { get { return String.Format("{0}.jpg", SampleType.Name); } }
+        public string Image { get { return String.Format("{0}.jpg", FormalName); } }
 
         /// <summary>
         /// The underlying .NET type for this sample.
@@ -105,6 +109,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
         public SampleInfo(Type sampleType)
         {
             SampleType = sampleType;
+            FormalName = SampleType.Name;
             TypeInfo typeInfo = sampleType.GetTypeInfo();
 
             var sampleAttr = GetAttribute<SampleAttribute>(typeInfo);
@@ -142,6 +147,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
 
             // Type info for the sample.
             TypeInfo typeInfo = sampleType.GetTypeInfo();
+            FormalName = sampleType.Name;
 
             // Get the types from the originating assembly. This is needed when working from another assembly (e.g. reflecting on a loaded DLL). 
             var attributeTypeSample = assembly.GetType("ArcGISRuntime.Samples.Shared.Attributes.SampleAttribute");
@@ -172,6 +178,89 @@ namespace ArcGISRuntime.Samples.Shared.Models
             OfflineDataItems = GetListFromAttribute(offlineDataAttr, "Items");
             EmbeddedResources = GetListFromAttribute(embeddedAttr, "Files");
         }
+
+#if _SSG_TOOLING_
+        
+        public SampleInfo(List<AttributeData> attributeData, string typeName)
+        {
+            FormalName = typeName;
+
+            AttributeData sampleAttribute =
+                attributeData.FirstOrDefault(attr => attr.AttributeClass.Name.Contains("Sample"));
+            AttributeData offlineDataAttribute =
+                attributeData.FirstOrDefault(attr => attr.AttributeClass.Name.Contains("Offline"));
+            AttributeData embeddedResourceAttribute =
+                attributeData.FirstOrDefault(attr => attr.AttributeClass.Name.Contains("Embedded"));
+            AttributeData classFilesAttribute =
+                attributeData.FirstOrDefault(attr => attr.AttributeClass.Name.Contains("Class"));
+            AttributeData xamlFilesAttribute =
+                attributeData.FirstOrDefault(attr => attr.AttributeClass.Name.Contains("Xaml"));
+            AttributeData androidLayoutsAttribute =
+                attributeData.FirstOrDefault(attr => attr.AttributeClass.Name.Contains("Android"));
+            if (sampleAttribute == null)
+            {
+                throw new ArgumentException("No sample attribute in collection");
+            }
+
+            Category = GetStringFromAttributesData(sampleAttribute, "category");
+            Description = GetStringFromAttributesData(sampleAttribute, "description");
+            Instructions = GetStringFromAttributesData(sampleAttribute, "instructions");
+            SampleName = GetStringFromAttributesData(sampleAttribute, "name");
+            Tags = GetListFromAttributesData(sampleAttribute, "tags");
+            if (offlineDataAttribute != null)
+            {
+                OfflineDataItems = GetListFromAttributesData(offlineDataAttribute, "items");
+            }
+
+            if (embeddedResourceAttribute != null)
+            {
+                EmbeddedResources = GetListFromAttributesData(embeddedResourceAttribute, "files");
+            }
+
+            if (androidLayoutsAttribute != null)
+            {
+                AndroidLayouts = GetListFromAttributesData(androidLayoutsAttribute, "files");
+            }
+
+            if (xamlFilesAttribute != null)
+            {
+                XamlLayouts = GetListFromAttributesData(xamlFilesAttribute, "files");
+            }
+
+            if (classFilesAttribute != null)
+            {
+                ClassFiles = GetListFromAttributesData(classFilesAttribute, "files");
+            }
+        }
+
+        private static string GetStringFromAttributesData(AttributeData data, string property)
+        {
+            // Get the index of the matching parameter
+            var parameter = data.AttributeConstructor.Parameters.FirstOrDefault(param => param.Name == property);
+            if (parameter == null || data.ConstructorArguments.Length < 1)
+            {
+                return null;
+            }
+            int index = data.AttributeConstructor.Parameters.IndexOf(parameter);
+
+            // Get the value at index
+            return data.ConstructorArguments[index].Value.ToString();
+        }
+
+        private static string[] GetListFromAttributesData(AttributeData data, string property)
+        {
+            // Get the index of the matching parameter
+            var parameter = data.AttributeConstructor.Parameters.FirstOrDefault(param => param.Name == property);
+            if (parameter == null || data.ConstructorArguments.Length < 1) 
+            {
+                return null;
+            }
+            int index = data.AttributeConstructor.Parameters.IndexOf(parameter);
+
+            // Get the value at index
+            return data.ConstructorArguments[index].Values.Select(val => val.Value.ToString()).ToArray();
+        }
+        #endif
 
         /// <summary>
         /// Gets the attribute of type <typeparamref name="T"/> for a type described by <paramref name="typeInfo"/>.

@@ -16,7 +16,7 @@ namespace ArcGISRuntime.Samples.Shared.Attributes
     /// Attribute contains list of ArcGIS Online items (by GUID) used by a sample.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    internal class OfflineDataAttribute : Attribute
+    public class OfflineDataAttribute : Attribute
     {
         private readonly string[] _items;
 

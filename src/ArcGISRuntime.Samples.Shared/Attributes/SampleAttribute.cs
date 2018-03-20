@@ -13,7 +13,7 @@ using System.Collections.Generic;
 namespace ArcGISRuntime.Samples.Shared.Attributes
 {
     [AttributeUsage(AttributeTargets.Class)]
-    internal class SampleAttribute : Attribute
+    public class SampleAttribute : System.Attribute
     {
         private readonly string _name;
         private readonly string _category;
@@ -34,6 +34,6 @@ namespace ArcGISRuntime.Samples.Shared.Attributes
         public string Category { get { return _category; } }
         public string Description { get { return _description; } }
         public string Instructions { get { return _instructions; } }
-        public IReadOnlyList<string> Tags { get { return _tags; } }
+        public System.Collections.Generic.IReadOnlyList<string> Tags { get { return _tags; } }
     }
 }

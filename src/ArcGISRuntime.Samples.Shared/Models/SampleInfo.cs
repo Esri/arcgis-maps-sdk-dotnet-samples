@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
         {
             get
             {
-                return System.IO.Path.Combine(_pathStub, "Samples", Category, SampleType.Name);
+                return System.IO.Path.Combine(_pathStub, "Samples", Category, FormalName);
             }
         }
 

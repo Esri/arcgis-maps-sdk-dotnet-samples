@@ -43,7 +43,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
         /// <summary>
         /// The name of the sample as it appears in code.
         /// </summary>
-        public string FormalName { get; }
+        public string FormalName { get; set;  }
 
         /// <summary>
         /// The human-readable category of the sample.

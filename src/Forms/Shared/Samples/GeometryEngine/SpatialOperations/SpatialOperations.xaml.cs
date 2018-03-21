@@ -12,12 +12,17 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Collections.Generic;
-using Windows.UI;
-using Windows.UI.Xaml;
+using Xamarin.Forms;
 
-namespace ArcGISRuntime.UWP.Samples.SpatialOperations
+#if WINDOWS_UWP
+using Colors = Windows.UI.Colors;
+#else
+using Colors = System.Drawing.Color;
+#endif
+
+namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
 {
-    public partial class SpatialOperations
+    public partial class SpatialOperations : ContentPage
     {
         // GraphicsOverlay to hold the polygon graphics.
         private GraphicsOverlay _polygonsOverlay;
@@ -56,7 +61,7 @@ namespace ArcGISRuntime.UWP.Samples.SpatialOperations
         }
 
         // Handle the spatial operation selection by performing the operation and showing the result polygon.
-        private void SpatialOperationComboBox_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
+        private void SpatialOperationComboBox_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             // If an operation hasn't been selected, return.
             if (SpatialOperationComboBox.SelectedItem == null) { return; }
@@ -100,7 +105,7 @@ namespace ArcGISRuntime.UWP.Samples.SpatialOperations
             _polygonsOverlay.Graphics.Add(_resultGraphic);
         }
 
-        private void ResetOperationButton_Click(object sender, RoutedEventArgs e)
+        private void ResetOperationButton_Clicked(object sender, System.EventArgs e)
         {
             // Remove any currently displayed result.
             _polygonsOverlay.Graphics.Remove(_resultGraphic);
@@ -166,5 +171,5 @@ namespace ArcGISRuntime.UWP.Samples.SpatialOperations
             _polygonsOverlay.Graphics.Add(_graphicOne);
             _polygonsOverlay.Graphics.Add(_graphicTwo);
         }
-    }
+    }    
 }

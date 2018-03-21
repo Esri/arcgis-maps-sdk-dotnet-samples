@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,18 +7,26 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Android.App;
+using Android.OS;
+using Android.Views;
+using Android.Widget;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using System.Collections.Generic;
-using Windows.UI;
-using Windows.UI.Xaml;
+using System.Drawing;
 
-namespace ArcGISRuntime.UWP.Samples.SpatialOperations
+namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
 {
-    public partial class SpatialOperations
+    [Activity]
+    public class SpatialOperations : Activity
     {
+        // MapView control to display the operation polygons.
+        MapView _myMapView = new MapView();
+
         // GraphicsOverlay to hold the polygon graphics.
         private GraphicsOverlay _polygonsOverlay;
 
@@ -29,37 +37,98 @@ namespace ArcGISRuntime.UWP.Samples.SpatialOperations
         // Graphic to display the spatial operation result polygon.
         private Graphic _resultGraphic;
 
-        public SpatialOperations()
-        {
-            InitializeComponent();
+        // Picker control to choose a spatial operation.
+        Spinner _operationPicker;
 
-            // Create the map, set the initial extent, and add the polygon graphics.
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
+
+            Title = "Spatial operations";
+
+            // Create the UI.
+            CreateLayout();
+
+            // Create a new map, add polygon graphics, and fill the spatial operations list.
             Initialize();
         }
 
         private void Initialize()
         {
             // Create the map with a gray canvas basemap and an initial location centered on London, UK.
-            Map myMap = new Map(BasemapType.LightGrayCanvas, 51.5017, -0.12714, 15);
+            Map myMap = new Map(BasemapType.LightGrayCanvas, 51.5017, -0.12714, 14);
 
             // Add the map to the map view.
-            MyMapView.Map = myMap;
+            _myMapView.Map = myMap;
 
             // Create and add two overlapping polygon graphics to operate on.
             CreatePolygonsOverlay();
-
-            // Fill the combo box with some spatial operations to run on the polygon graphics.
-            SpatialOperationComboBox.Items.Add("Difference");
-            SpatialOperationComboBox.Items.Add("Intersection");
-            SpatialOperationComboBox.Items.Add("Symmetric difference");
-            SpatialOperationComboBox.Items.Add("Union");
         }
 
-        // Handle the spatial operation selection by performing the operation and showing the result polygon.
-        private void SpatialOperationComboBox_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
+        private void CreateLayout()
+        {
+            // Create a label to prompt for the spatial operation.
+            TextView operationLabel = new TextView(this)
+            {
+                Text = "Choose a spatial operation:",
+                TextAlignment = TextAlignment.ViewStart
+            };
+            
+            // Create a list of spatial operations and use it to create an array adapter.
+            List<string> operationsList = new List<string> { "", "Difference", "Intersection", "Symmetric difference", "Union" };
+            ArrayAdapter operationsAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, operationsList);
+
+            // Create a picker (Spinner) to show the list of operations.
+            _operationPicker = new Spinner(this)
+            {
+                Adapter = operationsAdapter
+            };
+            _operationPicker.SetPadding(5, 10, 0, 10);
+
+            // Handle the selection event to apply the selected operation.
+            _operationPicker.ItemSelected += OperationsPicker_ItemSelected;
+
+            // Create a button to clear the spatial operation result.
+            Button resetOperationButton = new Button(this)
+            {
+                Text = "Reset"
+            };
+            resetOperationButton.Click += ResetOperationButton_Click;
+
+            // Create a layout for the app tools.
+            LinearLayout toolsLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            toolsLayout.SetPadding(10, 0, 0, 0);
+            toolsLayout.SetMinimumHeight(250);
+
+            // Add the controls to the tools layout (label, picker, button).
+            toolsLayout.AddView(operationLabel);
+            toolsLayout.AddView(_operationPicker);
+            toolsLayout.AddView(resetOperationButton);
+
+            // Create a new vertical layout for the app UI.
+            LinearLayout mainLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+
+            // Add the tools layout and map view to the main layout.
+            mainLayout.AddView(toolsLayout);
+            mainLayout.AddView(_myMapView);
+
+            // Show the layout in the app.
+            SetContentView(mainLayout);
+        }
+
+        private void ResetOperationButton_Click(object sender, System.EventArgs e)
+        {
+            // Remove any currently displayed result.
+            _polygonsOverlay.Graphics.Remove(_resultGraphic);
+
+            // Clear the selected spatial operation.
+            _operationPicker.SetSelection(0);
+        }
+
+        private void OperationsPicker_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             // If an operation hasn't been selected, return.
-            if (SpatialOperationComboBox.SelectedItem == null) { return; }
+            if (_operationPicker.SelectedItem.ToString() == "") { return; }
 
             // Remove any currently displayed result.
             _polygonsOverlay.Graphics.Remove(_resultGraphic);
@@ -72,8 +141,8 @@ namespace ArcGISRuntime.UWP.Samples.SpatialOperations
             Geometry resultPolygon = null;
 
             // Run the selected spatial operation on the polygon graphics and get the result geometry.
-            string operation = (string)SpatialOperationComboBox.SelectedItem;
-            switch (operation)
+            string selectedOperation = _operationPicker.SelectedItem.ToString();
+            switch (selectedOperation)
             {
                 case "Union":
                     resultPolygon = GeometryEngine.Union(polygonOne, polygonTwo);
@@ -90,29 +159,20 @@ namespace ArcGISRuntime.UWP.Samples.SpatialOperations
             }
 
             // Create a black outline symbol to use for the result polygon.
-            SimpleLineSymbol outlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Black, 1);
+            SimpleLineSymbol outlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
 
             // Create a solid red fill symbol for the result polygon graphic.
-            SimpleFillSymbol resultSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Colors.Red, outlineSymbol);
+            SimpleFillSymbol resultSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Red, outlineSymbol);
 
             // Create the result polygon graphic and add it to the graphics overlay.
             _resultGraphic = new Graphic(resultPolygon, resultSymbol);
             _polygonsOverlay.Graphics.Add(_resultGraphic);
         }
 
-        private void ResetOperationButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Remove any currently displayed result.
-            _polygonsOverlay.Graphics.Remove(_resultGraphic);
-
-            // Clear the selected spatial operation.
-            SpatialOperationComboBox.SelectedIndex = -1;
-        }
-
         private void CreatePolygonsOverlay()
         {
             // Create a black outline symbol to use for the polygons.
-            SimpleLineSymbol outlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Black, 1);
+            SimpleLineSymbol outlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
 
             // Create a point collection to define polygon vertices.
             PointCollection polygonVertices = new PointCollection(SpatialReferences.WebMercator)
@@ -125,7 +185,7 @@ namespace ArcGISRuntime.UWP.Samples.SpatialOperations
             };
 
             // Create a polygon graphic with a blue fill.
-            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Vertical, Colors.Blue, outlineSymbol);
+            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Vertical, Color.Blue, outlineSymbol);
             Polygon polygonOne = new Polygon(polygonVertices);
             _graphicOne = new Graphic(polygonOne, fillSymbol);
 
@@ -155,12 +215,12 @@ namespace ArcGISRuntime.UWP.Samples.SpatialOperations
             };
 
             // Create a polygon graphic with a green fill.
-            fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Horizontal, Colors.Green, outlineSymbol);
+            fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Horizontal, Color.Green, outlineSymbol);
             _graphicTwo = new Graphic(new Polygon(polygonParts), fillSymbol);
 
             // Create a graphics overlay in the map view to hold the polygons.
             _polygonsOverlay = new GraphicsOverlay();
-            MyMapView.GraphicsOverlays.Add(_polygonsOverlay);
+            _myMapView.GraphicsOverlays.Add(_polygonsOverlay);
 
             // Add the polygons to the graphics overlay.
             _polygonsOverlay.Graphics.Add(_graphicOne);

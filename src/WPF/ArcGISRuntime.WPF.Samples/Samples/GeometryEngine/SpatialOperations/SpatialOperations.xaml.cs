@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Collections.Generic;
 using System.Windows;
-using Win = System.Windows.Media;
+//using Win = System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.SpatialOperations
 {
@@ -90,10 +90,10 @@ namespace ArcGISRuntime.WPF.Samples.SpatialOperations
             }
 
             // Create a black outline symbol to use for the result polygon.
-            SimpleLineSymbol outlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Win.Colors.Black, 1);
+            SimpleLineSymbol outlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Windows.Media.Colors.Black, 1);
 
             // Create a solid red fill symbol for the result polygon graphic.
-            SimpleFillSymbol resultSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Win.Colors.Red, outlineSymbol);
+            SimpleFillSymbol resultSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Windows.Media.Colors.Red, outlineSymbol);
 
             // Create the result polygon graphic and add it to the graphics overlay.
             _resultGraphic = new Graphic(resultPolygon, resultSymbol);
@@ -112,7 +112,7 @@ namespace ArcGISRuntime.WPF.Samples.SpatialOperations
         private void CreatePolygonsOverlay()
         {
             // Create a black outline symbol to use for the polygons.
-            SimpleLineSymbol outlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Win.Colors.Black, 1);
+            SimpleLineSymbol outlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Windows.Media.Colors.Black, 1);
             
             // Create a point collection to define polygon vertices.
             PointCollection polygonVertices = new PointCollection(SpatialReferences.WebMercator)
@@ -125,7 +125,7 @@ namespace ArcGISRuntime.WPF.Samples.SpatialOperations
             };
 
             // Create a polygon graphic with a blue fill.
-            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Vertical, Win.Colors.Blue, outlineSymbol);
+            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Vertical, System.Windows.Media.Colors.Blue, outlineSymbol);
             Polygon polygonOne = new Polygon(polygonVertices);
             _graphicOne = new Graphic(polygonOne, fillSymbol);
 
@@ -155,7 +155,7 @@ namespace ArcGISRuntime.WPF.Samples.SpatialOperations
             };
 
             // Create a polygon graphic with a green fill.
-            fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Horizontal, Win.Colors.Green, outlineSymbol);
+            fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Horizontal, System.Windows.Media.Colors.Green, outlineSymbol);
             _graphicTwo = new Graphic(new Polygon(polygonParts), fillSymbol);
 
             // Create a graphics overlay in the map view to hold the polygons.

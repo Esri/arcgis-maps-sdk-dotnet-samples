@@ -116,6 +116,7 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <EmbeddedResource Include="Samples\GeometryEngine\ListTransformations\metadata.json" />
+    <EmbeddedResource Include="Samples\GeometryEngine\SpatialOperations\metadata.json" />
     <None Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -174,12 +175,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SamplesListActivity.cs" />
     <Compile Include="SamplesListAdapter.cs" />
+    <Compile Include="Samples\GeometryEngine\SpatialOperations\SpatialOperations.cs" />
     <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.cs" />
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
   </ItemGroup>
   <ItemGroup>
     <!-- JSON Metadata -->
-	<EmbeddedResource Include="Samples\Analysis\ViewshedGeoElement\metadata.json" />
+    <EmbeddedResource Include="Samples\Analysis\ViewshedGeoElement\metadata.json" />
     <EmbeddedResource Include="Samples\GraphicsOverlay\Animate3DGraphic\metadata.json" />
     <EmbeddedResource Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
     <EmbeddedResource Include="Samples\Data\ListRelatedFeatures\metadata.json" />
@@ -276,7 +278,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
+    <None Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
     <None Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
     <None Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
     <None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
@@ -374,7 +376,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.cs" />
+    <Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.cs" />
     <Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.cs" />
     <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.cs" />
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
@@ -481,7 +483,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
-  </ItemGroup>  
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\GeometryEngine\SpatialOperations\SpatialOperations.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

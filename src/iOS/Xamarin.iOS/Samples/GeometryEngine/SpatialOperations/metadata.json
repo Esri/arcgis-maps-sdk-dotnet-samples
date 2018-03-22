@@ -1,0 +1,19 @@
+{
+  "Name": "Spatial operations",
+  "SampleName": "SpatialOperations",
+  "Description": "Demonstrates how to use the GeometryEngine to perform geometry operations between overlapping polygons in a GraphicsOverlay.",
+  "Instructions": "The sample provides a drop down on the top, where you can select a geometry operation. When you choose a geometry operation, the application performs this operation between the overlapping polygons and applies the result to the geometries.",
+  "Type": 0,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "SpatialOperations.jpg",
+  "Link": "",
+  "TypeLink": [
+    "M:Esri.ArcGISRuntime.Geometry.GeometryEngine.Difference",
+    "M:Esri.ArcGISRuntime.Geometry.GeometryEngine.Intersection",
+    "M:Esri.ArcGISRuntime.Geometry.GeometryEngine.SymmetricDifference",
+    "M:Esri.ArcGISRuntime.Geometry.GeometryEngine.Union"
+  ],
+  "SampleFolder": "SpatialOperations"
+}

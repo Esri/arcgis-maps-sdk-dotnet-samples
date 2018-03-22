@@ -39,10 +39,6 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
 
         // Stack view to contain the spatial operation UI.
         private UIStackView _operationToolsView = new UIStackView();
-
-        // Store the height of each set of controls (may vary on different devices).
-        private nfloat _mapViewHeight;
-        private nfloat _operationsToolsHeight;
         
         // Picker to display the spatial operation choices.
         private UIPickerView _operationPicker;
@@ -56,10 +52,6 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         {
             base.ViewDidLoad();
 
-            // Get the height of the map view and the UI tools view (one third / two thirds).
-            _operationsToolsHeight = (nfloat)(View.Bounds.Height * 0.33);
-            _mapViewHeight = (nfloat)(View.Bounds.Height * 0.67);
-
             // Create the UI.
             CreateLayout();
 
@@ -71,11 +63,15 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         {
             base.ViewDidLayoutSubviews();
 
-            // Place the MapView (top 2/3 of the view)
-            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, _mapViewHeight);
+            // Get the height of the map view and the UI tools view (one third / two thirds).
+            var operationsToolsHeight = (nfloat)(View.Bounds.Height * 0.33);
+            var mapViewHeight = (nfloat)(View.Bounds.Height * 0.67);
 
-            // Place the UI tools (bottom 1/3 of the view)
-            _operationToolsView.Frame = new CGRect(0, _mapViewHeight, View.Bounds.Width, _operationsToolsHeight);
+            // Place the MapView (top 2/3 of the view).
+            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, mapViewHeight);
+
+            // Place the UI tools (bottom 1/3 of the view).
+            _operationToolsView.Frame = new CGRect(0, mapViewHeight, View.Bounds.Width, operationsToolsHeight);
         }
 
         private void Initialize()
@@ -92,13 +88,9 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
 
         private void CreateLayout()
         {
-            // Place the map view in the upper half of the display.
-            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, _mapViewHeight);
-
-            // Place the spatial operations UI in the bottom half.
+            // Lay out the spatial operations UI vertically.
             _operationToolsView.Axis = UILayoutConstraintAxis.Vertical;
-            _operationToolsView.Frame = new CGRect(0, _mapViewHeight, View.Bounds.Width, _operationsToolsHeight);
-            
+           
             // Create a label to prompt for a spatial operation.
             UILabel operationLabel = new UILabel(new CGRect(5, 0, View.Bounds.Width, 30))
             {
@@ -262,10 +254,10 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         public List<string> Items { get; private set; }
 
         // Expose the currently selected operation as a property.
-        private int selectedIndex = 0;
+        private int _selectedIndex = 0;
         public string SelectedItem
         {
-            get { return Items[selectedIndex]; }
+            get { return Items[_selectedIndex]; }
         }
 
         // In the constructor, take the list of items (spatial operations) to display.
@@ -295,7 +287,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         // Raise the ValueChanged event when a new value is selected.
         public override void Selected(UIPickerView picker, nint row, nint component)
         {
-            selectedIndex = (int)row;
+            _selectedIndex = (int)row;
             if (ValueChanged != null)
             {
                 ValueChanged(this, new EventArgs());

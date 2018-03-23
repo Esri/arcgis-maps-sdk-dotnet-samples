@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -20,6 +21,7 @@ namespace ArcGISRuntime.Samples.Desktop
 {
     public partial class MainWindow
     {
+        private bool _waitFlag;
         public MainWindow()
         {
             InitializeComponent();
@@ -156,8 +158,14 @@ namespace ArcGISRuntime.Samples.Desktop
             CategoriesRegion.Visibility = Visibility.Collapsed;
         }
 
-        private void SearchFilterBox_OnTextChanged(object sender, TextChangedEventArgs e)
+        private async void SearchFilterBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
+            // Don't update results immediately; makes search-as-you-type more comfortable
+            if (_waitFlag) { return; }
+            _waitFlag = true;
+            await Task.Delay(200);
+            _waitFlag = false;
+
             var results =
                 SampleManager.Current.FullTree.Search(SampleSearchFunc);
 

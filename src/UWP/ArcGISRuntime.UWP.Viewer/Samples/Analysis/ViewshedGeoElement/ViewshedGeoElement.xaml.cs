@@ -52,7 +52,7 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedGeoElement
             Initialize();
         }
 
-        private async Task Initialize()
+        private async void Initialize()
         {
             // Create the scene with an imagery basemap.
             MySceneView.Scene = new Scene(Basemap.CreateImagery());

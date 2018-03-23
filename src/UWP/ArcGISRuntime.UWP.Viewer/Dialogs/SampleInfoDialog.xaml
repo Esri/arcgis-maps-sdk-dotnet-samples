@@ -12,7 +12,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Image Margin="10" Stretch="Uniform" HorizontalAlignment="Center"
                            Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">

@@ -19,7 +19,7 @@ namespace ArcGISRuntime.UWP.Viewer
             InitializeComponent();
 
             // TODO - do this with binding instead
-            ErrorText.Text = string.Format("{0}\n\nMessage: {1}\n\nStack Trace:\n{2}", ex.ToString(), ex.Message, ex.StackTrace);
+            ErrorText.Text = ex.ToString();
         }
     }
 }

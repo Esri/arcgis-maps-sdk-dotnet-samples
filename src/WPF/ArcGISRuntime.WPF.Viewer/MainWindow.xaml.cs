@@ -62,7 +62,7 @@ namespace ArcGISRuntime.Samples.Desktop
             }
         }
 
-        private void categories_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private async void categories_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var context = (e.NewValue as TreeViewItem);
             if (context == null) {return;}
@@ -76,9 +76,9 @@ namespace ArcGISRuntime.Samples.Desktop
             }
             else if (sample != null)
             {
-                SelectSample(sample);
                 DetailsRegion.Visibility = Visibility.Visible;
                 CategoriesRegion.Visibility = Visibility.Collapsed;
+                await SelectSample(sample);
             }
         }
 

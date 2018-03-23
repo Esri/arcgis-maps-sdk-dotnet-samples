@@ -13,6 +13,6 @@
         </Grid.RowDefinitions>
         <Label FontSize="48" Grid.Row="0">Oops!</Label>
         <Label FontSize="16" Grid.Row="1">There was an unhandled exception, so the sample can't be shown. See below for more information:</Label>
-        <TextBox Grid.Row="2" x:Name="ErrorField" />
+        <TextBox Grid.Row="2" x:Name="ErrorField" FontFamily="Consolas" IsReadOnly="True" />
     </Grid>
 </UserControl>

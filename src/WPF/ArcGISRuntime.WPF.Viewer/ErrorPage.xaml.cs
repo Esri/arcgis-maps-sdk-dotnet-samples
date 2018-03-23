@@ -27,7 +27,7 @@ namespace ArcGISRuntime.WPF.Viewer
             InitializeComponent();
 
             // TODO - do this with binding instead
-            ErrorField.Text = string.Format("{0}\n\nMessage: {1}\n\nStack Trace:\n{2}", ex, ex.Message, ex.StackTrace);
+            ErrorField.Text = ex.ToString();
         }
     }
 }

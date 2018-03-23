@@ -32,17 +32,17 @@ namespace ArcGISRuntime.WPF.Viewer
             }
 
             // For each category in the tree, create a category item.
-            foreach (var category in fullTree.Items)
+            foreach (SearchableTreeNode category in fullTree.Items)
             {
                 // Create the category item.
                 var categoryItem = new TreeViewItem
                 {
-                    Header = ((SearchableTreeNode) category).Name,
+                    Header = (category).Name,
                     DataContext = category
                 };
 
                 // Add items for each sample.
-                foreach (SampleInfo sampleInfo in ((SearchableTreeNode)category).Items)
+                foreach (SampleInfo sampleInfo in (category).Items)
                 {
                     categoryItem.Items.Add(new TreeViewItem { Header = sampleInfo.SampleName, DataContext = sampleInfo });
                 }

@@ -35,10 +35,11 @@ namespace ArcGISRuntime.Samples.Desktop
                 SampleManager.Current.Initialize();
 
                 // Set category data context
-                Categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
+                var samples = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
+                Categories.DataContext = samples;
 
                 // Select the first item
-                ((List<TreeViewItem>)Categories.DataContext).First().IsSelected = true;
+                samples.First().IsSelected = true;
             }
             catch (Exception ex)
             {
@@ -46,17 +47,17 @@ namespace ArcGISRuntime.Samples.Desktop
             }
         }
 
-        private void categoriesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void categoriesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
             {
                 var sample = e.AddedItems[0] as SampleInfo;
-                SelectSample(sample);
                 ((ListView)sender).SelectedItem = null;
                 DetailsRegion.Visibility = Visibility.Visible;
                 CategoriesRegion.Visibility = Visibility.Collapsed;
+                await SelectSample(sample);
 
-                // Unselect all categories
+                // Deselect all categories
                 ((List<TreeViewItem>)Categories.DataContext).ForEach(item => item.IsSelected = false);
             }
         }
@@ -81,7 +82,7 @@ namespace ArcGISRuntime.Samples.Desktop
             }
         }
 
-        private async void SelectSample(SampleInfo selectedSample)
+        private async Task SelectSample(SampleInfo selectedSample)
         {
             if (selectedSample == null) return;
 
@@ -104,9 +105,6 @@ namespace ArcGISRuntime.Samples.Desktop
 
                 // Call a function to clear any existing credentials from AuthenticationManager
                 ClearCredentials();
-
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
             }
             catch (Exception exception)
             {

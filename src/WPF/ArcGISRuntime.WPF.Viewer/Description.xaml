@@ -36,10 +36,6 @@
             </Grid>
 
             <Grid Grid.Row="0" Grid.Column="1" Margin="40,0,0,10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
                 <StackPanel>
                     <TextBlock Text="{Binding SampleName}" Style="{StaticResource HeaderTextBlock}" FontSize="36" />
                     <TextBlock Text="{Binding Description}" FontSize="18"

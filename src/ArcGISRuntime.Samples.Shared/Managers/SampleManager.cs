@@ -129,7 +129,7 @@ namespace ArcGISRuntime.Samples.Managers
             // This code only supports one level of nesting.
             return new SearchableTreeNode(
                 name: byCategory.Key,
-                items: byCategory.OrderBy(si => si.SampleName).ToList()
+                items: byCategory.OrderBy(si => si.SampleName.ToLower()).ToList()
             );
         }
 

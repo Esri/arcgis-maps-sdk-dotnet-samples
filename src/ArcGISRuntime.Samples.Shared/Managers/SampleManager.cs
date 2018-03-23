@@ -154,7 +154,8 @@ namespace ArcGISRuntime.Samples.Managers
             searchText = searchText.ToLower();
             return sample.SampleName.ToLower().Contains(searchText) ||
                    sample.Category.ToLower().Contains(searchText) ||
-                   sample.Description.ToLower().Contains(searchText);
+                   sample.Description.ToLower().Contains(searchText) ||
+                   sample.Tags.Any(tag => tag.Contains(searchText));
         }
     }
 }

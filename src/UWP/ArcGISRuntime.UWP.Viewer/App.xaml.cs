@@ -34,18 +34,18 @@ namespace ArcGISRuntime.UWP.Viewer
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
         }
 
-        private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        private async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
             var errorMessage = e.Exception.ToString();
             Debug.WriteLine(errorMessage);
-            new MessageDialog(errorMessage, "An error occurred").ShowAsync();
+            await new MessageDialog(errorMessage, "An error occurred").ShowAsync();
         }
 
-        private void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+        private async void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             var errorMessage = e.Exception.ToString();
             Debug.WriteLine(errorMessage);
-            new MessageDialog(errorMessage, "An error occurred").ShowAsync();
+            await new MessageDialog(errorMessage, "An error occurred").ShowAsync();
             e.Handled = true;
         }
 

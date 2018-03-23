@@ -12,6 +12,7 @@ using ArcGISRuntime.Samples.Shared.Models;
 using ArcGISRuntime.UWP.Viewer.Dialogs;
 using Esri.ArcGISRuntime.Security;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Foundation.Metadata;
@@ -71,14 +72,6 @@ namespace ArcGISRuntime.UWP.Viewer
             }
         }
 
-        protected override void OnNavigatedTo(Navigation.NavigationEventArgs e)
-        {
-            // Force GC to get invoke full clean up when ever
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            base.OnNavigatedTo(e);
-        }
-
         private void Initialize()
         {
             // Initialize manager that handles all the samples, this will load all the items from samples assembly and related files
@@ -135,9 +128,6 @@ namespace ArcGISRuntime.UWP.Viewer
 
                 // Call a function to clear any existing credentials from AuthenticationManager
                 ClearCredentials();
-
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
             }
             catch (Exception exception)
             {
@@ -172,9 +162,6 @@ namespace ArcGISRuntime.UWP.Viewer
                 SecondaryButtonText = "show",
             };
 
-            dialog.PrimaryButtonClick += (s, args) =>
-            {
-            };
             dialog.SecondaryButtonClick += (s, args) =>
             {
                 OnSampleItemTapped(sender, new TappedRoutedEventArgs());
@@ -193,7 +180,7 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private void OnSearchQuerySubmitted(SearchBox searchBox, SearchBoxQueryChangedEventArgs searchBoxQueryChangedEventArgs)
         {
-            if (SearchToggleButton.IsChecked.HasValue && SearchToggleButton.IsChecked.Value)
+            if (SearchToggleButton.IsChecked == true)
             {
                 SearchBox.Visibility = Visibility.Collapsed;
                 SearchToggleButton.Visibility = Visibility.Visible;
@@ -202,11 +189,14 @@ namespace ArcGISRuntime.UWP.Viewer
             var categoriesList = SampleManager.Current.FullTree.Search(SampleSearchFunc);
             if (categoriesList == null)
             {
-                return;
+                categoriesList = new SearchableTreeNode("Search", new[]{new SearchableTreeNode("No results", new List<object>())});
             }
             Categories.ItemsSource = categoriesList.Items;
 
-            Categories.SelectedIndex = 0;
+            if (categoriesList.Items.Any())
+            {
+                Categories.SelectedIndex = 0;
+            }
         }
 
         private void OnSearchToggleChecked(object sender, RoutedEventArgs e)

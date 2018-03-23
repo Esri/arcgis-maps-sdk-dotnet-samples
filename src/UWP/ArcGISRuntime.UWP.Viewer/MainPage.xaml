@@ -13,7 +13,7 @@
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="StantardSampleItemTemplate">
+        <DataTemplate x:Key="StandardSampleItemTemplate">
             <Border Background="{StaticResource PrimaryBackgroundColor}" BorderBrush="{StaticResource AppBarBorderThemeBrush}" BorderThickness="1" Margin="1">
                 <Grid Tapped="OnSampleItemTapped" Width="285" Margin="2" Height="285">
                     <Grid.RowDefinitions>
@@ -78,8 +78,8 @@
                     <VisualState.Setters>
                         <Setter Target="ApplicationTitle.FontSize" Value="16"/>
                         <Setter Target="ApplicationTitle.Margin" Value="12,0,0,0"/>
-                        <Setter Target="SearchToggleButton.Visibility" Value="Visible"/>
-                        <Setter Target="SearchBox.Visibility" Value="Collapsed"/>
+                        <Setter Target="SearchToggleButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="SearchBox.Visibility" Value="Visible"/>
                         <Setter Target="samplesListView.Visibility" Value="Visible"/>
                         <Setter Target="samplesGridView.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
@@ -96,8 +96,8 @@
                     <VisualState.Setters>
                         <Setter Target="ApplicationTitle.FontSize" Value="16"/>
                         <Setter Target="ApplicationTitle.Margin" Value="12,0,0,0"/>
-                        <Setter Target="SearchToggleButton.Visibility" Value="Visible"/>
-                        <Setter Target="SearchBox.Visibility" Value="Collapsed"/>
+                        <Setter Target="SearchToggleButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="SearchBox.Visibility" Value="Visible"/>
                     </VisualState.Setters>
                 </VisualState>
                 <!-- 
@@ -182,7 +182,7 @@
 
 
 
-            <TextBlock x:Name="CatetoryTitle" 
+            <TextBlock x:Name="CategoryTitle" 
                        Margin="0,0,0,0"
                        RelativePanel.RightOf="TogglePaneButton"
                        RelativePanel.AlignVerticalCenterWith="TogglePaneButton"
@@ -190,7 +190,7 @@
                        Foreground="{StaticResource PrimaryColor}"
                        FontSize="24"></TextBlock>
             <SearchBox x:Name="SearchBox" RelativePanel.AlignRightWithPanel="True" 
-                            RelativePanel.AlignVerticalCenterWith="CatetoryTitle" 
+                            RelativePanel.AlignVerticalCenterWith="CategoryTitle" 
                             Width="240" PlaceholderText="i.e. ArcGISTileLayer" Margin="20,0"
                             QueryChanged="OnSearchQuerySubmitted"></SearchBox>
             <ToggleButton Style="{StaticResource SearchToggleButtonStyle}" x:Name="SearchToggleButton"
@@ -224,7 +224,7 @@
 
                     <GridView x:Name="SamplesGridView" 
                               ItemsSource="{Binding ElementName=Categories, Path=SelectedItem.Items}" 
-                              ItemTemplate="{StaticResource StantardSampleItemTemplate}" 
+                              ItemTemplate="{StaticResource StandardSampleItemTemplate}" 
                               SelectionMode="None"
                               Background="Transparent" Margin="1,0,0,0">
                         <GridView.ItemContainerStyle>

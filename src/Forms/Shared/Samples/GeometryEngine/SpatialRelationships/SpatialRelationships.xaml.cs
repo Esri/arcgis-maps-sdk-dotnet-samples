@@ -142,11 +142,12 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
         {
             string output = "";
 
+            // Get the relationships
             List<SpatialRelationship> polygonRelationships = GetSpatialRelationships(selectedGeometry, _polygonGraphic.Geometry);
             List<SpatialRelationship> polylineRelationships = GetSpatialRelationships(selectedGeometry, _polylineGraphic.Geometry);
             List<SpatialRelationship> pointRelationships = GetSpatialRelationships(selectedGeometry, _pointGraphic.Geometry);
 
-            // Point
+            // Add the point relationships to the output
             if (selectedGeometry.GeometryType != GeometryType.Point)
             {
                 output += "Point:\n";
@@ -155,7 +156,7 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
                     output += $"\t{relationship}\n";
                 }
             }
-            // Polygon
+            // Add the polygon relationships to the output
             if (selectedGeometry.GeometryType != GeometryType.Polygon)
             {
                 output += "Polygon:\n";
@@ -164,7 +165,7 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
                     output += $"\t{relationship}\n";
                 }
             }
-            // Polyline
+            // Add the polyline relationships to the output
             if (selectedGeometry.GeometryType != GeometryType.Polyline)
             {
                 output += "Polyline:\n";

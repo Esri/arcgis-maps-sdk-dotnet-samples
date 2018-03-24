@@ -1,5 +1,5 @@
 ﻿<UserControl 
-    x:Class="ArcGISRuntime.UWP.Samples.GeodesicOperations.GeodesicOperations"
+    x:Class="ArcGISRuntime.UWP.Samples.NearestVertex.NearestVertex"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -15,7 +15,7 @@
             Margin="30" Padding="20" Width="375">
             <StackPanel>
                 <TextBlock x:Name="ResultsLabel" 
-                           Foreground="Red" TextAlignment="Center">Tap to set an end point.</TextBlock>
+                           Foreground="Red" TextAlignment="Center">Tap to see the nearest vertex and point.</TextBlock>
             </StackPanel>
         </Border>
     </Grid>

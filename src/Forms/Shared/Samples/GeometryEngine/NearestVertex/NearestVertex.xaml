@@ -2,15 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:forms="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             x:Class="ArcGISRuntime.Samples.GeodesicOperations.GeodesicOperations">
+             x:Class="ArcGISRuntime.Samples.NearestVertex.NearestVertex">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Label  x:Name="ResultsLabel"
-                Grid.Row="0" HorizontalTextAlignment="Center"
-                TextColor="Red">Tap to set an end point.</Label>
+        <Label x:Name="ResultsLabel"
+               Grid.Row="0" HorizontalTextAlignment="Center"
+               TextColor="Red">Tap to see the nearest vertex and point.</Label>
         <forms:MapView Grid.Row="1" x:Name="MyMapView" />
     </Grid>
 </ContentPage>

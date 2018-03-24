@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.Xamarin.Samples.iOS", "Xamarin.iOS\ArcGISRuntime.Xamarin.Samples.iOS.csproj", "{3192A404-34AC-4083-A3B9-44610EE92E68}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGISRuntime.Samples.Shared", "C:\SamplesDotNET\src\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.shproj", "{0AD85845-0BA1-4DC9-8C32-E6FD7632E32D}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGISRuntime.Samples.Shared", "..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.shproj", "{0AD85845-0BA1-4DC9-8C32-E6FD7632E32D}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		C:\SamplesDotNET\src\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{0ad85845-0ba1-4dc9-8c32-e6fd7632e32d}*SharedItemsImports = 13
+		..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{0ad85845-0ba1-4dc9-8c32-e6fd7632e32d}*SharedItemsImports = 13
 		..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{3192a404-34ac-4083-a3b9-44610ee92e68}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

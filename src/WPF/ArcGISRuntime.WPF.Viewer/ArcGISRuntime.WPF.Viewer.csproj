@@ -170,6 +170,9 @@
     <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
       <DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.xaml.cs">
+      <DependentUpon>GeodesicOperations.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.xaml.cs">
       <DependentUpon>ListTransformations.xaml</DependentUpon>
     </Compile>
@@ -504,6 +507,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -906,6 +913,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg">

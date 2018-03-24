@@ -13,6 +13,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\GoedesicOperations\GeodesicOperations.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
@@ -110,6 +111,10 @@
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\GoedesicOperations\GeodesicOperations.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>GeodesicOperations.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>RasterHillshade.xaml</DependentUpon>
@@ -512,6 +517,9 @@
   </ItemGroup>
   <!-- Sample XAML -->
   <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\GoedesicOperations\GeodesicOperations.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterHillshade\RasterHillshade.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

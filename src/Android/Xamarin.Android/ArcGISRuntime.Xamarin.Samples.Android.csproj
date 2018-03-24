@@ -215,6 +215,7 @@
   <!-- Sample Code -->
   <ItemGroup>
     <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.cs" />
+    <Compile Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.cs" />
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
     <Compile Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.cs" />
     <Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.cs" />
@@ -367,6 +368,9 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

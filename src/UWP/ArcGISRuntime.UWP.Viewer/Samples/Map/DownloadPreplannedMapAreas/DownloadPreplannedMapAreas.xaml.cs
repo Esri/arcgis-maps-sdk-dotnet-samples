@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -17,9 +17,13 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.Storage;
+using Windows.UI.Core;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMapAreas
+namespace ArcGISRuntime.UWP.Samples.DownloadPreplannedMapAreas
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Download preplanned map areas",
@@ -71,10 +75,15 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMapAreas
                 // Query related preplanned areas.
                 IReadOnlyList<PreplannedMapArea> preplannedAreas = await _offlineMapTask.GetPreplannedMapAreasAsync();
 
-                // Load each preplanned map area.
+                // Load each preplanned map area and add it to the flyout list.
                 foreach (PreplannedMapArea area in preplannedAreas)
                 {
                     await area.LoadAsync();
+
+                    // Add item to the flyout list (for mobile).
+                    MenuFlyoutItem menuItem = new MenuFlyoutItem { Text = area.PortalItem.Title, DataContext = area };
+                    menuItem.Click += OnMenuDownloadMapAreaClicked;
+                    MapAreaFlyout.Items?.Add(menuItem);
                 }
 
                 // Show the areas in the UI. The code to make this look nice in the UI is defined
@@ -88,7 +97,8 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMapAreas
             catch (Exception ex)
             {
                 // Something unexpected happened, show the error message.
-                MessageBox.Show(ex.Message, "An error occurred.");
+                var message = new MessageDialog(ex.Message, "An error occurred");
+                await message.ShowAsync();
             }
         }
 
@@ -158,7 +168,8 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMapAreas
                     }
 
                     // Show the message.
-                    MessageBox.Show(errorBuilder.ToString(), "Warning!");
+                    var message = new MessageDialog(errorBuilder.ToString(), "Warning!");
+                    await message.ShowAsync();
                 }
 
                 // Show the Map in the MapView.
@@ -167,7 +178,8 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMapAreas
             catch (Exception ex)
             {
                 // Report exception.
-                MessageBox.Show(ex.Message, "Downloading map area failed.");
+                var message = new MessageDialog(ex.Message, "Downloading map areas failed");
+                await message.ShowAsync();
             }
             finally
             {
@@ -177,19 +189,34 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMapAreas
             }
         }
 
-        private void OnJobProgressChanged(object sender, EventArgs e)
+        private async void OnJobProgressChanged(object sender, EventArgs e)
         {
             // Get the download job.
             DownloadPreplannedOfflineMapJob downloadJob = sender as DownloadPreplannedOfflineMapJob;
             if (downloadJob == null) return;
 
             // UI work needs to be done on the UI thread.
-            Dispatcher.Invoke(() =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 // Update UI with the load progress.
                 ProgressBar.Value = downloadJob.Progress;
                 BusyPercentage.Text = downloadJob.Progress + "%";
             });
+        }
+
+        private async void OnMenuDownloadMapAreaClicked(object sender, RoutedEventArgs e)
+        {
+            // Get the sending list item.
+            var element = sender as FrameworkElement;
+
+            // Get the corresponding map area.
+            var selectedMapArea = element?.DataContext as PreplannedMapArea;
+
+            // Update the other list in the UI for consistency (important if user resizes window to be wider).
+            PreplannedAreasList.SelectedItem = selectedMapArea;
+
+            // Download the map area and show it.
+            await DownloadMapAreaAsync(selectedMapArea);
         }
 
         private async void OnDeleteAllMapAreasClicked(object sender, RoutedEventArgs e)
@@ -225,7 +252,8 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMapAreas
             catch (Exception ex)
             {
                 // Report error accessing a resource.
-                MessageBox.Show(ex.Message, "Deleting map areas failed");
+                var message = new MessageDialog(ex.Message, "Deleting map areas failed");
+                await message.ShowAsync();
             }
             finally
             {
@@ -306,7 +334,7 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMapAreas
         // Returns the platform-specific folder for storing offline data.
         private string GetDataFolder()
         {
-            return Directory.GetCurrentDirectory();
+            return ApplicationData.Current.LocalFolder.Path;
         }
     }
 }

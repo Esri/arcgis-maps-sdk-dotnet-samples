@@ -1,32 +1,32 @@
-// Copyright 2018 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.Tasks.Offline;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Portal;
+using Esri.ArcGISRuntime.Tasks.Offline;
+using Xamarin.Forms;
 
-namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMapAreas
+namespace ArcGISRuntime.Samples.DownloadPreplannedMapAreas
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Download preplanned map areas",
         "Map",
         "This sample demonstrates how to download preplanned map areas from a webmap. In the preplanned offline workflow, the author of the online map defines map areas for offline use. When these areas are created, their offline packages are created and stored online for clients to download. This is the biggest difference between on-demand and preplanned workflows since on-demand workflow data packages are generated at request time.",
         "Select an area from the list to download. When you're done, select 'delete offline areas' to delete the downloaded copy of the map areas. ")]
-    public partial class DownloadPreplannedMapAreas
+    public partial class DownloadPreplannedMapAreas : ContentPage
     {
         // ID of webmap item that has preplanned areas defined
         private const string PortalItemId = "acc027394bc84c2fb04d1ed317aac674";
@@ -41,7 +41,6 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMapAreas
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
@@ -62,53 +61,49 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMapAreas
                 // Create a portal that contains the portal item.
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 
-                // Create the webmap based on the id.
+                // Create webmap based on the ID.
                 PortalItem webmapItem = await PortalItem.CreateAsync(portal, PortalItemId);
 
-                // Create the offline task and load it.
+                // Create the offline map task and load it.
                 _offlineMapTask = await OfflineMapTask.CreateAsync(webmapItem);
 
                 // Query related preplanned areas.
                 IReadOnlyList<PreplannedMapArea> preplannedAreas = await _offlineMapTask.GetPreplannedMapAreasAsync();
 
                 // Load each preplanned map area.
-                foreach (PreplannedMapArea area in preplannedAreas)
+                foreach (var area in preplannedAreas)
                 {
                     await area.LoadAsync();
                 }
 
-                // Show the areas in the UI. The code to make this look nice in the UI is defined
-                //    in the ListView's ItemTemplate in the XAML.
+                // Show the areas in the UI.
                 PreplannedAreasList.ItemsSource = preplannedAreas;
 
                 // Remove loading indicators from UI.
-                DownloadNotificationText.Visibility = Visibility.Visible;
-                BusyIndicator.Visibility = Visibility.Collapsed;
+                BusyIndicator.IsVisible = false;
             }
             catch (Exception ex)
             {
                 // Something unexpected happened, show the error message.
-                MessageBox.Show(ex.Message, "An error occurred.");
+                await DisplayAlert("An error occurred", ex.Message, "OK");
             }
         }
 
         private async Task DownloadMapAreaAsync(PreplannedMapArea mapArea)
         {
-            // Configure UI for the download.
-            DownloadNotificationText.Visibility = Visibility.Collapsed;
-            ProgressBar.IsIndeterminate = false;
-            ProgressBar.Value = 0;
+            // Show the UI for the download.
+            ProgressBar.Progress = 0;
             BusyText.Text = "Downloading map area...";
-            BusyIndicator.Visibility = Visibility.Visible;
-            MyMapView.Visibility = Visibility.Visible;
+            BusyIndicator.IsVisible = true;
+            MyMapView.IsVisible = true;
 
             // Get the path for the downloaded map area.
-            string path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
+            var path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
 
             // If the area is already downloaded, open it and don't download it again.
             if (Directory.Exists(path))
             {
-                MobileMapPackage localMapArea = await MobileMapPackage.OpenAsync(path);
+                var localMapArea = await MobileMapPackage.OpenAsync(path);
                 try
                 {
                     // Load the map.
@@ -116,18 +111,18 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMapAreas
 
                     // Update the UI.
                     BusyText.Text = string.Empty;
-                    BusyIndicator.Visibility = Visibility.Collapsed;
+                    BusyIndicator.IsVisible = false;
 
-                    // Return and don't proceed to download.
+                    // Return without proceeding to download.
                     return;
                 }
                 catch (Exception)
                 {
-                    // Do nothing, continue as if map wasn't downloaded.
+                    // Do nothing, continue as if the map wasn't downloaded.
                 }
             }
 
-            // Create job that is used to download the map area.
+            // Create the job that is used to do the download.
             DownloadPreplannedOfflineMapJob job = _offlineMapTask.DownloadPreplannedOfflineMap(mapArea, path);
 
             // Subscribe to progress change events to support showing a progress bar.
@@ -141,24 +136,22 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMapAreas
                 // Handle possible errors and show them to the user.
                 if (results.HasErrors)
                 {
-                    StringBuilder errorBuilder = new StringBuilder();
+                    var errorBuilder = new StringBuilder();
 
                     // Add layer errors to the message.
                     foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
                     {
-                        errorBuilder.AppendLine(string.Format("{0} {1}", layerError.Key.Name,
-                            layerError.Value.Message));
+                        errorBuilder.AppendLine($"{layerError.Key.Name} {layerError.Value.Message}");
                     }
 
                     // Add table errors to the message.
                     foreach (KeyValuePair<FeatureTable, Exception> tableError in results.TableErrors)
                     {
-                        errorBuilder.AppendLine(string.Format("{0} {1}", tableError.Key.TableName,
-                            tableError.Value.Message));
+                        errorBuilder.AppendLine($"{tableError.Key.TableName} {tableError.Value.Message}");
                     }
 
                     // Show the message.
-                    MessageBox.Show(errorBuilder.ToString(), "Warning!");
+                    await DisplayAlert("Warning!", errorBuilder.ToString(), "OK");
                 }
 
                 // Show the Map in the MapView.
@@ -166,39 +159,47 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMapAreas
             }
             catch (Exception ex)
             {
-                // Report exception.
-                MessageBox.Show(ex.Message, "Downloading map area failed.");
+                // Report the exception.
+                await DisplayAlert("Downloading map area failed.", ex.Message, "OK");
             }
             finally
             {
                 // Clear the loading UI.
                 BusyText.Text = string.Empty;
-                BusyIndicator.Visibility = Visibility.Collapsed;
+                BusyIndicator.IsVisible = false;
             }
         }
 
         private void OnJobProgressChanged(object sender, EventArgs e)
         {
             // Get the download job.
-            DownloadPreplannedOfflineMapJob downloadJob = sender as DownloadPreplannedOfflineMapJob;
+            var downloadJob = sender as DownloadPreplannedOfflineMapJob;
             if (downloadJob == null) return;
 
             // UI work needs to be done on the UI thread.
-            Dispatcher.Invoke(() =>
+            Device.BeginInvokeOnMainThread(() =>
             {
                 // Update UI with the load progress.
-                ProgressBar.Value = downloadJob.Progress;
-                BusyPercentage.Text = downloadJob.Progress + "%";
+                ProgressBar.Progress = downloadJob.Progress / 100.0;
+                BusyText.Text = "Downloading: " + downloadJob.Progress + "%";
             });
         }
 
-        private async void OnDeleteAllMapAreasClicked(object sender, RoutedEventArgs e)
+        private async void OnDownloadMapAreaClicked(object sender, EventArgs e)
+        {
+            // Return if selection is being cleared.
+            if (PreplannedAreasList.SelectedItem == null) { return; }
+
+            // Download and show the map.
+            var selectedMapArea = PreplannedAreasList.SelectedItem as PreplannedMapArea;
+            await DownloadMapAreaAsync(selectedMapArea);
+        }
+
+        private async void OnDeleteAllMapAreasClicked(object sender, EventArgs e)
         {
             // Show the map area deletion UI.
-            DownloadNotificationText.Visibility = Visibility.Collapsed;
-            ProgressBar.IsIndeterminate = true;
             BusyText.Text = "Deleting downloaded map areas...";
-            BusyIndicator.Visibility = Visibility.Visible;
+            BusyIndicator.IsVisible = true;
 
             // If there is a map loaded, remove it.
             if (MyMapView.Map != null)
@@ -213,7 +214,6 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMapAreas
             GC.Collect();
             GC.WaitForPendingFinalizers();
             GC.Collect();
-
 
             try
             {
@@ -238,14 +238,12 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMapAreas
             catch (Exception ex)
             {
                 // Report error accessing a resource.
-                MessageBox.Show(ex.Message, "Deleting map areas failed");
+                await DisplayAlert("Deleting map areas failed", ex.Message, "OK");
             }
             finally
             {
                 // Reset the UI.
-                DownloadNotificationText.Visibility = Visibility.Visible;
-                MyMapView.Visibility = Visibility.Collapsed;
-                BusyIndicator.Visibility = Visibility.Collapsed;
+                BusyIndicator.IsVisible = false;
                 PreplannedAreasList.SelectedItem = null;
             }
         }
@@ -304,23 +302,16 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMapAreas
             Directory.Delete(mobileMapPackage.Path, true);
         }
 
-        private async void OnDownloadMapAreaClicked(object sender, RoutedEventArgs e)
-        {
-            // Return if selection is being cleared.
-            if (PreplannedAreasList.SelectedIndex == -1)
-            {
-                return;
-            }
-
-            // Download and show the map.
-            PreplannedMapArea selectedMapArea = PreplannedAreasList.SelectedItem as PreplannedMapArea;
-            await DownloadMapAreaAsync(selectedMapArea);
-        }
-
         // Returns the platform-specific folder for storing offline data.
         private string GetDataFolder()
         {
-            return Directory.GetCurrentDirectory();
+            var appDataFolder =
+#if NETFX_CORE
+                Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+#elif __ANDROID__ || __IOS__
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+#endif
+            return appDataFolder;
         }
-    }
+}
 }

@@ -226,11 +226,23 @@ namespace ArcGISRuntime.UWP.Samples.DownloadPreplannedMapAreas
             ProgressBar.IsIndeterminate = true;
             BusyText.Text = "Deleting downloaded map areas...";
             BusyIndicator.Visibility = Visibility.Visible;
+
+            // If there is a map loaded, remove it.
+            if (MyMapView.Map != null)
+            {
+                // Clear the layers. This will ensure that their resources are freed.
+                MyMapView.Map.OperationalLayers.Clear();
+                MyMapView.Map = null;
+            }
+
+            // Ensure the map and related resources (for example, handles to geodatabases) are cleared.
+            //    This is important on Windows where open files can't be deleted.
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+
             try
             {
-                if (MyMapView.Map == null)
-                    return;
-
                 // Find all downloaded offline areas from the sample folder.
                 List<string> downloadedPackagePaths = Directory.GetDirectories(_offlineDataFolder).ToList();
 
@@ -261,6 +273,7 @@ namespace ArcGISRuntime.UWP.Samples.DownloadPreplannedMapAreas
                 DownloadNotificationText.Visibility = Visibility.Visible;
                 MyMapView.Visibility = Visibility.Collapsed;
                 BusyIndicator.Visibility = Visibility.Collapsed;
+                PreplannedAreasList.SelectedItem = null;
             }
         }
 

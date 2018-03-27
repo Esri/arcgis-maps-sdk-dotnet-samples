@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -14,8 +14,13 @@ using System;
 using Xamarin.Forms;
 using System.Collections.Generic;
 
-namespace ArcGISRuntimeXamarin.Samples.RasterLayerRasterFunction
+namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "ArcGIS raster function (service)",
+        "Layers",
+        "This sample demonstrates how to show a raster layer on a map based on an image service layer that has a raster function applied.",
+        "")]
     public partial class RasterLayerRasterFunction : ContentPage
     {
         public RasterLayerRasterFunction()

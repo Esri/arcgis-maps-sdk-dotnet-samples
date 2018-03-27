@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntimeXamarin.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
@@ -17,14 +16,19 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using ArcGISRuntime.Samples.Managers;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
+namespace ArcGISRuntime.Samples.ReadGeoPackage
 {
     [Register("ReadGeoPackage")]
+	[Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
+    [Shared.Attributes.Sample(
+        "Read a GeoPackage",
+        "Data",
+        "This sample demonstrates how to open a GeoPackage file from the local file system and list the available GeoPackageRasters and GeoPackageFeatureTables from the GeoPackage. Users can add and remove the selected datasets as RasterLayers or FeatureLayers to the map.",
+        "Select a layer name in the 'Layers Not in the Map' UISegmentedControl to add it to the map. Conversely to remove a layer from the map select a layer name in the 'Layers in the Map' UISegmentedControl. NOTE: The GeoPackage will be downloaded from an ArcGIS Online portal automatically.")]
     public class ReadGeoPackage : UIViewController
     {
         // Member MapView control to display layers in the sample
@@ -81,7 +85,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
             _myMapView.Map = new Map(BasemapType.Streets, 39.7294, -104.8319, 11);
 
             // Get the full path to the GeoPackage on the device
-            string myGeoPackagePath = await GetGeoPackagePath();
+            string myGeoPackagePath = GetGeoPackagePath();
 
             // Open the GeoPackage
             GeoPackage myGeoPackage = await GeoPackage.OpenAsync(myGeoPackagePath);
@@ -173,7 +177,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
             View.AddSubviews(_myMapView, _myUISegmentedControl);
         }
 
-        private void _MyUISegmentedControl_ValueChanged(object sender, System.EventArgs e)
+        private void _MyUISegmentedControl_ValueChanged(object sender, EventArgs e)
         {
             // Get the UISegmentedControl that raised the event
             var myUISegmentedControl = sender as UISegmentedControl;
@@ -215,12 +219,12 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
             UIPopoverPresentationController presentationPopover = myUIAlertController.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = this.View;
+                presentationPopover.SourceView = View;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
 
             // Display the list of layers to add to the map
-            this.PresentViewController(myUIAlertController, true, null);
+            PresentViewController(myUIAlertController, true, null);
         }
 
         private void Action_AddLayerToMap(string layerName)
@@ -272,12 +276,12 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
             UIPopoverPresentationController presentationPopover = layersActionSheet.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = this.View;
+                presentationPopover.SourceView = View;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
 
             // Display the list of layers to add/remove
-            this.PresentViewController(layersActionSheet, true, null);
+            PresentViewController(layersActionSheet, true, null);
         }
 
         private void Action_RemoveLayerFromMap(string layerName)
@@ -311,33 +315,9 @@ namespace ArcGISRuntimeXamarin.Samples.ReadGeoPackage
             }
         }
 
-        private async Task<string> GetGeoPackagePath()
+        private static string GetGeoPackagePath()
         {
-            #region offlinedata
-
-            // The GeoPackage will be downloaded from ArcGIS Online.
-            // The data manager (a component of the sample viewer), *NOT* the runtime handles the offline data process
-
-            // The desired GPKG is expected to be called "AuroraCO.shp"
-            string filename = "AuroraCO.gpkg";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "ReadGeoPackage", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // If it's missing, download the GeoPackage
-                await DataManager.GetData("68ec42517cdd439e81b036210483e8e7", "ReadGeoPackage");
-            }
-
-            // Return the path
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");
         }
 
     }

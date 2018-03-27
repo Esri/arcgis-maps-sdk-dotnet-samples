@@ -1,29 +1,31 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntimeXamarin.Managers;
-using ArcGISRuntimeXamarin.Models;
+using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Models;
+using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
-    public partial class SampleListPage : ContentPage
+    public partial class SampleListPage
     {
-        private string _categoryName;
-        private List<SampleModel> _listSampleItems;
+        private readonly string _categoryName;
+        private List<SampleInfo> _listSampleItems;
 
         public SampleListPage(string name)
         {
             _categoryName = name;
+
             Initialize();
 
             InitializeComponent();
@@ -31,71 +33,64 @@ namespace ArcGISRuntimeXamarin
             Title = _categoryName;
         }
 
-        void Initialize()
+        private void Initialize()
         {
-            var sampleCategories = SampleManager.Current.GetSamplesAsTree();
-            var category = sampleCategories.FirstOrDefault(x => x.Name == _categoryName) as TreeItem;
+            // Get the list of sample categories.
+            List<object> sampleCategories = SampleManager.Current.FullTree.Items;
 
-            List<object> listSubCategories = new List<object>();
-            for (int i = 0; i < category.Items.Count; i++)
-            {
-                listSubCategories.Add((category.Items[i] as TreeItem).Items);
-            }
+            // Get the tree node for this category.
+            var category = sampleCategories.FirstOrDefault(x => ((SearchableTreeNode)x).Name == _categoryName) as SearchableTreeNode;
 
-            _listSampleItems = new List<SampleModel>();
-            foreach (List<object> subCategoryItem in listSubCategories)
-            {
-                foreach (var sample in subCategoryItem)
-                {
-                    _listSampleItems.Add(sample as SampleModel);
-                }
-            }
+            // Get the samples from the category.
+            _listSampleItems = category?.Items.OfType<SampleInfo>().ToList();
 
+            // Update the binding to show the samples.
             BindingContext = _listSampleItems;
         }
 
-        async void OnItemTapped(object sender, ItemTappedEventArgs e)
+        private async void OnItemTapped(object sender, ItemTappedEventArgs e)
         {
+            // Call a function to clear existing credentials.
+            ClearCredentials();
+
             try
             {
-                var item = (SampleModel)e.Item;
-                var sampleName = item.SampleName;
-                var sampleNamespace = item.SampleNamespace;
+                // Get the selected sample.
+                SampleInfo item = (SampleInfo)e.Item;
 
-                Type t = Type.GetType(sampleNamespace + "." + sampleName);
-
-                //If Offline data is required for the sample to work download it 
-                if (item.RequiresOfflineData)
+                // Load offline data before showing the sample.
+                if (item.OfflineDataItems != null)
                 {
-                    foreach (string id in item.DataItemIds)
-                    {
-                        //TODO - Add splash screen/progress bar
-                        await DataManager.GetData(id, sampleName);
-                    }
+                    // Show the wait page.
+                    await Navigation.PushModalAsync(new WaitPage { Title = item.SampleName }, false);
+
+                    // Wait for the sample data download.
+                    await DataManager.EnsureSampleDataPresent(item);
+
+                    // Remove the waiting page.
+                    await Navigation.PopModalAsync(false);
                 }
 
-                await Navigation.PushAsync((ContentPage)Activator.CreateInstance(t));
+                // Get the sample control from the selected sample.
+                var sampleControl = (ContentPage)SampleManager.Current.SampleToControl(item);
 
-                // Call a function to clear existing credentials
-                ClearCredentials();
+                // Create the sample display page to show the sample and the metadata.
+                SamplePage page = new SamplePage(sampleControl, item);
+
+                // Show the sample.
+                await Navigation.PushAsync(page, true);
             }
             catch (Exception ex)
             {
-                Logger.WriteLine(string.Format("Exception occurred on OnItemTapped. Exception = ", ex));
+                System.Diagnostics.Debug.WriteLine("Exception occurred on OnItemTapped. Exception = " + ex);
             }
         }
 
-        private void ClearCredentials()
+        private static void ClearCredentials()
         {
-            // Clear credentials (if any) from previous sample runs
-            var creds = Esri.ArcGISRuntime.Security.AuthenticationManager.Current.Credentials;
-            for (var i = creds.Count() - 1; i >= 0; i--)
+            foreach (Credential cred in AuthenticationManager.Current.Credentials)
             {
-                var c = creds.ElementAtOrDefault(i);
-                if (c != null)
-                {
-                    Esri.ArcGISRuntime.Security.AuthenticationManager.Current.RemoveCredential(c);
-                }
+                AuthenticationManager.Current.RemoveCredential(cred);
             }
         }
     }

@@ -10,18 +10,23 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntimeXamarin.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
+using ArcGISRuntime.Samples.Managers;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeStretchRenderer
+namespace ArcGISRuntime.Samples.ChangeStretchRenderer
 {
     [Activity(Label = "ChangeStretchRenderer")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Stretch renderer",
+        "Layers",
+        "This sample demonstrates how to use stretch renderer on a raster layer.",
+        "Choose a stretch renderer type from the list view to change the settings for the stretch renderer.\nThe sample allows you to change the stretch type and the parameters for each type. Click/tap the 'Update Renderer' button to update the raster.\nExperiment with settings for the various types for stretch parameters. For example, setting the renderer to use stretch parameters:\nMin Max with a min value of 50 and a max value of 200 will stretch between these pixel values. A higher min value will remove more of the lighter pixels values whilst a lower max will remove more of the darker.\nPercent Clip with a min value of 2 and a max value of 98 will stretch from 2% to 98% of the pixel values histogram. A lower min and higher max percentage will render using more of the original raster histogram.\nStandard Deviation with a factor of 2.0 will stretch 2 standard deviations from the mean. A higher factor (further from the mean) will render using more of the original raster histogram.",
+        "Featured")]
     public class ChangeStretchRenderer : Activity
     {
         // Global reference to the MapView used in the sample
@@ -110,7 +115,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeStretchRenderer
 
             // Create button to change stretch renderer of the raster
             _UpdateRenderer = new Button(this);
-            _UpdateRenderer.Text = "UpdateRenderer";
+            _UpdateRenderer.Text = "Update Renderer";
             // Hook to touch/click event of the button
             _UpdateRenderer.Click += OnUpdateRendererClicked;
             layout.AddView(_UpdateRenderer);
@@ -141,7 +146,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeStretchRenderer
             await myMap.LoadAsync();
 
             // Get the file name
-            string filepath = await GetRasterPath();
+            string filepath = GetRasterPath();
 
             // Load the raster file
             Raster myRasterFile = new Raster(filepath);
@@ -186,7 +191,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeStretchRenderer
             }
 
             // Create an IEnumerable from an empty list of doubles for the gamma values in the stretch render
-            IEnumerable<double> myGammaValues = new List<double> { };
+            IEnumerable<double> myGammaValues = new List<double>();
 
             // Create a color ramp for the stretch renderer
             ColorRamp myColorRamp = ColorRamp.Create(PresetColorRampType.DemLight, 1000);
@@ -211,7 +216,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeStretchRenderer
                     MinMaxStretchParameters myMinMaxStretchParameters = new MinMaxStretchParameters(myMinValues, myMaxValues);
 
                     // Create the stretch renderer based on the user defined min/max stretch values, empty gamma values, statistic estimates, and a predefined color ramp 
-                    myStretchRenderer = new Esri.ArcGISRuntime.Rasters.StretchRenderer(myMinMaxStretchParameters, myGammaValues, true, myColorRamp);
+                    myStretchRenderer = new StretchRenderer(myMinMaxStretchParameters, myGammaValues, true, myColorRamp);
 
                     break;
 
@@ -224,7 +229,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeStretchRenderer
                     PercentClipStretchParameters myPercentClipStretchParameters = new PercentClipStretchParameters(Convert.ToDouble(_Input_Parameter1.Text), Convert.ToDouble(_Input_Parameter2.Text));
 
                     // Create the percent clip renderer based on the user defined min/max percent clip values, empty gamma values, statistic estimates, and a predefined color ramp 
-                    myStretchRenderer = new Esri.ArcGISRuntime.Rasters.StretchRenderer(myPercentClipStretchParameters, myGammaValues, true, myColorRamp);
+                    myStretchRenderer = new StretchRenderer(myPercentClipStretchParameters, myGammaValues, true, myColorRamp);
 
                     break;
 
@@ -237,7 +242,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeStretchRenderer
                     StandardDeviationStretchParameters myStandardDeviationStretchParameters = new StandardDeviationStretchParameters(Convert.ToDouble(_Input_Parameter1.Text));
 
                     // Create the standard deviation renderer based on the user defined standard deviation value, empty gamma values, statistic estimates, and a predefined color ramp 
-                    myStretchRenderer = new Esri.ArcGISRuntime.Rasters.StretchRenderer(myStandardDeviationStretchParameters, myGammaValues, true, myColorRamp);
+                    myStretchRenderer = new StretchRenderer(myStandardDeviationStretchParameters, myGammaValues, true, myColorRamp);
 
                     break;
             }
@@ -317,28 +322,9 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeStretchRenderer
             }
         }
 
-        private async Task<string> GetRasterPath()
+        private static string GetRasterPath()
         {
-            #region offlinedata
-
-            // The desired raster is expected to be called ShastaBW.tif
-            string filename = "ShastaBW.tif";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "ChangeStretchRenderer", "shasta", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData("95392f99970d4a71bd25951beb34a508", "ChangeStretchRenderer");
-            }
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("95392f99970d4a71bd25951beb34a508", "shasta", "ShastaBW.tif");
         }
 
     }

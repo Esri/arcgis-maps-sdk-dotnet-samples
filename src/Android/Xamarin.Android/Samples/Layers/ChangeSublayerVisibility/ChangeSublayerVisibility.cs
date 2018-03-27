@@ -16,9 +16,14 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeSublayerVisibility
+namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Change sublayer visibility",
+        "Layers",
+        "This sample demonstrates how to show or hide sublayers of a map image layer.",
+        "")]
     public class ChangeSublayerVisibility : Activity
     {
         // Create and hold reference to the used MapView

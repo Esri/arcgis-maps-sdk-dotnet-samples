@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -23,9 +23,14 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
+namespace ArcGISRuntime.Samples.AuthorEditSaveMap
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Author, edit, and save a map",
+        "Tutorial",
+        "This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). It is also the solution to the [Author, edit, and save maps to your portal tutorial](https://developers.arcgis.com/net/latest/android/guide/author-edit-and-save-maps-to-your-portal.htm). Saving a map to arcgis.com requires an ArcGIS Online login.",
+        "1. Pan and zoom to the extent you would like for your map.\n2. Choose a basemap from the list of available basemaps.\n3. Click 'Save ...' and provide info for the new portal item (Title, Description, and Tags).\n4. Click 'Save Map to Portal'.\n5. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder.\n6. You can make additional changes, update the map, and then re-save to store changes in the portal item.")]
     public class AuthorEditSaveMap : Activity, IOAuthAuthorizeHandler
     {
         // Store the app's map view
@@ -46,11 +51,6 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
 
         // Redirect URL after a successful authorization (configured for the Portal Maps application)
         private const string OAuthRedirectUrl = "https://developers.arcgis.com";
-
-        // Store the OAuth dialog and controls for updating OAuth configuration
-        private AlertDialog _configOAuthDialog = null;
-        private EditText _clientIdText;
-        private EditText _redirectUrlText;
 
         // Store the save dialog and controls for entering the portal item title and description
         private AlertDialog _saveDialog = null;
@@ -271,7 +271,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 RuntimeImage thumbnailImg = await _mapView.ExportImageAsync();
 
                 // Provide some default tags for the item
-                var tags = new string[] { "ArcGIS Runtime SDK", "tutorial" };
+                var tags = new[] { "ArcGIS Runtime SDK", "tutorial" };
 
                 try
                 {
@@ -403,7 +403,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 finally
                 {
                     // Dismiss the OAuth login
-                    this.FinishActivity(99);
+                    FinishActivity(99);
                 }
             };
 
@@ -421,7 +421,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                     if (_taskCompletionSource != null)
                     {
                         _taskCompletionSource.TrySetCanceled();
-                        this.FinishActivity(99);
+                        FinishActivity(99);
                     }
                 }
 
@@ -431,7 +431,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
 
             // Present the OAuth UI so the user can enter user name and password
             var intent = authenticator.GetUI(this);
-            this.StartActivityForResult(intent, 99);
+            StartActivityForResult(intent, 99);
             // Return completion source task so the caller can await completion
             return _taskCompletionSource.Task;
         }
@@ -553,15 +553,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             Map newMap = new Map(Basemap.CreateLightGrayCanvasVector());
 
             // Store the new map 
-            this.Map = newMap;
+            Map = newMap;
         }
         
         // Raises the PropertyChanged event for a property
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            var propertyChangedHandler = PropertyChanged;
-            if (propertyChangedHandler != null)
-                propertyChangedHandler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

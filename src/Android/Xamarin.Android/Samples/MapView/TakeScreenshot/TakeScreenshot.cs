@@ -15,9 +15,14 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.TakeScreenshot
+namespace ArcGISRuntime.Samples.TakeScreenshot
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Take screenshot",
+        "MapView",
+        "This sample demonstrates how you can take screenshot of a map. Click 'capture' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.",
+        "")]
     public class TakeScreenshot : Activity
     {
         // Create and hold reference to the used map view
@@ -67,7 +72,7 @@ namespace ArcGISRuntimeXamarin.Samples.TakeScreenshot
                 var myPopupWindow = new PopupWindow(myImageButton, (int)(_myMapView.Width * .667), (int)(_myMapView.Height * .667));
 
                 // Display the popup in the middle of the map view
-                myPopupWindow.ShowAtLocation(this._myMapView, Android.Views.GravityFlags.Center, 0, 0);
+                myPopupWindow.ShowAtLocation(_myMapView, Android.Views.GravityFlags.Center, 0, 0);
 
                 // Define a lambda event handler to close the popup when the user clicks on the image button 
                 myImageButton.Click += (s, a) => myPopupWindow.Dismiss();

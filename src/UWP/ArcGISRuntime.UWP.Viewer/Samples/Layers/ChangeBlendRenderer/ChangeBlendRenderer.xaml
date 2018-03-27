@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="ArcGISRuntime.UWP.Samples.ChangeBlendRenderer.ChangeBlendRenderer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border
+                Background="White" BorderBrush="Black" BorderThickness="1"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="30" Width="375">
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Tap on the 'Update Renderer' button to change the settings for the blend renderer. The sample allows you to change the Altitude, Azimuth, SlopeType and ColorRamp. If you use None as the ColorRamp, a standard hill shade raster output is displayed. For all the other ColorRamp types an elevation raster is used." 
+                           Margin="0,0,0,2" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <StackPanel Grid.Row="1" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="Label_Altitude" Text="Altitude" Margin="10,5"/>
+                        <Slider x:Name="Altitude_Slider" Width="200" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="Label_Azimuth"  Text="Azimuth" Margin="10, 5"/>
+                        <Slider x:Name="Azimuth_Slider" Width="200" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="Label_SlopeTypes"  Text="Slope Type" Margin="10, 5"/>
+                        <ComboBox x:Name="SlopeTypes" Margin="10,5" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="Label_ColorRamps"  Text="Color Ramp" Margin="10, 5"/>
+                        <ComboBox x:Name="ColorRamps" Margin="10,5" />
+                    </StackPanel>
+                </StackPanel>
+                <Button x:Name="UpdateRenderer" 
+                        Click="OnUpdateRendererClicked" 
+                        Content="Update Renderer"
+                        Margin="10,10"
+                        IsEnabled="False"
+                        HorizontalAlignment="Stretch"
+                        Grid.Row="2"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

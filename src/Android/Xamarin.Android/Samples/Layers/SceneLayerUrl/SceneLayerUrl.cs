@@ -14,9 +14,14 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.SceneLayerUrl
+namespace ArcGISRuntime.Samples.SceneLayerUrl
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "ArcGIS scene layer (URL)",
+        "Layers",
+        "This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.",
+        "")]
     public class SceneLayerUrl : Activity
     {
         // Create a new SceneView control

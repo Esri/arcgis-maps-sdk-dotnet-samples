@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -23,9 +23,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Auth;
 
-namespace ArcGISRuntimeXamarin.Samples.AuthorMap
+namespace ArcGISRuntime.Samples.AuthorMap
 {
     [Activity(Label = "AuthorMap")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Author and save a map",
+        "Map",
+        "This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). Saving a map to arcgis.com requires an ArcGIS Online login.",
+        "1. Pan and zoom to the extent you would like for your map. \n2. Choose a basemap from the list of available basemaps. \n3. Choose one or more operational layers to include. \n4. Click 'Save ...' to apply your changes. \n5. Provide info for the new portal item, such as a Title, Description, and Tags. \n6. Click 'Save Map'. \n7. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder. \n8. You can make additional changes, update the map, and then re-save to store changes in the portal item.")]
     public class AuthorMap : Activity, IOAuthAuthorizeHandler
     {
         // Create and hold reference to the used MapView
@@ -538,7 +543,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 finally
                 {
                     // End the OAuth login activity
-                    this.FinishActivity(99);
+                    FinishActivity(99);
                 }
             };
 
@@ -556,7 +561,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                     if (_taskCompletionSource != null)
                     {
                         _taskCompletionSource.TrySetCanceled();
-                        this.FinishActivity(99);
+                        FinishActivity(99);
                     }
                 }
 
@@ -566,7 +571,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 
             // Present the OAuth UI (Activity) so the user can enter user name and password
             var intent = authenticator.GetUI(this);
-            this.StartActivityForResult(intent, 99);
+            StartActivityForResult(intent, 99);
 
             // Return completion source task so the caller can await completion
             return _taskCompletionSource.Task;
@@ -628,7 +633,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 
         public SaveDialogFragment(PortalItem mapItem)
         {
-            this._portalItem = mapItem;
+            _portalItem = mapItem;
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -637,10 +642,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             LinearLayout dialogView = null;
 
             // Get the context for creating the dialog controls
-            Android.Content.Context ctx = this.Activity.ApplicationContext;
+            Android.Content.Context ctx = Activity.ApplicationContext;
 
             // Set a dialog title
-            this.Dialog.SetTitle("Save Map to Portal");
+            Dialog.SetTitle("Save Map to Portal");
 
             try
             {
@@ -672,26 +677,26 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 dialogView.AddView(saveMapButton);
 
                 // If there's an existing portal item, configure the dialog for "update" (read-only entries)
-                if (this._portalItem != null)
+                if (_portalItem != null)
                 {
-                    _mapTitleTextbox.Text = this._portalItem.Title;
+                    _mapTitleTextbox.Text = _portalItem.Title;
                     _mapTitleTextbox.Enabled = false;
 
-                    _mapDescriptionTextbox.Text = this._portalItem.Description;
+                    _mapDescriptionTextbox.Text = _portalItem.Description;
                     _mapDescriptionTextbox.Enabled = false;
 
-                    _tagsTextbox.Text = string.Join(",", this._portalItem.Tags);
+                    _tagsTextbox.Text = string.Join(",", _portalItem.Tags);
                     _tagsTextbox.Enabled = false;
 
                     // Change some of the control text
-                    this.Dialog.SetTitle("Save Changes to Map");
+                    Dialog.SetTitle("Save Changes to Map");
                     saveMapButton.Text = "Update";
                 }
             }
             catch (Exception ex)
             {
                 // Show the exception message 
-                var alertBuilder = new AlertDialog.Builder(this.Activity);
+                var alertBuilder = new AlertDialog.Builder(Activity);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();
@@ -724,12 +729,12 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 OnSaveClicked(this, mapSavedArgs);
 
                 // Close the dialog
-                this.Dismiss();
+                Dismiss();
             }
             catch (Exception ex)
             {
                 // Show the exception message (dialog will stay open so user can try again)
-                var alertBuilder = new AlertDialog.Builder(this.Activity);
+                var alertBuilder = new AlertDialog.Builder(Activity);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();

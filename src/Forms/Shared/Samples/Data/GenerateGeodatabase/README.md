@@ -4,7 +4,7 @@ This sample demonstrates how to take a feature service offline by generating a g
 
 <img src="GenerateGeodatabase.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 1. Pan and zoom to the area you would like to download features for, ensuring that all features are within the rectangle.
 2. Tap on the button. This will start the process of generating the offline geodatabase.

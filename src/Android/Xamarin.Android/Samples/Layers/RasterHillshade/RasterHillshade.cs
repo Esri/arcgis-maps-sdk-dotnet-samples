@@ -11,18 +11,22 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using ArcGISRuntimeXamarin.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
+using ArcGISRuntime.Samples.Managers;
 
-namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
+namespace ArcGISRuntime.Samples.RasterHillshade
 {
     [Activity(Label = "RasterHillshade")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("134d60f50e184e8fa56365f44e5ce3fb")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Raster hillshade renderer",
+        "Layers",
+        "This sample demonstrates how to use a hillshade renderer on a raster layer. Hillshade renderers can adjust a grayscale raster (usually of terrain) according to a hypothetical sun position (azimuth and altitude).",
+        "", "Featured")]
     public class RasterHillshade : Activity
     {
         // Constant to store a z-factor (conversion constant) applied to the hillshade.
@@ -177,8 +181,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
             // Create a button to create and apply a hillshade renderer to the raster layer
             _applyHillshadeButton = new Button(this)
             {
-                Text = "Apply hillshade",
-                Enabled = false
+                Text = "Apply hillshade"
             };
 
             // Handle the click event to apply the hillshade renderer
@@ -214,7 +217,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
             Map map = new Map(Basemap.CreateStreets());
 
             // Get the file name for the local raster dataset
-            string filepath = await GetRasterPath();
+            string filepath = GetRasterPath();
 
             // Load the raster file
             Raster rasterFile = new Raster(filepath);
@@ -257,28 +260,9 @@ namespace ArcGISRuntimeXamarin.Samples.RasterHillshade
             _rasterLayer.Renderer = hillshadeRenderer;
         }
 
-        private async Task<string> GetRasterPath()
+        private static string GetRasterPath()
         {
-            #region offlinedata
-
-            // The desired raster is expected to be called srtm.tiff
-            string filename = "srtm.tiff";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "RasterHillshade", "srtm-hillshade", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData("134d60f50e184e8fa56365f44e5ce3fb", "RasterHillshade");
-            }
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("134d60f50e184e8fa56365f44e5ce3fb", "srtm-hillshade", "srtm.tiff");
         }
     }
 }

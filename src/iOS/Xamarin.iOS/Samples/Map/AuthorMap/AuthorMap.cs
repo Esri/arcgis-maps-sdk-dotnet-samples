@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -21,9 +21,14 @@ using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Auth;
 
-namespace ArcGISRuntimeXamarin.Samples.AuthorMap
+namespace ArcGISRuntime.Samples.AuthorMap
 {
     [Register("AuthorMap")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Author and save a map",
+        "Map",
+        "This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). Saving a map to arcgis.com requires an ArcGIS Online login.",
+        "1. Pan and zoom to the extent you would like for your map. \n2. Choose a basemap from the list of available basemaps. \n3. Choose one or more operational layers to include. \n4. Click 'Save ...' to apply your changes. \n5. Provide info for the new portal item, such as a Title, Description, and Tags. \n6. Click 'Save Map'. \n7. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder. \n8. You can make additional changes, update the map, and then re-save to store changes in the portal item.")]
     public class AuthorMap : UIViewController, IOAuthAuthorizeHandler
     {
         // Reference to the MapView used in the app
@@ -180,12 +185,12 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             UIPopoverPresentationController presentationPopover = basemapsActionSheet.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = this.View;
+                presentationPopover.SourceView = View;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
 
             // Display the list of basemaps
-            this.PresentViewController(basemapsActionSheet, true, null);
+            PresentViewController(basemapsActionSheet, true, null);
         }
 
         private void ShowLayerList()
@@ -206,12 +211,12 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             UIPopoverPresentationController presentationPopover = layersActionSheet.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = this.View;
+                presentationPopover.SourceView = View;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
 
             // Display the list of layers to add/remove
-            this.PresentViewController(layersActionSheet, true, null);
+            PresentViewController(layersActionSheet, true, null);
         }
 
         private async void AddOrRemoveLayer(string layerName)
@@ -344,7 +349,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                     PresentViewController(alert, true, null);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Report save error
                 UIAlertController alert = UIAlertController.Create("Error", "Unable to save " + e.Title, UIAlertControllerStyle.Alert);
@@ -391,7 +396,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
                 await thisAuthenticationManager.GetCredentialAsync(loginInfo, false);
             }
-            catch (System.OperationCanceledException)
+            catch (OperationCanceledException)
             {
                 // user canceled the login
                 throw new Exception("Portal log in was canceled.");
@@ -479,7 +484,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
-            Xamarin.Auth.OAuth2Authenticator auth = new OAuth2Authenticator(
+            OAuth2Authenticator auth = new OAuth2Authenticator(
                 clientId: AppClientId,
                 scope: "",
                 authorizeUrl: new Uri(AuthorizeUrl),
@@ -497,7 +502,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 try
                 {
                     // Dismiss the OAuth UI when complete
-                    this.DismissViewController(true, null);
+                    DismissViewController(true, null);
 
                     // Throw an exception if the user could not be authenticated
                     if (!authArgs.IsAuthenticated)
@@ -506,7 +511,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                     }
 
                     // If authorization was successful, get the user's account
-                    Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
+                    Account authenticatedAccount = authArgs.Account;
 
                     // Set the result (Credential) for the TaskCompletionSource
                     _taskCompletionSource.SetResult(authenticatedAccount.Properties);
@@ -541,7 +546,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password
             InvokeOnMainThread(() =>
             {
-                this.PresentViewController(auth.GetUI(), true, null);
+                PresentViewController(auth.GetUI(), true, null);
             });
 
             // Return completion source task so the caller can await completion
@@ -765,7 +770,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         public SaveMapDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, PortalItem mapItem) : base(frame)
         {
             // Store the current portal item for the map (if any)
-            _portalItem = mapItem;
+            var portalItem = mapItem;
 
             // Create a semi-transparent overlay with the specified background color
             BackgroundColor = color;
@@ -850,15 +855,15 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             AddSubviews(description, _titleTextField, _descriptionTextField, _tagsTextField, saveButton, cancelButton);
 
             // If there's an existing portal item, configure the dialog for "update" (read-only entries)
-            if (this._portalItem != null)
+            if (_portalItem != null)
             {
-                _titleTextField.Text = this._portalItem.Title;
+                _titleTextField.Text = _portalItem.Title;
                 _titleTextField.Enabled = false;
 
-                _descriptionTextField.Text = this._portalItem.Description;
+                _descriptionTextField.Text = _portalItem.Description;
                 _descriptionTextField.Enabled = false;
 
-                _tagsTextField.Text = string.Join(",", this._portalItem.Tags);
+                _tagsTextField.Text = string.Join(",", _portalItem.Tags);
                 _tagsTextField.Enabled = false;
 
                 // Change the button text

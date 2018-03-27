@@ -9,14 +9,14 @@
 
 using Windows.UI.Core;
 
-namespace ArcGISRuntimeXamarin.UWP
+namespace ArcGISRuntime.UWP
 {
     public sealed partial class MainPage
     {
         public MainPage()
         {
             InitializeComponent();
-            LoadApplication(new ArcGISRuntimeXamarin.App());
+            LoadApplication(new ArcGISRuntime.App());
         }
     }
 }

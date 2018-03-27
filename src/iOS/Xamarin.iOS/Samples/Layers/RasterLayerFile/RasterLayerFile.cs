@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntimeXamarin.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
@@ -15,11 +14,18 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
 using System.IO;
+using ArcGISRuntime.Samples.Managers;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
+namespace ArcGISRuntime.Samples.RasterLayerFile
 {
     [Register("RasterLayerFile")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Raster layer (file)",
+        "Layers",
+        "This sample demonstrates how to use a raster layer created from a local raster file.",
+        "The raster file is downloaded by the sample viewer automatically.")]
     public class RasterLayerFile : UIViewController
     {
         // Reference to the MapView used in the sample
@@ -93,18 +99,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterLayerFile
 
         private string GetRasterPath()
         {
-            #region offlinedata
-
-            // The desired raster is expected to be called Shasta.tif
-            string filename = "Shasta.tif";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Return the full path; Item ID is 7c4c679ab06a4df19dc497f577f111bd
-            return Path.Combine(folder, "SampleData", "RasterLayerFile", "raster-file", filename);
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");
         }
     }
 }

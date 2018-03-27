@@ -18,9 +18,14 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Drawing;
 
-namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
+namespace ArcGISRuntime.Samples.FormatCoordinates
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Format coordinates",
+        "Geometry",
+        "This sample demonstrates how to convert between `MapPoint` and string representations of a point using various coordinate systems.",
+        "Tap on the map to see the point in several coordinate systems. Update one of the coordinates and select 'recalculate' to see the point converted into other coordinate systems. ")]
     public class FormatCoordinates : Activity
     {
         // Create and hold reference to the used MapView
@@ -72,6 +77,12 @@ namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
         {
             // Hold the entered point
             MapPoint enteredPoint = null;
+
+            // Set a default last edited field to prevent NullReferenceException
+            if (_lastEdited == null)
+            {
+                _lastEdited = _DecimalDegreesEditText;
+            }
 
             // Update the point based on which text sent the event
             try

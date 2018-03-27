@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -22,8 +22,13 @@ using Colors = System.Drawing.Color;
 
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.FormatCoordinates
+namespace ArcGISRuntime.Samples.FormatCoordinates
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Format coordinates",
+        "Geometry",
+        "This sample demonstrates how to convert between `MapPoint` and string representations of a point using various coordinate systems.",
+        "Tap on the map to see the point in several coordinate systems. Update one of the coordinates and select 'recalculate' to see the point converted into other coordinate systems. ")]
     public partial class FormatCoordinates : ContentPage
     {
         // Hold a reference to the most recently updated field

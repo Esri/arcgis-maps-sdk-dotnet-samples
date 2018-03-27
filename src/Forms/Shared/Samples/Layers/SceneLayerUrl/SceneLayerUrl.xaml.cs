@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -11,8 +11,13 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.SceneLayerUrl
+namespace ArcGISRuntime.Samples.SceneLayerUrl
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "ArcGIS scene layer (URL)",
+        "Layers",
+        "This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.",
+        "")]
     public partial class SceneLayerUrl : ContentPage
     {
         // URL for a service to use as an elevation source

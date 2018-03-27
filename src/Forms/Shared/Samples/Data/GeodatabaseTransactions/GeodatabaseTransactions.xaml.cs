@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -24,8 +24,13 @@ using Colors = Windows.UI.Colors;
 using Colors = System.Drawing.Color;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.GeodatabaseTransactions
+namespace ArcGISRuntime.Samples.GeodatabaseTransactions
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Geodatabase transactions",
+        "Data",
+        "This sample demonstrates how to manage edits to a local geodatabase inside of transactions.",
+        "When the sample loads, a local geodatabase will be generated for a small area from the 'SaveTheBay' feature service. When the geodatabase is ready, its tables are added as feature layers and the map view zooms to the extent of the local data. Use the UI controls to make edits either inside or outside of a transaction. If made in a transaction, you can rollback or commit your edits as a single unit when you choose to stop editing. To allow edits without a transaction, set 'Require transaction' to false. You can then add features directly into the local geodatabase. When done adding features, you can synchronize your local edits with the service.")]
     public partial class GeodatabaseTransactions : ContentPage
     {
         // URL for the editable feature service
@@ -190,14 +195,10 @@ namespace ArcGISRuntimeXamarin.Samples.GeodatabaseTransactions
        private string GetGdbPath()
         {
             // Set the platform-specific path for storing the geodatabase
-            String folder = "";
-
 #if WINDOWS_UWP
-            folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path.ToString();
-#elif __IOS__
-            folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-#elif __ANDROID__
-            folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+#elif __IOS__ || __ANDROID__
+            string folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 #endif
             // Set the final path
             return Path.Combine(folder, "savethebay.geodatabase");
@@ -275,7 +276,7 @@ namespace ArcGISRuntimeXamarin.Samples.GeodatabaseTransactions
         private async void StopEditTransaction(object sender, EventArgs e)
         {
             // Ask the user if they want to commit or rollback the transaction (or cancel to keep working in the transaction)
-            string choice = await DisplayActionSheet("Transaction", "Cancel", null, new string[] { "Commit", "Rollback" });
+            string choice = await DisplayActionSheet("Transaction", "Cancel", null, "Commit", "Rollback");
 
             if (choice == "Commit")
             {

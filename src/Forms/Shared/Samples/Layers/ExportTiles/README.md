@@ -4,7 +4,7 @@ This sample demonstrates how to export tiles from a map server.
 
 <img src="ExportTiles.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 1. Pan and zoom until the area you want tiles for is within the red box.
 2. Click 'Export Tiles'.

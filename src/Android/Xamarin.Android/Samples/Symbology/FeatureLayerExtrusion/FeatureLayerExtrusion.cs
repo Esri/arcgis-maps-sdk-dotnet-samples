@@ -19,9 +19,14 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Drawing;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerExtrusion
+namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer extrusion",
+        "Symbology",
+        "This sample demonstrates how to apply extrusion to a renderer on a feature layer.",
+        "")]
     public class FeatureLayerExtrusion : Activity
     {
         // Create and hold reference to the used MapView

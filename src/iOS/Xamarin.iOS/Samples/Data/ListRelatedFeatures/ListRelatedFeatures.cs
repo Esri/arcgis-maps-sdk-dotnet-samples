@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -17,9 +17,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ListRelatedFeatures
+namespace ArcGISRuntime.Samples.ListRelatedFeatures
 {
     [Register("ListRelatedFeatures")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "List related features",
+        "Data",
+        "This sample demonstrates how to query features related to an identified feature.",
+        "Click on a feature to identify it. Related features will be listed in the window above the map.")]
     public class ListRelatedFeatures : UIViewController
     {
         // URL to the web map
@@ -155,7 +160,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListRelatedFeatures
         public override void ViewDidLayoutSubviews()
         {
             // Variable holding the top bound (for code clarity)
-            nfloat pageOffset = this.NavigationController.TopLayoutGuide.Length;
+            nfloat pageOffset = NavigationController.TopLayoutGuide.Length;
 
             // Set up the visual frame for the layer display list
             _myDisplayList.Frame = new CoreGraphics.CGRect(0, pageOffset, View.Bounds.Width, 150);

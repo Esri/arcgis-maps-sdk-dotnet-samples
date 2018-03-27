@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -15,9 +15,14 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromPortal
+namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
 {
     [Register("FeatureCollectionLayerFromPortal")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature collection layer from portal item",
+        "Layers",
+        "This sample demonstrates opening a feature collection saved as a portal item.",
+        "")]
     public class FeatureCollectionLayerFromPortal : UIViewController
     {
         // Reference to the MapView used in the app
@@ -121,14 +126,6 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromPortal
 
         private void CreateLayout()
         {
-            // Store the main view's width and height
-            var appViewWidth = View.Bounds.Width;
-            var appViewHeight = View.Bounds.Height;
-
-            // Define an offset from the top of the page (to account for the iOS status bar)
-            var yPageOffset = 60;
-
-
             // Create a new MapView
             _myMapView = new MapView();
 

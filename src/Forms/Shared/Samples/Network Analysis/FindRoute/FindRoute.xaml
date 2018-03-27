@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
+             x:Class="ArcGISRuntime.Samples.FindRoute.FindRoute">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView"/>
+        <Frame x:Name="DirectionsFrame" 
+               BackgroundColor="WhiteSmoke" Opacity=".85"
+               IsVisible="False"
+                HorizontalOptions="FillAndExpand" VerticalOptions="Start"
+                Margin="5" Padding="5">
+            <StackLayout>
+                <Label Text="Route directions:" 
+                           Margin="0,0,0,2" />
+                <ListView x:Name="DirectionsListBox"
+                          VerticalOptions="FillAndExpand"
+                         HeightRequest="300"/>
+            </StackLayout>
+        </Frame>
+        <StackLayout Grid.Row="1"
+                     Orientation="Horizontal"
+                     HeightRequest="50"
+                     Margin="5,10">
+            <Button x:Name="SolveRouteButton"
+                        HorizontalOptions="FillAndExpand"
+                        Text="Solve Route"
+                        Clicked="SolveRouteClick"/>
+            <Button x:Name="ResetButton"
+                        HorizontalOptions="FillAndExpand"
+                        Text="Reset"
+                        Clicked="ResetClick"/>
+            <Button x:Name="ShowHideDirectionsButton"
+                        HorizontalOptions="FillAndExpand"
+                        Text="Directions"
+                        Clicked="ShowHideDirectionsList"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>

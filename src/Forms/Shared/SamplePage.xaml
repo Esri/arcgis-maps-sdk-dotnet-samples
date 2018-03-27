@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="ArcGISRuntime.SamplePage">
+    <ContentPage Title="Live Sample" x:Name="SampleContentPage" />
+    <ContentPage Title="Description">
+        <ScrollView>
+            <StackLayout>
+                <Label Text="{Binding SampleName}" FontSize="Large" />
+                <Label Text="Description:" FontSize="Medium" TextColor="#007ac2" />
+                <Label Text="{Binding Description}"/>
+                <Label Text="Instructions:" FontSize="Medium" TextColor="#007ac2"  IsVisible="False" x:Name="InstructionLabel"/>
+                <Label Text="{Binding Instructions}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage>
+</TabbedPage>

@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -17,9 +17,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
+namespace ArcGISRuntime.Samples.StatisticalQuery
 {
     [Register("StatisticalQuery")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Statistical query",
+        "Data",
+        "This sample demonstrates how to query a feature table to get statistics for a specified field.",
+        "Check the appropriate boxes to filter features by attributes and/or within the current extent. Click the button to see basic statistics displayed for world cities.")]
     public class StatisticalQuery : UIViewController
     {
         // Create and hold reference to the used MapView
@@ -88,7 +93,7 @@ namespace ArcGISRuntimeXamarin.Samples.StatisticalQuery
 
         private void CreateLayout()
         {
-            this.View.BackgroundColor = UIColor.White;
+            View.BackgroundColor = UIColor.White;
 
             // Create a stack view to organize the query controls
             _controlsStackView = new UIStackView();

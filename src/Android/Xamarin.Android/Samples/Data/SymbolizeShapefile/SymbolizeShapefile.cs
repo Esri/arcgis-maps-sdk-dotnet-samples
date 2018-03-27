@@ -10,18 +10,22 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntimeXamarin.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI.Controls;
-using System.IO;
-using System.Threading.Tasks;
+using ArcGISRuntime.Samples.Managers;
 
-namespace ArcGISRuntimeXamarin.Samples.SymbolizeShapefile
+namespace ArcGISRuntime.Samples.SymbolizeShapefile
 {
     [Activity]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Symbolize a shapefile",
+        "Data",
+        "This sample demonstrates how to apply a custom renderer to a shapefile displayed by a feature layer.",
+        "Click the button to switch renderers. ")]
     public class SymbolizeShapefile : Activity
     {
         // Create and hold reference to the used MapView
@@ -65,7 +69,7 @@ namespace ArcGISRuntimeXamarin.Samples.SymbolizeShapefile
             myMap.InitialViewpoint = viewpoint;
 
             // Create a shapefile feature table from the shapefile path
-            ShapefileFeatureTable myFeatureTable = new ShapefileFeatureTable(await GetShapefilePath());
+            ShapefileFeatureTable myFeatureTable = new ShapefileFeatureTable(GetShapefilePath());
 
             // Create a layer from the feature table
             _shapefileFeatureLayer = new FeatureLayer(myFeatureTable);
@@ -127,28 +131,9 @@ namespace ArcGISRuntimeXamarin.Samples.SymbolizeShapefile
             }
         }
 
-        private async Task<string> GetShapefilePath()
+        private static string GetShapefilePath()
         {
-            #region offlinedata
-
-            // The desired shapefile is expected to be Subdivisions.shp
-            string filename = "Subdivisions.shp";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "SymbolizeShapefile", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the shapefile
-                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "SymbolizeShapefile");
-            }
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "Subdivisions.shp");
         }
     }
 }

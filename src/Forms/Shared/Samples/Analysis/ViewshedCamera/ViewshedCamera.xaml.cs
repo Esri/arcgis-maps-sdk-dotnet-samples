@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -13,8 +13,13 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ViewshedCamera
+namespace ArcGISRuntime.Samples.ViewshedCamera
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Viewshed for camera",
+        "Analysis",
+        "This sample demonstrates how to create a `LocationViewshed` to display interactive viewshed results in the scene view. The viewshed observer is defined by the scene view camera to evaluate visible and obstructed areas of the scene from that location.",
+        "", "Featured")]
     public partial class ViewshedCamera : ContentPage
     {
         // URL for a scene service of buildings in Brest, France

@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -16,8 +16,14 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.RenderPictureMarkers
+namespace ArcGISRuntime.Samples.RenderPictureMarkers
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Render picture markers",
+        "Symbology",
+        "This sample demonstrates how to create picture marker symbols from a URL and embedded resources.",
+        "")]
+    [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public partial class RenderPictureMarkers : ContentPage
     {
         public RenderPictureMarkers()
@@ -51,11 +57,11 @@ namespace ArcGISRuntimeXamarin.Samples.RenderPictureMarkers
             MyMapView.GraphicsOverlays.Add(overlay);
 
             // Add graphics using different source types
-            await CreatePictureMarkerSymbolFromUrl(overlay);
+            CreatePictureMarkerSymbolFromUrl(overlay);
             await CreatePictureMarkerSymbolFromResources(overlay);
         }
 
-        private async Task CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
+        private void CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
         {
             // Create uri to the used image
             var symbolUri = new Uri(
@@ -63,7 +69,7 @@ namespace ArcGISRuntimeXamarin.Samples.RenderPictureMarkers
 
             // Create new symbol using asynchronous factory method from uri
             PictureMarkerSymbol campsiteSymbol = new PictureMarkerSymbol(symbolUri);
-   
+
             // Optionally set the size (if not set, the size in pixels of the image will be used)
             campsiteSymbol.Height = 18;
             campsiteSymbol.Width = 18;
@@ -93,7 +99,7 @@ namespace ArcGISRuntimeXamarin.Samples.RenderPictureMarkers
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
             var resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntimeXamarin.Resources.PictureMarkerSymbols.pin_star_blue.png");
+                "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);

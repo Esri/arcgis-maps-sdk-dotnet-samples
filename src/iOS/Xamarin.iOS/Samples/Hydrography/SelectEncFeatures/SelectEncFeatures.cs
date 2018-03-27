@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,24 +7,26 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntimeXamarin.Managers;
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using ArcGISRuntime.Samples.Managers;
+using Esri.ArcGISRuntime.Data;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.SelectEncFeatures
+namespace ArcGISRuntime.Samples.SelectEncFeatures
 {
     [Register("SelectEncFeatures")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("a490098c60f64d3bbac10ad131cc62c7")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Select ENC features",
+        "Hydrography",
+        "This sample demonstrates how to select an ENC feature.",
+        "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.")]
     public class SelectEncFeatures : UIViewController
     {
         // Create and hold reference to the used MapView
@@ -49,10 +51,7 @@ namespace ArcGISRuntimeXamarin.Samples.SelectEncFeatures
             _myMapView.Map = new Map(Basemap.CreateOceans());
 
             // Get the path to the ENC Exchange Set
-            string encPath = await GetEncPath();
-
-            // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set
-            List<Envelope> dataSetExtents = new List<Envelope>();
+            string encPath = GetEncPath();
 
             // Create the cell and layer
             EncLayer myEncLayer = new EncLayer(new EncCell(encPath));
@@ -133,25 +132,9 @@ namespace ArcGISRuntimeXamarin.Samples.SelectEncFeatures
             _myMapView.ShowCalloutAt(e.Location, definition);
         }
 
-        private async Task<String> GetEncPath()
+        private static string GetEncPath()
         {
-            #region offlinedata
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path 
-            string filepath = Path.Combine(folder, "SampleData", "SelectEncFeatures", "GB5X01NW.000");
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the file
-                await DataManager.GetData("a490098c60f64d3bbac10ad131cc62c7", "SelectEncFeatures");
-            }
-
-            return filepath;
-            #endregion offlinedata
+            return DataManager.GetDataFolder("a490098c60f64d3bbac10ad131cc62c7", "GB5X01NW.000");
         }
     }
 }

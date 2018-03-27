@@ -19,9 +19,14 @@ using System.Collections.Generic;
 
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
+namespace ArcGISRuntime.Samples.WmsServiceCatalog
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "WMS service catalog",
+        "Layers",
+        "This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.",
+        "")]
     public class WmsServiceCatalog : Activity
     {
         // Create and hold reference to the used MapView
@@ -74,7 +79,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
         private async void Initialize()
         {
             // Apply an imagery basemap to the map
-            _myMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
+            _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
 
             // Create the WMS Service
             WmsService service = new WmsService(wmsUrl);
@@ -106,7 +111,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
             _myDisplayList.Adapter = adapter;
 
             // Subscribe to selection change notifications
-            _myDisplayList.ItemClick += _myDisplayList_ItemClick; ;
+            _myDisplayList.ItemClick += _myDisplayList_ItemClick;
 
             // Update the map display based on the viewModel
             UpdateMapDisplay(_viewModelList);
@@ -203,7 +208,7 @@ namespace ArcGISRuntimeXamarin.Samples.WmsServiceCatalog
 
         public LayerDisplayVM(WmsLayerInfo info)
         {
-            this.Info = info;
+            Info = info;
         }
 
         public override string ToString()

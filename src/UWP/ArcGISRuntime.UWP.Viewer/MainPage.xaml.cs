@@ -1,33 +1,33 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
-using ArcGISRuntime.Samples.Models;
+using ArcGISRuntime.Samples.Shared.Models;
 using ArcGISRuntime.UWP.Viewer.Dialogs;
+using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.Foundation.Metadata;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Navigation = Windows.UI.Xaml.Navigation;
 
 namespace ArcGISRuntime.UWP.Viewer
 {
     public sealed partial class MainPage
     {
-        private readonly SystemNavigationManager _currentView = null;
+        private readonly SystemNavigationManager _currentView;
 
         public MainPage()
         {
@@ -40,19 +40,17 @@ namespace ArcGISRuntime.UWP.Viewer
             _currentView.BackRequested += OnFrameNavigationRequested;
 
             HideStatusBar();
-            
+
             Initialize();
         }
 
-
         // Check if the phone contract is available (mobile) and hide status bar if it is there
-        private async void HideStatusBar()
-        { 
+        private static async void HideStatusBar()
+        {
             // If we have a phone contract, hide the status bar
             if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
             {
-                var statusBar = StatusBar.GetForCurrentView();
-                await statusBar.HideAsync();
+                await StatusBar.GetForCurrentView().HideAsync();
             }
         }
 
@@ -68,67 +66,23 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private void OnFrameNavigated(object sender, Navigation.NavigationEventArgs e)
         {
-            _currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            if (Frame.CanGoBack)
+            {
+                _currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            }
         }
 
-        private void HideLoadingIndication()
-        {
-            LoadingIndicatorArea.Visibility = Visibility.Collapsed;
-            LoadingProgressRing.IsActive = false;
-        }
-
-        private void ShowLoadingIndication()
-        {
-            LoadingIndicatorArea.Visibility = Visibility.Visible;
-            LoadingProgressRing.IsActive = true;
-        }
-
-        protected override void OnNavigatedTo(Navigation.NavigationEventArgs e)
-        {
-            // Force GC to get invoke full clean up when ever
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            base.OnNavigatedTo(e);
-        }
-
-        private async void Initialize()
+        private void Initialize()
         {
             // Initialize manager that handles all the samples, this will load all the items from samples assembly and related files
-            await SampleManager.Current.InitializeAsync(ApplicationManager.Current.SelectedLanguage);
+            SampleManager.Current.Initialize();
 
             // Create categories list. Also add Featured there as a single category.
-            var categoriesList = SampleManager.Current.GetSamplesInCategories();
+            var categoriesList = SampleManager.Current.FullTree;
 
-            var collectedFeaturedSamplesList = new List<object>();
-            var featuredSampleList = SampleManager.Current.GetFeaturedSamples();
-
-            // Collect all featured samples from the samples list and construct featured category
-            foreach (var featured in featuredSampleList)
-            {
-                foreach (var category in categoriesList)
-                {
-                    foreach (var sample in category.Items)
-                    {
-                        var sampleModel = (sample as SampleModel);
-                        if (sampleModel == null) continue;
-
-                        if (sampleModel.SampleName == featured.SampleName)
-                            collectedFeaturedSamplesList.Add(sampleModel);
-                    }
-                }
-            }
-
-            // Make sure that Featured is shown on top of the categories
-            if (collectedFeaturedSamplesList.Count > 0)
-                categoriesList.Insert(0, new TreeItem
-                    { Name = "Featured", Items = collectedFeaturedSamplesList });
-            
-            categories.ItemsSource = categoriesList;
-            categories.SelectedIndex = 0;
-
-            Frame.Navigated += OnFrameNavigated;
-
-            HideLoadingIndication();
+            Categories.ItemsSource = categoriesList.Items;
+            Categories.SelectedIndex = 0;
+            ((Frame)Window.Current.Content).Navigated += OnFrameNavigated;
         }
 
         private void OnCategoriesSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -140,77 +94,71 @@ namespace ArcGISRuntime.UWP.Viewer
             }
         }
 
-        private void OnSampleItemTapped(object sender, TappedRoutedEventArgs e)
+        private async void OnSampleItemTapped(object sender, TappedRoutedEventArgs e)
         {
-            var selectedSample = (sender as FrameworkElement).DataContext as SampleModel;
-            if (selectedSample == null) return;
+            var selectedSample = (sender as FrameworkElement)?.DataContext as SampleInfo;
+            await SelectSample(selectedSample);
+        }
 
+        private async Task SelectSample(SampleInfo selectedSample)
+        {
             // Call a function to clear existing credentials
             ClearCredentials();
 
             SampleManager.Current.SelectedSample = selectedSample;
 
-            // Navigate to the sample page that shows the sample and details
-            Frame.Navigate(typeof(SamplePage));
-        }
-
-        private void ClearCredentials()
-        {
-            // Clear credentials (if any) from previous sample runs
-            var creds = Esri.ArcGISRuntime.Security.AuthenticationManager.Current.Credentials;
-            for (var i = creds.Count() - 1; i >= 0; i--)
+            try
             {
-                var c = creds.ElementAtOrDefault(i);
-                if (c != null)
+                if (selectedSample.OfflineDataItems != null)
                 {
-                    Esri.ArcGISRuntime.Security.AuthenticationManager.Current.RemoveCredential(c);
+                    // Show the waiting page
+                    Frame.Navigate(typeof(WaitPage));
+                    // Wait for offline data to complete
+                    await DataManager.EnsureSampleDataPresent(selectedSample);
+                }
+                // Show the sample
+                Frame.Navigate(typeof(SamplePage));
+
+                // Only remove download page from navigation stack if it was shown
+                if (selectedSample.OfflineDataItems != null)
+                {
+                    // Remove the wait page from the stack
+                    Frame.BackStack.Remove(Frame.BackStack.First(m => m.SourcePageType == typeof(WaitPage)));
                 }
             }
-        }
-
-        private void OnSearchQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-        {
-            if (SearchToggleButton.IsChecked.HasValue && SearchToggleButton.IsChecked.Value)
+            catch (Exception exception)
             {
-                //SearchBox.Visibility = Visibility.Collapsed;
-                SearchToggleButton.Visibility = Visibility.Visible;
-                SearchToggleButton.IsChecked = false;
+                // failed to create new instance of the sample
+                Frame.Navigate(typeof(ErrorPage), exception);
             }
         }
 
-        private void OnSearchToggleChecked(object sender, RoutedEventArgs e)
+        private static void ClearCredentials()
         {
-            if (SearchToggleButton.IsChecked.HasValue && SearchToggleButton.IsChecked.Value)
+            // Clear credentials (if any) from previous sample runs
+            foreach (Credential cred in AuthenticationManager.Current.Credentials)
             {
-                //SearchBox.Visibility = Visibility.Visible;
-                SearchToggleButton.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                //SearchBox.Visibility = Visibility.Collapsed;
+                if (cred != null)
+                {
+                    AuthenticationManager.Current.RemoveCredential(cred);
+                }
             }
         }
 
         private async void OnInfoClicked(object sender, RoutedEventArgs e)
         {
-            var sampleModel = (sender as Button).DataContext as SampleModel;
+            var sampleModel = (sender as Button)?.DataContext as SampleInfo;
             if (sampleModel == null)
                 return;
 
             // Create dialog that is used to show the picture
-            var dialog = new ContentDialog()
+            var dialog = new ContentDialog
             {
-                Title = sampleModel.Name,
-                //MaxWidth = ActualWidth,
-                //MaxHeight = ActualHeight
+                Title = sampleModel.SampleName,
+                PrimaryButtonText = "close",
+                SecondaryButtonText = "show",
             };
 
-            dialog.PrimaryButtonText = "close";
-            dialog.SecondaryButtonText = "show";
-            dialog.PrimaryButtonClick += (s, args) =>
-            {
-               
-            };
             dialog.SecondaryButtonClick += (s, args) =>
             {
                 OnSampleItemTapped(sender, new TappedRoutedEventArgs());
@@ -218,7 +166,7 @@ namespace ArcGISRuntime.UWP.Viewer
 
             dialog.Content = new SampleInfoDialog() { DataContext = sampleModel };
 
-            // Show dialog as a full screen overlay. 
+            // Show dialog as a full screen overlay.
             await dialog.ShowAsync();
         }
 
@@ -226,5 +174,45 @@ namespace ArcGISRuntime.UWP.Viewer
         {
             e.Handled = true;
         }
+
+        private void OnSearchQuerySubmitted(SearchBox searchBox, SearchBoxQueryChangedEventArgs searchBoxQueryChangedEventArgs)
+        {
+            if (SearchToggleButton.IsChecked == true)
+            {
+                SearchBox.Visibility = Visibility.Collapsed;
+                SearchToggleButton.Visibility = Visibility.Visible;
+                SearchToggleButton.IsChecked = false;
+            }
+            var categoriesList = SampleManager.Current.FullTree.Search(SampleSearchFunc);
+            if (categoriesList == null)
+            {
+                categoriesList = new SearchableTreeNode("Search", new[]{new SearchableTreeNode("No results", new List<object>())});
+            }
+            Categories.ItemsSource = categoriesList.Items;
+
+            if (categoriesList.Items.Any())
+            {
+                Categories.SelectedIndex = 0;
+            }
+        }
+
+        private void OnSearchToggleChecked(object sender, RoutedEventArgs e)
+        {
+            if (SearchToggleButton.IsChecked.HasValue && SearchToggleButton.IsChecked.Value)
+            {
+                SearchBox.Visibility = Visibility.Visible;
+                SearchToggleButton.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                SearchBox.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private bool SampleSearchFunc(SampleInfo sample)
+        {
+            return SampleManager.Current.SampleSearchFunc(sample, SearchBox.QueryText);
+        }
+
     }
 }

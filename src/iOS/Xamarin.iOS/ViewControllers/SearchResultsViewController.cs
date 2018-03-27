@@ -1,69 +1,56 @@
-using UIKit;
-using Foundation;
+// Copyright 2018 Esri.
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// language governing permissions and limitations under the License.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using ArcGISRuntimeXamarin.Managers;
-using System;
-using ArcGISRuntimeXamarin.Models;
+using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Models;
+using Esri.ArcGISRuntime.Security;
+using Foundation;
+using UIKit;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     [Register("SearchResultsViewController")]
     public class SearchResultsViewController : UITableViewController
     {
-        private readonly UIViewController parentViewController;
-        private readonly List<object> visibleSamples = new List<object>();
-        private readonly IList<TreeItem> categories;
-        private readonly List<SampleModel> sampleItems = new List<SampleModel>();
+        private readonly UIViewController _parentViewController;
+        private List<SampleInfo> _visibleSamples = new List<SampleInfo>();
+        private readonly IList<SearchableTreeNode> _categories;
+        private List<SampleInfo> _sampleItems = new List<SampleInfo>();
+        private LoadingOverlay _loadPopup;
 
-        public SearchResultsViewController(UIViewController controller, IList<TreeItem> categories)
+        public SearchResultsViewController(UIViewController controller, IList<SearchableTreeNode> categories)
         {
-            this.parentViewController = controller;
-            this.categories = categories;
-
-            CreateLists();
+            _parentViewController = controller;
+            _categories = categories;
+            
+            // Using the allsamples list avoids duplicate sample entries in the 'featured' category
+            _sampleItems = SampleManager.Current.AllSamples.ToList();
         }
 
-        public void CreateLists()
+        public override void ViewDidLayoutSubviews()
         {
-            // Parse out the samples from the categories
-            List<object> categoryItems = new List<object>();
-            foreach (var category in categories)
-            {
-                for (int i = 0; i < category.Items.Count; i++)
-                {
-                    if ((category.Items[i] as TreeItem).Items.Count > 0)
-                    {
-                        categoryItems.Add((category.Items[i] as TreeItem).Items);
-                    }
-                }
-            }
-
-            // Create a flat list of samples
-            foreach (List<object> item in categoryItems)
-            {
-                foreach (var item1 in item)
-                {
-                    sampleItems.Add(item1 as SampleModel);
-                }
-            }
+            // Magic number is the row height for the view controller
+            TableView.ContentInset = new UIEdgeInsets(44, 0, 0, 0);
         }
+
         public void Search(string searchText)
         {
-            visibleSamples.Clear();
-            foreach (var item in sampleItems.Where(c => c.Description.ToLower().Contains(searchText.ToLower()) ||
-            c.Name.ToLower().Contains(searchText.ToLower()) ||
-            c.Instructions.ToLower().Contains(searchText.ToLower())))
-                visibleSamples.Add(item.Name);
-
-            Console.WriteLine();
-
-            this.TableView.ReloadData();
+            _visibleSamples = _sampleItems.Where(c => SampleManager.Current.SampleSearchFunc(c, searchText)).ToList();
+            TableView.ReloadData();
         }
 
         public override nint RowsInSection(UITableView tableview, nint section)
         {
-            return visibleSamples.Count;
+            return _visibleSamples.Count;
         }
 
         public override bool ShouldHighlightRow(UITableView tableView, NSIndexPath rowIndexPath)
@@ -78,50 +65,51 @@ namespace ArcGISRuntimeXamarin
 
         public override string TitleForFooter(UITableView tableView, nint section)
         {
-            return string.Format("Found {0} matches", visibleSamples.Count);
+            return $"Found {_visibleSamples.Count} matches";
         }
 
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            UITableViewCell searchCell = tableView.DequeueReusableCell("SearchCell");
-            if (searchCell == null)
-                searchCell = new UITableViewCell(UITableViewCellStyle.Default, "SearchCell");
+            UITableViewCell searchCell = tableView.DequeueReusableCell("SearchCell") ?? new UITableViewCell(UITableViewCellStyle.Default, "SearchCell");
 
-            searchCell.TextLabel.Text = visibleSamples[indexPath.Row].ToString();
+            searchCell.TextLabel.Text = _visibleSamples[indexPath.Row].SampleName;
             return searchCell;
         }
 
-        public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
+        public override async void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
             try
             {
-                var item = sampleItems[indexPath.Row];
-                var sampleName = (item as SampleModel).SampleName;
-                var sampleNamespace = (item as SampleModel).SampleNamespace;
+                // Clear credentials (if any) from previous sample runs
+                foreach (Credential cred in AuthenticationManager.Current.Credentials)
+                {
+                    AuthenticationManager.Current.RemoveCredential(cred);
+                }
 
-                Type t = Type.GetType(sampleNamespace + "." + sampleName);
-                UIViewController vc = Activator.CreateInstance(t) as UIViewController;
-                parentViewController.NavigationController.PushViewController(vc, true);
+                var sample = _visibleSamples[indexPath.Row];
+
+                if (sample.OfflineDataItems != null)
+                {
+                    // Show progress overlay
+                    var bounds = UIScreen.MainScreen.Bounds;
+
+                    _loadPopup = new LoadingOverlay(bounds);
+                    _parentViewController.ParentViewController.View.Add(_loadPopup);
+
+                    // Ensure data present
+                    await DataManager.EnsureSampleDataPresent(sample);
+
+                    // Hide progress overlay
+                    _loadPopup.Hide();
+                }
+
+                var control = (UIViewController)SampleManager.Current.SampleToControl(sample);
+                _parentViewController.NavigationController.PushViewController(control, true);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-        }
-
-        public override void DidReceiveMemoryWarning()
-        {
-            // Releases the view if it doesn't have a superview.
-            base.DidReceiveMemoryWarning();
-
-            // Release any cached data, images, etc that aren't in use.
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            // Perform any additional setup after loading the view
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -20,8 +20,13 @@ using Colors = Windows.UI.Colors;
 using Colors = System.Drawing.Color;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.AddGraphicsRenderer
+namespace ArcGISRuntime.Samples.AddGraphicsRenderer
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Add graphics (SimpleRenderer)",
+        "GraphicsOverlay",
+        "This sample demonstrates how you add graphics and set a renderer on a graphic overlays.",
+        "")]
     public partial class AddGraphicsRenderer : ContentPage
     {
         public AddGraphicsRenderer()

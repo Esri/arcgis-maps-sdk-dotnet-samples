@@ -16,9 +16,14 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayDeviceLocation
+namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 {    
     [Register("DisplayDeviceLocation")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Display Device Location",
+        "Location",
+        "This sample demonstrates how you can enable location services and switch between different types of auto pan modes.",
+        "")]
     public class DisplayDeviceLocation : UIViewController
     {
         // Create and hold reference to the used MapView
@@ -129,7 +134,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDeviceLocation
 
             // Create a button to apply new renderer
             var stopButton = new UIBarButtonItem() { Title = "Stop", Style = UIBarButtonItemStyle.Plain };
-            stopButton.Clicked += OnStopButtonClicked; ;
+            stopButton.Clicked += OnStopButtonClicked;
 
             // Add the buttons to the toolbar
             SetToolbarItems(new UIBarButtonItem[] {startButton,

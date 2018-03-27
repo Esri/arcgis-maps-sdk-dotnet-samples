@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
-using Windows.UI;
+using System.Drawing;
 
 namespace ArcGISRuntime.UWP.Samples.UseDistanceCompositeSym
 {
@@ -68,13 +68,13 @@ namespace ArcGISRuntime.UWP.Samples.UseDistanceCompositeSym
         {
             // Create three symbols for displaying a feature according to its distance from the camera
             // First, a 3D (blue cube) symbol for when the camera is near the feature
-            SimpleMarkerSceneSymbol cubeSym = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Cube, Colors.Blue, 125, 125, 125, SceneSymbolAnchorPosition.Center);
+            SimpleMarkerSceneSymbol cubeSym = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Cube, Color.Blue, 125, 125, 125, SceneSymbolAnchorPosition.Center);
 
             // 3D (red cone) symbol for when the feature is at an intermediate range
-            SimpleMarkerSceneSymbol coneSym = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Cone, Colors.Red, 75, 75, 75, SceneSymbolAnchorPosition.Bottom);
+            SimpleMarkerSceneSymbol coneSym = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Cone, Color.Red, 75, 75, 75, SceneSymbolAnchorPosition.Bottom);
 
             // Simple marker symbol (circle) when the feature is far from the camera
-            SimpleMarkerSymbol markerSym = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Yellow, 10.0);
+            SimpleMarkerSymbol markerSym = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Yellow, 10.0);
 
             // Create three new ranges for displaying each symbol
             DistanceSymbolRange closeRange = new DistanceSymbolRange(cubeSym, 0, 999);

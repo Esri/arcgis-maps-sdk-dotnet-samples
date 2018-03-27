@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
-using Windows.UI;
+using System.Drawing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -89,7 +89,7 @@ namespace ArcGISRuntime.UWP.Samples.FormatCoordinates
             MyMapView.GraphicsOverlays[0].Graphics.Clear();
 
             // Create a symbol to symbolize the point
-            SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, Colors.Yellow, 20);
+            SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, Color.Yellow, 20);
 
             // Create the graphic
             Graphic symbolGraphic = new Graphic(startingPoint, symbol);

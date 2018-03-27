@@ -14,12 +14,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Xamarin.Forms;
 using System;
 using Xamarin.Forms;
-
-#if WINDOWS_UWP
-using Colors = Windows.UI.Colors;
-#else
 using Colors = System.Drawing.Color;
-#endif
 
 namespace ArcGISRuntime.Samples.FeatureLayerSelection
 {

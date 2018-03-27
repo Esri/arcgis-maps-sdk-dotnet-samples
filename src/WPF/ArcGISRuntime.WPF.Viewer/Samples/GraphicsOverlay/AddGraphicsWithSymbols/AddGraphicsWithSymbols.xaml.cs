@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using System.Windows.Media;
+using System.Drawing;
 
 namespace ArcGISRuntime.WPF.Samples.AddGraphicsWithSymbols
 {
@@ -56,7 +56,7 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsWithSymbols
         private void CreatePoints()
         {
             // Create a red circle simple marker symbol
-            SimpleMarkerSymbol redCircleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.FromRgb(0xFF, 0x00, 0x00), 10);
+            SimpleMarkerSymbol redCircleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.FromArgb(0xFF, 0xFF, 0x00, 0x00), 10);
 
             // Create graphics and add them to graphics overlay
             Graphic graphic = new Graphic(new MapPoint(-2.72, 56.065, SpatialReferences.Wgs84), redCircleSymbol);
@@ -75,7 +75,7 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsWithSymbols
         private void CreatePolyline()
         {
             // Create a purple simple line symbol
-            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.FromRgb(0x80, 0x00, 0x80), 4);
+            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.FromArgb(0xFF, 0x80, 0x00, 0x80), 4);
 
             // Create a new point collection for polyline
             Esri.ArcGISRuntime.Geometry.PointCollection points = new Esri.ArcGISRuntime.Geometry.PointCollection(SpatialReferences.Wgs84)
@@ -103,10 +103,10 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsWithSymbols
         private void CreatePolygon()
         {
             // Create a green simple line symbol
-            SimpleLineSymbol outlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.FromRgb(0x00, 0x50, 0x00), 1);
+            SimpleLineSymbol outlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.FromArgb(0xFF, 0x00, 0x50, 0x00), 1);
 
             // Create a green mesh simple fill symbol
-            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.DiagonalCross, Color.FromRgb(0x00, 0x50, 0x00), outlineSymbol);
+            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.DiagonalCross, Color.FromArgb(0xFF, 0x00, 0x50, 0x00), outlineSymbol);
 
             // Create a new point collection for polygon
             Esri.ArcGISRuntime.Geometry.PointCollection points = new Esri.ArcGISRuntime.Geometry.PointCollection(SpatialReferences.Wgs84)
@@ -133,10 +133,10 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsWithSymbols
         private void CreateText()
         {
             // Create two text symbols
-            TextSymbol bassRockTextSymbol = new TextSymbol("Black Rock", Colors.Blue, 10,
+            TextSymbol bassRockTextSymbol = new TextSymbol("Black Rock", Color.Blue, 10,
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Left, Esri.ArcGISRuntime.Symbology.VerticalAlignment.Bottom);
 
-            TextSymbol craigleithTextSymbol = new TextSymbol("Craigleith", Colors.Blue, 10,
+            TextSymbol craigleithTextSymbol = new TextSymbol("Craigleith", Color.Blue, 10,
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Right, Esri.ArcGISRuntime.Symbology.VerticalAlignment.Top);
 
             // Create two points

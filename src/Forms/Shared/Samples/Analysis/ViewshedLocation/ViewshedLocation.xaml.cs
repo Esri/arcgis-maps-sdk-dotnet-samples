@@ -13,11 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Xamarin.Forms;
 using GeoViewInputEventArgs = Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs;
-#if WINDOWS_UWP
-using Colors = Windows.UI.Colors;
-#else
 using Colors = System.Drawing.Color;
-#endif
 
 namespace ArcGISRuntime.Samples.ViewshedLocation
 {

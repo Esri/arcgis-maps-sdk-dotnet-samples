@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
-using Windows.UI;
+using System.Drawing;
 using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.UWP.Samples.ViewshedLocation
@@ -90,7 +90,7 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedLocation
 
             // Update the frustum outline color.
             // The frustum outline shows the volume in which the viewshed analysis is performed.
-            Viewshed.FrustumOutlineColor = Colors.Blue;
+            Viewshed.FrustumOutlineColor = Color.Blue;
 
             // Subscribe to tap events to enable moving the observer.
             MySceneView.GeoViewTapped += MySceneViewOnGeoViewTapped;

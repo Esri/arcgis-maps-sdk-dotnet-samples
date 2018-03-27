@@ -18,7 +18,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Windows.UI;
+using System.Drawing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
@@ -180,7 +180,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeViewshed
                 Symbol = new SimpleMarkerSymbol()
                 {
                     Size = 15,
-                    Color = Colors.Red
+                    Color = Color.Red
                 }
             };
 

@@ -12,7 +12,6 @@
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\SpatialOperations\SpatialOperations.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />

@@ -19,7 +19,7 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using ArcGISRuntime.Samples.Managers;
-using Windows.UI;
+using System.Drawing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
@@ -71,7 +71,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             MyMapView.Map = myMap;
 
             // Create a new symbol for the extent graphic
-            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 2);
+            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
 
             // Create graphics overlay for the extent graphic and apply a renderer
             GraphicsOverlay extentOverlay = new GraphicsOverlay();

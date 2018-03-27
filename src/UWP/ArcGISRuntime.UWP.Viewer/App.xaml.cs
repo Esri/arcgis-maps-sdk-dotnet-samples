@@ -41,7 +41,7 @@ namespace ArcGISRuntime.UWP.Viewer
             await new MessageDialog(errorMessage, "An error occurred").ShowAsync();
         }
 
-        private async void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private async void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
             var errorMessage = e.Exception.ToString();
             Debug.WriteLine(errorMessage);

@@ -89,6 +89,9 @@ namespace ArcGISRuntime.Samples.Desktop
             SampleManager.Current.SelectedSample = selectedSample;
             DescriptionContainer.DataContext = selectedSample;
 
+            // Call a function to clear any existing credentials from AuthenticationManager
+            ClearCredentials();
+
             try
             {
                 if (selectedSample.OfflineDataItems != null)
@@ -102,9 +105,6 @@ namespace ArcGISRuntime.Samples.Desktop
 
                 // Show the sample
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
-
-                // Call a function to clear any existing credentials from AuthenticationManager
-                ClearCredentials();
             }
             catch (Exception exception)
             {

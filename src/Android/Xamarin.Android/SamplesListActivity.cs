@@ -56,6 +56,9 @@ namespace ArcGISRuntime
 
             try
             {
+                // Call a function to clear existing credentials.
+                ClearCredentials();
+
                 // Get the clicked item.
                 SampleInfo item = _listSampleItems[e.Position];
 
@@ -76,9 +79,6 @@ namespace ArcGISRuntime
 
                 // Each sample is an Activity, so locate it and launch it via an Intent.
                 var newActivity = new Intent(this, item.SampleType);
-
-                // Call a function to clear existing credentials.
-                ClearCredentials();
 
                 // Start the activity.
                 StartActivity(newActivity);

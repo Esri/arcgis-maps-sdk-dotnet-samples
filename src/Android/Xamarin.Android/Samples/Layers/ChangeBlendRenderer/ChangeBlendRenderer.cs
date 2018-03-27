@@ -11,19 +11,24 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using ArcGISRuntimeXamarin.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
+using ArcGISRuntime.Samples.Managers;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
+namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 {
     [Activity(Label = "ChangeBlendRenderer")]
+	[Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd","caeef9aa78534760b07158bb8e068462")]
+    [Shared.Attributes.Sample(
+        "Blend renderer",
+        "Layers",
+        "This sample demonstrates how to use blend renderer on a raster layer. You can get a hillshade blended with either a colored raster or color ramp.",
+        "Tap on the 'Update Renderer' button to change the settings for the blend renderer. The sample allows you to change the Altitude, Azimuth, SlopeType and ColorRamp. If you use None as the ColorRamp, a standard hill shade raster output is displayed. For all the other ColorRamp types an elevation raster is used.",
+        "Featured")]
     public class ChangeBlendRenderer : Activity
     {
         // Global reference to a label for Altitude
@@ -112,14 +117,14 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
 
             // Create button to choose a specific ColorRamp
             var colorRampsButton = new Button(this);
-            colorRampsButton.Text = "ColorRamps";
+            colorRampsButton.Text = "Color Ramps";
             colorRampsButton.Click += ColorRampsButton_Click;
             layout.AddView(colorRampsButton);
 
             // Create button to change stretch renderer of the raster, wire-up the touch/click 
             // event handler for the button
             _Button_UpdateRenderer = new Button(this);
-            _Button_UpdateRenderer.Text = "UpdateRenderer";
+            _Button_UpdateRenderer.Text = "Update Renderer";
             _Button_UpdateRenderer.Click += OnUpdateRendererClicked;
             layout.AddView(_Button_UpdateRenderer);
             _Button_UpdateRenderer.Enabled = false;
@@ -142,7 +147,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
             myPopupMenu_ColorRamps.MenuItemClick += OnColorRampsMenuItemClicked;
 
             // Create a string array of ColorRamp Enumerations the user can pick from
-            string[] myColorRamps = System.Enum.GetNames(typeof(PresetColorRampType));
+            string[] myColorRamps = Enum.GetNames(typeof(PresetColorRampType));
 
             // Create menu options from the array of ColorRamp choices
             foreach (string myColorRamp in myColorRamps)
@@ -167,7 +172,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
                 _Slider_Azimuth.Progress = 180;
 
                 // Load the raster file using a path on disk
-                Raster myRasterImagery = new Raster(await GetRasterPath_Imagery());
+                Raster myRasterImagery = new Raster(GetRasterPath_Imagery());
 
                 // Create the raster layer from the raster
                 RasterLayer myRasterLayerImagery = new RasterLayer(myRasterImagery);
@@ -214,7 +219,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
             myPopupMenu_SlopeTypes.MenuItemClick += OnSlopeTypesMenuItemClicked;
 
             // Create a string array of SlopeType Enumerations the user can pick from
-            string[] mySlopeTypes = System.Enum.GetNames(typeof(SlopeType));
+            string[] mySlopeTypes = Enum.GetNames(typeof(SlopeType));
 
             // Create menu options from the array of SlopeType choices
             foreach (string mySlopeType in mySlopeTypes)
@@ -242,7 +247,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
             _Label_ColorRamps.Text = _myColorRampChoice;
         }
 
-        private async void OnUpdateRendererClicked(object sender, EventArgs e)
+        private void OnUpdateRendererClicked(object sender, EventArgs e)
         {
             // Define the RasterLayer that will be used to display in the map
             RasterLayer rasterLayer_ForDisplayInMap;
@@ -260,7 +265,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
                 // parameters in the BlendRenderer constructor
 
                 // Load the raster file using a path on disk
-                Raster raster_Imagery = new Raster(await GetRasterPath_Imagery());
+                Raster raster_Imagery = new Raster(GetRasterPath_Imagery());
 
                 // Create the raster layer from the raster
                 rasterLayer_ForDisplayInMap = new RasterLayer(raster_Imagery);
@@ -277,7 +282,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
                 // in the BlendRenderer constructor
 
                 // Load the raster file using a path on disk
-                Raster raster_Elevation = new Raster(await GetRasterPath_Elevation());
+                Raster raster_Elevation = new Raster(GetRasterPath_Elevation());
 
                 // Create the raster layer from the raster
                 rasterLayer_ForDisplayInMap = new RasterLayer(raster_Elevation);
@@ -288,13 +293,13 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
             }
 
             // Define the parameters used by the BlendRenderer constructor
-            Raster raster_ForMakingBlendRenderer = new Raster(await GetRasterPath_Elevation());
+            Raster raster_ForMakingBlendRenderer = new Raster(GetRasterPath_Elevation());
             IEnumerable<double> myOutputMinValues = new List<double> { 9 };
             IEnumerable<double> myOutputMaxValues = new List<double> { 255 };
-            IEnumerable<double> mySourceMinValues = new List<double> { };
-            IEnumerable<double> mySourceMaxValues = new List<double> { };
-            IEnumerable<double> myNoDataValues = new List<double> { };
-            IEnumerable<double> myGammas = new List<double> { };
+            IEnumerable<double> mySourceMinValues = new List<double>();
+            IEnumerable<double> mySourceMaxValues = new List<double>();
+            IEnumerable<double> myNoDataValues = new List<double>();
+            IEnumerable<double> myGammas = new List<double>();
             SlopeType mySlopeType = (SlopeType)Enum.Parse(typeof(SlopeType), _mySlopeTypeChoice);
 
             BlendRenderer myBlendRenderer = new BlendRenderer(
@@ -321,52 +326,14 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
             _myMapView.Map.Basemap = new Basemap(rasterLayer_ForDisplayInMap);
         }
 
-        private async Task<string> GetRasterPath_Imagery()
+        private static string GetRasterPath_Imagery()
         {
-            #region offlinedata
-
-            // The desired raster is expected to be called Shasta.tif
-            string filename = "Shasta.tif";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "ChangeBlendRenderer", "raster-file", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData("7c4c679ab06a4df19dc497f577f111bd", "ChangeBlendRenderer");
-            }
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");
         }
 
-        private async Task<string> GetRasterPath_Elevation()
+        private static string GetRasterPath_Elevation()
         {
-            #region offlinedata
-
-            // The desired raster is expected to be called Shasta_Elevation.tif
-            string filename = "Shasta_Elevation.tif";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "ChangeBlendRenderer", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData("caeef9aa78534760b07158bb8e068462", "ChangeBlendRenderer");
-            }
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("caeef9aa78534760b07158bb8e068462", "Shasta_Elevation.tif");
         }
     }
 }

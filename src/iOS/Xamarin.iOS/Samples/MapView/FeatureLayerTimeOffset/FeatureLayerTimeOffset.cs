@@ -15,9 +15,14 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerTimeOffset
+namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
 {
     [Register("FeatureLayerTimeOffset")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer time offset",
+        "MapView",
+        "This sample demonstrates how to show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.",
+        "")]
     public class FeatureLayerTimeOffset : UIViewController
     {
         // Create and hold reference to the UI controls

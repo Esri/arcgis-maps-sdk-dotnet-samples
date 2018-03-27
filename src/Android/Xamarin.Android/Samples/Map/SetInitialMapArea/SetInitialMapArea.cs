@@ -14,9 +14,14 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntimeXamarin.Samples.SetInitialMapArea
+namespace ArcGISRuntime.Samples.SetInitialMapArea
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Set initial map area",
+        "Map",
+        "This sample demonstrates how to set the initial viewpoint from envelope defined by minimum (x,y) and maximum (x,y) values. The map's InitialViewpoint is set to this viewpoint before the map is loaded into the MapView. Upon loading the map zoom to this initial area.",
+        "")]
     public class SetInitialMapArea : Activity
     {
         // Create and hold reference to the used MapView

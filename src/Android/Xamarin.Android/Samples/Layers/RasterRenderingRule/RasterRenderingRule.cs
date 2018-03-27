@@ -19,9 +19,14 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 
-namespace ArcGISRuntimeXamarin.Samples.RasterRenderingRule
+namespace ArcGISRuntime.Samples.RasterRenderingRule
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Raster rendering rule",
+        "Layers",
+        "This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.",
+        "")]
     public class RasterRenderingRule : Activity
     {
         // Create and hold reference to the used MapView

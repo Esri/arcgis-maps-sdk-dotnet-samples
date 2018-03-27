@@ -9,7 +9,7 @@
 
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     public class App : Application
     {

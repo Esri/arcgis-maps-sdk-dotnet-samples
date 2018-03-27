@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -15,9 +15,14 @@ using System;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ListGeodatabaseVersions
+namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
 {
     [Register("ListGeodatabaseVersions")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "List geodatabase versions",
+        "Geoprocessing",
+        "This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.",
+        "")]
     public class ListGeodatabaseVersions : UIViewController
     {
         // Progress bar to show when the geoprocessing task is working

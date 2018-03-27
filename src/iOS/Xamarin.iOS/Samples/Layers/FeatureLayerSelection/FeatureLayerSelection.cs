@@ -17,9 +17,14 @@ using System;
 using System.Drawing;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerSelection
+namespace ArcGISRuntime.Samples.FeatureLayerSelection
 {
     [Register("FeatureLayerSelection")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer selection",
+        "Layers",
+        "This sample demonstrates how to select features in a feature layer by tapping a MapView.",
+        "")]
     public class FeatureLayerSelection : UIViewController
     {
         // Create and hold reference to the used MapView

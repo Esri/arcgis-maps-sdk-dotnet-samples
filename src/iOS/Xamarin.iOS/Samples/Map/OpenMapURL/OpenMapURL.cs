@@ -13,9 +13,14 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.OpenMapURL
+namespace ArcGISRuntime.Samples.OpenMapURL
 {
     [Register("OpenMapURL")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Open map (URL)",
+        "Map",
+        "This sample demonstrates how to open an existing map from a portal. The sample opens with a map displayed by default. You can change the shown map by selecting a new one from the populated list.",
+        "")]
     public class OpenMapURL : UIViewController
     {
         // Constant holding offset where the MapView control should start

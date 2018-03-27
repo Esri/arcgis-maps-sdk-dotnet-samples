@@ -21,9 +21,14 @@ using System;
 using System.Drawing;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.ExportTiles
+namespace ArcGISRuntime.Samples.ExportTiles
 {
     [Activity(Label = "ExportTiles")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Export tiles",
+        "Layers",
+        "This sample demonstrates how to export tiles from a map server.",
+        "1. Pan and zoom until the area you want tiles for is within the red box.\n2. Click 'Export Tiles'.\n3. Pan and zoom to see the area covered by the downloaded tiles in the preview box.")]
     public class ExportTiles : Activity
     {
         // Reference to the MapView used in the sample
@@ -288,7 +293,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
                     UpdatePreviewMap();
 
                     // Hide the progress bar
-                    _myProgressBar.Visibility = Android.Views.ViewStates.Gone;
+                    _myProgressBar.Visibility = ViewStates.Gone;
 
                     // Change the export button text
                     _myExportButton.Text = "Close Preview";
@@ -314,7 +319,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
                 RunOnUiThread(() =>
                 {
                     // Hide the progress bar
-                    _myProgressBar.Visibility = Android.Views.ViewStates.Gone;
+                    _myProgressBar.Visibility = ViewStates.Gone;
 
                     // Change the export button text
                     _myExportButton.Text = "Export tiles";
@@ -364,7 +369,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExportTiles
                 _myExportButton.Enabled = false;
 
                 // Show the progress bar
-                _myProgressBar.Visibility = Android.Views.ViewStates.Visible;
+                _myProgressBar.Visibility = ViewStates.Visible;
 
                 // Start the export
                 StartExport();

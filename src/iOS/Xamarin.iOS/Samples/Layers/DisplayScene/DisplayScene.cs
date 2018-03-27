@@ -13,9 +13,14 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayScene
+namespace ArcGISRuntime.Samples.DisplayScene
 {
     [Register("DisplayScene")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Display scene",
+        "Layers",
+        "Demonstrates how to display a scene with an elevation data source. An elevation data source allows objects to be viewed in 3D, like this picture of Mt. Everest.",
+        "")]
     public class DisplayScene : UIViewController
     {
         // Constant holding offset where the SceneView control should start

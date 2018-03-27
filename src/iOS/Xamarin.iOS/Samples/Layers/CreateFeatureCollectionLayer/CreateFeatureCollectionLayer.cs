@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -18,9 +18,14 @@ using System.Collections.Generic;
 using System.Drawing;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
+namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
 {
     [Register("CreateFeatureCollectionLayer")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Create a feature collection layer",
+        "Layers",
+        "This sample demonstrates how to create a new feature collection with several feature collection tables. The collection is displayed in the map as a feature collection layer.",
+        "")]
     public class CreateFeatureCollectionLayer : UIViewController
     {
         // Constant holding offset where the MapView control should start
@@ -160,8 +165,6 @@ namespace ArcGISRuntimeXamarin.Samples.CreateFeatureCollectionLayer
                     // Create a fill symbol
                     var lineSym = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.DarkBlue, 2);
                     sym = new SimpleFillSymbol(SimpleFillSymbolStyle.DiagonalCross, Color.Cyan, lineSym);
-                    break;
-                default:
                     break;
             }
 

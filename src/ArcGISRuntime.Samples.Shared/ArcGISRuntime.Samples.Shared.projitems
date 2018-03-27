@@ -9,17 +9,12 @@
     <Import_RootNamespace>ArcGISRuntime.Samples.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Managers\ApplicationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\AdditionalFilesAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\OfflineDataAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\SampleAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Managers\DataManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Managers\SampleManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Managers\TreeItem.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\CategoryModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\FeaturedModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\LanguageEnum.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SampleInfo.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SampleModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SampleModelExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SampleStructureMap.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\SubCategoryModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SearchableTreeNode.cs" />
   </ItemGroup>
 </Project>

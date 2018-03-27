@@ -7,9 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Models;
-using System.Diagnostics;
-
 namespace ArcGISRuntime.WPF.Viewer
 {
     public partial class Description
@@ -19,11 +16,5 @@ namespace ArcGISRuntime.WPF.Viewer
             InitializeComponent();
         }
 
-        private void OpenTutorial(object sender, System.Windows.RoutedEventArgs e)
-        {
-            var sampleModel = DataContext as SampleModel;
-            Process.Start(new ProcessStartInfo(sampleModel.Link));
-            e.Handled = true;
-        }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -14,9 +14,14 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ShowCallout
+namespace ArcGISRuntime.Samples.ShowCallout
 {
     [Register("ShowCallout")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Show callout",
+        "MapView",
+        "This sample illustrates how to show callouts on a map in response to user interaction.",
+        "Tap on the map to show that point's coordinates.")]
     public class ShowCallout : UIViewController
     {
         private MapView _myMapView = new MapView();

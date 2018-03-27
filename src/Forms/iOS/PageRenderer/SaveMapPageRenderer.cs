@@ -1,5 +1,5 @@
 ﻿using ArcGISRuntime.Samples.AuthorEditSaveMap;
-using ArcGISRuntimeXamarin.iOSPageRenderer;
+using ArcGISRuntime.iOSPageRenderer;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(SaveMapPage), typeof(SaveMapPageRenderer))]
-namespace ArcGISRuntimeXamarin.iOSPageRenderer
+namespace ArcGISRuntime.iOSPageRenderer
 {
     public class SaveMapPageRenderer : PageRenderer, IOAuthAuthorizeHandler
     {
@@ -55,7 +55,7 @@ namespace ArcGISRuntimeXamarin.iOSPageRenderer
                 try
                 {
                     // Dismiss the OAuth UI when complete
-                    this.DismissViewController(true, null);
+                    DismissViewController(true, null);
 
                     // Throw an exception if the user could not be authenticated
                     if (!authArgs.IsAuthenticated)
@@ -99,7 +99,7 @@ namespace ArcGISRuntimeXamarin.iOSPageRenderer
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password
             InvokeOnMainThread(() =>
             {
-                this.PresentViewController(authenticator.GetUI(), true, null);
+                PresentViewController(authenticator.GetUI(), true, null);
             });
 
             // Return completion source task so the caller can await completion

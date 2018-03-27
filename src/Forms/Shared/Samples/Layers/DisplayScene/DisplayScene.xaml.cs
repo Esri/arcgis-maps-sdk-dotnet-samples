@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -11,8 +11,13 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayScene
+namespace ArcGISRuntime.Samples.DisplayScene
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Display scene",
+        "Layers",
+        "Demonstrates how to display a scene with an elevation data source. An elevation data source allows objects to be viewed in 3D, like this picture of Mt. Everest.",
+        "")]
     public partial class DisplayScene : ContentPage
     {
         public DisplayScene()

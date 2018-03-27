@@ -1,0 +1,187 @@
+﻿<UserControl x:Class="ArcGISRuntime.UWP.Samples.AuthorMap.AuthorMap"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls"
+             >
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView"/>
+        <Border Background="White" BorderBrush="Black" BorderThickness="1"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="60" Padding="20" Width="Auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           Margin="10"
+                           Text="Initial Extent"/>
+                <TextBlock Text="X Min:"
+                           Grid.Row="1"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Margin="5,0"/>
+                <TextBox x:Name="XMinTextBox"
+                         Grid.Row="1" Grid.Column="1"
+                         HorizontalAlignment="Left" VerticalAlignment="Center"
+                         Width="80"
+                         IsReadOnly="True"
+                         Margin="0,3"/>
+                <TextBlock Text="Y Min:"
+                           Grid.Row="2"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Margin="5,0"/>
+                <TextBox x:Name="YMinTextBox" 
+                         Grid.Row="2" Grid.Column="1"
+                         HorizontalAlignment="Left" VerticalAlignment="Center"
+                         Width="80"
+                         IsReadOnly="True"
+                         Margin="0,3"/>
+                <TextBlock Text="X Max:"
+                           Grid.Row="3"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Margin="5,0"/>
+                <TextBox x:Name="XMaxTextBox" 
+                         Grid.Row="3" Grid.Column="1" 
+                         HorizontalAlignment="Left" VerticalAlignment="Center"                         
+                         Width="80"
+                         IsReadOnly="True"
+                         Margin="0,3"/>
+                <TextBlock Text="Y Max:"
+                           Grid.Row="4"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Margin="5,0"/>
+                <TextBox x:Name="YMaxTextBox" 
+                         Grid.Row="4" Grid.Column="1" 
+                         HorizontalAlignment="Left" VerticalAlignment="Center"
+                         Width="80"
+                         IsReadOnly="True"
+                         Margin="0,3"/>
+            </Grid>
+        </Border>
+        <ContentDialog x:Name="OAuthSettingsDialog" 
+                       PrimaryButtonText="Save" SecondaryButtonText="Cancel"
+                       Title="OAuth Configuration Settings">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Client ID:"
+                           Grid.Row="0"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Margin="5,0"/>
+                <TextBox x:Name="ClientIdTextBox"
+                         Grid.Row="0" Grid.Column="1"
+                         HorizontalAlignment="Left" VerticalAlignment="Center"
+                         Width="220"
+                         IsReadOnly="True"
+                         Margin="0,3"/>
+                <TextBlock Text="Redirect URL:"
+                           Grid.Row="1"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Margin="5,0"/>
+                <TextBox x:Name="RedirectUrlTextBox" 
+                         Grid.Row="1" Grid.Column="1"
+                         HorizontalAlignment="Left" VerticalAlignment="Center"
+                         Width="220"
+                         IsReadOnly="True"
+                         Margin="0,3"/>
+            </Grid>
+        </ContentDialog>
+        <CommandBar>
+            <AppBarButton Content="Basemap"
+                          Margin="5,0">
+                <AppBarButton.Flyout>
+                    <Flyout>
+                        <ListView x:Name="BasemapListView" SelectionChanged="BasemapListView_SelectionChanged" />
+                    </Flyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton Content="Layers">
+                <AppBarButton.Flyout>
+                    <Flyout AllowFocusOnInteraction="True">
+                        <ListView x:Name="LayerListView"
+                                  SelectionMode="Multiple"
+                                  DisplayMemberPath="Key"
+                                  SelectionChanged="LayerSelectionChanged"/>
+                    </Flyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton Content="Clear"
+                          Click="ClearMapClicked"/>
+            <AppBarButton Content="Save ..."
+                          Margin="5,0" 
+                          AllowFocusOnInteraction="True">
+                <AppBarButton.Flyout>
+                    <Flyout x:Name="SaveMapFlyout">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
+                                       VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                                       Text="Title:"/>
+                            <TextBox x:Name="TitleTextBox" 
+                                     Grid.Row="0" Grid.Column="1"
+                                     VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                                     Width="150"
+                                     Margin="10,0"
+                                     Text="My Map"/>
+                            <TextBlock Grid.Row="1"
+                                       VerticalAlignment="Top" HorizontalAlignment="Right"
+                                       Margin="0,10"
+                                       Text="Description:"/>
+                            <TextBox x:Name="DescriptionTextBox" 
+                                     Grid.Row="1" Grid.Column="1"
+                                     VerticalAlignment="Top" HorizontalAlignment="Left"
+                                     Width="150" Height="50"
+                                     Margin="10"
+                                     TextWrapping="Wrap"
+                                     Text="Authored using ArcGIS Runtime SDK."/>
+                            <TextBlock Grid.Row="2"
+                                       VerticalAlignment="Top" HorizontalAlignment="Right"
+                                       Text="Tags:"/>
+                            <TextBox x:Name="TagsTextBox" 
+                                     Grid.Row="2" Grid.Column="1"
+                                     VerticalAlignment="Top" HorizontalAlignment="Left"
+                                     Width="150"
+                                     Margin="10,0"
+                                     Text="ArcGIS Runtime, Sample"/>
+                            <Button Grid.Row="3" Grid.ColumnSpan="2" 
+                                    IsEnabled="{Binding ElementName=MyMapView }"
+                                    Content="Save Map to Portal"
+                                    Width="170" Height="35"
+                                    Margin="10"
+                                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                                    Click="SaveMapClicked"/>
+                        </Grid>
+                    </Flyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+        </CommandBar>
+        <ProgressBar x:Name="SaveProgressBar" 
+                     Foreground="Purple"
+                     IsIndeterminate="True"
+                     Visibility="Collapsed"/>
+    </Grid>
+</UserControl>

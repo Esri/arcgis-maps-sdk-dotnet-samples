@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -22,8 +22,13 @@ using Colors = Windows.UI.Colors;
 using Colors = System.Drawing.Color;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerQuery
+namespace ArcGISRuntime.Samples.FeatureLayerQuery
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer query",
+        "Data",
+        "This sample demonstrates how to query a feature layer via feature table.",
+        "The sample provides a search bar on the top, where you can input the name of a US State. When you hit search the app performs a query on the feature table and based on the result either highlights the state geometry or provides an error.")]
     public partial class FeatureLayerQuery : ContentPage
     {
         // Create reference to service of US States  

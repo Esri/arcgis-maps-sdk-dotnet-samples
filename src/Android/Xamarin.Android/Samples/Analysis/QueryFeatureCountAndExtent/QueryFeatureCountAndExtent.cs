@@ -19,9 +19,14 @@ using Android.Content;
 using Android.Views;
 using Android.Views.InputMethods;
 
-namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
+namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Query feature count and extent",
+        "Analysis",
+        "This sample demonstrates how to query a feature table, in this case returning a count, for features that are within the visible extent or that meet specified criteria.",
+        "Use the button to zoom to the extent of the state specified (by abbreviation) in the textbox or use the button to count the features in the current extent.")]
     public class QueryFeatureCountAndExtent : Activity
     {
         // Search box for state entry
@@ -136,7 +141,7 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeatureCountAndExtent
             {
                 if (args.Event.Action == KeyEventActions.Down && args.KeyCode == Keycode.Enter)
                 {
-                    InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
+                    InputMethodManager imm = (InputMethodManager)GetSystemService(InputMethodService);
                     imm.HideSoftInputFromWindow(_myStateEntry.WindowToken, 0);
                     BtnZoomToFeatures_Click(_myStateEntry, null);
                 }

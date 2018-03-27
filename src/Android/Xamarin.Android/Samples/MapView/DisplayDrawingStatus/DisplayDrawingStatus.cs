@@ -16,9 +16,14 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayDrawingStatus
+namespace ArcGISRuntime.Samples.DisplayDrawingStatus
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Display drawing status",
+        "MapView",
+        "This sample demonstrates how to use the DrawStatus value of the MapView to notify user that the MapView is drawing.",
+        "")]
     public class DisplayDrawingStatus : Activity
     {
         // Create and hold reference to the used MapView
@@ -38,7 +43,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDrawingStatus
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Hook up the DrawStatusChanged event
             _myMapView.DrawStatusChanged += OnDrawStatusChanged;

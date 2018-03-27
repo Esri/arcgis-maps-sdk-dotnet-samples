@@ -14,6 +14,7 @@ using System.IO;
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -22,11 +23,16 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
-using ArcGISRuntimeXamarin.Managers;
 
-namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
+namespace ArcGISRuntime.Samples.GenerateGeodatabase
 {
     [Activity]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3f1bbf0ec70b409a975f5c91f363fe7d")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Generate geodatabase",
+        "Data",
+        "This sample demonstrates how to take a feature service offline by generating a geodatabase.",
+        "1. Pan and zoom to the area you would like to download features for, ensuring that all features are within the rectangle.\n2. Tap on the button. This will start the process of generating the offline geodatabase.\n3. Observe that the sample unregisters the geodatabase. This is best practice when changes won't be edited and synced back to the service.\n\nNote that the basemap will be automatically downloaded from an ArcGIS Online portal.")]
     public class GenerateGeodatabase : Activity
     {
         // URI for a feature service that supports geodatabase generation
@@ -206,7 +212,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
             _generateGdbJob.JobChanged += GenerateGdbJobChanged;
 
             // Handle the progress changed event (to show progress bar)
-            _generateGdbJob.ProgressChanged += ((object sender, EventArgs e) =>
+            _generateGdbJob.ProgressChanged += ((sender, e) =>
             {
                 UpdateProgressBar();
             });
@@ -276,18 +282,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateGeodatabase
         // Get the path to the tile package used for the basemap
         private string GetTpkPath()
         {
-            #region offlinedata
-
-            // The desired tpk is expected to be called SanFrancisco.tpk
-            string filename = "SanFrancisco.tpk";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Return the full path; Item ID is 3f1bbf0ec70b409a975f5c91f363fe7d
-            return Path.Combine(folder, "SampleData", "GenerateGeodatabase", filename);
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("3f1bbf0ec70b409a975f5c91f363fe7d", "SanFrancisco.tpk");
         }
 
         private string GetGdbPath()

@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -13,9 +13,14 @@ using Esri.ArcGISRuntime.UI;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ShowMagnifier
+namespace ArcGISRuntime.Samples.ShowMagnifier
 {
     [Register("ShowMagnifier")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Show magnifier",
+        "MapView",
+        "This sample demonstrates how you can tap and hold on a map to get the magnifier. You can also pan while tapping and holding to move the magnifier across the map.",
+        "")]
     public class ShowMagnifier : UIViewController
     {
         // Constant holding offset where the MapView control should start

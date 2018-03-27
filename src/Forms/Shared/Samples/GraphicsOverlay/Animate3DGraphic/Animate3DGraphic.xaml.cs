@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -13,7 +13,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -30,8 +30,15 @@ using Colors = System.Drawing.Color;
 
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
+namespace ArcGISRuntime.Samples.Animate3DGraphic
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Animate 3D Graphic",
+        "GraphicsOverlay",
+        "This sample demonstrates how to animate a graphic's position and follow it using a camera controller.",
+        "Click-and-drag to pan the SceneView, orbiting the moving plane. Click \"Don't Follow\" to switch to the default camera controller, which does not orbit the plane.\nThe plane's route is shown on the inset map in the bottom left corner of the window. The progress through the plane's mission is shown in the panel on the right.\nThere is a drop-down box on the top left part of the window for selecting a mission (route) for the plane.\n\nNote that this is a graphics-intensive sample; performance may be degraded in certain situations (such as viewing over Remote Desktop or in a simulator).",
+        "Featured")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("290f0c571c394461a8b58b6775d0bd63","e87c154fb9c2487f999143df5b08e9b1","5a9b60cee9ba41e79640a06bcdf8084d","12509ffdc684437f8f2656b0129d2c13","681d6f7694644709a7c830ec57a2d72b")]
     public partial class Animate3DGraphic : ContentPage
     {
         // URL to the elevation service - provides terrain elevation
@@ -150,7 +157,7 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
 
             // Create the model graphic for the plane
             // Get the path to the 3D model
-            string modelPath = await GetModelPath();
+            string modelPath = GetModelPath();
             // Create the scene symbol from the path to the model
             ModelSceneSymbol plane3DSymbol = await ModelSceneSymbol.CreateAsync(new Uri(modelPath), 1.0);
             // Create the graphic with an initial location and the plane symbol
@@ -179,7 +186,7 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             _animationTimer = false;
 
             // Get mission data
-            _missionData = await GetMissionData(mission);
+            _missionData = GetMissionData(mission);
 
             // Draw mission route on the inset
             // Create a collection of points to hold the mission
@@ -201,10 +208,10 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             _animationTimer = true;
         }
 
-        private async Task<MissionFrame[]> GetMissionData(string mission)
+        private MissionFrame[] GetMissionData(string mission)
         {
             // Get the path to the file
-            string filePath = await GetMissionFilePath(mission);
+            string filePath = GetMissionFilePath(mission);
 
             // Read the file text
             string fileContents = File.ReadAllText(filePath);
@@ -219,28 +226,12 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
                 .ToArray();
         }
 
-        private async Task<string> GetMissionFilePath(string mission)
+        private string GetMissionFilePath(string mission)
         {
             string itemId = _missionToItemId[mission];
             string filename = mission + ".csv";
 
-            #region offlinedata
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "Animate3DGraphic", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData(itemId, "Animate3DGraphic");
-            }
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder(itemId, filename);
         }
 
         private bool AnimatePlane()
@@ -296,28 +287,9 @@ namespace ArcGISRuntimeXamarin.Samples.Animate3DGraphic
             return true;
         }
 
-        private async Task<string> GetModelPath()
+        private static string GetModelPath()
         {
-            #region offlinedata
-
-            // The desired model is expected to be called Bristol.dae
-            string filename = "Bristol.dae";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "Animate3DGraphic", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData("681d6f7694644709a7c830ec57a2d72b", "Animate3DGraphic");
-            }
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("681d6f7694644709a7c830ec57a2d72b", "Bristol.dae");
         }
 
         private void MissionPlayPlauseClick(object sender, EventArgs e)

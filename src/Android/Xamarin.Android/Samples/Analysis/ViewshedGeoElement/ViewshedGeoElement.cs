@@ -10,7 +10,7 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -19,14 +19,20 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace ArcGISRuntimeXamarin.Samples.ViewshedGeoElement
+namespace ArcGISRuntime.Samples.ViewshedGeoElement
 {
     [Activity]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("07d62a792ab6496d9b772a24efea45d0")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Viewshed (GeoElement)",
+        "Analysis",
+        "This sample demonstrates how to display a live viewshed analysis for a moving GeoElement. The analysis is offset vertically so that the viewpoint is from the top of the GeoElement (in this case, a model of a tank).",
+        "Tap on the scene to see the tank move to that point.",
+        "Featured")]
     public class ViewshedGeoElement : Activity
     {
         // Create and hold reference to the used SceneView.
@@ -85,7 +91,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedGeoElement
             _tankOverlay.Renderer = renderer3D;
 
             // Create the tank graphic - get the model path.
-            string modelPath = await GetModelPath();
+            string modelPath = GetModelPath();
             // - Create the symbol and make it 10x larger (to be the right size relative to the scene).
             ModelSceneSymbol tankSymbol = await ModelSceneSymbol.CreateAsync(new Uri(modelPath), 10);
             // - Adjust the position.
@@ -175,32 +181,11 @@ namespace ArcGISRuntimeXamarin.Samples.ViewshedGeoElement
             }
         }
 
-        private async Task<string> GetModelPath()
+        private static string GetModelPath()
         {
             // Returns the tank model.
 
-            #region offlinedata
-
-            // The desired model is expected to be called "bradle.3ds".
-            string filename = "bradle.3ds";
-
-            // The data manager provides a method to get the folder.
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path.
-            string filepath = Path.Combine(folder, "SampleData", "ViewshedGeoElement", filename);
-
-            // Check if the file exists.
-            if (!File.Exists(filepath))
-            {
-                // If the model is missing, download it. 
-                await DataManager.GetData("07d62a792ab6496d9b772a24efea45d0", "ViewshedGeoElement");
-            }
-
-            // Return the path.
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("07d62a792ab6496d9b772a24efea45d0", "bradle.3ds");
         }
 
         private void CreateLayout()

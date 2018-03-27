@@ -10,8 +10,8 @@
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ArcGISRuntimeXamarin</RootNamespace>
-    <AssemblyName>ArcGISRuntimeXamarin</AssemblyName>
+    <RootNamespace>ArcGISRuntime</RootNamespace>
+    <AssemblyName>ArcGISRuntime</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidApplication>true</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
@@ -43,6 +43,9 @@
     <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
     <LangVersion>6</LangVersion>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -54,9 +57,8 @@
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
-  <!-- /Build Configurations-->
+  <!-- References -->
   <ItemGroup>
-    <!-- References -->
     <Reference Include="Esri.ArcGISRuntime, Version=100.2.1.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.2.1\lib\MonoAndroid10\Esri.ArcGISRuntime.dll</HintPath>
     </Reference>
@@ -83,6 +85,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Json" />
     <Reference Include="System.Runtime.Serialization" />
@@ -107,177 +110,10 @@
       <HintPath>..\..\..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <!-- Screenshots -->
   <ItemGroup>
-    <!-- Misc Config -->
-    <None Include="app.config" />
-    <None Include="packages.config" />
-    <None Include="Resources\AboutResources.txt" />
-    <AndroidResource Include="Resources\layout\Animate3DGraphic.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <EmbeddedResource Include="Samples\GeometryEngine\ListTransformations\metadata.json" />
-    <EmbeddedResource Include="Samples\GeometryEngine\SpatialOperations\metadata.json" />
     <None Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <!-- Misc Resources -->
-    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\Icon.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\Icon.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\Icon.png" />
-    <AndroidResource Include="Resources\drawable\Android_512.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\Icon.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\Icon.png" />
-    <AndroidResource Include="Resources\drawable\Icon.png" />
-    <!-- Android Layouts -->
-    <AndroidResource Include="Resources\layout\GeoViewSync.axml" />
-    <AndroidResource Include="Resources\layout\FeatureLayerRenderingModeMapLayout.axml" />
-    <AndroidResource Include="Resources\layout\GroupedResultsList_DataItem.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\GroupedResultsList_GroupItem.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\CategoriesList.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\CategoriesLayout.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\SamplesList.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\SamplesLayout.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\values\Strings.xml" />
-    <AndroidAsset Include="Assets\AboutAssets.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AndroidAsset>
-    <None Include="Properties\AndroidManifest.xml" />
-    <EmbeddedResource Include="Samples\Hydrography\SelectEncFeatures\metadata.json" />
-    <AndroidResource Include="Resources\layout\FeatureLayerRenderingModeScene.axml" />
-  </ItemGroup>
-  <ItemGroup>
-    <!-- Sample Manager Code -->
-    <Compile Include="CategoriesAdapter.cs" />
-    <Compile Include="MainActivity.cs" />
-    <Compile Include="Managers\DataManager.cs" />
-    <Compile Include="Managers\SampleManager.cs" />
-    <Compile Include="Managers\TreeItem.cs" />
-    <Compile Include="Models\CategoryModel.cs" />
-    <Compile Include="Models\FeaturedModel.cs" />
-    <Compile Include="Models\SampleModel.cs" />
-    <Compile Include="Models\SampleModelExtensions.cs" />
-    <Compile Include="Models\SampleStructureMap.cs" />
-    <Compile Include="Models\SubCategoryModel.cs" />
-    <Compile Include="Resources\Resource.Designer.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SamplesListActivity.cs" />
-    <Compile Include="SamplesListAdapter.cs" />
-    <Compile Include="Samples\GeometryEngine\SpatialOperations\SpatialOperations.cs" />
-    <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.cs" />
-    <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <!-- JSON Metadata -->
-    <EmbeddedResource Include="Samples\Analysis\ViewshedGeoElement\metadata.json" />
-    <EmbeddedResource Include="Samples\GraphicsOverlay\Animate3DGraphic\metadata.json" />
-    <EmbeddedResource Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\metadata.json" />
-    <EmbeddedResource Include="Samples\Data\ListRelatedFeatures\metadata.json" />
-    <EmbeddedResource Include="Samples\Geometry\FormatCoordinates\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\Web_TiledLayer\metadata.json" />
-    <EmbeddedResource Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\metadata.json" />
-    <EmbeddedResource Include="Samples\Analysis\LineOfSightGeoElement\metadata.json" />
-    <EmbeddedResource Include="Samples\Analysis\QueryFeatureCountAndExtent\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\FeatureLayerRenderingModeScene\metadata.json" />
-    <EmbeddedResource Include="Samples\Data\SymbolizeShapefile\metadata.json" />
-    <EmbeddedResource Include="groups.json" />
-    <EmbeddedResource Include="Samples\Analysis\LineOfSightLocation\metadata.json" />
-    <EmbeddedResource Include="Samples\Analysis\ViewshedCamera\metadata.json" />
-    <EmbeddedResource Include="Samples\Data\EditAndSyncFeatures\metadata.json" />
-    <EmbeddedResource Include="Samples\Data\FeatureLayerGeoPackage\metadata.json" />
-    <EmbeddedResource Include="Samples\Data\FeatureLayerQuery\metadata.json" />
-    <EmbeddedResource Include="Samples\Data\FeatureLayerShapefile\metadata.json" />
-    <EmbeddedResource Include="Samples\Data\GenerateGeodatabase\metadata.json" />
-    <EmbeddedResource Include="Samples\Data\GeodatabaseTransactions\metadata.json" />
-    <EmbeddedResource Include="Samples\Data\RasterLayerGeoPackage\metadata.json" />
-    <EmbeddedResource Include="Samples\Data\ReadGeoPackage\metadata.json" />
-    <EmbeddedResource Include="Samples\Data\ReadShapefileMetadata\metadata.json" />
-    <EmbeddedResource Include="Samples\Data\ServiceFeatureTableCache\metadata.json" />
-    <EmbeddedResource Include="Samples\Data\ServiceFeatureTableManualCache\metadata.json" />
-    <EmbeddedResource Include="Samples\Data\ServiceFeatureTableNoCache\metadata.json" />
-    <EmbeddedResource Include="Samples\Data\StatisticalQuery\metadata.json" />
-    <EmbeddedResource Include="Samples\Data\StatsQueryGroupAndSort\metadata.json" />
-    <EmbeddedResource Include="Samples\Geoprocessing\AnalyzeHotspots\metadata.json" />
-    <EmbeddedResource Include="Samples\Geoprocessing\AnalyzeViewshed\metadata.json" />
-    <EmbeddedResource Include="Samples\Geoprocessing\ListGeodatabaseVersions\metadata.json" />
-    <EmbeddedResource Include="Samples\GraphicsOverlay\AddGraphicsRenderer\metadata.json" />
-    <EmbeddedResource Include="Samples\GraphicsOverlay\IdentifyGraphics\metadata.json" />
-    <EmbeddedResource Include="Samples\GraphicsOverlay\SketchOnMap\metadata.json" />
-    <EmbeddedResource Include="Samples\GraphicsOverlay\SurfacePlacements\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\ArcGISMapImageLayerUrl\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\ArcGISTiledLayerUrl\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\ArcGISVectorTiledLayerUrl\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\ChangeFeatureLayerRenderer\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\ChangeSublayerVisibility\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\CreateFeatureCollectionLayer\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\DisplayScene\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\ExportTiles\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\FeatureCollectionLayerFromPortal\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\FeatureCollectionLayerFromQuery\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\FeatureLayerDefinitionExpression\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\FeatureLayerDictionaryRenderer\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\FeatureLayerRenderingModeMap\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\FeatureLayerSelection\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\FeatureLayerUrl\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\RasterLayerFile\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\RasterLayerImageServiceRaster\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\RasterLayerRasterFunction\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\RasterRenderingRule\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\SceneLayerUrl\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\TimeBasedQuery\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\WmsIdentify\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\WMSLayerUrl\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\WmsServiceCatalog\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\WMTSLayer\metadata.json" />
-    <EmbeddedResource Include="Samples\Location\DisplayDeviceLocation\metadata.json" />
-    <EmbeddedResource Include="Samples\Map\AccessLoadStatus\metadata.json" />
-    <EmbeddedResource Include="Samples\Map\AuthorMap\metadata.json" />
-    <EmbeddedResource Include="Samples\Map\ChangeBasemap\metadata.json" />
-    <EmbeddedResource Include="Samples\Map\DisplayMap\metadata.json" />
-    <EmbeddedResource Include="Samples\Map\ManageBookmarks\metadata.json" />
-    <EmbeddedResource Include="Samples\Map\OpenMapURL\metadata.json" />
-    <EmbeddedResource Include="Samples\Map\OpenMobileMap\metadata.json" />
-    <EmbeddedResource Include="Samples\Map\SearchPortalMaps\metadata.json" />
-    <EmbeddedResource Include="Samples\Map\SetInitialMapArea\metadata.json" />
-    <EmbeddedResource Include="Samples\Map\SetInitialMapLocation\metadata.json" />
-    <EmbeddedResource Include="Samples\Map\SetMapSpatialReference\metadata.json" />
-    <EmbeddedResource Include="Samples\Map\SetMinMaxScale\metadata.json" />
-    <EmbeddedResource Include="Samples\MapView\ChangeViewpoint\metadata.json" />
-    <EmbeddedResource Include="Samples\MapView\DisplayDrawingStatus\metadata.json" />
-    <EmbeddedResource Include="Samples\MapView\DisplayLayerViewState\metadata.json" />
-    <EmbeddedResource Include="Samples\MapView\FeatureLayerTimeOffset\metadata.json" />
-    <EmbeddedResource Include="Samples\MapView\GeoViewSync\metadata.json" />
-    <EmbeddedResource Include="Samples\MapView\MapRotation\metadata.json" />
-    <EmbeddedResource Include="Samples\MapView\ShowCallout\metadata.json" />
-    <EmbeddedResource Include="Samples\MapView\ShowMagnifier\metadata.json" />
-    <EmbeddedResource Include="Samples\MapView\TakeScreenshot\metadata.json" />
-    <EmbeddedResource Include="Samples\NetworkAnalysis\FindRoute\metadata.json" />
-    <EmbeddedResource Include="Samples\Search\FindAddress\metadata.json" />
-    <EmbeddedResource Include="Samples\Search\FindPlace\metadata.json" />
-    <EmbeddedResource Include="Samples\Symbology\RenderPictureMarkers\metadata.json" />
-    <EmbeddedResource Include="Samples\Symbology\RenderSimpleMarkers\metadata.json" />
-    <EmbeddedResource Include="Samples\Symbology\RenderUniqueValues\metadata.json" />
-    <EmbeddedResource Include="Samples\Symbology\SimpleRenderers\metadata.json" />
-    <EmbeddedResource Include="Samples\Symbology\UseDistanceCompositeSym\metadata.json" />
-    <EmbeddedResource Include="Samples\Tutorial\AuthorEditSaveMap\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\ChangeBlendRenderer\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\ChangeStretchRenderer\metadata.json" />
-    <EmbeddedResource Include="Samples\Symbology\FeatureLayerExtrusion\metadata.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <!-- Screenshots -->
+    <None Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg" />
     <None Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
     <None Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
     <None Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
@@ -327,8 +163,6 @@
     <None Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.jpg" />
     <None Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <None Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
-    <EmbeddedResource Include="Samples\Layers\RasterRgbRenderer\metadata.json" />
-    <EmbeddedResource Include="Samples\Layers\RasterHillshade\metadata.json" />
     <None Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
     <None Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <None Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
@@ -361,7 +195,7 @@
     <None Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <None Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
     <None Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
-    <None Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg" />
+    <None Include="Samples\Network Analysis\FindRoute\FindRoute.jpg" />
     <None Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <None Include="Samples\Search\FindPlace\FindPlace.jpg" />
     <None Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
@@ -373,9 +207,16 @@
     <None Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.jpg" />
     <None Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
     <None Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
+    <None Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
+    <None Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
+    <None Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
+    <None Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
   </ItemGroup>
+  <!-- Sample Code -->
   <ItemGroup>
-    <!-- Sample Code -->
+    <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.cs" />
+    <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
+    <Compile Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.cs" />
     <Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.cs" />
     <Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.cs" />
     <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.cs" />
@@ -461,7 +302,7 @@
     <Compile Include="Samples\MapView\ShowCallout\ShowCallout.cs" />
     <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.cs" />
     <Compile Include="Samples\MapView\TakeScreenshot\TakeScreenshot.cs" />
-    <Compile Include="Samples\NetworkAnalysis\FindRoute\FindRoute.cs" />
+    <Compile Include="Samples\Network Analysis\FindRoute\FindRoute.cs" />
     <Compile Include="Samples\Search\FindAddress\FindAddress.cs" />
     <Compile Include="Samples\Search\FindPlace\FindPlace.cs" />
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
@@ -472,21 +313,63 @@
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
   </ItemGroup>
+  <!-- Sample Layouts -->
   <ItemGroup>
-    <None Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
+    <AndroidResource Include="Resources\layout\GeoViewSync.axml" />
+    <AndroidResource Include="Resources\layout\FeatureLayerRenderingModeMapLayout.axml" />
+    <AndroidResource Include="Resources\layout\GroupedResultsList_DataItem.axml" />
+    <AndroidResource Include="Resources\layout\GroupedResultsList_GroupItem.axml" />
+    <AndroidResource Include="Resources\layout\FeatureLayerRenderingModeScene.axml" />
+    <AndroidResource Include="Resources\layout\Animate3DGraphic.axml" />
   </ItemGroup>
+  <!-- Sample Manager Code -->
   <ItemGroup>
-    <None Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
+    <Compile Include="CategoriesAdapter.cs" />
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SamplesListActivity.cs" />
+    <Compile Include="SamplesListAdapter.cs" />
   </ItemGroup>
+  <!-- Sample Manager Layout-->
   <ItemGroup>
-    <None Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
+    <AndroidResource Include="Resources\layout\CategoriesList.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CategoriesLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SamplesList.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SamplesLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
+  <!-- Miscellaneous Android Resources-->
   <ItemGroup>
-    <None Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\Icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\Icon.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\Icon.png" />
+    <AndroidResource Include="Resources\drawable\Android_512.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\Icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Icon.png" />
+    <AndroidResource Include="Resources\drawable\Icon.png" />
+    <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidAsset Include="Assets\AboutAssets.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
+  <!-- Miscellaneous Configuration -->
   <ItemGroup>
-    <None Include="Samples\GeometryEngine\SpatialOperations\SpatialOperations.jpg" />
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Resources\AboutResources.txt" />
   </ItemGroup>
+  <!-- Imports -->
+  <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

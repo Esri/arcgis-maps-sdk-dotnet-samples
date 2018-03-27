@@ -11,16 +11,21 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using ArcGISRuntimeXamarin.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
-using System.IO;
-using System.Threading.Tasks;
+using ArcGISRuntime.Samples.Managers;
 
-namespace ArcGISRuntimeXamarin.Samples.ReadShapefileMetadata
+namespace ArcGISRuntime.Samples.ReadShapefileMetadata
 {
     [Activity]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Read shapefile metadata",
+        "Data",
+        "This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.",
+        "The shapefile will be downloaded from an ArcGIS Online portal automatically.",
+        "Featured")]
     public class ReadShapefileMetadata : Activity
     {
         // Store the app's map view
@@ -46,7 +51,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReadShapefileMetadata
             Map streetMap = new Map(Basemap.CreateStreets());
 
             // Get the path to the downloaded shapefile
-            string filepath = await GetShapefilePath();
+            string filepath = GetShapefilePath();
 
             // Open the shapefile
             ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
@@ -71,32 +76,9 @@ namespace ArcGISRuntimeXamarin.Samples.ReadShapefileMetadata
             _myMapView.Map = streetMap;
         }
 
-        private async Task<string> GetShapefilePath()
+        private static string GetShapefilePath()
         {
-            #region offlinedata
-            // The shapefile will be downloaded from ArcGIS Online
-            // The data manager (a component of the sample viewer, *NOT* the runtime
-            //     handles the offline data process
-
-            // The desired shapefile is expected to be called "TrailBikeNetwork.shp"
-            string filename = "TrailBikeNetwork.shp";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "ReadShapefileMetadata", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the shapefile
-                await DataManager.GetData("d98b3e5293834c5f852f13c569930caa", "ReadShapefileMetadata");
-            }
-
-            // Return the path
-            return filepath;
-            #endregion offlinedata
+            return DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "TrailBikeNetwork.shp");
         }
 
         private void CreateLayout()
@@ -147,10 +129,10 @@ namespace ArcGISRuntimeXamarin.Samples.ReadShapefileMetadata
             LinearLayout dialogView = null;
 
             // Get the context for creating the dialog controls
-            Android.Content.Context ctx = this.Activity.ApplicationContext;
+            Android.Content.Context ctx = Activity.ApplicationContext;
 
             // Set a dialog title
-            this.Dialog.SetTitle(_metadata.Credits);            
+            Dialog.SetTitle(_metadata.Credits);            
 
             // The container for the dialog is a vertical linear layout
             dialogView = new LinearLayout(ctx);
@@ -178,7 +160,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReadShapefileMetadata
             // Add a button to close the dialog
             Button dismissButton = new Button(ctx);
             dismissButton.Text = "OK";
-            dismissButton.Click += (s,e)=> this.Dismiss();
+            dismissButton.Click += (s,e)=> Dismiss();
             dialogView.AddView(dismissButton);
 
             // Return the new view for display

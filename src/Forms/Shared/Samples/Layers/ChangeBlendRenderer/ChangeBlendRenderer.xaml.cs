@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -10,15 +10,20 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using ArcGISRuntimeXamarin.Managers;
+using ArcGISRuntime.Samples.Managers;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
-using System.IO;
-using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
+namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 {
+    [Shared.Attributes.Sample(
+        "Blend renderer",
+        "Layers",
+        "This sample demonstrates how to use blend renderer on a raster layer. You can get a hillshade blended with either a colored raster or color ramp.",
+        "Tap on the 'Update Renderer' button to change the settings for the blend renderer. The sample allows you to change the Altitude, Azimuth, SlopeType and ColorRamp. If you use None as the ColorRamp, a standard hill shade raster output is displayed. For all the other ColorRamp types an elevation raster is used.",
+        "Featured")]
+	[Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd","caeef9aa78534760b07158bb8e068462")]
     public partial class ChangeBlendRenderer : ContentPage
     {
         public ChangeBlendRenderer()
@@ -34,14 +39,14 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
             // Get all the ColorRamp names from the PresetColorRampType Enumeration and put them 
             // in an array of strings, then set the ComboBox.ItemSource to the array, and finally 
             // select the first item in the ComboBox
-            string[] myPresetColorRampTypes = System.Enum.GetNames(typeof(PresetColorRampType));
+            string[] myPresetColorRampTypes = Enum.GetNames(typeof(PresetColorRampType));
             ColorRamps.ItemsSource = myPresetColorRampTypes;
             ColorRamps.SelectedItem = "Elevation";
 
             // Get all the SlopeType names from the SlopeType Enumeration and put them 
             // in an array of strings, then set the ComboBox.ItemSource to the array, and finally 
             // select the first item in the ComboBox
-            string[] mySlopeTypes = System.Enum.GetNames(typeof(SlopeType));
+            string[] mySlopeTypes = Enum.GetNames(typeof(SlopeType));
             SlopeTypes.ItemsSource = mySlopeTypes;
             SlopeTypes.SelectedItem = "Degree";
 
@@ -56,7 +61,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
             Azimuth_Slider.Value = 180;
 
             // Load the raster file using a path on disk
-            Raster myRasterImagery = new Raster(await GetRasterPath_Imagery());
+            Raster myRasterImagery = new Raster(GetRasterPath_Imagery());
 
             // Create the raster layer from the raster
             RasterLayer myRasterLayerImagery = new RasterLayer(myRasterImagery);
@@ -87,7 +92,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
             UpdateRenderer.IsEnabled = true;
         }
 
-        private async void OnUpdateRendererClicked(object sender, EventArgs e)
+        private void OnUpdateRendererClicked(object sender, EventArgs e)
         {
             // Define the RasterLayer that will be used to display in the map
             RasterLayer rasterLayer_ForDisplayInMap;
@@ -105,7 +110,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
                 // parameters in the BlendRenderer constructor
 
                 // Load the raster file using a path on disk
-                Raster raster_Imagery = new Raster(await GetRasterPath_Imagery());
+                Raster raster_Imagery = new Raster(GetRasterPath_Imagery());
 
                 // Create the raster layer from the raster
                 rasterLayer_ForDisplayInMap = new RasterLayer(raster_Imagery);
@@ -122,7 +127,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
                 // in the BlendRenderer constructor
 
                 // Load the raster file using a path on disk
-                Raster raster_Elevation = new Raster(await GetRasterPath_Elevation());
+                Raster raster_Elevation = new Raster(GetRasterPath_Elevation());
 
                 // Create the raster layer from the raster
                 rasterLayer_ForDisplayInMap = new RasterLayer(raster_Elevation);
@@ -133,7 +138,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
             }
 
             // Define the parameters used by the BlendRenderer constructor
-            Raster raster_ForMakingBlendRenderer = new Raster(await GetRasterPath_Elevation());
+            Raster raster_ForMakingBlendRenderer = new Raster(GetRasterPath_Elevation());
             IEnumerable<double> myOutputMinValues = new List<double> { 9 };
             IEnumerable<double> myOutputMaxValues = new List<double> { 255 };
             IEnumerable<double> mySourceMinValues = new List<double> { };
@@ -166,52 +171,14 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBlendRenderer
             MyMapView.Map.Basemap = new Basemap(rasterLayer_ForDisplayInMap);
         }
 
-        private async Task<string> GetRasterPath_Imagery()
+        private static string GetRasterPath_Imagery()
         {
-            #region offlinedata
-
-            // The desired raster is expected to be called Shasta.tif
-            string filename = "Shasta.tif";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "ChangeBlendRenderer", "raster-file", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData("7c4c679ab06a4df19dc497f577f111bd", "ChangeBlendRenderer");
-            }
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");
         }
 
-        private async Task<string> GetRasterPath_Elevation()
+        private static string GetRasterPath_Elevation()
         {
-            #region offlinedata
-
-            // The desired raster is expected to be called Shasta_Elevation.tif
-            string filename = "Shasta_Elevation.tif";
-
-            // The data manager provides a method to get the folder
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path
-            string filepath = Path.Combine(folder, "SampleData", "ChangeBlendRenderer", filename);
-
-            // Check if the file exists
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file
-                await DataManager.GetData("caeef9aa78534760b07158bb8e068462", "ChangeBlendRenderer");
-            }
-            return filepath;
-
-            #endregion offlinedata
+            return DataManager.GetDataFolder("caeef9aa78534760b07158bb8e068462", "Shasta_Elevation.tif");
         }
 
     }

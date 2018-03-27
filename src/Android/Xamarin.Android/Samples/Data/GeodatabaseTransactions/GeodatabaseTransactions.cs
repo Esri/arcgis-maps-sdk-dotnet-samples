@@ -21,9 +21,14 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.GeodatabaseTransactions
+namespace ArcGISRuntime.Samples.GeodatabaseTransactions
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Geodatabase transactions",
+        "Data",
+        "This sample demonstrates how to manage edits to a local geodatabase inside of transactions.",
+        "When the sample loads, a local geodatabase will be generated for a small area from the 'SaveTheBay' feature service. When the geodatabase is ready, its tables are added as feature layers and the map view zooms to the extent of the local data. Use the UI controls to make edits either inside or outside of a transaction. If made in a transaction, you can rollback or commit your edits as a single unit when you choose to stop editing. To allow edits without a transaction, set 'Require transaction' to false. You can then add features directly into the local geodatabase. When done adding features, you can synchronize your local edits with the service.")]
     public class GeodatabaseTransactions : Activity
     {
         // URL for the editable feature service

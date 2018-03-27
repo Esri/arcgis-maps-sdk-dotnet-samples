@@ -20,9 +20,14 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerQuery
+namespace ArcGISRuntime.Samples.FeatureLayerQuery
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer query",
+        "Data",
+        "This sample demonstrates how to query a feature layer via feature table.",
+        "The sample provides a search bar on the top, where you can input the name of a US State. When you hit search the app performs a query on the feature table and based on the result either highlights the state geometry or provides an error.")]
     public class FeatureLayerQuery : Activity
     {
         // Create reference to service of US States  

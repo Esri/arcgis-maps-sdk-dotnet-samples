@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -12,9 +12,14 @@ using Esri.ArcGISRuntime.Geometry;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.ProjectWithSpecificTransformation
+namespace ArcGISRuntime.Samples.ProjectWithSpecificTransformation
 {
     [Register("ProjectWithSpecificTransformation")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Project with specific transformation",
+        "GeometryEngine",
+        "This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. ",
+        "See [Coordinate Systems and Transformations](https://developers.arcgis.com/net/latest/wpf/guide/coordinate-systems-and-transformations.htm) for more information about geographic coordinate systems, geographic transformations, and projected coordinate systems. ")]
     public class ProjectWithSpecificTransformation : UIViewController
     {
         // Label to show the coordinates before projection

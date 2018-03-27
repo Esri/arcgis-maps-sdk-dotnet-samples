@@ -4,6 +4,6 @@ This sample demonstrates how to perform a dynamic line of sight analysis between
 
 <img src="LineOfSightGeoElement.jpg" width="350"/>
 
-### Instructions
+## Instructions
 
 Use the slider to adjust the height of the observer.

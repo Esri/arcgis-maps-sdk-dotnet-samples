@@ -16,9 +16,14 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.TimeBasedQuery
+namespace ArcGISRuntime.Samples.TimeBasedQuery
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Time-based query",
+        "Layers",
+        "This sample demonstrates how to apply a time-based parameter to a feature layer query.",
+        "")]
     public class TimeBasedQuery : Activity
     {
         // Create and hold reference to the used MapView

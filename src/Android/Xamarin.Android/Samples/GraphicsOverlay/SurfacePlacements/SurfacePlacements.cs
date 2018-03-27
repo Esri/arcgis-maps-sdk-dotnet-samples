@@ -18,9 +18,14 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Drawing;
 
-namespace ArcGISRuntimeXamarin.Samples.SurfacePlacements 
+namespace ArcGISRuntime.Samples.SurfacePlacements 
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Surface placement",
+        "GraphicsOverlay",
+        "This sample demonstrates how to position graphics using different Surface Placements.",
+        "")]
     public class SurfacePlacements : Activity
     {
         // Create and hold reference to the used SceneView

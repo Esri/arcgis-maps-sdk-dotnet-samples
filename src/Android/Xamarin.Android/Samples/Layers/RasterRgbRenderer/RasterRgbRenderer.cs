@@ -10,19 +10,23 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntimeXamarin.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using ArcGISRuntime.Samples.Managers;
 
-namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
+namespace ArcGISRuntime.Samples.RasterRgbRenderer
 {
     [Activity(Label = "RasterRgbRenderer")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Raster RGB renderer",
+        "Layers",
+        "This sample demonstrates how to use an RGB renderer on a raster layer. An RGB renderer is used to adjust the color bands of a multi-spectral image.",
+        "Choose one of the stretch parameter types. The other options will adjust based on the chosen type. Add your inputs and press the Apply button to update the renderer.")]
     public class RasterRgbRenderer : Activity
     {
         // Reference to the MapView used in the sample.
@@ -348,7 +352,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
             Map myMap = new Map(Basemap.CreateStreets());
 
             // Get the file name for the local raster dataset.
-            String filepath = await GetRasterPath();
+            String filepath = GetRasterPath();
 
             // Load the raster file
             Raster rasterFile = new Raster(filepath);
@@ -449,26 +453,9 @@ namespace ArcGISRuntimeXamarin.Samples.RasterRgbRenderer
             _rasterLayer.Renderer = rasterRenderer;
         }
 
-        private async Task<string> GetRasterPath()
+        private static string GetRasterPath()
         {
-            #region offlinedata
-            // The desired raster is expected to be called Shasta.tif.
-            string filename = "Shasta.tif";
-
-            // The data manager provides a method to get the folder.
-            string folder = DataManager.GetDataFolder();
-
-            // Get the full path.
-            string filepath = Path.Combine(folder, "SampleData", "RasterRgbRenderer", "raster-file", filename);
-
-            // Check if the file exists.
-            if (!File.Exists(filepath))
-            {
-                // Download the map package file.
-                await DataManager.GetData("7c4c679ab06a4df19dc497f577f111bd", "RasterRgbRenderer");
-            }
-            return filepath;
-            #endregion offlinedata
+            return DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");
         }
     }
 }

@@ -16,9 +16,14 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 
-namespace ArcGISRuntimeXamarin.Samples.WMSLayerUrl
+namespace ArcGISRuntime.Samples.WMSLayerUrl
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "WMS layer (URL)",
+        "Layers",
+        "This sample demonstrates how to add a layer from a WMS service to a map.",
+        "")]
     public class WMSLayerUrl : Activity
     {
         // Create and hold reference to the used MapView
@@ -55,7 +60,7 @@ namespace ArcGISRuntimeXamarin.Samples.WMSLayerUrl
             SetContentView(layout);
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Apply an imagery basemap to the map
             Map myMap = new Map(Basemap.CreateImagery());

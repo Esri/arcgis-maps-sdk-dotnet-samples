@@ -13,9 +13,14 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.SceneLayerUrl
+namespace ArcGISRuntime.Samples.SceneLayerUrl
 {
     [Register("SceneLayerUrl")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "ArcGIS scene layer (URL)",
+        "Layers",
+        "This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.",
+        "")]
     public class SceneLayerUrl : UIViewController
     {
         // Constant holding offset where the SceneView control should start

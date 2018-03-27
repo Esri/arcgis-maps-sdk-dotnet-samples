@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -13,8 +13,13 @@ using Esri.ArcGISRuntime.Xamarin.Forms;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.GeoViewSync
+namespace ArcGISRuntime.Samples.GeoViewSync
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "GeoView viewpoint synchronization",
+        "MapView",
+        "This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with each other.",
+        "")]
     public partial class GeoViewSync : ContentPage
     {
         public GeoViewSync()

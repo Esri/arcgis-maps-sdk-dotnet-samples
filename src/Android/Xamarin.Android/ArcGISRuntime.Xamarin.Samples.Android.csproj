@@ -216,6 +216,7 @@
   <ItemGroup>
     <Compile Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.cs" />
     <Compile Include="Samples\GeometryEngine\NearestVertex\NearestVertex.cs" />
+    <Compile Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.cs" />
     <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.cs" />
     <Compile Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.cs" />
     <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.cs" />
@@ -383,6 +384,7 @@
   <ItemGroup>
     <Content Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
     <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
+    <None Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

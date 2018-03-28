@@ -175,6 +175,8 @@
     </Compile>
     <Compile Include="Samples\GeometryEngine\NearestVertex\NearestVertex.xaml.cs">
       <DependentUpon>NearestVertex.xaml</DependentUpon>
+    <Compile Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.xaml.cs">
+      <DependentUpon>CreateGeometries.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.xaml.cs">
       <DependentUpon>ListTransformations.xaml</DependentUpon>
@@ -530,6 +532,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GeometryEngine\NearestVertex\NearestVertex.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -954,6 +960,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\GeometryEngine\NearestVertex\NearestVertex.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg">

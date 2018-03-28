@@ -14,6 +14,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\SpatialOperations\SpatialOperations.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
@@ -130,6 +131,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml.cs">
       <DependentUpon>ChangeEncDisplaySettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\CreateGeometries\CreateGeometries.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>CreateGeometries.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
       <SubType>Code</SubType>
@@ -541,6 +546,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\CreateGeometries\CreateGeometries.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterHillshade\RasterHillshade.xaml">

@@ -168,7 +168,13 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
                 Symbol = new SimpleMarkerSymbol()
                 {
                     Size = 15,
-                    Color = System.Drawing.Color.Red
+
+                    // Account for the Color differences supported by the various platforms
+                    #if WINDOWS_UWP
+                        Color = Windows.UI.Colors.Red
+                    #else
+                        Color = System.Drawing.Color.Red
+                    #endif
                 }
             };
 
@@ -183,7 +189,13 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             {
                 Symbol = new SimpleFillSymbol()
                 {
-                    Color = System.Drawing.Color.FromArgb(100, 226, 119, 40)
+                    #if WINDOWS_UWP
+                        //using Colors = Windows.UI.Colors;
+                        Color = Windows.UI.Color.FromArgb(100, 226, 119, 40)
+                    #else
+                        // using Colors = System.Drawing.Color;
+                        Color = System.Drawing.Color.FromArgb(100, 226, 119, 40)
+                    #endif
                 }
             };
 

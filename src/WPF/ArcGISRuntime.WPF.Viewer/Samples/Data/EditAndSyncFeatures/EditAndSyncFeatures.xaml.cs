@@ -22,7 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Drawing;
+using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
 {
@@ -83,7 +83,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
             MyMapView.Map = myMap;
 
             // Create a new symbol for the extent graphic
-            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
+            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 2);
 
             // Create graphics overlay for the extent graphic and apply a renderer
             GraphicsOverlay extentOverlay = new GraphicsOverlay();

@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
-using System.Drawing;
+using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
@@ -50,10 +50,10 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerExtrusion
                 myFeatureLayer.RenderingMode = FeatureRenderingMode.Dynamic;
 
                 // Create a new simple line symbol for the feature layer
-                SimpleLineSymbol mySimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
+                SimpleLineSymbol mySimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Black, 1);
 
                 // Create a new simple fill symbol for the feature layer 
-                SimpleFillSymbol mysimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Blue, mySimpleLineSymbol);
+                SimpleFillSymbol mysimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Colors.Blue, mySimpleLineSymbol);
 
                 // Create a new simple renderer for the feature layer
                 SimpleRenderer mySimpleRenderer = new SimpleRenderer(mysimpleFillSymbol);

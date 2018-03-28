@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Drawing;
+using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
@@ -78,7 +78,7 @@ namespace ArcGISRuntime.UWP.Samples.SketchOnMap
                     {
                         symbol = new SimpleFillSymbol()
                         {
-                            Color = Color.Red,
+                            Color = Colors.Red,
                             Style = SimpleFillSymbolStyle.Solid,
                         };
                         break;
@@ -88,7 +88,7 @@ namespace ArcGISRuntime.UWP.Samples.SketchOnMap
                     {
                         symbol = new SimpleLineSymbol()
                         {
-                            Color = Color.Red,
+                            Color = Colors.Red,
                             Style = SimpleLineSymbolStyle.Solid,
                             Width = 5d
                         };
@@ -101,7 +101,7 @@ namespace ArcGISRuntime.UWP.Samples.SketchOnMap
 
                         symbol = new SimpleMarkerSymbol()
                         {
-                            Color = Color.Red,
+                            Color = Colors.Red,
                             Style = SimpleMarkerSymbolStyle.Circle,
                             Size = 15d
                         };

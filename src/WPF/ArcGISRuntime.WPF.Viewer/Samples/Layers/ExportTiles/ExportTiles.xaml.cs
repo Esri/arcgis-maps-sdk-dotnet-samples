@@ -16,7 +16,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Drawing;
+using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.ExportTiles
 {
@@ -61,7 +61,7 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
 
             // Create a new symbol for the extent graphic
             //     This is the red box that visualizes the extent for which tiles will be exported
-            SimpleLineSymbol myExtentSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
+            SimpleLineSymbol myExtentSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 2);
 
             // Create graphics overlay for the extent graphic and apply a renderer
             GraphicsOverlay extentOverlay = new GraphicsOverlay();

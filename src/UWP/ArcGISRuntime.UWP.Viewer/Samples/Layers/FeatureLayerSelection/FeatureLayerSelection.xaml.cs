@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Drawing;
+using Windows.UI;
 using Windows.UI.Popups;
 
 namespace ArcGISRuntime.UWP.Samples.FeatureLayerSelection
@@ -63,7 +63,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerSelection
             _featureLayer = new FeatureLayer(featureTable);
 
             // Set the selection color for feature layer
-            _featureLayer.SelectionColor = Color.Cyan;
+            _featureLayer.SelectionColor = Colors.Cyan;
 
             // Set the selection width
             _featureLayer.SelectionWidth = 3;

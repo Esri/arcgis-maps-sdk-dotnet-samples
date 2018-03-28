@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.Geometry;
 using System;
-using System.Drawing;
+using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
 {
@@ -72,18 +72,18 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             MapPoint point = new MapPoint(-4.04, 53.06, 1000, camera.Location.SpatialReference);
 
             // Create a red circle symbol
-            SimpleMarkerSymbol circleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.FromArgb(255, 255,0,0), 10);
+            SimpleMarkerSymbol circleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.FromRgb(255,0,0), 10);
 
             // Create a text symbol for each elevation mode
-            TextSymbol drapedText = new TextSymbol("DRAPED", Color.FromArgb(255, 255,255,255), 10, 
+            TextSymbol drapedText = new TextSymbol("DRAPED", Color.FromRgb(255,255,255), 10, 
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Left,
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
 
-            TextSymbol relativeText = new TextSymbol("RELATIVE", Color.FromArgb(255, 255, 255, 255), 10, 
+            TextSymbol relativeText = new TextSymbol("RELATIVE", Color.FromRgb(255, 255, 255), 10, 
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Left,
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
 
-            TextSymbol absoluteText = new TextSymbol("ABSOLUTE", Color.FromArgb(255, 255, 255, 255), 10, 
+            TextSymbol absoluteText = new TextSymbol("ABSOLUTE", Color.FromRgb(255, 255, 255), 10, 
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Left,
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
 

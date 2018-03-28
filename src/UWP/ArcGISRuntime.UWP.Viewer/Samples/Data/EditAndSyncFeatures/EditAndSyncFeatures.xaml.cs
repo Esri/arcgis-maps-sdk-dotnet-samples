@@ -20,8 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Drawing;
+using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
@@ -84,7 +83,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             MyMapView.Map = myMap;
 
             // Create a new symbol for the extent graphic
-            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
+            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 2);
 
             // Create graphics overlay for the extent graphic and apply a renderer
             GraphicsOverlay extentOverlay = new GraphicsOverlay();

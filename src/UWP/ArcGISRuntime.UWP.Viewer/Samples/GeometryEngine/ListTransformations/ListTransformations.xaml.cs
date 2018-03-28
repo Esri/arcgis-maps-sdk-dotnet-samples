@@ -14,8 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Drawing;
+using Windows.UI;
 using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.UWP.Samples.ListTransformations
@@ -91,7 +90,7 @@ namespace ArcGISRuntime.UWP.Samples.ListTransformations
             MyMapView.GraphicsOverlays.Add(_pointsOverlay);
 
             // Add the point as a graphic with a blue square.
-            SimpleMarkerSymbol markerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Square, Color.Blue, 15);
+            SimpleMarkerSymbol markerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Square, Colors.Blue, 15);
             Graphic originalGraphic = new Graphic(_originalPoint, markerSymbol);
             _pointsOverlay.Graphics.Add(originalGraphic);
 
@@ -169,7 +168,7 @@ namespace ArcGISRuntime.UWP.Samples.ListTransformations
                 else
                 {
                     // Create a symbol to represent the projected point (a cross to ensure both markers are visible).
-                    SimpleMarkerSymbol projectedPointMarker = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, Color.Red, 15);
+                    SimpleMarkerSymbol projectedPointMarker = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, Colors.Red, 15);
 
                     // Create the point graphic and add it to the overlay.
                     _projectedPointGraphic = new Graphic(projectedPoint, projectedPointMarker);

@@ -16,7 +16,14 @@ using System;
 using System.Linq;
 using Xamarin.Forms;
 using System.IO;
+
+#if WINDOWS_UWP
+using Colors = Windows.UI.Colors;
+#else
+
 using Colors = System.Drawing.Color;
+
+#endif
 
 namespace ArcGISRuntime.Samples.ExportTiles
 {

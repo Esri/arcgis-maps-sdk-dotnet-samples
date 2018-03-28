@@ -14,8 +14,7 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 using System.Windows;
 using System.Windows.Input;
-using System.Drawing;
-using Point = System.Windows.Point;
+using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
 {
@@ -93,9 +92,9 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
             // Add the analysis overlay to the SceneView.
             MySceneView.AnalysisOverlays.Add(_analysisOverlay);
 
-            // Update the frustum outline Color.
+            // Update the frustum outline color.
             // The frustum outline shows the volume in which the viewshed analysis is performed.
-            Viewshed.FrustumOutlineColor = Color.Blue;
+            Viewshed.FrustumOutlineColor = Colors.Blue;
 
             // Subscribe to tap events. This enables the 'pick up' and 'drop' workflow for moving the viewpoint.
             MySceneView.GeoViewTapped += MySceneViewOnGeoViewTapped;

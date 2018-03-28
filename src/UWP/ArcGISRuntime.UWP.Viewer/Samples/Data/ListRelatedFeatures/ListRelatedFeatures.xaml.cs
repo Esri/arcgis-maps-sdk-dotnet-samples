@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Drawing;
+using Windows.UI;
 
 namespace ArcGISRuntime.UWP.Samples.ListRelatedFeatures
 {
@@ -58,7 +58,7 @@ namespace ArcGISRuntime.UWP.Samples.ListRelatedFeatures
             _myFeatureLayer = (FeatureLayer)myMap.OperationalLayers.First();
 
             // Make the selection color yellow and the width thick
-            _myFeatureLayer.SelectionColor = Color.Yellow;
+            _myFeatureLayer.SelectionColor = Colors.Yellow;
             _myFeatureLayer.SelectionWidth = 5;
 
             // Listen for GeoViewTapped events

@@ -20,9 +20,17 @@ using ArcGISRuntime.Samples.Managers;
 using System;
 using System.Linq;
 using System.IO;
+using System.Reflection;
 using System.Collections.Generic;
 using Xamarin.Forms;
+
+#if WINDOWS_UWP
+using Colors = Windows.UI.Colors;
+#else
+
 using Colors = System.Drawing.Color;
+
+#endif
 
 namespace ArcGISRuntime.Samples.EditAndSyncFeatures
 {

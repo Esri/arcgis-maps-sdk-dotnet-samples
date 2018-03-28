@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
-using System.Drawing;
+using Windows.UI;
 
 namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
 {
@@ -24,7 +24,7 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
         "This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.",
         "Use the slider to adjust the height of the observer.",
         "Featured")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
     public partial class LineOfSightGeoElement
     {
         // URL of the elevation service - provides elevation component of the scene
@@ -55,7 +55,6 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
 
         // For taxi animation - tracks animation state
         private int _pointIndex = 0;
-
         private int _frameIndex = 0;
         private readonly int _frameMax = 150;
 
@@ -63,7 +62,7 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization
+            // Setup the control references and execute initialization 
             Initialize();
         }
 
@@ -84,7 +83,7 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
             // Create a graphics overlay with relative surface placement; relative surface placement allows the Z position of the observation point to be adjusted
             GraphicsOverlay overlay = new GraphicsOverlay() { SceneProperties = new LayerSceneProperties(SurfacePlacement.Relative) };
             // Create the symbol that will symbolize the observation point
-            SimpleMarkerSceneSymbol symbol = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Sphere, Color.Red, 10, 10, 10, SceneSymbolAnchorPosition.Bottom);
+            SimpleMarkerSceneSymbol symbol = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Sphere, Colors.Red, 10, 10, 10, SceneSymbolAnchorPosition.Bottom);
             // Create the observation point graphic from the point and symbol
             _observerGraphic = new Graphic(_observerPoint, symbol);
             // Add the observer to the overlay

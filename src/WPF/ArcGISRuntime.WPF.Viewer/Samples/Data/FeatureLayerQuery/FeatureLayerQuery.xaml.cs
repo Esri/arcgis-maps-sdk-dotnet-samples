@@ -15,7 +15,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Drawing;
+using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.FeatureLayerQuery
 {
@@ -65,9 +65,9 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerQuery
 
             // Create a new renderer for the States Feature Layer
             SimpleLineSymbol lineSymbol = new SimpleLineSymbol(
-                SimpleLineSymbolStyle.Solid, Color.Black, 1);
+                SimpleLineSymbolStyle.Solid, Colors.Black, 1);
             SimpleFillSymbol fillSymbol = new SimpleFillSymbol(
-                SimpleFillSymbolStyle.Solid, Color.Yellow, lineSymbol);
+                SimpleFillSymbolStyle.Solid, Colors.Yellow, lineSymbol);
 
             // Set States feature layer renderer
             _featureLayer.Renderer = new SimpleRenderer(fillSymbol);

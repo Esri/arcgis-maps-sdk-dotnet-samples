@@ -16,7 +16,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Drawing;
+using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.SketchOnMap
 {
@@ -77,7 +77,7 @@ namespace ArcGISRuntime.WPF.Samples.SketchOnMap
                     {
                         symbol = new SimpleFillSymbol()
                         {
-                            Color = Color.Red,
+                            Color = Colors.Red,
                             Style = SimpleFillSymbolStyle.Solid,
                         };
                         break;
@@ -87,7 +87,7 @@ namespace ArcGISRuntime.WPF.Samples.SketchOnMap
                     {
                         symbol = new SimpleLineSymbol()
                         {
-                            Color = Color.Red,
+                            Color = Colors.Red,
                             Style = SimpleLineSymbolStyle.Solid,
                             Width = 5d
                         };
@@ -100,7 +100,7 @@ namespace ArcGISRuntime.WPF.Samples.SketchOnMap
 
                         symbol = new SimpleMarkerSymbol()
                         {
-                            Color = Color.Red,
+                            Color = Colors.Red,
                             Style = SimpleMarkerSymbolStyle.Circle,
                             Size = 15d
                         };

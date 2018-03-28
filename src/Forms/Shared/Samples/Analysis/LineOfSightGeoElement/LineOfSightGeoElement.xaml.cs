@@ -14,9 +14,13 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
-using System.Threading.Tasks;
 using Xamarin.Forms;
+
+#if WINDOWS_UWP
+using Colors = Windows.UI.Colors;
+#else
 using Colors = System.Drawing.Color;
+#endif
 
 namespace ArcGISRuntime.Samples.LineOfSightGeoElement
 {

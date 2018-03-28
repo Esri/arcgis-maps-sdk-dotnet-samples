@@ -48,10 +48,10 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerExtrusion
                 myFeatureLayer.RenderingMode = FeatureRenderingMode.Dynamic;
 
                 // Create a new simple line symbol for the feature layer
-                SimpleLineSymbol mySimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Black, 1);
+                SimpleLineSymbol mySimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Windows.Media.Colors.Black, 1);
 
                 // Create a new simple fill symbol for the feature layer 
-                SimpleFillSymbol mysimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Drawing.Color.Blue, mySimpleLineSymbol);
+                SimpleFillSymbol mysimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Windows.Media.Colors.Blue, mySimpleLineSymbol);
 
                 // Create a new simple renderer for the feature layer
                 SimpleRenderer mySimpleRenderer = new SimpleRenderer(mysimpleFillSymbol);

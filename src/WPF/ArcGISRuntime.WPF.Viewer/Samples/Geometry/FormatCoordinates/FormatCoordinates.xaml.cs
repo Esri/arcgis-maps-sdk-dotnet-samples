@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Drawing;
+using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.FormatCoordinates
 {
@@ -88,7 +88,7 @@ namespace ArcGISRuntime.WPF.Samples.FormatCoordinates
             MyMapView.GraphicsOverlays[0].Graphics.Clear();
 
             // Create a symbol to symbolize the point
-            SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, Color.Yellow, 20);
+            SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, Colors.Yellow, 20);
 
             // Create the graphic
             Graphic symbolGraphic = new Graphic(startingPoint, symbol);

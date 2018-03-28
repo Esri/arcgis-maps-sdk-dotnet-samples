@@ -11,12 +11,19 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.Xamarin.Forms;
 using Xamarin.Forms;
+using System.Collections.Generic;
 using Esri.ArcGISRuntime.Data;
 using System.Threading.Tasks;
 using System.Linq;
 using System;
+
+#if WINDOWS_UWP
+using Colors = Windows.UI.Colors;
+#else
 using Colors = System.Drawing.Color;
+#endif
 
 namespace ArcGISRuntime.Samples.SketchOnMap
 {

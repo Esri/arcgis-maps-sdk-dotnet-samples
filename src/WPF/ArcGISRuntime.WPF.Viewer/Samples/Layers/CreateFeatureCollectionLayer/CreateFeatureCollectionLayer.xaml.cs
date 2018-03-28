@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Drawing;
+using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.CreateFeatureCollectionLayer
 {
@@ -130,16 +130,16 @@ namespace ArcGISRuntime.WPF.Samples.CreateFeatureCollectionLayer
                 case GeometryType.Point:
                 case GeometryType.Multipoint:
                     // Create a marker symbol
-                    sym = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Color.Red, 18);
+                    sym = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Colors.Red, 18);
                     break;
                 case GeometryType.Polyline:
                     // Create a line symbol
-                    sym = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.Green, 3);
+                    sym = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Colors.Green, 3);
                     break;
                 case GeometryType.Polygon:
                     // Create a fill symbol
-                    var lineSym = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.DarkBlue, 2);
-                    sym = new SimpleFillSymbol(SimpleFillSymbolStyle.DiagonalCross, Color.Cyan, lineSym);
+                    var lineSym = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.DarkBlue, 2);
+                    sym = new SimpleFillSymbol(SimpleFillSymbolStyle.DiagonalCross, Colors.Cyan, lineSym);
                     break;
                 default:
                     break;

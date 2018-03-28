@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.Collections.Generic;
 using System.Windows;
-using System.Drawing;
+using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.IdentifyGraphics
 {
@@ -67,7 +67,7 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyGraphics
             // Create symbol for the polygon
             SimpleFillSymbol polygonSymbol = new SimpleFillSymbol(
                 SimpleFillSymbolStyle.Solid,
-                Color.Yellow,
+                Colors.Yellow,
                 null);
 
             // Create new graphic

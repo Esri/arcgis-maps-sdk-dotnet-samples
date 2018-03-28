@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
-using System.Drawing;
+using Windows.UI;
 
 namespace ArcGISRuntime.UWP.Samples.RenderUniqueValues
 {
@@ -53,15 +53,15 @@ namespace ArcGISRuntime.UWP.Samples.RenderUniqueValues
 
             // Define a line symbol to use for the region fill symbols
             SimpleLineSymbol stateOutlineSymbol = new SimpleLineSymbol(
-                SimpleLineSymbolStyle.Solid, Color.White, 0.7);
+                SimpleLineSymbolStyle.Solid, Colors.White, 0.7);
 
             // Define distinct fill symbols for a few regions (use the same outline symbol)
             SimpleFillSymbol pacificFillSymbol = new SimpleFillSymbol(
-                SimpleFillSymbolStyle.Solid, Color.Blue, stateOutlineSymbol);
+                SimpleFillSymbolStyle.Solid, Colors.Blue, stateOutlineSymbol);
             SimpleFillSymbol mountainFillSymbol = new SimpleFillSymbol(
-                SimpleFillSymbolStyle.Solid, Color.LawnGreen, stateOutlineSymbol);
+                SimpleFillSymbolStyle.Solid, Colors.LawnGreen, stateOutlineSymbol);
             SimpleFillSymbol westSouthCentralFillSymbol = new SimpleFillSymbol(
-                SimpleFillSymbolStyle.Solid, Color.SandyBrown, stateOutlineSymbol);
+                SimpleFillSymbolStyle.Solid, Colors.SandyBrown, stateOutlineSymbol);
 
             // Add values to the renderer: define the label, description, symbol, and attribute value for each
             regionRenderer.UniqueValues.Add(
@@ -73,7 +73,7 @@ namespace ArcGISRuntime.UWP.Samples.RenderUniqueValues
 
             // Set the default region fill symbol (transparent with no outline) for regions not explicitly defined in the renderer
             var defaultFillSymbol = new SimpleFillSymbol(
-                SimpleFillSymbolStyle.Null, Color.Transparent, null);
+                SimpleFillSymbolStyle.Null, Colors.Transparent, null);
             regionRenderer.DefaultSymbol = defaultFillSymbol;
             regionRenderer.DefaultLabel = "Other";
 

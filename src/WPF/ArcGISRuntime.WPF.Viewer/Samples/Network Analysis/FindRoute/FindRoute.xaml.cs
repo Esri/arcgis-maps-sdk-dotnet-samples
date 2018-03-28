@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Drawing;
+using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.FindRoute
 {
@@ -114,7 +114,7 @@ namespace ArcGISRuntime.WPF.Samples.FindRoute
             Polyline routePolyline = firstRoute.RouteGeometry;
 
             // Create a thick purple line symbol for the route
-            SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Purple, 8.0);
+            SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Purple, 8.0);
 
             // Create a new graphic for the route geometry and add it to the graphics overlay
             Graphic routeGraphic = new Graphic(routePolyline, routeSymbol);

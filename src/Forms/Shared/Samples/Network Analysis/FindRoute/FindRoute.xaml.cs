@@ -15,7 +15,11 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+#if WINDOWS_UWP
+using Colors = Windows.UI.Colors;
+#else
 using Colors = System.Drawing.Color;
+#endif
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.FindRoute

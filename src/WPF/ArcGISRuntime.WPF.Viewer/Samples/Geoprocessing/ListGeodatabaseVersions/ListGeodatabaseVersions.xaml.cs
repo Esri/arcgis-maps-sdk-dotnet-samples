@@ -90,10 +90,9 @@ namespace ArcGISRuntime.WPF.Samples.ListGeodatabaseVersions
             // Create new geoprocessing task 
             var listVersionsTask = await GeoprocessingTask.CreateAsync(new Uri(ListVersionsUrl));
 
-            // Create parameters that are passed to the used geoprocessing task
-            GeoprocessingParameters listVersionsParameters =
-                 new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute);
-         
+            // Create default parameters that are passed to the geoprocessing task
+            GeoprocessingParameters listVersionsParameters = await listVersionsTask.CreateDefaultParametersAsync();
+
             // Create job that handles the communication between the application and the geoprocessing task
             var listVersionsJob = listVersionsTask.CreateJob(listVersionsParameters);
             try

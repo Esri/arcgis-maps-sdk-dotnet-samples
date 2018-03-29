@@ -50,6 +50,9 @@ namespace ArcGISRuntime
 
         private async void OnItemTapped(object sender, ItemTappedEventArgs e)
         {
+            // Call a function to clear existing credentials.
+            ClearCredentials();
+
             try
             {
                 // Get the selected sample.
@@ -59,13 +62,13 @@ namespace ArcGISRuntime
                 if (item.OfflineDataItems != null)
                 {
                     // Show the wait page.
-                    await Navigation.PushAsync(new WaitPage { Title = item.SampleName }, false);
+                    await Navigation.PushModalAsync(new WaitPage { Title = item.SampleName }, false);
 
                     // Wait for the sample data download.
                     await DataManager.EnsureSampleDataPresent(item);
 
                     // Remove the waiting page.
-                    await Navigation.PopAsync(false);
+                    await Navigation.PopModalAsync(false);
                 }
 
                 // Get the sample control from the selected sample.
@@ -76,9 +79,6 @@ namespace ArcGISRuntime
 
                 // Show the sample.
                 await Navigation.PushAsync(page, true);
-
-                // Call a function to clear existing credentials.
-                ClearCredentials();
             }
             catch (Exception ex)
             {

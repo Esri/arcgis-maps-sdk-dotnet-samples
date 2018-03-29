@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
+             x:Class="ArcGISRuntime.Samples.DownloadPreplannedMapAreas.DownloadPreplannedMapAreas">
+    <RelativeLayout>
+        <!-- Base layout for showing the map and the controls -->
+        <Grid IsVisible="True"
+              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+              RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="150" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                   Text="Select a map area to download and show:" />
+            <ListView x:Name="PreplannedAreasList"
+                      Grid.Row="1"
+                      ItemSelected="OnDownloadMapAreaClicked"
+                      RowHeight="50">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell ImageSource="{Binding PortalItem.ThumbnailUri}" Text="{Binding PortalItem.Title}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Grid.Row="2"
+                    Text="Delete offline areas"
+                    Clicked="OnDeleteAllMapAreasClicked" />
+            <esriUI:MapView x:Name="MyMapView"
+                            Grid.Row="3" />
+        </Grid>
+        <!-- Loading overlay, shown over the base layout -->
+        <AbsoluteLayout x:Name="BusyIndicator"
+                        BackgroundColor="#7f7f7f7f"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                        IsVisible="False">
+            <Grid AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                  AbsoluteLayout.LayoutFlags="All">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Label x:Name="BusyText"
+                       TextColor="White"
+                       Margin="10"
+                       FontSize="18" />
+                <ProgressBar x:Name="ProgressBar"
+                             Grid.Row="1"
+                             IsEnabled="True"
+                             WidthRequest="100" HeightRequest="10"
+                             HorizontalOptions="Center" VerticalOptions="Center" />
+            </Grid>
+        </AbsoluteLayout>
+    </RelativeLayout>
+</ContentPage>

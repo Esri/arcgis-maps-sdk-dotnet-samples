@@ -80,6 +80,12 @@ namespace ArcGISRuntime
         {
             try
             {
+                // Clear credentials (if any) from previous sample runs
+                foreach (Credential cred in AuthenticationManager.Current.Credentials)
+                {
+                    AuthenticationManager.Current.RemoveCredential(cred);
+                }
+
                 var sample = _visibleSamples[indexPath.Row];
 
                 if (sample.OfflineDataItems != null)
@@ -95,11 +101,6 @@ namespace ArcGISRuntime
 
                     // Hide progress overlay
                     _loadPopup.Hide();
-                }
-                // Clear credentials (if any) from previous sample runs
-                foreach (Credential cred in AuthenticationManager.Current.Credentials)
-                {
-                    AuthenticationManager.Current.RemoveCredential(cred);
                 }
 
                 var control = (UIViewController)SampleManager.Current.SampleToControl(sample);

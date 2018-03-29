@@ -100,9 +100,17 @@ This sample demonstrates how to convert between `MapPoint` and string representa
 
 ## GeometryEngine
 
+* [Geodesic operations](ArcGISRuntime.WPF.Viewer/Samples/GeometryEngine/GeodesicOperations)
+
+This sample demonstrates how to use the Geometry engine to calculate a geodesic path between two points and measure its distance.
+
 * [List transformations by suitability](ArcGISRuntime.WPF.Viewer/Samples/GeometryEngine/ListTransformations)
 
 This sample demonstrates how to use the TransformationCatalog to get a list of available DatumTransformations that can be used to project a Geometry between two different SpatialReferences, and how to use one of the transformations to perform the GeometryEngine.project operation. The TransformationCatalog is also used to set the location of files upon which grid-based transformations depend, and to find the default transformation used for the two SpatialReferences.
+
+* [Nearest vertex](ArcGISRuntime.WPF.Viewer/Samples/GeometryEngine/NearestVertex)
+
+This sample demonstrates how to use the Geometry engine find the nearest vertex and nearest coordinate of a polygon to a point. The distance for each is shown.
 
 * [Project with specific transformation](ArcGISRuntime.WPF.Viewer/Samples/GeometryEngine/ProjectWithSpecificTransformation)
 

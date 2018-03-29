@@ -29,10 +29,10 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
         // Map view control to display a map in the app.
         private readonly MapView _myMapView = new MapView();
 
-        // Label to show the geodesic distance
+        // Label to show the geodesic distance.
         private TextView _resultTextView;
 
-        // Hold references to the graphics
+        // Hold references to the graphics.
         private Graphic _startLocationGraphic;
         private Graphic _endLocationGraphic;
         private Graphic _pathGraphic;
@@ -54,61 +54,61 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
         {
             _myMapView.Map = new Map(Basemap.CreateImagery());
 
-            // Create the graphics overlay and add it to the mapview
+            // Create the graphics overlay and add it to the map view.
             GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
             _myMapView.GraphicsOverlays.Add(graphicsOverlay);
 
-            // Add a graphic at JFK to serve as the origin
+            // Add a graphic at JFK to serve as the origin.
             MapPoint start = new MapPoint(-73.7781, 40.6413, SpatialReferences.Wgs84);
             SimpleMarkerSymbol startMarker = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Blue, 10);
             _startLocationGraphic = new Graphic(start, startMarker);
 
-            // Create the graphic for the destination
+            // Create the graphic for the destination.
             _endLocationGraphic = new Graphic
             {
                 Symbol = startMarker
             };
 
-            // Create the graphic for the path
+            // Create the graphic for the path.
             _pathGraphic = new Graphic
             {
                 Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Blue, 5)
             };
 
-            // Add the graphics to the overlay
+            // Add the graphics to the overlay.
             graphicsOverlay.Graphics.Add(_startLocationGraphic);
             graphicsOverlay.Graphics.Add(_endLocationGraphic);
             graphicsOverlay.Graphics.Add(_pathGraphic);
 
-            // Update end location when the user taps
+            // Update end location when the user taps.
             _myMapView.GeoViewTapped += MyMapViewOnGeoViewTapped;
         }
 
         private void MyMapViewOnGeoViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
         {
-            // Get the tapped point, projected to WGS84
+            // Get the tapped point, projected to WGS84.
             MapPoint destination = (MapPoint)GeometryEngine.Project(geoViewInputEventArgs.Location, SpatialReferences.Wgs84);
 
-            // Update the destination graphic
+            // Update the destination graphic.
             _endLocationGraphic.Geometry = destination;
 
-            // Get the points that define the route polyline
+            // Get the points that define the route polyline.
             PointCollection polylinePoints = new PointCollection(SpatialReferences.Wgs84)
             {
                 (MapPoint)_startLocationGraphic.Geometry,
                 destination
             };
 
-            // Create the polyline for the two points
+            // Create the polyline for the two points.
             Polyline routeLine = new Polyline(polylinePoints);
 
-            // Densify the polyline to show the geodesic curve
+            // Densify the polyline to show the geodesic curve.
             Geometry pathGeometry = GeometryEngine.DensifyGeodetic(routeLine, 1, LinearUnits.Kilometers, GeodeticCurveType.Geodesic);
 
-            // Apply the curved line to the path graphic
+            // Apply the curved line to the path graphic.
             _pathGraphic.Geometry = pathGeometry;
 
-            // Calculate and show the distance
+            // Calculate and show the distance.
             double distance = GeometryEngine.LengthGeodetic(pathGeometry, LinearUnits.Kilometers, GeodeticCurveType.Geodesic);
             _resultTextView.Text = $"{(int)distance} kilometers";
         }
@@ -117,10 +117,10 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
         {
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-            // Create the result label
+            // Create the result label.
             _resultTextView = new TextView(this) { Text = "Tap to set an end point." };
 
-            // Add the label and map to the view
+            // Add the label and map to the view.
             layout.AddView(_resultTextView);
             layout.AddView(_myMapView);
 

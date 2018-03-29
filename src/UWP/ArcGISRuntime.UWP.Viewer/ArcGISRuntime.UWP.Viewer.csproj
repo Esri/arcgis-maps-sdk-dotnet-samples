@@ -132,6 +132,7 @@
     <Content Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg" />
     <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <Content Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
+    <Content Include="Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
     <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
     <Content Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
@@ -322,6 +323,9 @@
     </Compile>
     <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.xaml.cs">
       <DependentUpon>ListTransformations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GeometryEngine\NearestVertex\NearestVertex.xaml.cs">
+      <DependentUpon>NearestVertex.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
       <DependentUpon>ProjectWithSpecificTransformation.xaml</DependentUpon>
@@ -643,6 +647,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GeometryEngine\ListTransformations\ListTransformations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeometryEngine\NearestVertex\NearestVertex.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

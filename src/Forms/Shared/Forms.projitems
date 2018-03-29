@@ -112,6 +112,9 @@
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\NearestVertex\NearestVertex.xaml.cs">
+      <DependentUpon>NearestVertex.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>RasterHillshade.xaml</DependentUpon>
@@ -859,5 +862,14 @@
   <!-- Misc Resources -->
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_star_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\NearestVertex\NearestVertex.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

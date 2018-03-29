@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Spatial relationships",
         "GeometryEngine",
-        "This sample demonstrates how to use the GeometryEngine to evaluate the spatial relationships (for example, polygon a contains line b) of between geometries.",
+        "This sample demonstrates how to use the GeometryEngine to evaluate the spatial relationships (for example, polygon a contains line b) between geometries.",
         "Tap a graphic to select it. The display will update to show the relationships with the other graphics.")]
     public class SpatialRelationships : UIViewController
     {
@@ -73,11 +73,11 @@ namespace ArcGISRuntime.Samples.ListTransformations
             // Create the polygon
             Polygon polygonGeometry = new Polygon(polygonPoints);
 
-            // Define and apply the symbology
+            // Define the symbology of the polygon
             SimpleLineSymbol polygonOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Green, 2);
             SimpleFillSymbol polygonFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.ForwardDiagonal, System.Drawing.Color.Green, polygonOutlineSymbol);
 
-            // Create the graphic and add it to the graphics overlay
+            // Create the polygon graphic and add it to the graphics overlay
             _polygonGraphic = new Graphic(polygonGeometry, polygonFillSymbol);
             _graphicsOverlay.Graphics.Add(_polygonGraphic);
 
@@ -93,25 +93,25 @@ namespace ArcGISRuntime.Samples.ListTransformations
             // Create the polyline
             Polyline polylineGeometry = new Polyline(polylinePoints);
 
-            // Create the polyline and add it to the overlay
+            // Create the polyline graphic and add it to the graphics overlay
             _polylineGraphic = new Graphic(polylineGeometry, new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Red, 4));
             _graphicsOverlay.Graphics.Add(_polylineGraphic);
 
-            // Create the point that defines the point graphic
-            MapPoint point = new MapPoint(-4487263.495911, 3699176.480377, SpatialReferences.WebMercator);
+            // Create the point geometry that defines the point graphic
+            MapPoint pointGeometry = new MapPoint(-4487263.495911, 3699176.480377, SpatialReferences.WebMercator);
 
             // Define the symbology for the point
             SimpleMarkerSymbol locationMarker = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Blue, 10);
 
-            // Create the graphic and add it to the overlay
-            _pointGraphic = new Graphic(point, locationMarker);
+            // Create the point graphic and add it to the graphics overlay
+            _pointGraphic = new Graphic(pointGeometry, locationMarker);
             _graphicsOverlay.Graphics.Add(_pointGraphic);
 
             // Listen for taps; the spatial relationships will be updated in the handler
             _myMapView.GeoViewTapped += myMapView_GeoViewTapped;
 
             // Set the viewpoint to center on the point
-            _myMapView.SetViewpointCenterAsync(point, 200000000);
+            _myMapView.SetViewpointCenterAsync(pointGeometry, 200000000);
         }
 
         private async void myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -180,7 +180,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         }
 
         /// <summary>
-        /// Returns a list of spatial relationships between two points
+        /// Returns a list of spatial relationships between two geometries
         /// </summary>
         /// <param name="a">The 'a' in "a contains b"</param>
         /// <param name="b">The 'b' in "a contains b"</param>

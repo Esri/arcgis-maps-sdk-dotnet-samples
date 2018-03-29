@@ -325,6 +325,7 @@
   <!-- Sample Code -->
   <ItemGroup>
     <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
+    <Compile Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.cs" />
     <Compile Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.cs" />
     <Compile Include="Samples\GeometryEngine\NearestVertex\NearestVertex.cs" />
     <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.cs" />
@@ -447,6 +448,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.jpg" />
     <None Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.jpg" />
     <None Include="Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
     <None Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />

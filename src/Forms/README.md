@@ -112,6 +112,10 @@ This sample demonstrates how to use the Geometry engine find the nearest vertex 
 
 This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
 
+* [Spatial relationships](Shared/Samples/GeometryEngine/SpatialRelationships)
+
+This sample demonstrates how to use the GeometryEngine to evaluate the spatial relationships (for example, polygon a contains line b) of between geometries.
+
 ## Geoprocessing
 
 * [Analyze hotspots](Shared/Samples/Geoprocessing/AnalyzeHotspots)

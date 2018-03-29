@@ -69,6 +69,9 @@ namespace ArcGISRuntime
             {
                 try
                 {
+                    // Call a function to clear existing credentials
+                    ClearCredentials();
+
                     var sample = _data[indexPath.Row];
 
                     if (sample.OfflineDataItems != null)
@@ -85,9 +88,7 @@ namespace ArcGISRuntime
                         // Hide progress overlay
                         _loadPopup.Hide();
                     }
-                    // Call a function to clear existing credentials
-                    ClearCredentials();
-
+                    
                     var control = (UIViewController)SampleManager.Current.SampleToControl(sample);
                     _controller.NavigationController.PushViewController(control, true);
                 }

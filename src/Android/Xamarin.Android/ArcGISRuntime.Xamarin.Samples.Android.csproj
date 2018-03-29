@@ -215,6 +215,7 @@
   <!-- Sample Code -->
   <ItemGroup>
     <Compile Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.cs" />
+    <Compile Include="Samples\GeometryEngine\NearestVertex\NearestVertex.cs" />
     <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.cs" />
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
     <Compile Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.cs" />
@@ -286,6 +287,7 @@
     <Compile Include="Samples\Map\AuthorMap\AuthorMap.cs" />
     <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemap.cs" />
     <Compile Include="Samples\Map\DisplayMap\DisplayMap.cs" />
+    <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.cs" />
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.cs" />
     <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.cs" />
     <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMap.cs" />
@@ -371,6 +373,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.jpg" />
+    <None Include="Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
+    <None Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

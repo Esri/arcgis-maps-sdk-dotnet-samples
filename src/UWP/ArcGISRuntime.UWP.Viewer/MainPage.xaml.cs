@@ -125,9 +125,6 @@ namespace ArcGISRuntime.UWP.Viewer
                     // Remove the wait page from the stack
                     Frame.BackStack.Remove(Frame.BackStack.First(m => m.SourcePageType == typeof(WaitPage)));
                 }
-
-                // Call a function to clear any existing credentials from AuthenticationManager
-                ClearCredentials();
             }
             catch (Exception exception)
             {

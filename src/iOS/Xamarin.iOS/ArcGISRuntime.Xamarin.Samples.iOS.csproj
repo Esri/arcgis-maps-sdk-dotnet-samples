@@ -326,11 +326,13 @@
   <ItemGroup>
     <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
     <Compile Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.cs" />
+    <Compile Include="Samples\GeometryEngine\NearestVertex\NearestVertex.cs" />
     <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.cs" />
     <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.cs" />
     <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.cs" />
     <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.cs" />
     <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.cs" />
+    <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.cs" />
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
     <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.cs" />
@@ -446,6 +448,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.jpg" />
+    <None Include="Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
+    <None Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

@@ -58,19 +58,25 @@ namespace ArcGISRuntime
 
         private async void ShowSample(SampleInfo item)
         {
+            // Clear Credentials
+            foreach (Credential cred in AuthenticationManager.Current.Credentials)
+            {
+                AuthenticationManager.Current.RemoveCredential(cred);
+            }
+
             try
             {
                 // Load offline data before showing the sample.
                 if (item.OfflineDataItems != null)
                 {
                     // Show the wait page.
-                    await Navigation.PushAsync(new WaitPage { Title = item.SampleName }, false);
+                    await Navigation.PushModalAsync(new WaitPage { Title = item.SampleName }, false);
 
                     // Wait for the sample data download.
                     await DataManager.EnsureSampleDataPresent(item);
 
                     // Remove the waiting page.
-                    await Navigation.PopAsync(false);
+                    await Navigation.PopModalAsync(false);
                 }
 
                 // Get the sample control from the selected sample.
@@ -81,12 +87,6 @@ namespace ArcGISRuntime
 
                 // Show the sample.
                 await Navigation.PushAsync(page, true);
-
-                // Clear Credentials
-                foreach (Credential cred in AuthenticationManager.Current.Credentials)
-                {
-                    AuthenticationManager.Current.RemoveCredential(cred);
-                }
             }
             catch (Exception ex)
             {
@@ -118,9 +118,9 @@ namespace ArcGISRuntime
                 {
                     _query = value;
                     OnPropertyChanged();
-                    OnPropertyChanged("SearchResults");
-                    OnPropertyChanged("IsSearchOpen");
-                    OnPropertyChanged("IsCategoriesOpen");
+                    OnPropertyChanged(nameof(SearchResults));
+                    OnPropertyChanged(nameof(IsSearchOpen));
+                    OnPropertyChanged(nameof(IsCategoriesOpen));
                 }
             }
         }

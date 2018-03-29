@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntimeXamarin.Samples.SpatialOperations.SpatialOperations">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Frame BackgroundColor="WhiteSmoke" Opacity=".85"
+                HorizontalOptions="CenterAndExpand" VerticalOptions="Start"
+                Margin="30" Padding="10" WidthRequest="275">
+            <StackLayout>
+                <Label Text="Select a spatial operation:">
+                    <Label.TextColor>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="Android" Value="DarkGray"/>
+                        </OnPlatform>
+                    </Label.TextColor>
+                </Label>
+                <Picker x:Name="SpatialOperationComboBox" 
+                        Margin="0,5"
+                        WidthRequest="253"
+                        SelectedIndexChanged="SpatialOperationComboBox_SelectedIndexChanged">
+                    <Picker.BackgroundColor>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="Android" Value="DarkGray"/>
+                        </OnPlatform>
+                    </Picker.BackgroundColor>
+                </Picker>
+                <Button x:Name="ResetOperationButton"
+                        Text="Reset operation"
+                        WidthRequest="253"
+                        Clicked="ResetOperationButton_Clicked"/>
+            </StackLayout>
+        </Frame>
+    </Grid>
+</ContentPage>

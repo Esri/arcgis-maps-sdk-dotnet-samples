@@ -134,6 +134,7 @@
     <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg" />
     <Content Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg" />
     <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
+    <Content Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
     <Content Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
     <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
     <Content Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
@@ -321,6 +322,9 @@
     </Compile>
     <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
       <DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.xaml.cs">
+      <DependentUpon>CreateGeometries.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.xaml.cs">
       <DependentUpon>ListTransformations.xaml</DependentUpon>
@@ -638,6 +642,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

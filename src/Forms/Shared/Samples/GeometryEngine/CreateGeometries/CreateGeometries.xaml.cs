@@ -13,6 +13,12 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Xamarin.Forms;
 
+#if WINDOWS_UWP
+using Colors = Windows.UI.Colors;
+#else
+using Colors = System.Drawing.Color;
+#endif
+
 namespace ArcGISRuntime.Samples.CreateGeometries
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
@@ -42,16 +48,16 @@ namespace ArcGISRuntime.Samples.CreateGeometries
             MyMapView.Map = theMap;
 
             // Create a simple fill symbol - used to render a polygon covering Colorado.
-            SimpleFillSymbol theSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Cross, System.Drawing.Color.Blue, null);
+            SimpleFillSymbol theSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Cross, Colors.Blue, null);
 
             // Create a simple line symbol - used to render a polyline border between California and Nevada.
-            SimpleLineSymbol theSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Blue, 3);
+            SimpleLineSymbol theSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Blue, 3);
 
             // Create a simple marker symbol - used to render multi-points for various state capital locations in the Western United States.
-            SimpleMarkerSymbol theSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, System.Drawing.Color.Blue, 14);
+            SimpleMarkerSymbol theSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Colors.Blue, 14);
 
             // Create a simple marker symbol - used to render a map point where the Esri headquarters is located.
-            SimpleMarkerSymbol theSimpleMarkerSymbol2 = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Diamond, System.Drawing.Color.Red, 18);
+            SimpleMarkerSymbol theSimpleMarkerSymbol2 = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Diamond, Colors.Red, 18);
 
             // Create a graphics overlay to hold the various graphics.
             GraphicsOverlay theGraphicsOverlays = new GraphicsOverlay();

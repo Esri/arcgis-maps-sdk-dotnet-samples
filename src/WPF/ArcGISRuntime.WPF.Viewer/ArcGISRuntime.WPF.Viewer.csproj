@@ -175,6 +175,7 @@
     </Compile>
     <Compile Include="Samples\GeometryEngine\NearestVertex\NearestVertex.xaml.cs">
       <DependentUpon>NearestVertex.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.xaml.cs">
       <DependentUpon>CreateGeometries.xaml</DependentUpon>
     </Compile>

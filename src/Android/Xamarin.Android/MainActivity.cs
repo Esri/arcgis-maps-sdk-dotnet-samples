@@ -24,6 +24,7 @@ namespace ArcGISRuntime
     public class MainActivity : Activity
     {
         private List<SearchableTreeNode> _sampleCategories;
+        private List<SearchableTreeNode> _filteredSampleCategories;
         private ExpandableListView _categoriesListView;
 
         protected override void OnCreate(Bundle bundle)
@@ -37,6 +38,7 @@ namespace ArcGISRuntime
                 // Initialize the SampleManager and create the Sample Categories.
                 SampleManager.Current.Initialize();
                 _sampleCategories = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
+                _filteredSampleCategories = _sampleCategories;
 
                 // Set up the custom ArrayAdapter for displaying the Categories.
                 var categoriesAdapter = new CategoriesAdapter(this, _sampleCategories);
@@ -58,14 +60,20 @@ namespace ArcGISRuntime
 
         private void SearchBoxOnQueryTextChange(object sender, SearchView.QueryTextChangeEventArgs queryTextChangeEventArgs)
         {
-            var results =
-                SampleManager.Current.FullTree.Search(sample => SampleManager.Current.SampleSearchFunc(sample, queryTextChangeEventArgs.NewText));
-            _categoriesListView.SetAdapter(new CategoriesAdapter(this, 
-                results?.Items.OfType<SearchableTreeNode>().ToList() ?? new List<SearchableTreeNode>()));
+            SearchableTreeNode stnResult = SampleManager.Current.FullTree.Search(sample => SampleManager.Current.SampleSearchFunc(sample, queryTextChangeEventArgs.NewText));
+            if (stnResult != null)
+            {
+                _filteredSampleCategories = stnResult.Items.OfType<SearchableTreeNode>().ToList();
+            }
+            else
+            {
+                _filteredSampleCategories = new List<SearchableTreeNode>();
+            }
+                
+            _categoriesListView.SetAdapter(new CategoriesAdapter(this, _filteredSampleCategories));
 
-            int resultCount = results?.Items?.Count ?? 0;
             // Expand all entries; makes it easier to see search results.
-            for (int index = 0; index < resultCount; index++)
+            for (int index = 0; index < _filteredSampleCategories.Count; index++)
             {
                 _categoriesListView.ExpandGroup(index);
             }
@@ -81,7 +89,7 @@ namespace ArcGISRuntime
                 ClearCredentials();
 
                 // Get the clicked item.
-                SampleInfo item = (SampleInfo)_sampleCategories[childClickEventArgs.GroupPosition].Items[childClickEventArgs.ChildPosition];
+                SampleInfo item = (SampleInfo)_filteredSampleCategories[childClickEventArgs.GroupPosition].Items[childClickEventArgs.ChildPosition];
 
                 // Download any offline data before showing the sample.
                 if (item.OfflineDataItems != null)

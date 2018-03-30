@@ -4,9 +4,7 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
              x:Class="ArcGISRuntime.Samples.CreateGeometries.CreateGeometries">
-  <Grid>
-    <esriUI:MapView x:Name="MyMapView">
-      <mapping:Map/>
-    </esriUI:MapView>
-  </Grid>
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView"/>
+    </Grid>
 </ContentPage>

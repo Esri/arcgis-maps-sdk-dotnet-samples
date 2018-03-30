@@ -328,6 +328,8 @@
     <Compile Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.cs" />
     <Compile Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.cs" />
     <Compile Include="Samples\GeometryEngine\NearestVertex\NearestVertex.cs" />
+    <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.cs" />
+    <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.cs" />
     <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.cs" />
     <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.cs" />
     <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.cs" />
@@ -452,6 +454,12 @@
     <None Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.jpg" />
     <None Include="Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
     <None Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

@@ -12,13 +12,14 @@ using Android.Views;
 using Android.Widget;
 using ArcGISRuntime.Samples.Shared.Models;
 using System.Collections.Generic;
+using Java.Lang;
 
 namespace ArcGISRuntime
 {
     /// <summary>
-    /// Custom ArrayAdapter to display the list of Categories.
+    /// Custom ArrayAdapter to display the list of categories, with samples underneath.
     /// </summary>
-    internal class CategoriesAdapter : BaseAdapter<SearchableTreeNode>
+    internal class CategoriesAdapter : BaseExpandableListAdapter
     {
         private readonly List<SearchableTreeNode> _items;
         private readonly Activity _context;
@@ -29,24 +30,64 @@ namespace ArcGISRuntime
             _context = context;
         }
 
-        public override long GetItemId(int position)
+        public override Object GetChild(int groupPosition, int childPosition)
         {
-            return position;
+            return (Object)_items[groupPosition].Items[childPosition];
         }
 
-        public override SearchableTreeNode this[int position] => _items[position];
+        public override long GetChildId(int groupPosition, int childPosition)
+        {
+            return _items[groupPosition].Items[childPosition].GetHashCode();
+        }
 
-        public override int Count => _items.Count;
+        public override int GetChildrenCount(int groupPosition)
+        {
+            return _items[groupPosition].Items.Count;
+        }
 
-        public override View GetView(int position, View convertView, ViewGroup parent)
+        public override Object GetGroup(int groupPosition)
+        {
+            return (Object)(object)_items[groupPosition];
+        }
+
+        public override long GetGroupId(int groupPosition)
+        {
+            return _items[groupPosition].GetHashCode();
+        }
+
+        public override View GetGroupView(int groupPosition, bool isExpanded, View convertView, ViewGroup parent)
         {
             var view = _context.LayoutInflater.Inflate(Resource.Layout.CategoriesLayout, parent, false);
 
-            var name = view.FindViewById<TextView>(Resource.Id.nameTextView);
+            var name = view.FindViewById<TextView>(Resource.Id.groupNameTextView);
 
-            name.Text = _items[position].Name;
+            name.Text = _items[groupPosition].Name;
 
             return view;
         }
+
+        public override View GetChildView(int groupPosition, int childPosition, bool isLastChild, View convertView, ViewGroup parent)
+        {
+            var view = _context.LayoutInflater.Inflate(Resource.Layout.CategoriesLayout, parent, false);
+
+            var name = view.FindViewById<TextView>(Resource.Id.sampleNameTextView);
+            SampleInfo sample = (SampleInfo)_items[groupPosition].Items[childPosition];
+            name.Text = sample.SampleName;
+
+            return view;
+        }
+
+        public override bool IsChildSelectable(int groupPosition, int childPosition)
+        {
+            if (_items[groupPosition]?.Items[childPosition] != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public override int GroupCount => _items.Count;
+        public override bool HasStableIds => true;
     }
 }

@@ -335,13 +335,11 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SamplesListActivity.cs" />
-    <Compile Include="SamplesListAdapter.cs" />
   </ItemGroup>
   <!-- Sample Manager Layout-->
   <ItemGroup>
     <AndroidResource Include="Resources\layout\CategoriesList.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\CategoriesLayout.axml">
       <SubType>AndroidResource</SubType>

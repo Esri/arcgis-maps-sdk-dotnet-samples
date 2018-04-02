@@ -9,10 +9,14 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel  Orientation="Horizontal" Grid.Row="0">
-            <Label Content="Specify the buffer in miles and the tap on the map:"/>
-            <TextBox x:Name="BufferValue_TextBox" Text="10"/>
+        <StackPanel Grid.Row="0" 
+                    Orientation="Horizontal" >
+            <Label x:Name="BufferInstructionsLabel" 
+                   Content="Specify the buffer in miles and the tap on the map:"/>
+            <TextBox x:Name="BufferDistanceMilesTextBox" 
+                     Text="10"/>
         </StackPanel>
-        <esri:MapView x:Name="MyMapView" Grid.Row="1"/>
+        <esri:MapView x:Name="MyMapView" 
+                      Grid.Row="1"/>
     </Grid>
 </UserControl>

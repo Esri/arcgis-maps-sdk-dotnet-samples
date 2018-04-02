@@ -25,7 +25,7 @@ namespace ArcGISRuntime.UWP.Samples.Buffer
     public partial class Buffer
     {
         // Graphics overlay to display buffer related graphics.
-        private GraphicsOverlay _GraphicsOverlay;
+        private GraphicsOverlay _graphicsOverlay;
 
         public Buffer()
         {
@@ -35,19 +35,19 @@ namespace ArcGISRuntime.UWP.Samples.Buffer
             Map theMap = new Map(Basemap.CreateTopographic());
 
             // Create an envelope that covers the Dallas/Fort Worth area.
-            Geometry theGeometry = new Envelope(-10863035.97, 3838021.34, -10744801.344, 3887145.299, SpatialReferences.WebMercator);
+            Geometry startingEnvelope = new Envelope(-10863035.97, 3838021.34, -10744801.344, 3887145.299, SpatialReferences.WebMercator);
 
             // Set the map's initial extent to the envelope.
-            theMap.InitialViewpoint = new Viewpoint(theGeometry);
+            theMap.InitialViewpoint = new Viewpoint(startingEnvelope);
 
             // Assign the map to the MapView.
             MyMapView.Map = theMap;
 
-            // Create a graphics overlay to show the buffered related graphics.
-            _GraphicsOverlay = new GraphicsOverlay();
+            // Create a graphics overlay to show the buffer-related graphics.
+            _graphicsOverlay = new GraphicsOverlay();
 
             // Add the created graphics overlay to the MapView.
-            MyMapView.GraphicsOverlays.Add(_GraphicsOverlay);
+            MyMapView.GraphicsOverlays.Add(_graphicsOverlay);
 
             // Wire up the MapView's GeoViewTapped event handler.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
@@ -58,44 +58,44 @@ namespace ArcGISRuntime.UWP.Samples.Buffer
             try
             {
                 // Create a map point (in the WebMercator projected coordinate system) from the GUI screen coordinate.
-                MapPoint theMapPoint = MyMapView.ScreenToLocation(e.Position);
+                MapPoint userTappedMapPoint = MyMapView.ScreenToLocation(e.Position);
 
                 // Get the buffer size from the textbox.
-                double theBufferInMiles = System.Convert.ToDouble(BufferValue_TextBox.Text);
+                double bufferInMiles = System.Convert.ToDouble(BufferDistanceMilesTextBox.Text);
 
                 // Create a variable to be the buffer size in meters. There are 1609.34 meters in one mile.
-                double theBufferInMeters = theBufferInMiles * 1609.34;
+                double bufferInMeters = bufferInMiles * 1609.34;
 
                 // Get a buffered polygon from the GeometryEngine Buffer operation centered on the map point. 
                 // Note: The input distance to the Buffer operation is in meters. This matches the backdrop 
                 // basemap units which is also meters.
-                Geometry theGeometryBuffer = GeometryEngine.Buffer(theMapPoint, theBufferInMeters);
+                Geometry bufferGeometry = GeometryEngine.Buffer(userTappedMapPoint, bufferInMeters);
 
                 // Create the outline (a simple line symbol) for the buffered polygon. It will be a solid, thick, green line.
-                SimpleLineSymbol theSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Windows.UI.Colors.Green, 5);
+                SimpleLineSymbol bufferSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Windows.UI.Colors.Green, 5);
 
                 // Create the color that will be used for the fill of the buffered polygon. It will be a semi-transparent, green color.
-                Windows.UI.Color theFillColor = Windows.UI.Color.FromArgb(125, 0, 255, 0);
+                Windows.UI.Color bufferFillColor = Windows.UI.Color.FromArgb(125, 0, 255, 0);
 
                 // Create simple fill symbol for the buffered polygon. It will be solid, semi-transparent, green fill with a solid, 
                 // thick, green outline.
-                SimpleFillSymbol theSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, theFillColor, theSimpleLineSymbol);
+                SimpleFillSymbol bufferSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, bufferFillColor, bufferSimpleLineSymbol);
 
                 // Create a new graphic for the buffered polygon using the defined simple fill symbol.
-                Graphic thePolygonGraphic = new Graphic(theGeometryBuffer, theSimpleFillSymbol);
+                Graphic bufferGraphic = new Graphic(bufferGeometry, bufferSimpleFillSymbol);
 
                 // Add the buffered polygon graphic to the graphic overlay.
-                _GraphicsOverlay.Graphics.Add(thePolygonGraphic);
+                _graphicsOverlay.Graphics.Add(bufferGraphic);
 
                 // Create a simple marker symbol to display where the user tapped/clicked on the map. The marker symbol will be a 
                 // solid, red circle.
-                SimpleMarkerSymbol theSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Windows.UI.Colors.Red, 5);
+                SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Windows.UI.Colors.Red, 5);
 
                 // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol. 
-                Graphic theUserInputGraphic = new Graphic(theMapPoint, theSimpleMarkerSymbol);
+                Graphic userTappedGraphic = new Graphic(userTappedMapPoint, userTappedSimpleMarkerSymbol);
 
                 // Add the user tapped/clicked map point graphic to the graphic overlay.
-                _GraphicsOverlay.Graphics.Add(theUserInputGraphic);
+                _graphicsOverlay.Graphics.Add(userTappedGraphic);
             }
             catch (System.Exception ex)
             {

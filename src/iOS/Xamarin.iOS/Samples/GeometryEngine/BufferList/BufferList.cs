@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.BufferList
         UITextView _sampleInstructionUITextiew;
 
         // Create a UILabel to display instructions.
-        private UILabel _bufferInstructionsUILabel;
+        private UILabel _bufferDistanceInstructionsUILabel;
 
         // Create UITextField to enter a buffer value (in miles). 
         private UITextField _bufferDistanceMilesUITextField;
@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Samples.BufferList
         private UISwitch _unionBufferUISwitch;
 
         // Create a UIButton to create a unioned buffer.
-        private UIButton _theUnionBufferButton;
+        private UIButton _bufferButton;
 
         public BufferList()
         {
@@ -84,7 +84,7 @@ namespace ArcGISRuntime.Samples.BufferList
             _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 80);
 
             // Setup the visual frame for the instructions UILabel.
-            _bufferInstructionsUILabel.Frame = new CoreGraphics.CGRect(0, yPageOffset + 80, View.Bounds.Width, 40);
+            _bufferDistanceInstructionsUILabel.Frame = new CoreGraphics.CGRect(0, yPageOffset + 80, View.Bounds.Width, 40);
 
             // Setup the visual frame for the buffer value UITextField.
             _bufferDistanceMilesUITextField.Frame = new CoreGraphics.CGRect(175, yPageOffset + 80, View.Bounds.Width, 40);
@@ -96,7 +96,7 @@ namespace ArcGISRuntime.Samples.BufferList
             _unionBufferUISwitch.Frame = new CoreGraphics.CGRect(175, yPageOffset + 120, View.Bounds.Width, 40);
 
             // Setup the visual frame for the make buffer UIButton.
-            _theUnionBufferButton.Frame = new CoreGraphics.CGRect(0, yPageOffset + 160, View.Bounds.Width, 40);
+            _bufferButton.Frame = new CoreGraphics.CGRect(0, yPageOffset + 160, View.Bounds.Width, 40);
 
             base.ViewDidLayoutSubviews();
         }
@@ -234,10 +234,10 @@ namespace ArcGISRuntime.Samples.BufferList
             _sampleInstructionUITextiew.Font = UIFont.FromName("Helvetica", 9f);
 
             // Create a UILabel for instructions.
-            _bufferInstructionsUILabel = new UILabel();
-            _bufferInstructionsUILabel.Text = "Buffer distance (miles):";
-            _bufferInstructionsUILabel.AdjustsFontSizeToFitWidth = true;
-            _bufferInstructionsUILabel.BackgroundColor = UIColor.White;
+            _bufferDistanceInstructionsUILabel = new UILabel();
+            _bufferDistanceInstructionsUILabel.Text = "Buffer distance (miles):";
+            _bufferDistanceInstructionsUILabel.AdjustsFontSizeToFitWidth = true;
+            _bufferDistanceInstructionsUILabel.BackgroundColor = UIColor.White;
 
             // Create a UITextFiled for the buffer value.
             _bufferDistanceMilesUITextField = new UITextField();
@@ -259,15 +259,15 @@ namespace ArcGISRuntime.Samples.BufferList
             _unionBufferUISwitch.BackgroundColor = UIColor.White;
 
             // Create a UIButton to create the buffers.
-            _theUnionBufferButton = new UIButton();
-            _theUnionBufferButton.SetTitle("Make Unioned Buffer", UIControlState.Normal);
-            _theUnionBufferButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _theUnionBufferButton.BackgroundColor = UIColor.White;
+            _bufferButton = new UIButton();
+            _bufferButton.SetTitle("Make Unioned Buffer", UIControlState.Normal);
+            _bufferButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _bufferButton.BackgroundColor = UIColor.White;
             // - Hook to touch event to do querying
-            _theUnionBufferButton.TouchUpInside += BufferButton_Click;
+            _bufferButton.TouchUpInside += BufferButton_Click;
 
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _sampleInstructionUITextiew, _bufferInstructionsUILabel, _bufferDistanceMilesUITextField, _unionBufferInstructionsUILabel, _unionBufferUISwitch, _theUnionBufferButton);
+            View.AddSubviews(_myMapView, _sampleInstructionUITextiew, _bufferDistanceInstructionsUILabel, _bufferDistanceMilesUITextField, _unionBufferInstructionsUILabel, _unionBufferUISwitch, _bufferButton);
         }
     }
 }

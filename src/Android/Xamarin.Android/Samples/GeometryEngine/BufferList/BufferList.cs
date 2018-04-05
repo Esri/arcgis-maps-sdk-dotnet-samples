@@ -32,9 +32,6 @@ namespace ArcGISRuntime.Samples.BufferList
         // Create and hold reference to the used MapView.
         private MapView _myMapView = new MapView();
 
-        // Create an EditText to enter a buffer value (in miles). 
-        private EditText _bufferDistanceMilesEditText;      
-
         // Graphics overlay to display buffer related graphics.
         private GraphicsOverlay _graphicsOverlay;
 
@@ -44,18 +41,21 @@ namespace ArcGISRuntime.Samples.BufferList
         // List of buffer distance values (in meters) that will be used by the GeometryEngine.Buffer operation.
         private List<double> _bufferDistancesList = new List<double>();
 
-        // Create a Button to create a unioned buffer.
-        private Button _unionBufferButton;
+        // Create an EditText to enter a buffer value (in miles). 
+        private EditText _bufferDistanceMilesEditText;
 
         // Create a Switch to choose whether to union the resulting buffer polygon or keep them seperate.
         private Switch _unionBufferSwitch;
+
+        // Create a Button to create a unioned buffer.
+        private Button _bufferButton;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             Title = "Buffer list";
 
-            // Create the UI, setup the control references and execute initialization  
+            // Create the UI, setup the control references and execute initialization.  
             CreateLayout(); 
             Initialize();
         }
@@ -189,22 +189,21 @@ namespace ArcGISRuntime.Samples.BufferList
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a TextView for instructions.
-            TextView instructionsTextView = new TextView(this);
-            instructionsTextView.Text = "Tap on the map in several locations to create center map-points to generate buffer(s). You can " +
+            TextView sampleInstructionsTextView = new TextView(this);
+            sampleInstructionsTextView.Text = "Tap on the map in several locations to create center map-points to generate buffer(s). You can " +
                 "optionally change the buffer distance (in miles) by adjusting the value in the edit text before each tap on the map. Then " +
                 "click on the 'Create Buffer(s)' button. If the 'Union the buffer(s)' switch is 'on' the resulting output buffer will " + 
                 "be one polygon (possibly multi-part). If the 'Union the buffer(s)' switch is 'off' the resulting output will have one " + 
                 "buffer polygon per input map point.";
-            layout.AddView(instructionsTextView);
+            layout.AddView(sampleInstructionsTextView);
 
-            // -----------------------------------------------------------
             // Create a horizontal sub layout for the text view and edit text controls.
             var subLayout1 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Create a TextView for instructions.
-            TextView bufferInstructionsTextView = new TextView(this);
-            bufferInstructionsTextView.Text = "Buffer distance (miles):";
-            subLayout1.AddView(bufferInstructionsTextView);
+            TextView bufferDistanceInstructionsTextView = new TextView(this);
+            bufferDistanceInstructionsTextView.Text = "Buffer distance (miles):";
+            subLayout1.AddView(bufferDistanceInstructionsTextView);
 
             // Create a EditText for the buffer value.
             _bufferDistanceMilesEditText = new EditText(this);
@@ -229,10 +228,10 @@ namespace ArcGISRuntime.Samples.BufferList
             layout.AddView(subLayout2);
 
             // Create button to create the unioned buffer.
-            _unionBufferButton = new Button(this);
-            _unionBufferButton.Text = "Make Unioned Buffer";
-            _unionBufferButton.Click += OnMakeUnionBufferClicked;
-            layout.AddView(_unionBufferButton);
+            _bufferButton = new Button(this);
+            _bufferButton.Text = "Make Unioned Buffer";
+            _bufferButton.Click += OnMakeUnionBufferClicked;
+            layout.AddView(_bufferButton);
 
             // Add the map view to the layout.
             layout.AddView(_myMapView);

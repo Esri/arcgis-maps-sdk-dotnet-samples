@@ -15,6 +15,7 @@
 
         <Label x:Name="BufferInstructionsLabel"
                Grid.Row="0"
+               FontSize="Small"
                Text="Tap on the map in several locations to create center map-points to generate buffer(s). You can optionally change the buffer distance (in miles) by adjusting the value in the entry before each tap on the map. Then click on the 'Create Buffer(s)' button. If the 'Union the buffer(s)' switch is 'on' the resulting output buffer will be one polygon (possibly multi-part). If the 'Union the buffer(s)' switch is 'off' the resulting output will have one buffer polygon per input map point.">
         </Label>
         <StackLayout 
@@ -27,7 +28,7 @@
         <StackLayout 
             Grid.Row="2" 
             Orientation="Horizontal">
-            <Label Text="Union the buffer(s)"/>
+            <Label Text="Union the buffer(s):" />
             <Switch x:Name="UnionSwitch"
                     IsToggled="True" />
         </StackLayout>

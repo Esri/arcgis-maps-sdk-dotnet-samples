@@ -6,6 +6,7 @@
              xmlns:converters="clr-namespace:ArcGISRuntime.WPF.Viewer.Converters"
              xmlns:models="clr-namespace:ArcGISRuntime.Samples.Shared.Models"
              mc:Ignorable="d"
+             Background="{StaticResource PrimaryBackgroundColor}"
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance models:SampleInfo }">
 
     <UserControl.Resources>

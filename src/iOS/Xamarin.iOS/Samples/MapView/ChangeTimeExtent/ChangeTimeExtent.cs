@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ChangeTimeExtent
@@ -31,6 +32,14 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
         // Create and hold buttons for changing the time extent.
         private readonly UIButton _twoThousandButton = new UIButton();
         private readonly UIButton _twoThousandFiveButton = new UIButton();
+
+        // Create and hold a reference to a help label.
+        private readonly UILabel _helpLabel = new UILabel()
+        {
+            TextColor = UIColor.Red,
+            Text = "Tap a year to filter the data.",
+            TextAlignment = UITextAlignment.Center
+        };
 
         // Create and hold reference to the used MapView.
         private MapView _myMapView = new MapView();
@@ -57,21 +66,21 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
             _myMapView.Map = myMap;
 
             // Load the layers from the corresponding URIs.
-            ArcGISMapImageLayer myImageryLayer = new ArcGISMapImageLayer(_mapServerUri);
-            FeatureLayer myFeatureLayer = new FeatureLayer(_featureLayerUri);
+            ArcGISMapImageLayer imageryLayer = new ArcGISMapImageLayer(_mapServerUri);
+            FeatureLayer pointLayer = new FeatureLayer(_featureLayerUri);
 
             // Add the layers to the map.
-            _myMapView.Map.OperationalLayers.Add(myImageryLayer);
-            _myMapView.Map.OperationalLayers.Add(myFeatureLayer);
+            _myMapView.Map.OperationalLayers.Add(imageryLayer);
+            _myMapView.Map.OperationalLayers.Add(pointLayer);
         }
 
         private void TwoThousandButton_Clicked(object sender, EventArgs e)
         {
-            // Hard-coded start value: August 4th, 2000.
-            DateTime start = new DateTime(2000, 8, 4);
+            // Hard-coded start value: January 1st, 2000.
+            DateTime start = new DateTime(2000, 1, 1);
 
-            // Hard-coded end value: September 4th, 2000.
-            DateTime end = new DateTime(2000, 9, 4);
+            // Hard-coded end value: December 31st, 2000.
+            DateTime end = new DateTime(2000, 12, 31);
 
             // Set the time extent on the map with the hard-coded values.
             _myMapView.TimeExtent = new TimeExtent(start, end);
@@ -100,7 +109,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
             _twoThousandFiveButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
 
             // Add MapView and buttons to the page.
-            View.AddSubviews(_myMapView, _twoThousandButton, _twoThousandFiveButton);
+            View.AddSubviews(_myMapView, _helpLabel, _twoThousandButton, _twoThousandFiveButton);
 
             // Add event handlers for button clicked events.
             _twoThousandButton.TouchUpInside += TwoThousandButton_Clicked;
@@ -112,12 +121,15 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
             int buttonHeight = 60;
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
+            // Setup the visual frame for the help label
+            _helpLabel.Frame = new CGRect(5, topMargin + 5, View.Bounds.Width - 10, 20);
+
             // Setup the visual frame for the buttons.
-            _twoThousandButton.Frame = new CoreGraphics.CGRect(0, topMargin + 10, View.Bounds.Width / 2, buttonHeight);
-            _twoThousandFiveButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2, topMargin + 10, View.Bounds.Width / 2, buttonHeight);
+            _twoThousandButton.Frame = new CGRect(0, topMargin + 20, View.Bounds.Width / 2, buttonHeight);
+            _twoThousandFiveButton.Frame = new CGRect(View.Bounds.Width / 2, topMargin + 20, View.Bounds.Width / 2, buttonHeight);
 
             // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             base.ViewDidLayoutSubviews();
         }

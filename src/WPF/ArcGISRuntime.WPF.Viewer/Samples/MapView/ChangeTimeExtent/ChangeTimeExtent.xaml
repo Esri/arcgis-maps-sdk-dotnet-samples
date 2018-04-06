@@ -16,7 +16,7 @@
             <StackPanel>
                 <Label 
                     HorizontalAlignment="Center" 
-                    Content="Click to change the time extent on the view." />
+                    Content="Tap a year to filter the data." />
                 <Button 
                     Content="2000" 
                     Click="twoThousand_Click" />

@@ -56,21 +56,21 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
             _myMapView.Map = myMap;
 
             // Load the layers from the corresponding URIs.
-            ArcGISMapImageLayer myImageryLayer = new ArcGISMapImageLayer(_mapServerUri);
-            FeatureLayer myFeatureLayer = new FeatureLayer(_featureLayerUri);
+            ArcGISMapImageLayer imageryLayer = new ArcGISMapImageLayer(_mapServerUri);
+            FeatureLayer pointLayer = new FeatureLayer(_featureLayerUri);
 
             // Add the layers to the map.
-            _myMapView.Map.OperationalLayers.Add(myImageryLayer);
-            _myMapView.Map.OperationalLayers.Add(myFeatureLayer);
+            _myMapView.Map.OperationalLayers.Add(imageryLayer);
+            _myMapView.Map.OperationalLayers.Add(pointLayer);
         }
 
         private void TwoThousandButtonClick(object sender, EventArgs e)
         {
-            // Hard-coded start value: August 4th, 2000.
-            DateTime start = new DateTime(2000, 8, 4);
+            // Hard-coded start value: January 1st, 2000.
+            DateTime start = new DateTime(2000, 1, 1);
 
-            // Hard-coded end value: September 4th, 2000.
-            DateTime end = new DateTime(2000, 9, 4);
+            // Hard-coded end value: December 31st, 2000.
+            DateTime end = new DateTime(2000, 12, 31);
 
             // Set the time extent on the map with the hard-coded values.
             _myMapView.TimeExtent = new TimeExtent(start, end);
@@ -96,7 +96,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
             // Create and add a help tip.
             TextView helpLabel = new TextView(this)
             {
-                Text = "Tap to select a time extent."
+                Text = "Tap a year to filter the data."
             };
             layout.AddView(helpLabel);
 

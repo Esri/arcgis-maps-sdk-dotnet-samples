@@ -41,12 +41,12 @@ namespace ArcGISRuntime.WPF.Samples.ChangeTimeExtent
             MyMapView.Map = myMap;
 
             // Load the layers from the corresponding URIs.
-            ArcGISMapImageLayer myImageryLayer = new ArcGISMapImageLayer(_mapServerUri);
-            FeatureLayer myFeatureLayer = new FeatureLayer(_featureLayerUri);
+            ArcGISMapImageLayer imageryLayer = new ArcGISMapImageLayer(_mapServerUri);
+            FeatureLayer pointLayer = new FeatureLayer(_featureLayerUri);
 
             // Add the layers to the map.
-            MyMapView.Map.OperationalLayers.Add(myImageryLayer);
-            MyMapView.Map.OperationalLayers.Add(myFeatureLayer);
+            MyMapView.Map.OperationalLayers.Add(imageryLayer);
+            MyMapView.Map.OperationalLayers.Add(pointLayer);
         }
 
         private void twoThousand_Click(object sender, RoutedEventArgs e)

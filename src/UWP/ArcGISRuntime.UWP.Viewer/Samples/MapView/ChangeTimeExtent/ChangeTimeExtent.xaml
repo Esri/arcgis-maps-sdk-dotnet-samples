@@ -17,7 +17,7 @@
             <StackPanel>
                 <TextBlock 
                     HorizontalAlignment="Center" 
-                    Text="Click to change the time extent on the view." />
+                    Text="Tap a year to filter the data." />
                 <Button Content="2000" 
                         HorizontalAlignment="Stretch" 
                         Click="twoThousand_Click" />

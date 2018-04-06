@@ -44,21 +44,21 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
             MyMapView.Map = myMap;
 
             // Load the layers from the corresponding URIs.
-            ArcGISMapImageLayer myImageryLayer = new ArcGISMapImageLayer(_mapServerUri);
-            FeatureLayer myFeatureLayer = new FeatureLayer(_featureLayerUri);
+            ArcGISMapImageLayer imageryLayer = new ArcGISMapImageLayer(_mapServerUri);
+            FeatureLayer pointLayer = new FeatureLayer(_featureLayerUri);
 
             // Add the layers to the map.
-            MyMapView.Map.OperationalLayers.Add(myImageryLayer);
-            MyMapView.Map.OperationalLayers.Add(myFeatureLayer);
+            MyMapView.Map.OperationalLayers.Add(imageryLayer);
+            MyMapView.Map.OperationalLayers.Add(pointLayer);
         }
 
         private void twoThousand_Clicked(object sender, EventArgs e)
         {
-            // Hard-coded start value: August 4th, 2000.
-            DateTime start = new DateTime(2000, 8, 4);
+            // Hard-coded start value: January 1st, 2000.
+            DateTime start = new DateTime(2000, 1, 1);
 
-            // Hard-coded end value: September 4th, 2000.
-            DateTime end = new DateTime(2000, 9, 4);
+            // Hard-coded end value: December 31st, 2000.
+            DateTime end = new DateTime(2000, 12, 31);
 
             // Set the time extent on the map with the hard-coded values.
             MyMapView.TimeExtent = new TimeExtent(start, end);

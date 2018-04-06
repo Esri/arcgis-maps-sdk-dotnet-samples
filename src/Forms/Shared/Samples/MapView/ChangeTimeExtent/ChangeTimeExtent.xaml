@@ -11,7 +11,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Label Grid.Row="0"
-               Text="Click to change the time extent on the view." 
+               Text="Tap a year to filter the data." 
                HorizontalTextAlignment="Center" />
         <Button Grid.Row="1" 
                 Text="2000" 

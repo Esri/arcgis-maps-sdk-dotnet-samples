@@ -13,13 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Xamarin.Forms;
 
-#if WINDOWS_UWP
-using Colors = Windows.UI.Colors;
-using Colors2 = Windows.UI.Color;
-#else
 using Colors = System.Drawing.Color;
-using Colors2 = System.Drawing.Color;
-#endif
 
 namespace ArcGISRuntime.Samples.Buffer
 {
@@ -87,7 +81,7 @@ namespace ArcGISRuntime.Samples.Buffer
                 SimpleLineSymbol bufferSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Green, 5);
 
                 // Create the color that will be used for the fill of the buffered polygon. It will be a semi-transparent, green color.
-                Colors2 bufferFillColor = Colors2.FromArgb(125,0, 255, 0);
+                Colors bufferFillColor = Colors.FromArgb(125,0, 255, 0);
 
                 // Create simple fill symbol for the buffered polygon. It will be solid, semi-transparent, green fill with a solid, 
                 // thick, green outline.

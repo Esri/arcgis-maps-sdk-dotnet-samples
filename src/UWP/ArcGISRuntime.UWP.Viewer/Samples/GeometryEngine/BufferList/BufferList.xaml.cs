@@ -82,7 +82,7 @@ namespace ArcGISRuntime.UWP.Samples.BufferList
 
                 // Create a simple marker symbol to display where the user tapped/clicked on the map. The marker symbol will be a 
                 // solid, red circle.
-                SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Windows.UI.Colors.Red, 10);
+                SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Red, 10);
 
                 // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol. 
                 Graphic userTappedGraphic = new Graphic(userTappedMapPoint, userTappedSimpleMarkerSymbol);
@@ -123,10 +123,10 @@ namespace ArcGISRuntime.UWP.Samples.BufferList
                 foreach (Geometry oneGeometry in theIEnumerableOfGeometryBuffer)
                 {
                     // Create the outline (a simple line symbol) for the buffered polygon. It will be a solid, thick, green line.
-                    SimpleLineSymbol bufferPolygonSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Windows.UI.Colors.Green, 5);
+                    SimpleLineSymbol bufferPolygonSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Green, 5);
 
                     // Create the color that will be used for the fill of the buffered polygon. It will be a semi-transparent, yellow color.
-                    Windows.UI.Color bufferPolygonFillColor = Windows.UI.Color.FromArgb(155, 255, 255, 0);
+                    System.Drawing.Color bufferPolygonFillColor = System.Drawing.Color.FromArgb(155, 255, 255, 0);
 
                     // Create simple fill symbol for the buffered polygon. It will be solid, semi-transparent, yellow fill with a solid, 
                     // thick, green outline.

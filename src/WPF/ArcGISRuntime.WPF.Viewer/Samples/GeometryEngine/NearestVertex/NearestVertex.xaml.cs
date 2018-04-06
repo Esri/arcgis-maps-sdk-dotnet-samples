@@ -65,17 +65,17 @@ namespace ArcGISRuntime.WPF.Samples.NearestVertex
             Polygon polygonGeometry = new Polygon(polygonPoints);
 
             // Define and apply the symbology
-            SimpleLineSymbol polygonOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Windows.Media.Colors.Green, 2);
-            SimpleFillSymbol polygonFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.ForwardDiagonal, System.Windows.Media.Colors.Green, polygonOutlineSymbol);
+            SimpleLineSymbol polygonOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Green, 2);
+            SimpleFillSymbol polygonFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.ForwardDiagonal, System.Drawing.Color.Green, polygonOutlineSymbol);
 
             // Create the graphic and add it to the graphics overlay
             _polygonGraphic = new Graphic(polygonGeometry, polygonFillSymbol);
             _graphicsOverlay.Graphics.Add(_polygonGraphic);
 
             // Create the graphics and symbology for the tapped point, the nearest vertex, and the nearest coordinate
-            SimpleMarkerSymbol tappedLocationSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, System.Windows.Media.Colors.Orange, 15);
-            SimpleMarkerSymbol nearestCoordinateSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Diamond, System.Windows.Media.Colors.Red, 10);
-            SimpleMarkerSymbol nearestVertexSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Windows.Media.Colors.Blue, 15);
+            SimpleMarkerSymbol tappedLocationSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, System.Drawing.Color.Orange, 15);
+            SimpleMarkerSymbol nearestCoordinateSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Diamond, System.Drawing.Color.Red, 10);
+            SimpleMarkerSymbol nearestVertexSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Blue, 15);
             _nearestCoordinateGraphic = new Graphic { Symbol = nearestCoordinateSymbol };
             _tappedLocationGraphic = new Graphic { Symbol = tappedLocationSymbol };
             _nearestVertexGraphic = new Graphic { Symbol = nearestVertexSymbol };

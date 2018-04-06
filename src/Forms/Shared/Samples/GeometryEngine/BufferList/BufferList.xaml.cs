@@ -14,14 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
-
-#if WINDOWS_UWP
-using Colors = Windows.UI.Colors;
-using Colors2 = Windows.UI.Color;
-#else
 using Colors = System.Drawing.Color;
-using Colors2 = System.Drawing.Color;
-#endif
 
 namespace ArcGISRuntime.Samples.BufferList
 {
@@ -137,7 +130,7 @@ namespace ArcGISRuntime.Samples.BufferList
                     SimpleLineSymbol bufferPolygonSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Green, 5);
 
                     // Create the color that will be used for the fill of the buffered polygon. It will be a semi-transparent, yellow color.
-                    Colors2 bufferPolygonFillColor = Colors2.FromArgb(155, 255, 255, 0);
+                    Colors bufferPolygonFillColor = Colors.FromArgb(155, 255, 255, 0);
 
                     // Create simple fill symbol for the buffered polygon. It will be solid, semi-transparent, yellow fill with a solid, 
                     // thick, green outline.

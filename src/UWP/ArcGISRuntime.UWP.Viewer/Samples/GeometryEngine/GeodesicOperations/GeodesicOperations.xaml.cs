@@ -45,7 +45,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodesicOperations
 
             // Add a graphic at JFK to serve as the origin.
             MapPoint start = new MapPoint(-73.7781, 40.6413, SpatialReferences.Wgs84);
-            SimpleMarkerSymbol startMarker = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Windows.UI.Colors.Blue, 10);
+            SimpleMarkerSymbol startMarker = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Blue, 10);
             _startLocationGraphic = new Graphic(start, startMarker);
 
             // Create the graphic for the destination.
@@ -57,7 +57,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodesicOperations
             // Create the graphic for the path.
             _pathGraphic = new Graphic
             {
-                Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Windows.UI.Colors.Blue, 5)
+                Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Blue, 5)
             };
 
             // Add the graphics to the overlay.

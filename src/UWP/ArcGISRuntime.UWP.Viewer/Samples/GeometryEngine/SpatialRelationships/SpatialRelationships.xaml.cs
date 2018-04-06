@@ -47,7 +47,7 @@ namespace ArcGISRuntime.UWP.Samples.SpatialRelationships
             // Create the graphics overlay and set the selection color
             _graphicsOverlay = new GraphicsOverlay()
             {
-                SelectionColor = Windows.UI.Colors.Yellow
+                SelectionColor = System.Drawing.Color.Yellow
             };
 
             // Add the overlay to the MapView
@@ -67,8 +67,8 @@ namespace ArcGISRuntime.UWP.Samples.SpatialRelationships
             Polygon polygonGeometry = new Polygon(polygonPoints);
 
             // Define the symbology of the polygon
-            SimpleLineSymbol polygonOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Windows.UI.Colors.Green, 2);
-            SimpleFillSymbol polygonFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.ForwardDiagonal, Windows.UI.Colors.Green, polygonOutlineSymbol);
+            SimpleLineSymbol polygonOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Green, 2);
+            SimpleFillSymbol polygonFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.ForwardDiagonal, System.Drawing.Color.Green, polygonOutlineSymbol);
 
             // Create the polygon graphic and add it to the graphics overlay
             _polygonGraphic = new Graphic(polygonGeometry, polygonFillSymbol);
@@ -87,14 +87,14 @@ namespace ArcGISRuntime.UWP.Samples.SpatialRelationships
             Polyline polylineGeometry = new Polyline(polylinePoints);
 
             // Create the polyline graphic and add it to the graphics overlay
-            _polylineGraphic = new Graphic(polylineGeometry, new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Windows.UI.Colors.Red, 4));
+            _polylineGraphic = new Graphic(polylineGeometry, new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Red, 4));
             _graphicsOverlay.Graphics.Add(_polylineGraphic);
 
             // Create the point geometry that defines the point graphic
             MapPoint pointGeometry = new MapPoint(-4487263.495911, 3699176.480377, SpatialReferences.WebMercator);
 
             // Define the symbology for the point
-            SimpleMarkerSymbol locationMarker = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Windows.UI.Colors.Blue, 10);
+            SimpleMarkerSymbol locationMarker = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Blue, 10);
 
             // Create the point graphic and add it to the graphics overlay
             _pointGraphic = new Graphic(pointGeometry, locationMarker);

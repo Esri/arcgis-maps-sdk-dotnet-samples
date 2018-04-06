@@ -100,6 +100,14 @@ This sample demonstrates how to convert between `MapPoint` and string representa
 
 ## GeometryEngine
 
+* [Buffer](ArcGISRuntime.UWP.Viewer/Samples/GeometryEngine/Buffer)
+
+This sample demonstrates how to use the GeometryEngine.Buffer to generate a polygon from an input geometry with a buffer distance.
+
+* [Create geometries](ArcGISRuntime.UWP.Viewer/Samples/GeometryEngine/CreateGeometries)
+
+This sample demonstrates simple ways to create different types of Geometry. The geometries are added as Graphics to a GraphicsOverlay and displayed in a MapView. An Envelope is used to set the Viewpoint of the MapView.
+
 * [Geodesic operations](ArcGISRuntime.UWP.Viewer/Samples/GeometryEngine/GeodesicOperations)
 
 This sample demonstrates how to use the Geometry engine to calculate a geodesic path between two points and measure its distance.
@@ -118,7 +126,7 @@ This sample demonstrates how to use the GeometryEngine with a specified geograph
 
 * [Spatial relationships](ArcGISRuntime.UWP.Viewer/Samples/GeometryEngine/SpatialRelationships)
 
-This sample demonstrates how to use the GeometryEngine to evaluate the spatial relationships (for example, polygon a contains line b) of between geometries.
+This sample demonstrates how to use the GeometryEngine to evaluate the spatial relationships (for example, polygon a contains line b) between geometries.
 
 ## Geoprocessing
 
@@ -161,6 +169,14 @@ This sample demonstrates how to interactively sketch and edit graphics in the ma
 This sample demonstrates how to position graphics using different Surface Placements.
 
 ## Hydrography
+
+* [Add ENC Exchange Set](ArcGISRuntime.UWP.Viewer/Samples/Hydrography/AddEncExchangeSet)
+
+This sample demonstrates how to load an ENC Exchange Set, including its component cells.
+
+* [Change ENC display settings](ArcGISRuntime.UWP.Viewer/Samples/Hydrography/ChangeEncDisplaySettings)
+
+This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.
 
 * [Select ENC features](ArcGISRuntime.UWP.Viewer/Samples/Hydrography/SelectEncFeatures)
 
@@ -316,6 +332,10 @@ This sample demonstrates how to dynamically change the basemap displayed in a Ma
 
 This sample demonstrates how to display a map with a basemap.
 
+* [Download preplanned map areas](ArcGISRuntime.UWP.Viewer/Samples/Map/DownloadPreplannedMapAreas)
+
+This sample demonstrates how to download preplanned map areas from a webmap. In the preplanned offline workflow, the author of the online map defines map areas for offline use. When these areas are created, their offline packages are created and stored online for clients to download. This is the biggest difference between on-demand and preplanned workflows since on-demand workflow data packages are generated at request time.
+
 * [Manage bookmarks](ArcGISRuntime.UWP.Viewer/Samples/Map/ManageBookmarks)
 
 This sample demonstrates how to access and add bookmarks to a map.
@@ -349,6 +369,10 @@ This sample demonstrates how you can set the spatial reference on a Map and all 
 This sample demonstrates how to set the minimum and maximum scale of a Map. Setting the minimum and maximum scale for the Map can be useful in keeping the user focused at a certain level of detail.
 
 ## MapView
+
+* [Change time extent](ArcGISRuntime.UWP.Viewer/Samples/MapView/ChangeTimeExtent)
+
+This sample demonstrates how to filter data in layers by applying a time extent to a MapView.
 
 * [Change viewpoint](ArcGISRuntime.UWP.Viewer/Samples/MapView/ChangeViewpoint)
 

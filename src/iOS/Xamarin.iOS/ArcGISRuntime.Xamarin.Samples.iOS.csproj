@@ -321,6 +321,16 @@
     <None Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
     <None Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
     <None Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
+    <None Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.jpg" />
+    <None Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.jpg" />
+    <None Include="Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
+    <None Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
+    <None Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
+    <None Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
+    <None Include="Samples\GeometryEngine\Buffer\Buffer.jpg" />
+    <None Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />
+    <None Include="Samples\GeometryEngine\BufferList\BufferList.jpg" />
+    <None Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
@@ -338,6 +348,7 @@
     <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.cs" />
     <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.cs" />
     <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.cs" />
+    <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.cs" />
     <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.cs" />
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
@@ -451,25 +462,6 @@
     <Compile Include="ViewControllers\CategoriesViewController.designer.cs">
       <DependentUpon>CategoriesViewController.cs</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.jpg" />
-    <None Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.jpg" />
-    <None Include="Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
-    <None Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
-    <None Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Samples\GeometryEngine\Buffer\Buffer.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Samples\GeometryEngine\BufferList\BufferList.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

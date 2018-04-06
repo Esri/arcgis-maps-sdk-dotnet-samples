@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:local="clr-namespace:ArcGISRuntime.Samples.BufferList"
+             x:Class="ArcGISRuntime.Samples.BufferList.BufferList">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label x:Name="BufferInstructionsLabel"
+               Grid.Row="0"
+               FontSize="Small"
+               Text="Tap on the map in several locations to create center map-points to generate buffer(s). You can optionally change the buffer distance (in miles) by adjusting the value in the entry before each tap on the map. Then click on the 'Create Buffer(s)' button. If the 'Union the buffer(s)' switch is 'on' the resulting output buffer will be one polygon (possibly multi-part). If the 'Union the buffer(s)' switch is 'off' the resulting output will have one buffer polygon per input map point.">
+        </Label>
+        <StackLayout 
+            Grid.Row="1" 
+            Orientation="Horizontal">
+            <Label Text="Buffer distance (miles):" />
+            <Entry x:Name="BufferDistanceMilesEntry" 
+                   Text="10" />
+        </StackLayout>
+        <StackLayout 
+            Grid.Row="2" 
+            Orientation="Horizontal">
+            <Label Text="Union the buffer(s):" />
+            <Switch x:Name="UnionSwitch"
+                    IsToggled="True" />
+        </StackLayout>
+        <Button x:Name="BufferButton"
+                Grid.Row="3"
+                Text="Create Buffer(s)"
+                Clicked="BufferButton_Clicked"/>
+        <esriUI:MapView x:Name="MyMapView" 
+                        Grid.Row="4"/>
+    </Grid>
+</ContentPage>

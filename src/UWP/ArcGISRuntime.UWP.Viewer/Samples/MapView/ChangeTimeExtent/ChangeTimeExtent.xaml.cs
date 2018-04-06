@@ -35,10 +35,10 @@ namespace ArcGISRuntime.UWP.Samples.ChangeTimeExtent
         private void Initialize()
         {
             // Create new Map with basemap and initial location.
-            Map myMap = new Map(Basemap.CreateTopographic());
+            Map map = new Map(Basemap.CreateTopographic());
 
             // Assign the map to the MapView.
-            MyMapView.Map = myMap;
+            MyMapView.Map = map;
 
             // Load the layers from the corresponding URIs.
             ArcGISMapImageLayer imageryLayer = new ArcGISMapImageLayer(_mapServerUri);

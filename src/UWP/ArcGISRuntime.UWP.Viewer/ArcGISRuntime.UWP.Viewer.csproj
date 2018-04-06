@@ -134,8 +134,13 @@
     <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg" />
     <Content Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg" />
     <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
+    <Content Include="Samples\GeometryEngine\BufferList\BufferList.jpg" />
+    <Content Include="Samples\GeometryEngine\Buffer\Buffer.jpg" />
     <Content Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
     <Content Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
+    <Content Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.jpg" />
+    <Content Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.jpg" />
+    <Content Include="Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
     <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
     <Content Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
@@ -147,6 +152,8 @@
     <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <Content Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <Content Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.jpg" />
+    <Content Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
+    <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
     <Content Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
     <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
     <Content Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
@@ -180,6 +187,7 @@
     <Content Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg" />
     <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
     <Content Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg" />
+    <Content Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />
     <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
     <Content Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
     <Content Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
@@ -193,6 +201,7 @@
     <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg" />
     <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
     <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
+    <Content Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
     <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
     <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
     <Content Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
@@ -323,11 +332,26 @@
     <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
       <DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\GeometryEngine\BufferList\BufferList.xaml.cs">
+      <DependentUpon>BufferList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GeometryEngine\Buffer\Buffer.xaml.cs">
+      <DependentUpon>Buffer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.xaml.cs">
       <DependentUpon>CreateGeometries.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.xaml.cs">
       <DependentUpon>ListTransformations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.xaml.cs">
+      <DependentUpon>SpatialRelationships.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.xaml.cs">
+      <DependentUpon>GeodesicOperations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GeometryEngine\NearestVertex\NearestVertex.xaml.cs">
+      <DependentUpon>NearestVertex.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
       <DependentUpon>ProjectWithSpecificTransformation.xaml</DependentUpon>
@@ -361,6 +385,12 @@
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml.cs">
       <DependentUpon>SurfacePlacements.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml.cs">
+      <DependentUpon>AddEncExchangeSet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml.cs">
+      <DependentUpon>ChangeEncDisplaySettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml.cs">
       <DependentUpon>SelectEncFeatures.xaml</DependentUpon>
@@ -461,6 +491,9 @@
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
       <DependentUpon>DisplayDeviceLocation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml.cs">
+      <DependentUpon>ChangeTimeExtent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.xaml.cs">
       <DependentUpon>ChangeViewpoint.xaml</DependentUpon>
     </Compile>
@@ -499,6 +532,9 @@
     </Compile>
     <Compile Include="Samples\Map\DisplayMap\DisplayMap.xaml.cs">
       <DependentUpon>DisplayMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.xaml.cs">
+      <DependentUpon>DownloadPreplannedMapAreas.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml.cs">
       <DependentUpon>ManageBookmarks.xaml</DependentUpon>
@@ -645,11 +681,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\GeometryEngine\BufferList\BufferList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeometryEngine\Buffer\Buffer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GeometryEngine\ListTransformations\ListTransformations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeometryEngine\NearestVertex\NearestVertex.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -694,6 +750,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -829,6 +893,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -878,6 +946,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Map\DisplayMap\DisplayMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

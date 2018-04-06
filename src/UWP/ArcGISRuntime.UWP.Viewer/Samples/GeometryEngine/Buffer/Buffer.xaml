@@ -1,0 +1,23 @@
+﻿<UserControl
+    x:Class="ArcGISRuntime.UWP.Samples.Buffer.Buffer"
+    x:Name="_this"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ArcGISRuntime.UWP.Samples.Buffer"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" 
+                    Orientation="Horizontal" >
+            <TextBlock x:Name="BufferInstructionsLabel" 
+                       Text="Specify the buffer in miles and the tap on the map:"/>
+            <TextBox x:Name="BufferDistanceMilesTextBox" 
+                     Text="10"/>
+        </StackPanel>
+        <esriUI:MapView x:Name="MyMapView" 
+                        Grid.Row="1"/>
+    </Grid>
+</UserControl>

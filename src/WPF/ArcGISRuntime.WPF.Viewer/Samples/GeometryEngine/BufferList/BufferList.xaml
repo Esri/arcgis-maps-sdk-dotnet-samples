@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.BufferList.BufferList"
+             x:Name="_this"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:local="clr-namespace:ArcGISRuntime.WPF.Samples.BufferList">
+    <Grid>
+        <esri:MapView x:Name="MyMapView"/>
+        <Border
+            Background="White"
+            BorderBrush="Black" BorderThickness="1"
+            HorizontalAlignment="Right" VerticalAlignment="Top"
+            Margin="30"
+            Padding="20"
+            Width="375">
+            <StackPanel>
+                <TextBlock x:Name="BufferInstructionsLabel" 
+                           TextWrapping="Wrap"
+                           Margin="0,0,0,10">
+                           Tap on the map in several locations to create center map-points to generate buffer(s). You can optionally 
+                           change the buffer distance (in miles) by adjusting the value in the text box before each tap on the map. 
+                           Then click on the 'Create Buffer(s)' button. If the 'Union the buffer(s)' checkbox is checked the resulting 
+                           output buffer will be one polygon (possibly multi-part). If the 'Union the buffer(s)' checkbox is un-checked 
+                           the resulting output will have one buffer polygon per input map point.
+                </TextBlock> 
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="BufferDistanceMilesTextBox" 
+                     Text="10"
+                     Width="30"/>
+                    <CheckBox x:Name="UnionCheckBox"
+                      Content="Union the buffer(s)"
+                      IsChecked="True"
+                      Margin="10,0,0,0"/>
+                </StackPanel>
+                <Button x:Name="BufferButton" 
+                    Content="Create Buffer(s)"
+                    Margin="0,10,0,0"
+                    Click="BufferButton_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

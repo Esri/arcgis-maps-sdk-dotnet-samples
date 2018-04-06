@@ -320,16 +320,35 @@
     <None Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
     <None Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
     <None Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
+    <None Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.jpg" />
+    <None Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.jpg" />
+    <None Include="Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
+    <None Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
+    <None Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
+    <None Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
+    <None Include="Samples\GeometryEngine\Buffer\Buffer.jpg" />
+    <None Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />
+    <None Include="Samples\GeometryEngine\BufferList\BufferList.jpg" />
+    <None Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
     <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
+    <Compile Include="Samples\GeometryEngine\BufferList\BufferList.cs" />
+    <Compile Include="Samples\GeometryEngine\Buffer\Buffer.cs" />
+    <Compile Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.cs" />
+    <Compile Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.cs" />
+    <Compile Include="Samples\GeometryEngine\NearestVertex\NearestVertex.cs" />
+    <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.cs" />
+    <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.cs" />
     <Compile Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.cs" />
     <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.cs" />
     <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.cs" />
     <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.cs" />
     <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.cs" />
     <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.cs" />
+    <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.cs" />
+    <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.cs" />
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
     <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.cs" />

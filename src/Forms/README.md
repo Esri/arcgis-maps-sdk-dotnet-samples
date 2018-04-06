@@ -100,13 +100,33 @@ This sample demonstrates how to convert between `MapPoint` and string representa
 
 ## GeometryEngine
 
+* [Buffer](Shared/Samples/GeometryEngine/Buffer)
+
+This sample demonstrates how to use the GeometryEngine.Buffer to generate a polygon from an input geometry with a buffer distance.
+
+* [Create geometries](Shared/Samples/GeometryEngine/CreateGeometries)
+
+This sample demonstrates simple ways to create different types of Geometry. The geometries are added as Graphics to a GraphicsOverlay and displayed in a MapView. An Envelope is used to set the Viewpoint of the MapView.
+
+* [Geodesic operations](Shared/Samples/GeometryEngine/GeodesicOperations)
+
+This sample demonstrates how to use the Geometry engine to calculate a geodesic path between two points and measure its distance.
+
 * [List transformations by suitability](Shared/Samples/GeometryEngine/ListTransformations)
 
 This sample demonstrates how to use the TransformationCatalog to get a list of available DatumTransformations that can be used to project a Geometry between two different SpatialReferences, and how to use one of the transformations to perform the GeometryEngine.project operation. The TransformationCatalog is also used to set the location of files upon which grid-based transformations depend, and to find the default transformation used for the two SpatialReferences.
 
+* [Nearest vertex](Shared/Samples/GeometryEngine/NearestVertex)
+
+This sample demonstrates how to use the Geometry engine find the nearest vertex and nearest coordinate of a polygon to a point. The distance for each is shown.
+
 * [Project with specific transformation](Shared/Samples/GeometryEngine/ProjectWithSpecificTransformation)
 
 This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
+
+* [Spatial relationships](Shared/Samples/GeometryEngine/SpatialRelationships)
+
+This sample demonstrates how to use the GeometryEngine to evaluate the spatial relationships (for example, polygon a contains line b) between geometries.
 
 ## Geoprocessing
 
@@ -149,6 +169,14 @@ This sample demonstrates how to interactively sketch and edit graphics in the ma
 This sample demonstrates how to position graphics using different Surface Placements.
 
 ## Hydrography
+
+* [Add ENC Exchange Set](Shared/Samples/Hydrography/AddEncExchangeSet)
+
+This sample demonstrates how to load an ENC Exchange Set, including its component cells.
+
+* [Change ENC display settings](Shared/Samples/Hydrography/ChangeEncDisplaySettings)
+
+This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.
 
 * [Select ENC features](Shared/Samples/Hydrography/SelectEncFeatures)
 
@@ -304,6 +332,10 @@ This sample demonstrates how to dynamically change the basemap displayed in a Ma
 
 This sample demonstrates how to display a map with a basemap.
 
+* [Download preplanned map areas](Shared/Samples/Map/DownloadPreplannedMapAreas)
+
+This sample demonstrates how to download preplanned map areas from a webmap. In the preplanned offline workflow, the author of the online map defines map areas for offline use. When these areas are created, their offline packages are created and stored online for clients to download. This is the biggest difference between on-demand and preplanned workflows since on-demand workflow data packages are generated at request time.
+
 * [Manage bookmarks](Shared/Samples/Map/ManageBookmarks)
 
 This sample demonstrates how to access and add bookmarks to a map.
@@ -337,6 +369,10 @@ This sample demonstrates how you can set the spatial reference on a Map and all 
 This sample demonstrates how to set the minimum and maximum scale of a Map. Setting the minimum and maximum scale for the Map can be useful in keeping the user focused at a certain level of detail.
 
 ## MapView
+
+* [Change time extent](Shared/Samples/MapView/ChangeTimeExtent)
+
+This sample demonstrates how to filter data in layers by applying a time extent to a MapView.
 
 * [Change viewpoint](Shared/Samples/MapView/ChangeViewpoint)
 

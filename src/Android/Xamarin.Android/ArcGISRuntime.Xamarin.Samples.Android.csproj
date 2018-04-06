@@ -217,11 +217,28 @@
     <None Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
     <None Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
     <None Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
+    <None Include="Samples\GeometryEngine\BufferList\BufferList.jpg" />
+    <None Include="Samples\GeometryEngine\Buffer\Buffer.jpg" />
+    <None Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
+    <None Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
+    <None Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />
+    <None Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
+    <None Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.jpg" />
+    <None Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.jpg" />
+    <None Include="Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
+    <None Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
+    <Compile Include="Samples\GeometryEngine\BufferList\BufferList.cs" />
+    <Compile Include="Samples\GeometryEngine\Buffer\Buffer.cs" />
+    <Compile Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.cs" />
+    <Compile Include="Samples\GeometryEngine\NearestVertex\NearestVertex.cs" />
     <Compile Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.cs" />
     <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.cs" />
+    <Compile Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.cs" />
+    <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.cs" />
+    <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.cs" />
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
     <Compile Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.cs" />
     <Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.cs" />
@@ -288,10 +305,12 @@
     <Compile Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.cs" />
     <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.cs" />
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.cs" />
+    <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.cs" />
     <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.cs" />
     <Compile Include="Samples\Map\AuthorMap\AuthorMap.cs" />
     <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemap.cs" />
     <Compile Include="Samples\Map\DisplayMap\DisplayMap.cs" />
+    <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.cs" />
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.cs" />
     <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.cs" />
     <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMap.cs" />
@@ -335,13 +354,11 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SamplesListActivity.cs" />
-    <Compile Include="SamplesListAdapter.cs" />
   </ItemGroup>
   <!-- Sample Manager Layout-->
   <ItemGroup>
     <AndroidResource Include="Resources\layout\CategoriesList.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\CategoriesLayout.axml">
       <SubType>AndroidResource</SubType>
@@ -376,7 +393,7 @@
     <None Include="Resources\AboutResources.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
+    
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

@@ -216,6 +216,7 @@
   <ItemGroup>
     <Compile Include="Samples\GeometryEngine\BufferList\BufferList.cs" />
     <Compile Include="Samples\GeometryEngine\Buffer\Buffer.cs" />
+    <Compile Include="Samples\GeometryEngine\CutGeometry\CutGeometry.cs" />
     <Compile Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.cs" />
     <Compile Include="Samples\GeometryEngine\NearestVertex\NearestVertex.cs" />
     <Compile Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.cs" />
@@ -385,6 +386,7 @@
   <ItemGroup>
     <Content Include="Samples\GeometryEngine\BufferList\BufferList.jpg" />
     <Content Include="Samples\GeometryEngine\Buffer\Buffer.jpg" />
+    <Content Include="Samples\GeometryEngine\CutGeometry\CutGeometry.jpg" />
     <Content Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
     <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
     <None Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />

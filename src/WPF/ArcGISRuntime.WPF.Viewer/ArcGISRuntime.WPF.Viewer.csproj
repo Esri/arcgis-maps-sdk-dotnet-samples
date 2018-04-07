@@ -176,6 +176,9 @@
     <Compile Include="Samples\GeometryEngine\Buffer\Buffer.xaml.cs">
       <DependentUpon>Buffer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\GeometryEngine\CutGeometry\CutGeometry.xaml.cs">
+      <DependentUpon>CutGeometry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.xaml.cs">
       <DependentUpon>GeodesicOperations.xaml</DependentUpon>
     </Compile>
@@ -542,6 +545,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GeometryEngine\Buffer\Buffer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeometryEngine\CutGeometry\CutGeometry.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -982,6 +989,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\GeometryEngine\Buffer\Buffer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GeometryEngine\CutGeometry\CutGeometry.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.jpg">

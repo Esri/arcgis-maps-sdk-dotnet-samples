@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
         // Graphic that represents the Canada and USA border (polyline) of Lake Superior.
         private Graphic _countryBorderPolylineGraphic;
 
-        // Create a Button to to cut polygons.
+        // Create a Button to cut polygons.
         private Button _cutButton;
 
         protected override void OnCreate(Bundle bundle)
@@ -91,7 +91,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
             // Add the Canada and USA border graphic to the graphics overlay collection.
             _graphicsOverlay.Graphics.Add(_countryBorderPolylineGraphic);
 
-            // Set the intial visual extent of the map view to that of Lake Superior.
+            // Set the initial visual extent of the map view to that of Lake Superior.
             _myMapView.SetViewpointGeometryAsync(_lakeSuperiorPolygonGraphic.Geometry);
         }
 
@@ -142,16 +142,17 @@ namespace ArcGISRuntime.Samples.CutGeometry
         private Polyline CreateBorder()
         {
             // Create a point collection that represents the Canada and USA border (polyline) of Lake Superior. Use the same spatial reference as the underlying base map.
-            PointCollection borderCountryPointCollection = new PointCollection(SpatialReferences.WebMercator);
-
-            // Add all of the border map points to the point collection.
-            borderCountryPointCollection.Add(new MapPoint(-9981328.687124, 6111053.281447));
-            borderCountryPointCollection.Add(new MapPoint(-9946518.044066, 6102350.620682));
-            borderCountryPointCollection.Add(new MapPoint(-9872545.427566, 6152390.920079));
-            borderCountryPointCollection.Add(new MapPoint(-9838822.617103, 6157830.083057));
-            borderCountryPointCollection.Add(new MapPoint(-9446115.050097, 5927209.572793));
-            borderCountryPointCollection.Add(new MapPoint(-9430885.393759, 5876081.440801));
-            borderCountryPointCollection.Add(new MapPoint(-9415655.737420, 5860851.784463));
+            PointCollection borderCountryPointCollection = new PointCollection(SpatialReferences.WebMercator)
+            {
+                // Add all of the border map points to the point collection.
+                new MapPoint(-9981328.687124, 6111053.281447),
+                new MapPoint(-9946518.044066, 6102350.620682),
+                new MapPoint(-9872545.427566, 6152390.920079),
+                new MapPoint(-9838822.617103, 6157830.083057),
+                new MapPoint(-9446115.050097, 5927209.572793),
+                new MapPoint(-9430885.393759, 5876081.440801),
+                new MapPoint(-9415655.737420, 5860851.784463)
+            };
 
             // Create a polyline geometry from the point collection.
             Polyline borderCountryPolyline = new Polyline(borderCountryPointCollection);
@@ -163,39 +164,40 @@ namespace ArcGISRuntime.Samples.CutGeometry
         private Polygon CreateLakeSuperiorPolygon()
         {
             // Create a point collection that represents Lake Superior (polygon). Use the same spatial reference as the underlying base map.
-            PointCollection lakeSuperiorPointCollection = new PointCollection(SpatialReferences.WebMercator);
-
-            // Add all of the lake Superior boundry map points to the point collection.
-            lakeSuperiorPointCollection.Add(new MapPoint(-10254374.668616, 5908345.076380));
-            lakeSuperiorPointCollection.Add(new MapPoint(-10178382.525314, 5971402.386779));
-            lakeSuperiorPointCollection.Add(new MapPoint(-10118558.923141, 6034459.697178));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9993252.729399, 6093474.872295));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9882498.222673, 6209888.368416));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9821057.766387, 6274562.532928));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9690092.583250, 6241417.023616));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9605207.742329, 6206654.660191));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9564786.389509, 6108834.986367));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9449989.747500, 6095091.726408));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9462116.153346, 6044160.821855));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9417652.665244, 5985145.646738));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9438671.768711, 5946341.148031));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9398250.415891, 5922088.336339));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9419269.519357, 5855797.317714));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9467775.142741, 5858222.598884));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9462924.580403, 5902686.086985));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9598740.325877, 5884092.264688));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9643203.813979, 5845287.765981));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9739406.633691, 5879241.702350));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9783061.694736, 5922896.763395));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9844502.151022, 5936640.023354));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9773360.570059, 6019099.583107));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9883306.649729, 5968977.105610));
-            lakeSuperiorPointCollection.Add(new MapPoint(-9957681.938918, 5912387.211662));
-            lakeSuperiorPointCollection.Add(new MapPoint(-10055501.612742, 5871965.858842));
-            lakeSuperiorPointCollection.Add(new MapPoint(-10116942.069028, 5884092.264688));
-            lakeSuperiorPointCollection.Add(new MapPoint(-10111283.079633, 5933406.315128));
-            lakeSuperiorPointCollection.Add(new MapPoint(-10214761.742852, 5888134.399970));
-            lakeSuperiorPointCollection.Add(new MapPoint(-10254374.668616, 5901877.659929));
+            PointCollection lakeSuperiorPointCollection = new PointCollection(SpatialReferences.WebMercator)
+            {
+                // Add all of the lake Superior boundary map points to the point collection.
+                new MapPoint(-10254374.668616, 5908345.076380),
+                new MapPoint(-10178382.525314, 5971402.386779),
+                new MapPoint(-10118558.923141, 6034459.697178),
+                new MapPoint(-9993252.729399, 6093474.872295),
+                new MapPoint(-9882498.222673, 6209888.368416),
+                new MapPoint(-9821057.766387, 6274562.532928),
+                new MapPoint(-9690092.583250, 6241417.023616),
+                new MapPoint(-9605207.742329, 6206654.660191),
+                new MapPoint(-9564786.389509, 6108834.986367),
+                new MapPoint(-9449989.747500, 6095091.726408),
+                new MapPoint(-9462116.153346, 6044160.821855),
+                new MapPoint(-9417652.665244, 5985145.646738),
+                new MapPoint(-9438671.768711, 5946341.148031),
+                new MapPoint(-9398250.415891, 5922088.336339),
+                new MapPoint(-9419269.519357, 5855797.317714),
+                new MapPoint(-9467775.142741, 5858222.598884),
+                new MapPoint(-9462924.580403, 5902686.086985),
+                new MapPoint(-9598740.325877, 5884092.264688),
+                new MapPoint(-9643203.813979, 5845287.765981),
+                new MapPoint(-9739406.633691, 5879241.702350),
+                new MapPoint(-9783061.694736, 5922896.763395),
+                new MapPoint(-9844502.151022, 5936640.023354),
+                new MapPoint(-9773360.570059, 6019099.583107),
+                new MapPoint(-9883306.649729, 5968977.105610),
+                new MapPoint(-9957681.938918, 5912387.211662),
+                new MapPoint(-10055501.612742, 5871965.858842),
+                new MapPoint(-10116942.069028, 5884092.264688),
+                new MapPoint(-10111283.079633, 5933406.315128),
+                new MapPoint(-10214761.742852, 5888134.399970),
+                new MapPoint(-10254374.668616, 5901877.659929)
+            };
 
             // Create a polyline geometry from the point collection.
             Polygon lakeSuperiorPolygon = new Polygon(lakeSuperiorPointCollection);

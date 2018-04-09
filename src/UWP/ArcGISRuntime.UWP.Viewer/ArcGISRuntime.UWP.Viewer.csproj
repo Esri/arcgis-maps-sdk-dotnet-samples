@@ -133,6 +133,7 @@
     <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <Content Include="Samples\GeometryEngine\BufferList\BufferList.jpg" />
     <Content Include="Samples\GeometryEngine\Buffer\Buffer.jpg" />
+    <Content Include="Samples\GeometryEngine\CutGeometry\CutGeometry.jpg" />
     <Content Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
     <Content Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
     <Content Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.jpg" />
@@ -334,6 +335,9 @@
     </Compile>
     <Compile Include="Samples\GeometryEngine\Buffer\Buffer.xaml.cs">
       <DependentUpon>Buffer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GeometryEngine\CutGeometry\CutGeometry.xaml.cs">
+      <DependentUpon>CutGeometry.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.xaml.cs">
       <DependentUpon>CreateGeometries.xaml</DependentUpon>
@@ -683,6 +687,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GeometryEngine\Buffer\Buffer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeometryEngine\CutGeometry\CutGeometry.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

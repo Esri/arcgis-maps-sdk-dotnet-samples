@@ -39,7 +39,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
         // Graphic that represents the Canada and USA border (polyline) of Lake Superior.
         private Graphic _countryBorderPolylineGraphic;
 
-        // Text view to display the list of geodatabases
+        // Text view to display the sample instructions.
         UITextView _sampleInstructionUITextiew;
 
         // Create a UIButton to cut polygons.
@@ -70,7 +70,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
             // Setup the visual frame for the general sample instructions UTexView.
             _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 40);
 
-            // Setup the visual frame for the make buffer UIButton.
+            // Setup the visual frame for the cut UIButton.
             _cutButton.Frame = new CoreGraphics.CGRect(0, yPageOffset + 40, View.Bounds.Width, 40);
 
             base.ViewDidLayoutSubviews();
@@ -79,10 +79,10 @@ namespace ArcGISRuntime.Samples.CutGeometry
         private void Initialize()
         {
             // Create a map with a topographic basemap.
-            Map amazingMap = new Map(Basemap.CreateTopographic());
+            Map newMap = new Map(Basemap.CreateTopographic());
 
             // Assign the map to the MapView.
-            _myMapView.Map = amazingMap;
+            _myMapView.Map = newMap;
 
             // Create a graphics overlay to hold the various graphics.
             _graphicsOverlay = new GraphicsOverlay();
@@ -118,12 +118,12 @@ namespace ArcGISRuntime.Samples.CutGeometry
             _myMapView.SetViewpointGeometryAsync(_lakeSuperiorPolygonGraphic.Geometry);
         }
 
-        private void CutButton_Click(object sender, EventArgs e)
+        private void CutButton_TouchUpInside(object sender, EventArgs e)
         {
             try
             {
                 // Cut the polygon geometry with the polyline, expect two geometries.
-                Geometry[] parts = GeometryEngine.Cut(_lakeSuperiorPolygonGraphic.Geometry, (Polyline)_countryBorderPolylineGraphic.Geometry);
+                Geometry[] cutGeometries = GeometryEngine.Cut(_lakeSuperiorPolygonGraphic.Geometry, (Polyline)_countryBorderPolylineGraphic.Geometry);
 
                 // Create a simple line symbol for the outline of the Canada side of Lake Superior.
                 SimpleLineSymbol canadaSideSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Null, System.Drawing.Color.Blue, 0);
@@ -132,10 +132,10 @@ namespace ArcGISRuntime.Samples.CutGeometry
                 SimpleFillSymbol canadaSideSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.ForwardDiagonal, System.Drawing.Color.Green, canadaSideSimpleLineSymbol);
 
                 // Create the graphic for the Canada side of Lake Superior - comprised of a polygon shape and fill symbol.
-                Graphic canadaSide = new Graphic(parts[0], canadaSideSimpleFillSymbol);
+                Graphic canadaSideGraphic = new Graphic(cutGeometries[0], canadaSideSimpleFillSymbol);
 
                 // Add the Canada side of the Lake Superior graphic to the graphics overlay collection.
-                _graphicsOverlay.Graphics.Add(canadaSide);
+                _graphicsOverlay.Graphics.Add(canadaSideGraphic);
 
                 // Create a simple line symbol for the outline of the USA side of Lake Superior.
                 SimpleLineSymbol usaSideSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Null, System.Drawing.Color.Blue, 0);
@@ -144,10 +144,10 @@ namespace ArcGISRuntime.Samples.CutGeometry
                 SimpleFillSymbol usaSideSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.ForwardDiagonal, System.Drawing.Color.Yellow, usaSideSimpleLineSymbol);
 
                 // Create the graphic for the USA side of Lake Superior - comprised of a polygon shape and fill symbol.
-                Graphic usaSide = new Graphic(parts[1], usaSideSimpleFillSymbol);
+                Graphic usaSideGraphic = new Graphic(cutGeometries[1], usaSideSimpleFillSymbol);
 
                 // Add the USA side of the Lake Superior graphic to the graphics overlay collection.
-                _graphicsOverlay.Graphics.Add(usaSide);
+                _graphicsOverlay.Graphics.Add(usaSideGraphic);
 
                 // Disable the button after has been used.
                 _cutButton.Enabled = false;
@@ -239,8 +239,8 @@ namespace ArcGISRuntime.Samples.CutGeometry
             _cutButton.SetTitle("Cut", UIControlState.Normal);
             _cutButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
             _cutButton.BackgroundColor = UIColor.White;
-            // - Hook to touch event to do querying
-            _cutButton.TouchUpInside += CutButton_Click;
+            // - Hook to touch event to cut the polygons.
+            _cutButton.TouchUpInside += CutButton_TouchUpInside;
 
             // Add the MapView and other controls to the page.
             View.AddSubviews(_myMapView, _sampleInstructionUITextiew, _cutButton);

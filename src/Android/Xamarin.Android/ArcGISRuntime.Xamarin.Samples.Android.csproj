@@ -119,7 +119,7 @@
     <None Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
     <None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
     <None Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
-    <None Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.jpg" />
+    <None Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.jpg" />
     <None Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg" />
     <None Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <None Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
@@ -232,7 +232,7 @@
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
     <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.cs" />
     <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.cs" />
-    <Compile Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.cs" />
+    <Compile Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.cs" />
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.cs" />
     <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.cs" />
     <Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.cs" />

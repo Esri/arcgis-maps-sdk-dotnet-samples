@@ -7,22 +7,23 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Android.App;
+using Android.OS;
+using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
-using Foundation;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UIKit;
 
-namespace ArcGISRuntime.Samples.Web_TiledLayer
+namespace ArcGISRuntime.Samples.LoadWebTiledLayer
 {
-    [Register("Web_TiledLayer")]
+    [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Web TiledLayer",
         "Layers",
         "This sample demonstrates how to load a web tiled layer from a non-ArcGIS service, including how to include proper attribution.",
         "")]
-    public class Web_TiledLayer : UIViewController
+    public class LoadWebTiledLayer : Activity
     {
         // Create and hold reference to the used MapView
         private readonly MapView _myMapView = new MapView();
@@ -39,9 +40,15 @@ namespace ArcGISRuntime.Samples.Web_TiledLayer
                                                "Data by <a href=\"http://openstreetmap.org/\">OpenStreetMap</a>," +
                                                "under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.";
 
-        public Web_TiledLayer()
+        protected override async void OnCreate(Bundle bundle)
         {
+            base.OnCreate(bundle);
+
             Title = "Web TiledLayer";
+
+            // Create the UI, setup the control references and execute initialization
+            CreateLayout();
+            await Initialize();
         }
 
         private async Task Initialize()
@@ -67,24 +74,14 @@ namespace ArcGISRuntime.Samples.Web_TiledLayer
 
         private void CreateLayout()
         {
-            // Add MapView to the page
-            View.AddSubviews(_myMapView);
-        }
+            // Create a new vertical layout for the app
+            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-        public override async void ViewDidLoad()
-        {
-            CreateLayout();
-            await Initialize();
+            // Add the map view to the layout
+            layout.AddView(_myMapView);
 
-            base.ViewDidLoad();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            base.ViewDidLayoutSubviews();
+            // Show the layout in the app
+            SetContentView(layout);
         }
     }
 }

@@ -11,14 +11,14 @@ using Esri.ArcGISRuntime.Mapping;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
-namespace ArcGISRuntime.Samples.Web_TiledLayer
+namespace ArcGISRuntime.Samples.LoadWebTiledLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Web TiledLayer",
         "Layers",
         "This sample demonstrates how to load a web tiled layer from a non-ArcGIS service, including how to include proper attribution.",
         "")]
-    public partial class Web_TiledLayer : ContentPage
+    public partial class LoadWebTiledLayer : ContentPage
     {
         // Templated URL to the tile service
         private readonly string _templateUri = "http://{subDomain}.tile.stamen.com/terrain/{level}/{col}/{row}.png";
@@ -32,7 +32,7 @@ namespace ArcGISRuntime.Samples.Web_TiledLayer
                                                "Data by <a href=\"http://openstreetmap.org/\">OpenStreetMap</a>," +
                                                "under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.";
 
-        public Web_TiledLayer()
+        public LoadWebTiledLayer()
         {
             InitializeComponent();
 

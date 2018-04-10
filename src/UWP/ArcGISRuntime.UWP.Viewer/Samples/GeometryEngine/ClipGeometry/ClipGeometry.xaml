@@ -19,8 +19,8 @@
                            Text="Click the 'Clip' button to clip the blue graphic with red envelopes."
                            TextWrapping="Wrap"
                            Margin="0,0,0,10"/>
-                <Button x:Name="CutButton" 
-                    Content="Cut"
+                <Button x:Name="ClipButton" 
+                    Content="Clip"
                         HorizontalAlignment="Stretch"
                     Click="ClipButton_Click"/>
             </StackPanel>

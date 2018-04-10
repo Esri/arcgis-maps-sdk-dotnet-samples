@@ -109,8 +109,8 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             // Add the Colorado graphic to the input geometries graphics overlay collection.
             _inputGeometriesGraphicsOverlay.Graphics.Add(_coloradoGraphic);
 
-            // Create a simple line symbol for the three different cut geometries.
-            SimpleLineSymbol cutGeomtriesSimpleLineSymbol = new SimpleLineSymbol(
+            // Create a simple line symbol for the three different clip geometries.
+            SimpleLineSymbol clipGeomtriesSimpleLineSymbol = new SimpleLineSymbol(
                 SimpleLineSymbolStyle.Dot, Colors.Red, 5);
 
             // Create an envelope outside Colorado.
@@ -119,7 +119,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
                 new MapPoint(-12201990.219681, 5297071.577304, SpatialReferences.WebMercator));
 
             // Create the graphic for an envelope outside Colorado - comprised of a polyline shape and line symbol.
-            _outsideGraphic = new Graphic(outsideEnvelope, cutGeomtriesSimpleLineSymbol);
+            _outsideGraphic = new Graphic(outsideEnvelope, clipGeomtriesSimpleLineSymbol);
 
             // Add the envelope outside Colorado graphic to the graphics overlay collection.
             _inputGeometriesGraphicsOverlay.Graphics.Add(_outsideGraphic);
@@ -130,7 +130,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
                 new MapPoint(-12260345.183558, 4332053.378376, SpatialReferences.WebMercator));
 
             // Create the graphic for an envelope intersecting Colorado - comprised of a polyline shape and line symbol.
-            _intersectingGraphic = new Graphic(intersectingEnvelope, cutGeomtriesSimpleLineSymbol);
+            _intersectingGraphic = new Graphic(intersectingEnvelope, clipGeomtriesSimpleLineSymbol);
 
             // Add the envelope intersecting Colorado graphic to the graphics overlay collection.
             _inputGeometriesGraphicsOverlay.Graphics.Add(_intersectingGraphic);
@@ -141,7 +141,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
                 new MapPoint(-11431488.567009, 4593570.068343, SpatialReferences.WebMercator));
 
             // Create the graphic for an envelope inside Colorado - comprised of a polyline shape and line symbol.
-            _containedGraphic = new Graphic(containedEnvelope, cutGeomtriesSimpleLineSymbol);
+            _containedGraphic = new Graphic(containedEnvelope, clipGeomtriesSimpleLineSymbol);
 
             // Add the envelop inside Colorado graphic to the graphics overlay collection.
             _inputGeometriesGraphicsOverlay.Graphics.Add(_containedGraphic);
@@ -155,16 +155,16 @@ namespace ArcGISRuntime.Samples.ClipGeometry
 
         private Geometry GetExtentOfGraphicsOverlay(GraphicsOverlay inputGraphicsOverlay, double expansionFactor, SpatialReference spatialReferenceType)
         {
-            // Get all of the graphics contained in the graphics overlay
+            // Get all of the graphics contained in the graphics overlay.
             GraphicCollection inputGraphicCollection = inputGraphicsOverlay.Graphics;
 
-            // Create a new envelope builder using the same spatial reference as the graphics
+            // Create a new envelope builder using the same spatial reference as the graphics.
             EnvelopeBuilder unionEnvelopeBuilder = new EnvelopeBuilder(spatialReferenceType);
 
-            // Loop through each graphic in the graphic collection
+            // Loop through each graphic in the graphic collection.
             foreach (Graphic oneGraphic in inputGraphicCollection)
             {
-                // Union the extent of each graphic in the envelope builder
+                // Union the extent of each graphic in the envelope builder.
                 unionEnvelopeBuilder.UnionOf(oneGraphic.Geometry.Extent);
             }
 

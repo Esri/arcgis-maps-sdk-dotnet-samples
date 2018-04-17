@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -19,9 +19,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerQuery
+namespace ArcGISRuntime.Samples.FeatureLayerQuery
 {
     [Register("FeatureLayerQuery")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer query",
+        "Data",
+        "This sample demonstrates how to query a feature layer via feature table.",
+        "The sample provides a search bar on the top, where you can input the name of a US State. When you hit search the app performs a query on the feature table and based on the result either highlights the state geometry or provides an error.")]
     public class FeatureLayerQuery : UIViewController
     {
         // Constant holding offset where the MapView control should start
@@ -127,8 +132,11 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerQuery
                 // Create a query parameters that will be used to Query the feature table  
                 QueryParameters queryParams = new QueryParameters();
 
+                // Trim whitespace on the state name to prevent broken queries
+                String formattedStateName = stateName.Trim().ToUpper();
+
                 // Construct and assign the where clause that will be used to query the feature table 
-                queryParams.WhereClause = "upper(STATE_NAME) LIKE '%" + (stateName.ToUpper()) + "%'";
+                queryParams.WhereClause = "upper(STATE_NAME) LIKE '%" + formattedStateName + "%'";
 
                 // Query the feature table 
                 FeatureQueryResult queryResult = await _featureTable.QueryFeaturesAsync(queryParams);
@@ -168,6 +176,8 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerQuery
             _queryTextView.Placeholder = "State name";
             _queryTextView.AdjustsFontSizeToFitWidth = true;
             _queryTextView.BackgroundColor = UIColor.White;
+            // Allow pressing 'return' to dismiss the keyboard
+            _queryTextView.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Create button to invoke the query
             _queryButton = new UIButton();

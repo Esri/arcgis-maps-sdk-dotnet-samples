@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
+             x:Class="ArcGISRuntime.Samples.ReadGeoPackage.ReadGeoPackage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0">Layers in the Map</Label>
+        <ListView Grid.Row="1" x:Name="ListView_LayersInTheMap" />
+        <Label Grid.Row="2">Layers Not in the Map</Label>
+        <ListView Grid.Row="3" x:Name="ListView_LayersNotInTheMap" />
+        <Button Grid.Row="4" x:Name="Button_AddLayerToMap" Text="Add layer to map" Clicked="Button_AddLayerToMap_Clicked"/>
+        <Button Grid.Row="5" x:Name="Button_RemoveLayerFromMap" Text="Remove layer from map" Clicked="Button_RemoveLayerFromMap_Clicked"/>
+        <esriUI:MapView Grid.Row="6" x:Name="MyMapView" />
+    </Grid>
+</ContentPage>

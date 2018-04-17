@@ -18,9 +18,14 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
+namespace ArcGISRuntime.Samples.AnalyzeHotspots
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Analyze hotspots",
+        "Geoprocessing",
+        "This sample demonstrates how to execute the GeoprocessingTask asynchronously to calculate a hotspot analysis based on the frequency of 911 calls. It calculates the frequency of these calls within a given study area during a specified constrained time period set between 1/1/1998 and 5/31/1998.",
+        "To run the hotspot analysis, select a data range and click on the 'Run analysis' button. Note the larger the date range, the longer it may take for the task to run and send back the results.")]
     public class AnalyzeHotspots : Activity
     {
 
@@ -57,13 +62,13 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create a map with a topographic basemap
             Map myMap = new Map(Basemap.CreateTopographic());
 
             // Create a new geoprocessing task
-            _hotspotTask = new GeoprocessingTask(new Uri(_hotspotUrl));
+            _hotspotTask = await GeoprocessingTask.CreateAsync(new Uri(_hotspotUrl));
 
             // Assign the map to the MapView
             _myMapView.Map = myMap;
@@ -71,6 +76,9 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
 
         private async void OnRunAnalysisClicked(object sender, EventArgs e)
         {
+            // Clear any existing results
+            _myMapView.Map.OperationalLayers.Clear();
+
             // Show busy activity indication
             _myProgressBar.Visibility = ViewStates.Visible;
 

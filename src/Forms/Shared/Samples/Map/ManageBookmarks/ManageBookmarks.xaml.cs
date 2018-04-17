@@ -1,10 +1,10 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
@@ -12,27 +12,31 @@ using System;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ManageBookmarks
+namespace ArcGISRuntime.Samples.ManageBookmarks
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Manage bookmarks",
+        "Map",
+        "This sample demonstrates how to access and add bookmarks to a map.",
+        "")]
     public partial class ManageBookmarks : ContentPage
     {
         public ManageBookmarks()
         {
-            InitializeComponent ();
+            InitializeComponent();
 
-            Title = "Manage Bookmarks";
+            Title = "Manage bookmarks";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
         private void Initialize()
         {
-
             // Create new map with a base map
             Map myMap = new Map(Basemap.CreateImageryWithLabels());
 
-            // Set the map view, map property to the base map
+            // Add the map to the mapview
             MyMapView.Map = myMap;
 
             // Create a set of predefined bookmarks; each one follows the pattern of:
@@ -41,7 +45,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageBookmarks
             // ~ Give the bookmark a name
             // ~ Assign the viewpoint
             // ~ Add the bookmark to bookmark collection of the map
-            // ~ Add the bookmark name to the UI combo box for the user to choose from 
+            // ~ Add the bookmark name to the UI combo box for the user to choose from
 
             // Bookmark-1
             Viewpoint myViewpoint1 = new Viewpoint(27.3805833, 33.6321389, 6000);
@@ -105,9 +109,10 @@ namespace ArcGISRuntimeXamarin.Samples.ManageBookmarks
             }
         }
 
-        // Member (aka. global) variables for the dynamically created page allowing 
+        // Member (aka. global) variables for the dynamically created page allowing
         // the user to add additional bookmarks
         public Entry myEntryBookmarkName;
+
         public ContentPage bookmarkAddPage;
 
         private async void ButtonAddBookmark_Clicked(object sender, EventArgs e)
@@ -159,7 +164,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageBookmarks
             Bookmark myBookmark = new Bookmark();
             myBookmark.Name = name;
 
-            // Get the current viewpoint from map and assign it to bookmark 
+            // Get the current viewpoint from map and assign it to bookmark
             myBookmark.Viewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
             // Add the bookmark to bookmark collection of the map
@@ -168,7 +173,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageBookmarks
             // Add the bookmark name to the list of choices in the picker
             bookmarkPicker.Items.Add(name);
 
-            // Close the user interaction page to add a bookmark 
+            // Close the user interaction page to add a bookmark
             Navigation.RemovePage(bookmarkAddPage);
             bookmarkAddPage = null;
         }

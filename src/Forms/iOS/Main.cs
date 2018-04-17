@@ -9,7 +9,7 @@
 
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.iOS
+namespace ArcGISRuntime.iOS
 {
 	public class Application
 	{

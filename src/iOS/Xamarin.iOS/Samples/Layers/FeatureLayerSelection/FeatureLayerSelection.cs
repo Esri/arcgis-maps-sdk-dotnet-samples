@@ -17,9 +17,14 @@ using System;
 using System.Drawing;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerSelection
+namespace ArcGISRuntime.Samples.FeatureLayerSelection
 {
     [Register("FeatureLayerSelection")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer selection",
+        "Layers",
+        "This sample demonstrates how to select features in a feature layer by tapping a MapView.",
+        "")]
     public class FeatureLayerSelection : UIViewController
     {
         // Create and hold reference to the used MapView
@@ -105,9 +110,17 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerSelection
             // Convert the tolerance to map units
             double mapTolerance = tolerance * _myMapView.UnitsPerPixel;
 
+            // Get the tapped point
+            MapPoint geometry = e.Location;
+
+            // Normalize the geometry if wrap-around is enabled
+            //    This is necessary because of how wrapped-around map coordinates are handled by Runtime
+            //    Without this step, querying may fail because wrapped-around coordinates are out of bounds.
+            if (_myMapView.IsWrapAroundEnabled) { geometry = GeometryEngine.NormalizeCentralMeridian(geometry) as MapPoint; }
+
             // Define the envelope around the tap location for selecting features
-            var selectionEnvelope = new Envelope(e.Location.X - mapTolerance, e.Location.Y - mapTolerance, e.Location.X + mapTolerance, 
-                e.Location.Y + mapTolerance, _myMapView.Map.SpatialReference);
+            var selectionEnvelope = new Envelope(geometry.X - mapTolerance, geometry.Y - mapTolerance, geometry.X + mapTolerance,
+                geometry.Y + mapTolerance, _myMapView.Map.SpatialReference);
 
             // Define the query parameters for selecting features
             var queryParams = new QueryParameters();

@@ -9,7 +9,7 @@
 
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin
+namespace ArcGISRuntime
 {
     public class App : Application
     {
@@ -18,7 +18,7 @@ namespace ArcGISRuntimeXamarin
             // The root page of your application
             var navigationPage = new NavigationPage(new CategoryListPage
             {
-                Title = "ArcGIS Runtime SDK for Xamarin Forms"
+                Title = "ArcGIS Runtime SDK for .NET"
             });
 
             MainPage = navigationPage;

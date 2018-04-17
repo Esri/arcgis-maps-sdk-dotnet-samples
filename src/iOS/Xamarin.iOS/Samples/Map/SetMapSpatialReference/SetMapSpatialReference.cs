@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -14,9 +14,14 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.SetMapSpatialReference
+namespace ArcGISRuntime.Samples.SetMapSpatialReference
 {
     [Register("SetMapSpatialReference")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Set map spatial reference",
+        "Map",
+        "This sample demonstrates how you can set the spatial reference on a Map and all the operational layers would project accordingly.",
+        "")]
     public class SetMapSpatialReference : UIViewController
     {
         // Constant holding offset where the MapView control should start
@@ -49,7 +54,7 @@ namespace ArcGISRuntimeXamarin.Samples.SetMapSpatialReference
 
         private void Initialize()
         {
-            // Create new Map using spatial reference as world bonne (54024)
+            // Create new Map using spatial reference as World Bonne (54024)
             Map myMap = new Map(SpatialReference.Create(54024));
 
             // Adding a map image layer which can reproject itself to the map's spatial reference

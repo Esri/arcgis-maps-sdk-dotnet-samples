@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -16,9 +16,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-#if __IOS__ 
+
+#if __IOS__
 using Xamarin.Forms.Platform.iOS;
 using Xamarin.Auth;
+using UIKit;
 #endif
 
 #if __ANDROID__
@@ -26,8 +28,13 @@ using Android.App;
 using Xamarin.Auth;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
+namespace ArcGISRuntime.Samples.SearchPortalMaps
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Search a portal for maps",
+        "Map",
+        "This sample demonstrates searching a portal for web maps and loading them in the map view. You can search ArcGIS Online public web maps using tag values or browse the web maps in your account. OAuth is used to authenticate with ArcGIS Online to access items in your account.",
+        "1. When the sample starts, you will be presented with a dialog for entering OAuth settings. If you need to create your own settings, sign in with your developer account and use the [ArcGIS for Developers dashboard](https://developers.arcgis.com/dashboard) to create an Application to store these settings.\n2. Enter values for the following OAuth settings.\n\t1. **Client ID**: a unique alphanumeric string identifier for your application\n\t2. **Redirect URL**: a URL to which a successful OAuth login response will be sent\n3. If you do not enter OAuth settings, you will be able to search public web maps on ArcGIS Online. Browsing the web map items in your ArcGIS Online account will be disabled, however.")]
     public partial class SearchPortalMaps : ContentPage, IOAuthAuthorizeHandler
     {
         // Constants for OAuth-related values ...
@@ -221,7 +228,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 var cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
                 loggedIn = cred != null;
             }
-            catch (OperationCanceledException ex)
+            catch (OperationCanceledException)
             {
                 // Login was canceled
                 // .. ignore, user can still search public maps without logging in
@@ -229,7 +236,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             catch (Exception ex)
             {
                 // Login failure
-                DisplayAlert("Login Error", ex.Message, "OK");
+                await DisplayAlert("Login Error", ex.Message, "OK");
             }
 
             return loggedIn;
@@ -290,10 +297,11 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -306,11 +314,11 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization is in progress
+            // If the TaskCompletionSource is not null, authorization may already be in progress and should be cancelled
             if (_taskCompletionSource != null)
             {
-                // Allow only one authorization process at a time
-                throw new Exception();
+                // Try to cancel any existing authentication task
+                _taskCompletionSource.TrySetCanceled();
             }
 
             // Create a task completion source
@@ -323,14 +331,17 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 #endif
 #if __IOS__
             // Get the current iOS ViewController
-            var viewController = Platform.GetRenderer(this).ViewController;
+            var viewController = Xamarin.Forms.Platform.iOS.Platform.GetRenderer(this).ViewController;
 #endif
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(
                 clientId: _appClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
+                redirectUrl: callbackUri)
+            {
+                ShowErrors = false
+            };
 
             // Allow the user to cancel the OAuth attempt
             authenticator.AllowCancel = true;
@@ -362,15 +373,18 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 catch (Exception ex)
                 {
                     // If authentication failed, set the exception on the TaskCompletionSource
-                    _taskCompletionSource.SetException(ex);
+                    _taskCompletionSource.TrySetException(ex);
+
+                    // Cancel authentication
+                    authenticator.OnCancelled();
                 }
+#if __ANDROID__ 
                 finally
                 {
                     // Dismiss the OAuth login
-#if __ANDROID__ 
                     activity.FinishActivity(99);
-#endif
                 }
+#endif
             };
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource
@@ -392,6 +406,9 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 #endif
                     }
                 }
+
+                // Cancel authentication
+                authenticator.OnCancelled();
             };
 
             // Present the OAuth UI so the user can enter user name and password

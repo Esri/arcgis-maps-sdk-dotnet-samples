@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -12,8 +12,13 @@ using System;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeSublayerVisibility
+namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Change sublayer visibility",
+        "Layers",
+        "This sample demonstrates how to show or hide sublayers of a map image layer.",
+        "")]
     public partial class ChangeSublayerVisibility : ContentPage
     {
         private ArcGISMapImageLayer _imageLayer;
@@ -97,7 +102,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeSublayerVisibility
             };
                         
             // Navigate to the sublayers page
-            await Navigation.PushAsync(sublayersPage);
+            await Navigation.PushModalAsync(sublayersPage);
         }
 
         private void OnCellOnOffChanged(object sender, ToggledEventArgs e)

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+    x:Class="ArcGISRuntime.Samples.ExportTiles.ExportTiles"
+             Title="Export tiles">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" BackgroundColor="MediumVioletRed">
+            <esriUI:MapView x:Name="MyMapView" IsVisible="True" />
+        </Grid>
+        <ActivityIndicator x:Name="MyProgressBar" IsVisible="False" Grid.Row="1" IsRunning="True" />
+        <Button x:Name="MyExportPreviewButton" Text="Export" Grid.Row="2" Clicked="MyExportPreviewButton_Clicked" IsEnabled="False" />
+    </Grid>
+</ContentPage>

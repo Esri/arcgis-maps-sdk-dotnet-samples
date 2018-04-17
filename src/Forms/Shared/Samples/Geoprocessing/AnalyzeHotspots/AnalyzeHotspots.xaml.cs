@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -14,8 +14,13 @@ using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
+namespace ArcGISRuntime.Samples.AnalyzeHotspots
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Analyze hotspots",
+        "Geoprocessing",
+        "This sample demonstrates how to execute the GeoprocessingTask asynchronously to calculate a hotspot analysis based on the frequency of 911 calls. It calculates the frequency of these calls within a given study area during a specified constrained time period set between 1/1/1998 and 5/31/1998.",
+        "To run the hotspot analysis, select a data range and click on the 'Run analysis' button. Note the larger the date range, the longer it may take for the task to run and send back the results.")]
     public partial class AnalyzeHotspots : ContentPage
     {
 
@@ -39,13 +44,13 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create a map with a topographic basemap
             Map myMap = new Map(Basemap.CreateTopographic());
 
             // Create a new geoprocessing task
-            _hotspotTask = new GeoprocessingTask(new Uri(_hotspotUrl));
+            _hotspotTask = await GeoprocessingTask.CreateAsync(new Uri(_hotspotUrl));
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;
@@ -53,13 +58,30 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
 
         private async void OnRunAnalysisClicked(object sender, EventArgs e)
         {
+            // Clear any existing results
+            MyMapView.Map.OperationalLayers.Clear();
+
             // Show busy activity indication
-            MyActivityInidicator.IsVisible = true;
-            MyActivityInidicator.IsRunning = true;
+            MyActivityIndicator.IsVisible = true;
+            MyActivityIndicator.IsRunning = true;
 
             // Get the 'from' and 'to' dates from the date pickers for the geoprocessing analysis
-            DateTime myFromDate = Convert.ToDateTime(StartDate.Text);
-            DateTime myToDate = Convert.ToDateTime(EndDate.Text); 
+            DateTime myFromDate;
+            DateTime myToDate;
+            try
+            {
+                myFromDate = Convert.ToDateTime(StartDate.Text);
+                myToDate = Convert.ToDateTime(EndDate.Text);
+            } catch (Exception)
+            {
+                // Handle badly formatted dates
+                await DisplayAlert("Invalid date", "Please enter a valid date", "OK");
+
+                // Remove the busy activity indication
+                MyActivityIndicator.IsRunning = false;
+                MyActivityIndicator.IsVisible = false;
+                return;
+            }
 
             // The end date must be at least one day after the start date
             if (myToDate <= myFromDate.AddDays(1))
@@ -68,8 +90,8 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
                 await DisplayAlert("Invalid date range", "Please select valid time range. There has to be at least one day in between To and From dates.", "OK");
 
                 // Remove the busy activity indication
-                MyActivityInidicator.IsRunning = false;
-                MyActivityInidicator.IsVisible = false;
+                MyActivityIndicator.IsRunning = false;
+                MyActivityIndicator.IsVisible = false;
                 return;
             }
 
@@ -120,8 +142,8 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeHotspots
             finally
             {
                 // Remove the busy activity indication
-                MyActivityInidicator.IsRunning = false;
-                MyActivityInidicator.IsVisible = false;
+                MyActivityIndicator.IsRunning = false;
+                MyActivityIndicator.IsVisible = false;
             }
         }
     }

@@ -1,11 +1,21 @@
-using ArcGISRuntimeXamarin.Managers;
-using CoreGraphics;
-using Foundation;
-using System;
-using UIKit;
-using System.Collections.Generic;
+// Copyright 2018 Esri.
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// language governing permissions and limitations under the License.
 
-namespace ArcGISRuntimeXamarin
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Models;
+using Foundation;
+using UIKit;
+
+namespace ArcGISRuntime
 {
     partial class CategoriesViewController : UITableViewController
 	{
@@ -15,17 +25,17 @@ namespace ArcGISRuntimeXamarin
 
 		}
 
-        public UISearchController SearchController { get; set; }
+	    private UISearchController SearchController { get; set; }
 
-        public async override void ViewDidLoad()
+        public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 
-			await SampleManager.Current.InitializeAsync();
-			var data = SampleManager.Current.GetSamplesAsTree();
-			this.TableView.Source = new CategoryDataSource(this, data);
+			SampleManager.Current.Initialize();
+            List<SearchableTreeNode> data = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
+			TableView.Source = new CategoryDataSource(this, data);
 
-			this.TableView.ReloadData();
+			TableView.ReloadData();
 
             var searchResultsController = new SearchResultsViewController(this, data);
 
@@ -34,48 +44,46 @@ namespace ArcGISRuntimeXamarin
             searchUpdater.UpdateSearchResults += searchResultsController.Search;
 
             // Create a new search controller
-            SearchController = new UISearchController(searchResultsController);
-            SearchController.SearchResultsUpdater = searchUpdater;
+		    SearchController = new UISearchController(searchResultsController) {SearchResultsUpdater = searchUpdater};
 
-            // Display the search controller
-            SearchController.SearchBar.Frame = new CGRect(SearchController.SearchBar.Frame.X, SearchController.SearchBar.Frame.Y, SearchController.SearchBar.Frame.Width, 44f);
+		    // Display the search controller
             TableView.TableHeaderView = SearchController.SearchBar;
             DefinesPresentationContext = true;
 
         }
 
-        public class CategoryDataSource : UITableViewSource
+	    private class CategoryDataSource : UITableViewSource
 		{
-			private UITableViewController controller;
-			private List<TreeItem> data;
+			private readonly UITableViewController _controller;
+			private readonly List<SearchableTreeNode> _data;
 
-			static string CELL_ID = "cellid";
+		    private const string CellId = "cellid";
 
-			public CategoryDataSource(UITableViewController controller, List<TreeItem> data)
+		    public CategoryDataSource(UITableViewController controller, List<SearchableTreeNode> data)
 			{
-				this.data = data;
-				this.controller = controller;
+				_data = data;
+				_controller = controller;
 			}
 
 			public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 			{
-				var cell = tableView.DequeueReusableCell(CELL_ID, indexPath);
-				var item = data[indexPath.Row];
+				var cell = tableView.DequeueReusableCell(CellId, indexPath);
+				var item = _data[indexPath.Row];
 				cell.TextLabel.Text = item.Name;
 				return cell;
 			}
 
 			public override nint RowsInSection(UITableView tableview, nint section)
 			{
-				return data.Count;
+				return _data.Count;
 			}
 
 			public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 			{
 				try
 				{
-					var selected = data[indexPath.Row];
-					controller.NavigationController.PushViewController(new SamplesViewController(selected), true);
+					var selected = _data[indexPath.Row];
+					_controller.NavigationController.PushViewController(new SamplesViewController(selected), true);
 				}
 				catch (Exception ex)
 				{

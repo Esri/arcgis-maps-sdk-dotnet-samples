@@ -1,10 +1,10 @@
-// Copyright 2016 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
@@ -14,23 +14,36 @@ using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
+namespace ArcGISRuntime.Samples.ChangeBasemap
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Change basemap",
+        "Map",
+        "This sample demonstrates how to dynamically change the basemap displayed in a Map.",
+        "")]
     public class ChangeBasemap : Activity
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
-        // String array to store basemap constructor types
-        private string[] _basemapTypes = new string[]
+        // Dictionary that associates names with basemaps
+        private readonly Dictionary<string, Basemap> _basemapOptions = new Dictionary<string, Basemap>()
         {
-            "Topographic",
-            "Streets",
-            "Imagery",
-            "Oceans"
+            {"Streets (Raster)", Basemap.CreateStreets()},
+            {"Streets (Vector)", Basemap.CreateStreetsVector()},
+            {"Streets - Night (Vector)", Basemap.CreateStreetsNightVector()},
+            {"Imagery (Raster)", Basemap.CreateImagery()},
+            {"Imagery with Labels (Raster)", Basemap.CreateImageryWithLabels()},
+            {"Imagery with Labels (Vector)", Basemap.CreateImageryWithLabelsVector()},
+            {"Dark Gray Canvas (Vector)", Basemap.CreateDarkGrayCanvasVector()},
+            {"Light Gray Canvas (Raster)", Basemap.CreateLightGrayCanvas()},
+            {"Light Gray Canvas (Vector)", Basemap.CreateLightGrayCanvasVector()},
+            {"Navigation (Vector)", Basemap.CreateNavigationVector()},
+            {"OpenStreetMap (Raster)", Basemap.CreateOpenStreetMap()}
         };
 
         protected override void OnCreate(Bundle bundle)
@@ -39,7 +52,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
 
             Title = "Change basemap";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             CreateLayout();
             Initialize();
         }
@@ -47,14 +60,15 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
         private void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateTopographic());
-            
+            Map myMap = new Map(_basemapOptions.Values.First());
+
             // Provide used Map to the MapView
             _myMapView.Map = myMap;
         }
 
         private void OnBasemapsClicked(object sender, EventArgs e)
         {
+            // Get a reference to the button
             var mapsButton = sender as Button;
 
             // Create menu to show map options
@@ -62,8 +76,10 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
             mapsMenu.MenuItemClick += OnBasemapsMenuItemClicked;
 
             // Create menu options
-            foreach (var basemapType in _basemapTypes)
+            foreach (string basemapType in _basemapOptions.Keys)
+            {
                 mapsMenu.Menu.Add(basemapType);
+            }
 
             // Show menu in the view
             mapsMenu.Show();
@@ -72,37 +88,10 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
         private void OnBasemapsMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
         {
             // Get title from the selected item
-            var selectedBasemapType = e.Item.TitleCondensedFormatted.ToString();
+            var selectedBasemap = e.Item.TitleCondensedFormatted.ToString();
 
-            // Get index that is used to get the selected url
-            var selectedIndex = _basemapTypes.ToList().IndexOf(selectedBasemapType);
-
-            switch (selectedIndex)
-            {
-                case 0:
-   
-                    // Set the basemap to Topographic
-                    _myMapView.Map.Basemap = Basemap.CreateTopographic();
-                    break;
-
-                case 1:
-                
-                    // Set the basemap to Streets
-                    _myMapView.Map.Basemap = Basemap.CreateStreets();
-                    break;
-
-                case 2:
-                
-                    // Set the basemap to Imagery
-                    _myMapView.Map.Basemap = Basemap.CreateImagery();
-                    break;
-
-                case 3:
-                
-                    // Set the basemap to Oceans
-                    _myMapView.Map.Basemap = Basemap.CreateOceans();
-                    break;
-            }
+            // Retrieve the basemap from the dictionary
+            _myMapView.Map.Basemap = _basemapOptions[selectedBasemap];
         }
 
         private void CreateLayout()
@@ -110,11 +99,11 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeBasemap
             // Create a new vertical layout for the app
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-            // Create button to show possible map options
+            // Create button to show map options
             var mapsButton = new Button(this);
             mapsButton.Text = "Basemaps";
             mapsButton.Click += OnBasemapsClicked;
-    
+
             // Add maps button to the layout
             layout.AddView(mapsButton);
 

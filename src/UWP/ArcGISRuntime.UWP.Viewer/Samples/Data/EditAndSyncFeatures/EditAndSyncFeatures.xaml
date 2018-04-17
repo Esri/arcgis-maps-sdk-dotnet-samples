@@ -1,0 +1,22 @@
+﻿<UserControl
+    x:Class="ArcGISRuntime.UWP.Samples.EditAndSyncFeatures.EditAndSyncFeatures"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <CommandBar Grid.Row="0" VerticalContentAlignment="Center">
+            <CommandBar.Content>
+                <TextBlock Text="1. Click 'generate'" Foreground="Red" x:Name="MyHelpLabel" />
+            </CommandBar.Content>
+            <AppBarButton Label="Generate" Icon="Download" Click="GenerateButton_Clicked" x:Name="MyGenerateButton" IsEnabled="False" />
+            <AppBarButton Label="Synchronize" Icon="Sync" Click="SyncButton_Click" x:Name="MySyncButton" IsEnabled="False" />
+        </CommandBar>
+        <ProgressBar Grid.Row="1" x:Name="MyProgressBar" Visibility="Collapsed" MinHeight="10" />
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="2" GeoViewTapped="GeoViewTapped" />
+    </Grid>
+</UserControl>

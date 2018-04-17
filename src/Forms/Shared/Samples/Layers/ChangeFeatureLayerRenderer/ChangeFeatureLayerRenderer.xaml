@@ -2,13 +2,18 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntimeXamarin.Samples.ChangeFeatureLayerRenderer.ChangeFeatureLayerRenderer">
-  <ContentPage.ToolbarItems>
-    <ToolbarItem Name="Reset" Activated="OnResetButtonClicked"  Order="Secondary" Priority="0" Text="Reset"/>
-    <ToolbarItem Name="ApplyRenderer" Activated="OnOverrideButtonClicked"  Order="Secondary" Priority="1" Text="Override" />
-  </ContentPage.ToolbarItems>
-  <Grid>
-    <esriUI:MapView x:Name="MyMapView"/>
-  </Grid>
+             x:Class="ArcGISRuntime.Samples.ChangeFeatureLayerRenderer.ChangeFeatureLayerRenderer">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Button Clicked="OnResetButtonClicked" Text="Reset" Grid.Row="0" Grid.Column="0" />
+        <Button Clicked="OnOverrideButtonClicked" Text="Override" Grid.Row="0" Grid.Column="1" />
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" Grid.ColumnSpan="2" />
+    </Grid>
 </ContentPage>

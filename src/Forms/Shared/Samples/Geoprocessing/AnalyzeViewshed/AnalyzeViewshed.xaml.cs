@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -19,8 +19,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.AnalyzeViewshed
+namespace ArcGISRuntime.Samples.AnalyzeViewshed
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Viewshed (Geoprocessing)",
+        "Geoprocessing",
+        "This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.",
+        "")]
     public partial class AnalyzeViewshed : ContentPage
     {
 
@@ -38,7 +43,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeViewshed
         {
             InitializeComponent();
 
-            Title = "Analyze Viewshed";
+            Title = "Viewshed (Geoprocessing)";
 
             // Create the UI, setup the control references and execute initialization
             Initialize();
@@ -68,12 +73,20 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeViewshed
             _inputOverlay.Graphics.Clear();
             _resultOverlay.Graphics.Clear();
 
+            // Get the tapped point
+            MapPoint geometry = e.Location;
+
             // Create a marker graphic where the user clicked on the map and add it to the existing graphics overlay 
-            Graphic myInputGraphic = new Graphic(e.Location);
+            Graphic myInputGraphic = new Graphic(geometry);
             _inputOverlay.Graphics.Add(myInputGraphic);
 
+            // Normalize the geometry if wrap-around is enabled
+            //    This is necessary because of how wrapped-around map coordinates are handled by Runtime
+            //    Without this step, the task may fail because wrapped-around coordinates are out of bounds.
+            if (MyMapView.IsWrapAroundEnabled) { geometry = GeometryEngine.NormalizeCentralMeridian(geometry) as MapPoint; }
+
             // Execute the geoprocessing task using the user click location 
-            await CalculateViewshed(e.Location);
+            await CalculateViewshed(geometry);
         }
 
         private async Task CalculateViewshed(MapPoint location)
@@ -83,7 +96,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeViewshed
             // is a problem with the execution of the geoprocessing task an error message will be displayed 
 
             // Create new geoprocessing task using the url defined in the member variables section
-            var myViewshedTask = new GeoprocessingTask(new Uri(_viewshedUrl));
+            var myViewshedTask = await GeoprocessingTask.CreateAsync(new Uri(_viewshedUrl));
 
             // Create a new feature collection table based upon point geometries using the current map view spatial reference
             var myInputFeatures = new FeatureCollectionTable(new List<Field>(), GeometryType.Point, MyMapView.SpatialReference);
@@ -205,14 +218,14 @@ namespace ArcGISRuntimeXamarin.Samples.AnalyzeViewshed
             if (isBusy)
             {
                 // Show busy activity indication
-                MyActivityInidicator.IsVisible = true;
-                MyActivityInidicator.IsRunning = true;
+                MyActivityIndicator.IsVisible = true;
+                MyActivityIndicator.IsRunning = true;
             }
             else
             {
                 // Remove the busy activity indication
-                MyActivityInidicator.IsRunning = false;
-                MyActivityInidicator.IsVisible = false;
+                MyActivityIndicator.IsRunning = false;
+                MyActivityIndicator.IsVisible = false;
 
             }
         }

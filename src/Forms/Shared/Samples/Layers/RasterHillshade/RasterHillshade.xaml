@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.RasterHillshade.RasterHillshade"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             Title="Raster hillshade">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="180"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView"
+                        Grid.Row="1"/>
+        <Grid Grid.Row="0"
+              HorizontalOptions="CenterAndExpand" VerticalOptions="Start"
+              Margin="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0"
+                       VerticalOptions="Center"
+                       Text="Slope type:"/>
+                <Picker x:Name="SlopeTypePicker"
+                        Grid.Row="0" Grid.Column="1"
+                        HorizontalOptions="StartAndExpand"/>
+                <Label Grid.Row="1" Grid.Column="0"
+                       HorizontalTextAlignment="End" VerticalOptions="Center"
+                       Text="Altitude:"/>
+                <Slider x:Name="AltitudeSlider"
+                        Grid.Row="1" Grid.Column="1"
+                        Minimum="0" Maximum="90"/>
+                <Label Grid.Row="2" Grid.Column="0"
+                       HorizontalTextAlignment="End" VerticalOptions="Center"
+                       Text="Azimuth:"/>
+                <Slider x:Name="AzimuthSlider"
+                        Grid.Row="2" Grid.Column="1"
+                        Minimum="0" Maximum="360"/>
+                <Button x:Name="ApplyHillshadeButton"
+                        Grid.Row="3" Grid.ColumnSpan="2"
+                        Margin="20,0"
+                        VerticalOptions="Center" HorizontalOptions="CenterAndExpand"
+                        Text="Apply hillshade"
+                        Clicked="ApplyHillshadeButton_Click"/>
+            </Grid>
+    </Grid>
+</ContentPage>

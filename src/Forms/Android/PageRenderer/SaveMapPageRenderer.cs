@@ -1,6 +1,6 @@
 using Android.App;
 using ArcGISRuntime.Samples.AuthorEditSaveMap;
-using ArcGISRuntimeXamarin.AndroidPageRenderer;
+using ArcGISRuntime.AndroidPageRenderer;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(SaveMapPage), typeof(SaveMapPageRenderer))]
-namespace ArcGISRuntimeXamarin.AndroidPageRenderer
+namespace ArcGISRuntime.AndroidPageRenderer
 {
     public class SaveMapPageRenderer : PageRenderer, IOAuthAuthorizeHandler
     {
@@ -38,7 +38,7 @@ namespace ArcGISRuntimeXamarin.AndroidPageRenderer
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
             // Get the current Android Activity
-            var activity = this.Context as Activity;
+            var activity = Context as Activity;
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(

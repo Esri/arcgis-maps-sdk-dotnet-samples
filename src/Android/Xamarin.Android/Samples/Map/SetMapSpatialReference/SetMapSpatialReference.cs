@@ -15,9 +15,14 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.SetMapSpatialReference
+namespace ArcGISRuntime.Samples.SetMapSpatialReference
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Set map spatial reference",
+        "Map",
+        "This sample demonstrates how you can set the spatial reference on a Map and all the operational layers would project accordingly.",
+        "")]
     public class SetMapSpatialReference : Activity
     {
         // Create and hold reference to the used MapView
@@ -35,7 +40,7 @@ namespace ArcGISRuntimeXamarin.Samples.SetMapSpatialReference
 
         private void Initialize()
         {
-            // Create new Map using spatial reference as world bonne (54024)
+            // Create new Map using spatial reference as World Bonne (54024)
             Map myMap = new Map(SpatialReference.Create(54024));
 
             // Adding a map image layer which can re-project itself to the map's spatial reference

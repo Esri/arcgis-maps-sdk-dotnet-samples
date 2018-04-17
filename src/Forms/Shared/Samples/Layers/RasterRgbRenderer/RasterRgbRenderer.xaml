@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntime.Samples.RasterRgbRenderer.RasterRgbRenderer"
+             Title="Raster RGB renderer">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="220"/>
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView"
+                        Grid.Row="0"/>
+        <Grid Grid.Row="1"
+              WidthRequest="400"
+              HorizontalOptions="Center" VerticalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                         Orientation="Horizontal">
+                <Label Text="Stretch: " 
+                       HorizontalOptions="End" VerticalOptions="Center"
+                       MinimumWidthRequest="80"
+                       Margin="10,0,3,0"/>
+                <Picker x:Name="StretchTypeComboBox"                        
+                        SelectedIndexChanged="StretchTypeComboBox_SelectedIndexChanged"/>
+            </StackLayout>
+            <Grid x:Name="MinMaxParametersGrid"
+                  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+                  Margin="0,10"
+                  IsVisible="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0"
+                       Text="Min: " 
+                       HorizontalOptions="End" VerticalOptions="Center"
+                       Margin="0,0,3,0"/>
+                <Picker x:Name="MinRedComboBox"
+                        Grid.Row="0" Grid.Column="1"
+                        TextColor="Red"
+                        WidthRequest="80" HeightRequest="40"
+                        HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Picker x:Name="MinGreenComboBox"
+                        Grid.Row="0" Grid.Column="2"
+                        TextColor="Green"
+                        WidthRequest="80" HeightRequest="40"
+                        HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Picker x:Name="MinBlueComboBox"
+                        Grid.Row="0" Grid.Column="3"
+                        TextColor="Blue"
+                        WidthRequest="80" HeightRequest="40"
+                        HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label Grid.Row="1" Grid.Column="0"
+                       Text="Max: " 
+                       HorizontalOptions="End" VerticalOptions="Center"
+                       Margin="0,0,3,0"/>
+                <Picker x:Name="MaxRedComboBox"
+                        Grid.Row="1" Grid.Column="1"
+                        TextColor="Red"
+                        WidthRequest="80" HeightRequest="40"
+                        HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Picker x:Name="MaxGreenComboBox"
+                        Grid.Row="1" Grid.Column="2"
+                        TextColor="Green"
+                        WidthRequest="80" HeightRequest="40"
+                        HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Picker x:Name="MaxBlueComboBox"
+                        Grid.Row="1" Grid.Column="3"
+                        TextColor="Blue"
+                        WidthRequest="80" HeightRequest="40"
+                        HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Grid>
+            <Grid x:Name="PercentClipParametersGrid"
+                  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+                  IsVisible="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0"
+                       Text="Min %: "
+                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Slider x:Name="MinimumValueSlider"
+                        Grid.Row="0" Grid.Column="1"
+                        VerticalOptions="Center"
+                        Margin="20,0"
+                        Minimum="0" Maximum="100"/>
+                <Label Grid.Row="1" Grid.Column="0"
+                       Text="Max %: "
+                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Slider x:Name="MaximumValueSlider"
+                        Grid.Row="1" Grid.Column="1"
+                        VerticalOptions="Center"
+                        Margin="20,0"
+                        Minimum="0" Maximum="100"/>
+            </Grid>
+            <Grid x:Name="StdDeviationParametersGrid"
+                  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+                  IsVisible="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="1" Grid.Column="0"
+                       Text="Factor: "
+                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Picker x:Name="StdDeviationFactorComboBox"
+                        Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                        WidthRequest="60"
+                        HorizontalOptions="Start" VerticalOptions="Center"/>
+            </Grid>
+            <Button x:Name="ApplyRgbRendererButton"
+                    Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                    HorizontalOptions="Center" VerticalOptions="End"
+                    Margin="0,5"
+                    HeightRequest="40"
+                    IsEnabled="False"
+                    Text="Apply renderer"
+                    Clicked="ApplyRgbRendererButton_Clicked"/>
+        </Grid>
+    </Grid>
+</ContentPage>

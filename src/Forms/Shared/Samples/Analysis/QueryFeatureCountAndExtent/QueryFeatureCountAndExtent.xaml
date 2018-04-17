@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntime.Samples.QueryFeatureCountAndExtent.QueryFeatureCountAndExtent">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Entry Grid.Row="0" Grid.ColumnSpan="2" x:Name="txtStateEntry" Text="NH" />
+        <Button Text="Zoom to matching features" Grid.Row="1" Grid.Column="0" Clicked="BtnZoomToFeatures_Click" />
+        <Button Text="Count features in extent" Grid.Row="1" Grid.Column="1" Clicked="BtnCountFeatures_Click" />
+        <Label Grid.Row="2" Grid.ColumnSpan="2" x:Name="txtResults" />
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="3" Grid.ColumnSpan="2" />
+    </Grid>
+</ContentPage>

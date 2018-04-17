@@ -1,10 +1,10 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using CoreFoundation;
@@ -12,22 +12,36 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI.Controls;
+using Esri.ArcGISRuntime.UI;
 using Foundation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using UIKit;
+using System.IO;
 
-namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
+namespace ArcGISRuntime.Samples.AuthorEditSaveMap
 {
     [Register("AuthorEditSaveMap")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Author, edit, and save a map",
+        "Tutorial",
+        "This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). It is also the solution to the [Author, edit, and save maps to your portal tutorial](https://developers.arcgis.com/net/latest/ios/guide/author-edit-and-save-maps-to-your-portal.htm). Saving a map to arcgis.com requires an ArcGIS Online login.",
+        "1. Pan and zoom to the extent you would like for your map.\n2. Choose a basemap from the list of available basemaps.\n3. Click 'Save ...' and provide info for the new portal item (Title, Description, and Tags).\n4. Click 'Save Map to Portal'.\n5. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder.\n6. You can make additional changes, update the map, and then re-save to store changes in the portal item.")]
     public class AuthorEditSaveMap : UIViewController, IOAuthAuthorizeHandler
     {
-        MapViewModel _mapViewModel = new MapViewModel();
-        MapView _mapView;
+        // View model that stores the map
+        private MapViewModel _mapViewModel;
+
+        // Map view to display the map
+        private MapView _mapView;
+
+        // UI controls that need to be referenced
+        private UISegmentedControl _segmentButton = new UISegmentedControl();
+
+        private UIToolbar _toolbar = new UIToolbar();
 
         // Overlay with entry controls for map item details (title, description, and tags)
         private SaveMapDialogOverlay _mapInfoUI;
@@ -49,48 +63,57 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         {
             Title = "Author edit and save maps";
 
+            // Create a new MapView control
+            _mapView = new MapView();
+
+            // Create a new view model and pass the map view control
+            _mapViewModel = new MapViewModel();
+            _mapViewModel.AppMapView = _mapView;
+
             // Listen for changes on the view model
             _mapViewModel.PropertyChanged += MapViewModel_PropertyChanged;
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void ViewDidLoad()
         {
-            base.ViewDidLayoutSubviews();
+            // Called on initial page load
+            base.ViewDidLoad();
 
             // Call the function that creates the UI
             CreateLayout();
 
-            // Set up AuthenticationManager
+            // Set up the AuthenticationManager
             UpdateAuthenticationManager();
 
             // Use the map from the view-model
             _mapViewModel.ResetMap();
         }
 
+        public override void ViewDidLayoutSubviews()
+        {
+            // Called when the layout of the view changes (e.g. phone is rotated)
+            // Define the visual frame for the MapView & Segment Buttons
+            _mapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
+            _segmentButton.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, View.Bounds.Width - 20, 30);
+        }
+
         private void CreateLayout()
         {
-            // Define an offset from the top of the page (to account for the iOS status bar)
-            var yPageOffset = 60;
-
-            // Create a new MapView control
-            _mapView = new MapView();
-
-            // Define the visual frame for the MapView
-            _mapView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset);
-
-            // Add a segmented button control
-            var segmentButton = new UISegmentedControl();
-            segmentButton.BackgroundColor = UIColor.White;
-            segmentButton.Frame = new CoreGraphics.CGRect(0, _mapView.Bounds.Height, View.Bounds.Width, 30);
-            segmentButton.InsertSegment("Basemap", 0, false);
-            segmentButton.InsertSegment("New", 1, false);
-            segmentButton.InsertSegment("Save", 2, false);
+            // Define the Segment Button contents
+            _segmentButton.BackgroundColor = UIColor.White;
+            _segmentButton.InsertSegment("Basemap", 0, false);
+            _segmentButton.InsertSegment("New", 1, false);
+            _segmentButton.InsertSegment("Save", 2, false);
 
             // Handle the "click" for each segment (new segment is selected)
-            segmentButton.ValueChanged += SegmentButtonClicked;
+            _segmentButton.ValueChanged += SegmentButtonClicked;
 
-            // Add the MapView and UIButton to the page
-            View.AddSubviews(_mapView, segmentButton);
+            // Create a toolbar on the bottom of the display
+            _toolbar = new UIToolbar();
+
+            // Add the MapView and Segment Button to the page
+            View.AddSubviews(_mapView, _toolbar, _segmentButton);
         }
 
         private void MapViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -101,6 +124,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         }
 
         #region OAuth
+
         private void UpdateAuthenticationManager()
         {
             // Register the server information with the AuthenticationManager
@@ -133,11 +157,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization is in progress
+            // If the TaskCompletionSource is not null, authorization may already be in progress and should be cancelled
             if (_taskCompletionSource != null)
             {
-                // Allow only one authorization process at a time
-                throw new Exception();
+                // Try to cancel any existing authentication task
+                _taskCompletionSource.TrySetCanceled();
             }
 
             // Create a task completion source
@@ -148,7 +172,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 clientId: AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
+                redirectUrl: callbackUri)
+            {
+                ShowErrors = false
+            };
 
             // Allow the user to cancel the OAuth attempt
             authenticator.AllowCancel = true;
@@ -158,25 +185,30 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             {
                 try
                 {
-                    // Check if the user is authenticated
-                    if (authArgs.IsAuthenticated)
-                    {
-                        // If authorization was successful, get the user's account
-                        Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
+                    // Dismiss the OAuth UI when complete
+                    DismissViewController(true, null);
 
-                        // Set the result (Credential) for the TaskCompletionSource
-                        _taskCompletionSource.SetResult(authenticatedAccount.Properties);
+                    // Throw an exception if the user could not be authenticated
+                    if (!authArgs.IsAuthenticated)
+                    {
+                        throw (new OperationCanceledException("Unable to authenticate user."));
                     }
+
+                    // If authorization was successful, get the user's account
+                    Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
+
+                    // Set the result (Credential) for the TaskCompletionSource
+                    _taskCompletionSource.SetResult(authenticatedAccount.Properties);
                 }
                 catch (Exception ex)
                 {
                     // If authentication failed, set the exception on the TaskCompletionSource
-                    _taskCompletionSource.SetException(ex);
-                }
-                finally
-                {
-                    // Dismiss the OAuth login
-                    this.DismissViewController(true, null);
+                    _taskCompletionSource.TrySetException(ex);
+
+                    // Cancel authentication
+                    authenticator.OnCancelled();
+                } finally {
+                    DismissViewController(false, null);
                 }
             };
 
@@ -186,7 +218,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 // If the user cancels, the Error event is raised but there is no exception ... best to check first
                 if (errArgs.Exception != null)
                 {
-                    _taskCompletionSource.SetException(errArgs.Exception);
+                    _taskCompletionSource.TrySetException(errArgs.Exception);
                 }
                 else
                 {
@@ -194,15 +226,17 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                     if (_taskCompletionSource != null)
                     {
                         _taskCompletionSource.TrySetCanceled();
-                        this.DismissViewController(true, null);
+                        DismissViewController(true, null);
                     }
                 }
+                // Cancel authentication
+                authenticator.OnCancelled();
             };
 
             // Present the OAuth UI so the user can enter user name and password
             InvokeOnMainThread(() =>
             {
-                this.PresentViewController(authenticator.GetUI(), true, null);
+                PresentViewController(authenticator.GetUI(), true, null);
             });
 
             // Return completion source task so the caller can await completion
@@ -219,15 +253,17 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
         }
-        #endregion
+
+        #endregion OAuth
 
         #region UI Event Handlers
 
@@ -264,11 +300,20 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 // Indicate the url (portal) to authenticate with (ArcGIS Online)
                 challengeRequest.ServiceUri = new Uri("https://www.arcgis.com/sharing/rest");
 
-                // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
+                try
+                {
+                    // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
+                    await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
+                }
+                catch (Exception)
+                {
+                    // user canceled the login
+                    buttonControl.SelectedSegment = -1;
+                    return;
+                }
 
                 // Show the save map UI
-                if (_mapInfoUI != null) { return; }
+                if (_mapInfoUI != null) { buttonControl.SelectedSegment = -1; return; }
 
                 // Create a view to show map item info entry controls over the map view
                 var ovBounds = _mapView.Bounds;
@@ -308,12 +353,12 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             UIPopoverPresentationController presentationPopover = basemapsActionSheet.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = this.View;
+                presentationPopover.SourceView = View;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
 
             // Display the list of basemaps
-            this.PresentViewController(basemapsActionSheet, true, null);
+            PresentViewController(basemapsActionSheet, true, null);
         }
 
         private void SaveCanceled(object sender, EventArgs e)
@@ -334,14 +379,17 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 var description = e.Description;
                 var tags = e.Tags;
 
-                // Get the current extent 
+                // Get the current extent
                 var currentViewpoint = _mapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+
+                // Export the current map view for the item's thumbnail
+                RuntimeImage thumbnailImg = await _mapView.ExportImageAsync();
 
                 // See if the map has already been saved (has an associated portal item)
                 if (!_mapViewModel.MapIsSaved)
                 {
                     // Call a method on MapViewModel to save the map as a new portal item
-                    await _mapViewModel.SaveNewMapAsync(currentViewpoint, title, description, tags);
+                    await _mapViewModel.SaveNewMapAsync(currentViewpoint, title, description, tags, thumbnailImg);
 
                     // Report a successful save
                     UIAlertController alert = UIAlertController.Create("Saved map", "Saved " + title + " to ArcGIS Online", UIAlertControllerStyle.Alert);
@@ -369,11 +417,15 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             finally
             {
                 // Get rid of the item input controls
-                _mapInfoUI.Hide();
-                _mapInfoUI = null;
+                if (_mapInfoUI != null)
+                {
+                    _mapInfoUI.Hide();
+                    _mapInfoUI = null;
+                }
             }
         }
-        #endregion
+
+        #endregion UI Event Handlers
     }
 
     // Custom EventArgs implementation to hold map item information (title, description, and tags)
@@ -408,6 +460,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
 
         // Store the input controls so the values can be read
         private UITextField _titleTextField;
+
         private UITextField _descriptionTextField;
         private UITextField _tagsTextField;
 
@@ -447,6 +500,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             _titleTextField.Placeholder = "Title";
             _titleTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _titleTextField.BackgroundColor = UIColor.LightGray;
+            // Allow pressing 'return' to dismiss the keyboard
+            _titleTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -456,6 +511,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             _descriptionTextField.Placeholder = "Description";
             _descriptionTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _descriptionTextField.BackgroundColor = UIColor.LightGray;
+            // Allow pressing 'return' to dismiss the keyboard
+            _descriptionTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -465,11 +522,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             _tagsTextField.Text = "ArcGIS Runtime, Web Map";
             _tagsTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _tagsTextField.BackgroundColor = UIColor.LightGray;
+            // Allow pressing 'return' to dismiss the keyboard
+            _tagsTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
 
-            // Button to save the map 
+            // Button to save the map
             UIButton saveButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
             saveButton.SetTitle("Save", UIControlState.Normal);
             saveButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
@@ -488,15 +547,15 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             AddSubviews(_titleTextField, _descriptionTextField, _tagsTextField, saveButton, cancelButton);
 
             // If there's an existing portal item, configure the dialog for "update" (read-only entries)
-            if (this._portalItem != null)
+            if (_portalItem != null)
             {
-                _titleTextField.Text = this._portalItem.Title;
+                _titleTextField.Text = _portalItem.Title;
                 _titleTextField.Enabled = false;
 
-                _descriptionTextField.Text = this._portalItem.Description;
+                _descriptionTextField.Text = _portalItem.Description;
                 _descriptionTextField.Enabled = false;
 
-                _tagsTextField.Text = string.Join(",", this._portalItem.Tags);
+                _tagsTextField.Text = string.Join(",", _portalItem.Tags);
                 _tagsTextField.Enabled = false;
 
                 // Change the button text
@@ -550,6 +609,14 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
     // Note: in a ArcGIS Runtime for .NET template project, this class will be in a separate file: "MapViewModel.cs"
     public class MapViewModel : INotifyPropertyChanged
     {
+        // Store the map view used by the app
+        private MapView _mapView;
+
+        public MapView AppMapView
+        {
+            set { _mapView = value; }
+        }
+
         private Map _map = new Map(Basemap.CreateStreetsVector());
 
         // Gets or sets the map
@@ -585,22 +652,27 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                     // Set the basemap to Topographic
                     _map.Basemap = Basemap.CreateTopographic();
                     break;
+
                 case "Topographic Vector":
                     // Set the basemap to Topographic (vector)
                     _map.Basemap = Basemap.CreateTopographicVector();
                     break;
+
                 case "Streets":
                     // Set the basemap to Streets
                     _map.Basemap = Basemap.CreateStreets();
                     break;
+
                 case "Streets Vector":
                     // Set the basemap to Streets (vector)
                     _map.Basemap = Basemap.CreateStreetsVector();
                     break;
+
                 case "Imagery":
                     // Set the basemap to Imagery
                     _map.Basemap = Basemap.CreateImagery();
                     break;
+
                 case "Oceans":
                     // Set the basemap to Oceans
                     _map.Basemap = Basemap.CreateOceans();
@@ -609,16 +681,16 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         }
 
         // Save the current map to ArcGIS Online. The initial extent, title, description, and tags are passed in.
-        public async Task SaveNewMapAsync(Viewpoint initialViewpoint, string title, string description, string[] tags)
+        public async Task SaveNewMapAsync(Viewpoint initialViewpoint, string title, string description, string[] tags, RuntimeImage img)
         {
-            // Get the ArcGIS Online portal 
+            // Get the ArcGIS Online portal
             ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync(new Uri("https://www.arcgis.com/sharing/rest"));
 
             // Set the map's initial viewpoint using the extent (viewpoint) passed in
             _map.InitialViewpoint = initialViewpoint;
 
             // Save the current state of the map as a portal item in the user's default folder
-            await _map.SaveAsAsync(agsOnline, null, title, description, tags, null);
+            await _map.SaveAsAsync(agsOnline, null, title, description, tags, img);
         }
 
         public bool MapIsSaved
@@ -627,10 +699,20 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             get { return (_map != null && _map.Item != null); }
         }
 
-        public void UpdateMapItem()
+        public async void UpdateMapItem()
         {
             // Save the map
-            _map.SaveAsync();
+            await _map.SaveAsync();
+
+            // Export the current map view for the item's thumbnail
+            RuntimeImage thumbnailImg = await _mapView.ExportImageAsync();
+
+            // Get the file stream from the new thumbnail image
+            Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
+
+            // Update the item thumbnail
+            (_map.Item as PortalItem).SetThumbnailWithImage(imageStream);
+            await _map.SaveAsync();
         }
 
         public void ResetMap()
@@ -641,8 +723,8 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             // Create a new map with light gray canvas basemap
             Map newMap = new Map(Basemap.CreateLightGrayCanvasVector());
 
-            // Store the new map 
-            this.Map = newMap;
+            // Store the new map
+            Map = newMap;
         }
 
         // Raises the "MapViewModel.PropertyChanged" event

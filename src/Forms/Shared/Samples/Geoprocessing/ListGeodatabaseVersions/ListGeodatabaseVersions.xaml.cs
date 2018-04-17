@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -14,8 +14,13 @@ using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ListGeodatabaseVersions
+namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "List geodatabase versions",
+        "Geoprocessing",
+        "This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.",
+        "")]
     public partial class ListGeodatabaseVersions : ContentPage
     {
 
@@ -85,11 +90,10 @@ namespace ArcGISRuntimeXamarin.Samples.ListGeodatabaseVersions
             IFeatureSet results = null;
 
             // Create new geoprocessing task 
-            var listVersionsTask = new GeoprocessingTask(new Uri(ListVersionsUrl));
+            var listVersionsTask = await GeoprocessingTask.CreateAsync(new Uri(ListVersionsUrl));
 
-            // Create parameters that are passed to the used geoprocessing task
-            GeoprocessingParameters listVersionsParameters =
-                 new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute);
+            // Create default parameters that are passed to the geoprocessing task
+            GeoprocessingParameters listVersionsParameters = await listVersionsTask.CreateDefaultParametersAsync();
 
             // Create job that handles the communication between the application and the geoprocessing task
             var listVersionsJob = listVersionsTask.CreateJob(listVersionsParameters);
@@ -132,14 +136,14 @@ namespace ArcGISRuntimeXamarin.Samples.ListGeodatabaseVersions
             if (isBusy)
             {
                 // Show busy activity indication
-                MyActivityInidicator.IsVisible = true;
-                MyActivityInidicator.IsRunning = true;
+                MyActivityIndicator.IsVisible = true;
+                MyActivityIndicator.IsRunning = true;
             }
             else
             {
                 // Remove the busy activity indication
-                MyActivityInidicator.IsRunning = false;
-                MyActivityInidicator.IsVisible = false;
+                MyActivityIndicator.IsRunning = false;
+                MyActivityIndicator.IsVisible = false;
 
             }
         }

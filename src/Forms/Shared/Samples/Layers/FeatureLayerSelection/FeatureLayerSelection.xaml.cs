@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -21,8 +21,13 @@ using Colors = Windows.UI.Colors;
 using Colors = System.Drawing.Color;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureLayerSelection
+namespace ArcGISRuntime.Samples.FeatureLayerSelection
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Feature layer selection",
+        "Layers",
+        "This sample demonstrates how to select features in a feature layer by tapping a MapView.",
+        "")]
     public partial class FeatureLayerSelection : ContentPage
     {
         //Create and hold reference to the feature layer
@@ -94,9 +99,17 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureLayerSelection
                 // Convert the tolerance to map units
                 double mapTolerance = tolerance * MyMapView.UnitsPerPixel;
 
+                // Get the tapped point
+                MapPoint geometry = e.Location;
+
+                // Normalize the geometry if wrap-around is enabled
+                //    This is necessary because of how wrapped-around map coordinates are handled by Runtime
+                //    Without this step, querying may fail because wrapped-around coordinates are out of bounds.
+                if (MyMapView.IsWrapAroundEnabled) { geometry = GeometryEngine.NormalizeCentralMeridian(geometry) as MapPoint; }
+
                 // Define the envelope around the tap location for selecting features
-                var selectionEnvelope = new Envelope(e.Location.X - mapTolerance, e.Location.Y - mapTolerance, e.Location.X + mapTolerance,
-                    e.Location.Y + mapTolerance, MyMapView.Map.SpatialReference);
+                var selectionEnvelope = new Envelope(geometry.X - mapTolerance, geometry.Y - mapTolerance, geometry.X + mapTolerance,
+                    geometry.Y + mapTolerance, MyMapView.Map.SpatialReference);
 
                 // Define the query parameters for selecting features
                 var queryParams = new QueryParameters();

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntimeXamarin.Samples.ListGeodatabaseVersions.ListGeodatabaseVersions">
+             x:Class="ArcGISRuntime.Samples.ListGeodatabaseVersions.ListGeodatabaseVersions">
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="auto" />
@@ -14,7 +14,7 @@
         <Label Margin="10,0,0,0">Current versions:</Label>
       </StackLayout>
     </StackLayout>
-    <ActivityIndicator x:Name="MyActivityInidicator" IsVisible="False"/>
+    <ActivityIndicator x:Name="MyActivityIndicator" IsVisible="False"/>
     <Editor x:Name="theTextBox" Grid.Row="1"/>
   </Grid>
 </ContentPage>

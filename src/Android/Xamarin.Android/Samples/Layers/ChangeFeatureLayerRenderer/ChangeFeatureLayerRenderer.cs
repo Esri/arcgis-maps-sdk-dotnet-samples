@@ -18,9 +18,14 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Drawing;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeFeatureLayerRenderer
+namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Change feature layer renderer",
+        "Layers",
+        "This sample demonstrates how to change renderer for a feature layer. It also shows how to reset the renderer back to the default.",
+        "")]
     public class ChangeFeatureLayerRenderer : Activity
     {
         // Create and hold reference to the used MapView

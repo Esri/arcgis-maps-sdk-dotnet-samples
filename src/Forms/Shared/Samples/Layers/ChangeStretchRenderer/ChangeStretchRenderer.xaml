@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntime.Samples.ChangeStretchRenderer.ChangeStretchRenderer"
+             Title="Stretch renderer">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0">Choose a stretch renderer type from the listbox, adjust the parameter values, then click the 'Update Renderer' button.</Label>
+        <ListView Grid.Row="1" x:Name="RendererTypes" ItemSelected="RendererTypes_SelectionChanged"/>
+        <StackLayout Orientation="Horizontal" Grid.Row="2">
+            <Label x:Name="Label_Parameter1" Text="Parameter1" />
+            <Entry x:Name="Input_Parameter1" Text="EnterValue1" />
+        </StackLayout>
+        <StackLayout Orientation="Horizontal" Grid.Row="3">
+            <Label x:Name="Label_Parameter2" Text="Parameter2" />
+            <Entry x:Name="Input_Parameter2" Text="EnterValue2" />
+        </StackLayout>
+        <Button Grid.Row="4" x:Name="UpdateRenderer" Clicked="OnUpdateRendererClicked" Text="Update Renderer" />
+        <esriUI:MapView Grid.Row="5" x:Name="MyMapView" />
+    </Grid>
+</ContentPage>

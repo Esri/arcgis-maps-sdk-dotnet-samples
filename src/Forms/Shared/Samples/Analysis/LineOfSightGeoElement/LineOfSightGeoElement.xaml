@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
+             x:Class="ArcGISRuntime.Samples.LineOfSightGeoElement.LineOfSightGeoElement">
+  <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Text="Status: " x:Name="MyStatusLabel" Grid.Row="0" TextColor="Red" />
+        <Slider x:Name="MyHeightSlider" Grid.Row="1" ValueChanged="MyHeightSlider_ValueChanged" />
+        <esriUI:SceneView x:Name="MySceneView" Grid.Row="2" />
+  </Grid>
+</ContentPage>

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:local="clr-namespace:ArcGISRuntime.Samples.ListTransformations"
+             x:Class="ArcGISRuntime.Samples.ListTransformations.ListTransformations">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:TransformRowTemplateSelector x:Key="TransformTemplateSelector"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="320"/>
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView"
+                      Grid.Row="0" />
+        <Grid Grid.Row="1"
+              WidthRequest="380"
+              HorizontalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="140"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0"
+                        Orientation="Horizontal"
+                        Margin="0,10">
+                <Label x:Name="InSpatialRefTextBox"
+                       Margin="10,0,30,0"/>
+                <Label x:Name="OutSpatialRefTextBox"/>
+            </StackLayout>
+            <StackLayout Grid.Row="1"
+                        Orientation="Horizontal"
+                        Margin="0,10">
+                <Label Text="Use extent"
+                       VerticalOptions="Center"
+                       Margin="10,0"/>
+                <Switch x:Name="UseExtentSwitch"
+                      IsToggled="False"
+                        VerticalOptions="Center"
+                    Toggled="UseExtentSwitch_Toggled"/>
+            </StackLayout>
+            <ListView x:Name="TransformationsListBox"
+                     Grid.Row="2"
+                     WidthRequest="340" HeightRequest="140"
+                      HasUnevenRows="True"
+                      ItemTemplate="{StaticResource TransformTemplateSelector}"
+                     ItemsSource="{Binding Path=SuitableTransformationsList}"
+                     ItemSelected="TransformationsListBox_ItemSelected"/>
+            <Label x:Name="MessagesTextBox"
+                       Grid.Row="3"
+                       WidthRequest="340" HeightRequest="80"/>
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,30 @@
+﻿<UserControl 
+    x:Class="ArcGISRuntime.UWP.Samples.ReadGeoPackage.ReadGeoPackage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls" >
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView"/>
+        <Border
+                Background="White" BorderBrush="Black" BorderThickness="1"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="30" Padding="20" Width="400">
+            <StackPanel>
+                <TextBlock Text="Select a layer name in the 'Layers Not in the Map' ListBox and then click the 'Add Layer to Map' button to add it to the map. Conversely, to remove a layer from the map, select a layer name in the 'Layers in the Map' ListBox and click the 'Remove Layer from Map' button." 
+                           Margin="0,0,0,10" TextWrapping="Wrap" />
+                <TextBlock Text="Layers in the Map" 
+                           Margin="0,0,0,2" TextWrapping="Wrap" />
+                <ListBox Name="ListBox_LayersInTheMap" />
+                <TextBlock Text="Layers Not in the Map" 
+                           Margin="0,10,0,2" TextWrapping="Wrap" />
+                <ListBox Name="ListBox_LayersNotInTheMap" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                    <Button Name="Button_AddLayerToMap" Content="Add Layer to Map"  Click="Button_AddLayerToMap_Click" Margin="0,0,5,0" />
+                    <Button Name="Button_RemoveLayerFromMap" Content="Remove Layer from Map"  Click="Button_RemoveLayerFromMap_Click" Margin="5,0,0,0" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+
+</UserControl>
+

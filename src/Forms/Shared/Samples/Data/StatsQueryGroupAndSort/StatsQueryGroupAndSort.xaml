@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ArcGISRuntime.Samples.StatsQueryGroupAndSort.StatsQueryGroupAndSort">
+    <Grid HorizontalOptions="Center" VerticalOptions="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="30" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"
+               FontSize="18" TextColor="Blue"
+               HorizontalOptions="Center" VerticalOptions="Center"
+               Text="Statistics: US States" />
+        <Picker x:Name="FieldsComboBox"
+                  Grid.Row="1" Grid.Column="1"
+                Title="Field"
+                  HorizontalOptions="Fill"
+                  Margin="5" />
+        <Picker x:Name="StatTypeComboBox"
+                  Grid.Row="1" Grid.Column="3"
+                Title="Statistic"
+                  HorizontalOptions="Fill"
+                  Margin="5" />
+        <Button x:Name="AddStatisticButton"
+                Grid.Row="1" Grid.Column="4"
+                HorizontalOptions="Start"
+                Margin="3"
+                Text="+"
+                Clicked="AddStatisticClicked" />
+        <ListView x:Name="StatFieldsListBox"
+                      Grid.Row="2" Grid.ColumnSpan="5"
+                      BackgroundColor="Gainsboro"
+                      Margin="25,5"
+                      HeightRequest="120">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding OnFieldName}" />
+                                <Label Text="{Binding StatisticType}" Grid.Column="1" />
+                            </Grid>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button x:Name="RemoveStatField"
+                Grid.Row="3" Grid.Column="3"
+                HorizontalOptions="Fill" VerticalOptions="Start"
+                Text="Remove"
+                HeightRequest="30"
+                Clicked="RemoveStatisticClicked" />
+        <Label Text="Group by"
+                   Grid.Row="4" Grid.ColumnSpan="2"
+                   HorizontalOptions="Start" VerticalOptions="End"
+                   Margin="25,0,0,5" />
+        <ListView x:Name="GroupFieldsListBox"
+                 Grid.Row="5" Grid.ColumnSpan="5"
+                 MinimumHeightRequest="110"
+                 HorizontalOptions="Fill" VerticalOptions="Fill"
+                  BackgroundColor="Gainsboro"
+                 Margin="25,0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Switch Toggled="GroupFieldCheckChanged" />
+                                <Label Text="{Binding Name}"
+                                       Grid.Column="1"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Label Text="Order by"
+                   Grid.Row="6" Grid.ColumnSpan="2"
+                   HorizontalOptions="Start" VerticalOptions="End"
+                   Margin="25,0,0,5" />
+        <ListView x:Name="OrderByFieldsListBox"
+                 Grid.Row="7" Grid.ColumnSpan="5"
+                 HorizontalOptions="Fill" VerticalOptions="Fill"
+                  BackgroundColor="Gainsboro"
+                 Margin="25,0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <Switch IsToggled="{Binding OrderWith}" />
+                                <Label Text="{Binding OrderInfo.FieldName}"
+                                       Grid.Column="1"
+                                       VerticalOptions="Center" />
+                                <Label Text="{Binding OrderInfo.SortOrder}"
+                                       Grid.Column="2"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button x:Name="SortOrderButton"
+                Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="2"
+                HorizontalOptions="Center" VerticalOptions="Start"
+                FontSize="12"
+                Margin="0,2,25,0"
+                Text="Change sort order"
+                Clicked="ChangeFieldSortOrder" />
+        <Button x:Name="GetStatisticsButton"
+                Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="5"
+                HorizontalOptions="Fill" VerticalOptions="Fill"
+                Margin="25,5,30,5"
+                HeightRequest="40"
+                Text="Get Statistics"
+                Clicked="OnExecuteStatisticsQueryClicked" />
+        <Grid x:Name="ResultsGrid"
+               Grid.Row="1" Grid.Column="0" Grid.RowSpan="9" Grid.ColumnSpan="5"
+               BackgroundColor="Gainsboro"
+               IsVisible="False">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <ListView x:Name="StatResultsList"
+                      IsGroupingEnabled="true">
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding GroupName}"
+                                   HeightRequest="30" />
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding FieldName}"
+                                  Detail="{Binding StatValue}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Dismiss"
+                Grid.Row="1"
+                Margin="5"
+                Clicked="HideResults" />
+        </Grid>
+    </Grid>
+</ContentPage>

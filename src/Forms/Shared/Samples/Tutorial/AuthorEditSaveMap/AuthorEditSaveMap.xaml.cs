@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -10,14 +10,24 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
+using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.Xamarin.Forms;
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
+namespace ArcGISRuntime.Samples.AuthorEditSaveMap
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Author, edit, and save a map",
+        "Tutorial",
+        "This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). It is also the solution to the [Author, edit, and save maps to your portal tutorial](https://developers.arcgis.com/net/latest/forms/guide/author-edit-and-save-maps-to-your-portal.htm). Saving a map to arcgis.com requires an ArcGIS Online login.",
+        "1. Pan and zoom to the extent you would like for your map.\n2. Choose a basemap from the list of available basemaps.\n3. Click 'Save ...' and provide info for the new portal item (Title, Description, and Tags).\n4. Click 'Save Map to Portal'.\n5. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder.\n6. You can make additional changes, update the map, and then re-save to store changes in the portal item.")]
+    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("SaveMapPage.xaml.cs")]
+    [ArcGISRuntime.Samples.Shared.Attributes.XamlFiles("SaveMapPage.xaml")]
     public partial class AuthorEditSaveMap : ContentPage
 	{
         private MapViewModel _mapViewModel;
@@ -37,7 +47,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             InitializeComponent();
 
             // Get the view model (defined as a resource in the XAML)
-            _mapViewModel = this.Resources["MapViewModel"] as MapViewModel;
+            _mapViewModel = Resources["MapViewModel"] as MapViewModel;
+
+            // Pass the map view to the map view model
+            _mapViewModel.AppMapView = MyMapView;
 
             // Define a click handler for the Basemaps button (show the basemap choice list)
             BasemapsButton.Clicked += (s, e) => BasemapListBox.IsVisible = true;
@@ -49,9 +62,12 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             SaveMapButton.Clicked += ShowSaveMapDialog;
 
             // Define a click handler for the New button
-            NewMapButton.Clicked += (s, e) => _mapViewModel.ResetMap();
+            NewMapButton.Clicked += (s, e) => {
+                _mapViewModel.ResetMap();
+                BasemapListBox.SelectedItem = _mapViewModel.BasemapChoices[0];
+            };
 
-            // Set up the AuthencticationManager to challenge for ArcGIS Online credentials
+            // Set up the AuthenticationManager to challenge for ArcGIS Online credentials
             UpdateAuthenticationManager();
 
             // Change the style of the basemap list view for Android and UWP
@@ -101,10 +117,25 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             };
 
             // Get the credential
-            Credential cred = await AuthenticationManager.Current.GetCredentialAsync(info, false);
+            try
+            {
+                Credential cred = await AuthenticationManager.Current.GetCredentialAsync(info, false);
 
-            // Add the credential to the AuthenticationManager
-            AuthenticationManager.Current.AddCredential(cred);
+                // Add the credential to the AuthenticationManager
+                AuthenticationManager.Current.AddCredential(cred);
+            } catch (System.Threading.Tasks.TaskCanceledException)
+            {
+                // Handle situation where the user closes the login window
+                return;
+            } catch (System.OperationCanceledException)
+            {
+                // Handle situation where the user presses 'cancel' in the login UI
+                return;
+            } catch (Exception)
+            {
+                // Handle all other exceptions related to canceled login
+                return;
+            }
         }
 
         // Event handler to get information entered by the user and save the map
@@ -120,14 +151,17 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 // Get the current extent displayed in the map view
                 var currentViewpoint = MyMapView.GetCurrentViewpoint(Esri.ArcGISRuntime.Mapping.ViewpointType.BoundingGeometry);
 
+                // Export the current map view for the item's thumbnail
+                RuntimeImage thumbnailImg = await MyMapView.ExportImageAsync();
+
                 // See if the map has already been saved 
                 if (!_mapViewModel.MapIsSaved)
                 {
                     // Save the map as a portal item
-                    await _mapViewModel.SaveNewMapAsync(currentViewpoint, title, description, tags);
+                    await _mapViewModel.SaveNewMapAsync(currentViewpoint, title, description, tags, thumbnailImg);
 
                     // Report a successful save
-                    DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
+                    await DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
                 }
                 else
                 {
@@ -135,14 +169,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                     _mapViewModel.UpdateMapItem();
 
                     // Report success
-
-                    DisplayAlert("Map Updated", "Saved changes to '" + title + "'", "OK");
+                    await DisplayAlert("Map Updated", "Saved changes to '" + title + "'", "OK");
                 }
             }
             catch (Exception ex)
             {
                 // Show the exception message
-                DisplayAlert("Unable to save map", ex.Message, "OK");
+                await DisplayAlert("Unable to save map", ex.Message, "OK");
             }
         }
 
@@ -184,10 +217,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -203,9 +237,17 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
     {
         public MapViewModel()
         {
-        }        
+            
+        }
 
-        private Map _map = new Map(Basemap.CreateLightGrayCanvas());
+        // Store the map view used by the app
+        private MapView _mapView;
+        public MapView AppMapView
+        {
+            set { _mapView = value; }
+        }
+
+        private Map _map = new Map(Basemap.CreateTopographic());
         
         // Gets or sets the map
         public Map Map
@@ -264,16 +306,16 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
         }
 
         // Save the current map to ArcGIS Online. The initial extent, title, description, and tags are passed in.
-        public async Task SaveNewMapAsync(Viewpoint initialViewpoint, string title, string description, string[] tags)
+        public async Task SaveNewMapAsync(Viewpoint initialViewpoint, string title, string description, string[] tags, RuntimeImage img)
         {
             // Get the ArcGIS Online portal 
             ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync(new Uri("https://www.arcgis.com/sharing/rest"));
 
             // Set the map's initial viewpoint using the extent (viewpoint) passed in
             _map.InitialViewpoint = initialViewpoint;
-
+            
             // Save the current state of the map as a portal item in the user's default folder
-            await _map.SaveAsAsync(agsOnline, null, title, description, tags, null);
+            await _map.SaveAsAsync(agsOnline, null, title, description, tags, img, false);
         }
 
         public bool MapIsSaved
@@ -282,10 +324,20 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             get { return (_map != null && _map.Item != null); }
         }
 
-        public void UpdateMapItem()
+        public async void UpdateMapItem()
         {
             // Save the map
-            _map.SaveAsync();
+            await _map.SaveAsync();
+
+            // Export the current map view for the item's thumbnail
+            RuntimeImage thumbnailImg = await _mapView.ExportImageAsync();
+
+            // Get the file stream from the new thumbnail image
+            Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
+
+            // Update the item thumbnail
+            (_map.Item as PortalItem).SetThumbnailWithImage(imageStream);
+            await _map.SaveAsync();
         }
 
         public void ResetMap()
@@ -293,19 +345,17 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorEditSaveMap
             // Set the current map to null
             _map = null;
 
-            // Create a new map with light gray canvas basemap
-            Map newMap = new Map(Basemap.CreateLightGrayCanvasVector());
+            // Create a new map with topographic basemap
+            Map newMap = new Map(Basemap.CreateTopographic());
 
             // Store the new map 
-            this.Map = newMap;
+            Map = newMap;
         }
 
         // Raises the PropertyChanged event        
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            var propertyChangedHandler = PropertyChanged;
-            if (propertyChangedHandler != null)
-                propertyChangedHandler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

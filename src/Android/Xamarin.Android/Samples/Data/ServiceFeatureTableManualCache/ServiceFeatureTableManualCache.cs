@@ -16,9 +16,14 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.ServiceFeatureTableManualCache
+namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Service feature table (manual cache)",
+        "Data",
+        "This sample demonstrates how to use a feature service in manual cache mode.",
+        "")]
     public class ServiceFeatureTableManualCache : Activity
     {
         // Create and hold reference to the used MapView
@@ -37,7 +42,7 @@ namespace ArcGISRuntimeXamarin.Samples.ServiceFeatureTableManualCache
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateTopographic());

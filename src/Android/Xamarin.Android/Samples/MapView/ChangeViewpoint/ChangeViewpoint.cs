@@ -18,9 +18,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeViewpoint
+namespace ArcGISRuntime.Samples.ChangeViewpoint
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Change viewpoint",
+        "MapView",
+        "This sample demonstrates different ways in which you can change the viewpoint or visible area of the map.",
+        "")]
     public class ChangeViewpoint : Activity
     {
         // Create and hold reference to the used MapView

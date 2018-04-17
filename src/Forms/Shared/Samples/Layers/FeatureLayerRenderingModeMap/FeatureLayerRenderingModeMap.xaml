@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
+             x:Class="ArcGISRuntime.Samples.FeatureLayerRenderingModeMap.FeatureLayerRenderingModeMap">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <esriUI:MapView Grid.Row="0" x:Name="MyMapViewTop">
+            <mapping:Map/>
+        </esriUI:MapView>
+        <esriUI:MapView Grid.Row="1" x:Name="MyMapViewBottom">
+            <mapping:Map/>
+        </esriUI:MapView>
+        <Button Grid.Row="2" Text="Zoom" Clicked="OnZoomClick"/>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntime.Samples.GeodatabaseTransactions.GeodatabaseTransactions">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView" 
+                        Grid.Row="0" />
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="70"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="StartEditingButton"
+                    Grid.Row="0" Grid.Column="0"
+                    Text="Start Edit"
+                    IsEnabled="False" 
+                    MinimumWidthRequest="100" MinimumHeightRequest="35"
+                    Margin="2,0"
+                    Clicked="BeginTransaction"/>
+            <Button x:Name="StopEditingButton"
+                    Grid.Row="1" Grid.Column="0"
+                    Text="Stop Edit" 
+                    IsEnabled="False"
+                    MinimumWidthRequest="100" MinimumHeightRequest="35"
+                    Margin="2,0"
+                    Clicked="StopEditTransaction"/>
+            <Button x:Name="AddBirdButton" 
+                    Grid.Row="0" Grid.Column="1"
+                    Text="Add Bird"
+                    IsEnabled="False"
+                    MinimumWidthRequest="80" MinimumHeightRequest="35"
+                    Margin="2,0"
+                    Clicked="AddNewFeature"/>
+            <Button x:Name="AddMarineButton" 
+                    Grid.Row="1" Grid.Column="1"
+                    Text="Add Marine"
+                    IsEnabled="False"
+                    MinimumWidthRequest="100" MinimumHeightRequest="35"
+                    Margin="2,0"
+                    Clicked="AddNewFeature"/>
+            <Button x:Name="SyncEditsButton"
+                    Grid.Row="0" Grid.Column="3"
+                    Text="Sync" 
+                    IsEnabled="True"
+                    MinimumWidthRequest="50" MinimumHeightRequest="35"
+                    Margin="2,0"
+                    Clicked="SynchronizeEdits"/>
+            <StackLayout Grid.Row="2" Grid.ColumnSpan="4"
+                         Orientation="Horizontal">
+                <Label Text="Require a transaction for edits"
+                       VerticalOptions="Center"
+                       FontSize="Small"
+                       Margin="3"/>
+                <Switch x:Name="RequireTransactionCheckBox"
+                        Margin="3"
+                        IsToggled="True"
+                        VerticalOptions="Center"
+                        Toggled="RequireTransactionChanged"/>
+            </StackLayout>
+            <Label x:Name="MessageTextBlock"
+                   Grid.Row="3" Grid.ColumnSpan="4"
+                   Text="Generating local geodatabase ..." 
+                   TextColor="Blue" FontSize="Micro"
+                   VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                   Margin="5"
+                   LineBreakMode="CharacterWrap">
+                <Label.TextColor>
+                    <OnPlatform x:TypeArguments="Color">
+                        <OnPlatform.Platforms>
+                            <On Platform="iOS" Value="Blue" />
+                            <On Platform="Android" Value="White" />
+                            <On Platform="UWP" Value="Blue" />
+                        </OnPlatform.Platforms>
+                    </OnPlatform>
+                </Label.TextColor>
+            </Label>
+            <ActivityIndicator x:Name="LoadingProgressBar"
+                               Grid.Row="1" Grid.Column="3"
+                               HorizontalOptions="FillAndExpand"
+                               IsRunning="True"/>
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -21,9 +21,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Auth;
 
-namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
+namespace ArcGISRuntime.Samples.SearchPortalMaps
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Search a portal for maps",
+        "Map",
+        "This sample demonstrates searching a portal for web maps and loading them in the map view. You can search ArcGIS Online public web maps using tag values or browse the web maps in your account. OAuth is used to authenticate with ArcGIS Online to access items in your account.",
+        "1. When the sample starts, you will be presented with a dialog for entering OAuth settings. If you need to create your own settings, sign in with your developer account and use the [ArcGIS for Developers dashboard](https://developers.arcgis.com/dashboard) to create an Application to store these settings.\n2. Enter values for the following OAuth settings.\n\t1. **Client ID**: a unique alphanumeric string identifier for your application\n\t2. **Redirect URL**: a URL to which a successful OAuth login response will be sent\n3. If you do not enter OAuth settings, you will be able to search public web maps on ArcGIS Online. Browsing the web map items in your ArcGIS Online account will be disabled, however.")]
     public class SearchPortalMaps : Activity, IOAuthAuthorizeHandler
     {
         // Create and hold reference to the used MapView
@@ -154,8 +159,10 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             _webMapUris = new Dictionary<string, Uri>();
             foreach (var item in webmapItems)
             {
-                _webMapUris.Add(item.Title, item.Url);
-                mapsMenu.Menu.Add(item.Title);
+                if (!_webMapUris.ContainsKey(item.Title)){
+                    _webMapUris.Add(item.Title, item.Url);
+                    mapsMenu.Menu.Add(item.Title);
+                }
             }
 
             //Show menu in the view
@@ -350,7 +357,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 var cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
                 loggedIn = cred != null;
             }
-            catch (System.OperationCanceledException ex)
+            catch (System.OperationCanceledException)
             {
                 // Login was canceled
                 // .. ignore, user can still search public maps without logging in
@@ -387,10 +394,11 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                             info.GenerateTokenOptions
                     ) as OAuthTokenCredential;
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -399,11 +407,11 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization is in progress
+            // If the TaskCompletionSource is not null, authorization may already be in progress and should be cancelled
             if (_taskCompletionSource != null)
             {
-                // Allow only one authorization process at a time
-                throw new Exception();
+                // Try to cancel any existing authentication task
+                _taskCompletionSource.TrySetCanceled();
             }
 
             // Create a task completion source
@@ -414,7 +422,10 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 clientId: _appClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
+                redirectUrl: callbackUri)
+            {
+                ShowErrors = false
+            };
 
             // Allow the user to cancel the OAuth attempt
             authenticator.AllowCancel = true;
@@ -437,12 +448,15 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 catch (Exception ex)
                 {
                     // If authentication failed, set the exception on the TaskCompletionSource
-                    _taskCompletionSource.SetException(ex);
+                    _taskCompletionSource.TrySetException(ex);
+
+                    // Cancel authentication
+                    authenticator.OnCancelled();
                 }
                 finally
                 {
                     // End the OAuth login activity
-                    this.FinishActivity(99);
+                    FinishActivity(99);
                 }
             };
 
@@ -452,7 +466,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 // If the user cancels, the Error event is raised but there is no exception ... best to check first
                 if (errArgs.Exception != null)
                 {
-                    _taskCompletionSource.SetException(errArgs.Exception);
+                    _taskCompletionSource.TrySetException(errArgs.Exception);
                 }
                 else
                 {
@@ -460,14 +474,17 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                     if (_taskCompletionSource != null)
                     {
                         _taskCompletionSource.TrySetCanceled();
-                        this.FinishActivity(99);
+                        FinishActivity(99);
                     }
                 }
+
+                // Cancel authentication
+                authenticator.OnCancelled();
             };
 
             // Present the OAuth UI (Activity) so the user can enter user name and password
             var intent = authenticator.GetUI(this);
-            this.StartActivityForResult(intent, 99);
+            StartActivityForResult(intent, 99);
 
             // Return completion source task so the caller can await completion
             return _taskCompletionSource.Task;
@@ -531,10 +548,10 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             LinearLayout dialogView = null;
 
             // Get the context for creating the dialog controls
-            Android.Content.Context ctx = this.Activity.ApplicationContext;
+            Android.Content.Context ctx = Activity.ApplicationContext;
 
             // Set a dialog title
-            this.Dialog.SetTitle("Search Portal");
+            Dialog.SetTitle("Search Portal");
 
             try
             {
@@ -558,7 +575,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             catch (Exception ex)
             {
                 // Show the exception message 
-                var alertBuilder = new AlertDialog.Builder(this.Activity);
+                var alertBuilder = new AlertDialog.Builder(Activity);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();
@@ -583,12 +600,12 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 OnSearchClicked(this, mapSearchArgs);
 
                 // Close the dialog
-                this.Dismiss();
+                Dismiss();
             }
             catch (Exception ex)
             {
                 // Show the exception message (dialog will stay open so user can try again)
-                var alertBuilder = new AlertDialog.Builder(this.Activity);
+                var alertBuilder = new AlertDialog.Builder(Activity);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();

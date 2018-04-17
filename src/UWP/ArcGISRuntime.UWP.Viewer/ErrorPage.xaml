@@ -1,0 +1,19 @@
+﻿<Page
+    x:Class="ArcGISRuntime.UWP.Viewer.ErrorPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock FontSize="48" Grid.Row="0">Oops!</TextBlock>
+        <TextBlock FontSize="16" Grid.Row="1">There was an unhandled exception, so the error can't be shown. See below for more information:</TextBlock>
+        <TextBox Grid.Row="2" x:Name="ErrorText" />
+    </Grid>
+</Page>

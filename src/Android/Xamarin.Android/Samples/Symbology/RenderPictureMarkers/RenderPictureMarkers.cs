@@ -19,9 +19,15 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.RenderPictureMarkers
+namespace ArcGISRuntime.Samples.RenderPictureMarkers
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Render picture markers",
+        "Symbology",
+        "This sample demonstrates how to create picture marker symbols from a URL and embedded resources.",
+        "")]
+    [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public class RenderPictureMarkers : Activity
     {
         // Create and hold reference to the used MapView
@@ -59,11 +65,11 @@ namespace ArcGISRuntimeXamarin.Samples.RenderPictureMarkers
             _myMapView.GraphicsOverlays.Add(overlay);
 
             // Add graphics using different source types
-            await CreatePictureMarkerSymbolFromUrl(overlay);
+            CreatePictureMarkerSymbolFromUrl(overlay);
             await CreatePictureMarkerSymbolFromResources(overlay);
         }
 
-        private async Task CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
+        private static void CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
         {
             // Create uri to the used image
             var symbolUri = new Uri(
@@ -94,7 +100,7 @@ namespace ArcGISRuntimeXamarin.Samples.RenderPictureMarkers
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
             var resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntimeXamarin.Resources.PictureMarkerSymbols.pin_star_blue.png");
+                "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             
             // Create new symbol using asynchronous factory method from stream

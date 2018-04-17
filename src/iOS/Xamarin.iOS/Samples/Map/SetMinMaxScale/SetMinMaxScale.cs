@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -13,9 +13,14 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.SetMinMaxScale
+namespace ArcGISRuntime.Samples.SetMinMaxScale
 {
     [Register("SetMinMaxScale")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Set min & max scale",
+        "Map",
+        "This sample demonstrates how to set the minimum and maximum scale of a Map. Setting the minimum and maximum scale for the Map can be useful in keeping the user focused at a certain level of detail.",
+        "")]
     public class SetMinMaxScale : UIViewController
     {
         // Constant holding offset where the MapView control should start
@@ -26,7 +31,7 @@ namespace ArcGISRuntimeXamarin.Samples.SetMinMaxScale
 
         public SetMinMaxScale()
         {
-            Title = "Set Min & Max Scale";
+            Title = "Set min & max scale";
         }
 
         public override void ViewDidLoad()

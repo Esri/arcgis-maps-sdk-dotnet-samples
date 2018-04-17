@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="ArcGISRuntime.UWP.Samples.AuthorEditSaveMap.AuthorEditSaveMap"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:esri="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" Map="{x:Bind ViewModel.Map, Mode=OneWay}" />
+        <CommandBar>
+            <AppBarButton Content="Basemap"
+                        Margin="5,0">
+                <AppBarButton.Flyout>
+                    <Flyout x:Name="flyguy">
+                        <ListView x:Name="BasemapListBox" ItemsSource="{x:Bind ViewModel.BasemapChoices, Mode=OneWay}" />
+                    </Flyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton Content="Save ..."
+                          Margin="5,0"
+                          AllowFocusOnInteraction="True">
+                <AppBarButton.Flyout>
+                    <Flyout>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
+                                    VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                                    Text="Title:"/>
+                            <TextBox x:Name="TitleTextBox" 
+                                    Grid.Row="0" Grid.Column="1"
+                                    VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                                    Width="150"
+                                    Margin="10,0"
+                                    Text="My Map"/>
+                            <TextBlock Grid.Row="1"
+                                    VerticalAlignment="Top" HorizontalAlignment="Right"
+                                    Margin="0,10"
+                                    Text="Description:"/>
+                            <TextBox x:Name="DescriptionTextBox" 
+                                    Grid.Row="1" Grid.Column="1"
+                                    VerticalAlignment="Top" HorizontalAlignment="Left"
+                                    Width="150" Height="50"
+                                    Margin="10"
+                                    TextWrapping="Wrap"
+                                    Text="Authored using ArcGIS Runtime SDK."/>
+                            <TextBlock Grid.Row="2"
+                                    VerticalAlignment="Top" HorizontalAlignment="Right"
+                                    Text="Tags:"/>
+                            <TextBox x:Name="TagsTextBox" 
+                                    Grid.Row="2" Grid.Column="1"
+                                    VerticalAlignment="Top" HorizontalAlignment="Left"
+                                    Width="150"
+                                    Margin="10,0"
+                                    Text="ArcGIS Runtime, Sample"/>
+                            <Button x:Name="SaveMapButton"
+                                Grid.Row="3" Grid.ColumnSpan="2"
+                                Content="Save Map to Portal"
+                                Width="170" Height="35"
+                                Margin="10"
+                                VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </Flyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+        </CommandBar>
+    </Grid>
+</UserControl>

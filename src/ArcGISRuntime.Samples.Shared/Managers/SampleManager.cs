@@ -1,43 +1,31 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Models;
+using ArcGISRuntime.Samples.Shared.Attributes;
+using ArcGISRuntime.Samples.Shared.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
-
-#if NETFX_CORE
-using Windows.UI.Xaml.Controls;
-using Windows.ApplicationModel;
-#else
-using System.Windows.Controls;
-#endif
 
 namespace ArcGISRuntime.Samples.Managers
 {
     /// <summary>
     /// Single instance class to manage samples.
     /// </summary>
-    public class SampleManager 
+    public class SampleManager
     {
-        private Assembly _samplesAssembly;
-        private SampleStructureMap _sampleStructureMap;
-        private Language _selectedLanguage;
-
-        #region Constructor and unique instance management
-
         // Private constructor
         private SampleManager() { }
 
-        // Static initialization of the unique instance 
+        // Static initialization of the unique instance
         private static readonly SampleManager SingleInstance = new SampleManager();
 
         public static SampleManager Current
@@ -45,183 +33,129 @@ namespace ArcGISRuntime.Samples.Managers
             get { return SingleInstance; }
         }
 
-        public async Task InitializeAsync(Language language)
-        {
-          
-            _selectedLanguage = language;
-            if (language == Language.CSharp)
-#if NETFX_CORE
-                _samplesAssembly = Assembly.Load(new AssemblyName("ArcGISRuntime.UWP.Samples"));
-#else
-                _samplesAssembly = Assembly.Load("ArcGISRuntime.WPF.Samples");
-#endif
-            else
-#if NETFX_CORE
-                _samplesAssembly = Assembly.Load(new AssemblyName("ArcGISRuntime.UWP.Samples.VB"));
-#else
-                _samplesAssembly = Assembly.Load("ArcGISRuntime.WPF.Samples.VB");
-#endif
+        /// <summary>
+        /// A list of all samples.
+        /// </summary>
+        /// <remarks>This is public on purpose. Other solutions that consume 
+        /// this project reference it directly.</remarks>
+        public IList<SampleInfo> AllSamples { get; set; }
 
-            await CreateAllAsync();
+        /// <summary>
+        /// A collection of all samples organized by category.
+        /// </summary>
+        public SearchableTreeNode FullTree { get; private set; }
+
+        /// <summary>
+        /// The sample that is currently being shown to the user.
+        /// </summary>
+        public SampleInfo SelectedSample { get; set; }
+
+        /// <summary>
+        /// Initializes the sample manager by loading all of the samples in the app.
+        /// </summary>
+        public void Initialize()
+        {
+            // Get the currently-executing assembly.
+            Assembly samplesAssembly = GetType().GetTypeInfo().Assembly;
+
+            // Get the list of all samples in the assembly.
+            AllSamples = CreateSampleInfos(samplesAssembly).OrderBy(info => info.Category)
+                .ThenBy(info => info.SampleName.ToLowerInvariant())
+                .ToList();
+
+            // Create a tree from the list of all samples.
+            FullTree = BuildFullTree(AllSamples);
+
+            // Add a special category for featured samples.
+            SearchableTreeNode featured = new SearchableTreeNode("Featured", AllSamples.Where(sample => sample.Tags.Contains("Featured")));
+            FullTree.Items.Insert(0, featured);
         }
 
-        #endregion // Constructor and unique instance management
-
         /// <summary>
-        /// Gets or sets selected sample.
+        /// Creates a list of sample metadata objects for each sample in the assembly.
         /// </summary>
-        public SampleModel SelectedSample { get; set; }
- 
-        /// <summary>
-        /// Gets featured samples.
-        /// </summary>
-        /// <returns></returns>
-        public List<FeaturedModel> GetFeaturedSamples()
+        /// <param name="assembly">The assembly to search for samples.</param>
+        /// <returns>List of sample metadata objects.</returns>
+        private static IList<SampleInfo> CreateSampleInfos(Assembly assembly)
         {
-            return _sampleStructureMap.Featured;
-        }
+            // Get all the types in the assembly that are decorated with a SampleAttribute.
+            IEnumerable<Type> sampleTypes = assembly.GetTypes()
+                .Where(type => type.GetTypeInfo().GetCustomAttributes().OfType<SampleAttribute>().Any());
 
-        /// <summary>
-        /// Gets all samples in a list grouped by main category. All sub-categories are flattened.
-        /// </summary>
-        /// <returns>Return all categories and samples</returns>
-        public List<TreeItem> GetSamplesInCategories()
-        {
-            var categories = new List<TreeItem>();
+            // Create a list to hold all constructed sample metadata objects.
+            List<SampleInfo> samples = new List<SampleInfo>();
 
-            foreach (var category in _sampleStructureMap.Categories)
+            // Create the sample metadata for each sample.
+            foreach (Type type in sampleTypes)
             {
-                var categoryItem = new TreeItem();
-                categoryItem.Name = category.Name;
-
-                foreach (var subCategory in category.SubCategories)
+                try
                 {
-                    foreach (var sample in subCategory.Samples)
-                        categoryItem.Items.Add(sample);
+                    samples.Add(new SampleInfo(type));
                 }
-
-                categories.Add(categoryItem);
-            }
-            return categories;
-        }
-
-#if !NETFX_CORE
-        public List<TreeViewItem> GetSamplesInTreeViewCategories()
-        {
-            var categories = new List<TreeViewItem>();
-
-            foreach (var category in _sampleStructureMap.Categories)
-            {
-                var categoryItem = new TreeViewItem();
-                categoryItem.Header = category.Name;
-                categoryItem.DataContext = category;
-
-                foreach (var subCategory in category.SubCategories)
+                catch (Exception ex)
                 {
-                    foreach (var sample in subCategory.Samples)
-                        categoryItem.Items.Add( new TreeViewItem { Header = sample.Name, DataContext = sample });
+                    Debug.WriteLine("Could not create sample from " + type + ": " + ex);
                 }
-
-                categories.Add(categoryItem);
             }
-            return categories;
-        }
-#endif
-
-        /// <summary>
-        /// Gets all samples as a tree.
-        /// </summary>
-        /// <returns>Return all categories, subcategories and samples.</returns>
-        public List<TreeItem> GetSamplesAsTree()
-        {
-            var categories = new List<TreeItem>();
-
-            foreach (var category in _sampleStructureMap.Categories)
-            {
-                var categoryItem = new TreeItem { Name = category.Name };
-
-                foreach (var subCategory in category.SubCategories)
-                {
-                    if (subCategory.ShowGroup)
-                    {
-                        var subCategoryItem = new TreeItem() { Name = subCategory.Name };
-                        categoryItem.Items.Add(subCategoryItem);
-
-                        if (subCategory.Samples != null)
-                            foreach (var sample in subCategory.Samples)
-                                subCategoryItem.Items.Add(sample);
-                    }
-                    else
-                    {
-                        foreach (var sample in subCategory.Samples)
-                            categoryItem.Items.Add(sample);
-                    }
-                }
-
-                categories.Add(categoryItem);
-            }
-            return categories;
+            return samples;
         }
 
         /// <summary>
-        /// Creates a new control from sample.
+        /// Creates a <c>SearchableTreeNode</c> representing the entire 
+        /// collection of samples, organized by category.
         /// </summary>
-        /// <param name="sampleModel">Sample that is transformed into a control</param>
+        /// <remarks>This is public on purpose. Other solutions that 
+        /// consume this project reference it directly.</remarks>
+        /// <param name="allSamples">A list of all samples.</param>
+        /// <returns>A <c>SearchableTreeNode</c> with all samples organized by category.</returns>
+        public static SearchableTreeNode BuildFullTree(IEnumerable<SampleInfo> allSamples)
+        {
+            // This code only supports one level of nesting.
+            return new SearchableTreeNode(
+                "All Samples",
+                allSamples.ToLookup(s => s.Category) // put samples into lookup by category
+                .OrderBy(s => s.Key)
+                .Select(BuildTreeForCategory) // create a tree for each category
+                .ToList());
+        }
+
+        /// <summary>
+        /// Creates a <c>SearchableTreeNode</c> representing a category of samples.
+        /// </summary>
+        /// <param name="byCategory">A grouping that associates one category title with many samples.</param>
+        /// <returns>A <c>SearchableTreeNode</c> representing a category of samples.</returns>
+        private static SearchableTreeNode BuildTreeForCategory(IGrouping<string, SampleInfo> byCategory)
+        {
+            // This code only supports one level of nesting.
+            return new SearchableTreeNode(
+                name: byCategory.Key,
+                items: byCategory.OrderBy(si => si.SampleName.ToLower()).ToList()
+            );
+        }
+
+        /// <summary>
+        /// Constructs the sample control from the provided <paramref name="sampleModel"/>.
+        /// </summary>
+        /// <param name="sampleModel">Sample for which to create the sample control.</param>
         /// <returns>Sample as a control.</returns>
-        public Control SampleToControl(SampleModel sampleModel)
+        public object SampleToControl(SampleInfo sampleModel)
         {
-            var fullTypeAsString = string.Format("{0}.{1}", sampleModel.SampleNamespace,
-                sampleModel.GetSampleName(_selectedLanguage));
-            var sampleType = _samplesAssembly.GetType(fullTypeAsString);
-
-            var item = sampleType.GetConstructor(new Type[] { }).Invoke(new object[] { });
-
-           return (Control)item;
+            return Activator.CreateInstance(sampleModel.SampleType);
         }
 
         /// <summary>
-        /// Creates whole sample structure.
+        /// Common sample search predicate implementation
         /// </summary>
-        private async Task CreateAllAsync()
+        /// <param name="sample">Sample to evaluate</param>
+        /// <param name="searchText">Query</param>
+        /// <returns><c>true</c> if the sample matches the query.</returns>
+        public bool SampleSearchFunc(SampleInfo sample, string searchText)
         {
-            try
-            {
-                await Task.Run(() =>
-                {
-#if NETFX_CORE
-                    var filePath = string.Format("ms-appx:///{0}", "ArcGISRuntime.UWP.Samples/groups.json");
-                    try
-                    {
-                        filePath = Path.Combine(Package.Current.InstalledLocation.Path, "ArcGISRuntime.UWP.Samples", "groups.json");
-                    }
-                    catch (Exception)
-                    {
-                        throw new NotImplementedException("groups.json file is missing");
-                    }
-#else
-                   var filePath = "groups.json";
-                    
-                    if (!File.Exists(filePath))
-                        throw new NotImplementedException("groups.json file is missing");
-#endif
-
-                    _sampleStructureMap = SampleStructureMap.Create(filePath, _selectedLanguage);
-                });
-            }
-            // This is thrown if even one of the files requires permissions greater 
-            // than the application provides. 
-            catch (UnauthorizedAccessException e)
-            {
-                throw; //TODO
-            }
-            catch (DirectoryNotFoundException e)
-            {
-                throw; //TODO
-            }
-            catch (Exception e)
-            {
-                throw; //TODO
-            }
+            searchText = searchText.ToLower();
+            return sample.SampleName.ToLower().Contains(searchText) ||
+                   sample.Category.ToLower().Contains(searchText) ||
+                   sample.Description.ToLower().Contains(searchText) ||
+                   sample.Tags.Any(tag => tag.Contains(searchText));
         }
     }
 }

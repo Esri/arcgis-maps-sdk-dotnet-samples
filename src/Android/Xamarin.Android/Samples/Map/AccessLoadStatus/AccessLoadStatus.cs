@@ -14,15 +14,20 @@ using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntimeXamarin.Samples.AccessLoadStatus
+namespace ArcGISRuntime.Samples.AccessLoadStatus
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Access load status",
+        "Map",
+        "This sample demonstrates how to access the Maps' LoadStatus. The LoadStatus will be considered loaded when the following are true: The Map has a valid SpatialReference and the Map has an been set to the MapView.",
+        "")]
     public class AccessLoadStatus : Activity
     {
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
-        // Control to show the Maps' load status
+        // Control to show the Map's load status
         private TextView _loadStatusTextView;
 
         protected override void OnCreate(Bundle bundle)
@@ -55,7 +60,7 @@ namespace ArcGISRuntimeXamarin.Samples.AccessLoadStatus
             {
                 // Update the load status information
                 _loadStatusTextView.Text = string.Format(
-                    "Maps' load status : {0}", 
+                    "Map's load status : {0}", 
                     e.Status.ToString());
             });
         }

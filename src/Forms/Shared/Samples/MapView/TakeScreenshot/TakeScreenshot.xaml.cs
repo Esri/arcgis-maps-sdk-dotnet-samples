@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -11,8 +11,13 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.TakeScreenshot
+namespace ArcGISRuntime.Samples.TakeScreenshot
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Take screenshot",
+        "MapView",
+        "This sample demonstrates how you can take screenshot of a map. Click 'capture' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.",
+        "")]
     public partial class TakeScreenshot : ContentPage
     {
         public TakeScreenshot()
@@ -36,6 +41,15 @@ namespace ArcGISRuntimeXamarin.Samples.TakeScreenshot
 
         private async void OnTakeScreenshotClicked(object sender, EventArgs e)
         {
+            // Make sure an image is not in progress (check the activity indicator)
+            if (CreatingImageIndicator.IsVisible)
+            {
+                return;
+            }
+
+            // Show the activity indicator while the image is being created
+            CreatingImageIndicator.IsVisible = true;
+
             // Export the image from mapview and assign it to the imageview
             var exportedImage = await MyMapView.ExportImageAsync();
 
@@ -70,6 +84,9 @@ namespace ArcGISRuntimeXamarin.Samples.TakeScreenshot
                 Content = layout,
                 Title = "Screenshot"
             };
+
+            // Hide the activity indicator
+            CreatingImageIndicator.IsVisible = false;
 
             // Navigate to the sublayers page
             await Navigation.PushAsync(screenshotPage);

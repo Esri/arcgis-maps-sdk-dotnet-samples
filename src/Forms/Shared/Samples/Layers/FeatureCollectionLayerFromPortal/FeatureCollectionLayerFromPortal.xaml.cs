@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -13,8 +13,13 @@ using Esri.ArcGISRuntime.Portal;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromPortal
+namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Create a feature collection layer from a portal item",
+        "Layers",
+        "This sample demonstrates opening a feature collection saved as a portal item.",
+        "")]
     public partial class FeatureCollectionLayerFromPortal : ContentPage
     { 
         // Default portal item Id to load features from
@@ -62,16 +67,16 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromPortal
                 }
                 else
                 {
-                    DisplayAlert("Feature Collection", "Portal item with ID '" + itemId + "' is not a feature collection.", "OK");
+                    await DisplayAlert("Feature Collection", "Portal item with ID '" + itemId + "' is not a feature collection.", "OK");
                 }
             }
             catch (Exception ex)
             {
-                DisplayAlert("Error", "Unable to open item with ID '" + itemId + "': " + ex.Message, "OK");
+                await DisplayAlert("Error", "Unable to open item with ID '" + itemId + "': " + ex.Message, "OK");
             }
         }
 
-        private void OpenPortalFeatureCollectionClick(object sender, EventArgs e)
+        private async void OpenPortalFeatureCollectionClick(object sender, EventArgs e)
         {
             // Get the portal item Id from the user
             var collectionItemId = CollectionItemIdTextBox.Text.Trim();
@@ -79,7 +84,7 @@ namespace ArcGISRuntimeXamarin.Samples.FeatureCollectionLayerFromPortal
             // Make sure an Id was entered
             if (string.IsNullOrEmpty(collectionItemId))
             {
-                DisplayAlert("Feature Collection ID", "Please enter a portal item ID", "OK");
+                await DisplayAlert("Feature Collection ID", "Please enter a portal item ID", "OK");
                 return;
             }
 

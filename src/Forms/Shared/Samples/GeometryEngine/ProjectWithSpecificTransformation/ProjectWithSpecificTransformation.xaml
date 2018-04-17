@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             x:Class="ArcGISRuntime.Samples.ProjectWithSpecificTransformation.ProjectWithSpecificTransformation">
+             <StackLayout>
+                 <Label>Geometry before:</Label>
+                 <Label x:Name="beforeLabel"></Label>
+                 <Label>Geometry after:</Label>
+                 <Label x:Name="afterLabel"></Label>
+                 <Label>Geometry after (without specific transformation):</Label>
+                 <Label x:Name="nonSpecificLabel"></Label>
+    </StackLayout>
+</ContentPage>

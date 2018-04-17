@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
+             x:Class="ArcGISRuntime.Samples.ReadShapefileMetadata.ReadShapefileMetadata">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView"/>
+        <Frame x:Name="MetadataFrame" 
+               IsVisible="False"
+               HorizontalOptions="Center"  VerticalOptions="Start"
+               Margin="30"
+               OutlineColor="DarkGray"
+               BackgroundColor="LightGray"
+               WidthRequest="300">
+            <ScrollView>
+                <StackLayout x:Name="InfoPanel"
+                        Orientation="Vertical"
+                        Margin="5">
+                    <Label Margin="5" 
+                       FontAttributes="Bold" FontSize="Small" TextColor="DarkBlue"
+                       Text="{Binding Path=Credits}"/>
+                    <Label LineBreakMode="WordWrap"
+                       FontSize="Micro" TextColor="Black"
+                       Text="{Binding Summary}"/>
+                    <Image x:Name="ShapefileThumbnailImage"
+                        Margin="10"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Label FontAttributes="Bold" FontSize="Micro" TextColor="Black"
+                               Margin="0,3"
+                               Text="Tags:"/>
+                        <ListView HeightRequest="120" WidthRequest="160" RowHeight="25"
+                                  ItemsSource="{Binding Tags}"/>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </Frame>
+        <Button Grid.Row="1" 
+                Text="Show Metadata"
+                Clicked="ShowMetadataClicked"
+                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+    </Grid>
+</ContentPage>

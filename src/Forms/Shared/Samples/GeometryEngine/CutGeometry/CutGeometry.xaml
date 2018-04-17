@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:local="clr-namespace:ArcGISRuntime.Samples.CutGeometry"
+             x:Class="ArcGISRuntime.Samples.CutGeometry.CutGeometry">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label x:Name="CutInstructionsLabel"
+               Grid.Row="0"
+               FontSize="Small"
+               Text="Click the 'Cut' button to cut the polygon with the polyline and see the resulting parts.">
+        </Label>
+        <Button x:Name="CutButton"
+                Grid.Row="1"
+                Text="Cut"
+                Clicked="CutButton_Clicked"/>
+        <esriUI:MapView x:Name="MyMapView" 
+                        Grid.Row="2"/>
+    </Grid>
+</ContentPage>

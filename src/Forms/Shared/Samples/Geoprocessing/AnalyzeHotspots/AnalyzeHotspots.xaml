@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntimeXamarin.Samples.AnalyzeHotspots.AnalyzeHotspots">
+             x:Class="ArcGISRuntime.Samples.AnalyzeHotspots.AnalyzeHotspots">
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="auto" />
@@ -20,7 +20,7 @@
       </StackLayout>
       <Button Text="Run Analysis" Clicked="OnRunAnalysisClicked"/>       
     </StackLayout>
-    <ActivityIndicator x:Name="MyActivityInidicator" IsVisible="False"/>
+    <ActivityIndicator x:Name="MyActivityIndicator" IsVisible="False"/>
     <esriUI:MapView x:Name="MyMapView" Grid.Row="1"/>
   </Grid>
 </ContentPage>

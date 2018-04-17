@@ -1,0 +1,54 @@
+﻿<UserControl 
+    x:Class="ArcGISRuntime.UWP.Samples.Animate3DGraphic.Animate3DGraphic"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls" 
+    mc:Ignorable="d" 
+    d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="170" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="170" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="150" />
+        </Grid.ColumnDefinitions>
+        <esriUI:SceneView x:Name="MySceneView" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" AtmosphereEffect="Realistic" />
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="5">
+            <ComboBox VerticalAlignment="Top" x:Name="MissionSelectionBox"  />
+            <Button VerticalAlignment="Top" Click="MissionPlayPlauseClick" Margin="5,0,0,0" >Pause</Button>
+            <TextBlock VerticalAlignment="Top" Margin="8">Progress:</TextBlock>
+            <Slider x:Name="MissionProgressBar" Width="100" VerticalAlignment="Top" Minimum="0" Maximum="1" StepFrequency=".01" ValueChanged="MissionProgressOnSeek" />
+            <Button VerticalAlignment="Top" Click="ToggleFollowPlane" Margin="5,0,0,0">Don't Follow</Button>
+        </StackPanel>
+        <Border Background="White" Opacity=".7" Grid.Row ="0" Grid.Column="2" Margin="5">
+            <StackPanel Margin="5" Opacity=".9">
+                <TextBlock>Play Speed</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Slider Grid.Column="0" ValueChanged="MissionPlaySpeedChanged" Minimum="0.5" Maximum="8" Value="1" x:Name="MissionPlaySpeedSlider" />
+                    <TextBlock Grid.Column="1" Text="{Binding ElementName=MissionPlaySpeedSlider,Path=Value}" Margin="8" />
+                </Grid>
+                <TextBlock FontSize="16" FontWeight="SemiBold">Stats</TextBlock>
+                <TextBlock >Altitude:</TextBlock>
+                <TextBlock Margin="5" x:Name="AltitudeTextBlock" />
+                <TextBlock >Heading:</TextBlock>
+                <TextBlock Margin="5"  x:Name="HeadingTextBlock" />
+                <TextBlock>Pitch:</TextBlock>
+                <TextBlock Margin="5" x:Name="PitchTextBlock" />
+                <TextBlock>Roll:</TextBlock>
+                <TextBlock Margin="5" x:Name="RollTextBlock" />
+            </StackPanel>
+        </Border>
+        <esriUI:MapView x:Name="InsetMapView" Grid.Row="2" Grid.Column="0" Margin="10,0,0,25" IsAttributionTextVisible="False" />
+    </Grid>
+</UserControl>
+

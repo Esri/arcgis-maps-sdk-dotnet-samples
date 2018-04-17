@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--ArcGIS Local Server Deployment Configuration-->
+<Packages>
+  <!--Including Microsoft C and C++ libraries in the runtime deployment allows for XCopy style deployments.
+Only include these if your setup is not installing the Microsoft redistribution package.-->
+  <Package name="Microsoft C and C++ Runtime Libraries" enabled="false" />
+  <!--The Local Server comprises a set of components which enable the use of local dynamic map and feature services based on Map Packages plus core components required for searching and querying data.
+It also provides core support for geocoding and geoprocessing.-->
+  <!--Map and tile packages must be created with ArcGIS Runtime support enabled.-->
+  <Package name="Local Server" enabled="false">
+    <ChildPackages>
+      <!--Provides the ability to perform geoprocessing tasks via geoprocessing packages.-->
+      <!--Geoprocessing packages must be created with ArcGIS Runtime support enabled.-->
+      <Package name="Geoprocessing" enabled="true">
+        <ChildPackages>
+          <!--Adds 3D Analyst geoprocessing tools.-->
+          <Package name="3D Analyst" enabled="false" />
+          <!--Provides the ability to use ArcGIS Locators-->
+          <Package name="Geocoding" enabled="false" />
+          <!--Adds data consolidation, map packaging and create runtime content tools.-->
+          <Package name="Map Packaging" enabled="false" />
+          <!--Adds the ability to produce results as Map Services.-->
+          <Package name="Map Server Results" enabled="true" />
+          <!--Adds Network Analyst geoprocessing tools.-->
+          <Package name="Network Analyst" enabled="false" />
+          <!--Adds Spatial Analyst geoprocessing tools.-->
+          <Package name="Spatial Analyst" enabled="true" />
+        </ChildPackages>
+      </Package>
+      <!--Provides the ability to use Python scripts.-->
+      <Package name="Python Scripting" enabled="false">
+        <ChildPackages>
+          <!--Provides support for Geoprocessing tools that use python-->
+          <Package name="Python Geoprocessing tools" enabled="false" />
+        </ChildPackages>
+      </Package>
+      <!--Provides additional vector and raster data format support.-->
+      <Package name="Additional Data Formats" enabled="true">
+        <ChildPackages>
+          <!--Provides additional raster file data format support.-->
+          <Package name="Raster" enabled="true">
+            <ChildPackages>
+              <!--Provides support for ECW format Raster.-->
+              <Package name="ECW Rasters" enabled="false" />
+              <!--Provides support for Raster Mosaic Layers.-->
+              <Package name="Mosaic Rasters" enabled="false" />
+            </ChildPackages>
+          </Package>
+          <!--Provides additional vector file data format support.-->
+          <Package name="Vector" enabled="true" />
+          <!--Adds support for direct connect to DBMS system that Esri supports. This option must be selected in conjunction with at least one of the following DBMS(s): DB2, Informix, Oracle, PostgreSQL, SQL Server, Netezza, HANA, Teradata or Alitbase.-->
+          <!--SDE direct connect deployed. Specific database drivers also required.-->
+          <Package name="SDE" enabled="false">
+            <ChildPackages>
+              <!--Adds support for direct connect to geodatabases stored in Alitbase.-->
+              <!--Alitbase Drivers must be present on end users machine.-->
+              <Package name="Alitbase" enabled="false" />
+              <!--Adds support for direct connect to geodatabases stored in Dameng.-->
+              <!--Dameng Drivers must be present on end users machine.-->
+              <Package name="Dameng" enabled="false" />
+              <!--Adds support for direct connect to geodatabases stored in DB2.-->
+              <!--DB2 Drivers must be present on end users machine.-->
+              <Package name="DB2" enabled="false" />
+              <!--Adds support for direct connect to geodatabases stored in Informix.-->
+              <!--Informix Drivers must be present on end users machine.-->
+              <Package name="Informix" enabled="false" />
+              <!--Adds support for direct connect to geodatabases stored in Netezza.-->
+              <!--Netezza Drivers must be present on end users machine.-->
+              <Package name="Netezza" enabled="false" />
+              <!-- Adds support for direct connect to geodatabases stored in Oracle.-->
+              <!--Oracle Drivers must be present on end users machine.-->
+              <Package name="Oracle" enabled="false" />
+              <!--Adds support for direct connect to geodatabases stored in PostgreSQL.-->
+              <!--PostgreSQL Drivers must be present on end users machine.-->
+              <Package name="PostgreSQL" enabled="false" />
+              <!--Adds support for direct connect to geodatabases stored in SAP HANA.-->
+              <!--SAP HANA SQL Server Drivers must be present on end users machine.-->
+              <Package name="SAP HANA" enabled="false" />
+              <!--Adds support for direct connect to geodatabases stored in SQL Server.-->
+              <!--MS SQL Server Drivers must be present on end users machine.-->
+              <Package name="SQL Server" enabled="false" />
+              <!--Adds support for direct connect to geodatabases stored in SQL Server.-->
+              <!--MS SQL Server Drivers must be present on end users machine.-->
+              <Package name="SQLite" enabled="false">
+                <ChildPackages>
+                  <!--Adds support for SpatiaLite geometry type-->
+                  <Package name="SpatiaLite" enabled="false" />
+                </ChildPackages>
+              </Package>
+              <!--Adds support for direct connect to geodatabases stored in Teradata.-->
+              <!--Teradata Drivers must be present on end users machine.-->
+              <Package name="Teradata" enabled="false" />
+            </ChildPackages>
+          </Package>
+        </ChildPackages>
+      </Package>
+      <!--Adds more projections and geotransformations.-->
+      <Package name="Additional Projection Engine Transformations" enabled="false" />
+    </ChildPackages>
+  </Package>
+  <!--Enables debugging options within the runtime.-->
+  <!--Debugging options should only be used for testing purposes, and not deployed in final solutions.-->
+  <Package name="Debug" enabled="false">
+    <ChildPackages>
+      <!--Adds support for runtime logging.-->
+      <Package name="Logging" enabled="false" />
+    </ChildPackages>
+  </Package>
+</Packages>

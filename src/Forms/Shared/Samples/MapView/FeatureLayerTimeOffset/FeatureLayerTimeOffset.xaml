@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntime.Samples.FeatureLayerTimeOffset.FeatureLayerTimeOffset">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Text="Red hurricanes offset 10 days" FontAttributes="Bold"
+                      HorizontalTextAlignment="Center" TextColor="Red" Grid.Row="0" />
+        <Label Text="Blue hurricanes not offset" FontAttributes="Bold"
+                      HorizontalTextAlignment="Center" TextColor="Blue" Grid.Row="1" />
+        <Label Text="" x:Name="lblCurrentDate" Grid.Row="2" />
+        <Slider x:Name="MyTimeSlider" ValueChanged="MyTimeSlider_ValueChanged" Minimum="0" Maximum="100" Grid.Row="3" />
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="4" />
+    </Grid>
+</ContentPage>

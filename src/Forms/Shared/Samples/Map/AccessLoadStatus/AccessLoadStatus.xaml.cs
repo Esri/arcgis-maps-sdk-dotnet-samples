@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -11,8 +11,13 @@ using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.AccessLoadStatus
+namespace ArcGISRuntime.Samples.AccessLoadStatus
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Access load status",
+        "Map",
+        "This sample demonstrates how to access the Maps' LoadStatus. The LoadStatus will be considered loaded when the following are true: The Map has a valid SpatialReference and the Map has an been set to the MapView.",
+        "")]
     public partial class AccessLoadStatus : ContentPage
     {
         public AccessLoadStatus()
@@ -44,7 +49,7 @@ namespace ArcGISRuntimeXamarin.Samples.AccessLoadStatus
             {
                 // Update the load status information
                 loadStatusLabel.Text = string.Format(
-                        "Maps' load status : {0}",
+                        "Map's load status : {0}",
                         e.Status.ToString());
             });
         }

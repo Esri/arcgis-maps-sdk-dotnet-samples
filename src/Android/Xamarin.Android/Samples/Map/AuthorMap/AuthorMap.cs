@@ -14,16 +14,23 @@ using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
+using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Auth;
 
-namespace ArcGISRuntimeXamarin.Samples.AuthorMap
+namespace ArcGISRuntime.Samples.AuthorMap
 {
     [Activity(Label = "AuthorMap")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Author and save a map",
+        "Map",
+        "This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). Saving a map to arcgis.com requires an ArcGIS Online login.",
+        "1. Pan and zoom to the extent you would like for your map. \n2. Choose a basemap from the list of available basemaps. \n3. Choose one or more operational layers to include. \n4. Click 'Save ...' to apply your changes. \n5. Provide info for the new portal item, such as a Title, Description, and Tags. \n6. Click 'Save Map'. \n7. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder. \n8. You can make additional changes, update the map, and then re-save to store changes in the portal item.")]
     public class AuthorMap : Activity, IOAuthAuthorizeHandler
     {
         // Create and hold reference to the used MapView
@@ -180,11 +187,14 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 // Apply the current extent as the map's initial extent
                 myMap.InitialViewpoint = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
+                // Export the current map view for the item's thumbnail
+                RuntimeImage thumbnailImg = await _myMapView.ExportImageAsync();
+
                 // See if the map has already been saved (has an associated portal item)
                 if (myMap.Item == null)
                 {
                     // Call a function to save the map as a new portal item
-                    await SaveNewMapAsync(myMap, title, description, tags);
+                    await SaveNewMapAsync(myMap, title, description, tags, thumbnailImg);
 
                     // Report a successful save
                     alertBuilder.SetTitle("Map Saved");
@@ -194,6 +204,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 else
                 {
                     // This is not the initial save, call SaveAsync to save changes to the existing portal item
+                    await myMap.SaveAsync();
+                    
+                    // Get the file stream from the new thumbnail image
+                    Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
+
+                    // Update the item thumbnail
+                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);
                     await myMap.SaveAsync();
 
                     // Report update was successful
@@ -216,7 +233,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             }
         }
 
-        private async Task SaveNewMapAsync(Map myMap, string title, string description, string[] tags)
+        private async Task SaveNewMapAsync(Map myMap, string title, string description, string[] tags, RuntimeImage img)
         {
             // Challenge the user for portal credentials (OAuth credential request for arcgis.com)
             CredentialRequestInfo loginInfo = new CredentialRequestInfo();
@@ -228,7 +245,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             };
 
             // Indicate the url (portal) to authenticate with (ArcGIS Online)
-            loginInfo.ServiceUri = new Uri("http://www.arcgis.com/sharing/rest");
+            loginInfo.ServiceUri = new Uri("https://www.arcgis.com/sharing/rest");
 
             try
             {
@@ -248,7 +265,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync();
 
             // Save the current state of the map as a portal item in the user's default folder
-            await myMap.SaveAsAsync(agsOnline, null, title, description, tags, null);
+            await myMap.SaveAsAsync(agsOnline, null, title, description, tags, img);
         }
 
         #region Basemap Button
@@ -464,10 +481,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                             info.GenerateTokenOptions
                     ) as OAuthTokenCredential;
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -476,11 +494,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization is in progress
+            // If the TaskCompletionSource is not null, authorization may already be in progress and should be cancelled
             if (_taskCompletionSource != null)
             {
-                // Allow only one authorization process at a time
-                throw new Exception();
+                // Try to cancel any existing authentication task
+                _taskCompletionSource.TrySetCanceled();
             }
 
             // Create a task completion source
@@ -491,7 +509,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 clientId: AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
+                redirectUrl: callbackUri)
+            {
+                ShowErrors = false
+            };
 
             // Allow the user to cancel the OAuth attempt
             authenticator.AllowCancel = true;
@@ -514,12 +535,15 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 catch (Exception ex)
                 {
                     // If authentication failed, set the exception on the TaskCompletionSource
-                    _taskCompletionSource.SetException(ex);
+                    _taskCompletionSource.TrySetException(ex);
+
+                    // Cancel authentication
+                    authenticator.OnCancelled();
                 }
                 finally
                 {
                     // End the OAuth login activity
-                    this.FinishActivity(99);
+                    FinishActivity(99);
                 }
             };
 
@@ -529,7 +553,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 // If the user cancels, the Error event is raised but there is no exception ... best to check first
                 if (errArgs.Exception != null)
                 {
-                    _taskCompletionSource.SetException(errArgs.Exception);
+                    _taskCompletionSource.TrySetException(errArgs.Exception);
                 }
                 else
                 {
@@ -537,14 +561,17 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                     if (_taskCompletionSource != null)
                     {
                         _taskCompletionSource.TrySetCanceled();
-                        this.FinishActivity(99);
+                        FinishActivity(99);
                     }
                 }
+
+                // Cancel authentication
+                authenticator.OnCancelled();
             };
 
             // Present the OAuth UI (Activity) so the user can enter user name and password
             var intent = authenticator.GetUI(this);
-            this.StartActivityForResult(intent, 99);
+            StartActivityForResult(intent, 99);
 
             // Return completion source task so the caller can await completion
             return _taskCompletionSource.Task;
@@ -606,7 +633,7 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 
         public SaveDialogFragment(PortalItem mapItem)
         {
-            this._portalItem = mapItem;
+            _portalItem = mapItem;
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -615,10 +642,10 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             LinearLayout dialogView = null;
 
             // Get the context for creating the dialog controls
-            Android.Content.Context ctx = this.Activity.ApplicationContext;
+            Android.Content.Context ctx = Activity.ApplicationContext;
 
             // Set a dialog title
-            this.Dialog.SetTitle("Save Map to Portal");
+            Dialog.SetTitle("Save Map to Portal");
 
             try
             {
@@ -650,26 +677,26 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 dialogView.AddView(saveMapButton);
 
                 // If there's an existing portal item, configure the dialog for "update" (read-only entries)
-                if (this._portalItem != null)
+                if (_portalItem != null)
                 {
-                    _mapTitleTextbox.Text = this._portalItem.Title;
+                    _mapTitleTextbox.Text = _portalItem.Title;
                     _mapTitleTextbox.Enabled = false;
 
-                    _mapDescriptionTextbox.Text = this._portalItem.Description;
+                    _mapDescriptionTextbox.Text = _portalItem.Description;
                     _mapDescriptionTextbox.Enabled = false;
 
-                    _tagsTextbox.Text = string.Join(",", this._portalItem.Tags);
+                    _tagsTextbox.Text = string.Join(",", _portalItem.Tags);
                     _tagsTextbox.Enabled = false;
 
                     // Change some of the control text
-                    this.Dialog.SetTitle("Save Changes to Map");
+                    Dialog.SetTitle("Save Changes to Map");
                     saveMapButton.Text = "Update";
                 }
             }
             catch (Exception ex)
             {
                 // Show the exception message 
-                var alertBuilder = new AlertDialog.Builder(this.Activity);
+                var alertBuilder = new AlertDialog.Builder(Activity);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();
@@ -702,12 +729,12 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 OnSaveClicked(this, mapSavedArgs);
 
                 // Close the dialog
-                this.Dismiss();
+                Dismiss();
             }
             catch (Exception ex)
             {
                 // Show the exception message (dialog will stay open so user can try again)
-                var alertBuilder = new AlertDialog.Builder(this.Activity);
+                var alertBuilder = new AlertDialog.Builder(Activity);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();

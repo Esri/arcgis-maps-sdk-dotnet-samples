@@ -14,9 +14,14 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntimeXamarin.Samples.SetMinMaxScale
+namespace ArcGISRuntime.Samples.SetMinMaxScale
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Set min & max scale",
+        "Map",
+        "This sample demonstrates how to set the minimum and maximum scale of a Map. Setting the minimum and maximum scale for the Map can be useful in keeping the user focused at a certain level of detail.",
+        "")]
     public class SetMinMaxScale : Activity
     {
         // Create and hold reference to the used MapView
@@ -26,7 +31,7 @@ namespace ArcGISRuntimeXamarin.Samples.SetMinMaxScale
         {
             base.OnCreate(bundle);
 
-            Title = "Set Min & Max Scale";
+            Title = "Set min & max scale";
 
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();

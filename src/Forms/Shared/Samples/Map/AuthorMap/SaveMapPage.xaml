@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.AuthorMap.SaveMapPage"
+<ContentPage x:Class="ArcGISRuntime.Samples.AuthorMap.SaveMapPage"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
   <ContentPage.Content>
@@ -23,7 +23,8 @@
               <Button Text="Cancel"
                       Clicked="CancelButtonClicked"
                       Margin="20,0"/>
-              <Button Text="Save"
+              <Button x:Name="SaveMapButton"
+                      Text="Save"
                       Clicked="SaveButtonClicked"/>
             </StackLayout>
           </ViewCell>

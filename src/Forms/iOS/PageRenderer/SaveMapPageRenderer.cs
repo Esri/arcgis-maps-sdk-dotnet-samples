@@ -1,5 +1,5 @@
-using ArcGISRuntime.Samples.AuthorEditSaveMap;
-using ArcGISRuntimeXamarin.iOSPageRenderer;
+﻿using ArcGISRuntime.Samples.AuthorEditSaveMap;
+using ArcGISRuntime.iOSPageRenderer;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(SaveMapPage), typeof(SaveMapPageRenderer))]
-namespace ArcGISRuntimeXamarin.iOSPageRenderer
+namespace ArcGISRuntime.iOSPageRenderer
 {
     public class SaveMapPageRenderer : PageRenderer, IOAuthAuthorizeHandler
     {
@@ -26,11 +26,11 @@ namespace ArcGISRuntimeXamarin.iOSPageRenderer
         #region IOAuthAuthorizationHandler implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization is in progress
+            // If the TaskCompletionSource is not null, authorization may already be in progress and should be cancelled
             if (_taskCompletionSource != null)
             {
-                // Allow only one authorization process at a time
-                throw new Exception();
+                // Try to cancel any existing authentication task
+                _taskCompletionSource.TrySetCanceled();
             }
 
             // Create a task completion source
@@ -41,7 +41,10 @@ namespace ArcGISRuntimeXamarin.iOSPageRenderer
                 clientId: Samples.AuthorEditSaveMap.AuthorEditSaveMap.AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
+                redirectUrl: callbackUri)
+            {
+                ShowErrors = false
+            };
 
             // Allow the user to cancel the OAuth attempt
             authenticator.AllowCancel = true;
@@ -52,7 +55,7 @@ namespace ArcGISRuntimeXamarin.iOSPageRenderer
                 try
                 {
                     // Dismiss the OAuth UI when complete
-                    this.DismissViewController(true, null);
+                    DismissViewController(true, null);
 
                     // Throw an exception if the user could not be authenticated
                     if (!authArgs.IsAuthenticated)
@@ -69,7 +72,10 @@ namespace ArcGISRuntimeXamarin.iOSPageRenderer
                 catch (Exception ex)
                 {
                     // If authentication failed, set the exception on the TaskCompletionSource
-                    _taskCompletionSource.SetException(ex);
+                    _taskCompletionSource.TrySetException(ex);
+
+                    // Cancel authentication
+                    authenticator.OnCancelled();
                 }
             };
 
@@ -85,12 +91,15 @@ namespace ArcGISRuntimeXamarin.iOSPageRenderer
                 {
                     _taskCompletionSource.TrySetException(new Exception(errArgs.Message));
                 }
+
+                // Cancel authentication
+                authenticator.OnCancelled();
             };
 
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password
             InvokeOnMainThread(() =>
             {
-                this.PresentViewController(authenticator.GetUI(), true, null);
+                PresentViewController(authenticator.GetUI(), true, null);
             });
 
             // Return completion source task so the caller can await completion

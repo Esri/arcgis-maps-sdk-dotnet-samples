@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
@@ -19,9 +19,14 @@ using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Auth;
 
-namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
+namespace ArcGISRuntime.Samples.SearchPortalMaps
 {
     [Register("SearchPortalMaps")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Search a portal for maps",
+        "Map",
+        "This sample demonstrates searching a portal for web maps and loading them in the map view. You can search ArcGIS Online public web maps using tag values or browse the web maps in your account. OAuth is used to authenticate with ArcGIS Online to access items in your account.",
+        "1. When the sample starts, you will be presented with a dialog for entering OAuth settings. If you need to create your own settings, sign in with your developer account and use the [ArcGIS for Developers dashboard](https://developers.arcgis.com/dashboard) to create an Application to store these settings.\n2. Enter values for the following OAuth settings.\n\t1. **Client ID**: a unique alphanumeric string identifier for your application\n\t2. **Redirect URL**: a URL to which a successful OAuth login response will be sent\n3. If you do not enter OAuth settings, you will be able to search public web maps on ArcGIS Online. Browsing the web map items in your ArcGIS Online account will be disabled, however.")]
     public class SearchPortalMaps : UIViewController, IOAuthAuthorizeHandler
     {
         // Constant holding offset where the MapView control should start
@@ -30,7 +35,8 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
-        UISegmentedControl _segmentButton;
+        private UISegmentedControl _segmentButton = new UISegmentedControl();
+        private UIToolbar _toolbar = new UIToolbar();
 
         // Use a TaskCompletionSource to track the completion of the authorization
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
@@ -52,7 +58,6 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         //       Note - this must be a URL configured as a valid Redirect URI with your app
         private string _oAuthRedirectUrl = "https://developers.arcgis.com";
 
-
         public SearchPortalMaps()
         {
             Title = "Search a portal for maps";
@@ -62,7 +67,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             CreateLayout();
             Initialize();
         }
@@ -78,7 +83,6 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 _searchMapsUI.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
                 _searchMapsUI.Center = View.Center;
             }
-                
 
             if (_oauthInfoUI != null)
             {
@@ -86,11 +90,9 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 _oauthInfoUI.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
                 _oauthInfoUI.Center = View.Center;
             }
-                
 
-            _segmentButton.Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height, View.Bounds.Width, 30);
-
-
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
+            _segmentButton.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, View.Bounds.Width - 20, _toolbar.Frame.Height - 20);
 
             base.ViewDidLayoutSubviews();
         }
@@ -112,7 +114,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             if (_oauthInfoUI != null) { return; }
 
             // Create a view to show entry controls over the map view
-            var ovBounds = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height); ;
+            var ovBounds = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
             _oauthInfoUI = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, _appClientId, _oAuthRedirectUrl);
 
             // Handle the OnOAuthPropsInfoEntered event to get the info entered by the user
@@ -141,8 +143,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
         private void CreateLayout()
         {
-            // Add a segmented button control
-            _segmentButton = new UISegmentedControl();
+            // Configure segmented button control
             _segmentButton.BackgroundColor = UIColor.White;
             _segmentButton.InsertSegment("Search Maps", 0, false);
             _segmentButton.InsertSegment("My Maps", 1, false);
@@ -151,7 +152,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             _segmentButton.ValueChanged += SegmentButtonClicked;
 
             // Add the MapView and segmented button to the page
-            View.AddSubviews(_myMapView, _segmentButton);
+            View.AddSubviews(_myMapView, _toolbar, _segmentButton);
         }
 
         private void SegmentButtonClicked(object sender, EventArgs e)
@@ -241,13 +242,13 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
                 // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
                 var queryExpression = string.Format("tags:\"{0}\" access:public type: (\"web map\" NOT \"web mapping application\")", e.SearchText);
-                
+
                 // Create a query parameters object with the expression and a limit of 10 results
                 PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
 
                 // Search the portal using the query parameters and await the results
                 PortalQueryResultSet<PortalItem> findResult = await portal.FindItemsAsync(queryParams);
-                
+
                 // Get the items from the query results
                 mapItems = findResult.Results;
 
@@ -287,17 +288,26 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             UIPopoverPresentationController presentationPopover = mapListActionSheet.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = this.View;
+                presentationPopover.SourceView = View;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
 
             // Display the list of maps
-            this.PresentViewController(mapListActionSheet, true, null);
+            PresentViewController(mapListActionSheet, true, null);
         }
 
-        private void DisplayMap(Uri webMapUri)
+        private async void DisplayMap(Uri webMapUri)
         {
             var webMap = new Map(webMapUri);
+            try
+            {
+                await webMap.LoadAsync();
+            }
+            catch (Esri.ArcGISRuntime.ArcGISRuntimeException e)
+            {
+                var alert = new UIAlertView("Map Load Error", e.Message, null, "OK", null);
+                alert.Show();
+            }
 
             // Handle change in the load status (to report load errors)
             webMap.LoadStatusChanged += WebMapLoadStatusChanged;
@@ -331,6 +341,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         }
 
         #region OAuth helpers
+
         private void UpdateAuthenticationManager()
         {
             // Register the server information with the AuthenticationManager
@@ -382,7 +393,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 var cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
                 loggedIn = cred != null;
             }
-            catch (System.OperationCanceledException ex)
+            catch (OperationCanceledException)
             {
                 // Login was canceled
                 // .. ignore, user can still search public maps without logging in
@@ -417,10 +428,11 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                             info.GenerateTokenOptions
                     ) as OAuthTokenCredential;
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -429,11 +441,11 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization is in progress
+            // If the TaskCompletionSource is not null, authorization may already be in progress and should be cancelled
             if (_taskCompletionSource != null)
             {
-                // Allow only one authorization process at a time
-                throw new Exception();
+                // Try to cancel any existing authentication task
+                _taskCompletionSource.TrySetCanceled();
             }
 
             // Create a task completion source
@@ -444,7 +456,10 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 clientId: _appClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
+                redirectUrl: callbackUri)
+            {
+                ShowErrors = false
+            };
 
             // Allow the user to cancel the OAuth attempt
             auth.AllowCancel = true;
@@ -454,25 +469,28 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             {
                 try
                 {
-                // Dismiss the OAuth UI when complete
-                this.DismissViewController(true, null);
+                    // Dismiss the OAuth UI when complete
+                    DismissViewController(true, null);
 
-                // Throw an exception if the user could not be authenticated
-                if (!authArgs.IsAuthenticated)
+                    // Throw an exception if the user could not be authenticated
+                    if (!authArgs.IsAuthenticated)
                     {
                         throw new Exception("Unable to authenticate user.");
                     }
 
-                // If authorization was successful, get the user's account
-                Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
+                    // If authorization was successful, get the user's account
+                    Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
 
-                // Set the result (Credential) for the TaskCompletionSource
-                _taskCompletionSource.SetResult(authenticatedAccount.Properties);
+                    // Set the result (Credential) for the TaskCompletionSource
+                    _taskCompletionSource.SetResult(authenticatedAccount.Properties);
                 }
                 catch (Exception ex)
                 {
-                // If authentication failed, set the exception on the TaskCompletionSource
-                _taskCompletionSource.SetException(ex);
+                    // If authentication failed, set the exception on the TaskCompletionSource
+                    _taskCompletionSource.TrySetException(ex);
+
+                    // Cancel authentication
+                    auth.OnCancelled();
                 }
             };
 
@@ -487,12 +505,15 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
                 {
                     _taskCompletionSource.TrySetException(new Exception(errArgs.Message));
                 }
+
+                // Cancel authentication
+                auth.OnCancelled();
             };
 
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password
             InvokeOnMainThread(() =>
             {
-                this.PresentViewController(auth.GetUI(), true, null);
+                PresentViewController(auth.GetUI(), true, null);
             });
 
             // Return completion source task so the caller can await completion
@@ -536,11 +557,12 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             // Return the dictionary of string keys/values
             return keyValueDictionary;
         }
-        #endregion
 
+        #endregion OAuth helpers
     }
 
     #region UI for entering OAuth configuration settings
+
     // View containing "configure OAuth" controls (client id and redirect url inputs with save/cancel buttons)
     public class OAuthPropsDialogOverlay : UIView
     {
@@ -552,6 +574,7 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
 
         // Store the input controls so the values can be read
         private UITextField _clientIdTextField;
+
         private UITextField _redirectUrlTextField;
 
         public OAuthPropsDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, string clientId, string redirectUrl) : base(frame)
@@ -599,6 +622,8 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             _clientIdTextField.Text = clientId;
             _clientIdTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _clientIdTextField.BackgroundColor = UIColor.LightGray;
+            // Allow pressing 'return' to dismiss the keyboard
+            _clientIdTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -614,11 +639,13 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             _redirectUrlTextField.Text = redirectUrl;
             _redirectUrlTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _redirectUrlTextField.BackgroundColor = UIColor.LightGray;
+            // Allow pressing 'return' to dismiss the keyboard
+            _redirectUrlTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
 
-            // Button to save the values 
+            // Button to save the values
             UIButton saveButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
             saveButton.SetTitle("Save", UIControlState.Normal);
             saveButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
@@ -695,9 +722,11 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             RedirectUrl = redirectUrl;
         }
     }
-    #endregion
+
+    #endregion UI for entering OAuth configuration settings
 
     #region UI for entering web map search text
+
     // View containing "search map" controls (search text input and search/cancel buttons)
     public class SearchMapsDialogOverlay : UIView
     {
@@ -748,6 +777,8 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             _searchTextField.Placeholder = "Search text";
             _searchTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _searchTextField.BackgroundColor = UIColor.LightGray;
+            // Allow pressing 'return' to dismiss the keyboard
+            _searchTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Hide the keyboard when "Enter" is clicked
             _searchTextField.ShouldReturn += (input) =>
@@ -823,5 +854,6 @@ namespace ArcGISRuntimeXamarin.Samples.SearchPortalMaps
             SearchText = searchText;
         }
     }
-    #endregion
+
+    #endregion UI for entering web map search text
 }

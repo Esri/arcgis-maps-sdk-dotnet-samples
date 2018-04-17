@@ -17,9 +17,14 @@ using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.ListGeodatabaseVersions
+namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "List geodatabase versions",
+        "Geoprocessing",
+        "This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.",
+        "")]
     public class ListGeodatabaseVersions : Activity
     {
         // Progress bar to show when the geoprocessing task is working
@@ -95,11 +100,10 @@ namespace ArcGISRuntimeXamarin.Samples.ListGeodatabaseVersions
             IFeatureSet results = null;
 
             // Create new geoprocessing task 
-            var listVersionsTask = new GeoprocessingTask(new Uri(ListVersionsUrl));
+            var listVersionsTask = await GeoprocessingTask.CreateAsync(new Uri(ListVersionsUrl));
 
-            // Create parameters that are passed to the used geoprocessing task
-            GeoprocessingParameters listVersionsParameters =
-                 new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute);
+            // Create default parameters that are passed to the geoprocessing task
+            GeoprocessingParameters listVersionsParameters = await listVersionsTask.CreateDefaultParametersAsync();
 
             // Create job that handles the communication between the application and the geoprocessing task
             var listVersionsJob = listVersionsTask.CreateJob(listVersionsParameters);

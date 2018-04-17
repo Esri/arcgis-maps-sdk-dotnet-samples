@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -21,13 +21,17 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Drawing;
 
-namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
+namespace ArcGISRuntime.Samples.SketchOnMap
 {
     [Register("SketchOnMap")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Sketch graphics on the map",
+        "GraphicsOverlay",
+        "This sample demonstrates how to interactively sketch and edit graphics in the map view and display them in a graphics overlay. You can sketch a variety of geometry types and undo or redo operations.",
+        "1. Click the 'Sketch' button.\n2. Choose a sketch type from the drop down list.\n3. While sketching, you can undo/redo operations.\n4. Click 'Done' to finish the sketch.\n5. Click 'Edit', then click a graphic to start editing.\n6. Make edits then click 'Done' or 'Cancel' to finish editing.")]
     public class SketchOnMap : UIViewController
     {
         // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
 
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
@@ -50,17 +54,20 @@ namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
         {
             base.ViewDidLoad();
 
+			// Initialize controls, set up event handlers, etc.
+			Initialize();
+
             // Create the UI 
             CreateLayout();
 
-            // Initialize controls, set up event handlers, etc.
-            Initialize();
+
         }
 
         public override void ViewDidLayoutSubviews()
         {
            // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _segmentButton.Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height - 60, View.Bounds.Width, 30);
         }
 
         private void Initialize()
@@ -93,12 +100,12 @@ namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
         private void CreateLayout()
         {
             // Create a new MapView control
-            _myMapView = new MapView();
+
 
             // Add a segmented button control
             _segmentButton = new UISegmentedControl();
             _segmentButton.BackgroundColor = UIColor.White;
-            _segmentButton.Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height, View.Bounds.Width, 30);
+            _segmentButton.Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height - 60, View.Bounds.Width, 30);
             _segmentButton.InsertSegment("Sketch", 0, false);
             _segmentButton.InsertSegment("Edit", 1, false);
             _segmentButton.InsertSegment("Undo", 2, false);
@@ -191,8 +198,6 @@ namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
                         _myMapView.SketchEditor.CancelCommand.Execute(null);
                     }
                     break;
-                default:
-                    break;
             }
 
             // Unselect all segments (user might want to click the same control twice)
@@ -200,7 +205,7 @@ namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
         }
 
         #region Graphic and symbol helpers
-        private Graphic CreateGraphic(Esri.ArcGISRuntime.Geometry.Geometry geometry)
+        private Graphic CreateGraphic(Geometry geometry)
         {
             // Create a graphic to display the specified geometry
             Symbol symbol = null;
@@ -294,12 +299,12 @@ namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
             UIPopoverPresentationController presentationPopover = sketchModeActionSheet.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = this.View;
+                presentationPopover.SourceView = View;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
 
             // Display the list of sketch modes
-            this.PresentViewController(sketchModeActionSheet, true, null);
+            PresentViewController(sketchModeActionSheet, true, null);
         }
 
         private async void SketchGeometry(string sketchModeName)
@@ -308,7 +313,7 @@ namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
             {
                 // Let the user draw on the map view using the chosen sketch mode
                 SketchCreationMode creationMode = (SketchCreationMode)_sketchModeDictionary[sketchModeName];
-                Esri.ArcGISRuntime.Geometry.Geometry geometry = await _myMapView.SketchEditor.StartAsync(creationMode, true);
+                Geometry geometry = await _myMapView.SketchEditor.StartAsync(creationMode, true);
 
                 // Create and add a graphic from the geometry the user drew
                 Graphic graphic = CreateGraphic(geometry);
@@ -334,7 +339,7 @@ namespace ArcGISRuntimeXamarin.Samples.SketchOnMap
                 if (editGraphic == null) { return; }
 
                 // Let the user make changes to the graphic's geometry, await the result (updated geometry)
-                Esri.ArcGISRuntime.Geometry.Geometry newGeometry = await _myMapView.SketchEditor.StartAsync(editGraphic.Geometry);
+                Geometry newGeometry = await _myMapView.SketchEditor.StartAsync(editGraphic.Geometry);
 
                 // Display the updated geometry in the graphic
                 editGraphic.Geometry = newGeometry;

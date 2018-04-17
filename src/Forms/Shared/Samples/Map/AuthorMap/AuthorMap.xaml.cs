@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+// Copyright 2016 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -15,19 +15,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.Xamarin.Forms;
+using System.IO;
 
-#if __IOS__ 
+
+#if __IOS__
 using Xamarin.Forms.Platform.iOS;
 using Xamarin.Auth;
+using UIKit;
 #endif
 
 #if __ANDROID__
 using Android.App;
 using Xamarin.Auth;
+using System.IO;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.AuthorMap
+namespace ArcGISRuntime.Samples.AuthorMap
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Author and save a map",
+        "Map",
+        "This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). Saving a map to arcgis.com requires an ArcGIS Online login.",
+        "1. Pan and zoom to the extent you would like for your map. \n2. Choose a basemap from the list of available basemaps. \n3. Choose one or more operational layers to include. \n4. Click 'Save ...' to apply your changes. \n5. Provide info for the new portal item, such as a Title, Description, and Tags. \n6. Click 'Save Map'. \n7. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder. \n8. You can make additional changes, update the map, and then re-save to store changes in the portal item.")]
+    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("SaveMapPage.xaml.cs")]
+    [ArcGISRuntime.Samples.Shared.Attributes.XamlFiles("SaveMapPage.xaml")]
     public partial class AuthorMap : ContentPage, IOAuthAuthorizeHandler
     {
         // OAuth-related values ...
@@ -110,6 +123,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 
         private void LayerSelected(object sender, ItemTappedEventArgs e)
         {
+            // return if null
+            if (e.Item == null) { return; }
+
             // Handle the event when a layer item is selected (tapped) in the layer list
             var selectedItem = e.Item.ToString();
 
@@ -134,15 +150,12 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 
         private void ShowLayerList(object sender, EventArgs e)
         {
-            // Clear the items currently shown in the list
-            LayersList.ItemsSource = null;
-
             // See which button was used to show the list and fill it accordingly
             var button = sender as Button;
-            if (button.Text == "Base map")
+            if (button.Text == "Basemap")
             {
                 // Show the basemap list
-                LayersList.ItemsSource = _basemapTypes;
+                LayersList.ItemsSource = _basemapTypes.ToList();
             }
             else if (button.Text == "Layers")
             {
@@ -158,6 +171,13 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         {
             // Create a SaveMapPage page for getting user input for the new web map item
             var mapInputForm = new SaveMapPage();
+
+            // If an existing map, show the UI for updating the item
+            var mapItem = MyMapView.Map.Item;
+            if (mapItem != null)
+            {
+                mapInputForm.ShowForUpdate(mapItem.Title,mapItem.Description, mapItem.Tags.ToArray());
+            }
 
             // Handle the save button click event on the page
             mapInputForm.OnSaveClicked += SaveMapAsync;
@@ -191,6 +211,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 // Apply the current extent as the map's initial extent
                 myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
+                // Export the current map view for the item's thumbnail
+                RuntimeImage thumbnailImage = await MyMapView.ExportImageAsync();
+
                 // See if the map has already been saved (has an associated portal item)
                 if (myMap.Item == null)
                 {
@@ -198,24 +221,31 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                     ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
 
                     // Save the current state of the map as a portal item in the user's default folder
-                    await myMap.SaveAsAsync(agsOnline, null, title, description, tags, null);
+                    await myMap.SaveAsAsync(agsOnline, null, title, description, tags, thumbnailImage);
 
                     // Report a successful save
-                    DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
+                    await DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
                 }
                 else
                 {
                     // This is not the initial save, call SaveAsync to save changes to the existing portal item
                     await myMap.SaveAsync();
 
+                    // Get the file stream from the new thumbnail image
+                    Stream imageStream = await thumbnailImage.GetEncodedBufferAsync();
+
+                    // Update the item thumbnail
+                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);
+                    await myMap.SaveAsync();
+
                     // Report update was successful
-                    DisplayAlert("Updates Saved", "Saved changes to '" + myMap.Item.Title + "'", "OK");
+                    await DisplayAlert("Updates Saved", "Saved changes to '" + myMap.Item.Title + "'", "OK");
                 }
             }
             catch (Exception ex)
             {
                 // Show the exception message
-                DisplayAlert("Unable to save map", ex.Message, "OK");
+                await DisplayAlert("Unable to save map", ex.Message, "OK");
             }
             finally
             {
@@ -239,8 +269,16 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
             // Indicate the url (portal) to authenticate with (ArcGIS Online)
             loginInfo.ServiceUri = new Uri(ArcGISOnlineUrl);
 
-            // Get the users credentials for ArcGIS Online (should have logged in when launching the page)
-            cred = await AuthenticationManager.Current.GetCredentialAsync(loginInfo, false);
+            try
+            {
+                // Get the users credentials for ArcGIS Online (should have logged in when launching the page)
+                cred = await AuthenticationManager.Current.GetCredentialAsync(loginInfo, false);
+            }
+            catch (System.OperationCanceledException)
+            {
+                // user canceled the login
+                throw new Exception("Portal log in was canceled.");
+            }
 
             return cred;
         }
@@ -286,26 +324,21 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 
         private void AddLayer(string layerName, string url)
         {
+            // Clear any existing layers
+            MyMapView.Map.OperationalLayers.Clear();
+
             // See if the layer already exists
             ArcGISMapImageLayer layer = MyMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name == layerName) as ArcGISMapImageLayer;
 
-            // If the layer is in the map, remove it
-            if (layer != null)
-            {
-                MyMapView.Map.OperationalLayers.Remove(layer);
-            }
-            else
-            {
-                var layerUri = new Uri(url);
+            var layerUri = new Uri(url);
 
-                // Create a new map image layer
-                layer = new ArcGISMapImageLayer(layerUri);
-                layer.Name = layerName;
+            // Create a new map image layer
+            layer = new ArcGISMapImageLayer(layerUri);
+            layer.Name = layerName;
 
-                // Set it 50% opaque, and add it to the map
-                layer.Opacity = 0.5;
-                MyMapView.Map.OperationalLayers.Add(layer);
-            }
+            // Set it 50% opaque, and add it to the map
+            layer.Opacity = 0.5;
+            MyMapView.Map.OperationalLayers.Add(layer);
         }
 
         #region OAuth
@@ -351,10 +384,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (TaskCanceledException) { return credential; }
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -367,11 +401,11 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization is in progress
+            // If the TaskCompletionSource is not null, authorization may already be in progress and should be cancelled
             if (_taskCompletionSource != null)
             {
-                // Allow only one authorization process at a time
-                throw new Exception();
+                // Try to cancel any existing authentication task
+                _taskCompletionSource.TrySetCanceled();
             }
 
             // Create a task completion source
@@ -384,14 +418,17 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 #endif
 #if __IOS__
             // Get the current iOS ViewController
-            var viewController = Platform.GetRenderer(this).ViewController;
+            var viewController = Xamarin.Forms.Platform.iOS.Platform.GetRenderer(this).ViewController;
 #endif
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(
                 clientId: _appClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
+                redirectUrl: callbackUri)
+            {
+                ShowErrors = false
+            };
 
             // Allow the user to cancel the OAuth attempt
             authenticator.AllowCancel = true;
@@ -423,15 +460,18 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
                 catch (Exception ex)
                 {
                     // If authentication failed, set the exception on the TaskCompletionSource
-                    _taskCompletionSource.SetException(ex);
+                    _taskCompletionSource.TrySetException(ex);
+
+                    // Cancel authentication
+                    authenticator.OnCancelled();
                 }
+#if __ANDROID__ 
                 finally
                 {
                     // Dismiss the OAuth login
-#if __ANDROID__ 
                     activity.FinishActivity(99);
-#endif
                 }
+#endif
             };
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource
@@ -453,6 +493,9 @@ namespace ArcGISRuntimeXamarin.Samples.AuthorMap
 #endif
                     }
                 }
+
+                // Cancel authentication
+                authenticator.OnCancelled();
             };
 
             // Present the OAuth UI so the user can enter user name and password

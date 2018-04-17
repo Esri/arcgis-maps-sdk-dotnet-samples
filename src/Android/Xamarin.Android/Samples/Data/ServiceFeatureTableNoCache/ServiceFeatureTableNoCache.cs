@@ -16,9 +16,14 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntimeXamarin.Samples.ServiceFeatureTableNoCache
+namespace ArcGISRuntime.Samples.ServiceFeatureTableNoCache
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Service feature table (no cache)",
+        "Data",
+        "This sample demonstrates how to use a feature service in on interaction no cache mode.",
+        "")]
     public class ServiceFeatureTableNoCache : Activity
     {
         // Create and hold reference to the used MapView

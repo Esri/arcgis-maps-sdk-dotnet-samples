@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+    x:Class="ArcGISRuntime.Samples.ChangeBlendRenderer.ChangeBlendRenderer"
+             Title="Blend Renderer">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackLayout Grid.Row="0" Orientation="Horizontal">
+            <Label x:Name="Label_Altitude" Text="Altitude" Margin="10,5"/>
+            <Slider x:Name="Altitude_Slider" WidthRequest="100"/>
+        </StackLayout>
+        <StackLayout Grid.Row="1" Orientation="Horizontal">
+            <Label x:Name="Label_Azimuth"  Text="Azimuth" Margin="10, 5"/>
+            <Slider x:Name="Azimuth_Slider" WidthRequest="100"/>
+        </StackLayout>
+        <StackLayout Grid.Row="2" Orientation="Horizontal">
+            <Label x:Name="Label_SlopeTypes"  Text="Slope Type" Margin="10, 5" WidthRequest="80"/>
+            <ListView x:Name="SlopeTypes" Margin="10,5" />
+        </StackLayout>
+        <StackLayout Grid.Row="3" Orientation="Horizontal">
+            <Label x:Name="Label_ColorRamps"  Text="Color Ramp" Margin="10, 5" WidthRequest="80"/>
+            <ListView x:Name="ColorRamps" Margin="10,5" />
+        </StackLayout>
+        <Button Grid.Row="4" x:Name="UpdateRenderer" Clicked="OnUpdateRendererClicked" Text="Update Renderer" IsEnabled="True" Margin="10,10" />
+        <esriUI:MapView Grid.Row="5" x:Name="MyMapView" />
+    </Grid>
+</ContentPage>

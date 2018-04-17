@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntime.Samples.ViewshedLocation.ViewshedLocation">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" HorizontalTextAlignment="End">Heading</Label>
+        <Label Grid.Row="1" Grid.Column="0" HorizontalTextAlignment="End">Pitch</Label>
+        <Label Grid.Row="2" Grid.Column="0" HorizontalTextAlignment="End">Horizontal Angle</Label>
+        <Label Grid.Row="3" Grid.Column="0" HorizontalTextAlignment="End">Vertical Angle</Label>
+        <Label Grid.Row="4" Grid.Column="0" HorizontalTextAlignment="End">Minimum Distance</Label>
+        <Label Grid.Row="5" Grid.Column="0" HorizontalTextAlignment="End">Maximum Distance</Label>
+        <Label Grid.Row="6" Grid.Column="0" HorizontalTextAlignment="End">Frustum Visibility</Label>
+        <Label Grid.Row="7" Grid.Column="0" HorizontalTextAlignment="End">Analysis Visibility</Label>
+
+        <Slider Grid.Row="0" Grid.Column="1" Maximum="360" Value="0" x:Name="HeadingSlider" ValueChanged="HandleSettingsChange" />
+        <Slider Grid.Row="1" Grid.Column="1" Maximum="180" Value="60" x:Name="PitchSlider" ValueChanged="HandleSettingsChange" />
+        <Slider Grid.Row="2" Grid.Column="1" Maximum="120" Minimum="1" Value="75" x:Name="HorizontalAngleSlider" ValueChanged="HandleSettingsChange" />
+        <Slider Grid.Row="3" Grid.Column="1" Maximum="120" Minimum="1" Value="90" x:Name="VerticalAngleSlider" ValueChanged="HandleSettingsChange" />
+        <Slider Grid.Row="4" Grid.Column="1" Maximum="8999" Value="0" x:Name="MinimumDistanceSlider" ValueChanged="HandleSettingsChange" />
+        <Slider Grid.Row="5" Grid.Column="1" Maximum="9999" Value="1500" x:Name="MaximumDistanceSlider" ValueChanged="HandleSettingsChange" />
+        <Switch Grid.Row="6" Grid.Column="1" x:Name="FrustumVisibilityCheck" Toggled="HandleSettingsChange" />
+        <Switch Grid.Row="7" Grid.Column="1" x:Name="AnalysisVisibilityCheck" Toggled="HandleSettingsChange" IsToggled="True" />
+
+        <Label Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" TextColor="Red">Click to change the viewshed location.</Label>
+        <esriUI:SceneView Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" x:Name="MySceneView" />
+    </Grid>
+</ContentPage>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntime.Samples.WmsServiceCatalog.WmsServiceCatalog">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="75" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Text="Select a WMS layer from the list for display:" Grid.Row="0" />
+        <ListView x:Name="MyDisplayList" Grid.Row="1" ItemSelected="MyDisplayList_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Title}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Label TextColor="Red" Text="Note: above list does not show layer hierarchy" Grid.Row="2" />
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="3" />
+    </Grid>
+</ContentPage>

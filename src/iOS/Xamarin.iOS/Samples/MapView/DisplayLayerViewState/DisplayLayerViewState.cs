@@ -16,9 +16,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayLayerViewState
+namespace ArcGISRuntime.Samples.DisplayLayerViewState
 {
     [Register("DisplayLayerViewState")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Display layer view state",
+        "MapView",
+        "This sample demonstrates how to get view status for layers in a map.",
+        "")]
     public class DisplayLayerViewState : UIViewController
     {
         // Create and hold reference to the used MapView
@@ -127,8 +132,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayLayerViewState
 
         private void CreateLayout()
         {
-            nfloat height = 80;
-
             //set up UIStackView for laying out controls
             var stackView = new UIStackView(new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height));
             stackView.Axis = UILayoutConstraintAxis.Vertical;

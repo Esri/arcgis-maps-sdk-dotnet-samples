@@ -15,9 +15,14 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.UseDistanceCompositeSym
+namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
 {
     [Register("UseDistanceCompositeSym")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Distance composite symbol",
+        "Symbology",
+        "This sample demonstrates how to create a `DistanceCompositeSceneSymbol` with unique marker symbols to display at various distances from the camera.",
+        "1. When the Scene initially loads, you will be looking at a point graphic symbolized with a 3D cone symbol.\n2. Zoom slightly closer to the graphic and the symbol will change to a blue 3D cube symbol.\n3. Zoom farther from the graphic and the symbol will change back to a 3D cone and then to a simple marker symbol.")]
     public class UseDistanceCompositeSym : UIViewController
     {
         // Create and hold reference to the used MapView
@@ -42,12 +47,9 @@ namespace ArcGISRuntimeXamarin.Samples.UseDistanceCompositeSym
 
         public override void ViewDidLayoutSubviews()
         {
-            // Define an offset from the top of the page (to account for the iOS status bar)
-            var yPageOffset = 60;
-
             // Setup the visual frame for the MapView
             _mySceneView.Frame = new CoreGraphics.CGRect(
-                0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset);
+                0, 0, View.Bounds.Width, View.Bounds.Height);
 
             base.ViewDidLayoutSubviews();
         }
@@ -78,8 +80,8 @@ namespace ArcGISRuntimeXamarin.Samples.UseDistanceCompositeSym
             graphicsOverlay.Graphics.Add(pointGraphic);
 
             // Set the viewpoint with a new camera focused on the graphic
-            Camera newCamara = new Camera(new MapPoint(-2.708471, 56.096575, 5000, SpatialReferences.Wgs84), 1500, 0, 80, 0);
-            _mySceneView.SetViewpointCameraAsync(newCamara);
+            Camera newCamera = new Camera(new MapPoint(-2.708471, 56.096575, 5000, SpatialReferences.Wgs84), 1500, 0, 80, 0);
+            _mySceneView.SetViewpointCameraAsync(newCamera);
         }
 
         private DistanceCompositeSceneSymbol CreateCompositeSymbol()

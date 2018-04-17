@@ -143,7 +143,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             // Create the graphic for an envelope inside Colorado - comprised of a polyline shape and line symbol.
             _containedGraphic = new Graphic(containedEnvelope, clipGeomtriesSimpleLineSymbol);
 
-            // Add the envelop inside Colorado graphic to the graphics overlay collection.
+            // Add the envelope inside Colorado graphic to the graphics overlay collection.
             _inputGeometriesGraphicsOverlay.Graphics.Add(_containedGraphic);
 
             // Get the extent of all of the graphics in the graphics overlay with a little padding to used as the initial zoom extent of the map.
@@ -180,22 +180,8 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             try
             {
                 // Remove the Colorado graphic from the input geometries graphics overlay collection. That way it will be easier 
-                // to see the clip versions of the of the GeometryEngine.Clip operation. 
+                // to see the clip versions of the GeometryEngine.Clip operation. 
                 _inputGeometriesGraphicsOverlay.Graphics.Remove(_coloradoGraphic);
-
-                // Create a simple line symbol for the resulting GeometryEngine.Clip operation geometries - it will be the same 
-                // as the one used for the boundary of Colorado.
-                SimpleLineSymbol clipGeometriesSimpleLineSymbol = new SimpleLineSymbol(
-                    SimpleLineSymbolStyle.Solid, Colors.Blue, 4);
-
-                // Create the color that will be used as the fill for the resulting GeometryEngine.Clip operation geometries. It 
-                // will be a semi-transparent, blue color and it will be the same as the one used for the boundary of Colorado.
-                Colors2 clipGeometriesFillColor = Colors2.FromArgb(34, 0, 0, 255);
-
-                // Create the simple fill symbol for the resulting GeometryEngine.Clip operation geometries - comprised of a 
-                // fill style, fill color and outline. It will be the same as the one used for the boundary of Colorado.
-                SimpleFillSymbol clipGeometriesSimpleFillSymbol = new SimpleFillSymbol(
-                    SimpleFillSymbolStyle.Solid, clipGeometriesFillColor, clipGeometriesSimpleLineSymbol);
 
                 // Loop through each graphic in the input geometries for the clip operation.
                 foreach (Graphic oneGraphic in _inputGeometriesGraphicsOverlay.Graphics)
@@ -208,8 +194,9 @@ namespace ArcGISRuntime.Samples.ClipGeometry
                     // Only work on returned geometries that are not null.
                     if (myGeometry != null)
                     {
-                        // Create the graphic as a result of the clip operation using the defined symbology. 
-                        Graphic clippedGraphic = new Graphic(myGeometry, clipGeometriesSimpleFillSymbol);
+                        // Create the graphic as a result of the clip operation using the same symbology that was defined for 
+                        // the _coloradoGraphic defined in the Initialize() method previously. 
+                        Graphic clippedGraphic = new Graphic(myGeometry, _coloradoGraphic.Symbol);
 
                         // Add the clipped graphic to the clip areas graphics overlay collection.
                         _clipAreasGraphicsOverlay.Graphics.Add(clippedGraphic);

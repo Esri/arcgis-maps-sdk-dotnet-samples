@@ -104,6 +104,10 @@ This sample demonstrates how to convert between `MapPoint` and string representa
 
 This sample demonstrates how to use the GeometryEngine.Buffer to generate a polygon from an input geometry with a buffer distance.
 
+* [Buffer list](Shared/Samples/GeometryEngine/BufferList)
+
+This sample demonstrates how to use the GeometryEngine.Buffer to generate one or more polygon from a series of input geometries and matching series of buffer distances. The option to union all the resulting buffer(s) is provided.
+
 * [Create geometries](Shared/Samples/GeometryEngine/CreateGeometries)
 
 This sample demonstrates simple ways to create different types of Geometry. The geometries are added as Graphics to a GraphicsOverlay and displayed in a MapView. An Envelope is used to set the Viewpoint of the MapView.

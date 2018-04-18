@@ -118,6 +118,8 @@
   </ItemGroup>
   <!-- Screenshots -->
   <ItemGroup>
+    <None Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg" />
+    <None Include="Samples\GeometryEngine\CutGeometry\CutGeometry.jpg" />
     <None Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
     <None Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg" />
     <None Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
@@ -232,6 +234,8 @@
   <ItemGroup>
     <Compile Include="Samples\GeometryEngine\BufferList\BufferList.cs" />
     <Compile Include="Samples\GeometryEngine\Buffer\Buffer.cs" />
+    <Compile Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.cs" />
+    <Compile Include="Samples\GeometryEngine\CutGeometry\CutGeometry.cs" />
     <Compile Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.cs" />
     <Compile Include="Samples\GeometryEngine\NearestVertex\NearestVertex.cs" />
     <Compile Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.cs" />
@@ -391,9 +395,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

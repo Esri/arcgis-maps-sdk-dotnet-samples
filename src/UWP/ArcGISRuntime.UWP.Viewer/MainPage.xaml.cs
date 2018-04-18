@@ -175,7 +175,7 @@ namespace ArcGISRuntime.UWP.Viewer
             e.Handled = true;
         }
 
-        private void OnSearchQuerySubmitted(SearchBox searchBox, SearchBoxQueryChangedEventArgs searchBoxQueryChangedEventArgs)
+        private void OnSearchQuerySubmitted(AutoSuggestBox searchBox, AutoSuggestBoxTextChangedEventArgs searchBoxQueryChangedEventArgs)
         {
             if (SearchToggleButton.IsChecked == true)
             {
@@ -211,7 +211,7 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private bool SampleSearchFunc(SampleInfo sample)
         {
-            return SampleManager.Current.SampleSearchFunc(sample, SearchBox.QueryText);
+            return SampleManager.Current.SampleSearchFunc(sample, SearchBox.Text);
         }
 
     }

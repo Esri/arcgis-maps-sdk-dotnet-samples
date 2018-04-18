@@ -189,10 +189,12 @@
                        Text="{Binding ElementName=Categories, Path=SelectedItem.Name}"
                        Foreground="{StaticResource PrimaryColor}"
                        FontSize="24"></TextBlock>
-            <SearchBox x:Name="SearchBox" RelativePanel.AlignRightWithPanel="True" 
+            <AutoSuggestBox x:Name="SearchBox" RelativePanel.AlignRightWithPanel="True" 
                             RelativePanel.AlignVerticalCenterWith="CategoryTitle" 
                             Width="240" PlaceholderText="i.e. ArcGISTileLayer" Margin="20,0"
-                            QueryChanged="OnSearchQuerySubmitted"></SearchBox>
+                            TextChanged="OnSearchQuerySubmitted"
+                            QueryIcon="Find"
+                            />
             <ToggleButton Style="{StaticResource SearchToggleButtonStyle}" x:Name="SearchToggleButton"
                           Visibility="Collapsed"
                           Width="60"

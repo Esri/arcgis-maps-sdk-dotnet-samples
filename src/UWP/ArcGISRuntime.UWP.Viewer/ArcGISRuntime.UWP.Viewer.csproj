@@ -133,6 +133,7 @@
     <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <Content Include="Samples\GeometryEngine\BufferList\BufferList.jpg" />
     <Content Include="Samples\GeometryEngine\Buffer\Buffer.jpg" />
+    <Content Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg" />
     <Content Include="Samples\GeometryEngine\CutGeometry\CutGeometry.jpg" />
     <Content Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
     <Content Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
@@ -178,6 +179,7 @@
     <Content Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.jpg" />
     <Content Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
     <Content Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg" />
+    <Content Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.jpg" />
     <Content Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg" />
     <Content Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.jpg" />
     <Content Include="Samples\Layers\WmsIdentify\WmsIdentify.jpg" />
@@ -336,6 +338,9 @@
     <Compile Include="Samples\GeometryEngine\Buffer\Buffer.xaml.cs">
       <DependentUpon>Buffer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.xaml.cs">
+      <DependentUpon>ClipGeometry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\GeometryEngine\CutGeometry\CutGeometry.xaml.cs">
       <DependentUpon>CutGeometry.xaml</DependentUpon>
     </Compile>
@@ -470,6 +475,9 @@
     </Compile>
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml.cs">
       <DependentUpon>SceneLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.xaml.cs">
+      <DependentUpon>ShowLabelsOnLayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml.cs">
       <DependentUpon>TimeBasedQuery.xaml</DependentUpon>
@@ -690,6 +698,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\GeometryEngine\CutGeometry\CutGeometry.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -867,6 +879,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

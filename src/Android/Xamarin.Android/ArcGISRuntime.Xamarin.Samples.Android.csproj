@@ -216,6 +216,7 @@
   <ItemGroup>
     <Compile Include="Samples\GeometryEngine\BufferList\BufferList.cs" />
     <Compile Include="Samples\GeometryEngine\Buffer\Buffer.cs" />
+    <Compile Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.cs" />
     <Compile Include="Samples\GeometryEngine\CutGeometry\CutGeometry.cs" />
     <Compile Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.cs" />
     <Compile Include="Samples\GeometryEngine\NearestVertex\NearestVertex.cs" />
@@ -232,6 +233,7 @@
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
     <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.cs" />
     <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.cs" />
+    <Compile Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.cs" />
     <Compile Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.cs" />
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.cs" />
     <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.cs" />
@@ -386,9 +388,11 @@
   <ItemGroup>
     <Content Include="Samples\GeometryEngine\BufferList\BufferList.jpg" />
     <Content Include="Samples\GeometryEngine\Buffer\Buffer.jpg" />
+    <Content Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg" />
     <Content Include="Samples\GeometryEngine\CutGeometry\CutGeometry.jpg" />
     <Content Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
     <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
+    <None Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.jpg" />
     <None Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />
     <None Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
   </ItemGroup>

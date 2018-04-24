@@ -13,9 +13,10 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
-using System.Windows;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.WPF.Samples.MapImageSublayerQuery
+namespace ArcGISRuntime.UWP.Samples.MapImageSublayerQuery
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Query a map image sublayer",
@@ -62,7 +63,7 @@ namespace ArcGISRuntime.WPF.Samples.MapImageSublayerQuery
             MyMapView.GraphicsOverlays.Add(_selectedFeaturesOverlay);
         }
 
-        private async void QuerySublayers_Click(object sender, System.Windows.RoutedEventArgs e)
+        private async void QuerySublayers_Click(object sender, RoutedEventArgs e)
         {
             // Clear selected features from the graphics overlay.
             _selectedFeaturesOverlay.Graphics.Clear();
@@ -71,7 +72,9 @@ namespace ArcGISRuntime.WPF.Samples.MapImageSublayerQuery
             double populationNumber = 0.0;
             if (!double.TryParse(PopulationTextBox.Text.Trim(), out populationNumber))
             {
-                MessageBox.Show("The population value must be numeric.", "Query error");
+                MessageDialog dialog = new MessageDialog("The population value must be numeric.", "Query error");
+                await dialog.ShowAsync();
+
                 return;
             }
 

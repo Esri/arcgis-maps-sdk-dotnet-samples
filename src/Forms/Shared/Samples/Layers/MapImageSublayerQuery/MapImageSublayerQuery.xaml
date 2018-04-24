@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntime.Samples.MapImageSublayerQuery.MapImageSublayerQuery">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView"/>
+        <Frame Background="White" BorderBrush="Black" BorderThickness="1"
+                HorizontalOptions="Center" VerticalOptions="Top"
+                Margin="30" Width="220">
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0"                           
+                           Margin="10" 
+                           HorizontalOptions="Right" VerticalOptions="Center" 
+                           Text="[POP2000] > " />
+                <Entry x:Name="PopulationTextBox" 
+                         Grid.Row="0" Grid.Column="1"                         
+                         Margin="10" 
+                         HorizontalOptions="Stretch" VerticalOptions="Center" HorizontalTextAlignment="Right"
+                         Text="1810000" />
+                <Button x:Name="QuerySublayers" 
+                        Grid.Row="2" Grid.ColumnSpan="2"
+                        HorizontalOptions="Center" VerticalOptions="Center"                        
+                        Margin="10"
+                        Text="Query in extent"
+                        Clicked="QuerySublayers_Click"/>
+            </Grid>
+        </Frame>
+    </Grid>
+</ContentPage>

@@ -28,7 +28,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\Web_TiledLayer\Web_TiledLayer.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
@@ -230,8 +230,8 @@
       <DependentUpon>FormatCoordinates.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml.cs">
-      <DependentUpon>Web_TiledLayer.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.xaml.cs">
+      <DependentUpon>LoadWebTiledLayer.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml.cs">
@@ -652,7 +652,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml">

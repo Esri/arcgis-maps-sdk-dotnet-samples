@@ -181,7 +181,7 @@
     <Content Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg" />
     <Content Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.jpg" />
     <Content Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg" />
-    <Content Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.jpg" />
+    <Content Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.jpg" />
     <Content Include="Samples\Layers\WmsIdentify\WmsIdentify.jpg" />
     <Content Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
     <Content Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg" />
@@ -482,8 +482,8 @@
     <Compile Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml.cs">
       <DependentUpon>TimeBasedQuery.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml.cs">
-      <DependentUpon>Web_TiledLayer.xaml</DependentUpon>
+    <Compile Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.xaml.cs">
+      <DependentUpon>LoadWebTiledLayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml.cs">
       <DependentUpon>WmsIdentify.xaml</DependentUpon>
@@ -890,7 +890,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml">
+    <Page Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

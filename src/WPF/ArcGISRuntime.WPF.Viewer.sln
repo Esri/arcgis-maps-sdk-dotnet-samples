@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.WPF.Viewer", 
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGISRuntime.Samples.Shared", "..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.shproj", "{0AD85845-0BA1-4DC9-8C32-E6FD7632E32D}"
 EndProject
+Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "ArcGISRuntime.WPF.Packaging", "ArcGISRuntime.WPF.Packaging\ArcGISRuntime.WPF.Packaging.wapproj", "{25E45C61-0A47-4387-BC83-2F0947258AD4}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{0ad85845-0ba1-4dc9-8c32-e6fd7632e32d}*SharedItemsImports = 13
@@ -14,13 +16,49 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Packaging|Any CPU = Packaging|Any CPU
+		Packaging|x64 = Packaging|x64
+		Packaging|x86 = Packaging|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|x64.ActiveCfg = Debug|x64
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|x64.Build.0 = Debug|x64
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|x86.ActiveCfg = Debug|x86
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|x86.Build.0 = Debug|x86
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Packaging|Any CPU.ActiveCfg = Packaging|Any CPU
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Packaging|Any CPU.Build.0 = Packaging|Any CPU
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Packaging|x64.ActiveCfg = Packaging|x64
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Packaging|x64.Build.0 = Packaging|x64
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Packaging|x86.ActiveCfg = Packaging|x86
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Packaging|x86.Build.0 = Packaging|x86
 		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x64.ActiveCfg = Release|x64
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x64.Build.0 = Release|x64
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x86.ActiveCfg = Release|Any CPU
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x86.Build.0 = Release|Any CPU
+		{25E45C61-0A47-4387-BC83-2F0947258AD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25E45C61-0A47-4387-BC83-2F0947258AD4}.Debug|x64.ActiveCfg = Debug|x64
+		{25E45C61-0A47-4387-BC83-2F0947258AD4}.Debug|x86.ActiveCfg = Debug|x86
+		{25E45C61-0A47-4387-BC83-2F0947258AD4}.Packaging|Any CPU.ActiveCfg = Release|Any CPU
+		{25E45C61-0A47-4387-BC83-2F0947258AD4}.Packaging|Any CPU.Build.0 = Release|Any CPU
+		{25E45C61-0A47-4387-BC83-2F0947258AD4}.Packaging|Any CPU.Deploy.0 = Release|Any CPU
+		{25E45C61-0A47-4387-BC83-2F0947258AD4}.Packaging|x64.ActiveCfg = Release|x64
+		{25E45C61-0A47-4387-BC83-2F0947258AD4}.Packaging|x64.Build.0 = Release|x64
+		{25E45C61-0A47-4387-BC83-2F0947258AD4}.Packaging|x64.Deploy.0 = Release|x64
+		{25E45C61-0A47-4387-BC83-2F0947258AD4}.Packaging|x86.ActiveCfg = Release|x86
+		{25E45C61-0A47-4387-BC83-2F0947258AD4}.Packaging|x86.Build.0 = Release|x86
+		{25E45C61-0A47-4387-BC83-2F0947258AD4}.Packaging|x86.Deploy.0 = Release|x86
+		{25E45C61-0A47-4387-BC83-2F0947258AD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25E45C61-0A47-4387-BC83-2F0947258AD4}.Release|x64.ActiveCfg = Release|x64
+		{25E45C61-0A47-4387-BC83-2F0947258AD4}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,12 +5,11 @@
              x:Class="ArcGISRuntime.Samples.MapImageSublayerQuery.MapImageSublayerQuery">
     <Grid>
         <esriUI:MapView x:Name="MyMapView"/>
-        <Frame Background="White" BorderBrush="Black" BorderThickness="1"
-                HorizontalOptions="Center" VerticalOptions="Top"
-                Margin="30" Width="220">
-            <Grid Margin="20">
+        <Frame BackgroundColor="White" Opacity="0.75"
+               HorizontalOptions="Center" VerticalOptions="Start"
+               Margin="20" WidthRequest="250">
+            <Grid Margin="5">
                 <Grid.RowDefinitions>
-                    <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
@@ -19,18 +18,30 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0"                           
-                           Margin="10" 
-                           HorizontalOptions="Right" VerticalOptions="Center" 
-                           Text="[POP2000] > " />
+                       Margin="2" 
+                       HorizontalOptions="End" VerticalOptions="Center" 
+                       Text="[POP2000] > ">
+                    <Label.TextColor>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="Android" Value="DarkBlue"/>
+                        </OnPlatform>
+                    </Label.TextColor>
+                </Label>
                 <Entry x:Name="PopulationTextBox" 
-                         Grid.Row="0" Grid.Column="1"                         
-                         Margin="10" 
-                         HorizontalOptions="Stretch" VerticalOptions="Center" HorizontalTextAlignment="Right"
-                         Text="1810000" />
+                       Grid.Row="0" Grid.Column="1"                         
+                       Margin="2" 
+                       HorizontalOptions="Fill"  VerticalOptions="Center" HorizontalTextAlignment="End"
+                       Text="1810000">
+                    <Entry.TextColor>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="Android" Value="DarkBlue"/>
+                        </OnPlatform>
+                    </Entry.TextColor>
+                </Entry>
                 <Button x:Name="QuerySublayers" 
-                        Grid.Row="2" Grid.ColumnSpan="2"
+                        Grid.Row="1" Grid.ColumnSpan="2"
                         HorizontalOptions="Center" VerticalOptions="Center"                        
-                        Margin="10"
+                        Margin="2"
                         Text="Query in extent"
                         Clicked="QuerySublayers_Click"/>
             </Grid>

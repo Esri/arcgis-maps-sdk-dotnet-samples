@@ -18,7 +18,11 @@ namespace ArcGISRuntime.Samples.Shared.Models
 {
     public partial class SampleInfo
     {
+#if NETFX_CORE || XAMARIN
         private string _pathStub = Directory.GetCurrentDirectory();
+#else
+        private string _pathStub = AppContext.BaseDirectory;
+#endif
 
         /// <summary>
         /// Gets the path to the sample on disk.

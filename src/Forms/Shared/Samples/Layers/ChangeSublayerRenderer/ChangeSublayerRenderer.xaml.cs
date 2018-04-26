@@ -15,9 +15,9 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 
 #if WINDOWS_UWP
-using Colors2 = Windows.UI.Color;
+using Colors = Windows.UI.Color;
 #else
-using Colors2 = System.Drawing.Color;
+using Colors = System.Drawing.Color;
 #endif
 
 namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
@@ -71,12 +71,12 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
         private ClassBreaksRenderer CreateClassBreaksRenderer()
         {
             // Define the colors that will be used by the unique value renderer.
-            Colors2 gray = Colors2.FromArgb(255, 153, 153, 153);
-            Colors2 blue1 = Colors2.FromArgb(255, 227, 235, 207);
-            Colors2 blue2 = Colors2.FromArgb(255, 150, 194, 191);
-            Colors2 blue3 = Colors2.FromArgb(255, 97, 166, 181);
-            Colors2 blue4 = Colors2.FromArgb(255, 69, 125, 150);
-            Colors2 blue5 = Colors2.FromArgb(255, 41, 84, 120);
+            Colors gray = Colors.FromArgb(255, 153, 153, 153);
+            Colors blue1 = Colors.FromArgb(255, 227, 235, 207);
+            Colors blue2 = Colors.FromArgb(255, 150, 194, 191);
+            Colors blue3 = Colors.FromArgb(255, 97, 166, 181);
+            Colors blue4 = Colors.FromArgb(255, 69, 125, 150);
+            Colors blue5 = Colors.FromArgb(255, 41, 84, 120);
 
             // Create a gray outline and five fill symbols with different shades of blue.
             SimpleLineSymbol outlineSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, gray, 1);
@@ -110,6 +110,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
 
             // Disable the button after has been used.
             ChangeSublayerRendererButton.IsEnabled = false;
+            ChangeSublayerRendererButton.TextColor = Color.Gray;
         }
     }
 }

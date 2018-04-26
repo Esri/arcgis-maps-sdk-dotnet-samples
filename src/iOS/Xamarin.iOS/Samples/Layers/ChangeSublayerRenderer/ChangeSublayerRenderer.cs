@@ -139,6 +139,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
 
             // Disable the button after has been used.
             _changeSublayerRendererButton.Enabled = false;
+            _changeSublayerRendererButton.SetTitleColor(UIColor.Gray,UIControlState.Disabled);
         }
 
         private void CreateLayout()

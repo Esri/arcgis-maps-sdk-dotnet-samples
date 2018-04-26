@@ -130,7 +130,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
 
             // Create button to change the sublayer renderer.
             _changeSublayerRendererButton = new Button(this);
-            _changeSublayerRendererButton.Text = "'Change Sublayer Renderer'";
+            _changeSublayerRendererButton.Text = "Change Sublayer Renderer";
             _changeSublayerRendererButton.Click += ChangeSublayerRendererButton_Click;
             layout.AddView(_changeSublayerRendererButton);
 

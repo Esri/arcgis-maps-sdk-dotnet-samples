@@ -160,6 +160,7 @@
     <Content Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.jpg" />
     <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg" />
     <Content Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
+    <Content Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.jpg" />
     <Content Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg" />
     <Content Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.jpg" />
     <Content Include="Samples\Layers\DisplayScene\DisplayScene.jpg" />
@@ -418,6 +419,9 @@
     </Compile>
     <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml.cs">
       <DependentUpon>ChangeStretchRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.xaml.cs">
+      <DependentUpon>ChangeSublayerRenderer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.xaml.cs">
       <DependentUpon>ChangeSublayerVisibility.xaml</DependentUpon>
@@ -803,6 +807,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

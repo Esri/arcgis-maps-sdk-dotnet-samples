@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntime.Samples.ChangeSublayerRenderer.ChangeSublayerRenderer">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label x:Name="ChangeSublayerRendererInstructionsLabel"
+               Grid.Row="0"
+               FontSize="Small"
+               Text="Click the 'Change Sublayer Renderer' button to apply a unique value renderer to the counties sub-layer.">
+        </Label>
+        <Button x:Name="ChangeSublayerRendererButton"
+                Grid.Row="1"
+                Text="Change sublayer renderer"
+                Clicked="ChangeSublayerRendererButton_Clicked"/>
+        <esriUI:MapView x:Name="MyMapView" 
+                        Grid.Row="2"/>
+    </Grid>
+</ContentPage>

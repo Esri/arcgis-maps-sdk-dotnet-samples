@@ -214,6 +214,7 @@
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
+    <Compile Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.cs" />
     <Compile Include="Samples\GeometryEngine\BufferList\BufferList.cs" />
     <Compile Include="Samples\GeometryEngine\Buffer\Buffer.cs" />
     <Compile Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.cs" />
@@ -387,6 +388,7 @@
     <None Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.jpg" />
     <Content Include="Samples\GeometryEngine\BufferList\BufferList.jpg" />
     <Content Include="Samples\GeometryEngine\Buffer\Buffer.jpg" />
     <Content Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg" />

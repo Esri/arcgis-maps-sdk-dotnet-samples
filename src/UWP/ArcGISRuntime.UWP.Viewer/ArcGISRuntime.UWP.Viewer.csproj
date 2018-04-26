@@ -116,6 +116,7 @@
     <Content Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
     <Content Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg" />
     <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
+    <Content Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.jpg" />
     <Content Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
     <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
     <Content Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg" />
@@ -287,6 +288,9 @@
     </Compile>
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml.cs">
       <DependentUpon>EditAndSyncFeatures.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.xaml.cs">
+      <DependentUpon>FeatureLayerGeodatabase.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.xaml.cs">
       <DependentUpon>FeatureLayerGeoPackage.xaml</DependentUpon>
@@ -631,6 +635,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

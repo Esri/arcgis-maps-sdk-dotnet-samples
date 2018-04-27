@@ -17,7 +17,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerGeodatabase
         "Feature layer (geodatabase)",
         "Data",
         "This sample demonstrates how to consume an Esri .geodatabase file (aka. mobile geodatabase) by using a FeatureLayer and a GeodatabaseFeatureTable.",
-        "The mobile geodatabase (.geodatabase file) will be downloaded from an ArcGIS On-line portal automatically from the Url: https://www.arcgis.com/home/item.html?id=2b0f9e17105847809dfeb04e3cad69e0.",
+        "The mobile geodatabase (.geodatabase file) will be downloaded from an ArcGIS Online portal automatically from the Url: https://www.arcgis.com/home/item.html?id=2b0f9e17105847809dfeb04e3cad69e0.",
         "")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("2b0f9e17105847809dfeb04e3cad69e0")]
     public partial class FeatureLayerGeodatabase

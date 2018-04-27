@@ -305,6 +305,7 @@
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.cs" />
     <Compile Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.cs" />
     <Compile Include="Samples\Layers\WmsIdentify\WmsIdentify.cs" />
+    <Compile Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.cs" />
     <Compile Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.cs" />
     <Compile Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.cs" />
     <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.cs" />
@@ -395,6 +396,9 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

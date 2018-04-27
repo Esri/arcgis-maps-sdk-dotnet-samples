@@ -185,6 +185,7 @@
     <Content Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg" />
     <Content Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.jpg" />
     <Content Include="Samples\Layers\WmsIdentify\WmsIdentify.jpg" />
+    <Content Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.jpg" />
     <Content Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
     <Content Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg" />
     <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
@@ -486,6 +487,9 @@
     </Compile>
     <Compile Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml.cs">
       <DependentUpon>WmsIdentify.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.xaml.cs">
+      <DependentUpon>StyleWmsLayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.xaml.cs">
       <DependentUpon>WMSLayerUrl.xaml</DependentUpon>
@@ -890,6 +894,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

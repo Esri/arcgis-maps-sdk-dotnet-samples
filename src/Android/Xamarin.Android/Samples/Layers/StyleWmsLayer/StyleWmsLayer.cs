@@ -35,7 +35,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
         // Hold a reference to the layer to enable re-styling.
         private WmsLayer _mnWmsLayer;
 
-        // Hold references to the views.
+        // Hold references to the UI components.
         private MapView _myMapView = new MapView();
         private Button _firstStyleButton;
         private Button _secondStyleButton;
@@ -58,7 +58,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             // Create a new vertical layout for the app.
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-            // Create the views.
+            // Create the UI components.
             TextView helpLabel = new TextView(this)
             {
                 Text = "Choose a style",
@@ -80,6 +80,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             _secondStyleButton.Click += SecondStyleButton_Clicked;
 
             // Add the views to the layout.
+            layout.AddView(helpLabel);
             layout.AddView(_firstStyleButton);
             layout.AddView(_secondStyleButton);
             layout.AddView(_myMapView);
@@ -96,11 +97,13 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
                 Map myMap = new Map(Basemap.CreateImagery());
 
                 // Create a new WMS layer displaying the specified layers from the service.
+                // The default styles are chosen by default, which corresponds to 'Style 1' in the UI.
                 _mnWmsLayer = new WmsLayer(_wmsUrl, _wmsLayerNames);
 
                 // Wait for the layer to load.
                 await _mnWmsLayer.LoadAsync();
 
+                // Center the map on the layer's contents.
                 myMap.InitialViewpoint = new Viewpoint(_mnWmsLayer.FullExtent);
 
                 // Add the layer to the map.

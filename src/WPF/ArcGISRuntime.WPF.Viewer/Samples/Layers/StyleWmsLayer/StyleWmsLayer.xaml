@@ -22,13 +22,15 @@
                            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                            Margin="0,0,0,2" TextWrapping="Wrap"
                            TextAlignment="Center" />
-                <Button x:Name="FirstStyleButton" Content="Style 1"
-                        IsEnabled="False"
+                <Button x:Name="FirstStyleButton"
                         Grid.Row="1" Grid.Column="0" 
-                        Click="FirstStyleButton_Clicked"/>
-                <Button x:Name="SecondStyleButton" Content="Style 2"
+                        Content="Style 1"
                         IsEnabled="False"
+                        Click="FirstStyleButton_Clicked"/>
+                <Button x:Name="SecondStyleButton"
                         Grid.Row="1" Grid.Column="1"
+                        Content="Style 2"
+                        IsEnabled="False"
                         Click="SecondStyleButton_Clicked" />
             </Grid>
         </Border>

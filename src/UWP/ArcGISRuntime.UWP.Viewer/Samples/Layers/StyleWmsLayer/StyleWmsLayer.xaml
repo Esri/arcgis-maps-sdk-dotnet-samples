@@ -23,13 +23,13 @@
                            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                            HorizontalTextAlignment="Center" />
                 <Button x:Name="FirstStyleButton"
-                        Content="Style 1" IsEnabled="False"
                         Grid.Row="1" Grid.Column="0"
+                        Content="Style 1" IsEnabled="False"
                         HorizontalAlignment="Stretch" Margin="0,0,10,0"
                         Click="FirstStyleButton_Clicked"/>
                 <Button x:Name="SecondStyleButton"
-                        Content="Style 2" IsEnabled="False"
                         Grid.Row="1" Grid.Column="1"
+                        Content="Style 2" IsEnabled="False"
                         HorizontalAlignment="Stretch" Margin="10,0,0,0"
                         Click="SecondStyleButton_Clicked"></Button>
             </Grid>

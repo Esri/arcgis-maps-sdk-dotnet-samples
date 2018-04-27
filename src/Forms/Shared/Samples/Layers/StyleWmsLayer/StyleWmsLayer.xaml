@@ -10,21 +10,22 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Label Text="Choose a style" 
-               HorizontalTextAlignment="Center" 
-               Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
+        <Label
+                Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                Text="Choose a style"
+                HorizontalTextAlignment="Center" />
         <Button x:Name="FirstStyleButton"
-                Text="Style 1"
                 Grid.Row="1" Grid.Column="0"
-                Clicked="FirstStyleButton_Clicked"/>
+                Text="Style 1"
+                Clicked="FirstStyleButton_Clicked" />
         <Button x:Name="SecondStyleButton"
-                Text="Style 2"
                 Grid.Row="1" Grid.Column="1"
-                Clicked="SecondStyleButton_Clicked"/>
-        <esriUI:MapView x:Name="MyMapView" 
+                Text="Style 2"
+                Clicked="SecondStyleButton_Clicked" />
+        <esriUI:MapView x:Name="MyMapView"
                         Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
     </Grid>
 </ContentPage>

@@ -35,7 +35,7 @@ namespace ArcGISRuntime.UWP.Samples.StyleWmsLayer
         {
             InitializeComponent();
 
-            // Execute initialization
+            // Execute initialization.
             InitializeAsync();
         }
 
@@ -47,11 +47,13 @@ namespace ArcGISRuntime.UWP.Samples.StyleWmsLayer
                 Map myMap = new Map(Basemap.CreateImagery());
 
                 // Create a new WMS layer displaying the specified layers from the service.
+                // The default styles are chosen by default, which corresponds to 'Style 1' in the UI.
                 _mnWmsLayer = new WmsLayer(_wmsUrl, _wmsLayerNames);
 
                 // Wait for the layer to load.
                 await _mnWmsLayer.LoadAsync();
 
+                // Center the map on the layer's contents.
                 myMap.InitialViewpoint = new Viewpoint(_mnWmsLayer.FullExtent);
 
                 // Add the layer to the map.

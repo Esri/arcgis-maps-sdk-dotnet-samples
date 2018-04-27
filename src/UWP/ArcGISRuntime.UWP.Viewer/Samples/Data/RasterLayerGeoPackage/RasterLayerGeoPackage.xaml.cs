@@ -34,7 +34,7 @@ namespace ArcGISRuntime.UWP.Samples.RasterLayerGeoPackage
         private async void Initialize()
         {
             // Create a new map centered on Aurora Colorado
-            MyMapView.Map = new Map(BasemapType.LightGrayCanvas, 39.5517, -104.8589, 12);
+            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
 
             // Get the full path
             string geoPackagePath = GetGeoPackagePath();
@@ -51,6 +51,9 @@ namespace ArcGISRuntime.UWP.Samples.RasterLayerGeoPackage
             // Create a layer to show the raster
             RasterLayer newLayer = new RasterLayer(gpkgRaster);
             await newLayer.LoadAsync();
+
+            // Set the viewpoint
+            await MyMapView.SetViewpointAsync(new Viewpoint(newLayer.FullExtent));
 
             // Add the image as a raster layer to the map (with default symbology)
             MyMapView.Map.OperationalLayers.Add(newLayer);

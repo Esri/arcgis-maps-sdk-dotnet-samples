@@ -76,6 +76,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterRenderingRule\RasterRenderingRule.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WmsIdentify\WmsIdentify.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\StyleWmsLayer\StyleWmsLayer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
@@ -172,6 +173,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>ChangeStretchRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\StyleWmsLayer\StyleWmsLayer.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>StyleWmsLayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml.cs">
       <SubType>Code</SubType>
@@ -596,6 +601,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\StyleWmsLayer\StyleWmsLayer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml">

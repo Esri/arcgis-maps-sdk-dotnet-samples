@@ -11,7 +11,6 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using Esri.ArcGISRuntime.Geometry;
 
 namespace ArcGISRuntime.WPF.Samples.StyleWmsLayer
 {

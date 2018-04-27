@@ -11,9 +11,8 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.StyleWmsLayer
+namespace ArcGISRuntime.Samples.StyleWmsLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Style WMS layers",
@@ -70,7 +69,7 @@ namespace ArcGISRuntime.UWP.Samples.StyleWmsLayer
             }
         }
 
-        private void FirstStyleButton_Clicked(object sender, RoutedEventArgs e)
+        private void FirstStyleButton_Clicked(object sender, EventArgs e)
         {
             // Get the available styles from the first sublayer.
             IReadOnlyList<string> styles = _mnWmsLayer.Sublayers[0].SublayerInfo.Styles;
@@ -79,7 +78,7 @@ namespace ArcGISRuntime.UWP.Samples.StyleWmsLayer
             _mnWmsLayer.Sublayers[0].CurrentStyle = styles[0];
         }
 
-        private void SecondStyleButton_Clicked(object sender, RoutedEventArgs e)
+        private void SecondStyleButton_Clicked(object sender, EventArgs e)
         {
             // Get the available styles from the first sublayer.
             IReadOnlyList<string> styles = _mnWmsLayer.Sublayers[0].SublayerInfo.Styles;

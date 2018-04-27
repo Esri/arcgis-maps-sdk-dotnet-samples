@@ -7,24 +7,24 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using CoreGraphics;
+using Android.App;
+using Android.OS;
+using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
-using Foundation;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using UIKit;
+using Android.Views;
 
 namespace ArcGISRuntime.Samples.StyleWmsLayer
 {
-    [Register("StyleWmsLayer")]
+    [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Style WMS layers",
         "Layers",
         "This sample demonstrates how to select from the available styles on WMS sublayers. ",
         "Click to select from one of the two pre-set styles.")]
-    public class StyleWmsLayer : UIViewController
+    public class StyleWmsLayer : Activity
     {
         // Hold the URL to the service, which has satellite imagery covering the state of Minnesota.
         private Uri _wmsUrl = new Uri("http://geoint.lmic.state.mn.us/cgi-bin/wms?VERSION=1.3.0&SERVICE=WMS&REQUEST=GetCapabilities");
@@ -37,32 +37,14 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
 
         // Hold references to the views.
         private MapView _myMapView = new MapView();
-        private UIButton _firstStyleButton = new UIButton
-        {
-            Enabled = false,
-            HorizontalAlignment = UIControlContentHorizontalAlignment.Center
-        };
-        private UIButton _secondStyleButton = new UIButton
-        {
-            Enabled = false,
-            HorizontalAlignment = UIControlContentHorizontalAlignment.Center
-        };
-        private UILabel _helpLabel = new UILabel
-        {
-            Text = "Choose a Style",
-            TextAlignment = UITextAlignment.Center,
-            TextColor = UIColor.Red
-        };
-        private UIToolbar _buttonContainer = new UIToolbar();
+        private Button _firstStyleButton;
+        private Button _secondStyleButton;
 
-        public StyleWmsLayer()
+        protected override void OnCreate(Bundle bundle)
         {
+            base.OnCreate(bundle);
+
             Title = "Style WMS layers";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
 
             // Create the UI, setup the control references.
             CreateLayout();
@@ -73,20 +55,37 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
 
         private void CreateLayout()
         {
-            // Add the mapview to the view.
-            View.AddSubviews(_myMapView, _buttonContainer, _firstStyleButton, _secondStyleButton, _helpLabel);
+            // Create a new vertical layout for the app.
+            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-            // Update the button text.
-            _firstStyleButton.SetTitle("Style 1", UIControlState.Normal);
-            _secondStyleButton.SetTitle("Style 2", UIControlState.Normal);
+            // Create the views.
+            TextView helpLabel = new TextView(this)
+            {
+                Text = "Choose a style",
+                TextAlignment = TextAlignment.Center
+            };
+            _firstStyleButton = new Button(this)
+            {
+                Text = "Style 1",
+                Enabled = false
+            };
+            _secondStyleButton = new Button(this)
+            {
+                Text = "Style 2",
+                Enabled = false
+            };
 
-            // Update the colors.
-            _firstStyleButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _secondStyleButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            // Subscribe to events.
+            _firstStyleButton.Click += FirstStyleButton_Clicked;
+            _secondStyleButton.Click += SecondStyleButton_Clicked;
 
-            // Subscribe to the button click events.
-            _firstStyleButton.TouchUpInside += FirstStyleButton_Clicked;
-            _secondStyleButton.TouchUpInside += SecondStyleButton_Clicked;
+            // Add the views to the layout.
+            layout.AddView(_firstStyleButton);
+            layout.AddView(_secondStyleButton);
+            layout.AddView(_myMapView);
+
+            // Show the layout in the app.
+            SetContentView(layout);
         }
 
         private async void InitializeAsync()
@@ -117,7 +116,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             catch (Exception ex)
             {
                 // Any exceptions in the async void method must be caught, otherwise they will result in a crash.
-                Debug.WriteLine(ex.ToString());
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
             }
         }
 
@@ -137,28 +136,6 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
 
             // Apply the second style to the first sublayer.
             _mnWmsLayer.Sublayers[0].CurrentStyle = styles[1];
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            // Calculate the top margin.
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-            // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Update the insets for the map view (to ensure attribution bar is visible, among other reasons).
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 50, 0);
-
-            // Update the toolbar and button positions.
-            _buttonContainer.Frame = new CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
-            _firstStyleButton.Frame = new CGRect(10, View.Bounds.Height - 40, View.Bounds.Width / 2 - 10, 30);
-            _secondStyleButton.Frame = new CGRect(View.Bounds.Width / 2 + 10, View.Bounds.Height - 40, View.Bounds.Width / 2 - 10, 30);
-
-            // Update the help label position.
-            _helpLabel.Frame = new CGRect(0, View.Bounds.Height - 90, View.Bounds.Width, 20);
-
-            base.ViewDidLayoutSubviews();
         }
     }
 }

@@ -28,6 +28,7 @@ namespace ArcGISRuntime.UWP.Samples.StyleWmsLayer
         // Hold a list of uniquely-identifying WMS layer names to display.
         private List<String> _wmsLayerNames = new List<string> { "fsa2017" };
 
+        // Hold a reference to the layer to enable re-styling.
         private WmsLayer _mnWmsLayer;
 
         public StyleWmsLayer()

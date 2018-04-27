@@ -334,6 +334,7 @@
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
+    <Compile Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.cs" />
     <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
     <Compile Include="Samples\GeometryEngine\BufferList\BufferList.cs" />
     <Compile Include="Samples\GeometryEngine\Buffer\Buffer.cs" />
@@ -478,6 +479,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

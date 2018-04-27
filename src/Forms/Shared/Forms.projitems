@@ -12,6 +12,7 @@
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\SpatialOperations\SpatialOperations.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
@@ -117,6 +118,10 @@
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>FeatureLayerGeodatabase.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\BufferList\BufferList.xaml.cs">
       <DependentUpon>BufferList.xaml</DependentUpon>
     </Compile>
@@ -567,6 +572,9 @@
   </ItemGroup>
   <!-- Sample XAML -->
   <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\BufferList\BufferList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

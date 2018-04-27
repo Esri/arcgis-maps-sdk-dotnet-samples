@@ -36,7 +36,7 @@ namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
 
         private async void Initialize()
         {
-            // Create a new map centered on Aurora Colorado
+            // Create a new map
             MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
 
             // Get the full path

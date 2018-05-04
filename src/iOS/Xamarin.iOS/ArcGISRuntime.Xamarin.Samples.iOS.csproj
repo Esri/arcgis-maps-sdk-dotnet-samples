@@ -339,6 +339,7 @@
     <Compile Include="Samples\GeometryEngine\BufferList\BufferList.cs" />
     <Compile Include="Samples\GeometryEngine\Buffer\Buffer.cs" />
     <Compile Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.cs" />
+    <Compile Include="Samples\GeometryEngine\ConvexHull\ConvexHull.cs" />
     <Compile Include="Samples\GeometryEngine\CutGeometry\CutGeometry.cs" />
     <Compile Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.cs" />
     <Compile Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.cs" />
@@ -482,6 +483,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\GeometryEngine\ConvexHull\ConvexHull.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

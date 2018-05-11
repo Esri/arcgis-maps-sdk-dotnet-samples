@@ -135,6 +135,7 @@
     <Content Include="Samples\GeometryEngine\BufferList\BufferList.jpg" />
     <Content Include="Samples\GeometryEngine\Buffer\Buffer.jpg" />
     <Content Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg" />
+    <Content Include="Samples\GeometryEngine\ConvexHullList\ConvexHullList.jpg" />
     <Content Include="Samples\GeometryEngine\CutGeometry\CutGeometry.jpg" />
     <Content Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
     <Content Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
@@ -345,6 +346,9 @@
     </Compile>
     <Compile Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.xaml.cs">
       <DependentUpon>ClipGeometry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GeometryEngine\ConvexHullList\ConvexHullList.xaml.cs">
+      <DependentUpon>ConvexHullList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeometryEngine\CutGeometry\CutGeometry.xaml.cs">
       <DependentUpon>CutGeometry.xaml</DependentUpon>
@@ -711,6 +715,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeometryEngine\ConvexHullList\ConvexHullList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

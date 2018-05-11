@@ -1,0 +1,36 @@
+﻿<UserControl
+    x:Class="ArcGISRuntime.UWP.Samples.ConvexHullList.ConvexHullList"
+    x:Name="_this"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ArcGISRuntime.UWP.Samples.ConvexHullList"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border
+            Background="White"
+            BorderBrush="Black" BorderThickness="1"
+            HorizontalAlignment="Right" VerticalAlignment="Top"
+            Margin="30"
+            Padding="20"
+            Width="375">
+            <StackPanel>
+                <TextBlock x:Name="ConvexHullListInstructionsLabel" 
+                           TextWrapping="Wrap">
+                           Click the 'ConvexHull' button to create convex hull(s) from the polygon 
+                           graphics. If the 'Union' checkbox is checked, the resulting output will 
+                           be one polygon being the convex hull for the two input polygons. If the 
+                           'Union' checkbox is un-checked, the resulting output will have two convex 
+                           hull polygons - one for each of the two input polygons.
+                </TextBlock>
+                <Button x:Name="ConvexHullListButton" 
+                    Content="Convex Hull"
+                    Margin="0,5,0,5"
+                    Click="ConvexHullListButton_Click"/>
+                <CheckBox x:Name="ConvexHullListCheckBox"
+                    Content="Union"
+                    IsChecked="True"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

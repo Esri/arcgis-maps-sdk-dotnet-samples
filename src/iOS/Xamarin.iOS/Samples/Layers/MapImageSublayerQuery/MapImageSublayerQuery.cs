@@ -28,20 +28,21 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         "Query", "Sublayer", "MapServer", "Table")]
     public class MapImageSublayerQuery : UIViewController
     {
-        // Constant holding offset where the MapView control should start
+        // Constant for the location (offset from the top) where the sample UI should start.
         private const int yPageOffset = 60;
 
         // MapView control for displaying the map.
         private MapView _myMapView = new MapView();
+       
+        // Graphics overlay for showing selected features.
+        private GraphicsOverlay _selectedFeaturesOverlay;
 
-        // Stack view with population input and query controls.
-       // private UIStackView _populationInputLayout;
-
-        // Use a private variable to reference the graphics overlay for showing selected features.
-        private Esri.ArcGISRuntime.UI.GraphicsOverlay _selectedFeaturesOverlay;
-
+        // Label that describes the query input ("[POP2000] > ").
         private UILabel _populationLabel;
+
+        // Button to execute the query in the current map extent with the provided population value.
         private UIButton _queryButton;
+
         // A text input for the population value to query with.
         private UITextField _populationValueInput;
 
@@ -61,8 +62,7 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
 
         public override void ViewDidLayoutSubviews()
         {
-            // Set the frame for the population entry controls view.
-            //  _populationInputLayout.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 200);
+            // Set the frame for the population entry controls.
             _populationLabel.Frame = new CoreGraphics.CGRect(10, yPageOffset + 10, 150, 30);
             _populationValueInput.Frame = new CoreGraphics.CGRect(170, yPageOffset + 10, View.Bounds.Width - 10, 30);
             _queryButton.Frame = new CoreGraphics.CGRect(100, yPageOffset + 45, View.Bounds.Width - 200, 30);
@@ -99,6 +99,7 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
             _myMapView.GraphicsOverlays.Add(_selectedFeaturesOverlay);
         }
 
+        // Function to query map image sublayers when the query button is clicked.
         private async void QuerySublayers_Click(object sender, EventArgs e)
         {
             // Clear selected features from the graphics overlay.
@@ -174,33 +175,23 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
 
         private void CreateLayout()
         {
-            // Create a vertical layout for the query controls.
-            //_populationInputLayout = new UIStackView {
-            //    Axis = UILayoutConstraintAxis.Vertical,
-            //    BackgroundColor = UIColor.White
-            //};
-
             // Create the population query controls: a label, a text input, and a button to execute the query.
             _populationLabel = new UILabel { Text = "[POP2000] > ", BackgroundColor = UIColor.White };
-            _populationValueInput = new UITextField { Text = "1800000" };
-            _populationValueInput.BackgroundColor = UIColor.White;
-            _populationValueInput.TextColor = UIColor.Blue;
+            _populationValueInput = new UITextField { 
+                Text = "1800000",
+                BackgroundColor = UIColor.White,
+                TextColor = UIColor.White 
+            };
+
             _queryButton = new UIButton(UIButtonType.Plain);
             _queryButton.SetTitle("Query", UIControlState.Normal);
             _queryButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
             _queryButton.BackgroundColor = UIColor.White;
-            
-            // Add the controls to the horizontal layout.
-            //_populationInputLayout.Add(populationLabel);
-            //_populationInputLayout.Add(_populationValueInput);
-            //_populationInputLayout.Add(queryButton);
 
             // Wire the event handler for the query button click.
             _queryButton.TouchUpInside += QuerySublayers_Click;
 
             // Add the query controls and map view to the app layout.
-            // View.AddSubview(_populationInputLayout);
-            _myMapView.BackgroundColor = UIColor.Gray;
             View.AddSubview(_populationLabel);
             View.AddSubview(_populationValueInput);
             View.AddSubview(_queryButton);

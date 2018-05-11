@@ -35,11 +35,13 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         private MapView _myMapView = new MapView();
 
         // Stack view with population input and query controls.
-        private UIStackView _populationInputLayout;
+       // private UIStackView _populationInputLayout;
 
         // Use a private variable to reference the graphics overlay for showing selected features.
         private Esri.ArcGISRuntime.UI.GraphicsOverlay _selectedFeaturesOverlay;
 
+        private UILabel _populationLabel;
+        private UIButton _queryButton;
         // A text input for the population value to query with.
         private UITextField _populationValueInput;
 
@@ -60,10 +62,13 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         public override void ViewDidLayoutSubviews()
         {
             // Set the frame for the population entry controls view.
-            _populationInputLayout.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, 200);
+            //  _populationInputLayout.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 200);
+            _populationLabel.Frame = new CoreGraphics.CGRect(10, yPageOffset + 10, 150, 30);
+            _populationValueInput.Frame = new CoreGraphics.CGRect(170, yPageOffset + 10, View.Bounds.Width - 10, 30);
+            _queryButton.Frame = new CoreGraphics.CGRect(100, yPageOffset + 45, View.Bounds.Width - 200, 30);
 
             // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 200, View.Bounds.Width, View.Bounds.Height-200);
+            _myMapView.Frame = new CoreGraphics.CGRect(0, yPageOffset + 75, View.Bounds.Width, View.Bounds.Height-(yPageOffset + 75));
 
             base.ViewDidLayoutSubviews();
         }
@@ -103,6 +108,7 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
             if (!double.TryParse(_populationValueInput.Text.Trim(), out double populationNumber))
             {
                 UIAlertController alert = UIAlertController.Create("Invalid number", "Population value must be numeric.", UIAlertControllerStyle.Alert);
+                alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alert, true, null);
 
                 return;
@@ -168,29 +174,38 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
 
         private void CreateLayout()
         {
-            // Create a horizontal layout for the query controls.
-            _populationInputLayout = new UIStackView {
-                Axis = UILayoutConstraintAxis.Horizontal,
-                BackgroundColor = new UIColor(0.9f, 0.5f)
-            };
+            // Create a vertical layout for the query controls.
+            //_populationInputLayout = new UIStackView {
+            //    Axis = UILayoutConstraintAxis.Vertical,
+            //    BackgroundColor = UIColor.White
+            //};
 
             // Create the population query controls: a label, a text input, and a button to execute the query.
-            UILabel populationLabel = new UILabel { Text = "[POP2000] > " };
+            _populationLabel = new UILabel { Text = "[POP2000] > ", BackgroundColor = UIColor.White };
             _populationValueInput = new UITextField { Text = "1800000" };
-            UIButton queryButton = new UIButton(UIButtonType.Plain);
-            queryButton.SetTitle("Query", UIControlState.Normal);
+            _populationValueInput.BackgroundColor = UIColor.White;
+            _populationValueInput.TextColor = UIColor.Blue;
+            _queryButton = new UIButton(UIButtonType.Plain);
+            _queryButton.SetTitle("Query", UIControlState.Normal);
+            _queryButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _queryButton.BackgroundColor = UIColor.White;
             
             // Add the controls to the horizontal layout.
-            _populationInputLayout.Add(populationLabel);
-            _populationInputLayout.Add(_populationValueInput);
-            _populationInputLayout.Add(queryButton);
+            //_populationInputLayout.Add(populationLabel);
+            //_populationInputLayout.Add(_populationValueInput);
+            //_populationInputLayout.Add(queryButton);
 
             // Wire the event handler for the query button click.
-            queryButton.TouchUpInside += QuerySublayers_Click;
+            _queryButton.TouchUpInside += QuerySublayers_Click;
 
             // Add the query controls and map view to the app layout.
-            View.AddSubview(_populationInputLayout);
+            // View.AddSubview(_populationInputLayout);
+            _myMapView.BackgroundColor = UIColor.Gray;
+            View.AddSubview(_populationLabel);
+            View.AddSubview(_populationValueInput);
+            View.AddSubview(_queryButton);
             View.AddSubview(_myMapView);
+            View.BackgroundColor = UIColor.White;
         }
     }
 }

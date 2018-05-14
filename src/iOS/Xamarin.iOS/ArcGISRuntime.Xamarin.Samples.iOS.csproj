@@ -339,6 +339,7 @@
     <Compile Include="Samples\GeometryEngine\BufferList\BufferList.cs" />
     <Compile Include="Samples\GeometryEngine\Buffer\Buffer.cs" />
     <Compile Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.cs" />
+    <Compile Include="Samples\GeometryEngine\ConvexHullList\ConvexHullList.cs" />
     <Compile Include="Samples\GeometryEngine\ConvexHull\ConvexHull.cs" />
     <Compile Include="Samples\GeometryEngine\CutGeometry\CutGeometry.cs" />
     <Compile Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.cs" />
@@ -483,6 +484,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\GeometryEngine\ConvexHullList\ConvexHullList.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\GeometryEngine\ConvexHull\ConvexHull.jpg" />

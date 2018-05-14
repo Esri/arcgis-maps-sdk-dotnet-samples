@@ -134,6 +134,7 @@
     <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <Content Include="Samples\GeometryEngine\BufferList\BufferList.jpg" />
     <Content Include="Samples\GeometryEngine\Buffer\Buffer.jpg" />
+    <Content Include="Samples\GeometryEngine\ConvexHull\ConvexHull.jpg" />
     <Content Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg" />
     <Content Include="Samples\GeometryEngine\CutGeometry\CutGeometry.jpg" />
     <Content Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
@@ -342,6 +343,9 @@
     </Compile>
     <Compile Include="Samples\GeometryEngine\Buffer\Buffer.xaml.cs">
       <DependentUpon>Buffer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GeometryEngine\ConvexHull\ConvexHull.xaml.cs">
+      <DependentUpon>ConvexHull.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.xaml.cs">
       <DependentUpon>ClipGeometry.xaml</DependentUpon>
@@ -707,6 +711,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GeometryEngine\Buffer\Buffer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeometryEngine\ConvexHull\ConvexHull.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

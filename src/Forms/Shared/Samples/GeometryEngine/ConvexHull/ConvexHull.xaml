@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:local="clr-namespace:ArcGISRuntime.Samples.ConvexHull"
+             x:Class="ArcGISRuntime.Samples.ConvexHull.ConvexHull">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label x:Name="ConvexHullInstructionsLabel"
+               Grid.Row="0"
+               FontSize="Small"
+               Text="Tap on the map in several places, then click the 'Convex Hull' button.">
+        </Label>
+        <Button x:Name="ConvexHullButton"
+                Grid.Row="1"
+                Text="Convex Hull"
+                Clicked="ConvexHullButton_Clicked"/>
+        <esriUI:MapView x:Name="MyMapView" 
+                        Grid.Row="2"/>
+    </Grid>
+</ContentPage>

@@ -251,6 +251,7 @@
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
     <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.cs" />
     <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.cs" />
+    <Compile Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.cs" />
     <Compile Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.cs" />
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.cs" />
     <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.cs" />
@@ -399,6 +400,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.jpg" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

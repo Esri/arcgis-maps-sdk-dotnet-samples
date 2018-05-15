@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.ArcGISServices;
@@ -17,9 +17,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.UI.Popups;
 
-namespace ArcGISRuntime.WPF.Samples.MapImageLayerTables
+namespace ArcGISRuntime.UWP.Samples.MapImageLayerTables
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Query map image layer tables",
@@ -85,14 +85,14 @@ namespace ArcGISRuntime.WPF.Samples.MapImageLayerTables
         }
 
         // Handle a new selected comment record in the table view.
-        private async void CommentsListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private async void CommentsListBox_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
             // Clear selected features from the graphics overlay.
             _selectedFeaturesOverlay.Graphics.Clear();
 
             // Get the selected comment feature. If there is no selection, return.
             ArcGISFeature selectedComment = e.AddedItems[0] as ArcGISFeature;
-            if(selectedComment == null) { return; }
+            if (selectedComment == null) { return; }
 
             // Get the map image layer that contains the service request sublayer and the service request comments table.
             ArcGISMapImageLayer serviceRequestsMapImageLayer = MyMapView.Map.OperationalLayers[0] as ArcGISMapImageLayer;
@@ -122,7 +122,9 @@ namespace ArcGISRuntime.WPF.Samples.MapImageLayerTables
             ArcGISFeature serviceRequestFeature = result.FirstOrDefault() as ArcGISFeature;
             if (serviceRequestFeature == null)
             {
-                MessageBox.Show("Related feature not found.", "No Feature");
+                MessageDialog message = new MessageDialog("Related feature not found.", "No Feature");
+                message.ShowAsync();
+
                 return;
             }
 

@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.ArcGISServices;
@@ -17,9 +17,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
+using Xamarin.Forms;
 
-namespace ArcGISRuntime.WPF.Samples.MapImageLayerTables
+namespace ArcGISRuntime.Samples.MapImageLayerTables
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Query map image layer tables",
@@ -27,14 +27,16 @@ namespace ArcGISRuntime.WPF.Samples.MapImageLayerTables
         "This sample demonstrates how to get a non-spatial table from an ArcGIS map image layer. It shows how to query such a table, as well as how to find related features in another table. The non-spatial tables contained by a map service may contain additional information about sublayer features. Such information can be accessed by traversing table relationships defined in the service.",
         "1. Launch the sample, the map displays at the extent of the `Service Requests` layer.\n2. The list is populated with service request comment records that have a valid(non-null) comment.\n3. Select one of the service request comments from the list to see the related service request feature selected in the map.",
         "Query", "Sublayer", "MapServer", "Related Tables")]
-    public partial class MapImageLayerTables
+    public partial class MapImageLayerTables : ContentPage
     {
         // A graphics overlay for showing selected features.
         private GraphicsOverlay _selectedFeaturesOverlay;
 
         public MapImageLayerTables()
         {
-            InitializeComponent();
+            InitializeComponent ();
+
+            Title = "Query map image layer tables";
 
             // Initialize the map and show the list of comments.
             Initialize();
@@ -42,8 +44,8 @@ namespace ArcGISRuntime.WPF.Samples.MapImageLayerTables
 
         private async Task Initialize()
         {
-            // Create a new Map with a vector streets basemap.
-            Map myMap = new Map(Basemap.CreateStreetsVector());
+            // Create a new Map with a streets basemap.
+            Map myMap = new Map(Basemap.CreateStreets());
 
             // Create the URI to the Service Requests map service.
             Uri serviceRequestUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/ServiceRequest/MapServer");
@@ -85,14 +87,14 @@ namespace ArcGISRuntime.WPF.Samples.MapImageLayerTables
         }
 
         // Handle a new selected comment record in the table view.
-        private async void CommentsListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private async void CommentsListBox_SelectionChanged(object sender, SelectedItemChangedEventArgs e)
         {
             // Clear selected features from the graphics overlay.
             _selectedFeaturesOverlay.Graphics.Clear();
 
             // Get the selected comment feature. If there is no selection, return.
-            ArcGISFeature selectedComment = e.AddedItems[0] as ArcGISFeature;
-            if(selectedComment == null) { return; }
+            ArcGISFeature selectedComment = e.SelectedItem as ArcGISFeature;
+            if (selectedComment == null) { return; }
 
             // Get the map image layer that contains the service request sublayer and the service request comments table.
             ArcGISMapImageLayer serviceRequestsMapImageLayer = MyMapView.Map.OperationalLayers[0] as ArcGISMapImageLayer;
@@ -122,7 +124,11 @@ namespace ArcGISRuntime.WPF.Samples.MapImageLayerTables
             ArcGISFeature serviceRequestFeature = result.FirstOrDefault() as ArcGISFeature;
             if (serviceRequestFeature == null)
             {
-                MessageBox.Show("Related feature not found.", "No Feature");
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert("No Feature", "Related feature not found.", "OK");
+                });
+
                 return;
             }
 

@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         // A list of all service request comment records (non-spatial features).
         private List<ArcGISFeature> _serviceRequestComments = new List<ArcGISFeature>();
 
-        // The offset from the top of
+        // The offset from the top of the display.
         public MapImageLayerTables()
         {
             Title = "Query map image layer tables";

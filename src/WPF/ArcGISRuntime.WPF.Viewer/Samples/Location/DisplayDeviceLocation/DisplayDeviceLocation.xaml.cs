@@ -1,4 +1,4 @@
-// Copyright 2016 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,8 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using System.Linq;
@@ -51,62 +49,66 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDeviceLocation
             // Set navigation types as items source and set default value
             modeChooser.ItemsSource = _navigationTypes;
             modeChooser.SelectedIndex = 0;
+
+            // Update the UI when the user pans the view, changing the location mode
+            MyMapView.LocationDisplay.AutoPanModeChanged += (sender, args) =>
+            {
+                switch (MyMapView.LocationDisplay.AutoPanMode)
+                {
+                    case LocationDisplayAutoPanMode.Off:
+                        modeChooser.SelectedIndex = 0;
+                        break;
+                    case LocationDisplayAutoPanMode.Recenter:
+                        modeChooser.SelectedIndex = 1;
+                        break;
+                    case LocationDisplayAutoPanMode.Navigation:
+                        modeChooser.SelectedIndex = 2;
+                        break;
+                    case LocationDisplayAutoPanMode.CompassNavigation:
+                        modeChooser.SelectedIndex = 3;
+                        break;
+                }
+            };
         }
 
         private void OnStartButtonClicked(object sender, RoutedEventArgs e)
         {
-            //TODO Remove this IsStarted check https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/182
-            if (!MyMapView.LocationDisplay.IsEnabled)
-                MyMapView.LocationDisplay.IsEnabled = true;
+            MyMapView.LocationDisplay.IsEnabled = true;
         }
         private void OnStopButtonClicked(object sender, RoutedEventArgs e)
         {
-            //TODO Remove this IsStarted check https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/182
-            if (MyMapView.LocationDisplay.IsEnabled)
-                MyMapView.LocationDisplay.IsEnabled = false;
+            MyMapView.LocationDisplay.IsEnabled = false;
         }
 
         private void OnModeChooserSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            // Get index that is used to get the selected url
-            var selectedIndex = _navigationTypes.ToList().IndexOf(modeChooser.SelectedValue.ToString());
+            // Get index that is used to get the selected URL
+            var selectedIndex = modeChooser.SelectedIndex;
 
             switch (selectedIndex)
             {
                 case 0:
                     // Starts location display with auto pan mode set to Off
                     MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Off;
-
-                    //TODO Remove this IsStarted check https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/182
-                    if (!MyMapView.LocationDisplay.IsEnabled)
-                        MyMapView.LocationDisplay.IsEnabled = true;
+                    MyMapView.LocationDisplay.IsEnabled = true;
                     break;
 
                 case 1:
                     // Starts location display with auto pan mode set to Re-center
                     MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
-
-                    //TODO Remove this IsStarted check https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/182
-                    if (!MyMapView.LocationDisplay.IsEnabled)
-                        MyMapView.LocationDisplay.IsEnabled = true;
+                    MyMapView.LocationDisplay.IsEnabled = true;
                     break;
 
                 case 2:
                     // Starts location display with auto pan mode set to Navigation
                     MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
-
-                    //TODO Remove this IsStarted check https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/182
-                    if (!MyMapView.LocationDisplay.IsEnabled)
-                        MyMapView.LocationDisplay.IsEnabled = true;
+                    MyMapView.LocationDisplay.IsEnabled = true;
                     break;
 
                 case 3:
                     // Starts location display with auto pan mode set to Compass Navigation
                     MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.CompassNavigation;
-
-                    //TODO Remove this IsStarted check https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/182
-                    if (!MyMapView.LocationDisplay.IsEnabled)
-                        MyMapView.LocationDisplay.IsEnabled = true;
+                    MyMapView.LocationDisplay.IsEnabled = true;
                     break;
             }
         }

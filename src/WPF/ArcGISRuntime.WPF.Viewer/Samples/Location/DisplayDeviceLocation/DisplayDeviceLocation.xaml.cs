@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
-using System.Linq;
+using System;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.DisplayDeviceLocation
@@ -22,13 +22,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDeviceLocation
     public partial class DisplayDeviceLocation
     {
         // String array to store the different device location options.
-        private string[] _navigationTypes = new string[]
-        {
-            "On",
-            "Re-Center",
-            "Navigation",
-            "Compass"
-        };
+        private string[] _navigationTypes = Enum.GetNames(typeof(LocationDisplayAutoPanMode));
 
         public DisplayDeviceLocation()
         {

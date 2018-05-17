@@ -123,6 +123,9 @@
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml.cs">
       <DependentUpon>EditAndSyncFeatures.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.xaml.cs">
+      <DependentUpon>FeatureLayerGeodatabase.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.xaml.cs">
       <DependentUpon>FeatureLayerGeoPackage.xaml</DependentUpon>
     </Compile>
@@ -176,6 +179,12 @@
     </Compile>
     <Compile Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.xaml.cs">
       <DependentUpon>ClipGeometry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GeometryEngine\ConvexHullList\ConvexHullList.xaml.cs">
+      <DependentUpon>ConvexHullList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GeometryEngine\ConvexHull\ConvexHull.xaml.cs">
+      <DependentUpon>ConvexHull.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeometryEngine\CutGeometry\CutGeometry.xaml.cs">
       <DependentUpon>CutGeometry.xaml</DependentUpon>
@@ -255,6 +264,9 @@
     <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml.cs">
       <DependentUpon>ChangeStretchRenderer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.xaml.cs">
+      <DependentUpon>ChangeSublayerRenderer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.xaml.cs">
       <DependentUpon>ChangeSublayerVisibility.xaml</DependentUpon>
     </Compile>
@@ -315,11 +327,14 @@
     <Compile Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.xaml.cs">
       <DependentUpon>StyleWmsLayer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.xaml.cs">
+      <DependentUpon>ShowLabelsOnLayer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml.cs">
       <DependentUpon>TimeBasedQuery.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml.cs">
-      <DependentUpon>Web_TiledLayer.xaml</DependentUpon>
+    <Compile Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.xaml.cs">
+      <DependentUpon>LoadWebTiledLayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml.cs">
       <DependentUpon>WmsIdentify.xaml</DependentUpon>
@@ -484,6 +499,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -553,6 +572,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeometryEngine\ConvexHullList\ConvexHullList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeometryEngine\ConvexHull\ConvexHull.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -660,6 +687,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -740,11 +771,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml">
+    <Page Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -952,6 +987,9 @@
     <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1004,6 +1042,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GeometryEngine\ConvexHullList\ConvexHullList.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GeometryEngine\ConvexHull\ConvexHull.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\GeometryEngine\CutGeometry\CutGeometry.jpg">
@@ -1084,6 +1128,9 @@
     <Content Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1144,10 +1191,13 @@
     <Content Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.jpg">
+    <Content Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\WmsIdentify\WmsIdentify.jpg">
@@ -1343,6 +1393,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

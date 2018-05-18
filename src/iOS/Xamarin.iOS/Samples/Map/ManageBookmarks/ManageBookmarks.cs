@@ -88,9 +88,9 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             _myMapView.Map.Bookmarks.Add(myBookmark);
 
             // Bookmark-2
-            vp = new Viewpoint(37.401573, -116.867808, 6000);
-            myBookmark = new Bookmark();
-            myBookmark.Name = "Strange Symbol";
+            vp = new Viewpoint(-39.299987, 174.060858, 600000);
+            Bookmark myBookmark2 = new Bookmark();
+            myBookmark2.Name = "Dormant Volcano";
             myBookmark.Viewpoint = vp;
             _myMapView.Map.Bookmarks.Add(myBookmark);
 

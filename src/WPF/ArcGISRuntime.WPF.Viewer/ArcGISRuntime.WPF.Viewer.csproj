@@ -369,6 +369,9 @@
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
       <DependentUpon>DisplayDeviceLocation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\MapView\DisplayGrid\DisplayGrid.xaml.cs">
+      <DependentUpon>DisplayGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml.cs">
       <DependentUpon>ChangeTimeExtent.xaml</DependentUpon>
     </Compile>
@@ -827,6 +830,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\MapView\DisplayGrid\DisplayGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1231,6 +1238,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg">

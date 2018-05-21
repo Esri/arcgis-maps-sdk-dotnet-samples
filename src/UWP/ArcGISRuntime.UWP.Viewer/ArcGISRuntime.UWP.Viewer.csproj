@@ -195,6 +195,7 @@
     <Content Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg" />
     <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
     <Content Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg" />
+    <Content Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
     <Content Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />
     <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
     <Content Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
@@ -522,6 +523,9 @@
     </Compile>
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
       <DependentUpon>DisplayDeviceLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\DisplayGrid\DisplayGrid.xaml.cs">
+      <DependentUpon>DisplayGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml.cs">
       <DependentUpon>ChangeTimeExtent.xaml</DependentUpon>
@@ -954,6 +958,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\DisplayGrid\DisplayGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -18,10 +18,10 @@ using Colors = System.Drawing.Color;
 namespace ArcGISRuntime.Samples.DisplayGrid
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Display a grid",
-        category: "MapView",
-        description: "Display and work with coordinate grid systems such as Latitude/Longitude, MGRS, UTM and USNG on a map view. This includes toggling labels visibility, changing the color of the grid lines, and changing the color of the grid labels.",
-        instructions: "Choose the grid settings and then tap 'Apply settings' to see them applied.")]
+        "Display a grid",
+        "MapView",
+        "Display and work with coordinate grid systems such as Latitude/Longitude, MGRS, UTM and USNG on a map view. This includes toggling labels visibility, changing the color of the grid lines, and changing the color of the grid labels.",
+        "Choose the grid settings and then tap 'Apply settings' to see them applied.")]
     public partial class DisplayGrid : ContentPage
     {
         public DisplayGrid()
@@ -36,7 +36,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
         private void Initialize()
         {
-           // Set up the map view with a basemap.
+            // Set up the map view with a basemap.
             MyMapView.Map = new Map(Basemap.CreateImageryWithLabelsVector());
 
             // Configure the UI options. 

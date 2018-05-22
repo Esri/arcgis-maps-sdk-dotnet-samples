@@ -19,6 +19,10 @@ namespace ArcGISRuntime
         public SamplePage()
         {
             InitializeComponent();
+            ToolbarItems[0].Clicked += (o, e) =>
+            {
+                SampleDetailPage.IsVisible = !SampleDetailPage.IsVisible;
+            };
         }
 
         public SamplePage(ContentPage sample, SampleInfo sampleInfo) : this()

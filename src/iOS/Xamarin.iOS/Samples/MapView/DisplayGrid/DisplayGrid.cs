@@ -7,15 +7,15 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
-using CoreGraphics;
 using UIKit;
 using Colors = System.Drawing.Color;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.Symbology;
 
 namespace ArcGISRuntime.Samples.DisplayGrid
 {
@@ -24,11 +24,12 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         "Display a grid",
         "MapView",
         "Display and work with coordinate grid systems such as Latitude/Longitude, MGRS, UTM and USNG on a map view. This includes toggling labels visibility, changing the color of the grid lines, and changing the color of the grid labels.",
-        "Choose the grid settings and then tap 'Apply settings' to see them applied.")]
+        "Use the buttons in the toolbar to change grid settings. Changes take effect immediately.")]
     public class DisplayGrid : UIViewController
     {
         // Declare the UI controls.
         private UIToolbar _toolbar = new UIToolbar();
+
         private UIButton _gridTypeButton = new UIButton();
         private UIButton _gridColorButton = new UIButton();
         private UIButton _labelPositionButton = new UIButton();
@@ -37,6 +38,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
         // Fields for storing the user's grid preferences.
         private string _selectedGridType = "LatLong";
+
         private Colors? _selectedGridColor = Colors.Red;
         private Colors? _selectedLabelColor = Colors.White;
         private GridLabelPosition _selectedLabelPosition = GridLabelPosition.Geographic;
@@ -71,12 +73,15 @@ namespace ArcGISRuntime.Samples.DisplayGrid
                 case "LatLong":
                     _myMapView.Grid = new LatitudeLongitudeGrid();
                     break;
+
                 case "MGRS":
                     _myMapView.Grid = new MgrsGrid();
                     break;
+
                 case "UTM":
                     _myMapView.Grid = new UtmGrid();
                     break;
+
                 case "USNG":
                     _myMapView.Grid = new UsngGrid();
                     break;
@@ -86,10 +91,11 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             _myMapView.Grid.LabelPosition = _selectedLabelPosition;
 
             // Next, apply the grid color and label color settings for each zoom level.
-            for(long level = 0; level < _myMapView.Grid.LevelCount; level++)
+            for (long level = 0; level < _myMapView.Grid.LevelCount; level++)
             {
                 // Set the grid color if the grid is selected for display.
-                if (_selectedGridColor != null){
+                if (_selectedGridColor != null)
+                {
                     // Set the line symbol.
                     Symbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, _selectedGridColor.Value, 2);
                     _myMapView.Grid.SetLineSymbol(level, lineSymbol);
@@ -131,7 +137,8 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
             // Needed to prevent a crash on iPad.
             UIPopoverPresentationController presentationPopover = labelPositionAlert.PopoverPresentationController;
-            if (presentationPopover!=null) {
+            if (presentationPopover != null)
+            {
                 presentationPopover.SourceView = View;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
@@ -140,7 +147,8 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             foreach (string item in Enum.GetNames(typeof(GridLabelPosition)))
             {
                 // Record the selection and re-apply all settings.
-                labelPositionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action => {
+                labelPositionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action =>
+                {
                     _selectedLabelPosition = (GridLabelPosition)Enum.Parse(typeof(GridLabelPosition), item);
                     ApplyCurrentSettings();
                 }));
@@ -157,16 +165,18 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
             // Needed to prevent a crash on iPad.
             UIPopoverPresentationController presentationPopover = gridTypeAlert.PopoverPresentationController;
-            if (presentationPopover!=null) {
+            if (presentationPopover != null)
+            {
                 presentationPopover.SourceView = View;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
 
             // Add an option for each grid type.
-            foreach (string item in new [] { "LatLong", "UTM", "MGRS", "USNG"})
+            foreach (string item in new[] { "LatLong", "UTM", "MGRS", "USNG" })
             {
                 // Record the selection and re-apply all settings.
-                gridTypeAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action => {
+                gridTypeAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action =>
+                {
                     _selectedGridType = item;
                     ApplyCurrentSettings();
                 }));
@@ -183,16 +193,18 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
             // Needed to prevent a crash on iPad.
             UIPopoverPresentationController presentationPopover = labelColorAlert.PopoverPresentationController;
-            if (presentationPopover!=null) {
+            if (presentationPopover != null)
+            {
                 presentationPopover.SourceView = View;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
 
             // Add an option for each color.
-            foreach (Colors item in new [] { Colors.Red, Colors.Green, Colors.Blue, Colors.White})
+            foreach (Colors item in new[] { Colors.Red, Colors.Green, Colors.Blue, Colors.White })
             {
                 // Record the selection and re-apply all settings.
-                labelColorAlert.AddAction(UIAlertAction.Create(item.Name, UIAlertActionStyle.Default, action => {
+                labelColorAlert.AddAction(UIAlertAction.Create(item.Name, UIAlertActionStyle.Default, action =>
+                {
                     _selectedLabelColor = item;
                     ApplyCurrentSettings();
                 }));
@@ -217,16 +229,18 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
             // Needed to prevent a crash on iPad.
             UIPopoverPresentationController presentationPopover = gridColorAlert.PopoverPresentationController;
-            if (presentationPopover!=null) {
+            if (presentationPopover != null)
+            {
                 presentationPopover.SourceView = View;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
 
             // Add an option for each color.
-            foreach (Colors item in new [] { Colors.Red, Colors.Green, Colors.Blue, Colors.White})
+            foreach (Colors item in new[] { Colors.Red, Colors.Green, Colors.Blue, Colors.White })
             {
                 // Record the selection and re-apply all settings.
-                gridColorAlert.AddAction(UIAlertAction.Create(item.Name, UIAlertActionStyle.Default, action => {
+                gridColorAlert.AddAction(UIAlertAction.Create(item.Name, UIAlertActionStyle.Default, action =>
+                {
                     _selectedGridColor = item;
                     ApplyCurrentSettings();
                 }));
@@ -266,8 +280,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
             // Add the controls to the layout.
             View.AddSubviews(_myMapView, _toolbar, _gridColorButton, _gridTypeButton, _labelColorButton, _labelPositionButton);
-         }
-
+        }
 
         public override void ViewDidLayoutSubviews()
         {
@@ -287,7 +300,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
             // Apply the button frames.
             int index = 0;
-            foreach(UIButton button in new [] {_gridTypeButton, _gridColorButton, _labelPositionButton, _labelColorButton })
+            foreach (UIButton button in new[] { _gridTypeButton, _gridColorButton, _labelPositionButton, _labelColorButton })
             {
                 // Apply the frame.
                 button.Frame = new CGRect((buttonWidth * index) + toolbarPadding, View.Bounds.Height - toolbarHeight + toolbarPadding, buttonWidth - toolbarPadding, toolbarHeight - (2 * 5));

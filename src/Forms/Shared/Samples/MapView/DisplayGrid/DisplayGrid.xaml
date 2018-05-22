@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
              x:Class="ArcGISRuntime.Samples.DisplayGrid.DisplayGrid">
     <ContentPage.Resources>
@@ -36,50 +36,50 @@
                        VerticalOptions="Center"
                        VerticalTextAlignment="Center"
                        Grid.Row="0" />
-                <Label Text="Label visibility" 
+                <Label Text="Label visibility"
                        VerticalOptions="Center"
                        VerticalTextAlignment="Center"
                        Grid.Row="1" />
-                <Label Text="Grid visibility" 
+                <Label Text="Grid visibility"
                        VerticalOptions="Center"
                        VerticalTextAlignment="Center"
                        Grid.Row="2" />
-                <Label Text="Grid color" 
+                <Label Text="Grid color"
                        VerticalOptions="Center"
                        VerticalTextAlignment="Center"
                        Grid.Row="3" />
-                <Label Text="Label color" 
+                <Label Text="Label color"
                        VerticalOptions="Center"
                        VerticalTextAlignment="Center"
                        Grid.Row="4" />
-                <Label Text="Label position" 
+                <Label Text="Label position"
                        VerticalOptions="Center"
                        VerticalTextAlignment="Center"
                        Grid.Row="5" />
-                <Label Text="Label format" 
+                <Label Text="Label format"
                        VerticalOptions="Center"
                        VerticalTextAlignment="Center"
                        Grid.Row="6" />
                 <!-- Inputs -->
-                <Picker x:Name="gridTypePicker" 
+                <Picker x:Name="gridTypePicker"
                           Grid.Row="0" Grid.Column="1" />
-                <Picker x:Name="labelVisibilityPicker" 
+                <Picker x:Name="labelVisibilityPicker"
                           Grid.Row="1" Grid.Column="1" />
-                <Picker x:Name="gridVisibilityPicker" 
+                <Picker x:Name="gridVisibilityPicker"
                           Grid.Row="2" Grid.Column="1" />
-                <Picker x:Name="gridColorPicker" 
+                <Picker x:Name="gridColorPicker"
                           Grid.Row="3" Grid.Column="1" />
-                <Picker x:Name="labelColorPicker" 
+                <Picker x:Name="labelColorPicker"
                           Grid.Row="4" Grid.Column="1" />
-                <Picker x:Name="labelPositionPicker" 
+                <Picker x:Name="labelPositionPicker"
                           Grid.Row="5" Grid.Column="1" />
-                <Picker x:Name="labelFormatPicker" 
+                <Picker x:Name="labelFormatPicker"
                           Grid.Row="6" Grid.Column="1" />
             </Grid>
         </ScrollView>
-        <Button x:Name="applySettingsButton" 
-                        Text="Apply settings" 
-                        Grid.Row="1" 
+        <Button x:Name="applySettingsButton"
+                        Text="Apply settings"
+                        Grid.Row="1"
                         IsEnabled="False" />
         <esriUI:MapView x:Name="MyMapView"
                         Grid.Row="2" />

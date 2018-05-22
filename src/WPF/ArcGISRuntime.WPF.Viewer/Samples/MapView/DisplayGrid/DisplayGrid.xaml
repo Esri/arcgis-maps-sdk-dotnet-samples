@@ -1,11 +1,11 @@
-﻿<UserControl 
+﻿<UserControl
     x:Class="ArcGISRuntime.WPF.Samples.DisplayGrid.DisplayGrid"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013" 
-    mc:Ignorable="d" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+    mc:Ignorable="d"
     d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <Style TargetType="ComboBox">
@@ -17,7 +17,7 @@
     </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Background="White" 
+        <Border Background="White"
                 BorderBrush="Black" BorderThickness="1"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="30" Padding="20" Width="400">
@@ -37,42 +37,41 @@
                     <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
                 <!-- Labels -->
-                <Label Content="Grid type" 
+                <Label Content="Grid type"
                        Grid.Row="0" />
-                <Label Content="Label visibility" 
+                <Label Content="Label visibility"
                        Grid.Row="1" />
-                <Label Content="Grid visibility" 
+                <Label Content="Grid visibility"
                        Grid.Row="2" />
-                <Label Content="Grid color" 
+                <Label Content="Grid color"
                        Grid.Row="3" />
-                <Label Content="Label color" 
+                <Label Content="Label color"
                        Grid.Row="4" />
-                <Label Content="Label position" 
+                <Label Content="Label position"
                        Grid.Row="5" />
-                <Label Content="Label format" 
+                <Label Content="Label format"
                        Grid.Row="6" />
                 <!-- Inputs -->
-                <ComboBox x:Name="gridTypeCombo" 
+                <ComboBox x:Name="gridTypeCombo"
                           Grid.Row="0" Grid.Column="1" />
-                <ComboBox x:Name="labelVisibilityCombo" 
+                <ComboBox x:Name="labelVisibilityCombo"
                           Grid.Row="1" Grid.Column="1" />
-                <ComboBox x:Name="gridVisibilityCombo" 
+                <ComboBox x:Name="gridVisibilityCombo"
                           Grid.Row="2" Grid.Column="1" />
-                <ComboBox x:Name="gridColorCombo" 
+                <ComboBox x:Name="gridColorCombo"
                           Grid.Row="3" Grid.Column="1" />
-                <ComboBox x:Name="labelColorCombo" 
+                <ComboBox x:Name="labelColorCombo"
                           Grid.Row="4" Grid.Column="1" />
-                <ComboBox x:Name="labelPositionCombo" 
+                <ComboBox x:Name="labelPositionCombo"
                           Grid.Row="5" Grid.Column="1" />
-                <ComboBox x:Name="labelFormatCombo" 
+                <ComboBox x:Name="labelFormatCombo"
                           Grid.Row="6" Grid.Column="1" />
                 <!-- Apply -->
-                <Button x:Name="applySettingsButton" 
-                        Content="Apply settings" 
-                        Grid.ColumnSpan="2" Grid.Row="7" 
+                <Button x:Name="applySettingsButton"
+                        Content="Apply settings"
+                        Grid.ColumnSpan="2" Grid.Row="7"
                         IsEnabled="False" />
             </Grid>
         </Border>
     </Grid>
 </UserControl>
-

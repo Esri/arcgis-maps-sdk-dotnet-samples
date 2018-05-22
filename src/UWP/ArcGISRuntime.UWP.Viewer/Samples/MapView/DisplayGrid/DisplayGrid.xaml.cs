@@ -22,7 +22,6 @@ namespace ArcGISRuntime.UWP.Samples.DisplayGrid
         "Choose the grid settings and then tap 'Apply settings' to see them applied.")]
     public partial class DisplayGrid
     {
-
         public DisplayGrid()
         {
             InitializeComponent();
@@ -35,17 +34,17 @@ namespace ArcGISRuntime.UWP.Samples.DisplayGrid
             // Set up the map view with a basemap.
             MyMapView.Map = new Map(Basemap.CreateImageryWithLabelsVector());
 
-            // Configure the UI options. 
-            gridTypeCombo.ItemsSource = new [] {"LatLong", "MGRS", "UTM", "USNG"};
-            var visibilityItemsSource = new [] {"Visible", "Invisible"};
+            // Configure the UI options.
+            gridTypeCombo.ItemsSource = new[] { "LatLong", "MGRS", "UTM", "USNG" };
+            var visibilityItemsSource = new[] { "Visible", "Invisible" };
             labelVisibilityCombo.ItemsSource = visibilityItemsSource;
             gridVisibilityCombo.ItemsSource = visibilityItemsSource;
-            var colorItemsSource = new [] {Colors.Red, Colors.Green, Colors.Blue, Colors.White};
+            var colorItemsSource = new[] { "Red", "Green", "Blue", "White" };
             gridColorCombo.ItemsSource = colorItemsSource;
             labelColorCombo.ItemsSource = colorItemsSource;
             labelPositionCombo.ItemsSource = Enum.GetNames(typeof(GridLabelPosition));
             labelFormatCombo.ItemsSource = Enum.GetNames(typeof(LatitudeLongitudeGridLabelFormat));
-            foreach(var combo in new[] { gridTypeCombo, labelVisibilityCombo, gridVisibilityCombo, gridColorCombo, labelColorCombo, labelPositionCombo, labelFormatCombo })
+            foreach (var combo in new[] { gridTypeCombo, labelVisibilityCombo, gridVisibilityCombo, gridColorCombo, labelColorCombo, labelPositionCombo, labelFormatCombo })
             {
                 combo.SelectedIndex = 0;
             }
@@ -69,12 +68,15 @@ namespace ArcGISRuntime.UWP.Samples.DisplayGrid
                     ((LatitudeLongitudeGrid)MyMapView.Grid).LabelFormat =
                         (LatitudeLongitudeGridLabelFormat)Enum.Parse(typeof(LatitudeLongitudeGridLabelFormat), selectedFormatString);
                     break;
+
                 case "MGRS":
                     MyMapView.Grid = new MgrsGrid();
                     break;
+
                 case "UTM":
                     MyMapView.Grid = new UtmGrid();
                     break;
+
                 case "USNG":
                     MyMapView.Grid = new UsngGrid();
                     break;
@@ -86,6 +88,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayGrid
                 case "Visible":
                     MyMapView.Grid.IsLabelVisible = true;
                     break;
+
                 case "Invisible":
                     MyMapView.Grid.IsLabelVisible = false;
                     break;
@@ -97,22 +100,23 @@ namespace ArcGISRuntime.UWP.Samples.DisplayGrid
                 case "Visible":
                     MyMapView.Grid.IsVisible = true;
                     break;
+
                 case "Invisible":
                     MyMapView.Grid.IsVisible = false;
                     break;
             }
 
             // Next, apply the grid color and label color settings for each zoom level.
-            for(long level = 0; level < MyMapView.Grid.LevelCount; level++)
+            for (long level = 0; level < MyMapView.Grid.LevelCount; level++)
             {
                 // Set the line symbol.
-                Symbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, (Colors)gridColorCombo.SelectedValue, 2);
+                Symbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.FromName(gridColorCombo.SelectedItem.ToString()), 2);
                 MyMapView.Grid.SetLineSymbol(level, lineSymbol);
 
                 // Set the text symbol.
                 Symbol textSymbol = new TextSymbol
                 {
-                    Color = (Colors)labelColorCombo.SelectedValue,
+                    Color = Colors.FromName(labelColorCombo.SelectedItem.ToString()),
                     OutlineColor = Colors.Purple,
                     Size = 16,
                     HaloColor = Colors.Purple,

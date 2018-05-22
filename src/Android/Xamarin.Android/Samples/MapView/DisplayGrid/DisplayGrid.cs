@@ -30,6 +30,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
     {
         // Variables for referring to the UI controls.
         private MapView _myMapView;
+
         private Button _applySettingsButton;
         private Spinner _gridTypeSpinner;
         private Spinner _labelVisibilitySpinner;
@@ -55,17 +56,17 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             // Set up the map view with a basemap.
             _myMapView.Map = new Map(Basemap.CreateImageryWithLabelsVector());
 
-            // Configure the UI options. 
-            _gridTypeSpinner.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, new [] {"LatLong", "MGRS", "UTM", "USNG"});
-            var visibilityItemsSource = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, new [] {"Visible", "Invisible"});
+            // Configure the UI options.
+            _gridTypeSpinner.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, new[] { "LatLong", "MGRS", "UTM", "USNG" });
+            var visibilityItemsSource = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, new[] { "Visible", "Invisible" });
             _labelVisibilitySpinner.Adapter = visibilityItemsSource;
             _gridVisibilitySpinner.Adapter = visibilityItemsSource;
-            var colorItemsSource = new ArrayAdapter<Colors>(this, Android.Resource.Layout.SimpleSpinnerItem, new [] {Colors.Red, Colors.Green, Colors.Blue, Colors.White});
+            var colorItemsSource = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, new[] { "Red", "Green", "Blue", "White" });
             _gridColorSpinner.Adapter = colorItemsSource;
             _labelColorSpinner.Adapter = colorItemsSource;
             _labelPositionSpinner.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, Enum.GetNames(typeof(GridLabelPosition)));
             _labelFormatSpinner.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, Enum.GetNames(typeof(LatitudeLongitudeGridLabelFormat)));
-            foreach(Spinner spinner in new[] { _gridTypeSpinner, _labelVisibilitySpinner, _gridVisibilitySpinner, _gridColorSpinner, _labelColorSpinner, _labelPositionSpinner, _labelFormatSpinner })
+            foreach (Spinner spinner in new[] { _gridTypeSpinner, _labelVisibilitySpinner, _gridVisibilitySpinner, _gridColorSpinner, _labelColorSpinner, _labelPositionSpinner, _labelFormatSpinner })
             {
                 spinner.SetSelection(0);
             }
@@ -89,12 +90,15 @@ namespace ArcGISRuntime.Samples.DisplayGrid
                     ((LatitudeLongitudeGrid)_myMapView.Grid).LabelFormat =
                         (LatitudeLongitudeGridLabelFormat)Enum.Parse(typeof(LatitudeLongitudeGridLabelFormat), selectedFormatString);
                     break;
+
                 case "MGRS":
                     _myMapView.Grid = new MgrsGrid();
                     break;
+
                 case "UTM":
                     _myMapView.Grid = new UtmGrid();
                     break;
+
                 case "USNG":
                     _myMapView.Grid = new UsngGrid();
                     break;
@@ -106,6 +110,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
                 case "Visible":
                     _myMapView.Grid.IsLabelVisible = true;
                     break;
+
                 case "Invisible":
                     _myMapView.Grid.IsLabelVisible = false;
                     break;
@@ -117,23 +122,25 @@ namespace ArcGISRuntime.Samples.DisplayGrid
                 case "Visible":
                     _myMapView.Grid.IsVisible = true;
                     break;
+
                 case "Invisible":
                     _myMapView.Grid.IsVisible = false;
                     break;
             }
 
             // Next, apply the grid color and label color settings for each zoom level.
-            for(long level = 0; level < _myMapView.Grid.LevelCount; level++)
+            for (long level = 0; level < _myMapView.Grid.LevelCount; level++)
             {
                 // Set the line symbol.
-                Symbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, 
-                    ((ArrayAdapter<Colors>)_gridColorSpinner.Adapter).GetItem(_gridColorSpinner.SelectedItemPosition), 2);
+                string lineColor = ((ArrayAdapter<string>)_gridColorSpinner.Adapter).GetItem(_gridColorSpinner.SelectedItemPosition);
+                Symbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.FromName(lineColor), 2);
                 _myMapView.Grid.SetLineSymbol(level, lineSymbol);
 
                 // Set the text symbol.
+                string labelColor = ((ArrayAdapter<String>)_labelColorSpinner.Adapter).GetItem(_labelColorSpinner.SelectedItemPosition);
                 Symbol textSymbol = new TextSymbol
                 {
-                    Color = ((ArrayAdapter<Colors>)_labelColorSpinner.Adapter).GetItem(_labelColorSpinner.SelectedItemPosition),
+                    Color = Colors.FromName(labelColor),
                     OutlineColor = Colors.Purple,
                     Size = 16,
                     HaloColor = Colors.Purple,

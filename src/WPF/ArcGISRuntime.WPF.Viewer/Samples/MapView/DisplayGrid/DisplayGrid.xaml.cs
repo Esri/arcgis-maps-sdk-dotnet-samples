@@ -7,8 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Windows;
@@ -35,17 +35,17 @@ namespace ArcGISRuntime.WPF.Samples.DisplayGrid
             // Set up the map view with a basemap.
             MyMapView.Map = new Map(Basemap.CreateImageryWithLabelsVector());
 
-            // Configure the UI options. 
-            gridTypeCombo.ItemsSource = new [] {"LatLong", "MGRS", "UTM", "USNG"};
-            var visibilityItemsSource = new [] {"Visible", "Invisible"};
+            // Configure the UI options.
+            gridTypeCombo.ItemsSource = new[] { "LatLong", "MGRS", "UTM", "USNG" };
+            var visibilityItemsSource = new[] { "Visible", "Invisible" };
             labelVisibilityCombo.ItemsSource = visibilityItemsSource;
             gridVisibilityCombo.ItemsSource = visibilityItemsSource;
-            var colorItemsSource = new [] {Colors.Red, Colors.Green, Colors.Blue, Colors.White};
+            var colorItemsSource = new[] { Colors.Red, Colors.Green, Colors.Blue, Colors.White };
             gridColorCombo.ItemsSource = colorItemsSource;
             labelColorCombo.ItemsSource = colorItemsSource;
             labelPositionCombo.ItemsSource = Enum.GetNames(typeof(GridLabelPosition));
             labelFormatCombo.ItemsSource = Enum.GetNames(typeof(LatitudeLongitudeGridLabelFormat));
-            foreach(var combo in new[] { gridTypeCombo, labelVisibilityCombo, gridVisibilityCombo, gridColorCombo, labelColorCombo, labelPositionCombo, labelFormatCombo })
+            foreach (var combo in new[] { gridTypeCombo, labelVisibilityCombo, gridVisibilityCombo, gridColorCombo, labelColorCombo, labelPositionCombo, labelFormatCombo })
             {
                 combo.SelectedIndex = 0;
             }
@@ -69,12 +69,15 @@ namespace ArcGISRuntime.WPF.Samples.DisplayGrid
                     ((LatitudeLongitudeGrid)MyMapView.Grid).LabelFormat =
                         (LatitudeLongitudeGridLabelFormat)Enum.Parse(typeof(LatitudeLongitudeGridLabelFormat), selectedFormatString);
                     break;
+
                 case "MGRS":
                     MyMapView.Grid = new MgrsGrid();
                     break;
+
                 case "UTM":
                     MyMapView.Grid = new UtmGrid();
                     break;
+
                 case "USNG":
                     MyMapView.Grid = new UsngGrid();
                     break;
@@ -86,6 +89,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayGrid
                 case "Visible":
                     MyMapView.Grid.IsLabelVisible = true;
                     break;
+
                 case "Invisible":
                     MyMapView.Grid.IsLabelVisible = false;
                     break;
@@ -97,13 +101,14 @@ namespace ArcGISRuntime.WPF.Samples.DisplayGrid
                 case "Visible":
                     MyMapView.Grid.IsVisible = true;
                     break;
+
                 case "Invisible":
                     MyMapView.Grid.IsVisible = false;
                     break;
             }
 
             // Next, apply the grid color and label color settings for each zoom level.
-            for(long level = 0; level < MyMapView.Grid.LevelCount; level++)
+            for (long level = 0; level < MyMapView.Grid.LevelCount; level++)
             {
                 // Set the line symbol.
                 Symbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, (Colors)gridColorCombo.SelectedValue, 2);

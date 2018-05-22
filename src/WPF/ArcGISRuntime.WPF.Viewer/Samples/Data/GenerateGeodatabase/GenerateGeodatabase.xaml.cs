@@ -165,31 +165,29 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
             // Create a generate geodatabase job
             _generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
-            // Handle the job changed event
-            _generateGdbJob.JobChanged += GenerateGdbJobChanged;
-
             // Handle the progress changed event (to show progress bar)
             _generateGdbJob.ProgressChanged += ((sender, e) =>
             {
                 UpdateProgressBar();
             });
 
+            // Show the progress bar
+            MyProgressBar.Visibility = Visibility.Visible;
+
             // Start the job
             _generateGdbJob.Start();
-        }
 
-        private async void HandleGenerationStatusChange(GenerateGeodatabaseJob job)
-        {
-            JobStatus status = job.Status;
+            // Get the result
+            Geodatabase resultGdb = await _generateGdbJob.GetResultAsync();
 
-            // If the job completed successfully, add the geodatabase data to the map
-            if (status == JobStatus.Succeeded)
+            // Hide the progress bar
+            MyProgressBar.Visibility = Visibility.Hidden;
+
+            // If the job completed successfully, add the geodatabase data to the map,
+            // removing the version from the service
+            if (_generateGdbJob.Status == JobStatus.Succeeded)
             {
-                // Clear out the existing layers
                 MyMapView.Map.OperationalLayers.Clear();
-
-                // Get the new geodatabase
-                Geodatabase resultGdb = await job.GetResultAsync();
 
                 // Loop through all feature tables in the geodatabase and add a new layer to the map
                 foreach (GeodatabaseFeatureTable table in resultGdb.GeodatabaseFeatureTables)
@@ -205,23 +203,21 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
 
                 // Tell the user that the geodatabase was unregistered
                 ShowStatusMessage("Since no edits will be made, the local geodatabase has been unregistered per best practice.");
-            }
-
-            // See if the job failed
-            if (status == JobStatus.Failed)
+            } 
+            else
             {
                 // Create a message to show the user
                 string message = "Generate geodatabase job failed";
 
                 // Show an error message (if there is one)
-                if (job.Error != null)
+                if (_generateGdbJob.Error != null)
                 {
-                    message += ": " + job.Error.Message;
+                    message += ": " + _generateGdbJob.Error.Message;
                 }
                 else
                 {
-                    // If no error, show messages from the job
-                    var m = from msg in job.Messages select msg.Message;
+                    // If no error, show messages from the _generateGdbJob
+                    var m = from msg in _generateGdbJob.Messages select msg.Message;
                     message += ": " + string.Join<string>("\n", m);
                 }
 
@@ -265,32 +261,6 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
         {
             // Call the cross-platform map extent update method
             UpdateMapExtent();
-        }
-
-        // Handler for the job changed event
-        private void GenerateGdbJobChanged(object sender, EventArgs e)
-        {
-            // Get the job object; will be passed to HandleGenerationStatusChange
-            GenerateGeodatabaseJob job = sender as GenerateGeodatabaseJob;
-
-            // Due to the nature of the threading implementation,
-            //     the dispatcher needs to be used to interact with the UI
-            Dispatcher.Invoke(() =>
-            {
-                // Hide the progress bar and re-enable button if the job is finished
-                if (job.Status == JobStatus.Succeeded || job.Status == JobStatus.Failed)
-                {
-                    MyProgressBar.Visibility = Visibility.Collapsed;
-                    MyGenerateButton.IsEnabled = true;
-                }
-                else // Show it otherwise
-                {
-                    MyProgressBar.Visibility = Visibility.Visible;
-                }
-
-                // Do the remainder of the job status changed work
-                HandleGenerationStatusChange(job);
-            });
         }
 
         private void UpdateProgressBar()

@@ -159,8 +159,44 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
             // Start the export job
             job.Start();
 
-            // Subscribe to notifications for status updates
-            job.JobChanged += Job_JobChanged;
+            // Wait for the job to complete
+            TileCache resultTileCache = await job.GetResultAsync();
+
+            if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded)
+            {
+                // Dispatcher is necessary due to the threading implementation;
+                //     this method is called from a thread other than the UI thread
+                Dispatcher.Invoke(() =>
+                {
+                    // Show the exported tiles on the preview map
+                    UpdatePreviewMap(resultTileCache);
+
+                    // Show the preview window
+                    MyPreviewMapView.Visibility = Visibility.Visible;
+
+                    // Show the 'close preview' button
+                    MyClosePreviewButton.Visibility = Visibility.Visible;
+
+                    // Hide the 'export tiles' button
+                    MyExportButton.Visibility = Visibility.Collapsed;
+
+                    // Hide the progress bar
+                    MyProgressBar.Visibility = Visibility.Collapsed;
+                });
+            }
+            else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
+            {
+                // Notify the user
+                ShowStatusMessage("Job failed");
+
+                // Dispatcher is necessary due to the threading implementation;
+                //     this method is called from a thread other than the UI thread
+                Dispatcher.Invoke(() =>
+                {
+                    // Hide the progress bar
+                    MyProgressBar.Visibility = Visibility.Collapsed;
+                });
+            }
         }
 
         /// <summary>
@@ -196,70 +232,18 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
         }
 
         /// <summary>
-        /// Called by the ExportTileCacheJob on any status changes
-        /// </summary>
-        private void Job_JobChanged(object sender, EventArgs e)
-        {
-            // Get reference to the job
-            ExportTileCacheJob job = sender as ExportTileCacheJob;
-
-            // Update the view if the job is complete
-            if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded)
-            {
-                // Dispatcher is necessary due to the threading implementation;
-                //     this method is called from a thread other than the UI thread
-                Dispatcher.Invoke(() =>
-                {
-                    // Show the exported tiles on the preview map
-                    UpdatePreviewMap();
-
-                    // Show the preview window
-                    MyPreviewMapView.Visibility = Visibility.Visible;
-
-                    // Show the 'close preview' button
-                    MyClosePreviewButton.Visibility = Visibility.Visible;
-
-                    // Hide the 'export tiles' button
-                    MyExportButton.Visibility = Visibility.Collapsed;
-
-                    // Hide the progress bar
-                    MyProgressBar.Visibility = Visibility.Collapsed;
-                });
-            }
-            else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
-            {
-                // Notify the user
-                ShowStatusMessage("Job failed");
-
-                // Dispatcher is necessary due to the threading implementation;
-                //     this method is called from a thread other than the UI thread
-                Dispatcher.Invoke(() =>
-                {
-                    // Hide the progress bar
-                    MyProgressBar.Visibility = Visibility.Collapsed;
-                });
-            }
-        }
-
-        /// <summary>
         /// Loads the tile cache from disk and displays it in the preview map
         /// </summary>
-        private async void UpdatePreviewMap()
+        private async void UpdatePreviewMap(TileCache cache)
         {
-            // Load the saved tile cache
-            TileCache cache = new TileCache(_tilePath);
-
             // Load the cache
             await cache.LoadAsync();
 
             // Create a tile layer with the cache
             ArcGISTiledLayer myLayer = new ArcGISTiledLayer(cache);
 
-            // Create a new map with the layer as basemap
-            Map previewMap = new Map(new Basemap(myLayer));
-
-            // Apply the map to the preview mapview
-            MyPreviewMapView.Map = previewMap;
+            // Show the layer in a new map
+            MyPreviewMapView.Map = new Map(new Basemap(myLayer));
         }
 
         /// <summary>

@@ -293,9 +293,12 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
             // Hide the progress bar
             MyProgressBar.Visibility = Visibility.Collapsed;
 
+            // If the job completed successfully, add the geodatabase to the map, replacing the layer from the service
             if (generateGdbJob.Status == JobStatus.Succeeded)
             {
-                // If the job completed successfully, add the geodatabase to the map
+                // Remove the existing layer
+                MyMapView.Map.OperationalLayers.Clear();
+
                 // Loop through all feature tables in the geodatabase and add a new layer to the map
                 foreach (GeodatabaseFeatureTable table in _resultGdb.GeodatabaseFeatureTables)
                 {
@@ -337,43 +340,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
             }
         }
 
-        private void HandleSyncStatusChange(SyncGeodatabaseJob job)
-        {
-            JobStatus status = job.Status;
-
-            // Tell the user about job completion
-            if (status == JobStatus.Succeeded)
-            {
-                ShowStatusMessage("Sync task completed");
-            }
-
-            // See if the job failed
-            if (status == JobStatus.Failed)
-            {
-                // Create a message to show the user
-                string message = "Sync geodatabase job failed";
-
-                // Show an error message (if there is one)
-                if (job.Error != null)
-                {
-                    message += ": " + job.Error.Message;
-                }
-                else
-                {
-                    // If no error, show messages from the job
-                    foreach (JobMessage m in job.Messages)
-                    {
-                        // Get the text from the JobMessage and add it to the output string
-                        message += "\n" + m.Message;
-                    }
-                }
-
-                // Show the message
-                ShowStatusMessage(message);
-            }
-        }
-
-        private void SyncGeodatabase()
+        private async void SyncGeodatabase()
         {
             // Return if not ready
             if (_readyForEdits != EditState.Ready) { return; }
@@ -401,14 +368,62 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
             // Create job
             SyncGeodatabaseJob job = _gdbSyncTask.SyncGeodatabase(parameters, _resultGdb);
 
-            // Subscribe to status updates
-            job.JobChanged += Job_JobChanged;
-
             // Subscribe to progress updates
             job.ProgressChanged += Job_ProgressChanged;
 
+            // Show the progress bar
+            MyProgressBar.Visibility = Visibility.Visible;
+
             // Start the sync
             job.Start();
+
+            // Wait for the result
+            await job.GetResultAsync();
+
+            // Hide the progress bar
+            MyProgressBar.Visibility = Visibility.Hidden;
+
+            // Do the remainder of the work
+            HandleSyncStatusChange(job);
+        }
+
+        private void HandleSyncStatusChange(SyncGeodatabaseJob job)
+        {
+            JobStatus status = job.Status;
+
+            // Tell the user about job completion
+            if (status == JobStatus.Succeeded)
+            {
+                // Update the progress bar's value
+                UpdateProgressBar(0);
+
+                ShowStatusMessage("Sync task completed");
+            }
+
+            // See if the job failed
+            if (status == JobStatus.Failed)
+            {
+                // Create a message to show the user
+                string message = "Sync geodatabase job failed";
+
+                // Show an error message (if there is one)
+                if (job.Error != null)
+                {
+                    message += ": " + job.Error.Message;
+                }
+                else
+                {
+                    // If no error, show messages from the job
+                    foreach (JobMessage m in job.Messages)
+                    {
+                        // Get the text from the JobMessage and add it to the output string
+                        message += "\n" + m.Message;
+                    }
+                }
+
+                // Show the message
+                ShowStatusMessage(message);
+            }
         }
 
         private void Job_ProgressChanged(object sender, EventArgs e)
@@ -474,36 +489,6 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
         private void SyncButton_Click(object sender, RoutedEventArgs e)
         {
             SyncGeodatabase();
-        }
-
-        private void Job_JobChanged(object sender, EventArgs e)
-        {
-            // Get the job object; will be passed to HandleGenerationStatusChange
-            SyncGeodatabaseJob job = sender as SyncGeodatabaseJob;
-
-            // Due to the nature of the threading implementation,
-            //     the dispatcher needs to be used to interact with the UI
-            // The dispatcher takes an Action, provided here as a lambda function
-            Dispatcher.Invoke(() =>
-            {
-                // Update the progress bar as appropriate
-                if (job.Status == JobStatus.Succeeded || job.Status == JobStatus.Failed)
-                {
-                    // Update the progress bar's value
-                    UpdateProgressBar(0);
-
-                    // Hide the progress bar
-                    MyProgressBar.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    // Show the progress bar
-                    MyProgressBar.Visibility = Visibility.Visible;
-                }
-
-                // Do the remainder of the job status changed work
-                HandleSyncStatusChange(job);
-            });
         }
     }
 }

@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Drawing;
 
@@ -272,9 +271,6 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
             // Create a generate geodatabase job
             GenerateGeodatabaseJob generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
-            // Handle the job changed event
-            generateGdbJob.JobChanged += GenerateGdbJobChanged;
-
             // Handle the progress changed event with an inline (lambda) function to show the progress bar
             generateGdbJob.ProgressChanged += ((sender, e) =>
             {
@@ -285,23 +281,21 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
                 UpdateProgressBar(job.Progress);
             });
 
+            // Show the progress bar
+            MyProgressBar.Visibility = Visibility.Visible;
+
             // Start the job
             generateGdbJob.Start();
-        }
 
-        private async void HandleGenerationStatusChange(GenerateGeodatabaseJob job)
-        {
-            JobStatus status = job.Status;
+            // Get the result of the job
+            _resultGdb = await generateGdbJob.GetResultAsync();
 
-            // If the job completed successfully, add the geodatabase data to the map
-            if (status == JobStatus.Succeeded)
+            // Hide the progress bar
+            MyProgressBar.Visibility = Visibility.Collapsed;
+
+            if (generateGdbJob.Status == JobStatus.Succeeded)
             {
-                // Clear out the existing layers
-                MyMapView.Map.OperationalLayers.Clear();
-
-                // Get the new geodatabase
-                _resultGdb = await job.GetResultAsync();
-
+                // If the job completed successfully, add the geodatabase to the map
                 // Loop through all feature tables in the geodatabase and add a new layer to the map
                 foreach (GeodatabaseFeatureTable table in _resultGdb.GeodatabaseFeatureTables)
                 {
@@ -318,22 +312,20 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
                 // Update help label
                 MyHelpLabel.Content = "2. Tap a point feature to select";
             }
-
-            // See if the job failed
-            if (status == JobStatus.Failed)
+            else
             {
                 // Create a message to show the user
                 string message = "Generate geodatabase job failed";
 
                 // Show an error message (if there is one)
-                if (job.Error != null)
+                if (generateGdbJob.Error != null)
                 {
-                    message += ": " + job.Error.Message;
+                    message += ": " + generateGdbJob.Error.Message;
                 }
                 else
                 {
                     // If no error, show messages from the job
-                    foreach (JobMessage m in job.Messages)
+                    foreach (JobMessage m in generateGdbJob.Messages)
                     {
                         // Get the text from the JobMessage and add it to the output string
                         message += "\n" + m.Message;
@@ -465,32 +457,6 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
         {
             // Call the cross-platform map extent update method
             UpdateMapExtent();
-        }
-
-        // Handler for the job changed event
-        private void GenerateGdbJobChanged(object sender, EventArgs e)
-        {
-            // Get the job object; will be passed to HandleGenerationStatusChange
-            GenerateGeodatabaseJob job = sender as GenerateGeodatabaseJob;
-
-            // Due to the nature of the threading implementation,
-            //     the dispatcher needs to be used to interact with the UI
-            // The dispatcher takes an Action, provided here as a lambda function
-            Dispatcher.Invoke(() =>
-            {
-                // Hide the progress bar if the job is finished
-                if (job.Status == JobStatus.Succeeded || job.Status == JobStatus.Failed)
-                {
-                    MyProgressBar.Visibility = Visibility.Collapsed;
-                }
-                else // Show it otherwise
-                {
-                    MyProgressBar.Visibility = Visibility.Visible;
-                }
-
-                // Do the remainder of the job status changed work
-                HandleGenerationStatusChange(job);
-            });
         }
 
         private void UpdateProgressBar(int progress)

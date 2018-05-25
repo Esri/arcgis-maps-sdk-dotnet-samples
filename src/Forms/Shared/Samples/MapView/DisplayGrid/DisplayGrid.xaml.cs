@@ -62,27 +62,29 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
         private void ApplySettingsButton_Clicked(object sender, EventArgs e)
         {
+            Esri.ArcGISRuntime.UI.Grid grid;
+
             // First, update the grid based on the type selected.
             switch (gridTypePicker.SelectedItem.ToString())
             {
                 case "LatLong":
-                    MyMapView.Grid = new LatitudeLongitudeGrid();
+                    grid = new LatitudeLongitudeGrid();
                     // Apply the label format setting.
                     string selectedFormatString = labelFormatPicker.SelectedItem.ToString();
-                    ((LatitudeLongitudeGrid)MyMapView.Grid).LabelFormat =
+                    ((LatitudeLongitudeGrid)grid).LabelFormat =
                         (LatitudeLongitudeGridLabelFormat)Enum.Parse(typeof(LatitudeLongitudeGridLabelFormat), selectedFormatString);
                     break;
 
                 case "MGRS":
-                    MyMapView.Grid = new MgrsGrid();
+                    grid = new MgrsGrid();
                     break;
 
                 case "UTM":
-                    MyMapView.Grid = new UtmGrid();
+                    grid = new UtmGrid();
                     break;
-
                 case "USNG":
-                    MyMapView.Grid = new UsngGrid();
+                default:
+                    grid = new UsngGrid();
                     break;
             }
 
@@ -90,11 +92,11 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             switch (labelVisibilityPicker.SelectedItem.ToString())
             {
                 case "Visible":
-                    MyMapView.Grid.IsLabelVisible = true;
+                    grid.IsLabelVisible = true;
                     break;
 
                 case "Invisible":
-                    MyMapView.Grid.IsLabelVisible = false;
+                    grid.IsLabelVisible = false;
                     break;
             }
 
@@ -102,20 +104,20 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             switch (gridVisibilityPicker.SelectedItem.ToString())
             {
                 case "Visible":
-                    MyMapView.Grid.IsVisible = true;
+                    grid.IsVisible = true;
                     break;
 
                 case "Invisible":
-                    MyMapView.Grid.IsVisible = false;
+                    grid.IsVisible = false;
                     break;
             }
 
             // Next, apply the grid color and label color settings for each zoom level.
-            for (long level = 0; level < MyMapView.Grid.LevelCount; level++)
+            for (long level = 0; level < grid.LevelCount; level++)
             {
                 // Set the line symbol.
                 Symbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.FromName(gridColorPicker.SelectedItem.ToString()), 2);
-                MyMapView.Grid.SetLineSymbol(level, lineSymbol);
+                grid.SetLineSymbol(level, lineSymbol);
 
                 // Set the text symbol.
                 Symbol textSymbol = new TextSymbol
@@ -126,11 +128,14 @@ namespace ArcGISRuntime.Samples.DisplayGrid
                     HaloColor = Colors.Purple,
                     HaloWidth = 3
                 };
-                MyMapView.Grid.SetTextSymbol(level, textSymbol);
+                grid.SetTextSymbol(level, textSymbol);
             }
 
             // Next, apply the label position setting.
-            MyMapView.Grid.LabelPosition = (GridLabelPosition)Enum.Parse(typeof(GridLabelPosition), labelPositionPicker.SelectedItem.ToString());
+            grid.LabelPosition = (GridLabelPosition)Enum.Parse(typeof(GridLabelPosition), labelPositionPicker.SelectedItem.ToString());
+
+            // Apply the updated grid.
+            MyMapView.Grid = grid;
         }
     }
 }

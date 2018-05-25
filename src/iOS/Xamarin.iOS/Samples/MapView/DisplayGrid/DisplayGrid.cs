@@ -67,38 +67,41 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
         private void ApplyCurrentSettings()
         {
+            Grid grid;
+
             // First, update the grid based on the type selected.
             switch (_selectedGridType)
             {
                 case "LatLong":
-                    _myMapView.Grid = new LatitudeLongitudeGrid();
+                    grid = new LatitudeLongitudeGrid();
                     break;
 
                 case "MGRS":
-                    _myMapView.Grid = new MgrsGrid();
+                    grid = new MgrsGrid();
                     break;
 
                 case "UTM":
-                    _myMapView.Grid = new UtmGrid();
+                    grid = new UtmGrid();
                     break;
 
                 case "USNG":
-                    _myMapView.Grid = new UsngGrid();
+                default:
+                    grid = new UsngGrid();
                     break;
             }
 
             // Next, apply the label position setting.
-            _myMapView.Grid.LabelPosition = _selectedLabelPosition;
+            grid.LabelPosition = _selectedLabelPosition;
 
             // Next, apply the grid color and label color settings for each zoom level.
-            for (long level = 0; level < _myMapView.Grid.LevelCount; level++)
+            for (long level = 0; level < grid.LevelCount; level++)
             {
                 // Set the grid color if the grid is selected for display.
                 if (_selectedGridColor != null)
                 {
                     // Set the line symbol.
                     Symbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, _selectedGridColor.Value, 2);
-                    _myMapView.Grid.SetLineSymbol(level, lineSymbol);
+                    grid.SetLineSymbol(level, lineSymbol);
                 }
 
                 // Set the label color if labels are enabled for display.
@@ -113,21 +116,24 @@ namespace ArcGISRuntime.Samples.DisplayGrid
                         HaloColor = Colors.Purple,
                         HaloWidth = 3
                     };
-                    _myMapView.Grid.SetTextSymbol(level, textSymbol);
+                    grid.SetTextSymbol(level, textSymbol);
                 }
             }
 
             // Next, hide the grid if it has been hidden.
             if (_selectedGridColor == null)
             {
-                _myMapView.Grid.IsVisible = false;
+                grid.IsVisible = false;
             }
 
             // Next, hide the labels if they have been hidden.
             if (_selectedLabelColor == null)
             {
-                _myMapView.Grid.IsLabelVisible = false;
+                grid.IsLabelVisible = false;
             }
+
+            // Apply the updated grid.
+            _myMapView.Grid = grid;
         }
 
         private void _labelPositionButton_TouchUpInside(object sender, EventArgs e)

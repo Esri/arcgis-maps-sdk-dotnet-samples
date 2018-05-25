@@ -80,7 +80,7 @@ namespace ArcGISRuntime.WPF.Samples.DistanceMeasurement
                 // This is needed because measurement change events occur on a non-UI thread and this code accesses UI object.
                 Dispatcher.Invoke(() =>
                 {
-                    // Update the labels with new values in the format {value} {unit system}
+                    // Update the labels with new values in the format {value} {unit system}.
                     DirectMeasureLabel.Content = string.Format("{0:F} {1}", _distanceMeasurement.DirectDistance.Value,
                         _distanceMeasurement.DirectDistance.Unit.Abbreviation);
                     VerticalMeasureLabel.Content = string.Format("{0:F} {1}", _distanceMeasurement.VerticalDistance.Value,

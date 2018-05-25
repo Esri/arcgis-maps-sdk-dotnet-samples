@@ -7,26 +7,24 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Diagnostics;
-using Windows.UI.Core;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Input;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
+using Esri.ArcGISRuntime.Xamarin.Forms;
+using System;
+using System.Diagnostics;
+using Xamarin.Forms;
 
-namespace ArcGISRuntime.UWP.Samples.DistanceMeasurement
+namespace ArcGISRuntime.Samples.DistanceMeasurement
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Distance measurement analysis",
         "Analysis",
         "This sample demonstrates measuring 3D distances between two points in a scene. The distance measurement analysis allows you to add the same measuring experience found in ArcGIS Pro, City Engine, and the ArcGIS API for JavaScript to your app. You can set the unit system of measurement (metric or imperial) and have the units automatically switch to one appropriate for the current scale. The rendering is handled internally so they do not interfere with other analyses like viewsheds.",
-        "Choose 'New measurement' to start a new measurement. Move the mouse to change the end location. Tap to finish the measurement. Use the dropdown to select a different unit system.",
+        "Tap to set a new end point for the measurement.",
         "Featured")]
-    public partial class DistanceMeasurement
+    public partial class DistanceMeasurement : ContentPage
     {
         // URLs to various services used to provide an interesting scene for the sample.
         private readonly Uri _buildingService =
@@ -40,52 +38,54 @@ namespace ArcGISRuntime.UWP.Samples.DistanceMeasurement
             new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
         // Reference to the measurement used.
-        private LocationDistanceMeasurement _distanceMeasurement;
+        private LocationDistanceMeasurement _distanceMeasurement; 
 
         public DistanceMeasurement()
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization
+            Title = "Distance measurement analysis";
+
+            // Create the UI, setup the control references and execute initialization.
             Initialize();
         }
 
         private void Initialize()
         {
             // Create a scene with elevation.
-            Surface sceneSurface = new Surface();
+            var sceneSurface = new Surface();
             sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_worldElevationService));
             sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_localElevationService));
-            Scene myScene = new Scene(Basemap.CreateImagery())
+            var myScene = new Scene(Basemap.CreateImagery())
             {
                 BaseSurface = sceneSurface
             };
 
             // Create and add a building layer.
-            ArcGISSceneLayer buildingsLayer = new ArcGISSceneLayer(_buildingService);
+            var buildingsLayer = new ArcGISSceneLayer(_buildingService);
             myScene.OperationalLayers.Add(buildingsLayer);
 
             // Create and add an analysis overlay.
-            AnalysisOverlay measureAnalysisOverlay = new AnalysisOverlay();
+            var measureAnalysisOverlay = new AnalysisOverlay();
             MySceneView.AnalysisOverlays.Add(measureAnalysisOverlay);
 
             // Create an initial distance measurement and show it.
-            MapPoint start = new MapPoint(-4.494677, 48.384472, 24.772694, SpatialReferences.Wgs84);
-            MapPoint end = new MapPoint(-4.495646, 48.384377, 58.501115, SpatialReferences.Wgs84);
+            var start = new MapPoint(-4.494677, 48.384472, 24.772694, SpatialReferences.Wgs84);
+            var end = new MapPoint(-4.495646, 48.384377, 58.501115, SpatialReferences.Wgs84);
             _distanceMeasurement = new LocationDistanceMeasurement(start, end);
             measureAnalysisOverlay.Analyses.Add(_distanceMeasurement);
             MySceneView.SetViewpointCamera(new Camera(start, 200, 0, 45, 0));
 
             // Keep the UI updated.
-            _distanceMeasurement.MeasurementChanged += async (o, e) =>
+            _distanceMeasurement.MeasurementChanged += (o, e) =>
             {
                 // This is needed because measurement change events occur on a non-UI thread and this code accesses UI object.
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                Device.BeginInvokeOnMainThread(() =>
                 {
                     // Update the labels with new values in the format {value} {unit system}.
-                    DirectMeasureTextBlock.Text = $"{_distanceMeasurement.DirectDistance.Value:F} {_distanceMeasurement.DirectDistance.Unit.Abbreviation}";
-                    VerticalMeasureTextBlock.Text = $"{_distanceMeasurement.VerticalDistance.Value:F} {_distanceMeasurement.VerticalDistance.Unit.Abbreviation}";
-                    HorizontalMeasureTextBlock.Text = $"{_distanceMeasurement.HorizontalDistance.Value:F} {_distanceMeasurement.HorizontalDistance.Unit.Abbreviation}";
+                    DirectMeasureLabel.Text = $"{_distanceMeasurement.DirectDistance.Value:F} {_distanceMeasurement.DirectDistance.Unit.Abbreviation}";
+                    VerticalMeasureLabel.Text = $"{_distanceMeasurement.VerticalDistance.Value:F} {_distanceMeasurement.VerticalDistance.Unit.Abbreviation}";
+                    HorizontalMeasureLabel.Text = $"{_distanceMeasurement.HorizontalDistance.Value:F} {_distanceMeasurement.HorizontalDistance.Unit.Abbreviation}";
                 });
             };
 
@@ -94,7 +94,7 @@ namespace ArcGISRuntime.UWP.Samples.DistanceMeasurement
             UnitSystemCombo.SelectedItem = _distanceMeasurement.UnitSystem;
 
             // Update the unit system selection.
-            UnitSystemCombo.SelectionChanged += (sender, args) =>
+            UnitSystemCombo.SelectedIndexChanged += (sender, args) =>
             {
                 _distanceMeasurement.UnitSystem = (UnitSystem) UnitSystemCombo.SelectedItem;
             };
@@ -102,44 +102,16 @@ namespace ArcGISRuntime.UWP.Samples.DistanceMeasurement
             // Show the scene in the view.
             MySceneView.Scene = myScene;
 
-            // Enable the 'New measurement' button.
-            NewMeasureButton.IsEnabled = true;
-        }
-
-        private void MySceneView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
-        {
-            // Unsubscribe from events to finish the measurement.
-            MySceneView.PointerMoved -= MySceneView_PointerMoved;
-            MySceneView.GeoViewTapped -= MySceneView_GeoViewTapped;
-
-            // Re-enable the new measurement button.
-            NewMeasureButton.IsEnabled = true;
-
-            // Re-set the help label.
-            HelpTextBlock.Text = "Tap 'New measurement' to start.";
-        }
-
-        private void NewMeasureButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            // Subscribe to mouse move to change the measurement.
-            MySceneView.PointerMoved += MySceneView_PointerMoved;
-
-            // Subscribe to the tap method to enable finishing a measurement.
+            // Subscribe to tap events to enable updating the measurement.
             MySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
-
-            // Disable the button.
-            NewMeasureButton.IsEnabled = false;
-
-            // Update the help label.
-            HelpTextBlock.Text = "Move the mouse to update the end point. Tap again to finish.";
         }
 
-        private async void MySceneView_PointerMoved(object sender, PointerRoutedEventArgs e)
+        private async void MySceneView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             try
             {
                 // Get the geographic location for the current mouse position.
-                MapPoint geoPoint = await MySceneView.ScreenToLocationAsync(e.GetCurrentPoint(MySceneView).Position);
+                MapPoint geoPoint = await MySceneView.ScreenToLocationAsync(e.Position);
 
                 if (geoPoint == null) return;
 

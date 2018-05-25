@@ -79,7 +79,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             var end = new MapPoint(-4.495646, 48.384377, 58.501115, SpatialReferences.Wgs84);
             _distanceMeasurement = new LocationDistanceMeasurement(start, end);
             measureAnalysisOverlay.Analyses.Add(_distanceMeasurement);
-            _mySceneView.SetViewpointCamera(new Camera(start, 200, 90, 45, 0));
+            _mySceneView.SetViewpointCamera(new Camera(start, 200, 45, 45, 0));
 
             // Keep the UI updated.
             _distanceMeasurement.MeasurementChanged += (o, e) =>
@@ -87,7 +87,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
                 // This is needed because measurement change events occur on a non-UI thread and this code accesses UI object.
                 BeginInvokeOnMainThread(() =>
                 {
-                    // Update the label with new values in the format {value} {unit system}.
+                    // Update the labels with new values in the format {value} {unit system}.
                     string direct = $"{_distanceMeasurement.DirectDistance.Value:F} {_distanceMeasurement.DirectDistance.Unit.Abbreviation}";
                     string vertical = $"{_distanceMeasurement.VerticalDistance.Value:F} {_distanceMeasurement.VerticalDistance.Unit.Abbreviation}";
                     string horizontal = $"{_distanceMeasurement.HorizontalDistance.Value:F} {_distanceMeasurement.HorizontalDistance.Unit.Abbreviation}";

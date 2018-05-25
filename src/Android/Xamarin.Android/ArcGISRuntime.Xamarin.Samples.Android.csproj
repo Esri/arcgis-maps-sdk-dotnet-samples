@@ -239,6 +239,7 @@
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
+    <Compile Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.cs" />
     <Compile Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.cs" />
     <Compile Include="Samples\GeometryEngine\BufferList\BufferList.cs" />
     <Compile Include="Samples\GeometryEngine\Buffer\Buffer.cs" />
@@ -408,6 +409,14 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\DistanceMeasurement.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

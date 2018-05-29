@@ -38,6 +38,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -45,38 +46,44 @@
                 </Grid.ColumnDefinitions>
                 <!-- TextBlocks -->
                 <TextBlock Text="Grid type"
-                       Grid.Row="0" />
-                <TextBlock Text="Label visibility"
-                       Grid.Row="1" />
-                <TextBlock Text="Grid visibility"
-                       Grid.Row="2" />
+                           Grid.Row="0" />
+                <TextBlock Text="Show labels"
+                           Grid.Row="1" />
+                <TextBlock Text="Show grid"
+                           Grid.Row="2" />
                 <TextBlock Text="Grid color"
-                       Grid.Row="3" />
+                           Grid.Row="3" />
                 <TextBlock Text="Label color"
-                       Grid.Row="4" />
+                           Grid.Row="4" />
+                <TextBlock Text="Halo color"
+                           Grid.Row="5" />
                 <TextBlock Text="Label position"
-                       Grid.Row="5" />
+                           Grid.Row="6" />
                 <TextBlock Text="Label format"
-                       Grid.Row="6" />
+                           Grid.Row="7" />
                 <!-- Inputs -->
                 <ComboBox x:Name="gridTypeCombo"
                           Grid.Row="0" Grid.Column="1" />
-                <ComboBox x:Name="labelVisibilityCombo"
+                <CheckBox x:Name="labelVisibilityCheckbox"
+                          Margin="5,0,0,0" IsChecked="True"
                           Grid.Row="1" Grid.Column="1" />
-                <ComboBox x:Name="gridVisibilityCombo"
+                <CheckBox x:Name="gridVisibilityCheckbox"
+                          Margin="5,0,0,0" IsChecked="True"
                           Grid.Row="2" Grid.Column="1" />
                 <ComboBox x:Name="gridColorCombo"
                           Grid.Row="3" Grid.Column="1" />
                 <ComboBox x:Name="labelColorCombo"
                           Grid.Row="4" Grid.Column="1" />
-                <ComboBox x:Name="labelPositionCombo"
+                <ComboBox x:Name="haloColorCombo"
                           Grid.Row="5" Grid.Column="1" />
-                <ComboBox x:Name="labelFormatCombo"
+                <ComboBox x:Name="labelPositionCombo"
                           Grid.Row="6" Grid.Column="1" />
+                <ComboBox x:Name="labelFormatCombo"
+                          Grid.Row="7" Grid.Column="1" />
                 <!-- Apply -->
                 <Button x:Name="applySettingsButton"
                         Content="Apply settings"
-                        Grid.ColumnSpan="2" Grid.Row="7"
+                        Grid.ColumnSpan="2" Grid.Row="8"
                         IsEnabled="False" />
             </Grid>
         </Border>

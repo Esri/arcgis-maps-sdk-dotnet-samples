@@ -29,11 +29,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Label visibility" />
-            <Spinner
-                android:id="@+id/displayGrid_labelVisibilitySpinner"
+                android:text="Show label" />
+            <Switch
+                android:id="@+id/displayGrid_labelVisibilitySwitch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:layout_weight="1" />
         </TableRow>
         <TableRow
@@ -43,11 +44,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Grid visibility" />
-            <Spinner
-                android:id="@+id/displayGrid_gridVisibilitySpinner"
+                android:text="Show grid" />
+            <Switch
+                android:id="@+id/displayGrid_gridVisibilitySwitch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:layout_weight="1" />
         </TableRow>
         <TableRow

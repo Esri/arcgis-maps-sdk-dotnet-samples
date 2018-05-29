@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
+using Esri.ArcGISRuntime.Geometry;
 using Colors = System.Drawing.Color;
 
 namespace ArcGISRuntime.UWP.Samples.DisplayGrid
@@ -18,7 +19,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayGrid
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Display a grid",
         "MapView",
-        "Display and work with coordinate grid systems such as Latitude/Longitude, MGRS, UTM and USNG on a map view. This includes toggling labels visibility, changing the color of the grid lines, and changing the color of the grid labels.",
+        "This sample demonstrates how to display and work with coordinate grid systems such as Latitude/Longitude, MGRS, UTM and USNG on a map view. This includes toggling labels visibility, changing the color of the grid lines, and changing the color of the grid labels.",
         "Choose the grid settings and then tap 'Apply settings' to see them applied.")]
     public partial class DisplayGrid
     {
@@ -36,24 +37,38 @@ namespace ArcGISRuntime.UWP.Samples.DisplayGrid
 
             // Configure the UI options.
             gridTypeCombo.ItemsSource = new[] { "LatLong", "MGRS", "UTM", "USNG" };
-            var visibilityItemsSource = new[] { "Visible", "Invisible" };
-            labelVisibilityCombo.ItemsSource = visibilityItemsSource;
-            gridVisibilityCombo.ItemsSource = visibilityItemsSource;
-            var colorItemsSource = new[] { "Red", "Green", "Blue", "White" };
+            var colorItemsSource = new[] { "Red", "Green", "Blue", "White", "Purple" };
             gridColorCombo.ItemsSource = colorItemsSource;
             labelColorCombo.ItemsSource = colorItemsSource;
+            haloColorCombo.ItemsSource = colorItemsSource;
             labelPositionCombo.ItemsSource = Enum.GetNames(typeof(GridLabelPosition));
             labelFormatCombo.ItemsSource = Enum.GetNames(typeof(LatitudeLongitudeGridLabelFormat));
-            foreach (var combo in new[] { gridTypeCombo, labelVisibilityCombo, gridVisibilityCombo, gridColorCombo, labelColorCombo, labelPositionCombo, labelFormatCombo })
+            foreach (var combo in new[] { gridTypeCombo, gridColorCombo, labelColorCombo, labelPositionCombo, labelFormatCombo })
             {
                 combo.SelectedIndex = 0;
             }
+
+            // Apply a good default halo color selection.
+            haloColorCombo.SelectedIndex = 3;
+
+            // Subscribe to grid type change events in order to disable the format change option when it doesn't apply.
+            gridTypeCombo.SelectionChanged += (o, e) =>
+            {
+                labelFormatCombo.IsEnabled = gridTypeCombo.SelectedItem.ToString() == "LatLong";
+            };
 
             // Subscribe to the button click event.
             applySettingsButton.Click += ApplySettingsButton_Click;
 
             // Enable the action button.
             applySettingsButton.IsEnabled = true;
+
+            // Zoom to a default scale that will show the grid labels if they are enabled.
+            MyMapView.SetViewpointCenterAsync(
+                new MapPoint(-7702852.905619, 6217972.345771, SpatialReferences.WebMercator), 23227);
+
+            // Apply default settings.
+            ApplySettingsButton_Click(this, null);
         }
 
         private void ApplySettingsButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -86,28 +101,10 @@ namespace ArcGISRuntime.UWP.Samples.DisplayGrid
             }
 
             // Next, apply the label visibility setting.
-            switch (labelVisibilityCombo.SelectedValue.ToString())
-            {
-                case "Visible":
-                    grid.IsLabelVisible = true;
-                    break;
-
-                case "Invisible":
-                    grid.IsLabelVisible = false;
-                    break;
-            }
+            grid.IsLabelVisible = labelVisibilityCheckbox.IsChecked.Value;
 
             // Next, apply the grid visibility setting.
-            switch (gridVisibilityCombo.SelectedValue.ToString())
-            {
-                case "Visible":
-                    grid.IsVisible = true;
-                    break;
-
-                case "Invisible":
-                    grid.IsVisible = false;
-                    break;
-            }
+            grid.IsVisible = gridVisibilityCheckbox.IsChecked.Value;
 
             // Next, apply the grid color and label color settings for each zoom level.
             for (long level = 0; level < grid.LevelCount; level++)
@@ -120,9 +117,9 @@ namespace ArcGISRuntime.UWP.Samples.DisplayGrid
                 Symbol textSymbol = new TextSymbol
                 {
                     Color = Colors.FromName(labelColorCombo.SelectedItem.ToString()),
-                    OutlineColor = Colors.Purple,
+                    OutlineColor = Colors.FromName(haloColorCombo.SelectedItem.ToString()),
                     Size = 16,
-                    HaloColor = Colors.Purple,
+                    HaloColor = Colors.FromName(haloColorCombo.SelectedItem.ToString()),
                     HaloWidth = 3
                 };
                 grid.SetTextSymbol(level, textSymbol);

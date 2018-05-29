@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
+using Esri.ArcGISRuntime.Geometry;
 using Colors = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.DisplayGrid
@@ -23,7 +24,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Display a grid",
         "MapView",
-        "Display and work with coordinate grid systems such as Latitude/Longitude, MGRS, UTM and USNG on a map view. This includes toggling labels visibility, changing the color of the grid lines, and changing the color of the grid labels.",
+        "This sample demonstrates how to display and work with coordinate grid systems such as Latitude/Longitude, MGRS, UTM and USNG on a map view. This includes toggling labels visibility, changing the color of the grid lines, and changing the color of the grid labels.",
         "Choose the grid settings and then tap 'Apply settings' to see them applied.")]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("DisplayGrid.axml")]
     public class DisplayGrid : Activity
@@ -33,8 +34,8 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
         private Button _applySettingsButton;
         private Spinner _gridTypeSpinner;
-        private Spinner _labelVisibilitySpinner;
-        private Spinner _gridVisibilitySpinner;
+        private Switch _labelVisibilitySwitch;
+        private Switch _gridVisibilitySwitch;
         private Spinner _gridColorSpinner;
         private Spinner _labelColorSpinner;
         private Spinner _labelPositionSpinner;
@@ -54,28 +55,38 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         private void Initialize()
         {
             // Set up the map view with a basemap.
-            _myMapView.Map = new Map(Basemap.CreateImageryWithLabelsVector());
+            _myMapView.Map = new Map(Basemap.CreateImageryWithLabels());
 
             // Configure the UI options.
             _gridTypeSpinner.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, new[] { "LatLong", "MGRS", "UTM", "USNG" });
-            var visibilityItemsSource = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, new[] { "Visible", "Invisible" });
-            _labelVisibilitySpinner.Adapter = visibilityItemsSource;
-            _gridVisibilitySpinner.Adapter = visibilityItemsSource;
-            var colorItemsSource = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, new[] { "Red", "Green", "Blue", "White" });
+            var colorItemsSource = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, new[] { "Red", "Green", "Blue", "White", "Purple" });
             _gridColorSpinner.Adapter = colorItemsSource;
             _labelColorSpinner.Adapter = colorItemsSource;
             _labelPositionSpinner.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, Enum.GetNames(typeof(GridLabelPosition)));
             _labelFormatSpinner.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, Enum.GetNames(typeof(LatitudeLongitudeGridLabelFormat)));
-            foreach (Spinner spinner in new[] { _gridTypeSpinner, _labelVisibilitySpinner, _gridVisibilitySpinner, _gridColorSpinner, _labelColorSpinner, _labelPositionSpinner, _labelFormatSpinner })
+            foreach (Spinner spinner in new[] { _gridTypeSpinner, _gridColorSpinner, _labelColorSpinner, _labelPositionSpinner, _labelFormatSpinner })
             {
                 spinner.SetSelection(0);
             }
+
+            // Handle grid type changes so that the format option can be disabled for non-latlong grids.
+            _gridTypeSpinner.ItemSelected += (o, e) =>
+            {
+                _labelFormatSpinner.Enabled = _gridTypeSpinner.SelectedItem.ToString() == "LatLong";
+            };
 
             // Subscribe to the button click event.
             _applySettingsButton.Click += _applySettingsButton_Click;
 
             // Enable the action button.
             _applySettingsButton.Enabled = true;
+
+            // Zoom to a default scale that will show the grid labels if they are enabled.
+            _myMapView.SetViewpointCenterAsync(
+                new MapPoint(-7702852.905619, 6217972.345771, SpatialReferences.WebMercator), 23227);
+
+            // Apply default settings.
+            _applySettingsButton_Click(this, null);
         }
 
         private void _applySettingsButton_Click(object sender, EventArgs e)
@@ -108,28 +119,10 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             }
 
             // Next, apply the label visibility setting.
-            switch (_labelVisibilitySpinner.SelectedItem.ToString())
-            {
-                case "Visible":
-                    grid.IsLabelVisible = true;
-                    break;
-
-                case "Invisible":
-                    grid.IsLabelVisible = false;
-                    break;
-            }
+            grid.IsLabelVisible = _labelVisibilitySwitch.Checked;
 
             // Next, apply the grid visibility setting.
-            switch (_gridVisibilitySpinner.SelectedItem.ToString())
-            {
-                case "Visible":
-                    grid.IsVisible = true;
-                    break;
-
-                case "Invisible":
-                    grid.IsVisible = false;
-                    break;
-            }
+            grid.IsVisible = _gridVisibilitySwitch.Checked;
 
             // Next, apply the grid color and label color settings for each zoom level.
             for (long level = 0; level < grid.LevelCount; level++)
@@ -144,10 +137,8 @@ namespace ArcGISRuntime.Samples.DisplayGrid
                 Symbol textSymbol = new TextSymbol
                 {
                     Color = Colors.FromName(labelColor),
-                    OutlineColor = Colors.Purple,
                     Size = 16,
-                    HaloColor = Colors.Purple,
-                    HaloWidth = 3
+                    FontWeight = FontWeight.Bold
                 };
                 grid.SetTextSymbol(level, textSymbol);
             }
@@ -167,8 +158,8 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             // Update control references to point to the controls defined in the layout.
             _applySettingsButton = FindViewById<Button>(Resource.Id.displayGrid_applySettingsButton);
             _gridTypeSpinner = FindViewById<Spinner>(Resource.Id.displayGrid_gridTypeSpinner);
-            _labelVisibilitySpinner = FindViewById<Spinner>(Resource.Id.displayGrid_labelVisibilitySpinner);
-            _gridVisibilitySpinner = FindViewById<Spinner>(Resource.Id.displayGrid_gridVisibilitySpinner);
+            _labelVisibilitySwitch = FindViewById<Switch>(Resource.Id.displayGrid_labelVisibilitySwitch);
+            _gridVisibilitySwitch = FindViewById<Switch>(Resource.Id.displayGrid_gridVisibilitySwitch);
             _gridColorSpinner = FindViewById<Spinner>(Resource.Id.displayGrid_gridColorSpinner);
             _labelColorSpinner = FindViewById<Spinner>(Resource.Id.displayGrid_labelColorSpinner);
             _labelPositionSpinner = FindViewById<Spinner>(Resource.Id.displayGrid_labelPositionSpinner);

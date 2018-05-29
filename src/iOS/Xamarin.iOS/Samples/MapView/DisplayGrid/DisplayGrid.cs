@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
+using Esri.ArcGISRuntime.Geometry;
 using UIKit;
 using Colors = System.Drawing.Color;
 
@@ -23,7 +24,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Display a grid",
         "MapView",
-        "Display and work with coordinate grid systems such as Latitude/Longitude, MGRS, UTM and USNG on a map view. This includes toggling labels visibility, changing the color of the grid lines, and changing the color of the grid labels.",
+        "This sample demonstrates how to display and work with coordinate grid systems such as Latitude/Longitude, MGRS, UTM and USNG on a map view. This includes toggling labels visibility, changing the color of the grid lines, and changing the color of the grid labels.",
         "Use the buttons in the toolbar to change grid settings. Changes take effect immediately.")]
     public class DisplayGrid : UIViewController
     {
@@ -38,7 +39,6 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
         // Fields for storing the user's grid preferences.
         private string _selectedGridType = "LatLong";
-
         private Colors? _selectedGridColor = Colors.Red;
         private Colors? _selectedLabelColor = Colors.White;
         private GridLabelPosition _selectedLabelPosition = GridLabelPosition.Geographic;
@@ -63,6 +63,10 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
             // Apply a grid by default.
             ApplyCurrentSettings();
+
+            // Zoom to a default scale that will show the grid labels if they are enabled.
+            _myMapView.SetViewpointCenterAsync(
+                new MapPoint(-7702852.905619, 6217972.345771, SpatialReferences.WebMercator), 23227);
         }
 
         private void ApplyCurrentSettings()
@@ -111,10 +115,8 @@ namespace ArcGISRuntime.Samples.DisplayGrid
                     Symbol textSymbol = new TextSymbol
                     {
                         Color = _selectedLabelColor.Value,
-                        OutlineColor = Colors.Purple,
                         Size = 16,
-                        HaloColor = Colors.Purple,
-                        HaloWidth = 3
+                        FontWeight = FontWeight.Bold
                     };
                     grid.SetTextSymbol(level, textSymbol);
                 }

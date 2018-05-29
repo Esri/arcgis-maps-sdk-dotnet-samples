@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:local="clr-namespace:ArcGISRuntime.Samples.DensifyAndGeneralize"
+             x:Class="ArcGISRuntime.Samples.DensifyAndGeneralize.DensifyAndGeneralize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackLayout Grid.Row="0">
+            <Label TextColor="Red"
+                   Text="Adjust the sliders to see the resulting generalized or densified polygon." />
+            <Label FontAttributes="Bold"
+                   Text="Max. Deviation (Generalize" />
+            <Slider x:Name="DeviationSlider"
+                    Maximum="250" Minimum="1" Value="1" />
+            <Label FontAttributes="Bold"
+                   Text="Max. Segment length (Densify)" />
+            <Slider x:Name="SegmentLengthSlider"
+                    Maximum="500" Minimum="100" Value="100" />
+            <Label x:Name="ResultLabel"
+                   TextColor="Red"
+                   Text="Adjust a slider to start." />
+        </StackLayout>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+    </Grid>
+</ContentPage>

@@ -92,14 +92,14 @@ namespace ArcGISRuntime.UWP.Samples.DensifyAndGeneralize
                 polyline = (Polyline) GeometryEngine.Generalize(polyline, deviation, true);
 
                 // Update the result label.
-                ResultLabel.Text = string.Format("Operation: Generalize, Deviation: {0:f}", deviation);
+                ResultLabel.Text = $"Operation: Generalize, Deviation: {deviation:f}";
             }
             else
             {
                 polyline = (Polyline) GeometryEngine.Densify(polyline, segmentLength);
 
                 // Update the result label.
-                ResultLabel.Text = string.Format("Operation: Densify, Segment length: {0:f}", segmentLength);
+                ResultLabel.Text = $"Operation: Densify, Segment length: {segmentLength:f}";
             }
 
             // Update the graphic geometries to show the results.

@@ -14,7 +14,7 @@
             <Label TextColor="Red"
                    Text="Adjust the sliders to see the resulting generalized or densified polygon." />
             <Label FontAttributes="Bold"
-                   Text="Max. Deviation (Generalize" />
+                   Text="Max. Deviation (Generalize)" />
             <Slider x:Name="DeviationSlider"
                     Maximum="250" Minimum="1" Value="1" />
             <Label FontAttributes="Bold"

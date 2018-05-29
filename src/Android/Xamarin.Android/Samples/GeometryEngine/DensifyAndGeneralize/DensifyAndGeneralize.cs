@@ -3,28 +3,39 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using System.Linq;
+using Android.App;
+using Android.OS;
+using Android.Widget;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using Xamarin.Forms;
-using Colors = System.Drawing.Color;
+using Esri.ArcGISRuntime.UI.Controls;
+using System.Drawing;
+using System.Linq;
 
 namespace ArcGISRuntime.Samples.DensifyAndGeneralize
 {
+    [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Densify and generalize",
         "GeometryEngine",
         "Demonstrates how to densify or generalize a polyline geometry. In this example, points representing a ships location are shown at irregular intervals. One can densify the polyline connecting these lines to interpolate points along the line at regular intervals. Generalizing the polyline can also simplify the geometry while preserving its general shape.",
         "Use the sliders to adjust the max deviation (for generalize) and the max segment length (for densify). The results will update automatically.",
         "Featured")]
-    public partial class DensifyAndGeneralize : ContentPage
+    [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("DensifyAndGeneralize.axml")]
+    public class DensifyAndGeneralize : Activity
     {
+        // UI controls.
+        private TextView _resultLabel;
+        private MapView _myMapView;
+        private SeekBar _segmentLengthSlider;
+        private SeekBar _deviationSlider;
+
         // Graphic used to refer to the original geometry.
         private Polyline _originalPolyline;
 
@@ -32,16 +43,24 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
         private Graphic _resultPolylineGraphic;
         private Graphic _resultPointGraphic;
 
-        public DensifyAndGeneralize()
+        protected override void OnCreate(Bundle bundle)
         {
-            InitializeComponent();
+            base.OnCreate(bundle);
+            Title = "Densify and generalize";
 
+            // Create the UI, setup the control references and execute initialization.
+            CreateLayout();
+            Initialize();
+        }
+
+        private void Initialize()
+        {
             // Create the map with a default basemap.
-            MyMapView.Map = new Map(Basemap.CreateStreetsNightVector());
+            _myMapView.Map = new Map(Basemap.CreateStreetsNightVector());
 
             // Create and add a graphics overlay.
             GraphicsOverlay overlay = new GraphicsOverlay();
-            MyMapView.GraphicsOverlays.Add(overlay);
+            _myMapView.GraphicsOverlays.Add(overlay);
 
             // Create the original geometry: some points along a river.
             PointCollection points = CreateShipPoints();
@@ -49,19 +68,19 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             // Show the original geometry as red dots on the map.
             Multipoint originalMultipoint = new Multipoint(points);
             Graphic originalPointsGraphic = new Graphic(originalMultipoint,
-                new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Red, 7));
+                new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Red, 7));
             overlay.Graphics.Add(originalPointsGraphic);
 
             // Show a dotted red line connecting the original points.
             _originalPolyline = new Polyline(points);
             Graphic originalPolylineGraphic = new Graphic(_originalPolyline,
-                new SimpleLineSymbol(SimpleLineSymbolStyle.Dot, Colors.Red, 3));
+                new SimpleLineSymbol(SimpleLineSymbolStyle.Dot, Color.Red, 3));
             overlay.Graphics.Add(originalPolylineGraphic);
 
             // Show the result (densified or generalized) points as magenta dots on the map.
             _resultPointGraphic = new Graphic
             {
-                Symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Magenta, 7),
+                Symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Magenta, 7),
                 ZIndex = 999
             };
             overlay.Graphics.Add(_resultPointGraphic);
@@ -69,19 +88,35 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             // Connect the result points with a magenta polyline.
             _resultPolylineGraphic = new Graphic
             {
-                Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Magenta, 3),
+                Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Magenta, 3),
                 ZIndex = 1000
             };
             overlay.Graphics.Add(_resultPolylineGraphic);
 
             // Listen for changes in state.
-            DeviationSlider.ValueChanged += (o, e) =>
-                UpdateGeometry("Generalize", SegmentLengthSlider.Value, DeviationSlider.Value);
-            SegmentLengthSlider.ValueChanged += (o, e) =>
-                UpdateGeometry("Densify", SegmentLengthSlider.Value, DeviationSlider.Value);
+            _segmentLengthSlider.ProgressChanged += (o, e) =>
+                UpdateGeometry("Densify", _segmentLengthSlider.Progress + 100, _deviationSlider.Progress + 1);
+            _deviationSlider.ProgressChanged += (o, e) =>
+                UpdateGeometry("Generalize", _segmentLengthSlider.Progress + 100, _deviationSlider.Progress + 1);
 
             // Center the map.
-            MyMapView.SetViewpointGeometryAsync(_originalPolyline.Extent, 100);
+            _myMapView.SetViewpointGeometryAsync(_originalPolyline.Extent, 100);
+        }
+
+        private void CreateLayout()
+        {
+            // Load the layout for the sample from the .axml file.
+            SetContentView(Resource.Layout.DensifyAndGeneralize);
+
+            // Update control references to point to the controls defined in the layout.
+            _myMapView = FindViewById<MapView>(Resource.Id.densifyAndGeneralize_MyMapView);
+            _resultLabel = FindViewById<TextView>(Resource.Id.densifyAndGeneralize_ResultLabel);
+            _deviationSlider = FindViewById<SeekBar>(Resource.Id.densifyAndGeneralize_deviationSlider);
+            _deviationSlider.Min = 0;
+            _deviationSlider.Max = 249;
+            _segmentLengthSlider = FindViewById<SeekBar>(Resource.Id.densifyAndGeneralize_segmentLengthSlider);
+            _segmentLengthSlider.Min = 0;
+            _segmentLengthSlider.Max = 400;
         }
 
         private void UpdateGeometry(string operation, double segmentLength, double deviation)
@@ -95,14 +130,14 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
                 polyline = (Polyline) GeometryEngine.Generalize(polyline, deviation, true);
 
                 // Update the result label.
-                ResultLabel.Text = $"Operation: Generalize, Deviation: {deviation:f}";
+                _resultLabel.Text = $"Operation: Generalize, Deviation: {deviation:f}";
             }
             else
             {
                 polyline = (Polyline) GeometryEngine.Densify(polyline, segmentLength);
 
                 // Update the result label.
-                ResultLabel.Text = $"Operation: Densify, Segment length: {segmentLength:f}";
+                _resultLabel.Text = $"Operation: Densify, Segment length: {segmentLength:f}";
             }
 
             // Update the graphic geometries to show the results.

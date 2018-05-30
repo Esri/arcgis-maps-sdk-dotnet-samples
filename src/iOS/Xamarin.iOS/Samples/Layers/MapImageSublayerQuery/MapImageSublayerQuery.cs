@@ -28,9 +28,6 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         "Query", "Sublayer", "MapServer", "Table")]
     public class MapImageSublayerQuery : UIViewController
     {
-        // Constant for the location (offset from the top) where the sample UI should start.
-        private const int yPageOffset = 60;
-
         // MapView control for displaying the map.
         private MapView _myMapView = new MapView();
        
@@ -62,13 +59,16 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
 
         public override void ViewDidLayoutSubviews()
         {
+            // Calculate the offset from the top.
+            var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
             // Set the frame for the population entry controls.
-            _populationLabel.Frame = new CoreGraphics.CGRect(10, yPageOffset + 10, 150, 30);
-            _populationValueInput.Frame = new CoreGraphics.CGRect(170, yPageOffset + 10, View.Bounds.Width - 10, 30);
-            _queryButton.Frame = new CoreGraphics.CGRect(100, yPageOffset + 45, View.Bounds.Width - 200, 30);
+            _populationLabel.Frame = new CoreGraphics.CGRect(10, topMargin + 10, 150, 30);
+            _populationValueInput.Frame = new CoreGraphics.CGRect(170, topMargin + 10, View.Bounds.Width - 10, 30);
+            _queryButton.Frame = new CoreGraphics.CGRect(100, topMargin + 45, View.Bounds.Width - 200, 30);
 
             // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, yPageOffset + 75, View.Bounds.Width, View.Bounds.Height-(yPageOffset + 75));
+            _myMapView.Frame = new CoreGraphics.CGRect(0, topMargin + 75, View.Bounds.Width, View.Bounds.Height-(topMargin + 75));
 
             base.ViewDidLayoutSubviews();
         }
@@ -180,7 +180,7 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
             _populationValueInput = new UITextField { 
                 Text = "1800000",
                 BackgroundColor = UIColor.White,
-                TextColor = UIColor.White 
+                TextColor = UIColor.Blue 
             };
 
             _queryButton = new UIButton(UIButtonType.Plain);

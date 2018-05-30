@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="0,5,0,5" />
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
     </UserControl.Resources>
     <Grid>

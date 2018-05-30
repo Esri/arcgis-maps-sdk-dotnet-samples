@@ -41,15 +41,12 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             new Uri(
                 "http://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
 
-        private readonly Uri _localElevationService =
-            new Uri("https://tiles.arcgis.com/tiles/d3voDfTFbHOCRwVR/arcgis/rest/services/MNT_IDF/ImageServer");
-
         private readonly Uri _worldElevationService =
             new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
         // Reference to the measurement used.
         private LocationDistanceMeasurement _distanceMeasurement;
-        
+
         public DistanceMeasurement()
         {
             Title = "Distance measurement analysis";
@@ -60,7 +57,6 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             // Create a scene with elevation.
             var sceneSurface = new Surface();
             sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_worldElevationService));
-            sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_localElevationService));
             var myScene = new Scene(Basemap.CreateImagery())
             {
                 BaseSurface = sceneSurface
@@ -88,9 +84,12 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
                 BeginInvokeOnMainThread(() =>
                 {
                     // Update the labels with new values in the format {value} {unit system}.
-                    string direct = $"{_distanceMeasurement.DirectDistance.Value:F} {_distanceMeasurement.DirectDistance.Unit.Abbreviation}";
-                    string vertical = $"{_distanceMeasurement.VerticalDistance.Value:F} {_distanceMeasurement.VerticalDistance.Unit.Abbreviation}";
-                    string horizontal = $"{_distanceMeasurement.HorizontalDistance.Value:F} {_distanceMeasurement.HorizontalDistance.Unit.Abbreviation}";
+                    string direct =
+                        $"{_distanceMeasurement.DirectDistance.Value:F} {_distanceMeasurement.DirectDistance.Unit.Abbreviation}";
+                    string vertical =
+                        $"{_distanceMeasurement.VerticalDistance.Value:F} {_distanceMeasurement.VerticalDistance.Unit.Abbreviation}";
+                    string horizontal =
+                        $"{_distanceMeasurement.HorizontalDistance.Value:F} {_distanceMeasurement.HorizontalDistance.Unit.Abbreviation}";
                     _resultLabel.Text = $"Direct: {direct}, V: {vertical}, H: {horizontal}";
                 });
             };
@@ -145,7 +144,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
 
             // Create the unit change button.
             _unitChangeButton = new UIButton();
-            _unitChangeButton.SetTitle("Change units", UIControlState.Normal);
+            _unitChangeButton.SetTitle("Unit systems", UIControlState.Normal);
             _unitChangeButton.BackgroundColor = View.TintColor;
             _unitChangeButton.SetTitleColor(UIColor.White, UIControlState.Normal);
             _unitChangeButton.Layer.CornerRadius = 10;
@@ -161,11 +160,14 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         private void UnitChangeButton_TouchUpInside(object sender, EventArgs e)
         {
             // Create the view controller that will present the list of unit systems.
-            UIAlertController unitSystemSelectionAlert = UIAlertController.Create("Change unit system", "", UIAlertControllerStyle.ActionSheet);
+            UIAlertController unitSystemSelectionAlert =
+                UIAlertController.Create("Change unit system", "", UIAlertControllerStyle.ActionSheet);
 
             // Needed to prevent a crash on iPad.
-            UIPopoverPresentationController presentationPopover = unitSystemSelectionAlert.PopoverPresentationController;
-            if (presentationPopover!=null) {
+            UIPopoverPresentationController
+                presentationPopover = unitSystemSelectionAlert.PopoverPresentationController;
+            if (presentationPopover != null)
+            {
                 presentationPopover.SourceView = View;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
@@ -174,7 +176,8 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             foreach (UnitSystem system in Enum.GetValues(typeof(UnitSystem)))
             {
                 // Upon selecting a unit system, update the distance measure.
-                unitSystemSelectionAlert.AddAction(UIAlertAction.Create(system.ToString(), UIAlertActionStyle.Default, action => _distanceMeasurement.UnitSystem = system));
+                unitSystemSelectionAlert.AddAction(UIAlertAction.Create(system.ToString(), UIAlertActionStyle.Default,
+                    action => _distanceMeasurement.UnitSystem = system));
             }
 
             // Show the alert.
@@ -191,7 +194,8 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
 
         public override void ViewDidLayoutSubviews()
         {
-            var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height + 10;
+            var topMargin = NavigationController.NavigationBar.Frame.Height +
+                            UIApplication.SharedApplication.StatusBarFrame.Height + 10;
             nfloat toolbarHeight = 30;
 
             // Place the scene view and update the insets to avoid hiding view elements like the attribution bar.
@@ -209,7 +213,8 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
                 toolbarHeight - 10);
 
             // Place the unit system change button.
-            _unitChangeButton.Frame = new CGRect(View.Bounds.Width / 4, View.Bounds.Height - (3 * toolbarHeight), View.Bounds.Width / 2, toolbarHeight);
+            _unitChangeButton.Frame = new CGRect(View.Bounds.Width / 4, View.Bounds.Height - (3 * toolbarHeight),
+                View.Bounds.Width / 2, toolbarHeight);
 
             base.ViewDidLayoutSubviews();
         }

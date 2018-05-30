@@ -31,14 +31,11 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             new Uri(
                 "http://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
 
-        private readonly Uri _localElevationService =
-            new Uri("https://tiles.arcgis.com/tiles/d3voDfTFbHOCRwVR/arcgis/rest/services/MNT_IDF/ImageServer");
-
         private readonly Uri _worldElevationService =
             new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
         // Reference to the measurement used.
-        private LocationDistanceMeasurement _distanceMeasurement; 
+        private LocationDistanceMeasurement _distanceMeasurement;
 
         public DistanceMeasurement()
         {
@@ -55,7 +52,6 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             // Create a scene with elevation.
             var sceneSurface = new Surface();
             sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_worldElevationService));
-            sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_localElevationService));
             var myScene = new Scene(Basemap.CreateImagery())
             {
                 BaseSurface = sceneSurface
@@ -83,9 +79,12 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     // Update the labels with new values in the format {value} {unit system}.
-                    DirectMeasureLabel.Text = $"{_distanceMeasurement.DirectDistance.Value:F} {_distanceMeasurement.DirectDistance.Unit.Abbreviation}";
-                    VerticalMeasureLabel.Text = $"{_distanceMeasurement.VerticalDistance.Value:F} {_distanceMeasurement.VerticalDistance.Unit.Abbreviation}";
-                    HorizontalMeasureLabel.Text = $"{_distanceMeasurement.HorizontalDistance.Value:F} {_distanceMeasurement.HorizontalDistance.Unit.Abbreviation}";
+                    DirectMeasureLabel.Text =
+                        $"{_distanceMeasurement.DirectDistance.Value:F} {_distanceMeasurement.DirectDistance.Unit.Abbreviation}";
+                    VerticalMeasureLabel.Text =
+                        $"{_distanceMeasurement.VerticalDistance.Value:F} {_distanceMeasurement.VerticalDistance.Unit.Abbreviation}";
+                    HorizontalMeasureLabel.Text =
+                        $"{_distanceMeasurement.HorizontalDistance.Value:F} {_distanceMeasurement.HorizontalDistance.Unit.Abbreviation}";
                 });
             };
 

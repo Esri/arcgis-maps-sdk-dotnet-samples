@@ -10,17 +10,12 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
-using System.Timers;
-using Android.Icu.Util;
-using ArcGISRuntime.Samples.Managers;
-using Esri.ArcGISRuntime;
 using Debug = System.Diagnostics.Debug;
 
 namespace ArcGISRuntime.Samples.DistanceMeasurement
@@ -47,9 +42,6 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             new Uri(
                 "http://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
 
-        private readonly Uri _localElevationService =
-            new Uri("https://tiles.arcgis.com/tiles/d3voDfTFbHOCRwVR/arcgis/rest/services/MNT_IDF/ImageServer");
-
         private readonly Uri _worldElevationService =
             new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
@@ -72,7 +64,6 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             // Create a scene with elevation.
             var sceneSurface = new Surface();
             sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_worldElevationService));
-            sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_localElevationService));
             var myScene = new Scene(Basemap.CreateImagery())
             {
                 BaseSurface = sceneSurface
@@ -100,17 +91,21 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
                 RunOnUiThread(() =>
                 {
                     // Update the label with new values in the format {value} {unit system}.
-                    _directLabel.Text = $"{_distanceMeasurement.DirectDistance.Value:F} {_distanceMeasurement.DirectDistance.Unit.Abbreviation}";
-                    _verticalLabel.Text = $"{_distanceMeasurement.VerticalDistance.Value:F} {_distanceMeasurement.VerticalDistance.Unit.Abbreviation}";
-                    _horizontalLabel.Text = $"{_distanceMeasurement.HorizontalDistance.Value:F} {_distanceMeasurement.HorizontalDistance.Unit.Abbreviation}";
+                    _directLabel.Text =
+                        $"{_distanceMeasurement.DirectDistance.Value:F} {_distanceMeasurement.DirectDistance.Unit.Abbreviation}";
+                    _verticalLabel.Text =
+                        $"{_distanceMeasurement.VerticalDistance.Value:F} {_distanceMeasurement.VerticalDistance.Unit.Abbreviation}";
+                    _horizontalLabel.Text =
+                        $"{_distanceMeasurement.HorizontalDistance.Value:F} {_distanceMeasurement.HorizontalDistance.Unit.Abbreviation}";
                 });
             };
 
             // Update the unit spinner with the options.
-            _unitSpinner.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, Enum.GetNames(typeof(UnitSystem)));
+            _unitSpinner.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem,
+                Enum.GetNames(typeof(UnitSystem)));
             _unitSpinner.ItemSelected += (sender, args) =>
             {
-                UnitSystem[] values = (UnitSystem[])Enum.GetValues(typeof(UnitSystem));
+                UnitSystem[] values = (UnitSystem[]) Enum.GetValues(typeof(UnitSystem));
                 _distanceMeasurement.UnitSystem = values[args.Position];
             };
 

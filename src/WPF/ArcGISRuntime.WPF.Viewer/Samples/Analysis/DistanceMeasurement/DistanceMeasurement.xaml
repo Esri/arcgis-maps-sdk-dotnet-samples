@@ -36,7 +36,7 @@
                        Grid.Row="2" Grid.Column="0" />
                 <Label Content="Vertical"
                        Grid.Row="3" Grid.Column="0" />
-                <Label Content="Unit"
+                <Label Content="Unit system"
                        Grid.Row="4" Grid.Column="0" />
 
                 <!-- Controls -->
@@ -48,7 +48,7 @@
                        Grid.Row="3" Grid.Column="1" />
                 <ComboBox x:Name="UnitSystemCombo"
                           Grid.Row="4" Grid.Column="1"
-                          Margin="0,5,0,0"></ComboBox>
+                          Margin="0,5,0,0" />
 
                 <Button x:Name="NewMeasureButton"
                         Content="New measurement"

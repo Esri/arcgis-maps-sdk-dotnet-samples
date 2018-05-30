@@ -33,9 +33,6 @@ namespace ArcGISRuntime.UWP.Samples.DistanceMeasurement
             new Uri(
                 "http://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
 
-        private readonly Uri _localElevationService =
-            new Uri("https://tiles.arcgis.com/tiles/d3voDfTFbHOCRwVR/arcgis/rest/services/MNT_IDF/ImageServer");
-
         private readonly Uri _worldElevationService =
             new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
@@ -46,7 +43,7 @@ namespace ArcGISRuntime.UWP.Samples.DistanceMeasurement
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization
+            // Setup the control references and execute initialization.
             Initialize();
         }
 
@@ -55,7 +52,6 @@ namespace ArcGISRuntime.UWP.Samples.DistanceMeasurement
             // Create a scene with elevation.
             Surface sceneSurface = new Surface();
             sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_worldElevationService));
-            sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_localElevationService));
             Scene myScene = new Scene(Basemap.CreateImagery())
             {
                 BaseSurface = sceneSurface

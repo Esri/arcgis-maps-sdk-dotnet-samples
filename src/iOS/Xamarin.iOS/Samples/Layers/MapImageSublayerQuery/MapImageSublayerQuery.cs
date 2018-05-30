@@ -106,7 +106,8 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
             _selectedFeaturesOverlay.Graphics.Clear();
 
             // If the population value entered is not numeric, warn the user and exit.
-            if (!double.TryParse(_populationValueInput.Text.Trim(), out double populationNumber))
+            double populationNumber;
+            if (!double.TryParse(_populationValueInput.Text.Trim(), out populationNumber))
             {
                 UIAlertController alert = UIAlertController.Create("Invalid number", "Population value must be numeric.", UIAlertControllerStyle.Alert);
                 alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));

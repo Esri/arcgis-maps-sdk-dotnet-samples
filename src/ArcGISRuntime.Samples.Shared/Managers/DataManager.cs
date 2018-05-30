@@ -133,8 +133,10 @@ namespace ArcGISRuntime.Samples.Managers
         {
 #if NETFX_CORE
             string appDataFolder  = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-#else
+#elif XAMARIN
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+#else
+            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 #endif
             string sampleDataFolder = Path.Combine(appDataFolder, "ArcGISRuntimeSampleData");
 

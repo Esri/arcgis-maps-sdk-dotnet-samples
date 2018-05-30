@@ -12,6 +12,7 @@
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\SpatialOperations\SpatialOperations.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
@@ -28,7 +29,8 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\Web_TiledLayer\Web_TiledLayer.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
@@ -77,6 +79,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterRenderingRule\RasterRenderingRule.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WmsIdentify\WmsIdentify.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\StyleWmsLayer\StyleWmsLayer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
@@ -117,11 +120,27 @@
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>FeatureLayerGeodatabase.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\BufferList\BufferList.xaml.cs">
       <DependentUpon>BufferList.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\Buffer\Buffer.xaml.cs">
       <DependentUpon>Buffer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ClipGeometry\ClipGeometry.xaml.cs">
+      <DependentUpon>ClipGeometry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ConvexHullList\ConvexHullList.xaml.cs">
+      <DependentUpon>ConvexHullList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ConvexHull\ConvexHull.xaml.cs">
+      <DependentUpon>ConvexHull.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\CutGeometry\CutGeometry.xaml.cs">
+      <DependentUpon>CutGeometry.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.xaml.cs">
       <SubType>Code</SubType>
@@ -143,6 +162,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\CreateGeometries\CreateGeometries.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>CreateGeometries.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.xaml.cs">
+      <DependentUpon>ChangeSublayerRenderer.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml.cs">
       <SubType>Code</SubType>
@@ -171,6 +193,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>ChangeStretchRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\StyleWmsLayer\StyleWmsLayer.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>StyleWmsLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>ShowLabelsOnLayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml.cs">
       <SubType>Code</SubType>
@@ -224,8 +254,8 @@
       <DependentUpon>FormatCoordinates.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml.cs">
-      <DependentUpon>Web_TiledLayer.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.xaml.cs">
+      <DependentUpon>LoadWebTiledLayer.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml.cs">
@@ -558,7 +588,22 @@
   </ItemGroup>
   <!-- Sample XAML -->
   <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\BufferList\BufferList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ClipGeometry\ClipGeometry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ConvexHull\ConvexHull.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\CutGeometry\CutGeometry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -569,6 +614,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\CreateGeometries\CreateGeometries.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml">
@@ -590,6 +639,12 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\StyleWmsLayer\StyleWmsLayer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml">
@@ -638,7 +693,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\Web_TiledLayer\Web_TiledLayer.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml">
@@ -920,11 +975,17 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_star_blue.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Info.png" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\BufferList\BufferList.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\Buffer\Buffer.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ConvexHullList\ConvexHullList.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ConvexHull\ConvexHull.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\CutGeometry\CutGeometry.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.jpg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\NearestVertex\NearestVertex.xaml">
@@ -945,6 +1006,13 @@
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\Buffer\Buffer.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ConvexHullList\ConvexHullList.xaml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

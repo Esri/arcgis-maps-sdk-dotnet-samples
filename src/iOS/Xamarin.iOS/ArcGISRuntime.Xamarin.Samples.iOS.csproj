@@ -229,7 +229,7 @@
     <None Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
     <None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
     <None Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
-    <None Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.jpg" />
+    <None Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.jpg" />
     <None Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg" />
     <None Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <None Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
@@ -331,23 +331,33 @@
     <None Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />
     <None Include="Samples\GeometryEngine\BufferList\BufferList.jpg" />
     <None Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
+    <None Include="Samples\GeometryEngine\CutGeometry\CutGeometry.jpg" />
+    <None Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg" />
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
+    <Compile Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.cs" />
     <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
     <Compile Include="Samples\GeometryEngine\BufferList\BufferList.cs" />
     <Compile Include="Samples\GeometryEngine\Buffer\Buffer.cs" />
+    <Compile Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.cs" />
+    <Compile Include="Samples\GeometryEngine\ConvexHullList\ConvexHullList.cs" />
+    <Compile Include="Samples\GeometryEngine\ConvexHull\ConvexHull.cs" />
+    <Compile Include="Samples\GeometryEngine\CutGeometry\CutGeometry.cs" />
     <Compile Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.cs" />
     <Compile Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.cs" />
     <Compile Include="Samples\GeometryEngine\NearestVertex\NearestVertex.cs" />
     <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.cs" />
     <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.cs" />
     <Compile Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.cs" />
+    <Compile Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.cs" />
     <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.cs" />
     <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.cs" />
     <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.cs" />
     <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.cs" />
     <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.cs" />
+    <Compile Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.cs" />
+    <Compile Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.cs" />
     <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.cs" />
     <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.cs" />
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
@@ -359,7 +369,7 @@
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
     <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.cs" />
     <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.cs" />
-    <Compile Include="Samples\Layers\Web_TiledLayer\Web_TiledLayer.cs" />
+    <Compile Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.cs" />
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.cs" />
     <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.cs" />
     <Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.cs" />
@@ -465,7 +475,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
+    <None Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\GeometryEngine\ConvexHullList\ConvexHullList.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\GeometryEngine\ConvexHull\ConvexHull.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

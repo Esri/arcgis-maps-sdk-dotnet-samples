@@ -1,0 +1,144 @@
+// Copyright 2018 Esri.
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// language governing permissions and limitations under the License.
+
+using Android.App;
+using Android.OS;
+using Android.Widget;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI.Controls;
+using System;
+using System.Collections.Generic;
+using Android.Views;
+
+namespace ArcGISRuntime.Samples.StyleWmsLayer
+{
+    [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Style WMS layers",
+        "Layers",
+        "This sample demonstrates how to select from the available styles on WMS sublayers. ",
+        "Click to select from one of the two pre-set styles.")]
+    public class StyleWmsLayer : Activity
+    {
+        // Hold the URL to the service, which has satellite imagery covering the state of Minnesota.
+        private Uri _wmsUrl = new Uri("http://geoint.lmic.state.mn.us/cgi-bin/wms?VERSION=1.3.0&SERVICE=WMS&REQUEST=GetCapabilities");
+
+        // Hold a list of uniquely-identifying WMS layer names to display.
+        private List<String> _wmsLayerNames = new List<string> { "fsa2017" };
+
+        // Hold a reference to the layer to enable re-styling.
+        private WmsLayer _mnWmsLayer;
+
+        // Hold references to the UI components.
+        private MapView _myMapView = new MapView();
+        private Button _firstStyleButton;
+        private Button _secondStyleButton;
+
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
+
+            Title = "Style WMS layers";
+
+            // Create the UI, setup the control references.
+            CreateLayout();
+
+            // Initialize the map.
+            InitializeAsync();
+        }
+
+        private void CreateLayout()
+        {
+            // Create a new vertical layout for the app.
+            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+
+            // Create the UI components.
+            TextView helpLabel = new TextView(this)
+            {
+                Text = "Choose a style",
+                TextAlignment = TextAlignment.Center
+            };
+            _firstStyleButton = new Button(this)
+            {
+                Text = "Style 1",
+                Enabled = false
+            };
+            _secondStyleButton = new Button(this)
+            {
+                Text = "Style 2",
+                Enabled = false
+            };
+
+            // Subscribe to events.
+            _firstStyleButton.Click += FirstStyleButton_Clicked;
+            _secondStyleButton.Click += SecondStyleButton_Clicked;
+
+            // Add the views to the layout.
+            layout.AddView(helpLabel);
+            layout.AddView(_firstStyleButton);
+            layout.AddView(_secondStyleButton);
+            layout.AddView(_myMapView);
+
+            // Show the layout in the app.
+            SetContentView(layout);
+        }
+
+        private async void InitializeAsync()
+        {
+            try
+            {
+                // Apply an imagery basemap to the map.
+                Map myMap = new Map(Basemap.CreateImagery());
+
+                // Create a new WMS layer displaying the specified layers from the service.
+                // The default styles are chosen by default, which corresponds to 'Style 1' in the UI.
+                _mnWmsLayer = new WmsLayer(_wmsUrl, _wmsLayerNames);
+
+                // Wait for the layer to load.
+                await _mnWmsLayer.LoadAsync();
+
+                // Center the map on the layer's contents.
+                myMap.InitialViewpoint = new Viewpoint(_mnWmsLayer.FullExtent);
+
+                // Add the layer to the map.
+                myMap.OperationalLayers.Add(_mnWmsLayer);
+
+                // Add the map to the view.
+                _myMapView.Map = myMap;
+
+                // Enable the buttons.
+                _firstStyleButton.Enabled = true;
+                _secondStyleButton.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                // Any exceptions in the async void method must be caught, otherwise they will result in a crash.
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+            }
+        }
+
+        private void FirstStyleButton_Clicked(object sender, EventArgs e)
+        {
+            // Get the available styles from the first sublayer.
+            IReadOnlyList<string> styles = _mnWmsLayer.Sublayers[0].SublayerInfo.Styles;
+
+            // Apply the first style to the first sublayer.
+            _mnWmsLayer.Sublayers[0].CurrentStyle = styles[0];
+        }
+
+        private void SecondStyleButton_Clicked(object sender, EventArgs e)
+        {
+            // Get the available styles from the first sublayer.
+            IReadOnlyList<string> styles = _mnWmsLayer.Sublayers[0].SublayerInfo.Styles;
+
+            // Apply the second style to the first sublayer.
+            _mnWmsLayer.Sublayers[0].CurrentStyle = styles[1];
+        }
+    }
+}

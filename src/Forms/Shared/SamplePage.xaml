@@ -1,17 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            x:Class="ArcGISRuntime.SamplePage">
-    <ContentPage Title="Live Sample" x:Name="SampleContentPage" />
-    <ContentPage Title="Description">
-        <ScrollView>
-            <StackLayout>
-                <Label Text="{Binding SampleName}" FontSize="Large" />
-                <Label Text="Description:" FontSize="Medium" TextColor="#007ac2" />
-                <Label Text="{Binding Description}"/>
-                <Label Text="Instructions:" FontSize="Medium" TextColor="#007ac2"  IsVisible="False" x:Name="InstructionLabel"/>
-                <Label Text="{Binding Instructions}" />
-            </StackLayout>
-        </ScrollView>
-    </ContentPage>
-</TabbedPage>
+            x:Class="ArcGISRuntime.SamplePage"
+            >
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="DetailToolbarItem" Text="Details" Icon="Info.png"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <RelativeLayout>
+        <Frame x:Name="SampleContentPage"
+               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Factor=1, Property=Width}"
+               RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1,Property=Height}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Constant=0}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Constant=0}"
+               Padding="0"
+               CornerRadius="0">
+        </Frame>
+        <Frame x:Name="SampleDetailPage"
+               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Factor=.9,Property=Width}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Factor=.05,Property=Width}"
+               RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=.9,Property=Height}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=.05,Property=Height}"
+               Padding="0"
+               IsVisible="False"
+               >
+            <Frame CornerRadius="10" BackgroundColor="White">
+                <ScrollView>
+                    <StackLayout>
+                        <Label Text="{Binding SampleName}" FontSize="Large" TextColor="Black" />
+                        <Label Text="Description:" FontSize="Medium" TextColor="#007AC2" />
+                        <Label Text="{Binding Description}" TextColor="Black" />
+                        <Label Text="Instructions:" FontSize="Medium" TextColor="#007AC2"  IsVisible="False" x:Name="InstructionLabel"/>
+                        <Label Text="{Binding Instructions}" TextColor="Black" />
+                    </StackLayout>
+                </ScrollView>
+            </Frame>
+        </Frame>
+    </RelativeLayout>
+</ContentPage>

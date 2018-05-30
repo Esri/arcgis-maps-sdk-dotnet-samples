@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:local="clr-namespace:ArcGISRuntime.Samples.ConvexHullList"
+             x:Class="ArcGISRuntime.Samples.ConvexHullList.ConvexHullList">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label x:Name="ConvexHullListInstructionsLabel"
+               Grid.Row="0"
+               FontSize="Small"
+               Text="Click the 'ConvexHull' button to create convex hull(s) from the polygon graphics. If the 'Union' checkbox is checked, the resulting output will be one polygon being the convex hull for the two input polygons. If the 'Union' checkbox is un-checked, the resulting output will have two convex hull polygons - one for each of the two input polygons."/>
+        <StackLayout 
+            Grid.Row="1" 
+            Orientation="Horizontal">
+            <Label Text="Union:" />
+            <Switch x:Name="ConvexHullListSwitch"
+                    IsToggled="True" />
+        </StackLayout>
+        <Button x:Name="ConvexHullListButton"
+                Grid.Row="2"
+                Text="Convex Hull"
+                Clicked="ConvexHullListButton_Clicked"/>
+        <esriUI:MapView x:Name="MyMapView" 
+                        Grid.Row="3"/>
+    </Grid>
+</ContentPage>

@@ -135,6 +135,7 @@
     <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg" />
     <Content Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg" />
     <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
+    <Content Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
     <Content Include="Samples\GeometryEngine\BufferList\BufferList.jpg" />
     <Content Include="Samples\GeometryEngine\Buffer\Buffer.jpg" />
     <Content Include="Samples\GeometryEngine\ConvexHull\ConvexHull.jpg" />
@@ -196,6 +197,7 @@
     <Content Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg" />
     <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
     <Content Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg" />
+    <Content Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
     <Content Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />
     <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
     <Content Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
@@ -343,6 +345,9 @@
     </Compile>
     <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
       <DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.xaml.cs">
+      <DependentUpon>DensifyAndGeneralize.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GeometryEngine\BufferList\BufferList.xaml.cs">
       <DependentUpon>BufferList.xaml</DependentUpon>
@@ -526,6 +531,9 @@
     </Compile>
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
       <DependentUpon>DisplayDeviceLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\DisplayGrid\DisplayGrid.xaml.cs">
+      <DependentUpon>DisplayGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml.cs">
       <DependentUpon>ChangeTimeExtent.xaml</DependentUpon>
@@ -718,6 +726,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -962,6 +974,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\DisplayGrid\DisplayGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

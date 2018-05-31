@@ -240,6 +240,7 @@
   <!-- Sample Code -->
   <ItemGroup>
     <Compile Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.cs" />
+    <Compile Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.cs" />
     <Compile Include="Samples\GeometryEngine\BufferList\BufferList.cs" />
     <Compile Include="Samples\GeometryEngine\Buffer\Buffer.cs" />
     <Compile Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.cs" />
@@ -323,6 +324,7 @@
     <Compile Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.cs" />
     <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.cs" />
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.cs" />
+    <Compile Include="Samples\MapView\DisplayGrid\DisplayGrid.cs" />
     <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.cs" />
     <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.cs" />
     <Compile Include="Samples\Map\AuthorMap\AuthorMap.cs" />
@@ -409,6 +411,20 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\DensifyAndGeneralize.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
+    <None Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\DisplayGrid.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.jpg" />

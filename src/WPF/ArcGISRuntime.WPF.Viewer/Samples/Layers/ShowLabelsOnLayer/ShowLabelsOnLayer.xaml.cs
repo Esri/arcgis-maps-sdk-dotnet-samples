@@ -67,7 +67,7 @@ namespace ArcGISRuntime.WPF.Samples.ShowLabelsOnLayer
              @"{
                     ""labelExpressionInfo"":{""expression"":""'I - ' + $feature.rte_num1""},
                     ""labelPlacement"":""esriServerLinePlacementAboveAlong"",
-                    ""where"":""$feature.rte_num1 <> ' '"",
+                    ""where"":""rte_num1 <> ' '"",
                     ""symbol"":
                         { 
                             ""angle"":0,

@@ -357,6 +357,7 @@
     <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.cs" />
     <Compile Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.cs" />
     <Compile Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.cs" />
+    <Compile Include="Samples\MapView\DisplayGrid\DisplayGrid.cs" />
     <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.cs" />
     <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.cs" />
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
@@ -489,6 +490,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\GeometryEngine\ConvexHull\ConvexHull.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

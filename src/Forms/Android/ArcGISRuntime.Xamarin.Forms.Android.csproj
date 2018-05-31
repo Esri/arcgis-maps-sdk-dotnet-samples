@@ -220,6 +220,7 @@
     <AndroidResource Include="Resources\drawable-xhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\Icon.png" />
+    <AndroidResource Include="Resources\Drawable\Info.png" />
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Manager Code -->

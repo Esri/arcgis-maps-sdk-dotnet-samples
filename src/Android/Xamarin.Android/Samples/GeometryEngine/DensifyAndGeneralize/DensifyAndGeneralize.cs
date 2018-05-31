@@ -112,10 +112,8 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             _myMapView = FindViewById<MapView>(Resource.Id.densifyAndGeneralize_MyMapView);
             _resultLabel = FindViewById<TextView>(Resource.Id.densifyAndGeneralize_ResultLabel);
             _deviationSlider = FindViewById<SeekBar>(Resource.Id.densifyAndGeneralize_deviationSlider);
-            _deviationSlider.Min = 0;
             _deviationSlider.Max = 249;
             _segmentLengthSlider = FindViewById<SeekBar>(Resource.Id.densifyAndGeneralize_segmentLengthSlider);
-            _segmentLengthSlider.Min = 0;
             _segmentLengthSlider.Max = 400;
         }
 

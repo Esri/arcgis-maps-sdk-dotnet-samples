@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="16dp"
-    tools:paddingHorizontal="16dp">
+    android:paddingLeft="16dp">
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

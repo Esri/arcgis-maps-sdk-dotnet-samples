@@ -179,6 +179,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             // Create the list view for displaying rows from the comments table.
             _commentsListBox = new ListView(this);
             _commentsListBox.ItemSelected += CommentsListBox_SelectionChanged;
+
             // Create a scroll viewer for the list view.
             ScrollView commentsScrollView = new ScrollView(this);
             
@@ -193,7 +194,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             layout.AddView(_myMapView);
             layout.AddView(commentsScrollView);
 
-            // Show the layout in the app
+            // Show the layout in the app.
             SetContentView(layout);
         }        
     }

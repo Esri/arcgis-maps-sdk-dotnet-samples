@@ -145,6 +145,15 @@
   <!-- /Build Configurations -->
   <ItemGroup>
     <!-- References -->
+    <Reference Include="Esri.ArcGISRuntime, Version=100.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.3.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
+    </Reference>
+    <Reference Include="Esri.ArcGISRuntime.Xamarin.Forms, Version=100.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Forms.100.3.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.Forms.dll</HintPath>
+    </Reference>
     <Reference Include="OpenTK-1.0" />
     <Reference Include="PCLCrypto, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d4421c8a4786956c, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\PCLCrypto.2.0.147\lib\xamarinios10\PCLCrypto.dll</HintPath>
@@ -188,15 +197,6 @@
       <HintPath>..\..\..\packages\Xamarin.Forms.2.5.0.121934\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.iOS" />
-    <Reference Include="Esri.ArcGISRuntime">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.3.0-daily2057\lib\Xamarin.iOS10\Esri.ArcGISRuntime.dll</HintPath>
-    </Reference>
-    <Reference Include="Esri.ArcGISRuntime.Hydrography">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0-daily2057\lib\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
-    </Reference>
-    <Reference Include="Esri.ArcGISRuntime.Xamarin.Forms">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Forms.100.3.0-daily2057\lib\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.Forms.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <!-- Misc Configuration -->
@@ -268,9 +268,11 @@
     <Error Condition="!Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
     <Error Condition="!Exists('..\..\..\packages\Xamarin.Forms.2.5.0.121934\build\netstandard1.0\Xamarin.Forms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Xamarin.Forms.2.5.0.121934\build\netstandard1.0\Xamarin.Forms.props'))" />
     <Error Condition="!Exists('..\..\..\packages\Xamarin.Forms.2.5.0.121934\build\netstandard1.0\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Xamarin.Forms.2.5.0.121934\build\netstandard1.0\Xamarin.Forms.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.3.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.3.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets'))" />
   </Target>
   <Import Project="..\..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="..\..\..\packages\Xamarin.Forms.2.5.0.121934\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\..\..\packages\Xamarin.Forms.2.5.0.121934\build\netstandard1.0\Xamarin.Forms.targets')" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.3.0-daily2057\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.3.0-daily2057\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets')" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0-daily2057\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0-daily2057\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.3.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.3.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets')" />
 </Project>

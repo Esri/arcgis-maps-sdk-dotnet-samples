@@ -83,6 +83,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\AuthorMap\AuthorMap.jpg" />
@@ -199,6 +200,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>ShowLabelsOnLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayGrid\DisplayGrid.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>DisplayGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml.cs">
       <SubType>Code</SubType>
@@ -644,6 +649,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\DisplayGrid\DisplayGrid.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml">

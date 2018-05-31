@@ -33,8 +33,7 @@
                 android:id="@+id/densifyAndGeneralize_deviationSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:max="250"
-                android:min="1" />
+                android:max="250" />
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -52,8 +51,7 @@
                 android:id="@+id/densifyAndGeneralize_segmentLengthSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:max="400"
-                android:min="0" />
+                android:max="400" />
         </TableRow>
         <TableRow
             android:layout_width="match_parent"

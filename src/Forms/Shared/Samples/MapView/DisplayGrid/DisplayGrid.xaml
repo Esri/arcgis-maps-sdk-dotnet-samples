@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntime.Samples.DisplayGrid.DisplayGrid">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Picker">
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+        <ScrollView Grid.Row="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <!-- Labels -->
+                <Label Text="Grid type"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center"
+                       Grid.Row="0" />
+                <Label Text="Show labels"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center"
+                       Grid.Row="1" />
+                <Label Text="Show grid"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center"
+                       Grid.Row="2" />
+                <Label Text="Grid color"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center"
+                       Grid.Row="3" />
+                <Label Text="Label color"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center"
+                       Grid.Row="4" />
+                <Label Text="Halo color"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center"
+                       Grid.Row="5" />
+                <Label Text="Label position"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center"
+                       Grid.Row="6" />
+                <Label Text="Label format"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center"
+                       Grid.Row="7" />
+                <!-- Inputs -->
+                <Picker x:Name="gridTypePicker"
+                        Grid.Row="0" Grid.Column="1" />
+                <Switch x:Name="labelVisibilitySwitch"
+                        IsToggled="True"
+                        Grid.Row="1" Grid.Column="1" />
+                <Switch x:Name="gridVisibilitySwitch"
+                        IsToggled="True"
+                        Grid.Row="2" Grid.Column="1" />
+                <Picker x:Name="gridColorPicker"
+                        Grid.Row="3" Grid.Column="1" />
+                <Picker x:Name="labelColorPicker"
+                        Grid.Row="4" Grid.Column="1" />
+                <Picker x:Name="haloColorPicker"
+                        Grid.Row="5" Grid.Column="1" />
+                <Picker x:Name="labelPositionPicker"
+                        Grid.Row="6" Grid.Column="1" />
+                <Picker x:Name="labelFormatPicker"
+                        Grid.Row="7" Grid.Column="1" />
+            </Grid>
+        </ScrollView>
+        <Button x:Name="applySettingsButton"
+                Text="Apply settings"
+                Grid.Row="1"
+                IsEnabled="False" />
+        <esriUI:MapView x:Name="MyMapView"
+                        Grid.Row="2" />
+    </Grid>
+</ContentPage>

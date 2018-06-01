@@ -6,21 +6,49 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5,5,5,0" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="5,5,5,0" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <TextBox Grid.Row="0" Grid.ColumnSpan="2" Text="NH" x:Name="txtStateEntry" />
-        <Button Content="Zoom to matching features" Grid.Row="1" Grid.Column="0" Click="BtnZoomToFeaturesClick" />
-        <Button Content="Count features in extent" Grid.Row="1" Grid.Column="1" Click="BtnCountFeaturesClick" />
-        <TextBox Grid.Row="2" Grid.ColumnSpan="2" IsEnabled="False" x:Name="txtResults" />
-        <esri:MapView x:Name="MyMapView" Grid.Row="3" Grid.ColumnSpan="2" />
+        <esri:MapView x:Name="MyMapView"/>
+        <Border
+            Background="White" BorderBrush="Black" BorderThickness="1"
+            HorizontalAlignment="Right" VerticalAlignment="Top"
+            Margin="30" Padding="20" Width="375">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Click 'Zoom to matching features' to zoom to features matching the given state abbreviation. Click 'Count features in extent' to count the features in the current extent (regardless of the results of the query)."
+                           Foreground="Red"
+                           Margin="5,0,5,0"
+                           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                           TextWrapping="Wrap" />
+                <TextBox x:Name="txtStateEntry" 
+                         Grid.Row="1" Grid.ColumnSpan="2" 
+                         Text="NH"/>
+                <Button Content="Zoom to matching features" 
+                        Grid.Row="2" Grid.Column="0" 
+                        Click="BtnZoomToFeaturesClick" />
+                <Button Content="Count features in extent" 
+                        Grid.Row="2" Grid.Column="1" 
+                        Click="BtnCountFeaturesClick" />
+                <TextBox x:Name="txtResults"
+                         Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
+                         IsEnabled="False" />
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

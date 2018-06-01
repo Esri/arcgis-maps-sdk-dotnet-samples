@@ -362,6 +362,7 @@
     <Compile Include="Samples\MapView\DisplayGrid\DisplayGrid.cs" />
     <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.cs" />
     <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.cs" />
+    <Compile Include="Samples\Map\OpenScene\OpenScene.cs" />
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
     <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.cs" />
@@ -497,6 +498,9 @@
   <ItemGroup>
     <None Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
     <None Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Map\OpenScene\OpenScene.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

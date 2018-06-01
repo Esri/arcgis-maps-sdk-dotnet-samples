@@ -91,15 +91,20 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             // Query the comments table to get the non-null records.
             FeatureQueryResult commentQueryResult = await commentsTable.QueryFeaturesAsync(queryToGetNonNullComments, QueryFeatureFields.LoadAll);
 
-            // Store the comments in a dictionary (id and comment text).
-            int rowId = 0;
+            // Store the comments in a dictionary.
             foreach (GeoElement row in commentQueryResult)
             {
-                string id = rowId.ToString();
+                // Only display records with non-null comment text.
                 if (row.Attributes["comments"] != null)
                 {
+                    // Get the comment text to use as the key to the record.
                     string comment = row.Attributes["comments"].ToString();
-                    _commentsInfo.Add(comment, row);
+
+                    // Make sure there isn't already a record using this key before adding the comment.
+                    if (!_commentsInfo.ContainsKey(comment))
+                    {
+                        _commentsInfo.Add(comment, row);
+                    }
                 }
             }
 
@@ -115,69 +120,9 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             _myMapView.Map = myMap;
         }
 
-        // Handle a new selected comment record in the table view.
-        private async void CommentsListBox_SelectionChanged(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            // Clear selected features from the graphics overlay.
-            _selectedFeaturesOverlay.Graphics.Clear();
-
-            // Get the selected comment feature. If there is no selection, return.
-            ArcGISFeature selectedComment = _commentsInfo[e.ToString()] as ArcGISFeature;
-            if (selectedComment == null) { return; }
-
-            // Get the map image layer that contains the service request sublayer and the service request comments table.
-            ArcGISMapImageLayer serviceRequestsMapImageLayer = _myMapView.Map.OperationalLayers[0] as ArcGISMapImageLayer;
-
-            // Get the service requests sublayer.
-            ArcGISMapImageSublayer requestsSublayer = serviceRequestsMapImageLayer.Sublayers[0] as ArcGISMapImageSublayer;
-
-            // Get the (non-spatial) table that contains the service request comments.
-            ServiceFeatureTable commentsTable = serviceRequestsMapImageLayer.Tables[0];
-
-            // Get the relationship that defines related service request features for features in the comments table (this is the first and only relationship).
-            RelationshipInfo commentsRelationshipInfo = commentsTable.LayerInfo.RelationshipInfos.FirstOrDefault();
-
-            // Create query parameters to get the related service request for features in the comments table.
-            RelatedQueryParameters relatedQueryParams = new RelatedQueryParameters(commentsRelationshipInfo)
-            {
-                ReturnGeometry = true
-            };
-
-            // Query the comments table to get the related service request feature for the selected comment.
-            IReadOnlyList<RelatedFeatureQueryResult> relatedRequestsResult = await commentsTable.QueryRelatedFeaturesAsync(selectedComment, relatedQueryParams);
-
-            // Get the first result. 
-            RelatedFeatureQueryResult result = relatedRequestsResult.FirstOrDefault();
-
-            // Get the first feature from the result. If it's null, warn the user and return.
-            ArcGISFeature serviceRequestFeature = result.FirstOrDefault() as ArcGISFeature;
-            if (serviceRequestFeature == null)
-            {
-                //TODO: DisplayAlert("No Feature", "Related feature not found.", "OK");
-
-                return;
-            }
-
-            // Load the related service request feature (so its geometry is available).
-            await serviceRequestFeature.LoadAsync();
-
-            // Get the service request geometry (point).
-            MapPoint serviceRequestPoint = serviceRequestFeature.Geometry as MapPoint;
-
-            // Create a cyan marker symbol to display the related feature.
-            Symbol selectedRequestSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Cyan, 14);
-
-            // Create a graphic using the service request point and marker symbol.
-            Graphic requestGraphic = new Graphic(serviceRequestPoint, selectedRequestSymbol);
-
-            // Add the graphic to the graphics overlay and zoom the map view to its extent.
-            _selectedFeaturesOverlay.Graphics.Add(requestGraphic);
-            await _myMapView.SetViewpointCenterAsync(serviceRequestPoint, 150000);
-        }
-
         private void CreateLayout()
         {
-            // Load the layout for the sample from the .axml file.
+            // Load the UI layout from an .axml file in the project resources.
             SetContentView(Resource.Layout.MapImageLayerTables);
 
             // Update control references to point to the controls defined in the layout.
@@ -185,19 +130,21 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
 
             // List view for displaying rows from the comments table.
             _commentsListBox = FindViewById<ListView>(Resource.Id.mapImageLayerTables_commentListView);
-            _commentsListBox.ItemSelected += CommentsListBox_SelectionChanged;
+
+            // Handle an item (comment) being clicked in the list.
             _commentsListBox.ItemClick += CommentsListBox_ItemClick;
         }
 
+        // When a comment is clicked, get the related feature (service request) and select it on the map.
         private async void CommentsListBox_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             // Clear selected features from the graphics overlay.
             _selectedFeaturesOverlay.Graphics.Clear();
 
-            // Get the comment at the selected row.
+            // Get the comment at the clicked position.
             string commentText = _commentsInfo.Keys.ElementAt(e.Position);
 
-            // Get the selected comment feature. If there is no selection, return.
+            // Get the clicked record (ArcGISFeature) using the comment as the key. If one is not found, return.
             ArcGISFeature selectedComment = _commentsInfo[commentText] as ArcGISFeature;
             if (selectedComment == null) { return; }
 
@@ -210,7 +157,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             // Get the (non-spatial) table that contains the service request comments.
             ServiceFeatureTable commentsTable = serviceRequestsMapImageLayer.Tables[0];
 
-            // Get the relationship that defines related service request features for features in the comments table (this is the first and only relationship).
+            // Get the relationship that defines related service request features to features in the comments table (this is the first and only relationship).
             RelationshipInfo commentsRelationshipInfo = commentsTable.LayerInfo.RelationshipInfos.FirstOrDefault();
 
             // Create query parameters to get the related service request for features in the comments table.
@@ -229,7 +176,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             ArcGISFeature serviceRequestFeature = result.FirstOrDefault() as ArcGISFeature;
             if (serviceRequestFeature == null)
             {
-                // Report to the user that a related feature was not found.
+                // Report to the user that a related feature was not found, then return.
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 AlertDialog alert = alertBuilder.Create();
                 alert.SetMessage("Related feature not found.");

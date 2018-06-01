@@ -44,7 +44,6 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         // A list of all service request comment records (non-spatial features).
         private List<ArcGISFeature> _serviceRequestComments = new List<ArcGISFeature>();
 
-        // The offset from the top of the display.
         public MapImageLayerTables()
         {
             Title = "Query map image layer tables";
@@ -109,7 +108,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
                 _serviceRequestComments.Add(commentFeature);
             }
 
-            // Create the table view source that uses the list of models.
+            // Create the table view source that uses the list of features.
             ServiceRequestCommentsTableSource commentsTableSource = new ServiceRequestCommentsTableSource(_serviceRequestComments);
 
             // Handle a new selection in the table source.
@@ -208,7 +207,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             // Add the table view to the stack view.
             stackView.AddArrangedSubview(_tableView);
 
-            // Add stack view to the page.
+            // Add the stack view to the page.
             View.AddSubviews(stackView);
         }
     }

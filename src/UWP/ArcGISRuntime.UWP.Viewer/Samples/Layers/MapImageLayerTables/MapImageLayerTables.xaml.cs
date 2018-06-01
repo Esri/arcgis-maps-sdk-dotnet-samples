@@ -123,7 +123,7 @@ namespace ArcGISRuntime.UWP.Samples.MapImageLayerTables
             if (serviceRequestFeature == null)
             {
                 MessageDialog message = new MessageDialog("Related feature not found.", "No Feature");
-                message.ShowAsync();
+                await message.ShowAsync();
 
                 return;
             }

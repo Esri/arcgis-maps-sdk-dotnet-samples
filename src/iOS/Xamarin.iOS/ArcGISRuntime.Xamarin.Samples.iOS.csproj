@@ -209,6 +209,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <BundleResource Include="Resources\Default-568h%402x.png" />
+    <BundleResource Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
   </ItemGroup>
   <!-- Storyboards -->
   <ItemGroup>
@@ -453,6 +454,7 @@
     <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.cs" />
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
+    <Compile Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.cs" />
   </ItemGroup>
   <!-- Miscellaneous Configuration -->
   <ItemGroup>

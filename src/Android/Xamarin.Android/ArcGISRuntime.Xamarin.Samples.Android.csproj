@@ -262,6 +262,7 @@
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
     <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.cs" />
     <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.cs" />
+    <Compile Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.cs" />
     <Compile Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.cs" />
     <Compile Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.cs" />
     <Compile Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.cs" />
@@ -412,6 +413,9 @@
     <None Include="Resources\AboutResources.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\layout\DensifyAndGeneralize.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -428,6 +432,7 @@
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
@@ -435,6 +440,5 @@
     <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets'))" />
     <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets'))" />
   </Target>
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets')" />
 </Project>

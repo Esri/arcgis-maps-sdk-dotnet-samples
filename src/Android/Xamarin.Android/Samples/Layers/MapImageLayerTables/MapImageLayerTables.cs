@@ -92,15 +92,19 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             FeatureQueryResult commentQueryResult = await commentsTable.QueryFeaturesAsync(queryToGetNonNullComments, QueryFeatureFields.LoadAll);
 
             // Store the comments in a dictionary (id and comment text).
+            int rowId = 0;
             foreach (GeoElement row in commentQueryResult)
             {
-                string id = row.Attributes["requestid"].ToString();
-                //string comment = row.Attributes["comments"] != null ? row.Attributes["comments"].ToString() : "--";
-                _commentsInfo.Add(id, row);
+                string id = rowId.ToString();
+                if (row.Attributes["comments"] != null)
+                {
+                    string comment = row.Attributes["comments"].ToString();
+                    _commentsInfo.Add(comment, row);
+                }
             }
 
             // Show the records from the service request comments table in the list view control.
-            ArrayAdapter commentsAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, _commentsInfo.Values.ToList());
+            ArrayAdapter commentsAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, _commentsInfo.Keys.ToList());
             _commentsListBox.Adapter = commentsAdapter;
 
             // Create a graphics overlay to show selected features and add it to the map view.
@@ -173,29 +177,82 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
 
         private void CreateLayout()
         {
-            // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            // Load the layout for the sample from the .axml file.
+            SetContentView(Resource.Layout.MapImageLayerTables);
 
-            // Create the list view for displaying rows from the comments table.
-            _commentsListBox = new ListView(this);
+            // Update control references to point to the controls defined in the layout.
+            _myMapView = FindViewById<MapView>(Resource.Id.mapImageLayerTables_MyMapView);
+
+            // List view for displaying rows from the comments table.
+            _commentsListBox = FindViewById<ListView>(Resource.Id.mapImageLayerTables_commentListView);
             _commentsListBox.ItemSelected += CommentsListBox_SelectionChanged;
+            _commentsListBox.ItemClick += CommentsListBox_ItemClick;
+        }
 
-            // Create a scroll viewer for the list view.
-            ScrollView commentsScrollView = new ScrollView(this);
-            
-            // Set the scroll view height so that it always appears on screen.
-            commentsScrollView.SetMinimumHeight(Resources.DisplayMetrics.HeightPixels / 3);
-            commentsScrollView.FillViewport = true;
+        private async void CommentsListBox_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            // Clear selected features from the graphics overlay.
+            _selectedFeaturesOverlay.Graphics.Clear();
 
-            // Add the list view to the scroll view.
-            commentsScrollView.AddView(_commentsListBox);
+            // Get the comment at the selected row.
+            string commentText = _commentsInfo.Keys.ElementAt(e.Position);
 
-            // Add the map view and list view to the layout.
-            layout.AddView(_myMapView);
-            layout.AddView(commentsScrollView);
+            // Get the selected comment feature. If there is no selection, return.
+            ArcGISFeature selectedComment = _commentsInfo[commentText] as ArcGISFeature;
+            if (selectedComment == null) { return; }
 
-            // Show the layout in the app.
-            SetContentView(layout);
-        }        
+            // Get the map image layer that contains the service request sublayer and the service request comments table.
+            ArcGISMapImageLayer serviceRequestsMapImageLayer = _myMapView.Map.OperationalLayers[0] as ArcGISMapImageLayer;
+
+            // Get the service requests sublayer.
+            ArcGISMapImageSublayer requestsSublayer = serviceRequestsMapImageLayer.Sublayers[0] as ArcGISMapImageSublayer;
+
+            // Get the (non-spatial) table that contains the service request comments.
+            ServiceFeatureTable commentsTable = serviceRequestsMapImageLayer.Tables[0];
+
+            // Get the relationship that defines related service request features for features in the comments table (this is the first and only relationship).
+            RelationshipInfo commentsRelationshipInfo = commentsTable.LayerInfo.RelationshipInfos.FirstOrDefault();
+
+            // Create query parameters to get the related service request for features in the comments table.
+            RelatedQueryParameters relatedQueryParams = new RelatedQueryParameters(commentsRelationshipInfo)
+            {
+                ReturnGeometry = true
+            };
+
+            // Query the comments table to get the related service request feature for the selected comment.
+            IReadOnlyList<RelatedFeatureQueryResult> relatedRequestsResult = await commentsTable.QueryRelatedFeaturesAsync(selectedComment, relatedQueryParams);
+
+            // Get the first result. 
+            RelatedFeatureQueryResult result = relatedRequestsResult.FirstOrDefault();
+
+            // Get the first feature from the result. If it's null, warn the user and return.
+            ArcGISFeature serviceRequestFeature = result.FirstOrDefault() as ArcGISFeature;
+            if (serviceRequestFeature == null)
+            {
+                // Report to the user that a related feature was not found.
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+                AlertDialog alert = alertBuilder.Create();
+                alert.SetMessage("Related feature not found.");
+                alert.Show();
+
+                return;
+            }
+
+            // Load the related service request feature (so its geometry is available).
+            await serviceRequestFeature.LoadAsync();
+
+            // Get the service request geometry (point).
+            MapPoint serviceRequestPoint = serviceRequestFeature.Geometry as MapPoint;
+
+            // Create a cyan marker symbol to display the related feature.
+            Symbol selectedRequestSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Cyan, 14);
+
+            // Create a graphic using the service request point and marker symbol.
+            Graphic requestGraphic = new Graphic(serviceRequestPoint, selectedRequestSymbol);
+
+            // Add the graphic to the graphics overlay and zoom the map view to its extent.
+            _selectedFeaturesOverlay.Graphics.Add(requestGraphic);
+            await _myMapView.SetViewpointCenterAsync(serviceRequestPoint, 150000);
+        }
     }
 }

@@ -28,18 +28,17 @@ namespace ArcGISRuntime.WPF.Samples.MapRotation
 
         private void Initialize()
         {
-            // Create a new Map instance with the basemap  
-            Basemap myBasemap = Basemap.CreateStreets();
-            Map myMap = new Map(myBasemap);
+            // Create a new Map instance with the basemap.
+            Map myMap = new Map(Basemap.CreateStreets());
 
-            // Assign the map to the MapView
+            // Assign the map to the MapView.
             MyMapView.Map = myMap;
         }
 
         private void MySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             // Display the rotation value in the Label formatted nicely with degree symbol.
-            MyLabel.Content = string.Format("{0:0}°",MySlider.Value);
+            MyLabel.Text = string.Format("{0:0}°", MySlider.Value);
 
             // Set the MapView rotation to that of the Slider.
             MyMapView.SetViewpointRotationAsync(e.NewValue);

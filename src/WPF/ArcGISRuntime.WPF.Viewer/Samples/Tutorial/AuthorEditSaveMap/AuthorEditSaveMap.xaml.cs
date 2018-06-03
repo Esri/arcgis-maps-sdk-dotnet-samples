@@ -140,6 +140,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
         private void OnNewMapClicked(object sender, EventArgs e)
         {
             _mapViewModel.ResetMap();
+            BasemapListBox.SelectedIndex = 0;
         }
 
         // ChallengeHandler function that will be called whenever access to a secured resource is attempted
@@ -202,7 +203,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
             set { _mapView = value; }
         }
 
-        private Map _map = new Map(Basemap.CreateStreetsVector());
+        private Map _map = new Map(Basemap.CreateTopographic());
 
         // Gets or sets the map
         public Map Map
@@ -295,7 +296,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
             _map = null;
 
             // Create a new map with light gray canvas basemap
-            Map newMap = new Map(Basemap.CreateLightGrayCanvasVector());
+            Map newMap = new Map(Basemap.CreateTopographic());
 
             // Store the new map 
             Map = newMap;

@@ -13,6 +13,7 @@
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
@@ -22,17 +23,20 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="4"
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6"
+                   Text="In the statistics window, add and remove statistics (for example, average number of children under 5 per state)  to calculate. Then, select from fields to group by (for example, subregion) and sort by. Tap 'Get statistics' to see the results."
+                   Foreground="Red" TextAlignment="Left" TextWrapping="Wrap" Margin="0,5,0,5"/>
+        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="4"
                 BorderBrush="Black" BorderThickness="2"/>
-        <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"
+        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"
                    HorizontalAlignment="Center" VerticalAlignment="Center"
                    TextDecorations="Underline"
                    Text="Statistics: US States"/>
-        <TextBlock Grid.Row="1" 
+        <TextBlock Grid.Row="2" 
                    HorizontalAlignment="Right" VerticalAlignment="Center"
                    Text="Field:"/>
         <ComboBox x:Name="FieldsComboBox" 
-                  Grid.Row="1" Grid.Column="1"
+                  Grid.Row="2" Grid.Column="1"
                   Margin="5,5">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -40,19 +44,19 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <TextBlock Grid.Row="1" Grid.Column="2"
+        <TextBlock Grid.Row="2" Grid.Column="2"
                    HorizontalAlignment="Right" VerticalAlignment="Center"
                    Text="Type:"/>
         <ComboBox x:Name="StatTypeComboBox" 
-                  Grid.Row="1" Grid.Column="3"
+                  Grid.Row="2" Grid.Column="3"
                   Margin="5,5"/>
         <Button x:Name="AddStatisticButton"
-                Grid.Row="1" Grid.Column="4"
+                Grid.Row="2" Grid.Column="4"
                 Margin="10,5"
                 Content="Add"
                 Click="AddStatisticClicked"/>
         <ListBox x:Name="StatFieldsListBox"
-                 Grid.Row="2" Grid.ColumnSpan="5"
+                 Grid.Row="3" Grid.ColumnSpan="5"
                  Margin="25,5"
                  MinHeight="120">
             <ListBox.ItemTemplate>
@@ -67,17 +71,17 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Button x:Name="RemoveStatField"
-                Grid.Row="3" Grid.Column="3"
+                Grid.Row="4" Grid.Column="3"
                 HorizontalAlignment="Stretch" VerticalAlignment="Top"
-                Content="Remove Statistic" 
+                Content="Remove statistic" 
                 Height="20"
                 Click="RemoveStatisticClicked"/>
         <TextBlock Text="Group Field(s):"
-                   Grid.Row="4"
+                   Grid.Row="5"
                    HorizontalAlignment="Center" VerticalAlignment="Center"
                    Margin="6,7,33,7" Grid.Column="1" Height="16" Width="76"/>
         <ListBox x:Name="GroupFieldsListBox"
-                 Grid.Row="5" Grid.ColumnSpan="2"
+                 Grid.Row="6" Grid.ColumnSpan="2"
                  MinWidth="110"
                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                  Margin="25,0,0,0">
@@ -93,7 +97,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Orientation="Vertical"
-                    Grid.Row="5" Grid.Column="2"
+                    Grid.Row="6" Grid.Column="2"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
                     Margin="5">
             <Button Content="&gt;&gt;"
@@ -103,11 +107,11 @@
                     Click="RemoveSortFieldClicked"/>
         </StackPanel>
         <TextBlock Text="Order by Field(s):"
-                   Grid.Row="4" Grid.Column="3"
+                   Grid.Row="5" Grid.Column="3"
                    HorizontalAlignment="Center" VerticalAlignment="Center"
                    Margin="39,7,10,7" Height="16" Width="66"/>
         <ListBox x:Name="OrderByFieldsListBox"
-                 Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2"
+                 Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2"
                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                  MinWidth="300"
                  Margin="0,0,25,0">
@@ -125,19 +129,19 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Button x:Name="SortOrderButton"
-                Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2"
+                Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2"
                 HorizontalAlignment="Center" VerticalAlignment="Top"
                 Margin="0,5,25,0"
                 Padding="5,0"
                 Content="Change sort order"
                 Click="ChangeFieldSortOrder"/>
         <Button x:Name="GetStatisticsButton"
-                Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="5"
+                Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="5"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                 Padding="10,0" Margin="25,10"
-                Content="Get Statistics"
+                Content="Get statistics"
                 Click="OnExecuteStatisticsQueryClicked"/>
-        <ScrollViewer Grid.Row="0" Grid.Column="5" Grid.RowSpan="8"
+        <ScrollViewer Grid.Row="1" Grid.Column="5" Grid.RowSpan="8"
                       Margin="20,0,0,0">
             <TreeView x:Name="ResultsTreeView">
                 <TreeView.ItemTemplate>

@@ -4,5 +4,11 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:SceneView x:Name="MySceneView"/>
+        <Border BorderBrush="Black" Background="White" BorderThickness="1"
+                Margin="30" Padding="20" Width="375"
+                HorizontalAlignment="Right" VerticalAlignment="Top">
+            <TextBlock Text="Tap to set a starting point for the line. Tap again to set the ending point."
+                       TextAlignment="Left" TextWrapping="Wrap" Foreground="Red" />
+        </Border>
     </Grid>
 </UserControl>

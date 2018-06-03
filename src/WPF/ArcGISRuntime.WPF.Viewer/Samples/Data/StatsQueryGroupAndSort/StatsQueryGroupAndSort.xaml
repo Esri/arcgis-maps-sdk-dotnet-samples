@@ -109,7 +109,7 @@
         <TextBlock Text="Order by Field(s):"
                    Grid.Row="5" Grid.Column="3"
                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                   Margin="39,7,10,7" Height="16" Width="66"/>
+                   Margin="39,7,10,7" Height="16" />
         <ListBox x:Name="OrderByFieldsListBox"
                  Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2"
                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"

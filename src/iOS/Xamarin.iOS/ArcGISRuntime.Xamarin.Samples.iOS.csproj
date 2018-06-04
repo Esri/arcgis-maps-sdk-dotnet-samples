@@ -209,6 +209,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <BundleResource Include="Resources\Default-568h%402x.png" />
+    <BundleResource Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
   </ItemGroup>
   <!-- Storyboards -->
   <ItemGroup>
@@ -334,12 +335,14 @@
     <None Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg" />
     <None Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
     <None Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
+    <None Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
     <Compile Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.cs" />
     <Compile Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.cs" />
     <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
+    <Compile Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.cs" />
     <Compile Include="Samples\GeometryEngine\BufferList\BufferList.cs" />
     <Compile Include="Samples\GeometryEngine\Buffer\Buffer.cs" />
     <Compile Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.cs" />
@@ -455,6 +458,7 @@
     <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.cs" />
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
+    <Compile Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.cs" />
   </ItemGroup>
   <!-- Miscellaneous Configuration -->
   <ItemGroup>

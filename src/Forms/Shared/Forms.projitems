@@ -29,6 +29,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg" />
@@ -129,6 +130,9 @@
       <SubType>Code</SubType>
       <DependentUpon>FeatureLayerGeodatabase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.xaml.cs">
+      <DependentUpon>DensifyAndGeneralize.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\BufferList\BufferList.xaml.cs">
       <DependentUpon>BufferList.xaml</DependentUpon>
     </Compile>
@@ -170,6 +174,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.xaml.cs">
       <DependentUpon>ChangeSublayerRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>MapImageSublayerQuery.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
       <SubType>Code</SubType>
@@ -599,6 +607,10 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\BufferList\BufferList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -626,6 +638,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterHillshade\RasterHillshade.xaml">
@@ -984,6 +999,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Info.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\BufferList\BufferList.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\Buffer\Buffer.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg" />

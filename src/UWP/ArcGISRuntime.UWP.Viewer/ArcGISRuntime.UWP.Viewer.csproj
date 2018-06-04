@@ -136,6 +136,7 @@
     <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg" />
     <Content Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg" />
     <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
+    <Content Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
     <Content Include="Samples\GeometryEngine\BufferList\BufferList.jpg" />
     <Content Include="Samples\GeometryEngine\Buffer\Buffer.jpg" />
     <Content Include="Samples\GeometryEngine\ConvexHull\ConvexHull.jpg" />
@@ -180,6 +181,7 @@
     <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
     <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <Content Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
+    <Content Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
     <Content Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
     <Content Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
     <Content Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
@@ -348,6 +350,9 @@
     <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
       <DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.xaml.cs">
+      <DependentUpon>DensifyAndGeneralize.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\GeometryEngine\BufferList\BufferList.xaml.cs">
       <DependentUpon>BufferList.xaml</DependentUpon>
     </Compile>
@@ -479,6 +484,9 @@
     </Compile>
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml.cs">
       <DependentUpon>FeatureLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml.cs">
+      <DependentUpon>MapImageSublayerQuery.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
       <DependentUpon>RasterHillshade.xaml</DependentUpon>
@@ -729,6 +737,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\GeometryEngine\BufferList\BufferList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -902,6 +914,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

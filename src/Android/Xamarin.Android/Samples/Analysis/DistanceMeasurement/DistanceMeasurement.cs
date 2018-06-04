@@ -113,10 +113,10 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             _mySceneView.Scene = myScene;
 
             // Subscribe to tap events to enable updating the measurement.
-            _mySceneView.GeoViewTapped += _mySceneView_GeoViewTapped;
+            _mySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
         }
 
-        private async void _mySceneView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private async void MySceneView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             try
             {
@@ -145,9 +145,6 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             _verticalLabel = FindViewById<TextView>(Resource.Id.distanceMeasurement_verticalLabel);
             _horizontalLabel = FindViewById<TextView>(Resource.Id.distanceMeasurement_horizontalLabel);
             _unitSpinner = FindViewById<Spinner>(Resource.Id.distanceMeasurement_unitSpinner);
-
-            // Subscribe to the tap event.
-            _mySceneView.GeoViewTapped += _mySceneView_GeoViewTapped;
         }
     }
 }

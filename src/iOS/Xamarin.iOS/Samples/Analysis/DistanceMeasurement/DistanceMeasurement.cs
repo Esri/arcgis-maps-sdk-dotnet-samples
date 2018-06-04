@@ -98,10 +98,10 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             _mySceneView.Scene = myScene;
 
             // Subscribe to tap events to enable updating the measurement.
-            _mySceneView.GeoViewTapped += _mySceneView_GeoViewTapped;
+            _mySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
         }
 
-        private async void _mySceneView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private async void MySceneView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             try
             {

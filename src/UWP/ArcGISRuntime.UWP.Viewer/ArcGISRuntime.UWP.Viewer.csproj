@@ -113,6 +113,7 @@
   </ItemGroup>
   <!-- Screenshots -->
   <ItemGroup>
+    <Content Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
     <Content Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
@@ -277,6 +278,9 @@
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
+    <Compile Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml.cs">
+      <DependentUpon>DistanceMeasurement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml.cs">
       <DependentUpon>LineOfSightGeoElement.xaml</DependentUpon>
     </Compile>
@@ -637,6 +641,10 @@
   </ItemGroup>
   <!-- Sample Layouts -->
   <ItemGroup>
+    <Page Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

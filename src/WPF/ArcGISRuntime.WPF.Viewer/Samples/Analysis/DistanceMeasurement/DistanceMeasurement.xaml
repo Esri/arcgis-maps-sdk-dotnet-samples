@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.DistanceMeasurement.DistanceMeasurement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="600">
+    <Grid>
+        <esri:SceneView x:Name="MySceneView" />
+        <Border
+                Background="White" BorderBrush="Black" BorderThickness="1"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="30" Padding="20" Width="375">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <!-- Labels -->
+                <Label x:Name="HelpLabel"
+                       Foreground="Red"
+                       Content="Tap 'New measurement' to start."
+                       Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
+                <Label Content="Direct" 
+                       Grid.Row="1" Grid.Column="0" />
+                <Label Content="Horizontal"
+                       Grid.Row="2" Grid.Column="0" />
+                <Label Content="Vertical"
+                       Grid.Row="3" Grid.Column="0" />
+                <Label Content="Unit system"
+                       Grid.Row="4" Grid.Column="0" />
+
+                <!-- Controls -->
+                <Label x:Name="DirectMeasureLabel"
+                       Grid.Row="1" Grid.Column="1" />
+                <Label x:Name="HorizontalMeasureLabel"
+                       Grid.Row="2" Grid.Column="1" />
+                <Label x:Name="VerticalMeasureLabel"
+                       Grid.Row="3" Grid.Column="1" />
+                <ComboBox x:Name="UnitSystemCombo"
+                          Grid.Row="4" Grid.Column="1"
+                          Margin="0,5,0,0" />
+
+                <Button x:Name="NewMeasureButton"
+                        Content="New measurement"
+                        IsEnabled="False"
+                        Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                        Margin="5,5,0,0"
+                        Click="NewMeasureButton_OnClick" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

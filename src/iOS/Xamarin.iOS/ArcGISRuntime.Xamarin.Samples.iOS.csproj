@@ -333,9 +333,13 @@
     <None Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
     <None Include="Samples\GeometryEngine\CutGeometry\CutGeometry.jpg" />
     <None Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg" />
+    <None Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
+    <None Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
+    <None Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
+    <Compile Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.cs" />
     <Compile Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.cs" />
     <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
     <Compile Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.cs" />
@@ -493,10 +497,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\GeometryEngine\ConvexHull\ConvexHull.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
-    <None Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

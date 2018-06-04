@@ -1,15 +1,14 @@
 ﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.DisplayDeviceLocation.DisplayDeviceLocation"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
-        <Border
-                Background="White" BorderBrush="Black" BorderThickness="1"
+        <esri:MapView x:Name="MyMapView" />
+        <Border Background="White" BorderBrush="Black" BorderThickness="1"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="30" Padding="20" Width="375">
             <Grid>
@@ -22,11 +21,21 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Select autopan mode" 
-                           Margin="0,0,0,2" TextWrapping="Wrap" />
-                <ComboBox x:Name="modeChooser" SelectionChanged="OnModeChooserSelectionChanged" Grid.Row="1" Grid.ColumnSpan="2"/>
-                <Button x:Name="StartButton" Click="OnStartButtonClicked" Content="Start" Margin="10, 5" Grid.Row="2"/>
-                <Button x:Name="StopButton" Click="OnStopButtonClicked" Content="Stop" Margin="10,5" Grid.Row="2" Grid.Column="1"/>
+                <TextBlock Text="Select autopan mode."
+                           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                           TextWrapping="Wrap" TextAlignment="Center" FontWeight="Bold"
+                           Margin="0,0,0,5" />
+                <ComboBox x:Name="modeChooser"
+                          Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                          SelectionChanged="OnModeChooserSelectionChanged" />
+                <Button x:Name="StartButton"
+                        Margin="0,5,5,0" Grid.Row="2" Grid.Column="0"
+                        Content="Start"
+                        Click="OnStartButtonClicked" />
+                <Button x:Name="StopButton"
+                        Content="Stop"
+                        Margin="5,5,0,0" Grid.Row="2" Grid.Column="1"
+                        Click="OnStopButtonClicked" />
             </Grid>
         </Border>
     </Grid>

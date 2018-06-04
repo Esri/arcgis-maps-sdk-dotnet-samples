@@ -33,7 +33,7 @@ namespace ArcGISRuntime.WPF.Samples.OpenMapURL
         {
             "Housing with Mortgages",
             "USA Tapestry Segmentation",
-            "Geology of United States"
+            "Geology of the United States"
         };
 
         // Construct Load Map sample control.

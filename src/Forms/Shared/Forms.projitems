@@ -218,6 +218,9 @@
       <SubType>Code</SubType>
       <DependentUpon>DownloadPreplannedMapAreas.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml.cs">
+      <DependentUpon>FindServiceArea.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>FeatureLayerExtrusion.xaml</DependentUpon>
@@ -1001,6 +1004,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceArea\FindServiceArea.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -1031,5 +1035,11 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>

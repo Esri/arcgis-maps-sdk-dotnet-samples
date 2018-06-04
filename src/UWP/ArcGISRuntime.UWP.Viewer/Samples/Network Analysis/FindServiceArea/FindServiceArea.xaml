@@ -1,0 +1,45 @@
+﻿<UserControl 
+    x:Class="ArcGISRuntime.UWP.Samples.FindServiceArea.FindServiceArea"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Button x:Name="AddFacilities"
+                                      Grid.Row="0"
+                                      Grid.Column="0"
+                                      HorizontalAlignment="Stretch"
+                                      Content="Add Facilities"
+                                      Click="AddFacilities_Click"/>
+        <Button x:Name="AddBarrier"
+                                      Grid.Row="0"
+                                      Grid.Column="1"
+                                      HorizontalAlignment="Stretch"
+                                      Content="Add Barrier"
+                                      Click="AddBarrier_Click"/>
+        <Button x:Name="ShowServiceAreas"
+                                      Grid.Row="0"
+                                      Grid.Column="2"
+                                      HorizontalAlignment="Stretch"
+                                      Content="Show Service Areas"
+                                      Click="ShowServiceAreas_Click"/>
+        <Button x:Name="Reset"
+                                      Grid.Row="0"
+                                      Grid.Column="3"
+                                      HorizontalAlignment="Stretch"
+                                      Content="Reset"
+                                      Click="Reset_Click"/>
+        
+        <esriUI:MapView Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" x:Name="MyMapView" />
+
+    </Grid>
+</UserControl>

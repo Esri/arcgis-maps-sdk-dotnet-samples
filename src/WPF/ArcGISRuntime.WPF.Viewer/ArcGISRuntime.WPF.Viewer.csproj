@@ -450,6 +450,9 @@
     <Compile Include="Samples\Network Analysis\FindRoute\FindRoute.xaml.cs">
       <DependentUpon>FindRoute.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml.cs">
+      <DependentUpon>FindServiceArea.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Search\FindAddress\FindAddress.xaml.cs">
       <DependentUpon>FindAddress.xaml</DependentUpon>
     </Compile>
@@ -944,6 +947,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Search\FindAddress\FindAddress.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1335,6 +1342,7 @@
     <Content Include="Samples\Network Analysis\FindRoute\FindRoute.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.jpg" />
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

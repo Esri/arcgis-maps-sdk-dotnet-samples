@@ -8,15 +8,14 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock x:Name="loadStatusTextBlock" Text="Map's load status : "/>
-        </StackPanel>
-        <esriUI:MapView x:Name="myMapView"  Grid.Row="1"/>
+        <esriUI:MapView x:Name="myMapView" />
+        <Border BorderBrush="Black" BorderThickness="1" Background="White"
+                VerticalAlignment="Top" HorizontalAlignment="Right"
+                Margin="30" Padding="20" Width="300">
+            <TextBlock x:Name="loadStatusTextBlock"
+                       Text="Map's load status : "
+                       TextAlignment="Center" FontWeight="SemiBold" />
+        </Border>
     </Grid>
 </UserControl>

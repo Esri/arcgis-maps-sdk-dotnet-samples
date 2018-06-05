@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Android.App;
 using Android.OS;
 using Android.Widget;
@@ -24,7 +25,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
 {
     [Activity(Label = "FindServiceArea")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Find Service Area",
+        "Find Service Area (Interactive)",
         "Network Analysis",
         "Demonstrates how to find services areas around a point using the ServiceAreaTask. A service area shows locations that can be reached from a facility based off a certain impedance [such as travel time]. Barriers can also be added which can effect the impedance by not letting traffic through or adding the time is takes to pass that barrier.",
         "")]
@@ -114,9 +115,6 @@ namespace ArcGISRuntime.Samples.FindServiceArea
 
         private void Initialize()
         {
-            // Create a new service area
-            CreateServiceArea();
-
             // Center the map on San Diego
             Map map = new Map(Basemap.CreateStreets());
             _myMapView.Map = map;
@@ -153,7 +151,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             _facilitySymbol.Width = 30;
 
         }
-        private async void CreateServiceArea()
+        private async Task CreateServiceArea()
         {
             // Create the service area task and paramaters based on the Uri.
             _serviceAreaTask = await ServiceAreaTask.CreateAsync(_sanDiegoServiceAreaUri);
@@ -229,6 +227,8 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             _facilityMode = false;
             _barrierMode = false;
 
+            await CreateServiceArea();
+
             // Check that there is at least 1 facility to find a service area for.
             if (_serviceAreaFacilities.Count > 0)
             {
@@ -289,11 +289,11 @@ namespace ArcGISRuntime.Samples.FindServiceArea
         }
         private void Reset_Click(object sender, EventArgs e)
         {
-            // Re-enable both buttons for adding features
+            // Re-enable both buttons for adding features.
             addBarrierButton.Enabled = true;
             addFacilitiesButton.Enabled = true;
 
-            // Disable the drawing mode for both features
+            // Disable the drawing mode for both features.
             _facilityMode = false;
             _barrierMode = false;
 
@@ -302,19 +302,16 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             _serviceAreasOverlay.Graphics.Clear();
             _barrierOverlay.Graphics.Clear();
 
-            // Create a new service area
-            CreateServiceArea();
-
-            // Clear the current list of facilities
+            // Clear the current list of facilities.
             _serviceAreaFacilities.Clear();
 
-            // Clear the existing barriers
+            // Clear the existing barriers.
             _barrierBuilder = new PolylineBuilder(_spatialReference);
 
         }
         private void CreateErrorDialog(String message)
         {
-            // Create a dialog to show message to user
+            // Create a dialog to show message to user.
             AlertDialog alert = new AlertDialog.Builder(this).Create();
             alert.SetMessage(message);
             alert.Show();

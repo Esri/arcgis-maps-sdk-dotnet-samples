@@ -12,18 +12,21 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
+using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UIKit;
-using Foundation;
-using Esri.ArcGISRuntime.UI.Controls;
+
+
 
 namespace ArcGISRuntime.Samples.FindServiceArea
 {
     [Register("FindServiceArea")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Find Service Area",
+        "Find Service Area (Interactive)",
         "Network Analysis",
         "Demonstrates how to find services areas around a point using the ServiceAreaTask. A service area shows locations that can be reached from a facility based off a certain impedance [such as travel time]. Barriers can also be added which can effect the impedance by not letting traffic through or adding the time is takes to pass that barrier.",
         "")]
@@ -129,8 +132,6 @@ namespace ArcGISRuntime.Samples.FindServiceArea
 
         private void Initialize()
         {
-            // Create a new service area
-            CreateServiceArea();
 
             // Center the map on San Diego
             Map map = new Map(Basemap.CreateStreets());
@@ -169,7 +170,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
 
         }
         
-        private async void CreateServiceArea()
+        private async Task CreateServiceArea()
         {
             // Create the service area task and paramaters based on the Uri.
             _serviceAreaTask = await ServiceAreaTask.CreateAsync(_sanDiegoServiceAreaUri);
@@ -244,6 +245,8 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             _facilityMode = false;
             _barrierMode = false;
 
+            await CreateServiceArea();
+
             // Check that there is at least 1 facility to find a service area for.
             if (_serviceAreaFacilities.Count > 0)
             {
@@ -304,38 +307,35 @@ namespace ArcGISRuntime.Samples.FindServiceArea
         }
         private void Reset_Click(object sender, EventArgs e)
         {
-            // Re-enable both buttons for adding features
+            // Re-enable both buttons for adding features.
             addBarrierButton.Enabled = true;
             addFacilitiesButton.Enabled = true;
 
-            // Disable the drawing mode for both features
+            // Disable the drawing mode for both features.
             _facilityMode = false;
             _barrierMode = false;
 
-            // Clear all of the graphics
+            // Clear all of the graphics.
             _facilityOverlay.Graphics.Clear();
             _serviceAreasOverlay.Graphics.Clear();
             _barrierOverlay.Graphics.Clear();
 
-            // Create a new service area
-            CreateServiceArea();
-
-            // Clear the current list of facilities
+            // Clear the current list of facilities.
             _serviceAreaFacilities.Clear();
 
-            // Clear the existing barriers
+            // Clear the existing barriers.
             _barrierBuilder = new PolylineBuilder(_spatialReference);
 
         }
         private void CreateErrorDialog(String message)
         {
-            //Create Alert
+            // Create Alert.
             var okAlertController = UIAlertController.Create("Error", message, UIAlertControllerStyle.Alert);
 
-            //Add Action
+            // Add Action.
             okAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
 
-            // Present Alert
+            // Present Alert.
             PresentViewController(okAlertController, true, null);
         }
     }

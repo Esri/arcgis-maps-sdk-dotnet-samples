@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 namespace ArcGISRuntime.UWP.Samples.FindServiceArea
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Find Service Area",
+        "Find Service Area (Interactive)",
         "Network Analysis",
         "Demonstrates how to find services areas around a point using the ServiceAreaTask. A service area shows locations that can be reached from a facility based off a certain impedance [such as travel time]. Barriers can also be added which can effect the impedance by not letting traffic through or adding the time is takes to pass that barrier.",
         "")]

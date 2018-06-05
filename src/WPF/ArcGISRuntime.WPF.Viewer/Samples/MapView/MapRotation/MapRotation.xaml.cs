@@ -28,11 +28,8 @@ namespace ArcGISRuntime.WPF.Samples.MapRotation
 
         private void Initialize()
         {
-            // Create a new Map instance with the basemap.
-            Map myMap = new Map(Basemap.CreateStreets());
-
-            // Assign the map to the MapView.
-            MyMapView.Map = myMap;
+            // Show a new map with a streets basemap.
+            MyMapView.Map = new Map(Basemap.CreateStreets());
         }
 
         private void MySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

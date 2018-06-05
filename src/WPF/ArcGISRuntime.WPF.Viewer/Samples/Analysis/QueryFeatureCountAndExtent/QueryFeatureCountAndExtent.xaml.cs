@@ -66,7 +66,7 @@ namespace ArcGISRuntime.WPF.Samples.QueryFeatureCountAndExtent
             // Create the query parameters.
             QueryParameters queryStates = new QueryParameters()
             {
-                WhereClause = string.Format("upper(ST) LIKE '%{0}%'", txtStateEntry.Text.ToUpper())
+                WhereClause = string.Format("upper(ST) LIKE '%{0}%'", StateTextbox.Text.ToUpper())
             };
 
             // Get the extent from the query.
@@ -75,7 +75,7 @@ namespace ArcGISRuntime.WPF.Samples.QueryFeatureCountAndExtent
             // Return if there is no result (might happen if query is invalid).
             if (resultExtent == null || resultExtent.SpatialReference == null)
             {
-                txtResults.Text = "No results. Search for an abbreviated name (e.g. NH).";
+                ResultsTextbox.Text = "No results. Search for an abbreviated name (e.g. NH).";
                 return;
             }
 
@@ -86,7 +86,7 @@ namespace ArcGISRuntime.WPF.Samples.QueryFeatureCountAndExtent
             await MyMapView.SetViewpointAsync(resultViewpoint);
 
             // Update the UI.
-            txtResults.Text = string.Format("Zoomed to features in {0}", txtStateEntry.Text);
+            ResultsTextbox.Text = string.Format("Zoomed to features in {0}", StateTextbox.Text);
         }
 
         private async void BtnCountFeaturesClick(object sender, RoutedEventArgs e)
@@ -104,7 +104,7 @@ namespace ArcGISRuntime.WPF.Samples.QueryFeatureCountAndExtent
             long count = await _myFeatureTable.QueryFeatureCountAsync(queryCityCount);
 
             // Update the UI.
-            txtResults.Text = string.Format("{0} features in extent", count);
+            ResultsTextbox.Text = string.Format("{0} features in extent", count);
         }
     }
 }

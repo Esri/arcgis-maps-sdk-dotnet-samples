@@ -36,8 +36,8 @@
                            Margin="5,0,5,0"
                            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                            TextWrapping="Wrap" />
-                <TextBox x:Name="txtStateEntry" 
-                         Grid.Row="1" Grid.ColumnSpan="2" 
+                <TextBox x:Name="StateTextbox" 
+                         Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
                          Text="NH"/>
                 <Button Content="Zoom to matching features" 
                         Grid.Row="2" Grid.Column="0" 
@@ -45,7 +45,7 @@
                 <Button Content="Count features in extent" 
                         Grid.Row="2" Grid.Column="1" 
                         Click="BtnCountFeaturesClick" />
-                <TextBox x:Name="txtResults"
+                <TextBox x:Name="ResultsTextbox"
                          Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
                          IsEnabled="False" />
             </Grid>

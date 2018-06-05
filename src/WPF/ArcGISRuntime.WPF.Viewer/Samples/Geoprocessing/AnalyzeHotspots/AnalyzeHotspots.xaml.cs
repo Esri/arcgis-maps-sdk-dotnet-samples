@@ -23,7 +23,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
         "To run the hotspot analysis, select a data range and click on the 'Run analysis' button. Note the larger the date range, the longer it may take for the task to run and send back the results.")]
     public partial class AnalyzeHotspots
     {
-        // Url for the geoprocessing service
+        // URL for the geoprocessing service
         private const string _hotspotUrl = 
             "http://sampleserver6.arcgisonline.com/arcgis/rest/services/911CallsHotspot/GPServer/911%20Calls%20Hotspot";
 
@@ -58,7 +58,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
             // Clear any existing results
             MyMapView.Map.OperationalLayers.Clear();
 
-            // Show the busyOverlay indication
+            // Show the waiting indication
             ShowBusyOverlay();
 
             // Get the 'from' and 'to' dates from the date pickers for the geoprocessing analysis
@@ -74,7 +74,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
                     "Please select valid time range. There has to be at least one day in between To and From dates.", 
                     "Invalid date range");
 
-                // Remove the busyOverlay
+                // Remove the waiting
                 ShowBusyOverlay(false);
                 return;
             }
@@ -83,9 +83,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
            GeoprocessingParameters myHotspotParameters = new GeoprocessingParameters(GeoprocessingExecutionType.AsynchronousSubmit);
 
             // Construct the date query
-            var myQueryString = string.Format("(\"DATE\" > date '{0} 00:00:00' AND \"DATE\" < date '{1} 00:00:00')",
-                myFromDate.ToString("yyyy-MM-dd"),
-                myToDate.ToString("yyyy-MM-dd"));
+            string myQueryString = string.Format("(\"DATE\" > date '{0:yyyy-MM-dd} 00:00:00' AND \"DATE\" < date '{1:yyyy-MM-dd} 00:00:00')", myFromDate, myToDate);
 
             // Add the query that contains the date range used in the analysis
             myHotspotParameters.Inputs.Add("Query", new GeoprocessingString(myQueryString));
@@ -117,11 +115,11 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
                 if (_hotspotJob.Status == JobStatus.Failed && _hotspotJob.Error != null)
                     MessageBox.Show("Executing geoprocessing failed. " + _hotspotJob.Error.Message, "Geoprocessing error");
                 else
-                    MessageBox.Show("An error occurred. " + ex.ToString(), "Sample error");
+                    MessageBox.Show("An error occurred. " + ex, "Sample error");
             }
             finally
             {
-                // Remove the busyOverlay
+                // Remove the waiting
                 ShowBusyOverlay(false);
             }
         }
@@ -132,7 +130,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
             if (_hotspotJob.Status == JobStatus.Started)
                 _hotspotJob.Cancel();
 
-            // Hide the busyOverlay indication
+            // Hide the waiting indication
             ShowBusyOverlay(false);
         }
 
@@ -141,18 +139,18 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
             // Function to toggle the visibility of interaction with the GUI for the user to 
             // specify dates for the hot spot analysis. When the analysis is running, the GUI
             // for changing the dates is 'grayed-out' and the progress bar with a cancel 
-            // button (aka. busyOverlay object) becomes active.
+            // button (aka. waiting object) becomes active.
 
             if (visibility)
             {
                 // The geoprocessing task is processing. The busyOverly is present.
-                busyOverlay.Visibility = Visibility.Visible;
+                BusyOverlay.Visibility = Visibility.Visible;
                 progress.IsIndeterminate = true;
             }
             else
             {
-                // The user can interact with the date pickers. The busyOverlay is invisible.
-                busyOverlay.Visibility = Visibility.Collapsed;
+                // The user can interact with the date pickers. The waiting is invisible.
+                BusyOverlay.Visibility = Visibility.Collapsed;
                 progress.IsIndeterminate = false;
             }
         }

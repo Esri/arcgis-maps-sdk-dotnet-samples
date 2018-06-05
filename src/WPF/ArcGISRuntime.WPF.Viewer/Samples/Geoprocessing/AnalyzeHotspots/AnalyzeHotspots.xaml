@@ -37,12 +37,12 @@
                 <DatePicker x:Name="ToDate"
                             HorizontalAlignment="Stretch" Margin="5" Grid.Row="4"
                             SelectedDate="1/31/98" DisplayDateStart="1/01/98" DisplayDateEnd="5/31/98" />
-                <Button x:Name="analyzeHotspots"
+                <Button x:Name="AnalyzeButton"
                         Content="Run analysis"
                         Margin="5" Grid.Row="5"
                         Click="OnAnalyzeHotspotsClicked" />
                 <!-- Waiting overlay -->
-                <Grid x:Name="busyOverlay"
+                <Grid x:Name="BusyOverlay"
                       Grid.Row="0" Grid.RowSpan="6"
                       Margin="-20" Visibility="Collapsed" Background="#8C000000">
                     <Border HorizontalAlignment="Center" VerticalAlignment="Center"

@@ -31,8 +31,6 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
         "1. Pan and zoom to the extent you would like for your map.\n2. Choose a basemap from the list of available basemaps.\n3. Click 'Save ...' and provide info for the new portal item (Title, Description, and Tags).\n4. Click 'Save Map to Portal'.\n5. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder.\n6. You can make additional changes, update the map, and then re-save to store changes in the portal item.")]
     public partial class AuthorEditSaveMap
     {
-        private MapViewModel _mapViewModel;
-
         // Constants for OAuth-related values ...
         // URL of the server to authenticate with (ArcGIS Online)
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
@@ -47,11 +45,8 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
         {
             InitializeComponent();
 
-            // Get the view model (defined as a resource in the XAML)
-            _mapViewModel = FindResource("MapViewModel") as MapViewModel;
-
             // Pass the current map view to the view model
-            _mapViewModel.AppMapView = MyMapView;
+            MapViewModel.AppMapView = MyMapView;
 
             // Define a selection handler on the basemap list
             BasemapListBox.SelectionChanged += OnBasemapsClicked;
@@ -71,7 +66,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
             var basemapName = e.AddedItems[0].ToString();
 
             // Pass the basemap name to the view model method to change the basemap
-            _mapViewModel.ChangeBasemap(basemapName);
+            MapViewModel.ChangeBasemap(basemapName);
 
         }
 
@@ -106,16 +101,16 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
                 }
 
                 // Get current map extent (viewpoint) for the map initial extent
-                var currentViewpoint = MyMapView.GetCurrentViewpoint(Esri.ArcGISRuntime.Mapping.ViewpointType.BoundingGeometry);
+                var currentViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
                 // Export the current map view to use as the item's thumbnail
                 RuntimeImage thumbnailImg = await MyMapView.ExportImageAsync();
 
                 // See if the map has already been saved
-                if (!_mapViewModel.MapIsSaved)
+                if (!MapViewModel.MapIsSaved)
                 {
                     // Call the SaveNewMapAsync method on the view model, pass in the required info
-                    await _mapViewModel.SaveNewMapAsync(currentViewpoint, title, description, tags, thumbnailImg);
+                    await MapViewModel.SaveNewMapAsync(currentViewpoint, title, description, tags, thumbnailImg);
 
                     // Report success
                     MessageBox.Show("Map '" + title + "' was saved to your portal");
@@ -123,7 +118,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
                 else
                 {
                     // Map has previously been saved as a portal item, update it (title, description, and tags will remain the same)
-                    _mapViewModel.UpdateMapItem();
+                    MapViewModel.UpdateMapItem();
 
                     // Report success
                     MessageBox.Show("Changes to '" + title + "' were updated to the portal.");
@@ -139,7 +134,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
         // Reset (create a new) map
         private void OnNewMapClicked(object sender, EventArgs e)
         {
-            _mapViewModel.ResetMap();
+            MapViewModel.ResetMap();
             BasemapListBox.SelectedIndex = 0;
         }
 
@@ -153,10 +148,10 @@ namespace ArcGISRuntime.WPF.Samples.AuthorEditSaveMap
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;

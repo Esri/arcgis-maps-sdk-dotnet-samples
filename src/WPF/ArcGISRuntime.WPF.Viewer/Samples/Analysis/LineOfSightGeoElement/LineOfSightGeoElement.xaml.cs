@@ -216,7 +216,7 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
             return DataManager.GetDataFolder("3af5cfec0fd24dac8d88aea679027cb9", "dolmus.3ds");
         }
 
-        private void MyHeightSlider_ValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double> e)
+        private void HeightSlider_ValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double> e)
         {
             // Update the height of the observer based on the slider value
 

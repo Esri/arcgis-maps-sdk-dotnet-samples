@@ -8,7 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border BorderBrush="Black" Background="White"
+        <Border BorderBrush="Black" BorderThickness="1" Background="White"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="30" Padding="20" Width="375">
             <StackPanel>
@@ -16,7 +16,7 @@
                            Foreground="Red"
                            TextAlignment="Center" />
                 <ProgressBar x:Name="activityIndicator"
-                             IsIndeterminate="True" IsEnabled="True"
+                             IsIndeterminate="True"
                              Height="20" Margin="0,5,0,0"
                              HorizontalAlignment="Stretch" />
             </StackPanel>

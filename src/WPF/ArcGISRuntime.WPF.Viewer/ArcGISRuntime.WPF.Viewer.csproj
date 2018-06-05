@@ -102,6 +102,9 @@
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
+    <Compile Include="SourceCode.xaml.cs">
+      <DependentUpon>SourceCode.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml.cs">
       <DependentUpon>LineOfSightGeoElement.xaml</DependentUpon>
     </Compile>
@@ -480,6 +483,10 @@
   </ItemGroup>
   <!-- Sample XAML -->
   <ItemGroup>
+    <Page Include="SourceCode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

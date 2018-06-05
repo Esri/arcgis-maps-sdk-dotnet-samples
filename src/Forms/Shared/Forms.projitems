@@ -108,6 +108,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacility\README.md" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindRoute\FindRoute.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\FindAddress.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Search\FindPlace\FindPlace.jpg" />
@@ -217,6 +218,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>DownloadPreplannedMapAreas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml.cs">
+      <DependentUpon>ClosestFacility.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml.cs">
       <SubType>Code</SubType>
@@ -1001,6 +1005,9 @@
     <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -1029,6 +1036,12 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ConvexHullList\ConvexHullList.xaml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

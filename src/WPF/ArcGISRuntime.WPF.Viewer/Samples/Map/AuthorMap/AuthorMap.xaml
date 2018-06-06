@@ -31,7 +31,7 @@
             <TextBlock Text="Choose Layers:"
                        Grid.Row="0" Grid.Column="0"
                        VerticalAlignment="Top" HorizontalAlignment="Right"
-                       Margin="10,0" />
+                       Margin="10" />
             <ListBox x:Name="OperationalLayerListBox"
                      SelectionMode="Multiple"
                      Grid.Row="1" Grid.Column="1"

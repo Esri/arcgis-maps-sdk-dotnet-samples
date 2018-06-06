@@ -20,6 +20,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <TextBlock Text="Select a Basemap:"
+                       Grid.Row="1"
                        VerticalAlignment="Top" HorizontalAlignment="Right"
                        Margin="10" />
             <ListBox x:Name="BasemapListBox"

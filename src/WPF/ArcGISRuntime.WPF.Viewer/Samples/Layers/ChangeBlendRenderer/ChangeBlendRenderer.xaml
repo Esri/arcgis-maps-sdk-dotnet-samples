@@ -8,16 +8,16 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
-            <Setter Property="Margin" Value="5,5,5,0" />
+            <Setter Property="Margin" Value="5,5,5,5" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
         <Style TargetType="ComboBox">
             <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="Margin" Value="5,5,5,0" />
+            <Setter Property="Margin" Value="5,5,5,5" />
         </Style>
         <Style TargetType="Slider">
-            <Setter Property="Margin" Value="5,5,5,0" />
+            <Setter Property="Margin" Value="5,5,5,5" />
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -48,12 +48,26 @@
                            Grid.Row="1" Grid.Column="0" />
                 <Slider x:Name="AltitudeSlider"
                         Grid.Row="1" Grid.Column="1"
-                        Minimum="0" Maximum="90" Value="45" />
+                        Minimum="0" Maximum="90" Value="45">
+                    <Slider.ToolTip>
+                        <ToolTip
+                            Content="{Binding RelativeSource={RelativeSource Self},
+                               Path=PlacementTarget.Value}"
+                            ContentStringFormat="{}{0:0}" />
+                    </Slider.ToolTip>
+                </Slider>
                 <TextBlock Text="Azimuth"
                            Grid.Row="2" Grid.Column="0" />
                 <Slider x:Name="AzimuthSlider"
                         Grid.Row="2" Grid.Column="1"
-                        Minimum="0" Maximum="360" Value="180" />
+                        Minimum="0" Maximum="360" Value="180">
+                    <Slider.ToolTip>
+                        <ToolTip
+                            Content="{Binding RelativeSource={RelativeSource Self},
+                               Path=PlacementTarget.Value}"
+                            ContentStringFormat="{}{0:0}" />
+                    </Slider.ToolTip>
+                </Slider>
                 <TextBlock Text="Slope Type"
                            Grid.Row="3" Grid.Column="0" />
                 <ComboBox x:Name="SlopeTypes"

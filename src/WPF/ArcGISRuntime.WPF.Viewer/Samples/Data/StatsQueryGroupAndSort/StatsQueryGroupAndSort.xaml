@@ -1,8 +1,7 @@
 ﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort.StatsQueryGroupAndSort"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             xmlns:linq="clr-namespace:System.Linq;assembly=System.Core">
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center"
           MinWidth="250" MaxWidth="800"
           MinHeight="300" MaxHeight="800">
@@ -26,7 +25,7 @@
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6"
-                   Text="In the statistics window, add and remove statistics (for example, average number of children under 5 per state)  to calculate. Then, select from fields to group by (for example, subregion) and sort by. Tap 'Get statistics' to see the results."
+                   Text="In the statistics window, add and remove statistics (for example, average number of children under 5 per state) to calculate. Then, select from fields to group by (for example, subregion) and sort by. Tap 'Get statistics' to see the results."
                    Foreground="Red" TextAlignment="Left" TextWrapping="Wrap" Margin="0,5,0,5" />
         <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="4"
                 BorderBrush="Black" BorderThickness="2" />
@@ -142,35 +141,33 @@
                 Padding="10,0" Margin="25,10"
                 Content="Get statistics"
                 Click="OnExecuteStatisticsQueryClicked" />
-        <ScrollViewer Grid.Row="1" Grid.Column="5" Grid.RowSpan="8"
-                      Margin="20,0,0,0">
-            <TreeView x:Name="ResultsTreeView">
-                <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding}">
-                        <TextBlock Text="{Binding Key}" />
-                        <HierarchicalDataTemplate.ItemTemplate>
-                            <DataTemplate>
-                                <ItemsControl ItemsSource="{Binding}"
-                                              Grid.Column="1">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition />
-                                                </Grid.ColumnDefinitions>
-                                                <TextBlock Text="{Binding Key, StringFormat={}{0} :}" />
-                                                <TextBlock Text="{Binding Value, StringFormat={} {0}}"
-                                                           Grid.Column="1" />
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </DataTemplate>
-                        </HierarchicalDataTemplate.ItemTemplate>
-                    </HierarchicalDataTemplate>
-                </TreeView.ItemTemplate>
-            </TreeView>
-        </ScrollViewer>
+        <TreeView x:Name="ResultsTreeView"
+                  Grid.Row="1" Grid.Column="5" Grid.RowSpan="8"
+                  Margin="20,0,0,0">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding}">
+                    <TextBlock Text="{Binding Key}" />
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <DataTemplate>
+                            <ItemsControl ItemsSource="{Binding}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{Binding Key, StringFormat={}{0} :}" />
+                                            <TextBlock Text="{Binding Value, StringFormat={} {0}}"
+                                                       Grid.Column="1" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </DataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
     </Grid>
 </UserControl>

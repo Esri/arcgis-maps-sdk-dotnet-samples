@@ -21,12 +21,12 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="Slope type:"
                            Grid.Row="0" Grid.Column="0"
-                           TextAlignment="Right" />
+                           TextAlignment="Right" VerticalAlignment="Center"/>
                 <ComboBox x:Name="SlopeTypeCombo"
                           Grid.Row="0" Grid.Column="1"
                           Margin="5" />
                 <TextBlock Grid.Row="1" Grid.Column="0"
-                           TextAlignment="Right"
+                           TextAlignment="Right" VerticalAlignment="Center"
                            Text="Altitude:" />
                 <Slider x:Name="AltitudeSlider"
                         Grid.Row="1" Grid.Column="1"
@@ -41,7 +41,7 @@
                 </Slider>
                 <TextBlock Text="Azimuth:"
                            Grid.Row="2" Grid.Column="0"
-                           TextAlignment="Right" />
+                           TextAlignment="Right" VerticalAlignment="Center" />
                 <Slider x:Name="AzimuthSlider"
                         Grid.Row="2" Grid.Column="1"
                         Margin="5"

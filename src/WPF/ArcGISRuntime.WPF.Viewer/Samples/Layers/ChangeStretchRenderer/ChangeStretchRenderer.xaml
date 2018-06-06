@@ -21,32 +21,35 @@
                 </Grid.RowDefinitions>
                 <TextBlock
                     Text="Choose a stretch renderer type from the dropdown, adjust the parameter values, then click the 'Update Renderer' button."
-                    Margin="0,0,0,2"
                     TextWrapping="Wrap"
-                    HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    HorizontalAlignment="Stretch" VerticalAlignment="Center" />
                 <StackPanel Grid.Row="1">
                     <ComboBox x:Name="RendererTypes"
-                              Margin="10,5"
+                              Margin="0,5,0,0"
                               SelectionChanged="RendererTypes_SelectionChanged" />
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Stretch">
                         <TextBlock x:Name="FirstParameterLabel"
-                                   Text="Parameter1"
-                                   Margin="10,5" />
+                                   Margin="0,5,5,0"
+                                   Text="Parameter1" />
                         <TextBox x:Name="FirstParameterInput"
+                                 Margin="0,5,0,0"
                                  Text="EnterValue1" />
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Stretch">
                         <TextBlock x:Name="SecondParameterLabel"
-                                   Text="Parameter2"
-                                   Margin="10, 5" />
+                                   Margin="0,5,5,0"
+                                   Text="Parameter2" />
                         <TextBox x:Name="SecondParameterInput"
+                                 Margin="0,5,0,0"
                                  Text="EnterValue2" />
                     </StackPanel>
                 </StackPanel>
                 <Button x:Name="UpdateRenderer"
                         Grid.Row="2"
                         Content="Update Renderer"
-                        Margin="10,10"
+                        Margin="0,5,0,0"
                         Click="OnUpdateRendererClicked" />
             </Grid>
         </Border>

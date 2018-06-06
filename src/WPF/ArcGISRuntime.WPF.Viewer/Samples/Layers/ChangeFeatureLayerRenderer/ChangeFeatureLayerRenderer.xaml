@@ -7,16 +7,24 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <ToolBarTray Grid.Row="0">
-            <ToolBar>
-                <Button Name="Reset" Content="Reset" Click="OnResetButtonClicked"/>
-                <Button Name="ApplyRenderer" Content="Override" Click="OnOverrideButtonClicked"/>
-            </ToolBar>
-        </ToolBarTray>
-        <esri:MapView x:Name="MyMapView" Grid.Row="1"/>
+        <esri:MapView x:Name="MyMapView"/>
+        <Border BorderBrush="Black" Background="White"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="30" Padding="20" Width="375">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Content="Reset" 
+                        HorizontalAlignment="Stretch"
+                        Margin="0,0,5,0" Grid.Column="0"
+                        Click="OnResetButtonClicked" />
+                <Button Content="Override" 
+                        HorizontalAlignment="Stretch"
+                        Margin="5,0,0,0" Grid.Column="1"
+                        Click="OnOverrideButtonClicked"/>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

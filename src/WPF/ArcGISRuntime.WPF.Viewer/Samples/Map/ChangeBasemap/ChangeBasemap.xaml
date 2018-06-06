@@ -7,14 +7,13 @@
              mc:Ignorable="d">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border
-                Background="White" BorderBrush="Black" BorderThickness="1"
+        <Border Background="White" BorderBrush="Black" BorderThickness="1"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="30" Padding="20" Width="275">
             <StackPanel>
                 <TextBlock Text="Select basemap" HorizontalAlignment="Center"
                            Margin="0,0,0,2" TextWrapping="Wrap" />
-                <ComboBox Name="basemapChooser" SelectionChanged="OnBasemapChooserSelectionChanged"/>
+                <ComboBox x:Name="BasemapChooser" SelectionChanged="OnBasemapChooserSelectionChanged"/>
             </StackPanel>
         </Border>
     </Grid>

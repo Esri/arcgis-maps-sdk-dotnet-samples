@@ -6,11 +6,11 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
-        <Label>Geometry before:</Label>
-        <Label x:Name="beforeLabel"></Label>
-        <Label>Geometry after:</Label>
-        <Label x:Name="afterLabel"></Label>
-        <Label>Geometry after (without specific transform):</Label>
-        <Label x:Name="nonSpecificLabel"></Label>
+        <Label Content="Geometry before:" />
+        <Label x:Name="BeforeLabel" />
+        <Label Content="Geometry after:" />
+        <Label x:Name="AfterLabel" />
+        <Label Content="Geometry after (without specific transform)" />
+        <Label x:Name="NonSpecificLabel" />
     </StackPanel>
 </UserControl>

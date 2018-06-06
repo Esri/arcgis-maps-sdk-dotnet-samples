@@ -6,28 +6,66 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,5,5,0" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0,5,0,0" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">Decimal Degrees</Label>
-        <TextBox Grid.Row="0" Grid.Column="1" Tag="Decimal Degrees" x:Name="DecimalDegreesTextField" />
-        <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right">Degrees, Minutes, Seconds</Label>
-        <TextBox Grid.Row="1" Grid.Column="1" Tag="Degrees, Minutes, Seconds" x:Name="DmsTextField" />
-        <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right">UTM</Label>
-        <TextBox Grid.Row="2" Grid.Column="1" Tag="UTM" x:Name="UtmTextField" />
-        <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right">USNG</Label>
-        <TextBox Grid.Row="3" Grid.Column="1" Tag="USNG" x:Name="UsngTextField" />
-        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Click="RecalculateFields">Recalculate</Button>
-        <esri:MapView Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" x:Name="MyMapView" />
+        <esri:MapView x:Name="MyMapView" />
+        <Border BorderBrush="Black" Background="White"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="30" Padding="20" Width="375">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Text="Tap on the map to see the coordinates in each format. Update any value and select 'Recalculate' to see the updated coordinates."
+                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                    Margin="0,0,0,0"
+                    Foreground="Red"
+                    TextWrapping="Wrap" />
+                <TextBlock Text="Decimal Degrees"
+                           Grid.Row="1" Grid.Column="0"
+                           HorizontalAlignment="Right" />
+                <TextBox x:Name="DecimalDegreesTextField"
+                         Grid.Row="1" Grid.Column="1"
+                         Tag="Decimal Degrees" />
+                <TextBlock Text="Degrees, Minutes, Seconds"
+                           Grid.Row="2" Grid.Column="0"
+                           HorizontalAlignment="Right" />
+                <TextBox x:Name="DmsTextField"
+                         Grid.Row="2" Grid.Column="1"
+                         Tag="Degrees, Minutes, Seconds" />
+                <TextBlock Text="UTM"
+                           Grid.Row="3" Grid.Column="0"
+                           HorizontalAlignment="Right" />
+                <TextBox x:Name="UtmTextField"
+                         Grid.Row="3" Grid.Column="1"
+                         Tag="UTM" />
+                <TextBlock Grid.Row="4" Grid.Column="0"
+                           HorizontalAlignment="Right" />
+                <TextBox x:Name="UsngTextField"
+                         Grid.Row="4" Grid.Column="1"
+                         Tag="USNG" />
+                <Button Content="Recalculate"
+                        Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                        Margin="0,5,0,0"
+                        Click="RecalculateFields" />
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

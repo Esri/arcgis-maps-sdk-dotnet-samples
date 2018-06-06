@@ -15,7 +15,7 @@
             <StackPanel>
                 <TextBlock Text="Change sublayer visibility" 
                       Margin="0,0,0,2" TextWrapping="Wrap" />
-                <ListView x:Name="sublayerListView">
+                <ListView x:Name="SublayerListView">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">

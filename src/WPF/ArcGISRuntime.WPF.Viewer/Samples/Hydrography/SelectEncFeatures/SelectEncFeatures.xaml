@@ -9,6 +9,12 @@
     d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
+        <Border BorderBrush="Black" Background="White" BorderThickness="1"
+                Margin="30" Padding="20" Width="375"
+                HorizontalAlignment="Right" VerticalAlignment="Top">
+            <TextBlock Text="Tap to select features."
+                       TextAlignment="Center" Foreground="Red" />
+        </Border>
     </Grid>
 </UserControl>
 

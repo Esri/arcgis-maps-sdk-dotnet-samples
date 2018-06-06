@@ -32,7 +32,7 @@ namespace ArcGISRuntime.WPF.Samples.ProjectWithSpecificTransformation
             MapPoint startingPoint = new MapPoint(-73.984513, 40.748469, SpatialReferences.Wgs84);
 
             // Update the UI with the initial coordinates
-            beforeLabel.Content = String.Format("x: {0}, y: {1}", startingPoint.X, startingPoint.Y);
+            BeforeLabel.Content = String.Format("x: {0}, y: {1}", startingPoint.X, startingPoint.Y);
 
             // Create a geographic transformation step for transform WKID 108055, WGS_1984_To_MSK_1942
             GeographicTransformationStep geoStep = new GeographicTransformationStep(108055);
@@ -44,13 +44,13 @@ namespace ArcGISRuntime.WPF.Samples.ProjectWithSpecificTransformation
             MapPoint afterPoint = (MapPoint)GeometryEngine.Project(startingPoint, SpatialReference.Create(2829), geoTransform);
 
             // Update the UI with the projected coordinates
-            afterLabel.Content = String.Format("x: {0}, y: {1}", afterPoint.X, afterPoint.Y);
+            AfterLabel.Content = String.Format("x: {0}, y: {1}", afterPoint.X, afterPoint.Y);
 
             // Perform the same projection without specified transformation
             MapPoint unspecifiedTransformPoint = (MapPoint)GeometryEngine.Project(startingPoint, SpatialReference.Create(2829));
 
             // Update the UI with the projection done without specific transform for comparison purposes
-            nonSpecificLabel.Content = String.Format("x: {0}, y: {1}", unspecifiedTransformPoint.X, unspecifiedTransformPoint.Y);
+            NonSpecificLabel.Content = String.Format("x: {0}, y: {1}", unspecifiedTransformPoint.X, unspecifiedTransformPoint.Y);
         }
     }
 }

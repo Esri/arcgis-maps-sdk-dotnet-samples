@@ -20,7 +20,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <TextBlock Text="Select a Basemap:"
-                       Grid.Row="1"
+                       Grid.Row="0"
                        VerticalAlignment="Top" HorizontalAlignment="Right"
                        Margin="10" />
             <ListBox x:Name="BasemapListBox"
@@ -29,9 +29,9 @@
                      Height="100" Width="150" Margin="10"
                      SelectionChanged="BasemapSelectionChanged" />
             <TextBlock Text="Choose Layers:"
-                       Grid.Row="0" Grid.Column="0"
+                       Grid.Row="1" Grid.Column="0"
                        VerticalAlignment="Top" HorizontalAlignment="Right"
-                       Margin="10" />
+                       Margin="10,0" />
             <ListBox x:Name="OperationalLayerListBox"
                      SelectionMode="Multiple"
                      Grid.Row="1" Grid.Column="1"

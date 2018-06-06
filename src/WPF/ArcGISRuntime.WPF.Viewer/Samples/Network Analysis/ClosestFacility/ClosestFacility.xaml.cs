@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -14,47 +14,39 @@ using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ArcGISRuntime.WPF.Samples.ClosestFacility
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Closest Facility (Interactive)",
+        "Closest facility (interactive)",
         "Network Analysis",
-        "Demonstrates how to solve a Closest Facility Task to find the closest route between a facility (hospital) and a incident (black cross).",
+        "Demonstrates how to solve a Closest Facility Task to find the closest route between a facility (hospital) and a incident (black cross). Tap to find the route to the nearest hospital.",
         "")]
     public partial class ClosestFacility
     {
-
-        // Black cross where user clicked
-        private MapPoint _incidentPoint;
-
-        // Graphics overlays for facilities and incidents
-        private GraphicsOverlay _facilityGraphicsOverlay;
-        private GraphicsOverlay _incidentGraphicsOverlay;
-
         // Holds locations of hospitals around San Diego
         private List<Facility> _facilities;
 
-        // Solves task to find closest route between an incident and a facility
-        private ClosestFacilityTask _task;
-        // Parameters needed to solve for route
-        private ClosestFacilityParameters _closestFacilityParameters;
-        // Used to display route between incident and facility to mapview
-        private SimpleLineSymbol _routeSymbol;
-        // Same spatial reference of the map
-        private SpatialReference _spatialReference = SpatialReferences.WebMercator;
+        // Graphics overlays for facilities and incidents
+        private GraphicsOverlay _facilityGraphicsOverlay;
 
         // Symbol for facilities
         private PictureMarkerSymbol _facilitySymbol;
 
+        private GraphicsOverlay _incidentGraphicsOverlay;
+
+        // Black cross where user clicked
+        private MapPoint _incidentPoint;
+
         // Symbol for the incident
         private SimpleMarkerSymbol _incidentSymbol;
 
-        // Uri for service area
-        private Uri _sanDiegoServiceAreaUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ClosestFacility");
+        // Used to display route between incident and facility to mapview
+        private SimpleLineSymbol _routeSymbol;
 
-        // Picture for facility symbol
-        private Uri _pictureMarkerUri = new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/Hospital.png");
+        // Solves task to find closest route between an incident and a facility
+        private ClosestFacilityTask _task;
 
         public ClosestFacility()
         {
@@ -63,17 +55,18 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacility
             // Create the map and graphics overlays.
             Initialize();
         }
-        
+
         private void Initialize()
         {
-
-            // Center the map on San Diego.
-            Map map= new Map(Basemap.CreateStreets());
+            // Load the basemap.
+            Map map = new Map(Basemap.CreateLightGrayCanvasVector());
             MyMapView.Map = map;
-            MyMapView.SetViewpointCenterAsync(32.727, -117.1750, 40000);
 
             // Create a ClosestFacilityTask using the San Diego Uri.
-            _task = ClosestFacilityTask.CreateAsync(_sanDiegoServiceAreaUri).Result;
+            _task = ClosestFacilityTask.CreateAsync(new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ClosestFacility")).Result;
+
+            // Spatial reference to be used
+            SpatialReference _spatialReference = SpatialReferences.WebMercator;
 
             // List of facilities to be placed around San Diego area.
             _facilities = new List<Facility> {
@@ -86,16 +79,20 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacility
                 new Facility(new MapPoint(-1.3049023883956768E7, 3861993.789732541, _spatialReference))
                 };
 
+            // Center the map on the San Diego facilities.
+            Envelope fullExtent = GeometryEngine.CombineExtents(_facilities.Select(facility => facility.Geometry));
+            MyMapView.SetViewpointGeometryAsync(fullExtent, 50);
+
             // Create a symbol for displaying facilities.
-            _facilitySymbol = new PictureMarkerSymbol(_pictureMarkerUri);
+            _facilitySymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/Hospital.png"));
             _facilitySymbol.Height = 30;
             _facilitySymbol.Width = 30;
 
             // Incident symbol
-            _incidentSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.FromArgb(255, 0, 0, 0), 20);
+            _incidentSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.FromArgb(255, 0, 0, 0), 30);
 
             // Route to hospital symbol
-            _routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.FromArgb(255, 0, 0, 255), 2.5f);
+            _routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.FromArgb(255, 0, 0, 255), 5.0f);
 
             // Create Graphics Overlays for incidents and facilities.
             _incidentGraphicsOverlay = new GraphicsOverlay();
@@ -108,33 +105,31 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacility
             }
 
             // Add each graphics overlay to MyMapView.
-            MyMapView.GraphicsOverlays.Add(_facilityGraphicsOverlay);
             MyMapView.GraphicsOverlays.Add(_incidentGraphicsOverlay);
+            MyMapView.GraphicsOverlays.Add(_facilityGraphicsOverlay);
 
             // Link the action of tapping on the map with the MyMapView_GeoViewTapped method.
-            MyMapView.GeoViewTapped += MyMapView_GeoViewTappedAsync;            
-
+            MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
-        private void MyMapView_GeoViewTappedAsync(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
             // Clear any prior incident and routes from the graphics.
             _incidentGraphicsOverlay.Graphics.Clear();
 
             // Create a MapPoint where the user clicked.
             _incidentPoint = MyMapView.ScreenToLocation(e.Position);
-            
+
             // Populate the facility parameters than solve using the task.
             populateParametersAndSolveRouteAsync();
-
         }
 
         private async void populateParametersAndSolveRouteAsync()
         {
             // Set facilities and incident in parameters.
-            _closestFacilityParameters = _task.CreateDefaultParametersAsync().Result;
+            ClosestFacilityParameters _closestFacilityParameters = await _task.CreateDefaultParametersAsync();
             _closestFacilityParameters.SetFacilities(_facilities);
-            _closestFacilityParameters.SetIncidents(new List<Incident> { new Incident(_incidentPoint) } );
+            _closestFacilityParameters.SetIncidents(new List<Incident> { new Incident(_incidentPoint) });
 
             try
             {
@@ -148,11 +143,10 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacility
                 ClosestFacilityRoute route = result.GetRoute(closestFacility, 0);
 
                 // Add graphics for the incident and route.
-                _incidentGraphicsOverlay.Graphics.Add(new Graphic(route.RouteGeometry, _routeSymbol));
                 _incidentGraphicsOverlay.Graphics.Add(new Graphic(_incidentPoint, _incidentSymbol));
-
+                _incidentGraphicsOverlay.Graphics.Add(new Graphic(route.RouteGeometry, _routeSymbol));
             }
-            catch(Esri.ArcGISRuntime.Http.ArcGISWebException exception)
+            catch (Esri.ArcGISRuntime.Http.ArcGISWebException exception)
             {
                 if (exception.Message.ToString().Equals("Unable to complete operation."))
                 {
@@ -164,7 +158,5 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacility
                 }
             }
         }
-
-
     }
 }

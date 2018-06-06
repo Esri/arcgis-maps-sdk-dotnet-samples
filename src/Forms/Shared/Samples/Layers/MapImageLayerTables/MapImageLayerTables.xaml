@@ -8,16 +8,17 @@
             <RowDefinition Height="160"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid>
+        <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Label Grid.Row="0"
-                    Text="Select a row to see the related feature:"/>
+                   Text="Select a row to see the related feature:"/>
             <ListView x:Name="CommentsListBox"
-                        Grid.Row="1"
-                        ItemSelected="CommentsListBox_SelectionChanged">
+                      Grid.Row="1"
+                      HeightRequest="140"
+                      ItemSelected="CommentsListBox_SelectionChanged">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell Text="{Binding  Attributes[comments]}"/>
@@ -26,6 +27,6 @@
             </ListView>
         </Grid>
         <esriUI:MapView x:Name="MyMapView"
-                    Grid.Row="1"/>
+                        Grid.Row="1"/>
     </Grid>
 </ContentPage>

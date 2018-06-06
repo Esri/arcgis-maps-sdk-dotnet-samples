@@ -22,7 +22,7 @@
             <ListView
                 android:id="@+id/mapImageLayerTables_commentListView"
                 android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeightLarge"
+                android:layout_height="160dp"
                 android:scrollbarAlwaysDrawVerticalTrack="true" />
         </TableRow>
         <TableRow

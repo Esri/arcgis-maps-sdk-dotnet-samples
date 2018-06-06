@@ -17,10 +17,11 @@
                        Content="Select a comment from the list to see the related service request:"/>
                 <ListBox x:Name="CommentsListBox"
                          Grid.Row="1"
+                         MaxHeight="140"
                          SelectionMode="Single" SelectionChanged="CommentsListBox_SelectionChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding  Attributes[comments], TargetNullValue=--}"/>
+                            <TextBlock Text="{Binding  Attributes[comments]}"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

@@ -67,7 +67,7 @@ namespace ArcGISRuntime.UWP.Samples.MapImageLayerTables
             // Create query parameters to get all non-null service request comment records (features) from the table.
             QueryParameters queryToGetNonNullComments = new QueryParameters
             {
-                WhereClause = "requestid <> ''"
+                WhereClause = "requestid <> '' AND comments <> ''"
             };
 
             // Query the comments table to get the non-null records.
@@ -96,9 +96,6 @@ namespace ArcGISRuntime.UWP.Samples.MapImageLayerTables
 
             // Get the map image layer that contains the service request sublayer and the service request comments table.
             ArcGISMapImageLayer serviceRequestsMapImageLayer = MyMapView.Map.OperationalLayers[0] as ArcGISMapImageLayer;
-
-            // Get the service requests sublayer.
-            ArcGISMapImageSublayer requestsSublayer = serviceRequestsMapImageLayer.Sublayers[0] as ArcGISMapImageSublayer;
 
             // Get the (non-spatial) table that contains the service request comments.
             ServiceFeatureTable commentsTable = serviceRequestsMapImageLayer.Tables[0];

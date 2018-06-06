@@ -96,7 +96,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             // Create query parameters to get all non-null service request comment records (features) from the table.
             QueryParameters queryToGetNonNullComments = new QueryParameters 
             { 
-                WhereClause = "requestid <> ''"
+                WhereClause = "requestid <> '' AND comments <> ''"
             };
 
             // Query the comments table to get the non-null records.
@@ -136,9 +136,6 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
 
             // Get the map image layer that contains the service request sublayer and the service request comments table.
             ArcGISMapImageLayer serviceRequestsMapImageLayer = _myMapView.Map.OperationalLayers[0] as ArcGISMapImageLayer;
-
-            // Get the service requests sublayer.
-            ArcGISMapImageSublayer requestsSublayer = serviceRequestsMapImageLayer.Sublayers[0] as ArcGISMapImageSublayer;
 
             // Get the (non-spatial) table that contains the service request comments.
             ServiceFeatureTable commentsTable = serviceRequestsMapImageLayer.Tables[0];
@@ -273,8 +270,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             }
 
             // Fill the cell text with attributes from the comment feature.
-            cell.TextLabel.Text = commentRow.Attributes["requestid"] != null ? commentRow.Attributes["requestid"].ToString() : "Request " + indexPath.Row;
-            cell.DetailTextLabel.Text = commentRow.Attributes["comments"] != null ? commentRow.Attributes["comments"].ToString() : "--";
+            cell.DetailTextLabel.Text = commentRow.Attributes["comments"].ToString();
 
             // Return the populated cell for display.
             return cell;

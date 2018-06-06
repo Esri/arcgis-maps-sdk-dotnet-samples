@@ -42,8 +42,8 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         // A list view to show all service request comments.
         ListView _commentsListBox;
 
-        // A dictionary to hold service request comment info (id and feature).
-        private Dictionary<string, object> _commentsInfo = new Dictionary<string, object>();
+        // A list to hold service request comments.
+        private List<Feature> _commentFeatures = new List<Feature>();
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -85,31 +85,18 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             // Create query parameters to get all non-null service request comment records (features) from the table.
             QueryParameters queryToGetNonNullComments = new QueryParameters
             {
-                WhereClause = "requestid <> ''"
+                WhereClause = "requestid <> '' AND comments <> ''"
             };
 
             // Query the comments table to get the non-null records.
             FeatureQueryResult commentQueryResult = await commentsTable.QueryFeaturesAsync(queryToGetNonNullComments, QueryFeatureFields.LoadAll);
 
-            // Store the comments in a dictionary.
-            foreach (GeoElement row in commentQueryResult)
-            {
-                // Only display records with non-null comment text.
-                if (row.Attributes["comments"] != null)
-                {
-                    // Get the comment text to use as the key to the record.
-                    string comment = row.Attributes["comments"].ToString();
+            // Store the comments in a list.
+            _commentFeatures = commentQueryResult.ToList();
 
-                    // Make sure there isn't already a record using this key before adding the comment.
-                    if (!_commentsInfo.ContainsKey(comment))
-                    {
-                        _commentsInfo.Add(comment, row);
-                    }
-                }
-            }
-
-            // Show the records from the service request comments table in the list view control.
-            ArrayAdapter commentsAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, _commentsInfo.Keys.ToList());
+            // Show the comment text from the service request comments records in the list view control.
+            var comments = _commentFeatures.Select(c => c.Attributes["comments"]);
+            ArrayAdapter commentsAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, comments.ToArray());
             _commentsListBox.Adapter = commentsAdapter;
 
             // Create a graphics overlay to show selected features and add it to the map view.
@@ -141,18 +128,12 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             // Clear selected features from the graphics overlay.
             _selectedFeaturesOverlay.Graphics.Clear();
 
-            // Get the comment at the clicked position.
-            string commentText = _commentsInfo.Keys.ElementAt(e.Position);
-
-            // Get the clicked record (ArcGISFeature) using the comment as the key. If one is not found, return.
-            ArcGISFeature selectedComment = _commentsInfo[commentText] as ArcGISFeature;
+            // Get the clicked record (ArcGISFeature) using the list position. If one is not found, return.
+            ArcGISFeature selectedComment = _commentFeatures[e.Position] as ArcGISFeature;
             if (selectedComment == null) { return; }
 
             // Get the map image layer that contains the service request sublayer and the service request comments table.
             ArcGISMapImageLayer serviceRequestsMapImageLayer = _myMapView.Map.OperationalLayers[0] as ArcGISMapImageLayer;
-
-            // Get the service requests sublayer.
-            ArcGISMapImageSublayer requestsSublayer = serviceRequestsMapImageLayer.Sublayers[0] as ArcGISMapImageSublayer;
 
             // Get the (non-spatial) table that contains the service request comments.
             ServiceFeatureTable commentsTable = serviceRequestsMapImageLayer.Tables[0];

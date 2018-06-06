@@ -6,7 +6,7 @@
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
         <Border Background="White" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Center" VerticalAlignment="Top"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="20" Padding="20"
                 Height="240" Width="400">
             <Grid>
@@ -15,13 +15,14 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0"
-                       Text="Select a comment to see the related service request:"/>
+                           Text="Select a comment to see the related service request:"/>
                 <ListBox x:Name="CommentsListBox"
                          Grid.Row="1"
+                         MaxHeight="140"
                          SelectionMode="Single" SelectionChanged="CommentsListBox_SelectionChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding  Attributes[comments], TargetNullValue=--}"/>
+                            <TextBlock Text="{Binding  Attributes[comments]}"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

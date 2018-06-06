@@ -336,6 +336,7 @@
     <None Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
     <None Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
     <None Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
+    <None Include="Samples\Map\OpenScene\OpenScene.jpg" />
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
@@ -366,6 +367,7 @@
     <Compile Include="Samples\MapView\DisplayGrid\DisplayGrid.cs" />
     <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.cs" />
     <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.cs" />
+    <Compile Include="Samples\Map\OpenScene\OpenScene.cs" />
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
     <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.cs" />

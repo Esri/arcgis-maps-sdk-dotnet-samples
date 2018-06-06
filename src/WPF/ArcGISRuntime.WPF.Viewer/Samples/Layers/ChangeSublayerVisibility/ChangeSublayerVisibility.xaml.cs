@@ -52,7 +52,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeSublayerVisibility
             await imageLayer.LoadAsync();
 
             // Assign sublayers to the listview
-            sublayerListView.ItemsSource = imageLayer.Sublayers;
+            SublayerListView.ItemsSource = imageLayer.Sublayers;
         }
     }
 }

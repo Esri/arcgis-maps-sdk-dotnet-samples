@@ -18,17 +18,47 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Button Grid.Row="0" Grid.Column="0" Margin="5" Click="StartServerButtonClicked" x:Name="LocalServerStartButton">Start Local Server</Button>
-        <Button Grid.Row="0" Grid.Column="1" Margin="5" Click="StopServerButtonClicked"  x:Name="LocalServerStopButton"  IsEnabled="False">Stop Local Server</Button>
-        <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" SelectionChanged="Selector_OnSelectionChanged" IsEnabled="False" x:Name="comboServiceSelect">
+        <Button x:Name="LocalServerStartButton"
+                Grid.Row="0" Grid.Column="0"
+                Content="Start Local Server"
+                Margin="5"
+                Click="StartServerButtonClicked" />
+        <Button x:Name="LocalServerStopButton"
+                Grid.Row="0" Grid.Column="1"
+                Content="Stop Local Server"
+                Margin="5"
+                IsEnabled="False"
+                Click="StopServerButtonClicked" />
+        <ComboBox x:Name="ServiceSelectionCombo"
+                  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                  Margin="5"
+                  IsEnabled="False"
+                  SelectionChanged="Selector_OnSelectionChanged">
             <ComboBoxItem>Map Service</ComboBoxItem>
             <ComboBoxItem>Feature Service</ComboBoxItem>
             <ComboBoxItem>Geoprocessing Service</ComboBoxItem>
         </ComboBox>
-        <Button Grid.Row="2" Grid.Column="0" Margin="5" x:Name="btnServiceStart" Click="StartServiceButtonClicked" IsEnabled="False">Start Service</Button>
-        <Button Grid.Row="2" Grid.Column="1" Margin="5" x:Name="btnServiceStop" Click="StopServiceButtonClicked" IsEnabled="False">Stop Service</Button>
-        <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" x:Name="txtStatusBox" />
-        <ListBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" x:Name="lstServices" />
-        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Click="NavigateButtonClicked">Navigate to Service</Button>
+        <Button x:Name="ServiceStartButton"
+                Grid.Row="2" Grid.Column="0"
+                Content="Start service"
+                Margin="5"
+                IsEnabled="False"
+                Click="StartServiceButtonClicked" />
+        <Button x:Name="ServiceStopButton"
+                Grid.Row="2" Grid.Column="1"
+                Content="Stop service"
+                Margin="5"
+                IsEnabled="False"
+                Click="StopServiceButtonClicked" />
+        <TextBox x:Name="StatusTextbox"
+                 Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                 Margin="5" />
+        <ListBox x:Name="ServicesListbox"
+                 Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                 Margin="5" />
+        <Button Content="Navigate to service"
+                Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                Margin="5"
+                Click="NavigateButtonClicked" />
     </Grid>
 </UserControl>

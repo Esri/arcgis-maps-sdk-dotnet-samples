@@ -60,13 +60,13 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
                 TileCache tileCache = new TileCache(DataManager.GetDataFolder("3f1bbf0ec70b409a975f5c91f363fe7d", "SanFrancisco.tpk"));
 
                 // Create the corresponding layer based on the tile cache.
-                ArcGISTiledLayer _tileLayer = new ArcGISTiledLayer(tileCache);
+                ArcGISTiledLayer tileLayer = new ArcGISTiledLayer(tileCache);
 
                 // Create the basemap based on the tile cache.
-                Basemap _sfBasemap = new Basemap(_tileLayer);
+                Basemap sfBasemap = new Basemap(tileLayer);
 
                 // Create the map with the tile-based basemap.
-                Map myMap = new Map(_sfBasemap);
+                Map myMap = new Map(sfBasemap);
 
                 // Assign the map to the MapView.
                 MyMapView.Map = myMap;
@@ -208,10 +208,10 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
                 foreach (GeodatabaseFeatureTable table in resultGdb.GeodatabaseFeatureTables)
                 {
                     // Create a new feature layer for the table.
-                    FeatureLayer _layer = new FeatureLayer(table);
+                    FeatureLayer layer = new FeatureLayer(table);
 
                     // Add the new layer to the map.
-                    MyMapView.Map.OperationalLayers.Add(_layer);
+                    MyMapView.Map.OperationalLayers.Add(layer);
                 }
                 // Best practice is to unregister the geodatabase.
                 await _gdbSyncTask.UnregisterGeodatabaseAsync(resultGdb);

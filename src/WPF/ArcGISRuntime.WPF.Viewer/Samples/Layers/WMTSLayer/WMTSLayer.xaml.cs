@@ -72,10 +72,10 @@ namespace ArcGISRuntime.WPF.Samples.WMTSLayer
                 await myWmtsService.LoadAsync();
 
                 // Get the service information (i.e. metadata) about the WMTS service
-                WmtsServiceInfo myWMTSServiceInfo = myWmtsService.ServiceInfo;
+                WmtsServiceInfo myWmtsServiceInfo = myWmtsService.ServiceInfo;
 
                 // Obtain the read only list of WMTS layer info objects
-                IReadOnlyList<WmtsLayerInfo> myWmtsLayerInfos = myWMTSServiceInfo.LayerInfos;
+                IReadOnlyList<WmtsLayerInfo> myWmtsLayerInfos = myWmtsServiceInfo.LayerInfos;
 
                 // Create a new instance of a WMTS layer using the first item in the read only list of WMTS layer info objects
                 WmtsLayer myWmtsLayer = new WmtsLayer(myWmtsLayerInfos[0]);

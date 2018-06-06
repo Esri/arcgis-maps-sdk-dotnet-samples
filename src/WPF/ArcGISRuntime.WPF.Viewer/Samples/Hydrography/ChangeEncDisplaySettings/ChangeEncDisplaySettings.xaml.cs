@@ -98,16 +98,16 @@ namespace ArcGISRuntime.WPF.Samples.ChangeEncDisplaySettings
             EncMarinerSettings globalMarinerSettings = globalDisplaySettings.MarinerSettings;
 
             // Apply color scheme
-            if ((bool)radDay.IsChecked) { globalMarinerSettings.ColorScheme = EncColorScheme.Day; }
-            else if ((bool)radDusk.IsChecked) { globalMarinerSettings.ColorScheme = EncColorScheme.Dusk; }
-            else if ((bool)radNight.IsChecked) { globalMarinerSettings.ColorScheme = EncColorScheme.Night; }
+            if ((bool)DayRadioButton.IsChecked) { globalMarinerSettings.ColorScheme = EncColorScheme.Day; }
+            else if ((bool)DuskRadioButton.IsChecked) { globalMarinerSettings.ColorScheme = EncColorScheme.Dusk; }
+            else if ((bool)NightRadioButton.IsChecked) { globalMarinerSettings.ColorScheme = EncColorScheme.Night; }
 
             // Apply area symbolization
-            if ((bool)radAreaPlain.IsChecked) { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain; }
+            if ((bool)PlainAreaRadioButton.IsChecked) { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain; }
             else { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Symbolized; }
 
             // Apply point symbolization
-            if ((bool)radPointPaper.IsChecked) { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart; }
+            if ((bool)PaperchartRadioButton.IsChecked) { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart; }
             else { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified; }
         }
 

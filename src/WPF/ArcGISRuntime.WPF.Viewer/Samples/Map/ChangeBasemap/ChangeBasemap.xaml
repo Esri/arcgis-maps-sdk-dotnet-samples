@@ -14,7 +14,7 @@
             <StackPanel>
                 <TextBlock Text="Select basemap" HorizontalAlignment="Center"
                            Margin="0,0,0,2" TextWrapping="Wrap" />
-                <ComboBox Name="basemapChooser" SelectionChanged="OnBasemapChooserSelectionChanged"/>
+                <ComboBox Name="BasemapChooser" SelectionChanged="OnBasemapChooserSelectionChanged"/>
             </StackPanel>
         </Border>
     </Grid>

@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <esri:MapView x:Name="myMapView" />
+        <esri:MapView x:Name="MyMapView" />
         <Border
             Background="White" BorderBrush="Black" BorderThickness="1"
             HorizontalAlignment="Right" VerticalAlignment="Top"
@@ -16,7 +16,7 @@
                 <TextBlock Text="Enter a state name and click 'Query' to search for matching features."
                            Foreground="Red"
                            TextWrapping="Wrap" />
-                <TextBox x:Name="queryEntry"
+                <TextBox x:Name="QueryEntry"
                          Text="New York"
                          Margin="0,5,0,0" />
                 <Button Content="Query"

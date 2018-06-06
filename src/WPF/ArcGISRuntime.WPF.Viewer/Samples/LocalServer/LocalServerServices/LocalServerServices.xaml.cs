@@ -61,13 +61,13 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
         {
             // Construct the new status text
             string updateStatus = String.Format("{0} status: {1} \t\t {2}\n{3}", server, status,
-                DateTime.Now.ToShortTimeString(), txtStatusBox.Text);
+                DateTime.Now.ToShortTimeString(), StatusTextbox.Text);
 
             // Update the status box text
-            txtStatusBox.Text = updateStatus;
+            StatusTextbox.Text = updateStatus;
 
             // Update the list of running services
-            lstServices.ItemsSource = LocalServer.Instance.Services.Select(m => m.Name + " : " + m.Url);
+            ServicesListbox.ItemsSource = LocalServer.Instance.Services.Select(m => m.Name + " : " + m.Url);
         }
 
         private void CreateServices()
@@ -90,7 +90,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
                 _localGeoprocessingService.StatusChanged += (o, e) => { UpdateUiWithServiceUpdate("Geoprocessing Service", e.Status); };
 
                 // Enable the UI to select services
-                comboServiceSelect.IsEnabled = true;
+                ServiceSelectionCombo.IsEnabled = true;
             }
             catch (Exception ex)
             {
@@ -101,7 +101,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Get the text of the selected item
-            string selection = ((ComboBoxItem)comboServiceSelect.SelectedItem).Content.ToString();
+            string selection = ((ComboBoxItem)ServiceSelectionCombo.SelectedItem).Content.ToString();
 
             // Update the selection
             switch (selection)
@@ -139,13 +139,13 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             // Update the UI
             if (_selectedService.Status == LocalServerStatus.Started)
             {
-                btnServiceStop.IsEnabled = true;
-                btnServiceStart.IsEnabled = false;
+                ServiceStopButton.IsEnabled = true;
+                ServiceStartButton.IsEnabled = false;
             }
             else
             {
-                btnServiceStop.IsEnabled = false;
-                btnServiceStart.IsEnabled = true;
+                ServiceStopButton.IsEnabled = false;
+                ServiceStartButton.IsEnabled = true;
             }
         }
 
@@ -219,8 +219,8 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
         private async void StopServerButtonClicked(object sender, RoutedEventArgs e)
         {
             // Update the UI
-            btnServiceStart.IsEnabled = false;
-            btnServiceStop.IsEnabled = false;
+            ServiceStartButton.IsEnabled = false;
+            ServiceStopButton.IsEnabled = false;
             LocalServerStartButton.IsEnabled = true;
             LocalServerStopButton.IsEnabled = false;
 
@@ -236,12 +236,12 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
         private void NavigateButtonClicked(object sender, RoutedEventArgs e)
         {
             // Return if selection is empty
-            if (lstServices.SelectedItems.Count < 1) { return; }
+            if (ServicesListbox.SelectedItems.Count < 1) { return; }
 
             try
             {
                 // Get the full text in the selection
-                string strFullName = lstServices.SelectedItems[0].ToString();
+                string strFullName = ServicesListbox.SelectedItems[0].ToString();
 
                 // Create array of characters to split text by; ':' separates the service name and the URI
                 char[] splitChars = { ':' };

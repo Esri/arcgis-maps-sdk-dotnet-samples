@@ -16,23 +16,21 @@
                 <TextBlock Text="Layers in map"
                            FontWeight="Bold"
                            Margin="0,0,0,2" TextWrapping="Wrap" />
-                <ListBox Name="ListBox_LayersInTheMap" />
+                <ListBox Name="LayersInTheMapList" />
                 <TextBlock Text="Layers not in map"
                            FontWeight="Bold"
                            Margin="0,10,0,2" TextWrapping="Wrap" />
-                <ListBox Name="ListBox_LayersNotInTheMap" />
+                <ListBox Name="LayersNotInTheMapList" />
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="Button_AddLayerToMap"
+                    <Button Content="Add layer to map"
                             Grid.Column="0" Margin="0,5,5,0"
-                            Content="Add layer to map"
                             Click="Button_AddLayerToMap_Click" />
-                    <Button x:Name="Button_RemoveLayerFromMap"
+                    <Button Content="Remove layer from map"
                             Grid.Column="1" Margin="5,5,0,0"
-                            Content="Remove layer from map"
                             Click="Button_RemoveLayerFromMap_Click" />
                 </Grid>
             </StackPanel>

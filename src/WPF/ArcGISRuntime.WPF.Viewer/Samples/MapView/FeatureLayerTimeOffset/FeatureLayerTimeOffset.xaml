@@ -17,7 +17,7 @@
                       HorizontalAlignment="Center" Foreground="Red" />
                 <TextBlock Text="Blue hurricanes not offset" FontWeight="Bold"
                       HorizontalAlignment="Center" Foreground="Blue" />
-                <Label x:Name="lblCurrentDate" Content="" />
+                <Label x:Name="CurrentDateLabel" Content="" />
                 <Slider x:Name="MyTimeSlider" ValueChanged="MyTimeSlider_ValueChanged" Minimum="0" Maximum="1" />
             </StackPanel>
         </Border>

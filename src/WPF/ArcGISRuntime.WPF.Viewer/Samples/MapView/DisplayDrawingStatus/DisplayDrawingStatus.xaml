@@ -15,7 +15,7 @@
                 <TextBlock Text="Pan and zoom to see drawing status changes."
                            Foreground="Red"
                            TextAlignment="Center" />
-                <ProgressBar x:Name="activityIndicator"
+                <ProgressBar x:Name="ActivityIndicator"
                              IsIndeterminate="True"
                              Height="20" Margin="0,5,0,0"
                              HorizontalAlignment="Stretch" />

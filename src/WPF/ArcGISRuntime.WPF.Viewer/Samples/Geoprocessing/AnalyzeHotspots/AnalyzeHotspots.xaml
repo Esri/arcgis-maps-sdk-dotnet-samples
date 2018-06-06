@@ -52,7 +52,7 @@
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
-                            <ProgressBar x:Name="progress"
+                            <ProgressBar x:Name="Progress"
                                          IsIndeterminate="True" Height="20" />
                             <TextBlock Text="Executing analysis..."
                                        Grid.Row="0"

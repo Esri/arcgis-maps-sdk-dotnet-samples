@@ -48,10 +48,10 @@ namespace ArcGISRuntime.WPF.Samples.OpenMapURL
         private void Initialize()
         {
             // Set titles as a items source
-            mapsChooser.ItemsSource = _titles;
+            MapsChooser.ItemsSource = _titles;
             
             // Select the first option in the map titles. 
-            mapsChooser.SelectedIndex = 0;
+            MapsChooser.SelectedIndex = 0;
 
             // Create a new Map instance with url of the webmap that is displayed by default
             Map myMap = new Map(new Uri(_itemURLs[0]));

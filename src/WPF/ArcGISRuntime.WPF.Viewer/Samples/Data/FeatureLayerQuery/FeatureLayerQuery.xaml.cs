@@ -73,7 +73,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerQuery
             myMap.OperationalLayers.Add(_featureLayer);
 
             // Assign the map to the MapView.
-            myMapView.Map = myMap;
+            MyMapView.Map = myMap;
         }
 
         private async void OnQueryClicked(object sender, RoutedEventArgs e)
@@ -82,7 +82,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerQuery
             _featureLayer.ClearSelection();
 
             // Begin query process.
-            await QueryStateFeature(queryEntry.Text);
+            await QueryStateFeature(QueryEntry.Text);
         }
 
         private async Task QueryStateFeature(string stateName)
@@ -113,7 +113,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerQuery
                     _featureLayer.SelectFeature(feature);
 
                     // Zoom to the extent of the newly selected feature.
-                    await myMapView.SetViewpointGeometryAsync(feature.Geometry.Extent, 50);
+                    await MyMapView.SetViewpointGeometryAsync(feature.Geometry.Extent, 50);
                 }
                 else
                 {

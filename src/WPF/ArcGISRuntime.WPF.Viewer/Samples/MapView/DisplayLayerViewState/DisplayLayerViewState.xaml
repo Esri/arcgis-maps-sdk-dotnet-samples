@@ -15,9 +15,9 @@
             <StackPanel>
                 <TextBlock Text="Layer display status" FontWeight="Bold" 
                       HorizontalAlignment="Center" />
-                <Label x:Name="StatusLabel_TiledLayer" Content=""/>
-                <Label x:Name="StatusLabel_ImageLayer" Content=""/>
-                <Label x:Name="StatusLabel_FeatureLayer" Content=""/>
+                <Label x:Name="TiledLayerStatusLabel" Content=""/>
+                <Label x:Name="ImageLayerStatusLabel" Content=""/>
+                <Label x:Name="FeatureLayerStatusLabel" Content=""/>
             </StackPanel>
         </Border>
     </Grid>

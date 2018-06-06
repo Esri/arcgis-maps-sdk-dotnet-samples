@@ -15,7 +15,7 @@
                 <TextBlock Text="Select a rendering rule."
                            Margin="0,0,0,5"
                            TextWrapping="Wrap" TextAlignment="Center" />
-                <ComboBox x:Name="comboBox_RenderingRuleChooser"
+                <ComboBox x:Name="RenderingRuleChooser"
                           SelectionChanged="comboBox_RenderingRuleChooser_SelectionChanged" />
             </StackPanel>
         </Border>

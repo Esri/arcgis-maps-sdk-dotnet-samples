@@ -16,7 +16,7 @@
             <StackPanel>
                 <TextBlock Text="Select a map."
                            TextWrapping="Wrap" TextAlignment="Center" FontWeight="Bold" />
-                <ComboBox x:Name="mapsChooser"
+                <ComboBox x:Name="MapsChooser"
                           Margin="0,5,0,0"
                           SelectionChanged="OnMapsChooseSelectionChanged" />
             </StackPanel>

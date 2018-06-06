@@ -29,7 +29,7 @@
                            Grid.Row="1" Grid.Column="0"
                            VerticalAlignment="Center"
                            Margin="5" />
-                <ComboBox x:Name="bookmarkChooser"
+                <ComboBox x:Name="BookmarkChooser"
                           Grid.Row="1" Grid.Column="1"
                           DisplayMemberPath="Name"
                           Width="160" Margin="5"
@@ -50,7 +50,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Bookmark Name:"
                                Margin="0,0,7,0" />
-                    <TextBox x:Name="TextBoxBookmarkName" 
+                    <TextBox x:Name="TextBoxBookmarkName"
                              Text="" Width="200" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"

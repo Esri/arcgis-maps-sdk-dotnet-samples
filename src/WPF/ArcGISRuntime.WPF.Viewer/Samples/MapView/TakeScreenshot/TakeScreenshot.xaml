@@ -13,7 +13,7 @@
                 Margin="30" Padding="20" Width="375">
             <StackPanel>
                 <Button x:Name="ScreenshotButton" Content="Take screenshot" Click="OnScreenshotButtonClicked"/>
-                <Image x:Name="imageView" Margin="0,5"></Image>
+                <Image x:Name="ImageView" Margin="0,5"></Image>
             </StackPanel>
         </Border>
     </Grid>

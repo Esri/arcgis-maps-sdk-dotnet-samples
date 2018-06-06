@@ -25,15 +25,13 @@
                            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                            TextWrapping="Wrap" TextAlignment="Center" FontWeight="Bold"
                            Margin="0,0,0,5" />
-                <ComboBox x:Name="modeChooser"
+                <ComboBox x:Name="ModeChooser"
                           Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                           SelectionChanged="OnModeChooserSelectionChanged" />
-                <Button x:Name="StartButton"
+                <Button Content="Start"
                         Margin="0,5,5,0" Grid.Row="2" Grid.Column="0"
-                        Content="Start"
                         Click="OnStartButtonClicked" />
-                <Button x:Name="StopButton"
-                        Content="Stop"
+                <Button Content="Stop"
                         Margin="5,5,0,0" Grid.Row="2" Grid.Column="1"
                         Click="OnStopButtonClicked" />
             </Grid>

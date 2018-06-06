@@ -72,16 +72,16 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
             _localMapService = new LocalMapService(mapServiceUrl);
 
             // Create the shapefile workspace
-            ShapefileWorkspace _shapefileWorkspace = new ShapefileWorkspace("shp_wkspc", path);
+            ShapefileWorkspace shapefileWorkspace = new ShapefileWorkspace("shp_wkspc", path);
 
             // Create the layer source that represents the shapefile on disk
-            TableSublayerSource source = new TableSublayerSource(_shapefileWorkspace.Id, filename);
+            TableSublayerSource source = new TableSublayerSource(shapefileWorkspace.Id, filename);
 
             // Create a sublayer instance from the table source
             _shapefileSublayer = new ArcGISMapImageSublayer(0, source);
 
             // Add the dynamic workspace to the map service
-            _localMapService.SetDynamicWorkspaces(new List<DynamicWorkspace>() { _shapefileWorkspace });
+            _localMapService.SetDynamicWorkspaces(new List<DynamicWorkspace>() { shapefileWorkspace });
 
             // Subscribe to notifications about service status changes
             _localMapService.StatusChanged += _localMapService_StatusChanged;
@@ -106,10 +106,10 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceShapefile
                     if (ex.Status == Esri.ArcGISRuntime.LoadStatus.Loaded)
                     {
                         // Create a default symbol style
-                        SimpleLineSymbol _lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 3);
+                        SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 3);
 
                         // Apply the symbol style with a renderer
-                        _shapefileSublayer.Renderer = new SimpleRenderer(_lineSymbol);
+                        _shapefileSublayer.Renderer = new SimpleRenderer(lineSymbol);
 
                         // Add the shapefile sublayer to the imagery layer
                         imageryLayer.Sublayers.Add(_shapefileSublayer);

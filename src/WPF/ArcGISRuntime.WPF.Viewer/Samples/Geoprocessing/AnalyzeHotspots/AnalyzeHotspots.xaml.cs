@@ -145,13 +145,13 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
             {
                 // The geoprocessing task is processing. The busyOverly is present.
                 BusyOverlay.Visibility = Visibility.Visible;
-                progress.IsIndeterminate = true;
+                Progress.IsIndeterminate = true;
             }
             else
             {
                 // The user can interact with the date pickers. The waiting is invisible.
                 BusyOverlay.Visibility = Visibility.Collapsed;
-                progress.IsIndeterminate = false;
+                Progress.IsIndeterminate = false;
             }
         }
     }

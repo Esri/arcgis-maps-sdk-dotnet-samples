@@ -14,7 +14,7 @@
             <StackPanel>
                 <TextBlock Text="Select a vector layer." 
                            Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                <ComboBox x:Name="vectorLayersChooser" 
+                <ComboBox x:Name="VectorLayersChooser" 
                           Margin="5" 
                           SelectionChanged="OnVectorLayersChooserSelectionChanged"/>
             </StackPanel>

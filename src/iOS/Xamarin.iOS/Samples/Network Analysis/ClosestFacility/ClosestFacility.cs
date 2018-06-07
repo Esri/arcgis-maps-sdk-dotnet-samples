@@ -32,9 +32,6 @@ namespace ArcGISRuntime.Samples.ClosestFacility
         // Map view that will be used
         private MapView _myMapView;
 
-        // Toolbar for UI element
-        private UIToolbar _toolbar = new UIToolbar();
-
         // Holds locations of hospitals around San Diego
         private List<Facility> _facilities;
 
@@ -71,7 +68,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             _myMapView = new MapView();
 
             // Add the bar button items to an array of UIBarButtonItems
-            View.AddSubviews(_myMapView, _toolbar);
+            View.AddSubviews(_myMapView);
 
             Initialize();
         }
@@ -80,9 +77,6 @@ namespace ArcGISRuntime.Samples.ClosestFacility
         {
             // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Setup the visual frame for the Toolbar
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 80, View.Bounds.Width, 40);
 
             base.ViewDidLayoutSubviews();
         }

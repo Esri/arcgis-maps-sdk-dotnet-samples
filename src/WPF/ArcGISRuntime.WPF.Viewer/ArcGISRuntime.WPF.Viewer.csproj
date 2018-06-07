@@ -1339,9 +1339,9 @@
     <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg">
+    <Content Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Content Include="Samples\Network Analysis\FindRoute\FindRoute.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

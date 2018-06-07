@@ -221,9 +221,7 @@
     <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
     <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
     <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
-    <Resource Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Content Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg" />
     <Content Include="Samples\Network Analysis\FindRoute\FindRoute.jpg" />
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <Content Include="Samples\Search\FindPlace\FindPlace.jpg" />

@@ -158,10 +158,10 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             _incidentPoint = _myMapView.ScreenToLocation(e.Position);
 
             // Populate the facility parameters than solve using the task.
-            populateParametersAndSolveRouteAsync();
+            PopulateParametersAndSolveRouteAsync();
         }
 
-        private async void populateParametersAndSolveRouteAsync()
+        private async void PopulateParametersAndSolveRouteAsync()
         {
             // Set facilities and incident in parameters.
             ClosestFacilityParameters _closestFacilityParameters = await _task.CreateDefaultParametersAsync();

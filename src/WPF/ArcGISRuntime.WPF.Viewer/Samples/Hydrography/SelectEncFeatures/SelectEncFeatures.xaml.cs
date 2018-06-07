@@ -95,7 +95,7 @@ namespace ArcGISRuntime.WPF.Samples.SelectEncFeatures
             EncLayer containingLayer = firstResult.LayerContent as EncLayer;
 
             // Select the smallest (area) feature in the layer.
-            EncFeature smallestFeature = (EncFeature)firstResult.GeoElements.OrderByDescending(f => GeometryEngine.Area(f.Geometry)).Last();
+            EncFeature smallestFeature = (EncFeature)firstResult.GeoElements.OrderBy(f => GeometryEngine.Area(f.Geometry)).First();
 
             // Select the feature.
             containingLayer.SelectFeature(smallestFeature);

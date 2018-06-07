@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <esri:MapView x:Name="MyMapView" />
         <Border
             Background="White"
             BorderBrush="Black" BorderThickness="1"
@@ -11,13 +11,17 @@
             Margin="30" Padding="20"
             Width="375">
             <StackPanel>
-                <TextBlock x:Name="ConvexHullInstructionsLabel" 
+                <TextBlock x:Name="ConvexHullInstructionsLabel"
                            Text="Tap on the map in several places, then click the 'Convex Hull' button."
-                           TextWrapping="Wrap"/>
-                <Button x:Name="ConvexHullButton" 
+                           TextWrapping="Wrap" />
+                <Button x:Name="ConvexHullButton"
                         Content="Convex Hull"
                         Margin="0,10,0,0"
-                        Click="ConvexHullButton_Click"/>
+                        Click="ConvexHullButton_Click" />
+                <Button x:Name="ResetButton"
+                        Content="Reset"
+                        Margin="0,10,0,0"
+                        Click="ResetButton_Click" />
             </StackPanel>
         </Border>
     </Grid>

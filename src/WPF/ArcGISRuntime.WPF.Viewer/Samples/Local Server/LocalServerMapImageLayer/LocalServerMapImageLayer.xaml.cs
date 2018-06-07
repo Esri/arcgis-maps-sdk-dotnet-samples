@@ -16,8 +16,8 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.LocalServerMapImageLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Local Server Map Image Layer",
-        "LocalServer",
+        "Local Server map image layer",
+        "Local Server",
         "This sample demonstrates how to display a Map Image Layer from a local map service",
         "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions.\nSample data is loaded in the background. ")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("dee5d8060a6048a4b063484199a9546b")]

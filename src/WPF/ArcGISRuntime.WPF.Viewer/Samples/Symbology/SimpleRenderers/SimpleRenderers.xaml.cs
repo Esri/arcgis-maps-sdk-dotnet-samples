@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -26,7 +26,7 @@ namespace ArcGISRuntime.WPF.Samples.SimpleRenderers
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
@@ -40,16 +40,14 @@ namespace ArcGISRuntime.WPF.Samples.SimpleRenderers
             MapPoint cascadeGeyserPoint = new MapPoint(-110.829004, 44.462438, SpatialReferences.Wgs84);
             MapPoint plumeGeyserPoint = new MapPoint(-110.829381, 44.462735, SpatialReferences.Wgs84);
 
-            // Use the two points farthest apart to create an envelope
-            Envelope initialEnvelope = new Envelope(oldFaithfulPoint, plumeGeyserPoint);
-
-            // Set the map initial viewpoint
-            myMap.InitialViewpoint = new Viewpoint(initialEnvelope);
-
             // Add the map to the map view
             MyMapView.Map = myMap;
 
-            // Create a graphics overlay 
+            // Use the two points farthest apart to create an envelope
+            Envelope initialEnvelope = new Envelope(oldFaithfulPoint, plumeGeyserPoint);
+            MyMapView.SetViewpointGeometryAsync(initialEnvelope, 50);
+
+            // Create a graphics overlay
             GraphicsOverlay myGraphicOverlay = new GraphicsOverlay();
 
             // Create graphics based upon the map points

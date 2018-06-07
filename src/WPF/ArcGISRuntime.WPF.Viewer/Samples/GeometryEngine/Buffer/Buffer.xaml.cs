@@ -19,11 +19,12 @@ namespace ArcGISRuntime.WPF.Samples.Buffer
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Buffer",
         "GeometryEngine",
-        "This sample demonstrates how to use the GeometryEngine.Buffer to generate a polygon from an input geometry with a buffer distance.",
-        "Tap on the map to specify a map point location. A buffer will created and displayed based upon the buffer value (in miles) specified in the textbox. Repeat the procedure to add additional map point and buffers. The generated buffers can overlap and are independent of each other.",
+        "This sample demonstrates how to use GeometryEngine to create planar and geodesic buffer polygons from a map location and buffer distance. It illustrates the difference between planar and geodesic results both visually on the map and by comparing their areas.",
+        "1. Tap on the map.\n2. A planar and a geodesic buffer will be created at the tap location using the distance (miles) specified in the text box.\n3. Continue tapping to create additional buffers. Notice that buffers closer to the equator are similar in size. As you move north or south from the equator, however, the geodesic polygons appear larger. Geodesic polygons are in fact a better representation of the true shape and size of the buffer. While the planar polygons appear consistent across the map, the area they represent is less accurate as you move towards the poles. \n4. The total area of planar and geodesic buffer polygons will update in the text boxes along with the percent difference between them.\n 5. Click `Clear` to remove all buffers and start again.",
         "")]
     public partial class Buffer
     {
+        // Track the total area for all buffers in the map view.
         private double _planarBufferAreaTotal;
         private double _geodesicBufferAreaTotal;
 
@@ -31,14 +32,57 @@ namespace ArcGISRuntime.WPF.Samples.Buffer
         {
             InitializeComponent();
 
-            // Create a map with a topographic basemap.
-            Map bufferMap = new Map(Basemap.CreateTopographic());
+            // Initialize the map and graphics overlays.
+            Initialize();
+        }
 
-            // Assign the map to the MapView.
-            MyMapView.Map = bufferMap;
+        private void Initialize()
+        {
+            // Create a map with a topographic basemap and add it to the map view.
+            MyMapView.Map = new Map(Basemap.CreateTopographic());
             
-            // Wire up the MapView's GeoViewTapped event handler.
+            // Handle the MapView's GeoViewTapped event to create buffers.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+
+            // Create a fill symbol for geodesic buffer polygons.            
+            Color geodesicBufferColor = Color.FromArgb(120, 255, 0, 0);
+            SimpleLineSymbol geodesicOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, geodesicBufferColor, 2);
+            SimpleFillSymbol geodesicBufferFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, geodesicBufferColor, geodesicOutlineSymbol);
+
+            // Create a fill symbol for planar buffer polygons.            
+            Color planarBufferColor = Color.FromArgb(120, 0, 0, 255);
+            SimpleLineSymbol planarOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, planarBufferColor, 2);
+            SimpleFillSymbol planarBufferFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, planarBufferColor, planarOutlineSymbol);
+
+            // Create a marker symbol for tap locations.
+            SimpleMarkerSymbol tapSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, Color.White, 14);
+
+            // Create a graphics overlay to display geodesic polygons, set its renderer and add it to the map view.
+            GraphicsOverlay geodesicPolysOverlay = new GraphicsOverlay
+            { 
+                Id = "GeodesicPolys",
+                Renderer = new SimpleRenderer(geodesicBufferFillSymbol)
+            };
+            MyMapView.GraphicsOverlays.Add(geodesicPolysOverlay);
+
+            // Create a graphics overlay to display planar polygons, set its renderer and add it to the map view.
+            GraphicsOverlay planarPolysOverlay = new GraphicsOverlay
+            {
+                Id = "PlanarPolys",
+                Renderer = new SimpleRenderer(planarBufferFillSymbol)
+            };
+            MyMapView.GraphicsOverlays.Add(planarPolysOverlay);
+        
+            // Create a graphics overlay to display tap locations for buffers, set its renderer and add it to the map view.
+            GraphicsOverlay tapLocationsOverlay = new GraphicsOverlay
+            {
+                Id = "TapPoints",
+                Renderer = new SimpleRenderer(tapSymbol)
+            };
+            MyMapView.GraphicsOverlays.Add(tapLocationsOverlay);
+
+            // Show the colors for each type of buffer in the UI.
+            ShowBufferSwatches(planarBufferColor, geodesicBufferColor);
         }
 
         private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
@@ -54,88 +98,68 @@ namespace ArcGISRuntime.WPF.Samples.Buffer
                 // Convert the input distance to meters. There are 1609.34 meters in one mile.
                 double bufferInMeters = bufferInMiles * 1609.34;
 
-                // Call a function to create a planar buffer graphic around the input location at the specified distance.
-                Graphic planarBufferGraphic = CreateBufferPlanar(userTapPoint, bufferInMeters);
+                // Create a planar buffer graphic around the input location at the specified distance.
+                Geometry bufferGeometryPlanar = GeometryEngine.Buffer(userTapPoint, bufferInMeters);
+                Graphic planarBufferGraphic = new Graphic(bufferGeometryPlanar);
 
-                // Call a function to create a geodesic buffer graphic using the same location and distance.
-                Graphic geodesicBufferGraphic = CreateBufferGeodesic(userTapPoint, bufferInMeters);
+                // Create a geodesic buffer graphic using the same location and distance.
+                Geometry bufferGeometryGeodesic = GeometryEngine.BufferGeodetic(userTapPoint, bufferInMeters, LinearUnits.Meters, double.NaN, GeodeticCurveType.Geodesic);
+                Graphic geodesicBufferGraphic = new Graphic(bufferGeometryGeodesic);
 
-                // Create a graphic for the user tap location with a white cross (+).
-                SimpleMarkerSymbol locationSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, Color.White, 10);
-                Graphic locationGraphic = new Graphic(userTapPoint, locationSymbol);
+                // Create a graphic for the user tap location.
+                Graphic locationGraphic = new Graphic(userTapPoint); 
 
                 // Get the graphics overlays.
                 GraphicsOverlay planarBufferGraphicsOverlay = MyMapView.GraphicsOverlays["PlanarPolys"];
                 GraphicsOverlay geodesicBufferGraphicsOverlay = MyMapView.GraphicsOverlays["GeodesicPolys"];
                 GraphicsOverlay tapPointGraphicsOverlay = MyMapView.GraphicsOverlays["TapPoints"];
 
-                // Add the buffer polygon and tap location graphics to the graphic overlay.
+                // Add the buffer polygons and tap location graphics to the appropriate graphic overlays.
                 planarBufferGraphicsOverlay.Graphics.Add(planarBufferGraphic);
                 geodesicBufferGraphicsOverlay.Graphics.Add(geodesicBufferGraphic);
                 tapPointGraphicsOverlay.Graphics.Add(locationGraphic);
 
                 // Get the area for each new polygon.
-                double areaPlanar = GeometryEngine.AreaGeodetic(planarBufferGraphic.Geometry, AreaUnits.SquareMiles);
-                double areaGeodesic = GeometryEngine.AreaGeodetic(geodesicBufferGraphic.Geometry, AreaUnits.SquareMiles);
+                double areaPlanar = GeometryEngine.AreaGeodetic(bufferGeometryPlanar, AreaUnits.SquareMiles);
+                double areaGeodesic = GeometryEngine.AreaGeodetic(bufferGeometryGeodesic, AreaUnits.SquareMiles);
 
-                // Add to the total area for each type of buffer polygon and calculate the percent difference.
+                // Add to the total area for each type of buffer polygon.
                 _planarBufferAreaTotal += areaPlanar;
                 _geodesicBufferAreaTotal += areaGeodesic;
-                double areaDifference = System.Math.Abs(_planarBufferAreaTotal - _geodesicBufferAreaTotal);
-                double percentDifference = areaDifference / _geodesicBufferAreaTotal;
+
+                // Calculate the percent difference in the total areas.
+                double areaDifference = _geodesicBufferAreaTotal - _planarBufferAreaTotal;
+                double percentDifference = areaDifference / _planarBufferAreaTotal;
 
                 // Show the total area for each type and the percent difference.
-                BufferAreaPlanarTextBox.Text = string.Format("{0:F2}", _planarBufferAreaTotal);
-                BufferAreaGeodesicTextBox.Text = string.Format("{0:F2}", _geodesicBufferAreaTotal);
+                BufferAreaPlanarTextBox.Text = string.Format("{0:N2}", _planarBufferAreaTotal);
+                BufferAreaGeodesicTextBox.Text = string.Format("{0:N2}", _geodesicBufferAreaTotal);
                 BufferDifferenceTextBox.Text = string.Format("{0:P}", percentDifference);
             }
             catch (System.Exception ex)
             {
-                // Display an error message if there is a problem generating the buffer polygon.
-                MessageBox.Show(ex.Message, "Geometry Engine Failed!");
+                // Display an error message if there is a problem generating the buffers.
+                MessageBox.Show(ex.Message, "Error creating buffers");
             }
         }
 
-        private Graphic CreateBufferGeodesic(MapPoint location, double distanceMeters)
+        private void ShowBufferSwatches(Color planarBufferColor, Color geodesicBufferColor)
         {
-            Geometry bufferGeometryGeodesic = GeometryEngine.BufferGeodetic(location, distanceMeters, LinearUnits.Meters, double.NaN, GeodeticCurveType.Geodesic);
-            Color bufferColor = Color.FromArgb(150, 255, 0, 0);
-            SimpleLineSymbol outlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, bufferColor, 2);
-            SimpleFillSymbol bufferFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, bufferColor, outlineSymbol);
-            Graphic bufferGraphic = new Graphic(bufferGeometryGeodesic, bufferFillSymbol);
-
-            return bufferGraphic;
-        }
-
-        private Graphic CreateBufferPlanar(MapPoint location, double distanceMeters)
-        {
-            Geometry bufferGeometryPlanar = GeometryEngine.Buffer(location, distanceMeters);
-            Color bufferColor = Color.FromArgb(150, 0, 0, 255);
-            SimpleLineSymbol outlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, bufferColor, 2);
-            SimpleFillSymbol bufferFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, bufferColor, outlineSymbol);
-            Graphic bufferGraphic = new Graphic(bufferGeometryPlanar, bufferFillSymbol);
-
-            return bufferGraphic;
-        }
-        
-        private void ShowBufferSwatches(SimpleFillSymbol planarSymbol, SimpleFillSymbol geodesicSymbol)
-        {
-            Color planarBufferColor = planarSymbol.Color;
+            // Create an equivalent System.Windows.Media.Color for each of the buffer symbol colors (System.Drawing.Color).
             System.Windows.Media.Color planarLabelColor = System.Windows.Media.Color.FromArgb(
-                planarBufferColor.A, 
-                planarBufferColor.R, 
-                planarBufferColor.G, 
-                planarBufferColor.B);
-
-            Color geodesicBufferColor = geodesicSymbol.Color;
-            System.Windows.Media.Color geodesicLabelColor = System.Windows.Media.Color.FromArgb(
                 planarBufferColor.A,
                 planarBufferColor.R,
                 planarBufferColor.G,
                 planarBufferColor.B);
+            System.Windows.Media.Color geodesicLabelColor = System.Windows.Media.Color.FromArgb(
+                geodesicBufferColor.A,
+                geodesicBufferColor.R,
+                geodesicBufferColor.G,
+                geodesicBufferColor.B);
 
-            BufferSwatchPlanarLabel.Background = new System.Windows.Media.SolidColorBrush(planarLabelColor);
-            BufferSwatchGeodesicLabel.Background = new System.Windows.Media.SolidColorBrush(geodesicLabelColor);
+            // Show buffer symbol colors in the UI by setting the appropriate Ellipse object fill color.
+            BufferSwatchPlanarEllipse.Fill = new System.Windows.Media.SolidColorBrush(planarLabelColor);
+            BufferSwatchGeodesicEllipse.Fill = new System.Windows.Media.SolidColorBrush(geodesicLabelColor);
         }
 
         private void ClearBuffersButton_Click(object sender, RoutedEventArgs e)

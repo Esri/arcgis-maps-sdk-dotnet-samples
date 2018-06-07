@@ -3,19 +3,13 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             xmlns:local="clr-namespace:ArcGISRuntime.WPF.Samples.Buffer">
+             xmlns:sys="clr-namespace:System.Drawing;assembly=System.Drawing">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="320" />
         </Grid.ColumnDefinitions>
-        <esri:MapView x:Name="MyMapView">
-            <esri:MapView.GraphicsOverlays>
-                <esri:GraphicsOverlay Id="TapPoints"/>
-                <esri:GraphicsOverlay Id="GeodesicPolys"/>
-                <esri:GraphicsOverlay Id="PlanarPolys"/>
-            </esri:MapView.GraphicsOverlays>
-        </esri:MapView>
+        <esri:MapView x:Name="MyMapView"/>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
@@ -29,54 +23,63 @@
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="1000"/>
+                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                    HorizontalContentAlignment="Center"
                    Foreground="Blue"
                    Content="Click the map to create Planar and Geodesic buffers"/>
-            <Label Grid.Row="1" Grid.Column="0" 
+            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                    HorizontalAlignment="Right"
                    Content="Buffer distance (miles):"/>
             <TextBox x:Name="BufferDistanceMilesTextBox" 
-                     Grid.Row="1" Grid.Column="1"
+                     Grid.Row="1" Grid.Column="2"
                      TextAlignment="Right"
                      Margin="15,5"
-                     Text="100"/>
-            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                     Text="1000"/>
+            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
                    HorizontalContentAlignment="Center"
                    Foreground="Blue"
                    Content="Comparison of Planar and Geodesic buffers"/>
-            <Label Grid.Row="4" Grid.Column="0" 
+            <Ellipse x:Name="BufferSwatchPlanarEllipse"
+                     Grid.Row="4" Grid.Column="0" 
+                     Stroke="LightGray"
+                     Width="20" Height="20" Margin="5"/>
+            <Label Grid.Row="4" Grid.Column="1" 
                    HorizontalAlignment="Right"
                    Content="Planar buffer area (square miles):"/>
             <TextBox x:Name="BufferAreaPlanarTextBox" 
-                     Grid.Row="4" Grid.Column="1"
+                     Grid.Row="4" Grid.Column="2"
                      IsReadOnly="True"
                      TextAlignment="Right"
                      Margin="10,5"
                      Text=""/>
-            <Label Grid.Row="5" Grid.Column="0" 
+            <Ellipse x:Name="BufferSwatchGeodesicEllipse"
+                     Grid.Row="5" Grid.Column="0"
+                     Stroke="LightGray"
+                     Width="20" Height="20" Margin="5"/>
+            <Label Grid.Row="5" Grid.Column="1" 
                    HorizontalAlignment="Right"
                    Content="Geodesic buffer area (square miles):"/>
             <TextBox x:Name="BufferAreaGeodesicTextBox" 
-                     Grid.Row="5" Grid.Column="1"
+                     Grid.Row="5" Grid.Column="2"
                      IsReadOnly="True"
                      TextAlignment="Right"
                      Margin="10,5"
                      Text=""/>
-            <Label Grid.Row="6" Grid.Column="0" 
+            <Label Grid.Row="6" Grid.Column="1" 
                    HorizontalAlignment="Right"
                    Content="Difference:"/>
             <TextBox x:Name="BufferDifferenceTextBox" 
-                     Grid.Row="6" Grid.Column="1"
+                     Grid.Row="6" Grid.Column="2"
                      IsReadOnly="True"
                      TextAlignment="Right"
-                     Margin="15,5"
+                     Margin="10,5"
                      Text=""/>
             <Button x:Name="ClearBuffersButton"
-                    Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
+                    Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3"
                     Margin="50,5"
                     Content="Clear"
                     Click="ClearBuffersButton_Click"/>

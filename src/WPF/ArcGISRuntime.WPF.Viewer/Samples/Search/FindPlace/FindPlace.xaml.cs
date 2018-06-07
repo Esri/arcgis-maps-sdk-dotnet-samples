@@ -332,7 +332,7 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             }
 
             _waitFlag = true;
-            await Task.Delay(150).ConfigureAwait(false);
+            await Task.Delay(150);
             _waitFlag = false;
 
             // Dismiss callout, if any.
@@ -345,10 +345,10 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             string locationText = MyLocationBox.Text;
 
             // Convert the list into a usable format for the suggest box.
-            List<string> results = (await GetSuggestResults(searchText, locationText, true)).ToList();
+            IEnumerable<string> results = await GetSuggestResults(searchText, locationText, true);
 
             // Quit if there are no results.
-            if (results.Count == 0)
+            if (results == null || !results.Any())
             {
                 return;
             }
@@ -369,7 +369,7 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             }
 
             _waitFlag = true;
-            await Task.Delay(150).ConfigureAwait(false);
+            await Task.Delay(150);
             _waitFlag = false;
 
             // Dismiss callout, if any.
@@ -379,10 +379,10 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             string searchText = MyLocationBox.Text;
 
             // Get the results.
-            List<string> results = (await GetSuggestResults(searchText)).ToList();
+            IEnumerable<string> results = await GetSuggestResults(searchText);
 
             // Quit if there are no results.
-            if (results.Count == 0)
+            if (results == null || !results.Any())
             {
                 return;
             }

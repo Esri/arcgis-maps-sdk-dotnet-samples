@@ -303,7 +303,6 @@
     <None Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <None Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
     <None Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
-    <None Include="Samples\Network Analysis\ClosestFacility\README.md" />
     <None Include="Samples\Network Analysis\FindRoute\FindRoute.jpg" />
     <None Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <None Include="Samples\Search\FindPlace\FindPlace.jpg" />
@@ -501,9 +500,7 @@
     <None Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

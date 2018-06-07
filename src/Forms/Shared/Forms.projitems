@@ -107,6 +107,9 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindRoute\FindRoute.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\FindAddress.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Search\FindPlace\FindPlace.jpg" />
@@ -996,9 +999,6 @@
     <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.jpg" />
   </ItemGroup>
   <ItemGroup>

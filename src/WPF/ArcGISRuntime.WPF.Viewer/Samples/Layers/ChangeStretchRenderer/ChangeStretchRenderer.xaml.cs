@@ -159,7 +159,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeStretchRenderer
 
                     // Define what values/options the user sees
                     FirstParameterLabel.Text = "Minimum value (0 - 255):";
-                    SecondParameterLabel.Text = "Maximum value (0 - 255) ";
+                    SecondParameterLabel.Text = "Maximum value (0 - 255):";
                     FirstParameterInput.Text = "10";
                     SecondParameterInput.Text = "150";
 

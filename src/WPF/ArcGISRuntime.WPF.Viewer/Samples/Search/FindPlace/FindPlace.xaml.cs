@@ -198,11 +198,8 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             // Add the GraphicsOverlay to the MapView
             MyMapView.GraphicsOverlays.Add(resultOverlay);
 
-            // Create a viewpoint for the extent containing all graphics
-            Viewpoint viewExtent = new Viewpoint(resultOverlay.Extent);
-
             // Update the map viewpoint
-            MyMapView.SetViewpoint(viewExtent);
+            await MyMapView.SetViewpointGeometryAsync(resultOverlay.Extent, 50);
         }
 
         /// <summary>

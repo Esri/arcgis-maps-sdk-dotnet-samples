@@ -27,8 +27,8 @@
                 </Grid.ColumnDefinitions>
                 <!-- Labels -->
                 <Label x:Name="HelpLabel"
-                       Foreground="Red"
                        Content="Tap 'New measurement' to start."
+                       HorizontalAlignment="Center" FontWeight="SemiBold"
                        Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
                 <Label Content="Direct" 
                        Grid.Row="1" Grid.Column="0" />

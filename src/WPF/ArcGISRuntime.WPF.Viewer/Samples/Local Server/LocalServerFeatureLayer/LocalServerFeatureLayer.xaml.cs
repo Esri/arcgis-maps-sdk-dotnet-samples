@@ -93,7 +93,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
                 await myFeatureLayer.LoadAsync();
 
                 // Set the viewpoint on the MapView to show the layer data
-                MyMapView.SetViewpoint(new Viewpoint(myFeatureLayer.FullExtent));
+                await MyMapView.SetViewpointGeometryAsync(myFeatureLayer.FullExtent, 50);
             }
         }
 

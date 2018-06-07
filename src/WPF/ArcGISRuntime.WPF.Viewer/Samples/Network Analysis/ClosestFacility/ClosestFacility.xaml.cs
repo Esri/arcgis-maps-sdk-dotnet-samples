@@ -58,6 +58,9 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacility
 
         private void Initialize()
         {
+            // Hook up the DrawStatusChanged event.
+            MyMapView.DrawStatusChanged += OnDrawStatusChanged;
+
             // Load the basemap.
             Map map = new Map(Basemap.CreateLightGrayCanvasVector());
             MyMapView.Map = map;
@@ -107,9 +110,18 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacility
             // Add each graphics overlay to MyMapView.
             MyMapView.GraphicsOverlays.Add(_incidentGraphicsOverlay);
             MyMapView.GraphicsOverlays.Add(_facilityGraphicsOverlay);
+        }
 
-            // Link the action of tapping on the map with the MyMapView_GeoViewTapped method.
-            MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+        private void OnDrawStatusChanged(object sender, DrawStatusChangedEventArgs e)
+        {
+            if (e.Status == DrawStatus.Completed)
+            {
+                // Link the action of tapping on the map with the MyMapView_GeoViewTapped method.
+                MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+
+                // Remove this method from DrawStatusChanged events.
+                MyMapView.DrawStatusChanged -= OnDrawStatusChanged;
+            }
         }
 
         private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)

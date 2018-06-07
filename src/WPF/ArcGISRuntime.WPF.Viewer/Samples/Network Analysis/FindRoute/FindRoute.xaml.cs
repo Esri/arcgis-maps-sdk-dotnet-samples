@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -14,8 +14,8 @@ using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Drawing;
+using System.Linq;
 
 namespace ArcGISRuntime.WPF.Samples.FindRoute
 {
@@ -25,7 +25,7 @@ namespace ArcGISRuntime.WPF.Samples.FindRoute
         "This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.",
         "")]
     public partial class FindRoute
-    {        
+    {
         // List of stops on the route ('from' and 'to')
         private List<Stop> _routeStops;
 
@@ -37,16 +37,17 @@ namespace ArcGISRuntime.WPF.Samples.FindRoute
 
         // URIs for picture marker images
         private Uri _checkedFlagIconUri = new Uri("http://static.arcgis.com/images/Symbols/Transportation/CheckeredFlag.png");
+
         private Uri _carIconUri = new Uri("http://static.arcgis.com/images/Symbols/Transportation/CarRedFront.png");
 
         public FindRoute()
         {
             InitializeComponent();
-            
+
             // Create the map, graphics overlay, and the 'from' and 'to' locations for the route
             Initialize();
         }
-        
+
         private void Initialize()
         {
             // Define the route stop locations (points)
@@ -63,8 +64,11 @@ namespace ArcGISRuntime.WPF.Samples.FindRoute
             PictureMarkerSymbol flagSymbol = new PictureMarkerSymbol(_checkedFlagIconUri);
 
             // Add a slight offset (pixels) to the picture symbols
-            carSymbol.OffsetX = -30;
-            flagSymbol.OffsetY = -15;
+
+            carSymbol.OffsetX = -carSymbol.Width / 2;
+            carSymbol.OffsetY = -carSymbol.Height / 2;
+            flagSymbol.OffsetX = -flagSymbol.Width / 2;
+            flagSymbol.OffsetY = -flagSymbol.Height / 2;
 
             // Create graphics for the stops
             Graphic fromGraphic = new Graphic(fromPoint, carSymbol);
@@ -118,11 +122,11 @@ namespace ArcGISRuntime.WPF.Samples.FindRoute
 
             // Create a new graphic for the route geometry and add it to the graphics overlay
             Graphic routeGraphic = new Graphic(routePolyline, routeSymbol);
-            _routeGraphicsOverlay.Graphics.Add(routeGraphic);  
+            _routeGraphicsOverlay.Graphics.Add(routeGraphic);
 
             // Get a list of directions for the route and display it in the list box
             IReadOnlyList<DirectionManeuver> directionsList = firstRoute.DirectionManeuvers;
-            DirectionsListBox.ItemsSource = directionsList; 
+            DirectionsListBox.ItemsSource = directionsList;
         }
 
         private void ResetClick(object sender, System.Windows.RoutedEventArgs e)
@@ -135,7 +139,7 @@ namespace ArcGISRuntime.WPF.Samples.FindRoute
             for (var i = graphicsCount; i > 0; i--)
             {
                 // Get this graphic and see if it has line geometry
-                Graphic g = _routeGraphicsOverlay.Graphics[i-1];
+                Graphic g = _routeGraphicsOverlay.Graphics[i - 1];
                 if (g.Geometry.GeometryType == GeometryType.Polyline)
                 {
                     // Remove the graphic from the overlay

@@ -5,18 +5,81 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:local="clr-namespace:ArcGISRuntime.WPF.Samples.Buffer">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" 
-                    Orientation="Horizontal" >
-            <Label x:Name="BufferInstructionsLabel" 
-                   Content="Specify the buffer in miles and the tap on the map:"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="300" />
+        </Grid.ColumnDefinitions>
+        <esri:MapView x:Name="MyMapView">
+            <esri:MapView.GraphicsOverlays>
+                <esri:GraphicsOverlay Id="TapPoints"/>
+                <esri:GraphicsOverlay Id="GeodesicPolys"/>
+                <esri:GraphicsOverlay Id="PlanarPolys"/>
+            </esri:MapView.GraphicsOverlays>
+        </esri:MapView>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="1000"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                   HorizontalContentAlignment="Center"
+                   Foreground="Blue"
+                   Content="Click the map to create Planar and Geodesic buffers"/>
+            <Label Grid.Row="1" Grid.Column="0" 
+                   HorizontalAlignment="Right"
+                   Content="Buffer distance (miles):"/>
             <TextBox x:Name="BufferDistanceMilesTextBox" 
-                     Text="10"/>
-        </StackPanel>
-        <esri:MapView x:Name="MyMapView" 
-                      Grid.Row="1"/>
+                     Grid.Row="1" Grid.Column="1"
+                     TextAlignment="Right"
+                     Margin="15,5"
+                     Text="100"/>
+            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                   HorizontalContentAlignment="Center"
+                   Foreground="Blue"
+                   Content="Comparison of Planar and Geodesic buffers"/>
+            <Label Grid.Row="4" Grid.Column="0" 
+                   HorizontalAlignment="Right"
+                   Content="Planar buffer area (square miles):"/>
+            <TextBox x:Name="BufferAreaPlanarTextBox" 
+                     Grid.Row="4" Grid.Column="1"
+                     IsReadOnly="True"
+                     TextAlignment="Right"
+                     Margin="10,5"
+                     Text=""/>
+            <Label Grid.Row="5" Grid.Column="0" 
+                   HorizontalAlignment="Right"
+                   Content="Geodesic buffer area (square miles):"/>
+            <TextBox x:Name="BufferAreaGeodesicTextBox" 
+                     Grid.Row="5" Grid.Column="1"
+                     IsReadOnly="True"
+                     TextAlignment="Right"
+                     Margin="10,5"
+                     Text=""/>
+            <Label Grid.Row="6" Grid.Column="0" 
+                   HorizontalAlignment="Right"
+                   Content="Difference:"/>
+            <TextBox x:Name="BufferDifferenceTextBox" 
+                     Grid.Row="6" Grid.Column="1"
+                     IsReadOnly="True"
+                     TextAlignment="Right"
+                     Margin="15,5"
+                     Text=""/>
+            <Button x:Name="ClearBuffersButton"
+                    Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
+                    Margin="50,5"
+                    Content="Clear"
+                    Click="ClearBuffersButton_Click"/>
+        </Grid>
     </Grid>
 </UserControl>

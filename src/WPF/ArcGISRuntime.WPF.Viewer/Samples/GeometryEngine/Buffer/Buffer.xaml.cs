@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using System.Drawing;
 
 namespace ArcGISRuntime.WPF.Samples.Buffer
 {
@@ -23,31 +24,19 @@ namespace ArcGISRuntime.WPF.Samples.Buffer
         "")]
     public partial class Buffer
     {
-        // Graphics overlay to display buffer related graphics.
-        private GraphicsOverlay _graphicsOverlay;
+        private double _planarBufferAreaTotal;
+        private double _geodesicBufferAreaTotal;
 
         public Buffer()
         {
             InitializeComponent();
 
             // Create a map with a topographic basemap.
-            Map theMap = new Map(Basemap.CreateTopographic());
-
-            // Create an envelope that covers the Dallas/Fort Worth area.
-            Geometry startingEnvelope = new Envelope(-10863035.97, 3838021.34, -10744801.344, 3887145.299, SpatialReferences.WebMercator);
-
-            // Set the map's initial extent to the envelope.
-            theMap.InitialViewpoint = new Viewpoint(startingEnvelope);
+            Map bufferMap = new Map(Basemap.CreateTopographic());
 
             // Assign the map to the MapView.
-            MyMapView.Map = theMap;
-
-            // Create a graphics overlay to show the buffer-related graphics.
-            _graphicsOverlay = new GraphicsOverlay();
-
-            // Add the created graphics overlay to the MapView.
-            MyMapView.GraphicsOverlays.Add(_graphicsOverlay);
-
+            MyMapView.Map = bufferMap;
+            
             // Wire up the MapView's GeoViewTapped event handler.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
@@ -56,51 +45,115 @@ namespace ArcGISRuntime.WPF.Samples.Buffer
         {
             try
             {
-                // Create a map point (in the WebMercator projected coordinate system) from the GUI screen coordinate.
-                MapPoint userTappedMapPoint = MyMapView.ScreenToLocation(e.Position);
+                // Get the location tapped by the user (a map point in the WebMercator projected coordinate system).
+                MapPoint userTapPoint = e.Location;
 
-                // Get the buffer size from the textbox.
+                // Get the buffer distance (miles) entered in the text box.
                 double bufferInMiles = System.Convert.ToDouble(BufferDistanceMilesTextBox.Text);
 
-                // Create a variable to be the buffer size in meters. There are 1609.34 meters in one mile.
+                // Convert the input distance to meters. There are 1609.34 meters in one mile.
                 double bufferInMeters = bufferInMiles * 1609.34;
 
-                // Get a buffered polygon from the GeometryEngine Buffer operation centered on the map point. 
-                // Note: The input distance to the Buffer operation is in meters. This matches the backdrop 
-                // basemap units which is also meters.
-                Geometry bufferGeometry = GeometryEngine.Buffer(userTappedMapPoint, bufferInMeters);
+                // Call a function to create a planar buffer graphic around the input location at the specified distance.
+                Graphic planarBufferGraphic = CreateBufferPlanar(userTapPoint, bufferInMeters);
 
-                // Create the outline (a simple line symbol) for the buffered polygon. It will be a solid, thick, green line.
-                SimpleLineSymbol bufferSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Green, 5);
+                // Call a function to create a geodesic buffer graphic using the same location and distance.
+                Graphic geodesicBufferGraphic = CreateBufferGeodesic(userTapPoint, bufferInMeters);
 
-                // Create the color that will be used for the fill of the buffered polygon. It will be a semi-transparent, green color.
-                System.Drawing.Color bufferFillColor = System.Drawing.Color.FromArgb(125, 0, 255, 0);
+                // Create a graphic for the user tap location with a white cross (+).
+                SimpleMarkerSymbol locationSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, Color.White, 10);
+                Graphic locationGraphic = new Graphic(userTapPoint, locationSymbol);
 
-                // Create simple fill symbol for the buffered polygon. It will be solid, semi-transparent, green fill with a solid, 
-                // thick, green outline.
-                SimpleFillSymbol bufferSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, bufferFillColor, bufferSimpleLineSymbol);
+                // Get the graphics overlays.
+                GraphicsOverlay planarBufferGraphicsOverlay = MyMapView.GraphicsOverlays["PlanarPolys"];
+                GraphicsOverlay geodesicBufferGraphicsOverlay = MyMapView.GraphicsOverlays["GeodesicPolys"];
+                GraphicsOverlay tapPointGraphicsOverlay = MyMapView.GraphicsOverlays["TapPoints"];
 
-                // Create a new graphic for the buffered polygon using the defined simple fill symbol.
-                Graphic bufferGraphic = new Graphic(bufferGeometry, bufferSimpleFillSymbol);
+                // Add the buffer polygon and tap location graphics to the graphic overlay.
+                planarBufferGraphicsOverlay.Graphics.Add(planarBufferGraphic);
+                geodesicBufferGraphicsOverlay.Graphics.Add(geodesicBufferGraphic);
+                tapPointGraphicsOverlay.Graphics.Add(locationGraphic);
 
-                // Add the buffered polygon graphic to the graphic overlay.
-                _graphicsOverlay.Graphics.Add(bufferGraphic);
+                // Get the area for each new polygon.
+                double areaPlanar = GeometryEngine.AreaGeodetic(planarBufferGraphic.Geometry, AreaUnits.SquareMiles);
+                double areaGeodesic = GeometryEngine.AreaGeodetic(geodesicBufferGraphic.Geometry, AreaUnits.SquareMiles);
 
-                // Create a simple marker symbol to display where the user tapped/clicked on the map. The marker symbol will be a 
-                // solid, red circle.
-                SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Red, 5);
+                // Add to the total area for each type of buffer polygon and calculate the percent difference.
+                _planarBufferAreaTotal += areaPlanar;
+                _geodesicBufferAreaTotal += areaGeodesic;
+                double areaDifference = System.Math.Abs(_planarBufferAreaTotal - _geodesicBufferAreaTotal);
+                double percentDifference = areaDifference / _geodesicBufferAreaTotal;
 
-                // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol. 
-                Graphic userTappedGraphic = new Graphic(userTappedMapPoint, userTappedSimpleMarkerSymbol);
-
-                // Add the user tapped/clicked map point graphic to the graphic overlay.
-                _graphicsOverlay.Graphics.Add(userTappedGraphic);
+                // Show the total area for each type and the percent difference.
+                BufferAreaPlanarTextBox.Text = string.Format("{0:F2}", _planarBufferAreaTotal);
+                BufferAreaGeodesicTextBox.Text = string.Format("{0:F2}", _geodesicBufferAreaTotal);
+                BufferDifferenceTextBox.Text = string.Format("{0:P}", percentDifference);
             }
             catch (System.Exception ex)
             {
                 // Display an error message if there is a problem generating the buffer polygon.
                 MessageBox.Show(ex.Message, "Geometry Engine Failed!");
             }
+        }
+
+        private Graphic CreateBufferGeodesic(MapPoint location, double distanceMeters)
+        {
+            Geometry bufferGeometryGeodesic = GeometryEngine.BufferGeodetic(location, distanceMeters, LinearUnits.Meters, double.NaN, GeodeticCurveType.Geodesic);
+            Color bufferColor = Color.FromArgb(150, 255, 0, 0);
+            SimpleLineSymbol outlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, bufferColor, 2);
+            SimpleFillSymbol bufferFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, bufferColor, outlineSymbol);
+            Graphic bufferGraphic = new Graphic(bufferGeometryGeodesic, bufferFillSymbol);
+
+            return bufferGraphic;
+        }
+
+        private Graphic CreateBufferPlanar(MapPoint location, double distanceMeters)
+        {
+            Geometry bufferGeometryPlanar = GeometryEngine.Buffer(location, distanceMeters);
+            Color bufferColor = Color.FromArgb(150, 0, 0, 255);
+            SimpleLineSymbol outlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, bufferColor, 2);
+            SimpleFillSymbol bufferFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, bufferColor, outlineSymbol);
+            Graphic bufferGraphic = new Graphic(bufferGeometryPlanar, bufferFillSymbol);
+
+            return bufferGraphic;
+        }
+        
+        private void ShowBufferSwatches(SimpleFillSymbol planarSymbol, SimpleFillSymbol geodesicSymbol)
+        {
+            Color planarBufferColor = planarSymbol.Color;
+            System.Windows.Media.Color planarLabelColor = System.Windows.Media.Color.FromArgb(
+                planarBufferColor.A, 
+                planarBufferColor.R, 
+                planarBufferColor.G, 
+                planarBufferColor.B);
+
+            Color geodesicBufferColor = geodesicSymbol.Color;
+            System.Windows.Media.Color geodesicLabelColor = System.Windows.Media.Color.FromArgb(
+                planarBufferColor.A,
+                planarBufferColor.R,
+                planarBufferColor.G,
+                planarBufferColor.B);
+
+            BufferSwatchPlanarLabel.Background = new System.Windows.Media.SolidColorBrush(planarLabelColor);
+            BufferSwatchGeodesicLabel.Background = new System.Windows.Media.SolidColorBrush(geodesicLabelColor);
+        }
+
+        private void ClearBuffersButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Clear the buffer and point graphics.
+            foreach (GraphicsOverlay ov in MyMapView.GraphicsOverlays)
+            {
+                ov.Graphics.Clear();
+            }
+
+            // Clear the values from the area text boxes.
+            BufferAreaPlanarTextBox.Text = "";
+            BufferAreaGeodesicTextBox.Text = "";
+            BufferDifferenceTextBox.Text = "";
+
+            // Clear the area totals;
+            _planarBufferAreaTotal = 0.0;
+            _geodesicBufferAreaTotal = 0.0;
         }
     }
 }

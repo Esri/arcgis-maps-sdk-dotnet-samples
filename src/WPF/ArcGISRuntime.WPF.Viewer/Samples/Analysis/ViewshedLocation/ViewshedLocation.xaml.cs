@@ -62,6 +62,8 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
 
         private void Initialize()
         {
+            _view_height = HeightSlider.Value;
+
             // Create the scene with the imagery basemap.
             Scene myScene = new Scene(Basemap.CreateImagery());
             MySceneView.Scene = myScene;
@@ -76,7 +78,7 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
             myScene.OperationalLayers.Add(sceneLayer);
 
             // Create the MapPoint representing the initial location.
-            MapPoint initialLocation = new MapPoint(-4.5, 48.4, 100.0);
+            MapPoint initialLocation = new MapPoint(-4.5, 48.4, 46+_view_height);
 
             // Create the location viewshed analysis.
             _viewshed = new LocationViewshed(
@@ -91,7 +93,7 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
             // Create a camera based on the initial location.
             Camera camera = new Camera(initialLocation, 200.0, 20.0, 70.0, 0.0);
 
-            _viewpointSymbol = SimpleMarkerSceneSymbol.CreateSphere(Color.Blue, 5, SceneSymbolAnchorPosition.Center);
+            _viewpointSymbol = SimpleMarkerSceneSymbol.CreateSphere(Color.Blue, 10, SceneSymbolAnchorPosition.Center);
             _viewpointOverlay = new GraphicsOverlay();
             _viewpointOverlay.SceneProperties = new LayerSceneProperties(SurfacePlacement.Absolute);
             _viewpointOverlay.Graphics.Add(new Graphic(initialLocation, _viewpointSymbol));
@@ -149,13 +151,12 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
             {
                 return;
             }
-            onMapLocation = new MapPoint(onMapLocation.X, onMapLocation.Y, onMapLocation.Z + 50.0);
+            onMapLocation = new MapPoint(onMapLocation.X, onMapLocation.Y, onMapLocation.Z + _view_height);
             // Update the viewshed.
             _viewshed.Location = onMapLocation;
 
             _viewpointOverlay.Graphics.Clear();
-            Graphic viewpoint1 = new Graphic(onMapLocation, _viewpointSymbol);
-            _viewpointOverlay.Graphics.Add(viewpoint1);
+            _viewpointOverlay.Graphics.Add(new Graphic(onMapLocation, _viewpointSymbol));
         }
 
         private void HandleSettingsChange(object sender, RoutedEventArgs e)
@@ -165,7 +166,10 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
             {
                 return;
             }
+            double difference = _view_height- HeightSlider.Value;
+            _view_height = HeightSlider.Value;
 
+            _viewshed.Location = new MapPoint(_viewshed.Location.X, _viewshed.Location.Y, _viewshed.Location.Z-difference);
             // Update the viewshed settings.
             _viewshed.Heading = HeadingSlider.Value;
             _viewshed.Pitch = PitchSlider.Value;
@@ -174,12 +178,18 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
             _viewshed.MinDistance = MinimumDistanceSlider.Value;
             _viewshed.MaxDistance = MaximumDistanceSlider.Value;
 
+            
+
             // Update visibility of the viewshed analysis.
             _viewshed.IsVisible = (bool)AnalysisVisibilityCheck.IsChecked;
 
             // Update visibility of the frustum. Note that the frustum will be invisible
             //     regardless of this setting if the viewshed analysis is not visible.
             _viewshed.IsFrustumOutlineVisible = (bool) FrustumVisibilityCheck.IsChecked;
+
+            // Update the viewpoint graphic
+            _viewpointOverlay.Graphics.Clear();
+            _viewpointOverlay.Graphics.Add(new Graphic(_viewshed.Location, _viewpointSymbol));
         }
     }
 }

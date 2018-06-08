@@ -1,4 +1,4 @@
-// Copyright 2016 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -28,21 +28,17 @@ namespace ArcGISRuntime.UWP.Samples.MapRotation
 
         private void Initialize()
         {
-            // Create a new Map instance with the basemap  
-            Basemap myBasemap = Basemap.CreateStreets();
-            Map myMap = new Map(myBasemap);
-
             // Assign the map to the MapView
-            MyMapView.Map = myMap;
+            MyMapView.Map = new Map(Basemap.CreateStreets());
         }
-    
+
         private void MySlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             // Display the rotation value in the Label formatted nicely with degree symbol.
-            MyTextBlock.Text = string.Format("{0:0}°", MySlider.Value);
-           
+            MyTextBlock.Text = $"{MySlider.Value:0}°";
+
             // Set the MapView rotation to that of the Slider.
-            MyMapView.SetViewpointRotationAsync(e.NewValue);           
+            MyMapView.SetViewpointRotationAsync(e.NewValue);
         }
     }
 }

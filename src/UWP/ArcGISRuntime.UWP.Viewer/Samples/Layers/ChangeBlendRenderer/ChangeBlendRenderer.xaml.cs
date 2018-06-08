@@ -50,14 +50,14 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
             SlopeTypes.SelectedIndex = 0;
 
             // Set the altitude slider min/max and initial value
-            Altitude_Slider.Minimum = 0;
-            Altitude_Slider.Maximum = 90;
-            Altitude_Slider.Value = 45;
+            AltitudeSlider.Minimum = 0;
+            AltitudeSlider.Maximum = 90;
+            AltitudeSlider.Value = 45;
 
             // Set the azimuth slider min/max and initial value
-            Azimuth_Slider.Minimum = 0;
-            Azimuth_Slider.Maximum = 360;
-            Azimuth_Slider.Value = 180;
+            AzimuthSlider.Minimum = 0;
+            AzimuthSlider.Maximum = 360;
+            AzimuthSlider.Value = 180;
 
             // Load the raster file using a path on disk
             Raster myRasterImagery = new Raster(GetRasterPath_Imagery());
@@ -155,8 +155,8 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
                 myNoDataValues, // noDataValues - NoData values, one for each band
                 myGammas, // gammas - Gamma adjustment
                 myColorRamp, // colorRamp - ColorRamp object to use, could be null
-                Altitude_Slider.Value, // altitude - Altitude angle of the light source
-                Azimuth_Slider.Value, // azimuth - Azimuth angle of the light source, measured clockwise from north
+                AltitudeSlider.Value, // altitude - Altitude angle of the light source
+                AzimuthSlider.Value, // azimuth - Azimuth angle of the light source, measured clockwise from north
                 1, // zfactor - Factor to convert z unit to x,y units, default is 1
                 mySlopeType, // slopeType - Slope Type
                 1, // pixelSizeFactor - Pixel size factor, default is 1

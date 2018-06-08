@@ -75,17 +75,20 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             SimpleMarkerSymbol circleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.FromArgb(255, 255, 0, 0), 10);
 
             // Create a text symbol for each elevation mode
-            TextSymbol drapedText = new TextSymbol("DRAPED\n\n", Color.FromArgb(255, 255, 255, 255), 10,
+            TextSymbol drapedText = new TextSymbol("DRAPED", Color.FromArgb(255, 255, 255, 255), 10,
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
+            drapedText.OffsetY += 20;
 
-            TextSymbol relativeText = new TextSymbol("RELATIVE\n\n", Color.FromArgb(255, 255, 255, 255), 10,
+            TextSymbol relativeText = new TextSymbol("RELATIVE", Color.FromArgb(255, 255, 255, 255), 10,
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
+            relativeText.OffsetY += 20;
 
-            TextSymbol absoluteText = new TextSymbol("ABSOLUTE\n\n", Color.FromArgb(255, 255, 255, 255), 10,
+            TextSymbol absoluteText = new TextSymbol("ABSOLUTE", Color.FromArgb(255, 255, 255, 255), 10,
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
+           absoluteText.OffsetY += 20;
 
             // Add the point graphic and text graphic to the corresponding graphics overlay
             drapedOverlay.Graphics.Add(new Graphic(point, circleSymbol));

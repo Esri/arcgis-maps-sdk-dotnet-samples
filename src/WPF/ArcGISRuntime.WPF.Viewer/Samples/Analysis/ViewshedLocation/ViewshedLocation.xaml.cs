@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
@@ -16,6 +17,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Drawing;
 using Point = System.Windows.Point;
+using Esri.ArcGISRuntime.Symbology;
 
 namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
 {
@@ -39,8 +41,16 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
         // Hold a reference to the analysis overlay that will hold the viewshed analysis.
         private AnalysisOverlay _analysisOverlay;
 
+        // Graphics overlay for viewpoint symbol.
+        private GraphicsOverlay _viewpointOverlay;
+
+        // Symbol for viewpoint
+        SimpleMarkerSceneSymbol _viewpointSymbol;
+
         // Flag indicating if the viewshed will move with the mouse.
         private bool _subscribedToMouseMoves;
+
+        private double _view_height;
 
         public ViewshedLocation()
         {
@@ -81,6 +91,11 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
             // Create a camera based on the initial location.
             Camera camera = new Camera(initialLocation, 200.0, 20.0, 70.0, 0.0);
 
+            _viewpointSymbol = SimpleMarkerSceneSymbol.CreateSphere(Color.Blue, 5, SceneSymbolAnchorPosition.Center);
+            _viewpointOverlay = new GraphicsOverlay();
+            _viewpointOverlay.SceneProperties = new LayerSceneProperties(SurfacePlacement.Absolute);
+            _viewpointOverlay.Graphics.Add(new Graphic(initialLocation, _viewpointSymbol));
+
             // Apply the camera to the scene view.
             MySceneView.SetViewpointCamera(camera);
 
@@ -89,9 +104,12 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
 
             // Add the viewshed analysis to the overlay.
             _analysisOverlay.Analyses.Add(_viewshed);
-
+            
             // Add the analysis overlay to the SceneView.
             MySceneView.AnalysisOverlays.Add(_analysisOverlay);
+
+            // Add the graphics overlay
+            MySceneView.GraphicsOverlays.Add(_viewpointOverlay);
 
             // Update the frustum outline Color.
             // The frustum outline shows the volume in which the viewshed analysis is performed.
@@ -131,9 +149,13 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
             {
                 return;
             }
-
+            onMapLocation = new MapPoint(onMapLocation.X, onMapLocation.Y, onMapLocation.Z + 50.0);
             // Update the viewshed.
             _viewshed.Location = onMapLocation;
+
+            _viewpointOverlay.Graphics.Clear();
+            Graphic viewpoint1 = new Graphic(onMapLocation, _viewpointSymbol);
+            _viewpointOverlay.Graphics.Add(viewpoint1);
         }
 
         private void HandleSettingsChange(object sender, RoutedEventArgs e)

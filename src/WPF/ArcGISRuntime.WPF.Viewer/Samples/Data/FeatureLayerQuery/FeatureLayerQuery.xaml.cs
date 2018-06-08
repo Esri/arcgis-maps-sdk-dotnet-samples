@@ -64,17 +64,22 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerQuery
 
             // Create a new renderer for the States Feature Layer.
             SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
-            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Yellow, lineSymbol);
+            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(
+                SimpleFillSymbolStyle.Solid, Color.Transparent, lineSymbol);
+            _featureLayer.SelectionColor = Color.Cyan;
+            _featureLayer.SelectionWidth = 4.0;
 
             // Set States feature layer renderer.
             _featureLayer.Renderer = new SimpleRenderer(fillSymbol);
 
             // Add feature layer to the map.
             myMap.OperationalLayers.Add(_featureLayer);
+            
 
             // Assign the map to the MapView.
             MyMapView.Map = myMap;
         }
+
 
         private async void OnQueryClicked(object sender, RoutedEventArgs e)
         {
@@ -106,14 +111,25 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerQuery
 
                 if (features.Any())
                 {
-                    // Get the first feature returned in the Query result.
-                    Feature feature = features[0];
+                    // Create an envelope.
+                    EnvelopeBuilder envBuilder = null;
 
-                    // Add the returned feature to the collection of currently selected features.
-                    _featureLayer.SelectFeature(feature);
+                    // Add the extent of each matching feature to the envelope.
+                    foreach (Feature feature in features)
+                    {
+                        _featureLayer.SelectFeature(feature);
+                        if (envBuilder == null)
+                        {
+                            envBuilder = new EnvelopeBuilder(feature.Geometry.Extent);
+                        }
+                        else
+                        {
+                            envBuilder.UnionOf(feature.Geometry.Extent);
+                        }
+                    }
 
-                    // Zoom to the extent of the newly selected feature.
-                    await MyMapView.SetViewpointGeometryAsync(feature.Geometry.Extent, 50);
+                    // Zoom to the extent of the selected feature(s).
+                    await MyMapView.SetViewpointGeometryAsync(envBuilder.ToGeometry(), 50);
                 }
                 else
                 {

@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.TakeScreenshot
@@ -39,7 +40,8 @@ namespace ArcGISRuntime.WPF.Samples.TakeScreenshot
         private async void OnScreenshotButtonClicked(object sender, RoutedEventArgs e)
         {
             // Export the image from mapview and assign it to the imageview
-            ImageView.Source = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(await MyMapView.ExportImageAsync());
+            ImageView.Source = await (await MyMapView.ExportImageAsync()).ToImageSourceAsync();
+            
         }
     }
 }

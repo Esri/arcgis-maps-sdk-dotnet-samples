@@ -74,11 +74,11 @@ namespace ArcGISRuntime.UWP.Samples.RasterRenderingRule
                 string myRenderingRuleName = myRenderingRuleInfo.Name;
 
                 // Add the name of the rendering rule info to the combo box
-                comboBox_RenderingRuleChooser.Items.Add(myRenderingRuleName);
+                RenderingRuleChooser.Items.Add(myRenderingRuleName);
             }
 
             // Set the combo box index to the first rendering rule info name
-            comboBox_RenderingRuleChooser.SelectedIndex = 0;
+            RenderingRuleChooser.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace ArcGISRuntime.UWP.Samples.RasterRenderingRule
                 string myRenderingRuleName = myRenderingRuleInfo.Name;
 
                 // If the name of the rendering rule info matches what was chosen in the combo box, proceed
-                if (myRenderingRuleName == (string)comboBox_RenderingRuleChooser.SelectedItem)
+                if (myRenderingRuleName == (string)RenderingRuleChooser.SelectedItem)
                 {
                     // Create a new rendering rule from the rendering rule info
                     RenderingRule myRenderingRule = new RenderingRule(myRenderingRuleInfo);

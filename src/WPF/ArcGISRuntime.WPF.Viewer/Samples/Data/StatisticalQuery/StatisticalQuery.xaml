@@ -23,7 +23,7 @@
                           HorizontalAlignment="Left" />
                 <CheckBox x:Name="OnlyBigCitiesCheckbox"
                           Grid.Row="0" Grid.Column="1"
-                          Content="Cities grater than 5M"
+                          Content="Cities greater than 5M"
                           HorizontalAlignment="Right" />
                 <Button x:Name="GetStatsButton"
                         Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"

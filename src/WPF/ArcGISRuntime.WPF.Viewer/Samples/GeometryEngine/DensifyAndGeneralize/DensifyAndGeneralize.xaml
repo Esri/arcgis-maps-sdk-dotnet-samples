@@ -35,8 +35,7 @@
                 <TextBlock x:Name="ResultLabel"
                            Grid.Row="5"
                            Text="Adjust a slider to start"
-                           TextWrapping="Wrap"
-                           Foreground="Red" />
+                           TextWrapping="Wrap" FontWeight="SemiBold" Foreground="Blue" />
             </Grid>
         </Border>
     </Grid>

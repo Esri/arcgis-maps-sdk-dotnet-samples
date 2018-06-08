@@ -13,7 +13,7 @@
                 Margin="30" Padding="20" Width="375"
                 HorizontalAlignment="Right" VerticalAlignment="Top">
             <TextBlock Text="Tap to select features."
-                       TextAlignment="Center" Foreground="Red" />
+                       TextAlignment="Center" FontWeight="SemiBold" />
         </Border>
     </Grid>
 </UserControl>

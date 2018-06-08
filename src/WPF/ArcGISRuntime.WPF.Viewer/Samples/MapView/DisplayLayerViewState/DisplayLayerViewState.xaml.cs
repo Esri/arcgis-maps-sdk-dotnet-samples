@@ -91,17 +91,17 @@ namespace ArcGISRuntime.WPF.Samples.DisplayLayerViewState
             string lName = e.Layer.Name;
             string lViewStatus = e.LayerViewState.Status.ToString();
 
-            // Display the layer name and view status in the appropriate Label control
+            // Display the layer view status in the appropriate Label control
             switch (lName)
             {
                 case "Tiled Layer":
-                    TiledLayerStatusLabel.Content = lName + " - " + lViewStatus;
+                    TiledLayerStatusLabel.Text = lViewStatus;
                     break;
                 case "Image Layer":
-                    ImageLayerStatusLabel.Content = lName + " - " + lViewStatus;
+                    ImageLayerStatusLabel.Text = lViewStatus;
                     break;
                 case "Feature Layer":
-                    FeatureLayerStatusLabel.Content = lName + " - " + lViewStatus;
+                    FeatureLayerStatusLabel.Text = lViewStatus;
                     break;
                 default:
                     break;

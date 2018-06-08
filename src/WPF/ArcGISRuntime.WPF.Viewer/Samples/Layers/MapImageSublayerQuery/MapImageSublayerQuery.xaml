@@ -5,9 +5,9 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Background="White" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Center" VerticalAlignment="Top"
-                Margin="30" Width="220">
-            <Grid Margin="20">
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="30" Padding="20" Width="375">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
@@ -18,18 +18,17 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0"
-                           Margin="10"
                            HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Margin="0,5,5,0"
                            Text="[POP2000] > " />
                 <TextBox x:Name="PopulationTextBox"
                          Grid.Row="0" Grid.Column="1"
-                         Margin="10"
-                         HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Right"
+                         Margin="0,5,0,0"
+                         HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center"
                          Text="1810000" />
                 <Button x:Name="QuerySublayers"
                         Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                        HorizontalAlignment="Center" VerticalAlignment="Center"
-                        Margin="10" Padding="20,5"
+                        Margin="0,5,0,0"
                         Content="Query in extent"
                         Click="QuerySublayers_Click" />
             </Grid>

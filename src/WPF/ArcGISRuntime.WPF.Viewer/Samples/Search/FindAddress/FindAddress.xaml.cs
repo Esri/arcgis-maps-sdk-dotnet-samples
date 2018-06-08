@@ -63,7 +63,7 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
             MyMapView.Map = myMap;
 
             // Set addresses as items source
-            SuggestionBox.ItemsSource = _addresses;
+            SearchBox.ItemsSource = _addresses;
 
             // Enable tap-for-info pattern on results
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
@@ -73,7 +73,6 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
 
             // Enable UI controls now that the LocatorTask is ready
             SearchBox.IsEnabled = true;
-            SuggestionBox.IsEnabled = true;
             SearchButton.IsEnabled = true;
         }
 
@@ -140,10 +139,14 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
 
         private void OnSuggestionChosen(object sender, SelectionChangedEventArgs e)
         {
-            // Get the selected address
-            string address = SuggestionBox.SelectedValue.ToString();
+            // Return if the user is typing.
+            if (SearchBox.SelectedValue == null)
+            {
+                return;
+            }
+
             // Update the search
-            SearchBox.Text = address;
+            SearchBox.Text = SearchBox.SelectedValue.ToString();
             UpdateSearch();
         }
 

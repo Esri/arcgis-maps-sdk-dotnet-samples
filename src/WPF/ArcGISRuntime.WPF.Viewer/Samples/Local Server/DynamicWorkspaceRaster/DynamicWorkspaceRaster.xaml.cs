@@ -18,8 +18,8 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceRaster
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Dynamic workspace Raster",
-        "LocalServer",
+        "Dynamic workspace raster",
+        "Local Server",
         "This sample demonstrates how to dynamically add a local Raster to a map using Local Server.",
         "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions.\nClick on the 'Choose Raster' button to select a Raster. The file picker will start in the sample viewer's offline data directory. Sample Rasters are loaded in the background. ")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("ea619b4f0f8f4d108c5b87e90c1b5be0", "80b43ba48f524a8eb0cb54f0f1ee9a5f")]

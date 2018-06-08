@@ -1,24 +1,53 @@
 ﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.DisplayLayerViewState.DisplayLayerViewState"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <esri:MapView x:Name="MyMapView" />
         <Border
             Background="White" BorderBrush="Black" BorderThickness="1"
             HorizontalAlignment="Right" VerticalAlignment="Top"
-            Margin="30" Padding="20" Width="250">
-            <StackPanel>
-                <TextBlock Text="Layer display status" FontWeight="Bold" 
-                      HorizontalAlignment="Center" />
-                <Label x:Name="TiledLayerStatusLabel" Content=""/>
-                <Label x:Name="ImageLayerStatusLabel" Content=""/>
-                <Label x:Name="FeatureLayerStatusLabel" Content=""/>
-            </StackPanel>
+            Margin="30" Padding="20" Width="375">
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Margin" Value="5,5,0,0" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Layer display status"
+                           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                           FontWeight="Bold" TextAlignment="Center" />
+                <!-- Field labels -->
+                <TextBlock Text="Tiled layer:"
+                           TextAlignment="Right"
+                           Grid.Row="1" Grid.Column="0" />
+                <TextBlock Text="Image layer:"
+                           TextAlignment="Right"
+                           Grid.Row="2" Grid.Column="0" />
+                <TextBlock Text="Feature layer:"
+                           TextAlignment="Right"
+                           Grid.Row="3" Grid.Column="0" />
+                <!-- Status labels -->
+                <TextBlock x:Name="TiledLayerStatusLabel"
+                           FontWeight="SemiBold"
+                           Grid.Row="1" Grid.Column="1" />
+                <TextBlock x:Name="ImageLayerStatusLabel"
+                           FontWeight="SemiBold"
+                           Grid.Row="2" Grid.Column="1" />
+                <TextBlock x:Name="FeatureLayerStatusLabel"
+                           FontWeight="SemiBold"
+                           Grid.Row="3" Grid.Column="1" />
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

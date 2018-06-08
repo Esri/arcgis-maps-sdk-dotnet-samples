@@ -1,10 +1,7 @@
 ﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.ManageBookmarks.ManageBookmarks"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             mc:Ignorable="d">
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border
@@ -20,11 +17,12 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <TextBlock Text="Tap 'Add' to create a new bookmark for the current extent."
                            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                           Margin="5" TextAlignment="Center"
-                           Foreground="Red" />
+                           Margin="5"
+                           TextAlignment="Center" FontWeight="SemiBold" />
                 <TextBlock Text="Bookmarks:"
                            Grid.Row="1" Grid.Column="0"
                            VerticalAlignment="Center"
@@ -39,34 +37,37 @@
                         Margin="5" Padding="5,0,5,0"
                         Content="Add"
                         Click="ButtonAddBookmark_Click" />
-            </Grid>
-        </Border>
-        <Border x:Name="BorderAddBookmark"
-                Background="White" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="0,105,30,0" Padding="10"
-                Width="375" Height="80">
-            <StackPanel>
-                <StackPanel Orientation="Horizontal">
+                <Grid x:Name="BorderAddBookmark"
+                      Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                      Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
                     <TextBlock Text="Bookmark Name:"
-                               Margin="0,0,7,0" />
+                               Margin="5"
+                               TextWrapping="Wrap"
+                               Grid.Row="0" Grid.Column="0" />
                     <TextBox x:Name="TextBoxBookmarkName"
-                             Text="" Width="200" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Right">
+                             Margin="5"
+                             Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" />
                     <Button x:Name="ButtonAddDone"
+                            Grid.Row="1" Grid.Column="1"
                             Content="OK"
-                            Margin="0,10,10,0" Padding="5"
-                            Width="50"
+                            Margin="5"
                             Click="ButtonAddDone_Click" />
                     <Button x:Name="ButtonCancel"
+                            Grid.Row="1" Grid.Column="2"
+                            Margin="5"
                             Content="Cancel"
-                            Width="50"
-                            Margin="0,10,10,0" Padding="5"
                             Click="ButtonCancel_Click" />
-                </StackPanel>
-            </StackPanel>
+                </Grid>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

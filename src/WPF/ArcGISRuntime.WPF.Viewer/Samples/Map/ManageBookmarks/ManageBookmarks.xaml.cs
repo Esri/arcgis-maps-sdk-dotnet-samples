@@ -83,7 +83,7 @@ namespace ArcGISRuntime.WPF.Samples.ManageBookmarks
             myMap.InitialViewpoint = myMap.Bookmarks.Last().Viewpoint;
 
             // Hide the controls for adding an additional bookmark
-            BorderAddBookmark.Visibility = System.Windows.Visibility.Hidden;
+            BorderAddBookmark.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         private void OnBookmarkChooserSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -97,14 +97,14 @@ namespace ArcGISRuntime.WPF.Samples.ManageBookmarks
         {
             // Show the controls to add a bookmark
             BorderAddBookmark.Visibility = System.Windows.Visibility.Visible;
-            ButtonAddBookmark.Visibility = System.Windows.Visibility.Hidden;
+            ButtonAddBookmark.Visibility = System.Windows.Visibility.Collapsed;
             TextBoxBookmarkName.Text = "";
         }
 
         private void ButtonCancel_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             // Hide the controls to add a bookmark
-            BorderAddBookmark.Visibility = System.Windows.Visibility.Hidden;
+            BorderAddBookmark.Visibility = System.Windows.Visibility.Collapsed;
             ButtonAddBookmark.Visibility = System.Windows.Visibility.Visible;
         }
 
@@ -139,7 +139,7 @@ namespace ArcGISRuntime.WPF.Samples.ManageBookmarks
             BookmarkChooser.SelectedItem = myBookmark;
 
             // Hide the controls to add a bookmark
-            BorderAddBookmark.Visibility = System.Windows.Visibility.Hidden;
+            BorderAddBookmark.Visibility = System.Windows.Visibility.Collapsed;
             ButtonAddBookmark.Visibility = System.Windows.Visibility.Visible;
         }
     }

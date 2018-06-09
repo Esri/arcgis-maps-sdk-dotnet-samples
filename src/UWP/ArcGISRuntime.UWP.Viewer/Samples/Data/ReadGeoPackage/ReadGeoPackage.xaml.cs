@@ -91,7 +91,7 @@ namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
                 _myHybridDictionary_Layers.Add(myRasterLayerName, myRasterLayer);
 
                 // Add the name of the RasterLayer to the ListBox of layers not in map
-                ListBox_LayersNotInTheMap.Items.Add(myRasterLayerName);
+                LayersNotInTheMap.Items.Add(myRasterLayerName);
 
             }
 
@@ -119,14 +119,14 @@ namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
                 _myHybridDictionary_Layers.Add(myFeatureLayerName, myFeatureLayer);
 
                 // Add the name of the FeatureLayer to the ListBox of layers not in map
-                ListBox_LayersNotInTheMap.Items.Add(myFeatureLayerName);
+                LayersNotInTheMap.Items.Add(myFeatureLayerName);
             }
         }
 
         private void Button_AddLayerToMap_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            // Get the user selected value from the ListBox_LayersNotInTheMap
-            object myLayerSelection = ListBox_LayersNotInTheMap.SelectedValue;
+            // Get the user selected value from the LayersNotInTheMap
+            object myLayerSelection = LayersNotInTheMap.SelectedValue;
 
             // Ensure we have a valid selection
             if (myLayerSelection != null)
@@ -142,17 +142,17 @@ namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
                 MyMapView.Map.OperationalLayers.Add(myLayer);
 
                 // Remove the human-readable layer name from the ListBox_LayersNoInTheMap
-                ListBox_LayersNotInTheMap.Items.Remove(myLayerName);
+                LayersNotInTheMap.Items.Remove(myLayerName);
 
-                // Add the human-readable layer name to the ListBox_LayersInTheMap
-                ListBox_LayersInTheMap.Items.Add(myLayerName);
+                // Add the human-readable layer name to the LayersInTheMap
+                LayersInTheMap.Items.Add(myLayerName);
             }
         }
 
         private void Button_RemoveLayerFromMap_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            // Get the user selected value from the ListBox_LayersInTheMap
-            object myLayerSelection = ListBox_LayersInTheMap.SelectedValue;
+            // Get the user selected value from the LayersInTheMap
+            object myLayerSelection = LayersInTheMap.SelectedValue;
 
             // Ensure we have a valid selection
             if (myLayerSelection != null)
@@ -167,11 +167,11 @@ namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
                 // Remove the layer from the map
                 MyMapView.Map.OperationalLayers.Remove(myLayer);
 
-                // Remove the human-readable layer name from the ListBox_LayersInTheMap
-                ListBox_LayersInTheMap.Items.Remove(myLayerName);
+                // Remove the human-readable layer name from the LayersInTheMap
+                LayersInTheMap.Items.Remove(myLayerName);
 
-                // Add the human-readable layer name to the ListBox_LayersNotInTheMap
-                ListBox_LayersNotInTheMap.Items.Add(myLayerName);
+                // Add the human-readable layer name to the LayersNotInTheMap
+                LayersNotInTheMap.Items.Add(myLayerName);
             }
 
         }

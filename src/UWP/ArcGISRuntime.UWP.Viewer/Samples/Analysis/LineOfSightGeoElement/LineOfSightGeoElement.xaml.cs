@@ -70,7 +70,10 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
         private async void Initialize()
         {
             // Create scene
-            Scene myScene = new Scene(Basemap.CreateImageryWithLabels());
+            Scene myScene = new Scene(Basemap.CreateImageryWithLabels())
+            {
+                InitialViewpoint = new Viewpoint(_observerPoint, 1000000)
+            };
             // Create the elevation source
             ElevationSource myElevationSource = new ArcGISTiledElevationSource(_elevationUri);
             // Add the elevation source to the scene
@@ -129,9 +132,6 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
 
             // Add the scene to the view
             MySceneView.Scene = myScene;
-
-            // Set the viewpoint
-            MySceneView.SetViewpoint(new Viewpoint(_observerPoint, 1000000));
         }
 
         private void AnimationTimer_Tick(object sender, object e)

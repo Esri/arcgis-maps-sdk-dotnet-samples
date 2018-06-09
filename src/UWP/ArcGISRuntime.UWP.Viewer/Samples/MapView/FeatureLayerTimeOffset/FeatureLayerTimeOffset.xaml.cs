@@ -84,7 +84,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerTimeOffset
         private void UpdateTimeExtent()
         {
             // Get the value of the slider
-            double value = MyTimeSlider.Value / 100;
+            double value = TimeSlider.Value / 100;
 
             // Calculate the number of days that value corresponds to
             // 1. Get the interval
@@ -118,7 +118,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerTimeOffset
             MyMapView.TimeExtent = new TimeExtent(newStart, newEnd);
 
             // Update the label
-            lblCurrentDate.Text = String.Format("{0} - {1}", newStart.ToString("d"), newEnd.ToString("d"));
+            CurrentDateLabel.Text = $"{newStart:d} - {newEnd:d}";
         }
     }
 }

@@ -68,7 +68,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
             if (_hotspotJob.Status == JobStatus.Started)
                 _hotspotJob.Cancel();
 
-            // Hide the busyOverlay indication
+            // Hide the BusyOverlay indication
             ShowBusyOverlay(false);
         }
 
@@ -77,7 +77,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
             // Clear any existing results
             MyMapView.Map.OperationalLayers.Clear();
 
-            // Show the busyOverlay indication
+            // Show the BusyOverlay indication
             ShowBusyOverlay();
 
             // Get the 'from' and 'to' dates from the date pickers for the geoprocessing analysis
@@ -92,7 +92,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
                     "Invalid date range");
                 await message.ShowAsync();
 
-                // Remove the busyOverlay
+                // Remove the BusyOverlay
                 ShowBusyOverlay(false);
                 return;
             }
@@ -145,7 +145,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
             }
             finally
             {
-                // Remove the busyOverlay
+                // Remove the BusyOverlay
                 ShowBusyOverlay(false);
             }
         }
@@ -155,19 +155,19 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
             // Function to toggle the visibility of interaction with the GUI for the user to 
             // specify dates for the hot spot analysis. When the analysis is running, the GUI
             // for changing the dates is 'grayed-out' and the progress bar with a cancel 
-            // button (aka. busyOverlay object) becomes active.
+            // button (aka. BusyOverlay object) becomes active.
 
             if (visibility)
             {
                 // The geoprocessing task is processing. The busyOverly is present.
-                busyOverlay.Visibility = Visibility.Visible;
-                progress.IsIndeterminate = true;
+                BusyOverlay.Visibility = Visibility.Visible;
+                Progress.IsIndeterminate = true;
             }
             else
             {
-                // The user can interact with the date pickers. The busyOverlay is invisible.
-                busyOverlay.Visibility = Visibility.Collapsed;
-                progress.IsIndeterminate = false;
+                // The user can interact with the date pickers. The BusyOverlay is invisible.
+                BusyOverlay.Visibility = Visibility.Collapsed;
+                Progress.IsIndeterminate = false;
             }
         }
     }

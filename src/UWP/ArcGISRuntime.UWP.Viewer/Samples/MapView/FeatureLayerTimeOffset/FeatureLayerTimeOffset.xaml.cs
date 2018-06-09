@@ -74,6 +74,9 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerTimeOffset
 
             // Update the time extent set on the map
             UpdateTimeExtent();
+
+            // Enable the slider
+            TimeSlider.IsEnabled = true;
         }
 
         private void MyTimeSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)

@@ -19,6 +19,7 @@
                            Foreground="Blue" />
                 <Slider x:Name="TimeSlider"
                         Minimum="0" Maximum="100"
+                        IsEnabled="False"
                         ValueChanged="MyTimeSlider_ValueChanged" />
                 <TextBlock x:Name="CurrentDateLabel"
                            FontWeight="SemiBold"

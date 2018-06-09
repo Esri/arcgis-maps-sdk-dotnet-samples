@@ -14,7 +14,6 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using Windows.UI.Core;
-using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.UWP.Samples.DisplayDrawingStatus
 {
@@ -64,13 +63,11 @@ namespace ArcGISRuntime.UWP.Samples.DisplayDrawingStatus
                 // Show the activity indicator if the map is drawing
                 if (e.Status == DrawStatus.InProgress)
                 {
-                    ActivityIndicator.IsActive = true;
-                    ActivityIndicator.Visibility = Visibility.Visible;
+                    activityIndicator.IsActive = true;
                 }
                 else
                 {
-                    ActivityIndicator.IsActive = false;
-                    ActivityIndicator.Visibility = Visibility.Collapsed;
+                    activityIndicator.IsActive = false;
                 }
             });
         }

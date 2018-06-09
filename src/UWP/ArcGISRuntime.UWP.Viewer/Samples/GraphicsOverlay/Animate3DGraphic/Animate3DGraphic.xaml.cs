@@ -336,11 +336,11 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             {
                 // Resume following
                 case "Follow":
-                    cameraControlButton.Content = "Don't Follow";
+                    cameraControlButton.Content = "Don't follow";
                     MySceneView.CameraController = _orbitCameraController;
                     break;
                 // Stop following
-                case "Don't Follow":
+                case "Don't follow":
                     cameraControlButton.Content = "Follow";
                     // Setting the scene view's camera controller to null has the effect of resetting the value to the default
                     MySceneView.CameraController = null;

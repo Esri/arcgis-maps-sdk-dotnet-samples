@@ -115,13 +115,13 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         {
             // Update the Generate Button.
             myGenerateButton.SetTitle("Generate", UIControlState.Normal);
-            myGenerateButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            myGenerateButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             myGenerateButton.BackgroundColor = UIColor.LightTextColor;
             myGenerateButton.TouchUpInside += GenerateButton_Clicked;
 
             // Update the Sync Button.
             mySyncButton.SetTitle("Synchronize", UIControlState.Normal);
-            mySyncButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            mySyncButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             mySyncButton.BackgroundColor = UIColor.LightTextColor;
             mySyncButton.TouchUpInside += SyncButton_Click;
             mySyncButton.Enabled = false;

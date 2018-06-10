@@ -128,15 +128,15 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             RendererSceneProperties myRendererSceneProperties = myRenderer.SceneProperties;
 
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text
-            if (_button_ToggleExtrusionData.Title(UIControlState.Normal) == "Population Density")
+            if (_button_ToggleExtrusionData.Title(UIControlState.Normal) == "Population density")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000";
-                _button_ToggleExtrusionData.SetTitle("Total Population", UIControlState.Normal);
+                _button_ToggleExtrusionData.SetTitle("Total population", UIControlState.Normal);
             }
-            else if (_button_ToggleExtrusionData.Title(UIControlState.Normal) == "Total Population")
+            else if (_button_ToggleExtrusionData.Title(UIControlState.Normal) == "Total population")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
-                _button_ToggleExtrusionData.SetTitle("Population Density", UIControlState.Normal);
+                _button_ToggleExtrusionData.SetTitle("Population density", UIControlState.Normal);
             }
         }
 
@@ -162,8 +162,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
 
             // Create a button
             _button_ToggleExtrusionData = new UIButton();
-            _button_ToggleExtrusionData.SetTitle("Population Density", UIControlState.Normal);
-            _button_ToggleExtrusionData.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _button_ToggleExtrusionData.SetTitle("Population density", UIControlState.Normal);
+            _button_ToggleExtrusionData.SetTitleColor(View.TintColor, UIControlState.Normal);
             _button_ToggleExtrusionData.BackgroundColor = UIColor.White;
 
             // Hook the touch event for the button

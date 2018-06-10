@@ -261,7 +261,7 @@ namespace ArcGISRuntime.Samples.BufferList
             // Create a UIButton to create the buffers.
             _bufferButton = new UIButton();
             _bufferButton.SetTitle("Make Unioned Buffer", UIControlState.Normal);
-            _bufferButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _bufferButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _bufferButton.BackgroundColor = UIColor.White;
             // - Hook to touch event to do querying
             _bufferButton.TouchUpInside += BufferButton_Click;

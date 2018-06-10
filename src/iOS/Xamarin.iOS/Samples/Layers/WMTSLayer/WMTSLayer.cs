@@ -150,7 +150,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             // Create button1
             _button1 = new UIButton();
             _button1.SetTitle("WMTSLayer via Uri", UIControlState.Normal);
-            _button1.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _button1.SetTitleColor(View.TintColor, UIControlState.Normal);
             _button1.BackgroundColor = UIColor.White;
 
             // Hook to touch event to do button1
@@ -159,7 +159,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             // Create button2
             _button2 = new UIButton();
             _button2.SetTitle("WMTSLayer via WmtsLayerInfo", UIControlState.Normal);
-            _button2.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _button2.SetTitleColor(View.TintColor, UIControlState.Normal);
             _button2.BackgroundColor = UIColor.White;
 
             // Hook to touch event to do button2

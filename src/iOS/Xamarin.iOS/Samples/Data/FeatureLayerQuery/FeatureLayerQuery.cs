@@ -182,7 +182,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             // Create button to invoke the query
             _queryButton = new UIButton();
             _queryButton.SetTitle("Query", UIControlState.Normal);
-            _queryButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _queryButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _queryButton.BackgroundColor = UIColor.White;
 
             // Hook to touch event to do querying

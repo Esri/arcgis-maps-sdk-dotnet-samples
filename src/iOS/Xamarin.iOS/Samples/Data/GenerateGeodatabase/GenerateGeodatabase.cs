@@ -91,7 +91,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             // Place the Button.
             myGenerateButton.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 30);
             myGenerateButton.SetTitle("Generate", UIControlState.Normal);
-            myGenerateButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            myGenerateButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             myGenerateButton.BackgroundColor = UIColor.LightTextColor;
             myGenerateButton.TouchUpInside += GenerateButton_Clicked;
 

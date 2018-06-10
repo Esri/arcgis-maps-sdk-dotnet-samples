@@ -150,7 +150,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
 
             // Create button to show map options
             _viewpointsButton.SetTitle("Viewpoints", UIControlState.Normal);
-            _viewpointsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _viewpointsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _viewpointsButton.TouchUpInside += OnViewpointsButtonTouch;
 
             // Add MapView to the page

@@ -114,7 +114,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
 
             // Create button to show map options
             _mapsButton.SetTitle("Maps", UIControlState.Normal);
-            _mapsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _mapsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _mapsButton.TouchUpInside += OnMapsButtonTouch;
 
             // Add MapView to the page

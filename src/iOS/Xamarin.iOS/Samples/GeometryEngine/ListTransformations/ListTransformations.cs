@@ -173,7 +173,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             {
                 Text = "In WKID = ",
                 TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Blue
+                TextColor = UIColor.Black
             };
             
             // Create a label for the output spatial reference.
@@ -181,7 +181,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             {
                 Text = "Out WKID = ",
                 TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Blue
+                TextColor = UIColor.Black
             };
 
             // Add the Wkid labels to the stack view.
@@ -204,7 +204,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             {
                 Text = "Use extent",
                 TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Blue
+                TextColor = UIColor.Black
             };
 
             // Add the switch and the label to the horizontal stack view.
@@ -404,7 +404,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
             if (isDefault)
             {
-                labelColor = UIColor.Blue;
+                labelColor = UIColor.Black;
             }
 
             // Create a label to display the transform.

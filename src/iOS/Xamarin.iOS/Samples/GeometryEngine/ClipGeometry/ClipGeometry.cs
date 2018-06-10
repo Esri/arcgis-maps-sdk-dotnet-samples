@@ -252,7 +252,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             // Create a UIButton to clip the polygons.
             _clipButton = new UIButton();
             _clipButton.SetTitle("Clip", UIControlState.Normal);
-            _clipButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _clipButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _clipButton.BackgroundColor = UIColor.White;
             // - Hook to touch event to clip the polygons.
             _clipButton.TouchUpInside += ClipButton_TouchUpInside;

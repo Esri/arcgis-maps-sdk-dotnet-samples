@@ -121,14 +121,14 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
         {
             // Create the extent query button and subscribe to events
             _myQueryExtentButton = new UIButton();
-            _myQueryExtentButton.SetTitle("Count in Extent", UIControlState.Normal);
-            _myQueryExtentButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _myQueryExtentButton.SetTitle("Count in extent", UIControlState.Normal);
+            _myQueryExtentButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _myQueryExtentButton.TouchUpInside += BtnCountFeatures_Click;
 
             // Create the state query button and subscribe to events
             _myQueryStateButton = new UIButton();
             _myQueryStateButton.SetTitle("Zoom to match", UIControlState.Normal);
-            _myQueryStateButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _myQueryStateButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _myQueryStateButton.TouchUpInside += BtnZoomToFeatures_Click;
 
             // Create the results label and the search bar

@@ -605,8 +605,8 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
             // Label for inputs
             var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            description.Text = "OAuth Settings";
-            description.TextColor = UIColor.Blue;
+            description.Text = "OAuth settings";
+            description.TextColor = UIColor.Black;
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -648,7 +648,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Button to save the values
             UIButton saveButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
             saveButton.SetTitle("Save", UIControlState.Normal);
-            saveButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            saveButton.SetTitleColor(TintColor, UIControlState.Normal);
             saveButton.TouchUpInside += SaveButtonClick;
 
             // Adjust the X position for the next control
@@ -657,7 +657,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Button to cancel the save
             UIButton cancelButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
-            cancelButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
             cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
 
             // Add the controls
@@ -767,7 +767,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Label for inputs
             var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
             description.Text = "Search web maps";
-            description.TextColor = UIColor.Blue;
+            description.TextColor = UIColor.Black;
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -793,7 +793,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Button to pass the text to the search
             UIButton saveButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
             saveButton.SetTitle("Search", UIControlState.Normal);
-            saveButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            saveButton.SetTitleColor(TintColor, UIControlState.Normal);
             saveButton.TouchUpInside += SearchButtonClick;
 
             // Adjust the X position for the next control (space between buttons)
@@ -802,7 +802,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Button to cancel the search
             UIButton cancelButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
-            cancelButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
             cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
 
             // Add the controls

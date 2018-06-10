@@ -49,9 +49,9 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
         };
         private UILabel _helpLabel = new UILabel
         {
-            Text = "Choose a Style",
+            Text = "Choose a style",
             TextAlignment = UITextAlignment.Center,
-            TextColor = UIColor.Red
+            TextColor = UIColor.Black
         };
         private UIToolbar _buttonContainer = new UIToolbar();
 
@@ -81,8 +81,8 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             _secondStyleButton.SetTitle("Style 2", UIControlState.Normal);
 
             // Update the colors.
-            _firstStyleButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _secondStyleButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _firstStyleButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _secondStyleButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Subscribe to the button click events.
             _firstStyleButton.TouchUpInside += FirstStyleButton_Clicked;

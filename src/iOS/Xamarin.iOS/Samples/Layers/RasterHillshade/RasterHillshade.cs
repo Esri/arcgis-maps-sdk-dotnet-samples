@@ -110,8 +110,8 @@ namespace ArcGISRuntime.Samples.RasterHillshade
                 BackgroundColor = UIColor.White,
                 Enabled = false
             };
-            _applyHillshadeButton.SetTitle("Apply Hillshade", UIControlState.Normal);
-            _applyHillshadeButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _applyHillshadeButton.SetTitle("Apply hillshade", UIControlState.Normal);
+            _applyHillshadeButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Handle the button tap to show the hillshade renderer inputs.
             _applyHillshadeButton.TouchUpInside += ApplyHillshade_Click;
@@ -199,13 +199,13 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             // Button to create the hillshade parameters and pass them back to the main page.
             UIButton inputHillshadeParamsButton = new UIButton();
             inputHillshadeParamsButton.SetTitle("Apply", UIControlState.Normal);
-            inputHillshadeParamsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            inputHillshadeParamsButton.SetTitleColor(TintColor, UIControlState.Normal);
             inputHillshadeParamsButton.TouchUpInside += InputHillshadeParamsButton_Click;
 
             // Button to cancel the input.
             UIButton cancelButton = new UIButton();
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
-            cancelButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            cancelButton.SetTitleColor(TintColor, UIControlState.Normal);
             cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
 
             CreateHillshadeInputUI(inputHillshadeParamsButton, cancelButton);
@@ -237,7 +237,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             {
                 Text = "Slope type:",
                 TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Blue
+                TextColor = UIColor.Black
             };
 
             // Adjust the Y position for the next control.
@@ -257,7 +257,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             {
                 Text = "Altitude: ",
                 TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Blue
+                TextColor = UIColor.Black
             };
 
             // Adjust the Y position for the next control.
@@ -279,7 +279,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             {
                 Text = "Azimuth: ",
                 TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Blue
+                TextColor = UIColor.Black
             };
 
             // Adjust the Y position for the next control.

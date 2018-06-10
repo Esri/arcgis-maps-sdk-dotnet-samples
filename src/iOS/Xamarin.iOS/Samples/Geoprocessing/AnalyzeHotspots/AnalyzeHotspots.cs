@@ -243,7 +243,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             // Create button to invoke the geoprocessing request
             _runAnalysisButton = new UIButton();
             _runAnalysisButton.SetTitle("Run Analysis", UIControlState.Normal);
-            _runAnalysisButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _runAnalysisButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _runAnalysisButton.BackgroundColor = UIColor.White;
 
             // Hook to touch event to do geoprocessing request

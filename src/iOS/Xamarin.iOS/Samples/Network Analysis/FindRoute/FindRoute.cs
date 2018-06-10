@@ -64,16 +64,16 @@ namespace ArcGISRuntime.Samples.FindRoute
             // Create a new MapView control and provide its location coordinates on the frame
             _myMapView = new MapView();
 
-            solveRouteButton.SetTitle("Solve Route", UIControlState.Normal);
-            solveRouteButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            solveRouteButton.SetTitle("Solve route", UIControlState.Normal);
+            solveRouteButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             solveRouteButton.TouchUpInside += SolveRouteButtonClick;
 
             resetButton.SetTitle("Reset", UIControlState.Normal);
-            resetButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            resetButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             resetButton.TouchUpInside += ResetButtonClick;
 
             showDirectionsButton.SetTitle("Directions", UIControlState.Normal);
-            showDirectionsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            showDirectionsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             showDirectionsButton.TouchUpInside += ShowDirections;
 
             // Add the bar button items to an array of UIBarButtonItems

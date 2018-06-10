@@ -59,7 +59,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             
             sublayersButton.BackgroundColor = UIColor.White;
             sublayersButton.SetTitle("Sublayers", UIControlState.Normal);
-            sublayersButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            sublayersButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Create a new instance of the Sublayers Table View Controller. This View Controller
             // displays a table of sublayers with a switch for setting the layer visibility. 

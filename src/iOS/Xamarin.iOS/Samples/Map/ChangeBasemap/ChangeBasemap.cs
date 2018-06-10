@@ -62,8 +62,8 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         private void CreateLayout()
         {
             // Update the button properties
-            _button.SetTitle("Change Basemap", UIControlState.Normal);
-            _button.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _button.SetTitle("Change basemap", UIControlState.Normal);
+            _button.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Handle button clicks
             _button.TouchUpInside += BasemapSelectionButtonClick;

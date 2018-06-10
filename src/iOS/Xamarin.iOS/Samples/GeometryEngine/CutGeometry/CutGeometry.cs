@@ -239,7 +239,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
             // Create a UIButton to cut the polygons.
             _cutButton = new UIButton();
             _cutButton.SetTitle("Cut", UIControlState.Normal);
-            _cutButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _cutButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _cutButton.BackgroundColor = UIColor.White;
             // - Hook to touch event to cut the polygons.
             _cutButton.TouchUpInside += CutButton_TouchUpInside;

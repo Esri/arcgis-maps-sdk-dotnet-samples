@@ -633,7 +633,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Label for inputs
             var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
             description.Text = "OAuth Settings";
-            description.TextColor = UIColor.Blue;
+            description.TextColor = TintColor;
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -675,7 +675,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Button to save the values
             UIButton saveButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
             saveButton.SetTitle("Save", UIControlState.Normal);
-            saveButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
+            saveButton.SetTitleColor(TintColor, UIControlState.Normal);
             saveButton.TouchUpInside += SaveButtonClick;
 
             // Adjust the X position for the next control
@@ -684,7 +684,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Button to cancel the save
             UIButton cancelButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
-            cancelButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
             cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
 
             // Add the controls
@@ -798,7 +798,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Label for inputs
             var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
             description.Text = "Portal item info";
-            description.TextColor = UIColor.Blue;
+            description.TextColor = UIColor.Black;
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -839,7 +839,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Button to save the map
             UIButton saveButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
             saveButton.SetTitle("Save", UIControlState.Normal);
-            saveButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
+            saveButton.SetTitleColor(TintColor, UIControlState.Normal);
             saveButton.TouchUpInside += SaveButtonClick;
 
             // Adjust the X position for the next control
@@ -848,7 +848,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Button to cancel the save
             UIButton cancelButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
-            cancelButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
             cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
 
             // Add the controls

@@ -104,7 +104,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
             _zoomButton.SetTitle("Animated Zoom", UIControlState.Normal);
 
             // Set label and button colors
-            _zoomButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _zoomButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _staticLabel.TextColor = UIColor.Red;
             _dynamicLabel.TextColor = UIColor.Red;
 

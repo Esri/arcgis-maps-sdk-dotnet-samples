@@ -138,7 +138,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             // Create a button for adding features from a portal item
             _addFeaturesButton = new UIButton(UIButtonType.Custom);
             _addFeaturesButton.SetTitle("Add from portal item", UIControlState.Normal);
-            _addFeaturesButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _addFeaturesButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _addFeaturesButton.BackgroundColor = UIColor.White;
 
             // Assign a click handler to the UIButton

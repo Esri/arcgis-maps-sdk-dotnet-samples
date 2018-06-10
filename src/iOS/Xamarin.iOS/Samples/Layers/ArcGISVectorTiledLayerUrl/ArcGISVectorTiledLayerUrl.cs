@@ -96,8 +96,8 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
         private void CreateLayout()
         {
             // Update the button parameters
-            _button.SetTitle("Choose Layer", UIControlState.Normal);
-            _button.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _button.SetTitle("Choose a layer", UIControlState.Normal);
+            _button.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Allow the user to select new layers
             _button.TouchUpInside += LayerSelectionButtonClick;

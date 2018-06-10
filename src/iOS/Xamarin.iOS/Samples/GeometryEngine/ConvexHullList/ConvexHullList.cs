@@ -261,7 +261,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             // Create a UIButton to create the convex hull(s).
             _convexHullListButton = new UIButton();
             _convexHullListButton.SetTitle("Convex Hull", UIControlState.Normal);
-            _convexHullListButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _convexHullListButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _convexHullListButton.BackgroundColor = UIColor.White;
             // - Hook to touch event to do querying
             _convexHullListButton.TouchUpInside += BufferButton_Click;

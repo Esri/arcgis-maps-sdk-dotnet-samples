@@ -378,7 +378,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             // Create the download button.
             _downloadButton = new UIButton();
             _downloadButton.SetTitle("Download Area", UIControlState.Normal);
-            _downloadButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _downloadButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Create the delete button.
             _deleteButton = new UIButton();

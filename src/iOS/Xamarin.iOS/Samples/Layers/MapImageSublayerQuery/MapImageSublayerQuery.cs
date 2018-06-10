@@ -181,12 +181,12 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
             _populationValueInput = new UITextField { 
                 Text = "1800000",
                 BackgroundColor = UIColor.White,
-                TextColor = UIColor.Blue 
+                TextColor = UIColor.Black 
             };
 
             _queryButton = new UIButton(UIButtonType.Plain);
             _queryButton.SetTitle("Query", UIControlState.Normal);
-            _queryButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _queryButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _queryButton.BackgroundColor = UIColor.White;
 
             // Wire the event handler for the query button click.

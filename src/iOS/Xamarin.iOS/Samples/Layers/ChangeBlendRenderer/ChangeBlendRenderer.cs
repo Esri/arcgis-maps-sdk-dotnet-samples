@@ -206,7 +206,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             // Create button to change stretch renderer of the raster
             _UpdateRenderer = new UIButton();
             _UpdateRenderer.SetTitle("Update Renderer", UIControlState.Normal);
-            _UpdateRenderer.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _UpdateRenderer.SetTitleColor(View.TintColor, UIControlState.Normal);
             _UpdateRenderer.BackgroundColor = UIColor.White;
             // Hook to touch/click event of the button
             _UpdateRenderer.TouchUpInside += OnUpdateRendererClicked;

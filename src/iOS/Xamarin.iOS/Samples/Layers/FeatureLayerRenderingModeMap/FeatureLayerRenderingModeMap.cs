@@ -117,7 +117,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
 
             // Create button to show map options
             _zoomButton.SetTitle("Zoom", UIControlState.Normal);
-            _zoomButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _zoomButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _zoomButton.TouchUpInside += OnZoomClick;
 
             // Add MapView to the page

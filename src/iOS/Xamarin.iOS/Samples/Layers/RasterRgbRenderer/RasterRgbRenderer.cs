@@ -213,19 +213,19 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             {
                 Text = "Stretch parameters (" + _stretchParamsType + ")",
                 TextAlignment = UITextAlignment.Center,
-                TextColor = UIColor.Blue
+                TextColor = UIColor.Black
             };
 
             // Button to create the stretch parameters and pass it back to the main page.
             UIButton inputStretchParamsButton = new UIButton();
             inputStretchParamsButton.SetTitle("Apply", UIControlState.Normal);
-            inputStretchParamsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            inputStretchParamsButton.SetTitleColor(TintColor, UIControlState.Normal);
             inputStretchParamsButton.TouchUpInside += InputStretchParamsButton_Click;
 
             // Button to cancel the inputs.
             UIButton cancelButton = new UIButton();
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
-            cancelButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
             cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
 
             // Create inputs that are specific for the stretch type.
@@ -275,7 +275,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             {
                 Text = "Minimum (Red | Green | Blue)",
                 TextAlignment = UITextAlignment.Center,
-                TextColor = UIColor.Blue
+                TextColor = UIColor.Black
             };
 
             // Adjust the Y position for the next control.
@@ -295,7 +295,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             {
                 Text = "Maximum (Red | Green | Blue)",
                 TextAlignment = UITextAlignment.Center,
-                TextColor = UIColor.Blue
+                TextColor = UIColor.Black
             };
 
             // Adjust the Y position for the next control.
@@ -363,7 +363,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             {
                 Text = "Minimum: ",
                 TextAlignment = UITextAlignment.Center,
-                TextColor = UIColor.Blue
+                TextColor = UIColor.Black
             };
 
             // Adjust the Y position for the next control.
@@ -384,7 +384,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             {
                 Text = "Maximum: ",
                 TextAlignment = UITextAlignment.Center,
-                TextColor = UIColor.Blue
+                TextColor = UIColor.Black
             };
 
             // Adjust the Y position for the next control.
@@ -448,7 +448,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             {
                 Text = "Factor: ",
                 TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Blue
+                TextColor = UIColor.Black
             };
 
             // Adjust the Y position for the next control.

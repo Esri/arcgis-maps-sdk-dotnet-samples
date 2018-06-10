@@ -107,7 +107,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             _onlyBigCitiesSwitch.BackgroundColor = UIColor.White;
             UILabel citySwitchLabel = new UILabel();
             citySwitchLabel.BackgroundColor = UIColor.White;
-            citySwitchLabel.TextColor = UIColor.Blue;
+            citySwitchLabel.TextColor = UIColor.Black;
             citySwitchLabel.Text = "Only cities over 5M";
 
             // Add the switch and label to a horizontal panel
@@ -123,7 +123,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             _onlyBigCitiesSwitch.BackgroundColor = UIColor.White;
             UILabel extentSwitchLabel = new UILabel();
             extentSwitchLabel.BackgroundColor = UIColor.White;
-            extentSwitchLabel.TextColor = UIColor.Blue;
+            extentSwitchLabel.TextColor = UIColor.Black;
             extentSwitchLabel.Text = "Only cities in extent";
 
             // Add the switch and label to a horizontal panel
@@ -137,7 +137,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             // Create a button to invoke the query
             var getStatsButton = new UIButton();
             getStatsButton.SetTitle("Get Statistics", UIControlState.Normal);
-            getStatsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            getStatsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             getStatsButton.BackgroundColor = UIColor.White;
 
             // Handle the button tap to execute the statistics query

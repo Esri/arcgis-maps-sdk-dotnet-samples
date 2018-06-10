@@ -105,8 +105,8 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
             _twoThousandFiveButton.SetTitle("2005", UIControlState.Normal);
 
             // Set a more visible color.
-            _twoThousandButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _twoThousandFiveButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _twoThousandButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _twoThousandFiveButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Add MapView and buttons to the page.
             View.AddSubviews(_myMapView, _helpLabel, _twoThousandButton, _twoThousandFiveButton);

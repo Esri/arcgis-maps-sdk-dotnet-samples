@@ -202,8 +202,8 @@ namespace ArcGISRuntime.Samples.FindPlace
 		private void CreateLayout()
         {
             // Set the text on the two buttons
-            _mySearchButton.SetTitle("Search All", UIControlState.Normal);
-            _mySearchRestrictedButton.SetTitle("Search in View", UIControlState.Normal);
+            _mySearchButton.SetTitle("Search all", UIControlState.Normal);
+            _mySearchRestrictedButton.SetTitle("Search in view", UIControlState.Normal);
 
             // Set the default location and search text
             _myLocationBox.Text = "Current Location";
@@ -218,8 +218,8 @@ namespace ArcGISRuntime.Samples.FindPlace
             _mySearchRestrictedButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
 
             // Change button color when enabled
-            _mySearchButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _mySearchRestrictedButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _mySearchButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _mySearchRestrictedButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Color the textboxes and buttons to appear over the mapview
             UIColor background = UIColor.FromWhiteAlpha(.85f, .95f);

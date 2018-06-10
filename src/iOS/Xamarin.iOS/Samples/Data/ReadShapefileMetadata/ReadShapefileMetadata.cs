@@ -106,7 +106,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
 
             // Create button to show metadata
             metadataButton.SetTitle("Metadata", UIControlState.Normal);
-            metadataButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            metadataButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             metadataButton.TouchUpInside += OnMetadataButtonTouch;
 
             // Add MapView to the page
@@ -157,7 +157,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             // Label for credits metadata
             UILabel creditsLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, controlWidth, 20));
             creditsLabel.Text = metadata.Credits;
-            creditsLabel.TextColor = UIColor.Blue;
+            creditsLabel.TextColor = UIColor.Black;
 
             // Adjust the Y position for the next control
             controlY = controlY + 20 + rowSpace;
@@ -190,7 +190,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             // Button to hide the dialog
             UIButton hideButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, controlWidth, 20));
             hideButton.SetTitle("OK", UIControlState.Normal);
-            hideButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            hideButton.SetTitleColor(TintColor, UIControlState.Normal);
             hideButton.TouchUpInside += (s, e) => { Hide(); };
 
             // Add the controls

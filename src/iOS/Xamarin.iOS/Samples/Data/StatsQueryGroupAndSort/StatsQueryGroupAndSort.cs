@@ -89,32 +89,32 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 
             // Button for launching the UI to view or define statistics definitions for the query
             UIButton showStatDefinitionsButton = new UIButton();
-            showStatDefinitionsButton.SetTitle("Statistic Definitions", UIControlState.Normal);
-            showStatDefinitionsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            showStatDefinitionsButton.SetTitle("Statistic definitions", UIControlState.Normal);
+            showStatDefinitionsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             showStatDefinitionsButton.BackgroundColor = UIColor.White;
             showStatDefinitionsButton.Frame = new CGRect(30, 20, 220, 30);
             showStatDefinitionsButton.TouchUpInside += ShowStatDefinitions;
 
             // Button to choose fields with which to group results
             UIButton showGroupFieldsButton = new UIButton();
-            showGroupFieldsButton.SetTitle("Group Fields", UIControlState.Normal);
-            showGroupFieldsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            showGroupFieldsButton.SetTitle("Group fields", UIControlState.Normal);
+            showGroupFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             showGroupFieldsButton.BackgroundColor = UIColor.White;
             showGroupFieldsButton.Frame = new CGRect(30, 60, 220, 30);
             showGroupFieldsButton.TouchUpInside += ShowGroupFields;
 
             // Button to choose fields with which to sort results (must be one of the 'group by' fields)
             UIButton showOrderByFieldsButton = new UIButton();
-            showOrderByFieldsButton.SetTitle("Order By Fields", UIControlState.Normal);
-            showOrderByFieldsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            showOrderByFieldsButton.SetTitle("Order by fields", UIControlState.Normal);
+            showOrderByFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             showOrderByFieldsButton.BackgroundColor = UIColor.White;
             showOrderByFieldsButton.Frame = new CGRect(30, 100, 220, 30);
             showOrderByFieldsButton.TouchUpInside += ShowOrderByFields;
 
             // Create a button to invoke the query using the query parameters defined
             UIButton getStatsButton = new UIButton();
-            getStatsButton.SetTitle("Get Statistics", UIControlState.Normal);
-            getStatsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            getStatsButton.SetTitle("Get statistics", UIControlState.Normal);
+            getStatsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             getStatsButton.BackgroundColor = UIColor.White;
             getStatsButton.Frame = new CGRect(30, 340, 220, 30);
 

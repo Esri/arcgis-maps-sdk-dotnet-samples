@@ -177,7 +177,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             _myProgressBar.StartAnimating();
 
             // Set the color
-            _myProgressBar.Color = UIColor.Blue;
+            _myProgressBar.Color = View.TintColor;
 
             // Add views to the layout
             View.AddSubviews(_myEditText_ListGeodatabases, _myProgressBar);

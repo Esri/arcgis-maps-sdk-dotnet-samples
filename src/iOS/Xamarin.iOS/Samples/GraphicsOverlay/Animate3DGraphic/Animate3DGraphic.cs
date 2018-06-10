@@ -386,10 +386,10 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             _cameraControlButton.SetTitle("Camera", UIControlState.Normal);
             _statsControlButton.SetTitle("Stats", UIControlState.Normal);
             _playButton.SetTitle("Pause", UIControlState.Normal);
-            _missionControlButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _cameraControlButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _statsControlButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _playButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _missionControlButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _cameraControlButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _statsControlButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _playButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Subscribe to events
             // Allow for selecting a mission

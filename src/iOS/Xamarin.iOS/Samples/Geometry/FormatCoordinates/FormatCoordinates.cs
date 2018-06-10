@@ -38,10 +38,10 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         private UITextField _usngUITextField = new UITextField() { Placeholder = "USNG" };
 
         // Create the labels
-        private UILabel _utmLabel = new UILabel() { Text = "UTM:", TextColor = UIColor.Blue };
-        private UILabel _dmsLabel = new UILabel() { Text = "Degrees, Minutes, Seconds: ", TextColor = UIColor.Blue };
-        private UILabel _decimalDegreeslabel = new UILabel() { Text = "Decimal Degrees: ", TextColor = UIColor.Blue };
-        private UILabel _usngLabel = new UILabel() { Text = "USNG: ", TextColor = UIColor.Blue };
+        private UILabel _utmLabel = new UILabel() { Text = "UTM:", TextColor = UIColor.DarkGray };
+        private UILabel _dmsLabel = new UILabel() { Text = "Degrees, Minutes, Seconds: ", TextColor = UIColor.DarkGray };
+        private UILabel _decimalDegreeslabel = new UILabel() { Text = "Decimal Degrees: ", TextColor = UIColor.DarkGray };
+        private UILabel _usngLabel = new UILabel() { Text = "USNG: ", TextColor = UIColor.DarkGray };
 
         // Create the recalculate button
         private UIButton _recalculateButton = new UIButton();
@@ -169,7 +169,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
 
             // Create the UI button
             _recalculateButton.SetTitle("Recalculate", UIControlState.Normal);
-            _recalculateButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _recalculateButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _recalculateButton.TouchUpInside += RecalculateFields;
 
             // Add views to the page

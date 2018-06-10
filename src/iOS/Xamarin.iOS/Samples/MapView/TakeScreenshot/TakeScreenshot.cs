@@ -81,6 +81,9 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         private void OnCloseImageViewClicked(object sender, EventArgs e)
         {
             _overlayView.Hidden = true;
+
+            // Disable the button to close image view
+            _closeImageViewButton.Enabled = false;
         }
 
         private async void OnScreenshotButtonClicked(object sender, EventArgs e)
@@ -103,7 +106,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             screenshotButton.Clicked += OnScreenshotButtonClicked;
 
             // Initialize a button to close imageview
-            _closeImageViewButton = new UIBarButtonItem() { Title = "Close Preview", Style = UIBarButtonItemStyle.Plain };
+            _closeImageViewButton = new UIBarButtonItem() { Title = "Close preview", Style = UIBarButtonItemStyle.Plain };
             _closeImageViewButton.Clicked += OnCloseImageViewClicked; 
             _closeImageViewButton.Enabled = false;
 

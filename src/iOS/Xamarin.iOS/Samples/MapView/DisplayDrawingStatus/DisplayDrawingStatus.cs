@@ -47,10 +47,11 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
 
         public override void ViewDidLayoutSubviews()
         {
+            nfloat topHeight = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
             // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
-            _activityIndicator.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 - 50, View.Bounds.Height / 2 - 50, 100, 100);
+            _activityIndicator.Frame = new CoreGraphics.CGRect(0, topHeight, View.Bounds.Width, 40);
 
             base.ViewDidLayoutSubviews();
         }
@@ -104,6 +105,7 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
 
             // Create an activity indicator
             _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
+            _activityIndicator.BackgroundColor = UIColor.FromWhiteAlpha(.2f, .9f);
 
             // Add the MapView to the Subview
             View.AddSubviews(_myMapView, _activityIndicator);

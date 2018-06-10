@@ -126,6 +126,8 @@ namespace ArcGISRuntime.Samples.FindPlace
         // Create the restricted search button
         private UIButton _mySearchRestrictedButton = new UIButton();
 
+        private UIToolbar _backgroundToolbar = new UIToolbar();
+
         // Create the progress indicator
         private UIActivityIndicatorView _myProgressBar = new UIActivityIndicatorView()
         {
@@ -158,7 +160,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         public override void ViewDidLayoutSubviews()
         {
             // Get the height of the top bar
-            nfloat topHeight = NavigationController.NavigationBar.Frame.Size.Height + 20;
+            nfloat topHeight = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
             // Set a standard height for the controls
             nfloat height = 30;
@@ -171,6 +173,13 @@ namespace ArcGISRuntime.Samples.FindPlace
 
             // Set a standard width for a half-size control
             nfloat halfWidth = View.Frame.Width / 2 - 2 * (nfloat)margin;
+
+            // Set the background frame
+            _backgroundToolbar.Frame = new CoreGraphics.CGRect(0, topHeight, View.Bounds.Width, height * 3 + margin * 4);
+
+            // Set the map insets
+            _myMapView.ViewInsets = new UIEdgeInsets(_backgroundToolbar.Frame.Bottom, 0, 0, 0);
+
 
             // The search box is the topmost control and fills the width of the screen
             _mySearchBox.Frame = new CoreGraphics.CGRect(margin, (topHeight += margin), width, height);
@@ -222,7 +231,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             _mySearchRestrictedButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Color the textboxes and buttons to appear over the mapview
-            UIColor background = UIColor.FromWhiteAlpha(.85f, .95f);
+            UIColor background = UIColor.FromWhiteAlpha(1, .9f);
             _mySearchBox.BackgroundColor = background;
             _myLocationBox.BackgroundColor = background;
             _mySearchButton.BackgroundColor = background;
@@ -259,7 +268,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             _myLocationBox.AllEditingEvents += _myLocationBox_TextChanged;
 
             // Add the views
-            View.AddSubviews(_myMapView, _mySearchBox, _myLocationBox, _mySearchButton, _mySearchRestrictedButton, _myProgressBar, _mySuggestionView);
+            View.AddSubviews(_myMapView, _backgroundToolbar, _mySearchBox, _myLocationBox, _mySearchButton, _mySearchRestrictedButton, _myProgressBar, _mySuggestionView);
         }
 
         private async void Initialize()

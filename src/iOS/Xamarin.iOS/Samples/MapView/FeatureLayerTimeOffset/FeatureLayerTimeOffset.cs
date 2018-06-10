@@ -28,11 +28,13 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
         // Create and hold reference to the UI controls
         private MapView _myMapView = new MapView();
 
-        private UILabel _redLabel = new UILabel() { Text = "Red hurricanes offset 10 days", TextColor = UIColor.Red };
-        private UILabel _blueLabel = new UILabel() { Text = "Blue hurricanes not offset", TextColor = UIColor.Blue };
-        private UILabel _timeLabel = new UILabel() { TextColor = UIColor.Black };
+        private UILabel _redLabel = new UILabel() { Text = "Red hurricanes offset 10 days", TextColor = UIColor.Red, TextAlignment = UITextAlignment.Center };
+        private UILabel _blueLabel = new UILabel() { Text = "Blue hurricanes not offset", TextColor = UIColor.Blue, TextAlignment = UITextAlignment.Center };
+        private UILabel _timeLabel = new UILabel() { TextColor = UIColor.Black, TextAlignment = UITextAlignment.Center };
         private UISlider _timeSlider = new UISlider() { MinValue = 0, MaxValue = 1 };
         private UIStackView _stackView = new UIStackView();
+        private UIToolbar _topToolbar = new UIToolbar();
+        private UIToolbar _bottomToolbar = new UIToolbar();
 
         // Hold the feature layer URI
         private Uri _featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0");
@@ -54,11 +56,23 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topHeight = NavigationController.TopLayoutGuide.Length + 60;
+            nfloat topHeight = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat controlHeight = 30;
+            nfloat margin = 5;
+
+            _topToolbar.Frame = new CoreGraphics.CGRect(0, topHeight, View.Bounds.Width, controlHeight * 2 + margin * 3);
+
+            _bottomToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - (2 * controlHeight) - (3 * margin), View.Bounds.Width, (2 * controlHeight) + (3 * margin));
+
+            _redLabel.Frame = new CoreGraphics.CGRect(margin, topHeight + margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _blueLabel.Frame = new CoreGraphics.CGRect(margin, topHeight + (2 * margin) + controlHeight, View.Bounds.Width - (2 * margin), controlHeight);
+
+            _timeLabel.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - (2 * controlHeight) - (2 * margin), View.Bounds.Width - (2 * margin), controlHeight);
+            _timeSlider.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - (controlHeight) - margin, View.Bounds.Width - (2 * margin), controlHeight);
+
 
             // Setup the visual frames for the MapView and StackView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _stackView.Frame = new CoreGraphics.CGRect(0, topHeight, View.Bounds.Width, 150);
 
             base.ViewDidLayoutSubviews();
         }
@@ -106,26 +120,14 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
 
         private void CreateLayout()
         {
-            nfloat topHeight = NavigationController.TopLayoutGuide.Length + 60;
-
-            //set up UIStackView for laying out controls
-            _stackView = new UIStackView(new CoreGraphics.CGRect(0, topHeight, View.Bounds.Width, 150));
-            _stackView.Axis = UILayoutConstraintAxis.Vertical;
-            _stackView.Alignment = UIStackViewAlignment.Fill;
-            _stackView.Distribution = UIStackViewDistribution.FillProportionally;
-            _stackView.BackgroundColor = UIColor.Gray;
-
-            // Add the views to the UIStackView
+            // Add the views to the top UIStackView
             _stackView.AddArrangedSubview(_redLabel);
             _stackView.AddArrangedSubview(_blueLabel);
             _stackView.AddArrangedSubview(_timeLabel);
             _stackView.AddArrangedSubview(_timeSlider);
 
             // Add MapView to the page
-            View.AddSubviews(_myMapView);
-
-            // Add UIStackView to the page
-            View.AddSubviews(_stackView);
+            View.AddSubviews(_myMapView, _topToolbar, _bottomToolbar, _redLabel, _blueLabel, _timeLabel, _timeSlider);
 
             // Subscribe to slider value change notifications
             _timeSlider.ValueChanged += _timeSlider_ValueChanged;

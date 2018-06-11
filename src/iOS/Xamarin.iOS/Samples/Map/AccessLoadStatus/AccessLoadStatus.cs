@@ -23,14 +23,14 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
         "")]
     public class AccessLoadStatus : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
         // Control to show the Map's load status
-        private UITextView _loadStatusTextView;
+        private UILabel _loadStatusTextView;
+
+        // Toolbar to put behind the label
+        private UIToolbar _toolbar = new UIToolbar();
 
         public AccessLoadStatus()
         {
@@ -50,6 +50,9 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
         {
             // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            _loadStatusTextView.Frame = new CoreGraphics.CGRect(5, View.Bounds.Height - 35, View.Bounds.Width - 10, 30);
 
             base.ViewDidLayoutSubviews();
         }
@@ -73,7 +76,7 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
             {
                 // Update the load status information
                 _loadStatusTextView.Text = string.Format(
-                    "Map's load status : {0}", 
+                    "Map's load status: {0}", 
                     e.Status.ToString());
             });
         }
@@ -81,14 +84,12 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
         private void CreateLayout()
         {
             // Create control to show the maps' loading status
-            _loadStatusTextView = new UITextView()
-            {
-                Frame = new CoreGraphics.CGRect(
-                    0, yPageOffset, View.Bounds.Width, 40)
+            _loadStatusTextView = new UILabel(){
+                TextAlignment = UITextAlignment.Center
             };
   
             // Add MapView to the page
-            View.AddSubviews(_myMapView, _loadStatusTextView);
+            View.AddSubviews(_myMapView, _toolbar, _loadStatusTextView);
         }
     }
 }

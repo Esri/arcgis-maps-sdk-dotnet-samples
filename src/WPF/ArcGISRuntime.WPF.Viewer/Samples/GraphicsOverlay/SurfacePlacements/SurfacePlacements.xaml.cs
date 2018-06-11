@@ -88,7 +88,7 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             TextSymbol absoluteText = new TextSymbol("ABSOLUTE", Color.FromArgb(255, 255, 255, 255), 10,
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
-           absoluteText.OffsetY += 20;
+            absoluteText.OffsetY += 20;
 
             // Add the point graphic and text graphic to the corresponding graphics overlay
             drapedOverlay.Graphics.Add(new Graphic(point, circleSymbol));

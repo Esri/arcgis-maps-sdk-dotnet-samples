@@ -24,7 +24,7 @@ namespace ArcGISRuntime.UWP.Samples.SelectEncFeatures
         "Hydrography",
         "This sample demonstrates how to select an ENC feature.",
         "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("a490098c60f64d3bbac10ad131cc62c7")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("a490098c60f64d3bbac10ad131cc62c7")]
     public partial class SelectEncFeatures
     {
         public SelectEncFeatures()

@@ -23,11 +23,9 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         "")]
     public class OpenMapURL : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
+        private UIToolbar _toolbar = new UIToolbar();
         private UIButton _mapsButton;
 
         // String array to hold urls to publicly available web maps
@@ -43,7 +41,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         {
             "Housing with Mortgages",
             "USA Tapestry Segmentation",
-            "Geology of United States"
+            "Geology of the United States"
         };
 
         public OpenMapURL()
@@ -61,10 +59,9 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         {
             base.ViewDidLayoutSubviews();
 
-            // Create the UI, setup the control references and execute initialization 
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _mapsButton.Frame = new CoreGraphics.CGRect(
-                0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            _mapsButton.Frame = new CoreGraphics.CGRect(5, View.Bounds.Height - 35, View.Bounds.Width - 10, 30);
         }
 
         private void Initialize()
@@ -101,24 +98,16 @@ namespace ArcGISRuntime.Samples.OpenMapURL
 
         private void CreateLayout()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
             // Add a button at the bottom to show webmap choices
-            _mapsButton = new UIButton(UIButtonType.Custom)
-            {
-                Frame = new CoreGraphics.CGRect(
-                    0, View.Bounds.Height - 40, View.Bounds.Width, 40),
-                BackgroundColor = UIColor.White
-            };
+            _mapsButton = new UIButton();
 
             // Create button to show map options
-            _mapsButton.SetTitle("Maps", UIControlState.Normal);
+            _mapsButton.SetTitle("Select a map", UIControlState.Normal);
             _mapsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _mapsButton.TouchUpInside += OnMapsButtonTouch;
 
             // Add MapView to the page
-            View.AddSubviews(_myMapView, _mapsButton);
+            View.AddSubviews(_myMapView, _toolbar, _mapsButton);
         }
     }
 }

@@ -63,8 +63,7 @@ namespace ArcGISRuntime.WPF.Samples.FindRoute
             PictureMarkerSymbol carSymbol = new PictureMarkerSymbol(_carIconUri);
             PictureMarkerSymbol flagSymbol = new PictureMarkerSymbol(_checkedFlagIconUri);
 
-            // Add a slight offset (pixels) to the picture symbols
-
+            // Add a slight offset (pixels) to the picture symbols.
             carSymbol.OffsetX = -carSymbol.Width / 2;
             carSymbol.OffsetY = -carSymbol.Height / 2;
             flagSymbol.OffsetX = -flagSymbol.Width / 2;

@@ -64,12 +64,12 @@ namespace ArcGISRuntime.WPF.Samples.RenderPictureMarkers
             var symbolUri = new Uri(
                 "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae");
 
-            // Create new symbol using asynchronous factory method from uri
-            PictureMarkerSymbol campsiteSymbol = new PictureMarkerSymbol(symbolUri);
-
-            // Optionally set the size (if not set, the size in pixels of the image will be used)
-            campsiteSymbol.Width = 40;
-            campsiteSymbol.Height = 40;
+            // Create new symbol using asynchronous factory method from uri.
+            PictureMarkerSymbol campsiteSymbol = new PictureMarkerSymbol(symbolUri)
+            {
+                Width = 40,
+                Height = 40
+            };
 
             // Create location for the campsite
             MapPoint campsitePoint = new MapPoint(-223560, 6552021, SpatialReferences.WebMercator);

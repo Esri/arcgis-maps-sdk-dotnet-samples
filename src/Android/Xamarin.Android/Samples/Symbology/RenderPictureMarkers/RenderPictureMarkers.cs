@@ -75,12 +75,12 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
             var symbolUri = new Uri(
                 "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae");
 
-            // Create new symbol using asynchronous factory method from uri
-            PictureMarkerSymbol campsiteSymbol = new PictureMarkerSymbol(symbolUri);
-
-            // Optionally set the size (if not set, the size in pixels of the image will be used)
-            campsiteSymbol.Height = 18;
-            campsiteSymbol.Width = 18;
+            // Create new symbol using asynchronous factory method from uri.
+            PictureMarkerSymbol campsiteSymbol = new PictureMarkerSymbol(symbolUri)
+            {
+                Width = 40,
+                Height = 40
+            };
 
             // Create location for the campsite
             MapPoint campsitePoint = new MapPoint(-223560, 6552021, SpatialReferences.WebMercator);
@@ -105,6 +105,8 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
             
             // Create new symbol using asynchronous factory method from stream
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
+            pinSymbol.Width = 40;
+            pinSymbol.Height = 40;
 
             // Create location for the pint
             MapPoint pinPoint = new MapPoint(-226773, 6550477, SpatialReferences.WebMercator);

@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.SimpleRenderers
         "")]
     public class SimpleRenderers : Activity
     {
-        // Create and hold reference to the used MapView
+        // Create and hold reference to the used MapView.
         private MapView _myMapView = new MapView();
 
         protected override void OnCreate(Bundle bundle)
@@ -35,65 +35,68 @@ namespace ArcGISRuntime.Samples.SimpleRenderers
 
             Title = "Simple renderer";
 
-            // Create the UI, setup the control references and execute initialization
+            // Create the UI, setup the control references and execute initialization.
             CreateLayout();
             Initialize();
         }
 
         private void Initialize()
         {
-            // Create new map with basemap layer
+            // Create new map with basemap layer.
             Map myMap = new Map(Basemap.CreateImageryWithLabels());
 
-            // Create several map points using the WGS84 coordinates (latitude and longitude)
+            // Create several map points using the WGS84 coordinates (latitude and longitude).
             MapPoint oldFaithfulPoint = new MapPoint(-110.828140, 44.460458, SpatialReferences.Wgs84);
             MapPoint cascadeGeyserPoint = new MapPoint(-110.829004, 44.462438, SpatialReferences.Wgs84);
             MapPoint plumeGeyserPoint = new MapPoint(-110.829381, 44.462735, SpatialReferences.Wgs84);
 
-            // Use the two points farthest apart to create an envelope
+            // Use the two points farthest apart to create an envelope.
             Envelope initialEnvelope = new Envelope(oldFaithfulPoint, plumeGeyserPoint);
 
-            // Set the map initial viewpoint
+            // Set the map initial viewpoint.
             myMap.InitialViewpoint = new Viewpoint(initialEnvelope);
 
-            // Add the map to the map view
+            // Add the map to the map view.
             _myMapView.Map = myMap;
 
-            // Create a graphics overlay
+            // Set the viewpoint to the envelope with padding.
+            _myMapView.SetViewpointGeometryAsync(initialEnvelope, 50);
+
+            // Create a graphics overlay.
             GraphicsOverlay myGraphicOverlay = new GraphicsOverlay();
 
-            // Create graphics based upon the map points
+            // Create graphics based upon the map points.
             Graphic oldFaithfulGraphic = new Graphic(oldFaithfulPoint);
             Graphic cascadeGeyserGraphic = new Graphic(cascadeGeyserPoint);
             Graphic plumeGeyserGraphic = new Graphic(plumeGeyserPoint);
 
-            // Add the graphics to the graphics overlay
+            // Add the graphics to the graphics overlay.
             myGraphicOverlay.Graphics.Add(oldFaithfulGraphic);
             myGraphicOverlay.Graphics.Add(cascadeGeyserGraphic);
             myGraphicOverlay.Graphics.Add(plumeGeyserGraphic);
 
-            // Create a simple marker symbol - red, cross, size 12
+            // Create a simple marker symbol - red, cross, size 12.
             SimpleMarkerSymbol mySymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.Red, 12);
 
-            // Create a simple renderer based on the simple marker symbol
+            // Create a simple renderer based on the simple marker symbol.
             SimpleRenderer myRenderer = new SimpleRenderer(mySymbol);
 
-            // Apply the renderer to the graphics overlay (all graphics use the same symbol)
+            // Apply the renderer to the graphics overlay (all graphics use the same symbol).
             myGraphicOverlay.Renderer = myRenderer;
 
-            // Add the graphics overlay to the map view
+            // Add the graphics overlay to the map view.
             _myMapView.GraphicsOverlays.Add(myGraphicOverlay);
         }
 
         private void CreateLayout()
         {
-            // Create a new vertical layout for the app
+            // Create a new vertical layout for the app.
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-            // Add the map view to the layout
+            // Add the map view to the layout.
             layout.AddView(_myMapView);
 
-            // Show the layout in the app
+            // Show the layout in the app.
             SetContentView(layout);
         }
     }

@@ -204,7 +204,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             Viewpoint viewExtent = new Viewpoint(resultOverlay.Extent);
 
             // Update the map viewpoint
-            MyMapView.SetViewpoint(viewExtent);
+            await MyMapView.SetViewpointGeometryAsync(resultOverlay.Extent, 50);
         }
 
         /// <summary>

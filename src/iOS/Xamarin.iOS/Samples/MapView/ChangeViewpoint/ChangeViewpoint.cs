@@ -26,10 +26,8 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         "")]
     public class ChangeViewpoint : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
-        private UIButton _viewpointsButton;
+        private UIToolbar _toolbar = new UIToolbar();
+        private UISegmentedControl _viewpointsButton;
 
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
@@ -84,11 +82,15 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
 
         public override void ViewDidLayoutSubviews()
         {
+            int margin = 5;
             // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
+            // Set up the frame for the toolbar
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+
             // Setup the visual frame for the Button
-            _viewpointsButton.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            _viewpointsButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - 40 + margin, View.Bounds.Width - (2 * margin), 40 - (2 * margin));
 
             base.ViewDidLayoutSubviews();
         }
@@ -102,59 +104,50 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
             _myMapView.Map = myMap;
         }
 
-        private void OnViewpointsButtonTouch(object sender, EventArgs e)
-        {
-            // Initialize an UIAlertController
-            UIAlertController viewpointAlert = UIAlertController.Create(
-                "Select viewpoint", "", UIAlertControllerStyle.Alert);
-
-            // Add actions to alert. Selecting an option set the new viewpoint
-            viewpointAlert.AddAction(UIAlertAction.Create(titles[0], UIAlertActionStyle.Default, 
-                async (action) =>
-                {
-                    // Set Viewpoint using Redlands envelope defined above and a padding of 20
-                    await _myMapView.SetViewpointGeometryAsync(RedlandsEnvelope, 20);
-                }));
-            viewpointAlert.AddAction(UIAlertAction.Create(titles[1], UIAlertActionStyle.Default, 
-                async (action) =>
-                {
-                    // Set Viewpoint so that it is centered on the London coordinates defined above
-                    await _myMapView.SetViewpointCenterAsync(LondonCoords);
-            
-                    // Set the Viewpoint scale to match the specified scale 
-                    await _myMapView.SetViewpointScaleAsync(LondonScale);
-                }));
-            viewpointAlert.AddAction(UIAlertAction.Create(titles[2], UIAlertActionStyle.Default, 
-                async (action) =>
-                {
-                    // Navigate to full extent of the first baselayer before animating to specified geometry
-                    await _myMapView.SetViewpointAsync(
-                        new Viewpoint(_myMapView.Map.Basemap.BaseLayers.First().FullExtent));
-                    
-                    // Create a new Viewpoint using the specified geometry
-                    var viewpoint = new Viewpoint(EdinburghEnvelope);
-                    
-                    // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
-                    await _myMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));
-                }));
-            PresentViewController(viewpointAlert, true, null);
-        }
-
         private void CreateLayout()
         {
             // Add a button at the bottom to show viewpoint choices
-            _viewpointsButton = new UIButton(UIButtonType.Custom)
+            _viewpointsButton = new UISegmentedControl(titles)
             {
-                BackgroundColor = UIColor.White
+                TintColor = View.TintColor
             };
 
             // Create button to show map options
-            _viewpointsButton.SetTitle("Viewpoints", UIControlState.Normal);
-            _viewpointsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _viewpointsButton.TouchUpInside += OnViewpointsButtonTouch;
+            _viewpointsButton.ValueChanged += viewpointButton_ValueChanged;
 
             // Add MapView to the page
-            View.AddSubviews(_myMapView, _viewpointsButton);
+            View.AddSubviews(_myMapView, _toolbar, _viewpointsButton);
         }
+
+        private async void viewpointButton_ValueChanged(object sender, EventArgs e)
+        {
+            nint selectedValue = (sender as UISegmentedControl).SelectedSegment;
+
+            switch (selectedValue){
+                case 0:
+                    // Set Viewpoint using Redlands envelope defined above and a padding of 20
+                    await _myMapView.SetViewpointGeometryAsync(RedlandsEnvelope, 20);
+                    break;
+                case 1:
+                    // Set Viewpoint so that it is centered on the London coordinates defined above
+                    await _myMapView.SetViewpointCenterAsync(LondonCoords);
+
+                    // Set the Viewpoint scale to match the specified scale 
+                    await _myMapView.SetViewpointScaleAsync(LondonScale);
+                    break;
+                case 2:
+                    // Navigate to full extent of the first baselayer before animating to specified geometry
+                    await _myMapView.SetViewpointAsync(
+                        new Viewpoint(_myMapView.Map.Basemap.BaseLayers.First().FullExtent));
+
+                    // Create a new Viewpoint using the specified geometry
+                    var viewpoint = new Viewpoint(EdinburghEnvelope);
+
+                    // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
+                    await _myMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));
+                    break;
+            }
+        }
+
     }
 }

@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
@@ -38,7 +38,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
 
             Title = "WMTS layer";
 
-            // Create the UI, setup the control references 
+            // Create the UI, setup the control references
             CreateLayout();
 
             // Load the map using Uri to the WMTS service.
@@ -98,7 +98,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
                 // Define a new instance of the WMTS service
                 WmtsService myWmtsService = new WmtsService(myUri);
 
-                // Load the WMTS service 
+                // Load the WMTS service
                 await myWmtsService.LoadAsync();
 
                 // Get the service information (i.e. metadata) about the WMTS service
@@ -147,7 +147,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             _uriButton.Text = "WMTSLayer via Uri";
             _uriButton.Click += UriButton_Clicked;
 
-            // Add Button to the layout  
+            // Add Button to the layout
             layout.AddView(_uriButton);
 
             // Create Button
@@ -155,7 +155,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             _infoButton.Text = "WMTSLayer via WmtsLayerInfo";
             _infoButton.Click += InfoButton_Clicked;
 
-            // Add Button to the layout  
+            // Add Button to the layout
             layout.AddView(_infoButton);
 
             // Add the map view to the layout

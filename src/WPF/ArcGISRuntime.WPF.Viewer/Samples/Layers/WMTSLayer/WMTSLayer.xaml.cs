@@ -25,10 +25,10 @@ namespace ArcGISRuntime.WPF.Samples.WMTSLayer
         public WMTSLayer()
         {
             InitializeComponent();
-            Button1_Click(null, null);
+            UriButton_Click(null, null);
         }
 
-        private void Button1_Click(object sender, RoutedEventArgs e)
+        private void UriButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -53,9 +53,9 @@ namespace ArcGISRuntime.WPF.Samples.WMTSLayer
                 // Assign the map to the MapView
                 MyMapView.Map = myMap;
 
-                // Disable and enable the appropriate buttons
-                Button1.IsEnabled = false;
-                Button2.IsEnabled = true;
+                // Disable and enable the appropriate buttons.
+                UriButton.IsEnabled = false;
+                InfoButton.IsEnabled = true;
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace ArcGISRuntime.WPF.Samples.WMTSLayer
             }
         }
 
-        private async void Button2_Click(object sender, RoutedEventArgs e)
+        private async void InfoButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -100,9 +100,9 @@ namespace ArcGISRuntime.WPF.Samples.WMTSLayer
                 // Assign the map to the MapView
                 MyMapView.Map = myMap;
 
-                // Disable and enable the appropriate buttons
-                Button1.IsEnabled = true;
-                Button2.IsEnabled = false;
+                // Disable and enable the appropriate buttons.
+                UriButton.IsEnabled = true;
+                InfoButton.IsEnabled = false;
             }
             catch (Exception ex)
             {

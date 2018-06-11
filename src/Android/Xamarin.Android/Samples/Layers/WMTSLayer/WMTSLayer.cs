@@ -29,6 +29,9 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
+        private Button _infoButton;
+        private Button _uriButton;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -37,9 +40,12 @@ namespace ArcGISRuntime.Samples.WMTSLayer
 
             // Create the UI, setup the control references 
             CreateLayout();
+
+            // Load the map using Uri to the WMTS service.
+            UriButton_Clicked(null, null);
         }
 
-        private void Button1_Clicked(object sender, EventArgs e)
+        private void UriButton_Clicked(object sender, EventArgs e)
         {
             // Create dialog to display alert information
             var alert = new AlertDialog.Builder(this);
@@ -66,6 +72,10 @@ namespace ArcGISRuntime.Samples.WMTSLayer
 
                 // Assign the map to the MapView
                 _myMapView.Map = myMap;
+
+                // Disable and enable the appropriate buttons.
+                _uriButton.Enabled = false;
+                _infoButton.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -75,7 +85,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             }
         }
 
-        private async void Button2_Clicked(object sender, EventArgs e)
+        private async void InfoButton_Clicked(object sender, EventArgs e)
         {
             // Create dialog to display alert information
             var alert = new AlertDialog.Builder(this);
@@ -114,6 +124,10 @@ namespace ArcGISRuntime.Samples.WMTSLayer
 
                 // Assign the map to the MapView
                 _myMapView.Map = myMap;
+
+                // Disable and enable the appropriate buttons.
+                _uriButton.Enabled = true;
+                _infoButton.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -129,20 +143,20 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create Button
-            var button1 = new Button(this);
-            button1.Text = "WMTSLayer via Uri";
-            button1.Click += Button1_Clicked;
+            _uriButton = new Button(this);
+            _uriButton.Text = "WMTSLayer via Uri";
+            _uriButton.Click += UriButton_Clicked;
 
             // Add Button to the layout  
-            layout.AddView(button1);
+            layout.AddView(_uriButton);
 
             // Create Button
-            var button2 = new Button(this);
-            button2.Text = "WMTSLayer via WmtsLayerInfo";
-            button2.Click += Button2_Clicked;
+            _infoButton = new Button(this);
+            _infoButton.Text = "WMTSLayer via WmtsLayerInfo";
+            _infoButton.Click += InfoButton_Clicked;
 
             // Add Button to the layout  
-            layout.AddView(button2);
+            layout.AddView(_infoButton);
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

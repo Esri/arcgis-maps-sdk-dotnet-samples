@@ -27,9 +27,12 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             InitializeComponent ();
 
             Title = "WMTS layer";
+
+            // Load the map using Uri to the WMTS service.
+            UriButton_Click(null, null);
         }
 
-        private async void Button1_Click(object sender, EventArgs e)
+        private async void UriButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -53,6 +56,10 @@ namespace ArcGISRuntime.Samples.WMTSLayer
 
                 // Assign the map to the MapView
                 MyMapView.Map = myMap;
+
+                // Disable and enable the appropriate buttons.
+                UriButton.IsEnabled = false;
+                InfoButton.IsEnabled = true;
             }
             catch (Exception ex)
             {
@@ -60,7 +67,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             }
         }
 
-        private async void Button2_Click(object sender, EventArgs e)
+        private async void InfoButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -96,6 +103,10 @@ namespace ArcGISRuntime.Samples.WMTSLayer
 
                 // Assign the map to the MapView
                 MyMapView.Map = myMap;
+
+                // Disable and enable the appropriate buttons.
+                UriButton.IsEnabled = true;
+                InfoButton.IsEnabled = false;
             }
             catch (Exception ex)
             {

@@ -32,10 +32,10 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         private MapView _myMapView = new MapView();
 
         // Create button
-        private UIButton _button1;
+        private UIButton _uriButton;
 
         // Create button
-        private UIButton _button2;
+        private UIButton _infoButton;
 
         public WMTSLayer()
         {
@@ -48,6 +48,9 @@ namespace ArcGISRuntime.Samples.WMTSLayer
 
             // Create the UI, setup the control references
             CreateLayout();
+
+            // Load the map using Uri to the WMTS service.
+            OnUriButtonClicked(null, null);
         }
 
         public override void ViewDidLayoutSubviews()
@@ -56,15 +59,15 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             // Setup the visual frame for button1
-            _button1.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 40);
+            _uriButton.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 40);
 
             // Setup the visual frame for button2
-            _button2.Frame = new CoreGraphics.CGRect(0, yPageOffset + 40, View.Bounds.Width, 40);
+            _infoButton.Frame = new CoreGraphics.CGRect(0, yPageOffset + 40, View.Bounds.Width, 40);
 
             base.ViewDidLayoutSubviews();
         }
 
-        private void OnButton1Clicked(object sender, EventArgs e)
+        private void OnUriButtonClicked(object sender, EventArgs e)
         {
             try
             {
@@ -86,8 +89,18 @@ namespace ArcGISRuntime.Samples.WMTSLayer
                 // Add the WMTS layer to the layer collection of the map
                 myLayerCollection.Add(myWmtsLayer);
 
+                // Set the scale so that the map is visible on iOS devices.
+                _myMapView.SetViewpointScaleAsync(300000000);
+
                 // Assign the map to the MapView
                 _myMapView.Map = myMap;
+
+                // Disable and enable the appropriate buttons.
+                _uriButton.Enabled = false;
+                _infoButton.Enabled = true;
+
+                
+                
             }
             catch (Exception ex)
             {
@@ -98,7 +111,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             }
         }
 
-        private async void OnButton2Clicked(object sender, EventArgs e)
+        private async void OnInfoButtonClicked(object sender, EventArgs e)
         {
             try
             {
@@ -132,8 +145,15 @@ namespace ArcGISRuntime.Samples.WMTSLayer
                 // Add the WMTS layer to the layer collection of the map
                 myLayerCollection.Add(myWmtsLayer);
 
+                // Set the scale so that the map is visible on iOS devices.
+                await _myMapView.SetViewpointScaleAsync(300000000);
+
                 // Assign the map to the MapView
                 _myMapView.Map = myMap;
+
+                // Disable and enable the appropriate buttons.
+                _uriButton.Enabled = true;
+                _infoButton.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -147,26 +167,26 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         private void CreateLayout()
         {
 
-            // Create button1
-            _button1 = new UIButton();
-            _button1.SetTitle("WMTSLayer via Uri", UIControlState.Normal);
-            _button1.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _button1.BackgroundColor = UIColor.White;
+            // Create a button for Uri
+            _uriButton = new UIButton();
+            _uriButton.SetTitle("WMTSLayer via Uri", UIControlState.Normal);
+            _uriButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _uriButton.BackgroundColor = UIColor.White;
 
             // Hook to touch event to do button1
-            _button1.TouchUpInside += OnButton1Clicked;
+            _uriButton.TouchUpInside += OnUriButtonClicked;
 
-            // Create button2
-            _button2 = new UIButton();
-            _button2.SetTitle("WMTSLayer via WmtsLayerInfo", UIControlState.Normal);
-            _button2.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _button2.BackgroundColor = UIColor.White;
+            // Create a button for WmtsLayerInfo
+            _infoButton = new UIButton();
+            _infoButton.SetTitle("WMTSLayer via WmtsLayerInfo", UIControlState.Normal);
+            _infoButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _infoButton.BackgroundColor = UIColor.White;
 
             // Hook to touch event to do button2
-            _button2.TouchUpInside += OnButton2Clicked;
+            _infoButton.TouchUpInside += OnInfoButtonClicked;
 
             // Add MapView to the page
-            View.AddSubviews(_myMapView, _button1, _button2);
+            View.AddSubviews(_myMapView, _uriButton, _infoButton);
         }
     }
 }

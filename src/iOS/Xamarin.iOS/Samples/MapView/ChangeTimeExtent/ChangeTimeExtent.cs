@@ -41,6 +41,9 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
             TextAlignment = UITextAlignment.Center
         };
 
+        // Create and hold a reference to a toolbar.
+        private readonly UIToolbar _toolbar = new UIToolbar();
+
         // Create and hold reference to the used MapView.
         private MapView _myMapView = new MapView();
 
@@ -109,7 +112,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
             _twoThousandFiveButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Add MapView and buttons to the page.
-            View.AddSubviews(_myMapView, _helpLabel, _twoThousandButton, _twoThousandFiveButton);
+            View.AddSubviews(_myMapView, _toolbar, _helpLabel, _twoThousandButton, _twoThousandFiveButton);
 
             // Add event handlers for button clicked events.
             _twoThousandButton.TouchUpInside += TwoThousandButton_Clicked;
@@ -118,17 +121,21 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
 
         public override void ViewDidLayoutSubviews()
         {
-            int buttonHeight = 60;
+            int controlHeight = 30;
+            int margin = 5;
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Setup the visual frame for the help label
-            _helpLabel.Frame = new CGRect(5, topMargin + 5, View.Bounds.Width - 10, 20);
+            // Set up the frame for the toolbar.
+            _toolbar.Frame = new CGRect(0, View.Bounds.Height - (2 * controlHeight) - (3 * margin), View.Bounds.Width, controlHeight * 2 + margin * 3);
 
-            // Setup the visual frame for the buttons.
-            _twoThousandButton.Frame = new CGRect(0, topMargin + 20, View.Bounds.Width / 2, buttonHeight);
-            _twoThousandFiveButton.Frame = new CGRect(View.Bounds.Width / 2, topMargin + 20, View.Bounds.Width / 2, buttonHeight);
+            // Set up the visual frame for the help label.
+            _helpLabel.Frame = new CGRect(margin, View.Bounds.Height - (2 * controlHeight) - (2 * margin), View.Bounds.Width - (2 * margin), controlHeight);
 
-            // Setup the visual frame for the MapView.
+            // Set up the visual frame for the buttons.
+            _twoThousandButton.Frame = new CGRect(margin, View.Bounds.Height - (controlHeight) - margin, View.Bounds.Width  / 2 - 5, controlHeight);
+            _twoThousandFiveButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - (controlHeight) - margin, View.Bounds.Width / 2 - 5, controlHeight);
+
+            // Set up the visual frame for the MapView.
             _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             base.ViewDidLayoutSubviews();

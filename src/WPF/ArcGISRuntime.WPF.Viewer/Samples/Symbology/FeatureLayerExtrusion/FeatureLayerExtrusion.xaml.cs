@@ -36,10 +36,10 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerExtrusion
             try
             {
                 // Define the Uri for the service feature table (US state polygons)
-                var myServiceFeatureTable_Uri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
+                var serviceFeatureTableUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
 
                 // Create a new service feature table from the Uri
-                ServiceFeatureTable myServiceFeatureTable = new ServiceFeatureTable(myServiceFeatureTable_Uri);
+                ServiceFeatureTable myServiceFeatureTable = new ServiceFeatureTable(serviceFeatureTableUri);
 
                 // Create a new feature layer from the service feature table
                 FeatureLayer myFeatureLayer = new FeatureLayer(myServiceFeatureTable);
@@ -105,15 +105,15 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerExtrusion
             RendererSceneProperties myRendererSceneProperties = myRenderer.SceneProperties;
 
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text
-            if (Button_ToggleExtrusionData.Content.ToString() == "Population Density")
+            if (ToggleDataButton.Content.ToString() == "Population Density")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000";
-                Button_ToggleExtrusionData.Content = "Total Population";
+                ToggleDataButton.Content = "Total Population";
             }
-            else if(Button_ToggleExtrusionData.Content.ToString() == "Total Population")
+            else if(ToggleDataButton.Content.ToString() == "Total Population")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
-                Button_ToggleExtrusionData.Content = "Population Density";
+                ToggleDataButton.Content = "Population Density";
             }
         }
 

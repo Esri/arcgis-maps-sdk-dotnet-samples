@@ -55,28 +55,28 @@
                 <Label Content="Label format"
                        Grid.Row="7" Grid.Column="0" />
                 <!-- Inputs -->
-                <ComboBox x:Name="gridTypeCombo"
+                <ComboBox x:Name="GridTypeCombo"
                           Grid.Row="0" Grid.Column="1" />
-                <CheckBox x:Name="gridVisibilityCheckbox"
+                <CheckBox x:Name="GridVisibilityCheckbox"
                           IsChecked="True" Margin="5"
                           Grid.Row="1" Grid.Column="1" />
-                <CheckBox x:Name="labelVisibilityCheckbox"
+                <CheckBox x:Name="LabelVisibilityCheckbox"
                           IsChecked="True" Margin="5"
                           Grid.Row="2" Grid.Column="1" />
-                <ComboBox x:Name="gridColorCombo"
+                <ComboBox x:Name="GridColorCombo"
                           Grid.Row="3" Grid.Column="1" />
-                <ComboBox x:Name="labelColorCombo"
+                <ComboBox x:Name="LabelColorCombo"
                           Grid.Row="4" Grid.Column="1" />
-                <ComboBox x:Name="haloColorCombo"
+                <ComboBox x:Name="HaloColorCombo"
                           Grid.Row="5" Grid.Column="1" />
-                <ComboBox x:Name="labelPositionCombo"
+                <ComboBox x:Name="LabelPositionCombo"
                           Grid.Row="6" Grid.Column="1" />
-                <ComboBox x:Name="labelFormatCombo"
+                <ComboBox x:Name="LabelFormatCombo"
                           Grid.Row="7" Grid.Column="1" />
                 <!-- Apply -->
-                <Button x:Name="applySettingsButton"
+                <Button x:Name="ApplySettingsButton"
+                        Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
                         Content="Apply settings"
-                        Grid.ColumnSpan="2" Grid.Row="8"
                         IsEnabled="False" />
             </Grid>
         </Border>

@@ -22,84 +22,89 @@ namespace ArcGISRuntime.WPF.Samples.QueryFeatureCountAndExtent
         "Use the button to zoom to the extent of the state specified (by abbreviation) in the textbox or use the button to count the features in the current extent.")]
     public partial class QueryFeatureCountAndExtent
     {
-        // URL to the feature service
-        private readonly Uri _usaCitiesSource = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
+        // URL to the feature service.
+        private readonly Uri _usaCitiesSource =
+            new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
 
-        // Feature table to query
+        // Feature table to query.
         private ServiceFeatureTable _myFeatureTable;
 
         public QueryFeatureCountAndExtent()
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization
+            // Create the UI, setup the control references and execute initialization.
             Initialize();
         }
 
         private async void Initialize()
         {
-            // Create the map with a vector street basemap
+            // Create the map with a vector street basemap.
             Map myMap = new Map(Basemap.CreateStreetsVector());
 
-            // Create the feature table from the service URL
+            // Create the feature table from the service URL.
             _myFeatureTable = new ServiceFeatureTable(_usaCitiesSource);
 
-            // Create the feature layer from the table
+            // Create the feature layer from the table.
             FeatureLayer myFeatureLayer = new FeatureLayer(_myFeatureTable);
 
-            // Add the feature layer to the map
+            // Add the feature layer to the map.
             myMap.OperationalLayers.Add(myFeatureLayer);
 
-            // Wait for the feature layer to load
+            // Wait for the feature layer to load.
             await myFeatureLayer.LoadAsync();
 
-            // Set the map initial extent to the extent of the feature layer
+            // Set the map initial extent to the extent of the feature layer.
             myMap.InitialViewpoint = new Viewpoint(myFeatureLayer.FullExtent);
 
-            // Add the map to the MapView
+            // Add the map to the MapView.
             MyMapView.Map = myMap;
         }
 
         private async void BtnZoomToFeaturesClick(object sender, RoutedEventArgs e)
         {
-            // Create the query parameters
-            QueryParameters queryStates = new QueryParameters() { WhereClause = String.Format("upper(ST) LIKE '%{0}%'", txtStateEntry.Text.ToUpper()) };
+            // Create the query parameters.
+            QueryParameters queryStates = new QueryParameters()
+            {
+                WhereClause = string.Format("upper(ST) LIKE '%{0}%'", StateTextbox.Text.ToUpper())
+            };
 
-            // Get the extent from the query
+            // Get the extent from the query.
             Envelope resultExtent = await _myFeatureTable.QueryExtentAsync(queryStates);
 
-            // Return if there is no result (might happen if query is invalid)
+            // Return if there is no result (might happen if query is invalid).
             if (resultExtent == null || resultExtent.SpatialReference == null)
             {
+                ResultsTextbox.Text = "No results. Search for an abbreviated name (e.g. NH).";
                 return;
             }
 
-            // Create a viewpoint from the extent
+            // Create a viewpoint from the extent.
             Viewpoint resultViewpoint = new Viewpoint(resultExtent);
 
-            // Zoom to the viewpoint
+            // Zoom to the viewpoint.
             await MyMapView.SetViewpointAsync(resultViewpoint);
 
-            // Update the UI
-            txtResults.Text = String.Format("Zoomed to features in {0}", txtStateEntry.Text);
+            // Update the UI.
+            ResultsTextbox.Text = string.Format("Zoomed to features in {0}", StateTextbox.Text);
         }
 
         private async void BtnCountFeaturesClick(object sender, RoutedEventArgs e)
         {
-            // Create the query parameters
+            // Create the query parameters.
             QueryParameters queryCityCount = new QueryParameters
             {
-                // Get the current view extent and use that as a query parameters
+                // Get the current view extent and use that as a query parameters.
                 Geometry = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry,
-                // Specify the interpretation of the Geometry query parameters
+                // Specify the interpretation of the Geometry query parameters.
                 SpatialRelationship = SpatialRelationship.Intersects
             };
 
-            // Get the count of matching features
+            // Get the count of matching features.
             long count = await _myFeatureTable.QueryFeatureCountAsync(queryCityCount);
 
-            // Update the UI
-            txtResults.Text = String.Format("{0} features in extent", count);
+            // Update the UI.
+            ResultsTextbox.Text = string.Format("{0} features in extent", count);
         }
     }
 }

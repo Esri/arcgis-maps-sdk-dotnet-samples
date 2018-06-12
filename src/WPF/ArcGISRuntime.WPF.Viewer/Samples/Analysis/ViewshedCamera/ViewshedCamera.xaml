@@ -3,12 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:SceneView x:Name="MySceneView"/>
-        <Button x:Name="UpdateObserverButton"
-                Content="Viewshed from Here"
-                Width="160" Height="30"
-                HorizontalAlignment="Center" VerticalAlignment="Top"
-                Margin="0,30"
-                Click="UpdateObserverWithCamera"/>
+        <esri:SceneView x:Name="MySceneView" />
+        <Border BorderBrush="Black" BorderThickness="1" Background="White"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="30" Padding="20" Width="375">
+            <Button x:Name="UpdateObserverButton"
+                    Content="Viewshed from here"
+                    Click="UpdateObserverWithCamera" />
+        </Border>
     </Grid>
 </UserControl>

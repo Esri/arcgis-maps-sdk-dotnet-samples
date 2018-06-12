@@ -34,14 +34,14 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         private string ServerUrl = "https://www.arcgis.com/sharing/rest";
 
         // TODO: Add Client ID for an app registered with the server
-        private string AppClientId = "2Gh53JRzkPtOENQq";
+        private string _appClientId = "2Gh53JRzkPtOENQq";
 
         // TODO: Add URL for redirecting after a successful authorization
         //       Note - this must be a URL configured as a valid Redirect URI with your app
-        private string OAuthRedirectUrl = "https://developers.arcgis.com";
+        private string _oAuthRedirectUrl = "https://developers.arcgis.com";
 
         // String array to store names of the available basemaps
-        private string[] _basemapNames = new string[]
+        private readonly string[] _basemapNames = 
         {
             "Light Gray",
             "Topographic",
@@ -81,8 +81,8 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             OperationalLayerListBox.ItemsSource = _operationalLayerUrls;
 
             // Show the OAuth settings in the page
-            ClientIdTextBox.Text = AppClientId;
-            RedirectUrlTextBox.Text = OAuthRedirectUrl;
+            ClientIdTextBox.Text = _appClientId;
+            RedirectUrlTextBox.Text = _oAuthRedirectUrl;
 
             // Update the extent labels whenever the view point (extent) changes
             MyMapView.ViewpointChanged += (s, evt) => UpdateViewExtentLabels();
@@ -114,8 +114,8 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         private void SaveOAuthSettingsClicked(object sender, RoutedEventArgs e)
         {
             // Store the OAuth information that was entered
-            AppClientId = ClientIdTextBox.Text.Trim();
-            OAuthRedirectUrl = RedirectUrlTextBox.Text.Trim();
+            _appClientId = ClientIdTextBox.Text.Trim();
+            _oAuthRedirectUrl = RedirectUrlTextBox.Text.Trim();
 
             // Hide the OAuth settings, show the save map controls
             OAuthSettingsGrid.Visibility = Visibility.Collapsed;
@@ -302,8 +302,8 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                 ServerUri = new Uri(ServerUrl),
                 OAuthClientInfo = new OAuthClientInfo
                 {
-                    ClientId = AppClientId,
-                    RedirectUri = new Uri(OAuthRedirectUrl)
+                    ClientId = _appClientId,
+                    RedirectUri = new Uri(_oAuthRedirectUrl)
                 },
                 // Specify OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
                 // Otherwise, use OAuthImplicit

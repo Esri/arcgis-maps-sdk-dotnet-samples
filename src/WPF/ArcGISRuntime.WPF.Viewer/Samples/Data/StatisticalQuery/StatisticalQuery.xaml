@@ -3,49 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="3*"/>
-            </Grid.ColumnDefinitions>
-            <CheckBox x:Name="OnlyInExtentCheckbox"
-                      Grid.Row="1" Grid.Column="0"
-                      HorizontalAlignment="Right" VerticalAlignment="Center"/>            
-            <TextBlock Grid.Row="1" Grid.Column="1"
-                       HorizontalAlignment="Left" VerticalAlignment="Center"
-                       Margin="5,0"
-                       Text="Only cities in current extent"/>
-            <CheckBox x:Name="OnlyBigCitiesCheckbox"
-                      Grid.Row="2" Grid.Column="0"
-                      HorizontalAlignment="Right"/>
-            <TextBlock Grid.Row="2" Grid.Column="1"
-                       HorizontalAlignment="Left"
-                       Margin="5,0"
-                       Text="Only cities greater than 5M"/>
-            <Button x:Name="GetStatsButton"
-                    Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
-                    Height="30"
-                    Margin="10"
-                    Content="Get Statistics"
-                    Click="OnExecuteStatisticsQueryClicked"/>
-            <ListBox x:Name="StatResultsListBox"
-                      Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
-                      HorizontalAlignment="Stretch"
-                      Margin="5"
-                      Height="200"/>
-        </Grid>
-        <esri:MapView x:Name="MyMapView" Grid.Column="1"/>
+        <esri:MapView x:Name="MyMapView" />
+        <Border BorderBrush="Black" BorderThickness="1" Background="White"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="30" Padding="20" Width="375">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition Height="150" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <CheckBox x:Name="OnlyInExtentCheckbox"
+                          Grid.Row="0" Grid.Column="0"
+                          Content="Cities in current extent"
+                          HorizontalAlignment="Left" />
+                <CheckBox x:Name="OnlyBigCitiesCheckbox"
+                          Grid.Row="0" Grid.Column="1"
+                          Content="Cities greater than 5M"
+                          HorizontalAlignment="Right" />
+                <Button x:Name="GetStatsButton"
+                        Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                        Margin="0,5,0,5"
+                        Content="Get Statistics"
+                        Click="OnExecuteStatisticsQueryClicked" />
+                <ListBox x:Name="StatResultsListBox"
+                         Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
+            </Grid>
+        </Border>
     </Grid>
 
 </UserControl>

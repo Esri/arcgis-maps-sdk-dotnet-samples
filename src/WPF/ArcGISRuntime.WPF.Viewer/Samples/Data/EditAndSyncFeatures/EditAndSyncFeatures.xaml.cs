@@ -183,7 +183,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
                 MySyncButton.IsEnabled = true;
 
                 // Update the help label.
-                MyHelpLabel.Content = "4. Click 'Sync Geodatabase' or edit more features";
+                MyHelpLabel.Text = "4. Click 'Sync Geodatabase' or edit more features";
             }
             // Otherwise, start an edit.
             else
@@ -210,7 +210,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
                 _readyForEdits = EditState.Editing;
 
                 // Update the help label.
-                MyHelpLabel.Content = "3. Tap on the map to move the point";
+                MyHelpLabel.Text = "3. Tap on the map to move the point";
             }
         }
 
@@ -319,7 +319,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
                 _readyForEdits = EditState.Ready;
 
                 // Update help label.
-                MyHelpLabel.Content = "2. Tap a point feature to select";
+                MyHelpLabel.Text = "2. Tap a point feature to select";
             }
             else
             {

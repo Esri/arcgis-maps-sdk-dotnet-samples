@@ -16,10 +16,10 @@
                 <TextBlock Text="Click map to execute viewshed analysis." 
                            HorizontalAlignment="Center" VerticalAlignment="Center" />
             
-                <Grid x:Name="busyOverlay" Margin="-20" Visibility="Collapsed" Background="#8C000000" Grid.RowSpan="4">
+                <Grid x:Name="BusyOverlay" Margin="-20" Visibility="Collapsed" Background="#8C000000" Grid.RowSpan="4">
                     <Border HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Background="#FFC6C4C4">
                         <Grid>
-                            <ProgressBar IsIndeterminate="True" x:Name="progress" Height="20" />
+                            <ProgressBar IsIndeterminate="True" x:Name="Progress" Height="20" />
                             <TextBlock Text="Executing analysis..." HorizontalAlignment="Center" Margin="5" Height="20" />
                         </Grid>
                     </Border>

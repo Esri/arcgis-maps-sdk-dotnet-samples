@@ -37,20 +37,34 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
         // Create and hold references to the segment controls
         private UISegmentedControl _colorSchemeSegment = new UISegmentedControl("Day", "Dusk", "Night")
         {
-            BackgroundColor = UIColor.LightGray,
             SelectedSegment = 0
         };
 
         private UISegmentedControl _areaSegment = new UISegmentedControl("Plain", "Symbolized")
         {
-            BackgroundColor = UIColor.LightGray,
             SelectedSegment = 0
         };
 
         private UISegmentedControl _pointSegment = new UISegmentedControl("Paper Chart", "Simplified")
         {
-            BackgroundColor = UIColor.LightGray,
             SelectedSegment = 0
+        };
+
+        // Toolbar to put behind the ENC display options form
+        private UIToolbar _toolbar = new UIToolbar();
+
+        // Labels
+        private UILabel _colorsLabel = new UILabel
+        {
+            Text = "Color scheme:"
+        };
+        private UILabel _areaLabel = new UILabel
+        {
+            Text = "Area symbolization typ:"
+        };
+        private UILabel _pointLabel = new UILabel
+        {
+            Text = "Point symbolization type:"
         };
 
         public ChangeEncDisplaySettings()
@@ -159,7 +173,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
         private void CreateLayout()
         {
             // Add MapView to the page
-            View.AddSubviews(_myMapView, _colorSchemeSegment, _areaSegment, _pointSegment);
+            View.AddSubviews(_myMapView, _toolbar, _colorsLabel, _areaLabel, _pointLabel, _colorSchemeSegment, _areaSegment, _pointSegment);
         }
 
         public override void ViewDidLoad()
@@ -183,13 +197,19 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
 
         public override void ViewDidLayoutSubviews()
         {
+            nfloat controlHeight = 30;
+            nfloat margin = 5;
+            nfloat formStart = View.Bounds.Height - (6 * controlHeight) - (7 * margin);
+
             // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            var topBound = NavigationController.NavigationBar.Bounds.Height;
-            _colorSchemeSegment.Frame = new CoreGraphics.CGRect(20, topBound += 40, View.Bounds.Width - 40, 30);
-            _areaSegment.Frame = new CoreGraphics.CGRect(20, topBound += 40, View.Bounds.Width - 40, 30);
-            _pointSegment.Frame = new CoreGraphics.CGRect(20, topBound + 40, View.Bounds.Width - 40, 30);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, formStart, View.Bounds.Width, View.Bounds.Height - formStart);
+            _colorsLabel.Frame = new CoreGraphics.CGRect(margin, formStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _colorSchemeSegment.Frame = new CoreGraphics.CGRect(margin, formStart + controlHeight + (2 * margin), View.Bounds.Width - (2 * margin), controlHeight);
+            _areaLabel.Frame = new CoreGraphics.CGRect(margin, formStart + (2 * controlHeight) + (3 * margin), View.Bounds.Width - (2 * margin), controlHeight);
+            _areaSegment.Frame = new CoreGraphics.CGRect(margin, formStart + (3 * controlHeight) + (4 * margin), View.Bounds.Width - (2 * margin), controlHeight);
+            _pointLabel.Frame = new CoreGraphics.CGRect(margin, formStart + (4 * controlHeight) + (5 * margin), View.Bounds.Width - (2 * margin), controlHeight);
+            _pointSegment.Frame = new CoreGraphics.CGRect(margin, formStart + (5 * controlHeight) + (6 * margin), View.Bounds.Width - (2 * margin), controlHeight);
 
             base.ViewDidLayoutSubviews();
         }

@@ -62,7 +62,7 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacility
             // Hook up the DrawStatusChanged event.
             MyMapView.DrawStatusChanged += OnDrawStatusChanged;
 
-            // Construct the map and set the MapView.Map property
+            // Construct the map and set the MapView.Map property.
             Map map = new Map(Basemap.CreateLightGrayCanvasVector());
             MyMapView.Map = map;
 
@@ -91,10 +91,10 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacility
                 Width = 30
             };
 
-            // Incident symbol
+            // Incident symbol.
             _incidentSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.FromArgb(255, 0, 0, 0), 30);
 
-            // Route to hospital symbol
+            // Route to hospital symbol.
             _routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.FromArgb(255, 0, 0, 255), 5.0f);
 
             // Create Graphics Overlays for incidents and facilities.

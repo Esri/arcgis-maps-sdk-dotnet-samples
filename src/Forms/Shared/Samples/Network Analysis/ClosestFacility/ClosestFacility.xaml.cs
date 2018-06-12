@@ -21,31 +21,32 @@ namespace ArcGISRuntime.Samples.ClosestFacility
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Closest facility (interactive)",
         "Network Analysis",
-        "Demonstrates how to solve a Closest Facility Task to find the closest route between a facility (hospital) and a incident (black cross). Tap to find the route to the nearest hospital.",
-        "")]
+        "Demonstrates how to solve a Closest Facility Task to find the closest route between a facility (hospital) and a incident (black cross).",
+        "Tap to find the route to the nearest hospital.")]
     public partial class ClosestFacility
     {
-        // Holds locations of hospitals around San Diego
+        // Holds locations of hospitals around San Diego.
         private List<Facility> _facilities;
 
-        // Graphics overlays for facilities and incidents
+        // Graphics overlays for facilities and incidents.
         private GraphicsOverlay _facilityGraphicsOverlay;
 
-        // Symbol for facilities
+        // Symbol for facilities.
         private PictureMarkerSymbol _facilitySymbol;
 
+        // Overlay for the incident.
         private GraphicsOverlay _incidentGraphicsOverlay;
 
-        // Black cross where user clicked
+        // Black cross where user clicked.
         private MapPoint _incidentPoint;
 
-        // Symbol for the incident
+        // Symbol for the incident.
         private SimpleMarkerSymbol _incidentSymbol;
 
-        // Used to display route between incident and facility to mapview
+        // Used to display route between incident and facility to mapview.
         private SimpleLineSymbol _routeSymbol;
 
-        // Solves task to find closest route between an incident and a facility
+        // Solves task to find closest route between an incident and a facility.
         private ClosestFacilityTask _task;
 
         public ClosestFacility()
@@ -61,25 +62,22 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             // Hook up the DrawStatusChanged event.
             MyMapView.DrawStatusChanged += OnDrawStatusChanged;
 
-            // Load the basemap.
+            // Construct the map and set the MapView.Map property.
             Map map = new Map(Basemap.CreateLightGrayCanvasVector());
             MyMapView.Map = map;
 
             // Create a ClosestFacilityTask using the San Diego Uri.
             _task = ClosestFacilityTask.CreateAsync(new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ClosestFacility")).Result;
 
-            // Spatial reference to be used
-            SpatialReference _spatialReference = SpatialReferences.WebMercator;
-
             // List of facilities to be placed around San Diego area.
             _facilities = new List<Facility> {
-                new Facility(new MapPoint(-1.3042129900625112E7, 3860127.9479775648, _spatialReference)),
-                new Facility(new MapPoint(-1.3042193400557665E7, 3862448.873041752, _spatialReference)),
-                new Facility(new MapPoint(-1.3046882875518233E7, 3862704.9896770366, _spatialReference)),
-                new Facility(new MapPoint(-1.3040539754780494E7, 3862924.5938606677, _spatialReference)),
-                new Facility(new MapPoint(-1.3042571225655518E7, 3858981.773018156, _spatialReference)),
-                new Facility(new MapPoint(-1.3039784633928463E7, 3856692.5980474586, _spatialReference)),
-                new Facility(new MapPoint(-1.3049023883956768E7, 3861993.789732541, _spatialReference))
+                new Facility(new MapPoint(-1.3042129900625112E7, 3860127.9479775648, SpatialReferences.WebMercator)),
+                new Facility(new MapPoint(-1.3042193400557665E7, 3862448.873041752, SpatialReferences.WebMercator)),
+                new Facility(new MapPoint(-1.3046882875518233E7, 3862704.9896770366, SpatialReferences.WebMercator)),
+                new Facility(new MapPoint(-1.3040539754780494E7, 3862924.5938606677, SpatialReferences.WebMercator)),
+                new Facility(new MapPoint(-1.3042571225655518E7, 3858981.773018156, SpatialReferences.WebMercator)),
+                new Facility(new MapPoint(-1.3039784633928463E7, 3856692.5980474586, SpatialReferences.WebMercator)),
+                new Facility(new MapPoint(-1.3049023883956768E7, 3861993.789732541, SpatialReferences.WebMercator))
                 };
 
             // Center the map on the San Diego facilities.
@@ -87,14 +85,16 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             MyMapView.SetViewpointGeometryAsync(fullExtent, 50);
 
             // Create a symbol for displaying facilities.
-            _facilitySymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/Hospital.png"));
-            _facilitySymbol.Height = 30;
-            _facilitySymbol.Width = 30;
+            _facilitySymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/Hospital.png"))
+            {
+                Height = 30,
+                Width = 30
+            };
 
-            // Incident symbol
+            // Incident symbol.
             _incidentSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.FromArgb(255, 0, 0, 0), 30);
 
-            // Route to hospital symbol
+            // Route to hospital symbol.
             _routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.FromArgb(255, 0, 0, 255), 5.0f);
 
             // Create Graphics Overlays for incidents and facilities.
@@ -139,14 +139,14 @@ namespace ArcGISRuntime.Samples.ClosestFacility
         private async void PopulateParametersAndSolveRouteAsync()
         {
             // Set facilities and incident in parameters.
-            ClosestFacilityParameters _closestFacilityParameters = await _task.CreateDefaultParametersAsync();
-            _closestFacilityParameters.SetFacilities(_facilities);
-            _closestFacilityParameters.SetIncidents(new List<Incident> { new Incident(_incidentPoint) });
+            ClosestFacilityParameters closestFacilityParameters = await _task.CreateDefaultParametersAsync();
+            closestFacilityParameters.SetFacilities(_facilities);
+            closestFacilityParameters.SetIncidents(new List<Incident> { new Incident(_incidentPoint) });
 
             try
             {
                 // Use the task to solve for the closest facility.
-                ClosestFacilityResult result = await _task.SolveClosestFacilityAsync(_closestFacilityParameters);
+                ClosestFacilityResult result = await _task.SolveClosestFacilityAsync(closestFacilityParameters);
 
                 // Get the index of the closest facility to incident. (0) is the index of the incident, [0] is the index of the closest facility.
                 int closestFacility = result.GetRankedFacilityIndexes(0)[0];
@@ -160,13 +160,13 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             }
             catch (Esri.ArcGISRuntime.Http.ArcGISWebException exception)
             {
-                if (exception.Message.ToString().Equals("Unable to complete operation."))
+                if (exception.Message.Equals("Unable to complete operation."))
                 {
                     await DisplayAlert("Error", "Incident not within San Diego area!", "OK");
                 }
                 else
                 {
-                    await DisplayAlert("Error", "An ArcGIS web exception occurred. \n" + exception.Message.ToString(), "OK");
+                    await DisplayAlert("Error", "An ArcGIS web exception occurred. \n" + exception.Message, "OK");
                 }
             }
         }

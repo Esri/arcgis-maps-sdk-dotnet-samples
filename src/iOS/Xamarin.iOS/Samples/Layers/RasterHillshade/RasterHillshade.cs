@@ -126,7 +126,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
 
             // Create a view to show map item info entry controls over the map view.
             var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
-            _applyHillshadeRendererUI = new ApplyHillshadeRendererDialogOverlay(ovBounds, 0.75f, UIColor.White);
+            _applyHillshadeRendererUI = new ApplyHillshadeRendererDialogOverlay(ovBounds, 0.9f, UIColor.White);
 
             // Handle the OnHillshadeInputsEntered event to get the new renderer defined by the user.
             _applyHillshadeRendererUI.OnHillshadeInputsEntered += (s, hillshadeArgs) => 
@@ -205,7 +205,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             // Button to cancel the input.
             UIButton cancelButton = new UIButton();
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
-            cancelButton.SetTitleColor(TintColor, UIControlState.Normal);
+            cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
             cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
 
             CreateHillshadeInputUI(inputHillshadeParamsButton, cancelButton);

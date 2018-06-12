@@ -49,7 +49,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
         };
         private UILabel _helpLabel = new UILabel
         {
-            Text = "Choose a style",
+            Text = "Choose a style:",
             TextAlignment = UITextAlignment.Center,
             TextColor = UIColor.Black
         };
@@ -145,6 +145,8 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
         {
             // Calculate the top margin.
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            int controlHeight = 30;
+            int margin = 5;
 
             // Setup the visual frame for the MapView.
             _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
@@ -153,12 +155,13 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 50, 0);
 
             // Update the toolbar and button positions.
-            _buttonContainer.Frame = new CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
-            _firstStyleButton.Frame = new CGRect(10, View.Bounds.Height - 40, View.Bounds.Width / 2 - 10, 30);
-            _secondStyleButton.Frame = new CGRect(View.Bounds.Width / 2 + 10, View.Bounds.Height - 40, View.Bounds.Width / 2 - 10, 30);
+            _buttonContainer.Frame = new CGRect(0, View.Bounds.Height - (2 * controlHeight) - (3 * margin), View.Bounds.Width, 2 * controlHeight + 3 * margin);
 
             // Update the help label position.
-            _helpLabel.Frame = new CGRect(0, View.Bounds.Height - 90, View.Bounds.Width, 20);
+            _helpLabel.Frame = new CGRect(margin, View.Bounds.Height - (2 * controlHeight) - (2 * margin), View.Bounds.Width - (2 * margin), controlHeight);
+
+            _firstStyleButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - margin, controlHeight);
+            _secondStyleButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - margin, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }

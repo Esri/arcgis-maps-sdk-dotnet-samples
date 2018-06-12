@@ -71,19 +71,21 @@ namespace ArcGISRuntime.Samples.ExportTiles
         public override void ViewDidLayoutSubviews()
         {
             // Hold a margin value.
-            int margin = 30;
+            nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            int margin = 5;
+            int barHeight = 40;
 
             // Set up the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - barHeight);
 
             // Set up the visual frame for the preview MapView.
-            _myPreviewMapView.Frame = new CoreGraphics.CGRect(margin, margin * 2, View.Bounds.Width - 2 * margin, View.Bounds.Height - 4 * margin);
+            _myPreviewMapView.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, View.Bounds.Height - topStart - barHeight);
 
             // Set up the visual frame for the progress bar.
-            _myProgressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 20);
+            _myProgressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - barHeight, View.Bounds.Width, barHeight);
 
             // Set up the visual frame for the button.
-            _myExportButton.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 20, View.Bounds.Width, 20);
+            _myExportButton.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - barHeight, View.Bounds.Width, barHeight);
 
             base.ViewDidLayoutSubviews();
         }
@@ -148,7 +150,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
             };
 
             // Set a border on the preview window.
-            _myPreviewMapView.Layer.BorderColor = new CoreGraphics.CGColor(.8f, .2f, .6f);
+            _myPreviewMapView.Layer.BorderColor = new CoreGraphics.CGColor(0,0,1f);
             _myPreviewMapView.Layer.BorderWidth = 2.0f;
 
             // Create the progress bar.
@@ -159,18 +161,18 @@ namespace ArcGISRuntime.Samples.ExportTiles
             };
 
             // Create the export button - disabled until sample is ready.
-            _myExportButton = new UIButton() { Enabled = false };
+            _myExportButton = new UIButton() { Enabled = false, BackgroundColor = UIColor.White };
             _myExportButton.SetTitle("Export", UIControlState.Normal);
+            _myExportButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
-            // Set background color on the button and progressbar.
-            _myExportButton.BackgroundColor = UIColor.LightGray;
-            _myProgressBar.BackgroundColor = UIColor.LightGray;
+            // Set background color on the progressbar.
+            _myProgressBar.BackgroundColor = UIColor.FromWhiteAlpha(0, .5f);
 
             // Get notified of button taps.
             _myExportButton.TouchUpInside += MyExportButton_Click;
 
             // Add the views.
-            View.AddSubviews(_myMapView, _myProgressBar, _myExportButton, _myPreviewMapView);
+            View.AddSubviews(_myMapView, _myExportButton, _myProgressBar, _myPreviewMapView);
         }
 
         private void MyMapView_ViewpointChanged(object sender, EventArgs e)
@@ -298,7 +300,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
                         _myPreviewMapView.Hidden = false;
 
                         // Change the export button text.
-                        _myExportButton.SetTitle("Close Preview", UIControlState.Normal);
+                        _myExportButton.SetTitle("Close preview", UIControlState.Normal);
 
                         // Re-enable the button.
                         _myExportButton.Enabled = true;

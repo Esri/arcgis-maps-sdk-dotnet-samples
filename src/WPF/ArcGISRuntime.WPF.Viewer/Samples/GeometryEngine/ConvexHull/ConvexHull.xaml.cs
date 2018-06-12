@@ -147,9 +147,13 @@ namespace ArcGISRuntime.WPF.Samples.ConvexHull
 
         private void ResetButton_Click(object sender, RoutedEventArgs e)
         {
+            // Clear the existing points and graphics.
             _inputPointCollection.Clear();
             _pointOverlay.Graphics.Clear();
             _hullOverlay.Graphics.Clear();
+
+            // Disable the convex hull button.
+            ConvexHullButton.IsEnabled = false;
         }
     }
 }

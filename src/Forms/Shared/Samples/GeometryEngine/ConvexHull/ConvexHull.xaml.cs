@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.Xamarin.Forms;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
@@ -26,6 +27,138 @@ namespace ArcGISRuntime.Samples.ConvexHull
         "Analysis", "ConvexHull", "GeometryEngine")]
     public partial class ConvexHull : ContentPage
     {
+        // Graphics overlay to display the points.
+        private GraphicsOverlay _pointOverlay;
+
+        // Graphics overlay to display the hull.
+        private GraphicsOverlay _hullOverlay;
+
+        // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.ConvexHull operation.
+        private List<Geometry> _inputPointsList = new List<Geometry>();
+
+        // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.ConvexHull operation.
+        private PointCollection _inputPointCollection = new PointCollection(SpatialReferences.WebMercator);
+
+        public ConvexHull()
+        {
+            InitializeComponent();
+
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            // Disable the button to create a hull.
+            ConvexHullButton.IsEnabled = false;
+
+            // Create a map with a topographic basemap.
+            Map theMap = new Map(Basemap.CreateTopographic());
+
+            // Assign the map to the MapView.
+            MyMapView.Map = theMap;
+
+            // Create a graphics overlay to hold the clicked points.
+            _pointOverlay = new GraphicsOverlay();
+
+            // Create an overlay to hold the lines of the hull.
+            _hullOverlay = new GraphicsOverlay();
+
+            // Add the created graphics overlays to the MapView.
+            MyMapView.GraphicsOverlays.Add(_pointOverlay);
+            MyMapView.GraphicsOverlays.Add(_hullOverlay);
+
+            // Wire up the MapView's GeoViewTapped event handler.
+            MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+        }
+
+        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            try
+            {
+                // Create a map point (in the WebMercator projected coordinate system) from the GUI screen coordinate.
+                MapPoint userTappedMapPoint = MyMapView.ScreenToLocation(e.Position);
+
+                // Add the map point to the list that will be used by the GeometryEngine.ConvexHull operation.
+                _inputPointCollection.Add(userTappedMapPoint);
+
+                // Check if there are at least three points.
+                if (_inputPointCollection.Count > 2)
+                {
+                    // Enable the button for creating hulls.
+                    ConvexHullButton.IsEnabled = true;
+                }
+
+                // Create a simple marker symbol to display where the user tapped/clicked on the map. The marker symbol
+                // will be a solid, red circle.
+                SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Red, 10);
+
+                // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol.
+                Graphic userTappedGraphic = new Graphic(userTappedMapPoint, userTappedSimpleMarkerSymbol);
+
+                // Set the Z index for the user tapped graphic so that it appears above the convex hull graphic(s) added later.
+                userTappedGraphic.ZIndex = 1;
+
+                // Add the user tapped/clicked map point graphic to the graphic overlay.
+                _pointOverlay.Graphics.Add(userTappedGraphic);
+            }
+            catch (System.Exception ex)
+            {
+                // Display an error message if there is a problem adding user tapped graphics.
+                DisplayAlert("Error", "Can't add user tapped graphic: " + ex.Message, "OK");
+            }
+        }
+
+        private void ConvexHullButton_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                // Create a multi-point geometry from the user tapped input map points.
+                Multipoint inputMultipoint = new Multipoint(_inputPointCollection);
+
+                // Get the returned result from the convex hull operation.
+                Geometry convexHullGeometry = GeometryEngine.ConvexHull(inputMultipoint);
+
+                // Create a simple line symbol for the outline of the convex hull graphic(s).
+                SimpleLineSymbol convexHullSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Blue, 4);
+
+                // Create the simple fill symbol for the convex hull graphic(s) - comprised of a fill style, fill
+                // color and outline. It will be a hollow (i.e.. see-through) polygon graphic with a thick red outline.
+                SimpleFillSymbol convexHullSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Null, Color.Red,
+                    convexHullSimpleLineSymbol);
+
+                // Create the graphic for the convex hull - comprised of a polygon shape and fill symbol.
+                Graphic convexHullGraphic = new Graphic(convexHullGeometry, convexHullSimpleFillSymbol);
+
+                // Set the Z index for the convex hull graphic so that it appears below the initial input user
+                // tapped map point graphics added earlier.
+                convexHullGraphic.ZIndex = 0;
+
+                // Add the convex hull graphic to the graphics overlay collection.
+                _hullOverlay.Graphics.Clear();
+                _hullOverlay.Graphics.Add(convexHullGraphic);
+
+                // Disable the button after has been used.
+                ConvexHullButton.IsEnabled = false;
+            }
+            catch (System.Exception ex)
+            {
+                // Display an error message if there is a problem generating convex hull operation.
+                DisplayAlert("Geometry Engine Failed", "Error performing convex hull: " + ex.Message, "OK");
+            }
+        }
+
+        private void ResetButton_Clicked(object sender, EventArgs e)
+        {
+            // Clear the existing points and graphics.
+            _inputPointCollection.Clear();
+            _pointOverlay.Graphics.Clear();
+            _hullOverlay.Graphics.Clear();
+
+            // Disable the convex hull button.
+            ConvexHullButton.IsEnabled = false;
+        }
+
+        /*
         // Graphics overlay to display the graphics.
         private GraphicsOverlay _graphicsOverlay;
 
@@ -72,12 +205,12 @@ namespace ArcGISRuntime.Samples.ConvexHull
                 // Add the map point to the list that will be used by the GeometryEngine.ConvexHull operation.
                 _inputPointCollection.Add(userTappedMapPoint);
 
-                // Create a simple marker symbol to display where the user tapped/clicked on the map. The marker symbol 
+                // Create a simple marker symbol to display where the user tapped/clicked on the map. The marker symbol
                 // will be a solid, red circle.
                 SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle,
                     Color.Red, 10);
 
-                // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol. 
+                // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol.
                 Graphic userTappedGraphic = new Graphic(userTappedMapPoint, userTappedSimpleMarkerSymbol);
 
                 // Set the Z index for the user tapped graphic so that it appears above the convex hull graphic(s) added later.
@@ -107,7 +240,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
                 SimpleLineSymbol convexHullSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid,
                     Color.Blue, 4);
 
-                // Create the simple fill symbol for the convex hull graphic(s) - comprised of a fill style, fill 
+                // Create the simple fill symbol for the convex hull graphic(s) - comprised of a fill style, fill
                 // color and outline. It will be a hollow (i.e.. see-through) polygon graphic with a thick red outline.
                 SimpleFillSymbol convexHullSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Null,
                     Color.Red, convexHullSimpleLineSymbol);
@@ -115,7 +248,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
                 // Create the graphic for the convex hull - comprised of a polygon shape and fill symbol.
                 Graphic convexHullGraphic = new Graphic(convexHullGeometry, convexHullSimpleFillSymbol);
 
-                // Set the Z index for the convex hull graphic so that it appears below the initial input user 
+                // Set the Z index for the convex hull graphic so that it appears below the initial input user
                 // tapped map point graphics added earlier.
                 convexHullGraphic.ZIndex = 0;
 
@@ -131,6 +264,9 @@ namespace ArcGISRuntime.Samples.ConvexHull
                 DisplayAlert("Geometry Engine Failed", "Error performing convex hull: " + ex.Message, "OK");
             }
         }
-
+        private void ResetButton_Clicked(object sender, EventArgs e)
+        {
+        }
+        */
     }
 }

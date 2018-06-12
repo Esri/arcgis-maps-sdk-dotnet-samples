@@ -6,7 +6,8 @@
              x:Class="ArcGISRuntime.Samples.ConvexHull.ConvexHull">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -19,8 +20,12 @@
         <Button x:Name="ConvexHullButton"
                 Grid.Row="1"
                 Text="Convex Hull"
-                Clicked="ConvexHullButton_Clicked"/>
-        <esriUI:MapView x:Name="MyMapView" 
-                        Grid.Row="2"/>
+                Clicked="ConvexHullButton_Clicked" />
+        <Button x:Name="ResetButton"
+                Grid.Row="2"
+                Text="Reset"
+                Clicked="ResetButton_Clicked" />
+        <esriUI:MapView x:Name="MyMapView"
+                        Grid.Row="3" />
     </Grid>
 </ContentPage>

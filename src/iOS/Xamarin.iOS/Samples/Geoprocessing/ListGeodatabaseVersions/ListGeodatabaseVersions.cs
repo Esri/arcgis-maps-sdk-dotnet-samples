@@ -50,11 +50,13 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
         }
         public override void ViewDidLayoutSubviews()
         {
+            nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
             // Set the visual frame for the text view
-            _myEditText_ListGeodatabases.Frame = new CoreGraphics.CGRect(10, 80, View.Bounds.Width - 20, View.Bounds.Height - 80);
+            _myEditText_ListGeodatabases.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, View.Bounds.Height - topStart);
 
             // Set the visual frame for the progress view
-            _myProgressBar.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 - 50, View.Bounds.Height / 2 - 50, 100, 100);
+            _myProgressBar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, View.Bounds.Height - topStart);
         }
 
         private async void Initialize()
@@ -178,6 +180,10 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
 
             // Set the color
             _myProgressBar.Color = View.TintColor;
+            _myProgressBar.BackgroundColor = UIColor.FromWhiteAlpha(.5f, .8f);
+
+            // Make the view background color white (so the navigation bar looks good)
+            View.BackgroundColor = UIColor.White;
 
             // Add views to the layout
             View.AddSubviews(_myEditText_ListGeodatabases, _myProgressBar);

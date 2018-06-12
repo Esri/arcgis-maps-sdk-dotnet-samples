@@ -333,6 +333,7 @@
     <None Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
     <None Include="Samples\GeometryEngine\CutGeometry\CutGeometry.jpg" />
     <None Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg" />
+    <None Include="Samples\Map\OpenScene\OpenScene.jpg" />
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
@@ -362,6 +363,7 @@
     <Compile Include="Samples\MapView\DisplayGrid\DisplayGrid.cs" />
     <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.cs" />
     <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.cs" />
+    <Compile Include="Samples\Map\OpenScene\OpenScene.cs" />
     <Compile Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.cs" />
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />

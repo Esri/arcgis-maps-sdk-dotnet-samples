@@ -40,7 +40,6 @@
                 <Label Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right">Frustum Visibility</Label>
                 <Label Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right">Analysis Visibility</Label>
 
-
                 <Slider Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="0" Maximum="360" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="HeadingSlider" ValueChanged="HandleSettingsChange" />
                 <Slider Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="60" Maximum="180" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="PitchSlider" ValueChanged="HandleSettingsChange" />
                 <Slider Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="75" Maximum="120" Minimum="1" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="HorizontalAngleSlider" ValueChanged="HandleSettingsChange" />

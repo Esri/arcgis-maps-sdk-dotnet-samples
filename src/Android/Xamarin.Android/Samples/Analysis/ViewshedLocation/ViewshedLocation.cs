@@ -83,7 +83,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             myScene.OperationalLayers.Add(sceneLayer);
 
             // Create the MapPoint representing the initial location.
-            MapPoint initialLocation = new MapPoint(-4.5, 48.4, 100.0);
+            MapPoint initialLocation = new MapPoint(-4.5, 48.4, 56.0);
 
             // Create the location viewshed analysis.
             _viewshed = new LocationViewshed(
@@ -122,6 +122,9 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         {
             // Update the viewshed location.
             _viewshed.Location = viewInputEventArgs.Location;
+
+            // Move the location off of the ground.
+            //_viewshed.Location = new MapPoint(_viewshed.Location.X, _viewshed.Location.Y, _viewshed.Location.Z + 10.0);
         }
 
         private void HandleSettingsChange(object sender, EventArgs e)

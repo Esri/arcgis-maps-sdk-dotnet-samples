@@ -26,9 +26,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
     public class FeatureLayerRenderingModeScene : UIViewController
     {
         // Create the UI components
-        private UILabel _staticLabel = new UILabel { Text = "Static Mode: " };
-        private UILabel _dynamicLabel = new UILabel { Text = "Dynamic Mode: " };
-        private UIButton _zoomButton = new UIButton();
+        private UILabel _staticLabel = new UILabel { Text = "Static" };
+        private UILabel _dynamicLabel = new UILabel { Text = "Dynamic" };
+        private UIButton _zoomButton = new UIButton(UIButtonType.RoundedRect);
 
         // Create the scene views
         private SceneView _myStaticScene = new SceneView();
@@ -101,12 +101,20 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
         private void CreateLayout()
         {
             // Set zoom button text
-            _zoomButton.SetTitle("Animated Zoom", UIControlState.Normal);
+            _zoomButton.SetTitle("Animated zoom", UIControlState.Normal);
 
             // Set label and button colors
-            _zoomButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _staticLabel.TextColor = UIColor.Red;
-            _dynamicLabel.TextColor = UIColor.Red;
+            _zoomButton.SetTitleColor(UIColor.White, UIControlState.Normal);
+            _zoomButton.BackgroundColor = View.TintColor;
+            _zoomButton.Layer.CornerRadius = 5;
+
+            _staticLabel.TextColor = UIColor.Black;
+            _staticLabel.ShadowColor = UIColor.White;
+            _dynamicLabel.TextColor = UIColor.Black;
+            _dynamicLabel.ShadowColor = UIColor.White;
+
+            // Hide attribution text because there is already a scene with attribution text visible
+            _myStaticScene.IsAttributionTextVisible = false;
 
             // Subscribe to button press events
             _zoomButton.TouchUpInside += _zoomButton_TouchUpInside;
@@ -150,11 +158,15 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
             var centerLine = (View.Bounds.Height - topMargin) / 2;
 
             // Setup the visual frames for the views
-            _myStaticScene.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, centerLine - 25);
-            _myDynamicScene.Frame = new CoreGraphics.CGRect(0, topMargin + centerLine + 25, View.Bounds.Width, centerLine - 25);
-            _staticLabel.Frame = new CoreGraphics.CGRect(10, topMargin, View.Bounds.Width / 2, 50);
-            _dynamicLabel.Frame = new CoreGraphics.CGRect(10, centerLine + topMargin - 25, View.Bounds.Width / 2, 50);
-            _zoomButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2, centerLine + topMargin - 25, View.Bounds.Width / 2, 50);
+            _myStaticScene.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, centerLine);
+            _myDynamicScene.Frame = new CoreGraphics.CGRect(0, centerLine + topMargin, View.Bounds.Width, (View.Bounds.Height - topMargin - centerLine));
+            _staticLabel.Frame = new CoreGraphics.CGRect(10, topMargin + 5, View.Bounds.Width / 2, 30);
+            _dynamicLabel.Frame = new CoreGraphics.CGRect(10, centerLine + topMargin + 30, View.Bounds.Width / 2, 30);
+
+            nfloat buttonWidth = 150;
+            nfloat startingLeft = (View.Bounds.Width / 2) - (buttonWidth / 2);
+
+            _zoomButton.Frame = new CoreGraphics.CGRect(startingLeft, centerLine + topMargin - 15, buttonWidth, 30);
 
             base.ViewDidLayoutSubviews();
         }

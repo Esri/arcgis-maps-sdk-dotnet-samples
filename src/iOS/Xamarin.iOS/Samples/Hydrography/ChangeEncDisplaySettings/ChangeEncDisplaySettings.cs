@@ -60,7 +60,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
         };
         private UILabel _areaLabel = new UILabel
         {
-            Text = "Area symbolization typ:"
+            Text = "Area symbolization type:"
         };
         private UILabel _pointLabel = new UILabel
         {

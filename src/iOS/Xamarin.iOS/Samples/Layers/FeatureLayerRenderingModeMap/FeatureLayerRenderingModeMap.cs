@@ -31,6 +31,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
         private MapView _myMapViewBottom;
 
         private UIButton _zoomButton;
+        private UILabel _staticLabel;
+        private UILabel _dynamicLabel;
 
         private Viewpoint _zoomOutPoint;
         private Viewpoint _zoomInPoint;
@@ -53,9 +55,19 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapViews
-            _myMapViewTop.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height/2);
-            _myMapViewBottom.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height / 2, View.Bounds.Width, View.Bounds.Height/2);
+            var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            var centerLine = (View.Bounds.Height - topMargin) / 2;
+
+            // Setup the visual frames for the views
+            _myMapViewTop.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, centerLine);
+            _myMapViewBottom.Frame = new CoreGraphics.CGRect(0, centerLine + topMargin, View.Bounds.Width, (View.Bounds.Height - topMargin - centerLine));
+            _staticLabel.Frame = new CoreGraphics.CGRect(10, topMargin + 5, View.Bounds.Width / 2, 30);
+            _dynamicLabel.Frame = new CoreGraphics.CGRect(10, centerLine + topMargin + 30, View.Bounds.Width / 2, 30);
+
+            nfloat buttonWidth = 150;
+            nfloat startingLeft = (View.Bounds.Width / 2) - (buttonWidth / 2);
+
+            _zoomButton.Frame = new CoreGraphics.CGRect(startingLeft, centerLine + topMargin - 15, buttonWidth, 30);
 
             base.ViewDidLayoutSubviews();
         }
@@ -107,21 +119,39 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
             _myMapViewTop = new MapView();
             _myMapViewBottom = new MapView();
 
-            // Add a button at the bottom to show webmap choices
-            _zoomButton = new UIButton(UIButtonType.Custom)
-            {
-                Frame = new CoreGraphics.CGRect(
-                    0, View.Bounds.Height - 40, View.Bounds.Width, 40),
-                BackgroundColor = UIColor.White
-            };
+            // Hide the top attribution bar because there is already another one visible
+            _myMapViewTop.IsAttributionTextVisible = false;
 
-            // Create button to show map options
-            _zoomButton.SetTitle("Zoom", UIControlState.Normal);
-            _zoomButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            // Add a button at the bottom to show webmap choices
+            _zoomButton = new UIButton(UIButtonType.RoundedRect)
+            {
+                BackgroundColor = View.TintColor
+            };
+            _zoomButton.Layer.CornerRadius = 5;
+            _zoomButton.SetTitle("Animated zoom", UIControlState.Normal);
+            _zoomButton.SetTitleColor(UIColor.White, UIControlState.Normal);
             _zoomButton.TouchUpInside += OnZoomClick;
 
+            // Create and add the labels
+            _staticLabel = new UILabel
+            {
+                Text = "Static",
+                TextColor = UIColor.Black,
+                ShadowColor = UIColor.White
+            };
+
+            _dynamicLabel = new UILabel
+            {
+                Text = "Dynamic",
+                TextColor = UIColor.Black,
+                ShadowColor = UIColor.White 
+            };
+
             // Add MapView to the page
-            View.AddSubviews(_myMapViewTop, _myMapViewBottom, _zoomButton);
+            View.AddSubviews(_myMapViewTop, _myMapViewBottom, _zoomButton, _staticLabel, _dynamicLabel);
+
+            // Set the view background
+            View.BackgroundColor = UIColor.White;
         }
 
         private async void OnZoomClick(object sender, EventArgs e)

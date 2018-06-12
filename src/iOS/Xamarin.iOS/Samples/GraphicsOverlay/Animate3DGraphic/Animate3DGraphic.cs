@@ -84,18 +84,19 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         private readonly UIButton _playButton = new UIButton();
 
         // Labels for showing statistics
-        private readonly UILabel _altitudeLabel = new UILabel { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
-        private readonly UILabel _headingLabel = new UILabel { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
-        private readonly UILabel _pitchLabel = new UILabel { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
-        private readonly UILabel _rollLabel = new UILabel { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
-        private readonly UILabel _progressLabel = new UILabel { TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _altitudeLabel = new UILabel();
+        private readonly UILabel _headingLabel = new UILabel();
+        private readonly UILabel _pitchLabel = new UILabel();
+        private readonly UILabel _rollLabel = new UILabel();
+        private readonly UILabel _progressLabel = new UILabel();
 
         // Labels to explain the labels above
-        private readonly UILabel _altitudeLabelLabel = new UILabel { Text = "Altitude: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
-        private readonly UILabel _headingLabelLabel = new UILabel { Text = "Heading: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
-        private readonly UILabel _pitchLabelLabel = new UILabel { Text = "Pitch: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
-        private readonly UILabel _rollLabelLabel = new UILabel { Text = "Roll: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
-        private readonly UILabel _progressLabelLabel = new UILabel { Text = "Progress: ", TextColor = UIColor.LightTextColor, ShadowColor = UIColor.DarkTextColor };
+        private readonly UILabel _altitudeLabelLabel = new UILabel { Text = "Altitude:"};
+        private readonly UILabel _headingLabelLabel = new UILabel { Text = "Heading:" };
+        private readonly UILabel _pitchLabelLabel = new UILabel { Text = "Pitch:" };
+        private readonly UILabel _rollLabelLabel = new UILabel { Text = "Roll:" };
+        private readonly UILabel _progressLabelLabel = new UILabel { Text = "Progress:" };
+        private readonly UIToolbar _statsFrame = new UIToolbar();
 
         // List of labels; this simplifies the code for adding and removing the labels from the layout
         private List<UILabel> _statsLabels;
@@ -229,6 +230,12 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         {
             // Toggle the stats display field
             _showStats = !_showStats;
+
+            if (_showStats){
+                View.AddSubview(_statsFrame);
+            } else {
+                _statsFrame.RemoveFromSuperview();
+            }
 
             // Either show or hide each label
             foreach (UILabel label in _statsLabels)
@@ -424,6 +431,10 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
         public override void ViewDidLayoutSubviews()
         {
+            nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat margin = 5;
+            nfloat labelHeight = 20;
+
             // Update the map frames
             _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - 40);
             _insetMapView.Frame = new CGRect(10, View.Bounds.Height - 180, 100, 100);
@@ -440,18 +451,20 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
             // Layout stats display
             nfloat halfWidth = View.Bounds.Width / 2;
-            _altitudeLabel.Frame = new CGRect(halfWidth, 100, halfWidth, 20);
-            _headingLabel.Frame = new CGRect(halfWidth, 120, halfWidth, 20);
-            _pitchLabel.Frame = new CGRect(halfWidth, 140, halfWidth, 20);
-            _rollLabel.Frame = new CGRect(halfWidth, 160, halfWidth, 20);
-            _progressLabel.Frame = new CGRect(halfWidth, 180, halfWidth, 20);
+            _altitudeLabel.Frame = new CGRect(halfWidth, topStart + margin, halfWidth, labelHeight);
+            _headingLabel.Frame = new CGRect(halfWidth, topStart + (labelHeight) + (2 * margin), halfWidth, labelHeight);
+            _pitchLabel.Frame = new CGRect(halfWidth, topStart + (2 * labelHeight) + (3 * margin), halfWidth, labelHeight);
+            _rollLabel.Frame = new CGRect(halfWidth, topStart + (3 * labelHeight) + (4 * margin), halfWidth, labelHeight);
+            _progressLabel.Frame = new CGRect(halfWidth, topStart + (4 * labelHeight) + (5 * margin), halfWidth, labelHeight);
 
             // Layout stats display labels
-            _altitudeLabelLabel.Frame = new CGRect(10, 100, halfWidth - 10, 20);
-            _headingLabelLabel.Frame = new CGRect(10, 120, halfWidth - 10, 20);
-            _pitchLabelLabel.Frame = new CGRect(10, 140, halfWidth - 10, 20);
-            _rollLabelLabel.Frame = new CGRect(10, 160, halfWidth - 10, 20);
-            _progressLabelLabel.Frame = new CGRect(10, 180, halfWidth - 10, 20);
+            _altitudeLabelLabel.Frame = new CGRect(10, topStart + margin, halfWidth - 10, 20);
+            _headingLabelLabel.Frame = new CGRect(10, topStart + (labelHeight) + (2 * margin), halfWidth - 10, 20);
+            _pitchLabelLabel.Frame = new CGRect(10, topStart + (2 * labelHeight) + (3 * margin), halfWidth - 10, 20);
+            _rollLabelLabel.Frame = new CGRect(10, topStart + (3 * labelHeight) + (4 * margin), halfWidth - 10, 20);
+            _progressLabelLabel.Frame = new CGRect(10, topStart + (4 * labelHeight) + (5 * margin), halfWidth - 10, 20);
+
+            _statsFrame.Frame = new CGRect(0, topStart, View.Bounds.Width, (5 * labelHeight) + (6 * margin));
 
             base.ViewDidLayoutSubviews();
         }

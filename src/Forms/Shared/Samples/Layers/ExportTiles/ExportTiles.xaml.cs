@@ -95,6 +95,9 @@ namespace ArcGISRuntime.Samples.ExportTiles
 
                 // Enable the export button once the sample is ready.
                 MyExportPreviewButton.IsEnabled = true;
+
+                // Set viewpoint of the map.
+                MyMapView.SetViewpoint(new Viewpoint(-4.853791, 140.983598, _basemap.MinScale));
             }
             catch (Exception ex)
             {

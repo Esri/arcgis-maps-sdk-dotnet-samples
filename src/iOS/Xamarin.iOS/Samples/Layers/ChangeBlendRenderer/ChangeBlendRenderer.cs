@@ -41,20 +41,17 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
         // Global reference to the slider where the user can modify the Azimuth
         private UISlider _Azimuth_Slider;
 
-        // Global reference to a label for SlopeTypes
-        private UILabel _Label_SlopeTypes;
+        // Global reference to segmented control of SlopeType choices the user can choose from
+        private UISegmentedControl _SlopeTypes;
 
-        // Global reference to table of SlopeType choices the user can choose from
-        private UITableView _SlopeTypes;
-
-        // Global reference to a label for ColorRamps
-        private UILabel _Label_ColorRamps;
-
-        // Global reference to table of ColorRamps choices the user can choose from
-        private UITableView _ColorRamps;
+        // Global reference to segmented control of ColorRamps choices the user can choose from
+        private UISegmentedControl _ColorRamps;
 
         // Global reference to button the user clicks to change the blend renderer on the raster
         private UIButton _UpdateRenderer;
+
+        // Toolbar to put in the background of the form
+        private UIToolbar _toolbar = new UIToolbar();
 
         // Global reference to the MapView used in the sample
         private MapView _myMapView = new MapView();
@@ -78,37 +75,31 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
         public override void ViewDidLayoutSubviews()
         {
             // Top margin location were the UI controls should be placed
-            var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat margin = 5;
+            nfloat controlHeight = 30;
+            nfloat columnSplit = 100;
+            nfloat formStart = View.Bounds.Height - (controlHeight * 5) - (margin * 6);
 
-            // Setup the visual frame for the label for Altitude
-            _Label_Altitude.Frame = new CoreGraphics.CGRect(0, topMargin + 40, View.Bounds.Width, 40);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, formStart, View.Bounds.Width, (controlHeight * 5) + (margin * 6));
 
-            // Setup the visual frame for the slider where the user can modify the Altitude
-            _Altitude_Slider.Frame = new CoreGraphics.CGRect(100, topMargin + 40, View.Bounds.Width, 40);
+            _Label_Altitude.Frame = new CoreGraphics.CGRect(margin, formStart + margin, columnSplit - (2 * margin), controlHeight);
+            _Label_Azimuth.Frame = new CoreGraphics.CGRect(margin, formStart + controlHeight + (2 * margin), columnSplit - (2 * margin), controlHeight);
 
-            // Setup the visual frame for the label for Azimuth
-            _Label_Azimuth.Frame = new CoreGraphics.CGRect(0, topMargin + 80, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the slider where the user can modify the Azimuth
-            _Azimuth_Slider.Frame = new CoreGraphics.CGRect(100, topMargin + 80, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the label for SlopeTypes
-            _Label_SlopeTypes.Frame = new CoreGraphics.CGRect(0, topMargin + 120, View.Bounds.Width, 40);
+            _Altitude_Slider.Frame = new CoreGraphics.CGRect(columnSplit + margin, formStart + margin, View.Bounds.Width - columnSplit - (2 * margin), controlHeight);
+            _Azimuth_Slider.Frame = new CoreGraphics.CGRect(columnSplit + margin, formStart + controlHeight + (2 * margin), View.Bounds.Width - columnSplit - (2 * margin), controlHeight);
 
             // Setup the visual frame for the table of SlopeType choices the user can choose from
-            _SlopeTypes.Frame = new CoreGraphics.CGRect(100, topMargin + 120, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the label for ColorRamps
-            _Label_ColorRamps.Frame = new CoreGraphics.CGRect(0, topMargin + 160, View.Bounds.Width, 40);
+            _SlopeTypes.Frame = new CoreGraphics.CGRect(margin, formStart + (2 * controlHeight) + (3 * margin), View.Bounds.Width - (2 * margin), controlHeight);
 
             // Setup the visual frame for the table of ColorRamp choices the user can choose from
-            _ColorRamps.Frame = new CoreGraphics.CGRect(100, topMargin + 160, View.Bounds.Width, 40);
+            _ColorRamps.Frame = new CoreGraphics.CGRect(margin, formStart + (3 * controlHeight) + (4 * margin), View.Bounds.Width - (2 * margin), controlHeight);
 
             // Setup the visual frame for button the users clicks to change the blend renderer on the raster
-            _UpdateRenderer.Frame = new CoreGraphics.CGRect(0, topMargin + 200, View.Bounds.Width, 40);
+            _UpdateRenderer.Frame = new CoreGraphics.CGRect(margin, formStart + (4 * controlHeight) + (5 * margin), View.Bounds.Width - (2 * margin), controlHeight);;
 
             // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, topMargin + 240, View.Bounds.Width, View.Bounds.Height - 300);
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
         }
 
         private async void Initialize()
@@ -163,7 +154,6 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             _Label_Altitude = new UILabel();
             _Label_Altitude.Text = "Altitude:";
             _Label_Altitude.AdjustsFontSizeToFitWidth = true;
-            _Label_Altitude.BackgroundColor = UIColor.White;
 
             // Create slider that the user can modify Altitude 
             _Altitude_Slider = new UISlider();
@@ -172,48 +162,30 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             _Label_Azimuth = new UILabel();
             _Label_Azimuth.Text = "Azimuth:";
             _Label_Azimuth.AdjustsFontSizeToFitWidth = true;
-            _Label_Azimuth.BackgroundColor = UIColor.White;
 
             // Create slider that the user can modify Azimuth 
             _Azimuth_Slider = new UISlider();
 
-            // Create label that displays the SlopeTypes
-            _Label_SlopeTypes = new UILabel();
-            _Label_SlopeTypes.Text = "SlopeTypes:";
-            _Label_SlopeTypes.AdjustsFontSizeToFitWidth = true;
-            _Label_SlopeTypes.BackgroundColor = UIColor.White;
-
             // Get all the SlopeType names from the PresetColorRampType Enumeration and put them 
             // in an array of strings, then set the UITableView.Source to the array
-            _SlopeTypes = new UITableView();
-            string[] mySlopeTypes = Enum.GetNames(typeof(SlopeType));
-            _SlopeTypes.Source = new TableSource(mySlopeTypes, this);
-            _SlopeTypes.SeparatorColor = UIColor.Yellow;
-
-            // Create label that displays the ColorRamps
-            _Label_ColorRamps = new UILabel();
-            _Label_ColorRamps.Text = "ColorRamps:";
-            _Label_ColorRamps.AdjustsFontSizeToFitWidth = true;
-            _Label_ColorRamps.BackgroundColor = UIColor.White;
+            _SlopeTypes = new UISegmentedControl(Enum.GetNames(typeof(SlopeType)));
+            _SlopeTypes.SelectedSegment = 0;
 
             // Get all the ColorRamp names from the PresetColorRampType Enumeration and put them 
             // in an array of strings, then set the UITableView.Source to the array
-            _ColorRamps = new UITableView();
-            string[] myPresetColorRampTypes = Enum.GetNames(typeof(PresetColorRampType));
-            _ColorRamps.Source = new TableSource(myPresetColorRampTypes, this);
-            _ColorRamps.SeparatorColor = UIColor.Yellow;
+            _ColorRamps = new UISegmentedControl(Enum.GetNames(typeof(PresetColorRampType)));
+            _ColorRamps.SelectedSegment = 0;
 
             // Create button to change stretch renderer of the raster
-            _UpdateRenderer = new UIButton();
-            _UpdateRenderer.SetTitle("Update Renderer", UIControlState.Normal);
+            _UpdateRenderer = new UIButton(UIButtonType.RoundedRect);
+            _UpdateRenderer.SetTitle("Update renderer", UIControlState.Normal);
             _UpdateRenderer.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _UpdateRenderer.BackgroundColor = UIColor.White;
             // Hook to touch/click event of the button
             _UpdateRenderer.TouchUpInside += OnUpdateRendererClicked;
             _UpdateRenderer.Enabled = false;
 
             // Add all of the UI controls to the page
-            View.AddSubviews(_Label_Altitude, _Altitude_Slider, _Label_Azimuth, _Azimuth_Slider, _Label_SlopeTypes, _SlopeTypes, _Label_ColorRamps, _ColorRamps, _UpdateRenderer, _myMapView);
+            View.AddSubviews( _myMapView, _toolbar, _Label_Altitude, _Altitude_Slider, _Label_Azimuth, _Azimuth_Slider, _SlopeTypes, _ColorRamps, _UpdateRenderer);
         }
 
         private void OnUpdateRendererClicked(object sender, EventArgs e)
@@ -227,26 +199,12 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
                 ColorRamp myColorRamp;
 
                 // Get the user choice for the ColorRamps
-                UITableViewSource myUITableViewSource_ColorRamp = _ColorRamps.Source;
-                TableSource myTableSource_ColorRamp = (TableSource)myUITableViewSource_ColorRamp;
-                string myColorRampChoice;
 
-                if (myTableSource_ColorRamp.SelectedValue == null)
-                {
-                    // If the user does not click on a choice in the table but just clicks the
-                    // button, the selected value will be null so use the initial ColorRamp option
-                    myColorRampChoice = "Elevation";
-                }
-                else
-                {
-                    // The user clicked on an option in the table and thus the selected value
-                    // will contain a valid choice
-                    myColorRampChoice = myTableSource_ColorRamp.SelectedValue;
-                }
+                string selection = Enum.GetNames(typeof(PresetColorRampType))[_ColorRamps.SelectedSegment];
 
                 // Based on ColorRamp type chosen by the user, create a different
                 // RasterLayer and define the appropriate ColorRamp option
-                if (myColorRampChoice == "None")
+                if (selection == "None")
                 {
                     // The user chose not to use a specific ColorRamp, therefore 
                     // need to create a RasterLayer based on general imagery (ie. Shasta.tif)
@@ -278,7 +236,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
                     rasterLayer_ForDisplayInMap = new RasterLayer(raster_Elevation);
 
                     // Create a ColorRamp based on the user choice, translated into an Enumeration
-                    PresetColorRampType myPresetColorRampType = (PresetColorRampType)Enum.Parse(typeof(PresetColorRampType), myColorRampChoice);
+                    PresetColorRampType myPresetColorRampType = (PresetColorRampType)Enum.Parse(typeof(PresetColorRampType), selection);
                     myColorRamp = ColorRamp.Create(myPresetColorRampType, 256);
                 }
 
@@ -293,24 +251,9 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
                 IEnumerable<double> myGammas = new List<double>();
 
                 // Get the user choice for the SlopeType
-                UITableViewSource myUITableViewSource_SlopeType = _SlopeTypes.Source;
-                TableSource myTableSource_SlopeType = (TableSource)myUITableViewSource_SlopeType;
-                string mySlopeTypeChoice;
+                string slopeSelection = Enum.GetNames(typeof(SlopeType))[_SlopeTypes.SelectedSegment];
 
-                if (myTableSource_SlopeType.SelectedValue == null)
-                {
-                    // If the user does not click on a choice in the table but just clicks the
-                    // button, the selected value will be null so use the initial SlopeType option
-                    mySlopeTypeChoice = "Degree";
-                }
-                else
-                {
-                    // The user clicked on an option in the table and thus the selected value
-                    // will contain a valid choice
-                    mySlopeTypeChoice = myTableSource_SlopeType.SelectedValue;
-                }
-
-                SlopeType mySlopeType = (SlopeType)Enum.Parse(typeof(SlopeType), mySlopeTypeChoice);
+                SlopeType mySlopeType = (SlopeType)Enum.Parse(typeof(SlopeType), slopeSelection);
 
                 BlendRenderer myBlendRenderer = new BlendRenderer(
                     raster_ForMakingBlendRenderer, // elevationRaster - Raster based on a elevation source
@@ -350,93 +293,6 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
         private static string GetRasterPath_Elevation()
         {
             return DataManager.GetDataFolder("caeef9aa78534760b07158bb8e068462", "Shasta_Elevation.tif");
-        }
-    }
-
-    /// <summary>
-    /// This is a custom class that defines how the UITableView control renders its 
-    /// contents. It implements the UI for the list of strings that display 
-    /// various options for the user to pick from.
-    /// </summary>
-    /// <remarks>
-    /// Unlike WPF, UWP and Xamarin.Forms; the native Xamarin iOS does not include an out 
-    /// of the box a ListView or ComboBox type GUI control. The closest option is an
-    /// UITableView control that can display a list of options that users can see and
-    /// interact with. In order to present the list of options (typically human readable
-    /// strings) to the user, it is required to create a custom class to bind to the 
-    /// UITableView.Source property. It is the developers responsibility to write the 
-    /// interaction logic of the IUTableView control for things such as obtaining: the 
-    /// list of items or the currently selected item in the UITableView. 
-    /// </remarks>
-    public class TableSource : UITableViewSource
-    {
-        // Public property to get the items/array (as strings) in the UITableView
-        public string[] TableItems;
-
-        // Public property to get the currently selected item in the array of
-        // options displayed in the UITableView 
-        public string SelectedValue;
-
-        // Public property used when re-using cells to ensure that a cell of the right 
-        // type is used
-        public string CellIdentifier = "TableCell";
-
-        // Public property to hold a reference to the owning view controller; this will be 
-        // the active instance of the ChangeStretchRenderer sample  
-        public ChangeBlendRenderer Owner { get; set; }
-
-        // Default constructor to create this custom class that is used as the 
-        // UTTableView.Source property. It input parameters take an array of strings
-        // and the parent owning view controller.
-        public TableSource(string[] items, ChangeBlendRenderer owner)
-        {
-            // Set the TableItems property
-            TableItems = items;
-
-            // Set the Owner property
-            Owner = owner;
-        }
-
-        // Return an nint count of the total number of rows of data the UITableView 
-        // should display, in this case it will return the number of stretch renderer
-        // options the user has to choose from
-        public override nint RowsInSection(UITableView tableview, nint section)
-        {
-            // Return the total number of rows in the UITableView 
-            return TableItems.Length;
-        }
-
-        // This method gets a table view cell for the suggestion at the specified index
-        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
-        {
-            // Try to get a re-usable cell (this is for performance)
-            UITableViewCell cell = tableView.DequeueReusableCell(CellIdentifier);
-
-            // Get the specific item to display
-            string item = TableItems[indexPath.Row];
-
-            // If there are no cells to reuse, create a new one
-            if (cell == null)
-            { cell = new UITableViewCell(UITableViewCellStyle.Default, CellIdentifier); }
-
-            // Set the text on the cell
-            cell.TextLabel.Text = item;
-
-            // Return the cell
-            return cell;
-        }
-
-        // This method handles when the user taps/clicks on an item in the UITableView.
-        // It performs the function: 
-        // (1) Set the SelectedValue property that gives the developer the ability to 
-        // know what was the selected item in the UITableView from the user click
-        public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
-        {
-            // Deselect the row
-            tableView.DeselectRow(indexPath, true);
-
-            // Set the SelectedValue property
-            SelectedValue = TableItems[indexPath.Row];
         }
     }
 }

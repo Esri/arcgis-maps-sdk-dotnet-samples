@@ -51,7 +51,8 @@
                 <TextBox x:Name="UtmTextField"
                          Grid.Row="3" Grid.Column="1"
                          Tag="UTM" />
-                <TextBlock Grid.Row="4" Grid.Column="0"
+                <TextBlock Text="USNG"
+                           Grid.Row="4" Grid.Column="0"
                            HorizontalAlignment="Right" />
                 <TextBox x:Name="UsngTextField"
                          Grid.Row="4" Grid.Column="1"

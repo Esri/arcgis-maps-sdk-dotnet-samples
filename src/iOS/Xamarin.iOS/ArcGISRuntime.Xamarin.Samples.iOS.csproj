@@ -333,6 +333,9 @@
     <None Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
     <None Include="Samples\GeometryEngine\CutGeometry\CutGeometry.jpg" />
     <None Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg" />
+    <None Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
+    <None Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
+    <None Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
     <None Include="Samples\Map\OpenScene\OpenScene.jpg" />
   </ItemGroup>
   <!-- Sample Code -->
@@ -496,10 +499,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\GeometryEngine\ConvexHull\ConvexHull.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
-    <None Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg" />

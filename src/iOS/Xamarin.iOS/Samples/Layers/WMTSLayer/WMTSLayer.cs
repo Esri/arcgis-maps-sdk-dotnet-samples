@@ -25,9 +25,6 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         "")]
     public class WMTSLayer : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
@@ -36,6 +33,12 @@ namespace ArcGISRuntime.Samples.WMTSLayer
 
         // Create button
         private UIButton _button2;
+
+        // Create toolbar
+        private UIToolbar _toolbar = new UIToolbar();
+
+        // Create help label
+        private UILabel _label;
 
         public WMTSLayer()
         {
@@ -52,14 +55,23 @@ namespace ArcGISRuntime.Samples.WMTSLayer
 
         public override void ViewDidLayoutSubviews()
         {
+            int controlHeight = 30;
+            int margin = 5;
+
             // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
+            // Setup the visual frame for the toolbar
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - (2 * controlHeight) - (3 * margin), View.Bounds.Width, 2 * controlHeight + 3 * margin);
+
+            // Setup the visual frame for the help label
+            _label.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - (2 * controlHeight) - (2 * margin), View.Bounds.Width - (2 * margin), controlHeight);
+
             // Setup the visual frame for button1
-            _button1.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 40);
+            _button1.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - margin, controlHeight);
 
             // Setup the visual frame for button2
-            _button2.Frame = new CoreGraphics.CGRect(0, yPageOffset + 40, View.Bounds.Width, 40);
+            _button2.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - margin, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }
@@ -149,24 +161,30 @@ namespace ArcGISRuntime.Samples.WMTSLayer
 
             // Create button1
             _button1 = new UIButton();
-            _button1.SetTitle("WMTSLayer via Uri", UIControlState.Normal);
+            _button1.SetTitle("Service URL", UIControlState.Normal);
             _button1.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _button1.BackgroundColor = UIColor.White;
 
             // Hook to touch event to do button1
             _button1.TouchUpInside += OnButton1Clicked;
 
             // Create button2
             _button2 = new UIButton();
-            _button2.SetTitle("WMTSLayer via WmtsLayerInfo", UIControlState.Normal);
+            _button2.SetTitle("WmtsLayerInfo", UIControlState.Normal);
             _button2.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _button2.BackgroundColor = UIColor.White;
 
             // Hook to touch event to do button2
             _button2.TouchUpInside += OnButton2Clicked;
 
-            // Add MapView to the page
-            View.AddSubviews(_myMapView, _button1, _button2);
+            // Create the help label
+            _label = new UILabel()
+            {
+                Text = "Construct layer via:",
+                TextColor = UIColor.Red,
+                TextAlignment = UITextAlignment.Center
+            };
+
+            // Add controls to the page
+            View.AddSubviews(_myMapView, _toolbar, _label, _button1, _button2);
         }
     }
 }

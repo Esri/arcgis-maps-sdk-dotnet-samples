@@ -267,6 +267,7 @@
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
     <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.cs" />
     <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.cs" />
+    <Compile Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.cs" />
     <Compile Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.cs" />
     <Compile Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.cs" />
     <Compile Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.cs" />
@@ -423,6 +424,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Map\OpenScene\OpenScene.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\MapImageLayerTables.axml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

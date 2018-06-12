@@ -13,11 +13,12 @@
         <Border BorderBrush="Black" BorderThickness="1" Background="White"
                 VerticalAlignment="Top" HorizontalAlignment="Right"
                 Margin="30" Padding="20" Width="300">
-            <StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock x:Name="StatusDisplay"
-                           TextAlignment="Center" FontWeight="SemiBold" />
+                           FontWeight="SemiBold" />
                 <ProgressRing x:Name="ActivityIndicator"
-                              VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                              HorizontalAlignment="Center"
+                              Margin="10,0,0,0"
                               IsActive="True" />
             </StackPanel>
 

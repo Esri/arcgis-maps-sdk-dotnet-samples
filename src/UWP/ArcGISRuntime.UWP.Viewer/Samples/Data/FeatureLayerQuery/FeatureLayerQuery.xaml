@@ -9,11 +9,10 @@
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="30" Padding="20" Width="375">
             <StackPanel>
-                <TextBlock Text="Enter a state name to search."
+                <TextBlock Text="Enter a state name and press 'Enter' to search."
                            TextAlignment="Center" FontWeight="SemiBold"
                            Margin="0,0,0,5" />
-                <AutoSuggestBox x:Name="QueryEntry"
-                                Text="New York"
+                <AutoSuggestBox Text="New York"
                                 QueryIcon="Find"
                                 HorizontalAlignment="Stretch"
                                 QuerySubmitted="QueryEntry_QuerySubmitted" />

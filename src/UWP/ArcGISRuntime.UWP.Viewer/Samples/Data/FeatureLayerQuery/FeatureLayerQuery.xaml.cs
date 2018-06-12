@@ -117,7 +117,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
             }
             catch (Exception ex)
             {
-                var message = new MessageDialog("Sample error: " + ex.ToString(), "An error occurred");
+                var message = new MessageDialog("Sample error: " + ex, "An error occurred");
                 await message.ShowAsync();
             }
         }
@@ -130,7 +130,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
                 _featureLayer.ClearSelection();
 
                 // Begin query process 
-                await QueryStateFeature(QueryEntry.Text);
+                await QueryStateFeature(args.QueryText);
             }
             catch (Exception ex)
             {

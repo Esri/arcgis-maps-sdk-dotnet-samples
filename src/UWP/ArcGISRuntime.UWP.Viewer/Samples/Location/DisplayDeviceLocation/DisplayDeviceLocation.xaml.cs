@@ -44,8 +44,8 @@ namespace ArcGISRuntime.UWP.Samples.DisplayDeviceLocation
             MyMapView.Map = new Map(Basemap.CreateTopographic());
 
             // Populate the list of options and select a default.
-            locationModes.ItemsSource = _navigationTypes;
-            locationModes.SelectedIndex = 0;
+            LocationModes.ItemsSource = _navigationTypes;
+            LocationModes.SelectedIndex = 0;
         }
 
         private void OnStopClicked(object sender, RoutedEventArgs e)
@@ -63,7 +63,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayDeviceLocation
         private void LocationModes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Set the autopan mode.
-            switch (locationModes.SelectedValue.ToString())
+            switch (LocationModes.SelectedValue.ToString())
             {
                 case "Off":
                     // Starts location display with auto pan mode set to Off

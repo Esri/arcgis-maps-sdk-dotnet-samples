@@ -43,6 +43,14 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         private UISwitch _onlyInExtentSwitch;
         private UISwitch _onlyBigCitiesSwitch;
 
+        private UILabel _extentSwitchLabel;
+        private UILabel _citySwitchLabel;
+
+        private UIButton _getStatsButton;
+
+        // Toolbar to show behind the form
+        private UIToolbar _toolbar = new UIToolbar();
+
         public StatisticalQuery()
         {
             Title = "Statistical query";
@@ -63,11 +71,16 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         {
             // Get height of status bar and navigation bar
             nfloat pageOffset = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat controlHeight = 30;
+            nfloat margin = 5;
 
-            // Setup the visual frame for the query controls
-            _controlsStackView.Frame = new CoreGraphics.CGRect(0,  pageOffset, View.Bounds.Width, 150);
-
-            // Setup the visual frame for the MapView
+            // Setup the visual frames for the views.
+            _toolbar.Frame = new CoreGraphics.CGRect(0, pageOffset, View.Bounds.Width, controlHeight * 3 + margin * 4);
+            _extentSwitchLabel.Frame = new CoreGraphics.CGRect(margin, pageOffset + margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _onlyInExtentSwitch.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 50 - (2 * margin), pageOffset + margin, 50, controlHeight);
+            _citySwitchLabel.Frame = new CoreGraphics.CGRect(margin, pageOffset + controlHeight + 2 * margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _onlyBigCitiesSwitch.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 50 - (2 * margin), pageOffset + controlHeight + 2 * margin, 50, controlHeight);
+            _getStatsButton.Frame = new CoreGraphics.CGRect(margin, pageOffset + 2 * controlHeight + 3 * margin, View.Bounds.Width - (2 * margin), controlHeight);
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             base.ViewDidLayoutSubviews();
@@ -93,63 +106,26 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
 
         private void CreateLayout()
         {
-            View.BackgroundColor = UIColor.White;
-
-            // Create a stack view to organize the query controls
-            _controlsStackView = new UIStackView();
-            _controlsStackView.Axis = UILayoutConstraintAxis.Vertical;
-            _controlsStackView.Alignment = UIStackViewAlignment.Center;
-            _controlsStackView.Distribution = UIStackViewDistribution.EqualSpacing;
-            _controlsStackView.Spacing = 5;
-
             // Create a switch (and associated label) to include only big cities in the query
             _onlyBigCitiesSwitch = new UISwitch();
-            _onlyBigCitiesSwitch.BackgroundColor = UIColor.White;
-            UILabel citySwitchLabel = new UILabel();
-            citySwitchLabel.BackgroundColor = UIColor.White;
-            citySwitchLabel.TextColor = UIColor.Black;
-            citySwitchLabel.Text = "Only cities over 5M";
-
-            // Add the switch and label to a horizontal panel
-            UIStackView citySwitchStackView = new UIStackView();
-            citySwitchStackView.Axis = UILayoutConstraintAxis.Horizontal;
-            citySwitchStackView.Alignment = UIStackViewAlignment.Fill;
-            citySwitchStackView.Distribution = UIStackViewDistribution.EqualSpacing;
-            citySwitchStackView.AddArrangedSubview(citySwitchLabel);
-            citySwitchStackView.AddArrangedSubview(_onlyBigCitiesSwitch);
+            _citySwitchLabel = new UILabel();
+            _citySwitchLabel.Text = "Only cities over 5M";
 
             // Create a switch (and associated label) to include only cities in the current extent
             _onlyInExtentSwitch = new UISwitch();
-            _onlyBigCitiesSwitch.BackgroundColor = UIColor.White;
-            UILabel extentSwitchLabel = new UILabel();
-            extentSwitchLabel.BackgroundColor = UIColor.White;
-            extentSwitchLabel.TextColor = UIColor.Black;
-            extentSwitchLabel.Text = "Only cities in extent";
-
-            // Add the switch and label to a horizontal panel
-            UIStackView extentSwitchStackView = new UIStackView();
-            extentSwitchStackView.Axis = UILayoutConstraintAxis.Horizontal;
-            extentSwitchStackView.Alignment = UIStackViewAlignment.Fill;
-            extentSwitchStackView.Distribution = UIStackViewDistribution.EqualSpacing;
-            extentSwitchStackView.AddArrangedSubview(extentSwitchLabel);
-            extentSwitchStackView.AddArrangedSubview(_onlyInExtentSwitch);
+            _extentSwitchLabel = new UILabel();
+            _extentSwitchLabel.Text = "Only cities in extent";
 
             // Create a button to invoke the query
-            var getStatsButton = new UIButton();
-            getStatsButton.SetTitle("Get Statistics", UIControlState.Normal);
-            getStatsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            getStatsButton.BackgroundColor = UIColor.White;
+            _getStatsButton = new UIButton();
+            _getStatsButton.SetTitle("Get statistics", UIControlState.Normal);
+            _getStatsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Handle the button tap to execute the statistics query
-            getStatsButton.TouchUpInside += OnExecuteStatisticsQueryClicked;
-
-            // Add controls to the stack view
-            _controlsStackView.AddArrangedSubview(extentSwitchStackView);
-            _controlsStackView.AddArrangedSubview(citySwitchStackView);
-            _controlsStackView.AddArrangedSubview(getStatsButton);
+            _getStatsButton.TouchUpInside += OnExecuteStatisticsQueryClicked;
 
             // Add MapView and UI controls to the page
-            View.AddSubviews(_myMapView, _controlsStackView);
+            View.AddSubviews(_myMapView, _toolbar, _onlyInExtentSwitch, _onlyBigCitiesSwitch, _citySwitchLabel, _extentSwitchLabel, _getStatsButton);
         }
 
         private async void OnExecuteStatisticsQueryClicked(object sender, EventArgs e)

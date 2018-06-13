@@ -38,16 +38,20 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         private UITextField _usngUITextField = new UITextField() { Placeholder = "USNG" };
 
         // Create the labels
-        private UILabel _utmLabel = new UILabel() { Text = "UTM:", TextColor = UIColor.DarkGray };
-        private UILabel _dmsLabel = new UILabel() { Text = "Degrees, Minutes, Seconds: ", TextColor = UIColor.DarkGray };
-        private UILabel _decimalDegreeslabel = new UILabel() { Text = "Decimal Degrees: ", TextColor = UIColor.DarkGray };
-        private UILabel _usngLabel = new UILabel() { Text = "USNG: ", TextColor = UIColor.DarkGray };
+        private UILabel _utmLabel = new UILabel() { Text = "UTM:" };
+        private UILabel _dmsLabel = new UILabel() { Text = "Degrees, Minutes, Seconds: " };
+        private UILabel _decimalDegreeslabel = new UILabel() { Text = "Decimal Degrees: " };
+        private UILabel _usngLabel = new UILabel() { Text = "USNG: " };
+        private UILabel _helpLabel = new UILabel();
 
         // Create the recalculate button
         private UIButton _recalculateButton = new UIButton();
 
         // Track the most recently edited field
         private UITextField _selectedField;
+
+        // Toolbar to go behind the form
+        private UIToolbar _toolbar = new UIToolbar();
 
         public FormatCoordinates()
         {
@@ -165,7 +169,22 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
 
         private void CreateLayout()
         {
-            View.BackgroundColor = UIColor.White;
+            // Update the colors
+            _dmsUITextField.TextColor = View.TintColor;
+            _utmUITextField.TextColor = View.TintColor;
+            _usngUITextField.TextColor = View.TintColor;
+            _decimalDegreesUITextField.TextColor = View.TintColor;
+
+            // Enable text fields to close keyboard
+            _dmsUITextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _decimalDegreesUITextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _utmUITextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _usngUITextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+
+            // Set up the help label
+            _helpLabel.Text = "Tap the map to see coordinates in each format. Update any value and tap 'Recalculate' to see updated coordinates.";
+            _helpLabel.Lines = 2;
+            _helpLabel.AdjustsFontSizeToFitWidth = true;
 
             // Create the UI button
             _recalculateButton.SetTitle("Recalculate", UIControlState.Normal);
@@ -173,7 +192,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             _recalculateButton.TouchUpInside += RecalculateFields;
 
             // Add views to the page
-            View.AddSubviews(_myMapView, _recalculateButton, _decimalDegreesUITextField, _decimalDegreeslabel, _dmsLabel, _dmsUITextField,
+            View.AddSubviews(_myMapView, _toolbar, _helpLabel, _recalculateButton, _decimalDegreesUITextField, _decimalDegreeslabel, _dmsLabel, _dmsUITextField,
                 _usngLabel, _usngUITextField, _utmLabel, _utmUITextField);
         }
 
@@ -187,35 +206,43 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
 
         public override void ViewDidLayoutSubviews()
         {
-            var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height + 10;
+            var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
             var controlHeight = 20;
-            var controlWidth = View.Bounds.Width - 20;
+            var margin = 5;
+            var controlWidth = View.Bounds.Width - ( 2 * margin);
 
+            // Toolbar
+            _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, controlHeight * 11 + margin * 5);
+
+            // Help label
+            topMargin += margin;
+            _helpLabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight * 2);
+            topMargin += controlHeight * 2 + margin * 2;
             // Decimal degrees
-            _decimalDegreeslabel.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
+            _decimalDegreeslabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
             topMargin += controlHeight;
-            _decimalDegreesUITextField.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
+            _decimalDegreesUITextField.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
             topMargin += controlHeight;
             // DMS
-            _dmsLabel.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
+            _dmsLabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
             topMargin += controlHeight;
-            _dmsUITextField.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
+            _dmsUITextField.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
             topMargin += controlHeight;
             // UTM
-            _utmLabel.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
+            _utmLabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
             topMargin += controlHeight;
-            _utmUITextField.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
+            _utmUITextField.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
             topMargin += controlHeight;
             // USNG
-            _usngLabel.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
+            _usngLabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
             topMargin += controlHeight;
-            _usngUITextField.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
-            topMargin += controlHeight;
+            _usngUITextField.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
+            topMargin += controlHeight + margin;
             // Button
-            _recalculateButton.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
-            topMargin += controlHeight;
+            _recalculateButton.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
+
             // MapView
-            _myMapView.Frame = new CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin);
+            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             base.ViewDidLayoutSubviews();
         }

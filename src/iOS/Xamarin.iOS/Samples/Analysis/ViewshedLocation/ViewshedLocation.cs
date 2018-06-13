@@ -52,16 +52,17 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         private readonly UISlider _maximumDistanceSlider = new UISlider() { MinValue = 0, MaxValue = 9999, Value = 1500 };
         private readonly UISwitch _analysisVisibilitySwitch = new UISwitch() { On = true };
         private readonly UISwitch _frustumVisibilitySwitch = new UISwitch() { On = false };
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
         // Create labels for the UI controls.
-        private readonly UILabel _headingLabel = new UILabel() { Text = "Heading:", TextColor = UIColor.Red };
-        private readonly UILabel _pitchLabel = new UILabel() { Text = "Pitch", TextColor = UIColor.Red };
-        private readonly UILabel _horizontalAngleLabel = new UILabel() { Text = "Horiz. Angle:", TextColor = UIColor.Red };
-        private readonly UILabel _verticalAngleLabel = new UILabel() { Text = "Vert. Angle:", TextColor = UIColor.Red };
-        private readonly UILabel _minimumDistanceLabel = new UILabel() { Text = "Min. Dist.:", TextColor = UIColor.Red };
-        private readonly UILabel _maximumDistanceLabel = new UILabel() { Text = "Max. Dist.:", TextColor = UIColor.Red };
-        private readonly UILabel _analysisVisibilityLabel = new UILabel() { Text = "Show Analysis:", TextColor = UIColor.Red };
-        private readonly UILabel _frustumVisibilityLabel = new UILabel() { Text = "Show Frustum:", TextColor = UIColor.Red };
+        private readonly UILabel _headingLabel = new UILabel() { Text = "Heading:", TextAlignment= UITextAlignment.Right };
+        private readonly UILabel _pitchLabel = new UILabel() { Text = "Pitch:", TextAlignment = UITextAlignment.Right };
+        private readonly UILabel _horizontalAngleLabel = new UILabel() { Text = "Horiz. Angle:", TextAlignment = UITextAlignment.Right };
+        private readonly UILabel _verticalAngleLabel = new UILabel() { Text = "Vert. Angle:", TextAlignment = UITextAlignment.Right };
+        private readonly UILabel _minimumDistanceLabel = new UILabel() { Text = "Min. Dist.:", TextAlignment = UITextAlignment.Right };
+        private readonly UILabel _maximumDistanceLabel = new UILabel() { Text = "Max. Dist.:", TextAlignment = UITextAlignment.Right };
+        private readonly UILabel _analysisVisibilityLabel = new UILabel() { Text = "Show Analysis:", TextAlignment = UITextAlignment.Right };
+        private readonly UILabel _frustumVisibilityLabel = new UILabel() { Text = "Show Frustum:", TextAlignment = UITextAlignment.Right };
 
         public ViewshedLocation()
         {
@@ -146,7 +147,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         private void CreateLayout()
         {
             // Add SceneView to the page
-            View.AddSubviews(_mySceneView);
+            View.AddSubviews(_mySceneView, _toolbar);
 
             // Add the labels
             View.AddSubviews(_headingLabel, _pitchLabel, _horizontalAngleLabel, _verticalAngleLabel,
@@ -186,52 +187,51 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             // Top of visible area is offset by the height of the navigation controller bar and the height of the status bar
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height +
                                UIApplication.SharedApplication.StatusBarFrame.Height;
-
-            // Each row will have consistent height.
             nfloat rowHeight = 30;
+            nfloat labelWidth = 125;
+            nfloat margin = 5;
 
-            // Labels will be of consistent width.
-            nfloat labelWidth = 100;
+            _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, rowHeight * 8 + margin * 9);
 
             // Heading
-            topMargin += rowHeight;
-            _headingLabel.Frame = new CGRect(10, topMargin, labelWidth, rowHeight);
-            _headingSlider.Frame = new CGRect(labelWidth + 10, topMargin, View.Bounds.Width - labelWidth - 10, rowHeight);
+            topMargin += margin;
+            _headingLabel.Frame = new CGRect(margin, topMargin, labelWidth - (2 * margin), rowHeight);
+            _headingSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - (2 * margin), rowHeight);
 
             // Pitch
-            topMargin += rowHeight;
-            _pitchLabel.Frame = new CGRect(10, topMargin, labelWidth, rowHeight);
-            _pitchSlider.Frame = new CGRect(labelWidth + 10, topMargin, View.Bounds.Width - labelWidth - 10, rowHeight);
+            topMargin += rowHeight + margin;
+            _pitchLabel.Frame = new CGRect(margin, topMargin, labelWidth - (2 * margin), rowHeight);
+            _pitchSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - (2 * margin), rowHeight);
 
             // Horizontal Angle
-            topMargin += rowHeight;
-            _horizontalAngleLabel.Frame = new CGRect(10, topMargin, labelWidth, rowHeight);
-            _horizontalAngleSlider.Frame = new CGRect(labelWidth + 10, topMargin, View.Bounds.Width - labelWidth - 10, rowHeight);
+            topMargin += rowHeight + margin;
+            _horizontalAngleLabel.Frame = new CGRect(margin, topMargin, labelWidth - (2 * margin), rowHeight);
+            _horizontalAngleSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - (2 * margin), rowHeight);
 
             // Vertical Angle
-            topMargin += rowHeight;
-            _verticalAngleLabel.Frame = new CGRect(10, topMargin, labelWidth, rowHeight);
-            _verticalAngleSlider.Frame = new CGRect(labelWidth + 10, topMargin, View.Bounds.Width - labelWidth - 10, rowHeight);
+            topMargin += rowHeight + margin;
+            _verticalAngleLabel.Frame = new CGRect(margin, topMargin, labelWidth - (2 * margin), rowHeight);
+            _verticalAngleSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - (2 * margin), rowHeight);
 
             // Min Distance
-            topMargin += rowHeight;
-            _minimumDistanceLabel.Frame = new CGRect(10, topMargin, labelWidth, rowHeight);
-            _minimumDistanceSlider.Frame = new CGRect(labelWidth + 10, topMargin, View.Bounds.Width - labelWidth - 10, rowHeight);
+            topMargin += rowHeight + margin;
+            _minimumDistanceLabel.Frame = new CGRect(margin, topMargin, labelWidth - (2 * margin), rowHeight);
+            _minimumDistanceSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - (2 * margin), rowHeight);
 
             // Max Distance
-            topMargin += rowHeight;
-            _maximumDistanceLabel.Frame = new CGRect(10, topMargin, labelWidth, rowHeight);
-            _maximumDistanceSlider.Frame = new CGRect(labelWidth + 10, topMargin, View.Bounds.Width - labelWidth - 10, rowHeight);
+            topMargin += rowHeight + margin;
+            _maximumDistanceLabel.Frame = new CGRect(margin, topMargin, labelWidth - (2 * margin), rowHeight);
+            _maximumDistanceSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - (2 * margin), rowHeight);
 
             // Analysis Visibility
-            topMargin += rowHeight;
-            _analysisVisibilityLabel.Frame = new CGRect(10, topMargin, View.Bounds.Width - labelWidth - 10, rowHeight);
-            _analysisVisibilitySwitch.Frame = new CGRect(labelWidth * 2, topMargin, labelWidth, rowHeight);
+            topMargin += rowHeight + margin;
+            _analysisVisibilityLabel.Frame = new CGRect(margin, topMargin, labelWidth - (2 * margin), rowHeight);
+            _analysisVisibilitySwitch.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - (2 * margin), rowHeight);
 
             // Frustum Visibility
-            topMargin += rowHeight;
-            _frustumVisibilityLabel.Frame = new CGRect(10, topMargin, View.Bounds.Width - labelWidth - 10, rowHeight);
-            _frustumVisibilitySwitch.Frame = new CGRect(labelWidth * 2, topMargin, labelWidth, rowHeight);
+            topMargin += rowHeight + margin;
+            _frustumVisibilityLabel.Frame = new CGRect(margin, topMargin, labelWidth - (2 * margin), rowHeight);
+            _frustumVisibilitySwitch.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - (2 * margin), rowHeight);
 
             base.ViewDidLayoutSubviews();
         }

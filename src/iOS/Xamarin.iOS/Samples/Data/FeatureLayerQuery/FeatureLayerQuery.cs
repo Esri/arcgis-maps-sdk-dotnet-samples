@@ -29,9 +29,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         "The sample provides a search bar on the top, where you can input the name of a US State. When you hit search the app performs a query on the feature table and based on the result either highlights the state geometry or provides an error.")]
     public class FeatureLayerQuery : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
@@ -50,6 +47,12 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         // Create globally available feature layer for easy referencing 
         private FeatureLayer _featureLayer;
 
+        // Toolbar to go behind the form
+        private UIToolbar _toolbar = new UIToolbar();
+
+        // Help label
+        private UILabel _helpLabel;
+
         public FeatureLayerQuery()
         {
             Title = "Feature layer query";
@@ -66,14 +69,16 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            nfloat formStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat margin = 5;
+            nfloat controlHeight = 30;
+
+            // Setup the visual frames for the views
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Setup the visual frame for the text field used in query
-            _queryTextView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the button used to invoke query
-            _queryButton.Frame = new CoreGraphics.CGRect(0, yPageOffset + 40, View.Bounds.Width, 40);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, formStart, View.Bounds.Width, controlHeight * 2 + margin * 3);
+            _helpLabel.Frame = new CoreGraphics.CGRect(margin, formStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _queryTextView.Frame = new CoreGraphics.CGRect(margin, formStart + controlHeight + 2 * margin, View.Bounds.Width - 100 - (2 * margin), controlHeight);
+            _queryButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 100 - (2 * margin), formStart +  controlHeight + 2 *margin, 100, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }
@@ -175,7 +180,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             _queryTextView = new UITextField();
             _queryTextView.Placeholder = "State name";
             _queryTextView.AdjustsFontSizeToFitWidth = true;
-            _queryTextView.BackgroundColor = UIColor.White;
             // Allow pressing 'return' to dismiss the keyboard
             _queryTextView.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -183,13 +187,19 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             _queryButton = new UIButton();
             _queryButton.SetTitle("Query", UIControlState.Normal);
             _queryButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _queryButton.BackgroundColor = UIColor.White;
+            _queryButton.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
+
+            // Create the help label
+            _helpLabel = new UILabel();
+            _helpLabel.Text = "Enter a state name and tap 'Query' to search.";
+            _helpLabel.Lines = 1;
+            _helpLabel.AdjustsFontSizeToFitWidth = true;
 
             // Hook to touch event to do querying
             _queryButton.TouchUpInside += OnQueryClicked;
 
             // Add MapView to the page
-            View.AddSubviews(_myMapView, _queryTextView, _queryButton);
+            View.AddSubviews(_myMapView, _toolbar, _helpLabel, _queryTextView, _queryButton);
         }
     }
 }

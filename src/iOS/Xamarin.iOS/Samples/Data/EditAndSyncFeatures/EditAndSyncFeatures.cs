@@ -75,6 +75,10 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         // Help label.
         private UILabel myHelpLabel = new UILabel();
 
+        // Create toolbars to go behind help label and controls.
+        private UIToolbar _helpToolbar = new UIToolbar();
+        private UIToolbar _controlsToolbar = new UIToolbar();
+
         public EditAndSyncFeatures()
         {
             Title = "Edit and Sync Features";
@@ -93,22 +97,18 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         {
             base.ViewDidLayoutSubviews();
 
-            nfloat pageOffset = NavigationController.TopLayoutGuide.Length;
+            nfloat pageOffset = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat margin = 5;
+            nfloat controlHeight = 30;
 
-            // Place the MapView.
+            // Place the views.
             myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Place the Generate Button.
-            myGenerateButton.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width / 2, 30);
-
-            // Place the Sync Button.
-            mySyncButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2, View.Bounds.Height - 40, View.Bounds.Width / 2, 30);
-
-            // Place the progress bar.
-            myProgressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 10, View.Bounds.Width, 10);
-
-            // Place the help label.
-            myHelpLabel.Frame = new CoreGraphics.CGRect(10, pageOffset + 60, View.Bounds.Width - 20, 30);
+            _helpToolbar.Frame = new CoreGraphics.CGRect(0, pageOffset, View.Bounds.Width, controlHeight + (2 * margin));
+            _controlsToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - (2 * margin), View.Bounds.Width, controlHeight + (2 * margin));
+            myGenerateButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
+            mySyncButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
+            myProgressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 42, View.Bounds.Width, 2);
+            myHelpLabel.Frame = new CoreGraphics.CGRect(margin, pageOffset + margin, View.Bounds.Width - (2 * margin), controlHeight);
         }
 
         private void CreateLayout()
@@ -116,24 +116,24 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             // Update the Generate Button.
             myGenerateButton.SetTitle("Generate", UIControlState.Normal);
             myGenerateButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            myGenerateButton.BackgroundColor = UIColor.LightTextColor;
+            myGenerateButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
             myGenerateButton.TouchUpInside += GenerateButton_Clicked;
 
             // Update the Sync Button.
             mySyncButton.SetTitle("Synchronize", UIControlState.Normal);
             mySyncButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            mySyncButton.BackgroundColor = UIColor.LightTextColor;
+            mySyncButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
             mySyncButton.TouchUpInside += SyncButton_Click;
             mySyncButton.Enabled = false;
 
             // Update the help label.
-            myHelpLabel.Text = "1. Click 'Generate'";
-            myHelpLabel.TextColor = UIColor.Red;
-            myHelpLabel.ShadowColor = UIColor.DarkGray;
-            myHelpLabel.ShadowOffset = new CoreGraphics.CGSize(1, 1);
+            myHelpLabel.Text = "1. Tap 'Generate'.";
+            myHelpLabel.TextAlignment = UITextAlignment.Center;
+            myHelpLabel.Lines = 1;
+            myHelpLabel.AdjustsFontSizeToFitWidth = true;
 
             // Add the views.
-            View.AddSubviews(myMapView, myProgressBar, mySyncButton, myGenerateButton, myHelpLabel);
+            View.AddSubviews(myMapView, _helpToolbar, _controlsToolbar, mySyncButton, myGenerateButton, myHelpLabel);
         }
 
         private async void Initialize()
@@ -263,7 +263,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     mySyncButton.Enabled = true;
 
                     // Update the help label.
-                    myHelpLabel.Text = "4. Click 'Synchronize' or edit more features";
+                    myHelpLabel.Text = "4. Tap 'Synchronize' or edit more features";
                 }
                 // Otherwise, start an edit.
                 else
@@ -372,6 +372,9 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 UpdateProgressBar(job.Progress);
             });
 
+            // Show the progress bar.
+            View.AddSubview(myProgressBar);
+
             // Start the job.
             generateGdbJob.Start();
 
@@ -384,6 +387,9 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
 
         private void HandleGenerationCompleted(GenerateGeodatabaseJob job)
         {
+            // Hide the progress bar.
+            myProgressBar.RemoveFromSuperview();
+
             // If the job completed successfully, add the geodatabase data to the map.
             if (job.Status == JobStatus.Succeeded)
             {
@@ -435,16 +441,18 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
 
         private void HandleSyncCompleted(SyncGeodatabaseJob job)
         {
-            JobStatus status = job.Status;
+            // Hide the progress bar & enable the sync button.
+            myProgressBar.RemoveFromSuperview();
+            mySyncButton.Enabled = true;
 
             // Tell the user about job completion.
-            if (status == JobStatus.Succeeded)
+            if (job.Status == JobStatus.Succeeded)
             {
                 ShowStatusMessage("Sync task completed");
             }
 
             // See if the job failed.
-            if (status == JobStatus.Failed)
+            if (job.Status == JobStatus.Failed)
             {
                 // Create a message to show the user.
                 string message = "Sync geodatabase job failed";
@@ -473,6 +481,9 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         {
             // Return if not ready.
             if (_readyForEdits != EditState.Ready) { return; }
+
+            // Disable the sync button.
+            mySyncButton.Enabled = false;
 
             // Create parameters for the sync task.
             SyncGeodatabaseParameters parameters = new SyncGeodatabaseParameters()
@@ -503,6 +514,9 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 // Update the progress bar.
                 UpdateProgressBar(job.Progress);
             };
+
+            // Show the progress bar.
+            View.AddSubview(myProgressBar);
 
             // Start the sync.
             job.Start();

@@ -222,6 +222,8 @@ namespace ArcGISRuntime.Samples.FindRoute
             if(cell == null)
             {
                 cell = new UITableViewCell(UITableViewCellStyle.Default, _cellID);
+                cell.TextLabel.Lines = 2;
+                cell.TextLabel.AdjustsFontSizeToFitWidth = true;
             }
 
             cell.TextLabel.Text = directionText;

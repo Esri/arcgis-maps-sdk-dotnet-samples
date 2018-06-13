@@ -45,6 +45,10 @@ namespace ArcGISRuntime.Samples.CutGeometry
         // Create a UIButton to cut polygons.
         private UIButton _cutButton;
 
+        // Toolbars to put behind the help label and button.
+        private UIToolbar _helpToolbar = new UIToolbar();
+        private UIToolbar _buttonToolbar = new UIToolbar();
+
         public CutGeometry()
         {
             Title = "Cut geometry";
@@ -61,17 +65,16 @@ namespace ArcGISRuntime.Samples.CutGeometry
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 80, View.Bounds.Width, View.Bounds.Height);
+            nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat margin = 5;
+            nfloat controlHeight = 30;
 
-            // Determine the offset where the MapView control should start.
-            nfloat yPageOffset = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-            // Setup the visual frame for the general sample instructions UTexView.
-            _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the cut UIButton.
-            _cutButton.Frame = new CoreGraphics.CGRect(0, yPageOffset + 40, View.Bounds.Width, 40);
+            // Setup the visual frames for the controls.
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, controlHeight + (2 * margin));
+            _buttonToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - (2 * margin), View.Bounds.Width, controlHeight + (2 * margin));
+            _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _cutButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - (2 * margin), controlHeight);
 
             base.ViewDidLayoutSubviews();
         }
@@ -233,19 +236,19 @@ namespace ArcGISRuntime.Samples.CutGeometry
         {
             // Create a UITextView for the overall sample instructions.
             _sampleInstructionUITextiew = new UITextView();
-            _sampleInstructionUITextiew.Text = "Click the 'Cut' button to cut the polygon with the polyline and see the resulting parts.";
-            _sampleInstructionUITextiew.Font = UIFont.FromName("Helvetica", 9f);
+            _sampleInstructionUITextiew.Text = "Tap 'Cut' to cut the polygon with the polyline.";
+            _sampleInstructionUITextiew.TextAlignment = UITextAlignment.Center;
+            _sampleInstructionUITextiew.BackgroundColor = UIColor.FromWhiteAlpha(0, 0);
 
             // Create a UIButton to cut the polygons.
             _cutButton = new UIButton();
             _cutButton.SetTitle("Cut", UIControlState.Normal);
             _cutButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _cutButton.BackgroundColor = UIColor.White;
             // - Hook to touch event to cut the polygons.
             _cutButton.TouchUpInside += CutButton_TouchUpInside;
 
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _sampleInstructionUITextiew, _cutButton);
+            View.AddSubviews(_myMapView, _helpToolbar, _buttonToolbar, _sampleInstructionUITextiew, _cutButton);
         }
     }
 }

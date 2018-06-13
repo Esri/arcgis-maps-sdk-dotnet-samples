@@ -37,6 +37,8 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         // Member UISegmentedControl control to add and removed layers in the MapView
         private UISegmentedControl _myUISegmentedControl = new UISegmentedControl();
 
+        private UIToolbar _toolbar = new UIToolbar();
+
         // Member HybridDictionary to hold the multiple key/object pairs that represent: 
         // human-readable string name of a layer - key
         // the layer itself (RasterLayer or FeatureLayer) - object
@@ -72,11 +74,10 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         {
             base.ViewDidLayoutSubviews();
 
-            // Define the viewable area of the MapView in the sample
+            // Define the control frames.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Define the viewable area of the UISegmentedControl in the sample
-            _myUISegmentedControl.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            _myUISegmentedControl.Frame = new CoreGraphics.CGRect(5, View.Bounds.Height - 35, View.Bounds.Width - 10, 30);
         }
 
         private async void Initialize()
@@ -166,15 +167,14 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         private void CreateLayout()
         {
             // Configure UISegmentedControl
-            _myUISegmentedControl.BackgroundColor = UIColor.White;
             _myUISegmentedControl.InsertSegment("Layers in map", 0, false);
-            _myUISegmentedControl.InsertSegment("Layers Not in map", 1, false);
+            _myUISegmentedControl.InsertSegment("Layers not in map", 1, false);
 
             // Handle the "click" for each segment (new segment is selected)
             _myUISegmentedControl.ValueChanged += _MyUISegmentedControl_ValueChanged;
 
             // Add the MapView and UISegmentedControl to the page
-            View.AddSubviews(_myMapView, _myUISegmentedControl);
+            View.AddSubviews(_myMapView, _toolbar, _myUISegmentedControl);
         }
 
         private void _MyUISegmentedControl_ValueChanged(object sender, EventArgs e)

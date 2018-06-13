@@ -54,6 +54,7 @@ namespace ArcGISRuntime.Samples.MapRotation
 
             // Create the label to display the MapView rotation value
             _rotationLabel.Text = string.Format("{0:0}°", _myMapView.MapRotation);
+            _rotationLabel.TextAlignment = UITextAlignment.Center;
 
             // Configure the slider
             _rotationSlider.ValueChanged += (s, e) =>
@@ -72,7 +73,7 @@ namespace ArcGISRuntime.Samples.MapRotation
             // Setup the visual frame for the Toolbar
             _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
             _rotationSlider.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, View.Bounds.Width - 50 - 20, _toolbar.Frame.Height - 20);
-            _rotationLabel.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 50 - 10, _toolbar.Frame.Top + 10, 50, _toolbar.Frame.Height - 20);
+            _rotationLabel.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 50 - 5, _toolbar.Frame.Top + 10, 50, _toolbar.Frame.Height - 20);
             base.ViewDidLayoutSubviews();
         }
     }

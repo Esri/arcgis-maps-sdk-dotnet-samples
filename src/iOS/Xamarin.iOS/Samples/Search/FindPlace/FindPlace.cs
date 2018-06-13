@@ -161,7 +161,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         {
             // Get the height of the top bar
             nfloat topHeight = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
+            int topMargin = (int)topHeight;
             // Set a standard height for the controls
             nfloat height = 30;
 
@@ -194,14 +194,14 @@ namespace ArcGISRuntime.Samples.FindPlace
             _mySearchRestrictedButton.Frame = new CoreGraphics.CGRect(halfWidth + 3 * margin, topHeight, halfWidth, height);
 
             // The progress bar is below the buttons
-            _myProgressBar.Frame = new CoreGraphics.CGRect(margin, topHeight + margin + height, width, height);
+            _myProgressBar.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, _backgroundToolbar.Frame.Height);
 
             // The mapview fills the entire view
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             // The table view appears on top of the map view
             _mySuggestionView.Frame = new CoreGraphics.CGRect(2 * margin, (topHeight += height), width - 2 * margin, 8 * height);
-
+  
             base.ViewDidLayoutSubviews();
         }
 
@@ -215,7 +215,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             _mySearchRestrictedButton.SetTitle("Search in view", UIControlState.Normal);
 
             // Set the default location and search text
-            _myLocationBox.Text = "Current Location";
+            _myLocationBox.Text = "Current location";
             _mySearchBox.Text = "Coffee";
 
             // Allow pressing 'return' to dismiss the keyboard
@@ -231,15 +231,16 @@ namespace ArcGISRuntime.Samples.FindPlace
             _mySearchRestrictedButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Color the textboxes and buttons to appear over the mapview
-            UIColor background = UIColor.FromWhiteAlpha(1, .9f);
+            UIColor background = UIColor.FromWhiteAlpha(1, .8f);
             _mySearchBox.BackgroundColor = background;
             _myLocationBox.BackgroundColor = background;
             _mySearchButton.BackgroundColor = background;
             _mySearchRestrictedButton.BackgroundColor = background;
-            _myProgressBar.BackgroundColor = background;
 
             // Hide the activity indicator (progress bar) when stopped
             _myProgressBar.HidesWhenStopped = true;
+            _myProgressBar.ActivityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge;
+            _myProgressBar.BackgroundColor = UIColor.FromWhiteAlpha(0, .5f);
 
             // Set radii to make it look nice
             _mySearchRestrictedButton.Layer.CornerRadius = 5;
@@ -266,6 +267,12 @@ namespace ArcGISRuntime.Samples.FindPlace
             // Listen for text-changed events
             _mySearchBox.AllEditingEvents += _mySearchBox_TextChanged;
             _myLocationBox.AllEditingEvents += _myLocationBox_TextChanged;
+
+            // Set padding on the text views
+            _mySearchBox.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
+            _mySearchBox.LeftViewMode = UITextFieldViewMode.Always;
+            _myLocationBox.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
+            _myLocationBox.LeftViewMode = UITextFieldViewMode.Always;
 
             // Add the views
             View.AddSubviews(_myMapView, _backgroundToolbar, _mySearchBox, _myLocationBox, _mySearchButton, _mySearchRestrictedButton, _myProgressBar, _mySuggestionView);
@@ -320,7 +327,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         private async Task<MapPoint> GetSearchMapPoint(string locationText)
         {
             // Get the map point for the search text
-            if (locationText != "Current Location")
+            if (locationText != "Current location")
             {
                 // Geocode the location
                 IReadOnlyList<GeocodeResult> locations = await _geocoder.GeocodeAsync(locationText);
@@ -434,13 +441,8 @@ namespace ArcGISRuntime.Samples.FindPlace
         /// </summary>
 		private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
-#if WINDOWS_UWP
-            // Get current assembly that contains the image
-            var currentAssembly = GetType().GetTypeInfo().Assembly;
-#else
             // Get current assembly that contains the image
             var currentAssembly = Assembly.GetExecutingAssembly();
-#endif
 
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
@@ -565,7 +567,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             List<String> mutableResults = results.ToList();
 
             // Add a 'current location' option to the list
-            mutableResults.Insert(0, "Current Location");
+            mutableResults.Insert(0, "Current location");
 
             // Update the list of options
             _mySuggestionSource.TableItems = mutableResults.ToList();

@@ -35,10 +35,14 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
         private UIButton _myQueryStateButton;
 
         // Search box for entering state name
-        private UISearchBar _myStateEntry;
+        private UITextField _myStateEntry;
 
         // Label to show the results
         private UILabel _myResultsLabel;
+
+        // Help label and toolbar
+        private UILabel _helpLabel;
+        private UIToolbar _toolbar = new UIToolbar();
 
         // URL to the feature service
         private readonly Uri _usaCitiesSource = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
@@ -132,17 +136,26 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             _myQueryStateButton.TouchUpInside += BtnZoomToFeatures_Click;
 
             // Create the results label and the search bar
-            _myResultsLabel = new UILabel() { TextColor = UIColor.Red };
-            _myStateEntry = new UISearchBar() { Placeholder = "e.g. NH" };
+            _myResultsLabel = new UILabel() { Text = "Enter a query to begin." };
+            _myResultsLabel.TextAlignment = UITextAlignment.Center;
+            _myStateEntry = new UITextField { Placeholder = "e.g. NH" };
+            _myStateEntry.BorderStyle = UITextBorderStyle.RoundedRect;
+            _myStateEntry.BackgroundColor = UIColor.FromWhiteAlpha(1, .8f);
+
+            // Create the help label
+            _helpLabel = new UILabel();
+            _helpLabel.Text = "Tap 'Zoom to match' to zoom to features matching the given state abbreviation. Tap 'Count in extent' to count the features in the current extent, regardless of the query result.";
+            _helpLabel.Lines = 4;
+            _helpLabel.AdjustsFontSizeToFitWidth = true;
 
             // Allow the search bar to dismiss the keyboard
-            _myStateEntry.SearchButtonClicked += (sender, e) =>
+            _myStateEntry.ShouldReturn += (sender) =>
             {
-                _myStateEntry.EndEditing(true);
+                sender.ResignFirstResponder(); return true;
             };
 
             // Add views to the page
-            View.AddSubviews(_myMapView, _myQueryExtentButton, _myQueryStateButton, _myResultsLabel, _myStateEntry);
+            View.AddSubviews(_myMapView, _toolbar, _helpLabel, _myQueryExtentButton, _myQueryStateButton, _myResultsLabel, _myStateEntry);
         }
 
         public override void ViewDidLoad()
@@ -155,22 +168,18 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
 
         public override void ViewDidLayoutSubviews()
         {
-            var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height + 10;
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat margin = 5;
+            nfloat controlHeight = 30;
 
-            // Setup the visual frame for the MapView
+            // Setup the visual frames for the views
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Place extent button
-            _myQueryExtentButton.Frame = new CoreGraphics.CGRect(10, topMargin + 25, View.Bounds.Width / 2 - 15, 20);
-
-            // Place state button
-            _myQueryStateButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + 5, topMargin + 25, View.Bounds.Width / 2 - 15, 20);
-
-            // Place state text field
-            _myStateEntry.Frame = new CoreGraphics.CGRect(10, topMargin, View.Bounds.Width - 20, 20);
-
-            // Place result label
-            _myResultsLabel.Frame = new CoreGraphics.CGRect(10, topMargin + 50, View.Bounds.Width - 20, 20);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, controlHeight * 6 + margin * 5);
+            _helpLabel.Frame = new CoreGraphics.CGRect(margin, topMargin + margin, View.Bounds.Width - (2 * margin), controlHeight * 3);
+            _myStateEntry.Frame = new CoreGraphics.CGRect(margin, topMargin + (controlHeight * 3) + (2 * margin), View.Bounds.Width - (2 * margin), controlHeight);
+            _myQueryExtentButton.Frame = new CoreGraphics.CGRect(margin, topMargin + (4 * controlHeight) + (3 * margin), View.Bounds.Width / 2 - (2 * margin), controlHeight);
+            _myQueryStateButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, topMargin + (4 * controlHeight) + (3 * margin), View.Bounds.Width / 2 - margin, controlHeight);
+            _myResultsLabel.Frame = new CoreGraphics.CGRect(margin, topMargin + (5 * controlHeight) + (4 * margin), View.Bounds.Width - (2 * margin), controlHeight);
 
             base.ViewDidLayoutSubviews();
         }

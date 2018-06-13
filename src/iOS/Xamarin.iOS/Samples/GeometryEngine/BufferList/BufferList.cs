@@ -41,7 +41,7 @@ namespace ArcGISRuntime.Samples.BufferList
         private List<double> _bufferDistancesList = new List<double>();
 
         // Text view to display the list of geodatabases
-        UITextView _sampleInstructionUITextiew;
+        private UILabel _sampleInstructionUITextiew;
 
         // Create a UILabel to display instructions.
         private UILabel _bufferDistanceInstructionsUILabel;
@@ -49,14 +49,15 @@ namespace ArcGISRuntime.Samples.BufferList
         // Create UITextField to enter a buffer value (in miles). 
         private UITextField _bufferDistanceMilesUITextField;
 
-        // Create a UILabel to display instructions.
-        private UILabel _unionBufferInstructionsUILabel;
-
         // Create a UISwitch to toggle whether to union the buffered results.
         private UISwitch _unionBufferUISwitch;
 
         // Create a UIButton to create a unioned buffer.
         private UIButton _bufferButton;
+
+        // Create toolbars to put behind the controls.
+        private UIToolbar _helpToolbar = new UIToolbar();
+        private UIToolbar _controlsToolbar = new UIToolbar();
 
         public BufferList()
         {
@@ -74,29 +75,19 @@ namespace ArcGISRuntime.Samples.BufferList
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 200, View.Bounds.Width, View.Bounds.Height);
+            nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat controlHeight = 30;
+            nfloat margin = 5;
 
-            // Determine the offset where the MapView control should start.
-            nfloat yPageOffset = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-            // Setup the visual frame for the general sample instructions UTexView.
-            _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 80);
-
-            // Setup the visual frame for the instructions UILabel.
-            _bufferDistanceInstructionsUILabel.Frame = new CoreGraphics.CGRect(0, yPageOffset + 80, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the buffer value UITextField.
-            _bufferDistanceMilesUITextField.Frame = new CoreGraphics.CGRect(175, yPageOffset + 80, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the instructions UILabel.
-            _unionBufferInstructionsUILabel.Frame = new CoreGraphics.CGRect(0, yPageOffset + 120, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the union buffer toggle value UISwitch.
-            _unionBufferUISwitch.Frame = new CoreGraphics.CGRect(175, yPageOffset + 120, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the make buffer UIButton.
-            _bufferButton.Frame = new CoreGraphics.CGRect(0, yPageOffset + 160, View.Bounds.Width, 40);
+            // Setup the visual frames for the views.
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, controlHeight * 3 + margin * 2);
+            _controlsToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - (2 * controlHeight) - (3 * margin), View.Bounds.Width, (2 * controlHeight) + (3 * margin));
+            _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), 3 * controlHeight);
+            _bufferDistanceInstructionsUILabel.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - (2 * controlHeight) - (2* margin), 175, controlHeight);
+            _bufferDistanceMilesUITextField.Frame = new CoreGraphics.CGRect(175 + 30, View.Bounds.Height - (2 * controlHeight) - (2 * margin), 50, controlHeight);
+            _unionBufferUISwitch.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 75 + margin, View.Bounds.Height - (2 * controlHeight) - (2 * margin), 75 - (2 * margin), controlHeight);
+            _bufferButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - (2 * margin), controlHeight);
 
             base.ViewDidLayoutSubviews();
         }
@@ -226,48 +217,39 @@ namespace ArcGISRuntime.Samples.BufferList
         {
 
             // Create a UITextView for the overall sample instructions.
-            _sampleInstructionUITextiew = new UITextView();
-            _sampleInstructionUITextiew.Text = "Tap on the map in several locations to create center map-points to generate buffer(s). You can " + 
-                "optionally change the buffer distance(in miles) by adjusting the value in the text field before each tap on the map. Then click " + 
-                "on the 'Create Buffer(s)' button. If the 'Union the buffer(s)' switch is 'on' the resulting output buffer will be one polygon "+
-                "(possibly multi - part). If the 'Union the buffer(s)' switch is 'off' the resulting output will have one buffer polygon per input map point.";
-            _sampleInstructionUITextiew.Font = UIFont.FromName("Helvetica", 9f);
+            _sampleInstructionUITextiew = new UILabel();
+            _sampleInstructionUITextiew.Text = "Tap on the map to create several points. You can specify the buffer distance for each point. " + 
+                "Tap 'Create buffer(s)'. If the switch is 'on' the resulting output buffer will be unioned (one polygon). Otherwise, the result will have one buffer per point.";
+            _sampleInstructionUITextiew.Lines = 4;
+            _sampleInstructionUITextiew.AdjustsFontSizeToFitWidth = true;
 
             // Create a UILabel for instructions.
             _bufferDistanceInstructionsUILabel = new UILabel();
             _bufferDistanceInstructionsUILabel.Text = "Buffer distance (miles):";
             _bufferDistanceInstructionsUILabel.AdjustsFontSizeToFitWidth = true;
-            _bufferDistanceInstructionsUILabel.BackgroundColor = UIColor.White;
 
             // Create a UITextFiled for the buffer value.
             _bufferDistanceMilesUITextField = new UITextField();
             _bufferDistanceMilesUITextField.Text = "10";
             _bufferDistanceMilesUITextField.AdjustsFontSizeToFitWidth = true;
-            _bufferDistanceMilesUITextField.BackgroundColor = UIColor.White;
+            _bufferDistanceMilesUITextField.VerticalAlignment = UIControlContentVerticalAlignment.Center;
             // - Allow pressing 'return' to dismiss the keyboard
             _bufferDistanceMilesUITextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
-
-            // Create a UILabel for instructions.
-            _unionBufferInstructionsUILabel = new UILabel();
-            _unionBufferInstructionsUILabel.Text = "Union the buffer(s):";
-            _unionBufferInstructionsUILabel.AdjustsFontSizeToFitWidth = true;
-            _unionBufferInstructionsUILabel.BackgroundColor = UIColor.White;
 
             // Create a UISwitch for toggling the union of the buffer geometries.
             _unionBufferUISwitch = new UISwitch();
             _unionBufferUISwitch.On = true;
-            _unionBufferUISwitch.BackgroundColor = UIColor.White;
+            _unionBufferUISwitch.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
 
             // Create a UIButton to create the buffers.
             _bufferButton = new UIButton();
-            _bufferButton.SetTitle("Make Unioned Buffer", UIControlState.Normal);
+            _bufferButton.SetTitle("Create buffer(s)", UIControlState.Normal);
             _bufferButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _bufferButton.BackgroundColor = UIColor.White;
             // - Hook to touch event to do querying
             _bufferButton.TouchUpInside += BufferButton_Click;
 
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _sampleInstructionUITextiew, _bufferDistanceInstructionsUILabel, _bufferDistanceMilesUITextField, _unionBufferInstructionsUILabel, _unionBufferUISwitch, _bufferButton);
+            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _sampleInstructionUITextiew, _bufferDistanceInstructionsUILabel, _bufferDistanceMilesUITextField, _unionBufferUISwitch, _bufferButton);
         }
     }
 }

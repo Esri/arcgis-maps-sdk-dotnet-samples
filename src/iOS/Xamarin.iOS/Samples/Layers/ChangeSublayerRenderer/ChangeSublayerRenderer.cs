@@ -34,10 +34,14 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
         private ArcGISMapImageLayer _arcGISMapImageLayer;
 
         // Text view to display the sample instructions.
-        UITextView _sampleInstructionUITextiew;
+        UILabel _sampleInstructionUITextiew;
 
         // Create a UIButton to clip polygons.
         private UIButton _changeSublayerRendererButton;
+
+        // Toolbars to show behind the controls.
+        private UIToolbar _labelToolbar = new UIToolbar();
+        private UIToolbar _buttonToolbar = new UIToolbar();
 
         public ChangeSublayerRenderer()
         {
@@ -57,17 +61,15 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 80, View.Bounds.Width, View.Bounds.Height);
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat margin = 5;
 
-            // Determine the offset where the MapView control should start.
-            nfloat yPageOffset = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-            // Setup the visual frame for the general sample instructions UITexView.
-            _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the change sublayer renderer UIButton.
-            _changeSublayerRendererButton.Frame = new CoreGraphics.CGRect(0, yPageOffset + 40, View.Bounds.Width, 40);
+            // Setup the frames for the views.
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _labelToolbar.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, 70);
+            _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(margin, topMargin + margin, View.Bounds.Width - (2 * margin), 60);
+            _buttonToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            _changeSublayerRendererButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - 40 + margin, View.Bounds.Width - (2 * margin), 30);
 
             base.ViewDidLayoutSubviews();
         }
@@ -145,22 +147,23 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
         private void CreateLayout()
         {
             // Create a UITextView for the overall sample instructions.
-            _sampleInstructionUITextiew = new UITextView
+            _sampleInstructionUITextiew = new UILabel
             {
-                Text = "Click the 'Change sublayer renderer' button to apply a unique value renderer to the counties sub-layer.",
-                Font = UIFont.FromName("Helvetica", 9f)
+                Text = "Tap 'Change sublayer renderer' to apply a unique value renderer to the counties sublayer."
             };
+            _sampleInstructionUITextiew.Lines = 2;
+            _sampleInstructionUITextiew.AdjustsFontSizeToFitWidth = true;
 
             // Create a UIButton to change the sublayer renderer.
             _changeSublayerRendererButton = new UIButton();
             _changeSublayerRendererButton.SetTitle("Change sublayer renderer", UIControlState.Normal);
             _changeSublayerRendererButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _changeSublayerRendererButton.BackgroundColor = UIColor.White;
+
             // - Hook to touch event to change the sublayer renderer.
             _changeSublayerRendererButton.TouchUpInside += ChangeSublayerRendererButton_TouchUpInside;
 
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _sampleInstructionUITextiew, _changeSublayerRendererButton);
+            View.AddSubviews(_myMapView, _labelToolbar, _buttonToolbar, _sampleInstructionUITextiew, _changeSublayerRendererButton);
         }
     }
 }

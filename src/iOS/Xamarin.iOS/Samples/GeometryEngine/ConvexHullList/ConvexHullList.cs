@@ -41,7 +41,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         private Graphic _polygonGraphic2;
 
         // Text view to display the instructions for the sample.
-        UITextView _sampleInstructionUITextiew;
+        UILabel _sampleInstructionUITextiew;
 
         // Create a UILabel to display label for the UISwitch.
         private UILabel _convexHullListInstructionsUILabel;
@@ -51,6 +51,10 @@ namespace ArcGISRuntime.Samples.ConvexHullList
 
         // Create a UIButton to create convex hull(s).
         private UIButton _convexHullListButton;
+
+        // Create toolbars to go behind the help label and controls.
+        private UIToolbar _helpToolbar = new UIToolbar();
+        private UIToolbar _controlsToolbar = new UIToolbar();
 
         public ConvexHullList()
         {
@@ -68,23 +72,18 @@ namespace ArcGISRuntime.Samples.ConvexHullList
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 160, View.Bounds.Width, View.Bounds.Height);
+            nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat margin = 5;
+            nfloat controlHeight = 30;
 
-            // Determine the offset where the MapView control should start.
-            nfloat yPageOffset = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-            // Setup the visual frame for the general sample instructions UTexView.
-            _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 80);
-
-            // Setup the visual frame for the instructions UILabel.
-            _convexHullListInstructionsUILabel.Frame = new CoreGraphics.CGRect(0, yPageOffset + 80, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the union toggle value UISwitch.
-            _convexHullListUISwitch.Frame = new CoreGraphics.CGRect(175, yPageOffset + 80, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the make convex hull(s) UIButton.
-            _convexHullListButton.Frame = new CoreGraphics.CGRect(0, yPageOffset + 120, View.Bounds.Width, 40);
+            // Setup the visual frames for the views.
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, controlHeight + (2 * margin));
+            _controlsToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - (2 * margin), View.Bounds.Width, controlHeight + (2 * margin));
+            _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _convexHullListInstructionsUILabel.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, 50 - (2 * margin), controlHeight);
+            _convexHullListUISwitch.Frame = new CoreGraphics.CGRect(50 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 50 - (2 * margin), controlHeight);
+            _convexHullListButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
 
             base.ViewDidLayoutSubviews();
         }
@@ -241,33 +240,30 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         private void CreateLayout()
         {
             // Create a UITextView for the overall sample instructions.
-            _sampleInstructionUITextiew = new UITextView();
-            _sampleInstructionUITextiew.Text = "Click the 'ConvexHull' button to create convex hull(s) from the polygon graphics. If the 'Union' checkbox " +
-                "is checked, the resulting output will be one polygon being the convex hull for the two input polygons. If the 'Union' checkbox is un-checked, " +
-                "the resulting output will have two convex hull polygons - one for each of the two input polygons.";
-            _sampleInstructionUITextiew.Font = UIFont.FromName("Helvetica", 9f);
+            _sampleInstructionUITextiew = new UILabel();
+            _sampleInstructionUITextiew.Text = "Tap 'Create convex hull'. Result will be two polygons if 'Union' is off.";
+            _sampleInstructionUITextiew.Lines = 1;
+            _sampleInstructionUITextiew.AdjustsFontSizeToFitWidth = true;
 
             // Create a UILabel for the UISwitch label.
             _convexHullListInstructionsUILabel = new UILabel();
             _convexHullListInstructionsUILabel.Text = "Union:";
             _convexHullListInstructionsUILabel.AdjustsFontSizeToFitWidth = true;
-            _convexHullListInstructionsUILabel.BackgroundColor = UIColor.White;
 
             // Create a UISwitch for toggling the union of the convex hull(s).
             _convexHullListUISwitch = new UISwitch();
             _convexHullListUISwitch.On = true;
-            _convexHullListUISwitch.BackgroundColor = UIColor.White;
 
             // Create a UIButton to create the convex hull(s).
             _convexHullListButton = new UIButton();
-            _convexHullListButton.SetTitle("Convex Hull", UIControlState.Normal);
+            _convexHullListButton.SetTitle("Create convex hull", UIControlState.Normal);
             _convexHullListButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _convexHullListButton.BackgroundColor = UIColor.White;
+            _convexHullListButton.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
             // - Hook to touch event to do querying
             _convexHullListButton.TouchUpInside += BufferButton_Click;
 
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _sampleInstructionUITextiew, _convexHullListInstructionsUILabel, _convexHullListUISwitch, _convexHullListButton);
+            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _sampleInstructionUITextiew, _convexHullListInstructionsUILabel, _convexHullListUISwitch, _convexHullListButton);
         }
     }
 }

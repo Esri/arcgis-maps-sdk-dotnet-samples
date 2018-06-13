@@ -18,16 +18,29 @@
                     output buffer will be one polygon (possibly multi-part). Otherwise,
                     the resulting output will have one buffer polygon per input point.
                 </TextBlock>
-                <StackPanel Orientation="Horizontal">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
                     <TextBox x:Name="BufferDistanceMilesTextBox"
-                             Text="10" TextAlignment="Center" TextWrapping="Wrap"
-                             Width="50" />
+                             Text="10"
+                             TextAlignment="Center"
+                             TextWrapping="Wrap"
+                             Grid.Column="0" />
+                    <TextBlock Text="miles"
+                               Grid.Column="1"
+                               VerticalAlignment="Center"
+                               Margin="5,0,5,0" />
                     <CheckBox x:Name="UnionCheckBox"
+                              Grid.Column="2"
                               Content="Union buffers"
                               IsChecked="True"
                               FontWeight="SemiBold"
+                              HorizontalAlignment="Right"
                               Margin="5,0,0,0" />
-                </StackPanel>
+                </Grid>
                 <Button Content="Create buffer(s)"
                         Margin="0,5,0,0"
                         HorizontalAlignment="Stretch"

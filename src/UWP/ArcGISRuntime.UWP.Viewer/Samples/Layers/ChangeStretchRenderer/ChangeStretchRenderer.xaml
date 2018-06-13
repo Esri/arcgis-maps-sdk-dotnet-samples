@@ -41,7 +41,7 @@
                 <ComboBox x:Name="RendererTypes"
                           Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                           Margin="0,5,0,5"
-                          HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                          HorizontalAlignment="Stretch"
                           SelectionChanged="RendererTypes_SelectionChanged" />
                 <TextBlock x:Name="FirstParameterLabel"
                            Grid.Row="2" Grid.Column="0" />

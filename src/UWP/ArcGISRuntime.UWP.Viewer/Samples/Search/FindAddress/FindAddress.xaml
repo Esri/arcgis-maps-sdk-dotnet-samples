@@ -9,7 +9,8 @@
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="30" Padding="20" MinWidth="375">
             <StackPanel>
-                <TextBlock Text="Enter a search or select a preset."
+                <TextBlock Text="Enter an address and tap 🔎 to search."
+                           IsColorFontEnabled="False"
                            TextAlignment="Center" FontWeight="SemiBold" />
                 <AutoSuggestBox x:Name="AutoSuggestBox"
                                 QueryIcon="Find"

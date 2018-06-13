@@ -36,18 +36,15 @@ namespace ArcGISRuntime.UWP.Samples.RasterRenderingRule
         private IReadOnlyList<RenderingRuleInfo> _myReadOnlyListRenderRuleInfos;
 
         // Create a Uri for the image server
-        private Uri _myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer");
+        private readonly Uri _imageServerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer");
 
         private async void Initialize()
         {
             // Assign a new map to the MapView
-            MyMapView.Map = new Map();
-
-            // Set the basemap to Streets
-            MyMapView.Map.Basemap = Basemap.CreateStreets();
+            MyMapView.Map = new Map(Basemap.CreateStreets());
 
             // Create a new image service raster from the Uri
-            ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri);
+            ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_imageServerUri);
 
             // Load the image service raster
             await myImageServiceRaster.LoadAsync();
@@ -99,7 +96,7 @@ namespace ArcGISRuntime.UWP.Samples.RasterRenderingRule
                     RenderingRule myRenderingRule = new RenderingRule(myRenderingRuleInfo);
 
                     // Create a new image service raster
-                    ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri);
+                    ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_imageServerUri);
 
                     // Set the image service raster's rendering rule to the rendering rule created earlier
                     myImageServiceRaster.RenderingRule = myRenderingRule;

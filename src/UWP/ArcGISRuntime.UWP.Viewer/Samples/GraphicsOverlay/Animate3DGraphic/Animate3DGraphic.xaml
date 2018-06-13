@@ -32,7 +32,7 @@
                     VerticalAlignment="Top"
                     Margin="5,0,0,0"
                     MinWidth="75"
-                    Click="MissionPlayPlauseClick" />
+                    Click="MissionPlayPause_Click" />
             <TextBlock Text="Progress:"
                        Style="{StaticResource LabelStyle}"
                        VerticalAlignment="Top"

@@ -11,13 +11,13 @@
             <StackPanel>
                 <TextBlock Text="Use the slider to change the observer's altitude."
                            TextAlignment="Center" FontWeight="SemiBold" TextWrapping="Wrap" />
-                <TextBlock x:Name="MyStatusLabel"
+                <TextBlock x:Name="StatusLabel"
                            Text="Status: "
                            Margin="0,10,0,5"
                            TextAlignment="Center" Foreground="MidnightBlue" />
                 <Slider HorizontalAlignment="Stretch"
                         Margin="0,0,0,-10"
-                        ValueChanged="MyHeightSlider_ValueChanged" />
+                        ValueChanged="HeightSlider_ValueChanged" />
             </StackPanel>
         </Border>
     </Grid>

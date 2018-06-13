@@ -22,7 +22,7 @@ namespace ArcGISRuntime.UWP.Samples.OpenMapURL
     public partial class OpenMapURL
     {
         // String array to hold URLs to publicly available web maps.
-        private string[] _itemURLs =
+        private readonly string[] _itemUrls =
         {
             "http://www.arcgis.com/home/item.html?id=2d6fa24b357d427f9c737774e7b0f977",
             "http://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
@@ -30,7 +30,7 @@ namespace ArcGISRuntime.UWP.Samples.OpenMapURL
         };
 
         // String array to store titles for the webmaps specified above. These titles are in the same order as the URLs above.
-        private string[] _titles = new string[]
+        private readonly string[] _titles =
         {
             "Housing with Mortgages",
             "USA Tapestry Segmentation",
@@ -54,7 +54,7 @@ namespace ArcGISRuntime.UWP.Samples.OpenMapURL
             int selectedIndex = _titles.ToList().IndexOf(selectedMapName);
 
             // Create a new Map instance with URL of the webmap that selected.
-            MyMapView.Map = new Map(new Uri(_itemURLs[selectedIndex]));
+            MyMapView.Map = new Map(new Uri(_itemUrls[selectedIndex]));
         }
     }
 }

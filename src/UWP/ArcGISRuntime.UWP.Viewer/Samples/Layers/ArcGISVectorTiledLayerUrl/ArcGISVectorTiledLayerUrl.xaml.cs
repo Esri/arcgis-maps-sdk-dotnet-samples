@@ -10,7 +10,6 @@
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.ArcGISVectorTiledLayerUrl
@@ -22,7 +21,7 @@ namespace ArcGISRuntime.UWP.Samples.ArcGISVectorTiledLayerUrl
         "")]
     public partial class ArcGISVectorTiledLayerUrl
     {
-        // Dictionary associates layer names with URIs
+        // Dictionary associates layer names with URIs.
         private readonly Dictionary<string, Uri> _layerUrls = new Dictionary<string, Uri>()
         {
             {"Mid-Century", new Uri("http://www.arcgis.com/home/item.html?id=7675d44bb1e4428aa2c30a9b68f97822")},
@@ -36,40 +35,31 @@ namespace ArcGISRuntime.UWP.Samples.ArcGISVectorTiledLayerUrl
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization
+            // Create the UI, setup the control references and execute initialization.
             Initialize();
         }
 
         private void Initialize()
         {
-            // Create a new ArcGISVectorTiledLayer
-            ArcGISVectorTiledLayer vectorTiledLayer = new ArcGISVectorTiledLayer(_layerUrls.Values.First());
-
-            // Create new Map with basemap
-            Map myMap = new Map(new Basemap(vectorTiledLayer));
-
-            // Set titles as a items source
+            // Set titles as the items source.
             VectorLayerChooser.ItemsSource = _layerUrls.Keys;
 
-            // Set the initial selection
+            // Set the initial selection.
             VectorLayerChooser.SelectedIndex = 0;
-
-            // Assign the map to the MapView
-            MyMapView.Map = myMap;
         }
 
         private void OnVectorLayersChooserSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Get the user's selection
-            var selectedVectorLayer = e.AddedItems[0].ToString();
+            // Get the user's selection.
+            string selectedVectorLayer = e.AddedItems[0].ToString();
 
-            // Get the URL from the dictionary
+            // Get the URL from the dictionary.
             Uri vectorTiledLayerUrl = _layerUrls[selectedVectorLayer];
 
-            // Create a new ArcGISVectorTiledLayer with the URI Selected by the user
+            // Create a new ArcGISVectorTiledLayer with the URI Selected by the user.
             ArcGISVectorTiledLayer vectorTiledLayer = new ArcGISVectorTiledLayer(vectorTiledLayerUrl);
 
-            // Create new Map with basemap and assigning to the MapView's Map
+            // Create new Map with basemap and assigning to the MapView's Map.
             MyMapView.Map = new Map(new Basemap(vectorTiledLayer));
         }
     }

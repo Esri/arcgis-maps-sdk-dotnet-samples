@@ -121,16 +121,16 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             // Apply a rotation expression to the renderer
             renderer2D.RotationExpression = "[ANGLE]";
             // Update the inset map with a new GraphicsOverlay based on the renderer
-            GraphicsOverlay insetMapOperlay = new GraphicsOverlay
+            GraphicsOverlay insetMapOverlay = new GraphicsOverlay
             {
                 Renderer = renderer2D
             };
-            InsetMapView.GraphicsOverlays.Add(insetMapOperlay);
+            InsetMapView.GraphicsOverlays.Add(insetMapOverlay);
 
             // Create placeholder graphic for showing the mission route in the inset map
             SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2);
             _routeGraphic = new Graphic { Symbol = routeSymbol };
-            insetMapOperlay.Graphics.Add(_routeGraphic);
+            insetMapOverlay.Graphics.Add(_routeGraphic);
 
             // Create the plane graphic; this is symbolized as a blue triangle because of renderer implemented above
             // Create the attribute dictionary
@@ -140,7 +140,7 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             // Create the graphic from the attributes and the initial point
             _plane2D = new Graphic(new MapPoint(0, 0, SpatialReferences.Wgs84), plane2DAttributes);
             // Add the plane graphic to the inset map via the overlay
-            insetMapOperlay.Graphics.Add(_plane2D);
+            insetMapOverlay.Graphics.Add(_plane2D);
 
             // Create the model graphic for the plane
             // Get the path to the 3D model
@@ -276,7 +276,7 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             return DataManager.GetDataFolder("681d6f7694644709a7c830ec57a2d72b", "Bristol.dae");
         }
 
-        private void MissionPlayPlauseClick(object sender, RoutedEventArgs e)
+        private void MissionPlayPause_Click(object sender, RoutedEventArgs e)
         {
             // Get a reference to the button that sent the event
             Button playButton = (Button)sender;

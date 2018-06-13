@@ -13,7 +13,7 @@
                            FontWeight="SemiBold">
                     Click 'Create convex hull' to create convex hull(s) from the polygon
                     graphics. If 'Union' is checked, the resulting output will
-                    be one polygon being the convex hull for the two input polygons.
+                    be one polygon that is the convex hull for the two input polygons.
                     Otherwise, the resulting output will have two convex
                     hull polygons - one for each of the two input polygons.
                 </TextBlock>

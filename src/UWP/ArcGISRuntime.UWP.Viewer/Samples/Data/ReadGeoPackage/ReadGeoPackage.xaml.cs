@@ -12,7 +12,6 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 
 namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
@@ -33,12 +32,8 @@ namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
             Initialize();
         }
 
-        // Member HybridDictionary to hold the multiple key/object pairs that represent: 
-        // human-readable string name of a layer - key
-        // the layer itself (RasterLayer or FeatureLayer) - object
-        // NOTE: According to MSDN, a HybridDictionary is useful for cases where the number 
-        // of elements in a dictionary is unknown
-        HybridDictionary _myHybridDictionary_Layers = new HybridDictionary();
+        // Dictionary that maps the name of a layer to the layer itself
+        private readonly Dictionary<string,Layer> _nameToLayerDictionary = new Dictionary<string, Layer>();
 
         private async void Initialize()
         {
@@ -46,16 +41,13 @@ namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
             MyMapView.Map = new Map(BasemapType.Streets, 39.7294, -104.8319, 11);
 
             // Get the full path to the GeoPackage on the device
-            string myGeoPackagePath = GetGeoPackagePath();
+            string myGeoPackagePath = DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");
 
             // Open the GeoPackage
             GeoPackage myGeoPackage = await GeoPackage.OpenAsync(myGeoPackagePath);
 
-            // Get the read only list of GeoPackageRasters from the GeoPackage
-            IReadOnlyList<GeoPackageRaster> myReadOnlyListOfGeoPackageRasters = myGeoPackage.GeoPackageRasters;
-
             // Loop through each GeoPackageRaster
-            foreach (GeoPackageRaster oneGeoPackageRaster in myReadOnlyListOfGeoPackageRasters)
+            foreach (GeoPackageRaster oneGeoPackageRaster in myGeoPackage.GeoPackageRasters)
             {
                 // Create a RasterLayer from the GeoPackageRaster
                 RasterLayer myRasterLayer = new RasterLayer(oneGeoPackageRaster);
@@ -66,40 +58,37 @@ namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
                 // Load the RasterLayer - that way we can get to it's properties
                 await myRasterLayer.LoadAsync();
 
-                // Create a string variable to hold the human-readable name of the RasterLayer for display
-                // in the ListBox and the HybridDictonary - it will initially be an empty string
+                // Create a string variable to hold the name of the RasterLayer for display
+                // in the ListBox and the Dictionary - it will initially be an empty string
                 string myRasterLayerName = "";
 
                 if (myRasterLayer.Name != "")
                 {
-                    // We have a good human-readable name for the RasterLayer that came from
+                    // We have a good name for the RasterLayer that came from
                     // the RasterLayer.Name property
                     myRasterLayerName = myRasterLayer.Name;
                 }
                 else if (oneGeoPackageRaster.Path.Split('/').Last() != "")
                 {
-                    // We did not get a good human-readable name from the RasterLayer from the .Name
-                    // property, get the good human-readable name from the GeoPackageRaster.Path instead
+                    // We did not get a good name from the RasterLayer from the .Name
+                    // property, get the good name from the GeoPackageRaster.Path instead
                     myRasterLayerName = oneGeoPackageRaster.Path.Split('/').Last();
                 }
 
                 // Append the 'type of layer' to the myRasterLayerName string to display in the 
-                // ListBox and as the key for the HybridDictonary
+                // ListBox and as the key for the Dictionary
                 myRasterLayerName = myRasterLayerName + " - RasterLayer";
 
-                // Add the name of the RasterLayer and the RasterLayer itself into the HybridDictionary
-                _myHybridDictionary_Layers.Add(myRasterLayerName, myRasterLayer);
+                // Add the name of the RasterLayer and the RasterLayer itself into the Dictionary
+                _nameToLayerDictionary[myRasterLayerName] = myRasterLayer;
 
                 // Add the name of the RasterLayer to the ListBox of layers not in map
                 LayersNotInTheMap.Items.Add(myRasterLayerName);
 
             }
 
-            // Get the read only list of GeoPackageFeatureTabless from the GeoPackage
-            IReadOnlyList<GeoPackageFeatureTable> myReadOnlyListOfGeoPackageFeatureTables = myGeoPackage.GeoPackageFeatureTables;
-
             // Loop through each GeoPackageFeatureTable
-            foreach (GeoPackageFeatureTable oneGeoPackageFeatureTable in myReadOnlyListOfGeoPackageFeatureTables)
+            foreach (GeoPackageFeatureTable oneGeoPackageFeatureTable in myGeoPackage.GeoPackageFeatureTables)
             {
                 // Create a FeatureLayer from the GeoPackageFeatureLayer
                 FeatureLayer myFeatureLayer = new FeatureLayer(oneGeoPackageFeatureTable);
@@ -108,15 +97,15 @@ namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
                 await myFeatureLayer.LoadAsync();
 
                 // Create a string variable to hold the human-readable name of the FeatureLayer for 
-                // display in the ListBox and the HybridDictonary 
+                // display in the ListBox and the Dictionary 
                 string myFeatureLayerName = myFeatureLayer.Name;
 
                 // Append the 'type of layer' to the myFeatureLayerName string to display in the 
-                // ListBox and as the key for the HybridDictonary
+                // ListBox and as the key for the Dictionary
                 myFeatureLayerName = myFeatureLayerName + " - FeatureLayer";
 
-                // Add the name of the FeatureLayer and the FeatureLayer itself into the HybridDictionary
-                _myHybridDictionary_Layers.Add(myFeatureLayerName, myFeatureLayer);
+                // Add the name of the FeatureLayer and the FeatureLayer itself into the Dictionary
+                _nameToLayerDictionary[myFeatureLayerName] = myFeatureLayer;
 
                 // Add the name of the FeatureLayer to the ListBox of layers not in map
                 LayersNotInTheMap.Items.Add(myFeatureLayerName);
@@ -131,20 +120,20 @@ namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
             // Ensure we have a valid selection
             if (myLayerSelection != null)
             {
-                // Get the human-readable name of the layer 
+                // Get the name of the layer 
                 string myLayerName = myLayerSelection.ToString();
 
-                // Get the layer from the HybridDictionary (it could be either a RasterLayer
+                // Get the layer from the Dictionary (it could be either a RasterLayer
                 // or a FeatureLayer - both inherit from the abstract/base Layer class)
-                Layer myLayer = (Layer)_myHybridDictionary_Layers[myLayerName];
+                Layer myLayer = _nameToLayerDictionary[myLayerName];
 
                 // Add the layer to the map
                 MyMapView.Map.OperationalLayers.Add(myLayer);
 
-                // Remove the human-readable layer name from the ListBox_LayersNoInTheMap
+                // Remove the layer name from the ListBox_LayersNoInTheMap
                 LayersNotInTheMap.Items.Remove(myLayerName);
 
-                // Add the human-readable layer name to the LayersInTheMap
+                // Add the layer name to the LayersInTheMap
                 LayersInTheMap.Items.Add(myLayerName);
             }
         }
@@ -160,27 +149,20 @@ namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
                 // Get the human-readable name of the layer 
                 string myLayerName = myLayerSelection.ToString();
 
-                // Get the layer from the HybridDictionary (it could be either a RasterLayer
+                // Get the layer from the Dictionary (it could be either a RasterLayer
                 // or a FeatureLayer - both inherit from the abstract/base Layer class)
-                Layer myLayer = (Layer)_myHybridDictionary_Layers[myLayerName];
+                Layer myLayer = _nameToLayerDictionary[myLayerName];
 
                 // Remove the layer from the map
                 MyMapView.Map.OperationalLayers.Remove(myLayer);
 
-                // Remove the human-readable layer name from the LayersInTheMap
+                // Remove the layer name from the LayersInTheMap
                 LayersInTheMap.Items.Remove(myLayerName);
 
-                // Add the human-readable layer name to the LayersNotInTheMap
+                // Add the layer name to the LayersNotInTheMap
                 LayersNotInTheMap.Items.Add(myLayerName);
             }
 
         }
-
-        private static string GetGeoPackagePath()
-
-        {
-            return DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");
-        }
-
     }
 }

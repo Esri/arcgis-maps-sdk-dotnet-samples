@@ -39,6 +39,12 @@ namespace ArcGISRuntime.Samples.Buffer
         // Graphics overlay to display buffer-related graphics.
         private GraphicsOverlay _graphicsOverlay;
 
+        // Create toolbars to put behind the controls and the help text.
+        private UIToolbar _helpToolbar = new UIToolbar();
+
+        // Help label.
+        private UILabel _helpLabel;
+
         public Buffer()
         {
             Title = "Buffer";
@@ -55,17 +61,16 @@ namespace ArcGISRuntime.Samples.Buffer
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView.
+            nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat controlHeight = 30;
+            nfloat margin = 5;
+
+            // Setup the visual frames for the views.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Determine the offset where the MapView control should start.
-            nfloat yPageOffset = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-            // Setup the visual frame for the instructions UILabel.
-            _bufferInstructionsUILabel.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the buffer value UITextField.
-            _bufferDistanceMilesUITextField.Frame = new CoreGraphics.CGRect(150, yPageOffset, View.Bounds.Width, 40);
+            _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, 2 * controlHeight + 3 * margin);
+            _helpLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _bufferInstructionsUILabel.Frame = new CoreGraphics.CGRect(margin, topStart + controlHeight + (2 *margin) - 1, View.Bounds.Width / 2 - (2 * margin), controlHeight);
+            _bufferDistanceMilesUITextField.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, topStart + controlHeight + 2 * margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
 
             base.ViewDidLayoutSubviews();
         }
@@ -154,18 +159,22 @@ namespace ArcGISRuntime.Samples.Buffer
             _bufferInstructionsUILabel = new UILabel();
             _bufferInstructionsUILabel.Text = "Buffer (miles):";
             _bufferInstructionsUILabel.AdjustsFontSizeToFitWidth = true;
-            _bufferInstructionsUILabel.BackgroundColor = UIColor.White;
+
+            _helpLabel = new UILabel();
+            _helpLabel.Text = "Tap to create a buffer with specified size.";
+            _helpLabel.AdjustsFontSizeToFitWidth = true;
 
             // Create UITextFiled for the buffer value.
             _bufferDistanceMilesUITextField = new UITextField();
             _bufferDistanceMilesUITextField.Text = "10";
             _bufferDistanceMilesUITextField.AdjustsFontSizeToFitWidth = true;
-            _bufferDistanceMilesUITextField.BackgroundColor = UIColor.White;
+            _bufferDistanceMilesUITextField.TextColor = View.TintColor;
+
             // - Allow pressing 'return' to dismiss the keyboard
             _bufferDistanceMilesUITextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _bufferInstructionsUILabel, _bufferDistanceMilesUITextField);
+            View.AddSubviews(_myMapView, _helpToolbar, _helpLabel, _bufferInstructionsUILabel, _bufferDistanceMilesUITextField);
         }
     }
 }

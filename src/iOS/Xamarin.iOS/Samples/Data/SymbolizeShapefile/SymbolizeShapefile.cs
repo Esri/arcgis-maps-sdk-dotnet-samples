@@ -42,6 +42,9 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
         // Hold reference to alternate renderer to enable switching
         private SimpleRenderer _alternateRenderer;
 
+        // Create a toolbar to show under the button
+        private UIToolbar _toolbar = new UIToolbar();
+
         public SymbolizeShapefile()
         {
             Title = "Symbolize a shapefile";
@@ -93,11 +96,11 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
         private void CreateLayout()
         {
             // Configure the renderer button
-            _myRendererButton.SetTitle("Change Renderer", UIControlState.Normal);
-            _myRendererButton.SetTitleColor(UIColor.White, UIControlState.Normal);
+            _myRendererButton.SetTitle("Change renderer", UIControlState.Normal);
+            _myRendererButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Add MapView to the page
-            View.AddSubviews(_myMapView, _myRendererButton);
+            View.AddSubviews(_myMapView, _toolbar, _myRendererButton);
 
             // Subscribe to button press events
             _myRendererButton.TouchUpInside += Button_Clicked;
@@ -126,11 +129,12 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
 
         public override void ViewDidLayoutSubviews()
         {
-            // Set up the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - 50);
+            // Set up the visual frames for the views
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
 
             // Set up the visual frame for the button
-            _myRendererButton.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
+            _myRendererButton.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 35, View.Bounds.Width, 30);
 
             base.ViewDidLayoutSubviews();
         }

@@ -29,8 +29,12 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
-        private Button _infoButton;
+        // Button for loading layer using Uri constructor.
         private Button _uriButton;
+
+        // Button for loading layer using WmtsService.
+        private Button _infoButton;
+        
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -42,96 +46,80 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             CreateLayout();
 
             // Load the map using Uri to the WMTS service.
-            UriButton_Clicked(null, null);
+            LoadWMTSLayer(true);
         }
 
         private void UriButton_Clicked(object sender, EventArgs e)
         {
-            // Create dialog to display alert information
-            var alert = new AlertDialog.Builder(this);
+            //Load the WMTS layer using Uri method.
+            LoadWMTSLayer(true);
 
-            try
-            {
-                // Define the Uri to the WMTS service
-                var myUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/WMTS");
-
-                // Create a new instance of a WMTS layer using a Uri and provide an Id value
-                WmtsLayer myWmtsLayer = new WmtsLayer(myUri, "WorldTimeZones");
-
-                // Create a new map
-                Map myMap = new Map();
-
-                // Get the basemap from the map
-                Basemap myBasemap = myMap.Basemap;
-
-                // Get the layer collection for the base layers
-                LayerCollection myLayerCollection = myBasemap.BaseLayers;
-
-                // Add the WMTS layer to the layer collection of the map
-                myLayerCollection.Add(myWmtsLayer);
-
-                // Assign the map to the MapView
-                _myMapView.Map = myMap;
-
-                // Disable and enable the appropriate buttons.
-                _uriButton.Enabled = false;
-                _infoButton.Enabled = true;
-            }
-            catch (Exception ex)
-            {
-                alert.SetTitle("Sample Error");
-                alert.SetMessage(ex.Message);
-                alert.Show();
-            }
+            // Disable and enable the appropriate buttons.
+            _uriButton.Enabled = false;
+            _infoButton.Enabled = true;
         }
 
-        private async void InfoButton_Clicked(object sender, EventArgs e)
+        private void InfoButton_Clicked(object sender, EventArgs e)
         {
-            // Create dialog to display alert information
-            var alert = new AlertDialog.Builder(this);
+            //Load the WMTS layer using layer info.
+            LoadWMTSLayer(false);
 
+            // Disable and enable the appropriate buttons.
+            _uriButton.Enabled = true;
+            _infoButton.Enabled = false;
+        }
+
+        private async void LoadWMTSLayer(bool uriMode)
+        {
             try
             {
-                // Define the Uri to the WMTS service
-                var myUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/WMTS");
-
-                // Define a new instance of the WMTS service
-                WmtsService myWmtsService = new WmtsService(myUri);
-
-                // Load the WMTS service
-                await myWmtsService.LoadAsync();
-
-                // Get the service information (i.e. metadata) about the WMTS service
-                WmtsServiceInfo myWMTSServiceInfo = myWmtsService.ServiceInfo;
-
-                // Obtain the read only list of WMTS layer info objects
-                IReadOnlyList<WmtsLayerInfo> myWmtsLayerInfos = myWMTSServiceInfo.LayerInfos;
-
-                // Create a new instance of a WMTS layer using the first item in the read only list of WMTS layer info objects
-                WmtsLayer myWmtsLayer = new WmtsLayer(myWmtsLayerInfos[0]);
-
-                // Create a new map
+                // Create a new map.
                 Map myMap = new Map();
 
-                // Get the basemap from the map
+                // Get the basemap from the map.
                 Basemap myBasemap = myMap.Basemap;
 
-                // Get the layer collection for the base layers
+                // Get the layer collection for the base layers.
                 LayerCollection myLayerCollection = myBasemap.BaseLayers;
 
-                // Add the WMTS layer to the layer collection of the map
+                // Create an instance for the WMTS layer.
+                WmtsLayer myWmtsLayer;
+
+                // Define the Uri to the WMTS service.
+                Uri wmtsUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/WMTS");
+
+                if (uriMode)
+                {
+                    // Create a WMTS layer using a Uri and provide an Id value.
+                    myWmtsLayer = new WmtsLayer(wmtsUri, "WorldTimeZones");
+                }
+                else
+                {
+                    // Define a new instance of the WMTS service.
+                    WmtsService myWmtsService = new WmtsService(wmtsUri);
+
+                    // Load the WMTS service.
+                    await myWmtsService.LoadAsync();
+
+                    // Get the service information (i.e. metadata) about the WMTS service.
+                    WmtsServiceInfo myWmtsServiceInfo = myWmtsService.ServiceInfo;
+
+                    // Obtain the read only list of WMTS layer info objects.
+                    IReadOnlyList<WmtsLayerInfo> myWmtsLayerInfos = myWmtsServiceInfo.LayerInfos;
+
+                    // Create a WMTS layer using the first item in the read only list of WMTS layer info objects.
+                    myWmtsLayer = new WmtsLayer(myWmtsLayerInfos[0]);
+                }
+
+                // Add the WMTS layer to the layer collection of the map.
                 myLayerCollection.Add(myWmtsLayer);
 
-                // Assign the map to the MapView
+                // Assign the map to the MapView.
                 _myMapView.Map = myMap;
-
-                // Disable and enable the appropriate buttons.
-                _uriButton.Enabled = true;
-                _infoButton.Enabled = false;
             }
             catch (Exception ex)
             {
-                alert.SetTitle("Sample Error");
+                AlertDialog alert = new AlertDialog.Builder(this).Create();
                 alert.SetMessage(ex.Message);
                 alert.Show();
             }
@@ -146,6 +134,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             _uriButton = new Button(this);
             _uriButton.Text = "WMTSLayer via Uri";
             _uriButton.Click += UriButton_Clicked;
+            _uriButton.Enabled = false;
 
             // Add Button to the layout
             layout.AddView(_uriButton);

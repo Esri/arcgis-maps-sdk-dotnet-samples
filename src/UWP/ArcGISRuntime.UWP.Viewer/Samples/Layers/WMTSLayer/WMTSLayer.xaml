@@ -19,6 +19,7 @@
                         Click="UriButton_Click"
                         Margin="10"
                         HorizontalAlignment="Stretch"
+                        IsEnabled ="false"
                         Content="WMTSLayer via Uri" />
                 <Button x:Name="InfoButton"
                         Click="InfoButton_Click"

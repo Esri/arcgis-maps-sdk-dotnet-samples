@@ -31,11 +31,11 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
-        // Create button
-        private UIButton _uriButton;
+        // Button for loading layer using Uri constructor.
+        private Button _uriButton;
 
-        // Create button
-        private UIButton _infoButton;
+        // Button for loading layer using WmtsService.
+        private Button _infoButton;
 
         public WMTSLayer()
         {
@@ -50,7 +50,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             CreateLayout();
 
             // Load the map using Uri to the WMTS service.
-            OnUriButtonClicked(null, null);
+            LoadWMTSLayer(true);
         }
 
         public override void ViewDidLayoutSubviews()
@@ -69,92 +69,83 @@ namespace ArcGISRuntime.Samples.WMTSLayer
 
         private void OnUriButtonClicked(object sender, EventArgs e)
         {
-            try
-            {
-                // Define the Uri to the WMTS service (NOTE: iOS applications require the use of Uri's to be https:// and not http://)
-                var myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/WMTS");
+            //Load the WMTS layer using Uri method.
+            LoadWMTSLayer(true);
 
-                // Create a new instance of a WMTS layer using a Uri and provide an Id value
-                WmtsLayer myWmtsLayer = new WmtsLayer(myUri, "WorldTimeZones");
-
-                // Create a new map
-                Map myMap = new Map();
-
-                // Get the basemap from the map
-                Basemap myBasemap = myMap.Basemap;
-
-                // Get the layer collection for the base layers
-                LayerCollection myLayerCollection = myBasemap.BaseLayers;
-
-                // Add the WMTS layer to the layer collection of the map
-                myLayerCollection.Add(myWmtsLayer);
-
-                // Set the scale so that the map is visible on iOS devices.
-                _myMapView.SetViewpointScaleAsync(300000000);
-
-                // Assign the map to the MapView
-                _myMapView.Map = myMap;
-
-                // Disable and enable the appropriate buttons.
-                _uriButton.Enabled = false;
-                _infoButton.Enabled = true;
-            }
-            catch (Exception ex)
-            {
-                // Report error
-                UIAlertController alert = UIAlertController.Create("Error", ex.Message, UIAlertControllerStyle.Alert);
-                alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-                PresentViewController(alert, true, null);
-            }
+            // Disable and enable the appropriate buttons.
+            _uriButton.Enabled = false;
+            _uriButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+            _infoButton.Enabled = true;
+            _infoButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
         }
 
-        private async void OnInfoButtonClicked(object sender, EventArgs e)
+        private void OnInfoButtonClicked(object sender, EventArgs e)
+        {
+            //Load the WMTS layer using layer info.
+            LoadWMTSLayer(false);
+
+            // Disable and enable the appropriate buttons.
+            _uriButton.Enabled = true;
+            _uriButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _infoButton.Enabled = false;
+            _infoButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+        }
+
+        private async void LoadWMTSLayer(bool uriMode)
         {
             try
             {
-                // Define the Uri to the WMTS service (NOTE: iOS applications require the use of Uri's to be https:// and not http://)
-                var myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/WMTS");
-
-                // Define a new instance of the WMTS service
-                WmtsService myWmtsService = new WmtsService(myUri);
-
-                // Load the WMTS service
-                await myWmtsService.LoadAsync();
-
-                // Get the service information (i.e. metadata) about the WMTS service
-                WmtsServiceInfo myWMTSServiceInfo = myWmtsService.ServiceInfo;
-
-                // Obtain the read only list of WMTS layer info objects
-                IReadOnlyList<WmtsLayerInfo> myWmtsLayerInfos = myWMTSServiceInfo.LayerInfos;
-
-                // Create a new instance of a WMTS layer using the first item in the read only list of WMTS layer info objects
-                WmtsLayer myWmtsLayer = new WmtsLayer(myWmtsLayerInfos[0]);
-
-                // Create a new map
+                // Create a new map.
                 Map myMap = new Map();
 
-                // Get the basemap from the map
+                // Get the basemap from the map.
                 Basemap myBasemap = myMap.Basemap;
 
-                // Get the layer collection for the base layers
+                // Get the layer collection for the base layers.
                 LayerCollection myLayerCollection = myBasemap.BaseLayers;
 
-                // Add the WMTS layer to the layer collection of the map
+                // Create an instance for the WMTS layer.
+                WmtsLayer myWmtsLayer;
+
+                // Define the Uri to the WMTS service.
+                Uri wmtsUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/WMTS");
+
+                if (uriMode)
+                {
+                    // Create a WMTS layer using a Uri and provide an Id value.
+                    myWmtsLayer = new WmtsLayer(wmtsUri, "WorldTimeZones");
+
+                }
+                else
+                {
+                    // Define a new instance of the WMTS service.
+                    WmtsService myWmtsService = new WmtsService(wmtsUri);
+
+                    // Load the WMTS service.
+                    await myWmtsService.LoadAsync();
+
+                    // Get the service information (i.e. metadata) about the WMTS service.
+                    WmtsServiceInfo myWmtsServiceInfo = myWmtsService.ServiceInfo;
+
+                    // Obtain the read only list of WMTS layer info objects.
+                    IReadOnlyList<WmtsLayerInfo> myWmtsLayerInfos = myWmtsServiceInfo.LayerInfos;
+
+                    // Create a WMTS layer using the first item in the read only list of WMTS layer info objects.
+                    myWmtsLayer = new WmtsLayer(myWmtsLayerInfos[0]);
+                }
+
+                // Add the WMTS layer to the layer collection of the map.
                 myLayerCollection.Add(myWmtsLayer);
 
-                // Set the scale so that the map is visible on iOS devices.
-                await _myMapView.SetViewpointScaleAsync(300000000);
-
-                // Assign the map to the MapView
+                // Assign the map to the MapView.
                 _myMapView.Map = myMap;
 
-                // Disable and enable the appropriate buttons.
-                _uriButton.Enabled = true;
-                _infoButton.Enabled = false;
+                // Zoom to appropriate level for iOS.
+                await _myMapView.SetViewpointScaleAsync(300000000);
+
             }
             catch (Exception ex)
             {
-                // Report error
                 UIAlertController alert = UIAlertController.Create("Error", ex.Message, UIAlertControllerStyle.Alert);
                 alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alert, true, null);
@@ -166,8 +157,9 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             // Create a button for Uri
             _uriButton = new UIButton();
             _uriButton.SetTitle("WMTSLayer via Uri", UIControlState.Normal);
-            _uriButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _uriButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
             _uriButton.BackgroundColor = UIColor.White;
+            _uriButton.Enabled = false;
 
             // Hook to touch event to do button1
             _uriButton.TouchUpInside += OnUriButtonClicked;
@@ -186,3 +178,9 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         }
     }
 }
+/*
+// Report error
+UIAlertController alert = UIAlertController.Create("Error", ex.Message, UIAlertControllerStyle.Alert);
+alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+PresentViewController(alert, true, null);
+*/

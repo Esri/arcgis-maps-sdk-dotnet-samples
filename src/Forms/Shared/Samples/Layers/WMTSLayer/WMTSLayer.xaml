@@ -10,7 +10,7 @@
             <RowDefinition Height="60" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button x:Name="UriButton" Text="WMTSLayer via Uri" Clicked="UriButton_Click" Grid.Row="0" />
+        <Button x:Name="UriButton" Text="WMTSLayer via Uri" Clicked="UriButton_Click" Grid.Row="0" IsEnabled="false" />
         <Button x:Name="InfoButton" Text="WMTSLayer via WmtsLayerInfo" Clicked="InfoButton_Click" Grid.Row="1" />
         <esriUI:MapView x:Name="MyMapView" Grid.Row="2" />
     </Grid>

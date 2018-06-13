@@ -52,10 +52,14 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         private GraphicsOverlay _clipAreasGraphicsOverlay;
 
         // Text view to display the sample instructions.
-        UITextView _sampleInstructionUITextiew;
+        private UILabel _sampleInstructionUITextiew;
 
         // Create a UIButton to clip polygons.
         private UIButton _clipButton;
+
+        // Create toolbars to show behind the controls.
+        private UIToolbar _helpToolbar = new UIToolbar();
+        private UIToolbar _controlsToolbar = new UIToolbar();
 
         public ClipGeometry()
         {
@@ -73,17 +77,16 @@ namespace ArcGISRuntime.Samples.ClipGeometry
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 80, View.Bounds.Width, View.Bounds.Height);
+            nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat controlHeight = 30;
+            nfloat margin = 5;
 
-            // Determine the offset where the MapView control should start.
-            nfloat yPageOffset = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-            // Setup the visual frame for the general sample instructions UITexView.
-            _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the clip UIButton.
-            _clipButton.Frame = new CoreGraphics.CGRect(0, yPageOffset + 40, View.Bounds.Width, 40);
+            // Setup the visual frames for the views.
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, controlHeight + (2 * margin));
+            _controlsToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - (2 * margin), View.Bounds.Width, controlHeight + (2 * margin));
+            _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _clipButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - (2 * margin), controlHeight);
 
             base.ViewDidLayoutSubviews();
         }
@@ -245,20 +248,20 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         private void CreateLayout()
         {
             // Create a UITextView for the overall sample instructions.
-            _sampleInstructionUITextiew = new UITextView();
-            _sampleInstructionUITextiew.Text = "Click the 'Clip' button to clip the blue graphic with red envelopes.";
-            _sampleInstructionUITextiew.Font = UIFont.FromName("Helvetica", 9f);
+            _sampleInstructionUITextiew = new UILabel();
+            _sampleInstructionUITextiew.Text = "Tap 'Clip' to clip the blue graphic with red envelopes.";
+            _sampleInstructionUITextiew.Lines = 1;
+            _sampleInstructionUITextiew.AdjustsFontSizeToFitWidth = true;
 
             // Create a UIButton to clip the polygons.
             _clipButton = new UIButton();
             _clipButton.SetTitle("Clip", UIControlState.Normal);
             _clipButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _clipButton.BackgroundColor = UIColor.White;
             // - Hook to touch event to clip the polygons.
             _clipButton.TouchUpInside += ClipButton_TouchUpInside;
 
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _sampleInstructionUITextiew, _clipButton);
+            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _sampleInstructionUITextiew, _clipButton);
         }
     }
 }

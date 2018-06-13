@@ -355,6 +355,9 @@
     <Compile Include="Samples\MapView\ShowCallout\ShowCallout.cs" />
     <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.cs" />
     <Compile Include="Samples\MapView\TakeScreenshot\TakeScreenshot.cs" />
+    <Compile Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Samples\Network Analysis\FindRoute\FindRoute.cs" />
     <Compile Include="Samples\Search\FindAddress\FindAddress.cs" />
     <Compile Include="Samples\Search\FindPlace\FindPlace.cs" />
@@ -436,6 +439,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

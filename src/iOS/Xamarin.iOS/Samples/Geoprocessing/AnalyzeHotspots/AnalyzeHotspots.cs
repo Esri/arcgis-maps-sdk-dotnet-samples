@@ -26,9 +26,6 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         "To run the hotspot analysis, select a data range and click on the 'Run analysis' button. Note the larger the date range, the longer it may take for the task to run and send back the results.")]
     public class AnalyzeHotspots : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int _yPageOffset = 60;
-
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
@@ -47,6 +44,9 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         // Create button to execute the geoprocessing analyze hot spots function
         private UIButton _runAnalysisButton;
 
+        // Create a toolbar to be the form background
+        private UIToolbar _toolbar = new UIToolbar();
+
         // Create the progress indicator
         private UIActivityIndicatorView _myProgressBar;
 
@@ -62,7 +62,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
 
         public AnalyzeHotspots()
         {
-            Title = "Analyze Hotspots";
+            Title = "Analyze hotspots";
         }
 
         public override void ViewDidLoad()
@@ -75,26 +75,23 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         }
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 100, View.Bounds.Width, View.Bounds.Height);
+            nfloat margin = 5;
+            nfloat controlHeight = 30;
+            nfloat columnSplit = 100;
+            nfloat topStart = View.Bounds.Height - (controlHeight * 3) - (margin * 4);
+            nfloat topFrame = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Setup the visual frame for the start date UILabel
-            _startDateLabel.Frame = new CoreGraphics.CGRect(0, _yPageOffset, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the initial start date text ("1/1/98") for the analysis in a UITextField
-            _startDateTextField.Frame = new CoreGraphics.CGRect(100, _yPageOffset, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the end date UILabel
-            _endDateLabel.Frame = new CoreGraphics.CGRect(0, _yPageOffset + 40, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the initial end date text ("1/31/98") for the analysis in a UITextField
-            _endDateTextField.Frame = new CoreGraphics.CGRect(100, _yPageOffset + 40, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the button to execute the geoprocessing analyze hot spots function
-            _runAnalysisButton.Frame = new CoreGraphics.CGRect(0, _yPageOffset + 80, View.Bounds.Width, 40);
+            // Setup the visual frames for the controls
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, (controlHeight * 3) + (margin * 4));
+            _startDateLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, columnSplit - (2 * margin), controlHeight);
+            _startDateTextField.Frame = new CoreGraphics.CGRect(columnSplit + margin, topStart + margin, View.Bounds.Width - columnSplit - (2 * margin), controlHeight);
+            _endDateLabel.Frame = new CoreGraphics.CGRect(margin, topStart + controlHeight + (2 * margin), columnSplit - (2 * margin), controlHeight);
+            _endDateTextField.Frame = new CoreGraphics.CGRect(columnSplit + margin, topStart + controlHeight + (2 * margin), View.Bounds.Width - columnSplit - (2 * margin), controlHeight);
+            _runAnalysisButton.Frame = new CoreGraphics.CGRect(margin, topStart + (2 * controlHeight) + (3 * margin), View.Bounds.Width - (2 * margin), controlHeight);
 
             // The progress bar is will appear overlaid in the middle of the map view
-            _myProgressBar.Frame = new CoreGraphics.CGRect(0, 300, View.Bounds.Width, 40);
+            _myProgressBar.Frame = new CoreGraphics.CGRect(0, topFrame, View.Bounds.Width, View.Bounds.Height - topFrame);
         }
 
         private async void Initialize()
@@ -214,48 +211,47 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         {
             // Create label for the start date
             _startDateLabel = new UILabel();
-            _startDateLabel.Text = "Start Date:";
+            _startDateLabel.Text = "Start date:";
             _startDateLabel.AdjustsFontSizeToFitWidth = true;
-            _startDateLabel.BackgroundColor = UIColor.White;
 
             // Create text field for the initial start date "1/1/98" for the analysis
             _startDateTextField = new UITextField();
             _startDateTextField.Text = "1/01/98";
             _startDateTextField.AdjustsFontSizeToFitWidth = true;
-            _startDateTextField.BackgroundColor = UIColor.White;
+            _startDateTextField.BackgroundColor = UIColor.FromWhiteAlpha(1, .8f);
+            _startDateTextField.BorderStyle = UITextBorderStyle.RoundedRect;
             // Allow pressing 'return' to dismiss the keyboard
             _startDateTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Create label for the end date
             _endDateLabel = new UILabel();
-            _endDateLabel.Text = "End Date:";
+            _endDateLabel.Text = "End date:";
             _endDateLabel.AdjustsFontSizeToFitWidth = true;
-            _endDateLabel.BackgroundColor = UIColor.White;
 
             // Create text field for the initial end date "1/31/98" for the analysis
             _endDateTextField = new UITextField();
             _endDateTextField.Text = "1/31/98";
             _endDateTextField.AdjustsFontSizeToFitWidth = true;
-            _endDateTextField.BackgroundColor = UIColor.White;
+            _endDateTextField.BackgroundColor = UIColor.FromWhiteAlpha(1, .8f);
+            _endDateTextField.BorderStyle = UITextBorderStyle.RoundedRect;
             // Allow pressing 'return' to dismiss the keyboard
             _endDateTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Create button to invoke the geoprocessing request
             _runAnalysisButton = new UIButton();
-            _runAnalysisButton.SetTitle("Run Analysis", UIControlState.Normal);
+            _runAnalysisButton.SetTitle("Run analysis", UIControlState.Normal);
             _runAnalysisButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _runAnalysisButton.BackgroundColor = UIColor.White;
 
             // Hook to touch event to do geoprocessing request
             _runAnalysisButton.TouchUpInside += OnRunAnalysisClicked;
 
             // Hide the activity indicator (progress bar) when stopped
             _myProgressBar = new UIActivityIndicatorView();
-            _myProgressBar.BackgroundColor = UIColor.Black;
+            _myProgressBar.BackgroundColor = UIColor.FromWhiteAlpha(0, .5f);
             _myProgressBar.HidesWhenStopped = true;
 
             // Add all of the UI controls to the page
-            View.AddSubviews(_myMapView, _startDateLabel, _startDateTextField, _endDateLabel, _endDateTextField, _runAnalysisButton, _myProgressBar);
+            View.AddSubviews(_myMapView, _toolbar, _startDateLabel, _startDateTextField, _endDateLabel, _endDateTextField, _runAnalysisButton, _myProgressBar);
         }
     }
 }

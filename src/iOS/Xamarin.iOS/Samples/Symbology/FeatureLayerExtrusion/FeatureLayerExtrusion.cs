@@ -28,14 +28,14 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         "")]
     public class FeatureLayerExtrusion : UIViewController
     {
-        // Constant holding offset where the SceneView control should start
-        private const int yPageOffset = 60;
-
         // Create and hold reference to the used SceneView
         private SceneView _mySceneView = new SceneView();
 
         // Create button
         private UIButton _button_ToggleExtrusionData;
+
+        // Create toolbar
+        private UIToolbar _toolbar = new UIToolbar();
 
         public FeatureLayerExtrusion()
         {
@@ -142,11 +142,12 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            nfloat controlHeight = 30;
+            nfloat margin = 5;
+            // Setup the visual frames for the views
             _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Setup the visual frame for button1
-            _button_ToggleExtrusionData.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 40);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - (2 * margin), View.Bounds.Width, controlHeight + (2 * margin));
+            _button_ToggleExtrusionData.Frame = new CoreGraphics.CGRect(margin, _toolbar.Frame.Top + 5, View.Bounds.Width - (2 * margin), controlHeight);
 
             base.ViewDidLayoutSubviews();
         }
@@ -164,13 +165,12 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             _button_ToggleExtrusionData = new UIButton();
             _button_ToggleExtrusionData.SetTitle("Population density", UIControlState.Normal);
             _button_ToggleExtrusionData.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _button_ToggleExtrusionData.BackgroundColor = UIColor.White;
 
             // Hook the touch event for the button
             _button_ToggleExtrusionData.TouchUpInside += OnButton_ToggleExtrusionData_Clicked;
 
             // Add SceneView to the page
-            View.AddSubviews(_mySceneView, _button_ToggleExtrusionData);
+            View.AddSubviews(_mySceneView, _toolbar, _button_ToggleExtrusionData);
         }
     }
 }

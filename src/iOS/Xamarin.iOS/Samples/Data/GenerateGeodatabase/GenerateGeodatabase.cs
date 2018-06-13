@@ -55,6 +55,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
 
         // Generate button.
         private UIButton myGenerateButton = new UIButton() { Enabled = false };
+        private UIToolbar _toolbar = new UIToolbar();
 
         public GenerateGeodatabase()
         {
@@ -73,33 +74,24 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         public override void ViewDidLayoutSubviews()
         {
             base.ViewDidLayoutSubviews();
+
             // Place the MapView.
             myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Place the Button.
-            myGenerateButton.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 30);
-
-            // Place the progress bar.
-            myProgressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 10, View.Bounds.Width, 10);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            myGenerateButton.Frame = new CoreGraphics.CGRect(5, View.Bounds.Height - 35, View.Bounds.Width - 10, 30);
+            myProgressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 42, View.Bounds.Width, 2);
         }
 
         private void CreateLayout()
         {
-            // Place the MapView.
-            myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
             // Place the Button.
-            myGenerateButton.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 30);
             myGenerateButton.SetTitle("Generate", UIControlState.Normal);
             myGenerateButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            myGenerateButton.BackgroundColor = UIColor.LightTextColor;
+            myGenerateButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
             myGenerateButton.TouchUpInside += GenerateButton_Clicked;
 
-            // Place the progress bar.
-            myProgressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 10, View.Bounds.Width, 10);
-
             // Add the views.
-            View.AddSubviews(myMapView, myProgressBar, myGenerateButton);
+            View.AddSubviews(myMapView, _toolbar, myGenerateButton);
         }
 
         private async void Initialize()
@@ -233,6 +225,9 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 UpdateProgressBar();
             });
 
+            // Show the progress bar.
+            View.AddSubview(myProgressBar);
+
             // Start the job.
             _generateGdbJob.Start();
 
@@ -295,6 +290,9 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 // Re-enable the generate button.
                 myGenerateButton.Enabled = true;
             }
+
+            // Hide the progress bar.
+            myProgressBar.RemoveFromSuperview();
         }
 
         private void ShowStatusMessage(string message)

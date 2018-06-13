@@ -49,6 +49,13 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         // List of statistics definitions to use in the query
         private List<StatisticDefinition> _statisticDefinitions = new List<StatisticDefinition>();
 
+        private UILabel _helpLabel;
+        private UIToolbar _toolbar = new UIToolbar();
+        private UIButton _showStatDefinitionsButton;
+        private UIButton _showGroupFieldsButton;
+        private UIButton _showOrderByFieldsButton;
+        private UIButton _getStatsButton;
+
         public StatsQueryGroupAndSort()
         {
             Title = "Statistical query group and sort";
@@ -58,9 +65,16 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         {
             // Get height of status bar and navigation bar
             nfloat pageOffset = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat margin = 5;
+            nfloat controlHeight = 30;
+            nfloat controlWidth = View.Bounds.Width - (2 * margin);
+            _toolbar.Frame = new CGRect(0, pageOffset, View.Bounds.Width, View.Bounds.Height - pageOffset);
+            _helpLabel.Frame = new CGRect(margin, pageOffset + margin, controlWidth, controlHeight * 2);
+            _showStatDefinitionsButton.Frame = new CGRect(margin, pageOffset + (controlHeight * 4) + (margin * 2), controlWidth, controlHeight);
+            _showGroupFieldsButton.Frame = new CGRect(margin, pageOffset + (controlHeight * 5) + (margin * 3), controlWidth, controlHeight);
+            _showOrderByFieldsButton.Frame = new CGRect(margin, pageOffset + (controlHeight * 6) + (margin * 4), controlWidth, controlHeight);
+            _getStatsButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, controlWidth, controlHeight);
 
-            // Setup the visual frame for the query controls
-            _controlsStackView.Frame = new CGRect(0,  pageOffset, View.Bounds.Width, View.Bounds.Height - pageOffset);
 
             base.ViewDidLayoutSubviews();
         }
@@ -80,52 +94,39 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         {
             View.BackgroundColor = UIColor.White;
 
-            // Create a stack view to organize the query controls
-            _controlsStackView = new UIStackView();
-            _controlsStackView.Axis = UILayoutConstraintAxis.Vertical;
-            _controlsStackView.Alignment = UIStackViewAlignment.Center;
-            _controlsStackView.Distribution = UIStackViewDistribution.EqualSpacing;
-            _controlsStackView.Spacing = 5;
+            _helpLabel = new UILabel();
+            _helpLabel.Text = "Tap 'Choose statistic definitions' to specify statistics to calculate. Then tap 'Choose group fields' to define how results will be grouped. Tap 'Choose order by fields' to define how results will be ordered. Finally, tap 'Get statistics' to see the results.";
+            _helpLabel.Lines = 4;
+            _helpLabel.AdjustsFontSizeToFitWidth = true;
 
             // Button for launching the UI to view or define statistics definitions for the query
-            UIButton showStatDefinitionsButton = new UIButton();
-            showStatDefinitionsButton.SetTitle("Statistic definitions", UIControlState.Normal);
-            showStatDefinitionsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            showStatDefinitionsButton.BackgroundColor = UIColor.White;
-            showStatDefinitionsButton.Frame = new CGRect(30, 20, 220, 30);
-            showStatDefinitionsButton.TouchUpInside += ShowStatDefinitions;
+            _showStatDefinitionsButton = new UIButton();
+            _showStatDefinitionsButton.SetTitle("Choose statistic definitions", UIControlState.Normal);
+            _showStatDefinitionsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _showStatDefinitionsButton.TouchUpInside += ShowStatDefinitions;
 
             // Button to choose fields with which to group results
-            UIButton showGroupFieldsButton = new UIButton();
-            showGroupFieldsButton.SetTitle("Group fields", UIControlState.Normal);
-            showGroupFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            showGroupFieldsButton.BackgroundColor = UIColor.White;
-            showGroupFieldsButton.Frame = new CGRect(30, 60, 220, 30);
-            showGroupFieldsButton.TouchUpInside += ShowGroupFields;
+            _showGroupFieldsButton = new UIButton();
+            _showGroupFieldsButton.SetTitle("Choose group fields", UIControlState.Normal);
+            _showGroupFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _showGroupFieldsButton.TouchUpInside += ShowGroupFields;
 
             // Button to choose fields with which to sort results (must be one of the 'group by' fields)
-            UIButton showOrderByFieldsButton = new UIButton();
-            showOrderByFieldsButton.SetTitle("Order by fields", UIControlState.Normal);
-            showOrderByFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            showOrderByFieldsButton.BackgroundColor = UIColor.White;
-            showOrderByFieldsButton.Frame = new CGRect(30, 100, 220, 30);
-            showOrderByFieldsButton.TouchUpInside += ShowOrderByFields;
+            _showOrderByFieldsButton = new UIButton();
+            _showOrderByFieldsButton.SetTitle("Choose 'Order by' fields", UIControlState.Normal);
+            _showOrderByFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _showOrderByFieldsButton.TouchUpInside += ShowOrderByFields;
 
             // Create a button to invoke the query using the query parameters defined
-            UIButton getStatsButton = new UIButton();
-            getStatsButton.SetTitle("Get statistics", UIControlState.Normal);
-            getStatsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            getStatsButton.BackgroundColor = UIColor.White;
-            getStatsButton.Frame = new CGRect(30, 340, 220, 30);
+            _getStatsButton = new UIButton();
+            _getStatsButton.SetTitle("Get statistics", UIControlState.Normal);
+            _getStatsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Handle the button tap to execute the statistics query
-            getStatsButton.TouchUpInside += ExecuteStatisticsQuery;
+            _getStatsButton.TouchUpInside += ExecuteStatisticsQuery;
 
             // Add controls to the stack view
-            _controlsStackView.AddSubviews(showStatDefinitionsButton, showGroupFieldsButton, showOrderByFieldsButton, getStatsButton);
-
-            // Add UI controls to the page
-            View.AddSubview(_controlsStackView);
+            View.AddSubviews(_toolbar, _helpLabel, _showStatDefinitionsButton, _showGroupFieldsButton, _showOrderByFieldsButton, _getStatsButton);
         }
 
         private async void Initialize()

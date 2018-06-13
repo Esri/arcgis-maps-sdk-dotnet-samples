@@ -35,7 +35,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         private readonly SceneView _mySceneView = new SceneView();
 
         // Create and hold a UI label to show the visibility status 
-        private readonly UILabel _myStatusLabel = new UILabel() { Text = "Status: ", TextColor = UIColor.Red };
+        private readonly UILabel _myStatusLabel = new UILabel() { Text = "Status: ", TextAlignment = UITextAlignment.Center, AdjustsFontSizeToFitWidth = true };
 
         // Create and hold a slider to change the height of the observer
         private readonly UISlider _mySlider = new UISlider();
@@ -57,6 +57,10 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
 
         // Line of Sight Analysis
         private GeoElementLineOfSight _geoLine;
+
+        // Toolbars to put behind controls
+        private UIToolbar _labelToolbar = new UIToolbar();
+        private UIToolbar _sliderToolbar = new UIToolbar();
 
         // For taxi animation - four points in a loop
         private readonly MapPoint[] _points = {
@@ -244,7 +248,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         private void CreateLayout()
         {
             // Add views to the page
-            View.AddSubviews(_mySceneView, _mySlider, _myStatusLabel);
+            View.AddSubviews(_mySceneView, _labelToolbar, _sliderToolbar, _mySlider, _myStatusLabel);
 
 
             // Subscribe to slider events
@@ -258,13 +262,21 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
 
             base.ViewDidLoad();
         }
+
         public override void ViewDidLayoutSubviews()
         {
-            var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height + 10;
-            // Setup the visual frame for the MapView
+            var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat margin = 5;
+            nfloat controlHeight = 30;
+            nfloat toolbarHeight = 40;
+            nfloat controlWidth = View.Bounds.Width - (2 * margin);
+
+            // Setup the visual frames for the controls.
             _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myStatusLabel.Frame = new CoreGraphics.CGRect(10, topMargin, View.Bounds.Width - 20, 20);
-            _mySlider.Frame = new CoreGraphics.CGRect(10, topMargin + 30, View.Bounds.Width - 20, 20);
+            _labelToolbar.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
+            _sliderToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+            _myStatusLabel.Frame = new CoreGraphics.CGRect(margin, topMargin + margin, controlWidth, controlHeight);
+            _mySlider.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - toolbarHeight + margin, controlWidth, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }

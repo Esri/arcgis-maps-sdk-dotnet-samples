@@ -263,7 +263,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     mySyncButton.Enabled = true;
 
                     // Update the help label.
-                    myHelpLabel.Text = "4. Tap 'Synchronize' or edit more features";
+                    myHelpLabel.Text = "4. Tap 'Synchronize' or edit more features.";
                 }
                 // Otherwise, start an edit.
                 else
@@ -290,7 +290,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     _readyForEdits = EditState.Editing;
 
                     // Update the help label.
-                    myHelpLabel.Text = "3. Tap on the map to move the point";
+                    myHelpLabel.Text = "3. Tap on the map to move the point.";
                 }
             }
             catch (Exception ex)
@@ -410,7 +410,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 _readyForEdits = EditState.Ready;
 
                 // Update the help label.
-                myHelpLabel.Text = "2. Tap a point feature to select";
+                myHelpLabel.Text = "2. Tap a point feature to select.";
             }
 
             // See if the job failed.

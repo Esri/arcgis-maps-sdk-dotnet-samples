@@ -4,12 +4,13 @@
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Windows.Threading;
 
@@ -26,7 +27,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDrawingStatus
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization
+            // Create the UI, setup the control references and execute initialization 
             Initialize();
         }
 
@@ -61,13 +62,13 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDrawingStatus
                 // Show the activity indicator if the map is drawing
                 if (e.Status == DrawStatus.InProgress)
                 {
-                    activityIndicator.IsEnabled = true;
-                    activityIndicator.Visibility = System.Windows.Visibility.Visible;
+                    ActivityIndicator.IsEnabled = true;
+                    ActivityIndicator.Visibility = System.Windows.Visibility.Visible;
                 }
                 else
                 {
-                    activityIndicator.IsEnabled = false;
-                    activityIndicator.Visibility = System.Windows.Visibility.Collapsed;
+                    ActivityIndicator.IsEnabled = false;
+                    ActivityIndicator.Visibility = System.Windows.Visibility.Collapsed;
                 }
             });
         }

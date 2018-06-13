@@ -40,6 +40,9 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         // Button for updating the analysis viewpoint
         private UIButton _updateViewshedButton;
 
+        // Toolbar to put behind the button (for visibility).
+        private UIToolbar _toolbar = new UIToolbar();
+
         public ViewshedCamera()
         {
             Title = "Viewshed from camera";
@@ -95,12 +98,10 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the SceneView
-            _mySceneView.Frame = new CoreGraphics.CGRect(
-                0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Update the visual frame for the button
-            _updateViewshedButton.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 60, View.Bounds.Width, 30);
+            // Setup the visual frames for the controls
+            _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            _updateViewshedButton.Frame = new CoreGraphics.CGRect(5, View.Bounds.Height - 35, View.Bounds.Width - 10, 30);
 
             base.ViewDidLayoutSubviews();
         }
@@ -108,12 +109,13 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         private void CreateLayout()
         {
             // Create a button to update the viewshed using the current camera
-            _updateViewshedButton = new UIButton(new CoreGraphics.CGRect(0,View.Bounds.Height - 60,View.Bounds.Width,30));
+            _updateViewshedButton = new UIButton();
             _updateViewshedButton.SetTitle("Viewshed from here", UIControlState.Normal);
+            _updateViewshedButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _updateViewshedButton.TouchUpInside += UpdateObserverWithCamera;
 
             // Add SceneView and button to the page
-            View.AddSubviews(_mySceneView, _updateViewshedButton);
+            View.AddSubviews(_mySceneView, _toolbar, _updateViewshedButton);
         }
     }
 }

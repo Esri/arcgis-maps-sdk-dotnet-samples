@@ -205,7 +205,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
 
         private void SetBusy(bool isBusy = true)
         {
-            // This function toggles the visibility of the 'busyOverlay' Grid control defined in xaml,
+            // This function toggles the visibility of the 'BusyOverlay' Grid control defined in xaml,
             // sets the 'progress' control feedback status and updates the _isExecutingGeoprocessing
             // boolean to denote if the viewshed analysis is executing as a result of the user click
             // on the map
@@ -214,15 +214,15 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
             {
                 // Change UI to indicate that the geoprocessing is running
                 _isExecutingGeoprocessing = true;
-                busyOverlay.Visibility = Visibility.Visible;
-                progress.IsIndeterminate = true;
+                BusyOverlay.Visibility = Visibility.Visible;
+                Progress.IsIndeterminate = true;
             }
             else
             {
                 // Change UI to indicate that the geoprocessing is not running
                 _isExecutingGeoprocessing = false;
-                busyOverlay.Visibility = Visibility.Collapsed;
-                progress.IsIndeterminate = false;
+                BusyOverlay.Visibility = Visibility.Collapsed;
+                Progress.IsIndeterminate = false;
             }
         }
     }

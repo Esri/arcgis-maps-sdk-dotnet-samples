@@ -1,4 +1,4 @@
-// Copyright 2016 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -29,17 +29,17 @@ namespace ArcGISRuntime.WPF.Samples.TakeScreenshot
 
         private void Initialize()
         {
-            // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
-
-            // Provide used Map to the MapView
-            MyMapView.Map = myMap;
+            // Show an imagery basemap.
+            MyMapView.Map = new Map(Basemap.CreateImagery());
         }
 
         private async void OnScreenshotButtonClicked(object sender, RoutedEventArgs e)
         {
-            // Export the image from mapview and assign it to the imageview
-            imageView.Source = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(await MyMapView.ExportImageAsync());
+            // Export the image from mapview and display it.
+            ImageView.Source = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(await MyMapView.ExportImageAsync());
+
+            // Make the image visible.
+            ImageView.Visibility = Visibility.Visible;
         }
     }
 }

@@ -236,9 +236,14 @@
     <None Include="Samples\GeometryEngine\CutGeometry\CutGeometry.jpg" />
     <None Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.jpg" />
     <None Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.jpg" />
+    <None Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
+    <None Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
+    <None Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
+    <None Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
+    <Compile Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.cs" />
     <Compile Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.cs" />
     <Compile Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.cs" />
     <Compile Include="Samples\GeometryEngine\BufferList\BufferList.cs" />
@@ -262,6 +267,7 @@
     <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
     <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.cs" />
     <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.cs" />
+    <Compile Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.cs" />
     <Compile Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.cs" />
     <Compile Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.cs" />
     <Compile Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.cs" />
@@ -332,6 +338,7 @@
     <Compile Include="Samples\Map\DisplayMap\DisplayMap.cs" />
     <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.cs" />
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.cs" />
+    <Compile Include="Samples\Map\OpenScene\OpenScene.cs" />
     <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.cs" />
     <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMap.cs" />
     <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.cs" />
@@ -362,36 +369,12 @@
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
   </ItemGroup>
-  <!-- Sample Layouts -->
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\GeoViewSync.axml" />
-    <AndroidResource Include="Resources\layout\FeatureLayerRenderingModeMapLayout.axml" />
-    <AndroidResource Include="Resources\layout\GroupedResultsList_DataItem.axml" />
-    <AndroidResource Include="Resources\layout\GroupedResultsList_GroupItem.axml" />
-    <AndroidResource Include="Resources\layout\FeatureLayerRenderingModeScene.axml" />
-    <AndroidResource Include="Resources\layout\Animate3DGraphic.axml" />
-  </ItemGroup>
   <!-- Sample Manager Code -->
   <ItemGroup>
     <Compile Include="CategoriesAdapter.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <!-- Sample Manager Layout-->
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\CategoriesList.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\CategoriesLayout.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\SamplesList.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\SamplesLayout.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
   </ItemGroup>
   <!-- Miscellaneous Android Resources-->
   <ItemGroup>
@@ -409,27 +392,52 @@
     </AndroidAsset>
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
+  <!-- Sample Manager Layout-->
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\CategoriesList.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CategoriesLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SamplesList.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SamplesLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+  </ItemGroup>
   <!-- Miscellaneous Configuration -->
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
   </ItemGroup>
+  <!-- Sample Layouts -->
   <ItemGroup>
-    <None Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
+    <AndroidResource Include="Resources\layout\GeoViewSync.axml" />
+    <AndroidResource Include="Resources\layout\DisplayGrid.axml" />
+    <AndroidResource Include="Resources\layout\FeatureLayerRenderingModeMapLayout.axml" />
+    <AndroidResource Include="Resources\layout\GroupedResultsList_DataItem.axml" />
+    <AndroidResource Include="Resources\layout\GroupedResultsList_GroupItem.axml" />
+    <AndroidResource Include="Resources\layout\FeatureLayerRenderingModeScene.axml" />
+    <AndroidResource Include="Resources\layout\Animate3DGraphic.axml" />
+    <AndroidResource Include="Resources\layout\DistanceMeasurement.axml" />
+    <AndroidResource Include="Resources\layout\DisplayGrid.axml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\DensifyAndGeneralize.axml">
+    <None Include="Samples\Map\OpenScene\OpenScene.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\MapImageLayerTables.axml">
       <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
-    <None Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\DisplayGrid.axml">
-      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>

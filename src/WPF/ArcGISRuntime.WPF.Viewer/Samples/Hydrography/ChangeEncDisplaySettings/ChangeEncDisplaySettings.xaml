@@ -5,30 +5,56 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="RadioButton">
+            <Setter Property="Margin" Value="0,5,5,10" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border
-                Background="White" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="30" Padding="20" Width="275">
+            Background="White" BorderBrush="Black" BorderThickness="1"
+            HorizontalAlignment="Right" VerticalAlignment="Top"
+            Margin="30" Padding="20" Width="275">
             <StackPanel>
-                <Label FontWeight="Heavy">Color Scheme</Label>
+                <TextBlock Text="Color scheme"
+                           FontWeight="Bold" />
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton GroupName="ColorScheme" Content="Day" Margin="0,3,10,0" x:Name="radDay" IsChecked="True" />
-                    <RadioButton GroupName="ColorScheme" Content="Dusk" Margin="0,3,10,0" x:Name="radDusk" />
-                    <RadioButton GroupName="ColorScheme" Content="Night" Margin="0,3,10,0" x:Name="radNight" />
+                    <RadioButton x:Name="DayRadioButton"
+                                 GroupName="ColorScheme"
+                                 Content="Day"
+                                 IsChecked="True" />
+                    <RadioButton x:Name="DuskRadioButton"
+                                 GroupName="ColorScheme"
+                                 Content="Dusk" />
+                    <RadioButton x:Name="NightRadioButton"
+                                 GroupName="ColorScheme"
+                                 Content="Night" />
                 </StackPanel>
-                <Label FontWeight="Heavy">Area Symbolization Type</Label>
+                <TextBlock Text="Area symbolization type"
+                           FontWeight="Bold" />
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton GroupName="Area" Content="Plain" Margin="0,3,10,0" x:Name="radAreaPlain" IsChecked="True" />
-                    <RadioButton GroupName="Area" Content="Symbolized" Margin="0,3,10,0" x:Name="radAreaSymbol" />
+                    <RadioButton x:Name="PlainAreaRadioButton"
+                                 GroupName="Area"
+                                 Content="Plain"
+                                 IsChecked="True" />
+                    <RadioButton x:Name="SymbolizedAreaRadioButton"
+                                 GroupName="Area"
+                                 Content="Symbolized" />
                 </StackPanel>
-                <Label FontWeight="Heavy">Point Symbolization Type</Label>
+                <TextBlock Text="Point symbolization type"
+                           FontWeight="Bold" />
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton GroupName="Point" Content="Paper Chart" Margin="0,3,10,0" x:Name="radPointPaper" IsChecked="True" />
-                    <RadioButton GroupName="Point" Content="Simplified" Margin="0,3,10,0" x:Name="radPointSimple" />
+                    <RadioButton x:Name="PaperchartRadioButton"
+                                 GroupName="Point"
+                                 Content="Paper Chart"
+                                 IsChecked="True" />
+                    <RadioButton x:Name="SimplifiedRadioButton"
+                                 GroupName="Point"
+                                 Content="Simplified" />
                 </StackPanel>
-                <Button Content="Apply" Click="Button_Click" />
+                <Button Content="Apply"
+                        Click="Button_Click" />
             </StackPanel>
         </Border>
     </Grid>

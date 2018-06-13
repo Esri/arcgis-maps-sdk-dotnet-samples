@@ -118,7 +118,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerTimeOffset
             MyMapView.TimeExtent = new TimeExtent(newStart, newEnd);
 
             // Update the label
-            lblCurrentDate.Content = String.Format("{0} - {1}", newStart.ToShortDateString(), newEnd.ToShortDateString());
+            CurrentDateLabel.Text = string.Format("{0} - {1}", newStart.ToShortDateString(), newEnd.ToShortDateString());
         }
     }
 }

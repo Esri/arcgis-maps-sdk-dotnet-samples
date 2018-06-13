@@ -113,6 +113,7 @@
   </ItemGroup>
   <!-- Screenshots -->
   <ItemGroup>
+    <Content Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
     <Content Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
@@ -180,6 +181,7 @@
     <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
     <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <Content Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
+    <Content Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.jpg" />
     <Content Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
     <Content Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
     <Content Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
@@ -214,6 +216,7 @@
     <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
     <Content Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
     <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
+    <Content Include="Samples\Map\OpenScene\OpenScene.jpg" />
     <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
     <Content Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
@@ -278,6 +281,9 @@
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
+    <Compile Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml.cs">
+      <DependentUpon>DistanceMeasurement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml.cs">
       <DependentUpon>LineOfSightGeoElement.xaml</DependentUpon>
     </Compile>
@@ -482,9 +488,12 @@
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml.cs">
       <DependentUpon>FeatureLayerUrl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.xaml.cs">
+      <DependentUpon>MapImageLayerTables.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml.cs">
       <DependentUpon>MapImageSublayerQuery.xaml</DependentUpon>
-    </Compile>
+    </Compile>    
     <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
       <DependentUpon>RasterHillshade.xaml</DependentUpon>
     </Compile>
@@ -584,6 +593,9 @@
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml.cs">
       <DependentUpon>ManageBookmarks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Map\OpenScene\OpenScene.xaml.cs">
+      <DependentUpon>OpenScene.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.xaml.cs">
       <DependentUpon>OpenMapURL.xaml</DependentUpon>
     </Compile>
@@ -641,6 +653,10 @@
   </ItemGroup>
   <!-- Sample Layouts -->
   <ItemGroup>
+    <Page Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -913,10 +929,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml">
+    <Page Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>    
     <Page Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1046,6 +1066,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\OpenScene\OpenScene.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

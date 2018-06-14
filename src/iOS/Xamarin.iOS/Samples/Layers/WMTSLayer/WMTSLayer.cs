@@ -68,10 +68,10 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             _label.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - (2 * controlHeight) - (2 * margin), View.Bounds.Width - (2 * margin), controlHeight);
 
             // Setup the visual frame for button1
-            _button1.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - margin, controlHeight);
+            _button1.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
 
             // Setup the visual frame for button2
-            _button2.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - margin, controlHeight);
+            _button2.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - (margin), View.Bounds.Width / 2 - (2 * margin), controlHeight);
 
             base.ViewDidLayoutSubviews();
         }
@@ -163,6 +163,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             _button1 = new UIButton();
             _button1.SetTitle("Service URL", UIControlState.Normal);
             _button1.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _button1.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
 
             // Hook to touch event to do button1
             _button1.TouchUpInside += OnButton1Clicked;
@@ -171,6 +172,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             _button2 = new UIButton();
             _button2.SetTitle("WmtsLayerInfo", UIControlState.Normal);
             _button2.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _button2.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
 
             // Hook to touch event to do button2
             _button2.TouchUpInside += OnButton2Clicked;
@@ -178,8 +180,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             // Create the help label
             _label = new UILabel()
             {
-                Text = "Construct layer via:",
-                TextColor = UIColor.Red,
+                Text = "Construct layer with:",
                 TextAlignment = UITextAlignment.Center
             };
 

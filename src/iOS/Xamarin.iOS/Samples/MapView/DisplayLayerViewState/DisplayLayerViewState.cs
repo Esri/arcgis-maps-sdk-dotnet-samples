@@ -50,7 +50,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         public override void ViewDidLayoutSubviews()
         {
             // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height -120);
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - 120);
 
             _tableView.Frame = new CoreGraphics.CGRect(0, _myMapView.Frame.Height, View.Bounds.Width, 120);
 
@@ -132,24 +132,12 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
 
         private void CreateLayout()
         {
-            //set up UIStackView for laying out controls
-            var stackView = new UIStackView(new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height));
-            stackView.Axis = UILayoutConstraintAxis.Vertical;
-            stackView.Alignment = UIStackViewAlignment.Fill;
-            stackView.Distribution = UIStackViewDistribution.FillProportionally;
-            stackView.BackgroundColor = UIColor.Gray;
-
             _myMapView = new MapView();
-           
-            stackView.AddArrangedSubview(_myMapView);
-
             // Create a tableview for displaying layer view status for each layer
             _tableView = new UITableView();
+            _tableView.RowHeight = 40;
 
-            stackView.AddArrangedSubview(_tableView);
-
-            // Add MapView to the page
-            View.AddSubviews(stackView);
+            View.AddSubviews(_myMapView, _tableView);
         }
     }
 

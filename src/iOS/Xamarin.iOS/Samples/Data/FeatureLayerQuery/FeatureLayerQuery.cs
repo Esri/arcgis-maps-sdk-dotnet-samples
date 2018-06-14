@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -97,16 +98,15 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             _featureTable = new ServiceFeatureTable(new Uri(_statesUrl));
 
             // Create feature layer using this feature table
-            _featureLayer = new FeatureLayer(_featureTable);
-
-            // Set the Opacity of the Feature Layer
-            _featureLayer.Opacity = 0.6;
+            _featureLayer = new FeatureLayer(_featureTable)
+            {
+                // Set the Opacity of the Feature Layer
+                Opacity = 0.6
+            };
 
             // Create a new renderer for the States Feature Layer
-            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(
-                SimpleLineSymbolStyle.Solid, Color.Black, 1);
-            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(
-                SimpleFillSymbolStyle.Solid, Color.Yellow, lineSymbol);
+            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
+            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Yellow, lineSymbol);
 
             // Set States feature layer renderer
             _featureLayer.Renderer = new SimpleRenderer(fillSymbol);
@@ -147,7 +147,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
                 FeatureQueryResult queryResult = await _featureTable.QueryFeaturesAsync(queryParams);
 
                 // Cast the QueryResult to a List so the results can be interrogated
-                var features = queryResult.ToList();
+                List<Feature> features = queryResult.ToList();
 
                 if (features.Any())
                 {
@@ -162,13 +162,13 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
                 }
                 else
                 {
-                    var alert = new UIAlertView("State Not Found!", "Add a valid state name.", null, "OK", null);
+                    var alert = new UIAlertView("State Not Found!", "Add a valid state name.", (IUIAlertViewDelegate)null, "OK", null);
                     alert.Show();
                 }
             }
             catch (Exception ex)
             {
-                var alert = new UIAlertView("Sample error", ex.ToString(), null, "OK", null);
+                var alert = new UIAlertView("Sample error", ex.ToString(), (IUIAlertViewDelegate)null, "OK", null);
                 alert.Show();
             }
         }
@@ -177,9 +177,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         {
 
             // Create text view for query input
-            _queryTextView = new UITextField();
-            _queryTextView.Placeholder = "State name";
-            _queryTextView.AdjustsFontSizeToFitWidth = true;
+            _queryTextView = new UITextField
+            {
+                Placeholder = "State name",
+                AdjustsFontSizeToFitWidth = true
+            };
             // Allow pressing 'return' to dismiss the keyboard
             _queryTextView.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -190,10 +192,12 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             _queryButton.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
 
             // Create the help label
-            _helpLabel = new UILabel();
-            _helpLabel.Text = "Enter a state name and tap 'Query' to search.";
-            _helpLabel.Lines = 1;
-            _helpLabel.AdjustsFontSizeToFitWidth = true;
+            _helpLabel = new UILabel
+            {
+                Text = "Enter a state name and tap 'Query' to search.",
+                Lines = 1,
+                AdjustsFontSizeToFitWidth = true
+            };
 
             // Hook to touch event to do querying
             _queryButton.TouchUpInside += OnQueryClicked;

@@ -154,7 +154,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             GeoprocessingParameters myHotspotParameters = new GeoprocessingParameters(GeoprocessingExecutionType.AsynchronousSubmit);
 
             // Construct the date query
-            var myQueryString = string.Format("(\"DATE\" > date '{0} 00:00:00' AND \"DATE\" < date '{1} 00:00:00')",
+            string myQueryString = string.Format("(\"DATE\" > date '{0} 00:00:00' AND \"DATE\" < date '{1} 00:00:00')",
                 myFromDate.ToString("yyyy-MM-dd"),
                 myToDate.ToString("yyyy-MM-dd"));
 
@@ -210,30 +210,38 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         private void CreateLayout()
         {
             // Create label for the start date
-            _startDateLabel = new UILabel();
-            _startDateLabel.Text = "Start date:";
-            _startDateLabel.AdjustsFontSizeToFitWidth = true;
+            _startDateLabel = new UILabel
+            {
+                Text = "Start date:",
+                AdjustsFontSizeToFitWidth = true
+            };
 
             // Create text field for the initial start date "1/1/98" for the analysis
-            _startDateTextField = new UITextField();
-            _startDateTextField.Text = "1/01/98";
-            _startDateTextField.AdjustsFontSizeToFitWidth = true;
-            _startDateTextField.BackgroundColor = UIColor.FromWhiteAlpha(1, .8f);
-            _startDateTextField.BorderStyle = UITextBorderStyle.RoundedRect;
+            _startDateTextField = new UITextField
+            {
+                Text = "1/01/98",
+                AdjustsFontSizeToFitWidth = true,
+                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
+                BorderStyle = UITextBorderStyle.RoundedRect
+            };
             // Allow pressing 'return' to dismiss the keyboard
             _startDateTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Create label for the end date
-            _endDateLabel = new UILabel();
-            _endDateLabel.Text = "End date:";
-            _endDateLabel.AdjustsFontSizeToFitWidth = true;
+            _endDateLabel = new UILabel
+            {
+                Text = "End date:",
+                AdjustsFontSizeToFitWidth = true
+            };
 
             // Create text field for the initial end date "1/31/98" for the analysis
-            _endDateTextField = new UITextField();
-            _endDateTextField.Text = "1/31/98";
-            _endDateTextField.AdjustsFontSizeToFitWidth = true;
-            _endDateTextField.BackgroundColor = UIColor.FromWhiteAlpha(1, .8f);
-            _endDateTextField.BorderStyle = UITextBorderStyle.RoundedRect;
+            _endDateTextField = new UITextField
+            {
+                Text = "1/31/98",
+                AdjustsFontSizeToFitWidth = true,
+                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
+                BorderStyle = UITextBorderStyle.RoundedRect
+            };
             // Allow pressing 'return' to dismiss the keyboard
             _endDateTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -246,9 +254,11 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             _runAnalysisButton.TouchUpInside += OnRunAnalysisClicked;
 
             // Hide the activity indicator (progress bar) when stopped
-            _myProgressBar = new UIActivityIndicatorView();
-            _myProgressBar.BackgroundColor = UIColor.FromWhiteAlpha(0, .5f);
-            _myProgressBar.HidesWhenStopped = true;
+            _myProgressBar = new UIActivityIndicatorView
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .5f),
+                HidesWhenStopped = true
+            };
 
             // Add all of the UI controls to the page
             View.AddSubviews(_myMapView, _toolbar, _startDateLabel, _startDateTextField, _endDateLabel, _endDateTextField, _runAnalysisButton, _myProgressBar);

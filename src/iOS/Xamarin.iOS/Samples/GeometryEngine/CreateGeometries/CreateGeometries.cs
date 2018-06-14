@@ -116,11 +116,13 @@ namespace ArcGISRuntime.Samples.CreateGeometries
         private Polygon CreatePolygon()
         {
             // Create a point collection with coordinates that approximates the boundary of Colorado.
-            PointCollection thePointCollection = new PointCollection(SpatialReferences.Wgs84);
-            thePointCollection.Add(-109.048, 40.998);
-            thePointCollection.Add(-102.047, 40.998);
-            thePointCollection.Add(-102.037, 36.989);
-            thePointCollection.Add(-109.048, 36.998);
+            PointCollection thePointCollection = new PointCollection(SpatialReferences.Wgs84)
+            {
+                {-109.048, 40.998},
+                {-102.047, 40.998},
+                {-102.037, 36.989},
+                {-109.048, 36.998}
+            };
 
             // Create a polygon from the point collection.
             Polygon thePolygon = new Polygon(thePointCollection);
@@ -132,10 +134,12 @@ namespace ArcGISRuntime.Samples.CreateGeometries
         private Polyline CreatePolyline()
         {
             // Create a point collection with coordinates that approximates the border between California and Nevada.
-            PointCollection thePointCollection = new PointCollection(SpatialReferences.Wgs84);
-            thePointCollection.Add(-119.992, 41.989);
-            thePointCollection.Add(-119.994, 38.994);
-            thePointCollection.Add(-114.620, 35.0);
+            PointCollection thePointCollection = new PointCollection(SpatialReferences.Wgs84)
+            {
+                {-119.992, 41.989},
+                {-119.994, 38.994},
+                {-114.620, 35.0}
+            };
 
             // Create a polyline from the point collection.
             Polyline thePolyline = new Polyline(thePointCollection);
@@ -156,15 +160,13 @@ namespace ArcGISRuntime.Samples.CreateGeometries
         private Multipoint CreateMultipoint()
         {
             // Create a point collection with coordinates representing various state capital locations in the Western United States.
-            PointCollection thePointCollection = new PointCollection(SpatialReferences.Wgs84);
-            // - Sacramento, CA
-            thePointCollection.Add(-121.491014, 38.579065);
-            // - Olympia, WA
-            thePointCollection.Add(-122.891366, 47.039231);
-            // - Salem, OR
-            thePointCollection.Add(-123.043814, 44.93326);
-            // - Carson City, NV
-            thePointCollection.Add(-119.766999, 39.164885);
+            PointCollection thePointCollection = new PointCollection(SpatialReferences.Wgs84)
+            {
+                {-121.491014, 38.579065},// - Sacramento, CA
+                {-122.891366, 47.039231},// - Olympia, WA
+                {-123.043814, 44.93326},// - Salem, OR
+                {-119.766999, 39.164885}// - Carson City, NV
+            };
 
             // Create a multi-point from the point collection.
             Multipoint theMultipoint = new Multipoint(thePointCollection);

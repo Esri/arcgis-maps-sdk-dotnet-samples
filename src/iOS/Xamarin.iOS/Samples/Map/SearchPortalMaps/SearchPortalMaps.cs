@@ -55,7 +55,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         //       Note - this must be a URL configured as a valid Redirect URI with your app
         private string _oAuthRedirectUrl = "https://developers.arcgis.com";
 
-        nfloat _topMargin = 0;
+        private nfloat _topMargin = 0;
 
         public SearchPortalMaps()
         {
@@ -201,7 +201,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             ArcGISPortal portal;
 
             // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
-            var loggedIn = await EnsureLoggedInAsync();
+            bool loggedIn = await EnsureLoggedInAsync();
             if (!loggedIn) { return; }
 
             // Connect to the portal (will connect using the provided credentials)
@@ -217,7 +217,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             foreach (PortalFolder folder in myContent.Folders)
             {
                 IEnumerable<PortalItem> folderItems = await portal.User.GetContentAsync(folder.FolderId);
-                mapItems.Concat(from item in folderItems where item.Type == PortalItemType.WebMap select item);
+                mapItems = mapItems.Concat(from item in folderItems where item.Type == PortalItemType.WebMap select item);
             }
 
             // Show the map results
@@ -238,7 +238,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
 
                 // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
-                var queryExpression = string.Format("tags:\"{0}\" access:public type: (\"web map\" NOT \"web mapping application\")", e.SearchText);
+                string queryExpression = string.Format("tags:\"{0}\" access:public type: (\"web map\" NOT \"web mapping application\")", e.SearchText);
 
                 // Create a query parameters object with the expression and a limit of 10 results
                 PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
@@ -302,7 +302,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             }
             catch (Esri.ArcGISRuntime.ArcGISRuntimeException e)
             {
-                var alert = new UIAlertView("Map Load Error", e.Message, null, "OK", null);
+                var alert = new UIAlertView("Map Load Error", e.Message, (IUIAlertViewDelegate)null, "OK", null);
                 alert.Show();
             }
 
@@ -324,7 +324,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 var err = map.LoadError;
                 if (err != null)
                 {
-                    var alert = new UIAlertView("Map Load Error", err.Message, null, "OK", null);
+                    var alert = new UIAlertView("Map Load Error", err.Message, (IUIAlertViewDelegate)null, "OK", null);
                     alert.Show();
                 }
             }
@@ -398,7 +398,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             catch (Exception ex)
             {
                 // Login failure
-                var alert = new UIAlertView("Login Error", ex.Message, null, "OK", null);
+                var alert = new UIAlertView("Login Error", ex.Message, (IUIAlertViewDelegate)null, "OK", null);
                 alert.Show();
             }
 
@@ -520,7 +520,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private static IDictionary<string, string> DecodeParameters(Uri uri)
         {
             // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string
-            var answer = string.Empty;
+            string answer = string.Empty;
 
             // Get the values from the URI fragment or query string
             if (!string.IsNullOrEmpty(uri.Fragment))
@@ -536,11 +536,11 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             }
 
             // Parse parameters into key / value pairs
-            var keyValueDictionary = new Dictionary<string, string>();
-            var keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var kvString in keysAndValues)
+            Dictionary<string, string> keyValueDictionary = new Dictionary<string, string>();
+            string[] keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string kvString in keysAndValues)
             {
-                var pair = kvString.Split('=');
+                string[] pair = kvString.Split('=');
                 string key = pair[0];
                 string value = string.Empty;
                 if (key.Length > 1)
@@ -601,26 +601,32 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             nfloat controlY = 5;
 
             // Label for inputs
-            var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            description.Text = "OAuth settings";
-            description.TextColor = UIColor.Black;
+            var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Text = "OAuth settings",
+                TextColor = UIColor.Black
+            };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
 
             // Client ID text input and label
-            var clientIdLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            clientIdLabel.Text = "Client ID";
+            var clientIdLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Text = "Client ID"
+            };
 
             controlY = controlY + controlHeight + lessRowSpace;
 
-            _clientIdTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            _clientIdTextField.Placeholder = "Client ID";
-            _clientIdTextField.Text = clientId;
-            _clientIdTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
-            _clientIdTextField.BackgroundColor = UIColor.LightGray;
-            _clientIdTextField.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
-            _clientIdTextField.LeftViewMode = UITextFieldViewMode.Always;
+            _clientIdTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Placeholder = "Client ID",
+                Text = clientId,
+                AutocapitalizationType = UITextAutocapitalizationType.None,
+                BackgroundColor = UIColor.LightGray,
+                LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20)),
+                LeftViewMode = UITextFieldViewMode.Always
+            };
             // Allow pressing 'return' to dismiss the keyboard
             _clientIdTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -628,18 +634,22 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             controlY = controlY + controlHeight + rowSpace;
 
             // Redirect Url text input and label
-            var redirectLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            redirectLabel.Text = "Redirect URL";
+            var redirectLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Text = "Redirect URL"
+            };
 
             controlY = controlY + controlHeight + lessRowSpace;
 
-            _redirectUrlTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            _redirectUrlTextField.Placeholder = "Redirect URI";
-            _redirectUrlTextField.Text = redirectUrl;
-            _redirectUrlTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
-            _redirectUrlTextField.BackgroundColor = UIColor.LightGray;
-            _redirectUrlTextField.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
-            _redirectUrlTextField.LeftViewMode = UITextFieldViewMode.Always;
+            _redirectUrlTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Placeholder = "Redirect URI",
+                Text = redirectUrl,
+                AutocapitalizationType = UITextAutocapitalizationType.None,
+                BackgroundColor = UIColor.LightGray,
+                LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20)),
+                LeftViewMode = UITextFieldViewMode.Always
+            };
             // Allow pressing 'return' to dismiss the keyboard
             _redirectUrlTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -684,13 +694,13 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private void SaveButtonClick(object sender, EventArgs e)
         {
             // Get the values entered in the text fields
-            var clientId = _clientIdTextField.Text.Trim();
-            var redirectUrl = _redirectUrlTextField.Text.Trim();
+            string clientId = _clientIdTextField.Text.Trim();
+            string redirectUrl = _redirectUrlTextField.Text.Trim();
 
             // Make sure all required info was entered
             if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(redirectUrl))
             {
-                var alert = new UIAlertView("Error", "Please enter a client ID and redirect URL for OAuth authentication.", null, "OK", null);
+                var alert = new UIAlertView("Error", "Please enter a client ID and redirect URL for OAuth authentication.", (IUIAlertViewDelegate)null, "OK", null);
                 alert.Show();
                 return;
             }
@@ -766,20 +776,24 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             nfloat controlY = 5;
 
             // Label for inputs
-            var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            description.Text = "Search web maps";
-            description.TextColor = UIColor.Black;
+            var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Text = "Search web maps",
+                TextColor = UIColor.Black
+            };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
 
             // Title text input
-            _searchTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            _searchTextField.Placeholder = "Search text";
-            _searchTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
-            _searchTextField.BackgroundColor = UIColor.LightGray;
-            _searchTextField.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
-            _searchTextField.LeftViewMode = UITextFieldViewMode.Always;
+            _searchTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Placeholder = "Search text",
+                AutocapitalizationType = UITextAutocapitalizationType.None,
+                BackgroundColor = UIColor.LightGray,
+                LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20)),
+                LeftViewMode = UITextFieldViewMode.Always
+            };
             // Allow pressing 'return' to dismiss the keyboard
             _searchTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -831,7 +845,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private void SearchButtonClick(object sender, EventArgs e)
         {
             // Get the search text entered
-            var searchText = _searchTextField.Text.Trim();
+            string searchText = _searchTextField.Text.Trim();
 
             // Fire the OnMapInfoEntered event and provide the map item values
             if (OnSearchMapsTextEntered != null)

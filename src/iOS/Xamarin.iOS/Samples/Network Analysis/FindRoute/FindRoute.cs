@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.FindRoute
         private List<Stop> _routeStops;
 
         // List of direction maneuvers for completing the route (once solved)
-        IReadOnlyList<DirectionManeuver> _directionsList;
+        private IReadOnlyList<DirectionManeuver> _directionsList;
 
         // Graphics overlay to display stops and the route result
         private GraphicsOverlay _routeGraphicsOverlay;
@@ -166,7 +166,7 @@ namespace ArcGISRuntime.Samples.FindRoute
 
             // Remove the route graphic from the graphics overlay (only line graphic in the collection)
             int graphicsCount = _routeGraphicsOverlay.Graphics.Count;
-            for (var i = graphicsCount; i > 0; i--)
+            for (int i = graphicsCount; i > 0; i--)
             {
                 // Get this graphic and see if it has line geometry
                 Graphic g = _routeGraphicsOverlay.Graphics[i - 1];

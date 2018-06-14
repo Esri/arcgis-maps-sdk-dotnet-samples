@@ -54,8 +54,6 @@ namespace ArcGISRuntime.Samples.FindAddress
         // Create UI elements
         private UISearchBar _addressSearchBar = new UISearchBar();
 
-        private UIButton _suggestButton = new UIButton();
-
         public FindAddress()
         {
             Title = "Find address";

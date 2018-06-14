@@ -25,9 +25,6 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
         "")]
     public class RasterLayerImageServiceRaster : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 

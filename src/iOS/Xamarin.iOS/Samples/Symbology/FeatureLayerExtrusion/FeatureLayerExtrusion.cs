@@ -63,10 +63,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
                 ServiceFeatureTable myServiceFeatureTable = new ServiceFeatureTable(myServiceFeatureTable_Uri);
 
                 // Create a new feature layer from the service feature table
-                FeatureLayer myFeatureLayer = new FeatureLayer(myServiceFeatureTable);
-
-                // Set the rendering mode of the feature layer to be dynamic (needed for extrusion to work)
-                myFeatureLayer.RenderingMode = FeatureRenderingMode.Dynamic;
+                FeatureLayer myFeatureLayer = new FeatureLayer(myServiceFeatureTable)
+                {
+                    // Set the rendering mode of the feature layer to be dynamic (needed for extrusion to work)
+                    RenderingMode = FeatureRenderingMode.Dynamic
+                };
 
                 // Create a new simple line symbol for the feature layer
                 SimpleLineSymbol mySimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);

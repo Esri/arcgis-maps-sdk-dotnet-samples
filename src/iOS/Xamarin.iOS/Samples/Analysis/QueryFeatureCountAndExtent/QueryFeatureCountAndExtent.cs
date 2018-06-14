@@ -136,17 +136,25 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             _myQueryStateButton.TouchUpInside += BtnZoomToFeatures_Click;
 
             // Create the results label and the search bar
-            _myResultsLabel = new UILabel() { Text = "Enter a query to begin." };
-            _myResultsLabel.TextAlignment = UITextAlignment.Center;
-            _myStateEntry = new UITextField { Placeholder = "e.g. NH" };
-            _myStateEntry.BorderStyle = UITextBorderStyle.RoundedRect;
-            _myStateEntry.BackgroundColor = UIColor.FromWhiteAlpha(1, .8f);
+            _myResultsLabel = new UILabel
+            {
+                Text = "Enter a query to begin.",
+                TextAlignment = UITextAlignment.Center
+            };
+            _myStateEntry = new UITextField
+            {
+                Placeholder = "e.g. NH",
+                BorderStyle = UITextBorderStyle.RoundedRect,
+                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f)
+            };
 
             // Create the help label
-            _helpLabel = new UILabel();
-            _helpLabel.Text = "Tap 'Zoom to match' to zoom to features matching the given state abbreviation. Tap 'Count in extent' to count the features in the current extent, regardless of the query result.";
-            _helpLabel.Lines = 4;
-            _helpLabel.AdjustsFontSizeToFitWidth = true;
+            _helpLabel = new UILabel
+            {
+                Text = "Tap 'Zoom to match' to zoom to features matching the given state abbreviation. Tap 'Count in extent' to count the features in the current extent, regardless of the query result.",
+                Lines = 4,
+                AdjustsFontSizeToFitWidth = true
+            };
 
             // Allow the search bar to dismiss the keyboard
             _myStateEntry.ShouldReturn += (sender) =>

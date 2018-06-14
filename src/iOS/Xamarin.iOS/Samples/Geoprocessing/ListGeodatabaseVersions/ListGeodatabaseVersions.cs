@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using Foundation;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
 
@@ -78,13 +79,13 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
                 foreach (var version in versionsFeatureSet)
                 {
                     // Get the attributes (a dictionary of <key,value> pairs) from the Feature
-                    var myDictionary = version.Attributes;
+                    IDictionary<string, object> myDictionary = version.Attributes;
 
                     // Loop through each attribute (a <key,value> pair)
-                    foreach (var oneAttribute in myDictionary)
+                    foreach (KeyValuePair<string, object> oneAttribute in myDictionary)
                     {
                         // Get the key
-                        var myKey = oneAttribute.Key;
+                        string myKey = oneAttribute.Key;
 
                         // Get the value
                         var myValue = oneAttribute.Value;
@@ -134,14 +135,18 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
                 // Error handling if something goes wrong
                 if (listVersionsJob.Status == JobStatus.Failed && listVersionsJob.Error != null)
                 {
-                    UIAlertController alert = new UIAlertController();
-                    alert.Message = "Executing geoprocessing failed. " + listVersionsJob.Error.Message;
+                    UIAlertController alert = new UIAlertController
+                    {
+                        Message = "Executing geoprocessing failed. " + listVersionsJob.Error.Message
+                    };
                     alert.ShowViewController(this, this);
                 }
                 else
                 {
-                    UIAlertController alert = new UIAlertController();
-                    alert.Message = "An error occurred. " + ex.ToString();
+                    UIAlertController alert = new UIAlertController
+                    {
+                        Message = "An error occurred. " + ex.ToString()
+                    };
                     alert.ShowViewController(this, this);
                 }
             }

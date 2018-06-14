@@ -27,9 +27,6 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
         "")]
     public class IdentifyGraphics : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
@@ -102,9 +99,9 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
 
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            var tolerance = 10d; // Use larger tolerance for touch
-            var maximumResults = 1; // Only return one graphic  
-            var onlyReturnPopups = false; // Don't only return popups
+            double tolerance = 10d; // Use larger tolerance for touch
+            int maximumResults = 1; // Only return one graphic  
+            bool onlyReturnPopups = false; // Don't only return popups
 
             // Use the following method to identify graphics in a specific graphics overlay
             IdentifyGraphicsOverlayResult identifyResults = await _myMapView.IdentifyGraphicsOverlayAsync(
@@ -120,7 +117,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
                 // Make sure that the UI changes are done in the UI thread
                 InvokeOnMainThread(() =>
                 {
-                    var alert = new UIAlertView("", "Tapped on graphic", null, "OK", null);
+                    var alert = new UIAlertView("", "Tapped on graphic", (IUIAlertViewDelegate)null, "OK", null);
                     alert.Show();
                 });
             }

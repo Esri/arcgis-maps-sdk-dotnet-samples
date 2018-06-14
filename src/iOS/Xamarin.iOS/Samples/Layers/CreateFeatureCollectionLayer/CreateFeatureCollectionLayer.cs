@@ -28,9 +28,6 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
         "")]
     public class CreateFeatureCollectionLayer : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
         // Reference to the MapView used in the app
         private MapView _myMapView;
 
@@ -71,7 +68,7 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
             }
             catch (Exception ex)
             {
-                UIAlertView alert = new UIAlertView("Error", "Unable to create feature collection layer: " + ex.Message, null, "OK");
+                UIAlertView alert = new UIAlertView("Error", "Unable to create feature collection layer: " + ex.Message, (IUIAlertViewDelegate)null, "OK");
                 alert.Show();
             }
         }

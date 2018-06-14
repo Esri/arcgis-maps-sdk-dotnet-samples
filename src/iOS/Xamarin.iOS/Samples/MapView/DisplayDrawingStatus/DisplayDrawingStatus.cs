@@ -104,8 +104,10 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
             _myMapView = new MapView();
 
             // Create an activity indicator
-            _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
-            _activityIndicator.BackgroundColor = UIColor.FromWhiteAlpha(.2f, .9f);
+            _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(.2f, .9f)
+            };
 
             // Add the MapView to the Subview
             View.AddSubviews(_myMapView, _activityIndicator);

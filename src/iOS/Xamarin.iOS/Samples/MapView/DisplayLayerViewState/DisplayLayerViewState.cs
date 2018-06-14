@@ -62,26 +62,29 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             // Create new Map
             Map myMap = new Map();
 
-            // Create the uri for the tiled layer
+            // Create the URL for the tiled layer
             Uri tiledLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer");
 
-            // Create a tiled layer using url
-            ArcGISTiledLayer tiledLayer = new ArcGISTiledLayer(tiledLayerUri);
-            tiledLayer.Name = "Tiled Layer";
+            // Create a tiled layer using URL
+            ArcGISTiledLayer tiledLayer = new ArcGISTiledLayer(tiledLayerUri)
+            {
+                Name = "Tiled Layer"
+            };
 
             // Add the tiled layer to map
             myMap.OperationalLayers.Add(tiledLayer);
 
-            // Create the uri for the ArcGISMapImage layer
+            // Create the URL for the ArcGISMapImage layer
             var imageLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer");
 
-            // Create ArcGISMapImage layer using a url
-            ArcGISMapImageLayer imageLayer = new ArcGISMapImageLayer(imageLayerUri);
-            imageLayer.Name = "Image Layer";
-
-            // Set the visible scale range for the image layer
-            imageLayer.MinScale = 40000000;
-            imageLayer.MaxScale = 2000000;
+            // Create ArcGISMapImage layer using a URL
+            ArcGISMapImageLayer imageLayer = new ArcGISMapImageLayer(imageLayerUri)
+            {
+                Name = "Image Layer",
+                // Set the visible scale range for the image layer
+                MinScale = 40000000,
+                MaxScale = 2000000
+            };
 
             // Add the image layer to map
             myMap.OperationalLayers.Add(imageLayer);
@@ -89,14 +92,16 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             //Create Uri for feature layer
             var featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0");
 
-            //Create a feature layer using url
-            FeatureLayer myFeatureLayer = new FeatureLayer(featureLayerUri);
-            myFeatureLayer.Name = "Feature Layer";
+            //Create a feature layer using URL
+            FeatureLayer myFeatureLayer = new FeatureLayer(featureLayerUri)
+            {
+                Name = "Feature Layer"
+            };
 
             // Add the feature layer to map
             myMap.OperationalLayers.Add(myFeatureLayer);
 
-            // Create a mappoint the map should zoom to
+            // Create a point the map should zoom to
             MapPoint mapPoint = new MapPoint(-11000000, 4500000, SpatialReferences.WebMercator);
 
             // Set the initial viewpoint for map
@@ -108,7 +113,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
                 _layerStatusModels.Add(new LayerStatusModel(layer.Name, "Unknown"));
             }
 
-            // Create the tableview source and pass the list of models to it
+            // Create the table view source and pass the list of models to it
             _tableView.Source = new LayerViewStatusTableSource(_layerStatusModels);
 
             // Event for layer view state changed
@@ -134,8 +139,10 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         {
             _myMapView = new MapView();
             // Create a tableview for displaying layer view status for each layer
-            _tableView = new UITableView();
-            _tableView.RowHeight = 40;
+            _tableView = new UITableView
+            {
+                RowHeight = 40
+            };
 
             View.AddSubviews(_myMapView, _tableView);
         }

@@ -140,12 +140,14 @@ namespace ArcGISRuntime.Samples.BufferList
                 SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Red, 10);
 
                 // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol. 
-                Graphic userTappedGraphic = new Graphic(userTappedMapPoint, userTappedSimpleMarkerSymbol);
+                Graphic userTappedGraphic = new Graphic(userTappedMapPoint, userTappedSimpleMarkerSymbol)
+                {
+                    ZIndex = 2
+                };
 
                 // Specify a ZIndex value on the user input map point graphic to assist with the drawing order of mixed geometry types 
                 // being added to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is 
                 // drawn. Typically, Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2).
-                userTappedGraphic.ZIndex = 2;
 
                 // Add the user tapped/clicked map point graphic to the graphic overlay.
                 _graphicsOverlay.Graphics.Add(userTappedGraphic);
@@ -189,12 +191,13 @@ namespace ArcGISRuntime.Samples.BufferList
                     SimpleFillSymbol bufferPolygonSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, bufferPolygonFillColor, bufferPolygonSimpleLineSymbol);
 
                     // Create a new graphic for the buffered polygon using the defined simple fill symbol.
-                    Graphic bufferPolygonGraphic = new Graphic(oneGeometry, bufferPolygonSimpleFillSymbol);
-
-                    // Specify a ZIndex value on the buffered polygon graphic to assist with the drawing order of mixed geometry types being added
-                    // to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is drawn. Typically, 
-                    // Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2).
-                    bufferPolygonGraphic.ZIndex = 0;
+                    Graphic bufferPolygonGraphic = new Graphic(oneGeometry, bufferPolygonSimpleFillSymbol)
+                    {
+                        // Specify a ZIndex value on the buffered polygon graphic to assist with the drawing order of mixed geometry types being added
+                        // to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is drawn. Typically, 
+                        // Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2).
+                        ZIndex = 0
+                    };
 
                     // Add the buffered polygon graphic to the graphic overlay.
                     // NOTE: While you can control the positional placement of a graphic within the GraphicCollection of a GraphicsOverlay, 
@@ -217,29 +220,37 @@ namespace ArcGISRuntime.Samples.BufferList
         {
 
             // Create a UITextView for the overall sample instructions.
-            _sampleInstructionUITextiew = new UILabel();
-            _sampleInstructionUITextiew.Text = "Tap on the map to create several points. You can specify the buffer distance for each point. " + 
-                "Tap 'Create buffer(s)'. If the switch is 'on' the resulting output buffer will be unioned (one polygon). Otherwise, the result will have one buffer per point.";
-            _sampleInstructionUITextiew.Lines = 4;
-            _sampleInstructionUITextiew.AdjustsFontSizeToFitWidth = true;
+            _sampleInstructionUITextiew = new UILabel
+            {
+                Text = "Tap on the map to create several points. You can specify the buffer distance for each point. " +
+                       "Tap 'Create buffer(s)'. If the switch is 'on' the resulting output buffer will be unioned (one polygon). Otherwise, the result will have one buffer per point.",
+                Lines = 4,
+                AdjustsFontSizeToFitWidth = true
+            };
 
             // Create a UILabel for instructions.
-            _bufferDistanceInstructionsUILabel = new UILabel();
-            _bufferDistanceInstructionsUILabel.Text = "Buffer distance (miles):";
-            _bufferDistanceInstructionsUILabel.AdjustsFontSizeToFitWidth = true;
+            _bufferDistanceInstructionsUILabel = new UILabel
+            {
+                Text = "Buffer distance (miles):",
+                AdjustsFontSizeToFitWidth = true
+            };
 
             // Create a UITextFiled for the buffer value.
-            _bufferDistanceMilesUITextField = new UITextField();
-            _bufferDistanceMilesUITextField.Text = "10";
-            _bufferDistanceMilesUITextField.AdjustsFontSizeToFitWidth = true;
-            _bufferDistanceMilesUITextField.VerticalAlignment = UIControlContentVerticalAlignment.Center;
+            _bufferDistanceMilesUITextField = new UITextField
+            {
+                Text = "10",
+                AdjustsFontSizeToFitWidth = true,
+                VerticalAlignment = UIControlContentVerticalAlignment.Center
+            };
             // - Allow pressing 'return' to dismiss the keyboard
             _bufferDistanceMilesUITextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Create a UISwitch for toggling the union of the buffer geometries.
-            _unionBufferUISwitch = new UISwitch();
-            _unionBufferUISwitch.On = true;
-            _unionBufferUISwitch.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
+            _unionBufferUISwitch = new UISwitch
+            {
+                On = true,
+                HorizontalAlignment = UIControlContentHorizontalAlignment.Right
+            };
 
             // Create a UIButton to create the buffers.
             _bufferButton = new UIButton();

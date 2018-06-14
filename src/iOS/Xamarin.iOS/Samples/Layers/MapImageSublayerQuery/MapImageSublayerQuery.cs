@@ -184,11 +184,12 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         {
             // Create the population query controls: a label, a text input, and a button to execute the query.
             _populationLabel = new UILabel { Text = "[POP2000] > ", TextAlignment = UITextAlignment.Right };
-            _populationValueInput = new UITextField { 
+            _populationValueInput = new UITextField
+            {
                 Text = "1800000",
-                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f)
+                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
+                BorderStyle = UITextBorderStyle.RoundedRect
             };
-            _populationValueInput.BorderStyle = UITextBorderStyle.RoundedRect;
             _populationValueInput.ShouldReturn += (textField) => {
                 textField.ResignFirstResponder();
                 return true;

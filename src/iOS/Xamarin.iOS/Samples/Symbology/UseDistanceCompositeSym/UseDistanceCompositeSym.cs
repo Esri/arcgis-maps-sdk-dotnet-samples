@@ -67,8 +67,10 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
             _mySceneView.Scene = myScene;
 
             // Create a new GraphicsOverlay and add it to the SceneView
-            GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
-            graphicsOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
+            GraphicsOverlay graphicsOverlay = new GraphicsOverlay
+            {
+                SceneProperties = {SurfacePlacement = SurfacePlacement.Relative}
+            };
             _mySceneView.GraphicsOverlays.Add(graphicsOverlay);
 
             // Call a function to create a new distance composite symbol with three ranges

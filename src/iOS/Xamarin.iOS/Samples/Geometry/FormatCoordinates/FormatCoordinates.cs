@@ -207,8 +207,8 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         public override void ViewDidLayoutSubviews()
         {
             var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            var controlHeight = 20;
-            var margin = 5;
+            int controlHeight = 20;
+            int margin = 5;
             var controlWidth = View.Bounds.Width - ( 2 * margin);
 
             // Toolbar

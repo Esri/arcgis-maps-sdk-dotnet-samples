@@ -88,10 +88,11 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
         private void CreateLayout()
         {
             // Create the mapview
-            _myMapView = new MapView();
-
-            // Add an imagery basemap
-            _myMapView.Map = new Map(Basemap.CreateImagery());
+            _myMapView = new MapView
+            {
+                // Add an imagery basemap
+                Map = new Map(Basemap.CreateImagery())
+            };
 
             // Add the map to the view
             View.AddSubviews(_myMapView);

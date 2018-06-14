@@ -17,7 +17,7 @@ using UIKit;
 
 namespace ArcGISRuntime
 {
-    partial class CategoriesViewController : UITableViewController
+    internal partial class CategoriesViewController : UITableViewController
 	{
 		public CategoriesViewController(IntPtr handle)
 			: base(handle)

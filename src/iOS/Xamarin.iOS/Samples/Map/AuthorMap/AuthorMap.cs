@@ -115,8 +115,10 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
             // Create an activity indicator
             var centerRect = new CoreGraphics.CGRect(View.Bounds.Width / 2, View.Bounds.Height / 2, 40, 40);
-            _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
-            _activityIndicator.Frame = centerRect;
+            _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
+            {
+                Frame = centerRect
+            };
 
             // Define the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
@@ -199,7 +201,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             UIAlertController layersActionSheet = UIAlertController.Create("Layers", "Choose layers", UIAlertControllerStyle.ActionSheet);
 
             // Add actions to add or remove each of the available layers
-            foreach (var kvp in _operationalLayerUrls)
+            foreach (KeyValuePair<string, string> kvp in _operationalLayerUrls)
             {
                 layersActionSheet.AddAction(UIAlertAction.Create(kvp.Key, UIAlertActionStyle.Default, (action) => AddOrRemoveLayer(kvp.Key)));
             }
@@ -232,12 +234,14 @@ namespace ArcGISRuntime.Samples.AuthorMap
             else
             {
                 // Get the URL for this layer
-                var layerUrl = _operationalLayerUrls[layerName];
+                string layerUrl = _operationalLayerUrls[layerName];
                 var layerUri = new Uri(layerUrl);
 
                 // Create a new map image layer
-                layer = new ArcGISMapImageLayer(layerUri);
-                layer.Name = layerName;
+                layer = new ArcGISMapImageLayer(layerUri)
+                {
+                    Name = layerName
+                };
                 await layer.LoadAsync();
 
                 // Set it 50% opaque, and add it to the map
@@ -311,9 +315,9 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 _activityIndicator.StartAnimating();
 
                 // Get information entered by the user for the new portal item properties
-                var title = e.Title;
-                var description = e.Description;
-                var tags = e.Tags;
+                string title = e.Title;
+                string description = e.Description;
+                string[] tags = e.Tags;
 
                 // Apply the current extent as the map's initial extent
                 myMap.InitialViewpoint = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
@@ -491,11 +495,10 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 authorizeUrl: new Uri(AuthorizeUrl),
                 redirectUrl: new Uri(OAuthRedirectUrl))
             {
-                ShowErrors = false
+                ShowErrors = false,
+                // Allow the user to cancel the OAuth attempt
+                AllowCancel = true
             };
-
-            // Allow the user to cancel the OAuth attempt
-            auth.AllowCancel = true;
 
             // Define a handler for the OAuth2Authenticator.Completed event
             auth.Completed += (sender, authArgs) =>
@@ -557,7 +560,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private static IDictionary<string, string> DecodeParameters(Uri uri)
         {
             // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string
-            var answer = string.Empty;
+            string answer = string.Empty;
 
             // Get the values from the URI fragment or query string
             if (!string.IsNullOrEmpty(uri.Fragment))
@@ -573,11 +576,11 @@ namespace ArcGISRuntime.Samples.AuthorMap
             }
 
             // Parse parameters into key / value pairs
-            var keyValueDictionary = new Dictionary<string, string>();
-            var keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var kvString in keysAndValues)
+            Dictionary<string, string> keyValueDictionary = new Dictionary<string, string>();
+            string[] keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string kvString in keysAndValues)
             {
-                var pair = kvString.Split('=');
+                string[] pair = kvString.Split('=');
                 string key = pair[0];
                 string value = string.Empty;
                 if (key.Length > 1)
@@ -623,35 +626,37 @@ namespace ArcGISRuntime.Samples.AuthorMap
             nfloat textViewWidth = 200;
             nfloat buttonWidth = 60;
 
-            // Get the total height and width of the control set (four rows of controls, three sets of space)
-            nfloat totalHeight = (6 * controlHeight) + (5 * rowSpace);
-            nfloat totalWidth = textViewWidth;
-
             // Find the start x and y for the control layout
             nfloat controlX = 10;
             nfloat controlY = 10;
 
             // Label for inputs
-            var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            description.Text = "OAuth Settings";
-            description.TextColor = TintColor;
+            var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Text = "OAuth Settings",
+                TextColor = TintColor
+            };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
 
             // Client ID text input and label
-            var clientIdLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            clientIdLabel.Text = "Client ID";
+            var clientIdLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Text = "Client ID"
+            };
 
             controlY = controlY + controlHeight + lessRowSpace;
 
-            _clientIdTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            _clientIdTextField.Placeholder = "Client ID";
-            _clientIdTextField.Text = clientId;
-            _clientIdTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
-            _clientIdTextField.BackgroundColor = UIColor.LightGray;
-            _clientIdTextField.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
-            _clientIdTextField.LeftViewMode = UITextFieldViewMode.Always;
+            _clientIdTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Placeholder = "Client ID",
+                Text = clientId,
+                AutocapitalizationType = UITextAutocapitalizationType.None,
+                BackgroundColor = UIColor.LightGray,
+                LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20)),
+                LeftViewMode = UITextFieldViewMode.Always
+            };
             // Allow pressing 'return' to dismiss the keyboard
             _clientIdTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -659,18 +664,22 @@ namespace ArcGISRuntime.Samples.AuthorMap
             controlY = controlY + controlHeight + rowSpace;
 
             // Redirect Url text input and label
-            var redirectLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            redirectLabel.Text = "Redirect URL";
+            var redirectLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Text = "Redirect URL"
+            };
 
             controlY = controlY + controlHeight + lessRowSpace;
 
-            _redirectUrlTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            _redirectUrlTextField.Placeholder = "Redirect URI";
-            _redirectUrlTextField.Text = redirectUrl;
-            _redirectUrlTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
-            _redirectUrlTextField.BackgroundColor = UIColor.LightGray;
-            _redirectUrlTextField.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
-            _redirectUrlTextField.LeftViewMode = UITextFieldViewMode.Always;
+            _redirectUrlTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Placeholder = "Redirect URI",
+                Text = redirectUrl,
+                AutocapitalizationType = UITextAutocapitalizationType.None,
+                BackgroundColor = UIColor.LightGray,
+                LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20)),
+                LeftViewMode = UITextFieldViewMode.Always
+            };
             // Allow pressing 'return' to dismiss the keyboard
             _redirectUrlTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -715,13 +724,13 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void SaveButtonClick(object sender, EventArgs e)
         {
             // Get the values entered in the text fields
-            var clientId = _clientIdTextField.Text.Trim();
-            var redirectUrl = _redirectUrlTextField.Text.Trim();
+            string clientId = _clientIdTextField.Text.Trim();
+            string redirectUrl = _redirectUrlTextField.Text.Trim();
 
             // Make sure all required info was entered
             if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(redirectUrl))
             {
-                new UIAlertView("Error", "Please enter a client ID and redirect URL for OAuth authentication.", null, "OK", null).Show();
+                new UIAlertView("Error", "Please enter a client ID and redirect URL for OAuth authentication.", (IUIAlertViewDelegate)null, "OK", null).Show();
                 return;
             }
 
@@ -774,8 +783,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         public SaveMapDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, PortalItem mapItem) : base(frame)
         {
-            // Store the current portal item for the map (if any)
-            var portalItem = mapItem;
+            // Store any existing portal item
+            _portalItem = mapItem;
 
             // Create a semi-transparent overlay with the specified background color
             BackgroundColor = color;
@@ -801,20 +810,24 @@ namespace ArcGISRuntime.Samples.AuthorMap
             nfloat controlY = centerY - (totalHeight / 2);
 
             // Label for inputs
-            var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            description.Text = "Portal item info";
-            description.TextColor = UIColor.Black;
+            var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Text = "Portal item info",
+                TextColor = UIColor.Black
+            };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
 
             // Title text input
-            _titleTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            _titleTextField.Placeholder = "Title";
-            _titleTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
-            _titleTextField.BackgroundColor = UIColor.LightGray;
-            _titleTextField.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
-            _titleTextField.LeftViewMode = UITextFieldViewMode.Always;
+            _titleTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Placeholder = "Title",
+                AutocapitalizationType = UITextAutocapitalizationType.None,
+                BackgroundColor = UIColor.LightGray,
+                LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20)),
+                LeftViewMode = UITextFieldViewMode.Always
+            };
             // Allow pressing 'return' to dismiss the keyboard
             _titleTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -822,12 +835,14 @@ namespace ArcGISRuntime.Samples.AuthorMap
             controlY = controlY + controlHeight + rowSpace;
 
             // Description text input
-            _descriptionTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            _descriptionTextField.Placeholder = "Description";
-            _descriptionTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
-            _descriptionTextField.BackgroundColor = UIColor.LightGray;
-            _descriptionTextField.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
-            _descriptionTextField.LeftViewMode = UITextFieldViewMode.Always;
+            _descriptionTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Placeholder = "Description",
+                AutocapitalizationType = UITextAutocapitalizationType.None,
+                BackgroundColor = UIColor.LightGray,
+                LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20)),
+                LeftViewMode = UITextFieldViewMode.Always
+            };
             // Allow pressing 'return' to dismiss the keyboard
             _descriptionTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -835,12 +850,14 @@ namespace ArcGISRuntime.Samples.AuthorMap
             controlY = controlY + controlHeight + rowSpace;
 
             // Tags text input
-            _tagsTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            _tagsTextField.Text = "ArcGIS Runtime, Web Map";
-            _tagsTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
-            _tagsTextField.BackgroundColor = UIColor.LightGray;
-            _tagsTextField.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
-            _tagsTextField.LeftViewMode = UITextFieldViewMode.Always;
+            _tagsTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Text = "ArcGIS Runtime, Web Map",
+                AutocapitalizationType = UITextAutocapitalizationType.None,
+                BackgroundColor = UIColor.LightGray,
+                LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20)),
+                LeftViewMode = UITextFieldViewMode.Always
+            };
             // Allow pressing 'return' to dismiss the keyboard
             _tagsTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -901,14 +918,14 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void SaveButtonClick(object sender, EventArgs e)
         {
             // Get the values entered in the text fields
-            var title = _titleTextField.Text.Trim();
-            var description = _descriptionTextField.Text.Trim();
-            var tags = _tagsTextField.Text.Split(',');
+            string title = _titleTextField.Text.Trim();
+            string description = _descriptionTextField.Text.Trim();
+            string[] tags = _tagsTextField.Text.Split(',');
 
             // Make sure all required info was entered
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || tags.Length == 0)
             {
-                new UIAlertView("Error", "Please enter a title, description, and some tags to describe the map.", null, "OK", null).Show();
+                new UIAlertView("Error", "Please enter a title, description, and some tags to describe the map.", (IUIAlertViewDelegate)null, "OK", null).Show();
                 return;
             }
 

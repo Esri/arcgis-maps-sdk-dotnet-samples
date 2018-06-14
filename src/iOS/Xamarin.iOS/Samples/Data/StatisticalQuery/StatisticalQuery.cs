@@ -108,13 +108,17 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         {
             // Create a switch (and associated label) to include only big cities in the query
             _onlyBigCitiesSwitch = new UISwitch();
-            _citySwitchLabel = new UILabel();
-            _citySwitchLabel.Text = "Only cities over 5M";
+            _citySwitchLabel = new UILabel
+            {
+                Text = "Only cities over 5M"
+            };
 
             // Create a switch (and associated label) to include only cities in the current extent
             _onlyInExtentSwitch = new UISwitch();
-            _extentSwitchLabel = new UILabel();
-            _extentSwitchLabel.Text = "Only cities in extent";
+            _extentSwitchLabel = new UILabel
+            {
+                Text = "Only cities in extent"
+            };
 
             // Create a button to invoke the query
             _getStatsButton = new UIButton();
@@ -185,9 +189,11 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             if (record == null || record.Statistics.Count == 0)
             {
                 // Notify the user that no results were returned
-                UIAlertView alert = new UIAlertView();
-                alert.Message = "No results were returned";
-                alert.Title = "Statistical Query";
+                UIAlertView alert = new UIAlertView
+                {
+                    Message = "No results were returned",
+                    Title = "Statistical Query"
+                };
                 alert.Show();
                 return;
             }

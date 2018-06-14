@@ -159,8 +159,10 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
 
                 // Create graphics overlay for the extent graphic and apply a renderer.
-                GraphicsOverlay extentOverlay = new GraphicsOverlay();
-                extentOverlay.Renderer = new SimpleRenderer(lineSymbol);
+                GraphicsOverlay extentOverlay = new GraphicsOverlay
+                {
+                    Renderer = new SimpleRenderer(lineSymbol)
+                };
 
                 // Add graphics overlay to the map view.
                 myMapView.GraphicsOverlays.Add(extentOverlay);
@@ -301,17 +303,11 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
 
         private void UpdateMapExtent()
         {
-            // Return if mapview is null.
-            if (myMapView == null) { return; }
-
             // Get the new viewpoint.
-            Viewpoint myViewPoint = myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
-
-            // Return if viewpoint is null.
-            if (myViewPoint == null) { return; }
+            Viewpoint myViewPoint = myMapView?.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
             // Get the updated extent for the new viewpoint.
-            Envelope extent = myViewPoint.TargetGeometry as Envelope;
+            Envelope extent = myViewPoint?.TargetGeometry as Envelope;
 
             // Return if extent is null.
             if (extent == null) { return; }
@@ -531,7 +527,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            UIAlertView alertView = new UIAlertView("alert", message, null, "OK", null);
+            UIAlertView alertView = new UIAlertView("alert", message, (IUIAlertViewDelegate)null, "OK", null);
             alertView.Show();
         }
 

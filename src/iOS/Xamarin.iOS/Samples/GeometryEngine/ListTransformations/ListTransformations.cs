@@ -335,10 +335,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         }
 
         // Property to expose the currently selected transformation value in the picker.
-        public DatumTransformation SelectedDatumTransformation
-        {
-            get { return _selectedTransformation; }
-        }
+        public DatumTransformation SelectedDatumTransformation => _selectedTransformation;
 
         // Return the number of picker components (just one).
         public override nint GetComponentCount(UIPickerView pickerView)

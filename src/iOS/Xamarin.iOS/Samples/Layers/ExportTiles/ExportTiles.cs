@@ -101,11 +101,12 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 await myLayer.LoadAsync();
 
                 // Create the basemap with the layer.
-                Map myMap = new Map(new Basemap(myLayer));
-
-                // Set the min and max scale - export task fails if the scale is too big or small.
-                myMap.MaxScale = 5000000;
-                myMap.MinScale = 10000000;
+                Map myMap = new Map(new Basemap(myLayer))
+                {
+                    // Set the min and max scale - export task fails if the scale is too big or small.
+                    MaxScale = 5000000,
+                    MinScale = 10000000
+                };
 
                 // Assign the map to the mapview.
                 _myMapView.Map = myMap;
@@ -187,17 +188,11 @@ namespace ArcGISRuntime.Samples.ExportTiles
         /// </summary>
         private void UpdateMapExtentGraphic()
         {
-            // Return if mapview is null.
-            if (_myMapView == null) { return; }
-
             // Get the new viewpoint.
-            Viewpoint myViewPoint = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
-
-            // Return if viewpoint is null.
-            if (myViewPoint == null) { return; }
+            Viewpoint myViewPoint = _myMapView?.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
             // Get the updated extent for the new viewpoint.
-            Envelope extent = myViewPoint.TargetGeometry as Envelope;
+            Envelope extent = myViewPoint?.TargetGeometry as Envelope;
 
             // Return if extent is null.
             if (extent == null) { return; }
@@ -387,7 +382,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            UIAlertView alertView = new UIAlertView("alert", message, null, "OK", null);
+            UIAlertView alertView = new UIAlertView("alert", message, (IUIAlertViewDelegate)null, "OK", null);
             alertView.Show();
         }
     }

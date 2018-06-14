@@ -23,9 +23,6 @@ namespace ArcGISRuntime.Samples.DisplayScene
         "")]
     public class DisplayScene : UIViewController
     {
-        // Constant holding offset where the SceneView control should start
-        private const int yPageOffset = 60;
-
         // Create a new SceneView control
         private SceneView _mySceneView = new SceneView();
 
@@ -75,10 +72,11 @@ namespace ArcGISRuntime.Samples.DisplayScene
             Uri myUri = new Uri(myElevationImageService);
 
             // Create an ArcGIS tiled elevation 
-            ArcGISTiledElevationSource myArcGISTiledElevationSource = new ArcGISTiledElevationSource();
-
-            // Set the ArcGIS tiled elevation sources property to the Uri of the elevation image service
-            myArcGISTiledElevationSource.Source = myUri;
+            ArcGISTiledElevationSource myArcGISTiledElevationSource = new ArcGISTiledElevationSource
+            {
+                // Set the ArcGIS tiled elevation sources property to the Uri of the elevation image service
+                Source = myUri
+            };
 
             // Add the ArcGIS tiled elevation source to the surface's elevated sources collection
             mySurface.ElevationSources.Add(myArcGISTiledElevationSource);

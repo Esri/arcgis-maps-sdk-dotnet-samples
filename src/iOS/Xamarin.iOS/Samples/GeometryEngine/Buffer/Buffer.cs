@@ -156,19 +156,25 @@ namespace ArcGISRuntime.Samples.Buffer
         private void CreateLayout()
         {
             // Create the UILabel for instructions.
-            _bufferInstructionsUILabel = new UILabel();
-            _bufferInstructionsUILabel.Text = "Buffer (miles):";
-            _bufferInstructionsUILabel.AdjustsFontSizeToFitWidth = true;
+            _bufferInstructionsUILabel = new UILabel
+            {
+                Text = "Buffer (miles):",
+                AdjustsFontSizeToFitWidth = true
+            };
 
-            _helpLabel = new UILabel();
-            _helpLabel.Text = "Tap to create a buffer with specified size.";
-            _helpLabel.AdjustsFontSizeToFitWidth = true;
+            _helpLabel = new UILabel
+            {
+                Text = "Tap to create a buffer with specified size.",
+                AdjustsFontSizeToFitWidth = true
+            };
 
             // Create UITextFiled for the buffer value.
-            _bufferDistanceMilesUITextField = new UITextField();
-            _bufferDistanceMilesUITextField.Text = "10";
-            _bufferDistanceMilesUITextField.AdjustsFontSizeToFitWidth = true;
-            _bufferDistanceMilesUITextField.TextColor = View.TintColor;
+            _bufferDistanceMilesUITextField = new UITextField
+            {
+                Text = "10",
+                AdjustsFontSizeToFitWidth = true,
+                TextColor = View.TintColor
+            };
 
             // - Allow pressing 'return' to dismiss the keyboard
             _bufferDistanceMilesUITextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };

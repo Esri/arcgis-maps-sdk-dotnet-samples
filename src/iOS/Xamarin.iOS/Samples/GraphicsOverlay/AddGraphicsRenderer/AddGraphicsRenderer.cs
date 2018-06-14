@@ -26,9 +26,6 @@ namespace ArcGISRuntime.Samples.AddGraphicsRenderer
         "")]
     public class AddGraphicsRenderer : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
@@ -78,8 +75,8 @@ namespace ArcGISRuntime.Samples.AddGraphicsRenderer
             MapPoint centerPoint = extent.GetCenter();
 
             // Create values inside the visible extent for creating graphic
-            var extentWidth = extent.Width / 5;
-            var extentHeight = extent.Height / 10;
+            double extentWidth = extent.Width / 5;
+            double extentHeight = extent.Height / 10;
 
             // Create point collection
             PointCollection points = new PointCollection(SpatialReferences.WebMercator)

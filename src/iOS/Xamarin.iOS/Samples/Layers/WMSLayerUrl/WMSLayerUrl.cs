@@ -59,11 +59,10 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
         private void Initialize()
         {
             // Apply an imagery basemap to the map
-            Map myMap = new Map(Basemap.CreateImagery());
-
-            // Set the initial viewpoint
-            myMap.InitialViewpoint = new Viewpoint(
-                new MapPoint(25.450, -4.59, new SpatialReference(4326)), 1000000);
+            Map myMap = new Map(Basemap.CreateImagery())
+            {
+                InitialViewpoint = new Viewpoint(new MapPoint(25.450, -4.59, new SpatialReference(4326)), 1000000)
+            };
 
             // Add the map to the mapview
             _myMapView.Map = myMap;

@@ -94,10 +94,12 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         {
             View.BackgroundColor = UIColor.White;
 
-            _helpLabel = new UILabel();
-            _helpLabel.Text = "Tap 'Choose statistic definitions' to specify statistics to calculate. Then tap 'Choose group fields' to define how results will be grouped. Tap 'Choose order by fields' to define how results will be ordered. Finally, tap 'Get statistics' to see the results.";
-            _helpLabel.Lines = 4;
-            _helpLabel.AdjustsFontSizeToFitWidth = true;
+            _helpLabel = new UILabel
+            {
+                Text = "Tap 'Choose statistic definitions' to specify statistics to calculate. Then tap 'Choose group fields' to define how results will be grouped. Tap 'Choose order by fields' to define how results will be ordered. Finally, tap 'Get statistics' to see the results.",
+                Lines = 4,
+                AdjustsFontSizeToFitWidth = true
+            };
 
             // Button for launching the UI to view or define statistics definitions for the query
             _showStatDefinitionsButton = new UIButton();
@@ -207,8 +209,10 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         private void ShowStatDefinitions(object sender, EventArgs e)
         {
             // Create a new UIPickerView and assign a model that will show fields and statistic types
-            UIPickerView statisticPicker = new UIPickerView();
-            statisticPicker.Model = _statsPickerModel;
+            UIPickerView statisticPicker = new UIPickerView
+            {
+                Model = _statsPickerModel
+            };
 
             // Create a new table 
             UITableViewController statsTable = new UITableViewController(UITableViewStyle.Plain);
@@ -238,7 +242,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             }
 
             // Verify that there is at least one statistic definition
-            if (_statisticDefinitions.Count() == 0)
+            if (!_statisticDefinitions.Any())
             {
                 ShowAlert("Statistical Query", "Please define at least one statistic for the query.");
                 return;
@@ -275,11 +279,12 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             StatisticQueryResultsDataSource statResultsDataSource = new StatisticQueryResultsDataSource(resultsLookup);
 
             // Create a new table with a grouped style for displaying rows
-            UITableViewController statResultsTable = new UITableViewController(UITableViewStyle.Grouped);
+            UITableViewController statResultsTable = new UITableViewController(UITableViewStyle.Grouped)
+            {
+                // Set the table view data source
+                TableView = {Source = statResultsDataSource}
+            };
 
-            // Set the table view data source
-            statResultsTable.TableView.Source = statResultsDataSource;
-            
             // Show the table view
             NavigationController.PushViewController(statResultsTable, true);
         }
@@ -332,10 +337,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         }
 
         // Property to expose the currently selected definition in the picker
-        public StatisticDefinition SelectedStatDefinition
-        {
-            get { return _selectedStatDefinition; }
-        }
+        public StatisticDefinition SelectedStatDefinition => _selectedStatDefinition;
 
         // Return the number of picker components (two sections: field names and statistic types)
         public override nint GetComponentCount(UIPickerView pickerView)
@@ -592,16 +594,14 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             cell.TextLabel.Text = fieldName;
 
             // Create a UISwitch for selecting the field for grouping
-            UISwitch groupFieldSwitch = new UISwitch()
+            UISwitch groupFieldSwitch = new UISwitch
             {
-                Frame = new CGRect(cell.Bounds.Width - 60, 7, 50, cell.Bounds.Height)
+                Frame = new CGRect(cell.Bounds.Width - 60, 7, 50, cell.Bounds.Height),
+                // Set the switch control tag with the row position
+                Tag = indexPath.Row,
+                // Set the initial switch value to show whether it's been selected for grouping
+                On = isForGrouping
             };
-
-            // Set the switch control tag with the row position
-            groupFieldSwitch.Tag = indexPath.Row;
-
-            // Set the initial switch value to show whether it's been selected for grouping
-            groupFieldSwitch.On = isForGrouping;
 
             // Handle the value changed for the switch so the dictionary value can be updated
             groupFieldSwitch.ValueChanged += GroupBySwitched;
@@ -655,16 +655,14 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             cell.TextLabel.Text = fieldName;
 
             // Create a UISwitch for selecting the field for ordering results
-            UISwitch sortFieldSwitch = new UISwitch()
+            UISwitch sortFieldSwitch = new UISwitch
             {
-                Frame = new CGRect(cell.Bounds.Width - 60, 7, 50, cell.Bounds.Height)
+                Frame = new CGRect(cell.Bounds.Width - 60, 7, 50, cell.Bounds.Height),
+                // Set the control's tag with the row index
+                Tag = indexPath.Row,
+                // Set the initial switch value to show if this field will be used for sorting
+                On = isForSorting
             };
-
-            // Set the control's tag with the row index
-            sortFieldSwitch.Tag = indexPath.Row;
-
-            // Set the initial switch value to show if this field will be used for sorting
-            sortFieldSwitch.On = isForSorting;
 
             // Handle the value changed event to update the dictionary value for this field
             sortFieldSwitch.ValueChanged += OrderBySwitched;
@@ -784,9 +782,11 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             nfloat controlY = centerY - totalHeight;
 
             // Toolbar with "Add" and "Done" buttons
-            UIToolbar toolbar = new UIToolbar();
-            toolbar.BarStyle = UIBarStyle.Black;
-            toolbar.Translucent = false;
+            UIToolbar toolbar = new UIToolbar
+            {
+                BarStyle = UIBarStyle.Black,
+                Translucent = false
+            };
             toolbar.SizeToFit();
 
             // Add Button (add the new stat and don't dismiss the UI)
@@ -798,11 +798,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
                 if (newStatDefinition != null)
                 {
                     // Fire the OnMapInfoEntered event and provide the statistic definition
-                    if (OnStatisticDefined != null)
-                    {
-                        // Raise the event
-                        OnStatisticDefined(this, newStatDefinition);
-                    }
+                    OnStatisticDefined?.Invoke(this, newStatDefinition);
                 }
             });
 

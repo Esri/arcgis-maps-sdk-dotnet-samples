@@ -56,8 +56,10 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             // If there are no cells, create a new one
             if (cell == null)
             {
-                cell = new UITableViewCell(UITableViewCellStyle.Default, CellId);
-                cell.BackgroundColor = UIColor.FromWhiteAlpha(0, 0f);
+                cell = new UITableViewCell(UITableViewCellStyle.Default, CellId)
+                {
+                    BackgroundColor = UIColor.FromWhiteAlpha(0, 0f)
+                };
                 cell.TextLabel.TextColor = Owner.View.TintColor;
             }
 
@@ -292,7 +294,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         /// <summary>
         /// Title property to facilitate binding
         /// </summary>
-        public String Title { get { return Info.Title; } }
+        public String Title => Info.Title;
 
         public LayerDisplayVM(WmsLayerInfo info)
         {

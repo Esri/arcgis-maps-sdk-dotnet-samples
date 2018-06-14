@@ -154,36 +154,44 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             _rendererTypes.ValueChanged += rendererTypes_ValueChanged;
 
             // Create label that displays the 1st parameter used by the stretch renderer
-            _Label_Parameter1 = new UILabel();
-            _Label_Parameter1.Text = "Minimum value (0 - 255):";
-            _Label_Parameter1.AdjustsFontSizeToFitWidth = true;
-            _Label_Parameter1.TextAlignment = UITextAlignment.Right;
+            _Label_Parameter1 = new UILabel
+            {
+                Text = "Minimum value (0 - 255):",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Right
+            };
 
             // Create text field for 1st parameter used by the stretch renderer that the user can modify 
-            _Input_Parameter1 = new UITextField();
-            _Input_Parameter1.Text = "10";
-            _Input_Parameter1.AdjustsFontSizeToFitWidth = true;
-            _Input_Parameter1.BackgroundColor = controlWhite;
-            _Input_Parameter1.TextColor = View.TintColor;
-            _Input_Parameter1.BorderStyle = UITextBorderStyle.RoundedRect;
-            _Input_Parameter1.TextAlignment = UITextAlignment.Center;
+            _Input_Parameter1 = new UITextField
+            {
+                Text = "10",
+                AdjustsFontSizeToFitWidth = true,
+                BackgroundColor = controlWhite,
+                TextColor = View.TintColor,
+                BorderStyle = UITextBorderStyle.RoundedRect,
+                TextAlignment = UITextAlignment.Center
+            };
             // Allow pressing 'return' to dismiss the keyboard
             _Input_Parameter1.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
             // Create label that displays the 2nd parameter used by the stretch renderer
-            _Label_Parameter2 = new UILabel();
-            _Label_Parameter2.Text = "Maximum value (0 - 255):";
-            _Label_Parameter2.AdjustsFontSizeToFitWidth = true;
-            _Label_Parameter2.TextAlignment = UITextAlignment.Right;
+            _Label_Parameter2 = new UILabel
+            {
+                Text = "Maximum value (0 - 255):",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Right
+            };
 
             // Create text field for 2nd parameter used by the stretch renderer that the user can modify 
-            _Input_Parameter2 = new UITextField();
-            _Input_Parameter2.Text = "150";
-            _Input_Parameter2.AdjustsFontSizeToFitWidth = true;
-            _Input_Parameter2.BackgroundColor = controlWhite;
-            _Input_Parameter2.TextColor = View.TintColor;
-            _Input_Parameter2.BorderStyle = UITextBorderStyle.RoundedRect;
-            _Input_Parameter2.TextAlignment = UITextAlignment.Center;
+            _Input_Parameter2 = new UITextField
+            {
+                Text = "150",
+                AdjustsFontSizeToFitWidth = true,
+                BackgroundColor = controlWhite,
+                TextColor = View.TintColor,
+                BorderStyle = UITextBorderStyle.RoundedRect,
+                TextAlignment = UITextAlignment.Center
+            };
             // Allow pressing 'return' to dismiss the keyboard
             _Input_Parameter2.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -191,7 +199,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             View.AddSubviews(_myMapView, _toolbar, _UpdateRenderer, _rendererTypes, _Label_Parameter1, _Input_Parameter1, _Label_Parameter2, _Input_Parameter2);
         }
 
-        void rendererTypes_ValueChanged(object sender, EventArgs e)
+        private void rendererTypes_ValueChanged(object sender, EventArgs e)
         {
             // This function modifies the UI parameter controls depending on which stretch 
             // renderer is chosen by the user

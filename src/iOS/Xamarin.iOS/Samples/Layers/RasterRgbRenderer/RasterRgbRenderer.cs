@@ -566,13 +566,13 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
     public class RgbValuePickerModel : UIPickerViewModel
     {
         // Array of red values (0-255).
-        private int[] _redValues = Enumerable.Range(0, 256).ToArray();
+        private readonly int[] _redValues = Enumerable.Range(0, 256).ToArray();
 
         // Array of green values (0-255).
-        private int[] _greenValues = Enumerable.Range(0, 256).ToArray();
+        private readonly int[] _greenValues = Enumerable.Range(0, 256).ToArray();
 
         // Array of blue values (0-255).
-        private int[] _blueValues = Enumerable.Range(0, 256).ToArray();
+        private readonly int[] _blueValues = Enumerable.Range(0, 256).ToArray();
 
         // Currently selected red, green, and blue values.
         private int _selectedRed = 0;
@@ -588,22 +588,13 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         }
 
         // Property to expose the currently selected red value in the picker.
-        public int SelectedRed
-        {
-            get { return _selectedRed; }
-        }
+        public int SelectedRed => _selectedRed;
 
         // Property to expose the currently selected green value in the picker.
-        public int SelectedGreen
-        {
-            get { return _selectedGreen; }
-        }
+        public int SelectedGreen => _selectedGreen;
 
         // Property to expose the currently selected blue value in the picker.
-        public int SelectedBlue
-        {
-            get { return _selectedBlue; }
-        }
+        public int SelectedBlue => _selectedBlue;
 
         // Return the number of picker components (three sections: red, green, and blue values).
         public override nint GetComponentCount(UIPickerView pickerView)
@@ -678,11 +669,8 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         }
 
         // Property to expose the currently selected factor value in the picker.
-        public double SelectedFactor
-        {
-            get { return _selectedFactor; }
-        }
-        
+        public double SelectedFactor => _selectedFactor;
+
         // Return the number of picker components (just one).
         public override nint GetComponentCount(UIPickerView pickerView)
         {
@@ -692,7 +680,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         // Return the number of rows in the section (the size of the factor choice array).
         public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
         {
-            return _factorValues.Count();
+            return _factorValues.Length;
         }
 
         // Get the title to display in the picker component.

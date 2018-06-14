@@ -16,6 +16,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using UIKit;
@@ -153,32 +154,40 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             _editToolsView.Frame = new CoreGraphics.CGRect(0, _mapViewHeight, View.Bounds.Width, _editToolsHeight);
 
             // View to hold the first row of buttons (start, stop, sync)
-            UIStackView editButtonsRow1 = new UIStackView();
-            editButtonsRow1.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, 35);
-            editButtonsRow1.Axis = UILayoutConstraintAxis.Horizontal;
+            UIStackView editButtonsRow1 = new UIStackView
+            {
+                Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, 35),
+                Axis = UILayoutConstraintAxis.Horizontal
+            };
             editButtonsRow1.Add(_startEditingButton);
             editButtonsRow1.Add(_stopEditingButton);
             editButtonsRow1.Add(_syncEditsButton);
             
             // View to hold the second row of buttons (add bird, add marine)
-            UIStackView editButtonsRow2 = new UIStackView();
-            editButtonsRow2.Frame = new CoreGraphics.CGRect(0, 35, View.Bounds.Width, 35);
-            editButtonsRow2.Axis = UILayoutConstraintAxis.Horizontal;
+            UIStackView editButtonsRow2 = new UIStackView
+            {
+                Frame = new CoreGraphics.CGRect(0, 35, View.Bounds.Width, 35),
+                Axis = UILayoutConstraintAxis.Horizontal
+            };
             editButtonsRow2.Add(_addBirdButton);
             editButtonsRow2.Add(_addMarineButton);
 
             // View for the 'require transaction' switch
-            UIStackView editSwitchRow = new UIStackView();
-            editSwitchRow.Frame = new CoreGraphics.CGRect(0, 70, View.Bounds.Width, 35);
-            editSwitchRow.Axis = UILayoutConstraintAxis.Horizontal;
+            UIStackView editSwitchRow = new UIStackView
+            {
+                Frame = new CoreGraphics.CGRect(0, 70, View.Bounds.Width, 35),
+                Axis = UILayoutConstraintAxis.Horizontal
+            };
             _requireTransactionSwitch.On = true;
             _requireTransactionSwitch.ValueChanged += RequireTransactionChanged;
             editSwitchRow.Add(_requireTransactionSwitch);
 
             // Create a label that describes the switch value
-            UILabel switchLabel = new UILabel();
-            switchLabel.Text = "Require transaction";
-            switchLabel.Frame = new CoreGraphics.CGRect(70, 0, View.Bounds.Width - 70, 30);
+            UILabel switchLabel = new UILabel
+            {
+                Text = "Require transaction",
+                Frame = new CoreGraphics.CGRect(70, 0, View.Bounds.Width - 70, 30)
+            };
             editSwitchRow.Add(switchLabel);
             
             // Progress bar
@@ -236,14 +245,14 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         private void ShowMessage(string title, string message, string buttonText)
         {
             // Display the message to the user
-            UIAlertView alertView = new UIAlertView(title, message, null, buttonText, null);
+            UIAlertView alertView = new UIAlertView(title, message, (IUIAlertViewDelegate)null, buttonText, null);
             alertView.Show();
         }
         
         private async Task GetLocalGeodatabase()
         {
             // Get the path to the local geodatabase for this platform (temp directory, for example)
-            var localGeodatabasePath = GetGdbPath();
+            string localGeodatabasePath = GetGdbPath();
 
             try
             {
@@ -543,7 +552,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 };
 
                 // Await the completion of the job
-                var result = await job.GetResultAsync();
+                IReadOnlyList<SyncLayerResult> result = await job.GetResultAsync();
             }
             catch (Exception ex)
             {

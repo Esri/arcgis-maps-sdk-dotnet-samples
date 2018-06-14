@@ -18,6 +18,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -161,17 +162,11 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
 
         private void UpdateMapExtent()
         {
-            // Return if mapview is null.
-            if (myMapView == null) { return; }
-
             // Get the new viewpoint.
-            Viewpoint myViewPoint = myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
-
-            // Return if viewpoint is null.
-            if (myViewPoint == null) { return; }
+            Viewpoint myViewPoint = myMapView?.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
             // Get the updated extent for the new viewpoint.
-            Envelope extent = myViewPoint.TargetGeometry as Envelope;
+            Envelope extent = myViewPoint?.TargetGeometry as Envelope;
 
             // Return if extent is null.
             if (extent == null) { return; }
@@ -281,7 +276,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 else
                 {
                     // If no error, show messages from the job.
-                    var m = from msg in job.Messages select msg.Message;
+                    IEnumerable<string> m = from msg in job.Messages select msg.Message;
                     message += ": " + string.Join<string>("\n", m);
                 }
 
@@ -298,7 +293,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            UIAlertView alertView = new UIAlertView("alert", message, null, "OK", null);
+            UIAlertView alertView = new UIAlertView("alert", message, (IUIAlertViewDelegate)null, "OK", null);
             alertView.Show();
         }
 

@@ -73,39 +73,38 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         //Add some default bookmarks
         private void AddDefaultBookmarks()
         {
-            Viewpoint vp;
-            Bookmark myBookmark;
-
-            // Bookmark-1
-            // Initialize a viewpoint pointing to a latitude longitude
-            vp = new Viewpoint(27.3805833, 33.6321389, 6000);
+            // Bookmark 1
             // Create a new bookmark
-            myBookmark = new Bookmark();
-            myBookmark.Name = "Mysterious Desert Pattern";
-            // Assign the viewpoint 
-            myBookmark.Viewpoint = vp;
+            Bookmark myBookmark = new Bookmark
+            {
+                Name = "Mysterious Desert Pattern",
+                Viewpoint = new Viewpoint(27.3805833, 33.6321389, 6000)
+            };
             // Add the bookmark to bookmark collection of the map
             _myMapView.Map.Bookmarks.Add(myBookmark);
 
-            // Bookmark-2
-            vp = new Viewpoint(-39.299987, 174.060858, 600000);
-            Bookmark myBookmark2 = new Bookmark();
-            myBookmark2.Name = "Dormant Volcano";
-            myBookmark.Viewpoint = vp;
+            // Bookmark 2
+            myBookmark = new Bookmark
+            {
+                Name = "Dormant Volcano",
+                Viewpoint = new Viewpoint(-39.299987, 174.060858, 600000)
+            };
             _myMapView.Map.Bookmarks.Add(myBookmark);
 
             // Bookmark-3
-            vp = new Viewpoint(-33.867886, -63.985, 40000);
-            myBookmark = new Bookmark();
-            myBookmark.Name = "Guitar-Shaped Forest";
-            myBookmark.Viewpoint = vp;
+            myBookmark = new Bookmark
+            {
+                Name = "Guitar-Shaped Forest",
+                Viewpoint = new Viewpoint(-33.867886, -63.985, 40000)
+            };
             _myMapView.Map.Bookmarks.Add(myBookmark);
 
             // Bookmark-4
-            vp = new Viewpoint(44.525049, -110.83819, 6000);
-            myBookmark = new Bookmark();
-            myBookmark.Name = "Grand Prismatic Spring";
-            myBookmark.Viewpoint = vp;
+            myBookmark = new Bookmark
+            {
+                Name = "Grand Prismatic Spring",
+                Viewpoint = new Viewpoint(44.525049, -110.83819, 6000)
+            };
             _myMapView.Map.Bookmarks.Add(myBookmark);
         }
 
@@ -122,7 +121,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             var cancelAction = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null);
             var okayAction = UIAlertAction.Create("Done", UIAlertActionStyle.Default, alertAction =>{
                 // Get the name from the text field
-                var name = textInputAlertController.TextFields[0].Text;
+                string name = textInputAlertController.TextFields[0].Text;
 
                 // Exit if the name is empty
                 if (string.IsNullOrEmpty(name))
@@ -134,10 +133,13 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
                     return;
 
                 // Create a new bookmark
-                Bookmark myBookmark = new Bookmark();
-                myBookmark.Name = name;
-                // Get the current viewpoint from map and assign it to bookmark 
-                myBookmark.Viewpoint = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+                Bookmark myBookmark = new Bookmark
+                {
+                    Name = name,
+                    // Get the current viewpoint from map and assign it to bookmark 
+                    Viewpoint = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)
+                };
+                
                 // Add the bookmark to bookmark collection of the map
                 _myMapView.Map.Bookmarks.Add(myBookmark);
 

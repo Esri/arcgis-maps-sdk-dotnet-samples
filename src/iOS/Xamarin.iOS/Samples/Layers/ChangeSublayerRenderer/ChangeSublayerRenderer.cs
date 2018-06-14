@@ -149,10 +149,10 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
             // Create a UITextView for the overall sample instructions.
             _sampleInstructionUITextiew = new UILabel
             {
-                Text = "Tap 'Change sublayer renderer' to apply a unique value renderer to the counties sublayer."
+                Text = "Tap 'Change sublayer renderer' to apply a unique value renderer to the counties sublayer.",
+                Lines = 2,
+                AdjustsFontSizeToFitWidth = true
             };
-            _sampleInstructionUITextiew.Lines = 2;
-            _sampleInstructionUITextiew.AdjustsFontSizeToFitWidth = true;
 
             // Create a UIButton to change the sublayer renderer.
             _changeSublayerRendererButton = new UIButton();

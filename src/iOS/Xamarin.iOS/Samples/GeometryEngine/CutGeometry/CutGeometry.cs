@@ -235,10 +235,12 @@ namespace ArcGISRuntime.Samples.CutGeometry
         private void CreateLayout()
         {
             // Create a UITextView for the overall sample instructions.
-            _sampleInstructionUITextiew = new UITextView();
-            _sampleInstructionUITextiew.Text = "Tap 'Cut' to cut the polygon with the polyline.";
-            _sampleInstructionUITextiew.TextAlignment = UITextAlignment.Center;
-            _sampleInstructionUITextiew.BackgroundColor = UIColor.FromWhiteAlpha(0, 0);
+            _sampleInstructionUITextiew = new UITextView
+            {
+                Text = "Tap 'Cut' to cut the polygon with the polyline.",
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, 0)
+            };
 
             // Create a UIButton to cut the polygons.
             _cutButton = new UIButton();

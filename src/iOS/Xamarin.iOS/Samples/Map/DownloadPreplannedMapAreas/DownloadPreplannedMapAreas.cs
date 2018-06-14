@@ -157,7 +157,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             View.AddSubview(_progressIndicator);
 
             // Get the path for the downloaded map area.
-            var path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
+            string path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
 
             // If the area is already downloaded, open it and don't download it again.
             if (Directory.Exists(path))

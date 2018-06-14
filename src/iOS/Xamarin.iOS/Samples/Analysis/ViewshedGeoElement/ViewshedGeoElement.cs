@@ -79,8 +79,10 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
 
             // Configure the heading expression for the tank; this will allow the
             //     viewshed to update automatically based on the tank's position.
-            SimpleRenderer renderer3D = new SimpleRenderer();
-            renderer3D.SceneProperties.HeadingExpression = "[HEADING]";
+            SimpleRenderer renderer3D = new SimpleRenderer
+            {
+                SceneProperties = {HeadingExpression = "[HEADING]"}
+            };
             _tankOverlay.Renderer = renderer3D;
 
             // Create the tank graphic - get the model path.

@@ -103,15 +103,11 @@ namespace ArcGISRuntime.Samples.SketchOnMap
 
 
             // Add a segmented button control
-            _segmentButton = new UISegmentedControl();
-            _segmentButton.BackgroundColor = UIColor.White;
-            _segmentButton.Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height - 60, View.Bounds.Width, 30);
-            _segmentButton.InsertSegment("Sketch", 0, false);
-            _segmentButton.InsertSegment("Edit", 1, false);
-            _segmentButton.InsertSegment("Undo", 2, false);
-            _segmentButton.InsertSegment("Redo", 3, false);
-            _segmentButton.InsertSegment("Done", 4, false);
-            _segmentButton.InsertSegment("Clear", 5, false);
+            _segmentButton = new UISegmentedControl("Sketch", "Edit", "Undo", "Redo", "Done", "Clear")
+            {
+                BackgroundColor = UIColor.White,
+                Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height - 60, View.Bounds.Width, 30)
+            };
 
             // Disable all segment buttons except "Sketch"
             _segmentButton.SetEnabled(false, 1);
@@ -261,7 +257,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             var screenCoordinate = _myMapView.LocationToScreen(mapPoint);
 
             // Identify graphics in the graphics overlay using the point
-            var results = await _myMapView.IdentifyGraphicsOverlaysAsync(screenCoordinate, 2, false);
+            IReadOnlyList<IdentifyGraphicsOverlayResult> results = await _myMapView.IdentifyGraphicsOverlaysAsync(screenCoordinate, 2, false);
 
             // If results were found, get the first graphic
             Graphic graphic = null;
@@ -282,14 +278,14 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             UIAlertController sketchModeActionSheet = UIAlertController.Create("Sketch Modes", "Choose a sketch mode", UIAlertControllerStyle.ActionSheet);
 
             // Create an action for drawing the selected sketch type
-            var sketchAction = new Action<UIAlertAction>((axun) => { SketchGeometry(axun.Title); });
+            Action<UIAlertAction> sketchAction = new Action<UIAlertAction>((axun) => { SketchGeometry(axun.Title); });
 
             // Create a dictionary of enum names and values
-            var enumValues = Enum.GetValues(typeof(SketchCreationMode)).Cast<int>();
+            IEnumerable<int> enumValues = Enum.GetValues(typeof(SketchCreationMode)).Cast<int>();
             _sketchModeDictionary = enumValues.ToDictionary(v => Enum.GetName(typeof(SketchCreationMode), v), v => v);
             
             // Add sketch modes to the action sheet
-            foreach (var mode in _sketchModeDictionary)
+            foreach (KeyValuePair<string, int> mode in _sketchModeDictionary)
             {
                 UIAlertAction actionItem = UIAlertAction.Create(mode.Key, UIAlertActionStyle.Default, sketchAction);
                 sketchModeActionSheet.AddAction(actionItem);
@@ -326,7 +322,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                UIAlertView alert = new UIAlertView("Error", "Error drawing graphic shape: " + ex.Message, null, "OK", null);
+                UIAlertView alert = new UIAlertView("Error", "Error drawing graphic shape: " + ex.Message, (IUIAlertViewDelegate)null, "OK", null);
             }
         }
 
@@ -351,7 +347,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                UIAlertView alert = new UIAlertView("Error", "Error editing shape: " + ex.Message, null, "OK", null);
+                UIAlertView alert = new UIAlertView("Error", "Error editing shape: " + ex.Message, (IUIAlertViewDelegate)null, "OK", null);
             }
         }
     }

@@ -31,9 +31,6 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         "")]
     public class AnalyzeViewshed : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
@@ -126,11 +123,12 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             await myInputFeatures.AddFeatureAsync(myInputFeature);
 
             // Create the parameters that are passed to the used geoprocessing task
-            GeoprocessingParameters myViewshedParameters =
-                new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute);
+            GeoprocessingParameters myViewshedParameters = new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute)
+            {
+                OutputSpatialReference = _myMapView.SpatialReference
+            };
 
             // Request the output features to use the same SpatialReference as the map view
-            myViewshedParameters.OutputSpatialReference = _myMapView.SpatialReference;
 
             // Add an input location to the geoprocessing parameters
             myViewshedParameters.Inputs.Add("Input_Observation_Point", new GeoprocessingFeatures(myInputFeatures));

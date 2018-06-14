@@ -151,30 +151,38 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             // This section creates the UI elements and adds them to the layout view of the GUI
 
             // Create label that displays the Altitude
-            _Label_Altitude = new UILabel();
-            _Label_Altitude.Text = "Altitude:";
-            _Label_Altitude.AdjustsFontSizeToFitWidth = true;
+            _Label_Altitude = new UILabel
+            {
+                Text = "Altitude:",
+                AdjustsFontSizeToFitWidth = true
+            };
 
             // Create slider that the user can modify Altitude 
             _Altitude_Slider = new UISlider();
 
             // Create label that displays the Azimuth
-            _Label_Azimuth = new UILabel();
-            _Label_Azimuth.Text = "Azimuth:";
-            _Label_Azimuth.AdjustsFontSizeToFitWidth = true;
+            _Label_Azimuth = new UILabel
+            {
+                Text = "Azimuth:",
+                AdjustsFontSizeToFitWidth = true
+            };
 
             // Create slider that the user can modify Azimuth 
             _Azimuth_Slider = new UISlider();
 
             // Get all the SlopeType names from the PresetColorRampType Enumeration and put them 
             // in an array of strings, then set the UITableView.Source to the array
-            _SlopeTypes = new UISegmentedControl(Enum.GetNames(typeof(SlopeType)));
-            _SlopeTypes.SelectedSegment = 0;
+            _SlopeTypes = new UISegmentedControl(Enum.GetNames(typeof(SlopeType)))
+            {
+                SelectedSegment = 0
+            };
 
             // Get all the ColorRamp names from the PresetColorRampType Enumeration and put them 
             // in an array of strings, then set the UITableView.Source to the array
-            _ColorRamps = new UISegmentedControl(Enum.GetNames(typeof(PresetColorRampType)));
-            _ColorRamps.SelectedSegment = 0;
+            _ColorRamps = new UISegmentedControl(Enum.GetNames(typeof(PresetColorRampType)))
+            {
+                SelectedSegment = 0
+            };
 
             // Create button to change stretch renderer of the raster
             _UpdateRenderer = new UIButton(UIButtonType.RoundedRect);

@@ -67,8 +67,10 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             _mapView = new MapView();
 
             // Create a new view model and pass the map view control
-            _mapViewModel = new MapViewModel();
-            _mapViewModel.AppMapView = _mapView;
+            _mapViewModel = new MapViewModel
+            {
+                AppMapView = _mapView
+            };
 
             // Listen for changes on the view model
             _mapViewModel.PropertyChanged += MapViewModel_PropertyChanged;
@@ -174,11 +176,10 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
                 authorizeUrl: authorizeUri,
                 redirectUrl: callbackUri)
             {
-                ShowErrors = false
+                ShowErrors = false,
+                // Allow the user to cancel the OAuth attempt
+                AllowCancel = true
             };
-
-            // Allow the user to cancel the OAuth attempt
-            authenticator.AllowCancel = true;
 
             // Define a handler for the OAuth2Authenticator.Completed event
             authenticator.Completed += (sender, authArgs) =>
@@ -340,10 +341,10 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             UIAlertController basemapsActionSheet = UIAlertController.Create("Basemaps", "Choose a basemap", UIAlertControllerStyle.ActionSheet);
 
             // Create an action that will apply a selected basemap
-            var changeBasemapAction = new Action<UIAlertAction>((axun) => { _mapViewModel.ChangeBasemap(axun.Title); });
+            Action<UIAlertAction> changeBasemapAction = new Action<UIAlertAction>((axun) => { _mapViewModel.ChangeBasemap(axun.Title); });
 
             // Add items to the action sheet to apply each basemap type
-            foreach (var bm in _mapViewModel.BasemapChoices)
+            foreach (string bm in _mapViewModel.BasemapChoices)
             {
                 UIAlertAction actionItem = UIAlertAction.Create(bm, UIAlertActionStyle.Default, changeBasemapAction);
                 basemapsActionSheet.AddAction(actionItem);
@@ -375,9 +376,9 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             try
             {
                 // Get information entered by the user for the new portal item properties
-                var title = e.Title;
-                var description = e.Description;
-                var tags = e.Tags;
+                string title = e.Title;
+                string description = e.Description;
+                string[] tags = e.Tags;
 
                 // Get the current extent
                 var currentViewpoint = _mapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
@@ -496,10 +497,12 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             nfloat controlY = centerY - (totalHeight / 2);
 
             // Title text input
-            _titleTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            _titleTextField.Placeholder = "Title";
-            _titleTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
-            _titleTextField.BackgroundColor = UIColor.LightGray;
+            _titleTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Placeholder = "Title",
+                AutocapitalizationType = UITextAutocapitalizationType.None,
+                BackgroundColor = UIColor.LightGray
+            };
             // Allow pressing 'return' to dismiss the keyboard
             _titleTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -507,10 +510,12 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             controlY = controlY + controlHeight + rowSpace;
 
             // Description text input
-            _descriptionTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            _descriptionTextField.Placeholder = "Description";
-            _descriptionTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
-            _descriptionTextField.BackgroundColor = UIColor.LightGray;
+            _descriptionTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Placeholder = "Description",
+                AutocapitalizationType = UITextAutocapitalizationType.None,
+                BackgroundColor = UIColor.LightGray
+            };
             // Allow pressing 'return' to dismiss the keyboard
             _descriptionTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -518,10 +523,12 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             controlY = controlY + controlHeight + rowSpace;
 
             // Tags text input
-            _tagsTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
-            _tagsTextField.Text = "ArcGIS Runtime, Web Map";
-            _tagsTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
-            _tagsTextField.BackgroundColor = UIColor.LightGray;
+            _tagsTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Text = "ArcGIS Runtime, Web Map",
+                AutocapitalizationType = UITextAutocapitalizationType.None,
+                BackgroundColor = UIColor.LightGray
+            };
             // Allow pressing 'return' to dismiss the keyboard
             _tagsTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -582,14 +589,14 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
         private void SaveButtonClick(object sender, EventArgs e)
         {
             // Get the values entered in the text fields
-            var title = _titleTextField.Text.Trim();
-            var description = _descriptionTextField.Text.Trim();
-            var tags = _tagsTextField.Text.Split(',');
+            string title = _titleTextField.Text.Trim();
+            string description = _descriptionTextField.Text.Trim();
+            string[] tags = _tagsTextField.Text.Split(',');
 
             // Make sure all required info was entered
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || tags.Length == 0)
             {
-                new UIAlertView("Error", "Please enter a title, description, and some tags to describe the map.", null, "OK", null).Show();
+                new UIAlertView("Error", "Please enter a title, description, and some tags to describe the map.", (IUIAlertViewDelegate)null, "OK", null).Show();
                 return;
             }
 
@@ -638,10 +645,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
         };
 
         // Read-only property to return the available basemap names
-        public string[] BasemapChoices
-        {
-            get { return _basemapTypes; }
-        }
+        public string[] BasemapChoices => _basemapTypes;
 
         public void ChangeBasemap(string basemap)
         {
@@ -693,11 +697,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             await _map.SaveAsAsync(agsOnline, null, title, description, tags, img);
         }
 
-        public bool MapIsSaved
-        {
-            // Return True if the current map has a value for the Item property
-            get { return (_map != null && _map.Item != null); }
-        }
+        public bool MapIsSaved => (_map?.Item != null);
 
         public async void UpdateMapItem()
         {
@@ -731,8 +731,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var propertyChangedHandler = PropertyChanged;
-            if (propertyChangedHandler != null)
-                propertyChangedHandler(this, new PropertyChangedEventArgs(propertyName));
+            propertyChangedHandler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

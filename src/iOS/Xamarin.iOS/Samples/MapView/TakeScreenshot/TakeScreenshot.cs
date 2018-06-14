@@ -35,9 +35,6 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         //Button for closing ImageView
         private UIBarButtonItem _closeImageViewButton;
 
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 64;
-
         public TakeScreenshot()
         {
             Title = "Take screenshot";

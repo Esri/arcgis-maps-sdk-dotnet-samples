@@ -48,8 +48,10 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             await mapImageLayer.LoadAsync();
 
             // Create a new Map instance with the basemap               
-            Map myMap = new Map(SpatialReferences.Wgs84);
-            myMap.Basemap = Basemap.CreateTopographic();
+            Map myMap = new Map(SpatialReferences.Wgs84)
+            {
+                Basemap = Basemap.CreateTopographic()
+            };
 
             // Add the map image layer to the map's operational layers
             myMap.OperationalLayers.Add(mapImageLayer);
@@ -154,12 +156,12 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             cell.TextLabel.Text = sublayer.Name;
 
             // Create a UISwitch for controlling the layer visibility
-            var visibilitySwitch = new UISwitch()
+            var visibilitySwitch = new UISwitch
             {
-                Frame = new CoreGraphics.CGRect(cell.Bounds.Width - 60, 7, 50, cell.Bounds.Height)
+                Frame = new CoreGraphics.CGRect(cell.Bounds.Width - 60, 7, 50, cell.Bounds.Height),
+                Tag = indexPath.Row,
+                On = sublayer.IsVisible
             };
-            visibilitySwitch.Tag = indexPath.Row;
-            visibilitySwitch.On = sublayer.IsVisible;
             visibilitySwitch.ValueChanged += VisibilitySwitch_ValueChanged;
 
             // Add the UISwitch to the cell's content view

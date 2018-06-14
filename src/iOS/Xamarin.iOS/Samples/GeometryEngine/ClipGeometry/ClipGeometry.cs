@@ -248,10 +248,12 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         private void CreateLayout()
         {
             // Create a UITextView for the overall sample instructions.
-            _sampleInstructionUITextiew = new UILabel();
-            _sampleInstructionUITextiew.Text = "Tap 'Clip' to clip the blue graphic with red envelopes.";
-            _sampleInstructionUITextiew.Lines = 1;
-            _sampleInstructionUITextiew.AdjustsFontSizeToFitWidth = true;
+            _sampleInstructionUITextiew = new UILabel
+            {
+                Text = "Tap 'Clip' to clip the blue graphic with red envelopes.",
+                Lines = 1,
+                AdjustsFontSizeToFitWidth = true
+            };
 
             // Create a UIButton to clip the polygons.
             _clipButton = new UIButton();

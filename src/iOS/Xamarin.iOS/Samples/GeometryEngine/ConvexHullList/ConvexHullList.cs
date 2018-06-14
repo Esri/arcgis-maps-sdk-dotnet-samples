@@ -116,19 +116,22 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                 polygonsSimpleLineSymbol);
 
             // Create the graphic for polygon1 - comprised of a polygon shape and fill symbol.
-            _polygonGraphic1 = new Graphic(CreatePolygon1(), polygonsSimpleFillSymbol);
-
-            // Set the Z index for the polygon1 graphic so that it appears above the convex hull graphic(s) added later.
-            _polygonGraphic1.ZIndex = 1;
+            _polygonGraphic1 = new Graphic(CreatePolygon1(), polygonsSimpleFillSymbol)
+            {
+                // Set the Z index for the polygon1 graphic so that it appears above the convex hull graphic(s) added later.
+                ZIndex = 1
+            };
 
             // Add the polygon1 graphic to the graphics overlay collection.
             _graphicsOverlay.Graphics.Add(_polygonGraphic1);
 
             // Create the graphic for polygon2 - comprised of a polygon shape and fill symbol.
-            _polygonGraphic2 = new Graphic(CreatePolygon2(), polygonsSimpleFillSymbol);
+            _polygonGraphic2 = new Graphic(CreatePolygon2(), polygonsSimpleFillSymbol)
+            {
+                ZIndex = 1
+            };
 
             // Set the Z index for the polygon2 graphic so that it appears above the convex hull graphic(s) added later.
-            _polygonGraphic2.ZIndex = 1;
 
             // Add the polygon2 graphic to the graphics overlay collection.
             _graphicsOverlay.Graphics.Add(_polygonGraphic2);
@@ -213,11 +216,12 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                         System.Drawing.Color.Red, convexHullSimpleLineSymbol);
 
                     // Create the graphic for the convex hull(s) - comprised of a polygon shape and fill symbol.
-                    Graphic convexHullGraphic = new Graphic(oneGeometry, convexHullSimpleFillSymbol);
-
-                    // Set the Z index for the convex hull graphic(s) so that they appear below the initial input graphics 
-                    // added earlier (polygon1 and polygon2).
-                    convexHullGraphic.ZIndex = 0;
+                    Graphic convexHullGraphic = new Graphic(oneGeometry, convexHullSimpleFillSymbol)
+                    {
+                        // Set the Z index for the convex hull graphic(s) so that they appear below the initial input graphics 
+                        // added earlier (polygon1 and polygon2).
+                        ZIndex = 0
+                    };
 
                     // Add the convex hull graphic to the graphics overlay collection.
                     _graphicsOverlay.Graphics.Add(convexHullGraphic);
@@ -240,19 +244,25 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         private void CreateLayout()
         {
             // Create a UITextView for the overall sample instructions.
-            _sampleInstructionUITextiew = new UILabel();
-            _sampleInstructionUITextiew.Text = "Tap 'Create convex hull'. Result will be two polygons if 'Union' is off.";
-            _sampleInstructionUITextiew.Lines = 1;
-            _sampleInstructionUITextiew.AdjustsFontSizeToFitWidth = true;
+            _sampleInstructionUITextiew = new UILabel
+            {
+                Text = "Tap 'Create convex hull'. Result will be two polygons if 'Union' is off.",
+                Lines = 1,
+                AdjustsFontSizeToFitWidth = true
+            };
 
             // Create a UILabel for the UISwitch label.
-            _convexHullListInstructionsUILabel = new UILabel();
-            _convexHullListInstructionsUILabel.Text = "Union:";
-            _convexHullListInstructionsUILabel.AdjustsFontSizeToFitWidth = true;
+            _convexHullListInstructionsUILabel = new UILabel
+            {
+                Text = "Union:",
+                AdjustsFontSizeToFitWidth = true
+            };
 
             // Create a UISwitch for toggling the union of the convex hull(s).
-            _convexHullListUISwitch = new UISwitch();
-            _convexHullListUISwitch.On = true;
+            _convexHullListUISwitch = new UISwitch
+            {
+                On = true
+            };
 
             // Create a UIButton to create the convex hull(s).
             _convexHullListButton = new UIButton();

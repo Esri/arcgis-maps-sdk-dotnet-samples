@@ -32,9 +32,9 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
         private const string FeatureCollectionItemId = "5ffe7733754f44a9af12a489250fe12b";
 
         // Text field for specifying a portal item Id
-        UITextField _collectionItemIdTextBox;
+        private UITextField _collectionItemIdTextBox;
 
-        UIButton _addFeaturesButton;
+        private UIButton _addFeaturesButton;
 
         public FeatureCollectionLayerFromPortal()
         {
@@ -89,20 +89,22 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
                     FeatureCollection featureCollection = new FeatureCollection(collectionItem);
 
                     // Create a layer to display the collection and add it to the map as an operational layer
-                    FeatureCollectionLayer featureCollectionLayer = new FeatureCollectionLayer(featureCollection);
-                    featureCollectionLayer.Name = collectionItem.Title;
+                    FeatureCollectionLayer featureCollectionLayer = new FeatureCollectionLayer(featureCollection)
+                    {
+                        Name = collectionItem.Title
+                    };
 
                     _myMapView.Map.OperationalLayers.Add(featureCollectionLayer);
                 }
                 else
                 {
-                    var alert = new UIAlertView("Feature Collection", "Portal item with ID '" + itemId + "' is not a feature collection.", null, "OK");
+                    var alert = new UIAlertView("Feature Collection", "Portal item with ID '" + itemId + "' is not a feature collection.", (IUIAlertViewDelegate)null, "OK");
                     alert.Show();
                 }
             }
             catch (Exception ex)
             {
-                var alert = new UIAlertView("Error", "Unable to open item with ID '" + itemId + "': " + ex.Message, null, "OK");
+                var alert = new UIAlertView("Error", "Unable to open item with ID '" + itemId + "': " + ex.Message, (IUIAlertViewDelegate)null, "OK");
                 alert.Show();
             }
         }
@@ -110,12 +112,12 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
         private void OpenPortalFeatureCollectionClick(object sender, EventArgs e)
         {
             // Get the portal item Id from the user
-            var collectionItemId = _collectionItemIdTextBox.Text.Trim();
+            string collectionItemId = _collectionItemIdTextBox.Text.Trim();
 
             // Make sure an Id was entered
             if (string.IsNullOrEmpty(collectionItemId))
             {
-                var alert = new UIAlertView("Feature Collection ID", "Please enter a portal item ID", null, "OK");
+                var alert = new UIAlertView("Feature Collection ID", "Please enter a portal item ID", (IUIAlertViewDelegate)null, "OK");
                 alert.Show();
                 return;
             }
@@ -130,8 +132,10 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             _myMapView = new MapView();
 
             // Create a text input for the portal item Id
-            _collectionItemIdTextBox = new UITextField();
-            _collectionItemIdTextBox.BackgroundColor = UIColor.LightGray;
+            _collectionItemIdTextBox = new UITextField
+            {
+                BackgroundColor = UIColor.LightGray
+            };
             // Allow pressing 'return' to dismiss the keyboard
             _collectionItemIdTextBox.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 

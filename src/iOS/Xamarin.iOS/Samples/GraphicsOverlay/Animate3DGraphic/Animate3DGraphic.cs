@@ -165,9 +165,11 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
             // Create the plane graphic; this is symbolized as a blue triangle because of renderer implemented above
             // Create the attribute dictionary
-            Dictionary<string, object> plane2DAttributes = new Dictionary<string, object>();
-            // Set the angle for the plane graphic
-            plane2DAttributes["ANGLE"] = 0f;
+            Dictionary<string, object> plane2DAttributes = new Dictionary<string, object>
+            {
+                // Set the angle for the plane graphic
+                ["ANGLE"] = 0f
+            };
             // Create the graphic from the attributes and the initial point
             _plane2D = new Graphic(new MapPoint(0, 0, SpatialReferences.Wgs84), plane2DAttributes);
             // Add the plane graphic to the inset map via the overlay

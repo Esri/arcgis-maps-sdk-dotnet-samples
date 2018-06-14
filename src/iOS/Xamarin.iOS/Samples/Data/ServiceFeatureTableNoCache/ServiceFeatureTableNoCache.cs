@@ -25,9 +25,6 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableNoCache
         "")]
     public class ServiceFeatureTableNoCache : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
@@ -67,10 +64,11 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableNoCache
                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/FeatureServer/0");
 
             // Create feature table for the pools feature service
-            ServiceFeatureTable poolsFeatureTable = new ServiceFeatureTable(serviceUri);
-
-            // Define the request mode
-            poolsFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionNoCache;
+            ServiceFeatureTable poolsFeatureTable = new ServiceFeatureTable(serviceUri)
+            {
+                // Define the request mode
+                FeatureRequestMode = FeatureRequestMode.OnInteractionNoCache
+            };
 
             // Create FeatureLayer that uses the created table
             FeatureLayer poolsFeatureLayer = new FeatureLayer(poolsFeatureTable);

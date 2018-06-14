@@ -35,9 +35,6 @@ namespace ArcGISRuntime.Samples.ConvexHull
         private GraphicsOverlay _graphicsOverlay;
 
         // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.ConvexHull operation.
-        private List<Geometry> _inputPointsList = new List<Geometry>();
-
-        // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.ConvexHull operation.
         private PointCollection _inputPointCollection = new PointCollection(SpatialReferences.WebMercator);
 
         // Text view to display the instructions on how to use the sample.
@@ -114,10 +111,11 @@ namespace ArcGISRuntime.Samples.ConvexHull
                     System.Drawing.Color.Red, 10);
 
                 // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol. 
-                Graphic userTappedGraphic = new Graphic(userTappedMapPoint, userTappedSimpleMarkerSymbol);
-
-                // Set the Z index for the user tapped graphic so that it appears above the convex hull graphic(s) added later.
-                userTappedGraphic.ZIndex = 1;
+                Graphic userTappedGraphic = new Graphic(userTappedMapPoint, userTappedSimpleMarkerSymbol)
+                {
+                    // Set the Z index for the user tapped graphic so that it appears above the convex hull graphic(s) added later.
+                    ZIndex = 1
+                };
 
                 // Add the user tapped/clicked map point graphic to the graphic overlay.
                 _graphicsOverlay.Graphics.Add(userTappedGraphic);
@@ -152,11 +150,13 @@ namespace ArcGISRuntime.Samples.ConvexHull
                     System.Drawing.Color.Red, convexHullSimpleLineSymbol);
 
                 // Create the graphic for the convex hull - comprised of a polygon shape and fill symbol.
-                Graphic convexHullGraphic = new Graphic(convexHullGeometry, convexHullSimpleFillSymbol);
+                Graphic convexHullGraphic = new Graphic(convexHullGeometry, convexHullSimpleFillSymbol)
+                {
+                    ZIndex = 0
+                };
 
                 // Set the Z index for the convex hull graphic so that it appears below the initial input user 
                 // tapped map point graphics added earlier.
-                convexHullGraphic.ZIndex = 0;
 
                 // Add the convex hull graphic to the graphics overlay collection.
                 _graphicsOverlay.Graphics.Add(convexHullGraphic);
@@ -178,10 +178,12 @@ namespace ArcGISRuntime.Samples.ConvexHull
         private void CreateLayout()
         {
             // Create a UITextView for the overall sample instructions.
-            _sampleInstructionUITextiew = new UILabel();
-            _sampleInstructionUITextiew.Text = "Tap on the map in several places, then tap 'Create convex hull'.";
-            _sampleInstructionUITextiew.AdjustsFontSizeToFitWidth = true;
-            _sampleInstructionUITextiew.Lines = 1;
+            _sampleInstructionUITextiew = new UILabel
+            {
+                Text = "Tap on the map in several places, then tap 'Create convex hull'.",
+                AdjustsFontSizeToFitWidth = true,
+                Lines = 1
+            };
 
             // Create a UIButton to create the convex hull.
             _convexHullButton = new UIButton();

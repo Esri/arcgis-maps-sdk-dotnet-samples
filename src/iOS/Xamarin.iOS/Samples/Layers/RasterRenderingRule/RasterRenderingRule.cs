@@ -28,9 +28,6 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         "")]
     public class RasterRenderingRule : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
         // Hold a reference to the MapView
         private MapView _myMapView;
 
@@ -57,12 +54,16 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
             base.ViewDidLoad();
 
             // Create a new MapView control and provide its location coordinates on the frame
-            _myMapView = new MapView();
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView = new MapView
+            {
+                Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height)
+            };
 
             // Create a new Map instance with the basemap
-            Map myMap = new Map(SpatialReferences.WebMercator);
-            myMap.Basemap = Basemap.CreateTopographic();
+            Map myMap = new Map(SpatialReferences.WebMercator)
+            {
+                Basemap = Basemap.CreateTopographic()
+            };
 
             // Assign the Map to the MapView
             _myMapView.Map = myMap;
@@ -143,10 +144,11 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
                     RenderingRule myRenderingRule = new RenderingRule(myRenderingRuleInfo);
 
                     // Create a new image service raster
-                    ImageServiceRaster myImageServiceRaster2 = new ImageServiceRaster(_myUri);
-
-                    // Set the image service raster's rendering rule to the rendering rule created earlier
-                    myImageServiceRaster2.RenderingRule = myRenderingRule;
+                    ImageServiceRaster myImageServiceRaster2 = new ImageServiceRaster(_myUri)
+                    {
+                        // Set the image service raster's rendering rule to the rendering rule created earlier
+                        RenderingRule = myRenderingRule
+                    };
 
                     // Create a new raster layer from the image service raster
                     RasterLayer myRasterLayer = new RasterLayer(myImageServiceRaster2);

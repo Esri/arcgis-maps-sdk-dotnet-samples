@@ -25,9 +25,6 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
         "")]
     public class ServiceFeatureTableManualCache : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
@@ -68,10 +65,11 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0");
 
             // Create feature table for the incident feature service
-            _incidentsFeatureTable = new ServiceFeatureTable(serviceUri);
-
-            // Define the request mode
-            _incidentsFeatureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
+            _incidentsFeatureTable = new ServiceFeatureTable(serviceUri)
+            {
+                // Define the request mode
+                FeatureRequestMode = FeatureRequestMode.ManualCache
+            };
 
             // When feature table is loaded, populate data
             _incidentsFeatureTable.LoadStatusChanged += OnLoadedPopulateData;
@@ -99,7 +97,7 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
             };
 
             // Create list of the fields that are returned from the service
-            var outputFields = new string[] { "*" };
+            string[] outputFields = new string[] { "*" };
 
             // Populate feature table with the data based on query
             await _incidentsFeatureTable.PopulateFromServiceAsync(queryParameters, true, outputFields);

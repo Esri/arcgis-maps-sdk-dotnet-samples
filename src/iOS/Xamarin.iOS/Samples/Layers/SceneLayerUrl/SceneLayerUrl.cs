@@ -23,9 +23,6 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
         "")]
     public class SceneLayerUrl : UIViewController
     {
-        // Constant holding offset where the SceneView control should start
-        private const int yPageOffset = 60;
-
         // Create a new SceneView control
         private SceneView _mySceneView = new SceneView();
 
@@ -61,10 +58,7 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
         private void Initialize()
         {
             // Create new Scene
-            Scene myScene = new Scene();
-
-            // Set Scene's base map property
-            myScene.Basemap = Basemap.CreateImagery();
+            Scene myScene = new Scene(Basemap.CreateImagery());
 
             // Create and add an elevation source for the Scene
             ArcGISTiledElevationSource elevationSrc = new ArcGISTiledElevationSource(_elevationSourceUrl);

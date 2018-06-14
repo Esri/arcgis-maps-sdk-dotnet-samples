@@ -148,25 +148,28 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
 
             // Find the center x and y of the view
             nfloat centerX = Frame.Width / 2;
-            nfloat centerY = Frame.Height / 2;
 
             // Find the start x and y for the control layout
             nfloat controlX = centerX - (controlWidth / 2);
             nfloat controlY = 20;
 
             // Label for credits metadata
-            UILabel creditsLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, controlWidth, 20));
-            creditsLabel.Text = metadata.Credits;
-            creditsLabel.TextColor = UIColor.Black;
+            UILabel creditsLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, controlWidth, 20))
+            {
+                Text = metadata.Credits,
+                TextColor = UIColor.Black
+            };
 
             // Adjust the Y position for the next control
             controlY = controlY + 20 + rowSpace;
 
             // Label for the summary metadata
-            UILabel summaryLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, controlWidth, 120));
-            summaryLabel.LineBreakMode = UILineBreakMode.WordWrap;
-            summaryLabel.Lines = 0;
-            summaryLabel.Text = metadata.Summary;
+            UILabel summaryLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, controlWidth, 120))
+            {
+                LineBreakMode = UILineBreakMode.WordWrap,
+                Lines = 0,
+                Text = metadata.Summary
+            };
 
             // Adjust the Y position for the next control
             controlY = controlY + 120 + rowSpace;
@@ -179,10 +182,12 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             controlY = controlY + 160 + rowSpace;
 
             // Metadata tags
-            UILabel tagsLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, controlWidth, 100));
-            tagsLabel.LineBreakMode = UILineBreakMode.WordWrap;
-            tagsLabel.Lines = 0;
-            tagsLabel.Text = string.Join(",", metadata.Tags);
+            UILabel tagsLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, controlWidth, 100))
+            {
+                LineBreakMode = UILineBreakMode.WordWrap,
+                Lines = 0,
+                Text = string.Join(",", metadata.Tags)
+            };
 
             // Adjust the Y position for the next control
             controlY = controlY + 100 + rowSpace;

@@ -240,7 +240,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             });
 
             // Return completion source task so the caller can await completion
-            return _taskCompletionSource != null ? _taskCompletionSource.Task : null;
+            return _taskCompletionSource?.Task;
         }
 
         // ChallengeHandler function that will be called whenever access to a secured resource is attempted

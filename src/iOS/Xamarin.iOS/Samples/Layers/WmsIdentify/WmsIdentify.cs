@@ -17,7 +17,6 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using UIKit;
-using WebKit;
 
 namespace ArcGISRuntime.Samples.WmsIdentify
 {

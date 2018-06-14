@@ -23,7 +23,6 @@ using UIKit;
 namespace ArcGISRuntime.Samples.ListTransformations
 {
     [Register("ListTransformations")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "List transformations by suitability",
         "GeometryEngine",

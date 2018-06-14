@@ -177,7 +177,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         /// </summary>
         public override nint RowsInSection(UITableView tableview, nint section)
         {
-            return _layers != null?_layers.Count:0;
+            return _layers?.Count ?? 0;
         }
 
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)

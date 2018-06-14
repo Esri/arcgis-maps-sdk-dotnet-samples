@@ -23,14 +23,12 @@ namespace ArcGISRuntime
     {
         private readonly UIViewController _parentViewController;
         private List<SampleInfo> _visibleSamples = new List<SampleInfo>();
-        private readonly IList<SearchableTreeNode> _categories;
-        private List<SampleInfo> _sampleItems = new List<SampleInfo>();
+        private List<SampleInfo> _sampleItems;
         private LoadingOverlay _loadPopup;
 
         public SearchResultsViewController(UIViewController controller, IList<SearchableTreeNode> categories)
         {
             _parentViewController = controller;
-            _categories = categories;
             
             // Using the allsamples list avoids duplicate sample entries in the 'featured' category
             _sampleItems = SampleManager.Current.AllSamples.ToList();

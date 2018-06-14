@@ -232,7 +232,7 @@ namespace ArcGISRuntime.Samples.FindRoute
 
         public override nint RowsInSection(UITableView tableview, nint section)
         {
-            return _directionsList != null ? _directionsList.Count : 0;
+            return _directionsList?.Count ?? 0;
         }
     }
 }

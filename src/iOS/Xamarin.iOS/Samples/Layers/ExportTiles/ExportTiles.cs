@@ -72,7 +72,6 @@ namespace ArcGISRuntime.Samples.ExportTiles
         {
             // Hold a margin value.
             nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            int margin = 5;
             int barHeight = 40;
 
             // Set up the visual frame for the MapView.

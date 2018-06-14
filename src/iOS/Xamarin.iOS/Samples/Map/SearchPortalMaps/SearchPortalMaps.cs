@@ -29,9 +29,6 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         "1. When the sample starts, you will be presented with a dialog for entering OAuth settings. If you need to create your own settings, sign in with your developer account and use the [ArcGIS for Developers dashboard](https://developers.arcgis.com/dashboard) to create an Application to store these settings.\n2. Enter values for the following OAuth settings.\n\t1. **Client ID**: a unique alphanumeric string identifier for your application\n\t2. **Redirect URL**: a URL to which a successful OAuth login response will be sent\n3. If you do not enter OAuth settings, you will be able to search public web maps on ArcGIS Online. Browsing the web map items in your ArcGIS Online account will be disabled, however.")]
     public class SearchPortalMaps : UIViewController, IOAuthAuthorizeHandler
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
@@ -58,6 +55,8 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         //       Note - this must be a URL configured as a valid Redirect URI with your app
         private string _oAuthRedirectUrl = "https://developers.arcgis.com";
 
+        nfloat _topMargin = 0;
+
         public SearchPortalMaps()
         {
             Title = "Search a portal for maps";
@@ -74,25 +73,23 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
         public override void ViewDidLayoutSubviews()
         {
+            _topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
             // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             if (_searchMapsUI != null)
             {
-                _searchMapsUI.Bounds = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
-                _searchMapsUI.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
-                _searchMapsUI.Center = View.Center;
+                _searchMapsUI.Frame = new CoreGraphics.CGRect(0, _topMargin, View.Bounds.Width, View.Bounds.Height);
             }
 
             if (_oauthInfoUI != null)
             {
-                _oauthInfoUI.Bounds = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
-                _oauthInfoUI.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
-                _oauthInfoUI.Center = View.Center;
+                _oauthInfoUI.Frame = new CoreGraphics.CGRect(0, _topMargin, View.Bounds.Width, View.Bounds.Height);
             }
 
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
-            _segmentButton.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, View.Bounds.Width - 20, _toolbar.Frame.Height - 20);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            _segmentButton.Frame = new CoreGraphics.CGRect(5, _toolbar.Frame.Top + 5, View.Bounds.Width - 10, _toolbar.Frame.Height - 10);
 
             base.ViewDidLayoutSubviews();
         }
@@ -114,7 +111,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             if (_oauthInfoUI != null) { return; }
 
             // Create a view to show entry controls over the map view
-            var ovBounds = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
+            var ovBounds = new CoreGraphics.CGRect(0, _topMargin, View.Bounds.Width, View.Bounds.Height);
             _oauthInfoUI = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, _appClientId, _oAuthRedirectUrl);
 
             // Handle the OnOAuthPropsInfoEntered event to get the info entered by the user
@@ -184,7 +181,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             if (_searchMapsUI != null) { return; }
 
             // Create a view to show map item info entry controls over the map view
-            var ovBounds = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height);
+            var ovBounds = new CoreGraphics.CGRect(0, _topMargin, View.Bounds.Width, View.Bounds.Height);
             _searchMapsUI = new SearchMapsDialogOverlay(ovBounds, 0.75f, UIColor.White);
 
             // Handle the OnSearchMapsTextEntered event to get the info entered by the user
@@ -600,8 +597,8 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             nfloat centerY = Frame.Height / 2;
 
             // Find the start x and y for the control layout
-            nfloat controlX = centerX - (totalWidth / 2);
-            nfloat controlY = centerY - (totalHeight / 2);
+            nfloat controlX = 5;
+            nfloat controlY = 5;
 
             // Label for inputs
             var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
@@ -622,6 +619,8 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             _clientIdTextField.Text = clientId;
             _clientIdTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _clientIdTextField.BackgroundColor = UIColor.LightGray;
+            _clientIdTextField.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
+            _clientIdTextField.LeftViewMode = UITextFieldViewMode.Always;
             // Allow pressing 'return' to dismiss the keyboard
             _clientIdTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -639,6 +638,8 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             _redirectUrlTextField.Text = redirectUrl;
             _redirectUrlTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _redirectUrlTextField.BackgroundColor = UIColor.LightGray;
+            _redirectUrlTextField.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
+            _redirectUrlTextField.LeftViewMode = UITextFieldViewMode.Always;
             // Allow pressing 'return' to dismiss the keyboard
             _redirectUrlTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -761,8 +762,8 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             nfloat centerY = Frame.Height / 2;
 
             // Find the start x and y for the control layout
-            nfloat controlX = centerX - (totalWidth / 2);
-            nfloat controlY = centerY - (totalHeight / 2);
+            nfloat controlX = 5;
+            nfloat controlY = 5;
 
             // Label for inputs
             var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight));
@@ -777,6 +778,8 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             _searchTextField.Placeholder = "Search text";
             _searchTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _searchTextField.BackgroundColor = UIColor.LightGray;
+            _searchTextField.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
+            _searchTextField.LeftViewMode = UITextFieldViewMode.Always;
             // Allow pressing 'return' to dismiss the keyboard
             _searchTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 

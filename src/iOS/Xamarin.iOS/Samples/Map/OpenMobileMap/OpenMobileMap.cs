@@ -12,7 +12,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
-using System.IO;
 using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.OpenMobileMap

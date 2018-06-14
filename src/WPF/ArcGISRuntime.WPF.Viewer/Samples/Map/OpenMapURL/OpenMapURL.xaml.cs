@@ -31,7 +31,7 @@ namespace ArcGISRuntime.WPF.Samples.OpenMapURL
         // String array to store titles for the webmaps specified above. These titles are in the same order as the urls above
         private string[] _titles = new string[]
         {
-            "Population pressure",
+            "Population Pressure",
             "USA Tapestry Segmentation",
             "Geology of the United States"
         };

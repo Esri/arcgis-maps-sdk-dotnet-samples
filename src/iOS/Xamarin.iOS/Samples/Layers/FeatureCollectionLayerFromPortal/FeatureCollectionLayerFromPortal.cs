@@ -137,7 +137,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
                 BackgroundColor = UIColor.LightGray
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _collectionItemIdTextBox.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _collectionItemIdTextBox.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Create a button for adding features from a portal item
             _addFeaturesButton = new UIButton(UIButtonType.Custom);

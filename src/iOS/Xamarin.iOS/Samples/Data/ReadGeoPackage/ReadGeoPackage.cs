@@ -210,11 +210,11 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             // Add actions to add a layer to the map
             foreach (string oneLayerName in _myObservableCollection_LayerNamesNotInTheMap)
             {
-                myUIAlertController.AddAction(UIAlertAction.Create(oneLayerName, UIAlertActionStyle.Default, (action) => Action_AddLayerToMap(oneLayerName)));
+                myUIAlertController.AddAction(UIAlertAction.Create(oneLayerName, UIAlertActionStyle.Default, action => Action_AddLayerToMap(oneLayerName)));
             }
 
             // Add a choice to cancel
-            myUIAlertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, (action) => Console.WriteLine("Canceled")));
+            myUIAlertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, action => Console.WriteLine("Canceled")));
 
             // Required for iPad - You must specify a source for the Action Sheet since it is displayed as a popover
             UIPopoverPresentationController presentationPopover = myUIAlertController.PopoverPresentationController;
@@ -267,11 +267,11 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             // Add actions to remove a layer from the map
             foreach (string oneLayerName in _myObservableCollection_LayerNamesInTheMap)
             {
-                layersActionSheet.AddAction(UIAlertAction.Create(oneLayerName, UIAlertActionStyle.Default, (action) => Action_RemoveLayerFromMap(oneLayerName)));
+                layersActionSheet.AddAction(UIAlertAction.Create(oneLayerName, UIAlertActionStyle.Default, action => Action_RemoveLayerFromMap(oneLayerName)));
             }
 
             // Add a choice to cancel
-            layersActionSheet.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, (action) => Console.WriteLine("Canceled")));
+            layersActionSheet.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, action => Console.WriteLine("Canceled")));
 
             // Required for iPad - You must specify a source for the Action Sheet since it is displayed as a popover
             UIPopoverPresentationController presentationPopover = layersActionSheet.PopoverPresentationController;

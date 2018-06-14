@@ -157,7 +157,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             };
 
             // Allow the search bar to dismiss the keyboard
-            _myStateEntry.ShouldReturn += (sender) =>
+            _myStateEntry.ShouldReturn += sender =>
             {
                 sender.ResignFirstResponder(); return true;
             };

@@ -183,7 +183,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
                 AdjustsFontSizeToFitWidth = true
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _queryTextView.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _queryTextView.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Create button to invoke the query
             _queryButton = new UIButton();

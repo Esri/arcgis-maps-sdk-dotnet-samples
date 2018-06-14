@@ -81,15 +81,15 @@ namespace ArcGISRuntime.Samples.OpenMapURL
 
             // Add actions to alert. Selecting an option re-initializes the Map 
             // with selected webmap url and assigns it to MapView.
-            actionSheetAlert.AddAction(UIAlertAction.Create(titles[0], UIAlertActionStyle.Default, (action) =>
+            actionSheetAlert.AddAction(UIAlertAction.Create(titles[0], UIAlertActionStyle.Default, action =>
             {
                 _myMapView.Map = new Map(new Uri(itemURLs[0]));
             }));
-            actionSheetAlert.AddAction(UIAlertAction.Create(titles[1], UIAlertActionStyle.Default, (action) =>
+            actionSheetAlert.AddAction(UIAlertAction.Create(titles[1], UIAlertActionStyle.Default, action =>
             {
                 _myMapView.Map = new Map(new Uri(itemURLs[1]));
             }));
-            actionSheetAlert.AddAction(UIAlertAction.Create(titles[2], UIAlertActionStyle.Default, (action) =>
+            actionSheetAlert.AddAction(UIAlertAction.Create(titles[2], UIAlertActionStyle.Default, action =>
             {
                 _myMapView.Map = new Map(new Uri(itemURLs[2]));
             }));

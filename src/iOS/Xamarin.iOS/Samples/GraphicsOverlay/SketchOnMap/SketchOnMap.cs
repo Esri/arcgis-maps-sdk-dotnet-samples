@@ -278,7 +278,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             UIAlertController sketchModeActionSheet = UIAlertController.Create("Sketch Modes", "Choose a sketch mode", UIAlertControllerStyle.ActionSheet);
 
             // Create an action for drawing the selected sketch type
-            Action<UIAlertAction> sketchAction = new Action<UIAlertAction>((axun) => { SketchGeometry(axun.Title); });
+            Action<UIAlertAction> sketchAction = new Action<UIAlertAction>(axun => { SketchGeometry(axun.Title); });
 
             // Create a dictionary of enum names and values
             IEnumerable<int> enumValues = Enum.GetValues(typeof(SketchCreationMode)).Cast<int>();

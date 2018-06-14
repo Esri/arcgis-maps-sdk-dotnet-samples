@@ -340,7 +340,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             UIAlertController basemapsActionSheet = UIAlertController.Create("Basemaps", "Choose a basemap", UIAlertControllerStyle.ActionSheet);
 
             // Create an action that will apply a selected basemap
-            Action<UIAlertAction> changeBasemapAction = new Action<UIAlertAction>((axun) => { _mapViewModel.ChangeBasemap(axun.Title); });
+            Action<UIAlertAction> changeBasemapAction = new Action<UIAlertAction>(axun => { _mapViewModel.ChangeBasemap(axun.Title); });
 
             // Add items to the action sheet to apply each basemap type
             foreach (string bm in _mapViewModel.BasemapChoices)
@@ -503,7 +503,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
                 BackgroundColor = UIColor.LightGray
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _titleTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _titleTextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -516,7 +516,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
                 BackgroundColor = UIColor.LightGray
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _descriptionTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _descriptionTextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -529,7 +529,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
                 BackgroundColor = UIColor.LightGray
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _tagsTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _tagsTextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;

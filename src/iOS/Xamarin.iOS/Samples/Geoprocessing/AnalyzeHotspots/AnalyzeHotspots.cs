@@ -225,7 +225,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
                 BorderStyle = UITextBorderStyle.RoundedRect
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _startDateTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _startDateTextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Create label for the end date
             _endDateLabel = new UILabel
@@ -243,7 +243,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
                 BorderStyle = UITextBorderStyle.RoundedRect
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _endDateTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _endDateTextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Create button to invoke the geoprocessing request
             _runAnalysisButton = new UIButton();

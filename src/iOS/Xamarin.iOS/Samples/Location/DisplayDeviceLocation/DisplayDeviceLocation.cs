@@ -78,7 +78,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
                     "Select device location option", "", UIAlertControllerStyle.Alert);
 
                     // Add actions to alert. Selecting an option displays different option for auto pan modes.
-                    actionAlert.AddAction(UIAlertAction.Create("On", UIAlertActionStyle.Default, (action) =>
+                    actionAlert.AddAction(UIAlertAction.Create("On", UIAlertActionStyle.Default, action =>
                     {
                         // Starts location display with auto pan mode set to Off
                         _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Off;
@@ -87,7 +87,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
                         if (!_myMapView.LocationDisplay.IsEnabled)
                             _myMapView.LocationDisplay.IsEnabled = true;
                     }));
-                    actionAlert.AddAction(UIAlertAction.Create("Re-center", UIAlertActionStyle.Default, (action) =>
+                    actionAlert.AddAction(UIAlertAction.Create("Re-center", UIAlertActionStyle.Default, action =>
                     {
                         // Starts location display with auto pan mode set to Default
                         _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
@@ -96,7 +96,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
                         if (!_myMapView.LocationDisplay.IsEnabled)
                             _myMapView.LocationDisplay.IsEnabled = true;
                     }));
-                    actionAlert.AddAction(UIAlertAction.Create("Navigation", UIAlertActionStyle.Default, (action) =>
+                    actionAlert.AddAction(UIAlertAction.Create("Navigation", UIAlertActionStyle.Default, action =>
                     {
                         // Starts location display with auto pan mode set to Navigation
                         _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
@@ -105,7 +105,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
                         if (!_myMapView.LocationDisplay.IsEnabled)
                             _myMapView.LocationDisplay.IsEnabled = true;
                     }));
-                    actionAlert.AddAction(UIAlertAction.Create("Compass", UIAlertActionStyle.Default, (action) =>
+                    actionAlert.AddAction(UIAlertAction.Create("Compass", UIAlertActionStyle.Default, action =>
                     {
                         // Starts location display with auto pan mode set to Compass Navigation
                         _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.CompassNavigation;

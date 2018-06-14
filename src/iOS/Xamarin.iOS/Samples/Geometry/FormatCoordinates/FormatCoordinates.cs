@@ -176,10 +176,10 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             _decimalDegreesUITextField.TextColor = View.TintColor;
 
             // Enable text fields to close keyboard
-            _dmsUITextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
-            _decimalDegreesUITextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
-            _utmUITextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
-            _usngUITextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _dmsUITextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
+            _decimalDegreesUITextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
+            _utmUITextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
+            _usngUITextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Set up the help label
             _helpLabel.Text = "Tap the map to see coordinates in each format. Update any value and tap 'Recalculate' to see updated coordinates.";

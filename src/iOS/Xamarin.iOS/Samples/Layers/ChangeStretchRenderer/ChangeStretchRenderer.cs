@@ -172,7 +172,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                 TextAlignment = UITextAlignment.Center
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _Input_Parameter1.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _Input_Parameter1.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Create label that displays the 2nd parameter used by the stretch renderer
             _Label_Parameter2 = new UILabel
@@ -193,7 +193,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                 TextAlignment = UITextAlignment.Center
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _Input_Parameter2.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _Input_Parameter2.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Add all of the UI controls to the page
             View.AddSubviews(_myMapView, _toolbar, _UpdateRenderer, _rendererTypes, _Label_Parameter1, _Input_Parameter1, _Label_Parameter2, _Input_Parameter2);

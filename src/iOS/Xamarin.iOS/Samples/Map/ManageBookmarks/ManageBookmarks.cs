@@ -162,7 +162,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             foreach(Bookmark myBookmark in _myMapView.Map.Bookmarks)
             {
                 actionAlert.AddAction(UIAlertAction.Create(myBookmark.Name, UIAlertActionStyle.Default, 
-                    (action) =>{
+                    action =>{
                         _myMapView.SetViewpoint(myBookmark.Viewpoint);
                     }));
             }

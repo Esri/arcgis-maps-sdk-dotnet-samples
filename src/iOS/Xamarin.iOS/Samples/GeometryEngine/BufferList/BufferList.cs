@@ -243,7 +243,7 @@ namespace ArcGISRuntime.Samples.BufferList
                 VerticalAlignment = UIControlContentVerticalAlignment.Center
             };
             // - Allow pressing 'return' to dismiss the keyboard
-            _bufferDistanceMilesUITextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _bufferDistanceMilesUITextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Create a UISwitch for toggling the union of the buffer geometries.
             _unionBufferUISwitch = new UISwitch

@@ -194,7 +194,7 @@ namespace ArcGISRuntime.Samples.FindAddress
             // Populate the view with one action per address suggestion
             foreach (string address in _addresses)
             {
-                alert.AddAction(UIAlertAction.Create(address, UIAlertActionStyle.Default, (obj) =>
+                alert.AddAction(UIAlertAction.Create(address, UIAlertActionStyle.Default, obj =>
                 {
                     _addressSearchBar.Text = address;
                     UpdateSearch();

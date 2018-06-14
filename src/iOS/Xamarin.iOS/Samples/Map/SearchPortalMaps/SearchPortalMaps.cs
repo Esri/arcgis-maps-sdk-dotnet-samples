@@ -275,11 +275,11 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Add actions to load the available web maps
             foreach (var item in webmapItems)
             {
-                mapListActionSheet.AddAction(UIAlertAction.Create(item.Title, UIAlertActionStyle.Default, (action) => DisplayMap(item.Url)));
+                mapListActionSheet.AddAction(UIAlertAction.Create(item.Title, UIAlertActionStyle.Default, action => DisplayMap(item.Url)));
             }
 
             // Add a choice to cancel
-            mapListActionSheet.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, (action) => Console.WriteLine("Canceled")));
+            mapListActionSheet.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, action => Console.WriteLine("Canceled")));
 
             // Required for iPad - You must specify a source for the Action Sheet since it is displayed as a popover
             UIPopoverPresentationController presentationPopover = mapListActionSheet.PopoverPresentationController;
@@ -628,7 +628,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 LeftViewMode = UITextFieldViewMode.Always
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _clientIdTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _clientIdTextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -651,7 +651,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 LeftViewMode = UITextFieldViewMode.Always
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _redirectUrlTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _redirectUrlTextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -795,10 +795,10 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 LeftViewMode = UITextFieldViewMode.Always
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _searchTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _searchTextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Hide the keyboard when "Enter" is clicked
-            _searchTextField.ShouldReturn += (input) =>
+            _searchTextField.ShouldReturn += input =>
             {
                 input.ResignFirstResponder();
                 return true;

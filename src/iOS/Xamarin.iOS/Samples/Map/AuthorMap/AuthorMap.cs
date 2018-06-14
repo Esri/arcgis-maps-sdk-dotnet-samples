@@ -177,11 +177,11 @@ namespace ArcGISRuntime.Samples.AuthorMap
             UIAlertController basemapsActionSheet = UIAlertController.Create("Basemaps", "Choose a basemap", UIAlertControllerStyle.ActionSheet);
 
             // Add actions to apply each basemap type
-            basemapsActionSheet.AddAction(UIAlertAction.Create("Topographic", UIAlertActionStyle.Default, (action) => _myMapView.Map.Basemap = Basemap.CreateTopographic()));
-            basemapsActionSheet.AddAction(UIAlertAction.Create("Streets", UIAlertActionStyle.Default, (action) => _myMapView.Map.Basemap = Basemap.CreateStreets()));
-            basemapsActionSheet.AddAction(UIAlertAction.Create("Imagery", UIAlertActionStyle.Default, (action) => _myMapView.Map.Basemap = Basemap.CreateImagery()));
-            basemapsActionSheet.AddAction(UIAlertAction.Create("Oceans", UIAlertActionStyle.Default, (action) => _myMapView.Map.Basemap = Basemap.CreateOceans()));
-            basemapsActionSheet.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, (action) => Console.WriteLine("Canceled")));
+            basemapsActionSheet.AddAction(UIAlertAction.Create("Topographic", UIAlertActionStyle.Default, action => _myMapView.Map.Basemap = Basemap.CreateTopographic()));
+            basemapsActionSheet.AddAction(UIAlertAction.Create("Streets", UIAlertActionStyle.Default, action => _myMapView.Map.Basemap = Basemap.CreateStreets()));
+            basemapsActionSheet.AddAction(UIAlertAction.Create("Imagery", UIAlertActionStyle.Default, action => _myMapView.Map.Basemap = Basemap.CreateImagery()));
+            basemapsActionSheet.AddAction(UIAlertAction.Create("Oceans", UIAlertActionStyle.Default, action => _myMapView.Map.Basemap = Basemap.CreateOceans()));
+            basemapsActionSheet.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, action => Console.WriteLine("Canceled")));
 
             // Required for iPad - You must specify a source for the Action Sheet since it is displayed as a popover
             UIPopoverPresentationController presentationPopover = basemapsActionSheet.PopoverPresentationController;
@@ -203,11 +203,11 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Add actions to add or remove each of the available layers
             foreach (KeyValuePair<string, string> kvp in _operationalLayerUrls)
             {
-                layersActionSheet.AddAction(UIAlertAction.Create(kvp.Key, UIAlertActionStyle.Default, (action) => AddOrRemoveLayer(kvp.Key)));
+                layersActionSheet.AddAction(UIAlertAction.Create(kvp.Key, UIAlertActionStyle.Default, action => AddOrRemoveLayer(kvp.Key)));
             }
 
             // Add a choice to cancel
-            layersActionSheet.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, (action) => Console.WriteLine("Canceled")));
+            layersActionSheet.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, action => Console.WriteLine("Canceled")));
 
             // Required for iPad - You must specify a source for the Action Sheet since it is displayed as a popover
             UIPopoverPresentationController presentationPopover = layersActionSheet.PopoverPresentationController;
@@ -658,7 +658,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 LeftViewMode = UITextFieldViewMode.Always
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _clientIdTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _clientIdTextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -681,7 +681,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 LeftViewMode = UITextFieldViewMode.Always
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _redirectUrlTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _redirectUrlTextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -829,7 +829,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 LeftViewMode = UITextFieldViewMode.Always
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _titleTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _titleTextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -844,7 +844,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 LeftViewMode = UITextFieldViewMode.Always
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _descriptionTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _descriptionTextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;
@@ -859,7 +859,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 LeftViewMode = UITextFieldViewMode.Always
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _tagsTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _tagsTextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Adjust the Y position for the next control
             controlY = controlY + controlHeight + rowSpace;

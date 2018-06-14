@@ -177,7 +177,7 @@ namespace ArcGISRuntime.Samples.Buffer
             };
 
             // - Allow pressing 'return' to dismiss the keyboard
-            _bufferDistanceMilesUITextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            _bufferDistanceMilesUITextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Add the MapView and other controls to the page.
             View.AddSubviews(_myMapView, _helpToolbar, _helpLabel, _bufferInstructionsUILabel, _bufferDistanceMilesUITextField);

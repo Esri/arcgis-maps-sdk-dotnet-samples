@@ -190,7 +190,7 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
                 BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
                 BorderStyle = UITextBorderStyle.RoundedRect
             };
-            _populationValueInput.ShouldReturn += (textField) => {
+            _populationValueInput.ShouldReturn += textField => {
                 textField.ResignFirstResponder();
                 return true;
             };

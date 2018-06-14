@@ -23,19 +23,19 @@ namespace ArcGISRuntime.Samples.ProjectWithSpecificTransformation
     public class ProjectWithSpecificTransformation : UIViewController
     {
         // Label to show the coordinates before projection
-        private readonly UITextView _beforeLabel = new UITextView()
+        private readonly UITextView _beforeLabel = new UITextView
         {
             TextColor = UIColor.Red
         };
 
         // Label to show the coordinates after projection with specific transformation
-        private readonly UITextView _afterLabel = new UITextView()
+        private readonly UITextView _afterLabel = new UITextView
         {
             TextColor = UIColor.Red
         };
 
         // Label to show the coordinates after projection without specific transformation
-        private readonly UITextView _nonSpecificLabel = new UITextView()
+        private readonly UITextView _nonSpecificLabel = new UITextView
         {
             TextColor = UIColor.Red
         };

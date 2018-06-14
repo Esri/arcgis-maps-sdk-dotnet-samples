@@ -177,9 +177,9 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             // viewshed analysis. Note: the overlays will not be populated with any graphics at this point
 
             // Create renderer for input graphic. Set the size and color properties for the simple renderer
-            SimpleRenderer myInputRenderer = new SimpleRenderer()
+            SimpleRenderer myInputRenderer = new SimpleRenderer
             {
-                Symbol = new SimpleMarkerSymbol()
+                Symbol = new SimpleMarkerSymbol
                 {
                     Size = 15,
                     Color = System.Drawing.Color.Red
@@ -187,22 +187,22 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             };
 
             // Create overlay to where input graphic is shown
-            _inputOverlay = new GraphicsOverlay()
+            _inputOverlay = new GraphicsOverlay
             {
                 Renderer = myInputRenderer
             };
 
             // Create fill renderer for output of the viewshed analysis. Set the color property of the simple renderer
-            SimpleRenderer myResultRenderer = new SimpleRenderer()
+            SimpleRenderer myResultRenderer = new SimpleRenderer
             {
-                Symbol = new SimpleFillSymbol()
+                Symbol = new SimpleFillSymbol
                 {
                     Color = System.Drawing.Color.FromArgb(100, 226, 119, 40)
                 }
             };
 
             // Create overlay to where viewshed analysis graphic is shown
-            _resultOverlay = new GraphicsOverlay()
+            _resultOverlay = new GraphicsOverlay
             {
                 Renderer = myResultRenderer
             };

@@ -145,7 +145,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
             _myMapView = new MapView();
 
             // Create the preview mapview.
-            _myPreviewMapView = new MapView()
+            _myPreviewMapView = new MapView
             {
                 Hidden = true // hide it by default.
             };
@@ -162,7 +162,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
             };
 
             // Create the export button - disabled until sample is ready.
-            _myExportButton = new UIButton() { Enabled = false, BackgroundColor = UIColor.White };
+            _myExportButton = new UIButton { Enabled = false, BackgroundColor = UIColor.White };
             _myExportButton.SetTitle("Export", UIControlState.Normal);
             _myExportButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 

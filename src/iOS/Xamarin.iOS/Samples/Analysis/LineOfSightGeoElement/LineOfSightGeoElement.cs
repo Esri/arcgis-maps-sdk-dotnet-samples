@@ -35,7 +35,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         private readonly SceneView _mySceneView = new SceneView();
 
         // Create and hold a UI label to show the visibility status 
-        private readonly UILabel _myStatusLabel = new UILabel() { Text = "Status: ", TextAlignment = UITextAlignment.Center, AdjustsFontSizeToFitWidth = true };
+        private readonly UILabel _myStatusLabel = new UILabel { Text = "Status: ", TextAlignment = UITextAlignment.Center, AdjustsFontSizeToFitWidth = true };
 
         // Create and hold a slider to change the height of the observer
         private readonly UISlider _mySlider = new UISlider();
@@ -99,7 +99,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
 
             // Add the observer to the scene
             // Create a graphics overlay with relative surface placement; relative surface placement allows the Z position of the observation point to be adjusted
-            GraphicsOverlay overlay = new GraphicsOverlay() { SceneProperties = new LayerSceneProperties(SurfacePlacement.Relative) };
+            GraphicsOverlay overlay = new GraphicsOverlay { SceneProperties = new LayerSceneProperties(SurfacePlacement.Relative) };
             // Create the symbol that will symbolize the observation point
             SimpleMarkerSceneSymbol symbol = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Sphere, System.Drawing.Color.Red, 10, 10, 10, SceneSymbolAnchorPosition.Bottom);
             // Create the observation point graphic from the point and symbol

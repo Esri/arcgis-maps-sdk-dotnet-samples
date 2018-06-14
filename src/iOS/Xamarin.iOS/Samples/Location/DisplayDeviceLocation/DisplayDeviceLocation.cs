@@ -127,11 +127,11 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         private void CreateLayout()
         {
             // Create a button to start the location
-            var startButton = new UIBarButtonItem() { Title = "Start", Style = UIBarButtonItemStyle.Plain };
+            var startButton = new UIBarButtonItem { Title = "Start", Style = UIBarButtonItemStyle.Plain };
             startButton.Clicked += OnStartButtonClicked;
 
             // Create a button to apply new renderer
-            var stopButton = new UIBarButtonItem() { Title = "Stop", Style = UIBarButtonItemStyle.Plain };
+            var stopButton = new UIBarButtonItem { Title = "Stop", Style = UIBarButtonItemStyle.Plain };
             stopButton.Clicked += OnStopButtonClicked;
 
             // Add the buttons to the toolbar

@@ -55,7 +55,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         private UIProgressView myProgressBar = new UIProgressView();
 
         // Generate button.
-        private UIButton myGenerateButton = new UIButton() { Enabled = false };
+        private UIButton myGenerateButton = new UIButton { Enabled = false };
         private UIToolbar _toolbar = new UIToolbar();
 
         public GenerateGeodatabase()

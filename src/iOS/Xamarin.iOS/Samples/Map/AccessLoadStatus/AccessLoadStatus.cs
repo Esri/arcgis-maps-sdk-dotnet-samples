@@ -84,7 +84,8 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
         private void CreateLayout()
         {
             // Create control to show the maps' loading status
-            _loadStatusTextView = new UILabel(){
+            _loadStatusTextView = new UILabel
+            {
                 TextAlignment = UITextAlignment.Center
             };
   

@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.MapRotation
         private UIToolbar _toolbar = new UIToolbar();
         private UILabel _rotationLabel = new UILabel();
 
-        private UISlider _rotationSlider = new UISlider()
+        private UISlider _rotationSlider = new UISlider
         {
             MinValue = 0,
             MaxValue = 360

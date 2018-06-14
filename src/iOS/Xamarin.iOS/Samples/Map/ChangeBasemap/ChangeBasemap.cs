@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         private readonly UIButton _button = new UIButton();
 
         // Dictionary that associates names with basemaps
-        private readonly Dictionary<string, Basemap> _basemapOptions = new Dictionary<string, Basemap>()
+        private readonly Dictionary<string, Basemap> _basemapOptions = new Dictionary<string, Basemap>
         {
             {"Streets (Raster)", Basemap.CreateStreets()},
             {"Streets (Vector)", Basemap.CreateStreetsVector()},

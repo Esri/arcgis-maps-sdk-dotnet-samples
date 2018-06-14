@@ -129,7 +129,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         private UIToolbar _backgroundToolbar = new UIToolbar();
 
         // Create the progress indicator
-        private UIActivityIndicatorView _myProgressBar = new UIActivityIndicatorView()
+        private UIActivityIndicatorView _myProgressBar = new UIActivityIndicatorView
         {
             Hidden = true
         };

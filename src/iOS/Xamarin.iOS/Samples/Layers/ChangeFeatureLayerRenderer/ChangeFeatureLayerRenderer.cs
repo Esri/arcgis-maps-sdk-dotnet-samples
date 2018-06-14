@@ -102,7 +102,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
         private void OnOverrideButtonClicked(object sender, EventArgs e)
         {
             // Create a symbol to be used in the renderer
-            SimpleLineSymbol symbol = new SimpleLineSymbol()
+            SimpleLineSymbol symbol = new SimpleLineSymbol
             {
                 Color = Color.Blue,
                 Width = 2,
@@ -128,11 +128,11 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
             _myMapView = new MapView();
 
             // Create a button to reset the renderer
-            var resetButton = new UIBarButtonItem() { Title = "Reset", Style = UIBarButtonItemStyle.Plain };
+            var resetButton = new UIBarButtonItem { Title = "Reset", Style = UIBarButtonItemStyle.Plain };
             resetButton.Clicked += OnResetButtonClicked;
 
             // Create a button to apply new renderer
-            var overrideButton = new UIBarButtonItem() { Title = "Override", Style = UIBarButtonItemStyle.Plain };
+            var overrideButton = new UIBarButtonItem { Title = "Override", Style = UIBarButtonItemStyle.Plain };
             overrideButton.Clicked += OnOverrideButtonClicked;
 
             // Add the buttons to the toolbar

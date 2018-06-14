@@ -203,12 +203,12 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             _deviationLabel = new UILabel();
             _segmentLengthLabel = new UILabel();
             _resultLabel = new UILabel();
-            _segmentLengthSlider = new UISlider()
+            _segmentLengthSlider = new UISlider
             {
                 MinValue = 100,
                 MaxValue = 500
             };
-            _deviationSlider = new UISlider()
+            _deviationSlider = new UISlider
             {
                 MinValue = 1,
                 MaxValue = 250

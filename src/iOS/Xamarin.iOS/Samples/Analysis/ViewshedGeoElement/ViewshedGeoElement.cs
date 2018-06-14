@@ -160,7 +160,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
                 location, _tankEndPoint, _metersUnit, _degreesUnit, GeodeticCurveType.Geodesic);
 
             // Move the tank a short distance.
-            location = GeometryEngine.MoveGeodetic(new List<MapPoint>() { location }, 1.0, _metersUnit, distance.Azimuth1, _degreesUnit,
+            location = GeometryEngine.MoveGeodetic(new List<MapPoint> { location }, 1.0, _metersUnit, distance.Azimuth1, _degreesUnit,
                 GeodeticCurveType.Geodesic).First();
             _tank.Geometry = location;
 

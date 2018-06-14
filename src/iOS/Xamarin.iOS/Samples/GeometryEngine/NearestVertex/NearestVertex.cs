@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
     public class NearestVertex : UIViewController
     {
         // Label to show the distance (and an initial prompt)
-        private readonly UITextView _distanceLabel = new UITextView()
+        private readonly UITextView _distanceLabel = new UITextView
         {
             TextColor = UIColor.Red,
             Text = "Tap to see the nearest vertex and point.",

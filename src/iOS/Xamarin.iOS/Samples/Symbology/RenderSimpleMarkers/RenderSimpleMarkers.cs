@@ -73,7 +73,7 @@ namespace ArcGISRuntime.Samples.RenderSimpleMarkers
             _myMapView.GraphicsOverlays.Add(overlay);
 
             // Create a simple marker symbol
-            SimpleMarkerSymbol simpleSymbol = new SimpleMarkerSymbol()
+            SimpleMarkerSymbol simpleSymbol = new SimpleMarkerSymbol
             {
                 Color = Color.Red,
                 Size = 10,

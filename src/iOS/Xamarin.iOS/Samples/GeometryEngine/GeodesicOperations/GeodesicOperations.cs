@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
     public class GeodesicOperations : UIViewController
     {
         // Label to show the distance (and an initial prompt).
-        private readonly UITextView _distanceLabel = new UITextView()
+        private readonly UITextView _distanceLabel = new UITextView
         {
             TextColor = UIColor.Red,
             Text = "Tap to set an end point.",

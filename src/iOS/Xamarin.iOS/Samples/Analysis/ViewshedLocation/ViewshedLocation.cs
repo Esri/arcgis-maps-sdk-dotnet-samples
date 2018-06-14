@@ -44,25 +44,25 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         private AnalysisOverlay _analysisOverlay;
 
         // Create the UI controls.
-        private readonly UISlider _headingSlider = new UISlider() { MinValue = 0, MaxValue = 360, Value = 0 };
-        private readonly UISlider _pitchSlider = new UISlider() { MinValue = 0, MaxValue = 180, Value = 60 };
-        private readonly UISlider _horizontalAngleSlider = new UISlider() { MinValue = 1, MaxValue = 120, Value = 75 };
+        private readonly UISlider _headingSlider = new UISlider { MinValue = 0, MaxValue = 360, Value = 0 };
+        private readonly UISlider _pitchSlider = new UISlider { MinValue = 0, MaxValue = 180, Value = 60 };
+        private readonly UISlider _horizontalAngleSlider = new UISlider { MinValue = 1, MaxValue = 120, Value = 75 };
         private readonly UISlider _verticalAngleSlider = new UISlider { MinValue = 1, MaxValue = 120, Value = 90 };
-        private readonly UISlider _minimumDistanceSlider = new UISlider() { MinValue = 0, MaxValue = 8999, Value = 0 };
-        private readonly UISlider _maximumDistanceSlider = new UISlider() { MinValue = 0, MaxValue = 9999, Value = 1500 };
-        private readonly UISwitch _analysisVisibilitySwitch = new UISwitch() { On = true };
-        private readonly UISwitch _frustumVisibilitySwitch = new UISwitch() { On = false };
+        private readonly UISlider _minimumDistanceSlider = new UISlider { MinValue = 0, MaxValue = 8999, Value = 0 };
+        private readonly UISlider _maximumDistanceSlider = new UISlider { MinValue = 0, MaxValue = 9999, Value = 1500 };
+        private readonly UISwitch _analysisVisibilitySwitch = new UISwitch { On = true };
+        private readonly UISwitch _frustumVisibilitySwitch = new UISwitch { On = false };
         private readonly UIToolbar _toolbar = new UIToolbar();
 
         // Create labels for the UI controls.
-        private readonly UILabel _headingLabel = new UILabel() { Text = "Heading:", TextAlignment= UITextAlignment.Right };
-        private readonly UILabel _pitchLabel = new UILabel() { Text = "Pitch:", TextAlignment = UITextAlignment.Right };
-        private readonly UILabel _horizontalAngleLabel = new UILabel() { Text = "Horiz. Angle:", TextAlignment = UITextAlignment.Right };
-        private readonly UILabel _verticalAngleLabel = new UILabel() { Text = "Vert. Angle:", TextAlignment = UITextAlignment.Right };
-        private readonly UILabel _minimumDistanceLabel = new UILabel() { Text = "Min. Dist.:", TextAlignment = UITextAlignment.Right };
-        private readonly UILabel _maximumDistanceLabel = new UILabel() { Text = "Max. Dist.:", TextAlignment = UITextAlignment.Right };
-        private readonly UILabel _analysisVisibilityLabel = new UILabel() { Text = "Show Analysis:", TextAlignment = UITextAlignment.Right };
-        private readonly UILabel _frustumVisibilityLabel = new UILabel() { Text = "Show Frustum:", TextAlignment = UITextAlignment.Right };
+        private readonly UILabel _headingLabel = new UILabel { Text = "Heading:", TextAlignment= UITextAlignment.Right };
+        private readonly UILabel _pitchLabel = new UILabel { Text = "Pitch:", TextAlignment = UITextAlignment.Right };
+        private readonly UILabel _horizontalAngleLabel = new UILabel { Text = "Horiz. Angle:", TextAlignment = UITextAlignment.Right };
+        private readonly UILabel _verticalAngleLabel = new UILabel { Text = "Vert. Angle:", TextAlignment = UITextAlignment.Right };
+        private readonly UILabel _minimumDistanceLabel = new UILabel { Text = "Min. Dist.:", TextAlignment = UITextAlignment.Right };
+        private readonly UILabel _maximumDistanceLabel = new UILabel { Text = "Max. Dist.:", TextAlignment = UITextAlignment.Right };
+        private readonly UILabel _analysisVisibilityLabel = new UILabel { Text = "Show Analysis:", TextAlignment = UITextAlignment.Right };
+        private readonly UILabel _frustumVisibilityLabel = new UILabel { Text = "Show Frustum:", TextAlignment = UITextAlignment.Right };
 
         public ViewshedLocation()
         {

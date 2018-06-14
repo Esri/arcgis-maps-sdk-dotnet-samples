@@ -34,7 +34,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
         private readonly UIButton _twoThousandFiveButton = new UIButton();
 
         // Create and hold a reference to a help label.
-        private readonly UILabel _helpLabel = new UILabel()
+        private readonly UILabel _helpLabel = new UILabel
         {
             TextColor = UIColor.Red,
             Text = "Tap a year to filter the data.",

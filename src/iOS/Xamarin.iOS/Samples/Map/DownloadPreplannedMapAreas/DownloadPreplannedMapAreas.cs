@@ -54,7 +54,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
         private UIToolbar _toolbarTray;
         private LoadingOverlay _progressIndicator;
 
-        private UILabel _initialPrompt = new UILabel()
+        private UILabel _initialPrompt = new UILabel
         {
             Text = "Download a map area",
             TextColor = UIColor.White
@@ -479,7 +479,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             activityIndicator.StartAnimating();
 
             // Create the label.
-            _loadingMessageLabel = new UILabel()
+            _loadingMessageLabel = new UILabel
             {
                 Frame = new CGRect(centerX - (labelWidth / 2), centerY + 20, labelWidth, labelHeight),
                 BackgroundColor = UIColor.Clear,

@@ -67,7 +67,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         private UIProgressView myProgressBar = new UIProgressView();
 
         // Generate button.
-        private UIButton myGenerateButton = new UIButton() { Enabled = false };
+        private UIButton myGenerateButton = new UIButton { Enabled = false };
 
         // Synchronize button.
         private UIButton mySyncButton = new UIButton();
@@ -277,7 +277,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     Envelope selectionEnvelope = new Envelope(e.Location.X - tolerance, e.Location.Y - tolerance, e.Location.X + tolerance, e.Location.Y + tolerance);
 
                     // Define query parameters for feature selection.
-                    QueryParameters query = new QueryParameters()
+                    QueryParameters query = new QueryParameters
                     {
                         Geometry = selectionEnvelope
                     };
@@ -482,7 +482,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             mySyncButton.Enabled = false;
 
             // Create parameters for the sync task.
-            SyncGeodatabaseParameters parameters = new SyncGeodatabaseParameters()
+            SyncGeodatabaseParameters parameters = new SyncGeodatabaseParameters
             {
                 GeodatabaseSyncDirection = SyncDirection.Bidirectional,
                 RollbackOnFailure = false

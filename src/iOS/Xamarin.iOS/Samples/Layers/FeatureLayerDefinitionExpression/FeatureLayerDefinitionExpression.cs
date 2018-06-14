@@ -111,11 +111,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
             _myMapView = new MapView();
 
             // Create a button to reset the renderer
-            var resetButton = new UIBarButtonItem() { Title = "Reset", Style = UIBarButtonItemStyle.Plain };
+            var resetButton = new UIBarButtonItem { Title = "Reset", Style = UIBarButtonItemStyle.Plain };
             resetButton.Clicked += OnResetButtonClicked;
 
             // Create a button to apply new renderer
-            var expressionButton = new UIBarButtonItem() { Title = "Apply Expression", Style = UIBarButtonItemStyle.Plain };
+            var expressionButton = new UIBarButtonItem { Title = "Apply Expression", Style = UIBarButtonItemStyle.Plain };
             expressionButton.Clicked += OnApplyExpressionClicked;
 
             // Add the buttons to the toolbar

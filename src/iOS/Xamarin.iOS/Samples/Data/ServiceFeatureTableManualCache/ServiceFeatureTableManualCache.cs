@@ -91,7 +91,7 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
                 return;
 
             // Create new query object that contains parameters to query specific request types
-            QueryParameters queryParameters = new QueryParameters()
+            QueryParameters queryParameters = new QueryParameters
             {
                 WhereClause = "req_Type = 'Tree Maintenance or Damage'"
             };

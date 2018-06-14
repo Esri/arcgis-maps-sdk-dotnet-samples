@@ -87,7 +87,7 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
             if (e.Status != LoadStatus.Loaded) { return; }
 
             // Create new query object that contains a basic 'include everything' clause
-            QueryParameters queryParameters = new QueryParameters()
+            QueryParameters queryParameters = new QueryParameters
             {
                 WhereClause = "1=1"
             };

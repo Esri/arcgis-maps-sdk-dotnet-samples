@@ -99,11 +99,11 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             _myMapView = new MapView();
     
             // Create a button to take the screenshot
-            var screenshotButton = new UIBarButtonItem() { Title = "Screenshot", Style = UIBarButtonItemStyle.Plain };
+            var screenshotButton = new UIBarButtonItem { Title = "Screenshot", Style = UIBarButtonItemStyle.Plain };
             screenshotButton.Clicked += OnScreenshotButtonClicked;
 
             // Initialize a button to close imageview
-            _closeImageViewButton = new UIBarButtonItem() { Title = "Close preview", Style = UIBarButtonItemStyle.Plain };
+            _closeImageViewButton = new UIBarButtonItem { Title = "Close preview", Style = UIBarButtonItemStyle.Plain };
             _closeImageViewButton.Clicked += OnCloseImageViewClicked; 
             _closeImageViewButton.Enabled = false;
 

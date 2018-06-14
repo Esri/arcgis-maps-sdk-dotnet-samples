@@ -211,7 +211,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                 case GeometryType.Envelope:
                 case GeometryType.Polygon:
                     {
-                        symbol = new SimpleFillSymbol()
+                        symbol = new SimpleFillSymbol
                         {
                             Color = Color.Red,
                             Style = SimpleFillSymbolStyle.Solid,
@@ -221,7 +221,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                 // Symbolize with a line symbol
                 case GeometryType.Polyline:
                     {
-                        symbol = new SimpleLineSymbol()
+                        symbol = new SimpleLineSymbol
                         {
                             Color = Color.Red,
                             Style = SimpleLineSymbolStyle.Solid,
@@ -234,7 +234,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                 case GeometryType.Multipoint:
                     {
 
-                        symbol = new SimpleMarkerSymbol()
+                        symbol = new SimpleMarkerSymbol
                         {
                             Color = Color.Red,
                             Style = SimpleMarkerSymbolStyle.Circle,

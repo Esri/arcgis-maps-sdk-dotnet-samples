@@ -98,7 +98,7 @@ namespace ArcGISRuntime.Samples.AddGraphicsRenderer
             }
 
             // Create symbol for points
-            SimpleMarkerSymbol pointSymbol = new SimpleMarkerSymbol()
+            SimpleMarkerSymbol pointSymbol = new SimpleMarkerSymbol
             {
                 Color = System.Drawing.Color.Yellow,
                 Size = 30,

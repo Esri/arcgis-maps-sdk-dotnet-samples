@@ -178,7 +178,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             _button2.TouchUpInside += OnButton2Clicked;
 
             // Create the help label
-            _label = new UILabel()
+            _label = new UILabel
             {
                 Text = "Construct layer with:",
                 TextAlignment = UITextAlignment.Center

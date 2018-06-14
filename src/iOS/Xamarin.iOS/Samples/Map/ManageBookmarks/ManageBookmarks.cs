@@ -177,7 +177,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             _myMapView = new MapView();
 
             // Create a bookmark button to show existing bookmarks
-            var showBookmarksButton = new UIBarButtonItem() { Title = "Bookmarks", Style = UIBarButtonItemStyle.Plain };
+            var showBookmarksButton = new UIBarButtonItem { Title = "Bookmarks", Style = UIBarButtonItemStyle.Plain };
             showBookmarksButton.Clicked += OnShowBookmarksButtonClicked;
 
             // Create a button to add new bookmark

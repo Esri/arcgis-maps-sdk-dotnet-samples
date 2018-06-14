@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         private readonly MapView _myMapView = new MapView();
 
         // Text view to display the results
-        private readonly UITextView _resultTextView = new UITextView() { TextColor = UIColor.Red };
+        private readonly UITextView _resultTextView = new UITextView { TextColor = UIColor.Red };
 
         // References to the graphics and graphics overlay
         private GraphicsOverlay _graphicsOverlay;
@@ -52,7 +52,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             _myMapView.Map = new Map(Basemap.CreateTopographic());
 
             // Create the graphics overlay and set the selection color
-            _graphicsOverlay = new GraphicsOverlay()
+            _graphicsOverlay = new GraphicsOverlay
             {
                 SelectionColor = System.Drawing.Color.Yellow
             };

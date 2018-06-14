@@ -80,8 +80,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
                 // Get the scene properties from the simple renderer
                 RendererSceneProperties myRendererSceneProperties = mySimpleRenderer.SceneProperties;
 
-                // Set the extrusion mode for the scene properties to be base height
-                myRendererSceneProperties.ExtrusionMode = ExtrusionMode.BaseHeight;
+                // Set the extrusion mode for the scene properties
+                myRendererSceneProperties.ExtrusionMode = ExtrusionMode.AbsoluteHeight;
 
                 // Set the initial extrusion expression
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
@@ -130,7 +130,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text
             if (_button_ToggleExtrusionData.Title(UIControlState.Normal) == "Population Density")
             {
-                myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000";
+                myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000 + 100000";
                 _button_ToggleExtrusionData.SetTitle("Total Population", UIControlState.Normal);
             }
             else if (_button_ToggleExtrusionData.Title(UIControlState.Normal) == "Total Population")

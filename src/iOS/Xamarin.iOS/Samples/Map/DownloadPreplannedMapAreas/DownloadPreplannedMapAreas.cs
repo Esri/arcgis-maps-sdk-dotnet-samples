@@ -377,13 +377,15 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
 
             // Create the download button.
             _downloadButton = new UIButton();
-            _downloadButton.SetTitle("Download Area", UIControlState.Normal);
+            _downloadButton.SetTitle("Download area", UIControlState.Normal);
             _downloadButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _downloadButton.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
 
             // Create the delete button.
             _deleteButton = new UIButton();
             _deleteButton.SetTitle("Delete all areas", UIControlState.Normal);
             _deleteButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
+            _deleteButton.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
 
             // Create the toolbar that will be used to contain the buttons.
             _toolbarTray = new UIToolbar();
@@ -409,6 +411,10 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             // Get the top margin; this is used to adjust the MapView inset
             //    (because the MapView is shown under the navigation area).
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat margin = 5;
+            nfloat controlHeight = 30;
+            nfloat controlWidth = View.Bounds.Width / 2 - (2 * margin);
+            nfloat toolbarHeight = 40;
 
             // Set up the visual frame for the MapView.
             _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
@@ -416,14 +422,14 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             // Update the map insets. This will keep the map content centered
             //     within the visible area of the MapView. Additionally, it will
             //     ensure that the attribution bar is not obscured by the toolbar.
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 50, 0);
+            //_myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 50, 0);
 
             // Set up the visual frame for the Toolbar.
-            _toolbarTray.Frame = new CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
+            _toolbarTray.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
 
             // Set up the visual frames for the buttons.
-            _downloadButton.Frame = new CGRect(10, _toolbarTray.Frame.Top + 10, View.Bounds.Width / 2 - 10, _toolbarTray.Frame.Height - 20);
-            _deleteButton.Frame = new CGRect(View.Bounds.Width / 2 + 15, _toolbarTray.Frame.Top + 10, View.Bounds.Width / 2 - 10, _toolbarTray.Frame.Height - 20);
+            _downloadButton.Frame = new CGRect(margin, _toolbarTray.Frame.Top + margin, controlWidth, controlHeight);
+            _deleteButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, _toolbarTray.Frame.Top + margin, controlWidth, controlHeight);
 
             // Set up the visual frame for the initial prompt, if it is still there.
             if (_initialPrompt != null)

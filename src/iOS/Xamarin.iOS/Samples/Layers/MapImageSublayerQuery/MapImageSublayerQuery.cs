@@ -43,6 +43,9 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         // A text input for the population value to query with.
         private UITextField _populationValueInput;
 
+        // Toolbar to go behind the form.
+        private UIToolbar _toolbar = new UIToolbar();
+
         public MapImageSublayerQuery()
         {
             Title = "Query a map image sublayer";
@@ -61,14 +64,17 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         {
             // Calculate the offset from the top.
             var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat margin = 5;
+            nfloat controlHeight = 30;
 
             // Set the frame for the population entry controls.
-            _populationLabel.Frame = new CoreGraphics.CGRect(10, topMargin + 10, 150, 30);
-            _populationValueInput.Frame = new CoreGraphics.CGRect(170, topMargin + 10, View.Bounds.Width - 10, 30);
-            _queryButton.Frame = new CoreGraphics.CGRect(100, topMargin + 45, View.Bounds.Width - 200, 30);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, controlHeight * 2 + margin * 3);
+            _populationLabel.Frame = new CoreGraphics.CGRect(margin, topMargin + margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
+            _populationValueInput.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, topMargin + margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
+            _queryButton.Frame = new CoreGraphics.CGRect(margin, topMargin + controlHeight + 2 * margin, View.Bounds.Width - (2 * margin), controlHeight);
 
             // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, topMargin + 75, View.Bounds.Width, View.Bounds.Height-(topMargin + 75));
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             base.ViewDidLayoutSubviews();
         }
@@ -177,27 +183,26 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         private void CreateLayout()
         {
             // Create the population query controls: a label, a text input, and a button to execute the query.
-            _populationLabel = new UILabel { Text = "[POP2000] > ", BackgroundColor = UIColor.White };
+            _populationLabel = new UILabel { Text = "[POP2000] > ", TextAlignment = UITextAlignment.Right };
             _populationValueInput = new UITextField { 
                 Text = "1800000",
-                BackgroundColor = UIColor.White,
-                TextColor = UIColor.Black 
+                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f)
+            };
+            _populationValueInput.BorderStyle = UITextBorderStyle.RoundedRect;
+            _populationValueInput.ShouldReturn += (textField) => {
+                textField.ResignFirstResponder();
+                return true;
             };
 
             _queryButton = new UIButton(UIButtonType.Plain);
             _queryButton.SetTitle("Query", UIControlState.Normal);
             _queryButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _queryButton.BackgroundColor = UIColor.White;
 
             // Wire the event handler for the query button click.
             _queryButton.TouchUpInside += QuerySublayers_Click;
 
             // Add the query controls and map view to the app layout.
-            View.AddSubview(_populationLabel);
-            View.AddSubview(_populationValueInput);
-            View.AddSubview(_queryButton);
-            View.AddSubview(_myMapView);
-            View.BackgroundColor = UIColor.White;
+            View.AddSubviews(_myMapView, _toolbar, _populationLabel, _populationValueInput, _queryButton);
         }
     }
 }

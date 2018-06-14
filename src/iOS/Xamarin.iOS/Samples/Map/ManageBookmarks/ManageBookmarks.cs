@@ -185,9 +185,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             addBookmarkButton.Clicked += OnAddBookmarksButtonClicked;
 
             // Add the buttons to the toolbar
-            SetToolbarItems(new UIBarButtonItem[] {showBookmarksButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null),
-                addBookmarkButton}, false);
+            SetToolbarItems(new[] { showBookmarksButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null), addBookmarkButton }, false);
 
             // Show the toolbar
             NavigationController.ToolbarHidden = false;

@@ -108,9 +108,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             _closeImageViewButton.Enabled = false;
 
             // Add the buttons to the toolbar
-            SetToolbarItems(new UIBarButtonItem[] {screenshotButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null),
-                _closeImageViewButton}, false);
+            SetToolbarItems(new[] { screenshotButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null), _closeImageViewButton }, false);
 
             // Show the toolbar
             NavigationController.ToolbarHidden = false;

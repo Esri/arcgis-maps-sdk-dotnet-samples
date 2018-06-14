@@ -119,9 +119,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
             expressionButton.Clicked += OnApplyExpressionClicked;
 
             // Add the buttons to the toolbar
-            SetToolbarItems(new UIBarButtonItem[] {resetButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null),
-                expressionButton}, false);
+            SetToolbarItems(new[] { resetButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null), expressionButton }, false);
 
             // Show the toolbar
             NavigationController.ToolbarHidden = false;

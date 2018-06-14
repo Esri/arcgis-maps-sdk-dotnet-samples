@@ -136,9 +136,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
             overrideButton.Clicked += OnOverrideButtonClicked;
 
             // Add the buttons to the toolbar
-            SetToolbarItems(new UIBarButtonItem[] {resetButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null),
-                overrideButton}, false);
+            SetToolbarItems(new[] {resetButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null), overrideButton}, false);
 
             // Show the toolbar
             NavigationController.ToolbarHidden = false;

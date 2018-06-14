@@ -135,9 +135,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
             stopButton.Clicked += OnStopButtonClicked;
 
             // Add the buttons to the toolbar
-            SetToolbarItems(new UIBarButtonItem[] {startButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null),
-                stopButton}, false);
+            SetToolbarItems(new[] { startButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null), stopButton}, false);
 
             // Show the toolbar
             NavigationController.ToolbarHidden = false;

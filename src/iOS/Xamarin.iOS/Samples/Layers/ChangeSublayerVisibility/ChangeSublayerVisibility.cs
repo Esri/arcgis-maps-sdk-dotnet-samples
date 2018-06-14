@@ -90,14 +90,6 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
 
             base.ViewDidLayoutSubviews();
         }
-        
-
-        public override void DidReceiveMemoryWarning()
-        {
-            base.DidReceiveMemoryWarning();
-
-            // Release any cached data, images, etc that aren't in use.
-        }
     }
 
     [Register("SublayersTable")]
@@ -108,12 +100,6 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         public SublayersTable()
         {
             Title = "Sublayers";
-        }
-
-        public override void DidReceiveMemoryWarning()
-        {
-            // Releases the view if it doesn't have a superview.
-            base.DidReceiveMemoryWarning();
         }
 
         public override void ViewDidLoad()

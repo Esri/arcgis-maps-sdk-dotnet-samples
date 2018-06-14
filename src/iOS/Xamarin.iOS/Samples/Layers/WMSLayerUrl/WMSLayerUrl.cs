@@ -32,7 +32,7 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
         private Uri wmsUrl = new Uri("https://certmapper.cr.usgs.gov/arcgis/services/geology/africa/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Hold a list of uniquely-identifying WMS layer names to display
-        private List<String> wmsLayerNames = new List<string> { "0" };
+        private List<string> wmsLayerNames = new List<string> { "0" };
 
         public WMSLayerUrl()
         {

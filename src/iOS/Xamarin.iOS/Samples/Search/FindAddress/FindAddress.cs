@@ -128,7 +128,7 @@ namespace ArcGISRuntime.Samples.FindAddress
         private async void UpdateSearch()
         {
             // Get the text in the search bar
-            String enteredText = _addressSearchBar.Text;
+            string enteredText = _addressSearchBar.Text;
 
             // Clear existing marker
             _myMapView.GraphicsOverlays.Clear();
@@ -222,9 +222,9 @@ namespace ArcGISRuntime.Samples.FindAddress
             // Get the first result
             GeocodeResult address = addresses.First();
             // Use the city and region for the Callout Title
-            String calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
+            string calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
             // Use the metro area for the Callout Detail
-            String calloutDetail = address.Attributes["MetroArea"].ToString();
+            string calloutDetail = address.Attributes["MetroArea"].ToString();
 
             // Use the MapView to convert from the on-screen location to the on-map location
             MapPoint point = _myMapView.ScreenToLocation(e.Position);

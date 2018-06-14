@@ -99,7 +99,7 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
             IReadOnlyList<RelatedFeatureQueryResult> relatedFeaturesResult = await myFeatureTable.QueryRelatedFeaturesAsync(myFeature);
 
             // Create a list to hold the formatted results of the query
-            List<String> queryResultsForUi = new List<string>();
+            List<string> queryResultsForUi = new List<string>();
 
             // For each query result
             foreach (RelatedFeatureQueryResult result in relatedFeaturesResult)

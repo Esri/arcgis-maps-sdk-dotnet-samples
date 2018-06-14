@@ -289,12 +289,12 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         /// <summary>
         /// True if the layer is selected for display
         /// </summary>
-        public Boolean IsEnabled { get; set; }
+        public bool IsEnabled { get; set; }
 
         /// <summary>
         /// Title property to facilitate binding
         /// </summary>
-        public String Title => Info.Title;
+        public string Title => Info.Title;
 
         public LayerDisplayVM(WmsLayerInfo info)
         {

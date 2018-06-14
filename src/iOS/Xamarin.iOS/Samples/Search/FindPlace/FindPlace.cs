@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.FindPlace
     public class SuggestionSource : UITableViewSource
     {
         // List of strings; these will be the suggestions
-        public List<String> TableItems = new List<string>();
+        public List<string> TableItems = new List<string>();
 
         // Used when re-using cells to ensure that a cell of the right type is used
         private string CellId = "TableCell";
@@ -39,7 +39,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         // Hold a reference to the owning view controller; this will be the active instance of FindPlace
         public FindPlace Owner { get; set; }
 
-        public SuggestionSource(List<String> items, FindPlace owner)
+        public SuggestionSource(List<string> items, FindPlace owner)
         {
             // Set the items
             if (items != null)
@@ -66,7 +66,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             }
 
             // Get the specific item to display
-            String item = TableItems[indexPath.Row];
+            string item = TableItems[indexPath.Row];
 
             // Set the text on the cell
             cell.TextLabel.Text = item;
@@ -475,10 +475,10 @@ namespace ArcGISRuntime.Samples.FindPlace
             Graphic matchingGraphic = results.First().Graphics.First();
 
             // Get the title; manually added to the point's attributes in UpdateSearch
-            String title = matchingGraphic.Attributes["Match_Title"] as String;
+            string title = matchingGraphic.Attributes["Match_Title"] as string;
 
             // Get the address; manually added to the point's attributes in UpdateSearch
-            String address = matchingGraphic.Attributes["Match_Address"] as String;
+            string address = matchingGraphic.Attributes["Match_Address"] as string;
 
             // Define the callout
             CalloutDefinition calloutBody = new CalloutDefinition(title, address);
@@ -495,7 +495,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         /// <param name="poiOnly">If true, restricts suggestions to only Points of Interest (e.g. businesses, parks),
         /// rather than all matching results</param>
         /// <returns>List of suggestions as strings</returns>
-        private async Task<IEnumerable<String>> GetSuggestResults(string searchText, string location = "", bool poiOnly = false)
+        private async Task<IEnumerable<string>> GetSuggestResults(string searchText, string location = "", bool poiOnly = false)
         {
             // Quit if string is null, empty, or whitespace
             if (String.IsNullOrWhiteSpace(searchText)) { return null; }
@@ -526,7 +526,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             IReadOnlyList<SuggestResult> results = await _geocoder.SuggestAsync(searchText, parameters);
 
             // Convert the list into a list of strings (corresponding to the label property on each result)
-            IEnumerable<String> formattedResults = results.Select(result => result.Label);
+            IEnumerable<string> formattedResults = results.Select(result => result.Label);
 
             // Return the list
             return formattedResults;
@@ -558,13 +558,13 @@ namespace ArcGISRuntime.Samples.FindPlace
             string searchText = _myLocationBox.Text;
 
             // Get the results
-            IEnumerable<String> results = await GetSuggestResults(searchText);
+            IEnumerable<string> results = await GetSuggestResults(searchText);
 
             // Quit if there are no results
             if (results == null || !results.Any()) { return; }
 
             // Get a modifiable list from the results
-            List<String> mutableResults = results.ToList();
+            List<string> mutableResults = results.ToList();
 
             // Add a 'current location' option to the list
             mutableResults.Insert(0, "Current location");
@@ -597,7 +597,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             string locationText = _myLocationBox.Text;
 
             // Convert the list into a usable format for the suggest box
-            IEnumerable<String> results = await GetSuggestResults(searchText, locationText, true);
+            IEnumerable<string> results = await GetSuggestResults(searchText, locationText, true);
 
             // Quit if there are no results
             if (results == null || !results.Any()) { return; }

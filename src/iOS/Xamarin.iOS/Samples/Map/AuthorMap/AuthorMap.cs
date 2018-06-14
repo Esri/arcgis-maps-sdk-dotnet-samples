@@ -78,11 +78,11 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         public override void ViewDidLayoutSubviews()
         {
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            _segmentButton.Frame = new CoreGraphics.CGRect(5, _toolbar.Frame.Top + 5, View.Bounds.Width - 10, _toolbar.Frame.Height - 10);
             // correctly handle re-layout events (e.g. rotated phone)
             base.ViewDidLayoutSubviews();
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
-            _segmentButton.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, View.Bounds.Width - 20, _toolbar.Frame.Height - 20);
         }
 
         public override void ViewDidLoad()
@@ -251,8 +251,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
             if (_oauthInfoUI != null) { return; }
 
             // Create a view to show entry controls over the map view
-
-            var ovBounds = new CoreGraphics.CGRect(30, 60, (View.Bounds.Width - 60), (View.Bounds.Height - 120));
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            var ovBounds = new CoreGraphics.CGRect(5, topMargin + 5, (View.Bounds.Width - 10), (View.Bounds.Height - topMargin - 50));
             _oauthInfoUI = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, AppClientId, OAuthRedirectUrl);
 
             // Handle the OnOAuthPropsInfoEntered event to get the info entered by the user
@@ -284,7 +284,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
             if (_mapInfoUI != null) { return; }
 
             // Create a view to show map item info entry controls over the map view
-            var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height - 60);
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            var ovBounds = new CoreGraphics.CGRect(5, topMargin + 5, View.Bounds.Width - 10, View.Bounds.Height - topMargin - 45);
             _mapInfoUI = new SaveMapDialogOverlay(ovBounds, 0.75f, UIColor.White, (PortalItem)_myMapView.Map.Item);
 
             // Handle the OnMapInfoEntered event to get the info entered by the user
@@ -649,6 +650,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
             _clientIdTextField.Text = clientId;
             _clientIdTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _clientIdTextField.BackgroundColor = UIColor.LightGray;
+            _clientIdTextField.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
+            _clientIdTextField.LeftViewMode = UITextFieldViewMode.Always;
             // Allow pressing 'return' to dismiss the keyboard
             _clientIdTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -666,6 +669,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
             _redirectUrlTextField.Text = redirectUrl;
             _redirectUrlTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _redirectUrlTextField.BackgroundColor = UIColor.LightGray;
+            _redirectUrlTextField.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
+            _redirectUrlTextField.LeftViewMode = UITextFieldViewMode.Always;
             // Allow pressing 'return' to dismiss the keyboard
             _redirectUrlTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -808,6 +813,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
             _titleTextField.Placeholder = "Title";
             _titleTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _titleTextField.BackgroundColor = UIColor.LightGray;
+            _titleTextField.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
+            _titleTextField.LeftViewMode = UITextFieldViewMode.Always;
             // Allow pressing 'return' to dismiss the keyboard
             _titleTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -819,6 +826,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
             _descriptionTextField.Placeholder = "Description";
             _descriptionTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _descriptionTextField.BackgroundColor = UIColor.LightGray;
+            _descriptionTextField.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
+            _descriptionTextField.LeftViewMode = UITextFieldViewMode.Always;
             // Allow pressing 'return' to dismiss the keyboard
             _descriptionTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
@@ -830,6 +839,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
             _tagsTextField.Text = "ArcGIS Runtime, Web Map";
             _tagsTextField.AutocapitalizationType = UITextAutocapitalizationType.None;
             _tagsTextField.BackgroundColor = UIColor.LightGray;
+            _tagsTextField.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
+            _tagsTextField.LeftViewMode = UITextFieldViewMode.Always;
             // Allow pressing 'return' to dismiss the keyboard
             _tagsTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 

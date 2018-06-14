@@ -189,7 +189,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             try
             {
                 // Get the boolean value whether to create a single convex hull (true) or independent convex hulls (false).
-                bool unionBool = (bool)_convexHullListUISwitch.On;
+                bool unionBool = _convexHullListUISwitch.On;
 
                 // Add the geometries of the two polygon graphics to a list of geometries. It will be used as the 1st
                 // input parameter of the GeometryEngine.ConvexHull function. 
@@ -237,7 +237,6 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                 UIAlertController alertController = UIAlertController.Create("Geometry Engine Failed!", ex.Message, UIAlertControllerStyle.Alert);
                 alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alertController, true, null);
-                return;
             }
         }
 

@@ -169,10 +169,10 @@ namespace ArcGISRuntime.Samples.FindPlace
             nfloat margin = 5;
 
             // Set a standard width for the controls
-            nfloat width = View.Frame.Width - 2 * (nfloat)margin;
+            nfloat width = View.Frame.Width - 2 * margin;
 
             // Set a standard width for a half-size control
-            nfloat halfWidth = View.Frame.Width / 2 - 2 * (nfloat)margin;
+            nfloat halfWidth = View.Frame.Width / 2 - 2 * margin;
 
             // Set the background frame
             _backgroundToolbar.Frame = new CoreGraphics.CGRect(0, topHeight, View.Bounds.Width, height * 3 + margin * 4);

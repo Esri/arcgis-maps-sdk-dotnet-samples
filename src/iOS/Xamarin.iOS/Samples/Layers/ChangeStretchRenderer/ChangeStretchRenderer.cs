@@ -149,7 +149,6 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             // Create a list of stretch renderer choices the user can choose from
             _rendererTypes = new UISegmentedControl(_rendererChoices)
             {
-                BackgroundColor = controlWhite,
                 SelectedSegment = 0
             };
             _rendererTypes.ValueChanged += rendererTypes_ValueChanged;

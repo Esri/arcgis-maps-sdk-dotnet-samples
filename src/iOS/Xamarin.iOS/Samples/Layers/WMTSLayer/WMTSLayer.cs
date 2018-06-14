@@ -32,10 +32,10 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         private MapView _myMapView = new MapView();
 
         // Button for loading layer using Uri constructor.
-        private Button _uriButton;
+        private UIButton _uriButton;
 
         // Button for loading layer using WmtsService.
-        private Button _infoButton;
+        private UIButton _infoButton;
 
         public WMTSLayer()
         {
@@ -114,7 +114,6 @@ namespace ArcGISRuntime.Samples.WMTSLayer
                 {
                     // Create a WMTS layer using a Uri and provide an Id value.
                     myWmtsLayer = new WmtsLayer(wmtsUri, "WorldTimeZones");
-
                 }
                 else
                 {
@@ -142,7 +141,6 @@ namespace ArcGISRuntime.Samples.WMTSLayer
 
                 // Zoom to appropriate level for iOS.
                 await _myMapView.SetViewpointScaleAsync(300000000);
-
             }
             catch (Exception ex)
             {
@@ -178,9 +176,3 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         }
     }
 }
-/*
-// Report error
-UIAlertController alert = UIAlertController.Create("Error", ex.Message, UIAlertControllerStyle.Alert);
-alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-PresentViewController(alert, true, null);
-*/

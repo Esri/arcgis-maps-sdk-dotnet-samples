@@ -14,6 +14,8 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Xamarin.Forms;
 using GeoViewInputEventArgs = Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs;
 using Colors = System.Drawing.Color;
+using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.UI;
 
 namespace ArcGISRuntime.Samples.ViewshedLocation
 {
@@ -36,6 +38,12 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
 
         // Hold a reference to the analysis overlay that will hold the viewshed analysis.
         private AnalysisOverlay _analysisOverlay;
+
+        // Graphics overlay for viewpoint symbol.
+        private GraphicsOverlay _viewpointOverlay;
+
+        // Symbol for viewpoint.
+        private SimpleMarkerSceneSymbol _viewpointSymbol;
 
         public ViewshedLocation()
         {
@@ -78,6 +86,14 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             // Create a camera based on the initial location.
             Camera camera = new Camera(initialLocation, 200.0, 20.0, 70.0, 0.0);
 
+            // Create a symbol for the viewpoint.
+            _viewpointSymbol = SimpleMarkerSceneSymbol.CreateSphere(Colors.Blue, 10, SceneSymbolAnchorPosition.Center);
+
+            // Add the symbol to the viewpoint overlay.
+            _viewpointOverlay = new GraphicsOverlay();
+            _viewpointOverlay.SceneProperties = new LayerSceneProperties(SurfacePlacement.Absolute);
+            _viewpointOverlay.Graphics.Add(new Graphic(initialLocation, _viewpointSymbol));
+
             // Apply the camera to the scene view.
             MySceneView.SetViewpointCamera(camera);
 
@@ -89,6 +105,9 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
 
             // Add the analysis overlay to the SceneView.
             MySceneView.AnalysisOverlays.Add(_analysisOverlay);
+
+            // Add the graphics overlay
+            MySceneView.GraphicsOverlays.Add(_viewpointOverlay);
 
             // Update the frustum outline color.
             // The frustum outline shows the volume in which the viewshed analysis is performed.
@@ -105,6 +124,10 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
 
             // Move the location off of the ground.
             _viewshed.Location = new MapPoint(_viewshed.Location.X, _viewshed.Location.Y, _viewshed.Location.Z + 10.0);
+
+            // Update the viewpoint symbol.
+            _viewpointOverlay.Graphics.Clear();
+            _viewpointOverlay.Graphics.Add(new Graphic(_viewshed.Location, _viewpointSymbol));
         }
 
         private void HandleSettingsChange(object sender, EventArgs e)

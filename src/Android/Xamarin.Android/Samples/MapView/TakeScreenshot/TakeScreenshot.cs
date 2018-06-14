@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using Android.App;
-using Android.Graphics;
 using Android.OS;
 using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
@@ -55,22 +54,22 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             try
             {
                 // Export the image from map view
-                Bitmap exportedImage = await (await _myMapView.ExportImageAsync()).ToImageSourceAsync();
+                RuntimeImage exportedImage = await _myMapView.ExportImageAsync();
 
                 // Create an image button (this will display the exported map view image)
-                var myImageButton = new ImageButton(this);
+                ImageButton myImageButton = new ImageButton(this);
 
                 // Define the size of the image button to be 2/3 the size of the map view
                 myImageButton.LayoutParameters = new Android.Views.ViewGroup.LayoutParams((int)(_myMapView.Width * .667), (int)(_myMapView.Height * .667));
 
                 // Set the source of the image button to be that of the exported map view image
-                myImageButton.SetImageBitmap(exportedImage);
+                myImageButton.SetImageBitmap(await exportedImage.ToImageSourceAsync());
 
                 // Make the image that was captured from the map view export to fit within (aka scale-to-fit) the image button
                 myImageButton.SetScaleType(ImageView.ScaleType.FitCenter);
 
                 // Define a popup with a single image button control and make the size of the popup to be 2/3 the size of the map view
-                var myPopupWindow = new PopupWindow(myImageButton, (int)(_myMapView.Width * .667), (int)(_myMapView.Height * .667));
+                PopupWindow myPopupWindow = new PopupWindow(myImageButton, (int)(_myMapView.Width * .667), (int)(_myMapView.Height * .667));
 
                 // Display the popup in the middle of the map view
                 myPopupWindow.ShowAtLocation(_myMapView, Android.Views.GravityFlags.Center, 0, 0);
@@ -91,10 +90,10 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add a button to take a screen shot, with wired up event
-            var takeScreenshotButton = new Button(this);
+            Button takeScreenshotButton = new Button(this);
             takeScreenshotButton.Text = "Capture";
             takeScreenshotButton.Click += OnTakeScreenshotClicked;
             layout.AddView(takeScreenshotButton);

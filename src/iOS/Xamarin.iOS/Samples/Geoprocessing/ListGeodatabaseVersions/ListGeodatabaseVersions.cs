@@ -145,7 +145,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
                 {
                     UIAlertController alert = new UIAlertController
                     {
-                        Message = "An error occurred. " + ex.ToString()
+                        Message = "An error occurred. " + ex
                     };
                     alert.ShowViewController(this, this);
                 }

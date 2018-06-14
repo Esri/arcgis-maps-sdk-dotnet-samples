@@ -383,7 +383,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             StatisticType statType = (StatisticType)_statTypes.GetValue(pickerView.SelectedRowInComponent(1));
 
             // Create an output field alias by concatenating the field name and statistic type
-            string outAlias = onFieldName + "_" + statType.ToString();
+            string outAlias = onFieldName + "_" + statType;
 
             // Create a new statistic definition (available from the SelectedStatDefinition public property)
             _selectedStatDefinition = new StatisticDefinition(onFieldName, statType, outAlias);
@@ -756,14 +756,11 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         // Event to report that the choice was canceled
         public event EventHandler OnCanceled;
 
-        // Store the input controls so the values can be read
-        private UIPickerView _statisticPicker;
-        
         // Constructor that takes a picker for defining new statistics
         public ChooseStatisticOverlay(CGRect frame, nfloat transparency, UIColor color, UIPickerView statPicker) : base(frame)
         {
             // Store the statistics picker
-            _statisticPicker = statPicker;
+            var statisticPicker = statPicker;
             
             // Create a semi-transparent overlay with the specified background color
             BackgroundColor = color;
@@ -793,7 +790,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             UIBarButtonItem addButton = new UIBarButtonItem("Add", UIBarButtonItemStyle.Done, (s, e) =>
             {
                 // Get the selected StatisticDefinition
-                StatDefinitionModel statPickerModel = _statisticPicker.Model as StatDefinitionModel;
+                StatDefinitionModel statPickerModel = statisticPicker.Model as StatDefinitionModel;
                 StatisticDefinition newStatDefinition = statPickerModel.SelectedStatDefinition;
                 if (newStatDefinition != null)
                 {
@@ -813,14 +810,14 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 
             // Define the location of the statistic picker
             controlY = controlY + 200;
-            _statisticPicker.Frame = new CGRect(controlX, controlY, totalWidth, 200);
+            statisticPicker.Frame = new CGRect(controlX, controlY, totalWidth, 200);
 
             // Set the location for the toolbar
             controlY = controlY + 220;
             toolbar.Frame = new CGRect(controlX, controlY, totalWidth, 30);
 
             // Add the controls
-            AddSubviews(toolbar, _statisticPicker);
+            AddSubviews(toolbar, statisticPicker);
         }
 
         // Animate increasing transparency to completely hide the view, then remove it

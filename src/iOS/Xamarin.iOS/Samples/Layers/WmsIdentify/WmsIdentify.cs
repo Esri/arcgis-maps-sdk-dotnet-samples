@@ -17,6 +17,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using UIKit;
+using WebKit;
 
 namespace ArcGISRuntime.Samples.WmsIdentify
 {
@@ -134,12 +135,9 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             // Override intrinsic size so that the view displays properly in a callout
             public override CGSize IntrinsicContentSize => new CGSize(175, 100);
 
-            // Hold a reference to the webview that is being wrapped
-            private WebKit.WKWebView webview;
-
             public WebViewWrapper(WebKit.WKWebView view)
             {
-                webview = view;
+                var webview = view;
 
                 // Add the webview as a subview
                 AddSubview(webview);

@@ -460,17 +460,13 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
 
         // Store the input controls so the values can be read
         private UITextField _titleTextField;
-
         private UITextField _descriptionTextField;
         private UITextField _tagsTextField;
 
-        // Store any existing portal item (for "update" versus "save", e.g.)
-        private PortalItem _portalItem = null;
-
         public SaveMapDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, Item mapItem) : base(frame)
         {
-            // Store the current portal item for the map (if any)
-            _portalItem = mapItem as PortalItem;
+            // Store any existing portal item (for "update" versus "save", e.g.)
+            var portalItem = mapItem as PortalItem;
 
             // Create a semi-transparent overlay with the specified background color
             BackgroundColor = color;
@@ -553,15 +549,15 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             AddSubviews(_titleTextField, _descriptionTextField, _tagsTextField, saveButton, cancelButton);
 
             // If there's an existing portal item, configure the dialog for "update" (read-only entries)
-            if (_portalItem != null)
+            if (portalItem != null)
             {
-                _titleTextField.Text = _portalItem.Title;
+                _titleTextField.Text = portalItem.Title;
                 _titleTextField.Enabled = false;
 
-                _descriptionTextField.Text = _portalItem.Description;
+                _descriptionTextField.Text = portalItem.Description;
                 _descriptionTextField.Enabled = false;
 
-                _tagsTextField.Text = string.Join(",", _portalItem.Tags);
+                _tagsTextField.Text = string.Join(",", portalItem.Tags);
                 _tagsTextField.Enabled = false;
 
                 // Change the button text

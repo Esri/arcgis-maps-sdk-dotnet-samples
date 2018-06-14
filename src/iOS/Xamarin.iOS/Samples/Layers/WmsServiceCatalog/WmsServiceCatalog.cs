@@ -57,6 +57,8 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             if (cell == null)
             {
                 cell = new UITableViewCell(UITableViewCellStyle.Default, CellId);
+                cell.BackgroundColor = UIColor.FromWhiteAlpha(0, 0f);
+                cell.TextLabel.TextColor = Owner.View.TintColor;
             }
 
             // Get the specific item to display
@@ -112,6 +114,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
 
         // Create and hold the help label
         private UILabel _myHelpLabel = new UILabel();
+        private UIToolbar _toolbar = new UIToolbar();
 
         public WmsServiceCatalog()
         {
@@ -132,11 +135,16 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         private void CreateLayout()
         {
             // Set the help label text and color
-            _myHelpLabel.Text = "Select a layer from above list.";
-            _myHelpLabel.TextColor = UIColor.Red;
+            _myHelpLabel.Text = "Select a layer from the list above.";
+            _myHelpLabel.TextAlignment = UITextAlignment.Center;
+            _myHelpLabel.AdjustsFontSizeToFitWidth = true;
+
+            // Make the table view entries a bit smaller.
+            _myDisplayList.RowHeight = 30;
+            _myDisplayList.BackgroundColor = UIColor.FromWhiteAlpha(0, 0f);
 
             // Add the MapView to the view
-            View.AddSubviews(_myMapView, _myDisplayList, _myHelpLabel);
+            View.AddSubviews(_myMapView, _toolbar, _myDisplayList, _myHelpLabel);
         }
 
         public override void ViewDidLayoutSubviews()
@@ -148,7 +156,8 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             _myDisplayList.Frame = new CoreGraphics.CGRect(0, pageOffset, View.Bounds.Width, 150);
 
             // Set up the visual frame for the help label
-            _myHelpLabel.Frame = new CoreGraphics.CGRect(10, pageOffset + 150, View.Bounds.Width - 20, 60);
+            _myHelpLabel.Frame = new CoreGraphics.CGRect(5, _myDisplayList.Frame.Bottom + 5, View.Bounds.Width - 10, 30);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, _myDisplayList.Frame.Top, View.Bounds.Width, _myDisplayList.Frame.Height + 40);
 
             // Set up the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);

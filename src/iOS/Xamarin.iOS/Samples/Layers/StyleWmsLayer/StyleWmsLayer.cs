@@ -80,6 +80,10 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             _firstStyleButton.SetTitle("Style 1", UIControlState.Normal);
             _secondStyleButton.SetTitle("Style 2", UIControlState.Normal);
 
+            // Update alignment.
+            _firstStyleButton.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
+            _secondStyleButton.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
+
             // Update the colors.
             _firstStyleButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _secondStyleButton.SetTitleColor(View.TintColor, UIControlState.Normal);
@@ -152,7 +156,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             // Update the insets for the map view (to ensure attribution bar is visible, among other reasons).
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 50, 0);
+            //_myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 50, 0);
 
             // Update the toolbar and button positions.
             _buttonContainer.Frame = new CGRect(0, View.Bounds.Height - (2 * controlHeight) - (3 * margin), View.Bounds.Width, 2 * controlHeight + 3 * margin);
@@ -161,7 +165,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             _helpLabel.Frame = new CGRect(margin, View.Bounds.Height - (2 * controlHeight) - (2 * margin), View.Bounds.Width - (2 * margin), controlHeight);
 
             _firstStyleButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - margin, controlHeight);
-            _secondStyleButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - margin, controlHeight);
+            _secondStyleButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
 
             base.ViewDidLayoutSubviews();
         }

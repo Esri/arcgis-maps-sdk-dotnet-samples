@@ -89,7 +89,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
             DictionarySymbolStyle symbolStyle = await DictionarySymbolStyle.OpenAsync("mil2525d", symbolFilepath);
 
             // Add geodatabase features to the map, using the defined symbology
-            foreach (FeatureTable table in baseGeodatabase.GeodatabaseFeatureTables)
+            foreach (GeodatabaseFeatureTable table in baseGeodatabase.GeodatabaseFeatureTables)
             {
                 // Load the table
                 await table.LoadAsync();

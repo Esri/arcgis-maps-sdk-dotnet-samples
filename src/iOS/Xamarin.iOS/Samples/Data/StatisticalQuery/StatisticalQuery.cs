@@ -28,16 +28,13 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
     public class StatisticalQuery : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // URI for the world cities map service layer
-        private Uri _worldCitiesServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0");
+        private readonly Uri _worldCitiesServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0");
 
         // World cities feature table
         private FeatureTable _worldCitiesTable;
-
-        // Stack view UI control for arranging query controls
-        private UIStackView _controlsStackView;
 
         // UI controls (switches) that will need to be referenced
         private UISwitch _onlyInExtentSwitch;
@@ -49,7 +46,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         private UIButton _getStatsButton;
 
         // Toolbar to show behind the form
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
         public StatisticalQuery()
         {

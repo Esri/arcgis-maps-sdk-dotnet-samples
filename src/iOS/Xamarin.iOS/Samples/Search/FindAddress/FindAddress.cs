@@ -102,11 +102,8 @@ namespace ArcGISRuntime.Samples.FindAddress
 
         private async void Initialize()
         {
-            // Get a new instance of the Imagery with Labels basemap
-            Basemap _basemap = Basemap.CreateImageryWithLabels();
-
             // Create a new Map with the basemap
-            Map myMap = new Map(_basemap);
+            Map myMap = new Map(Basemap.CreateImageryWithLabels());
 
             // Populate the MapView with the Map
             _myMapView.Map = myMap;

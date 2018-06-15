@@ -49,10 +49,10 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 
         // Overlay with entry controls for OAuth configuration (client ID and redirect Url)
-        private OAuthPropsDialogOverlay _oauthInfoUI;
+        private OAuthPropsDialogOverlay _oauthInfoUi;
 
         // Overlay with entry controls for map item details (title, description, and tags)
-        private SaveMapDialogOverlay _mapInfoUI;
+        private SaveMapDialogOverlay _mapInfoUi;
 
         // Progress bar to show that the app is working
         private UIActivityIndicatorView _activityIndicator;
@@ -62,14 +62,14 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private string ServerUrl = "https://www.arcgis.com/sharing/rest";
 
         // TODO: Add Client ID for an app registered with the server
-        private string AppClientId = "2Gh53JRzkPtOENQq";
+        private string _appClientId = "2Gh53JRzkPtOENQq";
 
         // TODO: Add URL for redirecting after a successful authorization
         //       Note - this must be a URL configured as a valid Redirect URI with your app
-        private string OAuthRedirectUrl = "https://developers.arcgis.com";
+        private string _oAuthRedirectUrl = "https://developers.arcgis.com";
 
         // URL used by the server for authorization
-        private string AuthorizeUrl = "https://www.arcgis.com/sharing/oauth2/authorize";
+        private readonly string _authorizeUrl = "https://www.arcgis.com/sharing/oauth2/authorize";
 
         public AuthorMap()
         {
@@ -105,7 +105,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             _myMapView.Map = myMap;
 
             // Prompt the user for OAuth settings
-            ShowOAuthPropsUI();
+            ShowOAuthPropsUi();
         }
 
         private void CreateLayout()
@@ -164,7 +164,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             else if (selectedSegmentId == 3)
             {
                 // Show the save map UI
-                ShowSaveMapUI();
+                ShowSaveMapUi();
             }
 
             // Unselect all segments (user might want to click the same control twice)
@@ -250,56 +250,56 @@ namespace ArcGISRuntime.Samples.AuthorMap
             }
         }
 
-        private void ShowOAuthPropsUI()
+        private void ShowOAuthPropsUi()
         {
-            if (_oauthInfoUI != null) { return; }
+            if (_oauthInfoUi != null) { return; }
 
             // Create a view to show entry controls over the map view
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
             var ovBounds = new CoreGraphics.CGRect(5, topMargin + 5, (View.Bounds.Width - 10), (View.Bounds.Height - topMargin - 50));
-            _oauthInfoUI = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, AppClientId, OAuthRedirectUrl);
+            _oauthInfoUi = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, _appClientId, _oAuthRedirectUrl);
 
             // Handle the OnOAuthPropsInfoEntered event to get the info entered by the user
-            _oauthInfoUI.OnOAuthPropsInfoEntered += (s, e) =>
+            _oauthInfoUi.OnOAuthPropsInfoEntered += (s, e) =>
             {
                 // Store the settings entered and use them to update the AuthenticationManager
-                AppClientId = e.ClientId;
-                OAuthRedirectUrl = e.RedirectUrl;
+                _appClientId = e.ClientId;
+                _oAuthRedirectUrl = e.RedirectUrl;
                 UpdateAuthenticationManager();
 
                 // Hide the OAuth entry
-                _oauthInfoUI.Hide();
-                _oauthInfoUI = null;
+                _oauthInfoUi.Hide();
+                _oauthInfoUi = null;
             };
 
             // Handle the cancel event when the user closes the dialog without choosing to save
-            _oauthInfoUI.OnCanceled += (s, e) =>
+            _oauthInfoUi.OnCanceled += (s, e) =>
             {
-                _oauthInfoUI.Hide();
-                _oauthInfoUI = null;
+                _oauthInfoUi.Hide();
+                _oauthInfoUi = null;
             };
 
             // Add the map item info UI view (will display semi-transparent over the map view)
-            View.Add(_oauthInfoUI);
+            View.Add(_oauthInfoUi);
         }
 
-        private void ShowSaveMapUI()
+        private void ShowSaveMapUi()
         {
-            if (_mapInfoUI != null) { return; }
+            if (_mapInfoUi != null) { return; }
 
             // Create a view to show map item info entry controls over the map view
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
             var ovBounds = new CoreGraphics.CGRect(5, topMargin + 5, View.Bounds.Width - 10, View.Bounds.Height - topMargin - 45);
-            _mapInfoUI = new SaveMapDialogOverlay(ovBounds, 0.75f, UIColor.White, (PortalItem)_myMapView.Map.Item);
+            _mapInfoUi = new SaveMapDialogOverlay(ovBounds, 0.75f, UIColor.White, (PortalItem)_myMapView.Map.Item);
 
             // Handle the OnMapInfoEntered event to get the info entered by the user
-            _mapInfoUI.OnMapInfoEntered += MapItemInfoEntered;
+            _mapInfoUi.OnMapInfoEntered += MapItemInfoEntered;
 
             // Handle the cancel event when the user closes the dialog without choosing to save
-            _mapInfoUI.OnCanceled += SaveCanceled;
+            _mapInfoUi.OnCanceled += SaveCanceled;
 
             // Add the map item info UI view (will display semi-transparent over the map view)
-            View.Add(_mapInfoUI);
+            View.Add(_mapInfoUi);
         }
 
         // Handle the OnMapInfoEntered event from the item input UI
@@ -364,8 +364,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
             finally
             {
                 // Get rid of the item input controls
-                _mapInfoUI.Hide();
-                _mapInfoUI = null;
+                _mapInfoUi.Hide();
+                _mapInfoUi = null;
 
                 // Hide the progress bar
                 _activityIndicator.StopAnimating();
@@ -375,8 +375,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void SaveCanceled(object sender, EventArgs e)
         {
             // Remove the item input UI
-            _mapInfoUI.Hide();
-            _mapInfoUI = null;
+            _mapInfoUi.Hide();
+            _mapInfoUi = null;
         }
 
         private async Task SaveNewMapAsync(Map myMap, string title, string description, string[] tags, RuntimeImage img)
@@ -424,8 +424,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 ServerUri = new Uri(ServerUrl),
                 OAuthClientInfo = new OAuthClientInfo
                 {
-                    ClientId = AppClientId,
-                    RedirectUri = new Uri(OAuthRedirectUrl)
+                    ClientId = _appClientId,
+                    RedirectUri = new Uri(_oAuthRedirectUrl)
                 },
                 // Specify OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
                 // Otherwise, use OAuthImplicit
@@ -490,10 +490,10 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             OAuth2Authenticator auth = new OAuth2Authenticator(
-                clientId: AppClientId,
+                clientId: _appClientId,
                 scope: "",
-                authorizeUrl: new Uri(AuthorizeUrl),
-                redirectUrl: new Uri(OAuthRedirectUrl))
+                authorizeUrl: new Uri(_authorizeUrl),
+                redirectUrl: new Uri(_oAuthRedirectUrl))
             {
                 ShowErrors = false,
                 // Allow the user to cancel the OAuth attempt

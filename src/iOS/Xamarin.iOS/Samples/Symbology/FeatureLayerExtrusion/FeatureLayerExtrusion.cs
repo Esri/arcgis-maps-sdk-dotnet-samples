@@ -29,13 +29,13 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
     public class FeatureLayerExtrusion : UIViewController
     {
         // Create and hold reference to the used SceneView
-        private SceneView _mySceneView = new SceneView();
+        private readonly SceneView _mySceneView = new SceneView();
 
         // Create button
-        private UIButton _button_ToggleExtrusionData;
+        private UIButton _toggleExtrusionButton;
 
         // Create toolbar
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
         public FeatureLayerExtrusion()
         {
@@ -57,10 +57,10 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             try
             {
                 // Define the Uri for the service feature table (US state polygons)
-                var myServiceFeatureTable_Uri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
+                var featureTableUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
 
                 // Create a new service feature table from the Uri
-                ServiceFeatureTable myServiceFeatureTable = new ServiceFeatureTable(myServiceFeatureTable_Uri);
+                ServiceFeatureTable myServiceFeatureTable = new ServiceFeatureTable(featureTableUri);
 
                 // Create a new feature layer from the service feature table
                 FeatureLayer myFeatureLayer = new FeatureLayer(myServiceFeatureTable)
@@ -129,15 +129,15 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             RendererSceneProperties myRendererSceneProperties = myRenderer.SceneProperties;
 
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text
-            if (_button_ToggleExtrusionData.Title(UIControlState.Normal) == "Population density")
+            if (_toggleExtrusionButton.Title(UIControlState.Normal) == "Population density")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000";
-                _button_ToggleExtrusionData.SetTitle("Total population", UIControlState.Normal);
+                _toggleExtrusionButton.SetTitle("Total population", UIControlState.Normal);
             }
-            else if (_button_ToggleExtrusionData.Title(UIControlState.Normal) == "Total population")
+            else if (_toggleExtrusionButton.Title(UIControlState.Normal) == "Total population")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
-                _button_ToggleExtrusionData.SetTitle("Population density", UIControlState.Normal);
+                _toggleExtrusionButton.SetTitle("Population density", UIControlState.Normal);
             }
         }
 
@@ -148,12 +148,12 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             // Setup the visual frames for the views
             _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - (2 * margin), View.Bounds.Width, controlHeight + (2 * margin));
-            _button_ToggleExtrusionData.Frame = new CoreGraphics.CGRect(margin, _toolbar.Frame.Top + 5, View.Bounds.Width - (2 * margin), controlHeight);
+            _toggleExtrusionButton.Frame = new CoreGraphics.CGRect(margin, _toolbar.Frame.Top + 5, View.Bounds.Width - (2 * margin), controlHeight);
 
             base.ViewDidLayoutSubviews();
         }
 
-        private void OnButton_ToggleExtrusionData_Clicked(object sender, EventArgs e)
+        private void ToggleExtrusionButton_Clicked(object sender, EventArgs e)
         {
             // Call the function to change the feature layer's renderer scene properties extrusion expression
             ChangeExtrusionExpression();
@@ -163,15 +163,15 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         {
 
             // Create a button
-            _button_ToggleExtrusionData = new UIButton();
-            _button_ToggleExtrusionData.SetTitle("Population density", UIControlState.Normal);
-            _button_ToggleExtrusionData.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _toggleExtrusionButton = new UIButton();
+            _toggleExtrusionButton.SetTitle("Population density", UIControlState.Normal);
+            _toggleExtrusionButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Hook the touch event for the button
-            _button_ToggleExtrusionData.TouchUpInside += OnButton_ToggleExtrusionData_Clicked;
+            _toggleExtrusionButton.TouchUpInside += ToggleExtrusionButton_Clicked;
 
             // Add SceneView to the page
-            View.AddSubviews(_mySceneView, _toolbar, _button_ToggleExtrusionData);
+            View.AddSubviews(_mySceneView, _toolbar, _toggleExtrusionButton);
         }
     }
 }

@@ -35,8 +35,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         private MapView _myMapView = new MapView();
 
         // Url for the geoprocessing service
-        private const string _viewshedUrl =
-            "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/ESRI_Elevation_World/GPServer/Viewshed";
+        private const string ViewshedServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/ESRI_Elevation_World/GPServer/Viewshed";
 
         // The graphics overlay to show where the user clicked in the map
         private GraphicsOverlay _inputOverlay;
@@ -108,7 +107,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             // is a problem with the execution of the geoprocessing task an error message will be displayed
 
             // Create new geoprocessing task using the url defined in the member variables section
-            var myViewshedTask = await GeoprocessingTask.CreateAsync(new Uri(_viewshedUrl));
+            var myViewshedTask = await GeoprocessingTask.CreateAsync(new Uri(ViewshedServiceUrl));
 
             // Create a new feature collection table based upon point geometries using the current map view spatial reference
             var myInputFeatures = new FeatureCollectionTable(new List<Field>(), GeometryType.Point, _myMapView.SpatialReference);

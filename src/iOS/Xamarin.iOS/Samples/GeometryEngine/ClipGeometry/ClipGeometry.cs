@@ -52,14 +52,14 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         private GraphicsOverlay _clipAreasGraphicsOverlay;
 
         // Text view to display the sample instructions.
-        private UILabel _sampleInstructionUITextiew;
+        private UILabel _sampleInstructionsLabel;
 
         // Create a UIButton to clip polygons.
         private UIButton _clipButton;
 
         // Create toolbars to show behind the controls.
-        private UIToolbar _helpToolbar = new UIToolbar();
-        private UIToolbar _controlsToolbar = new UIToolbar();
+        private readonly UIToolbar _helpToolbar = new UIToolbar();
+        private readonly UIToolbar _controlsToolbar = new UIToolbar();
 
         public ClipGeometry()
         {
@@ -85,7 +85,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, controlHeight + (2 * margin));
             _controlsToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - (2 * margin), View.Bounds.Width, controlHeight + (2 * margin));
-            _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _sampleInstructionsLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
             _clipButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - (2 * margin), controlHeight);
 
             base.ViewDidLayoutSubviews();
@@ -247,7 +247,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         private void CreateLayout()
         {
             // Create a UITextView for the overall sample instructions.
-            _sampleInstructionUITextiew = new UILabel
+            _sampleInstructionsLabel = new UILabel
             {
                 Text = "Tap 'Clip' to clip the blue graphic with red envelopes.",
                 Lines = 1,
@@ -262,7 +262,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             _clipButton.TouchUpInside += ClipButton_TouchUpInside;
 
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _sampleInstructionUITextiew, _clipButton);
+            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _sampleInstructionsLabel, _clipButton);
         }
     }
 }

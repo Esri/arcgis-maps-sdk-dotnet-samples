@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         private UIButton _applyHillshadeButton;
 
         // Overlay with entry controls for applying a new hillshade renderer.
-        private ApplyHillshadeRendererDialogOverlay _applyHillshadeRendererUI;
+        private ApplyHillshadeRendererDialogOverlay _applyHillshadeRendererUi;
 
         // Store a reference to the map view control.
         private MapView _myMapView;
@@ -122,14 +122,14 @@ namespace ArcGISRuntime.Samples.RasterHillshade
 
         private void ApplyHillshade_Click(object sender, EventArgs e)
         {
-            if (_applyHillshadeRendererUI != null) { return; }
+            if (_applyHillshadeRendererUi != null) { return; }
 
             // Create a view to show map item info entry controls over the map view.
             var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
-            _applyHillshadeRendererUI = new ApplyHillshadeRendererDialogOverlay(ovBounds, 0.9f, UIColor.White);
+            _applyHillshadeRendererUi = new ApplyHillshadeRendererDialogOverlay(ovBounds, 0.9f, UIColor.White);
 
             // Handle the OnHillshadeInputsEntered event to get the new renderer defined by the user.
-            _applyHillshadeRendererUI.OnHillshadeInputsEntered += (s, hillshadeArgs) => 
+            _applyHillshadeRendererUi.OnHillshadeInputsEntered += (s, hillshadeArgs) => 
             {
                 // Get the new hillshade renderer.
                 HillshadeRenderer newHillshadeRenderer = hillshadeArgs.HillshadeRasterRenderer;
@@ -141,20 +141,20 @@ namespace ArcGISRuntime.Samples.RasterHillshade
                 }
 
                 // Remove the parameters input UI.
-                _applyHillshadeRendererUI.Hide();
-                _applyHillshadeRendererUI = null;
+                _applyHillshadeRendererUi.Hide();
+                _applyHillshadeRendererUi = null;
             };
 
             // Handle the cancel event when the user closes the dialog without entering hillshade params.
-            _applyHillshadeRendererUI.OnCanceled += (s, args) =>
+            _applyHillshadeRendererUi.OnCanceled += (s, args) =>
             {
                 // Remove the parameters input UI.
-                _applyHillshadeRendererUI.Hide();
-                _applyHillshadeRendererUI = null;
+                _applyHillshadeRendererUi.Hide();
+                _applyHillshadeRendererUi = null;
             };
 
             // Add the input UI view (will display semi-transparent over the map view).
-            View.Add(_applyHillshadeRendererUI);
+            View.Add(_applyHillshadeRendererUi);
         }
 
         private static string GetRasterPath()
@@ -208,10 +208,10 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
             cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
 
-            CreateHillshadeInputUI(inputHillshadeParamsButton, cancelButton);
+            CreateHillshadeInputUi(inputHillshadeParamsButton, cancelButton);
         }        
 
-        private void CreateHillshadeInputUI(UIButton applyButton, UIButton cancelButton)
+        private void CreateHillshadeInputUi(UIButton applyButton, UIButton cancelButton)
         {
             // Set size and spacing for controls.
             nfloat controlHeight = 25;

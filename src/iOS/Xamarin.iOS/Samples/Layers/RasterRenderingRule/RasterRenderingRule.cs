@@ -69,8 +69,8 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
             _myMapView.Map = myMap;
 
             // Make the text for the buttons in the UISegmentedControl small to display the names of the rendering rules
-            UIFont myUIFont = UIFont.SystemFontOfSize(7);
-            _myUISegmentedControl.SetTitleTextAttributes(new UITextAttributes { Font = myUIFont }, UIControlState.Normal);
+            UIFont myUiFont = UIFont.SystemFontOfSize(7);
+            _myUISegmentedControl.SetTitleTextAttributes(new UITextAttributes { Font = myUiFont }, UIControlState.Normal);
             _myUISegmentedControl.ApportionsSegmentWidthsByContent = true;
 
             // Wire-up the UISegmentedControl's value change event handler

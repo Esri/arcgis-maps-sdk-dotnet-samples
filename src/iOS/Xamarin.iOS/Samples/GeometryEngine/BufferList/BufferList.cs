@@ -35,29 +35,28 @@ namespace ArcGISRuntime.Samples.BufferList
         private GraphicsOverlay _graphicsOverlay;
 
         // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.Buffer operation.
-        private List<Geometry> _bufferPointsList = new List<Geometry>();
+        private readonly List<Geometry> _bufferPointsList = new List<Geometry>();
 
         // List of buffer distance values (in meters) that will be used by the GeometryEngine.Buffer operation.
-        private List<double> _bufferDistancesList = new List<double>();
+        private readonly List<double> _bufferDistancesList = new List<double>();
 
-        // Text view to display the list of geodatabases
-        private UILabel _sampleInstructionUITextiew;
+        private UILabel _sampleInstructionsLabel;
 
         // Create a UILabel to display instructions.
-        private UILabel _bufferDistanceInstructionsUILabel;
+        private UILabel _bufferDistanceInstructionLabel;
 
         // Create UITextField to enter a buffer value (in miles). 
-        private UITextField _bufferDistanceMilesUITextField;
+        private UITextField _bufferDistanceEntry;
 
         // Create a UISwitch to toggle whether to union the buffered results.
-        private UISwitch _unionBufferUISwitch;
+        private UISwitch _unionBufferSwitch;
 
         // Create a UIButton to create a unioned buffer.
         private UIButton _bufferButton;
 
         // Create toolbars to put behind the controls.
-        private UIToolbar _helpToolbar = new UIToolbar();
-        private UIToolbar _controlsToolbar = new UIToolbar();
+        private readonly UIToolbar _helpToolbar = new UIToolbar();
+        private readonly UIToolbar _controlsToolbar = new UIToolbar();
 
         public BufferList()
         {
@@ -83,10 +82,10 @@ namespace ArcGISRuntime.Samples.BufferList
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, controlHeight * 3 + margin * 2);
             _controlsToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - (2 * controlHeight) - (3 * margin), View.Bounds.Width, (2 * controlHeight) + (3 * margin));
-            _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), 3 * controlHeight);
-            _bufferDistanceInstructionsUILabel.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - (2 * controlHeight) - (2* margin), 175, controlHeight);
-            _bufferDistanceMilesUITextField.Frame = new CoreGraphics.CGRect(175 + 30, View.Bounds.Height - (2 * controlHeight) - (2 * margin), 50, controlHeight);
-            _unionBufferUISwitch.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 75 + margin, View.Bounds.Height - (2 * controlHeight) - (2 * margin), 75 - (2 * margin), controlHeight);
+            _sampleInstructionsLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), 3 * controlHeight);
+            _bufferDistanceInstructionLabel.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - (2 * controlHeight) - (2* margin), 175, controlHeight);
+            _bufferDistanceEntry.Frame = new CoreGraphics.CGRect(175 + 30, View.Bounds.Height - (2 * controlHeight) - (2 * margin), 50, controlHeight);
+            _unionBufferSwitch.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 75 + margin, View.Bounds.Height - (2 * controlHeight) - (2 * margin), 75 - (2 * margin), controlHeight);
             _bufferButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - (2 * margin), controlHeight);
 
             base.ViewDidLayoutSubviews();
@@ -124,7 +123,7 @@ namespace ArcGISRuntime.Samples.BufferList
                 MapPoint userTappedMapPoint = _myMapView.ScreenToLocation(e.Position);
 
                 // Get the buffer size (in miles) from the text field.
-                double bufferDistanceInMiles = System.Convert.ToDouble(_bufferDistanceMilesUITextField.Text);
+                double bufferDistanceInMiles = System.Convert.ToDouble(_bufferDistanceEntry.Text);
 
                 // Create a variable to be the buffer size in meters. There are 1609.34 meters in one mile.
                 double bufferDistanceInMeters = bufferDistanceInMiles * 1609.34;
@@ -166,7 +165,7 @@ namespace ArcGISRuntime.Samples.BufferList
             try
             {
                 // Get the boolean value whether to create a single unioned buffer (true) or independent buffer around each map point (false).
-                bool unionBufferBool = _unionBufferUISwitch.On;
+                bool unionBufferBool = _unionBufferSwitch.On;
 
                 // Create an IEnumerable that contains buffered polygon(s) from the GeometryEngine Buffer operation based on a list of map 
                 // points and list of buffered distances. The input distances used in the Buffer operation are in meters; this matches the 
@@ -218,7 +217,7 @@ namespace ArcGISRuntime.Samples.BufferList
         {
 
             // Create a UITextView for the overall sample instructions.
-            _sampleInstructionUITextiew = new UILabel
+            _sampleInstructionsLabel = new UILabel
             {
                 Text = "Tap on the map to create several points. You can specify the buffer distance for each point. " +
                        "Tap 'Create buffer(s)'. If the switch is 'on' the resulting output buffer will be unioned (one polygon). Otherwise, the result will have one buffer per point.",
@@ -227,24 +226,24 @@ namespace ArcGISRuntime.Samples.BufferList
             };
 
             // Create a UILabel for instructions.
-            _bufferDistanceInstructionsUILabel = new UILabel
+            _bufferDistanceInstructionLabel = new UILabel
             {
                 Text = "Buffer distance (miles):",
                 AdjustsFontSizeToFitWidth = true
             };
 
             // Create a UITextFiled for the buffer value.
-            _bufferDistanceMilesUITextField = new UITextField
+            _bufferDistanceEntry = new UITextField
             {
                 Text = "10",
                 AdjustsFontSizeToFitWidth = true,
                 VerticalAlignment = UIControlContentVerticalAlignment.Center
             };
             // - Allow pressing 'return' to dismiss the keyboard
-            _bufferDistanceMilesUITextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
+            _bufferDistanceEntry.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Create a UISwitch for toggling the union of the buffer geometries.
-            _unionBufferUISwitch = new UISwitch
+            _unionBufferSwitch = new UISwitch
             {
                 On = true,
                 HorizontalAlignment = UIControlContentHorizontalAlignment.Right
@@ -258,7 +257,7 @@ namespace ArcGISRuntime.Samples.BufferList
             _bufferButton.TouchUpInside += BufferButton_Click;
 
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _sampleInstructionUITextiew, _bufferDistanceInstructionsUILabel, _bufferDistanceMilesUITextField, _unionBufferUISwitch, _bufferButton);
+            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _sampleInstructionsLabel, _bufferDistanceInstructionLabel, _bufferDistanceEntry, _unionBufferSwitch, _bufferButton);
         }
     }
 }

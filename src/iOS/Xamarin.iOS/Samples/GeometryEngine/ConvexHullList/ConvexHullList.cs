@@ -41,20 +41,20 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         private Graphic _polygonGraphic2;
 
         // Text view to display the instructions for the sample.
-        UILabel _sampleInstructionUITextiew;
+        UILabel _sampleHelpLabel;
 
         // Create a UILabel to display label for the UISwitch.
-        private UILabel _convexHullListInstructionsUILabel;
+        private UILabel _switchLabel;
 
         // Create a UISwitch to toggle whether to union the convex hull(s).
-        private UISwitch _convexHullListUISwitch;
+        private UISwitch _unionSwitch;
 
         // Create a UIButton to create convex hull(s).
         private UIButton _convexHullListButton;
 
         // Create toolbars to go behind the help label and controls.
-        private UIToolbar _helpToolbar = new UIToolbar();
-        private UIToolbar _controlsToolbar = new UIToolbar();
+        private readonly UIToolbar _helpToolbar = new UIToolbar();
+        private readonly UIToolbar _controlsToolbar = new UIToolbar();
 
         public ConvexHullList()
         {
@@ -80,9 +80,9 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, controlHeight + (2 * margin));
             _controlsToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - (2 * margin), View.Bounds.Width, controlHeight + (2 * margin));
-            _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
-            _convexHullListInstructionsUILabel.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, 50 - (2 * margin), controlHeight);
-            _convexHullListUISwitch.Frame = new CoreGraphics.CGRect(50 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 50 - (2 * margin), controlHeight);
+            _sampleHelpLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _switchLabel.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, 50 - (2 * margin), controlHeight);
+            _unionSwitch.Frame = new CoreGraphics.CGRect(50 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 50 - (2 * margin), controlHeight);
             _convexHullListButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
 
             base.ViewDidLayoutSubviews();
@@ -189,7 +189,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             try
             {
                 // Get the boolean value whether to create a single convex hull (true) or independent convex hulls (false).
-                bool unionBool = _convexHullListUISwitch.On;
+                bool unionBool = _unionSwitch.On;
 
                 // Add the geometries of the two polygon graphics to a list of geometries. It will be used as the 1st
                 // input parameter of the GeometryEngine.ConvexHull function. 
@@ -243,7 +243,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         private void CreateLayout()
         {
             // Create a UITextView for the overall sample instructions.
-            _sampleInstructionUITextiew = new UILabel
+            _sampleHelpLabel = new UILabel
             {
                 Text = "Tap 'Create convex hull'. Result will be two polygons if 'Union' is off.",
                 Lines = 1,
@@ -251,14 +251,14 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             };
 
             // Create a UILabel for the UISwitch label.
-            _convexHullListInstructionsUILabel = new UILabel
+            _switchLabel = new UILabel
             {
                 Text = "Union:",
                 AdjustsFontSizeToFitWidth = true
             };
 
             // Create a UISwitch for toggling the union of the convex hull(s).
-            _convexHullListUISwitch = new UISwitch
+            _unionSwitch = new UISwitch
             {
                 On = true
             };
@@ -272,7 +272,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             _convexHullListButton.TouchUpInside += BufferButton_Click;
 
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _sampleInstructionUITextiew, _convexHullListInstructionsUILabel, _convexHullListUISwitch, _convexHullListButton);
+            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _sampleHelpLabel, _switchLabel, _unionSwitch, _convexHullListButton);
         }
     }
 }

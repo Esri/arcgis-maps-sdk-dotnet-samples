@@ -25,20 +25,20 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
     public class LayerListSource : UITableViewSource
     {
         // List of strings; these will be the suggestions
-        public List<LayerDisplayVM> _viewModelList = new List<LayerDisplayVM>();
+        public List<LayerDisplayVm> ViewModelList = new List<LayerDisplayVm>();
 
         // Used when re-using cells to ensure that a cell of the right type is used
-        private string CellId = "TableCell";
+        private readonly string _cellId = "TableCell";
 
         // Hold a reference to the owning view controller; this will be the active instance of WmsServiceCatalog 
-        public WmsServiceCatalog Owner { get; set; }
+        private WmsServiceCatalog Owner { get; }
 
-        public LayerListSource(List<LayerDisplayVM> items, WmsServiceCatalog owner)
+        public LayerListSource(List<LayerDisplayVm> items, WmsServiceCatalog owner)
         {
             // Set the items
             if (items != null)
             {
-                _viewModelList = items;
+                ViewModelList = items;
             }
 
             // Set the owner
@@ -51,12 +51,12 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             // Try to get a re-usable cell (this is for performance)
-            UITableViewCell cell = tableView.DequeueReusableCell(CellId);
+            UITableViewCell cell = tableView.DequeueReusableCell(_cellId);
 
             // If there are no cells, create a new one
             if (cell == null)
             {
-                cell = new UITableViewCell(UITableViewCellStyle.Default, CellId)
+                cell = new UITableViewCell(UITableViewCellStyle.Default, _cellId)
                 {
                     BackgroundColor = UIColor.FromWhiteAlpha(0, 0f)
                 };
@@ -64,7 +64,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             }
 
             // Get the specific item to display
-            LayerDisplayVM item = _viewModelList[indexPath.Row];
+            LayerDisplayVm item = ViewModelList[indexPath.Row];
 
             // Set the text on the cell
             cell.TextLabel.Text = item.Title;
@@ -78,7 +78,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         /// </summary>
         public override nint RowsInSection(UITableView tableview, nint section)
         {
-            return _viewModelList.Count;
+            return ViewModelList.Count;
         }
 
         /// <summary>
@@ -103,20 +103,20 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
     public class WmsServiceCatalog : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Hold the URL to the WMS service providing the US NOAA National Weather Service forecast weather chart
-        private Uri wmsUrl = new Uri("https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+        private readonly Uri _wmsUrl = new Uri("https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Hold a source for the UITableView that shows the available WMS layers
         private LayerListSource _layerListSource;
 
         // Create the view for the layer list display
-        private UITableView _myDisplayList = new UITableView();
+        private readonly UITableView _myDisplayList = new UITableView();
 
         // Create and hold the help label
-        private UILabel _myHelpLabel = new UILabel();
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UILabel _myHelpLabel = new UILabel();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
         public WmsServiceCatalog()
         {
@@ -173,7 +173,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             _myMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
 
             // Create the WMS Service
-            WmsService service = new WmsService(wmsUrl);
+            WmsService service = new WmsService(_wmsUrl);
 
             // Load the WMS Service
             await service.LoadAsync();
@@ -188,13 +188,13 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             List<WmsLayerInfo> expandedList = new List<WmsLayerInfo>();
             BuildLayerInfoList(topLevelLayers, expandedList);
 
-            List<LayerDisplayVM> displayList = new List<LayerDisplayVM>();
+            List<LayerDisplayVm> displayList = new List<LayerDisplayVm>();
 
             // Build the ViewModel from the expanded list of layer infos
             foreach (WmsLayerInfo layerInfo in expandedList)
             {
                 // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of the ArcGIS Runtime
-                displayList.Add(new LayerDisplayVM(layerInfo));
+                displayList.Add(new LayerDisplayVm(layerInfo));
             }
 
             // Construct the layer list source
@@ -235,7 +235,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         /// <summary>
         /// Updates the map with the latest layer selection
         /// </summary>
-        private async void UpdateMapDisplay(List<LayerDisplayVM> displayList)
+        private async void UpdateMapDisplay(List<LayerDisplayVm> displayList)
         {
             // Remove all existing layers
             _myMapView.Map.OperationalLayers.Clear();
@@ -262,16 +262,16 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         public void LayerSelectionChanged(int selectedIndex)
         {
             // Clear existing selection
-            foreach (LayerDisplayVM item in _layerListSource._viewModelList)
+            foreach (LayerDisplayVm item in _layerListSource.ViewModelList)
             {
                 item.IsEnabled = false;
             }
 
             // Update the selection
-            _layerListSource._viewModelList[selectedIndex].IsEnabled = true;
+            _layerListSource.ViewModelList[selectedIndex].IsEnabled = true;
 
             // Update the map
-            UpdateMapDisplay(_layerListSource._viewModelList);
+            UpdateMapDisplay(_layerListSource.ViewModelList);
         }
     }
 
@@ -279,7 +279,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
     /// This is a ViewModel class for maintaining the state of a layer selection.
     /// Typically, this would go in a separate file, but it is included here for clarity
     /// </summary>
-    public class LayerDisplayVM
+    public class LayerDisplayVm
     {
         /// <summary>
         /// Metadata for the individual selected layer
@@ -296,7 +296,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         /// </summary>
         public string Title => Info.Title;
 
-        public LayerDisplayVM(WmsLayerInfo info)
+        public LayerDisplayVm(WmsLayerInfo info)
         {
             Info = info;
         }

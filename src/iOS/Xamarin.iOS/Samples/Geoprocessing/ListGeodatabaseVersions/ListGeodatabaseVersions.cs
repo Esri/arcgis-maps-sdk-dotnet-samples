@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
         private UITextView _myEditText_ListGeodatabases = new UITextView();
 
         // Url to used geoprocessing service
-        private readonly Uri ListVersionsUrl = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/GDBVersions/GPServer/ListVersions");
+        private readonly Uri _listVersionsUrl = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/GDBVersions/GPServer/ListVersions");
 
         public ListGeodatabaseVersions()
         {
@@ -111,7 +111,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             IFeatureSet results = null;
 
             // Create new geoprocessing task 
-            var listVersionsTask = await GeoprocessingTask.CreateAsync(ListVersionsUrl);
+            var listVersionsTask = await GeoprocessingTask.CreateAsync(_listVersionsUrl);
 
             // Create default parameters that are passed to the geoprocessing task
             GeoprocessingParameters listVersionsParameters = await listVersionsTask.CreateDefaultParametersAsync();

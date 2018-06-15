@@ -39,10 +39,10 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 
         // Overlay with entry controls for OAuth configuration (client ID and redirect Url)
-        private OAuthPropsDialogOverlay _oauthInfoUI;
+        private OAuthPropsDialogOverlay _oauthInfoUi;
 
         // Overlay with entry control for web map search text
-        private SearchMapsDialogOverlay _searchMapsUI;
+        private SearchMapsDialogOverlay _searchMapsUi;
 
         // Variables for OAuth config and default values ...
         // URL of the server to authenticate with
@@ -78,14 +78,14 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
-            if (_searchMapsUI != null)
+            if (_searchMapsUi != null)
             {
-                _searchMapsUI.Frame = new CoreGraphics.CGRect(0, _topMargin, View.Bounds.Width, View.Bounds.Height);
+                _searchMapsUi.Frame = new CoreGraphics.CGRect(0, _topMargin, View.Bounds.Width, View.Bounds.Height);
             }
 
-            if (_oauthInfoUI != null)
+            if (_oauthInfoUi != null)
             {
-                _oauthInfoUI.Frame = new CoreGraphics.CGRect(0, _topMargin, View.Bounds.Width, View.Bounds.Height);
+                _oauthInfoUi.Frame = new CoreGraphics.CGRect(0, _topMargin, View.Bounds.Width, View.Bounds.Height);
             }
 
             _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
@@ -103,19 +103,19 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             _myMapView.Map = myMap;
 
             // Prompt the user for OAuth settings
-            ShowOAuthPropsUI();
+            ShowOAuthPropsUi();
         }
 
-        private void ShowOAuthPropsUI()
+        private void ShowOAuthPropsUi()
         {
-            if (_oauthInfoUI != null) { return; }
+            if (_oauthInfoUi != null) { return; }
 
             // Create a view to show entry controls over the map view
             var ovBounds = new CoreGraphics.CGRect(0, _topMargin, View.Bounds.Width, View.Bounds.Height);
-            _oauthInfoUI = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, _appClientId, _oAuthRedirectUrl);
+            _oauthInfoUi = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, _appClientId, _oAuthRedirectUrl);
 
             // Handle the OnOAuthPropsInfoEntered event to get the info entered by the user
-            _oauthInfoUI.OnOAuthPropsInfoEntered += (s, e) =>
+            _oauthInfoUi.OnOAuthPropsInfoEntered += (s, e) =>
             {
                 // Store the settings entered and use them to update the AuthenticationManager
                 _appClientId = e.ClientId;
@@ -123,19 +123,19 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 UpdateAuthenticationManager();
 
                 // Hide the OAuth entry
-                _oauthInfoUI.Hide();
-                _oauthInfoUI = null;
+                _oauthInfoUi.Hide();
+                _oauthInfoUi = null;
             };
 
             // Handle the cancel event when the user closes the dialog without choosing to save
-            _oauthInfoUI.OnCanceled += (s, e) =>
+            _oauthInfoUi.OnCanceled += (s, e) =>
             {
-                _oauthInfoUI.Hide();
-                _oauthInfoUI = null;
+                _oauthInfoUi.Hide();
+                _oauthInfoUi = null;
             };
 
             // Add the map item info UI view (will display semi-transparent over the map view)
-            View.Add(_oauthInfoUI);
+            View.Add(_oauthInfoUi);
         }
 
         private void CreateLayout()
@@ -164,7 +164,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             if (selectedSegmentId == 0)
             {
                 // Show search UI
-                ShowSearchMapUI();
+                ShowSearchMapUi();
             }
             else if (selectedSegmentId == 1)
             {
@@ -176,22 +176,22 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             buttonControl.SelectedSegment = -1;
         }
 
-        private void ShowSearchMapUI()
+        private void ShowSearchMapUi()
         {
-            if (_searchMapsUI != null) { return; }
+            if (_searchMapsUi != null) { return; }
 
             // Create a view to show map item info entry controls over the map view
             var ovBounds = new CoreGraphics.CGRect(0, _topMargin, View.Bounds.Width, View.Bounds.Height);
-            _searchMapsUI = new SearchMapsDialogOverlay(ovBounds, 0.75f, UIColor.White);
+            _searchMapsUi = new SearchMapsDialogOverlay(ovBounds, 0.75f, UIColor.White);
 
             // Handle the OnSearchMapsTextEntered event to get the info entered by the user
-            _searchMapsUI.OnSearchMapsTextEntered += SearchTextEntered;
+            _searchMapsUi.OnSearchMapsTextEntered += SearchTextEntered;
 
             // Handle the cancel event when the user closes the dialog without choosing to search
-            _searchMapsUI.OnCanceled += SearchCanceled;
+            _searchMapsUi.OnCanceled += SearchCanceled;
 
             // Add the search UI view (will display semi-transparent over the map view)
-            View.Add(_searchMapsUI);
+            View.Add(_searchMapsUi);
         }
 
         private async void GetMyMaps()
@@ -260,8 +260,8 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             finally
             {
                 // Get rid of the search input controls
-                _searchMapsUI.Hide();
-                _searchMapsUI = null;
+                _searchMapsUi.Hide();
+                _searchMapsUi = null;
             }
         }
 
@@ -331,8 +331,8 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private void SearchCanceled(object sender, EventArgs e)
         {
             // Remove the search input UI
-            _searchMapsUI.Hide();
-            _searchMapsUI = null;
+            _searchMapsUi.Hide();
+            _searchMapsUi = null;
         }
 
         #region OAuth helpers

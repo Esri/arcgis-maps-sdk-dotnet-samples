@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
     public class CutGeometry : UIViewController
     {
         // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Graphics overlay to display the graphics.
         private GraphicsOverlay _graphicsOverlay;
@@ -40,14 +40,14 @@ namespace ArcGISRuntime.Samples.CutGeometry
         private Graphic _countryBorderPolylineGraphic;
 
         // Text view to display the sample instructions.
-        UITextView _sampleInstructionUITextiew;
+        UITextView _helpLabel;
 
         // Create a UIButton to cut polygons.
         private UIButton _cutButton;
 
         // Toolbars to put behind the help label and button.
-        private UIToolbar _helpToolbar = new UIToolbar();
-        private UIToolbar _buttonToolbar = new UIToolbar();
+        private readonly UIToolbar _helpToolbar = new UIToolbar();
+        private readonly UIToolbar _buttonToolbar = new UIToolbar();
 
         public CutGeometry()
         {
@@ -73,7 +73,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, controlHeight + (2 * margin));
             _buttonToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - (2 * margin), View.Bounds.Width, controlHeight + (2 * margin));
-            _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _helpLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
             _cutButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - (2 * margin), controlHeight);
 
             base.ViewDidLayoutSubviews();
@@ -234,7 +234,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
         private void CreateLayout()
         {
             // Create a UITextView for the overall sample instructions.
-            _sampleInstructionUITextiew = new UITextView
+            _helpLabel = new UITextView
             {
                 Text = "Tap 'Cut' to cut the polygon with the polyline.",
                 TextAlignment = UITextAlignment.Center,
@@ -249,7 +249,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
             _cutButton.TouchUpInside += CutButton_TouchUpInside;
 
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _helpToolbar, _buttonToolbar, _sampleInstructionUITextiew, _cutButton);
+            View.AddSubviews(_myMapView, _helpToolbar, _buttonToolbar, _helpLabel, _cutButton);
         }
     }
 }

@@ -51,7 +51,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         private UIActivityIndicatorView _myProgressBar;
 
         // Url for the geoprocessing service
-        private const string _hotspotUrl =
+        private const string HotspotUrl =
             "https://sampleserver6.arcgisonline.com/arcgis/rest/services/911CallsHotspot/GPServer/911%20Calls%20Hotspot";
 
         // The geoprocessing task for hot spots analysis 
@@ -100,7 +100,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             Map myMap = new Map(Basemap.CreateTopographic());
 
             // Create a new geoprocessing task
-            _hotspotTask = await GeoprocessingTask.CreateAsync(new Uri(_hotspotUrl));
+            _hotspotTask = await GeoprocessingTask.CreateAsync(new Uri(HotspotUrl));
 
             // Assign the map to the MapView
             _myMapView.Map = myMap;

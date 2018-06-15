@@ -154,10 +154,10 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
     internal class LayerViewStatusTableSource: UITableViewSource
     {
         // List of layer status model
-        protected List<LayerStatusModel> _layers;
+        private readonly List<LayerStatusModel> _layers;
 
         // Identifier for the table cell
-        protected string cellIdentifier = "TableCell";
+        private readonly string cellIdentifier = "TableCell";
 
         public LayerViewStatusTableSource(List<LayerStatusModel> layers)
         {

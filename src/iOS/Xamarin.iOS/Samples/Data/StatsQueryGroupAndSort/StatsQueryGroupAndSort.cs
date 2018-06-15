@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
     public class StatsQueryGroupAndSort : UIViewController
     {
         // URI for the US states map service
-        private Uri _usStatesServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
+        private readonly Uri _usStatesServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
 
         // US states feature table
         private FeatureTable _usStatesTable;
@@ -38,19 +38,16 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         private Dictionary<string, bool> _groupByFields = new Dictionary<string, bool>();
 
         // Collection to hold fields to order results by
-        private List<OrderFieldOption> _orderByFields = new List<OrderFieldOption>();
-
-        // Stack view UI control for arranging query controls
-        private UIStackView _controlsStackView;
+        private readonly List<OrderFieldOption> _orderByFields = new List<OrderFieldOption>();
 
         // Model for defining choices in the statistics definition UIPickerView
         private StatDefinitionModel _statsPickerModel;
 
         // List of statistics definitions to use in the query
-        private List<StatisticDefinition> _statisticDefinitions = new List<StatisticDefinition>();
+        private readonly List<StatisticDefinition> _statisticDefinitions = new List<StatisticDefinition>();
 
         private UILabel _helpLabel;
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UIToolbar _toolbar = new UIToolbar();
         private UIButton _showStatDefinitionsButton;
         private UIButton _showGroupFieldsButton;
         private UIButton _showOrderByFieldsButton;
@@ -322,10 +319,10 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
     public class StatDefinitionModel : UIPickerViewModel
     {
         // Array of field names
-        private string[] _fieldNames;
+        private readonly string[] _fieldNames;
 
         // Array of available statistic types
-        private Array _statTypes = Enum.GetValues(typeof(StatisticType));
+        private readonly Array _statTypes = Enum.GetValues(typeof(StatisticType));
 
         // Currently selected statistic definition
         private StatisticDefinition _selectedStatDefinition = null;
@@ -414,10 +411,10 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
     public class StatisticDefinitionsDataSource : UITableViewSource
     {
         // List of statistic definitions for the current query
-        private List<StatisticDefinition> _statisticDefinitions;
+        private readonly List<StatisticDefinition> _statisticDefinitions;
 
         // Picker for choosing a field and statistic type
-        private UIPickerView _statPicker;
+        private readonly UIPickerView _statPicker;
 
         // Custom UI to show the statistics picker and associated buttons
         private ChooseStatisticOverlay _chooseStatOverlay;
@@ -572,7 +569,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
     public class GroupFieldsDataSource : UITableViewSource
     {
         // Dictionary of available fields for grouping results 
-        private Dictionary<string, bool> _potentialGroupFields;        
+        private readonly Dictionary<string, bool> _potentialGroupFields;        
 
         // Constructor that takes a dictionary of fields
         public GroupFieldsDataSource(Dictionary<string, bool> fields)
@@ -633,7 +630,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
     public class OrderByFieldsDataSource : UITableViewSource
     {
         // List of order field options
-        private List<OrderFieldOption> _potentialOrderByFields;
+        private readonly List<OrderFieldOption> _potentialOrderByFields;
 
         // Constructor that takes a list of order field options to display
         public OrderByFieldsDataSource(List<OrderFieldOption> fields)
@@ -694,7 +691,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
     public class StatisticQueryResultsDataSource : UITableViewSource
     {
         // Dictionary of group names and statistic results
-        private Dictionary<string, IReadOnlyDictionary<string, object>> _statisticsResults;
+        private readonly Dictionary<string, IReadOnlyDictionary<string, object>> _statisticsResults;
         
         // Constructor that takes a dictionary of group names and statistic results
         public StatisticQueryResultsDataSource(Dictionary<string, IReadOnlyDictionary<string, object>> results)

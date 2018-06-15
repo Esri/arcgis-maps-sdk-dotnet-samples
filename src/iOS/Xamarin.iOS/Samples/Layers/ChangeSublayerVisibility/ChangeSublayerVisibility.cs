@@ -72,7 +72,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             {
                 if (mapImageLayer.Sublayers.Count > 0)
                 {
-                    sublayersTableView.mapImageLayer = mapImageLayer;
+                    sublayersTableView.MapImageLayer = mapImageLayer;
                     NavigationController.PushViewController(sublayersTableView, true);
                 }
             };
@@ -93,9 +93,9 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
     }
 
     [Register("SublayersTable")]
-    public class SublayersTable : UITableViewController
+    public sealed class SublayersTable : UITableViewController
     {
-        public ArcGISMapImageLayer mapImageLayer;
+        public ArcGISMapImageLayer MapImageLayer;
 
         public SublayersTable()
         {
@@ -109,9 +109,9 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             List<ArcGISSublayer> sublayers = new List<ArcGISSublayer>();
 
             // Add all the map image layer sublayers to a list and then pass that list to the SublayerDataSource
-            if (mapImageLayer != null)
+            if (MapImageLayer != null)
             {
-                sublayers.AddRange(mapImageLayer.Sublayers);
+                sublayers.AddRange(MapImageLayer.Sublayers);
 
                 TableView.Source = new SublayerDataSource(sublayers);
                 TableView.Frame = new CoreGraphics.CGRect(0, 0, 100, 100);
@@ -163,7 +163,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             sublayer.IsVisible = (sender as UISwitch).On;
         }
 
-        public override nint RowsInSection(UITableView tableView, nint section)
+        public override nint RowsInSection(UITableView tableview, nint section)
         {
             return sublayers.Count;
         }

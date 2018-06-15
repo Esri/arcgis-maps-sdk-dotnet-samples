@@ -28,23 +28,23 @@ namespace ArcGISRuntime.Samples.ConvexHull
     public class ConvexHull : UIViewController
     {
         // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Graphics overlay to display the graphics.
         private GraphicsOverlay _graphicsOverlay;
 
         // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.ConvexHull operation.
-        private PointCollection _inputPointCollection = new PointCollection(SpatialReferences.WebMercator);
+        private readonly PointCollection _inputPointCollection = new PointCollection(SpatialReferences.WebMercator);
 
         // Text view to display the instructions on how to use the sample.
-        UILabel _sampleInstructionUITextiew;
+        UILabel _helpLabel;
 
         // Create a UIButton to create a convex hull.
         private UIButton _convexHullButton;
 
         // Create toolbars to put behind the label and button.
-        private UIToolbar _helpToolbar = new UIToolbar();
-        private UIToolbar _controlsToolbar = new UIToolbar();
+        private readonly UIToolbar _helpToolbar = new UIToolbar();
+        private readonly UIToolbar _controlsToolbar = new UIToolbar();
 
         public ConvexHull()
         {
@@ -70,7 +70,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, controlHeight + (2 * margin));
             _controlsToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - (2 * margin), View.Bounds.Width, controlHeight + (2 * margin));
-            _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _helpLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
             _convexHullButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - margin - controlHeight, View.Bounds.Width - (2 * margin), controlHeight);
 
             base.ViewDidLayoutSubviews();
@@ -175,7 +175,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
         private void CreateLayout()
         {
             // Create a UITextView for the overall sample instructions.
-            _sampleInstructionUITextiew = new UILabel
+            _helpLabel = new UILabel
             {
                 Text = "Tap on the map in several places, then tap 'Create convex hull'.",
                 AdjustsFontSizeToFitWidth = true,
@@ -191,7 +191,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
             _convexHullButton.TouchUpInside += ConvexHullButton_Click;
 
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _sampleInstructionUITextiew, _convexHullButton);
+            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _helpLabel, _convexHullButton);
         }
     }
 }

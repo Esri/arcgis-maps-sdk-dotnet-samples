@@ -30,30 +30,30 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
     public class ChangeStretchRenderer : UIViewController
     {
         // Global reference to the MapView used in the sample
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Global reference to a segmented control for choosing a type of renderer
         private UISegmentedControl _rendererTypes;
 
         // Global reference to a label that displays the 1st parameter used by the stretch renderer
-        private UILabel _Label_Parameter1;
+        private UILabel _labelParameter1;
 
         // Global reference to the 1st parameter used by the stretch renderer that the user can modify 
-        private UITextField _Input_Parameter1;
+        private UITextField _inputParameter1;
 
         // Global reference to a label that displays the 2nd parameter used by the stretch renderer
-        private UILabel _Label_Parameter2;
+        private UILabel _labelParameter2;
 
         // Global reference to the 2nd parameter used by the stretch renderer that the user can modify 
-        private UITextField _Input_Parameter2;
+        private UITextField _inputParameter2;
 
         // Global reference to button the user clicks to change the stretch renderer on the raster 
-        private UIButton _UpdateRenderer;
+        private UIButton _updateRendererButton;
 
         // Create a translucent background for the form
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
-        private string[] _rendererChoices = { "Min/Max", "% Clip", "Std. Deviation" };
+        private readonly string[] _rendererChoices = { "Min/Max", "% Clip", "Std. Deviation" };
 
         public ChangeStretchRenderer()
         {
@@ -84,19 +84,19 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             _rendererTypes.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - 2 * margin, controlHeight);
 
             // Setup the visual frame for the label that displays the 1st parameter used by the stretch renderer
-            _Label_Parameter1.Frame = new CoreGraphics.CGRect(margin, topStart + controlHeight + 2 * margin, View.Bounds.Width - 4 * margin - 100, controlHeight);
+            _labelParameter1.Frame = new CoreGraphics.CGRect(margin, topStart + controlHeight + 2 * margin, View.Bounds.Width - 4 * margin - 100, controlHeight);
 
             // Setup the visual frame for the 1st parameter used by the stretch renderer that the user can modify 
-            _Input_Parameter1.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 100 - (2 * margin), topStart + controlHeight + 2 * margin, 100, controlHeight);
+            _inputParameter1.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 100 - (2 * margin), topStart + controlHeight + 2 * margin, 100, controlHeight);
 
             // Setup the visual frame for the label that displays the 2nd parameter used by the stretch renderer
-            _Label_Parameter2.Frame = new CoreGraphics.CGRect(margin, topStart + 2 * controlHeight + 3 * margin, View.Bounds.Width - 4 * margin - 100, controlHeight);
+            _labelParameter2.Frame = new CoreGraphics.CGRect(margin, topStart + 2 * controlHeight + 3 * margin, View.Bounds.Width - 4 * margin - 100, controlHeight);
 
             // Setup the visual frame for the 2nd parameter used by the stretch renderer that the user can modify 
-            _Input_Parameter2.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 100 - (2 * margin), topStart + 2 * controlHeight + 3 * margin, 100, controlHeight);
+            _inputParameter2.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 100 - (2 * margin), topStart + 2 * controlHeight + 3 * margin, 100, controlHeight);
 
             // Setup the visual frame for button the users clicks to change the stretch renderer on the raster
-            _UpdateRenderer.Frame = new CoreGraphics.CGRect(margin, topStart + 3 * controlHeight + 4 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+            _updateRendererButton.Frame = new CoreGraphics.CGRect(margin, topStart + 3 * controlHeight + 4 * margin, View.Bounds.Width - 2 * margin, controlHeight);
 
             // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
@@ -139,12 +139,12 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             UIColor controlWhite = UIColor.FromWhiteAlpha(1, .8f);
 
             // Create button to change stretch renderer of the raster
-            _UpdateRenderer = new UIButton();
-            _UpdateRenderer.SetTitle("Update renderer", UIControlState.Normal);
-            _UpdateRenderer.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _updateRendererButton = new UIButton();
+            _updateRendererButton.SetTitle("Update renderer", UIControlState.Normal);
+            _updateRendererButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Hook to touch/click event of the button
-            _UpdateRenderer.TouchUpInside += OnUpdateRendererClicked;
+            _updateRendererButton.TouchUpInside += UpdateRendererButton_Clicked;
 
             // Create a list of stretch renderer choices the user can choose from
             _rendererTypes = new UISegmentedControl(_rendererChoices)
@@ -154,7 +154,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             _rendererTypes.ValueChanged += rendererTypes_ValueChanged;
 
             // Create label that displays the 1st parameter used by the stretch renderer
-            _Label_Parameter1 = new UILabel
+            _labelParameter1 = new UILabel
             {
                 Text = "Minimum value (0 - 255):",
                 AdjustsFontSizeToFitWidth = true,
@@ -162,7 +162,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             };
 
             // Create text field for 1st parameter used by the stretch renderer that the user can modify 
-            _Input_Parameter1 = new UITextField
+            _inputParameter1 = new UITextField
             {
                 Text = "10",
                 AdjustsFontSizeToFitWidth = true,
@@ -172,10 +172,10 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                 TextAlignment = UITextAlignment.Center
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _Input_Parameter1.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
+            _inputParameter1.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Create label that displays the 2nd parameter used by the stretch renderer
-            _Label_Parameter2 = new UILabel
+            _labelParameter2 = new UILabel
             {
                 Text = "Maximum value (0 - 255):",
                 AdjustsFontSizeToFitWidth = true,
@@ -183,7 +183,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             };
 
             // Create text field for 2nd parameter used by the stretch renderer that the user can modify 
-            _Input_Parameter2 = new UITextField
+            _inputParameter2 = new UITextField
             {
                 Text = "150",
                 AdjustsFontSizeToFitWidth = true,
@@ -193,10 +193,10 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                 TextAlignment = UITextAlignment.Center
             };
             // Allow pressing 'return' to dismiss the keyboard
-            _Input_Parameter2.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
+            _inputParameter2.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Add all of the UI controls to the page
-            View.AddSubviews(_myMapView, _toolbar, _UpdateRenderer, _rendererTypes, _Label_Parameter1, _Input_Parameter1, _Label_Parameter2, _Input_Parameter2);
+            View.AddSubviews(_myMapView, _toolbar, _updateRendererButton, _rendererTypes, _labelParameter1, _inputParameter1, _labelParameter2, _inputParameter2);
         }
 
         private void rendererTypes_ValueChanged(object sender, EventArgs e)
@@ -214,16 +214,16 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     // This section displays/resets the user choice options for MinMaxStretchParameters
 
                     // Make sure all the GUI items are visible
-                    _Label_Parameter1.Hidden = false;
-                    _Label_Parameter2.Hidden = false;
-                    _Input_Parameter1.Hidden = false;
-                    _Input_Parameter2.Hidden = false;
+                    _labelParameter1.Hidden = false;
+                    _labelParameter2.Hidden = false;
+                    _inputParameter1.Hidden = false;
+                    _inputParameter2.Hidden = false;
 
                     // Define what values/options the user sees
-                    _Label_Parameter1.Text = "Minimum value (0 - 255):";
-                    _Label_Parameter2.Text = "Maximum value (0 - 255):";
-                    _Input_Parameter1.Text = "10";
-                    _Input_Parameter2.Text = "150";
+                    _labelParameter1.Text = "Minimum value (0 - 255):";
+                    _labelParameter2.Text = "Maximum value (0 - 255):";
+                    _inputParameter1.Text = "10";
+                    _inputParameter2.Text = "150";
 
                     break;
 
@@ -232,16 +232,16 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     // This section displays/resets the user choice options for PercentClipStretchParameters
 
                     // Make sure all the GUI items are visible
-                    _Label_Parameter1.Hidden = false;
-                    _Label_Parameter2.Hidden = false;
-                    _Input_Parameter1.Hidden = false;
-                    _Input_Parameter2.Hidden = false;
+                    _labelParameter1.Hidden = false;
+                    _labelParameter2.Hidden = false;
+                    _inputParameter1.Hidden = false;
+                    _inputParameter2.Hidden = false;
 
                     // Define what values/options the user sees
-                    _Label_Parameter1.Text = "Minimum (0 - 100):";
-                    _Label_Parameter2.Text = "Maximum (0 - 100):";
-                    _Input_Parameter1.Text = "0";
-                    _Input_Parameter2.Text = "50";
+                    _labelParameter1.Text = "Minimum (0 - 100):";
+                    _labelParameter2.Text = "Maximum (0 - 100):";
+                    _inputParameter1.Text = "0";
+                    _inputParameter2.Text = "50";
 
                     break;
 
@@ -250,21 +250,21 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     // This section displays/resets the user choice options for StandardDeviationStretchParameters
 
                     // Make sure that only the necessary GUI items are visible
-                    _Label_Parameter1.Hidden = false;
-                    _Label_Parameter2.Hidden = true;
-                    _Input_Parameter1.Hidden = false;
-                    _Input_Parameter2.Hidden = true;
+                    _labelParameter1.Hidden = false;
+                    _labelParameter2.Hidden = true;
+                    _inputParameter1.Hidden = false;
+                    _inputParameter2.Hidden = true;
 
                     // Define what values/options the user sees
-                    _Label_Parameter1.Text = "Factor (.25 to 4):";
-                    _Input_Parameter1.Text = "0.5";
+                    _labelParameter1.Text = "Factor (.25 to 4):";
+                    _inputParameter1.Text = "0.5";
 
                     break;
             }
         }
 
 
-        private void OnUpdateRendererClicked(object sender, EventArgs e)
+        private void UpdateRendererButton_Clicked(object sender, EventArgs e)
         {
 
             // This function acquires the user selection of the stretch renderer from the table view
@@ -288,10 +288,10 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     // TODO: Add you own logic to ensure that accurate min/max stretch values are used
 
                     // Create an IEnumerable from a list of double min stretch value doubles
-                    IEnumerable<double> myMinValues = new List<double> { Convert.ToDouble(_Input_Parameter1.Text) };
+                    IEnumerable<double> myMinValues = new List<double> { Convert.ToDouble(_inputParameter1.Text) };
 
                     // Create an IEnumerable from a list of double max stretch value doubles
-                    IEnumerable<double> myMaxValues = new List<double> { Convert.ToDouble(_Input_Parameter2.Text) };
+                    IEnumerable<double> myMaxValues = new List<double> { Convert.ToDouble(_inputParameter2.Text) };
 
                     // Create a new MinMaxStretchParameters based on the user choice for min and max stretch values
                     MinMaxStretchParameters myMinMaxStretchParameters = new MinMaxStretchParameters(myMinValues, myMaxValues);
@@ -307,7 +307,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     // TODO: Add you own logic to ensure that accurate min/max percent clip values are used
 
                     // Create a new PercentClipStretchParameters based on the user choice for min and max percent clip values
-                    PercentClipStretchParameters myPercentClipStretchParameters = new PercentClipStretchParameters(Convert.ToDouble(_Input_Parameter1.Text), Convert.ToDouble(_Input_Parameter2.Text));
+                    PercentClipStretchParameters myPercentClipStretchParameters = new PercentClipStretchParameters(Convert.ToDouble(_inputParameter1.Text), Convert.ToDouble(_inputParameter2.Text));
 
                     // Create the percent clip renderer based on the user defined min/max percent clip values, empty gamma values, statistic estimates, and a predefined color ramp 
                     myStretchRenderer = new StretchRenderer(myPercentClipStretchParameters, myGammaValues, true, myColorRamp);
@@ -320,7 +320,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     // TODO: Add you own logic to ensure that an accurate standard deviation value is used
 
                     // Create a new StandardDeviationStretchParameters based on the user choice for standard deviation value
-                    StandardDeviationStretchParameters myStandardDeviationStretchParameters = new StandardDeviationStretchParameters(Convert.ToDouble(_Input_Parameter1.Text));
+                    StandardDeviationStretchParameters myStandardDeviationStretchParameters = new StandardDeviationStretchParameters(Convert.ToDouble(_inputParameter1.Text));
 
                     // Create the standard deviation renderer based on the user defined standard deviation value, empty gamma values, statistic estimates, and a predefined color ramp 
                     myStretchRenderer = new StretchRenderer(myStandardDeviationStretchParameters, myGammaValues, true, myColorRamp);

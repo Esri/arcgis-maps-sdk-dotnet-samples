@@ -28,14 +28,14 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
     public class RasterRgbRenderer : UIViewController
     {
         // Reference to the MapView used in the sample.
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // UI controls for choosing a stretch type.
-        private UISegmentedControl _segmentButton = new UISegmentedControl();
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UISegmentedControl _segmentButton = new UISegmentedControl();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
         // Overlay with entry controls for applying a new raster renderer.
-        private UpdateRendererDialogOverlay _updateRendererUI;
+        private UpdateRendererDialogOverlay _updateRendererUi;
 
         // Reference to the raster layer to render.
         private RasterLayer _rasterLayer;
@@ -61,11 +61,11 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             // Setup the visual frame for the MapView.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
-            if (_updateRendererUI != null)
+            if (_updateRendererUi != null)
             {
-                _updateRendererUI.Bounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
-                _updateRendererUI.Frame = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
-                _updateRendererUI.Center = View.Center;
+                _updateRendererUi.Bounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
+                _updateRendererUi.Frame = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
+                _updateRendererUi.Center = View.Center;
             }
 
             _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
@@ -131,8 +131,8 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             _rasterLayer.Renderer = rasterRenderer;
 
             // Remove the parameter input UI.
-            _updateRendererUI.Hide();
-            _updateRendererUI = null;
+            _updateRendererUi.Hide();
+            _updateRendererUi = null;
         }
 
         private void SegmentButtonClicked(object sender, EventArgs e)
@@ -144,33 +144,33 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             string stretchType = buttonControl.TitleAt(buttonControl.SelectedSegment);
 
             // Show the UI and pass the type of parameter inputs to show.
-            ShowRendererParamsUI(stretchType);
+            ShowRendererParamsUi(stretchType);
 
             // Unselect all segments (user might want to click the same control twice)
             buttonControl.SelectedSegment = -1;
         }
 
-        private void ShowRendererParamsUI(string stretchType)
+        private void ShowRendererParamsUi(string stretchType)
         {
-            if (_updateRendererUI != null) { return; }
+            if (_updateRendererUi != null) { return; }
 
             // Create a view to show map item info entry controls over the map view
             var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
-            _updateRendererUI = new UpdateRendererDialogOverlay(ovBounds, 0.75f, UIColor.White, stretchType);
+            _updateRendererUi = new UpdateRendererDialogOverlay(ovBounds, 0.75f, UIColor.White, stretchType);
 
             // Handle the OnSearchMapsTextEntered event to get the info entered by the user
-            _updateRendererUI.OnStretchInputsEntered += UpdateRenderer;
+            _updateRendererUi.OnStretchInputsEntered += UpdateRenderer;
 
             // Handle the cancel event when the user closes the dialog without choosing to search
-            _updateRendererUI.OnCanceled += (s, e) =>
+            _updateRendererUi.OnCanceled += (s, e) =>
             {
                 // Remove the search input UI
-                _updateRendererUI.Hide();
-                _updateRendererUI = null;
+                _updateRendererUi.Hide();
+                _updateRendererUi = null;
             };
 
             // Add the search UI view (will display semi-transparent over the map view)
-            View.Add(_updateRendererUI);
+            View.Add(_updateRendererUi);
         }
 
         private static string GetRasterPath()
@@ -190,7 +190,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         public event EventHandler OnCanceled;
 
         // Field to store the type of stretch inputs.
-        private string _stretchParamsType;
+        private readonly string _stretchParamsType;
 
         // Fields for controls that will be referenced later.
         private UIPickerView _minRgbPicker;
@@ -232,18 +232,18 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             switch (_stretchParamsType)
             {
                 case "Min Max RGB":
-                    CreateRgbInputUI(inputStretchParamsButton, cancelButton, descriptionLabel);
+                    CreateRgbInputUi(inputStretchParamsButton, cancelButton, descriptionLabel);
                     break;
                 case "% Clip":
-                    CreatePercentInputUI(inputStretchParamsButton, cancelButton, descriptionLabel);
+                    CreatePercentInputUi(inputStretchParamsButton, cancelButton, descriptionLabel);
                     break;
                 case "Std Dev":
-                    CreateStdDevInputUI(inputStretchParamsButton, cancelButton, descriptionLabel);
+                    CreateStdDevInputUi(inputStretchParamsButton, cancelButton, descriptionLabel);
                     break;
             }
         }
 
-        private void CreateRgbInputUI(UIButton applyButton, UIButton cancelButton, UILabel description)
+        private void CreateRgbInputUi(UIButton applyButton, UIButton cancelButton, UILabel description)
         {
             // Set size and spacing for controls.
             nfloat controlHeight = 25;
@@ -331,7 +331,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             _maxRgbPicker.Select(255, 2, false);
         }
 
-        private void CreatePercentInputUI(UIButton applyButton, UIButton cancelButton, UILabel description)
+        private void CreatePercentInputUi(UIButton applyButton, UIButton cancelButton, UILabel description)
         {
             // Set size and spacing for controls.
             nfloat controlHeight = 25;
@@ -416,7 +416,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
                 applyButton, cancelButton);
         }
 
-        private void CreateStdDevInputUI(UIButton applyButton, UIButton cancelButton, UILabel description)
+        private void CreateStdDevInputUi(UIButton applyButton, UIButton cancelButton, UILabel description)
         {
             // Set size and spacing for controls.
             nfloat controlHeight = 25;
@@ -657,7 +657,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
     public class StdDevFactorPickerModel : UIPickerViewModel
     {
         // Array of available factor values.
-        private double[] _factorValues = { 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5 };
+        private readonly double[] _factorValues = { 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5 };
 
         // Currently selected factor value.
         private double _selectedFactor = 4.5;

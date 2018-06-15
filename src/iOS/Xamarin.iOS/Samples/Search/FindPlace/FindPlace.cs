@@ -280,11 +280,8 @@ namespace ArcGISRuntime.Samples.FindPlace
 
         private async void Initialize()
         {
-            // Get a new instance of the Imagery with Labels basemap
-            Basemap _basemap = Basemap.CreateStreets();
-
-            // Create a new Map with the basemap
-            Map myMap = new Map(_basemap);
+            // Create a new Map with streets basemap
+            Map myMap = new Map(Basemap.CreateStreets());
 
             // Populate the MapView with the Map
             _myMapView.Map = myMap;
@@ -394,7 +391,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             if (locations.Count < 1)
             {
                 _myProgressBar.StopAnimating(); // 1. Hide the progress bar
-                ShowStatusMessage("No results found"); // 2. Show a message
+                new UIAlertView("alert", "No results found", (IUIAlertViewDelegate)null, "OK", null).Show(); // 2. Show a message
                 return; // 3. Stop
             }
 
@@ -530,17 +527,6 @@ namespace ArcGISRuntime.Samples.FindPlace
 
             // Return the list
             return formattedResults;
-        }
-
-        /// <summary>
-        /// Method abstracts the platform-specific message box functionality to maximize re-use of common code
-        /// </summary>
-        /// <param name="message">Text of the message to show.</param>
-        private void ShowStatusMessage(string message)
-        {
-            // Display the message to the user
-            UIAlertView alertView = new UIAlertView("alert", message, (IUIAlertViewDelegate)null, "OK", null);
-            alertView.Show();
         }
 
         /// <summary>

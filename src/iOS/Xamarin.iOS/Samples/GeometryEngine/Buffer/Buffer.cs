@@ -28,19 +28,19 @@ namespace ArcGISRuntime.Samples.Buffer
     public class Buffer : UIViewController
     {
         // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Create a UILabel to display the instructions.
-        private UILabel _bufferInstructionsUILabel;
+        private UILabel _bufferHelpLabel;
 
         // Create UITextField to enter a buffer value (in miles). 
-        private UITextField _bufferDistanceMilesUITextField;
+        private UITextField _bufferDistanceEntry;
 
         // Graphics overlay to display buffer-related graphics.
         private GraphicsOverlay _graphicsOverlay;
 
         // Create toolbars to put behind the controls and the help text.
-        private UIToolbar _helpToolbar = new UIToolbar();
+        private readonly UIToolbar _helpToolbar = new UIToolbar();
 
         // Help label.
         private UILabel _helpLabel;
@@ -69,8 +69,8 @@ namespace ArcGISRuntime.Samples.Buffer
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, 2 * controlHeight + 3 * margin);
             _helpLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
-            _bufferInstructionsUILabel.Frame = new CoreGraphics.CGRect(margin, topStart + controlHeight + (2 *margin) - 1, View.Bounds.Width / 2 - (2 * margin), controlHeight);
-            _bufferDistanceMilesUITextField.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, topStart + controlHeight + 2 * margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
+            _bufferHelpLabel.Frame = new CoreGraphics.CGRect(margin, topStart + controlHeight + (2 *margin) - 1, View.Bounds.Width / 2 - (2 * margin), controlHeight);
+            _bufferDistanceEntry.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, topStart + controlHeight + 2 * margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
 
             base.ViewDidLayoutSubviews();
         }
@@ -107,7 +107,7 @@ namespace ArcGISRuntime.Samples.Buffer
                 MapPoint userTappedMapPoint = _myMapView.ScreenToLocation(e.Position);
 
                 // Get the buffer size from the UITextField.
-                double bufferInMiles = System.Convert.ToDouble(_bufferDistanceMilesUITextField.Text);
+                double bufferInMiles = System.Convert.ToDouble(_bufferDistanceEntry.Text);
 
                 // Create a variable to be the buffer size in meters. There are 1609.34 meters in one mile.
                 double bufferInMeters = bufferInMiles * 1609.34;
@@ -155,7 +155,7 @@ namespace ArcGISRuntime.Samples.Buffer
         private void CreateLayout()
         {
             // Create the UILabel for instructions.
-            _bufferInstructionsUILabel = new UILabel
+            _bufferHelpLabel = new UILabel
             {
                 Text = "Buffer (miles):",
                 AdjustsFontSizeToFitWidth = true
@@ -168,7 +168,7 @@ namespace ArcGISRuntime.Samples.Buffer
             };
 
             // Create UITextFiled for the buffer value.
-            _bufferDistanceMilesUITextField = new UITextField
+            _bufferDistanceEntry = new UITextField
             {
                 Text = "10",
                 AdjustsFontSizeToFitWidth = true,
@@ -176,10 +176,10 @@ namespace ArcGISRuntime.Samples.Buffer
             };
 
             // - Allow pressing 'return' to dismiss the keyboard
-            _bufferDistanceMilesUITextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
+            _bufferDistanceEntry.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _helpToolbar, _helpLabel, _bufferInstructionsUILabel, _bufferDistanceMilesUITextField);
+            View.AddSubviews(_myMapView, _helpToolbar, _helpLabel, _bufferHelpLabel, _bufferDistanceEntry);
         }
     }
 }

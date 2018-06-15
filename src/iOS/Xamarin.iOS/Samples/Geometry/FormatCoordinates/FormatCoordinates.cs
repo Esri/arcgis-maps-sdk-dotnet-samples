@@ -73,10 +73,10 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             MapPoint startingPoint = new MapPoint(0, 0, SpatialReferences.WebMercator);
 
             // Update the UI with the initial point
-            UpdateUIFromMapPoint(startingPoint);
+            UpdateUiFromMapPoint(startingPoint);
 
             // Subscribe to map tap events to enable tapping on map to update coordinates
-            _myMapView.GeoViewTapped += (sender, args) => { UpdateUIFromMapPoint(args.Location); };
+            _myMapView.GeoViewTapped += (sender, args) => { UpdateUiFromMapPoint(args.Location); };
         }
 
         private void InputValueChanged(object sender, EventArgs e)
@@ -122,10 +122,10 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             }
 
             // Update the UI from the MapPoint
-            UpdateUIFromMapPoint(enteredPoint);
+            UpdateUiFromMapPoint(enteredPoint);
         }
 
-        private void UpdateUIFromMapPoint(MapPoint startingPoint)
+        private void UpdateUiFromMapPoint(MapPoint startingPoint)
         {
             if (startingPoint == null) { return; }
             // Clear event subscriptions - prevents an infinite loop

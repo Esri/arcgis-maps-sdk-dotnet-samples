@@ -24,12 +24,12 @@ namespace ArcGISRuntime.Samples.OpenMapURL
     public class OpenMapURL : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
-        private UIToolbar _toolbar = new UIToolbar();
-        private UIButton _mapsButton;
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _toolbar = new UIToolbar();
+        private readonly UIButton _mapsButton = new UIButton();
 
         // String array to hold urls to publicly available web maps
-        private string[] itemURLs = new string[] 
+        private readonly string[] _itemUrLs = new string[] 
         {
             "https://www.arcgis.com/home/item.html?id=2d6fa24b357d427f9c737774e7b0f977",
             "https://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
@@ -37,7 +37,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         };
 
         // String array to store titles for the webmaps specified above. These titles are in the same order as the urls above
-        private string[] titles = new string[]
+        private readonly string[] _titles = new string[]
         {
             "Housing with Mortgages",
             "USA Tapestry Segmentation",
@@ -67,7 +67,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         private void Initialize()
         {
             // Create a new Map instance with url of the webmap that is displayed by default
-            Map myMap = new Map(new Uri(itemURLs[0]));
+            Map myMap = new Map(new Uri(_itemUrLs[0]));
 
             // Provide used Map to the MapView
             _myMapView.Map = myMap;
@@ -81,26 +81,23 @@ namespace ArcGISRuntime.Samples.OpenMapURL
 
             // Add actions to alert. Selecting an option re-initializes the Map 
             // with selected webmap url and assigns it to MapView.
-            actionSheetAlert.AddAction(UIAlertAction.Create(titles[0], UIAlertActionStyle.Default, action =>
+            actionSheetAlert.AddAction(UIAlertAction.Create(_titles[0], UIAlertActionStyle.Default, action =>
             {
-                _myMapView.Map = new Map(new Uri(itemURLs[0]));
+                _myMapView.Map = new Map(new Uri(_itemUrLs[0]));
             }));
-            actionSheetAlert.AddAction(UIAlertAction.Create(titles[1], UIAlertActionStyle.Default, action =>
+            actionSheetAlert.AddAction(UIAlertAction.Create(_titles[1], UIAlertActionStyle.Default, action =>
             {
-                _myMapView.Map = new Map(new Uri(itemURLs[1]));
+                _myMapView.Map = new Map(new Uri(_itemUrLs[1]));
             }));
-            actionSheetAlert.AddAction(UIAlertAction.Create(titles[2], UIAlertActionStyle.Default, action =>
+            actionSheetAlert.AddAction(UIAlertAction.Create(_titles[2], UIAlertActionStyle.Default, action =>
             {
-                _myMapView.Map = new Map(new Uri(itemURLs[2]));
+                _myMapView.Map = new Map(new Uri(_itemUrLs[2]));
             }));
             PresentViewController(actionSheetAlert, true, null);
         }
 
         private void CreateLayout()
         {
-            // Add a button at the bottom to show webmap choices
-            _mapsButton = new UIButton();
-
             // Create button to show map options
             _mapsButton.SetTitle("Select a map", UIControlState.Normal);
             _mapsButton.SetTitleColor(View.TintColor, UIControlState.Normal);

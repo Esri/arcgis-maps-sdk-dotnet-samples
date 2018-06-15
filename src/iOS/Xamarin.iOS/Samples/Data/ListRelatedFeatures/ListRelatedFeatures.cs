@@ -178,7 +178,7 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
     public class LayerListSource : UITableViewSource
     {
         // List of strings;
-        public List<string> _viewModelList = new List<string>();
+        private readonly List<string> _viewModelList = new List<string>();
 
         // Used when re-using cells to ensure that a cell of the right type is used
         private string CellId = "TableCell";

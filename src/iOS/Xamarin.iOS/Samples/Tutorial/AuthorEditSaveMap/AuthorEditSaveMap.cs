@@ -32,18 +32,18 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
     public class AuthorEditSaveMap : UIViewController, IOAuthAuthorizeHandler
     {
         // View model that stores the map
-        private MapViewModel _mapViewModel;
+        private readonly MapViewModel _mapViewModel;
 
         // Map view to display the map
-        private MapView _mapView;
+        private readonly MapView _mapView;
 
         // UI controls that need to be referenced
-        private UISegmentedControl _segmentButton = new UISegmentedControl();
+        private readonly UISegmentedControl _segmentButton = new UISegmentedControl();
 
         private UIToolbar _toolbar = new UIToolbar();
 
         // Overlay with entry controls for map item details (title, description, and tags)
-        private SaveMapDialogOverlay _mapInfoUI;
+        private SaveMapDialogOverlay _mapInfoUi;
 
         // Constants for OAuth-related values ...
         // URL of the server to authenticate with (ArcGIS Online)
@@ -313,21 +313,21 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
                 }
 
                 // Show the save map UI
-                if (_mapInfoUI != null) { buttonControl.SelectedSegment = -1; return; }
+                if (_mapInfoUi != null) { buttonControl.SelectedSegment = -1; return; }
 
                 // Create a view to show map item info entry controls over the map view
                 var ovBounds = _mapView.Bounds;
                 ovBounds.Height = ovBounds.Height + 60;
-                _mapInfoUI = new SaveMapDialogOverlay(ovBounds, 0.75f, UIColor.White, _mapView.Map.Item);
+                _mapInfoUi = new SaveMapDialogOverlay(ovBounds, 0.75f, UIColor.White, _mapView.Map.Item);
 
                 // Handle the OnMapInfoEntered event to get the info entered by the user
-                _mapInfoUI.OnMapInfoEntered += MapItemInfoEntered;
+                _mapInfoUi.OnMapInfoEntered += MapItemInfoEntered;
 
                 // Handle the cancel event when the user closes the dialog without choosing to save
-                _mapInfoUI.OnCanceled += SaveCanceled;
+                _mapInfoUi.OnCanceled += SaveCanceled;
 
                 // Add the map item info UI view (will display semi-transparent over the map view)
-                View.Add(_mapInfoUI);
+                View.Add(_mapInfoUi);
             }
 
             // Unselect all segments (user might want to click the same control twice)
@@ -364,8 +364,8 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
         private void SaveCanceled(object sender, EventArgs e)
         {
             // Remove the item input UI
-            _mapInfoUI.Hide();
-            _mapInfoUI = null;
+            _mapInfoUi.Hide();
+            _mapInfoUi = null;
         }
 
         // Handle the OnMapInfoEntered event from the item input UI
@@ -417,10 +417,10 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             finally
             {
                 // Get rid of the item input controls
-                if (_mapInfoUI != null)
+                if (_mapInfoUi != null)
                 {
-                    _mapInfoUI.Hide();
-                    _mapInfoUI = null;
+                    _mapInfoUi.Hide();
+                    _mapInfoUi = null;
                 }
             }
         }
@@ -459,9 +459,9 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
         public event EventHandler OnCanceled;
 
         // Store the input controls so the values can be read
-        private UITextField _titleTextField;
-        private UITextField _descriptionTextField;
-        private UITextField _tagsTextField;
+        private readonly UITextField _titleTextField;
+        private readonly UITextField _descriptionTextField;
+        private readonly UITextField _tagsTextField;
 
         public SaveMapDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, Item mapItem) : base(frame)
         {
@@ -629,7 +629,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
         }
 
         // String array to store basemap constructor types
-        private string[] _basemapTypes = new string[]
+        private readonly string[] _basemapTypes = new string[]
         {
             "Topographic",
             "Topographic Vector",

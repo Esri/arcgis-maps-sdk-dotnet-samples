@@ -28,20 +28,20 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
     public class ChangeSublayerRenderer : UIViewController
     {
         // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // ArcGIS map image layer that contains four Census sub-layers.
         private ArcGISMapImageLayer _arcGISMapImageLayer;
 
         // Text view to display the sample instructions.
-        UILabel _sampleInstructionUITextiew;
+        private UILabel _helpLabel;
 
         // Create a UIButton to clip polygons.
         private UIButton _changeSublayerRendererButton;
 
         // Toolbars to show behind the controls.
-        private UIToolbar _labelToolbar = new UIToolbar();
-        private UIToolbar _buttonToolbar = new UIToolbar();
+        private readonly UIToolbar _labelToolbar = new UIToolbar();
+        private readonly UIToolbar _buttonToolbar = new UIToolbar();
 
         public ChangeSublayerRenderer()
         {
@@ -67,7 +67,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
             // Setup the frames for the views.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _labelToolbar.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, 70);
-            _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(margin, topMargin + margin, View.Bounds.Width - (2 * margin), 60);
+            _helpLabel.Frame = new CoreGraphics.CGRect(margin, topMargin + margin, View.Bounds.Width - (2 * margin), 60);
             _buttonToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
             _changeSublayerRendererButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - 40 + margin, View.Bounds.Width - (2 * margin), 30);
 
@@ -147,7 +147,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
         private void CreateLayout()
         {
             // Create a UITextView for the overall sample instructions.
-            _sampleInstructionUITextiew = new UILabel
+            _helpLabel = new UILabel
             {
                 Text = "Tap 'Change sublayer renderer' to apply a unique value renderer to the counties sublayer.",
                 Lines = 2,
@@ -163,7 +163,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
             _changeSublayerRendererButton.TouchUpInside += ChangeSublayerRendererButton_TouchUpInside;
 
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _labelToolbar, _buttonToolbar, _sampleInstructionUITextiew, _changeSublayerRendererButton);
+            View.AddSubviews(_myMapView, _labelToolbar, _buttonToolbar, _helpLabel, _changeSublayerRendererButton);
         }
     }
 }

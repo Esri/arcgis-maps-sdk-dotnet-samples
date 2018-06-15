@@ -181,10 +181,10 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         private void _MyUISegmentedControl_ValueChanged(object sender, EventArgs e)
         {
             // Get the UISegmentedControl that raised the event
-            var myUISegmentedControl = sender as UISegmentedControl;
+            var myUiSegmentedControl = sender as UISegmentedControl;
 
             // Get the selected segment in the control
-            var mySelectedSegment = myUISegmentedControl.SelectedSegment;
+            var mySelectedSegment = myUiSegmentedControl.SelectedSegment;
 
             // Execute the appropriate action for the control
             if (mySelectedSegment == 0)
@@ -199,25 +199,25 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             }
 
             // Unselect all segments (user might want to click the same control twice)
-            myUISegmentedControl.SelectedSegment = -1;
+            myUiSegmentedControl.SelectedSegment = -1;
         }
 
         private void UISegmentButton_AddLayerToMap()
         {
             // Create a new Alert Controller - this will show the layer names that can be added to the map
-            UIAlertController myUIAlertController = UIAlertController.Create("Add a layer to the map", "", UIAlertControllerStyle.ActionSheet);
+            UIAlertController myUiAlertController = UIAlertController.Create("Add a layer to the map", "", UIAlertControllerStyle.ActionSheet);
 
             // Add actions to add a layer to the map
             foreach (string oneLayerName in _myObservableCollection_LayerNamesNotInTheMap)
             {
-                myUIAlertController.AddAction(UIAlertAction.Create(oneLayerName, UIAlertActionStyle.Default, action => Action_AddLayerToMap(oneLayerName)));
+                myUiAlertController.AddAction(UIAlertAction.Create(oneLayerName, UIAlertActionStyle.Default, action => Action_AddLayerToMap(oneLayerName)));
             }
 
             // Add a choice to cancel
-            myUIAlertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, action => Console.WriteLine("Canceled")));
+            myUiAlertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, action => Console.WriteLine("Canceled")));
 
             // Required for iPad - You must specify a source for the Action Sheet since it is displayed as a popover
-            UIPopoverPresentationController presentationPopover = myUIAlertController.PopoverPresentationController;
+            UIPopoverPresentationController presentationPopover = myUiAlertController.PopoverPresentationController;
             if (presentationPopover != null)
             {
                 presentationPopover.SourceView = View;
@@ -225,7 +225,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             }
 
             // Display the list of layers to add to the map
-            PresentViewController(myUIAlertController, true, null);
+            PresentViewController(myUiAlertController, true, null);
         }
 
         private void Action_AddLayerToMap(string layerName)

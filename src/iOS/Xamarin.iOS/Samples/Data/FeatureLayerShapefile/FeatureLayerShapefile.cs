@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
     public class FeatureLayerShapefile : UIViewController
     {
         // Create a MapView control to display a map
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         public FeatureLayerShapefile()
         {

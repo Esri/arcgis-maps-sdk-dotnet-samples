@@ -26,10 +26,10 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
     public class UseDistanceCompositeSym : UIViewController
     {
         // Create and hold reference to the used MapView
-        private SceneView _mySceneView = new SceneView();
+        private readonly SceneView _mySceneView = new SceneView();
 
         // URL for an image service to use as an elevation source
-        private string _elevationSourceUrl = @"http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
+        private readonly string _elevationSourceUrl = @"http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
         public UseDistanceCompositeSym()
         {

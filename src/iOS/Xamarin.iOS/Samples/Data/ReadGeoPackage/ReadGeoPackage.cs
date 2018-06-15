@@ -32,27 +32,27 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
     public class ReadGeoPackage : UIViewController
     {
         // Member MapView control to display layers in the sample
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Member UISegmentedControl control to add and removed layers in the MapView
-        private UISegmentedControl _myUISegmentedControl = new UISegmentedControl();
+        private readonly UISegmentedControl _layerSegmentedControl = new UISegmentedControl();
 
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
         // Member HybridDictionary to hold the multiple key/object pairs that represent: 
         // human-readable string name of a layer - key
         // the layer itself (RasterLayer or FeatureLayer) - object
         // NOTE: According to MSDN, a HybridDictionary is useful for cases where the number 
         // of elements in a dictionary is unknown
-        HybridDictionary _myHybridDictionary_Layers = new HybridDictionary();
+        private readonly HybridDictionary _nameToLayerDictionary = new HybridDictionary();
 
         // Member ObservableCollection to hold the human-readable string name of the layers
         // that are currently Not displayed in the MapView 
-        ObservableCollection<string> _myObservableCollection_LayerNamesNotInTheMap = new ObservableCollection<string>();
+        private readonly ObservableCollection<string> _layersNotInMap = new ObservableCollection<string>();
 
         // Member ObservableCollection to hold the human-readable string name of the layers
         // that are currently displayed in the MapView
-        ObservableCollection<string> _myObservableCollection_LayerNamesInTheMap = new ObservableCollection<string>();
+        private readonly ObservableCollection<string> _layersInMap = new ObservableCollection<string>();
 
         public ReadGeoPackage()
         {
@@ -77,7 +77,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             // Define the control frames.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-            _myUISegmentedControl.Frame = new CoreGraphics.CGRect(5, View.Bounds.Height - 35, View.Bounds.Width - 10, 30);
+            _layerSegmentedControl.Frame = new CoreGraphics.CGRect(5, View.Bounds.Height - 35, View.Bounds.Width - 10, 30);
         }
 
         private async void Initialize()
@@ -129,11 +129,11 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
                 myRasterLayerName = myRasterLayerName + " - RasterLayer";
 
                 // Add the name of the RasterLayer and the RasterLayer itself into the HybridDictionary
-                _myHybridDictionary_Layers.Add(myRasterLayerName, myRasterLayer);
+                _nameToLayerDictionary.Add(myRasterLayerName, myRasterLayer);
 
                 // Add the name of the RasterLayer to _MyObservableCollectionLayerNamesNotInTheMap 
                 // which displays the human-readable layer names used by the UISegmentedControl
-                _myObservableCollection_LayerNamesNotInTheMap.Add(myRasterLayerName);
+                _layersNotInMap.Add(myRasterLayerName);
             }
 
             // Get the read only list of GeoPackageFeatureTabless from the GeoPackage
@@ -157,45 +157,42 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
                 myFeatureLayerName = myFeatureLayerName + " - FeatureLayer";
 
                 // Add the name of the FeatureLayer and the FeatureLayer itself into the HybridDictionary
-                _myHybridDictionary_Layers.Add(myFeatureLayerName, myFeatureLayer);
+                _nameToLayerDictionary.Add(myFeatureLayerName, myFeatureLayer);
 
                 // Add the name of the RasterLayer to _myObservableCollectionLayerNamesNotInTheMap 
                 // which displays the human-readable layer names used by the UISegmentedControl
-                _myObservableCollection_LayerNamesNotInTheMap.Add(myFeatureLayerName);
+                _layersNotInMap.Add(myFeatureLayerName);
             }
         }
 
         private void CreateLayout()
         {
             // Configure UISegmentedControl
-            _myUISegmentedControl.InsertSegment("Layers in map", 0, false);
-            _myUISegmentedControl.InsertSegment("Layers not in map", 1, false);
+            _layerSegmentedControl.InsertSegment("Layers in map", 0, false);
+            _layerSegmentedControl.InsertSegment("Layers not in map", 1, false);
 
             // Handle the "click" for each segment (new segment is selected)
-            _myUISegmentedControl.ValueChanged += _MyUISegmentedControl_ValueChanged;
+            _layerSegmentedControl.ValueChanged += LayerSegmentedControl_ValueChanged;
 
             // Add the MapView and UISegmentedControl to the page
-            View.AddSubviews(_myMapView, _toolbar, _myUISegmentedControl);
+            View.AddSubviews(_myMapView, _toolbar, _layerSegmentedControl);
         }
 
-        private void _MyUISegmentedControl_ValueChanged(object sender, EventArgs e)
+        private void LayerSegmentedControl_ValueChanged(object sender, EventArgs e)
         {
             // Get the UISegmentedControl that raised the event
             var myUiSegmentedControl = sender as UISegmentedControl;
 
-            // Get the selected segment in the control
-            var mySelectedSegment = myUiSegmentedControl.SelectedSegment;
-
-            // Execute the appropriate action for the control
-            if (mySelectedSegment == 0)
+            switch (myUiSegmentedControl.SelectedSegment)
             {
-                // Show the list of layers to removed from the map
-                UISegmentButton_RemoveLayerFromMap();
-            }
-            else if (mySelectedSegment == 1)
-            {
-                // Show a list of layers to add to the map
-                UISegmentButton_AddLayerToMap();
+                case 0:
+                    // Show the list of layers to removed from the map
+                    UISegmentButton_RemoveLayerFromMap();
+                    break;
+                case 1:
+                    // Show a list of layers to add to the map
+                    UISegmentButton_AddLayerToMap();
+                    break;
             }
 
             // Unselect all segments (user might want to click the same control twice)
@@ -208,7 +205,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             UIAlertController myUiAlertController = UIAlertController.Create("Add a layer to the map", "", UIAlertControllerStyle.ActionSheet);
 
             // Add actions to add a layer to the map
-            foreach (string oneLayerName in _myObservableCollection_LayerNamesNotInTheMap)
+            foreach (string oneLayerName in _layersNotInMap)
             {
                 myUiAlertController.AddAction(UIAlertAction.Create(oneLayerName, UIAlertActionStyle.Default, action => Action_AddLayerToMap(oneLayerName)));
             }
@@ -232,8 +229,8 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         {
             // This function executes when the user clicks on the human-readable name of a layer in the UISegmentedControl
             // It finds the actual layer in the HybridDictionary based upon the user selection and add it to the map
-            // Then the human-readable layer name is removed from the _myObservableCollection_LayerNamesNotInTheMap and 
-            // added to the _myObservableCollection_LayerNamesInTheMap
+            // Then the human-readable layer name is removed from the _layersNotInMap and 
+            // added to the _layersInMap
 
             // Get the user selected item from the TextView
             string myLayerSelection = layerName;
@@ -246,16 +243,16 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
 
                 // Get the layer from the HybridDictionary (it could be either a RasterLayer
                 // or a FeatureLayer - both inherit from the abstract/base Layer class)
-                Layer myLayer = (Layer)_myHybridDictionary_Layers[myLayerName];
+                Layer myLayer = (Layer)_nameToLayerDictionary[myLayerName];
 
                 // Add the layer to the map
                 _myMapView.Map.OperationalLayers.Add(myLayer);
 
                 // Remove the human-readable layer name from the ObservableCollection _myLayerNamesNotInTheMap
-                _myObservableCollection_LayerNamesNotInTheMap.Remove(myLayerName);
+                _layersNotInMap.Remove(myLayerName);
 
                 // Add the human-readable layer name to the ObservableCollection _myLayerNamesInTheMap
-                _myObservableCollection_LayerNamesInTheMap.Add(myLayerName);
+                _layersInMap.Add(myLayerName);
             }
         }
 
@@ -265,7 +262,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             UIAlertController layersActionSheet = UIAlertController.Create("Remove a layer from the map", "", UIAlertControllerStyle.ActionSheet);
 
             // Add actions to remove a layer from the map
-            foreach (string oneLayerName in _myObservableCollection_LayerNamesInTheMap)
+            foreach (string oneLayerName in _layersInMap)
             {
                 layersActionSheet.AddAction(UIAlertAction.Create(oneLayerName, UIAlertActionStyle.Default, action => Action_RemoveLayerFromMap(oneLayerName)));
             }
@@ -289,8 +286,8 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         {
             // This function executes when the user clicks on the human-readable name of a layer in the UISegmentedControl
             // It finds the actual layer in the HybridDictionary based upon the user selection and add it to the map
-            // Then the human-readable layer name is removed from the _myObservableCollection_LayerNamesInTheMap and 
-            // added to the _myObservableCollection_LayerNamesNotInTheMap
+            // Then the human-readable layer name is removed from the _layersInMap and 
+            // added to the _layersNotInMap
 
             // Get the user selected item from the TextView
             string myLayerSelection = layerName;
@@ -303,16 +300,16 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
 
                 // Get the layer from the HybridDictionary (it could be either a RasterLayer
                 // or a FeatureLayer - both inherit from the abstract/base Layer class)
-                Layer myLayer = (Layer)_myHybridDictionary_Layers[myLayerName];
+                Layer myLayer = (Layer)_nameToLayerDictionary[myLayerName];
 
                 // Add the layer to the map
                 _myMapView.Map.OperationalLayers.Remove(myLayer);
 
                 // Remove the human-readable layer name from the _myObservableCollectionLayerNamesInTheMap
-                _myObservableCollection_LayerNamesInTheMap.Remove(myLayerName);
+                _layersInMap.Remove(myLayerName);
 
                 // Add the human-readable layer name to the _myObservableCollectionLayerNamesNotInTheMap
-                _myObservableCollection_LayerNamesNotInTheMap.Add(myLayerName);
+                _layersNotInMap.Add(myLayerName);
             }
         }
 

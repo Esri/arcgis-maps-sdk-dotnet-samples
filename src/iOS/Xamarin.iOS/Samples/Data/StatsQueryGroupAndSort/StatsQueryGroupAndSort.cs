@@ -306,7 +306,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         public bool OrderWith { get; set; }
 
         // The order by info: field name and sort order
-        public OrderBy OrderInfo { get; set; }
+        public OrderBy OrderInfo { get; }
 
         public OrderFieldOption(bool orderWith, OrderBy orderInfo)
         {
@@ -324,9 +324,6 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         // Array of available statistic types
         private readonly Array _statTypes = Enum.GetValues(typeof(StatisticType));
 
-        // Currently selected statistic definition
-        private StatisticDefinition _selectedStatDefinition = null;
-
         // Constructor that takes an array of the available field names
         public StatDefinitionModel(string[] fieldNames)
         {
@@ -334,7 +331,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         }
 
         // Property to expose the currently selected definition in the picker
-        public StatisticDefinition SelectedStatDefinition => _selectedStatDefinition;
+        public StatisticDefinition SelectedStatDefinition { get; private set; } = null;
 
         // Return the number of picker components (two sections: field names and statistic types)
         public override nint GetComponentCount(UIPickerView pickerView)
@@ -346,28 +343,14 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
         {
             // first component is the fields list, second is the statistic types
-            if (component == 0)
-            {
-                return _fieldNames.Length;
-            }
-            else
-            {
-                return _statTypes.Length;
-            }
+            return component == 0 ? _fieldNames.Length : _statTypes.Length;
         }
 
         // Get the title to display in each picker component
         public override string GetTitle(UIPickerView pickerView, nint row, nint component)
         {
             // first component is the fields list, second is the statistic types
-            if (component == 0)
-            {
-                return _fieldNames[row];
-            }
-            else
-            {
-                return _statTypes.GetValue(row).ToString();
-            }
+            return component == 0 ? _fieldNames[row] : _statTypes.GetValue(row).ToString();
         }
 
         // Handle the selection event for the picker to create a statistic definition with the values chosen
@@ -383,21 +366,14 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             string outAlias = onFieldName + "_" + statType;
 
             // Create a new statistic definition (available from the SelectedStatDefinition public property)
-            _selectedStatDefinition = new StatisticDefinition(onFieldName, statType, outAlias);
+            SelectedStatDefinition = new StatisticDefinition(onFieldName, statType, outAlias);
         }
 
         // Return the desired width for each component in the picker
         public override nfloat GetComponentWidth(UIPickerView picker, nint component)
         {
             // first component is the fields list, second is the statistic types
-            if (component == 0)
-            {
-                return 160f;
-            }
-            else
-            {
-                return 120f;
-            }
+            return component == 0 ? 160f : 120f;
         }
 
         // Return the desired height for rows in the picker
@@ -501,14 +477,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             nint lastRowIndex = tableView.NumberOfRowsInSection(0) - 1;
 
             // Set the editing style as delete for all but the final row (insert)
-            if (indexPath.Row == lastRowIndex)
-            {
-                return UITableViewCellEditingStyle.Insert;
-            }
-            else
-            {
-                return UITableViewCellEditingStyle.Delete;
-            }
+            return indexPath.Row == lastRowIndex ? UITableViewCellEditingStyle.Insert : UITableViewCellEditingStyle.Delete;
         }
 
         // Prepare the data source for editing
@@ -824,7 +793,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             Action makeTransparentAction = () => Alpha = 0;
 
             // Action to remove the view
-            Action removeViewAction = () => RemoveFromSuperview();
+            Action removeViewAction = RemoveFromSuperview;
 
             // Time to complete the animation (seconds)
             double secondsToComplete = 0.75;

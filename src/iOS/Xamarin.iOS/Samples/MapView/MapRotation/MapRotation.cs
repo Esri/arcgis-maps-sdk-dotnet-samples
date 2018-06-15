@@ -23,10 +23,10 @@ namespace ArcGISRuntime.Samples.MapRotation
     public class MapRotation : UIViewController
     {
         private MapView _myMapView;
-        private UIToolbar _toolbar = new UIToolbar();
-        private UILabel _rotationLabel = new UILabel();
+        private readonly UIToolbar _toolbar = new UIToolbar();
+        private readonly UILabel _rotationLabel = new UILabel();
 
-        private UISlider _rotationSlider = new UISlider
+        private readonly UISlider _rotationSlider = new UISlider
         {
             MinValue = 0,
             MaxValue = 360

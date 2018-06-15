@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
     public class WMTSLayer : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Create button
         private UIButton _button1;
@@ -35,7 +35,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         private UIButton _button2;
 
         // Create toolbar
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
         // Create help label
         private UILabel _label;

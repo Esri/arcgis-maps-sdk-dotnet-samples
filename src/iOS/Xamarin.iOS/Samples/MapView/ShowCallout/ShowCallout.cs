@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.ShowCallout
         "Tap on the map to show that point's coordinates.")]
     public class ShowCallout : UIViewController
     {
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         public ShowCallout()
         {

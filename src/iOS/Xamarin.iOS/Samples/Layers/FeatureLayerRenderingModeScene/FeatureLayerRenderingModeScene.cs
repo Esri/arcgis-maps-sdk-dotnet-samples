@@ -26,24 +26,24 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
     public class FeatureLayerRenderingModeScene : UIViewController
     {
         // Create the UI components
-        private UILabel _staticLabel = new UILabel { Text = "Static" };
-        private UILabel _dynamicLabel = new UILabel { Text = "Dynamic" };
-        private UIButton _zoomButton = new UIButton(UIButtonType.RoundedRect);
+        private readonly UILabel _staticLabel = new UILabel { Text = "Static" };
+        private readonly UILabel _dynamicLabel = new UILabel { Text = "Dynamic" };
+        private readonly UIButton _zoomButton = new UIButton(UIButtonType.RoundedRect);
 
         // Create the scene views
-        private SceneView _myStaticScene = new SceneView();
-        private SceneView _myDynamicScene = new SceneView();
+        private readonly SceneView _myStaticScene = new SceneView();
+        private readonly SceneView _myDynamicScene = new SceneView();
 
         // Points for demonstrating zoom
-        private MapPoint _zoomedOutPoint = new MapPoint(-118.37, 34.46, SpatialReferences.Wgs84);
-        private MapPoint _zoomedInPoint = new MapPoint(-118.45, 34.395, SpatialReferences.Wgs84);
+        private readonly MapPoint _zoomedOutPoint = new MapPoint(-118.37, 34.46, SpatialReferences.Wgs84);
+        private readonly MapPoint _zoomedInPoint = new MapPoint(-118.45, 34.395, SpatialReferences.Wgs84);
 
         // Viewpoints for each zoom level
         private Camera _zoomedOutCamera;
         private Camera _zoomedInCamera;
 
         // URI for the feature service
-        private string _featureService = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/";
+        private readonly string _featureService = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/";
 
         // Hold the current zoom state
         private bool _zoomed;

@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         private UITableView _tableView;
 
         // Reference to list of view status for each layer
-        private List<LayerStatusModel> _layerStatusModels = new List<LayerStatusModel>();
+        private readonly List<LayerStatusModel> _layerStatusModels = new List<LayerStatusModel>();
 
         public DisplayLayerViewState()
         {
@@ -206,7 +206,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
     /// </summary>
     internal class LayerStatusModel
     {
-        internal string LayerName { get; private set; }
+        internal string LayerName { get; }
         internal string LayerViewStatus { get; set; }
 
         public LayerStatusModel(string layerName, string layerStatus)

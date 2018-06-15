@@ -27,33 +27,33 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
     public class StyleWmsLayer : UIViewController
     {
         // Hold the URL to the service, which has satellite imagery covering the state of Minnesota.
-        private Uri _wmsUrl = new Uri("http://geoint.lmic.state.mn.us/cgi-bin/wms?VERSION=1.3.0&SERVICE=WMS&REQUEST=GetCapabilities");
+        private readonly Uri _wmsUrl = new Uri("http://geoint.lmic.state.mn.us/cgi-bin/wms?VERSION=1.3.0&SERVICE=WMS&REQUEST=GetCapabilities");
 
         // Hold a list of uniquely-identifying WMS layer names to display.
-        private List<string> _wmsLayerNames = new List<string> { "fsa2017" };
+        private readonly List<string> _wmsLayerNames = new List<string> { "fsa2017" };
 
         // Hold a reference to the layer to enable re-styling.
         private WmsLayer _mnWmsLayer;
 
         // Hold references to the views.
-        private MapView _myMapView = new MapView();
-        private UIButton _firstStyleButton = new UIButton
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIButton _firstStyleButton = new UIButton
         {
             Enabled = false,
             HorizontalAlignment = UIControlContentHorizontalAlignment.Center
         };
-        private UIButton _secondStyleButton = new UIButton
+        private readonly UIButton _secondStyleButton = new UIButton
         {
             Enabled = false,
             HorizontalAlignment = UIControlContentHorizontalAlignment.Center
         };
-        private UILabel _helpLabel = new UILabel
+        private readonly UILabel _helpLabel = new UILabel
         {
             Text = "Choose a style:",
             TextAlignment = UITextAlignment.Center,
             TextColor = UIColor.Black
         };
-        private UIToolbar _buttonContainer = new UIToolbar();
+        private readonly UIToolbar _buttonContainer = new UIToolbar();
 
         public StyleWmsLayer()
         {

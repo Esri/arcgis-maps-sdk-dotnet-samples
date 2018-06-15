@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
     public class ReadShapefileMetadata : UIViewController
     {
         // Create a MapView control to display a map
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Store the shapefile metadata
         private ShapefileInfo _shapefileMetadata;
@@ -134,7 +134,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
     public class ShapefileMetadataDialog : UIView
     {
         // ImageView to display the shapefile thumbnail
-        private UIImageView _shapefileThumbnailImage;
+        private readonly UIImageView _shapefileThumbnailImage;
 
         public ShapefileMetadataDialog(CoreGraphics.CGRect frame, nfloat opacity, UIColor color, ShapefileInfo metadata) : base(frame)
         {
@@ -212,13 +212,13 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         }
 
         // Animate increasing transparency to completely hide the view, then remove it
-        public void Hide()
+        private void Hide()
         {
             // Action to make the view transparent
             Action makeTransparentAction = () => Alpha = 0;
 
             // Action to remove the view
-            Action removeViewAction = () => RemoveFromSuperview();
+            Action removeViewAction = RemoveFromSuperview;
 
             // Time to complete the animation (seconds)
             double secondsToComplete = 0.75;

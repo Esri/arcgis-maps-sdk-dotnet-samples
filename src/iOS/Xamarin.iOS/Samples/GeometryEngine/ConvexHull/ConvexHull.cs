@@ -37,7 +37,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
         private readonly PointCollection _inputPointCollection = new PointCollection(SpatialReferences.WebMercator);
 
         // Text view to display the instructions on how to use the sample.
-        UILabel _helpLabel;
+        private UILabel _helpLabel;
 
         // Create a UIButton to create a convex hull.
         private UIButton _convexHullButton;

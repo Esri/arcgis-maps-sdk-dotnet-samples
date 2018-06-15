@@ -29,7 +29,7 @@ namespace ArcGISRuntime.Samples.BufferList
     public class BufferList : UIViewController
     {
         // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Graphics overlay to display buffer-related graphics.
         private GraphicsOverlay _graphicsOverlay;

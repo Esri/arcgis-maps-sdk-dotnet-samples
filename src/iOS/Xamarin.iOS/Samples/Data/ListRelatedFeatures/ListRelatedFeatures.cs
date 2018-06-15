@@ -35,7 +35,7 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
         private FeatureLayer _myFeatureLayer;
 
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Hold a source for the UITableView that shows the related features
         private LayerListSource _layerListSource;
@@ -181,7 +181,7 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
         private readonly List<string> _viewModelList = new List<string>();
 
         // Used when re-using cells to ensure that a cell of the right type is used
-        private string CellId = "TableCell";
+        private readonly string CellId = "TableCell";
 
         public LayerListSource(List<string> items)
         {
@@ -197,14 +197,8 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
         /// </summary>
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            // Try to get a re-usable cell (this is for performance)
-            UITableViewCell cell = tableView.DequeueReusableCell(CellId);
-
-            // If there are no cells, create a new one
-            if (cell == null)
-            {
-                cell = new UITableViewCell(UITableViewCellStyle.Default, CellId);
-            }
+            // Try to get a re-usable cell (this is for performance). If there are no cells, create a new one
+            UITableViewCell cell = tableView.DequeueReusableCell(CellId) ?? new UITableViewCell(UITableViewCellStyle.Default, CellId);
 
             // Get the specific item to display
             string item = _viewModelList[indexPath.Row];

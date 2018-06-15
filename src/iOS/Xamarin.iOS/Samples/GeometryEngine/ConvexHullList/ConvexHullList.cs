@@ -29,7 +29,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
     public class ConvexHullList : UIViewController
     {
         // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Graphics overlay to display the graphics.
         private GraphicsOverlay _graphicsOverlay;
@@ -41,7 +41,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         private Graphic _polygonGraphic2;
 
         // Text view to display the instructions for the sample.
-        UILabel _sampleHelpLabel;
+        private UILabel _sampleHelpLabel;
 
         // Create a UILabel to display label for the UISwitch.
         private UILabel _switchLabel;

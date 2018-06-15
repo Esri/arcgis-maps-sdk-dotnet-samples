@@ -26,18 +26,18 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
     public class FeatureLayerTimeOffset : UIViewController
     {
         // Create and hold reference to the UI controls
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
-        private UILabel _redLabel = new UILabel { Text = "Red hurricanes offset 10 days", TextColor = UIColor.Red, TextAlignment = UITextAlignment.Center };
-        private UILabel _blueLabel = new UILabel { Text = "Blue hurricanes not offset", TextColor = UIColor.Blue, TextAlignment = UITextAlignment.Center };
-        private UILabel _timeLabel = new UILabel { TextColor = UIColor.Black, TextAlignment = UITextAlignment.Center };
-        private UISlider _timeSlider = new UISlider { MinValue = 0, MaxValue = 1 };
-        private UIStackView _stackView = new UIStackView();
-        private UIToolbar _topToolbar = new UIToolbar();
-        private UIToolbar _bottomToolbar = new UIToolbar();
+        private readonly UILabel _redLabel = new UILabel { Text = "Red hurricanes offset 10 days", TextColor = UIColor.Red, TextAlignment = UITextAlignment.Center };
+        private readonly UILabel _blueLabel = new UILabel { Text = "Blue hurricanes not offset", TextColor = UIColor.Blue, TextAlignment = UITextAlignment.Center };
+        private readonly UILabel _timeLabel = new UILabel { TextColor = UIColor.Black, TextAlignment = UITextAlignment.Center };
+        private readonly UISlider _timeSlider = new UISlider { MinValue = 0, MaxValue = 1 };
+        private readonly UIStackView _stackView = new UIStackView();
+        private readonly UIToolbar _topToolbar = new UIToolbar();
+        private readonly UIToolbar _bottomToolbar = new UIToolbar();
 
         // Hold the feature layer URI
-        private Uri _featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0");
+        private readonly Uri _featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0");
 
         // Hold a reference to the original time extent
         private TimeExtent _originalExtent;

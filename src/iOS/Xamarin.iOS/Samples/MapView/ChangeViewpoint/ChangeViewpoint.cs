@@ -26,19 +26,19 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         "")]
     public class ChangeViewpoint : UIViewController
     {
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UIToolbar _toolbar = new UIToolbar();
         private UISegmentedControl _viewpointsButton;
 
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Coordinates for London
-        private MapPoint LondonCoords = new MapPoint(
+        private readonly MapPoint _londonCoords = new MapPoint(
             -13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
-        private double LondonScale = 8762.7156655228955;
+        private readonly double LondonScale = 8762.7156655228955;
 
         // Coordinates for Redlands
-        private Polygon RedlandsEnvelope = new Polygon(
+        private readonly Polygon _redlandsEnvelope = new Polygon(
             new List<MapPoint>
                 {
                     new MapPoint(-13049785.1566222, 4032064.6003424),
@@ -49,7 +49,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
             SpatialReferences.WebMercator);
 
         // Coordinates for Edinburgh
-        private Polygon EdinburghEnvelope = new Polygon(
+        private readonly Polygon _edinburghEnvelope = new Polygon(
             new List<MapPoint>
             {
                 new MapPoint(-354262.156621384, 7548092.94093301),
@@ -59,7 +59,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
             SpatialReferences.WebMercator);
 
         // String array to store titles for the viewpoints specified above.
-        private string[] titles = new string[]
+        private readonly string[] _titles = 
         {
             "Geometry",
             "Center & Scale",
@@ -107,7 +107,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         private void CreateLayout()
         {
             // Add a button at the bottom to show viewpoint choices
-            _viewpointsButton = new UISegmentedControl(titles)
+            _viewpointsButton = new UISegmentedControl(_titles)
             {
                 TintColor = View.TintColor
             };
@@ -121,16 +121,16 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
 
         private async void viewpointButton_ValueChanged(object sender, EventArgs e)
         {
-            nint selectedValue = (sender as UISegmentedControl).SelectedSegment;
+            nint selectedValue = ((UISegmentedControl)sender).SelectedSegment;
 
             switch (selectedValue){
                 case 0:
                     // Set Viewpoint using Redlands envelope defined above and a padding of 20
-                    await _myMapView.SetViewpointGeometryAsync(RedlandsEnvelope, 20);
+                    await _myMapView.SetViewpointGeometryAsync(_redlandsEnvelope, 20);
                     break;
                 case 1:
                     // Set Viewpoint so that it is centered on the London coordinates defined above
-                    await _myMapView.SetViewpointCenterAsync(LondonCoords);
+                    await _myMapView.SetViewpointCenterAsync(_londonCoords);
 
                     // Set the Viewpoint scale to match the specified scale 
                     await _myMapView.SetViewpointScaleAsync(LondonScale);
@@ -141,7 +141,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
                         new Viewpoint(_myMapView.Map.Basemap.BaseLayers.First().FullExtent));
 
                     // Create a new Viewpoint using the specified geometry
-                    var viewpoint = new Viewpoint(EdinburghEnvelope);
+                    var viewpoint = new Viewpoint(_edinburghEnvelope);
 
                     // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
                     await _myMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));

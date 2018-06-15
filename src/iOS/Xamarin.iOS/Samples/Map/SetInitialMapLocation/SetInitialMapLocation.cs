@@ -23,7 +23,7 @@ namespace ArcGISRuntime.Samples.SetInitialMapLocation
     public class SetInitialMapLocation : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         public SetInitialMapLocation()
         {

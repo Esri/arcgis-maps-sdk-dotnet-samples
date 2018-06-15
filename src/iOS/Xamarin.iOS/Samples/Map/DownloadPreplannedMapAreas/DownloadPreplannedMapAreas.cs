@@ -499,14 +499,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
         public void UpdateMessageAndProgress(string message, int progress)
         {
             // Negative progress value is interpreted as indeterminate.
-            if (progress >= 0)
-            {
-                _loadingMessageLabel.Text = $"{message}... ({progress})%";
-            }
-            else
-            {
-                _loadingMessageLabel.Text = message;
-            }
+            _loadingMessageLabel.Text = progress >= 0 ? $"{message}... ({progress})%" : message;
         }
     }
 }

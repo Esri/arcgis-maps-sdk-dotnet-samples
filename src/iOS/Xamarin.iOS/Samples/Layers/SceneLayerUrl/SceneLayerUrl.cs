@@ -24,13 +24,13 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
     public class SceneLayerUrl : UIViewController
     {
         // Create a new SceneView control
-        private SceneView _mySceneView = new SceneView();
+        private readonly SceneView _mySceneView = new SceneView();
 
         // URL for a service to use as an elevation source
-        private Uri _elevationSourceUrl = new Uri(@"https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
+        private readonly Uri _elevationSourceUrl = new Uri(@"https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
 
         // URL for the scene layer
-        private Uri _serviceUri = new Uri(
+        private readonly Uri _serviceUri = new Uri(
                "https://scene.arcgis.com/arcgis/rest/services/Hosted/Buildings_Brest/SceneServer/0");
 
         public SceneLayerUrl()

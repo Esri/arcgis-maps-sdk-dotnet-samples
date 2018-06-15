@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
         private Graphic _countryBorderPolylineGraphic;
 
         // Text view to display the sample instructions.
-        UITextView _helpLabel;
+        private UITextView _helpLabel;
 
         // Create a UIButton to cut polygons.
         private UIButton _cutButton;

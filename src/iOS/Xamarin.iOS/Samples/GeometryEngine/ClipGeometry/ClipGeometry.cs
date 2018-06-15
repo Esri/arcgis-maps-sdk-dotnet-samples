@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
     public class ClipGeometry : UIViewController
     {
         // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Graphics overlay to display input geometries for the clip operation.
         private GraphicsOverlay _inputGeometriesGraphicsOverlay;

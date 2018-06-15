@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
     public class ShowLabelsOnLayer : UIViewController
     {
         // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         public ShowLabelsOnLayer()
         {

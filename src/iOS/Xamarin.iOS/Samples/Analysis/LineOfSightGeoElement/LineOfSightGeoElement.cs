@@ -59,8 +59,8 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         private GeoElementLineOfSight _geoLine;
 
         // Toolbars to put behind controls
-        private UIToolbar _labelToolbar = new UIToolbar();
-        private UIToolbar _sliderToolbar = new UIToolbar();
+        private readonly UIToolbar _labelToolbar = new UIToolbar();
+        private readonly UIToolbar _sliderToolbar = new UIToolbar();
 
         // For taxi animation - four points in a loop
         private readonly MapPoint[] _points = {
@@ -73,7 +73,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         // For taxi animation - tracks animation state
         private int _pointIndex = 0;
         private int _frameIndex = 0;
-        private int _frameMax = 150;
+        private readonly int _frameMax = 150;
         public LineOfSightGeoElement()
         {
             Title = "Line of Sight (GeoElement)";

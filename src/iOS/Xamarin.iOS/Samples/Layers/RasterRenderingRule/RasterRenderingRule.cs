@@ -32,24 +32,24 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         private MapView _myMapView;
 
         // Hold a reference to the UIToolbar control (used to hold the UISegmentedControl)
-        private UIToolbar _myUIToolbar = new UIToolbar();
+        private readonly UIToolbar _controlToolbar = new UIToolbar();
 
         // Hold a reference to a UISegmentedControl
         // (used to hold buttons with the names of the rendering rules of the image service raster)
-        private UISegmentedControl _myUISegmentedControl = new UISegmentedControl();
+        private readonly UISegmentedControl _rulePicker = new UISegmentedControl();
 
         // Hold a reference to a read-only list for the various rendering rules of the image service raster
         private IReadOnlyList<RenderingRuleInfo> _myReadOnlyListRenderRuleInfos;
 
         // Uri for the image server
-        private Uri _myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer");
+        private readonly Uri _myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer");
 
         public RasterRenderingRule()
         {
             Title = "Raster rendering rule";
         }
 
-        public async override void ViewDidLoad()
+        public override async void ViewDidLoad()
         {
             base.ViewDidLoad();
 
@@ -70,14 +70,14 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
 
             // Make the text for the buttons in the UISegmentedControl small to display the names of the rendering rules
             UIFont myUiFont = UIFont.SystemFontOfSize(7);
-            _myUISegmentedControl.SetTitleTextAttributes(new UITextAttributes { Font = myUiFont }, UIControlState.Normal);
-            _myUISegmentedControl.ApportionsSegmentWidthsByContent = true;
+            _rulePicker.SetTitleTextAttributes(new UITextAttributes { Font = myUiFont }, UIControlState.Normal);
+            _rulePicker.ApportionsSegmentWidthsByContent = true;
 
             // Wire-up the UISegmentedControl's value change event handler
-            _myUISegmentedControl.ValueChanged += _segmentControl_ValueChanged;
+            _rulePicker.ValueChanged += _segmentControl_ValueChanged;
 
             // Add the map view and toolbar to the view
-            View.AddSubviews(_myMapView, _myUIToolbar, _myUISegmentedControl);
+            View.AddSubviews(_myMapView, _controlToolbar, _rulePicker);
 
             // Load of the rendering rules of the image service raster and display their names on the buttons in the toolbar
             await LoadRenderingRules();
@@ -116,7 +116,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
                 string myRenderingRuleName = myRenderingRuleInfo.Name;
 
                 // Add the rendering rule info name to the UISegmentedControl
-                _myUISegmentedControl.InsertSegment(myRenderingRuleName, myCounter, false);
+                _rulePicker.InsertSegment(myRenderingRuleName, myCounter, false);
 
                 // Increment the counter for adding segments into the UISegmentedControl
                 myCounter = myCounter + 1;
@@ -163,8 +163,8 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         {
             // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myUIToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
-            _myUISegmentedControl.Frame = new CoreGraphics.CGRect(10, _myUIToolbar.Frame.Top + 10, View.Bounds.Width - 20, 30);
+            _controlToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
+            _rulePicker.Frame = new CoreGraphics.CGRect(10, _controlToolbar.Frame.Top + 10, View.Bounds.Width - 20, 30);
             base.ViewDidLayoutSubviews();
         }
     }

@@ -28,10 +28,10 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
     public class SymbolizeShapefile : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Create and hold a reference to a button
-        private UIButton _myRendererButton = new UIButton { Enabled = false };
+        private readonly UIButton _myRendererButton = new UIButton { Enabled = false };
 
         // Hold reference to the feature layer so that its renderer can be changed when button is pushed
         private FeatureLayer _shapefileFeatureLayer;
@@ -43,7 +43,7 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
         private SimpleRenderer _alternateRenderer;
 
         // Create a toolbar to show under the button
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
         public SymbolizeShapefile()
         {

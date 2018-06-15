@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
     public class IdentifyGraphics : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Graphics overlay to host graphics
         private GraphicsOverlay _polygonOverlay;

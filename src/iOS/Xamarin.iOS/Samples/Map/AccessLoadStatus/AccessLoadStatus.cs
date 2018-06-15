@@ -24,13 +24,13 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
     public class AccessLoadStatus : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Control to show the Map's load status
         private UILabel _loadStatusTextView;
 
         // Toolbar to put behind the label
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
         public AccessLoadStatus()
         {

@@ -30,10 +30,10 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
     public class SearchPortalMaps : UIViewController, IOAuthAuthorizeHandler
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
-        private UISegmentedControl _segmentButton = new UISegmentedControl();
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UISegmentedControl _segmentButton = new UISegmentedControl();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
         // Use a TaskCompletionSource to track the completion of the authorization
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
@@ -157,19 +157,16 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Get the segmented button control that raised the event
             var buttonControl = sender as UISegmentedControl;
 
-            // Get the selected segment in the control
-            var selectedSegmentId = buttonControl.SelectedSegment;
-
-            // Execute the appropriate action for the control
-            if (selectedSegmentId == 0)
+            switch (buttonControl.SelectedSegment)
             {
-                // Show search UI
-                ShowSearchMapUi();
-            }
-            else if (selectedSegmentId == 1)
-            {
-                // Authenticate user on ArcGIS Online, then show their maps
-                GetMyMaps();
+                case 0:
+                    // Show search UI
+                    ShowSearchMapUi();
+                    break;
+                case 1:
+                    // Authenticate user on ArcGIS Online, then show their maps
+                    GetMyMaps();
+                    break;
             }
 
             // Unselect all segments (user might want to click the same control twice)
@@ -196,9 +193,6 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
         private async void GetMyMaps()
         {
-            // Get web map portal items in the current user's folder
-            IEnumerable<PortalItem> mapItems = null;
-
             // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
             bool loggedIn = await EnsureLoggedInAsync();
             if (!loggedIn) { return; }
@@ -210,7 +204,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             PortalUserContent myContent = await portal.User.GetContentAsync();
 
             // Get the web map items in the root folder
-            mapItems = from item in myContent.Items where item.Type == PortalItemType.WebMap select item;
+            IEnumerable<PortalItem> mapItems = from item in myContent.Items where item.Type == PortalItemType.WebMap select item;
 
             // Loop through all sub-folders and get web map items, add them to the mapItems collection
             foreach (PortalFolder folder in myContent.Folders)
@@ -229,9 +223,6 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         {
             try
             {
-                // Get web map portal items from a keyword search
-                IEnumerable<PortalItem> mapItems = null;
-
                 // Connect to the portal (anonymously)
                 var portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
 
@@ -245,7 +236,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 PortalQueryResultSet<PortalItem> findResult = await portal.FindItemsAsync(queryParams);
 
                 // Get the items from the query results
-                mapItems = findResult.Results;
+                IEnumerable<PortalItem> mapItems = findResult.Results;
 
                 // Show the map results
                 ShowMapList(mapItems);
@@ -568,9 +559,9 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         public event EventHandler OnCanceled;
 
         // Store the input controls so the values can be read
-        private UITextField _clientIdTextField;
+        private readonly UITextField _clientIdTextField;
 
-        private UITextField _redirectUrlTextField;
+        private readonly UITextField _redirectUrlTextField;
 
         public OAuthPropsDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, string clientId, string redirectUrl) : base(frame)
         {
@@ -585,14 +576,6 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             nfloat buttonSpace = 15;
             nfloat textViewWidth = Frame.Width - 60;
             nfloat buttonWidth = 60;
-
-            // Get the total height and width of the control set (four rows of controls, three sets of space)
-            nfloat totalHeight = (6 * controlHeight) + (5 * rowSpace);
-            nfloat totalWidth = textViewWidth;
-
-            // Find the center x and y of the view
-            nfloat centerX = Frame.Width / 2;
-            nfloat centerY = Frame.Height / 2;
 
             // Find the start x and y for the control layout
             nfloat controlX = 5;
@@ -680,7 +663,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             Action makeTransparentAction = () => Alpha = 0;
 
             // Action to remove the view
-            Action removeViewAction = () => RemoveFromSuperview();
+            Action removeViewAction = RemoveFromSuperview;
 
             // Time to complete the animation (seconds)
             double secondsToComplete = 0.75;
@@ -719,10 +702,10 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
     public class OAuthPropsSavedEventArgs : EventArgs
     {
         // Client ID property
-        public string ClientId { get; set; }
+        public string ClientId { get; }
 
-        // Redirect Url property
-        public string RedirectUrl { get; set; }
+        // Redirect URL property
+        public string RedirectUrl { get; }
 
         // Store map item values passed into the constructor
         public OAuthPropsSavedEventArgs(string clientId, string redirectUrl)
@@ -746,7 +729,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         public event EventHandler OnCanceled;
 
         // Store the input control so the value can be read
-        private UITextField _searchTextField;
+        private readonly UITextField _searchTextField;
 
         public SearchMapsDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color) : base(frame)
         {
@@ -760,14 +743,6 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             nfloat buttonSpace = 15;
             nfloat textViewWidth = Frame.Width - 60;
             nfloat buttonWidth = 60;
-
-            // Get the total height and width of the control set (three rows of controls, one set of space)
-            nfloat totalHeight = (3 * controlHeight) + rowSpace;
-            nfloat totalWidth = textViewWidth;
-
-            // Find the center x and y of the view
-            nfloat centerX = Frame.Width / 2;
-            nfloat centerY = Frame.Height / 2;
 
             // Find the start x and y for the control layout
             nfloat controlX = 5;
@@ -831,7 +806,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             Action makeTransparentAction = () => Alpha = 0;
 
             // Action to remove the view
-            Action removeViewAction = () => RemoveFromSuperview();
+            Action removeViewAction = RemoveFromSuperview;
 
             // Time to complete the animation (seconds)
             double secondsToComplete = 0.75;
@@ -861,7 +836,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
     public class SearchMapsEventArgs : EventArgs
     {
         // Search text property
-        public string SearchText { get; set; }
+        public string SearchText { get; }
 
         // Store map item values passed into the constructor
         public SearchMapsEventArgs(string searchText)

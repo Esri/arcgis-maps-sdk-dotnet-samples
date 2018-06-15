@@ -32,10 +32,10 @@ namespace ArcGISRuntime.Samples.ListTransformations
     public class ListTransformations : UIViewController
     {
         // Map view control to display a map in the app.
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Stack view to contain the datum transformation UI.
-        private UIStackView _transformToolsView = new UIStackView();
+        private readonly UIStackView _transformToolsView = new UIStackView();
 
         // Store the height of each set of controls (may vary on different devices).
         private nfloat _mapViewHeight;
@@ -318,10 +318,10 @@ namespace ArcGISRuntime.Samples.ListTransformations
         public event EventHandler<TransformationSelectionEventArgs> TransformationSelected;
 
         // List of datum transformation values.
-        private IReadOnlyList<DatumTransformation> _datumTransformations;
+        private readonly IReadOnlyList<DatumTransformation> _datumTransformations;
 
         // Store the default transformation.
-        private DatumTransformation _defaultTransformation;
+        private readonly DatumTransformation _defaultTransformation;
 
         // Store the selected transformation.
         private DatumTransformation _selectedTransformation;
@@ -332,9 +332,6 @@ namespace ArcGISRuntime.Samples.ListTransformations
             _datumTransformations = transformationList;
             _defaultTransformation = defaultTransform;
         }
-
-        // Property to expose the currently selected transformation value in the picker.
-        public DatumTransformation SelectedDatumTransformation => _selectedTransformation;
 
         // Return the number of picker components (just one).
         public override nint GetComponentCount(UIPickerView pickerView)
@@ -420,7 +417,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
     public class TransformationSelectionEventArgs : EventArgs
     {
         // Selected datum transformation.
-        public DatumTransformation Transformation { get; set; }
+        public DatumTransformation Transformation { get; }
 
         public TransformationSelectionEventArgs(DatumTransformation transformation)
         {

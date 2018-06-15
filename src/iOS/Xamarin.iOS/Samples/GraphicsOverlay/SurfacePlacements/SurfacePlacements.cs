@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
     public class SurfacePlacements : UIViewController
     {
         // Create and hold reference to the used SceneView
-        private SceneView _mySceneView = new SceneView();
+        private readonly SceneView _mySceneView = new SceneView();
 
         public SurfacePlacements()
         {

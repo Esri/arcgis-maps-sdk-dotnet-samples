@@ -29,7 +29,7 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
     public class MapImageSublayerQuery : UIViewController
     {
         // MapView control for displaying the map.
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
        
         // Graphics overlay for showing selected features.
         private GraphicsOverlay _selectedFeaturesOverlay;
@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         private UITextField _populationValueInput;
 
         // Toolbar to go behind the form.
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
         public MapImageSublayerQuery()
         {

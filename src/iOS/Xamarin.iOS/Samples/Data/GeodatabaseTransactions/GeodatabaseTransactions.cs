@@ -35,7 +35,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         private const string SyncServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/FeatureServer/";
 
         // Work in a small extent south of Galveston, TX
-        private Envelope _extent = new Envelope(-95.3035, 29.0100, -95.1053, 29.1298, SpatialReferences.Wgs84);
+        private readonly Envelope _extent = new Envelope(-95.3035, 29.0100, -95.1053, 29.1298, SpatialReferences.Wgs84);
 
         // Store the local geodatabase to edit
         private Geodatabase _localGeodatabase;
@@ -45,33 +45,33 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         private GeodatabaseFeatureTable _marineTable;
 
         // MapView control
-        private MapView _mapView = new MapView();
+        private readonly MapView _mapView = new MapView();
 
         // Stack view to contain the edit UI
-        private UIStackView _editToolsView = new UIStackView();
+        private readonly UIStackView _editToolsView = new UIStackView();
 
         private nfloat _mapViewHeight;
         private nfloat _editToolsHeight;
 
         // Progress view to show status of generate geodatabase and synchronization jobs
-        private UIProgressView _progressBar = new UIProgressView();
+        private readonly UIProgressView _progressBar = new UIProgressView();
 
         // Switch to control whether or not transactions are required for edits
-        private UISwitch _requireTransactionSwitch = new UISwitch();
+        private readonly UISwitch _requireTransactionSwitch = new UISwitch();
 
         // Buttons to start/stop an edit transaction
-        private UIButton _startEditingButton = new UIButton();
-        private UIButton _stopEditingButton = new UIButton();
+        private readonly UIButton _startEditingButton = new UIButton();
+        private readonly UIButton _stopEditingButton = new UIButton();
 
         // Buttons to add bird or marine features
-        private UIButton _addBirdButton = new UIButton();
-        private UIButton _addMarineButton = new UIButton();
+        private readonly UIButton _addBirdButton = new UIButton();
+        private readonly UIButton _addMarineButton = new UIButton();
 
         // Button to synchronize local edits with the service
-        private UIButton _syncEditsButton = new UIButton();
+        private readonly UIButton _syncEditsButton = new UIButton();
 
         // Text view to show status messages
-        private UITextView _messageTextBlock = new UITextView();
+        private readonly UITextView _messageTextBlock = new UITextView();
 
         public GeodatabaseTransactions()
         {
@@ -287,24 +287,25 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                         // Call a function to update the progress bar
                         InvokeOnMainThread(() => UpdateProgressBar(generateGdbJob.Progress));
 
-                        // See if the job succeeded
-                        if (generateGdbJob.Status == JobStatus.Succeeded)
+                        switch (generateGdbJob.Status)
                         {
-                            InvokeOnMainThread(() =>
-                            {
-                                // Hide the progress control and update the message
-                                _progressBar.Hidden = true;
-                                _messageTextBlock.Text = "Created local geodatabase";
-                            });
-                        }
-                        else if (generateGdbJob.Status == JobStatus.Failed)
-                        {
-                            InvokeOnMainThread(() =>
-                            {
-                                // Hide the progress control and report the exception
-                                _progressBar.Hidden = true;
-                                _messageTextBlock.Text = "Unable to create local geodatabase: " + generateGdbJob.Error.Message;
-                            });
+                            // See if the job succeeded
+                            case JobStatus.Succeeded:
+                                InvokeOnMainThread(() =>
+                                {
+                                    // Hide the progress control and update the message
+                                    _progressBar.Hidden = true;
+                                    _messageTextBlock.Text = "Created local geodatabase";
+                                });
+                                break;
+                            case JobStatus.Failed:
+                                InvokeOnMainThread(() =>
+                                {
+                                    // Hide the progress control and report the exception
+                                    _progressBar.Hidden = true;
+                                    _messageTextBlock.Text = "Unable to create local geodatabase: " + generateGdbJob.Error.Message;
+                                });
+                                break;
                         }
                     };
 
@@ -507,7 +508,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         }
 
         // Synchronize edits in the local geodatabase with the service
-        public async void SynchronizeEdits(object sender, EventArgs e)
+        private async void SynchronizeEdits(object sender, EventArgs e)
         {
             // Show the progress bar while the sync is working
             _progressBar.Hidden = false;
@@ -531,28 +532,27 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                         // Update the progress bar
                         UpdateProgressBar(job.Progress);
 
-                        // Report changes in the job status
-                        if (job.Status == JobStatus.Succeeded)
+                        switch (job.Status)
                         {
+                            // Report changes in the job status
+                            case JobStatus.Succeeded:
                                 _messageTextBlock.Text = "Synchronization is complete!";
                                 _progressBar.Hidden = true;
-                        }
-                        else if (job.Status == JobStatus.Failed)
-                        {
-                            // Report failure ...
+                                break;
+                            case JobStatus.Failed:
+                                // Report failure ...
                                 _messageTextBlock.Text = job.Error.Message;
                                 _progressBar.Hidden = true;
-                        }
-                        else
-                        {
-                            // Report that the job is in progress ...
-                            _messageTextBlock.Text = "Sync in progress ...";
+                                break;
+                            default:
+                                _messageTextBlock.Text = "Sync in progress ...";
+                                break;
                         }
                     });
                 };
 
                 // Await the completion of the job
-                IReadOnlyList<SyncLayerResult> result = await job.GetResultAsync();
+                await job.GetResultAsync();
             }
             catch (Exception ex)
             {

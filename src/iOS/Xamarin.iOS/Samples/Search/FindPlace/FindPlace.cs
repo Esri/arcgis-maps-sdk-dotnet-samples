@@ -34,10 +34,10 @@ namespace ArcGISRuntime.Samples.FindPlace
         public List<string> TableItems = new List<string>();
 
         // Used when re-using cells to ensure that a cell of the right type is used
-        private string CellId = "TableCell";
+        private readonly string CellId = "TableCell";
 
         // Hold a reference to the owning view controller; this will be the active instance of FindPlace
-        public FindPlace Owner { get; set; }
+        private FindPlace Owner { get; }
 
         public SuggestionSource(List<string> items, FindPlace owner)
         {
@@ -56,14 +56,8 @@ namespace ArcGISRuntime.Samples.FindPlace
         /// </summary>
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            // Try to get a re-usable cell (this is for performance)
-            UITableViewCell cell = tableView.DequeueReusableCell(CellId);
-
-            // If there are no cells, create a new one
-            if (cell == null)
-            {
-                cell = new UITableViewCell(UITableViewCellStyle.Default, CellId);
-            }
+            // Try to get a re-usable cell (this is for performance). If there are no cells, create a new one.
+            UITableViewCell cell = tableView.DequeueReusableCell(CellId) ?? new UITableViewCell(UITableViewCellStyle.Default, CellId);
 
             // Get the specific item to display
             string item = TableItems[indexPath.Row];
@@ -109,27 +103,27 @@ namespace ArcGISRuntime.Samples.FindPlace
         private LocatorTask _geocoder;
 
         // Service Uri to be provided to the LocatorTask (geocoder)
-        private Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+        private readonly Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
         // Create the MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Create the search box
-        private UITextField _mySearchBox = new UITextField();
+        private readonly UITextField _mySearchBox = new UITextField();
 
         // Create the location search box
-        private UITextField _myLocationBox = new UITextField();
+        private readonly UITextField _myLocationBox = new UITextField();
 
         // Create the unrestricted search button
-        private UIButton _mySearchButton = new UIButton();
+        private readonly UIButton _mySearchButton = new UIButton();
 
         // Create the restricted search button
-        private UIButton _mySearchRestrictedButton = new UIButton();
+        private readonly UIButton _mySearchRestrictedButton = new UIButton();
 
-        private UIToolbar _backgroundToolbar = new UIToolbar();
+        private readonly UIToolbar _backgroundToolbar = new UIToolbar();
 
         // Create the progress indicator
-        private UIActivityIndicatorView _myProgressBar = new UIActivityIndicatorView
+        private readonly UIActivityIndicatorView _myProgressBar = new UIActivityIndicatorView
         {
             Hidden = true
         };
@@ -138,7 +132,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         private SuggestionSource _mySuggestionSource;
 
         // Create the view for showing suggestions
-        private UITableView _mySuggestionView = new UITableView();
+        private readonly UITableView _mySuggestionView = new UITableView();
 
         // Keep track of whether the search or location is being actively edited
         private bool _locationSearchActive = false;
@@ -200,7 +194,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             // The table view appears on top of the map view
-            _mySuggestionView.Frame = new CoreGraphics.CGRect(2 * margin, (topHeight += height), width - 2 * margin, 8 * height);
+            _mySuggestionView.Frame = new CoreGraphics.CGRect(2 * margin, (topHeight + height), width - 2 * margin, 8 * height);
   
             base.ViewDidLayoutSubviews();
         }

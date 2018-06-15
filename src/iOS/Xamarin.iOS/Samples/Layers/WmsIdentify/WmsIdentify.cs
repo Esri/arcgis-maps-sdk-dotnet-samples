@@ -29,13 +29,13 @@ namespace ArcGISRuntime.Samples.WmsIdentify
     public class WmsIdentify : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Create and hold the URL to the WMS service showing EPA water info
-        private Uri _wmsUrl = new Uri("https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+        private readonly Uri _wmsUrl = new Uri("https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Create and hold a list of uniquely-identifying WMS layer names to display
-        private List<string> _wmsLayerNames = new List<string> { "4" };
+        private readonly List<string> _wmsLayerNames = new List<string> { "4" };
 
         // Hold the WMS layer
         private WmsLayer _wmsLayer;

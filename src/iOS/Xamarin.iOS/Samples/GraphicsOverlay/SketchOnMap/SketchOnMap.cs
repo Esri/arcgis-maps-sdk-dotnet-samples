@@ -34,7 +34,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         // Constant holding offset where the MapView control should start
 
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Dictionary to hold sketch mode enum names and values
         private Dictionary<string, int> _sketchModeDictionary;
@@ -278,7 +278,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             UIAlertController sketchModeActionSheet = UIAlertController.Create("Sketch Modes", "Choose a sketch mode", UIAlertControllerStyle.ActionSheet);
 
             // Create an action for drawing the selected sketch type
-            Action<UIAlertAction> sketchAction = new Action<UIAlertAction>(axun => { SketchGeometry(axun.Title); });
+            Action<UIAlertAction> sketchAction = action => { SketchGeometry(action.Title); };
 
             // Create a dictionary of enum names and values
             IEnumerable<int> enumValues = Enum.GetValues(typeof(SketchCreationMode)).Cast<int>();
@@ -322,7 +322,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                UIAlertView alert = new UIAlertView("Error", "Error drawing graphic shape: " + ex.Message, (IUIAlertViewDelegate)null, "OK", null);
+                new UIAlertView("Error", "Error drawing graphic shape: " + ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
             }
         }
 
@@ -347,7 +347,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                UIAlertView alert = new UIAlertView("Error", "Error editing shape: " + ex.Message, (IUIAlertViewDelegate)null, "OK", null);
+                new UIAlertView("Error", "Error editing shape: " + ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
             }
         }
     }

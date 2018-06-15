@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
     public class AnalyzeHotspots : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Create a label to display "Start Date:"
         private UILabel _startDateLabel;
@@ -45,7 +45,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         private UIButton _runAnalysisButton;
 
         // Create a toolbar to be the form background
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
         // Create the progress indicator
         private UIActivityIndicatorView _myProgressBar;

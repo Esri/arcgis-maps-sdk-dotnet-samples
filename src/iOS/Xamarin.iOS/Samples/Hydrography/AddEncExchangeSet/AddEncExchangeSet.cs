@@ -28,7 +28,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
     public class AddEncExchangeSet : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         public AddEncExchangeSet()
         {

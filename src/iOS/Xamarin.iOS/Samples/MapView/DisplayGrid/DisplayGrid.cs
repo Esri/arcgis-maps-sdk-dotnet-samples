@@ -29,13 +29,13 @@ namespace ArcGISRuntime.Samples.DisplayGrid
     public class DisplayGrid : UIViewController
     {
         // Declare the UI controls.
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
-        private UIButton _gridTypeButton = new UIButton();
-        private UIButton _gridColorButton = new UIButton();
-        private UIButton _labelPositionButton = new UIButton();
-        private UIButton _labelColorButton = new UIButton();
-        private MapView _myMapView = new MapView();
+        private readonly UIButton _gridTypeButton = new UIButton();
+        private readonly UIButton _gridColorButton = new UIButton();
+        private readonly UIButton _labelPositionButton = new UIButton();
+        private readonly UIButton _labelColorButton = new UIButton();
+        private readonly MapView _myMapView = new MapView();
 
         // Fields for storing the user's grid preferences.
         private string _selectedGridType = "LatLong";

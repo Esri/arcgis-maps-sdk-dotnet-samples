@@ -27,10 +27,10 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
     public class LineOfSightLocation : UIViewController
     {
         // Create and hold reference to the used MapView
-        private SceneView _mySceneView = new SceneView();
+        private readonly SceneView _mySceneView = new SceneView();
 
         // URL for an image service to use as an elevation source
-        private string _elevationSourceUrl = @"http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
+        private readonly string _elevationSourceUrl = @"http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
         // Location line of sight analysis
         private LocationLineOfSight _lineOfSightAnalysis;
@@ -42,7 +42,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
         private MapPoint _targetLocation;
 
         // Offset (meters) to use for the observer/target height (z-value for the points)
-        private double _zOffset = 2.0;
+        private readonly double _zOffset = 2.0;
 
         public LineOfSightLocation()
         {

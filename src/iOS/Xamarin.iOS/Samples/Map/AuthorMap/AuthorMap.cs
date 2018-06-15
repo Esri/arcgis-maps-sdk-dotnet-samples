@@ -34,11 +34,11 @@ namespace ArcGISRuntime.Samples.AuthorMap
         // Reference to the MapView used in the app
         private MapView _myMapView;
 
-        private UISegmentedControl _segmentButton = new UISegmentedControl();
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UISegmentedControl _segmentButton = new UISegmentedControl();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
         // Dictionary of operational layer names and URLs
-        private Dictionary<string, string> _operationalLayerUrls = new Dictionary<string, string>
+        private readonly Dictionary<string, string> _operationalLayerUrls = new Dictionary<string, string>
         {
             {"World Elevations", "https://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer"},
             {"World Cities", "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/" },
@@ -59,7 +59,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         // Constants for OAuth-related values ...
         // URL of the server to authenticate with
-        private string ServerUrl = "https://www.arcgis.com/sharing/rest";
+        private readonly string ServerUrl = "https://www.arcgis.com/sharing/rest";
 
         // TODO: Add Client ID for an app registered with the server
         private string _appClientId = "2Gh53JRzkPtOENQq";
@@ -142,32 +142,27 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Get the segmented button control that raised the event
             var buttonControl = sender as UISegmentedControl;
 
-            // Get the selected segment in the control
-            var selectedSegmentId = buttonControl.SelectedSegment;
-
-            // Execute the appropriate action for the control
-            if (selectedSegmentId == 0)
+            switch (buttonControl.SelectedSegment)
             {
-                // Show basemap choices
-                ShowBasemapList();
-            }
-            else if (selectedSegmentId == 1)
-            {
-                // Show a list of available operational layers
-                ShowLayerList();
-            }
-            else if (selectedSegmentId == 2)
-            {
-                // Clear the map from the map view (allow the user to start over and save as a new portal item)
-                _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
-            }
-            else if (selectedSegmentId == 3)
-            {
-                // Show the save map UI
-                ShowSaveMapUi();
+                case 0:
+                    // Show basemap choices
+                    ShowBasemapList();
+                    break;
+                case 1:
+                    // Show a list of available operational layers
+                    ShowLayerList();
+                    break;
+                case 2:
+                    // Clear the map from the map view (allow the user to start over and save as a new portal item)
+                    _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+                    break;
+                case 3:
+                    // Show the save map UI
+                    ShowSaveMapUi();
+                    break;
             }
 
-            // Unselect all segments (user might want to click the same control twice)
+            // Deselect all segments (user might want to click the same control twice)
             buttonControl.SelectedSegment = -1;
         }
 
@@ -608,9 +603,9 @@ namespace ArcGISRuntime.Samples.AuthorMap
         public event EventHandler OnCanceled;
 
         // Store the input controls so the values can be read
-        private UITextField _clientIdTextField;
+        private readonly UITextField _clientIdTextField;
 
-        private UITextField _redirectUrlTextField;
+        private readonly UITextField _redirectUrlTextField;
 
         public OAuthPropsDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, string clientId, string redirectUrl) : base(frame)
         {
@@ -712,7 +707,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             Action makeTransparentAction = () => Alpha = 0;
 
             // Action to remove the view
-            Action removeViewAction = () => RemoveFromSuperview();
+            Action removeViewAction = RemoveFromSuperview;
 
             // Time to complete the animation (seconds)
             double secondsToComplete = 0.75;
@@ -750,10 +745,10 @@ namespace ArcGISRuntime.Samples.AuthorMap
     public class OAuthPropsSavedEventArgs : EventArgs
     {
         // Client ID property
-        public string ClientId { get; set; }
+        public string ClientId { get; }
 
-        // Redirect Url property
-        public string RedirectUrl { get; set; }
+        // Redirect URL property
+        public string RedirectUrl { get; }
 
         // Store map item values passed into the constructor
         public OAuthPropsSavedEventArgs(string clientId, string redirectUrl)
@@ -773,9 +768,9 @@ namespace ArcGISRuntime.Samples.AuthorMap
         public event EventHandler OnCanceled;
 
         // Store the input controls so the values can be read
-        private UITextField _titleTextField;
-        private UITextField _descriptionTextField;
-        private UITextField _tagsTextField;
+        private readonly UITextField _titleTextField;
+        private readonly UITextField _descriptionTextField;
+        private readonly UITextField _tagsTextField;
 
         public SaveMapDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, PortalItem mapItem) : base(frame)
         {
@@ -902,7 +897,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             Action makeTransparentAction = () => Alpha = 0;
 
             // Action to remove the view
-            Action removeViewAction = () => RemoveFromSuperview();
+            Action removeViewAction = RemoveFromSuperview;
 
             // Time to complete the animation (seconds)
             double secondsToComplete = 0.75;
@@ -941,13 +936,13 @@ namespace ArcGISRuntime.Samples.AuthorMap
     public class MapSavedEventArgs : EventArgs
     {
         // Title property
-        public string Title { get; set; }
+        public string Title { get; }
 
         // Description property
-        public string Description { get; set; }
+        public string Description { get; }
 
         // Tags property
-        public string[] Tags { get; set; }
+        public string[] Tags { get; }
 
         // Store map item values passed into the constructor
         public MapSavedEventArgs(string title, string description, string[] tags)

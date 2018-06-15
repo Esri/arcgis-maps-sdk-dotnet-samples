@@ -96,7 +96,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             _colorRampsPicker.Frame = new CoreGraphics.CGRect(margin, formStart + (3 * controlHeight) + (4 * margin), View.Bounds.Width - (2 * margin), controlHeight);
 
             // Setup the visual frame for button the users clicks to change the blend renderer on the raster
-            _updateRendererButton.Frame = new CoreGraphics.CGRect(margin, formStart + (4 * controlHeight) + (5 * margin), View.Bounds.Width - (2 * margin), controlHeight);;
+            _updateRendererButton.Frame = new CoreGraphics.CGRect(margin, formStart + (4 * controlHeight) + (5 * margin), View.Bounds.Width - (2 * margin), controlHeight);
 
             // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);

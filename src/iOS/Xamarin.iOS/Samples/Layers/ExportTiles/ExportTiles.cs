@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
         private UIButton _myExportButton;
 
         // URL to the service tiles will be exported from.
-        private Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
+        private readonly Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
 
         // Path to exported tiles on disk.
         private string _tilePath;
@@ -278,54 +278,55 @@ namespace ArcGISRuntime.Samples.ExportTiles
         {
             // Hide the progress bar.
             _myProgressBar.StopAnimating();
-            // Update the view if the job is complete.
-            if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded)
+            switch (job.Status)
             {
-                // Dispatcher is necessary due to the threading implementation;
-                //     this method is called from a thread other than the UI thread.
-                InvokeOnMainThread(async () =>
-                {
-                    // Show the exported tiles on the preview map.
-                    try
+                // Update the view if the job is complete.
+                case Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded:
+                    // Dispatcher is necessary due to the threading implementation;
+                    //     this method is called from a thread other than the UI thread.
+                    InvokeOnMainThread(async () =>
                     {
-                        await UpdatePreviewMap(cache);
+                        // Show the exported tiles on the preview map.
+                        try
+                        {
+                            await UpdatePreviewMap(cache);
 
-                        // Show the preview window.
-                        _myPreviewMapView.Hidden = false;
+                            // Show the preview window.
+                            _myPreviewMapView.Hidden = false;
 
+                            // Change the export button text.
+                            _myExportButton.SetTitle("Close preview", UIControlState.Normal);
+
+                            // Re-enable the button.
+                            _myExportButton.Enabled = true;
+
+                            // Set the preview open flag.
+                            _previewOpen = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowStatusMessage(ex.ToString());
+                        }
+                    });
+                    break;
+                case Esri.ArcGISRuntime.Tasks.JobStatus.Failed:
+                    // Notify the user.
+                    ShowStatusMessage("Job failed");
+
+                    // Dispatcher is necessary due to the threading implementation;
+                    //     this method is called from a thread other than the UI thread.
+                    InvokeOnMainThread(() =>
+                    {
                         // Change the export button text.
-                        _myExportButton.SetTitle("Close preview", UIControlState.Normal);
+                        _myExportButton.SetTitle("Export Tiles", UIControlState.Normal);
 
-                        // Re-enable the button.
+                        // Re-enable the export button.
                         _myExportButton.Enabled = true;
 
                         // Set the preview open flag.
-                        _previewOpen = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        ShowStatusMessage(ex.ToString());
-                    }
-                });
-            }
-            else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
-            {
-                // Notify the user.
-                ShowStatusMessage("Job failed");
-
-                // Dispatcher is necessary due to the threading implementation;
-                //     this method is called from a thread other than the UI thread.
-                InvokeOnMainThread(() =>
-                {
-                    // Change the export button text.
-                    _myExportButton.SetTitle("Export Tiles", UIControlState.Normal);
-
-                    // Re-enable the export button.
-                    _myExportButton.Enabled = true;
-
-                    // Set the preview open flag.
-                    _previewOpen = false;
-                });
+                        _previewOpen = false;
+                    });
+                    break;
             }
         }
 

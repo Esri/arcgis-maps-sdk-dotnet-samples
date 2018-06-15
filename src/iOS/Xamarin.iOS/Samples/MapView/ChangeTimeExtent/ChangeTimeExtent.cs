@@ -45,7 +45,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
         private readonly UIToolbar _toolbar = new UIToolbar();
 
         // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         public ChangeTimeExtent()
         {

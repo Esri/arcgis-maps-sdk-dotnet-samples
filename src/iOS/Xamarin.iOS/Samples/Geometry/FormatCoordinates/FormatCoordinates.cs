@@ -29,29 +29,29 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
     public class FormatCoordinates : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Create the text fields
-        private UITextField _utmUITextField = new UITextField { Placeholder = "UTM" };
-        private UITextField _dmsUITextField = new UITextField { Placeholder = "Degrees, Minutes, Seconds" };
-        private UITextField _decimalDegreesUITextField = new UITextField { Placeholder = "Decimal Degrees" };
-        private UITextField _usngUITextField = new UITextField { Placeholder = "USNG" };
+        private readonly UITextField _utmEntry = new UITextField { Placeholder = "UTM" };
+        private readonly UITextField _dmsEntry = new UITextField { Placeholder = "Degrees, Minutes, Seconds" };
+        private readonly UITextField _ddEntry = new UITextField { Placeholder = "Decimal Degrees" };
+        private readonly UITextField _usngEntry = new UITextField { Placeholder = "USNG" };
 
         // Create the labels
-        private UILabel _utmLabel = new UILabel { Text = "UTM:" };
-        private UILabel _dmsLabel = new UILabel { Text = "Degrees, Minutes, Seconds: " };
-        private UILabel _decimalDegreeslabel = new UILabel { Text = "Decimal Degrees: " };
-        private UILabel _usngLabel = new UILabel { Text = "USNG: " };
-        private UILabel _helpLabel = new UILabel();
+        private readonly UILabel _utmLabel = new UILabel { Text = "UTM:" };
+        private readonly UILabel _dmsLabel = new UILabel { Text = "Degrees, Minutes, Seconds: " };
+        private readonly UILabel _decimalDegreeslabel = new UILabel { Text = "Decimal Degrees: " };
+        private readonly UILabel _usngLabel = new UILabel { Text = "USNG: " };
+        private readonly UILabel _helpLabel = new UILabel();
 
         // Create the recalculate button
-        private UIButton _recalculateButton = new UIButton();
+        private readonly UIButton _recalculateButton = new UIButton();
 
         // Track the most recently edited field
         private UITextField _selectedField;
 
         // Toolbar to go behind the form
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
         public FormatCoordinates()
         {
@@ -61,7 +61,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         private void Initialize()
         {
             // Update the initial field selection
-            _selectedField = _decimalDegreesUITextField;
+            _selectedField = _ddEntry;
 
             // Create the map
             _myMapView.Map = new Map(Basemap.CreateStreets());
@@ -129,24 +129,24 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         {
             if (startingPoint == null) { return; }
             // Clear event subscriptions - prevents an infinite loop
-            _utmUITextField.EditingDidBegin -= InputValueChanged;
-            _dmsUITextField.EditingDidBegin -= InputValueChanged;
-            _decimalDegreesUITextField.EditingDidBegin -= InputValueChanged;
-            _usngUITextField.EditingDidBegin -= InputValueChanged;
+            _utmEntry.EditingDidBegin -= InputValueChanged;
+            _dmsEntry.EditingDidBegin -= InputValueChanged;
+            _ddEntry.EditingDidBegin -= InputValueChanged;
+            _usngEntry.EditingDidBegin -= InputValueChanged;
 
             // Update the decimal degrees text
-            _decimalDegreesUITextField.Text =
+            _ddEntry.Text =
                 CoordinateFormatter.ToLatitudeLongitude(startingPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
 
             // Update the degrees, minutes, seconds text
-            _dmsUITextField.Text = CoordinateFormatter.ToLatitudeLongitude(startingPoint,
+            _dmsEntry.Text = CoordinateFormatter.ToLatitudeLongitude(startingPoint,
                 LatitudeLongitudeFormat.DegreesMinutesSeconds, 1);
 
             // Update the UTM text
-            _utmUITextField.Text = CoordinateFormatter.ToUtm(startingPoint, UtmConversionMode.NorthSouthIndicators, true);
+            _utmEntry.Text = CoordinateFormatter.ToUtm(startingPoint, UtmConversionMode.NorthSouthIndicators, true);
 
             // Update the USNG text
-            _usngUITextField.Text = CoordinateFormatter.ToUsng(startingPoint, 4, true);
+            _usngEntry.Text = CoordinateFormatter.ToUsng(startingPoint, 4, true);
 
             // Clear existing graphics overlays
             _myMapView.GraphicsOverlays[0].Graphics.Clear();
@@ -161,25 +161,25 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             _myMapView.GraphicsOverlays[0].Graphics.Add(symbolGraphic);
 
             // Restore event subscriptions
-            _utmUITextField.EditingDidBegin += InputValueChanged;
-            _dmsUITextField.EditingDidBegin += InputValueChanged;
-            _decimalDegreesUITextField.EditingDidBegin += InputValueChanged;
-            _usngUITextField.EditingDidBegin += InputValueChanged;
+            _utmEntry.EditingDidBegin += InputValueChanged;
+            _dmsEntry.EditingDidBegin += InputValueChanged;
+            _ddEntry.EditingDidBegin += InputValueChanged;
+            _usngEntry.EditingDidBegin += InputValueChanged;
         }
 
         private void CreateLayout()
         {
             // Update the colors
-            _dmsUITextField.TextColor = View.TintColor;
-            _utmUITextField.TextColor = View.TintColor;
-            _usngUITextField.TextColor = View.TintColor;
-            _decimalDegreesUITextField.TextColor = View.TintColor;
+            _dmsEntry.TextColor = View.TintColor;
+            _utmEntry.TextColor = View.TintColor;
+            _usngEntry.TextColor = View.TintColor;
+            _ddEntry.TextColor = View.TintColor;
 
             // Enable text fields to close keyboard
-            _dmsUITextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
-            _decimalDegreesUITextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
-            _utmUITextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
-            _usngUITextField.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
+            _dmsEntry.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
+            _ddEntry.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
+            _utmEntry.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
+            _usngEntry.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
 
             // Set up the help label
             _helpLabel.Text = "Tap the map to see coordinates in each format. Update any value and tap 'Recalculate' to see updated coordinates.";
@@ -192,8 +192,8 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             _recalculateButton.TouchUpInside += RecalculateFields;
 
             // Add views to the page
-            View.AddSubviews(_myMapView, _toolbar, _helpLabel, _recalculateButton, _decimalDegreesUITextField, _decimalDegreeslabel, _dmsLabel, _dmsUITextField,
-                _usngLabel, _usngUITextField, _utmLabel, _utmUITextField);
+            View.AddSubviews(_myMapView, _toolbar, _helpLabel, _recalculateButton, _ddEntry, _decimalDegreeslabel, _dmsLabel, _dmsEntry,
+                _usngLabel, _usngEntry, _utmLabel, _utmEntry);
         }
 
         public override void ViewDidLoad()
@@ -221,22 +221,22 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             // Decimal degrees
             _decimalDegreeslabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
             topMargin += controlHeight;
-            _decimalDegreesUITextField.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
+            _ddEntry.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
             topMargin += controlHeight;
             // DMS
             _dmsLabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
             topMargin += controlHeight;
-            _dmsUITextField.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
+            _dmsEntry.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
             topMargin += controlHeight;
             // UTM
             _utmLabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
             topMargin += controlHeight;
-            _utmUITextField.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
+            _utmEntry.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
             topMargin += controlHeight;
             // USNG
             _usngLabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
             topMargin += controlHeight;
-            _usngUITextField.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
+            _usngEntry.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
             topMargin += controlHeight + margin;
             // Button
             _recalculateButton.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);

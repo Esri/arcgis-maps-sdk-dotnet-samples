@@ -32,7 +32,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
     public class AnalyzeViewshed : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Url for the geoprocessing service
         private const string ViewshedServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/ESRI_Elevation_World/GPServer/Viewshed";

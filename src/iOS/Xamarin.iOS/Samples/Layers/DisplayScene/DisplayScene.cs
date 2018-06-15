@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.DisplayScene
     public class DisplayScene : UIViewController
     {
         // Create a new SceneView control
-        private SceneView _mySceneView = new SceneView();
+        private readonly SceneView _mySceneView = new SceneView();
 
         public DisplayScene()
         {

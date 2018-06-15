@@ -244,7 +244,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
         }
 
         // ChallengeHandler function that will be called whenever access to a secured resource is attempted
-        public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
+        private async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
             Credential credential = null;
 
@@ -272,62 +272,58 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             // Get the segmented button control that raised the event
             var buttonControl = sender as UISegmentedControl;
 
-            // Get the selected segment in the control
-            var selectedSegmentId = buttonControl.SelectedSegment;
-
-            // Execute the appropriate action for the control
-            if (selectedSegmentId == 0)
+            switch (buttonControl.SelectedSegment)
             {
-                // Show basemap choices
-                ShowBasemapList();
-            }
-            else if (selectedSegmentId == 1)
-            {
-                // Create a new map
-                _mapViewModel.ResetMap();
-            }
-            else if (selectedSegmentId == 2)
-            {
-                // Create a challenge request for portal credentials (OAuth credential request for arcgis.com)
-                CredentialRequestInfo challengeRequest = new CredentialRequestInfo();
+                case 0:
+                    // Show basemap choices
+                    ShowBasemapList();
+                    break;
+                case 1:
+                    // Create a new map
+                    _mapViewModel.ResetMap();
+                    break;
+                case 2:
+                    // Create a challenge request for portal credentials (OAuth credential request for arcgis.com)
+                    CredentialRequestInfo challengeRequest = new CredentialRequestInfo();
 
-                // Use the OAuth implicit grant flow
-                challengeRequest.GenerateTokenOptions = new GenerateTokenOptions
-                {
-                    TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-                };
+                    // Use the OAuth implicit grant flow
+                    challengeRequest.GenerateTokenOptions = new GenerateTokenOptions
+                    {
+                        TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                    };
 
-                // Indicate the url (portal) to authenticate with (ArcGIS Online)
-                challengeRequest.ServiceUri = new Uri("https://www.arcgis.com/sharing/rest");
+                    // Indicate the url (portal) to authenticate with (ArcGIS Online)
+                    challengeRequest.ServiceUri = new Uri("https://www.arcgis.com/sharing/rest");
 
-                try
-                {
-                    // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                    await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
-                }
-                catch (Exception)
-                {
-                    // user canceled the login
-                    buttonControl.SelectedSegment = -1;
-                    return;
-                }
+                    try
+                    {
+                        // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
+                        await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
+                    }
+                    catch (Exception)
+                    {
+                        // user canceled the login
+                        buttonControl.SelectedSegment = -1;
+                        return;
+                    }
 
-                // Show the save map UI
-                if (_mapInfoUi != null) { buttonControl.SelectedSegment = -1; return; }
+                    // Show the save map UI
+                    if (_mapInfoUi != null) { buttonControl.SelectedSegment = -1; return; }
 
-                // Create a view to show map item info entry controls over the map view
-                var ovBounds = _mapView.Bounds;
-                ovBounds.Height = ovBounds.Height + 60;
-                _mapInfoUi = new SaveMapDialogOverlay(ovBounds, 0.75f, UIColor.White, _mapView.Map.Item);
+                    // Create a view to show map item info entry controls over the map view
+                    var ovBounds = _mapView.Bounds;
+                    ovBounds.Height = ovBounds.Height + 60;
+                    _mapInfoUi = new SaveMapDialogOverlay(ovBounds, 0.75f, UIColor.White, _mapView.Map.Item);
 
-                // Handle the OnMapInfoEntered event to get the info entered by the user
-                _mapInfoUi.OnMapInfoEntered += MapItemInfoEntered;
+                    // Handle the OnMapInfoEntered event to get the info entered by the user
+                    _mapInfoUi.OnMapInfoEntered += MapItemInfoEntered;
 
-                // Handle the cancel event when the user closes the dialog without choosing to save
-                _mapInfoUi.OnCanceled += SaveCanceled;
+                    // Handle the cancel event when the user closes the dialog without choosing to save
+                    _mapInfoUi.OnCanceled += SaveCanceled;
 
-                // Add the map item info UI view (will display semi-transparent over the map view)
-                View.Add(_mapInfoUi);
+                    // Add the map item info UI view (will display semi-transparent over the map view)
+                    View.Add(_mapInfoUi);
+                    break;
             }
 
             // Unselect all segments (user might want to click the same control twice)
@@ -340,7 +336,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             UIAlertController basemapsActionSheet = UIAlertController.Create("Basemaps", "Choose a basemap", UIAlertControllerStyle.ActionSheet);
 
             // Create an action that will apply a selected basemap
-            Action<UIAlertAction> changeBasemapAction = new Action<UIAlertAction>(axun => { _mapViewModel.ChangeBasemap(axun.Title); });
+            Action<UIAlertAction> changeBasemapAction = action => { _mapViewModel.ChangeBasemap(action.Title); };
 
             // Add items to the action sheet to apply each basemap type
             foreach (string bm in _mapViewModel.BasemapChoices)
@@ -432,13 +428,13 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
     public class MapSavedEventArgs : EventArgs
     {
         // Title property
-        public string Title { get; set; }
+        public string Title { get; }
 
         // Description property
-        public string Description { get; set; }
+        public string Description { get; }
 
         // Tags property
-        public string[] Tags { get; set; }
+        public string[] Tags { get; }
 
         // Store map item values passed into the constructor
         public MapSavedEventArgs(string title, string description, string[] tags)
@@ -572,7 +568,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             Action makeTransparentAction = () => Alpha = 0;
 
             // Action to remove the view
-            Action removeViewAction = () => RemoveFromSuperview();
+            Action removeViewAction = RemoveFromSuperview;
 
             // Time to complete the animation (seconds)
             double secondsToComplete = 0.75;
@@ -629,7 +625,9 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
         }
 
         // String array to store basemap constructor types
-        private readonly string[] _basemapTypes = new string[]
+
+        // Read-only property to return the available basemap names
+        public string[] BasemapChoices { get; } = 
         {
             "Topographic",
             "Topographic Vector",
@@ -638,9 +636,6 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             "Imagery",
             "Oceans"
         };
-
-        // Read-only property to return the available basemap names
-        public string[] BasemapChoices => _basemapTypes;
 
         public void ChangeBasemap(string basemap)
         {
@@ -723,7 +718,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
         }
 
         // Raises the "MapViewModel.PropertyChanged" event
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var propertyChangedHandler = PropertyChanged;
             propertyChangedHandler?.Invoke(this, new PropertyChangedEventArgs(propertyName));

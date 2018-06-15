@@ -30,11 +30,11 @@ namespace ArcGISRuntime.Samples.FindRoute
     public class FindRoute : UIViewController
     {
         private MapView _myMapView;
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
-        UIButton solveRouteButton = new UIButton(UIButtonType.Plain);
-        UIButton resetButton = new UIButton(UIButtonType.Plain);
-        UIButton showDirectionsButton = new UIButton(UIButtonType.Plain);
+        private readonly UIButton _solveRouteButton = new UIButton(UIButtonType.Plain);
+        private readonly UIButton _resetButton = new UIButton(UIButtonType.Plain);
+        private readonly UIButton _showDirectionsButton = new UIButton(UIButtonType.Plain);
 
         // List of stops on the route ('from' and 'to')
         private List<Stop> _routeStops;
@@ -46,11 +46,11 @@ namespace ArcGISRuntime.Samples.FindRoute
         private GraphicsOverlay _routeGraphicsOverlay;
 
         // URI for the San Diego route service
-        private Uri _sanDiegoRouteServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
+        private readonly Uri _sanDiegoRouteServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
 
         // URIs for picture marker images
-        private Uri _checkedFlagIconUri = new Uri("https://static.arcgis.com/images/Symbols/Transportation/CheckeredFlag.png");
-        private Uri _carIconUri = new Uri("https://static.arcgis.com/images/Symbols/Transportation/CarRedFront.png");
+        private readonly Uri _checkedFlagIconUri = new Uri("https://static.arcgis.com/images/Symbols/Transportation/CheckeredFlag.png");
+        private readonly Uri _carIconUri = new Uri("https://static.arcgis.com/images/Symbols/Transportation/CarRedFront.png");
 
         public FindRoute()
         {
@@ -64,20 +64,20 @@ namespace ArcGISRuntime.Samples.FindRoute
             // Create a new MapView control and provide its location coordinates on the frame
             _myMapView = new MapView();
 
-            solveRouteButton.SetTitle("Solve route", UIControlState.Normal);
-            solveRouteButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            solveRouteButton.TouchUpInside += SolveRouteButtonClick;
+            _solveRouteButton.SetTitle("Solve route", UIControlState.Normal);
+            _solveRouteButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _solveRouteButton.TouchUpInside += SolveRouteButtonClick;
 
-            resetButton.SetTitle("Reset", UIControlState.Normal);
-            resetButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            resetButton.TouchUpInside += ResetButtonClick;
+            _resetButton.SetTitle("Reset", UIControlState.Normal);
+            _resetButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _resetButton.TouchUpInside += ResetButtonClick;
 
-            showDirectionsButton.SetTitle("Directions", UIControlState.Normal);
-            showDirectionsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            showDirectionsButton.TouchUpInside += ShowDirections;
+            _showDirectionsButton.SetTitle("Directions", UIControlState.Normal);
+            _showDirectionsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _showDirectionsButton.TouchUpInside += ShowDirections;
 
             // Add the bar button items to an array of UIBarButtonItems
-            View.AddSubviews(_myMapView, _toolbar, solveRouteButton, resetButton, showDirectionsButton);
+            View.AddSubviews(_myMapView, _toolbar, _solveRouteButton, _resetButton, _showDirectionsButton);
 
             Initialize();
         }
@@ -195,9 +195,9 @@ namespace ArcGISRuntime.Samples.FindRoute
             _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
 
             // Update toolbar item layouts
-            solveRouteButton.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, 100, 20);
-            resetButton.Frame = new CoreGraphics.CGRect(120, _toolbar.Frame.Top + 10, 50, 20);
-            showDirectionsButton.Frame = new CoreGraphics.CGRect(180, _toolbar.Frame.Top + 10, 100, 20);
+            _solveRouteButton.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, 100, 20);
+            _resetButton.Frame = new CoreGraphics.CGRect(120, _toolbar.Frame.Top + 10, 50, 20);
+            _showDirectionsButton.Frame = new CoreGraphics.CGRect(180, _toolbar.Frame.Top + 10, 100, 20);
 
 
             base.ViewDidLayoutSubviews();
@@ -206,8 +206,8 @@ namespace ArcGISRuntime.Samples.FindRoute
 
     public class DirectionsTableSource : UITableViewSource
     {
-        private IReadOnlyList<DirectionManeuver> _directionsList;
-        private string _cellID = "TableCell";
+        private readonly IReadOnlyList<DirectionManeuver> _directionsList;
+        private readonly string _cellId = "TableCell";
 
         public DirectionsTableSource(IReadOnlyList<DirectionManeuver> directions)
         {
@@ -216,12 +216,12 @@ namespace ArcGISRuntime.Samples.FindRoute
 
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            UITableViewCell cell = tableView.DequeueReusableCell(_cellID);
+            UITableViewCell cell = tableView.DequeueReusableCell(_cellId);
             string directionText = _directionsList[indexPath.Row].DirectionText;
 
             if(cell == null)
             {
-                cell = new UITableViewCell(UITableViewCellStyle.Default, _cellID);
+                cell = new UITableViewCell(UITableViewCellStyle.Default, _cellId);
                 cell.TextLabel.Lines = 2;
                 cell.TextLabel.AdjustsFontSizeToFitWidth = true;
             }

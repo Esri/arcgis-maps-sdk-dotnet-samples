@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
     public class ServiceFeatureTableManualCache : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         private ServiceFeatureTable _incidentsFeatureTable;
 
@@ -60,7 +60,7 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
                 -13630484, 4545415, SpatialReferences.WebMercator);
             myMap.InitialViewpoint = new Viewpoint(initialLocation, 500000);
 
-            // Create uri to the used feature service
+            // Create URL to the used feature service
             var serviceUri = new Uri(
                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0");
 
@@ -97,7 +97,7 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
             };
 
             // Create list of the fields that are returned from the service
-            string[] outputFields = new string[] { "*" };
+            string[] outputFields = { "*" };
 
             // Populate feature table with the data based on query
             await _incidentsFeatureTable.PopulateFromServiceAsync(queryParameters, true, outputFields);

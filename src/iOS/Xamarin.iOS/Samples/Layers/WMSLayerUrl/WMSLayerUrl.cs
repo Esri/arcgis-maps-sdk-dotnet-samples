@@ -26,13 +26,13 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
     public class WMSLayerUrl : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Hold the URL to the WMS service showing the geology of Africa
-        private Uri wmsUrl = new Uri("https://certmapper.cr.usgs.gov/arcgis/services/geology/africa/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+        private readonly Uri _wmsUrl = new Uri("https://certmapper.cr.usgs.gov/arcgis/services/geology/africa/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Hold a list of uniquely-identifying WMS layer names to display
-        private List<string> wmsLayerNames = new List<string> { "0" };
+        private readonly List<string> _wmsLayerNames = new List<string> { "0" };
 
         public WMSLayerUrl()
         {
@@ -68,7 +68,7 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
             _myMapView.Map = myMap;
 
             // Create a new WMS layer displaying the specified layers from the service
-            WmsLayer myWmsLayer = new WmsLayer(wmsUrl, wmsLayerNames);
+            WmsLayer myWmsLayer = new WmsLayer(_wmsUrl, _wmsLayerNames);
 
             // Add the layer to the map
             myMap.OperationalLayers.Add(myWmsLayer);

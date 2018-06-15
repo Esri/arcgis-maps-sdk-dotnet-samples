@@ -26,10 +26,10 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
     public class TimeBasedQuery : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Hold a URI pointing to the feature service
-        private Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0");
+        private readonly Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0");
 
         // Hold a reference to the feature table used by the sample
         private ServiceFeatureTable _myFeatureTable;
@@ -99,7 +99,7 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
             queryParameters.TimeExtent = myExtent;
 
             // Create list of the fields that are returned from the service
-            string[] outputFields = new string[] { "*" };
+            string[] outputFields = { "*" };
 
             // Populate feature table with the data based on query
             await _myFeatureTable.PopulateFromServiceAsync(queryParameters, true, outputFields);

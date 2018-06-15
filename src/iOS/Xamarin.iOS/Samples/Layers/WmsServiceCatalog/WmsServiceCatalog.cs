@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
     public class LayerListSource : UITableViewSource
     {
         // List of strings; these will be the suggestions
-        public List<LayerDisplayVm> ViewModelList = new List<LayerDisplayVm>();
+        public readonly List<LayerDisplayVm> ViewModelList = new List<LayerDisplayVm>();
 
         // Used when re-using cells to ensure that a cell of the right type is used
         private readonly string _cellId = "TableCell";
@@ -284,7 +284,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         /// <summary>
         /// Metadata for the individual selected layer
         /// </summary>
-        public WmsLayerInfo Info { get; set; }
+        public WmsLayerInfo Info { get; }
 
         /// <summary>
         /// True if the layer is selected for display

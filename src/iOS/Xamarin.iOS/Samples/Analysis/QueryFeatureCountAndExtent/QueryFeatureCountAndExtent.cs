@@ -42,7 +42,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
 
         // Help label and toolbar
         private UILabel _helpLabel;
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
         // URL to the feature service
         private readonly Uri _usaCitiesSource = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");

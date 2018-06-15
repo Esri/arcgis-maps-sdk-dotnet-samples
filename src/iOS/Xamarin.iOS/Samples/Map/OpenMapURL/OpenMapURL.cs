@@ -29,7 +29,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         private readonly UIButton _mapsButton = new UIButton();
 
         // String array to hold urls to publicly available web maps
-        private readonly string[] _itemUrLs = new string[] 
+        private readonly string[] _itemUrLs = 
         {
             "https://www.arcgis.com/home/item.html?id=2d6fa24b357d427f9c737774e7b0f977",
             "https://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
@@ -37,7 +37,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         };
 
         // String array to store titles for the webmaps specified above. These titles are in the same order as the urls above
-        private readonly string[] _titles = new string[]
+        private readonly string[] _titles = 
         {
             "Housing with Mortgages",
             "USA Tapestry Segmentation",

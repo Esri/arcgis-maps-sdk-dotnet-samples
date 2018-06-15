@@ -46,7 +46,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         }
 
         // URL for a feature service that supports geodatabase generation.
-        private Uri _featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer");
+        private readonly Uri _featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer");
 
         // Path to the geodatabase file on disk.
         private string _gdbPath;
@@ -61,23 +61,23 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         private Geodatabase _resultGdb;
 
         // MapView control.
-        private MapView myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Progress Bar.
-        private UIProgressView myProgressBar = new UIProgressView();
+        private readonly UIProgressView _progressBar = new UIProgressView();
 
         // Generate button.
-        private UIButton myGenerateButton = new UIButton { Enabled = false };
+        private readonly UIButton _generateButton = new UIButton { Enabled = false };
 
         // Synchronize button.
-        private UIButton mySyncButton = new UIButton();
+        private readonly UIButton _syncButton = new UIButton();
 
         // Help label.
-        private UILabel myHelpLabel = new UILabel();
+        private readonly UILabel _helpLabel = new UILabel();
 
         // Create toolbars to go behind help label and controls.
-        private UIToolbar _helpToolbar = new UIToolbar();
-        private UIToolbar _controlsToolbar = new UIToolbar();
+        private readonly UIToolbar _helpToolbar = new UIToolbar();
+        private readonly UIToolbar _controlsToolbar = new UIToolbar();
 
         public EditAndSyncFeatures()
         {
@@ -102,38 +102,38 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             nfloat controlHeight = 30;
 
             // Place the views.
-            myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _helpToolbar.Frame = new CoreGraphics.CGRect(0, pageOffset, View.Bounds.Width, controlHeight + (2 * margin));
             _controlsToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - (2 * margin), View.Bounds.Width, controlHeight + (2 * margin));
-            myGenerateButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
-            mySyncButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
-            myProgressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 42, View.Bounds.Width, 2);
-            myHelpLabel.Frame = new CoreGraphics.CGRect(margin, pageOffset + margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _generateButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
+            _syncButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
+            _progressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 42, View.Bounds.Width, 2);
+            _helpLabel.Frame = new CoreGraphics.CGRect(margin, pageOffset + margin, View.Bounds.Width - (2 * margin), controlHeight);
         }
 
         private void CreateLayout()
         {
             // Update the Generate Button.
-            myGenerateButton.SetTitle("Generate", UIControlState.Normal);
-            myGenerateButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            myGenerateButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
-            myGenerateButton.TouchUpInside += GenerateButton_Clicked;
+            _generateButton.SetTitle("Generate", UIControlState.Normal);
+            _generateButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _generateButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+            _generateButton.TouchUpInside += GenerateButton_Clicked;
 
             // Update the Sync Button.
-            mySyncButton.SetTitle("Synchronize", UIControlState.Normal);
-            mySyncButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            mySyncButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
-            mySyncButton.TouchUpInside += SyncButton_Click;
-            mySyncButton.Enabled = false;
+            _syncButton.SetTitle("Synchronize", UIControlState.Normal);
+            _syncButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _syncButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+            _syncButton.TouchUpInside += SyncButton_Click;
+            _syncButton.Enabled = false;
 
             // Update the help label.
-            myHelpLabel.Text = "1. Tap 'Generate'.";
-            myHelpLabel.TextAlignment = UITextAlignment.Center;
-            myHelpLabel.Lines = 1;
-            myHelpLabel.AdjustsFontSizeToFitWidth = true;
+            _helpLabel.Text = "1. Tap 'Generate'.";
+            _helpLabel.TextAlignment = UITextAlignment.Center;
+            _helpLabel.Lines = 1;
+            _helpLabel.AdjustsFontSizeToFitWidth = true;
 
             // Add the views.
-            View.AddSubviews(myMapView, _helpToolbar, _controlsToolbar, mySyncButton, myGenerateButton, myHelpLabel);
+            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _syncButton, _generateButton, _helpLabel);
         }
 
         private async void Initialize()
@@ -153,7 +153,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 Map myMap = new Map(sfBasemap);
 
                 // Assign the map to the MapView.
-                myMapView.Map = myMap;
+                _myMapView.Map = myMap;
 
                 // Create a new symbol for the extent graphic.
                 SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
@@ -165,13 +165,13 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 };
 
                 // Add graphics overlay to the map view.
-                myMapView.GraphicsOverlays.Add(extentOverlay);
+                _myMapView.GraphicsOverlays.Add(extentOverlay);
 
                 // Set up an event handler for 'tapped' events.
-                myMapView.GeoViewTapped += GeoViewTapped;
+                _myMapView.GeoViewTapped += GeoViewTapped;
 
                 // Set up an event handler for when the viewpoint (extent) changes.
-                myMapView.ViewpointChanged += MapViewExtentChanged;
+                _myMapView.ViewpointChanged += MapViewExtentChanged;
 
                 // Create a task for generating a geodatabase (GeodatabaseSyncTask).
                 _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
@@ -199,7 +199,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 UpdateMapExtent();
 
                 // Enable the generate button now that the sample is ready.
-                myGenerateButton.Enabled = true;
+                _generateButton.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -211,88 +211,64 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         {
             try
             {
-                // Disregard if not ready for edits.
-                if (_readyForEdits == EditState.NotReady) { return; }
-
-                // If an edit is in process, finish it.
-                if (_readyForEdits == EditState.Editing)
+                switch (_readyForEdits)
                 {
-                    // Hold a list of any selected features.
-                    List<Feature> selectedFeatures = new List<Feature>();
+                    // Disregard if not ready for edits.
+                    case EditState.NotReady:
+                        return;
+                    // If an edit is in process, finish it.
+                    // Otherwise, start an edit.
+                    case EditState.Editing:
+                        // Hold a list of any selected features.
+                        List<Feature> selectedFeatures = new List<Feature>();
 
-                    // Get all selected features then clear selection.
-                    foreach (FeatureLayer layer in myMapView.Map.OperationalLayers)
-                    {
-                        // Get the selected features.
-                        FeatureQueryResult layerFeatures = await layer.GetSelectedFeaturesAsync();
-
-                        // FeatureQueryResult implements IEnumerable, so it can be treated as a collection of features.
-                        selectedFeatures.AddRange(layerFeatures);
-
-                        // Clear the selection.
-                        layer.ClearSelection();
-                    }
-
-                    // Update all selected features' geometry.
-                    foreach (Feature feature in selectedFeatures)
-                    {
-                        // Get a reference to the correct feature table for the feature.
-                        GeodatabaseFeatureTable table = feature.FeatureTable as GeodatabaseFeatureTable;
-
-                        // Ensure the geometry type of the table is point.
-                        if (table.GeometryType != GeometryType.Point)
+                        // Get all selected features then clear selection.
+                        foreach (FeatureLayer layer in _myMapView.Map.OperationalLayers)
                         {
-                            continue;
+                            // Get the selected features.
+                            FeatureQueryResult layerFeatures = await layer.GetSelectedFeaturesAsync();
+
+                            // FeatureQueryResult implements IEnumerable, so it can be treated as a collection of features.
+                            selectedFeatures.AddRange(layerFeatures);
+
+                            // Clear the selection.
+                            layer.ClearSelection();
                         }
 
-                        // Set the new geometry.
-                        feature.Geometry = e.Location;
-                        try
+                        // Update all selected features' geometry.
+                        foreach (Feature feature in selectedFeatures)
                         {
-                            // Update the feature in the table.
-                            await table.UpdateFeatureAsync(feature);
+                            // Get a reference to the correct feature table for the feature.
+                            GeodatabaseFeatureTable table = feature.FeatureTable as GeodatabaseFeatureTable;
+
+                            // Ensure the geometry type of the table is point.
+                            if (table.GeometryType != GeometryType.Point)
+                            {
+                                continue;
+                            }
+
+                            // Set the new geometry.
+                            feature.Geometry = e.Location;
+                            try
+                            {
+                                // Update the feature in the table.
+                                await table.UpdateFeatureAsync(feature);
+                            }
+                            catch (Esri.ArcGISRuntime.ArcGISException)
+                            {
+                                ShowStatusMessage("Feature must be within extent of geodatabase.");
+                            }
                         }
-                        catch (Esri.ArcGISRuntime.ArcGISException)
-                        {
-                            ShowStatusMessage("Feature must be within extent of geodatabase.");
-                        }
-                    }
 
-                    // Update the edit state.
-                    _readyForEdits = EditState.Ready;
+                        // Update the edit state.
+                        _readyForEdits = EditState.Ready;
 
-                    // Enable the sync button.
-                    mySyncButton.Enabled = true;
+                        // Enable the sync button.
+                        _syncButton.Enabled = true;
 
-                    // Update the help label.
-                    myHelpLabel.Text = "4. Tap 'Synchronize' or edit more features.";
-                }
-                // Otherwise, start an edit.
-                else
-                {
-                    // Define a tolerance for use with identifying the feature.
-                    double tolerance = 15 * myMapView.UnitsPerPixel;
-
-                    // Define the selection envelope.
-                    Envelope selectionEnvelope = new Envelope(e.Location.X - tolerance, e.Location.Y - tolerance, e.Location.X + tolerance, e.Location.Y + tolerance);
-
-                    // Define query parameters for feature selection.
-                    QueryParameters query = new QueryParameters
-                    {
-                        Geometry = selectionEnvelope
-                    };
-
-                    // Select the feature in all applicable tables.
-                    foreach (FeatureLayer layer in myMapView.Map.OperationalLayers)
-                    {
-                        await layer.SelectFeaturesAsync(query, SelectionMode.New);
-                    }
-
-                    // Set the edit state.
-                    _readyForEdits = EditState.Editing;
-
-                    // Update the help label.
-                    myHelpLabel.Text = "3. Tap on the map to move the point.";
+                        // Update the help label.
+                        _helpLabel.Text = "4. Tap 'Synchronize' or edit more features.";
+                        break;
                 }
             }
             catch (Exception ex)
@@ -304,7 +280,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         private void UpdateMapExtent()
         {
             // Get the new viewpoint.
-            Viewpoint myViewPoint = myMapView?.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+            Viewpoint myViewPoint = _myMapView?.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
             // Get the updated extent for the new viewpoint.
             Envelope extent = myViewPoint?.TargetGeometry as Envelope;
@@ -317,7 +293,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             envelopeBldr.Expand(0.70);
 
             // Get the (only) graphics overlay in the map view.
-            var extentOverlay = myMapView.GraphicsOverlays.FirstOrDefault();
+            var extentOverlay = _myMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
             if (extentOverlay == null) { return; }
@@ -347,7 +323,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
             // Get the (only) graphic in the map view.
-            Graphic redPreviewBox = myMapView.GraphicsOverlays.First().Graphics.First();
+            Graphic redPreviewBox = _myMapView.GraphicsOverlays.First().Graphics.First();
 
             // Get the current extent of the red preview box.
             Envelope extent = redPreviewBox.Geometry as Envelope;
@@ -369,7 +345,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             });
 
             // Show the progress bar.
-            View.AddSubview(myProgressBar);
+            View.AddSubview(_progressBar);
 
             // Start the job.
             generateGdbJob.Start();
@@ -384,84 +360,84 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         private void HandleGenerationCompleted(GenerateGeodatabaseJob job)
         {
             // Hide the progress bar.
-            myProgressBar.RemoveFromSuperview();
+            _progressBar.RemoveFromSuperview();
 
-            // If the job completed successfully, add the geodatabase data to the map.
-            if (job.Status == JobStatus.Succeeded)
+            switch (job.Status)
             {
-                // Clear out the existing layers.
-                myMapView.Map.OperationalLayers.Clear();
+                // If the job completed successfully, add the geodatabase data to the map.
+                case JobStatus.Succeeded:
+                    // Clear out the existing layers.
+                    _myMapView.Map.OperationalLayers.Clear();
 
-                // Loop through all feature tables in the geodatabase and add a new layer to the map.
-                foreach (GeodatabaseFeatureTable table in _resultGdb.GeodatabaseFeatureTables)
-                {
-                    // Create a new feature layer for the table.
-                    FeatureLayer layer = new FeatureLayer(table);
+                    // Loop through all feature tables in the geodatabase and add a new layer to the map.
+                    foreach (GeodatabaseFeatureTable table in _resultGdb.GeodatabaseFeatureTables)
+                    {
+                        // Create a new feature layer for the table.
+                        FeatureLayer layer = new FeatureLayer(table);
 
-                    // Add the new layer to the map.
-                    myMapView.Map.OperationalLayers.Add(layer);
-                }
+                        // Add the new layer to the map.
+                        _myMapView.Map.OperationalLayers.Add(layer);
+                    }
 
-                // Enable editing features.
-                _readyForEdits = EditState.Ready;
+                    // Enable editing features.
+                    _readyForEdits = EditState.Ready;
 
-                // Update the help label.
-                myHelpLabel.Text = "2. Tap a point feature to select.";
-            }
+                    // Update the help label.
+                    _helpLabel.Text = "2. Tap a point feature to select.";
+                    break;
+                // See if the job failed.
+                case JobStatus.Failed:
+                    // Create a message to show the user.
+                    string message = "Generate geodatabase job failed";
 
-            // See if the job failed.
-            if (job.Status == JobStatus.Failed)
-            {
-                // Create a message to show the user.
-                string message = "Generate geodatabase job failed";
+                    // Show an error message (if there is one).
+                    if (job.Error != null)
+                    {
+                        message += ": " + job.Error.Message;
+                    }
+                    else
+                    {
+                        // If no error, show messages from the job.
+                        message = job.Messages.Aggregate(message, (current, m) => current + ("\n" + m.Message));
+                    }
 
-                // Show an error message (if there is one).
-                if (job.Error != null)
-                {
-                    message += ": " + job.Error.Message;
-                }
-                else
-                {
-                    // If no error, show messages from the job.
-                    message = job.Messages.Aggregate(message, (current, m) => current + ("\n" + m.Message));
-                }
-
-                // Show the message.
-                ShowStatusMessage(message);
+                    // Show the message.
+                    ShowStatusMessage(message);
+                    break;
             }
         }
 
         private void HandleSyncCompleted(SyncGeodatabaseJob job)
         {
             // Hide the progress bar & enable the sync button.
-            myProgressBar.RemoveFromSuperview();
-            mySyncButton.Enabled = true;
+            _progressBar.RemoveFromSuperview();
+            _syncButton.Enabled = true;
 
-            // Tell the user about job completion.
-            if (job.Status == JobStatus.Succeeded)
+            switch (job.Status)
             {
-                ShowStatusMessage("Sync task completed");
-            }
+                // Tell the user about job completion.
+                case JobStatus.Succeeded:
+                    ShowStatusMessage("Sync task completed");
+                    break;
+                // See if the job failed.
+                case JobStatus.Failed:
+                    // Create a message to show the user.
+                    string message = "Sync geodatabase job failed";
 
-            // See if the job failed.
-            if (job.Status == JobStatus.Failed)
-            {
-                // Create a message to show the user.
-                string message = "Sync geodatabase job failed";
+                    // Show an error message (if there is one).
+                    if (job.Error != null)
+                    {
+                        message += ": " + job.Error.Message;
+                    }
+                    else
+                    {
+                        // If no error, show messages from the job.
+                        message = job.Messages.Aggregate(message, (current, m) => current + ("\n" + m.Message));
+                    }
 
-                // Show an error message (if there is one).
-                if (job.Error != null)
-                {
-                    message += ": " + job.Error.Message;
-                }
-                else
-                {
-                    // If no error, show messages from the job.
-                    message = job.Messages.Aggregate(message, (current, m) => current + ("\n" + m.Message));
-                }
-
-                // Show the message.
-                ShowStatusMessage(message);
+                    // Show the message.
+                    ShowStatusMessage(message);
+                    break;
             }
         }
 
@@ -471,7 +447,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             if (_readyForEdits != EditState.Ready) { return; }
 
             // Disable the sync button.
-            mySyncButton.Enabled = false;
+            _syncButton.Enabled = false;
 
             // Create parameters for the sync task.
             SyncGeodatabaseParameters parameters = new SyncGeodatabaseParameters
@@ -504,7 +480,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             };
 
             // Show the progress bar.
-            View.AddSubview(myProgressBar);
+            View.AddSubview(_progressBar);
 
             // Start the sync.
             job.Start();
@@ -528,7 +504,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             try
             {
                 // Disable the generate button.
-                myGenerateButton.Enabled = false;
+                _generateButton.Enabled = false;
 
                 // Call the geodatabase generation method.
                 await StartGeodatabaseGeneration();
@@ -553,7 +529,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             InvokeOnMainThread(() =>
             {
                 // Update the progress bar value.
-                myProgressBar.Progress = progress / 100.0f;
+                _progressBar.Progress = progress / 100.0f;
             });
         }
 

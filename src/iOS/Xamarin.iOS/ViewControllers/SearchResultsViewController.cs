@@ -23,7 +23,7 @@ namespace ArcGISRuntime
     {
         private readonly UIViewController _parentViewController;
         private List<SampleInfo> _visibleSamples = new List<SampleInfo>();
-        private List<SampleInfo> _sampleItems;
+        private readonly List<SampleInfo> _sampleItems;
         private LoadingOverlay _loadPopup;
 
         public SearchResultsViewController(UIViewController controller)

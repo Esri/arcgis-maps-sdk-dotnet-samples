@@ -34,7 +34,7 @@ namespace ArcGISRuntime.Samples.FindAddress
     public class FindAddress : UIViewController
     {
         // Addresses for suggestion
-        private string[] _addresses = {
+        private readonly string[] _addresses = {
             "277 N Avenida Caballeros, Palm Springs, CA",
             "380 New York St, Redlands, CA 92373",
             "Београд",
@@ -46,13 +46,13 @@ namespace ArcGISRuntime.Samples.FindAddress
         private LocatorTask _geocoder;
 
         // Service Uri to be provided to the LocatorTask (geocoder)
-        private Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+        private readonly Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
         // Create the MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Create UI elements
-        private UISearchBar _addressSearchBar = new UISearchBar();
+        private readonly UISearchBar _addressSearchBar = new UISearchBar();
 
         public FindAddress()
         {

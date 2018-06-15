@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
     public class RenderPictureMarkers : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         public RenderPictureMarkers()
         {

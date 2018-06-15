@@ -319,7 +319,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             Action makeTransparentAction = () => Alpha = 0;
 
             // Action to remove the view
-            Action removeViewAction = () => RemoveFromSuperview();
+            Action removeViewAction = RemoveFromSuperview;
 
             // Time to complete the animation (seconds)
             double secondsToComplete = 0.75;
@@ -357,7 +357,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
     public class HillshadeParametersEventArgs : EventArgs
     {
         // Property to store raster stretch parameters.
-        public HillshadeRenderer HillshadeRasterRenderer { get; set; }
+        public HillshadeRenderer HillshadeRasterRenderer { get; }
 
         // Store the hillshade renderer passed into the constructor.
         public HillshadeParametersEventArgs(HillshadeRenderer renderer)
@@ -370,19 +370,10 @@ namespace ArcGISRuntime.Samples.RasterHillshade
     public class SlopeTypesPickerModel : UIPickerViewModel
     {
         // Array of available slope values.
-        private Array _slopeTypeValues = Enum.GetValues(typeof(SlopeType));
+        private readonly Array _slopeTypeValues = Enum.GetValues(typeof(SlopeType));
 
-        // Store the selected slope type value.
-        private SlopeType _selectedSlopeType;
-
-        // Default constructor.
-        public SlopeTypesPickerModel()
-        {
-            
-        }
-        
         // Property to expose the currently selected slope type value in the picker.
-        public SlopeType SelectedSlopeType => _selectedSlopeType;
+        public SlopeType SelectedSlopeType { get; private set; }
 
         // Return the number of picker components (just one).
         public override nint GetComponentCount(UIPickerView pickerView)
@@ -406,7 +397,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         public override void Selected(UIPickerView pickerView, nint row, nint component)
         {
             // Get the selected standard deviation factor.
-            _selectedSlopeType = (SlopeType)_slopeTypeValues.GetValue(pickerView.SelectedRowInComponent(0));
+            SelectedSlopeType = (SlopeType)_slopeTypeValues.GetValue(pickerView.SelectedRowInComponent(0));
         }
 
         // Return the desired width for each component in the picker.

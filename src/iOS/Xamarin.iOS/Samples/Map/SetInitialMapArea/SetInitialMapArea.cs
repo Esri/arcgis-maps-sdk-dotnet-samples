@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.SetInitialMapArea
     public class SetInitialMapArea : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         public SetInitialMapArea()
         {

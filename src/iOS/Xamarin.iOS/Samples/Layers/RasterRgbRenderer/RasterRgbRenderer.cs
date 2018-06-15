@@ -252,16 +252,13 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             nfloat buttonWidth = 60;
 
             // Store the total height and width.
-            nfloat totalHeight = Frame.Height - 120;
             nfloat totalWidth = Frame.Width - 60;
 
             // Find the center x and y of the view.
             nfloat centerX = Frame.Width / 2;
-            nfloat centerY = Frame.Height / 2;
 
             // Find the start x and y for the control layout.
-            nfloat leftMargin = centerX - (totalWidth / 2);
-            nfloat controlX = leftMargin;
+            nfloat controlX = centerX - (totalWidth / 2);
             nfloat controlY = 200;
 
             // Position the input description label.
@@ -340,16 +337,13 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             nfloat buttonWidth = 60;
 
             // Store the total height and width.
-            nfloat totalHeight = Frame.Height - 120;
             nfloat totalWidth = Frame.Width - 60;
 
             // Find the center x and y of the view.
             nfloat centerX = Frame.Width / 2;
-            nfloat centerY = Frame.Height / 2;
 
             // Find the start x and y for the control layout.
-            nfloat leftMargin = centerX - (totalWidth / 2);
-            nfloat controlX = leftMargin;
+            nfloat controlX = centerX - (totalWidth / 2);
             nfloat controlY = 200;
 
             // Position the input description label.
@@ -425,16 +419,13 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             nfloat buttonWidth = 60;
 
             // Store the total height and width.
-            nfloat totalHeight = Frame.Height - 120;
             nfloat totalWidth = Frame.Width - 60;
 
             // Find the center x and y of the view.
             nfloat centerX = Frame.Width / 2;
-            nfloat centerY = Frame.Height / 2;
 
             // Find the start x and y for the control layout.
-            nfloat leftMargin = centerX - (totalWidth / 2);
-            nfloat controlX = leftMargin;
+            nfloat controlX = centerX - (totalWidth / 2);
             nfloat controlY = 200;
 
             // Position the input description label.
@@ -485,7 +476,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             Action makeTransparentAction = () => Alpha = 0;
 
             // Action to remove the view
-            Action removeViewAction = () => RemoveFromSuperview();
+            Action removeViewAction = RemoveFromSuperview;
 
             // Time to complete the animation (seconds)
             double secondsToComplete = 0.75;
@@ -553,7 +544,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
     public class StretchParametersEventArgs : EventArgs
     {
         // Property to store raster stretch parameters.
-        public StretchParameters StretchParams { get; set; }
+        public StretchParameters StretchParams { get; }
 
         // Store parameter info passed into the constructor.
         public StretchParametersEventArgs(StretchParameters stretchParams)
@@ -575,26 +566,23 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         private readonly int[] _blueValues = Enumerable.Range(0, 256).ToArray();
 
         // Currently selected red, green, and blue values.
-        private int _selectedRed = 0;
-        private int _selectedGreen = 0;
-        private int _selectedBlue = 0;
 
         // Constructor takes the default values for RGB.
         public RgbValuePickerModel(int defaultRed, int defaultGreen, int defaultBlue)
         {
-            _selectedRed = defaultRed;
-            _selectedGreen = defaultGreen;
-            _selectedBlue = defaultBlue;
+            SelectedRed = defaultRed;
+            SelectedGreen = defaultGreen;
+            SelectedBlue = defaultBlue;
         }
 
         // Property to expose the currently selected red value in the picker.
-        public int SelectedRed => _selectedRed;
+        public int SelectedRed { get; private set; } = 0;
 
         // Property to expose the currently selected green value in the picker.
-        public int SelectedGreen => _selectedGreen;
+        public int SelectedGreen { get; private set; } = 0;
 
         // Property to expose the currently selected blue value in the picker.
-        public int SelectedBlue => _selectedBlue;
+        public int SelectedBlue { get; private set; } = 0;
 
         // Return the number of picker components (three sections: red, green, and blue values).
         public override nint GetComponentCount(UIPickerView pickerView)
@@ -634,9 +622,9 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         public override void Selected(UIPickerView pickerView, nint row, nint component)
         {
             // Get the selected RGB values.
-            _selectedRed = _redValues[pickerView.SelectedRowInComponent(0)];
-            _selectedGreen = _greenValues[pickerView.SelectedRowInComponent(1)];
-            _selectedBlue = _blueValues[pickerView.SelectedRowInComponent(2)];
+            SelectedRed = _redValues[pickerView.SelectedRowInComponent(0)];
+            SelectedGreen = _greenValues[pickerView.SelectedRowInComponent(1)];
+            SelectedBlue = _blueValues[pickerView.SelectedRowInComponent(2)];
         }
 
         // Return the desired width for each component in the picker.
@@ -659,17 +647,8 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         // Array of available factor values.
         private readonly double[] _factorValues = { 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5 };
 
-        // Currently selected factor value.
-        private double _selectedFactor = 4.5;
-
-        // Default constructor.
-        public StdDevFactorPickerModel()
-        {
-
-        }
-
         // Property to expose the currently selected factor value in the picker.
-        public double SelectedFactor => _selectedFactor;
+        public double SelectedFactor { get; private set; } = 4.5;
 
         // Return the number of picker components (just one).
         public override nint GetComponentCount(UIPickerView pickerView)
@@ -693,7 +672,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         public override void Selected(UIPickerView pickerView, nint row, nint component)
         {
             // Get the selected standard deviation factor.
-            _selectedFactor = _factorValues[pickerView.SelectedRowInComponent(0)];
+            SelectedFactor = _factorValues[pickerView.SelectedRowInComponent(0)];
         }
 
         // Return the desired width for each component in the picker.

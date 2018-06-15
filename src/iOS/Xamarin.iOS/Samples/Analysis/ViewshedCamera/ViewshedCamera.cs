@@ -26,13 +26,13 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
     public class ViewshedCamera : UIViewController
     {
         // Create and hold reference to the used MapView
-        private SceneView _mySceneView = new SceneView();
+        private readonly SceneView _mySceneView = new SceneView();
 
         // URL for a scene service of buildings in Brest, France
-        private string _buildingsServiceUrl = @"http://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0";
+        private readonly string _buildingsServiceUrl = @"http://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0";
 
         // URL for an image service to use as an elevation source
-        private string _elevationSourceUrl = @"http://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer";
+        private readonly string _elevationSourceUrl = @"http://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer";
 
         // Location viewshed analysis to show visible and obstructed areas from the camera
         private LocationViewshed _viewshedForCamera;
@@ -41,7 +41,7 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         private UIButton _updateViewshedButton;
 
         // Toolbar to put behind the button (for visibility).
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
         public ViewshedCamera()
         {

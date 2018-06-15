@@ -25,9 +25,9 @@ namespace ArcGISRuntime.Samples.GeoViewSync
     public class GeoViewSync : UIViewController
     {
         // Create and hold references to the GeoViews
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
-        private SceneView _mySceneView = new SceneView();
+        private readonly SceneView _mySceneView = new SceneView();
 
         public GeoViewSync()
         {

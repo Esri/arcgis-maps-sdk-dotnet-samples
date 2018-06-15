@@ -27,12 +27,12 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
     public class ListGeodatabaseVersions : UIViewController
     {
         // Progress bar to show when the geoprocessing task is working
-        private UIActivityIndicatorView _myProgressBar = new UIActivityIndicatorView();
+        private readonly UIActivityIndicatorView _myProgressBar = new UIActivityIndicatorView();
 
         // Text view to display the list of geodatabases
-        private UITextView _myEditText_ListGeodatabases = new UITextView();
+        private readonly UITextView _geodatabaseListField = new UITextView();
 
-        // Url to used geoprocessing service
+        // URL to used geoprocessing service
         private readonly Uri _listVersionsUrl = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/GDBVersions/GPServer/ListVersions");
 
         public ListGeodatabaseVersions()
@@ -53,7 +53,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
             // Set the visual frame for the text view
-            _myEditText_ListGeodatabases.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, View.Bounds.Height - topStart);
+            _geodatabaseListField.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, View.Bounds.Height - topStart);
 
             // Set the visual frame for the progress view
             _myProgressBar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, View.Bounds.Height - topStart);
@@ -98,7 +98,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
                 }
 
                 // Display the results to the user
-                _myEditText_ListGeodatabases.Text = myStringBuilder.ToString();
+                _geodatabaseListField.Text = myStringBuilder.ToString();
             }
 
             // Set the UI to indicate that the geoprocessing is not running
@@ -162,16 +162,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
         {
             // This function toggles running of the 'progress' control feedback status to denote if 
             // the viewshed analysis is executing as a result of the user click on the map
-            if (isBusy)
-            {
-                // Show busy activity indication
-                _myProgressBar.Hidden = false;
-            }
-            else
-            {
-                // Remove the busy activity indication
-                _myProgressBar.Hidden = true;
-            }
+            _myProgressBar.Hidden = !isBusy;
         }
 
         private void CreateLayout()
@@ -190,7 +181,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             View.BackgroundColor = UIColor.White;
 
             // Add views to the layout
-            View.AddSubviews(_myEditText_ListGeodatabases, _myProgressBar);
+            View.AddSubviews(_geodatabaseListField, _myProgressBar);
         }
     }
 }

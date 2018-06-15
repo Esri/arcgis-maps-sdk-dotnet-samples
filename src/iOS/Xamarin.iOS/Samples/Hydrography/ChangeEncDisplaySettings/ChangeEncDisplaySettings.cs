@@ -29,40 +29,40 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
     public class ChangeEncDisplaySettings : UIViewController
     {
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Hold a reference to the (static) app-wide ENC Mariner settings
-        EncMarinerSettings _encMarinerSettings = EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings;
+        private readonly EncMarinerSettings _encMarinerSettings = EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings;
 
         // Create and hold references to the segment controls
-        private UISegmentedControl _colorSchemeSegment = new UISegmentedControl("Day", "Dusk", "Night")
+        private readonly UISegmentedControl _colorSchemeSegment = new UISegmentedControl("Day", "Dusk", "Night")
         {
             SelectedSegment = 0
         };
 
-        private UISegmentedControl _areaSegment = new UISegmentedControl("Plain", "Symbolized")
+        private readonly UISegmentedControl _areaSegment = new UISegmentedControl("Plain", "Symbolized")
         {
             SelectedSegment = 0
         };
 
-        private UISegmentedControl _pointSegment = new UISegmentedControl("Paper Chart", "Simplified")
+        private readonly UISegmentedControl _pointSegment = new UISegmentedControl("Paper Chart", "Simplified")
         {
             SelectedSegment = 0
         };
 
         // Toolbar to put behind the ENC display options form
-        private UIToolbar _toolbar = new UIToolbar();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
         // Labels
-        private UILabel _colorsLabel = new UILabel
+        private readonly UILabel _colorsLabel = new UILabel
         {
             Text = "Color scheme:"
         };
-        private UILabel _areaLabel = new UILabel
+        private readonly UILabel _areaLabel = new UILabel
         {
             Text = "Area symbolization type:"
         };
-        private UILabel _pointLabel = new UILabel
+        private readonly UILabel _pointLabel = new UILabel
         {
             Text = "Point symbolization type:"
         };

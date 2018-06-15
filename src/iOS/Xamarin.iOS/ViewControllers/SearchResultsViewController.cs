@@ -26,7 +26,7 @@ namespace ArcGISRuntime
         private List<SampleInfo> _sampleItems;
         private LoadingOverlay _loadPopup;
 
-        public SearchResultsViewController(UIViewController controller, IList<SearchableTreeNode> categories)
+        public SearchResultsViewController(UIViewController controller)
         {
             _parentViewController = controller;
             

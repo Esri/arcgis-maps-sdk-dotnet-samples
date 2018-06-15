@@ -37,7 +37,7 @@ namespace ArcGISRuntime
 
 			TableView.ReloadData();
 
-            var searchResultsController = new SearchResultsViewController(this, data);
+            var searchResultsController = new SearchResultsViewController(this);
 
             // Create search updater and wire it up
             var searchUpdater = new SearchResultsUpdater();

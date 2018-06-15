@@ -111,10 +111,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             // Add all the map image layer sublayers to a list and then pass that list to the SublayerDataSource
             if (mapImageLayer != null)
             {
-                foreach (var item in mapImageLayer.Sublayers)
-                {
-                    sublayers.Add(item);
-                }
+                sublayers.AddRange(mapImageLayer.Sublayers);
 
                 TableView.Source = new SublayerDataSource(sublayers);
                 TableView.Frame = new CoreGraphics.CGRect(0, 0, 100, 100);

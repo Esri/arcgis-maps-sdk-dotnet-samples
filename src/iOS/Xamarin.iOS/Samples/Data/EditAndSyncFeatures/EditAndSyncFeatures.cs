@@ -423,11 +423,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 else
                 {
                     // If no error, show messages from the job.
-                    foreach (JobMessage m in job.Messages)
-                    {
-                        // Get the text from the JobMessage and add it to the output string.
-                        message += "\n" + m.Message;
-                    }
+                    message = job.Messages.Aggregate(message, (current, m) => current + ("\n" + m.Message));
                 }
 
                 // Show the message.
@@ -461,11 +457,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 else
                 {
                     // If no error, show messages from the job.
-                    foreach (JobMessage m in job.Messages)
-                    {
-                        // Get the text from the JobMessage and add it to the output string.
-                        message += "\n" + m.Message;
-                    }
+                    message = job.Messages.Aggregate(message, (current, m) => current + ("\n" + m.Message));
                 }
 
                 // Show the message.

@@ -27,14 +27,13 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
     public class ListGeodatabaseVersions : UIViewController
     {
         // Progress bar to show when the geoprocessing task is working
-        UIActivityIndicatorView _myProgressBar = new UIActivityIndicatorView();
+        private UIActivityIndicatorView _myProgressBar = new UIActivityIndicatorView();
 
         // Text view to display the list of geodatabases
-        UITextView _myEditText_ListGeodatabases = new UITextView();
+        private UITextView _myEditText_ListGeodatabases = new UITextView();
 
         // Url to used geoprocessing service
-        private Uri ListVersionsUrl = 
-            new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/GDBVersions/GPServer/ListVersions");
+        private readonly Uri ListVersionsUrl = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/GDBVersions/GPServer/ListVersions");
 
         public ListGeodatabaseVersions()
         {

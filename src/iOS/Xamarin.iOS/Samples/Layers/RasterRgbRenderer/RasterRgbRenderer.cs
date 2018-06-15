@@ -156,7 +156,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
 
             // Create a view to show map item info entry controls over the map view
             var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
-            _updateRendererUi = new UpdateRendererDialogOverlay(ovBounds, 0.75f, UIColor.White, stretchType);
+            _updateRendererUi = new UpdateRendererDialogOverlay(ovBounds, 0.9f, UIColor.White, stretchType);
 
             // Handle the OnSearchMapsTextEntered event to get the info entered by the user
             _updateRendererUi.OnStretchInputsEntered += UpdateRenderer;

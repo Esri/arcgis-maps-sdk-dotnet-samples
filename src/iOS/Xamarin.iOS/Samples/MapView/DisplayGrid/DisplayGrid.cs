@@ -301,7 +301,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             // Apply the MapView frame, adjusting the insets to ensure that critical map
             // elements aren't covered by the UI.
             _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+            //_myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
 
             // Apply the toolbar frame.
             _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);

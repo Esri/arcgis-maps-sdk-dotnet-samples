@@ -52,7 +52,7 @@ namespace ArcGISRuntime.Samples.OpenScene
             // Get the top bar height and adjust the scene insets.
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height
                                + UIApplication.SharedApplication.StatusBarFrame.Height;
-            _mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+            //_mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
         }
 
         private async void Initialize()

@@ -14,6 +14,7 @@ using Foundation;
 using System;
 using ArcGISRuntime.Samples.Managers;
 using UIKit;
+using System.Linq;
 
 namespace ArcGISRuntime.Samples.RasterHillshade
 {
@@ -186,7 +187,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         public event EventHandler OnCanceled;
 
         // Fields for controls that will be referenced later.
-        private UIPickerView _slopeTypePicker;
+        private UISegmentedControl _slopeTypePicker;
         private UISlider _altitudeSlider;
         private UISlider _azimuthSlider;
 
@@ -209,7 +210,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
 
             CreateHillshadeInputUi(inputHillshadeParamsButton, cancelButton);
-        }        
+        }
 
         private void CreateHillshadeInputUi(UIButton applyButton, UIButton cancelButton)
         {
@@ -227,7 +228,9 @@ namespace ArcGISRuntime.Samples.RasterHillshade
 
             // Find the start x and y for the control layout.
             nfloat controlX = centerX - (totalWidth / 2);
-            nfloat controlY = 30;            
+            nfloat controlY = 30;
+
+
 
             // Create a label for the slope type input.
             UILabel slopeTypeLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight))
@@ -238,16 +241,13 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             };
 
             // Adjust the Y position for the next control.
-            controlY = controlY + 10;
-
-            // Create a picker for slope type.
-            _slopeTypePicker = new UIPickerView(new CoreGraphics.CGRect(controlX, controlY, 260, 80))
-            {
-                Model = new SlopeTypesPickerModel()
-            };
+            controlY = controlY + 30;
 
             // Adjust the Y position for the next control.
-            controlY = controlY + 80 + rowSpace;
+            _slopeTypePicker = new UISegmentedControl(Enum.GetNames(typeof(SlopeType)));
+            _slopeTypePicker.ApportionsSegmentWidthsByContent = true;
+            _slopeTypePicker.Frame = new CoreGraphics.CGRect(5, controlY, Bounds.Width - 10, 30);
+            controlY += 35;
 
             // Create a label for the altitude input.
             UILabel altitudeLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight))
@@ -261,7 +261,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             controlY = controlY + 5;
 
             // Create a slider for altitude value.
-            _altitudeSlider = new UISlider(new CoreGraphics.CGRect(controlX, controlY, 200, 100))
+            _altitudeSlider = new UISlider(new CoreGraphics.CGRect(5, controlY, Bounds.Width - 10, 100))
             {
                 MinValue = 0,
                 MaxValue = 90,
@@ -283,7 +283,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             controlY = controlY + 5;
 
             // Create a picker for the azimuth value.
-            _azimuthSlider = new UISlider(new CoreGraphics.CGRect(controlX, controlY, 200, 100))
+            _azimuthSlider = new UISlider(new CoreGraphics.CGRect(5, controlY, Bounds.Width - 10, 100))
             {
                 MinValue = 0,
                 MaxValue = 360,
@@ -309,7 +309,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
                 applyButton, cancelButton);
 
             // Set the default value for the slope type.
-            _slopeTypePicker.Select(0, 0, false);
+            _slopeTypePicker.SelectedSegment = 0;
         }
         
         // Animate increasing transparency to completely hide the view, then remove it
@@ -338,8 +338,8 @@ namespace ArcGISRuntime.Samples.RasterHillshade
                         double altitude = _altitudeSlider.Value;
                         double azimuth = _azimuthSlider.Value;
                 // - Get the model from the slope type picker and read the selected type.
-                SlopeTypesPickerModel model = _slopeTypePicker.Model as SlopeTypesPickerModel;
-                SlopeType selectedSlopeType = model.SelectedSlopeType;
+                nint selected = _slopeTypePicker.SelectedSegment;
+                SlopeType selectedSlopeType = ((SlopeType[])Enum.GetValues(typeof(SlopeType)))[selected];
 
                 // Create a new HillshadeRenderer using the input values and constants.
                 HillshadeRenderer hillshade = new HillshadeRenderer(altitude, azimuth, ZFactor, selectedSlopeType, PixelSizeFactor, PixelSizePower, PixelBitDepth);
@@ -363,53 +363,6 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         public HillshadeParametersEventArgs(HillshadeRenderer renderer)
         {
             HillshadeRasterRenderer = renderer;
-        }
-    }
-
-    // Class that defines a view model for showing available hillshade slope types in a picker control.
-    public class SlopeTypesPickerModel : UIPickerViewModel
-    {
-        // Array of available slope values.
-        private readonly Array _slopeTypeValues = Enum.GetValues(typeof(SlopeType));
-
-        // Property to expose the currently selected slope type value in the picker.
-        public SlopeType SelectedSlopeType { get; private set; }
-
-        // Return the number of picker components (just one).
-        public override nint GetComponentCount(UIPickerView pickerView)
-        {
-            return 1;
-        }
-
-        // Return the number of rows in the section (the size of the slope type array).
-        public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
-        {
-            return _slopeTypeValues.Length;
-        }
-
-        // Get the title to display in the picker component.
-        public override string GetTitle(UIPickerView pickerView, nint row, nint component)
-        {
-            return _slopeTypeValues.GetValue(row).ToString();
-        }
-
-        // Handle the selection event for the picker.
-        public override void Selected(UIPickerView pickerView, nint row, nint component)
-        {
-            // Get the selected standard deviation factor.
-            SelectedSlopeType = (SlopeType)_slopeTypeValues.GetValue(pickerView.SelectedRowInComponent(0));
-        }
-
-        // Return the desired width for each component in the picker.
-        public override nfloat GetComponentWidth(UIPickerView picker, nint component)
-        {
-            return 240f;
-        }
-
-        // Return the desired height for rows in the picker.
-        public override nfloat GetRowHeight(UIPickerView picker, nint component)
-        {
-            return 30f;
         }
     }
     #endregion

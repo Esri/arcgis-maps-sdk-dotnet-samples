@@ -31,10 +31,10 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
         // Default portal item Id to load features from
         private const string FeatureCollectionItemId = "5ffe7733754f44a9af12a489250fe12b";
 
-        // Text field for specifying a portal item Id
+        // UI controls
         private UITextField _collectionItemIdTextBox;
-
         private UIButton _addFeaturesButton;
+        private UIToolbar _toolbar = new UIToolbar();
 
         public FeatureCollectionLayerFromPortal()
         {
@@ -54,12 +54,16 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - 50);
+            nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat margin = 5;
+            nfloat controlHeight = 30;
+            nfloat controlWidth = View.Bounds.Width - (2 * margin);
 
-            _collectionItemIdTextBox.Frame = new CoreGraphics.CGRect(10, View.Bounds.Height - 50, View.Bounds.Width - 10, 20);
-
-            _addFeaturesButton.Frame =  new CoreGraphics.CGRect(0, View.Bounds.Height -30, View.Bounds.Width, 30);
+            // Setup the visual frames for the views
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, (2 * controlHeight) + (3 * margin));
+            _collectionItemIdTextBox.Frame = new CoreGraphics.CGRect(margin, topStart + margin, controlWidth, controlHeight);
+            _addFeaturesButton.Frame =  new CoreGraphics.CGRect(margin, topStart + (2 * margin) + controlHeight, controlWidth, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }
@@ -134,7 +138,8 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             // Create a text input for the portal item Id
             _collectionItemIdTextBox = new UITextField
             {
-                BackgroundColor = UIColor.LightGray
+                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
+                BorderStyle = UITextBorderStyle.RoundedRect
             };
             // Allow pressing 'return' to dismiss the keyboard
             _collectionItemIdTextBox.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
@@ -143,14 +148,12 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             _addFeaturesButton = new UIButton(UIButtonType.Custom);
             _addFeaturesButton.SetTitle("Add from portal item", UIControlState.Normal);
             _addFeaturesButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _addFeaturesButton.BackgroundColor = UIColor.White;
 
             // Assign a click handler to the UIButton
             _addFeaturesButton.TouchUpInside += OpenPortalFeatureCollectionClick;
 
             // Add the MapView, UITextField, and UIButton to the page
-            View.AddSubviews(_myMapView, _collectionItemIdTextBox, _addFeaturesButton);
-            View.BackgroundColor = UIColor.White;
+            View.AddSubviews(_myMapView, _toolbar, _collectionItemIdTextBox, _addFeaturesButton);
         }
     }
 }

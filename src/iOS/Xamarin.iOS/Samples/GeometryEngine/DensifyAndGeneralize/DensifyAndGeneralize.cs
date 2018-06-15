@@ -70,7 +70,7 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             nfloat paddingValue = 5;
 
             _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, areaHeight * 3, 0);
+            //_myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, areaHeight * 3, 0);
 
             // Place the toolbars.
             _resultArea.Frame = new CGRect(0, View.Bounds.Height - (1 * areaHeight), View.Bounds.Width, areaHeight);

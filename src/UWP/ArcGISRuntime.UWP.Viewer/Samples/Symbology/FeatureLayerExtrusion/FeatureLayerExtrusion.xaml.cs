@@ -61,8 +61,8 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerExtrusion
                 // Get the scene properties from the simple renderer
                 RendererSceneProperties myRendererSceneProperties = mySimpleRenderer.SceneProperties;
 
-                // Set the extrusion mode for the scene properties to be base height
-                myRendererSceneProperties.ExtrusionMode = ExtrusionMode.BaseHeight;
+                // Set the extrusion mode for the scene properties
+                myRendererSceneProperties.ExtrusionMode = ExtrusionMode.AbsoluteHeight;
 
                 // Set the initial extrusion expression
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
@@ -111,7 +111,9 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerExtrusion
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text
             if (Button_ToggleExtrusionData.Content.ToString() == "Population Density")
             {
-                myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000";
+                // An offset of 100000 is added to ensure that polygons for large areas (like Alaska)
+                // with low populations will be extruded above the curvature of the Earth.
+                myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000 + 100000";
                 Button_ToggleExtrusionData.Content = "Total Population";
             }
             else if (Button_ToggleExtrusionData.Content.ToString() == "Total Population")

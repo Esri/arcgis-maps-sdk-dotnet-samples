@@ -14,8 +14,10 @@ using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.FindServiceArea
 {
@@ -35,11 +37,6 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
         // For displaying service areas to the mapview.
         private GraphicsOverlay _graphicsOverlay;
 
-        // Used to make barriers.
-        private PolylineBuilder _barrierBuilder;
-
-        // Fills service areas with a color when displayed to mapview.
-
         // Used for placing geometry on mapview.
         private SpatialReference _spatialReference = SpatialReferences.WebMercator;
 
@@ -49,10 +46,7 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
         // Used for service area outlines.
         private SimpleLineSymbol _outline;
 
-        // Used to see whether the user is placing barriers or facilities.
-        private Boolean _barrierMode = false;
-
-        // Used to see whether the user is placing barriers or facilities.
+        // Used to see whether the user is placing facilities.
         private Boolean _facilityMode = false;
 
         // Uri for service area.
@@ -83,14 +77,19 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
             // Link the action of tapping on the map with the MyMapView_GeoViewTapped method.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
-            // Create a polyline builder for user constructed barriers.
-            _barrierBuilder = new PolylineBuilder(_spatialReference);
-
             // Symbology for a service area.
             _outline = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 3.0f);
 
             // Symbology for a facility
             _facilitySymbol = new PictureMarkerSymbol(_pictureMarkerUri) { Height = 30, Width = 30 };
+
+            // Set the sketch editor configuration to allow vertex editing, resizing, and moving
+            var config = MyMapView.SketchEditor.EditConfiguration;
+            config.AllowVertexEditing = true;
+            config.ResizeMode = SketchResizeMode.Uniform;
+            config.AllowMove = true;
+
+            DataContext = MyMapView.SketchEditor;
         }
 
         private async Task CreateServiceArea()
@@ -122,39 +121,58 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
                 // Update the graphic.
                 _graphicsOverlay.Graphics.Add(new Graphic(userTappedMapPoint, new Dictionary<string, object>() { { "Type", "Facility" } }, _facilitySymbol) { ZIndex = 2 });
             }
-            else if (_barrierMode)
+        }
+
+        private async void AddBarrierButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            // Enable the facilities button.
+            AddFacilitiesButton.IsEnabled = true;
+
+            // Disable the barrier button.
+            AddBarrierButton.IsEnabled = false;
+
+            // Turn off facility mode.
+            _facilityMode = false;
+
+            try
             {
-                // Add the point to the polyline builder.
-                _barrierBuilder.AddPoint(userTappedMapPoint);
-                // Update the barrier graphics.
-                _graphicsOverlay.Graphics.Add(new Graphic(_barrierBuilder.ToGeometry(), new Dictionary<string, object>() { { "Type", "Barrier" } }, _outline) { ZIndex = 1 });
+                // Let the user draw on the map view using the chosen sketch mode
+                SketchCreationMode creationMode = SketchCreationMode.Polyline;
+                Esri.ArcGISRuntime.Geometry.Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, true);
+
+                // Create and add a graphic from the geometry the user drew
+                Graphic graphic = new Graphic(geometry, new Dictionary<string, object>() { { "Type", "Barrier" } }, _outline);
+                _graphicsOverlay.Graphics.Add(graphic);
+
             }
+            catch (TaskCanceledException)
+            {
+                // Ignore ... let the user cancel drawing
+            }
+            catch (Exception ex)
+            {
+                // Report exceptions
+                MessageBox.Show("Error drawing graphic shape: " + ex.Message);
+            }
+        }
+
+        private void CompleteButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            // Enable the barrier button.
+            AddBarrierButton.IsEnabled = true;   
         }
 
         private void AddFacilitiesButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            // Disable the facilities button.
-            AddFacilitiesButton.IsEnabled = false;
-
             // Enable the barrier button.
             AddBarrierButton.IsEnabled = true;
 
+            // Disable the facilities button.
+            AddFacilitiesButton.IsEnabled = false;
+
             // Turn on facility mode.
             _facilityMode = true;
-            _barrierMode = false;
-        }
 
-        private void AddBarrierButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            // Disable the barrier button.
-            AddBarrierButton.IsEnabled = false;
-
-            // Enable the facilities button.
-            AddFacilitiesButton.IsEnabled = true;
-
-            // Turn on barrier mode.
-            _facilityMode = false;
-            _barrierMode = true;
         }
 
         private async void ShowServiceAreasButton_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -163,9 +181,10 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
             AddBarrierButton.IsEnabled = true;
             AddFacilitiesButton.IsEnabled = true;
 
-            // Turn off any drawing mode.
+            // Turn off any facility mode.
             _facilityMode = false;
-            _barrierMode = false;
+
+            MyMapView.SketchEditor.ClearGeometry();
 
             await CreateServiceArea();
 
@@ -222,17 +241,17 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
                 {
                     if (exception.Message.ToString().Equals("Unable to complete operation."))
                     {
-                        System.Windows.MessageBox.Show("Facility not within San Diego area!", "Sample error");
+                        MessageBox.Show("Facility not within San Diego area!", "Sample error");
                     }
                     else
                     {
-                        System.Windows.MessageBox.Show("An ArcGIS web exception occurred. \n" + exception.Message.ToString(), "Sample error");
+                        MessageBox.Show("An ArcGIS web exception occurred. \n" + exception.Message.ToString(), "Sample error");
                     }
                 }
             }
             else
             {
-                System.Windows.MessageBox.Show("Must have at least 1 Facility!", "Sample error");
+                MessageBox.Show("Must have at least 1 Facility!", "Sample error");
             }
         }
 
@@ -248,9 +267,6 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
 
             // Clear all of the graphics.
             _graphicsOverlay.Graphics.Clear();
-
-            // Clear the existing barriers.
-            _barrierBuilder = new PolylineBuilder(_spatialReference);
         }
     }
 }

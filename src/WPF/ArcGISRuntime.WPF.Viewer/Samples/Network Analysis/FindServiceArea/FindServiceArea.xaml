@@ -12,8 +12,12 @@
                         Content="Add Facilities"
                         Click="AddFacilitiesButton_Click" />
                 <Button Name="AddBarrierButton"
-                        Content="Add Barrier"
+                        Content="Draw Barrier"
                         Click="AddBarrierButton_Click" />
+                <Button Name="CompleteBarrierButton"
+                        Content="Complete Barrier"
+                        Click="CompleteButton_Click"
+                        Command="{Binding CompleteCommand}"/>
                 <Button Name="ShowServiceAreas"
                         Content="Show Service Areas"
                         Click="ShowServiceAreasButton_Click" />

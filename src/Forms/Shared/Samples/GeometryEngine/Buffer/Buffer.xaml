@@ -2,21 +2,56 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:local="clr-namespace:ArcGISRuntime.Samples.Buffer"
              x:Class="ArcGISRuntime.Samples.Buffer.Buffer">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackLayout Grid.Row="0" 
-                     Orientation="Vertical">
-            <Label x:Name="BufferInstructionsLabel" 
-                   Text="Specify the buffer in miles and the tap on the map:"/>
-            <Entry x:Name="BufferDistanceMilesEntry" 
-                   Text="10"/>
-        </StackLayout>
-        <esriUI:MapView x:Name="MyMapView" 
-                        Grid.Row="1"/>
+        <esriUI:MapView x:Name="MyMapView"/>
+        <Frame BackgroundColor="DarkGray" Opacity="0.8"
+               HorizontalOptions="End" VerticalOptions="StartAndExpand"
+               Margin="5" HeightRequest="200">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="70"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                       HorizontalTextAlignment="Center"
+                       TextColor="Blue" LineBreakMode="WordWrap"
+                       Text="Click the map to create Planar and Geodesic buffers"/>
+                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                       HorizontalOptions="End" VerticalOptions="Center"
+                       Text="Distance (miles):"/>
+                <Entry x:Name="BufferDistanceMilesEntry" 
+                       Grid.Row="1" Grid.Column="2"
+                       HorizontalTextAlignment="End"
+                       Margin="5"
+                       Text="1000"/>
+                <Frame x:Name="BufferSwatchPlanar"
+                       Grid.Row="3" Grid.Column="0"
+                       WidthRequest="20" HeightRequest="20"/>
+                <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" 
+                       HorizontalOptions="Start" VerticalOptions="Center"
+                       Text="Planar buffers"/>
+                <Frame x:Name="BufferSwatchGeodesic"
+                       Grid.Row="4" Grid.Column="0"
+                       WidthRequest="20" HeightRequest="20"/>
+                <Label Grid.Row="4" Grid.Column="1" 
+                       HorizontalOptions="Start" VerticalOptions="Center"
+                       Text="Geodesic buffers"/>
+                <Button x:Name="ClearBuffersButton"
+                        Grid.Row="5" Grid.Column="1"
+                        Margin="0,10,0,0"
+                        Text="Clear"
+                        Clicked="ClearBuffersButton_Click"/>
+            </Grid>
+        </Frame>
     </Grid>
 </ContentPage>

@@ -20,95 +20,135 @@ namespace ArcGISRuntime.Samples.Buffer
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Buffer",
         "GeometryEngine",
-        "This sample demonstrates how to use the GeometryEngine.Buffer to generate a polygon from an input geometry with a buffer distance.",
-        "Tap on the map to specify a map point location. A buffer will created and displayed based upon the buffer value (in miles) specified in the textbox. Repeat the procedure to add additional map point and buffers. The generated buffers can overlap and are independent of each other.",
+        "This sample demonstrates how to use GeometryEngine to create planar and geodesic buffer polygons from a map location and buffer distance. It illustrates the difference between planar and geodesic results.",
+        "1. Tap on the map.\n2. A planar and a geodesic buffer will be created at the tap location using the distance (miles) specified in the text box.\n3. Continue tapping to create additional buffers. Notice that buffers closer to the equator are similar in size. As you move north or south from the equator, however, the geodesic polygons appear larger. Geodesic polygons are in fact a better representation of the true shape and size of the buffer.\n 4. Click `Clear` to remove all buffers and start again.",
         "")]
     public partial class Buffer : ContentPage
     {
-        // Graphics overlay to display buffer-related graphics.
-        private GraphicsOverlay _graphicsOverlay;
-
         public Buffer()
         {
             InitializeComponent();
 
             Title = "Buffer";
 
-            // Bind the view to this page.
-            BindingContext = this;
+            // Initialize the map and graphics overlays.
+            Initialize();
+        }
 
-            // Create a map with a topographic basemap.
-            Map theMap = new Map(Basemap.CreateTopographic());
+        private void Initialize()
+        {
+            // Create a map with a topographic basemap and add it to the map view.
+            MyMapView.Map = new Map(Basemap.CreateTopographic());
 
-            // Create an envelope that covers the Dallas/Fort Worth area.
-            Geometry startingEnvelope = new Envelope(-10863035.97, 3838021.34, -10744801.344, 3887145.299, SpatialReferences.WebMercator);
+            // Handle the MapView's GeoViewTapped event to create buffers.
+            MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
-            // Set the map's initial extent to the envelope.
-            theMap.InitialViewpoint = new Viewpoint(startingEnvelope);
+            // Create a fill symbol for geodesic buffer polygons.            
+            Colors geodesicBufferColor = Colors.FromArgb(120, 255, 0, 0);
+            SimpleLineSymbol geodesicOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, geodesicBufferColor, 2);
+            SimpleFillSymbol geodesicBufferFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, geodesicBufferColor, geodesicOutlineSymbol);
 
-            // Assign the map to the MapView.
-            MyMapView.Map = theMap;
+            // Create a fill symbol for planar buffer polygons.            
+            Colors planarBufferColor = Colors.FromArgb(120, 0, 0, 255);
+            SimpleLineSymbol planarOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, planarBufferColor, 2);
+            SimpleFillSymbol planarBufferFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, planarBufferColor, planarOutlineSymbol);
 
-            // Create a graphics overlay to show the buffer-related graphics.
-            _graphicsOverlay = new GraphicsOverlay();
+            // Create a marker symbol for tap locations.
+            SimpleMarkerSymbol tapSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.White, 14);
 
-            // Add the created graphics overlay to the MapView.
-            MyMapView.GraphicsOverlays.Add(_graphicsOverlay);
+            // Create a graphics overlay to display geodesic polygons, set its renderer and add it to the map view.
+            GraphicsOverlay geodesicPolysOverlay = new GraphicsOverlay
+            {
+                Id = "GeodesicPolys",
+                Renderer = new SimpleRenderer(geodesicBufferFillSymbol)
+            };
+            MyMapView.GraphicsOverlays.Add(geodesicPolysOverlay);
 
-            // Wire up the MapView's GeoViewTapped event handler.
-            MyMapView.GeoViewTapped += MyMapView_GeoViewTapped; 
+            // Create a graphics overlay to display planar polygons, set its renderer and add it to the map view.
+            GraphicsOverlay planarPolysOverlay = new GraphicsOverlay
+            {
+                Id = "PlanarPolys",
+                Renderer = new SimpleRenderer(planarBufferFillSymbol)
+            };
+            MyMapView.GraphicsOverlays.Add(planarPolysOverlay);
+
+            // Create a graphics overlay to display tap locations for buffers, set its renderer and add it to the map view.
+            GraphicsOverlay tapLocationsOverlay = new GraphicsOverlay
+            {
+                Id = "TapPoints",
+                Renderer = new SimpleRenderer(tapSymbol)
+            };
+            MyMapView.GraphicsOverlays.Add(tapLocationsOverlay);
+
+            // Show the colors for each type of buffer in the UI.
+            ShowBufferSwatches(planarBufferColor, geodesicBufferColor);
         }
 
         private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             try
             {
-                // Create a map point (in the WebMercator projected coordinate system) from the GUI screen coordinate.
-                MapPoint userTappedMapPoint = MyMapView.ScreenToLocation(e.Position);
+                // Get the location tapped by the user (a map point in the WebMercator projected coordinate system).
+                MapPoint userTapPoint = e.Location;
 
-                // Get the buffer size from the textbox.
+                // Get the buffer distance (miles) entered in the text box.
                 double bufferInMiles = System.Convert.ToDouble(BufferDistanceMilesEntry.Text);
 
-                // Create a variable to be the buffer size in meters. There are 1609.34 meters in one mile.
+                // Convert the input distance to meters. There are 1609.34 meters in one mile.
                 double bufferInMeters = bufferInMiles * 1609.34;
 
-                // Get a buffered polygon from the GeometryEngine Buffer operation centered on the map point. 
-                // Note: The input distance to the Buffer operation is in meters. This matches the backdrop 
-                // basemap units which is also meters.
-                Geometry bufferGeometry = GeometryEngine.Buffer(userTappedMapPoint, bufferInMeters);
+                // Create a planar buffer graphic around the input location at the specified distance.
+                Geometry bufferGeometryPlanar = GeometryEngine.Buffer(userTapPoint, bufferInMeters);
+                Graphic planarBufferGraphic = new Graphic(bufferGeometryPlanar);
 
-                // Create the outline (a simple line symbol) for the buffered polygon. It will be a solid, thick, green line.
-                SimpleLineSymbol bufferSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Green, 5);
+                // Create a geodesic buffer graphic using the same location and distance.
+                Geometry bufferGeometryGeodesic = GeometryEngine.BufferGeodetic(userTapPoint, bufferInMeters, LinearUnits.Meters, double.NaN, GeodeticCurveType.Geodesic);
+                Graphic geodesicBufferGraphic = new Graphic(bufferGeometryGeodesic);
 
-                // Create the color that will be used for the fill of the buffered polygon. It will be a semi-transparent, green color.
-                Colors bufferFillColor = Colors.FromArgb(125,0, 255, 0);
+                // Create a graphic for the user tap location.
+                Graphic locationGraphic = new Graphic(userTapPoint);
 
-                // Create simple fill symbol for the buffered polygon. It will be solid, semi-transparent, green fill with a solid, 
-                // thick, green outline.
-                SimpleFillSymbol bufferSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, bufferFillColor, bufferSimpleLineSymbol);
+                // Get the graphics overlays.
+                GraphicsOverlay planarBufferGraphicsOverlay = MyMapView.GraphicsOverlays["PlanarPolys"];
+                GraphicsOverlay geodesicBufferGraphicsOverlay = MyMapView.GraphicsOverlays["GeodesicPolys"];
+                GraphicsOverlay tapPointGraphicsOverlay = MyMapView.GraphicsOverlays["TapPoints"];
 
-                // Create a new graphic for the buffered polygon using the defined simple fill symbol.
-                Graphic bufferGraphic = new Graphic(bufferGeometry, bufferSimpleFillSymbol);
-
-                // Add the buffered polygon graphic to the graphic overlay.
-                _graphicsOverlay.Graphics.Add(bufferGraphic);
-
-                // Create a simple marker symbol to display where the user tapped/clicked on the map. The marker symbol will be a 
-                // solid, red circle.
-                SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Red, 5);
-
-                // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol. 
-                Graphic userTappedGraphic = new Graphic(userTappedMapPoint, userTappedSimpleMarkerSymbol);
-
-                // Add the user tapped/clicked map point graphic to the graphic overlay.
-                _graphicsOverlay.Graphics.Add(userTappedGraphic);
+                // Add the buffer polygons and tap location graphics to the appropriate graphic overlays.
+                planarBufferGraphicsOverlay.Graphics.Add(planarBufferGraphic);
+                geodesicBufferGraphicsOverlay.Graphics.Add(geodesicBufferGraphic);
+                tapPointGraphicsOverlay.Graphics.Add(locationGraphic);
             }
             catch (System.Exception ex)
             {
-                // Display an error message if there is a problem generating the buffer polygon.
-                DisplayAlert("Error", "Geometry Engine Failed: " + ex.Message, "OK");
+                // Display an error message if there is a problem generating the buffers.
+                DisplayAlert(ex.Message, "Error creating buffers", "OK");
             }
         }
 
+        private void ShowBufferSwatches(Colors planarBufferColor, Colors geodesicBufferColor)
+        {
+            // Create Xamarin.Forms.Colors to represent the System.Drawing.Colors used for the buffers.
+            Color planarLabelColor = Color.FromRgba(planarBufferColor.R,
+                planarBufferColor.G, 
+                planarBufferColor.B, 
+                planarBufferColor.A);
+            Color geodesicLabelColor = Color.FromRgba(geodesicBufferColor.R,
+                geodesicBufferColor.G,
+                geodesicBufferColor.B,
+                geodesicBufferColor.A);
+
+            // Show buffer symbol colors in the UI by setting the appropriate Ellipse object fill color.
+            BufferSwatchPlanar.BackgroundColor = planarLabelColor;
+            BufferSwatchGeodesic.BackgroundColor = geodesicLabelColor;
+        }
+
+        private void ClearBuffersButton_Click(object sender, System.EventArgs e)
+        {
+            // Clear the buffer and point graphics.
+            foreach (GraphicsOverlay ov in MyMapView.GraphicsOverlays)
+            {
+                ov.Graphics.Clear();
+            }
+        }
     }
 }

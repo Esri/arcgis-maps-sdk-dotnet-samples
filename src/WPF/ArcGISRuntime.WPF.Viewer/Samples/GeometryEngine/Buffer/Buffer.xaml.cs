@@ -19,15 +19,11 @@ namespace ArcGISRuntime.WPF.Samples.Buffer
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Buffer",
         "GeometryEngine",
-        "This sample demonstrates how to use GeometryEngine to create planar and geodesic buffer polygons from a map location and buffer distance. It illustrates the difference between planar and geodesic results both visually on the map and by comparing their areas.",
-        "1. Tap on the map.\n2. A planar and a geodesic buffer will be created at the tap location using the distance (miles) specified in the text box.\n3. Continue tapping to create additional buffers. Notice that buffers closer to the equator are similar in size. As you move north or south from the equator, however, the geodesic polygons appear larger. Geodesic polygons are in fact a better representation of the true shape and size of the buffer. While the planar polygons appear consistent across the map, the area they represent is less accurate as you move towards the poles. \n4. The total area of planar and geodesic buffer polygons will update in the text boxes along with the percent difference between them.\n 5. Click `Clear` to remove all buffers and start again.",
+        "This sample demonstrates how to use GeometryEngine to create planar and geodesic buffer polygons from a map location and buffer distance. It illustrates the difference between planar and geodesic results.",
+        "1. Tap on the map.\n2. A planar and a geodesic buffer will be created at the tap location using the distance (miles) specified in the text box.\n3. Continue tapping to create additional buffers. Notice that buffers closer to the equator are similar in size. As you move north or south from the equator, however, the geodesic polygons appear larger. Geodesic polygons are in fact a better representation of the true shape and size of the buffer.\n 4. Click `Clear` to remove all buffers and start again.",
         "")]
     public partial class Buffer
     {
-        // Track the total area for all buffers in the map view.
-        private double _planarBufferAreaTotal;
-        private double _geodesicBufferAreaTotal;
-
         public Buffer()
         {
             InitializeComponent();
@@ -40,7 +36,7 @@ namespace ArcGISRuntime.WPF.Samples.Buffer
         {
             // Create a map with a topographic basemap and add it to the map view.
             MyMapView.Map = new Map(Basemap.CreateTopographic());
-            
+
             // Handle the MapView's GeoViewTapped event to create buffers.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
@@ -118,23 +114,6 @@ namespace ArcGISRuntime.WPF.Samples.Buffer
                 planarBufferGraphicsOverlay.Graphics.Add(planarBufferGraphic);
                 geodesicBufferGraphicsOverlay.Graphics.Add(geodesicBufferGraphic);
                 tapPointGraphicsOverlay.Graphics.Add(locationGraphic);
-
-                // Get the area for each new polygon.
-                double areaPlanar = GeometryEngine.AreaGeodetic(bufferGeometryPlanar, AreaUnits.SquareMiles);
-                double areaGeodesic = GeometryEngine.AreaGeodetic(bufferGeometryGeodesic, AreaUnits.SquareMiles);
-
-                // Add to the total area for each type of buffer polygon.
-                _planarBufferAreaTotal += areaPlanar;
-                _geodesicBufferAreaTotal += areaGeodesic;
-
-                // Calculate the percent difference in the total areas.
-                double areaDifference = _geodesicBufferAreaTotal - _planarBufferAreaTotal;
-                double percentDifference = areaDifference / _planarBufferAreaTotal;
-
-                // Show the total area for each type and the percent difference.
-                BufferAreaPlanarTextBox.Text = string.Format("{0:N2}", _planarBufferAreaTotal);
-                BufferAreaGeodesicTextBox.Text = string.Format("{0:N2}", _geodesicBufferAreaTotal);
-                BufferDifferenceTextBox.Text = string.Format("{0:P}", percentDifference);
             }
             catch (System.Exception ex)
             {
@@ -169,15 +148,6 @@ namespace ArcGISRuntime.WPF.Samples.Buffer
             {
                 ov.Graphics.Clear();
             }
-
-            // Clear the values from the area text boxes.
-            BufferAreaPlanarTextBox.Text = "";
-            BufferAreaGeodesicTextBox.Text = "";
-            BufferDifferenceTextBox.Text = "";
-
-            // Clear the area totals;
-            _planarBufferAreaTotal = 0.0;
-            _geodesicBufferAreaTotal = 0.0;
         }
     }
 }

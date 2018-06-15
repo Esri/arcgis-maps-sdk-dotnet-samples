@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         "")]
     public class TakeScreenshot : Activity
     {
-        // Create and hold reference to the used map view
+        // Create and hold reference to the used map view.
         private MapView _myMapView = new MapView();
 
         protected override void OnCreate(Bundle bundle)
@@ -34,18 +34,18 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
 
             Title = "Take screenshot";
 
-            // Create the UI, setup the control references and execute initialization
+            // Create the UI, setup the control references and execute initialization.
             CreateLayout();
             Initialize();
         }
 
         private void Initialize()
         {
-            // Create a new map instance with the basemap
+            // Create a new map instance with the basemap.
             Basemap myBasemap = Basemap.CreateStreets();
             Map myMap = new Map(myBasemap);
 
-            // Assign the map to the map view
+            // Assign the map to the map view.
             _myMapView.Map = myMap;
         }
 
@@ -53,33 +53,33 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         {
             try
             {
-                // Export the image from map view
+                // Export the image from map view.
                 RuntimeImage exportedImage = await _myMapView.ExportImageAsync();
 
-                // Create an image button (this will display the exported map view image)
+                // Create an image button (this will display the exported map view image).
                 ImageButton myImageButton = new ImageButton(this);
 
-                // Define the size of the image button to be 2/3 the size of the map view
+                // Define the size of the image button to be 2/3 the size of the map view.
                 myImageButton.LayoutParameters = new Android.Views.ViewGroup.LayoutParams((int)(_myMapView.Width * .667), (int)(_myMapView.Height * .667));
 
-                // Set the source of the image button to be that of the exported map view image
+                // Set the source of the image button to be that of the exported map view image.
                 myImageButton.SetImageBitmap(await exportedImage.ToImageSourceAsync());
 
-                // Make the image that was captured from the map view export to fit within (aka scale-to-fit) the image button
+                // Make the image that was captured from the map view export to fit within (aka scale-to-fit) the image button.
                 myImageButton.SetScaleType(ImageView.ScaleType.FitCenter);
 
-                // Define a popup with a single image button control and make the size of the popup to be 2/3 the size of the map view
+                // Define a popup with a single image button control and make the size of the popup to be 2/3 the size of the map view.
                 PopupWindow myPopupWindow = new PopupWindow(myImageButton, (int)(_myMapView.Width * .667), (int)(_myMapView.Height * .667));
 
-                // Display the popup in the middle of the map view
+                // Display the popup in the middle of the map view.
                 myPopupWindow.ShowAtLocation(_myMapView, Android.Views.GravityFlags.Center, 0, 0);
 
-                // Define a lambda event handler to close the popup when the user clicks on the image button
+                // Define a lambda event handler to close the popup when the user clicks on the image button.
                 myImageButton.Click += (s, a) => myPopupWindow.Dismiss();
             }
             catch (Exception ex)
             {
-                // Display any errors to the user if capturing the map view image did not work
+                // Display any errors to the user if capturing the map view image did not work.
                 var alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("ExportImageAsync error");
                 alertBuilder.SetMessage("Capturing image failed. " + ex.Message);
@@ -89,19 +89,19 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
 
         private void CreateLayout()
         {
-            // Create a new vertical layout for the app
+            // Create a new vertical layout for the app.
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-            // Add a button to take a screen shot, with wired up event
+            // Add a button to take a screen shot, with wired up event.
             Button takeScreenshotButton = new Button(this);
             takeScreenshotButton.Text = "Capture";
             takeScreenshotButton.Click += OnTakeScreenshotClicked;
             layout.AddView(takeScreenshotButton);
 
-            // Add the map view to the layout
+            // Add the map view to the layout.
             layout.AddView(_myMapView);
 
-            // Show the layout in the app
+            // Show the layout in the app.
             SetContentView(layout);
         }
     }

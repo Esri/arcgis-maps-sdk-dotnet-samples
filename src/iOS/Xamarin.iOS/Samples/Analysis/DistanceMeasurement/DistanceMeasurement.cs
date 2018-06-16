@@ -215,7 +215,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
                 toolbarHeight - 10);
 
             // Place the unit system change button.
-            _unitChangeButton.Frame = new CGRect(View.Bounds.Width / 4, View.Bounds.Height - (3 * toolbarHeight),
+            _unitChangeButton.Frame = new CGRect(View.Bounds.Width / 4, View.Bounds.Height - 3 * toolbarHeight,
                 View.Bounds.Width / 2, toolbarHeight);
 
             base.ViewDidLayoutSubviews();

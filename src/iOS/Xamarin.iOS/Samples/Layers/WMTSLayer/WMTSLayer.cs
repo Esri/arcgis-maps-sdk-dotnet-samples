@@ -25,20 +25,25 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         "")]
     public class WMTSLayer : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
-
-        // Create button
-        private UIButton _button1;
-
-        // Create button
-        private UIButton _button2;
-
-        // Create toolbar
         private readonly UIToolbar _toolbar = new UIToolbar();
 
-        // Create help label
-        private UILabel _label;
+        private readonly UILabel _label = new UILabel
+        {
+            Text = "Construct layer with:",
+            TextAlignment = UITextAlignment.Center
+        };
+
+        private readonly UIButton _button1 = new UIButton(UIButtonType.RoundedRect)
+        {
+            HorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        };
+
+        private readonly UIButton _button2 = new UIButton(UIButtonType.RoundedRect)
+        {
+            HorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        };
 
         public WMTSLayer()
         {
@@ -49,29 +54,24 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references
+            // Create the UI, setup the control references.
             CreateLayout();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            int controlHeight = 30;
-            int margin = 5;
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat controlHeight = 30;
+            nfloat margin = 5;
+            nfloat toolbarHeight = controlHeight * 2 + margin * 3;
 
-            // Setup the visual frame for the MapView
+            // Reposition the controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Setup the visual frame for the toolbar
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - (2 * controlHeight) - (3 * margin), View.Bounds.Width, 2 * controlHeight + 3 * margin);
-
-            // Setup the visual frame for the help label
-            _label.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - (2 * controlHeight) - (2 * margin), View.Bounds.Width - (2 * margin), controlHeight);
-
-            // Setup the visual frame for button1
-            _button1.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
-
-            // Setup the visual frame for button2
-            _button2.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - (margin), View.Bounds.Width / 2 - (2 * margin), controlHeight);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 2 * controlHeight - 3 * margin, View.Bounds.Width, 2 * controlHeight + 3 * margin);
+            _label.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+            _button1.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
+            _button2.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }
@@ -80,30 +80,30 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         {
             try
             {
-                // Define the Uri to the WMTS service (NOTE: iOS applications require the use of Uri's to be https:// and not http://)
+                // Define the URL to the WMTS service.
                 var myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/WMTS");
 
-                // Create a new instance of a WMTS layer using a Uri and provide an Id value
+                // Create a new instance of a WMTS layer using a Uri and provide an Id value.
                 WmtsLayer myWmtsLayer = new WmtsLayer(myUri, "WorldTimeZones");
 
-                // Create a new map
+                // Create a new map.
                 Map myMap = new Map();
 
-                // Get the basemap from the map
+                // Get the basemap from the map.
                 Basemap myBasemap = myMap.Basemap;
 
-                // Get the layer collection for the base layers
+                // Get the layer collection for the base layers.
                 LayerCollection myLayerCollection = myBasemap.BaseLayers;
 
-                // Add the WMTS layer to the layer collection of the map
+                // Add the WMTS layer to the layer collection of the map.
                 myLayerCollection.Add(myWmtsLayer);
 
-                // Assign the map to the MapView
+                // Assign the map to the MapView.
                 _myMapView.Map = myMap;
             }
             catch (Exception ex)
             {
-                // Report error
+                // Report error.
                 UIAlertController alert = UIAlertController.Create("Error", ex.Message, UIAlertControllerStyle.Alert);
                 alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alert, true, null);
@@ -114,42 +114,42 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         {
             try
             {
-                // Define the Uri to the WMTS service (NOTE: iOS applications require the use of Uri's to be https:// and not http://)
+                // Define the Uri to the WMTS service.
                 var myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/WMTS");
 
-                // Define a new instance of the WMTS service
+                // Define a new instance of the WMTS service.
                 WmtsService myWmtsService = new WmtsService(myUri);
 
-                // Load the WMTS service 
+                // Load the WMTS service .
                 await myWmtsService.LoadAsync();
 
-                // Get the service information (i.e. metadata) about the WMTS service
+                // Get the service information (i.e. metadata) about the WMTS service.
                 WmtsServiceInfo myWMTSServiceInfo = myWmtsService.ServiceInfo;
 
-                // Obtain the read only list of WMTS layer info objects
+                // Obtain the read only list of WMTS layer info objects.
                 IReadOnlyList<WmtsLayerInfo> myWmtsLayerInfos = myWMTSServiceInfo.LayerInfos;
 
-                // Create a new instance of a WMTS layer using the first item in the read only list of WMTS layer info objects
+                // Create a new instance of a WMTS layer using the first item in the read only list of WMTS layer info objects.
                 WmtsLayer myWmtsLayer = new WmtsLayer(myWmtsLayerInfos[0]);
 
-                // Create a new map
+                // Create a new map.
                 Map myMap = new Map();
 
-                // Get the basemap from the map
+                // Get the basemap from the map.
                 Basemap myBasemap = myMap.Basemap;
 
-                // Get the layer collection for the base layers
+                // Get the layer collection for the base layers.
                 LayerCollection myLayerCollection = myBasemap.BaseLayers;
 
-                // Add the WMTS layer to the layer collection of the map
+                // Add the WMTS layer to the layer collection of the map.
                 myLayerCollection.Add(myWmtsLayer);
 
-                // Assign the map to the MapView
+                // Assign the map to the MapView.
                 _myMapView.Map = myMap;
             }
             catch (Exception ex)
             {
-                // Report error
+                // Report error.
                 UIAlertController alert = UIAlertController.Create("Error", ex.Message, UIAlertControllerStyle.Alert);
                 alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alert, true, null);
@@ -158,33 +158,21 @@ namespace ArcGISRuntime.Samples.WMTSLayer
 
         private void CreateLayout()
         {
-
-            // Create button1
-            _button1 = new UIButton();
+            // Create button1.
             _button1.SetTitle("Service URL", UIControlState.Normal);
             _button1.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _button1.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
 
-            // Hook to touch event to do button1
+            // Hook to touch event to do button1.
             _button1.TouchUpInside += OnButton1Clicked;
 
-            // Create button2
-            _button2 = new UIButton();
+            // Create button2.
             _button2.SetTitle("WmtsLayerInfo", UIControlState.Normal);
             _button2.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _button2.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
 
-            // Hook to touch event to do button2
+            // Hook to touch event to do button2.
             _button2.TouchUpInside += OnButton2Clicked;
 
-            // Create the help label
-            _label = new UILabel
-            {
-                Text = "Construct layer with:",
-                TextAlignment = UITextAlignment.Center
-            };
-
-            // Add controls to the page
+            // Add controls to the page.
             View.AddSubviews(_myMapView, _toolbar, _label, _button1, _button2);
         }
     }

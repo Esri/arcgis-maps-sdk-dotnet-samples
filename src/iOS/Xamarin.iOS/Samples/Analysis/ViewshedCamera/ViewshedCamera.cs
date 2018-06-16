@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         "", "Featured")]
     public class ViewshedCamera : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the used MapView
         private readonly SceneView _mySceneView = new SceneView();
 
         // URL for a scene service of buildings in Brest, France

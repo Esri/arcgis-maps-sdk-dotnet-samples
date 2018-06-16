@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         "Check the appropriate boxes to filter features by attributes and/or within the current extent. Click the button to see basic statistics displayed for world cities.")]
     public class StatisticalQuery : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the used MapView
         private readonly MapView _myMapView = new MapView();
 
         // URI for the world cities map service layer
@@ -74,11 +74,11 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
 
             // Setup the visual frames for the views.
             _toolbar.Frame = new CoreGraphics.CGRect(0, pageOffset, View.Bounds.Width, controlHeight * 3 + margin * 4);
-            _extentSwitchLabel.Frame = new CoreGraphics.CGRect(margin, pageOffset + margin, View.Bounds.Width - switchWidth - (4 * margin), controlHeight);
-            _onlyInExtentSwitch.Frame = new CoreGraphics.CGRect(View.Bounds.Width - switchWidth - (2 * margin), pageOffset + margin, switchWidth, controlHeight);
-            _citySwitchLabel.Frame = new CoreGraphics.CGRect(margin, pageOffset + controlHeight + 2 * margin, View.Bounds.Width - switchWidth - (4 * margin), controlHeight);
-            _onlyBigCitiesSwitch.Frame = new CoreGraphics.CGRect(View.Bounds.Width - switchWidth - (2 * margin), pageOffset + controlHeight + 2 * margin, switchWidth, controlHeight);
-            _getStatsButton.Frame = new CoreGraphics.CGRect(margin, pageOffset + 2 * controlHeight + 3 * margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _extentSwitchLabel.Frame = new CoreGraphics.CGRect(margin, pageOffset + margin, View.Bounds.Width - switchWidth - 4 * margin, controlHeight);
+            _onlyInExtentSwitch.Frame = new CoreGraphics.CGRect(View.Bounds.Width - switchWidth - 2 * margin, pageOffset + margin, switchWidth, controlHeight);
+            _citySwitchLabel.Frame = new CoreGraphics.CGRect(margin, pageOffset + controlHeight + 2 * margin, View.Bounds.Width - switchWidth - 4 * margin, controlHeight);
+            _onlyBigCitiesSwitch.Frame = new CoreGraphics.CGRect(View.Bounds.Width - switchWidth - 2 * margin, pageOffset + controlHeight + 2 * margin, switchWidth, controlHeight);
+            _getStatsButton.Frame = new CoreGraphics.CGRect(margin, pageOffset + 2 * controlHeight + 3 * margin, View.Bounds.Width - 2 * margin, controlHeight);
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             base.ViewDidLayoutSubviews();

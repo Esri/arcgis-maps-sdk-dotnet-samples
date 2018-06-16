@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.Buffer
         "")]
     public class Buffer : UIViewController
     {
-        // Create and hold reference to the used MapView.
+        // Create and hold a reference to the used MapView.
         private readonly MapView _myMapView = new MapView();
 
         // Create a UILabel to display the instructions.
@@ -69,9 +69,9 @@ namespace ArcGISRuntime.Samples.Buffer
             // Setup the visual frames for the views.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, 2 * controlHeight + 3 * margin);
-            _helpLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
-            _bufferHelpLabel.Frame = new CoreGraphics.CGRect(margin, topStart + controlHeight + (2 *margin), colSplit - (2 * margin), controlHeight);
-            _bufferDistanceEntry.Frame = new CoreGraphics.CGRect(colSplit + margin, topStart + controlHeight + 2 * margin, View.Bounds.Width - colSplit - (2 * margin), controlHeight);
+            _helpLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - 2 * margin, controlHeight);
+            _bufferHelpLabel.Frame = new CoreGraphics.CGRect(margin, topStart + controlHeight + 2 *margin, colSplit - 2 * margin, controlHeight);
+            _bufferDistanceEntry.Frame = new CoreGraphics.CGRect(colSplit + margin, topStart + controlHeight + 2 * margin, View.Bounds.Width - colSplit - 2 * margin, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }

@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.BufferList
         "")]
     public class BufferList : UIViewController
     {
-        // Create and hold reference to the used MapView.
+        // Create and hold a reference to the used MapView.
         private readonly MapView _myMapView = new MapView();
 
         // Graphics overlay to display buffer-related graphics.
@@ -81,12 +81,12 @@ namespace ArcGISRuntime.Samples.BufferList
             // Setup the visual frames for the views.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, controlHeight * 3 + margin * 2);
-            _controlsToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - (2 * controlHeight) - (3 * margin), View.Bounds.Width, (2 * controlHeight) + (3 * margin));
-            _sampleInstructionsLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), 3 * controlHeight);
-            _bufferDistanceInstructionLabel.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - (2 * controlHeight) - (2* margin), 175, controlHeight);
-            _bufferDistanceEntry.Frame = new CoreGraphics.CGRect(175 + 30, View.Bounds.Height - (2 * controlHeight) - (2 * margin), 50, controlHeight);
-            _unionBufferSwitch.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 75 + margin, View.Bounds.Height - (2 * controlHeight) - (2 * margin), 75 - (2 * margin), controlHeight);
-            _bufferButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _controlsToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 2 * controlHeight - 3 * margin, View.Bounds.Width, 2 * controlHeight + 3 * margin);
+            _sampleInstructionsLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - 2 * margin, 3 * controlHeight);
+            _bufferDistanceInstructionLabel.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - 2 * controlHeight - 2* margin, 175, controlHeight);
+            _bufferDistanceEntry.Frame = new CoreGraphics.CGRect(175 + 30, View.Bounds.Height - 2 * controlHeight - 2 * margin, 50, controlHeight);
+            _unionBufferSwitch.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 75 + margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, 75 - 2 * margin, controlHeight);
+            _bufferButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 2 * margin, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }

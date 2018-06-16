@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
         "Click the button to switch renderers. ")]
     public class SymbolizeShapefile : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the used MapView
         private readonly MapView _myMapView = new MapView();
 
         // Create and hold a reference to a button

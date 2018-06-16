@@ -26,13 +26,15 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         "")]
     public class DisplayLayerViewState : UIViewController
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Create and hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
 
-        // Create and hold reference to tableview
-        private UITableView _tableView;
+        private readonly UITableView _tableView = new UITableView
+        {
+            RowHeight = 40
+        };
 
-        // Reference to list of view status for each layer
+        // Reference to list of view status for each layer.
         private readonly List<LayerStatusModel> _layerStatusModels = new List<LayerStatusModel>();
 
         public DisplayLayerViewState()
@@ -49,101 +51,99 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - 120);
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat tableViewHeight = 120;
 
-            _tableView.Frame = new CoreGraphics.CGRect(0, _myMapView.Frame.Height, View.Bounds.Width, 120);
+            // Reposition the views.
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - tableViewHeight);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, tableViewHeight, 0);
+            _tableView.Frame = new CoreGraphics.CGRect(0, _myMapView.Frame.Height, View.Bounds.Width, tableViewHeight);
 
             base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
         {
-            // Create new Map
+            // Create a new Map.
             Map myMap = new Map();
 
-            // Create the URL for the tiled layer
+            // Create the URL for the tiled layer.
             Uri tiledLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer");
 
-            // Create a tiled layer using URL
+            // Create a tiled layer from the URL
             ArcGISTiledLayer tiledLayer = new ArcGISTiledLayer(tiledLayerUri)
             {
                 Name = "Tiled Layer"
             };
 
-            // Add the tiled layer to map
+            // Add the tiled layer to map.
             myMap.OperationalLayers.Add(tiledLayer);
 
-            // Create the URL for the ArcGISMapImage layer
+            // Create the URL for the ArcGISMapImage layer.
             var imageLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer");
 
-            // Create ArcGISMapImage layer using a URL
+            // Create ArcGISMapImage layer using a URL.
             ArcGISMapImageLayer imageLayer = new ArcGISMapImageLayer(imageLayerUri)
             {
                 Name = "Image Layer",
-                // Set the visible scale range for the image layer
+                // Set the visible scale range for the image layer.
                 MinScale = 40000000,
                 MaxScale = 2000000
             };
 
-            // Add the image layer to map
+            // Add the image layer to map.
             myMap.OperationalLayers.Add(imageLayer);
 
-            //Create Uri for feature layer
+            // Create Uri for feature layer.
             var featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0");
 
-            //Create a feature layer using URL
+            // Create a feature layer using URL.
             FeatureLayer myFeatureLayer = new FeatureLayer(featureLayerUri)
             {
                 Name = "Feature Layer"
             };
 
-            // Add the feature layer to map
+            // Add the feature layer to map.
             myMap.OperationalLayers.Add(myFeatureLayer);
 
-            // Create a point the map should zoom to
+            // Create a point the map should zoom to.
             MapPoint mapPoint = new MapPoint(-11000000, 4500000, SpatialReferences.WebMercator);
 
-            // Set the initial viewpoint for map
+            // Set the initial viewpoint for map.
             myMap.InitialViewpoint = new Viewpoint(mapPoint, 50000000);
 
-            // Initialize the model list with unknown status for each layer
+            // Initialize the model list with unknown status for each layer.
             foreach (Layer layer in myMap.OperationalLayers)
             {
                 _layerStatusModels.Add(new LayerStatusModel(layer.Name, "Unknown"));
             }
 
-            // Create the table view source and pass the list of models to it
+            // Create the table view source and pass the list of models to it.
             _tableView.Source = new LayerViewStatusTableSource(_layerStatusModels);
 
-            // Event for layer view state changed
+            // Event for layer view state changed.
             _myMapView.LayerViewStateChanged += OnLayerViewStateChanged;
 
-            // Provide used Map to the MapView
+            // Provide used Map to the MapView.
             _myMapView.Map = myMap;
         }
 
         private void OnLayerViewStateChanged(object sender, LayerViewStateChangedEventArgs e)
         {
             // State changed event is sent by a layer. In the list, find the layer which sends this event. 
-            // If it exists then update the status
+            // If it exists then update the status.
             var model = _layerStatusModels.FirstOrDefault(l => l.LayerName == e.Layer.Name);
             if (model != null)
+            {
                 model.LayerViewStatus = e.LayerViewState.Status.ToString();
+            }
 
-            // Update the table
+            // Update the table.
             _tableView.ReloadData();
         }
 
         private void CreateLayout()
         {
-            _myMapView = new MapView();
-            // Create a tableview for displaying layer view status for each layer
-            _tableView = new UITableView
-            {
-                RowHeight = 40
-            };
-
             View.AddSubviews(_myMapView, _tableView);
         }
     }
@@ -151,12 +151,12 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
     /// <summary>
     /// Class that is used by the table view to populate itself
     /// </summary>
-    internal class LayerViewStatusTableSource: UITableViewSource
+    internal class LayerViewStatusTableSource : UITableViewSource
     {
-        // List of layer status model
+        // List of layer status model.
         private readonly List<LayerStatusModel> _layers;
 
-        // Identifier for the table cell
+        // Identifier for the table cell.
         private readonly string cellIdentifier = "TableCell";
 
         public LayerViewStatusTableSource(List<LayerStatusModel> layers)
@@ -182,27 +182,27 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
 
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            // Get the reused cell from the table view
+            // Get the reused cell from the table view.
             UITableViewCell cell = tableView.DequeueReusableCell(cellIdentifier);
 
-            // Get the model at this current cell index
+            // Get the model at this current cell index.
             LayerStatusModel model = _layers[indexPath.Row];
 
-            // If there are no cells to reuse-create one
-            // We are specifically using Value1 style so text for both layer name and status can be displayed
+            // If there are no cells to reuse-create one.
+            // We are specifically using Value1 style so text for both layer name and status can be displayed.
             if (cell == null)
             {
                 cell = new UITableViewCell(UITableViewCellStyle.Value1, cellIdentifier);
             }
 
-            cell.TextLabel.Text = model.LayerName?? "Layer " + indexPath.Row;
+            cell.TextLabel.Text = model.LayerName ?? "Layer " + indexPath.Row;
             cell.DetailTextLabel.Text = model.LayerViewStatus;
             return cell;
         }
     }
 
     /// <summary>
-    /// This is a custom class that holds information for layer name and status
+    /// This is a custom class that holds information for layer name and status.
     /// </summary>
     internal class LayerStatusModel
     {

@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
         "Featured")]
     public class FeatureLayerGeoPackage : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the used MapView
         private readonly MapView _myMapView = new MapView();
 
         public FeatureLayerGeoPackage()

@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         "")]
     public class ClipGeometry : UIViewController
     {
-        // Create and hold reference to the used MapView.
+        // Create and hold a reference to the used MapView.
         private readonly MapView _myMapView = new MapView();
 
         // Graphics overlay to display input geometries for the clip operation.
@@ -83,10 +83,10 @@ namespace ArcGISRuntime.Samples.ClipGeometry
 
             // Setup the visual frames for the views.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, controlHeight + (2 * margin));
-            _controlsToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - (2 * margin), View.Bounds.Width, controlHeight + (2 * margin));
-            _sampleInstructionsLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
-            _clipButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, controlHeight + 2 * margin);
+            _controlsToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - 2 * margin, View.Bounds.Width, controlHeight + 2 * margin);
+            _sampleInstructionsLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - 2 * margin, controlHeight);
+            _clipButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 2 * margin, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }

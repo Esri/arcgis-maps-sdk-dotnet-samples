@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
@@ -22,7 +23,7 @@ namespace ArcGISRuntime.Samples.DisplayMap
         "")]
     public class DisplayMap : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the map view.
         private readonly MapView _myMapView = new MapView();
 
         public DisplayMap()
@@ -32,16 +33,13 @@ namespace ArcGISRuntime.Samples.DisplayMap
 
         private void Initialize()
         {
-            // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
-
-            // Provide used Map to the MapView
-            _myMapView.Map = myMap;
+            // Show an imagery basemap
+            _myMapView.Map = new Map(Basemap.CreateImagery());
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
 
@@ -52,10 +50,14 @@ namespace ArcGISRuntime.Samples.DisplayMap
 
             base.ViewDidLoad();
         }
+
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
             base.ViewDidLayoutSubviews();
         }

@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
         "Featured")]
     public class LineOfSightLocation : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the used MapView
         private readonly SceneView _mySceneView = new SceneView();
 
         // URL for an image service to use as an elevation source

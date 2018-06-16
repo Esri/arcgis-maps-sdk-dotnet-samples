@@ -316,7 +316,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 _headingLabel.Text = currentFrame.Heading.ToString("F");
                 _pitchLabel.Text = currentFrame.Pitch.ToString("F");
                 _rollLabel.Text = currentFrame.Roll.ToString("F");
-                _progressLabel.Text = $"{(missionProgress * 100):F}%";
+                _progressLabel.Text = $"{missionProgress * 100:F}%";
             });
 
             // Update plane's position
@@ -454,19 +454,19 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             // Layout stats display
             nfloat halfWidth = View.Bounds.Width / 2;
             _altitudeLabel.Frame = new CGRect(halfWidth, topStart + margin, halfWidth, labelHeight);
-            _headingLabel.Frame = new CGRect(halfWidth, topStart + (labelHeight) + (2 * margin), halfWidth, labelHeight);
-            _pitchLabel.Frame = new CGRect(halfWidth, topStart + (2 * labelHeight) + (3 * margin), halfWidth, labelHeight);
-            _rollLabel.Frame = new CGRect(halfWidth, topStart + (3 * labelHeight) + (4 * margin), halfWidth, labelHeight);
-            _progressLabel.Frame = new CGRect(halfWidth, topStart + (4 * labelHeight) + (5 * margin), halfWidth, labelHeight);
+            _headingLabel.Frame = new CGRect(halfWidth, topStart + labelHeight + 2 * margin, halfWidth, labelHeight);
+            _pitchLabel.Frame = new CGRect(halfWidth, topStart + 2 * labelHeight + 3 * margin, halfWidth, labelHeight);
+            _rollLabel.Frame = new CGRect(halfWidth, topStart + 3 * labelHeight + 4 * margin, halfWidth, labelHeight);
+            _progressLabel.Frame = new CGRect(halfWidth, topStart + 4 * labelHeight + 5 * margin, halfWidth, labelHeight);
 
             // Layout stats display labels
             _altitudeLabelLabel.Frame = new CGRect(10, topStart + margin, halfWidth - 10, 20);
-            _headingLabelLabel.Frame = new CGRect(10, topStart + (labelHeight) + (2 * margin), halfWidth - 10, 20);
-            _pitchLabelLabel.Frame = new CGRect(10, topStart + (2 * labelHeight) + (3 * margin), halfWidth - 10, 20);
-            _rollLabelLabel.Frame = new CGRect(10, topStart + (3 * labelHeight) + (4 * margin), halfWidth - 10, 20);
-            _progressLabelLabel.Frame = new CGRect(10, topStart + (4 * labelHeight) + (5 * margin), halfWidth - 10, 20);
+            _headingLabelLabel.Frame = new CGRect(10, topStart + labelHeight + 2 * margin, halfWidth - 10, 20);
+            _pitchLabelLabel.Frame = new CGRect(10, topStart + 2 * labelHeight + 3 * margin, halfWidth - 10, 20);
+            _rollLabelLabel.Frame = new CGRect(10, topStart + 3 * labelHeight + 4 * margin, halfWidth - 10, 20);
+            _progressLabelLabel.Frame = new CGRect(10, topStart + 4 * labelHeight + 5 * margin, halfWidth - 10, 20);
 
-            _statsFrame.Frame = new CGRect(0, topStart, View.Bounds.Width, (5 * labelHeight) + (6 * margin));
+            _statsFrame.Frame = new CGRect(0, topStart, View.Bounds.Width, 5 * labelHeight + 6 * margin);
 
             base.ViewDidLayoutSubviews();
         }

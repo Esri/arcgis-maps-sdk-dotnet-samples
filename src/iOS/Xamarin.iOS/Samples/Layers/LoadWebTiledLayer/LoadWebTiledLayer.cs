@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
@@ -24,16 +25,16 @@ namespace ArcGISRuntime.Samples.LoadWebTiledLayer
         "")]
     public class LoadWebTiledLayer : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the MapView.
         private readonly MapView _myMapView = new MapView();
 
-        // Templated URL to the tile service
+        // Templated URL to the tile service.
         private readonly string _templateUri = "http://{subDomain}.tile.stamen.com/terrain/{level}/{col}/{row}.png";
 
-        // List of subdomains for use when constructing the web tiled layer
-        private readonly List<string> _tiledLayerSubdomains = new List<string> { "a", "b", "c", "d" };
+        // List of subdomains for use when constructing the web tiled layer.
+        private readonly List<string> _tiledLayerSubdomains = new List<string> {"a", "b", "c", "d"};
 
-        // Attribution string for the Stamen service
+        // Attribution string for the Stamen service.
         private readonly string _attribution = "Map tiles by <a href=\"http://stamen.com/\">Stamen Design</a>," +
                                                "under <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>." +
                                                "Data by <a href=\"http://openstreetmap.org/\">OpenStreetMap</a>," +
@@ -44,45 +45,45 @@ namespace ArcGISRuntime.Samples.LoadWebTiledLayer
             Title = "Web TiledLayer";
         }
 
-        private async Task Initialize()
+        private async void Initialize()
         {
-            // Create the layer from the URL and the subdomain list
+            // Create the layer from the URL and the subdomain list.
             WebTiledLayer myBaseLayer = new WebTiledLayer(_templateUri, _tiledLayerSubdomains);
 
-            // Wait for the layer to load
+            // Wait for the layer to load.
             await myBaseLayer.LoadAsync();
 
-            // Create a basemap from the layer
+            // Create a basemap from the layer.
             Basemap layerBasemap = new Basemap(myBaseLayer);
 
-            // Apply the attribution for the layer
+            // Apply the attribution for the layer.
             myBaseLayer.Attribution = _attribution;
 
-            // Create a map to hold the basemap
-            Map myMap = new Map(layerBasemap);
-
-            // Add the map to the map view
-            _myMapView.Map = myMap;
+            // Show the tiled layer basemap.
+            _myMapView.Map = new Map(layerBasemap);
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
 
-        public override async void ViewDidLoad()
+        public override void ViewDidLoad()
         {
             CreateLayout();
-            await Initialize();
+            Initialize();
 
             base.ViewDidLoad();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
             base.ViewDidLayoutSubviews();
         }

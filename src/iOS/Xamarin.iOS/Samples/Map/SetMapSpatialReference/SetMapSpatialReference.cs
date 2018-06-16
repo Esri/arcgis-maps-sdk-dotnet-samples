@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.SetMapSpatialReference
         "")]
     public class SetMapSpatialReference : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the MapView.
         private readonly MapView _myMapView = new MapView();
 
         public SetMapSpatialReference()
@@ -36,40 +36,43 @@ namespace ArcGISRuntime.Samples.SetMapSpatialReference
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization.
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition the view.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
             base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
         {
-            // Create new Map using spatial reference as World Bonne (54024)
+            // Create new Map using the World Bonne spatial reference (54024).
             Map myMap = new Map(SpatialReference.Create(54024));
 
-            // Adding a map image layer which can reproject itself to the map's spatial reference
+            // Adding a map image layer which can reproject itself to the map's spatial reference.
             // Note: Some layer such as tiled layer cannot reproject and will fail to draw if their spatial 
-            // reference is not the same as the map's spatial reference
+            // reference is not the same as the map's spatial reference.
             ArcGISMapImageLayer operationalLayer = new ArcGISMapImageLayer(new Uri(
                 "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"));
 
-            // Add operational layer to the Map
+            // Add operational layer to the Map.
             myMap.OperationalLayers.Add(operationalLayer);
 
-            // Assign the map to the MapView
+            // Assign the map to the MapView.
             _myMapView.Map = myMap;
         }
 
         private void CreateLayout()
         {
-           // Add MapView to the page
+            // Add MapView to the view.
             View.AddSubviews(_myMapView);
         }
     }

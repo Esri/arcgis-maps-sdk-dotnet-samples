@@ -25,14 +25,14 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
         "")]
     public class WMSLayerUrl : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the MapView.
         private readonly MapView _myMapView = new MapView();
 
-        // Hold the URL to the WMS service showing the geology of Africa
+        // Hold the URL to the WMS service showing the geology of Africa.
         private readonly Uri _wmsUrl = new Uri("https://certmapper.cr.usgs.gov/arcgis/services/geology/africa/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
-        // Hold a list of uniquely-identifying WMS layer names to display
-        private readonly List<string> _wmsLayerNames = new List<string> { "0" };
+        // Hold a list of uniquely-identifying WMS layer names to display.
+        private readonly List<string> _wmsLayerNames = new List<string> {"0"};
 
         public WMSLayerUrl()
         {
@@ -43,41 +43,41 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references
             CreateLayout();
-
-            // Initialize the map
             Initialize();
         }
 
         private void CreateLayout()
         {
-            // Add the mapview to the view
+            // Add the mapview to the view.
             View.AddSubviews(_myMapView);
         }
 
         private void Initialize()
         {
-            // Apply an imagery basemap to the map
+            // Apply an imagery basemap to the map and set the viewpoint to a zoomed-in part of Africa.
             Map myMap = new Map(Basemap.CreateImagery())
             {
                 InitialViewpoint = new Viewpoint(new MapPoint(25.450, -4.59, new SpatialReference(4326)), 1000000)
             };
 
-            // Add the map to the mapview
+            // Show the map.
             _myMapView.Map = myMap;
 
-            // Create a new WMS layer displaying the specified layers from the service
+            // Create a new WMS layer displaying the specified layers from the service.
             WmsLayer myWmsLayer = new WmsLayer(_wmsUrl, _wmsLayerNames);
 
-            // Add the layer to the map
+            // Add the layer to the map.
             myMap.OperationalLayers.Add(myWmsLayer);
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
             base.ViewDidLayoutSubviews();
         }

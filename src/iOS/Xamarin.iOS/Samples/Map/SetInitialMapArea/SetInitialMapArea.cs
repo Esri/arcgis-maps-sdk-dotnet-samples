@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -23,7 +24,7 @@ namespace ArcGISRuntime.Samples.SetInitialMapArea
         "")]
     public class SetInitialMapArea : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the MapView.
         private readonly MapView _myMapView = new MapView();
 
         public SetInitialMapArea()
@@ -35,37 +36,38 @@ namespace ArcGISRuntime.Samples.SetInitialMapArea
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization .
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition the view.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
             base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
         {
-            // Create new Map with basemap
+            // Create new Map with basemap.
             Map myMap = new Map(Basemap.CreateImagery());
 
-            // Create and set initial map area
-            Envelope initialLocation = new Envelope(
-                -12211308.778729, 4645116.003309, -12208257.879667, 4650542.535773,
-                SpatialReferences.WebMercator);
+            // Create and set initial map area.
+            Envelope initialLocation = new Envelope(-12211308.778729, 4645116.003309, -12208257.879667, 4650542.535773, SpatialReferences.WebMercator);
             myMap.InitialViewpoint = new Viewpoint(initialLocation);
 
-            // Provide used Map to the MapView
+            // Provide used Map to the MapView.
             _myMapView.Map = myMap;
         }
 
         private void CreateLayout()
-        {      
-            // Add MapView to the page
+        {
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
     }

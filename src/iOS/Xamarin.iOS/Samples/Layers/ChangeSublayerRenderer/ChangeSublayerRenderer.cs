@@ -27,21 +27,15 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
         "")]
     public class ChangeSublayerRenderer : UIViewController
     {
-        // Create and hold reference to the used MapView.
+        // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _labelToolbar = new UIToolbar();
+        private readonly UIToolbar _buttonToolbar = new UIToolbar();
+        private UIButton _changeSublayerRendererButton;
+        private UILabel _helpLabel;
 
         // ArcGIS map image layer that contains four Census sub-layers.
         private ArcGISMapImageLayer _arcGISMapImageLayer;
-
-        // Text view to display the sample instructions.
-        private UILabel _helpLabel;
-
-        // Create a UIButton to clip polygons.
-        private UIButton _changeSublayerRendererButton;
-
-        // Toolbars to show behind the controls.
-        private readonly UIToolbar _labelToolbar = new UIToolbar();
-        private readonly UIToolbar _buttonToolbar = new UIToolbar();
 
         public ChangeSublayerRenderer()
         {
@@ -52,10 +46,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references. 
             CreateLayout();
-
-            // Load the initial datasets in the map.
             Initialize();
         }
 
@@ -63,13 +54,16 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
         {
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
             nfloat margin = 5;
+            nfloat controlHeight = 30;
+            nfloat barHeight = controlHeight + 2 * margin;
 
             // Setup the frames for the views.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin + 70, 0, barHeight, 0);
             _labelToolbar.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, 70);
-            _helpLabel.Frame = new CoreGraphics.CGRect(margin, topMargin + margin, View.Bounds.Width - (2 * margin), 60);
+            _helpLabel.Frame = new CoreGraphics.CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, 60);
             _buttonToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-            _changeSublayerRendererButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - 40 + margin, View.Bounds.Width - (2 * margin), 30);
+            _changeSublayerRendererButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - 40 + margin, View.Bounds.Width - 2 * margin, 30);
 
             base.ViewDidLayoutSubviews();
         }
@@ -134,14 +128,14 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
         private void ChangeSublayerRendererButton_TouchUpInside(object sender, EventArgs e)
         {
             // Get the counties sub-layer (the 3rd layer) from the ArcGIS map image layer.
-            ArcGISMapImageSublayer countiesArcGISMapImageSubLayer = (ArcGISMapImageSublayer)_arcGISMapImageLayer.Sublayers[2];
+            ArcGISMapImageSublayer countiesArcGISMapImageSubLayer = (ArcGISMapImageSublayer) _arcGISMapImageLayer.Sublayers[2];
 
             // Set the renderer of the ArcGIS map image sub-layer to a class break renderer based on population.
             countiesArcGISMapImageSubLayer.Renderer = CreateClassBreaksRenderer();
 
             // Disable the button after has been used.
             _changeSublayerRendererButton.Enabled = false;
-            _changeSublayerRendererButton.SetTitleColor(UIColor.Gray,UIControlState.Disabled);
+            _changeSublayerRendererButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
         }
 
         private void CreateLayout()

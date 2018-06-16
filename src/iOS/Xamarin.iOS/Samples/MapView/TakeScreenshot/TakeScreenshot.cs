@@ -23,17 +23,16 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         "")]
     public class TakeScreenshot : UIViewController
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Create and hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIView _overlayView = new UIView();
+        private readonly UIImageView _overlayImageView = new UIImageView();
 
-        //overlay view for holding imageview
-        private UIView _overlayView;
-
-        //UIImage view for the screenshot
-        private UIImageView _overlayImageView;
-
-        //Button for closing ImageView
-        private UIBarButtonItem _closeImageViewButton;
+        private readonly UIBarButtonItem _closeImageViewButton = new UIBarButtonItem
+        {
+            Title = "Close preview",
+            Style = UIBarButtonItemStyle.Plain
+        };
 
         public TakeScreenshot()
         {
@@ -43,90 +42,83 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            // Create the UI, setup the control references and execute initialization 
+
+            // Create the UI, setup the control references and execute initialization.
             CreateLayout();
             Initialize();
         }
 
-		public override void ViewWillDisappear(bool animated)
-		{
-			base.ViewWillDisappear(animated);
-			NavigationController.ToolbarHidden = true;
-		}
+        public override void ViewWillDisappear(bool animated)
+        {
+            base.ViewWillDisappear(animated);
+            NavigationController.ToolbarHidden = true;
+        }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition the controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
             _overlayView.Frame = new CoreGraphics.CGRect(10, 80, _myMapView.Frame.Width - 20, _myMapView.Frame.Height - 75);
-
             _overlayImageView.Frame = new CoreGraphics.CGRect(0, 0, _overlayView.Frame.Width, _overlayView.Frame.Height);
-           
+
             base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
         {
-            // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
-
-            // Provide used Map to the MapView
-            _myMapView.Map = myMap;
+            // Show an imagery basemap.
+            _myMapView.Map = new Map(Basemap.CreateImagery());
         }
 
         private void OnCloseImageViewClicked(object sender, EventArgs e)
         {
             _overlayView.Hidden = true;
 
-            // Disable the button to close image view
+            // Disable the button to close image view.
             _closeImageViewButton.Enabled = false;
         }
 
         private async void OnScreenshotButtonClicked(object sender, EventArgs e)
         {
-            // Export the image from mapview and assign it to the imageview
+            // Export the image from mapview and assign it to the image preview.
             _overlayImageView.Image = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(await _myMapView.ExportImageAsync());
-            // Enable the button to close image view
+
+            // Enable the button to close image view.
             _closeImageViewButton.Enabled = true;
-            // Show the overlay view
+
+            // Show the overlay view.
             _overlayView.Hidden = false;
         }
 
         private void CreateLayout()
         {
-            // Setup the visual frame for the MapView
-            _myMapView = new MapView();
-    
-            // Create a button to take the screenshot
-            var screenshotButton = new UIBarButtonItem { Title = "Screenshot", Style = UIBarButtonItemStyle.Plain };
+            // Configure the UI.
+            var screenshotButton = new UIBarButtonItem {Title = "Screenshot", Style = UIBarButtonItemStyle.Plain};
             screenshotButton.Clicked += OnScreenshotButtonClicked;
 
-            // Initialize a button to close imageview
-            _closeImageViewButton = new UIBarButtonItem { Title = "Close preview", Style = UIBarButtonItemStyle.Plain };
-            _closeImageViewButton.Clicked += OnCloseImageViewClicked; 
+            // Initialize a button to close image preview.
+            _closeImageViewButton.Clicked += OnCloseImageViewClicked;
             _closeImageViewButton.Enabled = false;
 
-            // Add the buttons to the toolbar
-            SetToolbarItems(new[] { screenshotButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null), _closeImageViewButton }, false);
+            // Add the buttons to the toolbar.
+            SetToolbarItems(new[] {screenshotButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null), _closeImageViewButton}, false);
 
-            // Show the toolbar
+            // Show the toolbar.
             NavigationController.ToolbarHidden = false;
 
-            // Add the new View as an overlayview
-            _overlayView = new UIView();
-
-            // Create a new image view to hold the screenshot image
-            _overlayImageView = new UIImageView();
+            // Create a new image view to hold the screenshot image.
             _overlayImageView.Layer.BorderColor = UIColor.White.CGColor;
             _overlayImageView.Layer.BorderWidth = 2;
 
-            // Add the image view to the overlay view
+            // Add the image view to the overlay view.
             _overlayView.AddSubview(_overlayImageView);
-            // Hide the image view
+            // Hide the image view.
             _overlayView.Hidden = true;
 
-            // Add MapView and overlay view to the page
+            // Add controls to the view.
             View.AddSubviews(_myMapView, _overlayView);
         }
     }

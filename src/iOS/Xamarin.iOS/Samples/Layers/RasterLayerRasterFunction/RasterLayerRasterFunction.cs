@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
         "")]
     public class RasterLayerRasterFunction : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the MapView.
         private readonly MapView _myMapView = new MapView();
 
         public RasterLayerRasterFunction()
@@ -38,31 +38,33 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
             base.ViewDidLayoutSubviews();
         }
 
         private async void Initialize()
         {
-            // Create new map with the streets basemap
+            // Create new map with the streets basemap.
             Map myMap = new Map(Basemap.CreateStreets());
 
-            // Create a Uri to the image service raster (NOTE: iOS applications require the use of Uri's to be https:// and not http://)
+            // Create a URI to the image service raster.
             var myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NLCDLandCover2001/ImageServer");
 
-            // Create new image service raster from the Uri
+            // Create new image service raster from the URI.
             ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(myUri);
 
-            // Load the image service raster
+            // Load the image service raster.
             await myImageServiceRaster.LoadAsync();
 
             // NOTE: This is the ASCII text for actual raw JSON string:
@@ -84,7 +86,7 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
 
             // Define the JSON string needed for the raster function
             string theJSON_String =
-             @"{
+                @"{
                 ""raster_function_arguments"":
                 {
                   ""z_factor"":{ ""double"":25.0,""type"":""Raster_function_variable""},
@@ -99,37 +101,37 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
               ""type"":""Raster_function_template""
             }";
 
-            // Create a raster function from the JSON string using the static/Shared method called: RasterFunction.FromJson(json as String)
+            // Create a raster function from the JSON string using the static/Shared method called: RasterFunction.FromJson(JSON as String).
             RasterFunction myRasterFunction = RasterFunction.FromJson(theJSON_String);
 
-            // NOTE: Depending on your platform/device, you could have alternatively created the raster function via a JSON string that is contained in a 
-            // file on disk (ex: hillshade_simplified.json) via the constructor: Esri.ArcGISRuntime.Rasters.RasterFunction(path as String)
+            // NOTE: You could have alternatively created the raster function via a JSON string that is contained in a 
+            // file on disk (ex: hillshade_simplified.json) via the constructor: Esri.ArcGISRuntime.Rasters.RasterFunction(path as String).
 
-            // Get the raster function arguments
+            // Get the raster function arguments.
             RasterFunctionArguments myRasterFunctionArguments = myRasterFunction.Arguments;
 
-            // Get the list of names from the raster function arguments
+            // Get the list of names from the raster function arguments.
             IReadOnlyList<string> myRasterNames = myRasterFunctionArguments.GetRasterNames();
 
-            // Apply the first raster name and image service raster in the raster function arguments
+            // Apply the first raster name and image service raster in the raster function arguments.
             myRasterFunctionArguments.SetRaster(myRasterNames[0], myImageServiceRaster);
 
-            // Create a new raster based on the raster function
+            // Create a new raster based on the raster function.
             Raster myRaster = new Raster(myRasterFunction);
 
-            // Create a new raster layer from the raster
+            // Create a new raster layer from the raster.
             RasterLayer myRasterLayer = new RasterLayer(myRaster);
 
-            // Add the raster layer to the maps layer collection
+            // Add the raster layer to the maps layer collection.
             myMap.Basemap.BaseLayers.Add(myRasterLayer);
 
-            // Assign the map to the map view
+            // Assign the map to the map view.
             _myMapView.Map = myMap;
 
-            // Get the service information (aka. metadata) about the image service raster
+            // Get the service information (aka. metadata) about the image service raster.
             ArcGISImageServiceInfo myArcGISImageServiceInfo = myImageServiceRaster.ServiceInfo;
 
-            // Zoom the map to the extent of the image service raster (which also the extent of the raster layer)
+            // Zoom the map to the extent of the image service raster (which also the extent of the raster layer).
             await _myMapView.SetViewpointGeometryAsync(myArcGISImageServiceInfo.FullExtent);
 
             // NOTE: The sample zooms to the extent of the ImageServiceRaster. Currently the ArcGIS Runtime does not 
@@ -140,7 +142,7 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the view.
             View.AddSubviews(_myMapView);
         }
     }

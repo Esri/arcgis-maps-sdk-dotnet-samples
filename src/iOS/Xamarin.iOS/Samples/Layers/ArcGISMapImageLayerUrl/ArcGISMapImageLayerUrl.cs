@@ -23,7 +23,7 @@ namespace ArcGISRuntime.Samples.ArcGISMapImageLayerUrl
         "")]
     public class ArcGISMapImageLayerUrl : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the MapView.
         private readonly MapView _myMapView = new MapView();
 
         public ArcGISMapImageLayerUrl()
@@ -35,41 +35,42 @@ namespace ArcGISRuntime.Samples.ArcGISMapImageLayerUrl
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
             base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
         {
-            // Create new Map
+            // Create new Map.
             Map myMap = new Map();
 
-            // Create uri to the map image layer
-            var serviceUri = new Uri(
-               "https://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer");
+            // Create URL to the map image layer.
+            var serviceUri = new Uri("https://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer");
 
-            // Create new image layer from the url
+            // Create new image layer from the URL.
             ArcGISMapImageLayer imageLayer = new ArcGISMapImageLayer(serviceUri);
 
-            // Add created layer to the basemaps collection
+            // Add created layer to the basemaps collection.
             myMap.Basemap.BaseLayers.Add(imageLayer);
 
-            // Assign the map to the MapView
+            // Assign the map to the MapView.
             _myMapView.Map = myMap;
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
     }

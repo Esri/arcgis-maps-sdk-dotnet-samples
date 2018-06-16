@@ -28,8 +28,8 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
         "")]
     public class CreateFeatureCollectionLayer : UIViewController
     {
-        // Reference to the MapView used in the app
-        private MapView _myMapView;
+        // Hold a reference to the MapView.
+        private readonly MapView _myMapView = new MapView();
 
         public CreateFeatureCollectionLayer()
         {
@@ -40,17 +40,17 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
         {
             base.ViewDidLoad();
 
-            // Create the layout
             CreateLayout();
-
-            // Initialize the app
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
             base.ViewDidLayoutSubviews();
         }
@@ -59,123 +59,118 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
         {
             try
             {
-                // Create a new map with the oceans basemap and add it to the map view
-                Map myMap = new Map(Basemap.CreateOceans());
-                _myMapView.Map = myMap;
+                // Create a new map with the oceans basemap and add it to the map view.
+                _myMapView.Map = new Map(Basemap.CreateOceans());
 
-                // Call a function that will create a new feature collection layer and zoom to it
+                // Call a function that will create a new feature collection layer and zoom to it.
                 CreateNewFeatureCollection();
             }
             catch (Exception ex)
             {
-                UIAlertView alert = new UIAlertView("Error", "Unable to create feature collection layer: " + ex.Message, (IUIAlertViewDelegate)null, "OK");
+                UIAlertView alert = new UIAlertView("Error", "Unable to create feature collection layer: " + ex.Message, (IUIAlertViewDelegate) null, "OK");
                 alert.Show();
             }
         }
 
         private async void CreateNewFeatureCollection()
         {
-            // Create the schema for a points table (one text field to contain a name attribute)
+            // Create the schema for a points table (one text field to contain a name attribute).
             List<Field> pointFields = new List<Field>();
             Field placeField = new Field(FieldType.Text, "Place", "Place Name", 50);
             pointFields.Add(placeField);
 
-            // Create the schema for a lines table (one text field to contain a name attribute)
+            // Create the schema for a lines table (one text field to contain a name attribute).
             List<Field> lineFields = new List<Field>();
             Field boundaryField = new Field(FieldType.Text, "Boundary", "Boundary Name", 50);
             lineFields.Add(boundaryField);
 
-            // Create the schema for a polygon table (one text field to contain a name attribute)
+            // Create the schema for a polygon table (one text field to contain a name attribute).
             List<Field> polyFields = new List<Field>();
             Field areaField = new Field(FieldType.Text, "AreaName", "Area Name", 50);
             polyFields.Add(areaField);
 
-            // Instantiate FeatureCollectionTables with schema and geometry type
+            // Instantiate FeatureCollectionTables with schema and geometry type.
             FeatureCollectionTable pointsTable = new FeatureCollectionTable(pointFields, GeometryType.Point, SpatialReferences.Wgs84);
             FeatureCollectionTable linesTable = new FeatureCollectionTable(lineFields, GeometryType.Polyline, SpatialReferences.Wgs84);
             FeatureCollectionTable polysTable = new FeatureCollectionTable(polyFields, GeometryType.Polygon, SpatialReferences.Wgs84);
 
-            // Set rendering for each table
+            // Set rendering for each table.
             pointsTable.Renderer = CreateRenderer(GeometryType.Point);
             linesTable.Renderer = CreateRenderer(GeometryType.Polyline);
             polysTable.Renderer = CreateRenderer(GeometryType.Polygon);
 
-            // Create a new point feature, provide geometry and attribute values
+            // Create a new point feature, provide geometry and attribute values.
             Feature pointFeature = pointsTable.CreateFeature();
             pointFeature.SetAttributeValue(placeField, "Current location");
             MapPoint point1 = new MapPoint(-79.497238, 8.849289, SpatialReferences.Wgs84);
             pointFeature.Geometry = point1;
 
-            // Create a new line feature, provide geometry and attribute values
+            // Create a new line feature, provide geometry and attribute values.
             Feature lineFeature = linesTable.CreateFeature();
             lineFeature.SetAttributeValue(boundaryField, "AManAPlanACanalPanama");
             MapPoint point2 = new MapPoint(-80.035568, 9.432302, SpatialReferences.Wgs84);
-            Polyline line = new Polyline(new[] { point1, point2 });
+            Polyline line = new Polyline(new[] {point1, point2});
             lineFeature.Geometry = line;
 
-            // Create a new polygon feature, provide geometry and attribute values
+            // Create a new polygon feature, provide geometry and attribute values.
             Feature polyFeature = polysTable.CreateFeature();
             polyFeature.SetAttributeValue(areaField, "Restricted area");
             MapPoint point3 = new MapPoint(-79.337936, 8.638903, SpatialReferences.Wgs84);
             MapPoint point4 = new MapPoint(-79.11409, 8.895422, SpatialReferences.Wgs84);
-            polyFeature.Geometry = new Polygon(new[] { point1, point3, point4 });
+            polyFeature.Geometry = new Polygon(new[] {point1, point3, point4});
 
-            // Add the new features to the appropriate feature collection table 
+            // Add the new features to the appropriate feature collection table.
             await pointsTable.AddFeatureAsync(pointFeature);
             await linesTable.AddFeatureAsync(lineFeature);
             await polysTable.AddFeatureAsync(polyFeature);
 
-            // Create a feature collection and add the feature collection tables
+            // Create a feature collection and add the feature collection tables.
             FeatureCollection featuresCollection = new FeatureCollection();
             featuresCollection.Tables.Add(pointsTable);
             featuresCollection.Tables.Add(linesTable);
             featuresCollection.Tables.Add(polysTable);
 
-            // Create a FeatureCollectionLayer 
+            // Create a FeatureCollectionLayer.
             FeatureCollectionLayer collectionLayer = new FeatureCollectionLayer(featuresCollection);
 
-            // When the layer loads, zoom the map view to the extent of the feature collection
+            // When the layer loads, zoom the map view to the extent of the feature collection.
             collectionLayer.Loaded += (s, e) => _myMapView.SetViewpointAsync(new Viewpoint(collectionLayer.FullExtent));
 
-            // Add the layer to the Map's Operational Layers collection
+            // Add the layer to the Map's Operational Layers collection.
             _myMapView.Map.OperationalLayers.Add(collectionLayer);
         }
 
         private Renderer CreateRenderer(GeometryType rendererType)
         {
-            // Return a simple renderer to match the geometry type provided
+            // Return a simple renderer to match the geometry type provided.
             Symbol sym = null;
 
             switch (rendererType)
             {
                 case GeometryType.Point:
                 case GeometryType.Multipoint:
-                    // Create a marker symbol
+                    // Create a marker symbol.
                     sym = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Color.Red, 18);
                     break;
                 case GeometryType.Polyline:
-                    // Create a line symbol
+                    // Create a line symbol.
                     sym = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.Green, 3);
                     break;
                 case GeometryType.Polygon:
-                    // Create a fill symbol
+                    // Create a fill symbol.
                     var lineSym = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.DarkBlue, 2);
                     sym = new SimpleFillSymbol(SimpleFillSymbolStyle.DiagonalCross, Color.Cyan, lineSym);
                     break;
             }
 
-            // Return a new renderer that uses the symbol created above
+            // Return a new renderer that uses the symbol created above.
             return new SimpleRenderer(sym);
         }
 
         private void CreateLayout()
         {
-            // Create a new MapView
-            _myMapView = new MapView();
-
-            // Add the MapView to the page
+            // Add the MapView to the page.
             View.AddSubview(_myMapView);
         }
-
     }
 }

@@ -148,7 +148,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             nfloat centerX = Frame.Width / 2;
 
             // Find the start x and y for the control layout
-            nfloat controlX = centerX - (controlWidth / 2);
+            nfloat controlX = centerX - controlWidth / 2;
             nfloat controlY = 20;
 
             // Label for credits metadata

@@ -168,7 +168,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             };
 
             // Create a label for the input spatial reference.
-            _inWkidLabel = new UILabel(new CGRect(5, 0, (View.Bounds.Width / 2) - 15, 30))
+            _inWkidLabel = new UILabel(new CGRect(5, 0, View.Bounds.Width / 2 - 15, 30))
             {
                 Text = "In WKID = ",
                 TextAlignment = UITextAlignment.Left,
@@ -176,7 +176,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             };
             
             // Create a label for the output spatial reference.
-            _outWkidLabel = new UILabel(new CGRect((View.Bounds.Width / 2) + 5, 0, (View.Bounds.Width / 2) - 15, 30))
+            _outWkidLabel = new UILabel(new CGRect(View.Bounds.Width / 2 + 5, 0, View.Bounds.Width / 2 - 15, 30))
             {
                 Text = "Out WKID = ",
                 TextAlignment = UITextAlignment.Left,

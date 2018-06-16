@@ -29,7 +29,7 @@ namespace ArcGISRuntime
 
             var activitySpinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
             activitySpinner.Frame = new CGRect(
-                centerX - (activitySpinner.Frame.Width / 2),
+                centerX - activitySpinner.Frame.Width / 2,
                 centerY - activitySpinner.Frame.Height - 20,
                 activitySpinner.Frame.Width,
                 activitySpinner.Frame.Height);
@@ -38,7 +38,7 @@ namespace ArcGISRuntime
             activitySpinner.StartAnimating();
 
             var loadingLabel = new UILabel(new CGRect(
-                centerX - ((Frame.Width - 20) / 2),
+                centerX - (Frame.Width - 20) / 2,
                 centerY + 20,
                 Frame.Width - 20,
                 22

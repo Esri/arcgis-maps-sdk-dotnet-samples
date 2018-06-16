@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -23,7 +24,7 @@ namespace ArcGISRuntime.Samples.SetMinMaxScale
         "")]
     public class SetMinMaxScale : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold reference to the MapView.
         private readonly MapView _myMapView = new MapView();
 
         public SetMinMaxScale()
@@ -34,49 +35,51 @@ namespace ArcGISRuntime.Samples.SetMinMaxScale
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-           
-            // Create the UI, setup the control references and execute initialization 
+
+            // Create the UI, setup the control references and execute initialization.
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition the control.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
             base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
         {
-            // Create new Map with Streets basemap 
+            // Create new Map with Streets basemap.
             Map myMap = new Map(Basemap.CreateStreets())
             {
-                // Set the scale at which this layer can be viewed
-                // MinScale defines how far 'out' you can zoom where
+                // Set the scale at which this layer can be viewed.
+                // MinScale defines how far 'out' you can zoom.
                 MinScale = 8000,
                 // MaxScale defines how far 'in' you can zoom.
                 MaxScale = 2000
             };
 
-            // Create central point where map is centered
+            // Create central point where map is centered.
             MapPoint centralPoint = new MapPoint(-355453, 7548720, SpatialReferences.WebMercator);
 
-            // Create starting viewpoint
-            Viewpoint startingViewpoint = new Viewpoint(
-                centralPoint,
-                3000);
-            // Set starting viewpoint
+            // Create starting viewpoint.
+            Viewpoint startingViewpoint = new Viewpoint(centralPoint, 3000);
+
+            // Set starting viewpoint.
             myMap.InitialViewpoint = startingViewpoint;
 
-            // Set map to mapview
+            // Set map to mapview.
             _myMapView.Map = myMap;
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
     }

@@ -25,27 +25,20 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
         "Switch between the available options and observe how the data is filtered.")]
     public class ChangeTimeExtent : UIViewController
     {
-        // Hold two map service URIs, one for use with an ArcGISMapImageLayer, the other for use with a FeatureLayer.
+        // Create and hold references to the UI controls.
+        private readonly UIToolbar _toolbar = new UIToolbar();
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIButton _twoThousandButton = new UIButton();
+        private readonly UIButton _twoThousandFiveButton = new UIButton();
         private readonly Uri _mapServerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer");
         private readonly Uri _featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Earthquakes_Since1970/MapServer/0");
 
-        // Create and hold buttons for changing the time extent.
-        private readonly UIButton _twoThousandButton = new UIButton();
-        private readonly UIButton _twoThousandFiveButton = new UIButton();
-
-        // Create and hold a reference to a help label.
         private readonly UILabel _helpLabel = new UILabel
         {
             TextColor = UIColor.Red,
             Text = "Tap a year to filter the data.",
             TextAlignment = UITextAlignment.Center
         };
-
-        // Create and hold a reference to a toolbar.
-        private readonly UIToolbar _toolbar = new UIToolbar();
-
-        // Create and hold reference to the used MapView.
-        private readonly MapView _myMapView = new MapView();
 
         public ChangeTimeExtent()
         {
@@ -62,11 +55,8 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
 
         private void Initialize()
         {
-            // Create new Map with basemap and initial location.
-            Map map = new Map(Basemap.CreateTopographic());
-
-            // Assign the map to the MapView.
-            _myMapView.Map = map;
+            // Show a topographic basemap.
+            _myMapView.Map = new Map(Basemap.CreateTopographic());
 
             // Load the layers from the corresponding URIs.
             ArcGISMapImageLayer imageryLayer = new ArcGISMapImageLayer(_mapServerUri);
@@ -121,22 +111,17 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
 
         public override void ViewDidLayoutSubviews()
         {
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
             int controlHeight = 30;
             int margin = 5;
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Set up the frame for the toolbar.
-            _toolbar.Frame = new CGRect(0, View.Bounds.Height - (2 * controlHeight) - (3 * margin), View.Bounds.Width, controlHeight * 2 + margin * 3);
-
-            // Set up the visual frame for the help label.
-            _helpLabel.Frame = new CGRect(margin, View.Bounds.Height - (2 * controlHeight) - (2 * margin), View.Bounds.Width - (2 * margin), controlHeight);
-
-            // Set up the visual frame for the buttons.
-            _twoThousandButton.Frame = new CGRect(margin, View.Bounds.Height - (controlHeight) - margin, View.Bounds.Width  / 2 - 5, controlHeight);
-            _twoThousandFiveButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - (controlHeight) - margin, View.Bounds.Width / 2 - 5, controlHeight);
-
-            // Set up the visual frame for the MapView.
+            // Reposition the views.
             _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _toolbar.Frame = new CGRect(0, View.Bounds.Height - 2 * controlHeight - 3 * margin, View.Bounds.Width, controlHeight * 2 + margin * 3);
+            _helpLabel.Frame = new CGRect(margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+            _twoThousandButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - margin, controlHeight);
+            _twoThousandFiveButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - margin, controlHeight);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, _toolbar.Frame.Height, 0);
 
             base.ViewDidLayoutSubviews();
         }

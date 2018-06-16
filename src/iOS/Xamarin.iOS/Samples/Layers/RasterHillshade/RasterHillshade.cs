@@ -19,21 +19,18 @@ using System.Linq;
 namespace ArcGISRuntime.Samples.RasterHillshade
 {
     [Register("RasterHillshade")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("134d60f50e184e8fa56365f44e5ce3fb")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("134d60f50e184e8fa56365f44e5ce3fb")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Raster hillshade renderer",
         "Layers",
         "This sample demonstrates how to use a hillshade renderer on a raster layer. Hillshade renderers can adjust a grayscale raster (usually of terrain) according to a hypothetical sun position (azimuth and altitude).",
-        "", "Featured")]
+        "",
+        "Featured")]
     public class RasterHillshade : UIViewController
     {
-        // Button to show the hillshade parameters inputs.
+        // Hold references to the UI controls.
         private UIButton _applyHillshadeButton;
-
-        // Overlay with entry controls for applying a new hillshade renderer.
         private ApplyHillshadeRendererDialogOverlay _applyHillshadeRendererUi;
-
-        // Store a reference to the map view control.
         private MapView _myMapView;
 
         // Store a reference to the raster layer.
@@ -52,17 +49,16 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             CreateLayout();
             Initialize();
         }
-        
+
         public override void ViewDidLayoutSubviews()
         {
-            // Get height of status bar and navigation bar.
-            nfloat pageOffset = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            
-            // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, pageOffset, View.Bounds.Width, View.Bounds.Height - pageOffset - 40);
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat barHeight = 40;
 
-            // Setup the visual frame for the hillshade button.
-            _applyHillshadeButton.Frame = new CoreGraphics.CGRect(0, pageOffset + _myMapView.Frame.Height, View.Bounds.Width, 40);
+            // Reposition thew views.
+            _myMapView.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin - barHeight);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+            _applyHillshadeButton.Frame = new CoreGraphics.CGRect(0, topMargin + _myMapView.Frame.Height, View.Bounds.Width, barHeight);
 
             base.ViewDidLayoutSubviews();
         }
@@ -73,23 +69,20 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             Map map = new Map(Basemap.CreateStreetsVector());
 
             // Get the file name for the local raster dataset.
-            string filepath = GetRasterPath();
+            string filepath = DataManager.GetDataFolder("134d60f50e184e8fa56365f44e5ce3fb", "srtm-hillshade", "srtm.tiff");
 
             // Load the raster file.
             Raster rasterFile = new Raster(filepath);
 
             // Create and load a new raster layer to show the image.
-            _rasterLayer = new RasterLayer(rasterFile);            
+            _rasterLayer = new RasterLayer(rasterFile);
             await _rasterLayer.LoadAsync();
 
             // Enable the apply renderer button when the layer loads.
             _applyHillshadeButton.Enabled = true;
 
-            // Create a viewpoint with the raster's full extent.
-            Viewpoint fullRasterExtent = new Viewpoint(_rasterLayer.FullExtent);
-
-            // Set the initial viewpoint for the map.
-            map.InitialViewpoint = fullRasterExtent;
+            // Set the initial viewpoint to the raster's full extent.
+            map.InitialViewpoint = new Viewpoint(_rasterLayer.FullExtent);
 
             // Add the layer to the map.
             map.OperationalLayers.Add(_rasterLayer);
@@ -97,7 +90,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             // Add the map to the map view.
             _myMapView.Map = map;
         }
-        
+
         private void CreateLayout()
         {
             View.BackgroundColor = UIColor.White;
@@ -119,18 +112,21 @@ namespace ArcGISRuntime.Samples.RasterHillshade
 
             // Add MapView and UI controls to the page.
             View.AddSubviews(_myMapView, _applyHillshadeButton);
-        }     
+        }
 
         private void ApplyHillshade_Click(object sender, EventArgs e)
         {
-            if (_applyHillshadeRendererUi != null) { return; }
+            if (_applyHillshadeRendererUi != null)
+            {
+                return;
+            }
 
             // Create a view to show map item info entry controls over the map view.
             var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
             _applyHillshadeRendererUi = new ApplyHillshadeRendererDialogOverlay(ovBounds, 0.9f, UIColor.White);
 
             // Handle the OnHillshadeInputsEntered event to get the new renderer defined by the user.
-            _applyHillshadeRendererUi.OnHillshadeInputsEntered += (s, hillshadeArgs) => 
+            _applyHillshadeRendererUi.OnHillshadeInputsEntered += (s, hillshadeArgs) =>
             {
                 // Get the new hillshade renderer.
                 HillshadeRenderer newHillshadeRenderer = hillshadeArgs.HillshadeRasterRenderer;
@@ -146,7 +142,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
                 _applyHillshadeRendererUi = null;
             };
 
-            // Handle the cancel event when the user closes the dialog without entering hillshade params.
+            // Handle the cancel event when the user closes the dialog without entering hillshade parameters.
             _applyHillshadeRendererUi.OnCanceled += (s, args) =>
             {
                 // Remove the parameters input UI.
@@ -157,14 +153,10 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             // Add the input UI view (will display semi-transparent over the map view).
             View.Add(_applyHillshadeRendererUi);
         }
-
-        private static string GetRasterPath()
-        {
-            return DataManager.GetDataFolder("134d60f50e184e8fa56365f44e5ce3fb", "srtm-hillshade", "srtm.tiff");
-        }
     }
 
     #region UI for entering raster hillshade renderer properties.
+
     // View containing hillshade renderer parameter input controls (altitude and azimuth).
     public class ApplyHillshadeRendererDialogOverlay : UIView
     {
@@ -227,9 +219,8 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             nfloat centerX = Frame.Width / 2;
 
             // Find the start x and y for the control layout.
-            nfloat controlX = centerX - (totalWidth / 2);
+            nfloat controlX = centerX - totalWidth / 2;
             nfloat controlY = 30;
-
 
 
             // Create a label for the slope type input.
@@ -311,7 +302,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             // Set the default value for the slope type.
             _slopeTypePicker.SelectedSegment = 0;
         }
-        
+
         // Animate increasing transparency to completely hide the view, then remove it
         public void Hide()
         {
@@ -335,11 +326,11 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             {
                 // Read the inputs provided by the user.
                 // - Altitude and azimuth.
-                        double altitude = _altitudeSlider.Value;
-                        double azimuth = _azimuthSlider.Value;
+                double altitude = _altitudeSlider.Value;
+                double azimuth = _azimuthSlider.Value;
                 // - Get the model from the slope type picker and read the selected type.
                 nint selected = _slopeTypePicker.SelectedSegment;
-                SlopeType selectedSlopeType = ((SlopeType[])Enum.GetValues(typeof(SlopeType)))[selected];
+                SlopeType selectedSlopeType = ((SlopeType[]) Enum.GetValues(typeof(SlopeType)))[selected];
 
                 // Create a new HillshadeRenderer using the input values and constants.
                 HillshadeRenderer hillshade = new HillshadeRenderer(altitude, azimuth, ZFactor, selectedSlopeType, PixelSizeFactor, PixelSizePower, PixelBitDepth);
@@ -365,5 +356,6 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             HillshadeRasterRenderer = renderer;
         }
     }
+
     #endregion
 }

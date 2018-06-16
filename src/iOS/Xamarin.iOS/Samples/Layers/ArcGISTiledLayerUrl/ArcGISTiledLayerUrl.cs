@@ -23,7 +23,7 @@ namespace ArcGISRuntime.Samples.ArcGISTiledLayerUrl
         "")]
     public class ArcGISTiledLayerUrl : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the MapView.
         private readonly MapView _myMapView = new MapView();
 
         public ArcGISTiledLayerUrl()
@@ -35,41 +35,42 @@ namespace ArcGISRuntime.Samples.ArcGISTiledLayerUrl
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-             // Setup the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
             base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
         {
-            // Create new Map
+            // Create new Map.
             Map myMap = new Map();
 
-            // Create uri to the tiled service
-            var serviceUri = new Uri(
-               "https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer");
+            // Create URI to the tiled service.
+            var serviceUri = new Uri("https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer");
 
-            // Create new tiled layer from the url
+            // Create new tiled layer from the URL.
             ArcGISTiledLayer imageLayer = new ArcGISTiledLayer(serviceUri);
 
-            // Add created layer to the basemaps collection
+            // Add created layer to the basemaps collection.
             myMap.Basemap.BaseLayers.Add(imageLayer);
 
-            // Assign the map to the MapView
+            // Assign the map to the MapView.
             _myMapView.Map = myMap;
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
     }

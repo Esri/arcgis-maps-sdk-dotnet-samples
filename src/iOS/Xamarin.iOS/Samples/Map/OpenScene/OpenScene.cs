@@ -44,15 +44,13 @@ namespace ArcGISRuntime.Samples.OpenScene
 
         public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLayoutSubviews();
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Update the layout.
+            // Reposition the view.
             _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
-            // Get the top bar height and adjust the scene insets.
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height
-                               + UIApplication.SharedApplication.StatusBarFrame.Height;
-            //_mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+            base.ViewDidLayoutSubviews();
         }
 
         private async void Initialize()

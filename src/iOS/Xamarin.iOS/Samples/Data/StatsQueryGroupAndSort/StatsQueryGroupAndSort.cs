@@ -64,12 +64,12 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             nfloat pageOffset = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
             nfloat margin = 5;
             nfloat controlHeight = 30;
-            nfloat controlWidth = View.Bounds.Width - (2 * margin);
+            nfloat controlWidth = View.Bounds.Width - 2 * margin;
             _toolbar.Frame = new CGRect(0, pageOffset, View.Bounds.Width, View.Bounds.Height - pageOffset);
             _helpLabel.Frame = new CGRect(margin, pageOffset + margin, controlWidth, controlHeight * 2);
-            _showStatDefinitionsButton.Frame = new CGRect(margin, pageOffset + (controlHeight * 4) + (margin * 2), controlWidth, controlHeight);
-            _showGroupFieldsButton.Frame = new CGRect(margin, pageOffset + (controlHeight * 5) + (margin * 3), controlWidth, controlHeight);
-            _showOrderByFieldsButton.Frame = new CGRect(margin, pageOffset + (controlHeight * 6) + (margin * 4), controlWidth, controlHeight);
+            _showStatDefinitionsButton.Frame = new CGRect(margin, pageOffset + controlHeight * 4 + margin * 2, controlWidth, controlHeight);
+            _showGroupFieldsButton.Frame = new CGRect(margin, pageOffset + controlHeight * 5 + margin * 3, controlWidth, controlHeight);
+            _showOrderByFieldsButton.Frame = new CGRect(margin, pageOffset + controlHeight * 6 + margin * 4, controlWidth, controlHeight);
             _getStatsButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, controlWidth, controlHeight);
 
 
@@ -741,7 +741,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             nfloat centerY = Frame.Bottom - 40;
 
             // Find the start x and y for the control layout (aligned to the bottom of the view)
-            nfloat controlX = centerX - (totalWidth / 2);
+            nfloat controlX = centerX - totalWidth / 2;
             nfloat controlY = centerY - totalHeight;
 
             // Toolbar with "Add" and "Done" buttons

@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         "To run the hotspot analysis, select a data range and click on the 'Run analysis' button. Note the larger the date range, the longer it may take for the task to run and send back the results.")]
     public class AnalyzeHotspots : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the used MapView
         private readonly MapView _myMapView = new MapView();
 
         // Create a label to display "Start Date:"
@@ -83,12 +83,12 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
 
             // Setup the visual frames for the controls
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, (controlHeight * 3) + (margin * 4));
-            _startDateLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, columnSplit - (2 * margin), controlHeight);
-            _startDateTextField.Frame = new CoreGraphics.CGRect(columnSplit + margin, topStart + margin, View.Bounds.Width - columnSplit - (2 * margin), controlHeight);
-            _endDateLabel.Frame = new CoreGraphics.CGRect(margin, topStart + controlHeight + (2 * margin), columnSplit - (2 * margin), controlHeight);
-            _endDateTextField.Frame = new CoreGraphics.CGRect(columnSplit + margin, topStart + controlHeight + (2 * margin), View.Bounds.Width - columnSplit - (2 * margin), controlHeight);
-            _runAnalysisButton.Frame = new CoreGraphics.CGRect(margin, topStart + (2 * controlHeight) + (3 * margin), View.Bounds.Width - (2 * margin), controlHeight);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, controlHeight * 3 + margin * 4);
+            _startDateLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, columnSplit - 2 * margin, controlHeight);
+            _startDateTextField.Frame = new CoreGraphics.CGRect(columnSplit + margin, topStart + margin, View.Bounds.Width - columnSplit - 2 * margin, controlHeight);
+            _endDateLabel.Frame = new CoreGraphics.CGRect(margin, topStart + controlHeight + 2 * margin, columnSplit - 2 * margin, controlHeight);
+            _endDateTextField.Frame = new CoreGraphics.CGRect(columnSplit + margin, topStart + controlHeight + 2 * margin, View.Bounds.Width - columnSplit - 2 * margin, controlHeight);
+            _runAnalysisButton.Frame = new CoreGraphics.CGRect(margin, topStart + 2 * controlHeight + 3 * margin, View.Bounds.Width - 2 * margin, controlHeight);
 
             // The progress bar is will appear overlaid in the middle of the map view
             _myProgressBar.Frame = new CoreGraphics.CGRect(0, topFrame, View.Bounds.Width, View.Bounds.Height - topFrame);

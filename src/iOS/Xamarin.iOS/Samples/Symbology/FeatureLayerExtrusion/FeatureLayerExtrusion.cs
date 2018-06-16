@@ -28,13 +28,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         "")]
     public class FeatureLayerExtrusion : UIViewController
     {
-        // Create and hold reference to the used SceneView
+        // Create and hold references to the UI controls.
         private readonly SceneView _mySceneView = new SceneView();
-
-        // Create button
-        private UIButton _toggleExtrusionButton;
-
-        // Create toolbar
+        private readonly UIButton _toggleExtrusionButton = new UIButton();
         private readonly UIToolbar _toolbar = new UIToolbar();
 
         public FeatureLayerExtrusion()
@@ -46,7 +42,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references
+            // Create the UI, setup the control references.
             CreateLayout();
 
             Initialize();
@@ -56,61 +52,58 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         {
             try
             {
-                // Define the Uri for the service feature table (US state polygons)
+                // Define the URI for the service feature table (US state polygons).
                 var featureTableUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
 
-                // Create a new service feature table from the Uri
+                // Create a new service feature table from the URI.
                 ServiceFeatureTable myServiceFeatureTable = new ServiceFeatureTable(featureTableUri);
 
-                // Create a new feature layer from the service feature table
+                // Create a new feature layer from the service feature table.
                 FeatureLayer myFeatureLayer = new FeatureLayer(myServiceFeatureTable)
                 {
-                    // Set the rendering mode of the feature layer to be dynamic (needed for extrusion to work)
+                    // Set the rendering mode of the feature layer to be dynamic (needed for extrusion to work).
                     RenderingMode = FeatureRenderingMode.Dynamic
                 };
 
-                // Create a new simple line symbol for the feature layer
+                // Create a new simple line symbol for the feature layer.
                 SimpleLineSymbol mySimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
 
-                // Create a new simple fill symbol for the feature layer 
+                // Create a new simple fill symbol for the feature layer.
                 SimpleFillSymbol mysimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Blue, mySimpleLineSymbol);
 
-                // Create a new simple renderer for the feature layer
+                // Create a new simple renderer for the feature layer.
                 SimpleRenderer mySimpleRenderer = new SimpleRenderer(mysimpleFillSymbol);
 
-                // Get the scene properties from the simple renderer
+                // Get the scene properties from the simple renderer.
                 RendererSceneProperties myRendererSceneProperties = mySimpleRenderer.SceneProperties;
 
-                // Set the extrusion mode for the scene properties to be base height
+                // Set the extrusion mode for the scene properties to be base height.
                 myRendererSceneProperties.ExtrusionMode = ExtrusionMode.BaseHeight;
 
-                // Set the initial extrusion expression
+                // Set the initial extrusion expression.
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
 
-                // Set the feature layer's renderer to the define simple renderer
+                // Set the feature layer's renderer to the define simple renderer.
                 myFeatureLayer.Renderer = mySimpleRenderer;
 
-                // Create a new scene with the topographic backdrop 
+                // Create a new scene with a topographic basemap.
                 Scene myScene = new Scene(BasemapType.Topographic);
 
-                // Set the scene view's scene to the newly create one
+                // Set the scene view's scene to the newly create one.
                 _mySceneView.Scene = myScene;
 
-                // Add the feature layer to the scene's operational layer collection
+                // Add the feature layer to the scene's operational layer collection.
                 myScene.OperationalLayers.Add(myFeatureLayer);
 
-                // Create a new map point to define where to look on the scene view
+                // Create a new map point to define where to look on the scene view.
                 MapPoint myMapPoint = new MapPoint(-10974490, 4814376, 0, SpatialReferences.WebMercator);
 
-                // Create a new orbit location camera controller using the map point and defined distance
-                OrbitLocationCameraController myOrbitLocationCameraController = new OrbitLocationCameraController(myMapPoint, 20000000);
-
-                // Set the scene view's camera controller to the orbit location camera controller
-                _mySceneView.CameraController = myOrbitLocationCameraController;
+                // Create and use an orbit location camera controller defined by a point and distance.
+                _mySceneView.CameraController = new OrbitLocationCameraController(myMapPoint, 20000000);
             }
             catch (Exception ex)
             {
-                // Something went wrong, display the error
+                // Something went wrong, display the error.
                 UIAlertController alert = UIAlertController.Create("Error", ex.Message, UIAlertControllerStyle.Alert);
                 alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alert, true, null);
@@ -119,16 +112,16 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
 
         private void ChangeExtrusionExpression()
         {
-            // Get the first layer from the scene view's operation layers, it should be a feature layer
-            FeatureLayer myFeatureLayer = (FeatureLayer)_mySceneView.Scene.OperationalLayers[0];
+            // Get the first layer from the scene view's operation layers, it should be a feature layer.
+            FeatureLayer myFeatureLayer = (FeatureLayer) _mySceneView.Scene.OperationalLayers[0];
 
-            // Get the renderer from the feature layer
+            // Get the renderer from the feature layer.
             Renderer myRenderer = myFeatureLayer.Renderer;
 
-            // Get the scene properties from the feature layer's renderer
+            // Get the scene properties from the feature layer's renderer.
             RendererSceneProperties myRendererSceneProperties = myRenderer.SceneProperties;
 
-            // Toggle the feature layer's scene properties renderer extrusion expression and change the button text
+            // Toggle the feature layer's scene properties renderer extrusion expression and change the button text.
             if (_toggleExtrusionButton.Title(UIControlState.Normal) == "Population density")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000";
@@ -143,34 +136,36 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat controlHeight = 30;
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
             nfloat margin = 5;
-            // Setup the visual frames for the views
+            nfloat controlHeight = 30;
+            nfloat toolbarHeight = controlHeight + 2 * margin;
+
+            // Reposition the views.
             _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - (2 * margin), View.Bounds.Width, controlHeight + (2 * margin));
-            _toggleExtrusionButton.Frame = new CoreGraphics.CGRect(margin, _toolbar.Frame.Top + 5, View.Bounds.Width - (2 * margin), controlHeight);
+            _mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - 2 * margin, View.Bounds.Width, controlHeight + 2 * margin);
+            _toggleExtrusionButton.Frame = new CoreGraphics.CGRect(margin, _toolbar.Frame.Top + 5, View.Bounds.Width - 2 * margin, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }
 
         private void ToggleExtrusionButton_Clicked(object sender, EventArgs e)
         {
-            // Call the function to change the feature layer's renderer scene properties extrusion expression
+            // Call the function to change the feature layer's renderer scene properties extrusion expression.
             ChangeExtrusionExpression();
         }
 
         private void CreateLayout()
         {
-
-            // Create a button
-            _toggleExtrusionButton = new UIButton();
+            // Configure the button.
             _toggleExtrusionButton.SetTitle("Population density", UIControlState.Normal);
             _toggleExtrusionButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
-            // Hook the touch event for the button
+            // Handle button touches.
             _toggleExtrusionButton.TouchUpInside += ToggleExtrusionButton_Clicked;
 
-            // Add SceneView to the page
+            // Add controls to the view.
             View.AddSubviews(_mySceneView, _toolbar, _toggleExtrusionButton);
         }
     }

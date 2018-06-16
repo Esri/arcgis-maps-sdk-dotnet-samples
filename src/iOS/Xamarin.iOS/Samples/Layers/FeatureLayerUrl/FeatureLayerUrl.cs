@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerUrl
         "")]
     public class FeatureLayerUrl : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the MapView.
         private readonly MapView _myMapView = new MapView();
 
         public FeatureLayerUrl()
@@ -36,46 +36,46 @@ namespace ArcGISRuntime.Samples.FeatureLayerUrl
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
             base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
         {
-            // Create new Map with basemap
+            // Create new Map with basemap.
             Map myMap = new Map(Basemap.CreateTerrainWithLabels());
 
-            // Create and set initial map location
-            MapPoint initialLocation = new MapPoint(
-                -13176752, 4090404, SpatialReferences.WebMercator);
+            // Create and set initial map location.
+            MapPoint initialLocation = new MapPoint(-13176752, 4090404, SpatialReferences.WebMercator);
             myMap.InitialViewpoint = new Viewpoint(initialLocation, 300000);
 
-            // Create uri to the used feature service
-            var serviceUri = new Uri(
-                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/9");
+            // Create URI to the used feature service.
+            var serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/9");
 
-            // Create new FeatureLayer from service uri and
+            // Create new FeatureLayer by URL.
             FeatureLayer geologyLayer = new FeatureLayer(serviceUri);
 
-            // Add created layer to the map
+            // Add layer to the map.
             myMap.OperationalLayers.Add(geologyLayer);
 
-            // Assign the map to the MapView
+            // Show the map.
             _myMapView.Map = myMap;
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
     }

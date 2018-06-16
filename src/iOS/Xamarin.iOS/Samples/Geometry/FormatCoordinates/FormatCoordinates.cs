@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         "Tap on the map to see the point in several coordinate systems. Update one of the coordinates and select 'recalculate' to see the point converted into other coordinate systems. ")]
     public class FormatCoordinates : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the used MapView
         private readonly MapView _myMapView = new MapView();
 
         // Create the text fields
@@ -213,7 +213,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
             int controlHeight = 20;
             int margin = 5;
-            var controlWidth = View.Bounds.Width - ( 2 * margin);
+            var controlWidth = View.Bounds.Width - 2 * margin;
 
             // Toolbar
             _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, controlHeight * 11 + margin * 5);

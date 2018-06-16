@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -26,7 +27,7 @@ namespace ArcGISRuntime.Samples.SimpleRenderers
         "")]
     public class SimpleRenderers : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the used MapView.
         private readonly MapView _myMapView = new MapView();
 
         public SimpleRenderers()
@@ -38,69 +39,67 @@ namespace ArcGISRuntime.Samples.SimpleRenderers
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization.
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
             base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
         {
-            // Create new map with basemap layer
+            // Create new map with labeled imagery basemap.
             Map myMap = new Map(Basemap.CreateImageryWithLabels());
 
-            
-
-            // Create several map points using the WGS84 coordinates (latitude and longitude)
+            // Create several map points using the WGS84 coordinates (latitude and longitude).
             MapPoint oldFaithfulPoint = new MapPoint(-110.828140, 44.460458, SpatialReferences.Wgs84);
             MapPoint cascadeGeyserPoint = new MapPoint(-110.829004, 44.462438, SpatialReferences.Wgs84);
             MapPoint plumeGeyserPoint = new MapPoint(-110.829381, 44.462735, SpatialReferences.Wgs84);
 
-            // Use the two points farthest apart to create an envelope
+            // Use the two points farthest apart to create an envelope.
             Envelope initialEnvelope = new Envelope(oldFaithfulPoint, plumeGeyserPoint);
 
-            // Use the envelope to define the map's visible area
+            // Use the envelope to define the map's visible area.
             myMap.InitialViewpoint = new Viewpoint(initialEnvelope);
 
-            // Create a graphics overlay 
+            // Create a graphics overlay.
             GraphicsOverlay myGraphicOverlay = new GraphicsOverlay();
 
-            // Create graphics based upon the map points
+            // Create graphics based upon the map points.
             Graphic oldFaithfulGraphic = new Graphic(oldFaithfulPoint);
             Graphic cascadeGeyserGraphic = new Graphic(cascadeGeyserPoint);
             Graphic plumeGeyserGraphic = new Graphic(plumeGeyserPoint);
 
-            // Add the graphics to the graphics overlay
+            // Add the graphics to the graphics overlay.
             myGraphicOverlay.Graphics.Add(oldFaithfulGraphic);
             myGraphicOverlay.Graphics.Add(cascadeGeyserGraphic);
             myGraphicOverlay.Graphics.Add(plumeGeyserGraphic);
 
-            // Create a simple marker symbol - red, cross, size 12
+            // Create a simple marker symbol - red, cross, size 12.
             SimpleMarkerSymbol mySymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, Color.Red, 12);
 
-            // Create a simple renderer based on the simple marker symbol
-            SimpleRenderer myRenderer = new SimpleRenderer(mySymbol);
+            // Create a simple renderer based on the marker symbol. It will be applied to all graphics in the overlay.
+            myGraphicOverlay.Renderer = new SimpleRenderer(mySymbol);
 
-            // Apply the renderer to the graphics overlay (all graphics use the same symbol)
-            myGraphicOverlay.Renderer = myRenderer;
-
-            // Add the graphics overlay to the map view
+            // Add the graphics overlay to the map view.
             _myMapView.GraphicsOverlays.Add(myGraphicOverlay);
 
-            // Add the map to the map view
+            // Add the map to the map view.
             _myMapView.Map = myMap;
         }
 
         private void CreateLayout()
-        {  
-            // Add MapView to the page
+        {
+            // Add the mapview to the view.
             View.AddSubviews(_myMapView);
         }
     }

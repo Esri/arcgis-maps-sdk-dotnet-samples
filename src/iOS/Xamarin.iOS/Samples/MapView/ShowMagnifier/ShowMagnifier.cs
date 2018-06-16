@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI;
@@ -23,7 +24,7 @@ namespace ArcGISRuntime.Samples.ShowMagnifier
         "")]
     public class ShowMagnifier : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the used MapView.
         private readonly MapView _myMapView = new MapView();
 
         public ShowMagnifier()
@@ -35,34 +36,40 @@ namespace ArcGISRuntime.Samples.ShowMagnifier
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization.
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition the control.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
             base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
         {
-            // Create new Map with basemap and initial location
+            // Create new Map with basemap and initial location.
             Map myMap = new Map(BasemapType.Topographic, 34.056295, -117.195800, 10);
 
-            // Enable magnifier
-            _myMapView.InteractionOptions = new MapViewInteractionOptions { IsMagnifierEnabled = true };
+            // Enable magnifier.
+            _myMapView.InteractionOptions = new MapViewInteractionOptions
+            {
+                IsMagnifierEnabled = true
+            };
 
-            // Assign the map to the MapView
+            // Show the map in the view.
             _myMapView.Map = myMap;
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add the map view to the view.
             View.AddSubviews(_myMapView);
         }
     }

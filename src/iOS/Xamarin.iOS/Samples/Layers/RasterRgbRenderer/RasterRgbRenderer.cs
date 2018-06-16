@@ -19,7 +19,7 @@ using UIKit;
 namespace ArcGISRuntime.Samples.RasterRgbRenderer
 {
     [Register("RasterRgbRenderer")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Raster RGB renderer",
         "Layers",
@@ -27,10 +27,8 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         "Choose one of the stretch parameter types. The other options will adjust based on the chosen type. Add your inputs and press the Apply button to update the renderer.")]
     public class RasterRgbRenderer : UIViewController
     {
-        // Reference to the MapView used in the sample.
+        // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
-
-        // UI controls for choosing a stretch type.
         private readonly UISegmentedControl _segmentButton = new UISegmentedControl();
         private readonly UIToolbar _toolbar = new UIToolbar();
 
@@ -58,18 +56,23 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView.
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat margin = 5;
+            nfloat controlHeight = 30;
+            nfloat toolbarHeight = controlHeight + 2 * margin;
+
+            // Reposition the controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+            _segmentButton.Frame = new CoreGraphics.CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
 
             if (_updateRendererUi != null)
             {
-                _updateRendererUi.Bounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
-                _updateRendererUi.Frame = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
+                _updateRendererUi.Bounds = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin);
+                _updateRendererUi.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin);
                 _updateRendererUi.Center = View.Center;
             }
-
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
-            _segmentButton.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, View.Bounds.Width - 20, _toolbar.Frame.Height - 20);
 
             base.ViewDidLayoutSubviews();
         }
@@ -92,11 +95,8 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             // Once the layer is loaded, enable the button for changing the renderer.
             _segmentButton.Enabled = true;
 
-            // Create a viewpoint with the raster's full extent.
-            Viewpoint fullRasterExtent = new Viewpoint(_rasterLayer.FullExtent);
-
-            // Set the initial viewpoint for the map.
-            myMap.InitialViewpoint = fullRasterExtent;
+            // Set the initial viewpoint for the map to the raster's full extent.
+            myMap.InitialViewpoint = new Viewpoint(_rasterLayer.FullExtent);
 
             // Add the layer to the map.
             myMap.OperationalLayers.Add(_rasterLayer);
@@ -124,11 +124,10 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         private void UpdateRenderer(object sender, StretchParametersEventArgs e)
         {
             // Create an array to specify the raster bands (red, green, blue).
-            int[] bands = { 0, 1, 2 };
+            int[] bands = {0, 1, 2};
 
             // Create the RgbRenderer with the stretch parameters passed in, then apply it to the raster layer.
-            RgbRenderer rasterRenderer = new RgbRenderer(e.StretchParams, bands, null, true);
-            _rasterLayer.Renderer = rasterRenderer;
+            _rasterLayer.Renderer = new RgbRenderer(e.StretchParams, bands, null, true);
 
             // Remove the parameter input UI.
             _updateRendererUi.Hide();
@@ -146,13 +145,16 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             // Show the UI and pass the type of parameter inputs to show.
             ShowRendererParamsUi(stretchType);
 
-            // Unselect all segments (user might want to click the same control twice)
+            // Deselect all segments (user might want to click the same control twice)
             buttonControl.SelectedSegment = -1;
         }
 
         private void ShowRendererParamsUi(string stretchType)
         {
-            if (_updateRendererUi != null) { return; }
+            if (_updateRendererUi != null)
+            {
+                return;
+            }
 
             // Create a view to show map item info entry controls over the map view
             var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
@@ -180,6 +182,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
     }
 
     #region UI for entering raster renderer properties.
+
     // View containing renderer parameter input controls (for three stretch types).
     public class UpdateRendererDialogOverlay : UIView
     {
@@ -258,7 +261,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             nfloat centerX = Frame.Width / 2;
 
             // Find the start x and y for the control layout.
-            nfloat controlX = centerX - (totalWidth / 2);
+            nfloat controlX = centerX - totalWidth / 2;
             nfloat controlY = 200;
 
             // Position the input description label.
@@ -281,9 +284,9 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             // Create a picker for minimum RGB values (all are 0 by default).
             _minRgbPicker = new UIPickerView(new CoreGraphics.CGRect(controlX, controlY, 200, 100))
             {
-                Model = new RgbValuePickerModel(0,0,0)
+                Model = new RgbValuePickerModel(0, 0, 0)
             };
-            
+
             // Adjust the Y position for the next control.
             controlY = controlY + 100 + rowSpace;
 
@@ -301,7 +304,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             // Create a picker for the maximum RGB values.
             _maxRgbPicker = new UIPickerView(new CoreGraphics.CGRect(controlX, controlY, 200, 100))
             {
-                Model = new RgbValuePickerModel(255,255,255)
+                Model = new RgbValuePickerModel(255, 255, 255)
             };
 
             // Adjust the Y position for the next control.
@@ -317,9 +320,9 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             cancelButton.Frame = new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight);
 
             // Add the input controls.
-            AddSubviews(description, 
-                minRgbLabel, _minRgbPicker, 
-                maxRgbLabel, _maxRgbPicker, 
+            AddSubviews(description,
+                minRgbLabel, _minRgbPicker,
+                maxRgbLabel, _maxRgbPicker,
                 applyButton, cancelButton);
 
             // Select 255 as the default for red, green, and blue.
@@ -343,7 +346,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             nfloat centerX = Frame.Width / 2;
 
             // Find the start x and y for the control layout.
-            nfloat controlX = centerX - (totalWidth / 2);
+            nfloat controlX = centerX - totalWidth / 2;
             nfloat controlY = 200;
 
             // Position the input description label.
@@ -425,7 +428,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             nfloat centerX = Frame.Width / 2;
 
             // Find the start x and y for the control layout.
-            nfloat controlX = centerX - (totalWidth / 2);
+            nfloat controlX = centerX - totalWidth / 2;
             nfloat controlY = 200;
 
             // Position the input description label.
@@ -501,10 +504,10 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
                         // Get the models that contains the min/max red, green, and blue picker choices.
                         RgbValuePickerModel minRgbModel = _minRgbPicker.Model as RgbValuePickerModel;
                         RgbValuePickerModel maxRgbModel = _maxRgbPicker.Model as RgbValuePickerModel;
-                        
+
                         // Read min/max RGB values that were chosen.
-                        double[] minValues = { minRgbModel.SelectedRed, minRgbModel.SelectedGreen, minRgbModel.SelectedBlue };
-                        double[] maxValues = { maxRgbModel.SelectedRed, maxRgbModel.SelectedGreen, maxRgbModel.SelectedBlue };
+                        double[] minValues = {minRgbModel.SelectedRed, minRgbModel.SelectedGreen, minRgbModel.SelectedBlue};
+                        double[] maxValues = {maxRgbModel.SelectedRed, maxRgbModel.SelectedGreen, maxRgbModel.SelectedBlue};
 
                         // Create a new MinMaxStretchParameters object with the values.
                         inputStretchParams = new MinMaxStretchParameters(minValues, maxValues);
@@ -645,7 +648,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
     public class StdDevFactorPickerModel : UIPickerViewModel
     {
         // Array of available factor values.
-        private readonly double[] _factorValues = { 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5 };
+        private readonly double[] _factorValues = {0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5};
 
         // Property to expose the currently selected factor value in the picker.
         public double SelectedFactor { get; private set; } = 4.5;
@@ -687,5 +690,6 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             return 30f;
         }
     }
+
     #endregion
 }

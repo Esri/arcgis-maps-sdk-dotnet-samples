@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -24,7 +25,7 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
         "")]
     public class ShowLabelsOnLayer : UIViewController
     {
-        // Create and hold reference to the used MapView.
+        // Create and hold a reference to the MapView.
         private readonly MapView _myMapView = new MapView();
 
         public ShowLabelsOnLayer()
@@ -36,24 +37,24 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
         {
             base.ViewDidLoad();
 
-            // Create the UI.
             CreateLayout();
-
-            // Set up the initial configuration of the sample.
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView.
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
             base.ViewDidLayoutSubviews();
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
 
@@ -65,11 +66,11 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
             // Assign the map to the MapView.
             _myMapView.Map = sampleMap;
 
-            // Define the Url string for the US highways feature layer.
+            // Define the URL string for the US highways feature layer.
             string highwaysUrlString = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/1";
 
-            // Create a service feature table from the url to the US highways feature service.
-            ServiceFeatureTable highwaysServiceFeatureTable = new ServiceFeatureTable(new System.Uri(highwaysUrlString));
+            // Create a service feature table from the URL to the US highways feature service.
+            ServiceFeatureTable highwaysServiceFeatureTable = new ServiceFeatureTable(new Uri(highwaysUrlString));
 
             // Create a feature layer from the service feature table.
             FeatureLayer highwaysFeatureLayer = new FeatureLayer(highwaysServiceFeatureTable);
@@ -83,7 +84,7 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
             // Zoom the map view to the extent of the US highways feature layer.
             await _myMapView.SetViewpointGeometryAsync(highwaysFeatureLayer.FullExtent);
 
-            // Help regarding the Json syntax for defining the LabelDefinition.FromJson syntax can be found here:
+            // Help regarding the JSON syntax for defining the LabelDefinition.FromJson syntax can be found here:
             // https://developers.arcgis.com/web-map-specification/objects/labelingInfo/
             // This particular JSON string will have the following characteristics:
             // (1) The 'labelExpressionInfo' defines that the label text displayed comes from the field 'rte_num1' in the 
@@ -93,7 +94,7 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
             //     for this service has a single blank space in the 'rte_num1' field.
             // (4) The 'symbol' for the labeled text will be blue with a yellow halo.
             string theJSON_String =
-             @"{
+                @"{
                     ""labelExpressionInfo"":{""expression"":""'I - ' + $feature.rte_num1""},
                     ""labelPlacement"":""esriServerLinePlacementAboveAlong"",
                     ""where"":""rte_num1 <> ' '"",
@@ -131,6 +132,5 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
             // Enable the visibility of labels to be seen.
             highwaysFeatureLayer.LabelsEnabled = true;
         }
-
     }
 }

@@ -25,12 +25,12 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         "")]
     public class ChangeBasemap : UIViewController
     {
-        // Create the UI controls
+        // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
         private readonly UIToolbar _toolbar = new UIToolbar();
         private readonly UIButton _button = new UIButton();
 
-        // Dictionary that associates names with basemaps
+        // Dictionary that associates names with basemaps.
         private readonly Dictionary<string, Basemap> _basemapOptions = new Dictionary<string, Basemap>
         {
             {"Streets (Raster)", Basemap.CreateStreets()},
@@ -61,48 +61,52 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
 
         private void CreateLayout()
         {
-            // Update the button properties
+            // Update the button properties.
             _button.SetTitle("Change basemap", UIControlState.Normal);
             _button.SetTitleColor(View.TintColor, UIControlState.Normal);
 
-            // Handle button clicks
+            // Handle button clicks.
             _button.TouchUpInside += BasemapSelectionButtonClick;
 
-            // Add the views to the layout
+            // Add the views to the layout.
             View.AddSubviews(_myMapView, _toolbar, _button);
         }
 
         private void BasemapSelectionButtonClick(object sender, EventArgs e)
         {
-            // Create the view controller that will present the list of basemaps
+            // Create the view controller that will present the list of basemaps.
             UIAlertController basemapSelectionAlert = UIAlertController.Create("Select a basemap", "", UIAlertControllerStyle.ActionSheet);
 
-            // Add an option for each basemap
+            // Add an option for each basemap.
             foreach (string item in _basemapOptions.Keys)
             {
-                // Selecting a basemap will call the lambda method, which will apply the chosen basemap
-                basemapSelectionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action =>
-                    {
-                        _myMapView.Map.Basemap = _basemapOptions[item];
-                    }));
+                // Selecting a basemap will call the lambda method, which will apply the chosen basemap.
+                basemapSelectionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action => _myMapView.Map.Basemap = _basemapOptions[item]));
             }
 
-            // Show the alert
+            // Show the alert.
             PresentViewController(basemapSelectionAlert, true, null);
         }
 
         private void Initialize()
         {
-            // Create and use a new map
+            // Create and use a new map.
             _myMapView.Map = new Map(_basemapOptions.Values.First());
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frames for the views
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat margin = 5;
+            nfloat controlHeight = 30;
+            nfloat toolbarHeight = controlHeight + (2 * margin);
+
+            // Reposition the views.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
             _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
             _button.Frame = new CoreGraphics.CGRect(5, _toolbar.Frame.Top + 5, View.Bounds.Width - 10, 30);
+
             base.ViewDidLayoutSubviews();
         }
     }

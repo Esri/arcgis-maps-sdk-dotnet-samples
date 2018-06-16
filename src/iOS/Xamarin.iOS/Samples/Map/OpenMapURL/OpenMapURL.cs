@@ -23,21 +23,21 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         "")]
     public class OpenMapURL : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold references to the controls.
         private readonly MapView _myMapView = new MapView();
         private readonly UIToolbar _toolbar = new UIToolbar();
         private readonly UIButton _mapsButton = new UIButton();
 
-        // String array to hold urls to publicly available web maps
-        private readonly string[] _itemUrLs = 
+        // String array to hold URLs to publicly available web maps.
+        private readonly string[] _itemUrLs =
         {
             "https://www.arcgis.com/home/item.html?id=2d6fa24b357d427f9c737774e7b0f977",
             "https://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
             "https://www.arcgis.com/home/item.html?id=92ad152b9da94dee89b9e387dfe21acd"
         };
 
-        // String array to store titles for the webmaps specified above. These titles are in the same order as the urls above
-        private readonly string[] _titles = 
+        // String array to store titles for the webmaps specified above. These titles are in the same order as the URLs above.
+        private readonly string[] _titles =
         {
             "Housing with Mortgages",
             "USA Tapestry Segmentation",
@@ -49,61 +49,56 @@ namespace ArcGISRuntime.Samples.OpenMapURL
             Title = "Open map (URL)";
         }
 
-        public override void ViewDidLoad() {
+        public override void ViewDidLoad()
+        {
             base.ViewDidLoad();
-			CreateLayout();
-			Initialize();
+            CreateLayout();
+            Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLayoutSubviews();
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat margin = 5;
+            nfloat controlHeight = 30;
+            nfloat toolbarHeight = controlHeight + 2 * margin;
 
+            // Reposition the views.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-            _mapsButton.Frame = new CoreGraphics.CGRect(5, View.Bounds.Height - 35, View.Bounds.Width - 10, 30);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+            _mapsButton.Frame = new CoreGraphics.CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - (2 * margin), controlHeight);
+
+            base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
         {
-            // Create a new Map instance with url of the webmap that is displayed by default
-            Map myMap = new Map(new Uri(_itemUrLs[0]));
-
-            // Provide used Map to the MapView
-            _myMapView.Map = myMap;
+            // Show the first webmap by default.
+            _myMapView.Map = new Map(new Uri(_itemUrLs[0]));
         }
 
         private void OnMapsButtonTouch(object sender, EventArgs e)
         {
-            // Initialize an UIAlertController with a title and style of an alert
-            UIAlertController actionSheetAlert = UIAlertController.Create(
-                "Select a map to open", "", UIAlertControllerStyle.Alert);
+            // Initialize an UIAlertController with a title and style of an alert.
+            UIAlertController actionSheetAlert = UIAlertController.Create("Select a map to open", "", UIAlertControllerStyle.Alert);
 
-            // Add actions to alert. Selecting an option re-initializes the Map 
-            // with selected webmap url and assigns it to MapView.
-            actionSheetAlert.AddAction(UIAlertAction.Create(_titles[0], UIAlertActionStyle.Default, action =>
-            {
-                _myMapView.Map = new Map(new Uri(_itemUrLs[0]));
-            }));
-            actionSheetAlert.AddAction(UIAlertAction.Create(_titles[1], UIAlertActionStyle.Default, action =>
-            {
-                _myMapView.Map = new Map(new Uri(_itemUrLs[1]));
-            }));
-            actionSheetAlert.AddAction(UIAlertAction.Create(_titles[2], UIAlertActionStyle.Default, action =>
-            {
-                _myMapView.Map = new Map(new Uri(_itemUrLs[2]));
-            }));
+            // Add actions to alert. Selecting an option re-initializes the Map
+            // with selected webmap URL and assigns it to MapView.
+            actionSheetAlert.AddAction(UIAlertAction.Create(_titles[0], UIAlertActionStyle.Default, action => _myMapView.Map = new Map(new Uri(_itemUrLs[0]))));
+            actionSheetAlert.AddAction(UIAlertAction.Create(_titles[1], UIAlertActionStyle.Default, action => _myMapView.Map = new Map(new Uri(_itemUrLs[1]))));
+            actionSheetAlert.AddAction(UIAlertAction.Create(_titles[2], UIAlertActionStyle.Default, action => _myMapView.Map = new Map(new Uri(_itemUrLs[2]))));
             PresentViewController(actionSheetAlert, true, null);
         }
 
         private void CreateLayout()
         {
-            // Create button to show map options
+            // Create button to show map options.
             _mapsButton.SetTitle("Select a map", UIControlState.Normal);
             _mapsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _mapsButton.TouchUpInside += OnMapsButtonTouch;
 
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView, _toolbar, _mapsButton);
         }
     }

@@ -28,23 +28,15 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         "Query", "Sublayer", "MapServer", "Table")]
     public class MapImageSublayerQuery : UIViewController
     {
-        // MapView control for displaying the map.
+        // Hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
-       
+        private UILabel _populationLabel;
+        private UIButton _queryButton;
+        private UITextField _populationValueInput;
+        private readonly UIToolbar _toolbar = new UIToolbar();
+
         // Graphics overlay for showing selected features.
         private GraphicsOverlay _selectedFeaturesOverlay;
-
-        // Label that describes the query input ("[POP2000] > ").
-        private UILabel _populationLabel;
-
-        // Button to execute the query in the current map extent with the provided population value.
-        private UIButton _queryButton;
-
-        // A text input for the population value to query with.
-        private UITextField _populationValueInput;
-
-        // Toolbar to go behind the form.
-        private readonly UIToolbar _toolbar = new UIToolbar();
 
         public MapImageSublayerQuery()
         {
@@ -55,26 +47,24 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         {
             base.ViewDidLoad();
 
-            // Create the UI and initialize the map.
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Calculate the offset from the top.
-            var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
             nfloat margin = 5;
             nfloat controlHeight = 30;
+            nfloat toolbarHeight = controlHeight * 2 + margin * 3;
 
-            // Set the frame for the population entry controls.
-            _toolbar.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, controlHeight * 2 + margin * 3);
-            _populationLabel.Frame = new CoreGraphics.CGRect(margin, topMargin + margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
-            _populationValueInput.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, topMargin + margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
-            _queryButton.Frame = new CoreGraphics.CGRect(margin, topMargin + controlHeight + 2 * margin, View.Bounds.Width - (2 * margin), controlHeight);
-
-            // Setup the visual frame for the MapView.
+            // Reposition the controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
+            _populationLabel.Frame = new CoreGraphics.CGRect(margin, topMargin + margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
+            _populationValueInput.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, topMargin + margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
+            _queryButton.Frame = new CoreGraphics.CGRect(margin, topMargin + controlHeight + 2 * margin, View.Bounds.Width - 2 * margin, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }
@@ -183,14 +173,15 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         private void CreateLayout()
         {
             // Create the population query controls: a label, a text input, and a button to execute the query.
-            _populationLabel = new UILabel { Text = "[POP2000] > ", TextAlignment = UITextAlignment.Right };
+            _populationLabel = new UILabel {Text = "[POP2000] > ", TextAlignment = UITextAlignment.Right};
             _populationValueInput = new UITextField
             {
                 Text = "1800000",
                 BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
                 BorderStyle = UITextBorderStyle.RoundedRect
             };
-            _populationValueInput.ShouldReturn += textField => {
+            _populationValueInput.ShouldReturn += textField =>
+            {
                 textField.ResignFirstResponder();
                 return true;
             };

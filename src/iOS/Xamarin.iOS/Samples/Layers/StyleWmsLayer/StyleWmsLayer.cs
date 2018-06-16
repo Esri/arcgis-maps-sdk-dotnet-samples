@@ -23,37 +23,41 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
         "Style WMS layers",
         "Layers",
         "This sample demonstrates how to select from the available styles on WMS sublayers. ",
-        "Click to select from one of the two pre-set styles.")]
+        "Click to select from one of the two preset styles.")]
     public class StyleWmsLayer : UIViewController
     {
-        // Hold the URL to the service, which has satellite imagery covering the state of Minnesota.
-        private readonly Uri _wmsUrl = new Uri("http://geoint.lmic.state.mn.us/cgi-bin/wms?VERSION=1.3.0&SERVICE=WMS&REQUEST=GetCapabilities");
-
-        // Hold a list of uniquely-identifying WMS layer names to display.
-        private readonly List<string> _wmsLayerNames = new List<string> { "fsa2017" };
-
-        // Hold a reference to the layer to enable re-styling.
-        private WmsLayer _mnWmsLayer;
-
-        // Hold references to the views.
+        // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _buttonContainer = new UIToolbar();
+
         private readonly UIButton _firstStyleButton = new UIButton
         {
             Enabled = false,
             HorizontalAlignment = UIControlContentHorizontalAlignment.Center
         };
+
         private readonly UIButton _secondStyleButton = new UIButton
         {
             Enabled = false,
             HorizontalAlignment = UIControlContentHorizontalAlignment.Center
         };
+
         private readonly UILabel _helpLabel = new UILabel
         {
             Text = "Choose a style:",
             TextAlignment = UITextAlignment.Center,
             TextColor = UIColor.Black
         };
-        private readonly UIToolbar _buttonContainer = new UIToolbar();
+
+        // Hold the URL to the service, which has satellite imagery covering the state of Minnesota.
+        private readonly Uri _wmsUrl = new Uri("http://geoint.lmic.state.mn.us/cgi-bin/wms?VERSION=1.3.0&SERVICE=WMS&REQUEST=GetCapabilities");
+
+        // Hold a list of uniquely-identifying WMS layer names to display.
+        private readonly List<string> _wmsLayerNames = new List<string> {"fsa2017"};
+
+        // Hold a reference to the layer to enable re-styling.
+        private WmsLayer _mnWmsLayer;
+
 
         public StyleWmsLayer()
         {
@@ -147,25 +151,18 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
 
         public override void ViewDidLayoutSubviews()
         {
-            // Calculate the top margin.
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            int controlHeight = 30;
-            int margin = 5;
+            nfloat controlHeight = 30;
+            nfloat margin = 5;
+            nfloat toolbarHeight = controlHeight * 2 + margin * 3;
 
-            // Setup the visual frame for the MapView.
+            // Reposition the views.
             _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Update the insets for the map view (to ensure attribution bar is visible, among other reasons).
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 50, 0);
-
-            // Update the toolbar and button positions.
-            _buttonContainer.Frame = new CGRect(0, View.Bounds.Height - (2 * controlHeight) - (3 * margin), View.Bounds.Width, 2 * controlHeight + 3 * margin);
-
-            // Update the help label position.
-            _helpLabel.Frame = new CGRect(margin, View.Bounds.Height - (2 * controlHeight) - (2 * margin), View.Bounds.Width - (2 * margin), controlHeight);
-
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+            _buttonContainer.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+            _helpLabel.Frame = new CGRect(margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, View.Bounds.Width - 2 * margin, controlHeight);
             _firstStyleButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - margin, controlHeight);
-            _secondStyleButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
+            _secondStyleButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }

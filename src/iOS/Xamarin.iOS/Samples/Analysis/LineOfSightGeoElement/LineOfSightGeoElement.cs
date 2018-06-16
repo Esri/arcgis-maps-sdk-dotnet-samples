@@ -274,7 +274,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             nfloat margin = 5;
             nfloat controlHeight = 30;
             nfloat toolbarHeight = 40;
-            nfloat controlWidth = View.Bounds.Width - (2 * margin);
+            nfloat controlWidth = View.Bounds.Width - 2 * margin;
 
             // Setup the visual frames for the controls.
             _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);

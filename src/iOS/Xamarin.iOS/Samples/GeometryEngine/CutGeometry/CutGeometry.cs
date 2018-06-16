@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
         "")]
     public class CutGeometry : UIViewController
     {
-        // Create and hold reference to the used MapView.
+        // Create and hold a reference to the used MapView.
         private readonly MapView _myMapView = new MapView();
 
         // Graphics overlay to display the graphics.
@@ -71,10 +71,10 @@ namespace ArcGISRuntime.Samples.CutGeometry
 
             // Setup the visual frames for the controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, controlHeight + (2 * margin));
-            _buttonToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - (2 * margin), View.Bounds.Width, controlHeight + (2 * margin));
-            _helpLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
-            _cutButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, controlHeight + 2 * margin);
+            _buttonToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - 2 * margin, View.Bounds.Width, controlHeight + 2 * margin);
+            _helpLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - 2 * margin, controlHeight);
+            _cutButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 2 * margin, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }

@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
         "")]
     public class RasterLayerImageServiceRaster : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the MapView.
         private readonly MapView _myMapView = new MapView();
 
         public RasterLayerImageServiceRaster()
@@ -37,46 +37,48 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
             base.ViewDidLayoutSubviews();
         }
 
         private async void Initialize()
         {
-            // Create new map with the dark gray canvas basemap
+            // Create new map with the dark gray canvas basemap.
             Map myMap = new Map(Basemap.CreateDarkGrayCanvasVector());
 
-            // Create a Uri to the image service raster (NOTE: iOS applications require the use of Uri's to be https:// and not http://)
+            // Create a URI to the image service raster.
             var myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NLCDLandCover2001/ImageServer");
 
-            // Create new image service raster from the Uri
+            // Create new image service raster from the URI.
             ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(myUri);
 
-            // Load the image service raster
+            // Load the image service raster.
             await myImageServiceRaster.LoadAsync();
 
-            // Get the service information (aka. metadata) about the image service raster
+            // Get the service information (aka. metadata) about the image service raster.
             ArcGISImageServiceInfo myArcGISImageServiceInfo = myImageServiceRaster.ServiceInfo;
 
-            // Create a new raster layer from the image service raster
+            // Create a new raster layer from the image service raster.
             RasterLayer myRasterLayer = new RasterLayer(myImageServiceRaster);
 
-            // Add the raster layer to the maps layer collection
+            // Add the raster layer to the maps layer collection.
             myMap.Basemap.BaseLayers.Add(myRasterLayer);
 
-            // Assign the map to the map view
+            // Assign the map to the map view.
             _myMapView.Map = myMap;
 
-            // Zoom the map to the extent of the image service raster (which also the extent of the raster layer)
+            // Zoom the map to the extent of the image service raster (which also the extent of the raster layer).
             await _myMapView.SetViewpointGeometryAsync(myArcGISImageServiceInfo.FullExtent);
 
             // NOTE: The sample zooms to the extent of the ImageServiceRaster. Currently the ArcGIS Runtime does not 
@@ -87,7 +89,7 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
     }

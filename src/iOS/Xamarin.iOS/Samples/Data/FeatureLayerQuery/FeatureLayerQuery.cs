@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         "The sample provides a search bar on the top, where you can input the name of a US State. When you hit search the app performs a query on the feature table and based on the result either highlights the state geometry or provides an error.")]
     public class FeatureLayerQuery : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the used MapView
         private readonly MapView _myMapView = new MapView();
 
         // Create reference to service of US States  
@@ -77,9 +77,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             // Setup the visual frames for the views
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _toolbar.Frame = new CoreGraphics.CGRect(0, formStart, View.Bounds.Width, controlHeight * 2 + margin * 3);
-            _helpLabel.Frame = new CoreGraphics.CGRect(margin, formStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
-            _queryTextView.Frame = new CoreGraphics.CGRect(margin, formStart + controlHeight + 2 * margin, View.Bounds.Width - 100 - (2 * margin), controlHeight);
-            _queryButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 100 - (2 * margin), formStart +  controlHeight + 2 *margin, 100, controlHeight);
+            _helpLabel.Frame = new CoreGraphics.CGRect(margin, formStart + margin, View.Bounds.Width - 2 * margin, controlHeight);
+            _queryTextView.Frame = new CoreGraphics.CGRect(margin, formStart + controlHeight + 2 * margin, View.Bounds.Width - 100 - 2 * margin, controlHeight);
+            _queryButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 100 - 2 * margin, formStart +  controlHeight + 2 *margin, 100, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }

@@ -25,27 +25,25 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
         "Press the 'Animated Zoom' button to trigger a zoom. Observe the differences between the two scenes.")]
     public class FeatureLayerRenderingModeScene : UIViewController
     {
-        // Create the UI components
-        private readonly UILabel _staticLabel = new UILabel { Text = "Static" };
-        private readonly UILabel _dynamicLabel = new UILabel { Text = "Dynamic" };
+        // Create and hold references to the UI controls.
+        private readonly UILabel _staticLabel = new UILabel {Text = "Static"};
+        private readonly UILabel _dynamicLabel = new UILabel {Text = "Dynamic"};
         private readonly UIButton _zoomButton = new UIButton(UIButtonType.RoundedRect);
-
-        // Create the scene views
         private readonly SceneView _myStaticScene = new SceneView();
         private readonly SceneView _myDynamicScene = new SceneView();
 
-        // Points for demonstrating zoom
+        // Points for demonstrating zoom.
         private readonly MapPoint _zoomedOutPoint = new MapPoint(-118.37, 34.46, SpatialReferences.Wgs84);
         private readonly MapPoint _zoomedInPoint = new MapPoint(-118.45, 34.395, SpatialReferences.Wgs84);
 
-        // Viewpoints for each zoom level
+        // Viewpoints for each zoom level.
         private Camera _zoomedOutCamera;
         private Camera _zoomedInCamera;
 
-        // URI for the feature service
+        // URI for the feature service.
         private readonly string _featureService = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/";
 
-        // Hold the current zoom state
+        // Hold the current zoom state.
         private bool _zoomed;
 
         public FeatureLayerRenderingModeScene()
@@ -55,11 +53,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 
         private void Initialize()
         {
-            // Initialize the cameras (viewpoints) with two points
+            // Initialize the cameras (viewpoints) with two points.
             _zoomedOutCamera = new Camera(_zoomedOutPoint, 42000, 0, 0, 0);
             _zoomedInCamera = new Camera(_zoomedInPoint, 2500, 90, 75, 0);
 
-            // Create the scene for displaying the feature layer in static mode
+            // Create the scene for displaying the feature layer in static mode.
             Scene staticScene = new Scene
             {
                 LoadSettings =
@@ -68,9 +66,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
                     PreferredPolygonFeatureRenderingMode = FeatureRenderingMode.Static,
                     PreferredPolylineFeatureRenderingMode = FeatureRenderingMode.Static
                 }
-            }; // Basemap omitted to make it easier to distinguish the rendering modes
+            }; // Basemap omitted to make it easier to distinguish the rendering modes.
 
-            // Create the scene for displaying the feature layer in dynamic mode
+            // Create the scene for displaying the feature layer in dynamic mode.
             Scene dynamicScene = new Scene
             {
                 LoadSettings =
@@ -81,17 +79,17 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
                 }
             };
 
-            // Create the service feature tables
+            // Create the service feature tables.
             ServiceFeatureTable faultTable = new ServiceFeatureTable(new Uri(_featureService + "0"));
             ServiceFeatureTable contactTable = new ServiceFeatureTable(new Uri(_featureService + "8"));
             ServiceFeatureTable outcropTable = new ServiceFeatureTable(new Uri(_featureService + "9"));
 
-            // Create the feature layers
+            // Create the feature layers.
             FeatureLayer faultLayer = new FeatureLayer(faultTable);
             FeatureLayer contactLayer = new FeatureLayer(contactTable);
             FeatureLayer outcropLayer = new FeatureLayer(outcropTable);
 
-            // Add the layers to each scene
+            // Add the layers to each scene.
             staticScene.OperationalLayers.Add(faultLayer);
             staticScene.OperationalLayers.Add(contactLayer);
             staticScene.OperationalLayers.Add(outcropLayer);
@@ -99,21 +97,21 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
             dynamicScene.OperationalLayers.Add(contactLayer.Clone());
             dynamicScene.OperationalLayers.Add(outcropLayer.Clone());
 
-            // Add the scenes to the scene views
+            // Add the scenes to the scene views.
             _myStaticScene.Scene = staticScene;
             _myDynamicScene.Scene = dynamicScene;
 
-            // Set the initial viewpoints for the scenes
+            // Set the initial viewpoints for the scenes.
             _myStaticScene.SetViewpointCamera(_zoomedOutCamera);
             _myDynamicScene.SetViewpointCamera(_zoomedOutCamera);
         }
 
         private void CreateLayout()
         {
-            // Set zoom button text
+            // Set zoom button text.
             _zoomButton.SetTitle("Animated zoom", UIControlState.Normal);
 
-            // Set label and button colors
+            // Set label and button colors.
             _zoomButton.SetTitleColor(UIColor.White, UIControlState.Normal);
             _zoomButton.BackgroundColor = View.TintColor;
             _zoomButton.Layer.CornerRadius = 5;
@@ -123,34 +121,34 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
             _dynamicLabel.TextColor = UIColor.Black;
             _dynamicLabel.ShadowColor = UIColor.White;
 
-            // Hide attribution text because there is already a scene with attribution text visible
+            // Hide attribution text because there is already a scene with attribution text visible.
             _myStaticScene.IsAttributionTextVisible = false;
 
-            // Subscribe to button press events
+            // Subscribe to button press events.
             _zoomButton.TouchUpInside += _zoomButton_TouchUpInside;
 
-            // Add views to page
+            // Add views to page.
             View.AddSubviews(_myStaticScene, _myDynamicScene, _staticLabel, _dynamicLabel, _zoomButton);
 
-            // Set view background
+            // Set view background.
             View.BackgroundColor = UIColor.White;
         }
 
         private void _zoomButton_TouchUpInside(object sender, System.EventArgs e)
         {
-            // Zoom out if zoomed
+            // Zoom out if zoomed.
             if (_zoomed)
             {
                 _myStaticScene.SetViewpointCameraAsync(_zoomedOutCamera, new TimeSpan(0, 0, 5));
                 _myDynamicScene.SetViewpointCameraAsync(_zoomedOutCamera, new TimeSpan(0, 0, 5));
             }
-            else // Zoom in otherwise
+            else // Zoom in otherwise.
             {
                 _myStaticScene.SetViewpointCameraAsync(_zoomedInCamera, new TimeSpan(0, 0, 5));
                 _myDynamicScene.SetViewpointCameraAsync(_zoomedInCamera, new TimeSpan(0, 0, 5));
             }
 
-            // Toggle zoom state
+            // Toggle zoom state.
             _zoomed = !_zoomed;
         }
 
@@ -164,18 +162,16 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 
         public override void ViewDidLayoutSubviews()
         {
-            var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            var centerLine = (View.Bounds.Height - topMargin) / 2;
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat centerLine = (View.Bounds.Height - topMargin) / 2;
+            nfloat buttonWidth = 150;
+            nfloat startingLeft = View.Bounds.Width / 2 - buttonWidth / 2;
 
-            // Setup the visual frames for the views
+            // Reposition the controls.
             _myStaticScene.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, centerLine);
-            _myDynamicScene.Frame = new CoreGraphics.CGRect(0, centerLine + topMargin, View.Bounds.Width, (View.Bounds.Height - topMargin - centerLine));
+            _myDynamicScene.Frame = new CoreGraphics.CGRect(0, centerLine + topMargin, View.Bounds.Width, View.Bounds.Height - topMargin - centerLine);
             _staticLabel.Frame = new CoreGraphics.CGRect(10, topMargin + 5, View.Bounds.Width / 2, 30);
             _dynamicLabel.Frame = new CoreGraphics.CGRect(10, centerLine + topMargin + 30, View.Bounds.Width / 2, 30);
-
-            nfloat buttonWidth = 150;
-            nfloat startingLeft = (View.Bounds.Width / 2) - (buttonWidth / 2);
-
             _zoomButton.Frame = new CoreGraphics.CGRect(startingLeft, centerLine + topMargin - 15, buttonWidth, 30);
 
             base.ViewDidLayoutSubviews();

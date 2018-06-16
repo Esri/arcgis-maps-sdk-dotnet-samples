@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
         "")]
     public class AddGraphicsWithSymbols : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the used MapView
         private readonly MapView _myMapView = new MapView();
 
         // Create the graphics overlay

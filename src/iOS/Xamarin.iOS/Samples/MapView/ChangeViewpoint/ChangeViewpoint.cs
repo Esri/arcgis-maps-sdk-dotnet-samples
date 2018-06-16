@@ -26,128 +26,110 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         "")]
     public class ChangeViewpoint : UIViewController
     {
+        // Create and hold references to the UI controls.
         private readonly UIToolbar _toolbar = new UIToolbar();
-        private UISegmentedControl _viewpointsButton;
-
-        // Create and hold reference to the used MapView
         private readonly MapView _myMapView = new MapView();
+        private readonly UISegmentedControl _viewpointsButton = new UISegmentedControl(new string[] {"Geometry", "Center & Scale", "Animate"});
 
-        // Coordinates for London
-        private readonly MapPoint _londonCoords = new MapPoint(
-            -13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
+        // Coordinates for London.
+        private readonly MapPoint _londonCoords = new MapPoint(-13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
         private readonly double LondonScale = 8762.7156655228955;
 
-        // Coordinates for Redlands
+        // Coordinates for Redlands.
         private readonly Polygon _redlandsEnvelope = new Polygon(
             new List<MapPoint>
-                {
-                    new MapPoint(-13049785.1566222, 4032064.6003424),
-                    new MapPoint(-13049785.1566222, 4040202.42595729),
-                    new MapPoint(-13037033.5780234, 4032064.6003424),
-                    new MapPoint(-13037033.5780234, 4040202.42595729)
-                },
+            {
+                new MapPoint(-13049785.1566222, 4032064.6003424),
+                new MapPoint(-13049785.1566222, 4040202.42595729),
+                new MapPoint(-13037033.5780234, 4032064.6003424),
+                new MapPoint(-13037033.5780234, 4040202.42595729)
+            },
             SpatialReferences.WebMercator);
 
-        // Coordinates for Edinburgh
+        // Coordinates for Edinburgh.
         private readonly Polygon _edinburghEnvelope = new Polygon(
             new List<MapPoint>
             {
                 new MapPoint(-354262.156621384, 7548092.94093301),
                 new MapPoint(-354262.156621384, 7548901.50684376),
                 new MapPoint(-353039.164455303, 7548092.94093301),
-                new MapPoint(-353039.164455303, 7548901.50684376)},
+                new MapPoint(-353039.164455303, 7548901.50684376)
+            },
             SpatialReferences.WebMercator);
-
-        // String array to store titles for the viewpoints specified above.
-        private readonly string[] _titles = 
-        {
-            "Geometry",
-            "Center & Scale",
-            "Animate"
-        };
 
         public ChangeViewpoint()
         {
             Title = "Change viewpoint";
         }
-        
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization.
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            int margin = 5;
-            // Setup the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat margin = 5;
+            nfloat controlHeight = 30;
+            nfloat toolbarHeight = controlHeight + 2 * margin;
+
+            // Reposition the views.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Set up the frame for the toolbar
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the Button
-            _viewpointsButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - 40 + margin, View.Bounds.Width - (2 * margin), 40 - (2 * margin));
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+            _viewpointsButton.Frame = new CoreGraphics.CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
         {
-            // Create new Map with basemap and initial location
-            Map myMap = new Map(Basemap.CreateTopographic());
-
-            // Assign the map to the MapView
-            _myMapView.Map = myMap;
+            // Show a topographic basemap.
+            _myMapView.Map = new Map(Basemap.CreateTopographic());
         }
 
         private void CreateLayout()
         {
-            // Add a button at the bottom to show viewpoint choices
-            _viewpointsButton = new UISegmentedControl(_titles)
-            {
-                TintColor = View.TintColor
-            };
+            // Handle button taps.
+            _viewpointsButton.ValueChanged += ViewpointButton_ValueChanged;
 
-            // Create button to show map options
-            _viewpointsButton.ValueChanged += viewpointButton_ValueChanged;
-
-            // Add MapView to the page
+            // Add the controls to the view.
             View.AddSubviews(_myMapView, _toolbar, _viewpointsButton);
         }
 
-        private async void viewpointButton_ValueChanged(object sender, EventArgs e)
+        private async void ViewpointButton_ValueChanged(object sender, EventArgs e)
         {
-            nint selectedValue = ((UISegmentedControl)sender).SelectedSegment;
+            nint selectedValue = ((UISegmentedControl) sender).SelectedSegment;
 
-            switch (selectedValue){
+            switch (selectedValue)
+            {
                 case 0:
-                    // Set Viewpoint using Redlands envelope defined above and a padding of 20
+                    // Set Viewpoint using Redlands envelope defined above and a padding of 20.
                     await _myMapView.SetViewpointGeometryAsync(_redlandsEnvelope, 20);
                     break;
                 case 1:
-                    // Set Viewpoint so that it is centered on the London coordinates defined above
+                    // Set Viewpoint so that it is centered on the London coordinates defined above.
                     await _myMapView.SetViewpointCenterAsync(_londonCoords);
 
-                    // Set the Viewpoint scale to match the specified scale 
+                    // Set the Viewpoint scale to match the specified scale.
                     await _myMapView.SetViewpointScaleAsync(LondonScale);
                     break;
                 case 2:
-                    // Navigate to full extent of the first baselayer before animating to specified geometry
-                    await _myMapView.SetViewpointAsync(
-                        new Viewpoint(_myMapView.Map.Basemap.BaseLayers.First().FullExtent));
+                    // Navigate to full extent of the first base layer before animating to specified geometry.
+                    await _myMapView.SetViewpointAsync(new Viewpoint(_myMapView.Map.Basemap.BaseLayers.First().FullExtent));
 
-                    // Create a new Viewpoint using the specified geometry
+                    // Create a new Viewpoint using the specified geometry.
                     var viewpoint = new Viewpoint(_edinburghEnvelope);
 
-                    // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
+                    // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds.
                     await _myMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));
                     break;
             }
         }
-
     }
 }

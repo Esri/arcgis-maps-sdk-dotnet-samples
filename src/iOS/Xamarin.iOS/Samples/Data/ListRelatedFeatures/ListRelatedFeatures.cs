@@ -34,7 +34,7 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
         // Reference to the feature layer
         private FeatureLayer _myFeatureLayer;
 
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the used MapView
         private readonly MapView _myMapView = new MapView();
 
         // Hold a source for the UITableView that shows the related features

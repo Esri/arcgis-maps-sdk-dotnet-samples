@@ -103,12 +103,12 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
 
             // Place the views.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _helpToolbar.Frame = new CoreGraphics.CGRect(0, pageOffset, View.Bounds.Width, controlHeight + (2 * margin));
-            _controlsToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - (2 * margin), View.Bounds.Width, controlHeight + (2 * margin));
-            _generateButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
-            _syncButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
+            _helpToolbar.Frame = new CoreGraphics.CGRect(0, pageOffset, View.Bounds.Width, controlHeight + 2 * margin);
+            _controlsToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - 2 * margin, View.Bounds.Width, controlHeight + 2 * margin);
+            _generateButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
+            _syncButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
             _progressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 42, View.Bounds.Width, 2);
-            _helpLabel.Frame = new CoreGraphics.CGRect(margin, pageOffset + margin, View.Bounds.Width - (2 * margin), controlHeight);
+            _helpLabel.Frame = new CoreGraphics.CGRect(margin, pageOffset + margin, View.Bounds.Width - 2 * margin, controlHeight);
         }
 
         private void CreateLayout()
@@ -360,14 +360,14 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             GenerateGeodatabaseJob generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the progress changed event with an inline (lambda) function to show the progress bar.
-            generateGdbJob.ProgressChanged += ((sender, e) =>
+            generateGdbJob.ProgressChanged += (sender, e) =>
             {
                 // Get the job.
                 GenerateGeodatabaseJob job = sender as GenerateGeodatabaseJob;
 
                 // Update the progress bar.
                 UpdateProgressBar(job.Progress);
-            });
+            };
 
             // Show the progress bar.
             View.AddSubview(_progressBar);
@@ -423,7 +423,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     else
                     {
                         // If no error, show messages from the job.
-                        message = job.Messages.Aggregate(message, (current, m) => current + ("\n" + m.Message));
+                        message = job.Messages.Aggregate(message, (current, m) => current + "\n" + m.Message);
                     }
 
                     // Show the message.
@@ -457,7 +457,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     else
                     {
                         // If no error, show messages from the job.
-                        message = job.Messages.Aggregate(message, (current, m) => current + ("\n" + m.Message));
+                        message = job.Messages.Aggregate(message, (current, m) => current + "\n" + m.Message);
                     }
 
                     // Show the message.

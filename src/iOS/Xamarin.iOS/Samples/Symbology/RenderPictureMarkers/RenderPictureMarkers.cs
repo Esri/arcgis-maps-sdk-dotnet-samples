@@ -29,7 +29,7 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
     [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public class RenderPictureMarkers : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the used MapView.
         private readonly MapView _myMapView = new MapView();
 
         public RenderPictureMarkers()
@@ -39,95 +39,96 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
 
         public override void ViewDidLoad()
         {
-            base.ViewDidLoad();
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization.
             CreateLayout();
             Initialize();
+
+            base.ViewDidLoad();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
             base.ViewDidLayoutSubviews();
         }
 
         private async void Initialize()
         {
-            // Create new Map with basemap
+            // Create new Map with topographic basemap.
             Map myMap = new Map(Basemap.CreateTopographic());
 
-            // Create and set initial map area
-            Envelope initialLocation = new Envelope(
-                -229835, 6550763, -222560, 6552021,
-                SpatialReferences.WebMercator);
+            // Create and set initial map area.
+            Envelope initialLocation = new Envelope(-229835, 6550763, -222560, 6552021, SpatialReferences.WebMercator);
             myMap.InitialViewpoint = new Viewpoint(initialLocation);
 
-            // Assign the map to the MapView
+            // Assign the map to the MapView.
             _myMapView.Map = myMap;
 
-            // Create overlay to where graphics are shown
+            // Create overlay to where graphics are shown.
             GraphicsOverlay overlay = new GraphicsOverlay();
 
-            // Add created overlay to the MapView
+            // Add created overlay to the MapView.
             _myMapView.GraphicsOverlays.Add(overlay);
 
-            // Add graphics using different source types
+            // Add graphics using different source types.
             CreatePictureMarkerSymbolFromUrl(overlay);
             await CreatePictureMarkerSymbolFromResources(overlay);
         }
 
         private void CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
         {
-            // Create uri to the used image
-            var symbolUri = new Uri(
-                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae");
+            // Create URL to the image.
+            var symbolUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae");
 
-            // Create new symbol using asynchronous factory method from uri
+            // Create new symbol using asynchronous factory method from URL.
             PictureMarkerSymbol campsiteSymbol = new PictureMarkerSymbol(symbolUri)
             {
-                // Optionally set the size (if not set, the size in pixels of the image will be used)
+                // Optionally set the size (if not set, the size in pixels of the image will be used).
                 Height = 18,
                 Width = 18
             };
 
-            // Create location for the campsite
+            // Create location for the campsite.
             MapPoint campsitePoint = new MapPoint(-223560, 6552021, SpatialReferences.WebMercator);
 
-            // Create graphic with the location and symbol
+            // Create graphic with the location and symbol.
             Graphic campsiteGraphic = new Graphic(campsitePoint, campsiteSymbol);
 
-            // Add graphic to the graphics overlay
+            // Add graphic to the graphics overlay.
             overlay.Graphics.Add(campsiteGraphic);
         }
 
         private async Task CreatePictureMarkerSymbolFromResources(GraphicsOverlay overlay)
         {
-            // Get current assembly that contains the image
+            // Get current assembly that contains the image.
             var currentAssembly = Assembly.GetExecutingAssembly();
 
-            // Get image as a stream from the resources
-            // Picture is defined as EmbeddedResource and DoNotCopy
+            // Get image as a stream from the resources.
+            // Picture is defined as EmbeddedResource and DoNotCopy.
             var resourceStream = currentAssembly.GetManifestResourceStream(
                 "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
-            // Create new symbol using asynchronous factory method from stream
+            // Create new symbol using asynchronous factory method from stream.
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
 
-            // Create location for the pint
+            // Create location for the pin.
             MapPoint pinPoint = new MapPoint(-226773, 6550477, SpatialReferences.WebMercator);
 
-            // Create graphic with the location and symbol
+            // Create graphic with the location and symbol.
             Graphic pinGraphic = new Graphic(pinPoint, pinSymbol);
 
-            // Add graphic to the graphics overlay
+            // Add graphic to the graphics overlay.
             overlay.Graphics.Add(pinGraphic);
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
     }

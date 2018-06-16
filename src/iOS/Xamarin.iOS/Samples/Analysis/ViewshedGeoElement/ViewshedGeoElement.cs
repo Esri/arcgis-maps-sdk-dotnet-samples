@@ -34,7 +34,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
         "Featured")]
     public class ViewshedGeoElement : UIViewController
     {
-        // Create and hold reference to the used MapView.
+        // Create and hold a reference to the used MapView.
         private readonly SceneView _mySceneView = new SceneView();
 
         // URLs to the scene layer with buildings and the elevation source
@@ -166,7 +166,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
 
             // Rotate to face the destination.
             double heading = (double)_tank.Attributes["HEADING"];
-            heading = heading + ((distance.Azimuth1 - heading) / 10);
+            heading = heading + (distance.Azimuth1 - heading) / 10;
             _tank.Attributes["HEADING"] = heading;
 
             // Clear the destination if the tank already arrived.

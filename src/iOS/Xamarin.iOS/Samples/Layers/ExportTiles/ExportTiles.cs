@@ -31,16 +31,10 @@ namespace ArcGISRuntime.Samples.ExportTiles
         "1. Pan and zoom until the area you want tiles for is within the red box.\n2. Click 'Export Tiles'.\n3. Pan and zoom to see the area covered by the downloaded tiles in the preview box.")]
     public class ExportTiles : UIViewController
     {
-        // Reference to the MapView used in the sample.
+        // Hold references to the UI controls.
         private MapView _myMapView;
-
-        // Reference to the preview MapView.
         private MapView _myPreviewMapView;
-
-        // Reference to the progress bar.
         private UIActivityIndicatorView _myProgressBar;
-
-        // Reference to the 'export' button.
         private UIButton _myExportButton;
 
         // URL to the service tiles will be exported from.
@@ -61,29 +55,19 @@ namespace ArcGISRuntime.Samples.ExportTiles
         {
             base.ViewDidLoad();
 
-            // Create the layout.
             CreateLayout();
-
-            // Initialize the app.
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Hold a margin value.
             nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            int barHeight = 40;
+            nfloat barHeight = 40;
 
-            // Set up the visual frame for the MapView.
+            // Reposition the controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - barHeight);
-
-            // Set up the visual frame for the preview MapView.
             _myPreviewMapView.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, View.Bounds.Height - topStart - barHeight);
-
-            // Set up the visual frame for the progress bar.
             _myProgressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - barHeight, View.Bounds.Width, barHeight);
-
-            // Set up the visual frame for the button.
             _myExportButton.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - barHeight, View.Bounds.Width, barHeight);
 
             base.ViewDidLayoutSubviews();
@@ -99,16 +83,13 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 // Load the layer.
                 await myLayer.LoadAsync();
 
-                // Create the basemap with the layer.
-                Map myMap = new Map(new Basemap(myLayer))
+                // Create and show the basemap with the layer.
+                _myMapView.Map = new Map(new Basemap(myLayer))
                 {
                     // Set the min and max scale - export task fails if the scale is too big or small.
                     MaxScale = 5000000,
                     MinScale = 10000000
                 };
-
-                // Assign the map to the mapview.
-                _myMapView.Map = myMap;
 
                 // Create a new symbol for the extent graphic.
                 //     This is the red box that visualizes the extent for which tiles will be exported.
@@ -150,7 +131,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
             };
 
             // Set a border on the preview window.
-            _myPreviewMapView.Layer.BorderColor = new CoreGraphics.CGColor(0,0,1f);
+            _myPreviewMapView.Layer.BorderColor = new CoreGraphics.CGColor(0, 0, 1f);
             _myPreviewMapView.Layer.BorderWidth = 2.0f;
 
             // Create the progress bar.
@@ -161,11 +142,11 @@ namespace ArcGISRuntime.Samples.ExportTiles
             };
 
             // Create the export button - disabled until sample is ready.
-            _myExportButton = new UIButton { Enabled = false, BackgroundColor = UIColor.White };
+            _myExportButton = new UIButton {Enabled = false, BackgroundColor = UIColor.White};
             _myExportButton.SetTitle("Export", UIControlState.Normal);
             _myExportButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
-            // Set background color on the progressbar.
+            // Set background color on the progress bar.
             _myProgressBar.BackgroundColor = UIColor.FromWhiteAlpha(0, .5f);
 
             // Get notified of button taps.
@@ -194,7 +175,10 @@ namespace ArcGISRuntime.Samples.ExportTiles
             Envelope extent = myViewPoint?.TargetGeometry as Envelope;
 
             // Return if extent is null.
-            if (extent == null) { return; }
+            if (extent == null)
+            {
+                return;
+            }
 
             // Create an envelope that is a bit smaller than the extent.
             EnvelopeBuilder envelopeBldr = new EnvelopeBuilder(extent);
@@ -204,7 +188,10 @@ namespace ArcGISRuntime.Samples.ExportTiles
             GraphicsOverlay extentOverlay = _myMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
-            if (extentOverlay == null) { return; }
+            if (extentOverlay == null)
+            {
+                return;
+            }
 
             // Get the extent graphic.
             Graphic extentGraphic = extentOverlay.Graphics.FirstOrDefault();
@@ -382,7 +369,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            UIAlertView alertView = new UIAlertView("alert", message, (IUIAlertViewDelegate)null, "OK", null);
+            UIAlertView alertView = new UIAlertView("alert", message, (IUIAlertViewDelegate) null, "OK", null);
             alertView.Show();
         }
     }

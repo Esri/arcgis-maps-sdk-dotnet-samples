@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         "")]
     public class AnalyzeViewshed : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the used MapView
         private readonly MapView _myMapView = new MapView();
 
         // Url for the geoprocessing service

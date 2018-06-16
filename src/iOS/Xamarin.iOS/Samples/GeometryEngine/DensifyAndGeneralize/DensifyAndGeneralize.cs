@@ -65,7 +65,7 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
             nfloat controlHeight = 30;
             nfloat margin = 5;
-            nfloat frameHeight = (3 * controlHeight) + (4 * margin);
+            nfloat frameHeight = 3 * controlHeight + 4 * margin;
             nfloat colSplit = View.Bounds.Width * 2 / 3;
             _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, controlHeight * 3 + margin * 4, 0);
@@ -75,18 +75,18 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             _toolbar.Frame = new CGRect(0, View.Bounds.Height - frameHeight, View.Bounds.Width, frameHeight);
 
             // Place the labels.
-            _resultLabel.Frame = new CGRect(margin, View.Bounds.Height - (1 * controlHeight) - margin,
-                View.Bounds.Width - (2 * margin), controlHeight);
-            _segmentLengthLabel.Frame = new CGRect(margin, View.Bounds.Height - (2 * controlHeight) - (2 * margin),
-                colSplit - (2 * margin), controlHeight);
-            _deviationLabel.Frame = new CGRect(margin, View.Bounds.Height - (3 * controlHeight) - (3 * margin),
-                colSplit - (2 * margin), controlHeight);
+            _resultLabel.Frame = new CGRect(margin, View.Bounds.Height - 1 * controlHeight - margin,
+                View.Bounds.Width - 2 * margin, controlHeight);
+            _segmentLengthLabel.Frame = new CGRect(margin, View.Bounds.Height - 2 * controlHeight - 2 * margin,
+                colSplit - 2 * margin, controlHeight);
+            _deviationLabel.Frame = new CGRect(margin, View.Bounds.Height - 3 * controlHeight - 3 * margin,
+                colSplit - 2 * margin, controlHeight);
 
             // Place the sliders.
             _segmentLengthSlider.Frame = new CGRect(colSplit + margin,
-                View.Bounds.Height - (2 * controlHeight) - (2 * margin), View.Bounds.Width * 1 / 3 - (margin * 2),
+                View.Bounds.Height - 2 * controlHeight - 2 * margin, View.Bounds.Width * 1 / 3 - margin * 2,
                 controlHeight);
-            _deviationSlider.Frame = new CGRect(colSplit + margin, View.Bounds.Height - (3 * controlHeight) - (3 * margin), View.Bounds.Width * 1 / 3- margin * 2, controlHeight);
+            _deviationSlider.Frame = new CGRect(colSplit + margin, View.Bounds.Height - 3 * controlHeight - 3 * margin, View.Bounds.Width * 1 / 3- margin * 2, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }

@@ -28,13 +28,10 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
     public class ChangeEncDisplaySettings : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
-        // Hold a reference to the (static) app-wide ENC Mariner settings
-        private readonly EncMarinerSettings _encMarinerSettings = EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings;
-
-        // Create and hold references to the segment controls
         private readonly UISegmentedControl _colorSchemeSegment = new UISegmentedControl("Day", "Dusk", "Night")
         {
             SelectedSegment = 0
@@ -50,22 +47,23 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
             SelectedSegment = 0
         };
 
-        // Toolbar to put behind the ENC display options form
-        private readonly UIToolbar _toolbar = new UIToolbar();
-
-        // Labels
         private readonly UILabel _colorsLabel = new UILabel
         {
             Text = "Color scheme:"
         };
+
         private readonly UILabel _areaLabel = new UILabel
         {
             Text = "Area symbolization type:"
         };
+
         private readonly UILabel _pointLabel = new UILabel
         {
             Text = "Point symbolization type:"
         };
+
+        // Hold a reference to the (static) app-wide ENC Mariner settings
+        private readonly EncMarinerSettings _encMarinerSettings = EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings;
 
         public ChangeEncDisplaySettings()
         {
@@ -74,53 +72,52 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
 
         private async void Initialize()
         {
-            // Subscribe to event notifications
+            // Subscribe to event notifications.
             _colorSchemeSegment.ValueChanged += ColorSchemeChanged;
             _areaSegment.ValueChanged += AreaStyleChanged;
             _pointSegment.ValueChanged += PointStyleChanged;
 
-            // Initialize the map with an oceans basemap
+            // Initialize the map with an oceans basemap.
             _myMapView.Map = new Map(Basemap.CreateOceans());
 
-            // Get the path to the ENC Exchange Set
-            string encPath = DataManager.GetDataFolder("9d2987a825c646468b3ce7512fb76e2d", "ExchangeSetwithoutUpdates", "ENC_ROOT",
-                "CATALOG.031");
+            // Get the path to the ENC Exchange Set.
+            string encPath = DataManager.GetDataFolder("9d2987a825c646468b3ce7512fb76e2d", "ExchangeSetwithoutUpdates", "ENC_ROOT", "CATALOG.031");
 
-            // Create the Exchange Set
-            // Note: this constructor takes an array of paths because so that update sets can be loaded alongside base data
-            EncExchangeSet myEncExchangeSet = new EncExchangeSet( encPath );
+            // Create the Exchange Set.
+            // Note: this constructor takes an array of paths because so that update sets can be loaded alongside base data.
+            EncExchangeSet myEncExchangeSet = new EncExchangeSet(encPath);
 
-            // Wait for the layer to load
+            // Wait for the layer to load.
             await myEncExchangeSet.LoadAsync();
 
-            // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set
+            // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set.
             List<Envelope> dataSetExtents = new List<Envelope>();
 
-            // Add each data set as a layer
+            // Add each data set as a layer.
             foreach (EncDataset myEncDataSet in myEncExchangeSet.Datasets)
             {
                 EncLayer myEncLayer = new EncLayer(new EncCell(myEncDataSet));
 
-                // Add the layer to the map
+                // Add the layer to the map.
                 _myMapView.Map.OperationalLayers.Add(myEncLayer);
 
-                // Wait for the layer to load
+                // Wait for the layer to load.
                 await myEncLayer.LoadAsync();
 
-                // Add the extent to the list of extents
+                // Add the extent to the list of extents.
                 dataSetExtents.Add(myEncLayer.FullExtent);
             }
 
-            // Use the geometry engine to compute the full extent of the ENC Exchange Set
+            // Use the geometry engine to compute the full extent of the ENC Exchange Set.
             Envelope fullExtent = GeometryEngine.CombineExtents(dataSetExtents);
 
-            // Set the viewpoint
+            // Set the viewpoint.
             _myMapView.SetViewpoint(new Viewpoint(fullExtent));
         }
 
         private void PointStyleChanged(object sender, EventArgs e)
         {
-            // Apply the selected point symbolization
+            // Apply the selected point symbolization.
             switch (_pointSegment.SelectedSegment)
             {
                 case 0:
@@ -136,7 +133,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
 
         private void AreaStyleChanged(object sender, EventArgs e)
         {
-            // Apply the selected area symbolization
+            // Apply the selected area symbolization.
             switch (_areaSegment.SelectedSegment)
             {
                 case 0:
@@ -152,7 +149,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
 
         private void ColorSchemeChanged(object sender, EventArgs e)
         {
-            // Apply the selected color scheme
+            // Apply the selected color scheme.
             switch (_colorSchemeSegment.SelectedSegment)
             {
                 case 0:
@@ -172,7 +169,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add controls to the view.
             View.AddSubviews(_myMapView, _toolbar, _colorsLabel, _areaLabel, _pointLabel, _colorSchemeSegment, _areaSegment, _pointSegment);
         }
 
@@ -188,8 +185,8 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
         {
             base.ViewWillDisappear(animated);
 
-            // ENC environment settings apply to the entire application
-            // They need to be reset after leaving the sample to avoid affecting other samples
+            // ENC environment settings apply to the entire application.
+            // They need to be reset after leaving the sample to avoid affecting other samples.
             EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings.ResetToDefaults();
             EncEnvironmentSettings.Default.DisplaySettings.ViewingGroupSettings.ResetToDefaults();
             EncEnvironmentSettings.Default.DisplaySettings.TextGroupVisibilitySettings.ResetToDefaults();
@@ -197,19 +194,22 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
 
         public override void ViewDidLayoutSubviews()
         {
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
             nfloat controlHeight = 30;
             nfloat margin = 5;
-            nfloat formStart = View.Bounds.Height - (6 * controlHeight) - (7 * margin);
+            nfloat toolbarHeight = 6 * controlHeight - 7 * margin;
+            nfloat formStart = View.Bounds.Height - toolbarHeight;
 
-            // Setup the visual frame for the MapView
+            // Reposition the controls. 
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
             _toolbar.Frame = new CoreGraphics.CGRect(0, formStart, View.Bounds.Width, View.Bounds.Height - formStart);
-            _colorsLabel.Frame = new CoreGraphics.CGRect(margin, formStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
-            _colorSchemeSegment.Frame = new CoreGraphics.CGRect(margin, formStart + controlHeight + (2 * margin), View.Bounds.Width - (2 * margin), controlHeight);
-            _areaLabel.Frame = new CoreGraphics.CGRect(margin, formStart + (2 * controlHeight) + (3 * margin), View.Bounds.Width - (2 * margin), controlHeight);
-            _areaSegment.Frame = new CoreGraphics.CGRect(margin, formStart + (3 * controlHeight) + (4 * margin), View.Bounds.Width - (2 * margin), controlHeight);
-            _pointLabel.Frame = new CoreGraphics.CGRect(margin, formStart + (4 * controlHeight) + (5 * margin), View.Bounds.Width - (2 * margin), controlHeight);
-            _pointSegment.Frame = new CoreGraphics.CGRect(margin, formStart + (5 * controlHeight) + (6 * margin), View.Bounds.Width - (2 * margin), controlHeight);
+            _colorsLabel.Frame = new CoreGraphics.CGRect(margin, formStart + margin, View.Bounds.Width - 2 * margin, controlHeight);
+            _colorSchemeSegment.Frame = new CoreGraphics.CGRect(margin, formStart + controlHeight + 2 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+            _areaLabel.Frame = new CoreGraphics.CGRect(margin, formStart + 2 * controlHeight + 3 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+            _areaSegment.Frame = new CoreGraphics.CGRect(margin, formStart + 3 * controlHeight + 4 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+            _pointLabel.Frame = new CoreGraphics.CGRect(margin, formStart + 4 * controlHeight + 5 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+            _pointSegment.Frame = new CoreGraphics.CGRect(margin, formStart + 5 * controlHeight + 6 * margin, View.Bounds.Width - 2 * margin, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }

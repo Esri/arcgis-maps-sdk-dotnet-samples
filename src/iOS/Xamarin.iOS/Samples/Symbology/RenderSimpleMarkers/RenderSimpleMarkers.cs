@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -26,7 +27,7 @@ namespace ArcGISRuntime.Samples.RenderSimpleMarkers
         "")]
     public class RenderSimpleMarkers : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the used MapView.
         private readonly MapView _myMapView = new MapView();
 
         public RenderSimpleMarkers()
@@ -38,41 +39,43 @@ namespace ArcGISRuntime.Samples.RenderSimpleMarkers
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization.
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
             base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
         {
-            // Create new Map with basemap
+            // Create new Map with imagery basemap.
             Map myMap = new Map(Basemap.CreateImagery());
 
-            // Create initial map location and reuse the location for graphic
+            // Create initial map location and reuse the location for graphic.
             MapPoint centralLocation = new MapPoint(-226773, 6550477, SpatialReferences.WebMercator);
-            Viewpoint initialViewpoint = new Viewpoint(centralLocation, 7500);
 
-            // Set initial viewpoint
-            myMap.InitialViewpoint = initialViewpoint;
+            // Set initial viewpoint.
+            myMap.InitialViewpoint = new Viewpoint(centralLocation, 7500);
 
-            // Provide used Map to the MapView
+            // Provide used Map to the MapView.
             _myMapView.Map = myMap;
 
-            // Create overlay to where graphics are shown
+            // Create overlay to where graphics are shown.
             GraphicsOverlay overlay = new GraphicsOverlay();
 
-            // Add created overlay to the MapView
+            // Add created overlay to the MapView.
             _myMapView.GraphicsOverlays.Add(overlay);
 
-            // Create a simple marker symbol
+            // Create a simple marker symbol.
             SimpleMarkerSymbol simpleSymbol = new SimpleMarkerSymbol
             {
                 Color = Color.Red,
@@ -80,14 +83,14 @@ namespace ArcGISRuntime.Samples.RenderSimpleMarkers
                 Style = SimpleMarkerSymbolStyle.Circle
             };
 
-            // Add a new graphic with a central point that was created earlier
+            // Add a new graphic with a central point that was created earlier.
             Graphic graphicWithSymbol = new Graphic(centralLocation, simpleSymbol);
             overlay.Graphics.Add(graphicWithSymbol);
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
     }

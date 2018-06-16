@@ -195,43 +195,43 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
 
             // Heading
             topMargin += margin;
-            _headingLabel.Frame = new CGRect(margin, topMargin, labelWidth - (2 * margin), rowHeight);
-            _headingSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - (2 * margin), rowHeight);
+            _headingLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
+            _headingSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
 
             // Pitch
             topMargin += rowHeight + margin;
-            _pitchLabel.Frame = new CGRect(margin, topMargin, labelWidth - (2 * margin), rowHeight);
-            _pitchSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - (2 * margin), rowHeight);
+            _pitchLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
+            _pitchSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
 
             // Horizontal Angle
             topMargin += rowHeight + margin;
-            _horizontalAngleLabel.Frame = new CGRect(margin, topMargin, labelWidth - (2 * margin), rowHeight);
-            _horizontalAngleSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - (2 * margin), rowHeight);
+            _horizontalAngleLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
+            _horizontalAngleSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
 
             // Vertical Angle
             topMargin += rowHeight + margin;
-            _verticalAngleLabel.Frame = new CGRect(margin, topMargin, labelWidth - (2 * margin), rowHeight);
-            _verticalAngleSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - (2 * margin), rowHeight);
+            _verticalAngleLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
+            _verticalAngleSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
 
             // Min Distance
             topMargin += rowHeight + margin;
-            _minimumDistanceLabel.Frame = new CGRect(margin, topMargin, labelWidth - (2 * margin), rowHeight);
-            _minimumDistanceSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - (2 * margin), rowHeight);
+            _minimumDistanceLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
+            _minimumDistanceSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
 
             // Max Distance
             topMargin += rowHeight + margin;
-            _maximumDistanceLabel.Frame = new CGRect(margin, topMargin, labelWidth - (2 * margin), rowHeight);
-            _maximumDistanceSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - (2 * margin), rowHeight);
+            _maximumDistanceLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
+            _maximumDistanceSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
 
             // Analysis Visibility
             topMargin += rowHeight + margin;
-            _analysisVisibilityLabel.Frame = new CGRect(margin, topMargin, labelWidth - (2 * margin), rowHeight);
-            _analysisVisibilitySwitch.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - (2 * margin), rowHeight);
+            _analysisVisibilityLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
+            _analysisVisibilitySwitch.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
 
             // Frustum Visibility
             topMargin += rowHeight + margin;
-            _frustumVisibilityLabel.Frame = new CGRect(margin, topMargin, labelWidth - (2 * margin), rowHeight);
-            _frustumVisibilitySwitch.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - (2 * margin), rowHeight);
+            _frustumVisibilityLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
+            _frustumVisibilitySwitch.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
 
             base.ViewDidLayoutSubviews();
         }

@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -17,7 +18,7 @@ using UIKit;
 namespace ArcGISRuntime.Samples.RasterLayerFile
 {
     [Register("RasterLayerFile")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Raster layer (file)",
         "Layers",
@@ -25,7 +26,7 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
         "The raster file is downloaded by the sample viewer automatically.")]
     public class RasterLayerFile : UIViewController
     {
-        // Reference to the MapView used in the sample
+        // Create and hold a reference to the MapView.
         private MapView _myMapView;
 
         public RasterLayerFile()
@@ -37,67 +38,62 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
         {
             base.ViewDidLoad();
 
-            // Create the layout
             CreateLayout();
-
-            // Initialize the app
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Set up the visual frame for the MapView
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+            // Reposition controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
             base.ViewDidLayoutSubviews();
         }
 
         private async void Initialize()
         {
-            // Add an imagery basemap
+            // Create a map with imagery basemap.
             Map myMap = new Map(Basemap.CreateImagery());
 
-            // Wait for the map to load
+            // Wait for the map to load.
             await myMap.LoadAsync();
 
-            // Get the file name
-            string filepath = GetRasterPath();
+            // Get the file name.
+            string filepath = DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");
 
-            // Load the raster file
+            // Load the raster file.
             Raster myRasterFile = new Raster(filepath);
 
-            // Create the layer
+            // Create the layer.
             RasterLayer myRasterLayer = new RasterLayer(myRasterFile);
 
-            // Add the layer to the map
+            // Add the layer to the map.
             myMap.OperationalLayers.Add(myRasterLayer);
 
-            // Wait for the layer to load
+            // Wait for the layer to load.
             await myRasterLayer.LoadAsync();
 
-            // Set the viewpoint
+            // Set the viewpoint.
             myMap.InitialViewpoint = new Viewpoint(myRasterLayer.FullExtent);
 
-            // Add map to the mapview
+            // Add map to the mapview.
             _myMapView.Map = myMap;
         }
 
         private void CreateLayout()
         {
-            // Create the mapview
+            // Create the mapview.
             _myMapView = new MapView
             {
-                // Add an imagery basemap
+                // Add an imagery basemap.
                 Map = new Map(Basemap.CreateImagery())
             };
 
-            // Add the map to the view
+            // Add the map to the view.
             View.AddSubviews(_myMapView);
-        }
-
-        private string GetRasterPath()
-        {
-            return DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");
         }
     }
 }

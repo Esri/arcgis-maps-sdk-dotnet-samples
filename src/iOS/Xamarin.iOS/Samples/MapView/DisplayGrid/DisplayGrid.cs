@@ -28,9 +28,8 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         "Use the buttons in the toolbar to change grid settings. Changes take effect immediately.")]
     public class DisplayGrid : UIViewController
     {
-        // Declare the UI controls.
+        // Create and hold references to the UI controls.
         private readonly UIToolbar _toolbar = new UIToolbar();
-
         private readonly UIButton _gridTypeButton = new UIButton();
         private readonly UIButton _gridColorButton = new UIButton();
         private readonly UIButton _labelPositionButton = new UIButton();
@@ -157,7 +156,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
                 // Record the selection and re-apply all settings.
                 labelPositionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action =>
                 {
-                    _selectedLabelPosition = (GridLabelPosition)Enum.Parse(typeof(GridLabelPosition), item);
+                    _selectedLabelPosition = (GridLabelPosition) Enum.Parse(typeof(GridLabelPosition), item);
                     ApplyCurrentSettings();
                 }));
             }
@@ -180,7 +179,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             }
 
             // Add an option for each grid type.
-            foreach (string item in new[] { "LatLong", "UTM", "MGRS", "USNG" })
+            foreach (string item in new[] {"LatLong", "UTM", "MGRS", "USNG"})
             {
                 // Record the selection and re-apply all settings.
                 gridTypeAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action =>
@@ -208,7 +207,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             }
 
             // Add an option for each color.
-            foreach (Colors item in new[] { Colors.Red, Colors.Green, Colors.Blue, Colors.White })
+            foreach (Colors item in new[] {Colors.Red, Colors.Green, Colors.Blue, Colors.White})
             {
                 // Record the selection and re-apply all settings.
                 labelColorAlert.AddAction(UIAlertAction.Create(item.Name, UIAlertActionStyle.Default, action =>
@@ -244,7 +243,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             }
 
             // Add an option for each color.
-            foreach (Colors item in new[] { Colors.Red, Colors.Green, Colors.Blue, Colors.White })
+            foreach (Colors item in new[] {Colors.Red, Colors.Green, Colors.Blue, Colors.White})
             {
                 // Record the selection and re-apply all settings.
                 gridColorAlert.AddAction(UIAlertAction.Create(item.Name, UIAlertActionStyle.Default, action =>
@@ -292,26 +291,20 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
         public override void ViewDidLayoutSubviews()
         {
-            // Helper variables for layout-critical values.
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
             nfloat toolbarHeight = 30;
-            nfloat topMargin = 60;
             nfloat buttonWidth = View.Bounds.Width / 4;
             nfloat toolbarPadding = 5;
 
-            // Apply the MapView frame, adjusting the insets to ensure that critical map
-            // elements aren't covered by the UI.
+            // Reposition the views.
             _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-
-            // Apply the toolbar frame.
             _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-
-            // Apply the button frames.
             int index = 0;
-            foreach (UIButton button in new[] { _gridTypeButton, _gridColorButton, _labelPositionButton, _labelColorButton })
+            foreach (UIButton button in new[] {_gridTypeButton, _gridColorButton, _labelPositionButton, _labelColorButton})
             {
                 // Apply the frame.
-                button.Frame = new CGRect((buttonWidth * index) + toolbarPadding, View.Bounds.Height - toolbarHeight + toolbarPadding, buttonWidth - toolbarPadding, toolbarHeight - (2 * 5));
+                button.Frame = new CGRect(buttonWidth * index + toolbarPadding, View.Bounds.Height - toolbarHeight + toolbarPadding, buttonWidth - toolbarPadding, toolbarHeight - 2 * 5);
                 // Increment the index.
                 index++;
             }

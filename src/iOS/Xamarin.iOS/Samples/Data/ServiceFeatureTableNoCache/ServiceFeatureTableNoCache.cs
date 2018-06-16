@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableNoCache
         "")]
     public class ServiceFeatureTableNoCache : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the used MapView
         private readonly MapView _myMapView = new MapView();
 
         public ServiceFeatureTableNoCache()

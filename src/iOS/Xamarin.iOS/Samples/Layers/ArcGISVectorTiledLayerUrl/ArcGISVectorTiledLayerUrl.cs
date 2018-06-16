@@ -26,11 +26,12 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
         "")]
     public class ArcGISVectorTiledLayerUrl : UIViewController
     {
-        // Create the UI controls
+        // Create the UI controls.
         private readonly MapView _myMapView = new MapView();
         private readonly UIToolbar _toolbar = new UIToolbar();
         private readonly UIButton _button = new UIButton();
 
+        // Dictionary maps layer names to URLs.
         private readonly Dictionary<string, Uri> _layerUrls = new Dictionary<string, Uri>
         {
             {"Mid-Century", new Uri("http://www.arcgis.com/home/item.html?id=7675d44bb1e4428aa2c30a9b68f97822")},
@@ -55,63 +56,68 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
 
         private void Initialize()
         {
-            // Create a new Map instance with the basemap
             Map myMap = new Map(SpatialReferences.WebMercator);
 
-            // Create a new ArcGISVectorTiledLayer
+            // Create a new ArcGISVectorTiledLayer.
             ArcGISVectorTiledLayer vectorTiledLayer = new ArcGISVectorTiledLayer(_layerUrls.Values.First());
 
-            // Create and use a new basemap
+            // Create and use a new basemap.
             myMap.Basemap = new Basemap(vectorTiledLayer);
 
-            // Assign the Map to the MapView
+            // Assign the Map to the MapView.
             _myMapView.Map = myMap;
         }
 
         private void LayerSelectionButtonClick(object sender, EventArgs e)
         {
-            // Create the view controller that will present the list of layers
+            // Create the view controller that will present the list of layers.
             UIAlertController layerSelectionAlert = UIAlertController.Create("Select a vector layer", "", UIAlertControllerStyle.ActionSheet);
 
-            // Add an option for each layer
+            // Add an option for each layer.
             foreach (string item in _layerUrls.Keys)
             {
-                // Selecting the layer will call the ChooseLayer function
+                // Selecting the layer will call the ChooseLayer function.
                 layerSelectionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action => ChooseLayer(item)));
             }
 
-            // Show the alert
+            // Show the alert.
             PresentViewController(layerSelectionAlert, true, null);
         }
 
         private void ChooseLayer(string layer)
         {
-            // Get the layer based on the selection
+            // Get the layer based on the selection.
             ArcGISVectorTiledLayer vectorTiledLayer = new ArcGISVectorTiledLayer(_layerUrls[layer]);
 
-            // Apply the layer
+            // Apply the layer.
             _myMapView.Map = new Map(new Basemap(vectorTiledLayer));
         }
 
         private void CreateLayout()
         {
-            // Update the button parameters
+            // Update the button parameters.
             _button.SetTitle("Choose a layer", UIControlState.Normal);
             _button.SetTitleColor(View.TintColor, UIControlState.Normal);
 
-            // Allow the user to select new layers
+            // Allow the user to select new layers.
             _button.TouchUpInside += LayerSelectionButtonClick;
 
-            // Add views
+            // Add views.
             View.AddSubviews(_myMapView, _toolbar, _button);
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frames for the views 
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat margin = 5;
+            nfloat controlHeight = 30;
+            nfloat toolbarHeight = controlHeight + 2 * margin;
+
+            // Reposition the controls.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-            _button.Frame = new CoreGraphics.CGRect(5, _toolbar.Frame.Top + 5, View.Bounds.Width - 10, 30);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+            _button.Frame = new CoreGraphics.CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }

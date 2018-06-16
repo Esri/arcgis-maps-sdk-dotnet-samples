@@ -422,7 +422,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             // Update the map insets. This will keep the map content centered
             //     within the visible area of the MapView. Additionally, it will
             //     ensure that the attribution bar is not obscured by the toolbar.
-            //_myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 50, 0);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 50, 0);
 
             // Set up the visual frame for the Toolbar.
             _toolbarTray.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);

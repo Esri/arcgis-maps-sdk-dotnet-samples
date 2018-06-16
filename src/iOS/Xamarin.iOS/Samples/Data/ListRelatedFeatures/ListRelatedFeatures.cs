@@ -143,7 +143,10 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
             View.AddSubviews(_myMapView);
 
             // Create the table view
-            _myDisplayList = new UITableView();
+            _myDisplayList = new UITableView()
+            {
+                RowHeight = 20
+            };
 
             // Add the table view to the layout
             View.AddSubview(_myDisplayList);

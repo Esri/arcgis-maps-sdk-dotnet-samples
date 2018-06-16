@@ -29,9 +29,12 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
     {
         // Create a MapView control to display a map
         private readonly MapView _myMapView = new MapView();
+        private UIButton _showMetadataButton;
+        private UIToolbar _toolbar = new UIToolbar();
 
         // Store the shapefile metadata
         private ShapefileInfo _shapefileMetadata;
+
 
         public ReadShapefileMetadata()
         {
@@ -55,6 +58,8 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
 
             // Update the UI to account for new layout
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            _showMetadataButton.Frame = new CoreGraphics.CGRect(5, View.Bounds.Height - 35, View.Bounds.Width - 10, 30);
         }
 
         private async void Initialize()
@@ -94,23 +99,16 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
 
         private void CreateLayout()
         {
-            // Add MapView to the page
-            View.AddSubview(_myMapView);
-
             // Add a button at the bottom to show metadata dialog
-            UIButton metadataButton = new UIButton(UIButtonType.Custom)
-            {
-                Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40),
-                BackgroundColor = UIColor.White
-            };
+            _showMetadataButton = new UIButton();
 
             // Create button to show metadata
-            metadataButton.SetTitle("Metadata", UIControlState.Normal);
-            metadataButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            metadataButton.TouchUpInside += OnMetadataButtonTouch;
+            _showMetadataButton.SetTitle("Metadata", UIControlState.Normal);
+            _showMetadataButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _showMetadataButton.TouchUpInside += OnMetadataButtonTouch;
 
             // Add MapView to the page
-            View.AddSubviews(_myMapView, metadataButton);
+            View.AddSubviews(_myMapView, _toolbar, _showMetadataButton);
         }
 
         private void OnMetadataButtonTouch(object sender, EventArgs e)

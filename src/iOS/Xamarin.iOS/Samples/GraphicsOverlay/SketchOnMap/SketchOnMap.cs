@@ -44,6 +44,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
 
         // Segmented control to show sketch controls
         private UISegmentedControl _segmentButton;
+        private UIToolbar _toolbar = new UIToolbar();
         
         public SketchOnMap()
         {
@@ -67,7 +68,8 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         {
            // Setup the visual frame for the MapView
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _segmentButton.Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height - 60, View.Bounds.Width, 30);
+            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+            _segmentButton.Frame = new CoreGraphics.CGRect(5, _myMapView.Bounds.Height - 35, View.Bounds.Width - 10, 30);
         }
 
         private void Initialize()
@@ -103,11 +105,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
 
 
             // Add a segmented button control
-            _segmentButton = new UISegmentedControl("Sketch", "Edit", "Undo", "Redo", "Done", "Clear")
-            {
-                BackgroundColor = UIColor.White,
-                Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height - 60, View.Bounds.Width, 30)
-            };
+            _segmentButton = new UISegmentedControl("Sketch", "Edit", "Undo", "Redo", "Done", "Clear");
 
             // Disable all segment buttons except "Sketch"
             _segmentButton.SetEnabled(false, 1);
@@ -120,7 +118,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             _segmentButton.ValueChanged += SegmentButtonClicked;
 
             // Add the MapView and UIButton to the page
-            View.AddSubviews(_myMapView, _segmentButton);
+            View.AddSubviews(_myMapView, _toolbar, _segmentButton);
         }
 
         private void GraphicsChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

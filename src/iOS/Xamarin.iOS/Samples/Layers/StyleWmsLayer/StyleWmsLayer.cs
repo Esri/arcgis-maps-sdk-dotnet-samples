@@ -156,7 +156,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
             // Update the insets for the map view (to ensure attribution bar is visible, among other reasons).
-            //_myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 50, 0);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 50, 0);
 
             // Update the toolbar and button positions.
             _buttonContainer.Frame = new CGRect(0, View.Bounds.Height - (2 * controlHeight) - (3 * margin), View.Bounds.Width, 2 * controlHeight + 3 * margin);

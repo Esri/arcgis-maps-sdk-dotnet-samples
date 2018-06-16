@@ -70,13 +70,14 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             nfloat pageOffset = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
             nfloat controlHeight = 30;
             nfloat margin = 5;
+            nfloat switchWidth = _onlyInExtentSwitch.IntrinsicContentSize.Width;
 
             // Setup the visual frames for the views.
             _toolbar.Frame = new CoreGraphics.CGRect(0, pageOffset, View.Bounds.Width, controlHeight * 3 + margin * 4);
-            _extentSwitchLabel.Frame = new CoreGraphics.CGRect(margin, pageOffset + margin, View.Bounds.Width - (2 * margin), controlHeight);
-            _onlyInExtentSwitch.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 50 - (2 * margin), pageOffset + margin, 50, controlHeight);
-            _citySwitchLabel.Frame = new CoreGraphics.CGRect(margin, pageOffset + controlHeight + 2 * margin, View.Bounds.Width - (2 * margin), controlHeight);
-            _onlyBigCitiesSwitch.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 50 - (2 * margin), pageOffset + controlHeight + 2 * margin, 50, controlHeight);
+            _extentSwitchLabel.Frame = new CoreGraphics.CGRect(margin, pageOffset + margin, View.Bounds.Width - switchWidth - (4 * margin), controlHeight);
+            _onlyInExtentSwitch.Frame = new CoreGraphics.CGRect(View.Bounds.Width - switchWidth - (2 * margin), pageOffset + margin, switchWidth, controlHeight);
+            _citySwitchLabel.Frame = new CoreGraphics.CGRect(margin, pageOffset + controlHeight + 2 * margin, View.Bounds.Width - switchWidth - (4 * margin), controlHeight);
+            _onlyBigCitiesSwitch.Frame = new CoreGraphics.CGRect(View.Bounds.Width - switchWidth - (2 * margin), pageOffset + controlHeight + 2 * margin, switchWidth, controlHeight);
             _getStatsButton.Frame = new CoreGraphics.CGRect(margin, pageOffset + 2 * controlHeight + 3 * margin, View.Bounds.Width - (2 * margin), controlHeight);
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
@@ -107,14 +108,16 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             _onlyBigCitiesSwitch = new UISwitch();
             _citySwitchLabel = new UILabel
             {
-                Text = "Only cities over 5M"
+                Text = "Only cities over 5M",
+                TextAlignment = UITextAlignment.Right
             };
 
             // Create a switch (and associated label) to include only cities in the current extent
             _onlyInExtentSwitch = new UISwitch();
             _extentSwitchLabel = new UILabel
             {
-                Text = "Only cities in extent"
+                Text = "Only cities in extent",
+                TextAlignment = UITextAlignment.Right
             };
 
             // Create a button to invoke the query

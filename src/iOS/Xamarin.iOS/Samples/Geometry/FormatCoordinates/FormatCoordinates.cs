@@ -174,6 +174,10 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             _utmEntry.TextColor = View.TintColor;
             _usngEntry.TextColor = View.TintColor;
             _ddEntry.TextColor = View.TintColor;
+            _ddEntry.BorderStyle = UITextBorderStyle.RoundedRect;
+            _utmEntry.BorderStyle = UITextBorderStyle.RoundedRect;
+            _usngEntry.BorderStyle = UITextBorderStyle.RoundedRect;
+            _dmsEntry.BorderStyle = UITextBorderStyle.RoundedRect;
 
             // Enable text fields to close keyboard
             _dmsEntry.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };

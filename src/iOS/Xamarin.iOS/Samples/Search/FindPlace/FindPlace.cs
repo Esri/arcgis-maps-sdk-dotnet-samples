@@ -172,7 +172,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             _backgroundToolbar.Frame = new CoreGraphics.CGRect(0, topHeight, View.Bounds.Width, height * 3 + margin * 4);
 
             // Set the map insets
-            //_myMapView.ViewInsets = new UIEdgeInsets(_backgroundToolbar.Frame.Bottom, 0, 0, 0);
+            _myMapView.ViewInsets = new UIEdgeInsets(_backgroundToolbar.Frame.Bottom, 0, 0, 0);
 
 
             // The search box is the topmost control and fills the width of the screen

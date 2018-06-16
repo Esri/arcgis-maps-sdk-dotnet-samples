@@ -78,8 +78,8 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             nfloat margin = 5;
             nfloat controlHeight = 30;
             nfloat columnSplit = 100;
-            nfloat topStart = View.Bounds.Height - (controlHeight * 3) - (margin * 4);
             nfloat topFrame = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat topStart = topFrame;
 
             // Setup the visual frames for the controls
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
@@ -213,7 +213,8 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             _startDateLabel = new UILabel
             {
                 Text = "Start date:",
-                AdjustsFontSizeToFitWidth = true
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Right
             };
 
             // Create text field for the initial start date "1/1/98" for the analysis
@@ -231,7 +232,8 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             _endDateLabel = new UILabel
             {
                 Text = "End date:",
-                AdjustsFontSizeToFitWidth = true
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Right
             };
 
             // Create text field for the initial end date "1/31/98" for the analysis

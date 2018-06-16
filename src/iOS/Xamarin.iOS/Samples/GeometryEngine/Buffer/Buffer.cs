@@ -64,13 +64,14 @@ namespace ArcGISRuntime.Samples.Buffer
             nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
             nfloat controlHeight = 30;
             nfloat margin = 5;
+            nfloat colSplit = View.Bounds.Width / 3;
 
             // Setup the visual frames for the views.
             _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
             _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, 2 * controlHeight + 3 * margin);
             _helpLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - (2 * margin), controlHeight);
-            _bufferHelpLabel.Frame = new CoreGraphics.CGRect(margin, topStart + controlHeight + (2 *margin) - 1, View.Bounds.Width / 2 - (2 * margin), controlHeight);
-            _bufferDistanceEntry.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, topStart + controlHeight + 2 * margin, View.Bounds.Width / 2 - (2 * margin), controlHeight);
+            _bufferHelpLabel.Frame = new CoreGraphics.CGRect(margin, topStart + controlHeight + (2 *margin), colSplit - (2 * margin), controlHeight);
+            _bufferDistanceEntry.Frame = new CoreGraphics.CGRect(colSplit + margin, topStart + controlHeight + 2 * margin, View.Bounds.Width - colSplit - (2 * margin), controlHeight);
 
             base.ViewDidLayoutSubviews();
         }
@@ -158,7 +159,8 @@ namespace ArcGISRuntime.Samples.Buffer
             _bufferHelpLabel = new UILabel
             {
                 Text = "Buffer (miles):",
-                AdjustsFontSizeToFitWidth = true
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Right
             };
 
             _helpLabel = new UILabel
@@ -172,7 +174,9 @@ namespace ArcGISRuntime.Samples.Buffer
             {
                 Text = "10",
                 AdjustsFontSizeToFitWidth = true,
-                TextColor = View.TintColor
+                TextColor = View.TintColor,
+                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
+                BorderStyle = UITextBorderStyle.RoundedRect
             };
 
             // - Allow pressing 'return' to dismiss the keyboard

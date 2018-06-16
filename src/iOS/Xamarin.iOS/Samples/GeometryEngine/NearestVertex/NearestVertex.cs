@@ -30,7 +30,6 @@ namespace ArcGISRuntime.Samples.NearestVertex
         // Label to show the distance (and an initial prompt)
         private readonly UITextView _distanceLabel = new UITextView
         {
-            TextColor = UIColor.Red,
             Text = "Tap to see the nearest vertex and point.",
             TextAlignment = UITextAlignment.Center
         };
@@ -140,7 +139,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
             View.AddSubviews(_myMapView, _distanceLabel);
 
             // Make sure the map attribution isn't covered by the distance label
-            //_myMapView.ViewInsets = new UIEdgeInsets(0, 0, 30, 0);
+            _myMapView.ViewInsets = new UIEdgeInsets(0, 0, 30, 0);
         }
 
         public override void ViewDidLoad()

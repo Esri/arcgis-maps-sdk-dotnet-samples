@@ -37,9 +37,7 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
         private UILabel _segmentLengthLabel;
         private UILabel _deviationLabel;
         private UILabel _resultLabel;
-        private UIToolbar _resultArea;
-        private UIToolbar _segmentArea;
-        private UIToolbar _deviationArea;
+        private UIToolbar _toolbar = new UIToolbar();
 
         // Graphic used to refer to the original geometry.
         private Polyline _originalPolyline;
@@ -64,34 +62,31 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height +
-                               UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat areaHeight = 30;
-            nfloat paddingValue = 5;
-
+            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat controlHeight = 30;
+            nfloat margin = 5;
+            nfloat frameHeight = (3 * controlHeight) + (4 * margin);
+            nfloat colSplit = View.Bounds.Width * 2 / 3;
             _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            //_myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, areaHeight * 3, 0);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, controlHeight * 3 + margin * 4, 0);
 
             // Place the toolbars.
-            _resultArea.Frame = new CGRect(0, View.Bounds.Height - (1 * areaHeight), View.Bounds.Width, areaHeight);
-            _segmentArea.Frame = new CGRect(0, View.Bounds.Height - (2 * areaHeight), View.Bounds.Width, areaHeight);
-            _deviationArea.Frame = new CGRect(0, View.Bounds.Height - (3 * areaHeight), View.Bounds.Width, areaHeight);
+
+            _toolbar.Frame = new CGRect(0, View.Bounds.Height - frameHeight, View.Bounds.Width, frameHeight);
 
             // Place the labels.
-            _resultLabel.Frame = new CGRect(paddingValue, View.Bounds.Height - (1 * areaHeight) + paddingValue,
-                View.Bounds.Width - (2 * paddingValue), areaHeight - (2 * paddingValue));
-            _segmentLengthLabel.Frame = new CGRect(paddingValue, View.Bounds.Height - (2 * areaHeight) + paddingValue,
-                View.Bounds.Width * 2 / 3, areaHeight - (2 * paddingValue));
-            _deviationLabel.Frame = new CGRect(paddingValue, View.Bounds.Height - (3 * areaHeight) + paddingValue,
-                View.Bounds.Width * 2 / 3, areaHeight - (2 * paddingValue));
+            _resultLabel.Frame = new CGRect(margin, View.Bounds.Height - (1 * controlHeight) - margin,
+                View.Bounds.Width - (2 * margin), controlHeight);
+            _segmentLengthLabel.Frame = new CGRect(margin, View.Bounds.Height - (2 * controlHeight) - (2 * margin),
+                colSplit - (2 * margin), controlHeight);
+            _deviationLabel.Frame = new CGRect(margin, View.Bounds.Height - (3 * controlHeight) - (3 * margin),
+                colSplit - (2 * margin), controlHeight);
 
             // Place the sliders.
-            _segmentLengthSlider.Frame = new CGRect(View.Bounds.Width * 2 / 3,
-                View.Bounds.Height - (2 * areaHeight) + paddingValue, View.Bounds.Width * 1 / 3,
-                areaHeight - (2 * paddingValue));
-            _deviationSlider.Frame = new CGRect(View.Bounds.Width * 2 / 3,
-                View.Bounds.Height - (3 * areaHeight) + paddingValue, View.Bounds.Width * 1 / 3,
-                areaHeight - (2 * paddingValue));
+            _segmentLengthSlider.Frame = new CGRect(colSplit + margin,
+                View.Bounds.Height - (2 * controlHeight) - (2 * margin), View.Bounds.Width * 1 / 3 - (margin * 2),
+                controlHeight);
+            _deviationSlider.Frame = new CGRect(colSplit + margin, View.Bounds.Height - (3 * controlHeight) - (3 * margin), View.Bounds.Width * 1 / 3- margin * 2, controlHeight);
 
             base.ViewDidLayoutSubviews();
         }
@@ -157,14 +152,14 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
                 polyline = (Polyline) GeometryEngine.Generalize(polyline, deviation, true);
 
                 // Update the result label.
-                _resultLabel.Text = $"Generalize. Deviation: {deviation:f}";
+                _resultLabel.Text = $"Generalize - Deviation: {deviation:f}";
             }
             else
             {
                 polyline = (Polyline) GeometryEngine.Densify(polyline, segmentLength);
 
                 // Update the result label.
-                _resultLabel.Text = $"Densify. Seg. length: {segmentLength:f}";
+                _resultLabel.Text = $"Densify - Segment length: {segmentLength:f}";
             }
 
             // Update the graphic geometries to show the results.
@@ -218,19 +213,13 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             _deviationLabel.Text = "Max. Deviation: ";
             _segmentLengthLabel.Text = "Max. Segment length:";
             _resultLabel.Text = "Adjust a slider to start";
-
-            // Update the text color.
-            _resultLabel.TextColor = View.TintColor;
-            _segmentLengthLabel.TextColor = View.TintColor;
-            _deviationLabel.TextColor = View.TintColor;
-
-            // Create the toolbars.
-            _resultArea = new UIToolbar();
-            _deviationArea = new UIToolbar();
-            _segmentArea = new UIToolbar();
+            _deviationLabel.TextAlignment = UITextAlignment.Right;
+            _segmentLengthLabel.TextAlignment = UITextAlignment.Right;
+            _resultLabel.TextAlignment = UITextAlignment.Center;
+            _resultLabel.AdjustsFontSizeToFitWidth = true;
 
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _resultArea, _segmentArea, _deviationArea, _segmentLengthLabel,
+            View.AddSubviews(_myMapView, _toolbar, _segmentLengthLabel,
                 _deviationLabel, _deviationSlider, _segmentLengthSlider, _deviationLabel, _resultLabel);
         }
     }

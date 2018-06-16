@@ -217,7 +217,6 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     case EditState.NotReady:
                         return;
                     // If an edit is in process, finish it.
-                    // Otherwise, start an edit.
                     case EditState.Editing:
                         // Hold a list of any selected features.
                         List<Feature> selectedFeatures = new List<Feature>();
@@ -268,6 +267,32 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
 
                         // Update the help label.
                         _helpLabel.Text = "4. Tap 'Synchronize' or edit more features.";
+                        break;
+                    // Otherwise, start an edit.
+                    case EditState.Ready:
+                        // Define a tolerance for use with identifying the feature.
+                        double tolerance = 15 * myMapView.UnitsPerPixel;
+
+                        // Define the selection envelope.
+                        Envelope selectionEnvelope = new Envelope(e.Location.X - tolerance, e.Location.Y - tolerance, e.Location.X + tolerance, e.Location.Y + tolerance);
+
+                        // Define query parameters for feature selection.
+                        QueryParameters query = new QueryParameters()
+                        {
+                            Geometry = selectionEnvelope
+                        };
+
+                        // Select the feature in all applicable tables.
+                        foreach (FeatureLayer layer in myMapView.Map.OperationalLayers)
+                        {
+                            await layer.SelectFeaturesAsync(query, SelectionMode.New);
+                        }
+
+                        // Set the edit state.
+                        _readyForEdits = EditState.Editing;
+
+                        // Update the help label.
+                        myHelpLabel.Text = "3. Tap on the map to move the point";
                         break;
                 }
             }

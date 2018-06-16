@@ -271,7 +271,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     // Otherwise, start an edit.
                     case EditState.Ready:
                         // Define a tolerance for use with identifying the feature.
-                        double tolerance = 15 * myMapView.UnitsPerPixel;
+                        double tolerance = 15 * _myMapView.UnitsPerPixel;
 
                         // Define the selection envelope.
                         Envelope selectionEnvelope = new Envelope(e.Location.X - tolerance, e.Location.Y - tolerance, e.Location.X + tolerance, e.Location.Y + tolerance);
@@ -283,7 +283,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                         };
 
                         // Select the feature in all applicable tables.
-                        foreach (FeatureLayer layer in myMapView.Map.OperationalLayers)
+                        foreach (FeatureLayer layer in _myMapView.Map.OperationalLayers)
                         {
                             await layer.SelectFeaturesAsync(query, SelectionMode.New);
                         }
@@ -292,7 +292,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                         _readyForEdits = EditState.Editing;
 
                         // Update the help label.
-                        myHelpLabel.Text = "3. Tap on the map to move the point";
+                        _helpLabel.Text = "3. Tap on the map to move the point.";
                         break;
                 }
             }

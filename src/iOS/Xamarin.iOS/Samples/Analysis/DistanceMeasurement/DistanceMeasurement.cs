@@ -35,6 +35,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         private UILabel _resultLabel;
         private UIToolbar _resultArea;
         private UIButton _unitChangeButton;
+		private UIToolbar _helpToolbar = new UIToolbar();
 
         // URLs to various services used to provide an interesting scene for the sample.
         private readonly Uri _buildingService =
@@ -127,7 +128,6 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             // Create the help label.
             _helpLabel = new UILabel
             {
-                TextColor = UIColor.Red,
                 Text = "Tap to update.",
                 TextAlignment = UITextAlignment.Center
             };
@@ -135,8 +135,8 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             // Create the result label.
             _resultLabel = new UILabel
             {
-                TextColor = View.TintColor,
-                TextAlignment = UITextAlignment.Center
+				TextAlignment = UITextAlignment.Center,
+                AdjustsFontSizeToFitWidth = true
             };
 
             // Create the result toolbar.
@@ -154,7 +154,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             _unitChangeButton.TouchUpInside += UnitChangeButton_TouchUpInside;
 
             // Add views to the page.
-            View.AddSubviews(_mySceneView, _resultArea, _helpLabel, _resultLabel, _unitChangeButton);
+            View.AddSubviews(_mySceneView, _helpToolbar, _resultArea, _helpLabel, _resultLabel, _unitChangeButton);
         }
 
         private void UnitChangeButton_TouchUpInside(object sender, EventArgs e)
@@ -195,15 +195,17 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         public override void ViewDidLayoutSubviews()
         {
             var topMargin = NavigationController.NavigationBar.Frame.Height +
-                            UIApplication.SharedApplication.StatusBarFrame.Height + 10;
-            nfloat toolbarHeight = 30;
+                            UIApplication.SharedApplication.StatusBarFrame.Height;
+            nfloat toolbarHeight = 40;
+			nfloat controlHeight = 30;
 
             // Place the scene view and update the insets to avoid hiding view elements like the attribution bar.
             _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+            _mySceneView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, toolbarHeight, 0);
 
             // Place the help label.
-            _helpLabel.Frame = new CGRect(0, topMargin + 10, View.Bounds.Width, toolbarHeight);
+			_helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, 40);
+            _helpLabel.Frame = new CGRect(5, topMargin + 5, View.Bounds.Width - 10, controlHeight);
 
             // Place the result toolbar.
             _resultArea.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);

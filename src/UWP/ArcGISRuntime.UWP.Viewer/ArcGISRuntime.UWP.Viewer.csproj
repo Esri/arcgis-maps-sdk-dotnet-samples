@@ -181,6 +181,7 @@
     <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
     <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <Content Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
+    <Content Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.jpg" />
     <Content Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
     <Content Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
     <Content Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
@@ -223,6 +224,7 @@
     <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
     <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
     <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
+    <Content Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg" />
     <Content Include="Samples\Network Analysis\FindRoute\FindRoute.jpg" />
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <Content Include="Samples\Search\FindPlace\FindPlace.jpg" />
@@ -486,9 +488,12 @@
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml.cs">
       <DependentUpon>FeatureLayerUrl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.xaml.cs">
+      <DependentUpon>MapImageLayerTables.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml.cs">
       <DependentUpon>MapImageSublayerQuery.xaml</DependentUpon>
-    </Compile>
+    </Compile>    
     <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
       <DependentUpon>RasterHillshade.xaml</DependentUpon>
     </Compile>
@@ -611,6 +616,9 @@
     </Compile>
     <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml.cs">
       <DependentUpon>SetMinMaxScale.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml.cs">
+      <DependentUpon>ClosestFacility.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Network Analysis\FindRoute\FindRoute.xaml.cs">
       <DependentUpon>FindRoute.xaml</DependentUpon>
@@ -921,10 +929,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml">
+    <Page Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>    
     <Page Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1086,6 +1098,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

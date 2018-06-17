@@ -24,7 +24,7 @@ namespace ArcGISRuntime.UWP.Samples.OpenMapURL
         // String array to hold URLs to publicly available web maps.
         private readonly string[] _itemUrls =
         {
-            "http://www.arcgis.com/home/item.html?id=2d6fa24b357d427f9c737774e7b0f977",
+            "http://www.arcgis.com/home/item.html?id=392451c381ad4109bf04f7bd442bc038",
             "http://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
             "http://www.arcgis.com/home/item.html?id=92ad152b9da94dee89b9e387dfe21acd"
         };
@@ -32,7 +32,7 @@ namespace ArcGISRuntime.UWP.Samples.OpenMapURL
         // String array to store titles for the webmaps specified above. These titles are in the same order as the URLs above.
         private readonly string[] _titles =
         {
-            "Housing with Mortgages",
+            "Population Pressure",
             "USA Tapestry Segmentation",
             "Geology of United States"
         };

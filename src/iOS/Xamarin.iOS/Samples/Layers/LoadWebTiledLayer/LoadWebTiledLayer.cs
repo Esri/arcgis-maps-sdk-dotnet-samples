@@ -29,7 +29,7 @@ namespace ArcGISRuntime.Samples.LoadWebTiledLayer
         private readonly MapView _myMapView = new MapView();
 
         // Templated URL to the tile service.
-        private readonly string _templateUri = "http://{subDomain}.tile.stamen.com/terrain/{level}/{col}/{row}.png";
+        private const string TemplateUri = "http://{subDomain}.tile.stamen.com/terrain/{level}/{col}/{row}.png";
 
         // List of subdomains for use when constructing the web tiled layer.
         private readonly List<string> _tiledLayerSubdomains = new List<string> {"a", "b", "c", "d"};
@@ -48,16 +48,16 @@ namespace ArcGISRuntime.Samples.LoadWebTiledLayer
         private async void Initialize()
         {
             // Create the layer from the URL and the subdomain list.
-            WebTiledLayer myBaseLayer = new WebTiledLayer(_templateUri, _tiledLayerSubdomains);
+            WebTiledLayer baseLayer = new WebTiledLayer(TemplateUri, _tiledLayerSubdomains);
 
             // Wait for the layer to load.
-            await myBaseLayer.LoadAsync();
+            await baseLayer.LoadAsync();
 
             // Create a basemap from the layer.
-            Basemap layerBasemap = new Basemap(myBaseLayer);
+            Basemap layerBasemap = new Basemap(baseLayer);
 
             // Apply the attribution for the layer.
-            myBaseLayer.Attribution = _attribution;
+            baseLayer.Attribution = _attribution;
 
             // Show the tiled layer basemap.
             _myMapView.Map = new Map(layerBasemap);
@@ -79,13 +79,19 @@ namespace ArcGISRuntime.Samples.LoadWebTiledLayer
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Reposition controls.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 }

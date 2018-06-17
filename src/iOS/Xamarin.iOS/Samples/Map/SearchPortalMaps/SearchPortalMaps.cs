@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreGraphics;
 using UIKit;
 using Xamarin.Auth;
 
@@ -66,28 +67,34 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat controlHeight = 30;
-            nfloat margin = 5;
-            nfloat toolbarHeight = controlHeight + 2 * margin;
-
-            // Reposition the views.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-            _segmentButton.Frame = new CoreGraphics.CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - (2 * margin), controlHeight);
-
-            if (_searchMapsUi != null)
+            try
             {
-                _searchMapsUi.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height);
-            }
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat toolbarHeight = controlHeight + 2 * margin;
 
-            if (_oauthInfoUi != null)
+                // Reposition the views.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                _segmentButton.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - (2 * margin), controlHeight);
+
+                if (_searchMapsUi != null)
+                {
+                    _searchMapsUi.Frame = new CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height);
+                }
+
+                if (_oauthInfoUi != null)
+                {
+                    _oauthInfoUi.Frame = new CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height);
+                }
+
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
             {
-                _oauthInfoUi.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height);
             }
-
-            base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
@@ -109,7 +116,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
             // Create a view to show entry controls over the map view.
-            var ovBounds = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height);
+            var ovBounds = new CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height);
             _oauthInfoUi = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, _appClientId, _oAuthRedirectUrl);
 
             // Handle the OnOAuthPropsInfoEntered event to get the info entered by the user.
@@ -181,7 +188,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
             // Create a view to show map item info entry controls over the map view.
-            var ovBounds = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height);
+            var ovBounds = new CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height);
             _searchMapsUi = new SearchMapsDialogOverlay(ovBounds, 0.75f, UIColor.White);
 
             // Handle the OnSearchMapsTextEntered event to get the info entered by the user.
@@ -565,7 +572,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private readonly UITextField _clientIdTextField;
         private readonly UITextField _redirectUrlTextField;
 
-        public OAuthPropsDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, string clientId, string redirectUrl) : base(frame)
+        public OAuthPropsDialogOverlay(CGRect frame, nfloat transparency, UIColor color, string clientId, string redirectUrl) : base(frame)
         {
             // Create a semi-transparent overlay with the specified background color.
             BackgroundColor = color;
@@ -584,7 +591,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             nfloat controlY = 5;
 
             // Label for inputs.
-            var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            var description = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = "OAuth settings",
                 TextColor = UIColor.Black
@@ -594,20 +601,20 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             controlY = controlY + controlHeight + rowSpace;
 
             // Client ID text input and label.
-            var clientIdLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            var clientIdLabel = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = "Client ID"
             };
 
             controlY = controlY + controlHeight + lessRowSpace;
 
-            _clientIdTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            _clientIdTextField = new UITextField(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Placeholder = "Client ID",
                 Text = clientId,
                 AutocapitalizationType = UITextAutocapitalizationType.None,
                 BackgroundColor = UIColor.LightGray,
-                LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20)),
+                LeftView = new UIView(new CGRect(0, 0, 5, 20)),
                 LeftViewMode = UITextFieldViewMode.Always
             };
             // Allow pressing 'return' to dismiss the keyboard.
@@ -621,20 +628,20 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             controlY = controlY + controlHeight + rowSpace;
 
             // Redirect URL text input and label.
-            var redirectLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            var redirectLabel = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = "Redirect URL"
             };
 
             controlY = controlY + controlHeight + lessRowSpace;
 
-            _redirectUrlTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            _redirectUrlTextField = new UITextField(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Placeholder = "Redirect URI",
                 Text = redirectUrl,
                 AutocapitalizationType = UITextAutocapitalizationType.None,
                 BackgroundColor = UIColor.LightGray,
-                LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20)),
+                LeftView = new UIView(new CGRect(0, 0, 5, 20)),
                 LeftViewMode = UITextFieldViewMode.Always
             };
             // Allow pressing 'return' to dismiss the keyboard.
@@ -648,7 +655,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             controlY = controlY + controlHeight + rowSpace;
 
             // Button to save the values
-            UIButton saveButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
+            UIButton saveButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             saveButton.SetTitle("Save", UIControlState.Normal);
             saveButton.SetTitleColor(TintColor, UIControlState.Normal);
             saveButton.TouchUpInside += SaveButtonClick;
@@ -657,7 +664,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             controlX = controlX + buttonWidth + buttonSpace;
 
             // Button to cancel the save.
-            UIButton cancelButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
+            UIButton cancelButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
             cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
             cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
@@ -738,7 +745,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         // Store the input control so the value can be read.
         private readonly UITextField _searchTextField;
 
-        public SearchMapsDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color) : base(frame)
+        public SearchMapsDialogOverlay(CGRect frame, nfloat transparency, UIColor color) : base(frame)
         {
             // Create a semi-transparent overlay with the specified background color.
             BackgroundColor = color;
@@ -756,7 +763,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             nfloat controlY = 5;
 
             // Label for inputs.
-            var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            var description = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = "Search web maps",
                 TextColor = UIColor.Black
@@ -766,12 +773,12 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             controlY = controlY + controlHeight + rowSpace;
 
             // Title text input.
-            _searchTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            _searchTextField = new UITextField(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Placeholder = "Search text",
                 AutocapitalizationType = UITextAutocapitalizationType.None,
                 BackgroundColor = UIColor.LightGray,
-                LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20)),
+                LeftView = new UIView(new CGRect(0, 0, 5, 20)),
                 LeftViewMode = UITextFieldViewMode.Always
             };
 
@@ -793,7 +800,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             controlY = controlY + controlHeight + rowSpace;
 
             // Button to pass the text to the search.
-            UIButton saveButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
+            UIButton saveButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             saveButton.SetTitle("Search", UIControlState.Normal);
             saveButton.SetTitleColor(TintColor, UIControlState.Normal);
             saveButton.TouchUpInside += SearchButtonClick;
@@ -802,7 +809,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             controlX = controlX + buttonWidth + buttonSpace;
 
             // Button to cancel the search.
-            UIButton cancelButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
+            UIButton cancelButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
             cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
             cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };

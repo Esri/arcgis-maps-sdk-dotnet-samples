@@ -14,6 +14,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
@@ -108,18 +109,24 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat margin = 5;
-            nfloat controlHeight = 30;
-            nfloat toolbarHeight = controlHeight + 2 * margin;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat margin = 5;
+                nfloat controlHeight = 30;
+                nfloat toolbarHeight = controlHeight + 2 * margin;
 
-            // Reposition the controls.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-            _button.Frame = new CoreGraphics.CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                _button.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 }

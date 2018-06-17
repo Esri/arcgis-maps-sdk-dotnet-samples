@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.FindPlace
@@ -112,6 +113,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         {
             BackgroundColor = UIColor.White
         };
+
         private readonly UIButton _searchRestrictedButton = new UIButton(UIButtonType.RoundedRect)
         {
             BackgroundColor = UIColor.White
@@ -144,24 +146,30 @@ namespace ArcGISRuntime.Samples.FindPlace
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat controlHeight = 30;
-            nfloat margin = 5;
-            nfloat width = View.Frame.Width - 2 * margin;
-            nfloat halfWidth = View.Frame.Width / 2 - 2 * margin;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat width = View.Frame.Width - 2 * margin;
+                nfloat halfWidth = View.Frame.Width / 2 - 2 * margin;
 
-            // Reposition the views.
-            _toolbar.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, controlHeight * 3 + margin * 4);
-            _myMapView.ViewInsets = new UIEdgeInsets(_toolbar.Frame.Bottom, 0, 0, 0);
-            _searchBox.Frame = new CoreGraphics.CGRect(margin, topMargin += margin, width, controlHeight);
-            _locationBox.Frame = new CoreGraphics.CGRect(margin, topMargin += margin + controlHeight, width, controlHeight);
-            _searchButton.Frame = new CoreGraphics.CGRect(margin, topMargin += margin + controlHeight, halfWidth, controlHeight);
-            _searchRestrictedButton.Frame = new CoreGraphics.CGRect(halfWidth + 3 * margin, topMargin, halfWidth, controlHeight);
-            _activityView.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, _toolbar.Frame.Height);
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _suggestionView.Frame = new CoreGraphics.CGRect(2 * margin, topMargin + controlHeight, width - 2 * margin, 8 * controlHeight);
+                // Reposition the views.
+                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, controlHeight * 3 + margin * 4);
+                _myMapView.ViewInsets = new UIEdgeInsets(_toolbar.Frame.Bottom, 0, 0, 0);
+                _searchBox.Frame = new CGRect(margin, topMargin += margin, width, controlHeight);
+                _locationBox.Frame = new CGRect(margin, topMargin += margin + controlHeight, width, controlHeight);
+                _searchButton.Frame = new CGRect(margin, topMargin += margin + controlHeight, halfWidth, controlHeight);
+                _searchRestrictedButton.Frame = new CGRect(halfWidth + 3 * margin, topMargin, halfWidth, controlHeight);
+                _activityView.Frame = new CGRect(0, topMargin, View.Bounds.Width, _toolbar.Frame.Height);
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _suggestionView.Frame = new CGRect(2 * margin, topMargin + controlHeight, width - 2 * margin, 8 * controlHeight);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void CreateLayout()
@@ -228,9 +236,9 @@ namespace ArcGISRuntime.Samples.FindPlace
             _locationBox.AllEditingEvents += LocationBox_TextChanged;
 
             // Set padding on the text views.
-            _searchBox.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
+            _searchBox.LeftView = new UIView(new CGRect(0, 0, 5, 20));
             _searchBox.LeftViewMode = UITextFieldViewMode.Always;
-            _locationBox.LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20));
+            _locationBox.LeftView = new UIView(new CGRect(0, 0, 5, 20));
             _locationBox.LeftViewMode = UITextFieldViewMode.Always;
 
             // Add the views.

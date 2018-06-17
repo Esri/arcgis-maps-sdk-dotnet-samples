@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.Buffer
@@ -27,23 +28,15 @@ namespace ArcGISRuntime.Samples.Buffer
         "")]
     public class Buffer : UIViewController
     {
-        // Create and hold a reference to the used MapView.
+        // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
-
-        // Create a UILabel to display the instructions.
+        private readonly UIToolbar _helpToolbar = new UIToolbar();
         private UILabel _bufferHelpLabel;
-
-        // Create UITextField to enter a buffer value (in miles). 
         private UITextField _bufferDistanceEntry;
+        private UILabel _helpLabel;
 
         // Graphics overlay to display buffer-related graphics.
         private GraphicsOverlay _graphicsOverlay;
-
-        // Create toolbars to put behind the controls and the help text.
-        private readonly UIToolbar _helpToolbar = new UIToolbar();
-
-        // Help label.
-        private UILabel _helpLabel;
 
         public Buffer()
         {
@@ -54,41 +47,44 @@ namespace ArcGISRuntime.Samples.Buffer
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization. 
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat controlHeight = 30;
-            nfloat margin = 5;
-            nfloat colSplit = View.Bounds.Width / 3;
+            try
+            {
+                nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat colSplit = View.Bounds.Width / 3;
 
-            // Setup the visual frames for the views.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, 2 * controlHeight + 3 * margin);
-            _helpLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - 2 * margin, controlHeight);
-            _bufferHelpLabel.Frame = new CoreGraphics.CGRect(margin, topStart + controlHeight + 2 *margin, colSplit - 2 * margin, controlHeight);
-            _bufferDistanceEntry.Frame = new CoreGraphics.CGRect(colSplit + margin, topStart + controlHeight + 2 * margin, View.Bounds.Width - colSplit - 2 * margin, controlHeight);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _helpToolbar.Frame = new CGRect(0, topStart, View.Bounds.Width, 2 * controlHeight + 3 * margin);
+                _helpLabel.Frame = new CGRect(margin, topStart + margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _bufferHelpLabel.Frame = new CGRect(margin, topStart + controlHeight + 2 * margin, colSplit - 2 * margin, controlHeight);
+                _bufferDistanceEntry.Frame = new CGRect(colSplit + margin, topStart + controlHeight + 2 * margin, View.Bounds.Width - colSplit - 2 * margin, controlHeight);
+                _myMapView.ViewInsets = new UIEdgeInsets(_helpToolbar.Frame.Bottom, 0, 0, 0);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
         {
-            // Create a map with a topographic basemap.
-            Map theMap = new Map(Basemap.CreateTopographic());
-
             // Create an envelope that covers the Dallas/Fort Worth area.
             Geometry startingEnvelope = new Envelope(-10863035.97, 3838021.34, -10744801.344, 3887145.299, SpatialReferences.WebMercator);
 
-            // Set the map's initial extent to the envelope.
-            theMap.InitialViewpoint = new Viewpoint(startingEnvelope);
-
-            // Assign the map to the MapView.
-            _myMapView.Map = theMap;
+            // Create and show a map with a topographic basemap.
+            _myMapView.Map = new Map(Basemap.CreateTopographic())
+            {
+                InitialViewpoint = new Viewpoint(startingEnvelope)
+            };
 
             // Create a graphics overlay to show the buffered related graphics.
             _graphicsOverlay = new GraphicsOverlay();
@@ -108,7 +104,7 @@ namespace ArcGISRuntime.Samples.Buffer
                 MapPoint userTappedMapPoint = _myMapView.ScreenToLocation(e.Position);
 
                 // Get the buffer size from the UITextField.
-                double bufferInMiles = System.Convert.ToDouble(_bufferDistanceEntry.Text);
+                double bufferInMiles = Convert.ToDouble(_bufferDistanceEntry.Text);
 
                 // Create a variable to be the buffer size in meters. There are 1609.34 meters in one mile.
                 double bufferInMeters = bufferInMiles * 1609.34;
@@ -144,7 +140,7 @@ namespace ArcGISRuntime.Samples.Buffer
                 // Add the user tapped/clicked map point graphic to the graphic overlay.
                 _graphicsOverlay.Graphics.Add(userTappedGraphic);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 // Display an error message if there is a problem generating the buffer polygon.
                 UIAlertController alertController = UIAlertController.Create("Geometry Engine Failed!", ex.Message, UIAlertControllerStyle.Alert);
@@ -179,8 +175,12 @@ namespace ArcGISRuntime.Samples.Buffer
                 BorderStyle = UITextBorderStyle.RoundedRect
             };
 
-            // - Allow pressing 'return' to dismiss the keyboard
-            _bufferDistanceEntry.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
+            // Allow pressing 'return' to dismiss the keyboard.
+            _bufferDistanceEntry.ShouldReturn += textField =>
+            {
+                textField.ResignFirstResponder();
+                return true;
+            };
 
             // Add the MapView and other controls to the page.
             View.AddSubviews(_myMapView, _helpToolbar, _helpLabel, _bufferHelpLabel, _bufferDistanceEntry);

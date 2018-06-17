@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Foundation;
 using System;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ViewshedCamera
@@ -25,23 +26,20 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         "", "Featured")]
     public class ViewshedCamera : UIViewController
     {
-        // Create and hold a reference to the used MapView
+        // Create and hold references to the UI controls.
         private readonly SceneView _mySceneView = new SceneView();
-
-        // URL for a scene service of buildings in Brest, France
-        private readonly string _buildingsServiceUrl = @"http://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0";
-
-        // URL for an image service to use as an elevation source
-        private readonly string _elevationSourceUrl = @"http://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer";
-
-        // Location viewshed analysis to show visible and obstructed areas from the camera
-        private LocationViewshed _viewshedForCamera;
-
-        // Button for updating the analysis viewpoint
+        private readonly UIToolbar _toolbar = new UIToolbar();
         private UIButton _updateViewshedButton;
 
-        // Toolbar to put behind the button (for visibility).
-        private readonly UIToolbar _toolbar = new UIToolbar();
+        // URL for a scene service of buildings in Brest, France.
+        private readonly string _buildingsServiceUrl = @"http://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0";
+
+        // URL for an image service to use as an elevation source.
+        private readonly string _elevationSourceUrl = @"http://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer";
+
+        // Location viewshed analysis to show visible and obstructed areas from the camera.
+        private LocationViewshed _viewshedForCamera;
+
 
         public ViewshedCamera()
         {
@@ -52,69 +50,76 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
             CreateLayout();
-
-            // Create the Scene, basemap, camera, and location viewshed analysis
             Initialize();
         }
 
         private void Initialize()
         {
-            // Create a new Scene with an imagery basemap
+            // Create a new Scene with an imagery basemap.
             Scene myScene = new Scene(Basemap.CreateImagery());
 
-            // Create a scene layer to show buildings in the Scene
-            ArcGISSceneLayer buildingsLayer = new ArcGISSceneLayer(new Uri(_buildingsServiceUrl));
-            myScene.OperationalLayers.Add(buildingsLayer);
+            // Create a scene layer to show buildings in the Scene.
+            myScene.OperationalLayers.Add(new ArcGISSceneLayer(new Uri(_buildingsServiceUrl)));
 
-            // Create an elevation source for the Scene
-            ArcGISTiledElevationSource elevationSrc = new ArcGISTiledElevationSource(new Uri(_elevationSourceUrl));
-            myScene.BaseSurface.ElevationSources.Add(elevationSrc);
+            // Create an elevation source for the Scene.
+            myScene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri(_elevationSourceUrl)));
 
-            // Add the Scene to the SceneView
+            // Add the Scene to the SceneView.
             _mySceneView.Scene = myScene;
 
-            // Set the viewpoint with a new camera focused on the castle in Brest
+            // Set the viewpoint with a new camera focused on the castle in Brest.
             Camera observerCamera = new Camera(new MapPoint(-4.49492, 48.3808, 48.2511, SpatialReferences.Wgs84), 344.488, 74.1212, 0.0);
             _mySceneView.SetViewpointCameraAsync(observerCamera);
 
-            // Create a LocationViewshed analysis using the camera as the observer
+            // Create a LocationViewshed analysis using the camera as the observer.
             _viewshedForCamera = new LocationViewshed(observerCamera, 1, 1000);
 
-            // Create an analysis overlay to contain the viewshed analysis results
+            // Create an analysis overlay to contain the viewshed analysis results.
             AnalysisOverlay viewshedOverlay = new AnalysisOverlay();
 
-            // Add the location viewshed analysis to the analysis overlay, then add the overlay to the scene view
+            // Add the location viewshed analysis to the analysis overlay, then add the overlay to the scene view.
             viewshedOverlay.Analyses.Add(_viewshedForCamera);
             _mySceneView.AnalysisOverlays.Add(viewshedOverlay);
         }
 
         private void UpdateObserverWithCamera(object sender, EventArgs e)
         {
-            // Use the current camera to update the observer for the location viewshed analysis
+            // Use the current camera to update the observer for the location viewshed analysis.
             _viewshedForCamera.UpdateFromCamera(_mySceneView.Camera);
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frames for the controls
-            _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-            _updateViewshedButton.Frame = new CoreGraphics.CGRect(5, View.Bounds.Height - 35, View.Bounds.Width - 10, 30);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat toolbarHeight = controlHeight + 2 * margin;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition the controls.
+                _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                _updateViewshedButton.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
+
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
-        
+
         private void CreateLayout()
         {
-            // Create a button to update the viewshed using the current camera
+            // Create a button to update the viewshed using the current camera.
             _updateViewshedButton = new UIButton();
             _updateViewshedButton.SetTitle("Viewshed from here", UIControlState.Normal);
             _updateViewshedButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _updateViewshedButton.TouchUpInside += UpdateObserverWithCamera;
 
-            // Add SceneView and button to the page
+            // Add controls to the view.
             View.AddSubviews(_mySceneView, _toolbar, _updateViewshedButton);
         }
     }

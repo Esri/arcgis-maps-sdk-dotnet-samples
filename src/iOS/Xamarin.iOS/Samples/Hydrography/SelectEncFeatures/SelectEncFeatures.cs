@@ -55,16 +55,16 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             string encPath = DataManager.GetDataFolder("a490098c60f64d3bbac10ad131cc62c7", "GB5X01NW.000");
 
             // Create the cell and layer.
-            EncLayer myEncLayer = new EncLayer(new EncCell(encPath));
+            EncLayer encLayer = new EncLayer(new EncCell(encPath));
 
             // Add the layer to the map.
-            _myMapView.Map.OperationalLayers.Add(myEncLayer);
+            _myMapView.Map.OperationalLayers.Add(encLayer);
 
             // Wait for the layer to load.
-            await myEncLayer.LoadAsync();
+            await encLayer.LoadAsync();
 
             // Set the viewpoint.
-            _myMapView.SetViewpoint(new Viewpoint(myEncLayer.FullExtent));
+            _myMapView.SetViewpoint(new Viewpoint(encLayer.FullExtent));
 
             // Subscribe to tap events (in order to use them to identify and select features).
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
@@ -78,13 +78,19 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Reposition controls.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void ClearAllSelections()

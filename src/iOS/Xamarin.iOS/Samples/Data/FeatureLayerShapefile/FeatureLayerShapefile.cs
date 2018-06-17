@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -17,7 +18,7 @@ using UIKit;
 namespace ArcGISRuntime.Samples.FeatureLayerShapefile
 {
     [Register("FeatureLayerShapefile")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer (shapefile)",
         "Data",
@@ -26,7 +27,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
         "Featured")]
     public class FeatureLayerShapefile : UIViewController
     {
-        // Create a MapView control to display a map
+        // Create and hold a reference to the MapView.
         private readonly MapView _myMapView = new MapView();
 
         public FeatureLayerShapefile()
@@ -39,48 +40,50 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
             base.ViewDidLoad();
 
             CreateLayout();
-
-            // Download (if necessary) and add a local shapefile dataset to the map
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLayoutSubviews();
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Update the UI to account for new layout
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()
         {
-            // Create a new map to display in the map view with a streets basemap
+            // Create a new map to display in the map view with a streets basemap.
             _myMapView.Map = new Map(Basemap.CreateStreetsVector());
 
-            // Get the path to the downloaded shapefile
-            string filepath = GetShapefilePath();
+            // Get the path to the downloaded shapefile.
+            string filepath = DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "Public_Art.shp");
 
-            // Open the shapefile
+            // Open the shapefile.
             ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
 
-            // Create a feature layer to display the shapefile
+            // Create a feature layer to display the shapefile.
             FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
 
-            // Add the feature layer to the map
+            // Add the feature layer to the map.
             _myMapView.Map.OperationalLayers.Add(newFeatureLayer);
 
-            // Zoom the map to the extent of the shapefile
+            // Zoom the map to the extent of the shapefile.
             await _myMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
-        }
-
-        private static string GetShapefilePath()
-        {
-            return DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "Public_Art.shp");
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubview(_myMapView);
         }
     }

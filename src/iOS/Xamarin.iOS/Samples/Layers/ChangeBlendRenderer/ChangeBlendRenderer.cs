@@ -14,6 +14,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using ArcGISRuntime.Samples.Managers;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using UIKit;
 
@@ -55,24 +56,30 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat margin = 5;
-            nfloat controlHeight = 30;
-            nfloat columnSplit = 100;
-            nfloat toolbarHeight = controlHeight * 5 + margin * 6;
-            nfloat formStart = View.Bounds.Height - toolbarHeight;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat margin = 5;
+                nfloat controlHeight = 30;
+                nfloat columnSplit = 100;
+                nfloat toolbarHeight = controlHeight * 5 + margin * 6;
+                nfloat formStart = View.Bounds.Height - toolbarHeight;
 
-            // Reposition the controls.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, formStart, View.Bounds.Width, toolbarHeight);
-            _altitudeLabel.Frame = new CoreGraphics.CGRect(margin, formStart + margin, columnSplit - 2 * margin, controlHeight);
-            _azimuthLabel.Frame = new CoreGraphics.CGRect(margin, formStart + controlHeight + 2 * margin, columnSplit - 2 * margin, controlHeight);
-            _altitudeSlider.Frame = new CoreGraphics.CGRect(columnSplit + margin, formStart + margin, View.Bounds.Width - columnSplit - 2 * margin, controlHeight);
-            _azimuthSlider.Frame = new CoreGraphics.CGRect(columnSplit + margin, formStart + controlHeight + 2 * margin, View.Bounds.Width - columnSplit - 2 * margin, controlHeight);
-            _slopeTypesPicker.Frame = new CoreGraphics.CGRect(margin, formStart + 2 * controlHeight + 3 * margin, View.Bounds.Width - 2 * margin, controlHeight);
-            _colorRampsPicker.Frame = new CoreGraphics.CGRect(margin, formStart + 3 * controlHeight + 4 * margin, View.Bounds.Width - 2 * margin, controlHeight);
-            _updateRendererButton.Frame = new CoreGraphics.CGRect(margin, formStart + 4 * controlHeight + 5 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _toolbar.Frame = new CGRect(0, formStart, View.Bounds.Width, toolbarHeight);
+                _altitudeLabel.Frame = new CGRect(margin, formStart + margin, columnSplit - 2 * margin, controlHeight);
+                _azimuthLabel.Frame = new CGRect(margin, formStart + controlHeight + 2 * margin, columnSplit - 2 * margin, controlHeight);
+                _altitudeSlider.Frame = new CGRect(columnSplit + margin, formStart + margin, View.Bounds.Width - columnSplit - 2 * margin, controlHeight);
+                _azimuthSlider.Frame = new CGRect(columnSplit + margin, formStart + controlHeight + 2 * margin, View.Bounds.Width - columnSplit - 2 * margin, controlHeight);
+                _slopeTypesPicker.Frame = new CGRect(margin, formStart + 2 * controlHeight + 3 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _colorRampsPicker.Frame = new CGRect(margin, formStart + 3 * controlHeight + 4 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _updateRendererButton.Frame = new CGRect(margin, formStart + 4 * controlHeight + 5 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()
@@ -88,31 +95,31 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             _azimuthSlider.Value = 180;
 
             // Load the raster file using a path on disk.
-            Raster myRasterImagery = new Raster(DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif"));
+            Raster rasterImagery = new Raster(DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif"));
 
             // Create the raster layer from the raster.
-            RasterLayer myRasterLayerImagery = new RasterLayer(myRasterImagery);
+            RasterLayer rasterLayerImagery = new RasterLayer(rasterImagery);
 
             // Create a new map using the raster layer as the base map.
-            Map myMap = new Map(new Basemap(myRasterLayerImagery));
+            Map map = new Map(new Basemap(rasterLayerImagery));
 
             // Wait for the layer to load - this enabled being able to obtain the raster layer's extent.
-            await myRasterLayerImagery.LoadAsync();
+            await rasterLayerImagery.LoadAsync();
 
             // Create a new EnvelopeBuilder from the full extent of the raster layer.
-            EnvelopeBuilder myEnvelopBuilder = new EnvelopeBuilder(myRasterLayerImagery.FullExtent);
+            EnvelopeBuilder envelopBuilder = new EnvelopeBuilder(rasterLayerImagery.FullExtent);
 
             // Zoom in the extent just a bit so that raster layer encompasses the entire viewable area of the map.
-            myEnvelopBuilder.Expand(0.75);
+            envelopBuilder.Expand(0.75);
 
             // Set the viewpoint of the map to the EnvelopeBuilder's extent.
-            myMap.InitialViewpoint = new Viewpoint(myEnvelopBuilder.ToGeometry().Extent);
+            map.InitialViewpoint = new Viewpoint(envelopBuilder.ToGeometry().Extent);
 
             // Add map to the map view.
-            _myMapView.Map = myMap;
+            _myMapView.Map = map;
 
             // Wait for the map to load.
-            await myMap.LoadAsync();
+            await map.LoadAsync();
 
             // Enable the 'Update Renderer' button now that the map has loaded.
             _updateRendererButton.Enabled = true;
@@ -176,7 +183,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
                 RasterLayer rasterLayerForDisplayInMap;
 
                 // Define the ColorRamp that will be used by the BlendRenderer.
-                ColorRamp myColorRamp;
+                ColorRamp colorRamp;
 
                 // Get the user choice for the ColorRamps.
                 string selection = Enum.GetNames(typeof(PresetColorRampType))[_colorRampsPicker.SelectedSegment];
@@ -197,7 +204,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
                     rasterLayerForDisplayInMap = new RasterLayer(rasterImagery);
 
                     // Set up the ColorRamp as being null.
-                    myColorRamp = null;
+                    colorRamp = null;
                 }
                 else
                 {
@@ -215,7 +222,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 
                     // Create a ColorRamp based on the user choice, translated into an Enumeration.
                     PresetColorRampType myPresetColorRampType = (PresetColorRampType) Enum.Parse(typeof(PresetColorRampType), selection);
-                    myColorRamp = ColorRamp.Create(myPresetColorRampType, 256);
+                    colorRamp = ColorRamp.Create(myPresetColorRampType, 256);
                 }
 
                 // Define the parameters used by the BlendRenderer constructor.
@@ -239,7 +246,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
                     mySourceMaxValues, // sourceMaxValues - Input stretch values, one for each band.
                     myNoDataValues, // noDataValues - NoData values, one for each band.
                     myGammas, // gammas - Gamma adjustment.
-                    myColorRamp, // colorRamp - ColorRamp object to use, could be null.
+                    colorRamp, // colorRamp - ColorRamp object to use, could be null.
                     _altitudeSlider.Value, // altitude - Altitude angle of the light source.
                     _azimuthSlider.Value, // azimuth - Azimuth angle of the light source, measured clockwise from north.
                     1, // zfactor - Factor to convert z unit to x,y units, default is 1.

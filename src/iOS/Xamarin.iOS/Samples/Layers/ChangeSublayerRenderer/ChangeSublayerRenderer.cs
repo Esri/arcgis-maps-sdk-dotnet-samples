@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
 using System.Collections.Generic;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
@@ -52,20 +53,26 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat margin = 5;
-            nfloat controlHeight = 30;
-            nfloat barHeight = controlHeight + 2 * margin;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat margin = 5;
+                nfloat controlHeight = 30;
+                nfloat barHeight = controlHeight + 2 * margin;
 
-            // Setup the frames for the views.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin + 70, 0, barHeight, 0);
-            _labelToolbar.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, 70);
-            _helpLabel.Frame = new CoreGraphics.CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, 60);
-            _buttonToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-            _changeSublayerRendererButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - 40 + margin, View.Bounds.Width - 2 * margin, 30);
+                // Setup the frames for the views.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + 70, 0, barHeight, 0);
+                _labelToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, 70);
+                _helpLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, 60);
+                _buttonToolbar.Frame = new CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+                _changeSublayerRendererButton.Frame = new CGRect(margin, View.Bounds.Height - 40 + margin, View.Bounds.Width - 2 * margin, 30);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()

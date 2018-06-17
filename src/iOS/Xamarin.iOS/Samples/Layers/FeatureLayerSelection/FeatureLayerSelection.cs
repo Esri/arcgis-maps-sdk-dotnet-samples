@@ -48,28 +48,34 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Reposition controls.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()
         {
             // Create new Map with basemap.
-            var myMap = new Map(Basemap.CreateTopographic());
+            var map = new Map(Basemap.CreateTopographic());
 
             // Create envelope to be used as a target extent for map's initial viewpoint.
-            Envelope myEnvelope = new Envelope(-1131596.019761, 3893114.069099, 3926705.982140, 7977912.461790, SpatialReferences.WebMercator);
+            Envelope envelope = new Envelope(-1131596.019761, 3893114.069099, 3926705.982140, 7977912.461790, SpatialReferences.WebMercator);
 
             // Set the initial viewpoint for map.
-            myMap.InitialViewpoint = new Viewpoint(myEnvelope);
+            map.InitialViewpoint = new Viewpoint(envelope);
 
             // Provide used Map to the MapView.
-            _myMapView.Map = myMap;
+            _myMapView.Map = map;
 
             // Create URI for the feature service.
             Uri featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0");
@@ -94,7 +100,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
             if (_featureLayer.LoadStatus == LoadStatus.Loaded)
             {
                 // Add the feature layer to the map.
-                myMap.OperationalLayers.Add(_featureLayer);
+                map.OperationalLayers.Add(_featureLayer);
 
                 // Add tap event handler for mapview.
                 _myMapView.GeoViewTapped += OnMapViewTapped;

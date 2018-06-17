@@ -31,16 +31,16 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         "")]
     public class AnalyzeViewshed : UIViewController
     {
-        // Create and hold a reference to the used MapView
+        // Create and hold a reference to the MapView.
         private readonly MapView _myMapView = new MapView();
 
-        // Url for the geoprocessing service
+        // URL for the geoprocessing service.
         private const string ViewshedServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/ESRI_Elevation_World/GPServer/Viewshed";
 
-        // The graphics overlay to show where the user clicked in the map
+        // The graphics overlay to show where the user clicked in the map.
         private GraphicsOverlay _inputOverlay;
 
-        // The graphics overlay to display the result of the viewshed analysis
+        // The graphics overlay to display the result of the viewshed analysis.
         private GraphicsOverlay _resultOverlay;
 
         public AnalyzeViewshed()
@@ -52,51 +52,61 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
         {
-            // Create a map with topographic basemap and an initial location
-            Map myMap = new Map(BasemapType.Topographic, 45.3790902612337, 6.84905317262762, 13);
+            // Create and show a map with topographic basemap and an initial location.
+            _myMapView.Map = new Map(BasemapType.Topographic, 45.3790902612337, 6.84905317262762, 13);
 
-            // Hook into the MapView tapped event
+            // Hook into the MapView tapped event.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
-            // Create empty overlays for the user clicked location and the results of the viewshed analysis
+            // Create empty overlays for the user clicked location and the results of the viewshed analysis.
             CreateOverlays();
-
-            // Assign the map to the MapView
-            _myMapView.Map = myMap;
         }
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // Clear previous user click location and the viewshed geoprocessing task results
+            // Clear previous user click location and the viewshed geoprocessing task results.
             _inputOverlay.Graphics.Clear();
             _resultOverlay.Graphics.Clear();
 
-            // Get the tapped point
+            // Get the tapped point.
             MapPoint geometry = e.Location;
 
-            // Create a marker graphic where the user clicked on the map and add it to the existing graphics overlay
-            Graphic myInputGraphic = new Graphic(geometry);
-            _inputOverlay.Graphics.Add(myInputGraphic);
+            // Create a marker graphic where the user clicked on the map and add it to the existing graphics overlay.
+            Graphic inputGraphic = new Graphic(geometry);
+            _inputOverlay.Graphics.Add(inputGraphic);
 
-            // Normalize the geometry if wrap-around is enabled
-            //    This is necessary because of how wrapped-around map coordinates are handled by Runtime
+            // Normalize the geometry if wrap-around is enabled.
+            //    This is necessary because of how wrapped-around map coordinates are handled by Runtime.
             //    Without this step, the task may fail because wrapped-around coordinates are out of bounds.
-            if (_myMapView.IsWrapAroundEnabled) { geometry = GeometryEngine.NormalizeCentralMeridian(geometry) as MapPoint; }
+            if (_myMapView.IsWrapAroundEnabled)
+            {
+                geometry = GeometryEngine.NormalizeCentralMeridian(geometry) as MapPoint;
+            }
 
-            // Execute the geoprocessing task using the user click location
+            // Execute the geoprocessing task using the user click location.
             await CalculateViewshed(geometry);
         }
 
@@ -104,59 +114,56 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         {
             // This function will define a new geoprocessing task that performs a custom viewshed analysis based upon a
             // user click on the map and then display the results back as a polygon fill graphics overlay. If there
-            // is a problem with the execution of the geoprocessing task an error message will be displayed
+            // is a problem with the execution of the geoprocessing task an error message will be displayed.
 
-            // Create new geoprocessing task using the url defined in the member variables section
-            var myViewshedTask = await GeoprocessingTask.CreateAsync(new Uri(ViewshedServiceUrl));
+            // Create new geoprocessing task using the URL defined in the member variables section.
+            var viewshedTask = await GeoprocessingTask.CreateAsync(new Uri(ViewshedServiceUrl));
 
-            // Create a new feature collection table based upon point geometries using the current map view spatial reference
-            var myInputFeatures = new FeatureCollectionTable(new List<Field>(), GeometryType.Point, _myMapView.SpatialReference);
+            // Create a new feature collection table based upon point geometries using the current map view spatial reference.
+            var inputFeatures = new FeatureCollectionTable(new List<Field>(), GeometryType.Point, _myMapView.SpatialReference);
 
-            // Create a new feature from the feature collection table. It will not have a coordinate location (x,y) yet
-            Feature myInputFeature = myInputFeatures.CreateFeature();
+            // Create a new feature from the feature collection table. It will not have a coordinate location (x,y) yet.
+            Feature inputFeature = inputFeatures.CreateFeature();
 
-            // Assign a physical location to the new point feature based upon where the user clicked in the map view
-            myInputFeature.Geometry = location;
+            // Assign a physical location to the new point feature based upon where the user clicked in the map view.
+            inputFeature.Geometry = location;
 
-            // Add the new feature with (x,y) location to the feature collection table
-            await myInputFeatures.AddFeatureAsync(myInputFeature);
+            // Add the new feature with (x,y) location to the feature collection table.
+            await inputFeatures.AddFeatureAsync(inputFeature);
 
-            // Create the parameters that are passed to the used geoprocessing task
-            GeoprocessingParameters myViewshedParameters = new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute)
+            // Create the parameters that are passed to the used geoprocessing task.
+            GeoprocessingParameters viewshedParameters = new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute)
             {
                 OutputSpatialReference = _myMapView.SpatialReference
             };
 
-            // Request the output features to use the same SpatialReference as the map view
+            // Add an input location to the geoprocessing parameters.
+            viewshedParameters.Inputs.Add("Input_Observation_Point", new GeoprocessingFeatures(inputFeatures));
 
-            // Add an input location to the geoprocessing parameters
-            myViewshedParameters.Inputs.Add("Input_Observation_Point", new GeoprocessingFeatures(myInputFeatures));
-
-            // Create the job that handles the communication between the application and the geoprocessing task
-            var myViewshedJob = myViewshedTask.CreateJob(myViewshedParameters);
+            // Create the job that handles the communication between the application and the geoprocessing task.
+            var viewshedJob = viewshedTask.CreateJob(viewshedParameters);
 
             try
             {
-                // Execute analysis and wait for the results
-                GeoprocessingResult myAnalysisResult = await myViewshedJob.GetResultAsync();
+                // Execute analysis and wait for the results.
+                GeoprocessingResult analysisResult = await viewshedJob.GetResultAsync();
 
-                // Get the results from the outputs
-                GeoprocessingFeatures myViewshedResultFeatures = myAnalysisResult.Outputs["Viewshed_Result"] as GeoprocessingFeatures;
+                // Get the results from the outputs.
+                GeoprocessingFeatures viewshedResultFeatures = analysisResult.Outputs["Viewshed_Result"] as GeoprocessingFeatures;
 
-                // Add all the results as a graphics to the map
-                IFeatureSet myViewshedAreas = myViewshedResultFeatures.Features;
-                foreach (var myFeature in myViewshedAreas)
+                // Add all the results as a graphics to the map.
+                foreach (var feature in viewshedResultFeatures.Features)
                 {
-                    _resultOverlay.Graphics.Add(new Graphic(myFeature.Geometry));
+                    _resultOverlay.Graphics.Add(new Graphic(feature.Geometry));
                 }
             }
             catch (Exception ex)
             {
-                // Display an error message if there is a problem
-                if (myViewshedJob.Status == JobStatus.Failed && myViewshedJob.Error != null)
+                // Display an error message if there is a problem.
+                if (viewshedJob.Status == JobStatus.Failed && viewshedJob.Error != null)
                 {
                     // Report error
-                    UIAlertController alert = UIAlertController.Create("Geoprocessing Error", myViewshedJob.Error.Message, UIAlertControllerStyle.Alert);
+                    UIAlertController alert = UIAlertController.Create("Geoprocessing Error", viewshedJob.Error.Message, UIAlertControllerStyle.Alert);
                     alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                     PresentViewController(alert, true, null);
                 }
@@ -175,8 +182,8 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             // This function will create the overlays that show the user clicked location and the results of the
             // viewshed analysis. Note: the overlays will not be populated with any graphics at this point
 
-            // Create renderer for input graphic. Set the size and color properties for the simple renderer
-            SimpleRenderer myInputRenderer = new SimpleRenderer
+            // Create renderer for input graphic. Set the size and color properties for the simple renderer.
+            SimpleRenderer inputRenderer = new SimpleRenderer
             {
                 Symbol = new SimpleMarkerSymbol
                 {
@@ -185,14 +192,14 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
                 }
             };
 
-            // Create overlay to where input graphic is shown
+            // Create overlay to show input graphic.
             _inputOverlay = new GraphicsOverlay
             {
-                Renderer = myInputRenderer
+                Renderer = inputRenderer
             };
 
-            // Create fill renderer for output of the viewshed analysis. Set the color property of the simple renderer
-            SimpleRenderer myResultRenderer = new SimpleRenderer
+            // Create fill renderer for output of the viewshed analysis. Set the color property of the simple renderer.
+            SimpleRenderer resultRenderer = new SimpleRenderer
             {
                 Symbol = new SimpleFillSymbol
                 {
@@ -200,20 +207,20 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
                 }
             };
 
-            // Create overlay to where viewshed analysis graphic is shown
+            // Create overlay to show the result.
             _resultOverlay = new GraphicsOverlay
             {
-                Renderer = myResultRenderer
+                Renderer = resultRenderer
             };
 
-            // Add the created overlays to the MapView
+            // Add the created overlays to the MapView.
             _myMapView.GraphicsOverlays.Add(_inputOverlay);
             _myMapView.GraphicsOverlays.Add(_resultOverlay);
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
     }

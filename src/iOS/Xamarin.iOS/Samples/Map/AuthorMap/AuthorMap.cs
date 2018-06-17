@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreGraphics;
 using UIKit;
 using Xamarin.Auth;
 
@@ -77,18 +78,24 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat margin = 5;
-            nfloat controlHeight = 30;
-            nfloat toolbarHeight = controlHeight + 2 * margin;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat margin = 5;
+                nfloat controlHeight = 30;
+                nfloat toolbarHeight = controlHeight + 2 * margin;
 
-            // Reposition the views.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-            _segmentButton.Frame = new CoreGraphics.CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
+                // Reposition the views.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                _segmentButton.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         public override void ViewDidLoad()
@@ -111,7 +118,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void CreateLayout()
         {
             // Create an activity indicator.
-            var centerRect = new CoreGraphics.CGRect(View.Bounds.Width / 2, View.Bounds.Height / 2, 40, 40);
+            var centerRect = new CGRect(View.Bounds.Width / 2, View.Bounds.Height / 2, 40, 40);
             _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
             {
                 Frame = centerRect
@@ -241,7 +248,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
             // Create a view to show entry controls over the map view.
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            var ovBounds = new CoreGraphics.CGRect(5, topMargin + 5, View.Bounds.Width - 10, View.Bounds.Height - topMargin - 50);
+            var ovBounds = new CGRect(5, topMargin + 5, View.Bounds.Width - 10, View.Bounds.Height - topMargin - 50);
             _oauthInfoUi = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, _appClientId, _oAuthRedirectUrl);
 
             // Handle the OnOAuthPropsInfoEntered event to get the info entered by the user.
@@ -277,7 +284,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
             // Create a view to show map item info entry controls over the map view.
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            var ovBounds = new CoreGraphics.CGRect(5, topMargin + 5, View.Bounds.Width - 10, View.Bounds.Height - topMargin - 45);
+            var ovBounds = new CGRect(5, topMargin + 5, View.Bounds.Width - 10, View.Bounds.Height - topMargin - 45);
             _mapInfoUi = new SaveMapDialogOverlay(ovBounds, 0.75f, UIColor.White, (PortalItem) _myMapView.Map.Item);
 
             // Handle the OnMapInfoEntered event to get the info entered by the user.
@@ -596,7 +603,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         private readonly UITextField _redirectUrlTextField;
 
-        public OAuthPropsDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, string clientId, string redirectUrl) : base(frame)
+        public OAuthPropsDialogOverlay(CGRect frame, nfloat transparency, UIColor color, string clientId, string redirectUrl) : base(frame)
         {
             // Create a semi-transparent overlay with the specified background color.
             BackgroundColor = color;
@@ -615,7 +622,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             nfloat controlY = 10;
 
             // Label for inputs.
-            var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            var description = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = "OAuth Settings",
                 TextColor = TintColor
@@ -625,20 +632,20 @@ namespace ArcGISRuntime.Samples.AuthorMap
             controlY = controlY + controlHeight + rowSpace;
 
             // Client ID text input and label.
-            var clientIdLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            var clientIdLabel = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = "Client ID"
             };
 
             controlY = controlY + controlHeight + lessRowSpace;
 
-            _clientIdTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            _clientIdTextField = new UITextField(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Placeholder = "Client ID",
                 Text = clientId,
                 AutocapitalizationType = UITextAutocapitalizationType.None,
                 BackgroundColor = UIColor.LightGray,
-                LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20)),
+                LeftView = new UIView(new CGRect(0, 0, 5, 20)),
                 LeftViewMode = UITextFieldViewMode.Always
             };
 
@@ -653,20 +660,20 @@ namespace ArcGISRuntime.Samples.AuthorMap
             controlY = controlY + controlHeight + rowSpace;
 
             // Redirect URL text input and label.
-            var redirectLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            var redirectLabel = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = "Redirect URL"
             };
 
             controlY = controlY + controlHeight + lessRowSpace;
 
-            _redirectUrlTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            _redirectUrlTextField = new UITextField(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Placeholder = "Redirect URI",
                 Text = redirectUrl,
                 AutocapitalizationType = UITextAutocapitalizationType.None,
                 BackgroundColor = UIColor.LightGray,
-                LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20)),
+                LeftView = new UIView(new CGRect(0, 0, 5, 20)),
                 LeftViewMode = UITextFieldViewMode.Always
             };
 
@@ -681,7 +688,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             controlY = controlY + controlHeight + rowSpace;
 
             // Button to save the values.
-            UIButton saveButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
+            UIButton saveButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             saveButton.SetTitle("Save", UIControlState.Normal);
             saveButton.SetTitleColor(TintColor, UIControlState.Normal);
             saveButton.TouchUpInside += SaveButtonClick;
@@ -690,7 +697,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             controlX = controlX + buttonWidth + buttonSpace;
 
             // Button to cancel the save.
-            UIButton cancelButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
+            UIButton cancelButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
             cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
             cancelButton.TouchUpInside += (s, e) => OnCanceled.Invoke(this, null);
@@ -768,7 +775,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private readonly UITextField _descriptionTextField;
         private readonly UITextField _tagsTextField;
 
-        public SaveMapDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, PortalItem mapItem) : base(frame)
+        public SaveMapDialogOverlay(CGRect frame, nfloat transparency, UIColor color, PortalItem mapItem) : base(frame)
         {
             // Store any existing portal item (for "update" versus "save", e.g.).
             var portalItem = mapItem;
@@ -797,7 +804,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             nfloat controlY = centerY - totalHeight / 2;
 
             // Label for inputs.
-            var description = new UILabel(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            var description = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = "Portal item info",
                 TextColor = UIColor.Black
@@ -807,12 +814,12 @@ namespace ArcGISRuntime.Samples.AuthorMap
             controlY = controlY + controlHeight + rowSpace;
 
             // Title text input.
-            _titleTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            _titleTextField = new UITextField(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Placeholder = "Title",
                 AutocapitalizationType = UITextAutocapitalizationType.None,
                 BackgroundColor = UIColor.LightGray,
-                LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20)),
+                LeftView = new UIView(new CGRect(0, 0, 5, 20)),
                 LeftViewMode = UITextFieldViewMode.Always
             };
             // Allow pressing 'return' to dismiss the keyboard.
@@ -826,12 +833,12 @@ namespace ArcGISRuntime.Samples.AuthorMap
             controlY = controlY + controlHeight + rowSpace;
 
             // Description text input.
-            _descriptionTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            _descriptionTextField = new UITextField(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Placeholder = "Description",
                 AutocapitalizationType = UITextAutocapitalizationType.None,
                 BackgroundColor = UIColor.LightGray,
-                LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20)),
+                LeftView = new UIView(new CGRect(0, 0, 5, 20)),
                 LeftViewMode = UITextFieldViewMode.Always
             };
 
@@ -846,12 +853,12 @@ namespace ArcGISRuntime.Samples.AuthorMap
             controlY = controlY + controlHeight + rowSpace;
 
             // Tags text input.
-            _tagsTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            _tagsTextField = new UITextField(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = "ArcGIS Runtime, Web Map",
                 AutocapitalizationType = UITextAutocapitalizationType.None,
                 BackgroundColor = UIColor.LightGray,
-                LeftView = new UIView(new CoreGraphics.CGRect(0, 0, 5, 20)),
+                LeftView = new UIView(new CGRect(0, 0, 5, 20)),
                 LeftViewMode = UITextFieldViewMode.Always
             };
 
@@ -866,7 +873,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             controlY = controlY + controlHeight + rowSpace;
 
             // Button to save the map.
-            UIButton saveButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
+            UIButton saveButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             saveButton.SetTitle("Save", UIControlState.Normal);
             saveButton.SetTitleColor(TintColor, UIControlState.Normal);
             saveButton.TouchUpInside += SaveButtonClick;
@@ -875,7 +882,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             controlX = controlX + buttonWidth + buttonSpace;
 
             // Button to cancel the save.
-            UIButton cancelButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
+            UIButton cancelButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
             cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
             cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };

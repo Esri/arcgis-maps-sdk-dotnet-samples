@@ -41,13 +41,19 @@ namespace ArcGISRuntime.Samples.DisplayScene
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Reposition controls.
-            _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                // Reposition controls.
+                _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
@@ -56,32 +62,29 @@ namespace ArcGISRuntime.Samples.DisplayScene
             _mySceneView.Scene = new Scene(Basemap.CreateImagery());
 
             // Create a new surface.
-            Surface mySurface = new Surface();
+            Surface surface = new Surface();
 
             // Define the string that points to the elevation image service.
-            string myElevationImageService = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
+            string elevationImageService = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
-            // Create a Uri from the elevation image service string.
-            Uri myUri = new Uri(myElevationImageService);
-
-            // Create an ArcGIS tiled elevation .
+            // Create an ArcGIS tiled elevation.
             ArcGISTiledElevationSource myArcGISTiledElevationSource = new ArcGISTiledElevationSource
             {
                 // Set the ArcGIS tiled elevation sources property to the Uri of the elevation image service.
-                Source = myUri
+                Source = new Uri(elevationImageService)
             };
 
             // Add the ArcGIS tiled elevation source to the surface's elevated sources collection.
-            mySurface.ElevationSources.Add(myArcGISTiledElevationSource);
+            surface.ElevationSources.Add(myArcGISTiledElevationSource);
 
             // Set the scene's base surface to the surface with the ArcGIS tiled elevation source.
-            _mySceneView.Scene.BaseSurface = mySurface;
+            _mySceneView.Scene.BaseSurface = surface;
 
             // Create camera with an initial camera position (Mount Everest in the Alps mountains).
-            Camera myCamera = new Camera(28.4, 83.9, 10010.0, 10.0, 80.0, 300.0);
+            Camera camera = new Camera(28.4, 83.9, 10010.0, 10.0, 80.0, 300.0);
 
             // Set the scene view's camera position.
-            _mySceneView.SetViewpointCameraAsync(myCamera);
+            _mySceneView.SetViewpointCameraAsync(camera);
         }
 
         private void CreateLayout()

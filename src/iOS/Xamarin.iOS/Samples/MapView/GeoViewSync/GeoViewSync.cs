@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.GeoViewSync
@@ -118,14 +119,20 @@ namespace ArcGISRuntime.Samples.GeoViewSync
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Reposition the views.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height / 2);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-            _mySceneView.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height / 2, View.Bounds.Width, View.Bounds.Height / 2);
+                // Reposition the views.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height / 2);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                _mySceneView.Frame = new CGRect(0, View.Bounds.Height / 2, View.Bounds.Width, View.Bounds.Height / 2);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 }

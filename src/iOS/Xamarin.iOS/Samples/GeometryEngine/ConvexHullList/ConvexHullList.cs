@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
 using System.Collections.Generic;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ConvexHullList
@@ -28,8 +29,14 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         "Analysis", "ConvexHull", "GeometryEngine")]
     public class ConvexHullList : UIViewController
     {
-        // Create and hold a reference to the used MapView.
+        // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _helpToolbar = new UIToolbar();
+        private readonly UIToolbar _controlsToolbar = new UIToolbar();
+        private UIButton _convexHullListButton;
+        private UISwitch _unionSwitch;
+        private UILabel _switchLabel;
+        private UILabel _sampleHelpLabel;
 
         // Graphics overlay to display the graphics.
         private GraphicsOverlay _graphicsOverlay;
@@ -40,22 +47,6 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         // Graphic that represents polygon2.
         private Graphic _polygonGraphic2;
 
-        // Text view to display the instructions for the sample.
-        private UILabel _sampleHelpLabel;
-
-        // Create a UILabel to display label for the UISwitch.
-        private UILabel _switchLabel;
-
-        // Create a UISwitch to toggle whether to union the convex hull(s).
-        private UISwitch _unionSwitch;
-
-        // Create a UIButton to create convex hull(s).
-        private UIButton _convexHullListButton;
-
-        // Create toolbars to go behind the help label and controls.
-        private readonly UIToolbar _helpToolbar = new UIToolbar();
-        private readonly UIToolbar _controlsToolbar = new UIToolbar();
-
         public ConvexHullList()
         {
             Title = "Convex hull list";
@@ -65,36 +56,40 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization. 
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat margin = 5;
-            nfloat controlHeight = 30;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat margin = 5;
+                nfloat controlHeight = 30;
+                nfloat toolbarHeight = controlHeight + 2 * margin;
 
-            // Setup the visual frames for the views.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, controlHeight + 2 * margin);
-            _controlsToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - 2 * margin, View.Bounds.Width, controlHeight + 2 * margin);
-            _sampleHelpLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - 2 * margin, controlHeight);
-            _switchLabel.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, 50 - 2 * margin, controlHeight);
-            _unionSwitch.Frame = new CoreGraphics.CGRect(50 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 50 - 2 * margin, controlHeight);
-            _convexHullListButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, toolbarHeight, 0);
+                _helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
+                _controlsToolbar.Frame = new CGRect(0, View.Bounds.Height - controlHeight - 2 * margin, View.Bounds.Width, toolbarHeight);
+                _sampleHelpLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _switchLabel.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, 50 - 2 * margin, controlHeight);
+                _unionSwitch.Frame = new CGRect(50 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 50 - 2 * margin, controlHeight);
+                _convexHullListButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
         {
-            // Create a map with a topographic basemap.
-            Map newMap = new Map(Basemap.CreateTopographic());
-
-            // Assign the map to the MapView.
-            _myMapView.Map = newMap;
+            // Create and show a map with a topographic basemap.
+            _myMapView.Map = new Map(Basemap.CreateTopographic());
 
             // Create a graphics overlay to hold the various graphics.
             _graphicsOverlay = new GraphicsOverlay();
@@ -128,10 +123,9 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             // Create the graphic for polygon2 - comprised of a polygon shape and fill symbol.
             _polygonGraphic2 = new Graphic(CreatePolygon2(), polygonsSimpleFillSymbol)
             {
+                // Set the Z index for the polygon2 graphic so that it appears above the convex hull graphic(s) added later.
                 ZIndex = 1
             };
-
-            // Set the Z index for the polygon2 graphic so that it appears above the convex hull graphic(s) added later.
 
             // Add the polygon2 graphic to the graphics overlay collection.
             _graphicsOverlay.Graphics.Add(_polygonGraphic2);
@@ -155,12 +149,10 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                 new MapPoint(2409289.65137346, 5477018.71057565),
                 new MapPoint(-2409289.65137346, 5387231.518599),
                 new MapPoint(-2469147.7793579, 8709357.62173508)
-           };
-            // Create a polyline geometry from the point collection.
-            Polygon polygon1 = new Polygon(pointCollection1);
+            };
 
-            // Return the polygon.
-            return polygon1;
+            // Return a polyline geometry from the point collection.
+            return new Polygon(pointCollection1);
         }
 
         private Polygon CreatePolygon2()
@@ -177,13 +169,12 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                 new MapPoint(8617901.81822617, -2092412.37561875),
                 new MapPoint(6986529.4575743, 354646.16535905),
                 new MapPoint(5319692.48038653, 1205796.96222089)
-           };
-            // Create a polyline geometry from the point collection.
-            Polygon polygon2 = new Polygon(pointCollection2);
+            };
 
-            // Return the polygon.
-            return polygon2;
+            // Return a polyline geometry from the point collection.
+            return new Polygon(pointCollection2);
         }
+
         private void BufferButton_Click(object sender, EventArgs e)
         {
             try
@@ -201,10 +192,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
 
                 // Get the returned result from the convex hull operation. When unionBool = true there will be one returned
                 // polygon, when unionBool = false there will be one convex hull returned per input geometry.
-                IEnumerable<Geometry> convexHullGeometries = GeometryEngine.ConvexHull(inputListOfGeomtries, unionBool);
-
-                // Loop through the returned geometries.
-                foreach (Geometry oneGeometry in convexHullGeometries)
+                foreach (Geometry oneGeometry in GeometryEngine.ConvexHull(inputListOfGeomtries, unionBool))
                 {
                     // Create a simple line symbol for the outline of the convex hull graphic(s).
                     SimpleLineSymbol convexHullSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid,
@@ -231,7 +219,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                 _convexHullListButton.Enabled = false;
                 _convexHullListButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 // Display an error message if there is a problem generating convex hull operation.
                 UIAlertController alertController = UIAlertController.Create("Geometry Engine Failed!", ex.Message, UIAlertControllerStyle.Alert);

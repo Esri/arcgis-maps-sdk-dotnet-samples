@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
 using System.Collections.Generic;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
@@ -85,27 +86,27 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
 
             // Create the Exchange Set.
             // Note: this constructor takes an array of paths because so that update sets can be loaded alongside base data.
-            EncExchangeSet myEncExchangeSet = new EncExchangeSet(encPath);
+            EncExchangeSet encExchangeSet = new EncExchangeSet(encPath);
 
             // Wait for the layer to load.
-            await myEncExchangeSet.LoadAsync();
+            await encExchangeSet.LoadAsync();
 
             // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set.
             List<Envelope> dataSetExtents = new List<Envelope>();
 
             // Add each data set as a layer.
-            foreach (EncDataset myEncDataSet in myEncExchangeSet.Datasets)
+            foreach (EncDataset encDataSet in encExchangeSet.Datasets)
             {
-                EncLayer myEncLayer = new EncLayer(new EncCell(myEncDataSet));
+                EncLayer encLayer = new EncLayer(new EncCell(encDataSet));
 
                 // Add the layer to the map.
-                _myMapView.Map.OperationalLayers.Add(myEncLayer);
+                _myMapView.Map.OperationalLayers.Add(encLayer);
 
                 // Wait for the layer to load.
-                await myEncLayer.LoadAsync();
+                await encLayer.LoadAsync();
 
                 // Add the extent to the list of extents.
-                dataSetExtents.Add(myEncLayer.FullExtent);
+                dataSetExtents.Add(encLayer.FullExtent);
             }
 
             // Use the geometry engine to compute the full extent of the ENC Exchange Set.
@@ -194,24 +195,30 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat controlHeight = 30;
-            nfloat margin = 5;
-            nfloat toolbarHeight = 6 * controlHeight - 7 * margin;
-            nfloat formStart = View.Bounds.Height - toolbarHeight;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat toolbarHeight = 6 * controlHeight + 7 * margin;
+                nfloat controlWidth = View.Bounds.Width - 2 * margin;
 
-            // Reposition the controls. 
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, formStart, View.Bounds.Width, View.Bounds.Height - formStart);
-            _colorsLabel.Frame = new CoreGraphics.CGRect(margin, formStart + margin, View.Bounds.Width - 2 * margin, controlHeight);
-            _colorSchemeSegment.Frame = new CoreGraphics.CGRect(margin, formStart + controlHeight + 2 * margin, View.Bounds.Width - 2 * margin, controlHeight);
-            _areaLabel.Frame = new CoreGraphics.CGRect(margin, formStart + 2 * controlHeight + 3 * margin, View.Bounds.Width - 2 * margin, controlHeight);
-            _areaSegment.Frame = new CoreGraphics.CGRect(margin, formStart + 3 * controlHeight + 4 * margin, View.Bounds.Width - 2 * margin, controlHeight);
-            _pointLabel.Frame = new CoreGraphics.CGRect(margin, formStart + 4 * controlHeight + 5 * margin, View.Bounds.Width - 2 * margin, controlHeight);
-            _pointSegment.Frame = new CoreGraphics.CGRect(margin, formStart + 5 * controlHeight + 6 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+                // Reposition the controls. 
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                _colorsLabel.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, controlWidth, controlHeight);
+                _colorSchemeSegment.Frame = new CGRect(margin, _colorsLabel.Frame.Bottom + margin, controlWidth, controlHeight);
+                _areaLabel.Frame = new CGRect(margin, _colorSchemeSegment.Frame.Bottom + margin, controlWidth, controlHeight);
+                _areaSegment.Frame = new CGRect(margin, _areaLabel.Frame.Bottom + margin, controlWidth, controlHeight);
+                _pointLabel.Frame = new CGRect(margin, _areaSegment.Frame.Bottom + margin, controlWidth, controlHeight);
+                _pointSegment.Frame = new CGRect(margin, _pointLabel.Frame.Bottom + margin, controlWidth, controlHeight);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 }

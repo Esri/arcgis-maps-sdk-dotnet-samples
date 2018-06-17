@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
         "")]
     public class ServiceFeatureTableManualCache : UIViewController
     {
-        // Create and hold a reference to the used MapView
+        // Create and hold a reference to the MapView
         private readonly MapView _myMapView = new MapView();
 
         private ServiceFeatureTable _incidentsFeatureTable;
@@ -39,73 +39,81 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
         {
-            // Create new Map with basemap
+            // Create new Map with basemap.
             Map myMap = new Map(Basemap.CreateTopographic());
 
-            // Create and set initial map location
-            MapPoint initialLocation = new MapPoint(
-                -13630484, 4545415, SpatialReferences.WebMercator);
+            // Create and set initial map location.
+            MapPoint initialLocation = new MapPoint(-13630484, 4545415, SpatialReferences.WebMercator);
             myMap.InitialViewpoint = new Viewpoint(initialLocation, 500000);
 
-            // Create URL to the used feature service
-            var serviceUri = new Uri(
-               "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0");
+            // Create URL to the used feature service.
+            var serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0");
 
-            // Create feature table for the incident feature service
+            // Create feature table for the incident feature service.
             _incidentsFeatureTable = new ServiceFeatureTable(serviceUri)
             {
-                // Define the request mode
+                // Define the request mode.
                 FeatureRequestMode = FeatureRequestMode.ManualCache
             };
 
-            // When feature table is loaded, populate data
+            // When feature table is loaded, populate data.
             _incidentsFeatureTable.LoadStatusChanged += OnLoadedPopulateData;
 
-            // Create FeatureLayer that uses the created table
+            // Create FeatureLayer that uses the created table.
             FeatureLayer incidentsFeatureLayer = new FeatureLayer(_incidentsFeatureTable);
 
-            // Add created layer to the map
+            // Add created layer to the map.
             myMap.OperationalLayers.Add(incidentsFeatureLayer);
 
-            // Assign the map to the MapView
+            // Assign the map to the MapView.
             _myMapView.Map = myMap;
         }
 
         private async void OnLoadedPopulateData(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
-            // If layer isn't loaded, do nothing
+            // If layer isn't loaded, do nothing.
             if (e.Status != Esri.ArcGISRuntime.LoadStatus.Loaded)
                 return;
 
-            // Create new query object that contains parameters to query specific request types
+            // Create new query object that contains parameters to query specific request types.
             QueryParameters queryParameters = new QueryParameters
             {
                 WhereClause = "req_Type = 'Tree Maintenance or Damage'"
             };
 
-            // Create list of the fields that are returned from the service
-            string[] outputFields = { "*" };
+            // Create list of the fields that are returned from the service.
+            string[] outputFields = {"*"};
 
-            // Populate feature table with the data based on query
+            // Populate feature table with the data based on query.
             await _incidentsFeatureTable.PopulateFromServiceAsync(queryParameters, true, outputFields);
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
     }

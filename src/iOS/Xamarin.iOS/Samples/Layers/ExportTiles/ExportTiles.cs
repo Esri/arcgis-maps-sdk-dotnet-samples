@@ -19,6 +19,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ExportTiles
@@ -61,16 +62,22 @@ namespace ArcGISRuntime.Samples.ExportTiles
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat barHeight = 40;
+            try
+            {
+                nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat barHeight = 40;
 
-            // Reposition the controls.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - barHeight);
-            _myPreviewMapView.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, View.Bounds.Height - topStart - barHeight);
-            _myProgressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - barHeight, View.Bounds.Width, barHeight);
-            _myExportButton.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - barHeight, View.Bounds.Width, barHeight);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - barHeight);
+                _myPreviewMapView.Frame = new CGRect(0, topStart, View.Bounds.Width, View.Bounds.Height - topStart - barHeight);
+                _myProgressBar.Frame = new CGRect(0, View.Bounds.Height - barHeight, View.Bounds.Width, barHeight);
+                _myExportButton.Frame = new CGRect(0, View.Bounds.Height - barHeight, View.Bounds.Width, barHeight);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()

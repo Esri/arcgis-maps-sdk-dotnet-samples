@@ -14,6 +14,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.WmsServiceCatalog
@@ -40,7 +41,8 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
 
         private readonly UITableView _myDisplayList = new UITableView
         {
-            RowHeight = 30
+            RowHeight = 30,
+            BackgroundColor = UIColor.FromWhiteAlpha(0, 0)
         };
 
         // Hold the URL to the WMS service providing the US NOAA National Weather Service forecast weather chart.
@@ -70,21 +72,26 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
 
         public override void ViewDidLayoutSubviews()
         {
-            // Variable holding the top bound (for code clarity)
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat listHeight = 150;
-            nfloat controlHeight = 30;
-            nfloat margin = 5;
-            nfloat toolbarHeight = listHeight + controlHeight + margin * 2;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat listHeight = 150;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat toolbarHeight = listHeight + controlHeight + margin * 2;
 
-            // Reposition the views
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-            _myDisplayList.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, listHeight);
-            _myHelpLabel.Frame = new CoreGraphics.CGRect(margin, _myDisplayList.Frame.Bottom + margin, View.Bounds.Width - (2 * margin), controlHeight);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
+                // Reposition the views
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myDisplayList.Frame = new CGRect(0, topMargin, View.Bounds.Width, listHeight);
+                _myHelpLabel.Frame = new CGRect(margin, _myDisplayList.Frame.Bottom + margin, View.Bounds.Width - (2 * margin), controlHeight);
+                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
+                _myMapView.ViewInsets = new UIEdgeInsets(_toolbar.Frame.Bottom, 0, 0, 0);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()

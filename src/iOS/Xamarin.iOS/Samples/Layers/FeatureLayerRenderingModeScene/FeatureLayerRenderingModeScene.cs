@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
@@ -162,19 +163,25 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat centerLine = (View.Bounds.Height - topMargin) / 2;
-            nfloat buttonWidth = 150;
-            nfloat startingLeft = View.Bounds.Width / 2 - buttonWidth / 2;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat centerLine = (View.Bounds.Height - topMargin) / 2;
+                nfloat buttonWidth = 150;
+                nfloat startingLeft = View.Bounds.Width / 2 - buttonWidth / 2;
 
-            // Reposition the controls.
-            _myStaticScene.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, centerLine);
-            _myDynamicScene.Frame = new CoreGraphics.CGRect(0, centerLine + topMargin, View.Bounds.Width, View.Bounds.Height - topMargin - centerLine);
-            _staticLabel.Frame = new CoreGraphics.CGRect(10, topMargin + 5, View.Bounds.Width / 2, 30);
-            _dynamicLabel.Frame = new CoreGraphics.CGRect(10, centerLine + topMargin + 30, View.Bounds.Width / 2, 30);
-            _zoomButton.Frame = new CoreGraphics.CGRect(startingLeft, centerLine + topMargin - 15, buttonWidth, 30);
+                // Reposition the controls.
+                _myStaticScene.Frame = new CGRect(0, topMargin, View.Bounds.Width, centerLine);
+                _myDynamicScene.Frame = new CGRect(0, centerLine + topMargin, View.Bounds.Width, View.Bounds.Height - topMargin - centerLine);
+                _staticLabel.Frame = new CGRect(10, topMargin + 5, View.Bounds.Width / 2, 30);
+                _dynamicLabel.Frame = new CGRect(10, centerLine + topMargin + 30, View.Bounds.Width / 2, 30);
+                _zoomButton.Frame = new CGRect(startingLeft, centerLine + topMargin - 15, buttonWidth, 30);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 }

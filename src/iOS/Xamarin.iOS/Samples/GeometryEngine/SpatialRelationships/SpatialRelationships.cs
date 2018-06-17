@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -29,13 +30,11 @@ namespace ArcGISRuntime.Samples.ListTransformations
         "Tap a graphic to select it. The display will update to show the relationships with the other graphics.")]
     public class SpatialRelationships : UIViewController
     {
-        // Map view control to display a map in the app
+        // Create and hold references to UI controls.
         private readonly MapView _myMapView = new MapView();
+        private readonly UITextView _resultTextView = new UITextView {TextColor = UIColor.Red};
 
-        // Text view to display the results
-        private readonly UITextView _resultTextView = new UITextView { TextColor = UIColor.Red };
-
-        // References to the graphics and graphics overlay
+        // References to the graphics and graphics overlay.
         private GraphicsOverlay _graphicsOverlay;
         private Graphic _polygonGraphic;
         private Graphic _polylineGraphic;
@@ -48,19 +47,19 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
         private void Initialize()
         {
-            // Configure the basemap
+            // Configure the basemap.
             _myMapView.Map = new Map(Basemap.CreateTopographic());
 
-            // Create the graphics overlay and set the selection color
+            // Create the graphics overlay and set the selection color.
             _graphicsOverlay = new GraphicsOverlay
             {
                 SelectionColor = System.Drawing.Color.Yellow
             };
 
-            // Add the overlay to the MapView
+            // Add the overlay to the MapView.
             _myMapView.GraphicsOverlays.Add(_graphicsOverlay);
 
-            // Create the point collection that defines the polygon
+            // Create the point collection that defines the polygon.
             PointCollection polygonPoints = new PointCollection(SpatialReferences.WebMercator)
             {
                 new MapPoint(-5991501.677830, 5599295.131468),
@@ -70,18 +69,18 @@ namespace ArcGISRuntime.Samples.ListTransformations
                 new MapPoint(-3180355.516764, 5619889.608838)
             };
 
-            // Create the polygon
+            // Create the polygon.
             Polygon polygonGeometry = new Polygon(polygonPoints);
 
-            // Define the symbology of the polygon
+            // Define the symbology of the polygon.
             SimpleLineSymbol polygonOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Green, 2);
             SimpleFillSymbol polygonFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.ForwardDiagonal, System.Drawing.Color.Green, polygonOutlineSymbol);
 
-            // Create the polygon graphic and add it to the graphics overlay
+            // Create the polygon graphic and add it to the graphics overlay.
             _polygonGraphic = new Graphic(polygonGeometry, polygonFillSymbol);
             _graphicsOverlay.Graphics.Add(_polygonGraphic);
 
-            // Create the point collection that defines the polyline
+            // Create the point collection that defines the polyline.
             var polylinePoints = new PointCollection(SpatialReferences.WebMercator)
             {
                 new MapPoint(-4354240.726880, -609939.795721),
@@ -90,52 +89,52 @@ namespace ArcGISRuntime.Samples.ListTransformations
                 new MapPoint(-1810822.771630, 7205664.366363)
             };
 
-            // Create the polyline
+            // Create the polyline.
             Polyline polylineGeometry = new Polyline(polylinePoints);
 
-            // Create the polyline graphic and add it to the graphics overlay
+            // Create the polyline graphic and add it to the graphics overlay.
             _polylineGraphic = new Graphic(polylineGeometry, new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Red, 4));
             _graphicsOverlay.Graphics.Add(_polylineGraphic);
 
-            // Create the point geometry that defines the point graphic
+            // Create the point geometry that defines the point graphic.
             MapPoint pointGeometry = new MapPoint(-4487263.495911, 3699176.480377, SpatialReferences.WebMercator);
 
-            // Define the symbology for the point
+            // Define the symbology for the point.
             SimpleMarkerSymbol locationMarker = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Blue, 10);
 
-            // Create the point graphic and add it to the graphics overlay
+            // Create the point graphic and add it to the graphics overlay.
             _pointGraphic = new Graphic(pointGeometry, locationMarker);
             _graphicsOverlay.Graphics.Add(_pointGraphic);
 
-            // Listen for taps; the spatial relationships will be updated in the handler
-            _myMapView.GeoViewTapped += myMapView_GeoViewTapped;
+            // Listen for taps; the spatial relationships will be updated in the handler.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
-            // Set the viewpoint to center on the point
+            // Set the viewpoint to center on the point.
             _myMapView.SetViewpointCenterAsync(pointGeometry, 200000000);
         }
 
-        private async void myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // Identify the tapped graphics
+            // Identify the tapped graphics.
             IdentifyGraphicsOverlayResult result = await _myMapView.IdentifyGraphicsOverlayAsync(_graphicsOverlay, e.Position, 1, false);
 
-            // Return if there are no results
+            // Return if there are no results.
             if (result.Graphics.Count < 1)
             {
                 return;
             }
 
-            // Get the first identified graphic
+            // Get the first identified graphic.
             Graphic identifiedGraphic = result.Graphics.First();
 
-            // Clear any existing selection, then select the tapped graphic
+            // Clear any existing selection, then select the tapped graphic.
             _graphicsOverlay.ClearSelection();
             identifiedGraphic.IsSelected = true;
 
-            // Get the selected graphic's geometry
+            // Get the selected graphic's geometry.
             Geometry selectedGeometry = identifiedGraphic.Geometry;
 
-            // Perform the calculation and show the results
+            // Perform the calculation and show the results.
             _resultTextView.Text = GetOutputText(selectedGeometry);
         }
 
@@ -143,12 +142,12 @@ namespace ArcGISRuntime.Samples.ListTransformations
         {
             string output = "";
 
-            // Get the relationships
+            // Get the relationships.
             List<SpatialRelationship> polygonRelationships = GetSpatialRelationships(selectedGeometry, _polygonGraphic.Geometry);
             List<SpatialRelationship> polylineRelationships = GetSpatialRelationships(selectedGeometry, _polylineGraphic.Geometry);
             List<SpatialRelationship> pointRelationships = GetSpatialRelationships(selectedGeometry, _pointGraphic.Geometry);
 
-            // Add the point relationships to the output
+            // Add the point relationships to the output.
             if (selectedGeometry.GeometryType != GeometryType.Point)
             {
                 output += "Point:\n";
@@ -157,7 +156,8 @@ namespace ArcGISRuntime.Samples.ListTransformations
                     output += $"\t{relationship}\n";
                 }
             }
-            // Add the polygon relationships to the output
+
+            // Add the polygon relationships to the output.
             if (selectedGeometry.GeometryType != GeometryType.Polygon)
             {
                 output += "Polygon:\n";
@@ -166,7 +166,8 @@ namespace ArcGISRuntime.Samples.ListTransformations
                     output += $"\t{relationship}\n";
                 }
             }
-            // Add the polyline relationships to the output
+
+            // Add the polyline relationships to the output.
             if (selectedGeometry.GeometryType != GeometryType.Polyline)
             {
                 output += "Polyline:\n";
@@ -180,49 +181,81 @@ namespace ArcGISRuntime.Samples.ListTransformations
         }
 
         /// <summary>
-        /// Returns a list of spatial relationships between two geometries
+        /// Returns a list of spatial relationships between two geometries.
         /// </summary>
-        /// <param name="a">The 'a' in "a contains b"</param>
-        /// <param name="b">The 'b' in "a contains b"</param>
+        /// <param name="a">The 'a' in "a contains b".</param>
+        /// <param name="b">The 'b' in "a contains b".</param>
         /// <returns>A list of spatial relationships that are true for a and b.</returns>
         private static List<SpatialRelationship> GetSpatialRelationships(Geometry a, Geometry b)
         {
             List<SpatialRelationship> relationships = new List<SpatialRelationship>();
-            if (GeometryEngine.Crosses(a, b)) { relationships.Add(SpatialRelationship.Crosses); }
-            if (GeometryEngine.Contains(a, b)) { relationships.Add(SpatialRelationship.Contains); }
-            if (GeometryEngine.Disjoint(a, b)) { relationships.Add(SpatialRelationship.Disjoint); }
-            if (GeometryEngine.Intersects(a, b)) { relationships.Add(SpatialRelationship.Intersects); }
-            if (GeometryEngine.Overlaps(a, b)) { relationships.Add(SpatialRelationship.Overlaps); }
-            if (GeometryEngine.Touches(a, b)) { relationships.Add(SpatialRelationship.Touches); }
-            if (GeometryEngine.Within(a, b)) { relationships.Add(SpatialRelationship.Within); }
+            if (GeometryEngine.Crosses(a, b))
+            {
+                relationships.Add(SpatialRelationship.Crosses);
+            }
+
+            if (GeometryEngine.Contains(a, b))
+            {
+                relationships.Add(SpatialRelationship.Contains);
+            }
+
+            if (GeometryEngine.Disjoint(a, b))
+            {
+                relationships.Add(SpatialRelationship.Disjoint);
+            }
+
+            if (GeometryEngine.Intersects(a, b))
+            {
+                relationships.Add(SpatialRelationship.Intersects);
+            }
+
+            if (GeometryEngine.Overlaps(a, b))
+            {
+                relationships.Add(SpatialRelationship.Overlaps);
+            }
+
+            if (GeometryEngine.Touches(a, b))
+            {
+                relationships.Add(SpatialRelationship.Touches);
+            }
+
+            if (GeometryEngine.Within(a, b))
+            {
+                relationships.Add(SpatialRelationship.Within);
+            }
+
             return relationships;
         }
 
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            // Create the UI.
-            CreateLayout();
 
+            CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLayoutSubviews();
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Place the MapView (top 2/3 of the view)
-            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height * 2 / 3);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height * 2 / 3);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                _resultTextView.Frame = new CGRect(0, View.Bounds.Height * 2 / 3, View.Bounds.Width, View.Bounds.Height / 3);
 
-            // Place the label (bottom 1/3 of the view)
-            _resultTextView.Frame = new CGRect(0, View.Bounds.Height * 2 / 3, View.Bounds.Width, View.Bounds.Height / 3);
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void CreateLayout()
         {
-            // Set the view background color
             View.BackgroundColor = UIColor.White;
-
             View.AddSubviews(_myMapView, _resultTextView);
         }
     }

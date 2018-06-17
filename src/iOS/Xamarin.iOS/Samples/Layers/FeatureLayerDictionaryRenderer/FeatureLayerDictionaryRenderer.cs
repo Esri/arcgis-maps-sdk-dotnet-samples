@@ -46,13 +46,19 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Reposition controls.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void CreateLayout()
@@ -64,10 +70,10 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
         private async void Initialize()
         {
             // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateTopographic());
+            Map map = new Map(Basemap.CreateTopographic());
 
             // Provide Map to the MapView.
-            _myMapView.Map = myMap;
+            _myMapView.Map = map;
 
             // Create geometry for the center of the map.
             MapPoint centerGeometry = new MapPoint(-13549402.587055, 4397264.96879385, SpatialReference.Create(3857));
@@ -95,16 +101,16 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
                 await table.LoadAsync();
 
                 // Create the feature layer from the table.
-                FeatureLayer myLayer = new FeatureLayer(table);
+                FeatureLayer layer = new FeatureLayer(table);
 
                 // Load the layer.
-                await myLayer.LoadAsync();
+                await layer.LoadAsync();
 
                 // Create and use a Dictionary Renderer using the DictionarySymbolStyle.
-                myLayer.Renderer = new DictionaryRenderer(symbolStyle);
+                layer.Renderer = new DictionaryRenderer(symbolStyle);
 
                 // Add the layer to the map.
-                myMap.OperationalLayers.Add(myLayer);
+                map.OperationalLayers.Add(layer);
             }
         }
     }

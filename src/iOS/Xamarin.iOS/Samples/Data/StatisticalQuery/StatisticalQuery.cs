@@ -15,6 +15,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.StatisticalQuery
@@ -27,26 +28,20 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         "Check the appropriate boxes to filter features by attributes and/or within the current extent. Click the button to see basic statistics displayed for world cities.")]
     public class StatisticalQuery : UIViewController
     {
-        // Create and hold a reference to the used MapView
+        // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
-
-        // URI for the world cities map service layer
-        private readonly Uri _worldCitiesServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0");
-
-        // World cities feature table
-        private FeatureTable _worldCitiesTable;
-
-        // UI controls (switches) that will need to be referenced
+        private readonly UIToolbar _toolbar = new UIToolbar();
         private UISwitch _onlyInExtentSwitch;
         private UISwitch _onlyBigCitiesSwitch;
-
         private UILabel _extentSwitchLabel;
         private UILabel _citySwitchLabel;
-
         private UIButton _getStatsButton;
 
-        // Toolbar to show behind the form
-        private readonly UIToolbar _toolbar = new UIToolbar();
+        // URI for the world cities map service layer.
+        private readonly Uri _worldCitiesServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0");
+
+        // World cities feature table.
+        private FeatureTable _worldCitiesTable;
 
         public StatisticalQuery()
         {
@@ -57,84 +52,90 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         {
             base.ViewDidLoad();
 
-            // Create the UI
             CreateLayout();
-
-            // Initialize the map and layers
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Get height of status bar and navigation bar
-            nfloat pageOffset = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat controlHeight = 30;
-            nfloat margin = 5;
-            nfloat switchWidth = _onlyInExtentSwitch.IntrinsicContentSize.Width;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat switchWidth = _onlyInExtentSwitch.IntrinsicContentSize.Width;
+                nfloat colSplit = View.Bounds.Width / 2;
 
-            // Setup the visual frames for the views.
-            _toolbar.Frame = new CoreGraphics.CGRect(0, pageOffset, View.Bounds.Width, controlHeight * 3 + margin * 4);
-            _extentSwitchLabel.Frame = new CoreGraphics.CGRect(margin, pageOffset + margin, View.Bounds.Width - switchWidth - 4 * margin, controlHeight);
-            _onlyInExtentSwitch.Frame = new CoreGraphics.CGRect(View.Bounds.Width - switchWidth - 2 * margin, pageOffset + margin, switchWidth, controlHeight);
-            _citySwitchLabel.Frame = new CoreGraphics.CGRect(margin, pageOffset + controlHeight + 2 * margin, View.Bounds.Width - switchWidth - 4 * margin, controlHeight);
-            _onlyBigCitiesSwitch.Frame = new CoreGraphics.CGRect(View.Bounds.Width - switchWidth - 2 * margin, pageOffset + controlHeight + 2 * margin, switchWidth, controlHeight);
-            _getStatsButton.Frame = new CoreGraphics.CGRect(margin, pageOffset + 2 * controlHeight + 3 * margin, View.Bounds.Width - 2 * margin, controlHeight);
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                // Reposition the controls.
+                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, controlHeight * 2 + margin * 3);
+                _extentSwitchLabel.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, colSplit - switchWidth - 2 * margin, controlHeight);
+                _onlyInExtentSwitch.Frame = new CGRect(colSplit - switchWidth, _toolbar.Frame.Top + margin, switchWidth, controlHeight);
+                _citySwitchLabel.Frame = new CGRect(colSplit + margin, _toolbar.Frame.Top + margin, colSplit - switchWidth - 4 * margin, controlHeight);
+                _onlyBigCitiesSwitch.Frame = new CGRect(View.Bounds.Width - switchWidth - margin, _toolbar.Frame.Top + margin, switchWidth, controlHeight);
+                _getStatsButton.Frame = new CGRect(margin, _onlyBigCitiesSwitch.Frame.Bottom + margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(_toolbar.Frame.Bottom, 0, 0, 0);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
         {
-            // Create a new Map with the world streets vector basemap
+            // Create a new Map with the world streets vector basemap.
             Map myMap = new Map(Basemap.CreateStreetsVector());
 
-            // Create feature table using the world cities URI
+            // Create feature table using the world cities URI.
             _worldCitiesTable = new ServiceFeatureTable(_worldCitiesServiceUri);
 
-            // Create a new feature layer to display features in the world cities table
+            // Create a new feature layer to display features in the world cities table.
             FeatureLayer worldCitiesLayer = new FeatureLayer(_worldCitiesTable);
 
-            // Add the world cities layer to the map
+            // Add the world cities layer to the map.
             myMap.OperationalLayers.Add(worldCitiesLayer);
 
-            // Assign the map to the MapView
+            // Assign the map to the MapView.
             _myMapView.Map = myMap;
         }
 
         private void CreateLayout()
         {
-            // Create a switch (and associated label) to include only big cities in the query
+            // Create a switch (and associated label) to include only big cities in the query.
             _onlyBigCitiesSwitch = new UISwitch();
             _citySwitchLabel = new UILabel
             {
                 Text = "Only cities over 5M",
-                TextAlignment = UITextAlignment.Right
+                TextAlignment = UITextAlignment.Right,
+                AdjustsFontSizeToFitWidth = true
             };
 
-            // Create a switch (and associated label) to include only cities in the current extent
+            // Create a switch (and associated label) to include only cities in the current extent.
             _onlyInExtentSwitch = new UISwitch();
             _extentSwitchLabel = new UILabel
             {
                 Text = "Only cities in extent",
-                TextAlignment = UITextAlignment.Right
+                TextAlignment = UITextAlignment.Right,
+                AdjustsFontSizeToFitWidth = true
             };
 
-            // Create a button to invoke the query
+            // Create a button to invoke the query.
             _getStatsButton = new UIButton();
             _getStatsButton.SetTitle("Get statistics", UIControlState.Normal);
             _getStatsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
-            // Handle the button tap to execute the statistics query
+            // Handle the button tap to execute the statistics query.
             _getStatsButton.TouchUpInside += OnExecuteStatisticsQueryClicked;
 
-            // Add MapView and UI controls to the page
+            // Add MapView and UI controls to the page.
             View.AddSubviews(_myMapView, _toolbar, _onlyInExtentSwitch, _onlyBigCitiesSwitch, _citySwitchLabel, _extentSwitchLabel, _getStatsButton);
         }
 
         private async void OnExecuteStatisticsQueryClicked(object sender, EventArgs e)
         {
-            // Create definitions for each statistic to calculate
+            // Create definitions for each statistic to calculate.
             StatisticDefinition statDefinitionAvgPop = new StatisticDefinition("POP", StatisticType.Average, "");
             StatisticDefinition statDefinitionMinPop = new StatisticDefinition("POP", StatisticType.Minimum, "");
             StatisticDefinition statDefinitionMaxPop = new StatisticDefinition("POP", StatisticType.Maximum, "");
@@ -142,53 +143,51 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             StatisticDefinition statDefinitionStdDevPop = new StatisticDefinition("POP", StatisticType.StandardDeviation, "");
             StatisticDefinition statDefinitionVarPop = new StatisticDefinition("POP", StatisticType.Variance, "");
 
-            // Create a definition for count that includes an alias for the output
+            // Create a definition for count that includes an alias for the output.
             StatisticDefinition statDefinitionCount = new StatisticDefinition("POP", StatisticType.Count, "CityCount");
 
-            // Add the statistics definitions to a list
+            // Add the statistics definitions to a list.
             List<StatisticDefinition> statDefinitions = new List<StatisticDefinition>
-                        { statDefinitionAvgPop,
-                        statDefinitionCount,
-                        statDefinitionMinPop,
-                        statDefinitionMaxPop,
-                        statDefinitionSumPop,
-                        statDefinitionStdDevPop,
-                        statDefinitionVarPop
-                        };
+            {
+                statDefinitionAvgPop,
+                statDefinitionCount,
+                statDefinitionMinPop,
+                statDefinitionMaxPop,
+                statDefinitionSumPop,
+                statDefinitionStdDevPop,
+                statDefinitionVarPop
+            };
 
-            // Create the statistics query parameters, pass in the list of definitions
+            // Create the statistics query parameters, pass in the list of definitions.
             StatisticsQueryParameters statQueryParams = new StatisticsQueryParameters(statDefinitions);
 
-            // If only using features in the current extent, set up the spatial filter for the statistics query parameters
+            // If only using features in the current extent, set up the spatial filter for the statistics query parameters.
             if (_onlyInExtentSwitch.On)
             {
-                // Get the current extent (envelope) from the map view
-                Envelope currentExtent = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
+                // Set the statistics query parameters geometry with the current extent (envelope) from the map view.
+                statQueryParams.Geometry = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
 
-                // Set the statistics query parameters geometry with the envelope
-                statQueryParams.Geometry = currentExtent;
-
-                // Set the spatial relationship to Intersects (which is the default)
+                // Set the spatial relationship to Intersects (which is the default).
                 statQueryParams.SpatialRelationship = SpatialRelationship.Intersects;
             }
 
-            // If only evaluating the largest cities (over 5 million in population), set up an attribute filter
+            // If only evaluating the largest cities (over 5 million in population), set up an attribute filter.
             if (_onlyBigCitiesSwitch.On)
             {
-                // Set a where clause to get the largest cities (could also use "POP_CLASS = '5,000,000 and greater'")
+                // Set a where clause to get the largest cities (could also use "POP_CLASS = '5,000,000 and greater'").
                 statQueryParams.WhereClause = "POP_RANK = 1";
             }
 
-            // Execute the statistical query with these parameters and await the results
+            // Execute the statistical query with these parameters and await the results.
             StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
 
-            // Get the first (only) StatisticRecord in the results
+            // Get the first (only) StatisticRecord in the results.
             StatisticRecord record = statQueryResult.FirstOrDefault();
 
-            // Make sure a record was returned
+            // Make sure a record was returned.
             if (record == null || record.Statistics.Count == 0)
             {
-                // Notify the user that no results were returned
+                // Notify the user that no results were returned.
                 UIAlertView alert = new UIAlertView
                 {
                     Message = "No results were returned",
@@ -198,20 +197,20 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
                 return;
             }
 
-            // Display results
+            // Display results.
             IReadOnlyDictionary<string, object> statistics = record.Statistics;
             ShowStatsList(statistics);
         }
 
         private void ShowStatsList(IReadOnlyDictionary<string, object> stats)
         {
-            // Create a new Alert Controller
+            // Create a new Alert Controller.
             UIAlertController statsAlert = UIAlertController.Create("Statistics", string.Empty, UIAlertControllerStyle.Alert);
 
-            // Loop through all key/value pairs in the results
+            // Loop through all key/value pairs in the results.
             foreach (KeyValuePair<string, object> kvp in stats)
             {
-                // If the value is null, display "--"
+                // If the value is null, display "--".
                 string displayString = "--";
 
                 if (kvp.Value != null)
@@ -219,14 +218,14 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
                     displayString = kvp.Value.ToString();
                 }
 
-                // Add the statistics info as an alert action
+                // Add the statistics info as an alert action.
                 statsAlert.AddAction(UIAlertAction.Create(kvp.Key + " : " + displayString, UIAlertActionStyle.Default, null));
             }
 
-            // Add an Action to dismiss the alert
+            // Add an Action to dismiss the alert.
             statsAlert.AddAction(UIAlertAction.Create("Dismiss", UIAlertActionStyle.Cancel, null));
 
-            // Display the alert
+            // Display the alert.
             PresentViewController(statsAlert, true, null);
         }
     }

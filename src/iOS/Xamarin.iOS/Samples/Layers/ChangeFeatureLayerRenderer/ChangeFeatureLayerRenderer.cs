@@ -54,28 +54,34 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Reposition controls.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()
         {
             // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateTopographic());
+            Map map = new Map(Basemap.CreateTopographic());
 
             // Create and set initial map area.
             Envelope initialLocation = new Envelope(-1.30758164047166E7, 4014771.46954516, -1.30730056797177E7, 4016869.78617381, SpatialReferences.WebMercator);
 
             // Set the initial viewpoint for map.
-            myMap.InitialViewpoint = new Viewpoint(initialLocation);
+            map.InitialViewpoint = new Viewpoint(initialLocation);
 
             // Provide used Map to the MapView.
-            _myMapView.Map = myMap;
+            _myMapView.Map = map;
 
             // Create URI to the used feature service.
             var serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/FeatureServer/0");
@@ -93,7 +99,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
             if (_featureLayer.LoadStatus == Esri.ArcGISRuntime.LoadStatus.Loaded)
             {
                 // Add the feature layer to the map.
-                myMap.OperationalLayers.Add(_featureLayer);
+                map.OperationalLayers.Add(_featureLayer);
             }
         }
 

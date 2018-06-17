@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -61,16 +62,16 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             await mapImageLayer.LoadAsync();
 
             // Create a new Map instance with the basemap..
-            Map myMap = new Map(SpatialReferences.Wgs84)
+            Map map = new Map(SpatialReferences.Wgs84)
             {
                 Basemap = Basemap.CreateTopographic()
             };
 
             // Add the map image layer to the map's operational layers.
-            myMap.OperationalLayers.Add(mapImageLayer);
+            map.OperationalLayers.Add(mapImageLayer);
 
             // Assign the Map to the MapView.
-            _myMapView.Map = myMap;
+            _myMapView.Map = map;
 
             // Create a new instance of the Sublayers Table View Controller. This View Controller
             // displays a table of sublayers with a switch for setting the layer visibility. 
@@ -89,15 +90,21 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat barHeight = 40;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat barHeight = 40;
 
-            // Reposition the controls.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, barHeight, 0);
-            _sublayersButton.Frame = new CoreGraphics.CGRect(0, _myMapView.Bounds.Height - barHeight, View.Bounds.Width, barHeight);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, barHeight, 0);
+                _sublayersButton.Frame = new CGRect(0, _myMapView.Bounds.Height - barHeight, View.Bounds.Width, barHeight);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 
@@ -123,7 +130,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
                 sublayers.AddRange(MapImageLayer.Sublayers);
 
                 TableView.Source = new SublayerDataSource(sublayers);
-                TableView.Frame = new CoreGraphics.CGRect(0, 0, 100, 100);
+                TableView.Frame = new CGRect(0, 0, 100, 100);
             }
         }
     }
@@ -150,7 +157,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             // Create a UISwitch for controlling the layer visibility.
             var visibilitySwitch = new UISwitch
             {
-                Frame = new CoreGraphics.CGRect(cell.Bounds.Width - 60, 7, 50, cell.Bounds.Height),
+                Frame = new CGRect(cell.Bounds.Width - 60, 7, 50, cell.Bounds.Height),
                 Tag = indexPath.Row,
                 On = sublayer.IsVisible
             };

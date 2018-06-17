@@ -137,7 +137,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             _myMapView.Grid = grid;
         }
 
-        private void _labelPositionButton_TouchUpInside(object sender, EventArgs e)
+        private void LabelPositionButton_Click(object sender, EventArgs e)
         {
             // Create the view controller that will present the list of label positions.
             UIAlertController labelPositionAlert = UIAlertController.Create("Select a label position", "", UIAlertControllerStyle.ActionSheet);
@@ -165,7 +165,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             PresentViewController(labelPositionAlert, true, null);
         }
 
-        private void _gridTypeButton_TouchUpInside(object sender, EventArgs e)
+        private void GridTypeButton_Click(object sender, EventArgs e)
         {
             // Create the view controller that will present the list of grid types.
             UIAlertController gridTypeAlert = UIAlertController.Create("Select a grid type", "", UIAlertControllerStyle.ActionSheet);
@@ -193,7 +193,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             PresentViewController(gridTypeAlert, true, null);
         }
 
-        private void _labelColorButton_TouchUpInside(object sender, EventArgs e)
+        private void LabelColorButton_Click(object sender, EventArgs e)
         {
             // Create the view controller that will present the list of label color options.
             UIAlertController labelColorAlert = UIAlertController.Create("Select a label color", "", UIAlertControllerStyle.ActionSheet);
@@ -229,7 +229,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             PresentViewController(labelColorAlert, true, null);
         }
 
-        private void _gridColorButton_TouchUpInside(object sender, EventArgs e)
+        private void GridColorButton_Click(object sender, EventArgs e)
         {
             // Create the view controller that will present the list of grid color options.
             UIAlertController gridColorAlert = UIAlertController.Create("Select a grid color", "", UIAlertControllerStyle.ActionSheet);
@@ -280,10 +280,10 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             _labelPositionButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Register event handlers.
-            _gridColorButton.TouchUpInside += _gridColorButton_TouchUpInside;
-            _labelColorButton.TouchUpInside += _labelColorButton_TouchUpInside;
-            _gridTypeButton.TouchUpInside += _gridTypeButton_TouchUpInside;
-            _labelPositionButton.TouchUpInside += _labelPositionButton_TouchUpInside;
+            _gridColorButton.TouchUpInside += GridColorButton_Click;
+            _labelColorButton.TouchUpInside += LabelColorButton_Click;
+            _gridTypeButton.TouchUpInside += GridTypeButton_Click;
+            _labelPositionButton.TouchUpInside += LabelPositionButton_Click;
 
             // Add the controls to the layout.
             View.AddSubviews(_myMapView, _toolbar, _gridColorButton, _gridTypeButton, _labelColorButton, _labelPositionButton);
@@ -291,22 +291,29 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat toolbarHeight = 30;
-            nfloat buttonWidth = View.Bounds.Width / 4;
-            nfloat toolbarPadding = 5;
-
-            // Reposition the views.
-            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-            _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-            int index = 0;
-            foreach (UIButton button in new[] {_gridTypeButton, _gridColorButton, _labelPositionButton, _labelColorButton})
+            try
             {
-                // Apply the frame.
-                button.Frame = new CGRect(buttonWidth * index + toolbarPadding, View.Bounds.Height - toolbarHeight + toolbarPadding, buttonWidth - toolbarPadding, toolbarHeight - 2 * 5);
-                // Increment the index.
-                index++;
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat toolbarHeight = 40;
+                nfloat buttonWidth = View.Bounds.Width / 4;
+                nfloat toolbarPadding = 5;
+
+                // Reposition the views.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                int index = 0;
+                foreach (UIButton button in new[] { _gridTypeButton, _gridColorButton, _labelPositionButton, _labelColorButton })
+                {
+                    // Apply the frame.
+                    button.Frame = new CGRect(buttonWidth * index + toolbarPadding, View.Bounds.Height - toolbarHeight + toolbarPadding, buttonWidth - toolbarPadding, toolbarHeight - 2 * 5);
+
+                    // Increment the index.
+                    index++;
+                }
+            }
+            catch (NullReferenceException)
+            {
             }
         }
     }

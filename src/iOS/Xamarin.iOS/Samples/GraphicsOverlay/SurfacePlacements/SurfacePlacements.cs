@@ -27,51 +27,61 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
         "")]
     public class SurfacePlacements : UIViewController
     {
-        // Create and hold reference to the used SceneView
+        // Create and hold a reference to the SceneView.
         private readonly SceneView _mySceneView = new SceneView();
 
         public SurfacePlacements()
         {
             Title = "Surface placement";
         }
-        
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            Initialize();
 
-            // Create the UI 
+            Initialize();
             CreateLayout();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+                // Reposition controls.
+                _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
         {
-            // Create new scene with imagery basemap
-            Scene myScene = new Scene(Basemap.CreateImagery());
+            // Create new scene with imagery basemap.
+            Scene scene = new Scene(Basemap.CreateImagery());
 
-            // Create a camera with coordinates showing layer data 
+            // Create a camera with coordinates showing layer data.
             Camera camera = new Camera(53.04, -4.04, 1300, 0, 90.0, 0);
 
-            // Assign the Scene to the SceneView
-            _mySceneView.Scene = myScene;
+            // Assign the Scene to the SceneView.
+            _mySceneView.Scene = scene;
 
-            // Create ElevationSource from elevation data Uri
+            // Create ElevationSource from elevation data Uri.
             ArcGISTiledElevationSource elevationSource = new ArcGISTiledElevationSource(
                 new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
 
-            // Add elevationSource to BaseSurface's ElevationSources
+            // Add elevationSource to BaseSurface's ElevationSources.
             _mySceneView.Scene.BaseSurface.ElevationSources.Add(elevationSource);
 
-            // Set view point of scene view using camera 
+            // Set view point of scene view using camera.
             _mySceneView.SetViewpointCameraAsync(camera);
 
-            // Create overlays with elevation modes
+            // Create overlays with elevation modes.
             GraphicsOverlay drapedOverlay = new GraphicsOverlay
             {
                 SceneProperties = {SurfacePlacement = SurfacePlacement.Draped}
@@ -90,26 +100,20 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
             };
             _mySceneView.GraphicsOverlays.Add(absoluteOverlay);
 
-            // Create point for graphic location
+            // Create point for graphic location.
             MapPoint point = new MapPoint(-4.04, 53.06, 1000, camera.Location.SpatialReference);
 
-            // Create a red circle symbol
+            // Create a red circle symbol.
             SimpleMarkerSymbol circleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Red, 10);
 
-            // Create a text symbol for each elevation mode
-            TextSymbol drapedText = new TextSymbol("DRAPED", Color.White, 10,
-                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Left,
-                Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
+            // Create a text symbol for each elevation mode.
+            TextSymbol drapedText = new TextSymbol("DRAPED", Color.White, 10, HorizontalAlignment.Left, VerticalAlignment.Middle);
 
-            TextSymbol relativeText = new TextSymbol("RELATIVE", Color.White, 10,
-                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Left,
-                Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
+            TextSymbol relativeText = new TextSymbol("RELATIVE", Color.White, 10, HorizontalAlignment.Left, VerticalAlignment.Middle);
 
-            TextSymbol absoluteText = new TextSymbol("ABSOLUTE", Color.White, 10,
-                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Left,
-                Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
+            TextSymbol absoluteText = new TextSymbol("ABSOLUTE", Color.White, 10, HorizontalAlignment.Left, VerticalAlignment.Middle);
 
-            // Add the point graphic and text graphic to the corresponding graphics overlay
+            // Add the point graphic and text graphic to the corresponding graphics overlay.
             drapedOverlay.Graphics.Add(new Graphic(point, circleSymbol));
             drapedOverlay.Graphics.Add(new Graphic(point, drapedText));
 
@@ -118,12 +122,11 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
 
             absoluteOverlay.Graphics.Add(new Graphic(point, circleSymbol));
             absoluteOverlay.Graphics.Add(new Graphic(point, absoluteText));
-
         }
 
         private void CreateLayout()
         {
-            // Add SceneView to the page
+            // Add SceneView to the page.
             View.AddSubviews(_mySceneView);
         }
     }

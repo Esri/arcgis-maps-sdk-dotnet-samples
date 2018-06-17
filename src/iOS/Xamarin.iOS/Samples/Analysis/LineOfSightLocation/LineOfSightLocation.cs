@@ -26,22 +26,22 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
         "Featured")]
     public class LineOfSightLocation : UIViewController
     {
-        // Create and hold a reference to the used MapView
+        // Create and hold a reference to the SceneView.
         private readonly SceneView _mySceneView = new SceneView();
 
-        // URL for an image service to use as an elevation source
+        // URL for an image service to use as an elevation source.
         private readonly string _elevationSourceUrl = @"http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
-        // Location line of sight analysis
+        // Location line of sight analysis.
         private LocationLineOfSight _lineOfSightAnalysis;
 
-        // Observer location for line of sight
+        // Observer location for line of sight.
         private MapPoint _observerLocation;
 
-        // Target location for line of sight
+        // Target location for line of sight.
         private MapPoint _targetLocation;
 
-        // Offset (meters) to use for the observer/target height (z-value for the points)
+        // Offset (meters) to use for the observer/target height (z-value for the points).
         private readonly double _zOffset = 2.0;
 
         public LineOfSightLocation()
@@ -53,81 +53,86 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
         {
             base.ViewDidLoad();
 
-            // Create a layout that contains only a scene view, wire up touch events
             CreateLayout();
-
-            // Create the Scene, basemap, line of sight analysis, and analysis overlay
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _mySceneView.Frame = new CoreGraphics.CGRect(
-                0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition controls.
+                _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
         {
-            // Create a new Scene with an imagery basemap
-            Scene myScene = new Scene(Basemap.CreateImagery());
+            // Create a new Scene with an imagery basemap.
+            Scene scene = new Scene(Basemap.CreateImagery());
 
-            // Create an elevation source for the Scene
+            // Create an elevation source for the Scene.
             ArcGISTiledElevationSource elevationSrc = new ArcGISTiledElevationSource(new Uri(_elevationSourceUrl));
-            myScene.BaseSurface.ElevationSources.Add(elevationSrc);
+            scene.BaseSurface.ElevationSources.Add(elevationSrc);
 
-            // Add the Scene to the SceneView
-            _mySceneView.Scene = myScene;
+            // Add the Scene to the SceneView.
+            _mySceneView.Scene = scene;
 
-            // Set the viewpoint with a new camera
+            // Set the viewpoint with a new camera.
             Camera newCamera = new Camera(new MapPoint(-121.7, 45.4, SpatialReferences.Wgs84), 10000, 0, 45, 0);
             _mySceneView.SetViewpointCameraAsync(newCamera);
 
-            // Create a new line of sight analysis with arbitrary points (observer and target will be defined by the user)
+            // Create a new line of sight analysis with arbitrary points (observer and target will be defined by the user).
             _lineOfSightAnalysis = new LocationLineOfSight(new MapPoint(0.0, 0.0, SpatialReferences.Wgs84), new MapPoint(0.0, 0.0, SpatialReferences.Wgs84));
 
-            // Set the visible and obstructed colors (default would be green/red)
-            // These are static properties that apply to all line of sight analyses in the scene view
+            // Set the visible and obstructed colors (default would be green/red).
+            // These are static properties that apply to all line of sight analyses in the scene view.
             LineOfSight.VisibleColor = System.Drawing.Color.Cyan;
             LineOfSight.ObstructedColor = System.Drawing.Color.Magenta;
 
-            // Create an analysis overlay to contain the analysis and add it to the scene view
+            // Create an analysis overlay to contain the analysis and add it to the scene view.
             AnalysisOverlay lineOfSightOverlay = new AnalysisOverlay();
             lineOfSightOverlay.Analyses.Add(_lineOfSightAnalysis);
             _mySceneView.AnalysisOverlays.Add(lineOfSightOverlay);
         }
-        
+
         private void CreateLayout()
         {
-            // Wire up tapped event for the scene view
+            // Wire up tapped event for the scene view.
             _mySceneView.GeoViewTapped += SceneViewTapped;
 
-            // Add SceneView to the page
+            // Add SceneView to the page.
             View.AddSubviews(_mySceneView);
         }
 
         private void SceneViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // When the view is tapped, define the observer or target location with the tap point as appropriate
+            // When the view is tapped, define the observer or target location with the tap point as appropriate.
             if (_observerLocation == null)
             {
-                // Define the observer location (plus an offset for observer height) and set the target to the same point
+                // Define the observer location (plus an offset for observer height) and set the target to the same point.
                 _observerLocation = new MapPoint(e.Location.X, e.Location.Y, e.Location.Z + _zOffset);
                 _lineOfSightAnalysis.ObserverLocation = _observerLocation;
                 _lineOfSightAnalysis.TargetLocation = _observerLocation;
 
-                // Clear the target location (if any) so the next click will define the target
+                // Clear the target location (if any) so the next click will define the target.
                 _targetLocation = null;
             }
             else if (_targetLocation == null)
             {
-                // Define the target
+                // Define the target.
                 _targetLocation = new MapPoint(e.Location.X, e.Location.Y, e.Location.Z + _zOffset);
                 _lineOfSightAnalysis.TargetLocation = _targetLocation;
 
-                // Clear the observer location so it can be defined again
+                // Clear the observer location so it can be defined again.
                 _observerLocation = null;
             }
         }

@@ -14,6 +14,7 @@ using Foundation;
 using System;
 using System.Linq;
 using ArcGISRuntime.Samples.Managers;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.RasterRgbRenderer
@@ -56,25 +57,31 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat margin = 5;
-            nfloat controlHeight = 30;
-            nfloat toolbarHeight = controlHeight + 2 * margin;
-
-            // Reposition the controls.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-            _segmentButton.Frame = new CoreGraphics.CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
-
-            if (_updateRendererUi != null)
+            try
             {
-                _updateRendererUi.Bounds = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin);
-                _updateRendererUi.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin);
-                _updateRendererUi.Center = View.Center;
-            }
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat margin = 5;
+                nfloat controlHeight = 30;
+                nfloat toolbarHeight = controlHeight + 2 * margin;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                _segmentButton.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
+
+                if (_updateRendererUi != null)
+                {
+                    _updateRendererUi.Bounds = new CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin);
+                    _updateRendererUi.Frame = new CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin);
+                    _updateRendererUi.Center = View.Center;
+                }
+
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()
@@ -157,7 +164,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             }
 
             // Create a view to show map item info entry controls over the map view
-            var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
+            var ovBounds = new CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
             _updateRendererUi = new UpdateRendererDialogOverlay(ovBounds, 0.9f, UIColor.White, stretchType);
 
             // Handle the OnSearchMapsTextEntered event to get the info entered by the user
@@ -202,7 +209,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         private UISlider _maxPercentSlider;
         private UIPickerView _stdDevPicker;
 
-        public UpdateRendererDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, string stretchType) : base(frame)
+        public UpdateRendererDialogOverlay(CGRect frame, nfloat transparency, UIColor color, string stretchType) : base(frame)
         {
             // Store the type of stretch parameters to define.
             _stretchParamsType = stretchType;
@@ -265,13 +272,13 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             nfloat controlY = 200;
 
             // Position the input description label.
-            description.Frame = new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight);
+            description.Frame = new CGRect(controlX, controlY, totalWidth, controlHeight);
 
             // Adjust the Y position for the next control.
             controlY = controlY + controlHeight + rowSpace;
 
             // Create a label for the minimum RGB input.
-            UILabel minRgbLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight))
+            UILabel minRgbLabel = new UILabel(new CGRect(controlX, controlY, totalWidth, controlHeight))
             {
                 Text = "Minimum (Red | Green | Blue)",
                 TextAlignment = UITextAlignment.Center,
@@ -282,7 +289,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             controlY = controlY + 15;
 
             // Create a picker for minimum RGB values (all are 0 by default).
-            _minRgbPicker = new UIPickerView(new CoreGraphics.CGRect(controlX, controlY, 200, 100))
+            _minRgbPicker = new UIPickerView(new CGRect(controlX, controlY, 200, 100))
             {
                 Model = new RgbValuePickerModel(0, 0, 0)
             };
@@ -291,7 +298,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             controlY = controlY + 100 + rowSpace;
 
             // Create a label for the maximum RGB input.
-            UILabel maxRgbLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight))
+            UILabel maxRgbLabel = new UILabel(new CGRect(controlX, controlY, totalWidth, controlHeight))
             {
                 Text = "Maximum (Red | Green | Blue)",
                 TextAlignment = UITextAlignment.Center,
@@ -302,7 +309,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             controlY = controlY + 15;
 
             // Create a picker for the maximum RGB values.
-            _maxRgbPicker = new UIPickerView(new CoreGraphics.CGRect(controlX, controlY, 200, 100))
+            _maxRgbPicker = new UIPickerView(new CGRect(controlX, controlY, 200, 100))
             {
                 Model = new RgbValuePickerModel(255, 255, 255)
             };
@@ -311,13 +318,13 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             controlY = controlY + 100 + rowSpace;
 
             // Set the frame for the apply button.
-            applyButton.Frame = new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight);
+            applyButton.Frame = new CGRect(controlX, controlY, buttonWidth, controlHeight);
 
             // Adjust the X position for the next control.
             controlX = controlX + buttonWidth + columnSpace;
 
             // Set the frame for the cancel button.
-            cancelButton.Frame = new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight);
+            cancelButton.Frame = new CGRect(controlX, controlY, buttonWidth, controlHeight);
 
             // Add the input controls.
             AddSubviews(description,
@@ -350,13 +357,13 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             nfloat controlY = 200;
 
             // Position the input description label.
-            description.Frame = new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight);
+            description.Frame = new CGRect(controlX, controlY, totalWidth, controlHeight);
 
             // Adjust the Y position for the next control.
             controlY = controlY + controlHeight + rowSpace;
 
             // Create a label for the minimum percent input.
-            UILabel minPercentLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight))
+            UILabel minPercentLabel = new UILabel(new CGRect(controlX, controlY, totalWidth, controlHeight))
             {
                 Text = "Minimum: ",
                 TextAlignment = UITextAlignment.Center,
@@ -367,7 +374,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             controlY = controlY + 15;
 
             // Create a slider for minimum percent clip value.
-            _minPercentSlider = new UISlider(new CoreGraphics.CGRect(controlX, controlY, 200, 100))
+            _minPercentSlider = new UISlider(new CGRect(controlX, controlY, 200, 100))
             {
                 MinValue = 0,
                 MaxValue = 100
@@ -377,7 +384,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             controlY = controlY + 100 + rowSpace;
 
             // Create a label for the maximum percent clip input.
-            UILabel maxPercentLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight))
+            UILabel maxPercentLabel = new UILabel(new CGRect(controlX, controlY, totalWidth, controlHeight))
             {
                 Text = "Maximum: ",
                 TextAlignment = UITextAlignment.Center,
@@ -388,7 +395,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             controlY = controlY + 15;
 
             // Create a picker for the maximum RGB values.
-            _maxPercentSlider = new UISlider(new CoreGraphics.CGRect(controlX, controlY, 200, 100))
+            _maxPercentSlider = new UISlider(new CGRect(controlX, controlY, 200, 100))
             {
                 MinValue = 0,
                 MaxValue = 100
@@ -398,13 +405,13 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             controlY = controlY + 100 + rowSpace;
 
             // Set the frame for the apply button.
-            applyButton.Frame = new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight);
+            applyButton.Frame = new CGRect(controlX, controlY, buttonWidth, controlHeight);
 
             // Adjust the X position for the next control.
             controlX = controlX + buttonWidth + columnSpace;
 
             // Set the frame for the cancel button.
-            cancelButton.Frame = new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight);
+            cancelButton.Frame = new CGRect(controlX, controlY, buttonWidth, controlHeight);
 
             // Add the input controls.
             AddSubviews(description,
@@ -432,13 +439,13 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             nfloat controlY = 200;
 
             // Position the input description label.
-            description.Frame = new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight);
+            description.Frame = new CGRect(controlX, controlY, totalWidth, controlHeight);
 
             // Adjust the Y position for the next control.
             controlY = controlY + controlHeight + rowSpace;
 
             // Create a label for the standard deviation factor input.
-            UILabel factorLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight))
+            UILabel factorLabel = new UILabel(new CGRect(controlX, controlY, totalWidth, controlHeight))
             {
                 Text = "Factor: ",
                 TextAlignment = UITextAlignment.Left,
@@ -449,7 +456,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             controlY = controlY + 15;
 
             // Create a picker for the standard deviation factor.
-            _stdDevPicker = new UIPickerView(new CoreGraphics.CGRect(controlX, controlY, 200, 100))
+            _stdDevPicker = new UIPickerView(new CGRect(controlX, controlY, 200, 100))
             {
                 Model = new StdDevFactorPickerModel()
             };
@@ -458,13 +465,13 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             controlY = controlY + 100 + rowSpace;
 
             // Set the frame for the apply button.
-            applyButton.Frame = new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight);
+            applyButton.Frame = new CGRect(controlX, controlY, buttonWidth, controlHeight);
 
             // Adjust the X position for the next control.
             controlX = controlX + buttonWidth + columnSpace;
 
             // Set the frame for the cancel button.
-            cancelButton.Frame = new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight);
+            cancelButton.Frame = new CGRect(controlX, controlY, buttonWidth, controlHeight);
 
             // Add the input controls.
             AddSubviews(description,

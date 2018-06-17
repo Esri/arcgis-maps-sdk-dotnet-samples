@@ -23,6 +23,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.GenerateGeodatabase
@@ -36,6 +37,16 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         "1. Pan and zoom to the area you would like to download features for, ensuring that all features are within the rectangle.\n2. Tap on the button. This will start the process of generating the offline geodatabase.\n3. Observe that the sample unregisters the geodatabase. This is best practice when changes won't be edited and synced back to the service.\n\nNote that the basemap will be automatically downloaded from an ArcGIS Online portal.")]
     public class GenerateGeodatabase : UIViewController
     {
+        // Create and hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIProgressView _progressBar = new UIProgressView();
+        private readonly UIToolbar _toolbar = new UIToolbar();
+
+        private readonly UIButton _generateButton = new UIButton
+        {
+            Enabled = false
+        };
+
         // URL for a feature service that supports geodatabase generation.
         private readonly Uri _featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer");
 
@@ -48,16 +59,6 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         // Job used to generate the geodatabase.
         private GenerateGeodatabaseJob _generateGdbJob;
 
-        // MapView control.
-        private readonly MapView _myMapView = new MapView();
-
-        // Progress Bar.
-        private readonly UIProgressView _progressBar = new UIProgressView();
-
-        // Generate button.
-        private readonly UIButton _generateButton = new UIButton { Enabled = false };
-        private readonly UIToolbar _toolbar = new UIToolbar();
-
         public GenerateGeodatabase()
         {
             Title = "Generate geodatabase";
@@ -67,25 +68,35 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization.
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLayoutSubviews();
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat toolbarHeight = controlHeight + 2 * margin;
 
-            // Place the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-            _generateButton.Frame = new CoreGraphics.CGRect(5, View.Bounds.Height - 35, View.Bounds.Width - 10, 30);
-            _progressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 42, View.Bounds.Width, 2);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                _generateButton.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _progressBar.Frame = new CGRect(0, View.Bounds.Height - 42, View.Bounds.Width, 2);
+
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void CreateLayout()
         {
-            // Place the Button.
             _generateButton.SetTitle("Generate", UIControlState.Normal);
             _generateButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _generateButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
@@ -169,7 +180,10 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             Envelope extent = myViewPoint?.TargetGeometry as Envelope;
 
             // Return if extent is null.
-            if (extent == null) { return; }
+            if (extent == null)
+            {
+                return;
+            }
 
             // Create an envelope that is a bit smaller than the extent.
             EnvelopeBuilder envelopeBldr = new EnvelopeBuilder(extent);
@@ -179,7 +193,10 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             var extentOverlay = _myMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
-            if (extentOverlay == null) { return; }
+            if (extentOverlay == null)
+            {
+                return;
+            }
 
             // Get the extent graphic.
             Graphic extentGraphic = extentOverlay.Graphics.FirstOrDefault();
@@ -215,10 +232,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             _generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the progress changed event (to show progress bar).
-            _generateGdbJob.ProgressChanged += (sender, e) =>
-            {
-                UpdateProgressBar();
-            };
+            _generateGdbJob.ProgressChanged += (sender, e) => { UpdateProgressBar(); };
 
             // Show the progress bar.
             View.AddSubview(_progressBar);
@@ -251,6 +265,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                         // Add the new layer to the map.
                         _myMapView.Map.OperationalLayers.Add(layer);
                     }
+
                     // Best practice is to unregister the geodatabase.
                     await _gdbSyncTask.UnregisterGeodatabaseAsync(resultGdb);
 
@@ -291,7 +306,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            UIAlertView alertView = new UIAlertView("alert", message, (IUIAlertViewDelegate)null, "OK", null);
+            UIAlertView alertView = new UIAlertView("alert", message, (IUIAlertViewDelegate) null, "OK", null);
             alertView.Show();
         }
 
@@ -319,12 +334,11 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
 
         private void UpdateProgressBar()
         {
-            // Due to the nature of the threading implementation,
-            //     the dispatcher needs to be used to interact with the UI.
+            // Needed because this could be called from a non-UI thread.
             InvokeOnMainThread(() =>
             {
                 // Update the progress bar value.
-                _progressBar.Progress = (float)(_generateGdbJob.Progress / 100.0);
+                _progressBar.Progress = (float) (_generateGdbJob.Progress / 100.0);
             });
         }
     }

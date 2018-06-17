@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.MapImageSublayerQuery
@@ -53,20 +54,26 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat margin = 5;
-            nfloat controlHeight = 30;
-            nfloat toolbarHeight = controlHeight * 2 + margin * 3;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat margin = 5;
+                nfloat controlHeight = 30;
+                nfloat toolbarHeight = controlHeight * 2 + margin * 3;
 
-            // Reposition the controls.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
-            _populationLabel.Frame = new CoreGraphics.CGRect(margin, topMargin + margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
-            _populationValueInput.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, topMargin + margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
-            _queryButton.Frame = new CoreGraphics.CGRect(margin, topMargin + controlHeight + 2 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
+                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
+                _populationLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
+                _populationValueInput.Frame = new CGRect(View.Bounds.Width / 2 + margin, topMargin + margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
+                _queryButton.Frame = new CGRect(margin, topMargin + controlHeight + 2 * margin, View.Bounds.Width - 2 * margin, controlHeight);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()

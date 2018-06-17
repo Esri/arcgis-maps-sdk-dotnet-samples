@@ -17,6 +17,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.FindRoute
@@ -192,18 +193,24 @@ namespace ArcGISRuntime.Samples.FindRoute
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat toolbarHeight = 40;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat toolbarHeight = 40;
 
-            // Reposition the views.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-            _solveRouteButton.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, 100, 20);
-            _resetButton.Frame = new CoreGraphics.CGRect(120, _toolbar.Frame.Top + 10, 50, 20);
-            _showDirectionsButton.Frame = new CoreGraphics.CGRect(180, _toolbar.Frame.Top + 10, 100, 20);
+                // Reposition the views.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _toolbar.Frame = new CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+                _solveRouteButton.Frame = new CGRect(10, _toolbar.Frame.Top + 10, 100, 20);
+                _resetButton.Frame = new CGRect(120, _toolbar.Frame.Top + 10, 50, 20);
+                _showDirectionsButton.Frame = new CGRect(180, _toolbar.Frame.Top + 10, 100, 20);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 

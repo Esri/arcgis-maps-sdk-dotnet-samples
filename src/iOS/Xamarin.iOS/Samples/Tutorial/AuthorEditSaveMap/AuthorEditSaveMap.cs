@@ -20,6 +20,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using UIKit;
 using System.IO;
+using CoreGraphics;
 
 namespace ArcGISRuntime.Samples.AuthorEditSaveMap
 {
@@ -89,15 +90,21 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Reposition controls.
-            _mapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-            _segmentButton.Frame = new CoreGraphics.CGRect(5, _toolbar.Frame.Top + 5, View.Bounds.Width - 10, 30);
+                // Reposition controls.
+                _mapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _toolbar.Frame = new CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+                _segmentButton.Frame = new CGRect(5, _toolbar.Frame.Top + 5, View.Bounds.Width - 10, 30);
 
-            // Update insets.
-            _mapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 40, 0);
+                // Update insets.
+                _mapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 40, 0);
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void CreateLayout()
@@ -452,7 +459,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
         private readonly UITextField _descriptionTextField;
         private readonly UITextField _tagsTextField;
 
-        public SaveMapDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color, Item mapItem) : base(frame)
+        public SaveMapDialogOverlay(CGRect frame, nfloat transparency, UIColor color, Item mapItem) : base(frame)
         {
             // Store any existing portal item (for "update" versus "save", e.g.).
             var portalItem = mapItem as PortalItem;
@@ -481,11 +488,13 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             nfloat controlY = centerY - totalHeight / 2;
 
             // Title text input.
-            _titleTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            _titleTextField = new UITextField(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Placeholder = "Title",
                 AutocapitalizationType = UITextAutocapitalizationType.None,
-                BackgroundColor = UIColor.LightGray
+                BackgroundColor = UIColor.LightGray,
+                LeftView = new UIView(new CGRect(0,0,5,20)),
+                LeftViewMode = UITextFieldViewMode.Always
             };
 
             // Allow pressing 'return' to dismiss the keyboard.
@@ -499,11 +508,13 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             controlY = controlY + controlHeight + rowSpace;
 
             // Description text input.
-            _descriptionTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            _descriptionTextField = new UITextField(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Placeholder = "Description",
                 AutocapitalizationType = UITextAutocapitalizationType.None,
-                BackgroundColor = UIColor.LightGray
+                BackgroundColor = UIColor.LightGray,
+                LeftView = new UIView(new CGRect(0,0,5,20)),
+                LeftViewMode = UITextFieldViewMode.Always
             };
 
             // Allow pressing 'return' to dismiss the keyboard.
@@ -517,11 +528,13 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             controlY = controlY + controlHeight + rowSpace;
 
             // Tags text input.
-            _tagsTextField = new UITextField(new CoreGraphics.CGRect(controlX, controlY, textViewWidth, controlHeight))
+            _tagsTextField = new UITextField(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = "ArcGIS Runtime, Web Map",
                 AutocapitalizationType = UITextAutocapitalizationType.None,
-                BackgroundColor = UIColor.LightGray
+                BackgroundColor = UIColor.LightGray,
+                LeftView = new UIView(new CGRect(0,0,5,20)),
+                LeftViewMode = UITextFieldViewMode.Always
             };
 
             // Allow pressing 'return' to dismiss the keyboard.
@@ -535,7 +548,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             controlY = controlY + controlHeight + rowSpace;
 
             // Button to save the map.
-            UIButton saveButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
+            UIButton saveButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             saveButton.SetTitle("Save", UIControlState.Normal);
             saveButton.SetTitleColor(TintColor, UIControlState.Normal);
             saveButton.TouchUpInside += SaveButtonClick;
@@ -544,10 +557,10 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             controlX = controlX + buttonWidth + buttonSpace;
 
             // Button to cancel the save.
-            UIButton cancelButton = new UIButton(new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight));
+            UIButton cancelButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
             cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
-            cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
+            cancelButton.TouchUpInside += (s, e) => OnCanceled.Invoke(this, null);
 
             // Add the controls.
             AddSubviews(_titleTextField, _descriptionTextField, _tagsTextField, saveButton, cancelButton);
@@ -573,7 +586,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
         public void Hide()
         {
             // Action to make the view transparent.
-            Action makeTransparentAction = () => Alpha = 0;
+            void MakeTransparentAction() => Alpha = 0;
 
             // Action to remove the view.
             Action removeViewAction = RemoveFromSuperview;
@@ -582,7 +595,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             double secondsToComplete = 0.75;
 
             // Animate transparency to zero, then remove the view.
-            Animate(secondsToComplete, makeTransparentAction, removeViewAction);
+            Animate(secondsToComplete, MakeTransparentAction, removeViewAction);
         }
 
         private void SaveButtonClick(object sender, EventArgs e)
@@ -620,7 +633,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
 
         public MapView AppMapView
         {
-            set { _mapView = value; }
+            set => _mapView = value;
         }
 
         private Map _map = new Map(Basemap.CreateStreetsVector());
@@ -628,7 +641,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
         // Gets or sets the map.
         public Map Map
         {
-            get { return _map; }
+            get => _map;
             set
             {
                 _map = value;

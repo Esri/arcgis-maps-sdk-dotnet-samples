@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -26,7 +27,7 @@ namespace ArcGISRuntime.Samples.CreateGeometries
         "")]
     public class CreateGeometries : UIViewController
     {
-        // Create and hold a reference to the used MapView.
+        // Create and hold a reference to the MapView.
         private readonly MapView _myMapView = new MapView();
 
         public CreateGeometries()
@@ -38,19 +39,25 @@ namespace ArcGISRuntime.Samples.CreateGeometries
         {
             base.ViewDidLoad();
 
-            // Create the UI.
             CreateLayout();
-
-            // Set up the initial configuration of the sample.
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void CreateLayout()
@@ -61,11 +68,8 @@ namespace ArcGISRuntime.Samples.CreateGeometries
 
         private void Initialize()
         {
-            // Create a map with a topographic basemap.
-            Map theMap = new Map(Basemap.CreateTopographic());
-
-            // Assign the map to the MapView.
-            _myMapView.Map = theMap;
+            // Create and show a map with a topographic basemap.
+            _myMapView.Map = new Map(Basemap.CreateTopographic());
 
             // Create a simple fill symbol - used to render a polygon covering Colorado.
             SimpleFillSymbol theSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Cross, System.Drawing.Color.Blue, null);
@@ -104,14 +108,7 @@ namespace ArcGISRuntime.Samples.CreateGeometries
             _myMapView.SetViewpointGeometryAsync(CreateEnvelope(), 10);
         }
 
-        private Envelope CreateEnvelope()
-        {
-            // Create an envelope that covers the extent of the western United States.
-            Envelope theEnvelope = new Envelope(-123.0, 33.5, -101.0, 48.0, SpatialReferences.Wgs84);
-
-            // Return the geometry.
-            return theEnvelope;
-        }
+        private static Envelope CreateEnvelope() => new Envelope(-123.0, 33.5, -101.0, 48.0, SpatialReferences.Wgs84);
 
         private Polygon CreatePolygon()
         {
@@ -124,11 +121,8 @@ namespace ArcGISRuntime.Samples.CreateGeometries
                 {-109.048, 36.998}
             };
 
-            // Create a polygon from the point collection.
-            Polygon thePolygon = new Polygon(thePointCollection);
-
-            // Return the geometry.
-            return thePolygon;
+            // Create and return a polygon from the point collection.
+            return new Polygon(thePointCollection);
         }
 
         private Polyline CreatePolyline()
@@ -141,38 +135,26 @@ namespace ArcGISRuntime.Samples.CreateGeometries
                 {-114.620, 35.0}
             };
 
-            // Create a polyline from the point collection.
-            Polyline thePolyline = new Polyline(thePointCollection);
-
-            // Return the geometry.
-            return thePolyline;
+            // Create and return a polyline from the point collection.
+            return new Polyline(thePointCollection);
         }
 
-        private MapPoint CreateMapPoint()
-        {
-            // Create a map point where the Esri headquarters is located.
-            MapPoint theMapPoint = new MapPoint(-117.195800, 34.056295, SpatialReferences.Wgs84);
-
-            // Return the geometry.
-            return theMapPoint;
-        }
+        // Return a map point where the Esri headquarters is located.
+        private MapPoint CreateMapPoint() => new MapPoint(-117.195800, 34.056295, SpatialReferences.Wgs84);
 
         private Multipoint CreateMultipoint()
         {
             // Create a point collection with coordinates representing various state capital locations in the Western United States.
             PointCollection thePointCollection = new PointCollection(SpatialReferences.Wgs84)
             {
-                {-121.491014, 38.579065},// - Sacramento, CA
-                {-122.891366, 47.039231},// - Olympia, WA
-                {-123.043814, 44.93326},// - Salem, OR
-                {-119.766999, 39.164885}// - Carson City, NV
+                {-121.491014, 38.579065}, // - Sacramento, CA
+                {-122.891366, 47.039231}, // - Olympia, WA
+                {-123.043814, 44.93326}, // - Salem, OR
+                {-119.766999, 39.164885} // - Carson City, NV
             };
 
-            // Create a multi-point from the point collection.
-            Multipoint theMultipoint = new Multipoint(thePointCollection);
-
-            // Return the geometry.
-            return theMultipoint;
+            // Create and return a multi-point from the point collection.
+            return new Multipoint(thePointCollection);
         }
     }
 }

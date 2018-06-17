@@ -44,53 +44,52 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Reposition controls.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()
         {
-            // Create a map with imagery basemap.
-            Map myMap = new Map(Basemap.CreateImagery());
-
-            // Wait for the map to load.
-            await myMap.LoadAsync();
+            // Create a new map with imagery basemap.
+            Map map = new Map(Basemap.CreateImagery());
 
             // Get the file name.
             string filepath = DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");
 
             // Load the raster file.
-            Raster myRasterFile = new Raster(filepath);
+            Raster rasterFile = new Raster(filepath);
 
             // Create the layer.
-            RasterLayer myRasterLayer = new RasterLayer(myRasterFile);
+            RasterLayer rasterLayer = new RasterLayer(rasterFile);
 
             // Add the layer to the map.
-            myMap.OperationalLayers.Add(myRasterLayer);
+            _myMapView.Map.OperationalLayers.Add(rasterLayer);
 
             // Wait for the layer to load.
-            await myRasterLayer.LoadAsync();
+            await rasterLayer.LoadAsync();
 
             // Set the viewpoint.
-            myMap.InitialViewpoint = new Viewpoint(myRasterLayer.FullExtent);
+            map.InitialViewpoint = new Viewpoint(rasterLayer.FullExtent);
 
             // Add map to the mapview.
-            _myMapView.Map = myMap;
+            _myMapView.Map = map;
         }
 
         private void CreateLayout()
         {
             // Create the mapview.
-            _myMapView = new MapView
-            {
-                // Add an imagery basemap.
-                Map = new Map(Basemap.CreateImagery())
-            };
+            _myMapView = new MapView();
 
             // Add the map to the view.
             View.AddSubviews(_myMapView);

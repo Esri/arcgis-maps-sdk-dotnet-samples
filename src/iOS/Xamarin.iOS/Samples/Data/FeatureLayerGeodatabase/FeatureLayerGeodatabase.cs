@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -17,7 +18,7 @@ using UIKit;
 namespace ArcGISRuntime.Samples.FeatureLayerGeodatabase
 {
     [Register("FeatureLayerGeodatabase")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("2b0f9e17105847809dfeb04e3cad69e0")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("2b0f9e17105847809dfeb04e3cad69e0")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer (geodatabase)",
         "Data",
@@ -26,7 +27,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeodatabase
         "")]
     public class FeatureLayerGeodatabase : UIViewController
     {
-        // Create a MapView control to display a map.
+        // Create and hold a reference to the MapView.
         private readonly MapView _myMapView = new MapView();
 
         public FeatureLayerGeodatabase()
@@ -39,17 +40,24 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeodatabase
             base.ViewDidLoad();
 
             CreateLayout();
-
-            // Open a mobile geodatabase (.geodatabase file) stored locally and add it to the map as a feature layer.
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLayoutSubviews();
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Update the UI to account for new layout.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()
@@ -58,7 +66,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeodatabase
             _myMapView.Map = new Map(Basemap.CreateStreets());
 
             // Get the path to the downloaded mobile geodatabase (.geodatabase file).
-            string mobileGeodatabaseFilePath = GetMobileGeodatabasePath();
+            string mobileGeodatabaseFilePath = DataManager.GetDataFolder("2b0f9e17105847809dfeb04e3cad69e0", "LA_Trails.geodatabase");
 
             // Open the mobile geodatabase.
             Geodatabase mobileGeodatabase = await Geodatabase.OpenAsync(mobileGeodatabaseFilePath);
@@ -77,13 +85,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeodatabase
 
             // Zoom the map to the extent of the feature layer.
             await _myMapView.SetViewpointGeometryAsync(trailheadsFeatureLayer.FullExtent);
-        }
-
-        private static string GetMobileGeodatabasePath()
-        {
-            // Use samples viewer's DataManager helper class to get the path of the downloaded dataset on disk.
-            // NOTE: The url for the actual data is: https://www.arcgis.com/home/item.html?id=2b0f9e17105847809dfeb04e3cad69e0.
-            return DataManager.GetDataFolder("2b0f9e17105847809dfeb04e3cad69e0", "LA_Trails.geodatabase");
         }
 
         private void CreateLayout()

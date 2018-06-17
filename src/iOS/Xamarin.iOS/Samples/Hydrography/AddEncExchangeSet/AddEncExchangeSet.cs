@@ -46,27 +46,27 @@ namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
 
             // Create the Exchange Set.
             // Note: this constructor takes an array of paths because so that update sets can be loaded alongside base data.
-            EncExchangeSet myEncExchangeSet = new EncExchangeSet(encPath);
+            EncExchangeSet encExchangeSet = new EncExchangeSet(encPath);
 
             // Wait for the layer to load.
-            await myEncExchangeSet.LoadAsync();
+            await encExchangeSet.LoadAsync();
 
             // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set.
             List<Envelope> dataSetExtents = new List<Envelope>();
 
             // Add each data set as a layer.
-            foreach (EncDataset myEncDataSet in myEncExchangeSet.Datasets)
+            foreach (EncDataset encDataSet in encExchangeSet.Datasets)
             {
-                EncLayer myEncLayer = new EncLayer(new EncCell(myEncDataSet));
+                EncLayer encLayer = new EncLayer(new EncCell(encDataSet));
 
                 // Add the layer to the map.
-                _myMapView.Map.OperationalLayers.Add(myEncLayer);
+                _myMapView.Map.OperationalLayers.Add(encLayer);
 
                 // Wait for the layer to load.
-                await myEncLayer.LoadAsync();
+                await encLayer.LoadAsync();
 
                 // Add the extent to the list of extents.
-                dataSetExtents.Add(myEncLayer.FullExtent);
+                dataSetExtents.Add(encLayer.FullExtent);
             }
 
             // Use the geometry engine to compute the full extent of the ENC Exchange Set.
@@ -92,13 +92,19 @@ namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Reposition controls.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 }

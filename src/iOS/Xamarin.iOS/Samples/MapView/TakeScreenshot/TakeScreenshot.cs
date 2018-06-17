@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.TakeScreenshot
@@ -56,15 +57,21 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Reposition the controls.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-            _overlayView.Frame = new CoreGraphics.CGRect(10, 80, _myMapView.Frame.Width - 20, _myMapView.Frame.Height - 75);
-            _overlayImageView.Frame = new CoreGraphics.CGRect(0, 0, _overlayView.Frame.Width, _overlayView.Frame.Height);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                _overlayView.Frame = new CGRect(10, 80, _myMapView.Frame.Width - 20, _myMapView.Frame.Height - 75);
+                _overlayImageView.Frame = new CGRect(0, 0, _overlayView.Frame.Width, _overlayView.Frame.Height);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()

@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ClipGeometry
@@ -27,8 +28,12 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         "")]
     public class ClipGeometry : UIViewController
     {
-        // Create and hold a reference to the used MapView.
+        // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _helpToolbar = new UIToolbar();
+        private readonly UIToolbar _controlsToolbar = new UIToolbar();
+        private UIButton _clipButton;
+        private UILabel _sampleInstructionsLabel;
 
         // Graphics overlay to display input geometries for the clip operation.
         private GraphicsOverlay _inputGeometriesGraphicsOverlay;
@@ -51,16 +56,6 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         // Graphics overlay to display the resulting geometries from the three GeometryEngine.Clip operations.
         private GraphicsOverlay _clipAreasGraphicsOverlay;
 
-        // Text view to display the sample instructions.
-        private UILabel _sampleInstructionsLabel;
-
-        // Create a UIButton to clip polygons.
-        private UIButton _clipButton;
-
-        // Create toolbars to show behind the controls.
-        private readonly UIToolbar _helpToolbar = new UIToolbar();
-        private readonly UIToolbar _controlsToolbar = new UIToolbar();
-
         public ClipGeometry()
         {
             Title = "Clip geometry";
@@ -70,38 +65,42 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization. 
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat controlHeight = 30;
-            nfloat margin = 5;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat toolbarHeight = controlHeight + 2 * margin;
 
-            // Setup the visual frames for the views.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _helpToolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, controlHeight + 2 * margin);
-            _controlsToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - 2 * margin, View.Bounds.Width, controlHeight + 2 * margin);
-            _sampleInstructionsLabel.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - 2 * margin, controlHeight);
-            _clipButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 2 * margin, controlHeight);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, toolbarHeight, 0);
+                _helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
+                _controlsToolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                _sampleInstructionsLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _clipButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 2 * margin, controlHeight);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()
         {
-            // Create a new map using the WebMercator spatial reference.
-            Map newMap = new Map(SpatialReferences.WebMercator)
+            // Create and show a new map using the WebMercator spatial reference.
+            _myMapView.Map = new Map(SpatialReferences.WebMercator)
             {
                 // Set the basemap of the map to be a topographic layer.
                 Basemap = Basemap.CreateTopographic()
             };
-
-            // Assign the map to the MapView.
-            _myMapView.Map = newMap;
 
             // Create a graphics overlay to hold the input geometries for the clip operation.
             _inputGeometriesGraphicsOverlay = new GraphicsOverlay();
@@ -117,15 +116,13 @@ namespace ArcGISRuntime.Samples.ClipGeometry
 
             // Create a simple line symbol for the 1st parameter of the GeometryEngine.Clip operation - it follows the 
             // boundary of Colorado.
-            SimpleLineSymbol coloradoSimpleLineSymbol = new SimpleLineSymbol(
-                SimpleLineSymbolStyle.Solid, System.Drawing.Color.Blue, 4);
+            SimpleLineSymbol coloradoSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Blue, 4);
 
             // Create the color that will be used as the fill for the Colorado graphic. It will be a semi-transparent, blue color.
             System.Drawing.Color coloradoFillColor = System.Drawing.Color.FromArgb(34, 0, 0, 255);
 
             // Create the simple fill symbol for the Colorado graphic - comprised of a fill style, fill color and outline.
-            SimpleFillSymbol coloradoSimpleFillSymbol = new SimpleFillSymbol(
-                SimpleFillSymbolStyle.Solid, coloradoFillColor, coloradoSimpleLineSymbol);
+            SimpleFillSymbol coloradoSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, coloradoFillColor, coloradoSimpleLineSymbol);
 
             // Create the geometry of the Colorado graphic.
             Envelope colorado = new Envelope(
@@ -145,7 +142,8 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             // Create an envelope outside Colorado.
             Envelope outsideEnvelope = new Envelope(
                 new MapPoint(-11858344.321294, 5147942.225174, SpatialReferences.WebMercator),
-                new MapPoint(-12201990.219681, 5297071.577304, SpatialReferences.WebMercator));
+                new MapPoint(-12201990.219681, 5297071.577304, SpatialReferences.WebMercator)
+            );
 
             // Create the graphic for an envelope outside Colorado - comprised of a polyline shape and line symbol.
             _outsideGraphic = new Graphic(outsideEnvelope, clipGeomtriesSimpleLineSymbol);
@@ -156,7 +154,8 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             // Create an envelope intersecting Colorado.
             Envelope intersectingEnvelope = new Envelope(
                 new MapPoint(-11962086.479298, 4566553.881363, SpatialReferences.WebMercator),
-                new MapPoint(-12260345.183558, 4332053.378376, SpatialReferences.WebMercator));
+                new MapPoint(-12260345.183558, 4332053.378376, SpatialReferences.WebMercator)
+            );
 
             // Create the graphic for an envelope intersecting Colorado - comprised of a polyline shape and line symbol.
             _intersectingGraphic = new Graphic(intersectingEnvelope, clipGeomtriesSimpleLineSymbol);
@@ -167,7 +166,8 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             // Create a envelope inside Colorado.
             Envelope containedEnvelope = new Envelope(
                 new MapPoint(-11655182.595204, 4741618.772994, SpatialReferences.WebMercator),
-                new MapPoint(-11431488.567009, 4593570.068343, SpatialReferences.WebMercator));
+                new MapPoint(-11431488.567009, 4593570.068343, SpatialReferences.WebMercator)
+            );
 
             // Create the graphic for an envelope inside Colorado - comprised of a polyline shape and line symbol.
             _containedGraphic = new Graphic(containedEnvelope, clipGeomtriesSimpleLineSymbol);
@@ -218,7 +218,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
                     // Perform the clip operation. The first parameter of the clip operation will always be the Colorado graphic. 
                     // The second parameter of the clip operation will be one of the 3 different clip geometries (_outsideGraphic, 
                     // _containedGraphic, or _intersectingGraphic).
-                    Geometry myGeometry = GeometryEngine.Clip(_coloradoGraphic.Geometry, (Envelope)oneGraphic.Geometry);
+                    Geometry myGeometry = GeometryEngine.Clip(_coloradoGraphic.Geometry, (Envelope) oneGraphic.Geometry);
 
                     // Only work on returned geometries that are not null.
                     if (myGeometry != null)
@@ -235,7 +235,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
                 // Disable the button after has been used.
                 _clipButton.Enabled = false;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 // Display an error message if there is a problem generating clip operation.
                 UIAlertController alertController = UIAlertController.Create("Geometry Engine Failed!", ex.Message, UIAlertControllerStyle.Alert);

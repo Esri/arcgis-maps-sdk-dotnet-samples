@@ -14,6 +14,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.DisplayLayerViewState
@@ -51,15 +52,21 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat tableViewHeight = 120;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat tableViewHeight = 120;
 
-            // Reposition the views.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - tableViewHeight);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, tableViewHeight, 0);
-            _tableView.Frame = new CoreGraphics.CGRect(0, _myMapView.Frame.Height, View.Bounds.Width, tableViewHeight);
+                // Reposition the views.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - tableViewHeight);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                _tableView.Frame = new CGRect(0, _myMapView.Frame.Height, View.Bounds.Width, tableViewHeight);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()

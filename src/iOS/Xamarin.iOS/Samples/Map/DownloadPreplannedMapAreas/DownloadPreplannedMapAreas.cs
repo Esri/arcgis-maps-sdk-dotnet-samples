@@ -406,26 +406,32 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat margin = 5;
-            nfloat controlHeight = 30;
-            nfloat controlWidth = View.Bounds.Width / 2 - 2 * margin;
-            nfloat toolbarHeight = 40;
-
-            // Reposition the views.
-            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-            _toolbarTray.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-            _downloadButton.Frame = new CGRect(margin, _toolbarTray.Frame.Top + margin, controlWidth, controlHeight);
-            _deleteButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, _toolbarTray.Frame.Top + margin, controlWidth, controlHeight);
-
-            // Set up the visual frame for the initial prompt, if it is still there.
-            if (_initialPrompt != null)
+            try
             {
-                _initialPrompt.Frame = new CGRect(10, View.Bounds.Height / 2, View.Bounds.Width, 20);
-            }
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat margin = 5;
+                nfloat controlHeight = 30;
+                nfloat controlWidth = View.Bounds.Width / 2 - 2 * margin;
+                nfloat toolbarHeight = 40;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition the views.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _toolbarTray.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                _downloadButton.Frame = new CGRect(margin, _toolbarTray.Frame.Top + margin, controlWidth, controlHeight);
+                _deleteButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, _toolbarTray.Frame.Top + margin, controlWidth, controlHeight);
+
+                // Set up the visual frame for the initial prompt, if it is still there.
+                if (_initialPrompt != null)
+                {
+                    _initialPrompt.Frame = new CGRect(10, View.Bounds.Height / 2, View.Bounds.Width, 20);
+                }
+
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 

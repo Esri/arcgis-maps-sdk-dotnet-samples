@@ -45,13 +45,19 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromQuery
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Reposition controls.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
@@ -93,8 +99,12 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromQuery
             featCollection.Tables.Add(collectTable);
 
             // Create a layer to display the feature collection, add it to the map's operational layers.
-            FeatureCollectionLayer featCollectionTable = new FeatureCollectionLayer(featCollection);
-            _myMapView.Map.OperationalLayers.Add(featCollectionTable);
+            FeatureCollectionLayer featureCollectionLayer = new FeatureCollectionLayer(featCollection);
+            _myMapView.Map.OperationalLayers.Add(featureCollectionLayer);
+
+            // Zoom to the extent of the feature collection layer.
+            await featureCollectionLayer.LoadAsync();
+            await _myMapView.SetViewpointGeometryAsync(featureCollectionLayer.FullExtent, 50);
         }
 
         private void CreateLayout()

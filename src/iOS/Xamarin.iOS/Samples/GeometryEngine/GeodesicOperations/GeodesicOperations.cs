@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -26,14 +27,13 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
         "Tap on the map to set the end point of a path from New York City. The geodesic path and geodesic distance will be displayed.")]
     public class GeodesicOperations : UIViewController
     {
-        // Label to show the distance (and an initial prompt).
+        // Create and hold references to UI controls.
+        private readonly MapView _myMapView = new MapView();
         private readonly UITextView _distanceLabel = new UITextView
         {
             Text = "Tap to set an end point.",
             TextAlignment = UITextAlignment.Center
         };
-
-        private readonly MapView _myMapView = new MapView();
 
         // Hold references to the graphics.
         private Graphic _startLocationGraphic;
@@ -47,6 +47,7 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
 
         private void Initialize()
         {
+            // Create and show a new map with imagery basemap.
             _myMapView.Map = new Map(Basemap.CreateImagery());
 
             // Create the graphics overlay and add it to the map view.
@@ -76,10 +77,10 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
             graphicsOverlay.Graphics.Add(_pathGraphic);
 
             // Update end location when the user taps.
-            _myMapView.GeoViewTapped += MyMapViewOnGeoViewTapped;
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
-        private void MyMapViewOnGeoViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
+        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
         {
             // Get the tapped point, projected to WGS84.
             MapPoint destination = (MapPoint)GeometryEngine.Project(geoViewInputEventArgs.Location, SpatialReferences.Wgs84);
@@ -127,9 +128,21 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
 
         public override void ViewDidLayoutSubviews()
         {
-            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _distanceLabel.Frame = new CGRect(0, View.Bounds.Height - 30, View.Bounds.Width, 30);
-            base.ViewDidLayoutSubviews();
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat frameHeight = 30;
+
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, frameHeight, 0);
+                _distanceLabel.Frame = new CGRect(0, View.Bounds.Height - frameHeight, View.Bounds.Width, frameHeight);
+
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 }

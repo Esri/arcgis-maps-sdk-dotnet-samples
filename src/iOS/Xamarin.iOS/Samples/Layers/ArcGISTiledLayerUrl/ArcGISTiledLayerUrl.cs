@@ -41,19 +41,25 @@ namespace ArcGISRuntime.Samples.ArcGISTiledLayerUrl
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Reposition controls.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
         {
             // Create new Map.
-            Map myMap = new Map();
+            Map map = new Map();
 
             // Create URI to the tiled service.
             var serviceUri = new Uri("https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer");
@@ -62,10 +68,10 @@ namespace ArcGISRuntime.Samples.ArcGISTiledLayerUrl
             ArcGISTiledLayer imageLayer = new ArcGISTiledLayer(serviceUri);
 
             // Add created layer to the basemaps collection.
-            myMap.Basemap.BaseLayers.Add(imageLayer);
+            map.Basemap.BaseLayers.Add(imageLayer);
 
             // Assign the map to the MapView.
-            _myMapView.Map = myMap;
+            _myMapView.Map = map;
         }
 
         private void CreateLayout()

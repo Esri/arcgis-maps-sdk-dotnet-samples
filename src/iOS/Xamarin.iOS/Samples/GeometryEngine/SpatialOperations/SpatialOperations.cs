@@ -24,8 +24,10 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
     [Register("SpatialOperations")]
     public class SpatialOperations : UIViewController
     {
-        // Map view control to display a map in the app.
-        private MapView _myMapView = new MapView();
+        // Create and hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIStackView _operationToolsView = new UIStackView();
+        private UIPickerView _operationPicker;
 
         // GraphicsOverlay to hold the polygon graphics.
         private GraphicsOverlay _polygonsOverlay;
@@ -37,12 +39,6 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         // Graphic to display the spatial operation result polygon.
         private Graphic _resultGraphic;
 
-        // Stack view to contain the spatial operation UI.
-        private UIStackView _operationToolsView = new UIStackView();
-        
-        // Picker to display the spatial operation choices.
-        private UIPickerView _operationPicker;
-
         public SpatialOperations()
         {
             Title = "Spatial operations";
@@ -52,35 +48,34 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         {
             base.ViewDidLoad();
 
-            // Create the UI.
             CreateLayout();
-
-            // Create a new map, add polygon graphics, and fill the spatial operations list.
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLayoutSubviews();
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat operationsToolsHeight = View.Bounds.Height * 0.33f;
+                nfloat mapViewHeight = View.Bounds.Height * 0.67f;
 
-            // Get the height of the map view and the UI tools view (one third / two thirds).
-            var operationsToolsHeight = (nfloat)(View.Bounds.Height * 0.33);
-            var mapViewHeight = (nfloat)(View.Bounds.Height * 0.67);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, mapViewHeight);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                _operationToolsView.Frame = new CGRect(0, mapViewHeight, View.Bounds.Width, operationsToolsHeight);
 
-            // Place the MapView (top 2/3 of the view).
-            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, mapViewHeight);
-
-            // Place the UI tools (bottom 1/3 of the view).
-            _operationToolsView.Frame = new CGRect(0, mapViewHeight, View.Bounds.Width, operationsToolsHeight);
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
         {
-            // Create the map with a gray canvas basemap and an initial location centered on London, UK.
-            Map myMap = new Map(BasemapType.LightGrayCanvas, 51.5017, -0.12714, 14);
-
-            // Add the map to the map view.
-            _myMapView.Map = myMap;
+            // Create and show a map with a gray canvas basemap and an initial location centered on London, UK.
+            _myMapView.Map = new Map(BasemapType.LightGrayCanvas, 51.5017, -0.12714, 14);
 
             // Create and add two overlapping polygon graphics to operate on.
             CreatePolygonsOverlay();
@@ -90,7 +85,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         {
             // Lay out the spatial operations UI vertically.
             _operationToolsView.Axis = UILayoutConstraintAxis.Vertical;
-           
+
             // Create a label to prompt for a spatial operation.
             UILabel operationLabel = new UILabel(new CGRect(5, 0, View.Bounds.Width, 30))
             {
@@ -100,12 +95,12 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             };
 
             // Create a picker model with spatial operation choices.
-            List<string> operationsList = new List<string> { "", "Difference", "Intersection", "Symmetric difference", "Union" };
+            List<string> operationsList = new List<string> {"", "Difference", "Intersection", "Symmetric difference", "Union"};
             PickerDataModel operationModel = new PickerDataModel(operationsList);
 
             // Handle the selection change for spatial operations.
             operationModel.ValueChanged += OperationModel_ValueChanged;
-            
+
             // Create a picker to show the spatial operations.
             _operationPicker = new UIPickerView(new CGRect(20, 25, View.Bounds.Width - 20, 100))
             {
@@ -113,8 +108,10 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             };
 
             // Create a button to reset the operation result.
-            UIButton resetButton = new UIButton(UIButtonType.Plain);
-            resetButton.Frame = new CGRect(20,110,View.Bounds.Width-20,30);
+            UIButton resetButton = new UIButton(UIButtonType.Plain)
+            {
+                Frame = new CGRect(20, 110, View.Bounds.Width - 20, 30)
+            };
             resetButton.SetTitle("Reset operation", UIControlState.Normal);
             resetButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
             resetButton.TouchUpInside += ResetButton_TouchUpInside;
@@ -136,7 +133,10 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             PickerDataModel operationsModel = _operationPicker.Model as PickerDataModel;
 
             // If an operation hasn't been selected, return.
-            if (operationsModel.SelectedItem == "") { return; }
+            if (operationsModel.SelectedItem == "")
+            {
+                return;
+            }
 
             // Remove any currently displayed result.
             _polygonsOverlay.Graphics.Remove(_resultGraphic);
@@ -251,14 +251,11 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         public event EventHandler<EventArgs> ValueChanged;
 
         // Store the spatial operation choices in a list.
-        public List<string> Items { get; private set; }
+        private List<string> Items { get; }
 
         // Expose the currently selected operation as a property.
         private int _selectedIndex = 0;
-        public string SelectedItem
-        {
-            get { return Items[_selectedIndex]; }
-        }
+        public string SelectedItem => Items[_selectedIndex];
 
         // In the constructor, take the list of items (spatial operations) to display.
         public PickerDataModel(List<string> items)
@@ -275,7 +272,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         // Text to display in the picker (spatial operation in each row).
         public override string GetTitle(UIPickerView picker, nint row, nint component)
         {
-            return Items[(int)row];
+            return Items[(int) row];
         }
 
         // Number of columns to show in the picker.
@@ -287,11 +284,8 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         // Raise the ValueChanged event when a new value is selected.
         public override void Selected(UIPickerView picker, nint row, nint component)
         {
-            _selectedIndex = (int)row;
-            if (ValueChanged != null)
-            {
-                ValueChanged(this, new EventArgs());
-            }
+            _selectedIndex = (int) row;
+            ValueChanged?.Invoke(this, new EventArgs());
         }
     }
 }

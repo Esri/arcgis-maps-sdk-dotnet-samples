@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
@@ -67,20 +68,26 @@ namespace ArcGISRuntime.Samples.MapRotation
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat margin = 5;
-            nfloat controlHeight = 30;
-            nfloat toolbarHeight = controlHeight + (2 * margin);
-            nfloat labelWidth = 50;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat margin = 5;
+                nfloat controlHeight = 30;
+                nfloat toolbarHeight = controlHeight + (2 * margin);
+                nfloat labelWidth = 50;
 
-            // Reposition the views.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-            _rotationSlider.Frame = new CoreGraphics.CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - labelWidth - (2 * margin), controlHeight);
-            _rotationLabel.Frame = new CoreGraphics.CGRect(View.Bounds.Width - labelWidth - (2 * margin), _toolbar.Frame.Top + margin, labelWidth, controlHeight);
+                // Reposition the views.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                _rotationSlider.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - labelWidth - (2 * margin), controlHeight);
+                _rotationLabel.Frame = new CGRect(View.Bounds.Width - labelWidth - (2 * margin), _toolbar.Frame.Top + margin, labelWidth, controlHeight);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 }

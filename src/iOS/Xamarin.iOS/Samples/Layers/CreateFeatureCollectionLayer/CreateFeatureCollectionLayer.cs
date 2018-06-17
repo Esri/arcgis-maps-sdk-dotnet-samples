@@ -46,13 +46,19 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Reposition controls.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
@@ -109,8 +115,7 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
             Feature lineFeature = linesTable.CreateFeature();
             lineFeature.SetAttributeValue(boundaryField, "AManAPlanACanalPanama");
             MapPoint point2 = new MapPoint(-80.035568, 9.432302, SpatialReferences.Wgs84);
-            Polyline line = new Polyline(new[] {point1, point2});
-            lineFeature.Geometry = line;
+            lineFeature.Geometry = new Polyline(new[] {point1, point2});
 
             // Create a new polygon feature, provide geometry and attribute values.
             Feature polyFeature = polysTable.CreateFeature();

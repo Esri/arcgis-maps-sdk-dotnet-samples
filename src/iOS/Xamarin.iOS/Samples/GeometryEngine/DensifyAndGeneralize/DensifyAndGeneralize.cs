@@ -30,14 +30,14 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
         "Featured")]
     public class DensifyAndGeneralize : UIViewController
     {
-        // UI controls.
+        // Create and hold references to UI controls.
+        private readonly UIToolbar _toolbar = new UIToolbar();
         private MapView _myMapView;
         private UISlider _segmentLengthSlider;
         private UISlider _deviationSlider;
         private UILabel _segmentLengthLabel;
         private UILabel _deviationLabel;
         private UILabel _resultLabel;
-        private UIToolbar _toolbar = new UIToolbar();
 
         // Graphic used to refer to the original geometry.
         private Polyline _originalPolyline;
@@ -62,33 +62,29 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat controlHeight = 30;
-            nfloat margin = 5;
-            nfloat frameHeight = 3 * controlHeight + 4 * margin;
-            nfloat colSplit = View.Bounds.Width * 2 / 3;
-            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, controlHeight * 3 + margin * 4, 0);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat frameHeight = 3 * controlHeight + 4 * margin;
+                nfloat colSplit = View.Bounds.Width * 2 / 3;
 
-            // Place the toolbars.
+                // Reposition the views.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, frameHeight, 0);
+                _toolbar.Frame = new CGRect(0, View.Bounds.Height - frameHeight, View.Bounds.Width, frameHeight);
+                _resultLabel.Frame = new CGRect(margin, View.Bounds.Height - 1 * controlHeight - margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _segmentLengthLabel.Frame = new CGRect(margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, colSplit - 2 * margin, controlHeight);
+                _deviationLabel.Frame = new CGRect(margin, View.Bounds.Height - 3 * controlHeight - 3 * margin, colSplit - 2 * margin, controlHeight);
+                _segmentLengthSlider.Frame = new CGRect(colSplit + margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, View.Bounds.Width * 1 / 3 - margin * 2, controlHeight);
+                _deviationSlider.Frame = new CGRect(colSplit + margin, View.Bounds.Height - 3 * controlHeight - 3 * margin, View.Bounds.Width * 1 / 3 - margin * 2, controlHeight);
 
-            _toolbar.Frame = new CGRect(0, View.Bounds.Height - frameHeight, View.Bounds.Width, frameHeight);
-
-            // Place the labels.
-            _resultLabel.Frame = new CGRect(margin, View.Bounds.Height - 1 * controlHeight - margin,
-                View.Bounds.Width - 2 * margin, controlHeight);
-            _segmentLengthLabel.Frame = new CGRect(margin, View.Bounds.Height - 2 * controlHeight - 2 * margin,
-                colSplit - 2 * margin, controlHeight);
-            _deviationLabel.Frame = new CGRect(margin, View.Bounds.Height - 3 * controlHeight - 3 * margin,
-                colSplit - 2 * margin, controlHeight);
-
-            // Place the sliders.
-            _segmentLengthSlider.Frame = new CGRect(colSplit + margin,
-                View.Bounds.Height - 2 * controlHeight - 2 * margin, View.Bounds.Width * 1 / 3 - margin * 2,
-                controlHeight);
-            _deviationSlider.Frame = new CGRect(colSplit + margin, View.Bounds.Height - 3 * controlHeight - 3 * margin, View.Bounds.Width * 1 / 3- margin * 2, controlHeight);
-
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()

@@ -15,6 +15,7 @@ using System;
 using ArcGISRuntime.Samples.Managers;
 using UIKit;
 using System.Linq;
+using CoreGraphics;
 
 namespace ArcGISRuntime.Samples.RasterHillshade
 {
@@ -52,15 +53,20 @@ namespace ArcGISRuntime.Samples.RasterHillshade
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat barHeight = 40;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat barHeight = 40;
 
-            // Reposition thew views.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin - barHeight);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-            _applyHillshadeButton.Frame = new CoreGraphics.CGRect(0, topMargin + _myMapView.Frame.Height, View.Bounds.Width, barHeight);
+                // Reposition thew views.
+                _myMapView.Frame = new CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin - barHeight);
+                _applyHillshadeButton.Frame = new CGRect(0, topMargin + _myMapView.Frame.Height, View.Bounds.Width, barHeight);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()
@@ -122,7 +128,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             }
 
             // Create a view to show map item info entry controls over the map view.
-            var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
+            var ovBounds = new CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
             _applyHillshadeRendererUi = new ApplyHillshadeRendererDialogOverlay(ovBounds, 0.9f, UIColor.White);
 
             // Handle the OnHillshadeInputsEntered event to get the new renderer defined by the user.
@@ -183,7 +189,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         private UISlider _altitudeSlider;
         private UISlider _azimuthSlider;
 
-        public ApplyHillshadeRendererDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color) : base(frame)
+        public ApplyHillshadeRendererDialogOverlay(CGRect frame, nfloat transparency, UIColor color) : base(frame)
         {
             // Create a semi-transparent overlay with the specified background color.
             BackgroundColor = color;
@@ -224,7 +230,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
 
 
             // Create a label for the slope type input.
-            UILabel slopeTypeLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight))
+            UILabel slopeTypeLabel = new UILabel(new CGRect(controlX, controlY, totalWidth, controlHeight))
             {
                 Text = "Slope type:",
                 TextAlignment = UITextAlignment.Left,
@@ -237,11 +243,11 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             // Adjust the Y position for the next control.
             _slopeTypePicker = new UISegmentedControl(Enum.GetNames(typeof(SlopeType)));
             _slopeTypePicker.ApportionsSegmentWidthsByContent = true;
-            _slopeTypePicker.Frame = new CoreGraphics.CGRect(5, controlY, Bounds.Width - 10, 30);
+            _slopeTypePicker.Frame = new CGRect(5, controlY, Bounds.Width - 10, 30);
             controlY += 35;
 
             // Create a label for the altitude input.
-            UILabel altitudeLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight))
+            UILabel altitudeLabel = new UILabel(new CGRect(controlX, controlY, totalWidth, controlHeight))
             {
                 Text = "Altitude: ",
                 TextAlignment = UITextAlignment.Left,
@@ -252,7 +258,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             controlY = controlY + 5;
 
             // Create a slider for altitude value.
-            _altitudeSlider = new UISlider(new CoreGraphics.CGRect(5, controlY, Bounds.Width - 10, 100))
+            _altitudeSlider = new UISlider(new CGRect(5, controlY, Bounds.Width - 10, 100))
             {
                 MinValue = 0,
                 MaxValue = 90,
@@ -263,7 +269,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             controlY = controlY + 100 + rowSpace;
 
             // Create a label for the azimuth input.
-            UILabel azimuthLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight))
+            UILabel azimuthLabel = new UILabel(new CGRect(controlX, controlY, totalWidth, controlHeight))
             {
                 Text = "Azimuth: ",
                 TextAlignment = UITextAlignment.Left,
@@ -274,7 +280,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             controlY = controlY + 5;
 
             // Create a picker for the azimuth value.
-            _azimuthSlider = new UISlider(new CoreGraphics.CGRect(5, controlY, Bounds.Width - 10, 100))
+            _azimuthSlider = new UISlider(new CGRect(5, controlY, Bounds.Width - 10, 100))
             {
                 MinValue = 0,
                 MaxValue = 360,
@@ -285,13 +291,13 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             controlY = controlY + 100 + rowSpace;
 
             // Set the frame for the apply button.
-            applyButton.Frame = new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight);
+            applyButton.Frame = new CGRect(controlX, controlY, buttonWidth, controlHeight);
 
             // Adjust the X position for the next control.
             controlX = controlX + buttonWidth + columnSpace;
 
             // Set the frame for the cancel button.
-            cancelButton.Frame = new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight);
+            cancelButton.Frame = new CGRect(controlX, controlY, buttonWidth, controlHeight);
 
             // Add the input controls.
             AddSubviews(slopeTypeLabel, _slopeTypePicker,
@@ -307,7 +313,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         public void Hide()
         {
             // Action to make the view transparent
-            Action makeTransparentAction = () => Alpha = 0;
+            void MakeTransparentAction() => Alpha = 0;
 
             // Action to remove the view
             Action removeViewAction = RemoveFromSuperview;
@@ -316,7 +322,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             double secondsToComplete = 0.75;
 
             // Animate transparency to zero, then remove the view
-            Animate(secondsToComplete, makeTransparentAction, removeViewAction);
+            Animate(secondsToComplete, MakeTransparentAction, removeViewAction);
         }
 
         private void InputHillshadeParamsButton_Click(object sender, EventArgs e)

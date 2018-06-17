@@ -24,6 +24,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.EditAndSyncFeatures
@@ -37,6 +38,19 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         "1. Pan and zoom to the area you would like to download point features for, ensuring that all point features are within the rectangle.\n2. Tap the 'generate' button. This will start the process of generating the offline geodatabase.\n3. Tap on a point feature within the area of the generated geodatabase. Then tap on the screen (anywhere within the range of the local geodatabase) to move the point to that location.\n4. Tap the 'Sync Geodatabase' button to synchronize the changes back to the feature service.\n\n Note that the basemap for this sample is downloaded from ArcGIS Online automatically.")]
     public class EditAndSyncFeatures : UIViewController
     {
+        // Create and hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIProgressView _progressBar = new UIProgressView();
+        private readonly UIButton _syncButton = new UIButton();
+        private readonly UILabel _helpLabel = new UILabel();
+        private readonly UIToolbar _helpToolbar = new UIToolbar();
+        private readonly UIToolbar _controlsToolbar = new UIToolbar();
+
+        private readonly UIButton _generateButton = new UIButton
+        {
+            Enabled = false
+        };
+
         // Enumeration to track which phase of the workflow the sample is in.
         private enum EditState
         {
@@ -60,25 +74,6 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         // Hold a reference to the generated geodatabase.
         private Geodatabase _resultGdb;
 
-        // MapView control.
-        private readonly MapView _myMapView = new MapView();
-
-        // Progress Bar.
-        private readonly UIProgressView _progressBar = new UIProgressView();
-
-        // Generate button.
-        private readonly UIButton _generateButton = new UIButton { Enabled = false };
-
-        // Synchronize button.
-        private readonly UIButton _syncButton = new UIButton();
-
-        // Help label.
-        private readonly UILabel _helpLabel = new UILabel();
-
-        // Create toolbars to go behind help label and controls.
-        private readonly UIToolbar _helpToolbar = new UIToolbar();
-        private readonly UIToolbar _controlsToolbar = new UIToolbar();
-
         public EditAndSyncFeatures()
         {
             Title = "Edit and Sync Features";
@@ -88,27 +83,33 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization.
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLayoutSubviews();
+            try
+            {
+                nfloat pageOffset = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat margin = 5;
+                nfloat controlHeight = 30;
 
-            nfloat pageOffset = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat margin = 5;
-            nfloat controlHeight = 30;
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _helpToolbar.Frame = new CGRect(0, pageOffset, View.Bounds.Width, controlHeight + 2 * margin);
+                _controlsToolbar.Frame = new CGRect(0, View.Bounds.Height - controlHeight - 2 * margin, View.Bounds.Width, controlHeight + 2 * margin);
+                _generateButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
+                _syncButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
+                _progressBar.Frame = new CGRect(0, View.Bounds.Height - 42, View.Bounds.Width, 2);
+                _helpLabel.Frame = new CGRect(margin, pageOffset + margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _myMapView.ViewInsets = new UIEdgeInsets(_helpToolbar.Frame.Bottom, 0, _controlsToolbar.Frame.Height, 0);
 
-            // Place the views.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _helpToolbar.Frame = new CoreGraphics.CGRect(0, pageOffset, View.Bounds.Width, controlHeight + 2 * margin);
-            _controlsToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - controlHeight - 2 * margin, View.Bounds.Width, controlHeight + 2 * margin);
-            _generateButton.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
-            _syncButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
-            _progressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 42, View.Bounds.Width, 2);
-            _helpLabel.Frame = new CoreGraphics.CGRect(margin, pageOffset + margin, View.Bounds.Width - 2 * margin, controlHeight);
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void CreateLayout()
@@ -150,10 +151,10 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 Basemap sfBasemap = new Basemap(tileLayer);
 
                 // Create the map with the tile-based basemap.
-                Map myMap = new Map(sfBasemap);
+                Map map = new Map(sfBasemap);
 
                 // Assign the map to the MapView.
-                _myMapView.Map = myMap;
+                _myMapView.Map = map;
 
                 // Create a new symbol for the extent graphic.
                 SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
@@ -191,7 +192,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     // Add the layer to the map's operational layers if load succeeds.
                     if (onlineTable.LoadStatus == Esri.ArcGISRuntime.LoadStatus.Loaded)
                     {
-                        myMap.OperationalLayers.Add(new FeatureLayer(onlineTable));
+                        map.OperationalLayers.Add(new FeatureLayer(onlineTable));
                     }
                 }
 
@@ -311,7 +312,10 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             Envelope extent = myViewPoint?.TargetGeometry as Envelope;
 
             // Return if extent is null.
-            if (extent == null) { return; }
+            if (extent == null)
+            {
+                return;
+            }
 
             // Create an envelope that is a bit smaller than the extent.
             EnvelopeBuilder envelopeBldr = new EnvelopeBuilder(extent);
@@ -321,7 +325,10 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             var extentOverlay = _myMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
-            if (extentOverlay == null) { return; }
+            if (extentOverlay == null)
+            {
+                return;
+            }
 
             // Get the extent graphic.
             Graphic extentGraphic = extentOverlay.Graphics.FirstOrDefault();
@@ -469,7 +476,10 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         private async Task SyncGeodatabase()
         {
             // Return if not ready.
-            if (_readyForEdits != EditState.Ready) { return; }
+            if (_readyForEdits != EditState.Ready)
+            {
+                return;
+            }
 
             // Disable the sync button.
             _syncButton.Enabled = false;
@@ -520,7 +530,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            UIAlertView alertView = new UIAlertView("alert", message, (IUIAlertViewDelegate)null, "OK", null);
+            UIAlertView alertView = new UIAlertView("alert", message, (IUIAlertViewDelegate) null, "OK", null);
             alertView.Show();
         }
 

@@ -14,6 +14,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using ArcGISRuntime.Samples.Managers;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ChangeStretchRenderer
@@ -56,52 +57,59 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
 
         public override void ViewDidLayoutSubviews()
         {
-            nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            nfloat controlHeight = 30;
-            nfloat margin = 5;
-            nfloat toolbarHeight = 4 * controlHeight + 5 * margin;
+            try
+            {
+                nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat toolbarHeight = 4 * controlHeight + 5 * margin;
 
-            // Reposition the controls.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topStart + toolbarHeight, 0, 0, 0);
-            _toolbar.Frame = new CoreGraphics.CGRect(0, topStart, View.Bounds.Width, toolbarHeight);
-            _rendererTypes.Frame = new CoreGraphics.CGRect(margin, topStart + margin, View.Bounds.Width - 2 * margin, controlHeight);
-            _labelParameter1.Frame = new CoreGraphics.CGRect(margin, topStart + controlHeight + 2 * margin, View.Bounds.Width - 4 * margin - 100, controlHeight);
-            _inputParameter1.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 100 - 2 * margin, topStart + controlHeight + 2 * margin, 100, controlHeight);
-            _labelParameter2.Frame = new CoreGraphics.CGRect(margin, topStart + 2 * controlHeight + 3 * margin, View.Bounds.Width - 4 * margin - 100, controlHeight);
-            _inputParameter2.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 100 - 2 * margin, topStart + 2 * controlHeight + 3 * margin, 100, controlHeight);
-            _updateRendererButton.Frame = new CoreGraphics.CGRect(margin, topStart + 3 * controlHeight + 4 * margin, View.Bounds.Width - 2 * margin, controlHeight);
-            
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topStart + toolbarHeight, 0, 0, 0);
+                _toolbar.Frame = new CGRect(0, topStart, View.Bounds.Width, toolbarHeight);
+                _rendererTypes.Frame = new CGRect(margin, topStart + margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _labelParameter1.Frame = new CGRect(margin, topStart + controlHeight + 2 * margin, View.Bounds.Width - 4 * margin - 100, controlHeight);
+                _inputParameter1.Frame = new CGRect(View.Bounds.Width - 100 - 2 * margin, topStart + controlHeight + 2 * margin, 100, controlHeight);
+                _labelParameter2.Frame = new CGRect(margin, topStart + 2 * controlHeight + 3 * margin, View.Bounds.Width - 4 * margin - 100, controlHeight);
+                _inputParameter2.Frame = new CGRect(View.Bounds.Width - 100 - 2 * margin, topStart + 2 * controlHeight + 3 * margin, 100, controlHeight);
+                _updateRendererButton.Frame = new CGRect(margin, topStart + 3 * controlHeight + 4 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()
         {
             // Add an imagery basemap.
-            Map myMap = new Map(Basemap.CreateImagery());
+            Map map = new Map(Basemap.CreateImagery());
 
             // Wait for the map to load.
-            await myMap.LoadAsync();
+            await map.LoadAsync();
 
             // Get the file name.
             string filepath = DataManager.GetDataFolder("95392f99970d4a71bd25951beb34a508", "shasta", "ShastaBW.tif");
 
             // Load the raster file.
-            Raster myRasterFile = new Raster(filepath);
+            Raster rasterFile = new Raster(filepath);
 
             // Create the layer.
-            RasterLayer myRasterLayer = new RasterLayer(myRasterFile);
+            RasterLayer rasterLayer = new RasterLayer(rasterFile);
 
             // Add the layer to the map.
-            myMap.OperationalLayers.Add(myRasterLayer);
+            map.OperationalLayers.Add(rasterLayer);
 
             // Wait for the layer to load.
-            await myRasterLayer.LoadAsync();
+            await rasterLayer.LoadAsync();
 
             // Set the viewpoint.
-            myMap.InitialViewpoint = new Viewpoint(myRasterLayer.FullExtent);
+            map.InitialViewpoint = new Viewpoint(rasterLayer.FullExtent);
 
             // Add map to the mapview.
-            _myMapView.Map = myMap;
+            _myMapView.Map = map;
         }
 
         private void CreateLayout()
@@ -230,13 +238,13 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             // the raster layer.
 
             // Create an IEnumerable from an empty list of doubles for the gamma values in the stretch render.
-            IEnumerable<double> myGammaValues = new List<double>();
+            IEnumerable<double> gammaValues = new List<double>();
 
             // Create a color ramp for the stretch renderer.
-            ColorRamp myColorRamp = ColorRamp.Create(PresetColorRampType.DemLight, 1000);
+            ColorRamp colorRamp = ColorRamp.Create(PresetColorRampType.DemLight, 1000);
 
             // Create the place holder for the stretch renderer.
-            StretchRenderer myStretchRenderer = null;
+            StretchRenderer stretchRenderer = null;
 
             switch (_rendererTypes.SelectedSegment)
             {
@@ -246,16 +254,16 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     // TODO: Add you own logic to ensure that accurate min/max stretch values are used.
 
                     // Create an IEnumerable from a list of double min stretch value doubles.
-                    IEnumerable<double> myMinValues = new List<double> { Convert.ToDouble(_inputParameter1.Text) };
+                    IEnumerable<double> minValues = new List<double> { Convert.ToDouble(_inputParameter1.Text) };
 
                     // Create an IEnumerable from a list of double max stretch value doubles.
-                    IEnumerable<double> myMaxValues = new List<double> { Convert.ToDouble(_inputParameter2.Text) };
+                    IEnumerable<double> maxValues = new List<double> { Convert.ToDouble(_inputParameter2.Text) };
 
                     // Create a new MinMaxStretchParameters based on the user choice for min and max stretch values.
-                    MinMaxStretchParameters myMinMaxStretchParameters = new MinMaxStretchParameters(myMinValues, myMaxValues);
+                    MinMaxStretchParameters minMaxStretchParameters = new MinMaxStretchParameters(minValues, maxValues);
 
                     // Create the stretch renderer based on the user defined min/max stretch values, empty gamma values, statistic estimates, and a predefined color ramp.
-                    myStretchRenderer = new StretchRenderer(myMinMaxStretchParameters, myGammaValues, true, myColorRamp);
+                    stretchRenderer = new StretchRenderer(minMaxStretchParameters, gammaValues, true, colorRamp);
 
                     break;
 
@@ -265,10 +273,11 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     // TODO: Add you own logic to ensure that accurate min/max percent clip values are used.
 
                     // Create a new PercentClipStretchParameters based on the user choice for min and max percent clip values.
-                    PercentClipStretchParameters myPercentClipStretchParameters = new PercentClipStretchParameters(Convert.ToDouble(_inputParameter1.Text), Convert.ToDouble(_inputParameter2.Text));
+                    PercentClipStretchParameters percentClipStretchParameters = new PercentClipStretchParameters(
+                        Convert.ToDouble(_inputParameter1.Text), Convert.ToDouble(_inputParameter2.Text));
 
                     // Create the percent clip renderer based on the user defined min/max percent clip values, empty gamma values, statistic estimates, and a predefined color ramp.
-                    myStretchRenderer = new StretchRenderer(myPercentClipStretchParameters, myGammaValues, true, myColorRamp);
+                    stretchRenderer = new StretchRenderer(percentClipStretchParameters, gammaValues, true, colorRamp);
 
                     break;
 
@@ -278,19 +287,19 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     // TODO: Add you own logic to ensure that an accurate standard deviation value is used
 
                     // Create a new StandardDeviationStretchParameters based on the user choice for standard deviation value.
-                    StandardDeviationStretchParameters myStandardDeviationStretchParameters = new StandardDeviationStretchParameters(Convert.ToDouble(_inputParameter1.Text));
+                    StandardDeviationStretchParameters standardDeviationStretchParameters = new StandardDeviationStretchParameters(Convert.ToDouble(_inputParameter1.Text));
 
                     // Create the standard deviation renderer based on the user defined standard deviation value, empty gamma values, statistic estimates, and a predefined color ramp.
-                    myStretchRenderer = new StretchRenderer(myStandardDeviationStretchParameters, myGammaValues, true, myColorRamp);
+                    stretchRenderer = new StretchRenderer(standardDeviationStretchParameters, gammaValues, true, colorRamp);
 
                     break;
             }
 
             // Get the existing raster layer in the map.
-            RasterLayer myRasterLayer = (RasterLayer)_myMapView.Map.OperationalLayers[0];
+            RasterLayer rasterLayer = (RasterLayer)_myMapView.Map.OperationalLayers[0];
 
             // Apply the stretch renderer to the raster layer.
-            myRasterLayer.Renderer = myStretchRenderer;
+            rasterLayer.Renderer = stretchRenderer;
         }
     }
 }

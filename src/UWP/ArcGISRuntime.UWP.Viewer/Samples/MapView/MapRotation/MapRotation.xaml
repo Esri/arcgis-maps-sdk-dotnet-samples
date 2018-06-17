@@ -23,8 +23,6 @@
                            TextAlignment="Center" FontWeight="SemiBold"
                            Grid.Column="1" />
             </Grid>
-
         </Border>
-
     </Grid>
 </UserControl>

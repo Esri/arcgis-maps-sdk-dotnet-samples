@@ -12,11 +12,11 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Drawing;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
 {
@@ -76,16 +76,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
             myMap.OperationalLayers.Add(_featureLayer);
 
             // Assign the map to the MapView
-            myMapView.Map = myMap;
-        }
-
-        private async void OnQueryClicked(object sender, RoutedEventArgs e)
-        {
-            // Remove any previous feature selections that may have been made 
-            _featureLayer.ClearSelection();
-
-            // Begin query process 
-            await QueryStateFeature(queryEntry.Text);
+            MyMapView.Map = myMap;
         }
 
         private async Task QueryStateFeature(string stateName)
@@ -116,7 +107,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
                     _featureLayer.SelectFeature(feature);
 
                     // Zoom to the extent of the newly selected feature
-                    await myMapView.SetViewpointGeometryAsync(feature.Geometry.Extent);
+                    await MyMapView.SetViewpointGeometryAsync(feature.Geometry.Extent);
                 }
                 else
                 {
@@ -126,8 +117,24 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
             }
             catch (Exception ex)
             {
-                var message = new MessageDialog("Sample error: " + ex.ToString(), "An error occurred");
+                var message = new MessageDialog("Sample error: " + ex, "An error occurred");
                 await message.ShowAsync();
+            }
+        }
+
+        private async void QueryEntry_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            try
+            {
+                // Remove any previous feature selections that may have been made 
+                _featureLayer.ClearSelection();
+
+                // Begin query process 
+                await QueryStateFeature(args.QueryText);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
             }
         }
     }

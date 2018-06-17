@@ -9,6 +9,12 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
     <Grid>
-        <esriUI:MapView x:Name="MyMapView"/>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="30" Padding="20" Width="300"
+                BorderBrush="Black" BorderThickness="1" Background="White">
+            <TextBlock Text="Tap to identify the graphic."
+                       TextAlignment="Center" TextWrapping="Wrap" FontWeight="SemiBold" />
+        </Border>
     </Grid>
 </UserControl>

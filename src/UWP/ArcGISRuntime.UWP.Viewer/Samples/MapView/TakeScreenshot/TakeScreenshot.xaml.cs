@@ -43,26 +43,8 @@ namespace ArcGISRuntime.UWP.Samples.TakeScreenshot
             // Export the image from mapview and assign it to the imageview
             var exportedImage = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(await MyMapView.ExportImageAsync());
 
-            // Create dialog that is used to show the picture
-            var dialog = new ContentDialog()
-            {
-                Title = "Screenshot",
-                MaxWidth = ActualWidth,
-                MaxHeight = ActualHeight
-            };
-
-            // Create Image
-            var imageView = new Image()
-            {
-                Source = exportedImage,
-                Margin = new Thickness(10)  
-            };
-
-            // Set image as a content
-            dialog.Content = imageView;
-
-            // Show dialog as a full screen overlay. 
-            await dialog.ShowAsync();
+            ScreenshotView.Source = exportedImage;
+            ScreenshotView.Visibility = Visibility.Visible;
         }
     }
 }

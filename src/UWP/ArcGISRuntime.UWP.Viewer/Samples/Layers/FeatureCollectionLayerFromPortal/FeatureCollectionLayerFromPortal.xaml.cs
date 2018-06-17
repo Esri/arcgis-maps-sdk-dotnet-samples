@@ -76,7 +76,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureCollectionLayerFromPortal
             }
         }        
 
-        private async void OpenPortalFeatureCollectionClick(object sender, RoutedEventArgs e)
+        private async void Open_Click(object sender, RoutedEventArgs e)
         {
             // Get the portal item Id from the user
             var collectionItemId = CollectionItemIdTextBox.Text.Trim();

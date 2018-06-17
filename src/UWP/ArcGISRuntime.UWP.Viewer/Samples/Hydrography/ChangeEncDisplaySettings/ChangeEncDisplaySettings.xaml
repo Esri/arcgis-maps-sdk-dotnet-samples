@@ -2,35 +2,57 @@
     x:Class="ArcGISRuntime.UWP.Samples.ChangeEncDisplaySettings.ChangeEncDisplaySettings"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:esri="using:Esri.ArcGISRuntime"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls"
-    mc:Ignorable="d"
-    d:DesignHeight="300" d:DesignWidth="300">
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="5,15,0,0" />
+        </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="Margin" Value="5,5,0,0" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
         <Border Background="White" BorderBrush="Black" BorderThickness="1"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="30" Padding="20" Width="Auto">
+                Margin="30" Padding="15" Width="Auto">
             <StackPanel>
-                <TextBlock FontWeight="ExtraBold" >Color Scheme</TextBlock>
+                <TextBlock Text="Color scheme" />
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton GroupName="ColorScheme" Content="Day" Margin="0,3,10,0" x:Name="radDay" IsChecked="True" />
-                    <RadioButton GroupName="ColorScheme" Content="Dusk" Margin="0,3,10,0" x:Name="radDusk" />
-                    <RadioButton GroupName="ColorScheme" Content="Night" Margin="0,3,10,0" x:Name="radNight" />
+                    <RadioButton x:Name="DayRadioButton" 
+                                 GroupName="ColorScheme" 
+                                 Content="Day" 
+                                 IsChecked="True" />
+                    <RadioButton x:Name="DuskRadioButton" 
+                                 GroupName="ColorScheme" 
+                                 Content="Dusk" />
+                    <RadioButton x:Name="NightRadioButton"
+                                 GroupName="ColorScheme"
+                                 Content="Night"/>
                 </StackPanel>
-                <TextBlock FontWeight="ExtraBold">Area Symbolization Type</TextBlock>
+                <TextBlock Text="Area symbolization type" />
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton GroupName="Area" Content="Plain" Margin="0,3,10,0" x:Name="radAreaPlain" IsChecked="True" />
-                    <RadioButton GroupName="Area" Content="Symbolized" Margin="0,3,10,0" x:Name="radAreaSymbolized" />
+                    <RadioButton x:Name="PlainAreaRadioButton" 
+                                 GroupName="Area"
+                                 Content="Plain"
+                                 IsChecked="True" />
+                    <RadioButton GroupName="Area"
+                                 Content="Symbolized"/>
                 </StackPanel>
-                <TextBlock FontWeight="ExtraBold">Point Symbolization Type</TextBlock>
+                <TextBlock Text="Point symbolization type" />
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton GroupName="Point" Content="Paper Chart" Margin="0,3,10,0" x:Name="radPointPaper" IsChecked="True" />
-                    <RadioButton GroupName="Point" Content="Simplified" Margin="0,3,10,0" x:Name="radPointSimple" />
+                    <RadioButton x:Name="PaperPointRadioButton" 
+                                 GroupName="Point" 
+                                 Content="Paper Chart" 
+                                 IsChecked="True" />
+                    <RadioButton GroupName="Point" 
+                                 Content="Simplified"/>
                 </StackPanel>
-                <Button Content="Apply" Click="Button_Click" />
+                <Button Content="Apply" 
+                        HorizontalAlignment="Stretch"
+                        Margin="5,5,5,5"
+                        Click="Button_Click" />
             </StackPanel>
         </Border>
     </Grid>

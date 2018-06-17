@@ -27,13 +27,13 @@ namespace ArcGISRuntime.UWP.Samples.BufferList
     public partial class BufferList
     {
         // Graphics overlay to display buffer related graphics.
-        private GraphicsOverlay _graphicsOverlay;
+        private readonly GraphicsOverlay _graphicsOverlay;
 
         // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.Buffer operation.
-        private List<Geometry> _bufferPointsList = new List<Geometry>();
+        private readonly List<Geometry> _bufferPointsList = new List<Geometry>();
 
         // List of buffer distance values (in meters) that will be used by the GeometryEngine.Buffer operation.
-        private List<double> _bufferDistancesList = new List<double>();
+        private readonly List<double> _bufferDistancesList = new List<double>();
 
         public BufferList()
         {
@@ -109,7 +109,7 @@ namespace ArcGISRuntime.UWP.Samples.BufferList
             try
             {
                 // Get the boolean value whether to create a single unioned buffer (true) or independent buffer around each map point (false).
-                bool unionBufferBool = (bool)UnionCheckBox.IsChecked;
+                bool unionBufferBool = (UnionCheckBox.IsChecked == true);
 
                 // Create an IEnumerable that contains buffered polygon(s) from the GeometryEngine Buffer operation based on a list of map 
                 // points and list of buffered distances. The input distances used in the Buffer operation are in meters; this matches the 

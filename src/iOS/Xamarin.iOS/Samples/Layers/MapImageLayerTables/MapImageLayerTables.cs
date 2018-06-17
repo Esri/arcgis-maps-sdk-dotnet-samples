@@ -69,7 +69,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             base.ViewDidLayoutSubviews();
         }
 
-        private async Task Initialize()
+        private async void Initialize()
         {
             // Create a new Map with a vector streets basemap.
             Map myMap = new Map(Basemap.CreateStreetsVector());

@@ -21,7 +21,6 @@
                               Margin="10,0,0,0"
                               IsActive="True" />
             </StackPanel>
-
         </Border>
     </Grid>
 </UserControl>

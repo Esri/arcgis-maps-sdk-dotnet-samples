@@ -34,13 +34,13 @@ namespace ArcGISRuntime.UWP.Samples.DisplayDeviceLocation
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization .
+            // Setup the control references and execute initialization.
             Initialize();
         }
 
         private void Initialize()
         {
-            // Assign the map to the MapView
+            // Assign the map to the MapView.
             MyMapView.Map = new Map(Basemap.CreateTopographic());
 
             // Populate the list of options and select a default.
@@ -66,7 +66,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayDeviceLocation
             switch (LocationModes.SelectedValue.ToString())
             {
                 case "Off":
-                    // Starts location display with auto pan mode set to Off
+                    // Starts location display with auto pan mode set to Off.
                     MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Off;
                     break;
                 case "Re-Center":

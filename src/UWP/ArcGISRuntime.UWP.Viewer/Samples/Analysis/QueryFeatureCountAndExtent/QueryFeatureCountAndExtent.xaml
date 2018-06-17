@@ -19,8 +19,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="Tap 'Zoom to matching features' to zoom to features matching the given state abbreviation. Click 'Count features in extent' to count the features in the current extent (regardless of the results of the query)."
                            Grid.Row="0"
-                           FontWeight="SemiBold" TextWrapping="Wrap"
-                           />
+                           FontWeight="SemiBold" TextWrapping="Wrap" />
                 <TextBox x:Name="StateEntry"
                          Grid.Row="1"
                          Margin="0,5,0,5"

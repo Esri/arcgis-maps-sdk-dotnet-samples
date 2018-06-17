@@ -13,38 +13,33 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Layer display status"
-                           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                           Margin="0,0,0,5"
-                           FontWeight="SemiBold" TextAlignment="Center" />
                 <TextBlock Text="Tiled layer:"
-                           Grid.Row="1" Grid.Column="0"
+                           Grid.Row="0" Grid.Column="0"
                            Margin="0,5,0,0"
                            HorizontalAlignment="Right" />
                 <TextBlock x:Name="TiledLayerStatus"
-                           Grid.Row="1" Grid.Column="1"
+                           Grid.Row="0" Grid.Column="1"
                            Margin="5,5,0,0"
                            FontWeight="SemiBold" />
                 <TextBlock Text="Image layer:"
-                           Grid.Row="2" Grid.Column="0"
+                           Grid.Row="1" Grid.Column="0"
                            Margin="0,5,0,0"
                            HorizontalAlignment="Right" />
                 <TextBlock x:Name="ImageLayerStatus"
-                           Grid.Row="2" Grid.Column="1"
+                           Grid.Row="1" Grid.Column="1"
                            Margin="5,5,0,0"
                            FontWeight="SemiBold" />
                 <TextBlock Text="Feature layer:"
-                           Grid.Row="3" Grid.Column="0"
+                           Grid.Row="2" Grid.Column="0"
                            Margin="0,5,0,0"
                            HorizontalAlignment="Right" />
                 <TextBlock x:Name="FeatureLayerStatus"
-                           Grid.Row="3" Grid.Column="1"
+                           Grid.Row="2" Grid.Column="1"
                            Margin="5,5,0,0"
                            FontWeight="SemiBold" />
             </Grid>

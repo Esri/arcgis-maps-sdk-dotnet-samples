@@ -7,7 +7,7 @@ or south from that line, you'll see a greater difference in the polygon size and
 
 Creating buffers is a core concept in GIS as it allows for proximity analysis to find geographic features contained within a polygon. For example, suppose you wanted to know how many resturants are within a short walking distance of your home. The first step in this proximity analysis would be to generate a buffer polygon of a certain distance (say 1 mile) around your house.  
 
-![Image](buffer.jpg)
+![Image](Buffer.jpg)
 
 ## How to use the sample
 1. Tap on the map.    

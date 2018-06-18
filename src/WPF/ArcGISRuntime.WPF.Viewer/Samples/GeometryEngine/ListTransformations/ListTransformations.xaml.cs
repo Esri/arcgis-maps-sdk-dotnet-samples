@@ -38,12 +38,10 @@ namespace ArcGISRuntime.WPF.Samples.ListTransformations
 
         // Property to expose the list of datum transformations for binding to the list box.
         private IReadOnlyList<DatumTransformationListBoxItem> _datumTransformations;
+
         public IReadOnlyList<DatumTransformationListBoxItem> SuitableTransformationsList
         {
-            get
-            {
-                return _datumTransformations;
-            }
+            get { return _datumTransformations; }
             set
             {
                 _datumTransformations = value;
@@ -53,6 +51,7 @@ namespace ArcGISRuntime.WPF.Samples.ListTransformations
 
         // Implement INotifyPropertyChanged to indicate when the list of transformations has been updated.
         public event PropertyChangedEventHandler PropertyChanged;
+
         private void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -78,8 +77,7 @@ namespace ArcGISRuntime.WPF.Samples.ListTransformations
             _originalPoint = new MapPoint(538985.355, 177329.516, SpatialReference.Create(27700));
 
             // Set the initial extent to an extent centered on the point.
-            Viewpoint initialViewpoint = new Viewpoint(_originalPoint, 5000);
-            myMap.InitialViewpoint = initialViewpoint;
+            myMap.InitialViewpoint = new Viewpoint(_originalPoint, 5000);
 
             // Load the map and add the map to the map view.
             await myMap.LoadAsync();
@@ -111,18 +109,22 @@ namespace ArcGISRuntime.WPF.Samples.ListTransformations
             OutSpatialRefTextBox.Text = "Out WKID = " + myMap.SpatialReference.Wkid;
 
             // Create a list of transformations to fill the UI list box.
-            GetSuitableTransformations(_originalPoint.SpatialReference, myMap.SpatialReference, UseExtentCheckBox.IsChecked == true);
+            GetSuitableTransformations(_originalPoint.SpatialReference, myMap.SpatialReference,
+                UseExtentCheckBox.IsChecked == true);
         }
-        
+
         // Function to get suitable datum transformations for the specified input and output spatial references.
-        private void GetSuitableTransformations(SpatialReference inSpatialRef, SpatialReference outSpatialRef, bool considerExtent)
+        private void GetSuitableTransformations(SpatialReference inSpatialRef, SpatialReference outSpatialRef,
+            bool considerExtent)
         {
             // Get suitable transformations. Use the current extent to evaluate suitability, if requested.
             IReadOnlyList<DatumTransformation> transformations;
             if (considerExtent)
             {
-                Envelope currentExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
-                transformations = TransformationCatalog.GetTransformationsBySuitability(inSpatialRef, outSpatialRef, currentExtent);                
+                Envelope currentExtent =
+                    MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
+                transformations =
+                    TransformationCatalog.GetTransformationsBySuitability(inSpatialRef, outSpatialRef, currentExtent);
             }
             else
             {
@@ -133,8 +135,9 @@ namespace ArcGISRuntime.WPF.Samples.ListTransformations
             DatumTransformation defaultTransform = TransformationCatalog.GetTransformation(inSpatialRef, outSpatialRef);
 
             List<DatumTransformationListBoxItem> transformationItems = new List<DatumTransformationListBoxItem>();
+
             // Wrap the transformations in a class that includes a boolean to indicate if it's the default transformation.
-            foreach(DatumTransformation transform in transformations)
+            foreach (DatumTransformation transform in transformations)
             {
                 DatumTransformationListBoxItem item = new DatumTransformationListBoxItem(transform)
                 {
@@ -150,16 +153,21 @@ namespace ArcGISRuntime.WPF.Samples.ListTransformations
         private void TransformationsListBox_Selected(object sender, RoutedEventArgs e)
         {
             // Get the selected transform from the list box. Return if there isn't a selected item.
-            DatumTransformationListBoxItem selectedListBoxItem = TransformationsListBox.SelectedItem as DatumTransformationListBoxItem;
-            if(selectedListBoxItem == null) { return; }
-            
+            DatumTransformationListBoxItem selectedListBoxItem =
+                TransformationsListBox.SelectedItem as DatumTransformationListBoxItem;
+            if (selectedListBoxItem == null)
+            {
+                return;
+            }
+
             DatumTransformation selectedTransform = selectedListBoxItem.TransformationObject;
 
             try
             {
                 // Project the original point using the selected transform.
-                MapPoint projectedPoint = (MapPoint)GeometryEngine.Project(_originalPoint, MyMapView.SpatialReference, selectedTransform);
-                
+                MapPoint projectedPoint =
+                    (MapPoint) GeometryEngine.Project(_originalPoint, MyMapView.SpatialReference, selectedTransform);
+
                 // Update the projected graphic (if it already exists), create it otherwise.
                 if (_projectedPointGraphic != null)
                 {
@@ -168,7 +176,8 @@ namespace ArcGISRuntime.WPF.Samples.ListTransformations
                 else
                 {
                     // Create a symbol to represent the projected point (a cross to ensure both markers are visible).
-                    SimpleMarkerSymbol projectedPointMarker = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, Color.Red, 15);
+                    SimpleMarkerSymbol projectedPointMarker =
+                        new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, Color.Red, 15);
 
                     // Create the point graphic and add it to the overlay.
                     _projectedPointGraphic = new Graphic(projectedPoint, projectedPointMarker);
@@ -177,7 +186,7 @@ namespace ArcGISRuntime.WPF.Samples.ListTransformations
 
                 MessagesTextBox.Text = "Projected point using transform: " + selectedTransform.Name;
             }
-            catch(ArcGISRuntimeException ex)
+            catch (ArcGISRuntimeException ex)
             {
                 // Exception if a transformation is missing grid files.
                 MessagesTextBox.Text = "Error using selected transformation: " + ex.Message;
@@ -194,7 +203,8 @@ namespace ArcGISRuntime.WPF.Samples.ListTransformations
         private void UseExtentCheckBox_CheckChanged(object sender, RoutedEventArgs e)
         {
             // Recreate the contents of the datum transformations list box.
-            GetSuitableTransformations(_originalPoint.SpatialReference, MyMapView.Map.SpatialReference, UseExtentCheckBox.IsChecked == true);
+            GetSuitableTransformations(_originalPoint.SpatialReference, MyMapView.Map.SpatialReference,
+                UseExtentCheckBox.IsChecked == true);
         }
 
         private string GetProjectionDataPath()

@@ -84,18 +84,19 @@
                                  Content="Browse my maps" />
                     <Button x:Name="SearchButton"
                             Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
-                            Margin="40,10"
                             Content="Get maps"
+                            Margin="0,5,0,0"
                             Click="SearchButton_Click" />
                     <ListBox x:Name="MapListBox"
                              Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
-                             Margin="10"
                              SelectionMode="Single"
-                             DisplayMemberPath="Title" />
+                             Margin="0,5,0,0"
+                             DisplayMemberPath="Title"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
                     <Button x:Name="LoadMapButton"
                             Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"
-                            Margin="40,10"
                             Content="Load selected map"
+                            Margin="0,5,0,0"
                             Click="LoadMapButtonClick" />
                 </Grid>
             </Grid>

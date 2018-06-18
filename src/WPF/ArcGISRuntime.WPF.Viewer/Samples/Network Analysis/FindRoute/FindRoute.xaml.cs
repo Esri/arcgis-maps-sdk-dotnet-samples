@@ -57,7 +57,7 @@ namespace ArcGISRuntime.WPF.Samples.FindRoute
             // Create Stop objects with the points and add them to a list of stops
             Stop stop1 = new Stop(fromPoint);
             Stop stop2 = new Stop(toPoint);
-            _routeStops = new List<Stop> { stop1, stop2 };
+            _routeStops = new List<Stop> {stop1, stop2};
 
             // Picture marker symbols: from = car, to = checkered flag
             PictureMarkerSymbol carSymbol = new PictureMarkerSymbol(_carIconUri);
@@ -135,7 +135,7 @@ namespace ArcGISRuntime.WPF.Samples.FindRoute
 
             // Remove the route graphic from the graphics overlay (only line graphic in the collection)
             int graphicsCount = _routeGraphicsOverlay.Graphics.Count;
-            for (var i = graphicsCount; i > 0; i--)
+            for (int i = graphicsCount; i > 0; i--)
             {
                 // Get this graphic and see if it has line geometry
                 Graphic g = _routeGraphicsOverlay.Graphics[i - 1];

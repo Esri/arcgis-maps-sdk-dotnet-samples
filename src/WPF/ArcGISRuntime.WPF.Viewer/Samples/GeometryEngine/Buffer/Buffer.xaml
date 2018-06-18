@@ -10,8 +10,7 @@
             Margin="30" Padding="20" Width="375">
             <StackPanel>
                 <TextBlock Text="Specify the distance (in miles) and the tap on the map."
-                           TextAlignment="Center" 
-                           Foreground="Red" />
+                           TextAlignment="Center" FontWeight="SemiBold" />
                 <TextBox x:Name="BufferDistanceMilesTextBox"
                          Margin="0,5,0,0" TextAlignment="Center"
                          Text="10" />

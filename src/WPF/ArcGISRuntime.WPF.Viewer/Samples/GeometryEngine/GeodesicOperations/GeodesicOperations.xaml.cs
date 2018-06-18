@@ -12,7 +12,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
-using System;
 
 namespace ArcGISRuntime.WPF.Samples.GeodesicOperations
 {
@@ -96,7 +95,7 @@ namespace ArcGISRuntime.WPF.Samples.GeodesicOperations
 
             // Calculate and show the distance.
             double distance = GeometryEngine.LengthGeodetic(pathGeometry, LinearUnits.Kilometers, GeodeticCurveType.Geodesic);
-            ResultsLabel.Content = string.Format("{0} kilometers", (int)distance);
+            ResultsLabel.Text = string.Format("{0} kilometers", (int)distance);
         }
     }
 }

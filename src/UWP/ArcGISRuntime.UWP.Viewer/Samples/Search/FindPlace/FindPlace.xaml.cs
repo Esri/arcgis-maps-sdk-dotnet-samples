@@ -68,10 +68,10 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);
 
             // Enable all controls now that the locator task is ready
-            MySearchBox.IsEnabled = true;
-            MyLocationBox.IsEnabled = true;
-            MySearchButton.IsEnabled = true;
-            MySearchRestrictedButton.IsEnabled = true;
+            SearchEntry.IsEnabled = true;
+            LocationEntry.IsEnabled = true;
+            SearchButton.IsEnabled = true;
+            SearchViewButton.IsEnabled = true;
         }
 
         private async void LocationDisplay_LocationChanged(object sender, Esri.ArcGISRuntime.Location.Location e)
@@ -104,7 +104,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
                 IReadOnlyList<GeocodeResult> locations = await _geocoder.GeocodeAsync(locationText);
 
                 // return if there are no results
-                if (locations.Count() < 1) { return null; }
+                if (locations.Count < 1) { return null; }
 
                 // Get the first result
                 GeocodeResult result = locations.First();
@@ -156,7 +156,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             }
 
             // Show the progress bar
-            MyProgressBar.Visibility = Visibility.Visible;
+            ProgressBar.Visibility = Visibility.Visible;
 
             // Get the location information
             IReadOnlyList<GeocodeResult> locations = await _geocoder.GeocodeAsync(enteredText, parameters);
@@ -164,7 +164,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             // Stop gracefully and show a message if the geocoder does not return a result
             if (locations.Count < 1)
             {
-                MyProgressBar.Visibility = Visibility.Collapsed; // 1. Hide the progress bar
+                ProgressBar.Visibility = Visibility.Collapsed; // 1. Hide the progress bar
                 ShowStatusMessage("No results found"); // 2. Show a message
                 return; // 3. Stop
             }
@@ -185,9 +185,9 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
                 IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(location.DisplayLocation);
 
                 // Add the first suitable address if possible
-                if (addresses.Count() > 0)
+                if (addresses.Any())
                 {
-                    point.Attributes["Match_Address"] = addresses.First().Label;
+                    point.Attributes["Match_Address"] = addresses[0].Label;
                 }
 
                 // Add the Graphic to the GraphicsOverlay
@@ -195,7 +195,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             }
 
             // Hide the progress bar
-            MyProgressBar.Visibility = Visibility.Collapsed;
+            ProgressBar.Visibility = Visibility.Collapsed;
 
             // Add the GraphicsOverlay to the MapView
             MyMapView.GraphicsOverlays.Add(resultOverlay);
@@ -323,19 +323,19 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             UserInteracted();
 
             // Get the current text
-            string searchText = MySearchBox.Text;
+            string searchText = SearchEntry.Text;
 
             // Get the current search location
-            string locationText = MyLocationBox.Text;
+            string locationText = LocationEntry.Text;
 
             // Convert the list into a usable format for the suggest box
             IEnumerable<String> results = await GetSuggestResults(searchText, locationText, true);
 
             // Quit if there are no results
-            if (results == null || results.Count() == 0) { return; }
+            if (results == null || !results.Any()) { return; }
 
             // Update the list of options
-            MySearchBox.ItemsSource = results;
+            SearchEntry.ItemsSource = results;
         }
 
         /// <summary>
@@ -347,37 +347,37 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             UserInteracted();
 
             // Get the current text
-            string searchText = MyLocationBox.Text;
+            string searchText = LocationEntry.Text;
 
             // Get the results
-            IEnumerable<String> results = await GetSuggestResults(searchText);
+            IEnumerable<string> results = await GetSuggestResults(searchText);
 
             // Quit if there are no results
-            if (results == null || results.Count() == 0) { return; }
+            if (results == null || !results.Any()) { return; }
 
             // Get a modifiable list from the results
-            List<String> mutableResults = results.ToList();
+            List<string> mutableResults = results.ToList();
 
             // Add a 'current location' option to the list
             mutableResults.Insert(0, "Current Location");
 
             // Update the list of options
-            MyLocationBox.ItemsSource = mutableResults;
+            LocationEntry.ItemsSource = mutableResults;
         }
 
         /// <summary>
         /// Method called to start a search that is restricted to results within the current extent
         /// </summary>
-        private void MySearchRestrictedButton_Click(object sender, RoutedEventArgs e)
+        private void SearchViewButton_Click(object sender, RoutedEventArgs e)
         {
             // Dismiss callout, if any
             UserInteracted();
 
             // Get the search text
-            string searchText = MySearchBox.Text;
+            string searchText = SearchEntry.Text;
 
             // Get the location text
-            string locationText = MyLocationBox.Text;
+            string locationText = LocationEntry.Text;
 
             // Run the search
             UpdateSearch(searchText, locationText, true);
@@ -386,16 +386,16 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
         /// <summary>
         /// Method called to start an unrestricted search
         /// </summary>
-        private void MySearchButton_Click(object sender, RoutedEventArgs e)
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             // Dismiss callout, if any
             UserInteracted();
 
             // Get the search text
-            string searchText = MySearchBox.Text;
+            string searchText = SearchEntry.Text;
 
             // Get the location text
-            string locationText = MyLocationBox.Text;
+            string locationText = LocationEntry.Text;
 
             // Run the search
             UpdateSearch(searchText, locationText);

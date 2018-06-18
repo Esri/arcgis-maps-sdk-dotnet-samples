@@ -23,7 +23,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Slide to rotate the map."
                            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                           Foreground="Red"
+                           FontWeight="SemiBold"
                            TextAlignment="Center" />
                 <Slider x:Name="MySlider"
                         Grid.Row="1" Grid.Column="0"
@@ -33,6 +33,7 @@
                         ValueChanged="MySlider_ValueChanged" />
                 <TextBlock x:Name="MyLabel"
                            TextAlignment="Center" VerticalAlignment="Center"
+                           Padding="0,2,0,0"
                            Grid.Row="1" Grid.Column="1" />
             </Grid>
         </Border>

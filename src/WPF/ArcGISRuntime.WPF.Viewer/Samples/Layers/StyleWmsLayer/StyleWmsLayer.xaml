@@ -18,17 +18,19 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Choose a style" 
+                <TextBlock Text="Choose a style." 
                            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                            Margin="0,0,0,2" TextWrapping="Wrap"
-                           TextAlignment="Center" />
+                           TextAlignment="Center" FontWeight="SemiBold" />
                 <Button x:Name="FirstStyleButton"
                         Grid.Row="1" Grid.Column="0" 
+                        Margin="0,5,2.5,0"
                         Content="Style 1"
                         IsEnabled="False"
                         Click="FirstStyleButton_Clicked"/>
                 <Button x:Name="SecondStyleButton"
                         Grid.Row="1" Grid.Column="1"
+                        Margin="2.5,5,0,0"
                         Content="Style 2"
                         IsEnabled="False"
                         Click="SecondStyleButton_Clicked" />

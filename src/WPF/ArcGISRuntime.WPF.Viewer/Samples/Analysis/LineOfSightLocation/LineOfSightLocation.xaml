@@ -7,8 +7,8 @@
         <Border BorderBrush="Black" Background="White" BorderThickness="1"
                 Margin="30" Padding="20" Width="375"
                 HorizontalAlignment="Right" VerticalAlignment="Top">
-            <TextBlock Text="Tap to set a starting point for the line. Tap again to set the ending point."
-                       TextAlignment="Left" TextWrapping="Wrap" Foreground="Red" />
+            <TextBlock Text="Tap to place the observer. Tap again to place the target."
+                       TextAlignment="Center" TextWrapping="Wrap" FontWeight="SemiBold" />
         </Border>
     </Grid>
 </UserControl>

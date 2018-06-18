@@ -1,11 +1,7 @@
 ﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.ChangeStretchRenderer.ChangeStretchRenderer"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border
@@ -18,37 +14,42 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
                 <TextBlock
-                    Text="Choose a stretch renderer type from the dropdown, adjust the parameter values, then click the 'Update Renderer' button."
-                    TextWrapping="Wrap"
+                    Text="Choose a stretch renderer type from the dropdown, adjust the parameter values, then click 'Update renderer'."
+                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                    TextWrapping="Wrap" FontWeight="SemiBold"
                     HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <StackPanel Grid.Row="1">
-                    <ComboBox x:Name="RendererTypes"
-                              Margin="0,5,0,0"
-                              SelectionChanged="RendererTypes_SelectionChanged" />
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Stretch">
-                        <TextBlock x:Name="FirstParameterLabel"
-                                   Margin="0,5,5,0"
-                                   Text="Parameter1" />
-                        <TextBox x:Name="FirstParameterInput"
-                                 Margin="0,5,0,0"
-                                 Text="EnterValue1" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Stretch">
-                        <TextBlock x:Name="SecondParameterLabel"
-                                   Margin="0,5,5,0"
-                                   Text="Parameter2" />
-                        <TextBox x:Name="SecondParameterInput"
-                                 Margin="0,5,0,0"
-                                 Text="EnterValue2" />
-                    </StackPanel>
-                </StackPanel>
+                <ComboBox x:Name="RendererTypes"
+                          Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                          Margin="0,5,0,0"
+                          SelectionChanged="RendererTypes_SelectionChanged" />
+                <TextBlock x:Name="FirstParameterLabel"
+                           Grid.Row="2" Grid.Column="0"
+                           Margin="0,5,5,0"
+                           Text="Parameter1" />
+                <TextBox x:Name="FirstParameterInput"
+                         Grid.Row="2" Grid.Column="1"
+                         HorizontalAlignment="Stretch" TextAlignment="Center"
+                         Margin="0,5,0,0"
+                         Text="EnterValue1" />
+                <TextBlock x:Name="SecondParameterLabel"
+                           Grid.Row="3" Grid.Column="0"
+                           Margin="0,5,5,0"
+                           Text="Parameter2" />
+                <TextBox x:Name="SecondParameterInput"
+                         Grid.Row="3" Grid.Column="1"
+                         HorizontalAlignment="Stretch" TextAlignment="Center"
+                         Margin="0,5,0,0"
+                         Text="EnterValue2" />
                 <Button x:Name="UpdateRenderer"
-                        Grid.Row="2"
-                        Content="Update Renderer"
+                        Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                        Content="Update renderer"
                         Margin="0,5,0,0"
                         Click="OnUpdateRendererClicked" />
             </Grid>

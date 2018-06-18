@@ -4,42 +4,35 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
-        <esriUI:MapView x:Name="MyMapView" Grid.Column="1"/>
-        <CommandBar>
-            <AppBarButton Label="Statistics"
-                          Icon="ShowResults"
-                          Width="120">
-                <AppBarButton.Flyout>
-                    <Flyout>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <CheckBox x:Name="OnlyInExtentCheckbox"
-                                      Grid.Row="0"
-                                      Content="Cities in current extent"/>
-                            <CheckBox x:Name="OnlyBigCitiesCheckbox"
-                                      Grid.Row="1"
-                                      Content="Cities larger than 5M"/>
-                            <ListBox x:Name="StatResultsListBox"
-                                      Grid.Row="2"
-                                      HorizontalAlignment="Stretch"
-                                      Margin="5"
-                                      Height="200"/>
-                            <Button x:Name="GetStatsButton"
-                                      Grid.Row="3"
-                                      Height="30"
-                                      Margin="10"
-                                      HorizontalAlignment="Stretch"
-                                      Content="Get Statistics"
-                                      Click="OnExecuteStatisticsQueryClicked"/>
-                        </Grid>
-                    </Flyout>
-                </AppBarButton.Flyout>
-            </AppBarButton>
-        </CommandBar>
+        <esriUI:MapView x:Name="MyMapView"/>
+        <Border BorderBrush="Black" BorderThickness="1" Background="White"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="30" Padding="20" Width="375">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <CheckBox x:Name="OnlyInExtentCheckbox"
+                          Grid.Row="0" 
+                          Content="Cities in current extent"
+                          FontWeight="SemiBold" />
+                <CheckBox x:Name="OnlyBigCitiesCheckbox"
+                          Grid.Row="1"
+                          Content="Cities larger than 5M"
+                          FontWeight="SemiBold"/>
+                <ListBox x:Name="StatResultsListBox"
+                         Margin="0,5,0,5"
+                         Grid.Row="2"
+                         HorizontalAlignment="Stretch"/>
+                <Button Content="Get statistics"
+                        Grid.Row="3"
+                        Margin="0,5,0,0"
+                        HorizontalAlignment="Stretch"
+                        Click="OnExecuteStatisticsQueryClicked"/>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

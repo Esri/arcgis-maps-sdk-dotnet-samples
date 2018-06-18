@@ -131,7 +131,7 @@
                        Grid.Row="5" Grid.Column="2" />
                 <Label Content="{Binding Value, ElementName=MinimumDistanceSlider}"
                        Grid.Row="6" Grid.Column="2" />
-                <Label Content="{Binding Value, ElementName=MaximumDistanceSlider}"
+                    <Label Content="{Binding Value, ElementName=MaximumDistanceSlider}"
                        Grid.Row="7" Grid.Column="2" />
             </Grid>
         </Border>

@@ -45,6 +45,7 @@ namespace ArcGISRuntime.UWP.Samples.TakeScreenshot
 
             // Set the screenshot view to the new exported image.
             ScreenshotView.Source = exportedImage;
+
             // Make the screenshot view visible in the UI.
             ScreenshotView.Visibility = Visibility.Visible;
         }

@@ -3,40 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="120"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-            </Grid.RowDefinitions>
-            <TextBlock Text="Create a feature collection layer:"
-                       Grid.Row="0" Grid.Column="1"
-                       VerticalAlignment="Center" HorizontalAlignment="Center"
-                       Margin="20,0"/>
-            <StackPanel Grid.Row="1" 
-                        Orientation="Horizontal"
-                        VerticalAlignment="Center" HorizontalAlignment="Center"
-                        Margin="20,0"
-                        Height="30" Width="320">
-                <TextBlock Text="Item Id:"
-                           VerticalAlignment="Center"/>
-                <TextBox x:Name="CollectionItemIdTextBox" 
-                         Margin="6,0"
-                         VerticalAlignment="Center"
-                         Height="30" Width="240"/>
-            </StackPanel>
-            <Button x:Name="OpenPortalFeatureCollectionButton" 
-                    Click="OpenPortalFeatureCollectionClick"
-                    Content="Open from portal item"
-                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Grid.Row="2"
-                    Height="30" Width="250"/>
-        </Grid>
-        <esriUI:MapView x:Name="MyMapView"
-                      Grid.Row="1"/>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border BorderBrush="Black" BorderThickness="1" Background="White"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="30" Padding="20" Width="375">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Item ID:"
+                           Grid.Row="0" Grid.Column="0"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center" />
+                <TextBox x:Name="CollectionItemIdTextBox"
+                         Grid.Row="0" Grid.Column="1"
+                         Margin="5,0,0,0"
+                         HorizontalAlignment="Stretch" />
+                <Button Content="Open from portal item"
+                        Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                        Margin="0,5,0,0"
+                        HorizontalAlignment="Stretch"
+                        Click="Open_Click" />
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

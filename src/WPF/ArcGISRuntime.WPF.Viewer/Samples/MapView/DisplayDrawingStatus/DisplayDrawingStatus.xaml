@@ -13,8 +13,7 @@
                 Margin="30" Padding="20" Width="375">
             <StackPanel>
                 <TextBlock Text="Pan and zoom to see drawing status changes."
-                           Foreground="Red"
-                           TextAlignment="Center" />
+                           FontWeight="SemiBold" TextAlignment="Center" />
                 <ProgressBar x:Name="ActivityIndicator"
                              IsIndeterminate="True"
                              Height="20" Margin="0,5,0,0"

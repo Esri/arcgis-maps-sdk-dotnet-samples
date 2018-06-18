@@ -1,4 +1,4 @@
-// Copyright 2017 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -32,11 +32,15 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
     [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public partial class FindPlace
     {
+        // Flag used to help prevent search completion from competing with user input.
+        private bool _waitFlag;
+
         // The LocatorTask provides geocoding services.
         private LocatorTask _geocoder;
 
         // Service Uri to be provided to the LocatorTask (geocoder).
-        private Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+        private readonly Uri _serviceUri =
+            new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
         public FindPlace()
         {
@@ -48,11 +52,8 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
 
         private async void Initialize()
         {
-            // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateStreets());
-
-            // Provide used Map to the MapView.
-            MyMapView.Map = myMap;
+            // Show a map with a streets basemap.
+            MyMapView.Map = new Map(Basemap.CreateStreetsVector());
 
             // Subscribe to location changed events (to support zooming to current location).
             MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
@@ -76,12 +77,15 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         private void LocationDisplay_LocationChanged(object sender, Esri.ArcGISRuntime.Location.Location e)
         {
             // Return if position is null; event is called with null position when location display is turned on.
-            if (e.Position == null) { return; }
+            if (e.Position == null)
+            {
+                return;
+            }
 
-            // Unsubscribe to the event (only want to zoom once).
+            // Unsubscribe from the event (only want to zoom once).
             ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
 
-            // Needed because the event is called from a background thread, but the code is manipulating UI.
+            // Needed because the event is called from a background (non-UI) thread and this code is manipulating UI.
             Dispatcher.Invoke(() =>
             {
                 // Zoom to the location.
@@ -102,7 +106,10 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
                 IReadOnlyList<GeocodeResult> locations = await _geocoder.GeocodeAsync(locationText);
 
                 // return if there are no results.
-                if (locations.Count() < 1) { return null; }
+                if (!locations.Any())
+                {
+                    return null;
+                }
 
                 // Get the first result.
                 GeocodeResult result = locations.First();
@@ -118,18 +125,21 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         }
 
         /// <summary>
-        /// Runs a search and populates the map with results based on the provided information
+        /// Runs a search and populates the map with results based on the provided information.
         /// </summary>
-        /// <param name="enteredText">Results to search for</param>
-        /// <param name="locationText">Location around which to find results</param>
-        /// <param name="restrictToExtent">If true, limits results to only those that are within the current extent</param>
+        /// <param name="enteredText">Results to search for.</param>
+        /// <param name="locationText">Location around which to find results.</param>
+        /// <param name="restrictToExtent">If true, limits results to only those that are within the current extent.</param>
         private async void UpdateSearch(string enteredText, string locationText, bool restrictToExtent = false)
         {
             // Clear any existing markers.
             MyMapView.GraphicsOverlays.Clear();
 
             // Return gracefully if the textbox is empty or the geocoder isn't ready.
-            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
+            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
+            {
+                return;
+            }
 
             // Create the geocode parameters.
             GeocodeParameters parameters = new GeocodeParameters();
@@ -146,11 +156,8 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             // Update the search area if desired.
             if (restrictToExtent)
             {
-                // Get the current map extent.
-                Geometry extent = MyMapView.VisibleArea;
-
-                // Update the search parameters.
-                parameters.SearchArea = extent;
+                // Update the search parameters with the current map extent.
+                parameters.SearchArea = MyMapView.VisibleArea;
             }
 
             // Show the progress bar.
@@ -162,9 +169,9 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             // Stop gracefully and show a message if the geocoder does not return a result.
             if (locations.Count < 1)
             {
-                MyProgressBar.Visibility = Visibility.Collapsed; // 1. Hide the progress bar
-                ShowStatusMessage("No results found"); // 2. Show a message
-                return; // 3. Stop
+                MyProgressBar.Visibility = Visibility.Collapsed; // 1. Hide the progress bar.
+                MessageBox.Show("No results found"); // 2. Show a message.
+                return; // 3. Stop.
             }
 
             // Create the GraphicsOverlay so that results can be drawn on the map.
@@ -183,9 +190,9 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
                 IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(location.DisplayLocation);
 
                 // Add the first suitable address if possible.
-                if (addresses.Count() > 0)
+                if (addresses.Any())
                 {
-                    point.Attributes["Match_Address"] = addresses.First().Label;
+                    point.Attributes["Match_Address"] = addresses[0].Label;
                 }
 
                 // Add the Graphic to the GraphicsOverlay.
@@ -203,7 +210,7 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         }
 
         /// <summary>
-        /// Creates and returns a Graphic associated with the given MapPoint
+        /// Creates and returns a Graphic associated with the given MapPoint.
         /// </summary>
         private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
@@ -227,24 +234,29 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         }
 
         /// <summary>
-        /// Shows a callout for any tapped graphics
+        /// Shows a callout for any tapped graphics.
         /// </summary>
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Search for the graphics underneath the user's tap.
-            IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
+            IReadOnlyList<IdentifyGraphicsOverlayResult> results =
+                await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
 
             // Clear callouts and return if there was no result.
-            if (results.Count < 1 || results.First().Graphics.Count < 1) { MyMapView.DismissCallout(); return; }
+            if (results.Count < 1 || results.First().Graphics.Count < 1)
+            {
+                MyMapView.DismissCallout();
+                return;
+            }
 
             // Get the first graphic from the first result.
             Graphic matchingGraphic = results.First().Graphics.First();
 
             // Get the title; manually added to the point's attributes in UpdateSearch.
-            String title = matchingGraphic.Attributes["Match_Title"] as String;
+            string title = matchingGraphic.Attributes["Match_Title"].ToString();
 
             // Get the address; manually added to the point's attributes in UpdateSearch.
-            String address = matchingGraphic.Attributes["Match_Address"] as String;
+            string address = matchingGraphic.Attributes["Match_Address"].ToString();
 
             // Define the callout.
             CalloutDefinition calloutBody = new CalloutDefinition(title, address);
@@ -254,29 +266,39 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         }
 
         /// <summary>
-        /// Returns a list of suggestions based on the input search text and limited by the specified parameters
+        /// Returns a list of suggestions based on the input search text and limited by the specified parameters.
         /// </summary>
-        /// <param name="searchText">Text to get suggestions for</param>
-        /// <param name="location">Location around which to look for suggestions</param>
+        /// <param name="searchText">Text to get suggestions for.</param>
+        /// <param name="location">Location around which to look for suggestions.</param>
         /// <param name="poiOnly">If true, restricts suggestions to only Points of Interest (e.g. businesses, parks),
-        /// rather than all matching results</param>
-        /// <returns>List of suggestions as strings</returns>
-        private async Task<IEnumerable<String>> GetSuggestResults(string searchText, string location = "", bool poiOnly = false)
+        /// rather than all matching results.</param>
+        /// <returns>List of suggestions as strings.</returns>
+        private async Task<IEnumerable<string>> GetSuggestResults(string searchText, string location = "",
+            bool poiOnly = false)
         {
             // Quit if string is null, empty, or whitespace.
-            if (String.IsNullOrWhiteSpace(searchText)) { return null; }
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                return null;
+            }
 
             // Quit if the geocoder isn't ready.
-            if (_geocoder == null) { return null; }
+            if (_geocoder == null)
+            {
+                return null;
+            }
 
             // Create geocode parameters.
             SuggestParameters parameters = new SuggestParameters();
 
             // Restrict suggestions to points of interest if desired.
-            if (poiOnly) { parameters.Categories.Add("POI"); }
+            if (poiOnly)
+            {
+                parameters.Categories.Add("POI");
+            }
 
             // Set the location for the suggest parameters.
-            if (!String.IsNullOrWhiteSpace(location))
+            if (!string.IsNullOrWhiteSpace(location))
             {
                 // Get the MapPoint for the current search location.
                 MapPoint searchLocation = await GetSearchMapPoint(location);
@@ -291,30 +313,27 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             // Get the updated results from the query so far.
             IReadOnlyList<SuggestResult> results = await _geocoder.SuggestAsync(searchText, parameters);
 
-            // Convert the list into a list of strings (corresponding to the label property on each result).
-            IEnumerable<String> formattedResults = results.Select(result => result.Label);
-
-            // Return the list.
-            return formattedResults;
+            // Convert the list into a list of strings (corresponding to the label property on each result) and return.
+            return results.Select(result => result.Label);
         }
 
         /// <summary>
-        /// Method abstracts the platform-specific message box functionality to maximize re-use of common code
-        /// </summary>
-        /// <param name="message">Text of the message to show.</param>
-        private void ShowStatusMessage(string message)
-        {
-            // Display the message to the user.
-            MessageBox.Show(message);
-        }
-
-        /// <summary>
-        /// Method used to keep the suggestions up-to-date for the search box
+        /// Method used to keep the suggestions up-to-date for the search box.
         /// </summary>
         private async void MySearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            // Don't update results immediately; makes search-as-you-type more comfortable
+            if (_waitFlag)
+            {
+                return;
+            }
+
+            _waitFlag = true;
+            await Task.Delay(150);
+            _waitFlag = false;
+
             // Dismiss callout, if any.
-            UserInteracted();
+            MyMapView.DismissCallout();
 
             // Get the current text.
             string searchText = MySearchBox.Text;
@@ -323,34 +342,50 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             string locationText = MyLocationBox.Text;
 
             // Convert the list into a usable format for the suggest box.
-            IEnumerable<String> results = await GetSuggestResults(searchText, locationText, true);
+            IEnumerable<string> results = await GetSuggestResults(searchText, locationText, true);
 
             // Quit if there are no results.
-            if (results == null || results.Count() == 0) { return; }
+            if (results == null || !results.Any())
+            {
+                return;
+            }
 
             // Update the list of options.
             MySearchBox.ItemsSource = results;
         }
 
         /// <summary>
-        /// Method used to keep the suggestions up-to-date for the location box
+        /// Method used to keep the suggestions up-to-date for the location box.
         /// </summary>
         private async void MyLocationBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            // Don't update results immediately; makes search-as-you-type more comfortable
+            if (_waitFlag)
+            {
+                return;
+            }
+
+            _waitFlag = true;
+            await Task.Delay(150);
+            _waitFlag = false;
+
             // Dismiss callout, if any.
-            UserInteracted();
+            MyMapView.DismissCallout();
 
             // Get the current text.
             string searchText = MyLocationBox.Text;
 
             // Get the results.
-            IEnumerable<String> results = await GetSuggestResults(searchText);
+            IEnumerable<string> results = await GetSuggestResults(searchText);
 
             // Quit if there are no results.
-            if (results == null || results.Count() == 0) { return; }
+            if (results == null || !results.Any())
+            {
+                return;
+            }
 
             // Get a modifiable list from the results.
-            List<String> mutableResults = results.ToList();
+            List<string> mutableResults = results.ToList();
 
             // Add a 'current location' option to the list.
             mutableResults.Insert(0, "Current Location");
@@ -365,7 +400,7 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         private void MySearchRestrictedButton_Click(object sender, RoutedEventArgs e)
         {
             // Dismiss callout, if any.
-            UserInteracted();
+            MyMapView.DismissCallout();
 
             // Get the search text.
             string searchText = MySearchBox.Text;
@@ -378,12 +413,12 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         }
 
         /// <summary>
-        /// Method called to start an unrestricted search
+        /// Method called to start an unrestricted search.
         /// </summary>
         private void MySearchButton_Click(object sender, RoutedEventArgs e)
         {
             // Dismiss callout, if any.
-            UserInteracted();
+            MyMapView.DismissCallout();
 
             // Get the search text.
             string searchText = MySearchBox.Text;
@@ -393,15 +428,6 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
 
             // Run the search.
             UpdateSearch(searchText, locationText);
-        }
-
-        /// <summary>
-        /// Method to handle hiding the callout, should be called by all UI event handlers
-        /// </summary>
-        private void UserInteracted()
-        {
-            // Hide the callout.
-            MyMapView.DismissCallout();
         }
     }
 }

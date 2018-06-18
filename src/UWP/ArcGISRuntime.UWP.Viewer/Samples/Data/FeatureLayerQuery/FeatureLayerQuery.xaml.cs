@@ -1,4 +1,4 @@
-// Copyright 2016 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -12,12 +12,11 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
 {
@@ -77,16 +76,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
             myMap.OperationalLayers.Add(_featureLayer);
 
             // Assign the map to the MapView
-            myMapView.Map = myMap;
-        }
-
-        private async void OnQueryClicked(object sender, RoutedEventArgs e)
-        {
-            // Remove any previous feature selections that may have been made
-            _featureLayer.ClearSelection();
-
-            // Begin query process
-            await QueryStateFeature(queryEntry.Text);
+            MyMapView.Map = myMap;
         }
 
         private async Task QueryStateFeature(string stateName)
@@ -105,15 +95,14 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
                 // Query the feature table
                 FeatureQueryResult queryResult = await _featureTable.QueryFeaturesAsync(queryParams);
 
-                // Cast the QueryResult to a List so the results can be interrogated.
-                List<Feature> features = queryResult.ToList();
+                // Cast the QueryResult to a List so the results can be interrogated
+                var features = queryResult.ToList();
 
                 if (features.Any())
                 {
                     // Create an envelope.
                     EnvelopeBuilder envBuilder = new EnvelopeBuilder(SpatialReferences.WebMercator);
 
-                    // Loop over each feature from the query result.
                     foreach (Feature feature in features)
                     {
                         // Add the extent of each matching feature to the envelope.
@@ -124,7 +113,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
                     }
 
                     // Zoom to the extent of the selected feature(s).
-                    await myMapView.SetViewpointGeometryAsync(envBuilder.ToGeometry(), 50);
+                    await MyMapView.SetViewpointGeometryAsync(envBuilder.ToGeometry(), 50);
                 }
                 else
                 {
@@ -134,8 +123,24 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
             }
             catch (Exception ex)
             {
-                var message = new MessageDialog("Sample error: " + ex.ToString(), "An error occurred");
+                var message = new MessageDialog("Sample error: " + ex, "An error occurred");
                 await message.ShowAsync();
+            }
+        }
+
+        private async void QueryEntry_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            try
+            {
+                // Remove any previous feature selections that may have been made
+                _featureLayer.ClearSelection();
+
+                // Begin query process
+                await QueryStateFeature(args.QueryText);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
             }
         }
     }

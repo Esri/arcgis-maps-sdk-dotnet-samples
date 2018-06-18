@@ -83,7 +83,7 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             }
 
             // Unsubscribe from the event (only want to zoom once).
-            ((LocationDisplay) sender).LocationChanged -= LocationDisplay_LocationChanged;
+            ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
 
             // Needed because the event is called from a background (non-UI) thread and this code is manipulating UI.
             Dispatcher.Invoke(() =>
@@ -205,11 +205,8 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             // Add the GraphicsOverlay to the MapView.
             MyMapView.GraphicsOverlays.Add(resultOverlay);
 
-            // Create a viewpoint for the extent containing all graphics.
-            Viewpoint viewExtent = new Viewpoint(resultOverlay.Extent);
-
             // Update the map viewpoint.
-            MyMapView.SetViewpoint(viewExtent);
+            await MyMapView.SetViewpointGeometryAsync(resultOverlay.Extent, 50);
         }
 
         /// <summary>

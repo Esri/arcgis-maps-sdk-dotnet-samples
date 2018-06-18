@@ -10,6 +10,8 @@
 using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Foundation;
@@ -43,18 +45,26 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         // Hold a reference to the analysis overlay that will hold the viewshed analysis.
         private AnalysisOverlay _analysisOverlay;
 
+        // Graphics overlay for viewpoint symbol.
+        private GraphicsOverlay _viewpointOverlay;
+
+        // Symbol for viewpoint.
+        private SimpleMarkerSceneSymbol _viewpointSymbol;
+
         // Create the UI controls.
         private readonly UISlider _headingSlider = new UISlider() { MinValue = 0, MaxValue = 360, Value = 0 };
+
         private readonly UISlider _pitchSlider = new UISlider() { MinValue = 0, MaxValue = 180, Value = 60 };
         private readonly UISlider _horizontalAngleSlider = new UISlider() { MinValue = 1, MaxValue = 120, Value = 75 };
         private readonly UISlider _verticalAngleSlider = new UISlider { MinValue = 1, MaxValue = 120, Value = 90 };
-        private readonly UISlider _minimumDistanceSlider = new UISlider() { MinValue = 0, MaxValue = 8999, Value = 0 };
+        private readonly UISlider _minimumDistanceSlider = new UISlider() { MinValue = 5, MaxValue = 8999, Value = 5 };
         private readonly UISlider _maximumDistanceSlider = new UISlider() { MinValue = 0, MaxValue = 9999, Value = 1500 };
         private readonly UISwitch _analysisVisibilitySwitch = new UISwitch() { On = true };
         private readonly UISwitch _frustumVisibilitySwitch = new UISwitch() { On = false };
 
         // Create labels for the UI controls.
         private readonly UILabel _headingLabel = new UILabel() { Text = "Heading:", TextColor = UIColor.Red };
+
         private readonly UILabel _pitchLabel = new UILabel() { Text = "Pitch", TextColor = UIColor.Red };
         private readonly UILabel _horizontalAngleLabel = new UILabel() { Text = "Horiz. Angle:", TextColor = UIColor.Red };
         private readonly UILabel _verticalAngleLabel = new UILabel() { Text = "Vert. Angle:", TextColor = UIColor.Red };
@@ -84,7 +94,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             myScene.OperationalLayers.Add(sceneLayer);
 
             // Create the MapPoint representing the initial location.
-            MapPoint initialLocation = new MapPoint(-4.5, 48.4, 100.0);
+            MapPoint initialLocation = new MapPoint(-4.5, 48.4, 56.0);
 
             // Create the location viewshed analysis.
             _viewshed = new LocationViewshed(
@@ -108,8 +118,19 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             // Add the viewshed analysis to the overlay.
             _analysisOverlay.Analyses.Add(_viewshed);
 
+            // Create a symbol for the viewpoint.
+            _viewpointSymbol = SimpleMarkerSceneSymbol.CreateSphere(Color.Blue, 10, SceneSymbolAnchorPosition.Center);
+
+            // Add the symbol to the viewpoint overlay.
+            _viewpointOverlay = new GraphicsOverlay();
+            _viewpointOverlay.SceneProperties = new LayerSceneProperties(SurfacePlacement.Absolute);
+            _viewpointOverlay.Graphics.Add(new Graphic(initialLocation, _viewpointSymbol));
+
             // Add the analysis overlay to the SceneView.
             _mySceneView.AnalysisOverlays.Add(_analysisOverlay);
+
+            // Add the graphics overlay
+            _mySceneView.GraphicsOverlays.Add(_viewpointOverlay);
 
             // Update the frustum outline color.
             // The frustum outline shows the volume in which the viewshed analysis is performed.
@@ -123,6 +144,13 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         {
             // Update the viewshed location.
             _viewshed.Location = viewInputEventArgs.Location;
+
+            // Move the location off of the ground.
+            _viewshed.Location = new MapPoint(_viewshed.Location.X, _viewshed.Location.Y, _viewshed.Location.Z + 10.0);
+
+            // Update the viewpoint symbol.
+            _viewpointOverlay.Graphics.Clear();
+            _viewpointOverlay.Graphics.Add(new Graphic(_viewshed.Location, _viewpointSymbol));
         }
 
         private void HandleSettingsChange(object sender, EventArgs e)

@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -32,15 +32,15 @@ namespace ArcGISRuntime.Samples.FindRoute
         private MapView _myMapView;
         private UIToolbar _toolbar = new UIToolbar();
 
-        UIButton solveRouteButton = new UIButton(UIButtonType.Plain);
-        UIButton resetButton = new UIButton(UIButtonType.Plain);
-        UIButton showDirectionsButton = new UIButton(UIButtonType.Plain);
+        private UIButton solveRouteButton = new UIButton(UIButtonType.Plain);
+        private UIButton resetButton = new UIButton(UIButtonType.Plain);
+        private UIButton showDirectionsButton = new UIButton(UIButtonType.Plain);
 
         // List of stops on the route ('from' and 'to')
         private List<Stop> _routeStops;
 
         // List of direction maneuvers for completing the route (once solved)
-        IReadOnlyList<DirectionManeuver> _directionsList;
+        private IReadOnlyList<DirectionManeuver> _directionsList;
 
         // Graphics overlay to display stops and the route result
         private GraphicsOverlay _routeGraphicsOverlay;
@@ -50,6 +50,7 @@ namespace ArcGISRuntime.Samples.FindRoute
 
         // URIs for picture marker images
         private Uri _checkedFlagIconUri = new Uri("https://static.arcgis.com/images/Symbols/Transportation/CheckeredFlag.png");
+
         private Uri _carIconUri = new Uri("https://static.arcgis.com/images/Symbols/Transportation/CarRedFront.png");
 
         public FindRoute()
@@ -97,9 +98,11 @@ namespace ArcGISRuntime.Samples.FindRoute
             PictureMarkerSymbol carSymbol = new PictureMarkerSymbol(_carIconUri);
             PictureMarkerSymbol flagSymbol = new PictureMarkerSymbol(_checkedFlagIconUri);
 
-            // Add a slight offset (pixels) to the picture symbols
-            carSymbol.OffsetX = -20;
-            flagSymbol.OffsetY = -10;
+            // Add a slight offset (pixels) to the picture symbols.
+            carSymbol.OffsetX = -carSymbol.Width / 2;
+            carSymbol.OffsetY = -carSymbol.Height / 2;
+            flagSymbol.OffsetX = -flagSymbol.Width / 2;
+            flagSymbol.OffsetY = -flagSymbol.Height / 2;
 
             // Create graphics for the stops
             Graphic fromGraphic = new Graphic(fromPoint, carSymbol);
@@ -156,7 +159,7 @@ namespace ArcGISRuntime.Samples.FindRoute
             _routeGraphicsOverlay.Graphics.Add(routeGraphic);
 
             // Get a list of directions for the route and display it in the list box
-            _directionsList = firstRoute.DirectionManeuvers;          
+            _directionsList = firstRoute.DirectionManeuvers;
         }
 
         private void ResetButtonClick(object sender, EventArgs e)
@@ -199,7 +202,6 @@ namespace ArcGISRuntime.Samples.FindRoute
             resetButton.Frame = new CoreGraphics.CGRect(120, _toolbar.Frame.Top + 10, 50, 20);
             showDirectionsButton.Frame = new CoreGraphics.CGRect(180, _toolbar.Frame.Top + 10, 100, 20);
 
-
             base.ViewDidLayoutSubviews();
         }
     }
@@ -219,7 +221,7 @@ namespace ArcGISRuntime.Samples.FindRoute
             UITableViewCell cell = tableView.DequeueReusableCell(_cellID);
             string directionText = _directionsList[indexPath.Row].DirectionText;
 
-            if(cell == null)
+            if (cell == null)
             {
                 cell = new UITableViewCell(UITableViewCellStyle.Default, _cellID);
             }

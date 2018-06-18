@@ -95,13 +95,13 @@ namespace ArcGISRuntime.UWP.Samples.DisplayLayerViewState
             switch (lName)
             {
                 case "Tiled Layer":
-                    StatusLabel_TiledLayer.Text = lName + " - " + lViewStatus;
+                    TiledLayerStatus.Text = lViewStatus;
                     break;
                 case "Image Layer":
-                    StatusLabel_ImageLayer.Text = lName + " - " + lViewStatus;
+                    ImageLayerStatus.Text = lViewStatus;
                     break;
                 case "Feature Layer":
-                    StatusLabel_FeatureLayer.Text = lName + " - " + lViewStatus;
+                    FeatureLayerStatus.Text = lViewStatus;
                     break;
                 default:
                     break;

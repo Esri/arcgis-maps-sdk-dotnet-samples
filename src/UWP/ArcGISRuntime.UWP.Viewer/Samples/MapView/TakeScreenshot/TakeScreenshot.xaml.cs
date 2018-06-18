@@ -1,16 +1,16 @@
-// Copyright 2016 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using System;
+using Esri.ArcGISRuntime.UI;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace ArcGISRuntime.UWP.Samples.TakeScreenshot
 {
@@ -25,7 +25,7 @@ namespace ArcGISRuntime.UWP.Samples.TakeScreenshot
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization 
+            // Setup the control references and execute initialization
             Initialize();
         }
 
@@ -40,29 +40,14 @@ namespace ArcGISRuntime.UWP.Samples.TakeScreenshot
 
         private async void OnTakeScreenshotButtonClicked(object sender, RoutedEventArgs e)
         {
-            // Export the image from mapview and assign it to the imageview
-            var exportedImage = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(await MyMapView.ExportImageAsync());
+            // Export the image from mapview and assign it to the imageview.
+            ImageSource exportedImage = await (await MyMapView.ExportImageAsync()).ToImageSourceAsync();
 
-            // Create dialog that is used to show the picture
-            var dialog = new ContentDialog()
-            {
-                Title = "Screenshot",
-                MaxWidth = ActualWidth,
-                MaxHeight = ActualHeight
-            };
+            // Set the screenshot view to the new exported image.
+            ScreenshotView.Source = exportedImage;
 
-            // Create Image
-            var imageView = new Image()
-            {
-                Source = exportedImage,
-                Margin = new Thickness(10)  
-            };
-
-            // Set image as a content
-            dialog.Content = imageView;
-
-            // Show dialog as a full screen overlay. 
-            await dialog.ShowAsync();
+            // Make the screenshot view visible in the UI.
+            ScreenshotView.Visibility = Visibility.Visible;
         }
     }
 }

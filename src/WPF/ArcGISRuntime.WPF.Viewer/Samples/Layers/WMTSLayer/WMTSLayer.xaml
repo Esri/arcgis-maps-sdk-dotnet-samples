@@ -20,16 +20,17 @@
                 <TextBlock Text="Choose a constructor to use to load the layer."
                            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                            TextAlignment="Center" FontWeight="SemiBold" />
-                <Button x:Name="Button1"
+                <Button x:Name="UriButton"
                         Grid.Row="1" Grid.Column="0"
                         Content="URL"
                         Margin="0,5,5,0"
-                        Click="Button1_Click" />
-                <Button x:Name="Button2"
+                        Click="UriButton_Click"
+                        IsEnabled="False" />
+                <Button x:Name="InfoButton"
                         Grid.Row="1" Grid.Column="1"
                         Content="WmtsLayerInfo"
                         Margin="5,5,0,0"
-                        Click="Button2_Click" />
+                        Click="InfoButton_Click" />
             </Grid>
         </Border>
     </Grid>

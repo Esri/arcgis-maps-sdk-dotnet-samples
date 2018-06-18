@@ -23,6 +23,7 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -33,21 +34,23 @@
                 <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,9">Pitch</TextBlock>
                 <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,9">Horizontal Angle</TextBlock>
                 <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,9">Vertical Angle</TextBlock>
-                <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,9">Minimum Distance</TextBlock>
-                <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,9">Maximum Distance</TextBlock>
-                <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,9">Frustum Visibility</TextBlock>
-                <TextBlock Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,9">Analysis Visibility</TextBlock>
+                <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,9">Height</TextBlock>
+                <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,9">Minimum Distance</TextBlock>
+                <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,9">Maximum Distance</TextBlock>
+                <TextBlock Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,9">Frustum Visibility</TextBlock>
+                <TextBlock Grid.Row="8" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,9">Analysis Visibility</TextBlock>
 
                 <Slider Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="0" Maximum="360" SnapsTo="StepValues" StepFrequency="1"  x:Name="HeadingSlider" ValueChanged="HandleSettingsChange" />
                 <Slider Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="60" Maximum="180"  SnapsTo="StepValues" StepFrequency="1" x:Name="PitchSlider" ValueChanged="HandleSettingsChange" />
                 <Slider Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="75" Maximum="120" Minimum="1" SnapsTo="StepValues" StepFrequency="1" x:Name="HorizontalAngleSlider" ValueChanged="HandleSettingsChange" />
                 <Slider Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="90" Maximum="120" Minimum="1" SnapsTo="StepValues" StepFrequency="1" x:Name="VerticalAngleSlider" ValueChanged="HandleSettingsChange" />
-                <Slider Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="0" Maximum="8999" SnapsTo="StepValues" StepFrequency="1" x:Name="MinimumDistanceSlider" ValueChanged="HandleSettingsChange" />
-                <Slider Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="1500" Maximum="9999"  SnapsTo="StepValues" StepFrequency="1" x:Name="MaximumDistanceSlider" ValueChanged="HandleSettingsChange" />
-                <CheckBox Grid.Row="6" Grid.Column="1" x:Name="FrustumVisibilityCheck" VerticalAlignment="Center" Checked="HandleSettingsChange" Unchecked="HandleSettingsChange" />
-                <CheckBox Grid.Row="7" Grid.Column="1" x:Name="AnalysisVisibilityCheck" VerticalAlignment="Center" Checked="HandleSettingsChange" Unchecked="HandleSettingsChange" IsChecked="True" />
+                <Slider Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="10" Maximum="200" Minimum="0" x:Name="HeightSlider" ValueChanged="HandleSettingsChange" />
+                <Slider Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="5" Maximum="8999" Minimum="5" x:Name="MinimumDistanceSlider" ValueChanged="HandleSettingsChange" />
+                <Slider Grid.Row="6" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Value="1500" Minimum="1" Maximum="9999" x:Name="MaximumDistanceSlider" ValueChanged="HandleSettingsChange" />
+                <CheckBox Grid.Row="7" Grid.Column="2" x:Name="FrustumVisibilityCheck" VerticalAlignment="Center" Checked="HandleSettingsChange" Unchecked="HandleSettingsChange" />
+                <CheckBox Grid.Row="8" Grid.Column="2" x:Name="AnalysisVisibilityCheck" VerticalAlignment="Center" Checked="HandleSettingsChange" Unchecked="HandleSettingsChange" IsChecked="True" />
 
-                <TextBlock Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Red">Click to change the viewshed location.</TextBlock>
+                <TextBlock Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Red">Click to change the viewshed location.</TextBlock>
             </Grid>
         </Border>
     </Grid>

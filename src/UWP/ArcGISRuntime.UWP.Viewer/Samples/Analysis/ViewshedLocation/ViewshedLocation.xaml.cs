@@ -9,6 +9,8 @@
 
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
@@ -37,6 +39,15 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedLocation
         // Hold a reference to the analysis overlay that will hold the viewshed analysis.
         private AnalysisOverlay _analysisOverlay;
 
+        // Graphics overlay for viewpoint symbol.
+        private GraphicsOverlay _viewpointOverlay;
+
+        // Symbol for viewpoint.
+        private SimpleMarkerSceneSymbol _viewpointSymbol;
+
+        // Height of the viewpoint above the ground.
+        private double _viewHeight;
+
         public ViewshedLocation()
         {
             InitializeComponent();
@@ -47,6 +58,8 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedLocation
 
         private void Initialize()
         {
+            _viewHeight = HeightSlider.Value;
+
             // Create the scene with the imagery basemap.
             Scene myScene = new Scene(Basemap.CreateImagery());
             MySceneView.Scene = myScene;
@@ -61,7 +74,7 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedLocation
             myScene.OperationalLayers.Add(sceneLayer);
 
             // Create the MapPoint representing the initial location.
-            MapPoint initialLocation = new MapPoint(-4.5, 48.4, 100.0);
+            MapPoint initialLocation = new MapPoint(-4.5, 48.4, 46 + _viewHeight);
 
             // Create the location viewshed analysis.
             _viewshed = new LocationViewshed(
@@ -76,6 +89,14 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedLocation
             // Create a camera based on the initial location.
             Camera camera = new Camera(initialLocation, 200.0, 20.0, 70.0, 0.0);
 
+            // Create a symbol for the viewpoint.
+            _viewpointSymbol = SimpleMarkerSceneSymbol.CreateSphere(Color.Blue, 10, SceneSymbolAnchorPosition.Center);
+
+            // Add the symbol to the viewpoint overlay.
+            _viewpointOverlay = new GraphicsOverlay();
+            _viewpointOverlay.SceneProperties = new LayerSceneProperties(SurfacePlacement.Absolute);
+            _viewpointOverlay.Graphics.Add(new Graphic(initialLocation, _viewpointSymbol));
+
             // Apply the camera to the scene view.
             MySceneView.SetViewpointCamera(camera);
 
@@ -88,11 +109,14 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedLocation
             // Add the analysis overlay to the SceneView.
             MySceneView.AnalysisOverlays.Add(_analysisOverlay);
 
-            // Update the frustum outline color.
+            // Add the graphics overlay
+            MySceneView.GraphicsOverlays.Add(_viewpointOverlay);
+
+            // Update the frustum outline Color.
             // The frustum outline shows the volume in which the viewshed analysis is performed.
             Viewshed.FrustumOutlineColor = Color.Blue;
 
-            // Subscribe to tap events to enable moving the observer.
+            // Subscribe to tap events. This enables the 'pick up' and 'drop' workflow for moving the viewpoint.
             MySceneView.GeoViewTapped += MySceneViewOnGeoViewTapped;
         }
 
@@ -100,6 +124,13 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedLocation
         {
             // Update the viewshed location.
             _viewshed.Location = geoViewInputEventArgs.Location;
+
+            // Update the viewshed.
+            _viewshed.Location = new MapPoint(_viewshed.Location.X, _viewshed.Location.Y, _viewshed.Location.Z + _viewHeight); ;
+
+            // Update the viewpoint symbol.
+            _viewpointOverlay.Graphics.Clear();
+            _viewpointOverlay.Graphics.Add(new Graphic(_viewshed.Location, _viewpointSymbol));
         }
 
         private void HandleSettingsChange(object sender, RoutedEventArgs e)
@@ -109,6 +140,14 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedLocation
             {
                 return;
             }
+            // Calculate the difference between the old and new height.
+            double difference = HeightSlider.Value - _viewHeight;
+
+            // Update the view height value to the new value.
+            _viewHeight = HeightSlider.Value;
+
+            // Move the viewshed to the new height.
+            _viewshed.Location = new MapPoint(_viewshed.Location.X, _viewshed.Location.Y, _viewshed.Location.Z + difference);
 
             // Update the viewshed settings.
             _viewshed.Heading = HeadingSlider.Value;
@@ -124,6 +163,10 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedLocation
             // Update visibility of the frustum. Note that the frustum will be invisible
             //     regardless of this setting if the viewshed analysis is not visible.
             _viewshed.IsFrustumOutlineVisible = (bool)FrustumVisibilityCheck.IsChecked;
+
+            // Update the viewpoint graphic.
+            _viewpointOverlay.Graphics.Clear();
+            _viewpointOverlay.Graphics.Add(new Graphic(_viewshed.Location, _viewpointSymbol));
         }
     }
 }

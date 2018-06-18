@@ -7,24 +7,60 @@
         <Border Background="WhiteSmoke" Opacity=".85" BorderBrush="Black" BorderThickness="1"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Margin="30" Padding="20" Width="375">
-            <StackPanel>
-                <Button Name="AddFacilitiesButton"
-                        Content="Add Facilities"
-                        Click="AddFacilitiesButton_Click" />
-                <Button Name="AddBarrierButton"
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Button Name="PlaceFacilityButton"
+                        Grid.Row="0" Grid.Column="0"
+                        Margin="5,5,5,5"
+                        Content="Place Facility"
+                        Click="PlaceFacilityButton_Click" />
+                <Button Name="DrawBarrierButton"
+                        Grid.Row="0" Grid.Column="1"
+                        Margin="5,5,5,5"
                         Content="Draw Barrier"
-                        Click="AddBarrierButton_Click" />
-                <Button Name="CompleteBarrierButton"
-                        Content="Complete Barrier"
-                        Click="CompleteButton_Click"
-                        Command="{Binding CompleteCommand}"/>
-                <Button Name="ShowServiceAreas"
+                        Click="DrawBarrierButton_Click" />
+                <Button Name="AddFeatureButton"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Stretch"
+                        Margin="5,5,5,5"
+                        Content="Add Feature"
+                        Click="ButtonReset"
+                        Command="{Binding CompleteCommand}"
+                        IsEnabled="False" />
+                <Button Name="CancelButton"
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Stretch"
+                        Margin="5,5,5,5"
+                        Content="Cancel Feature"
+                        Click="ButtonReset"
+                        Command="{Binding CancelCommand}"
+                        IsEnabled='False' />
+                <Button Name="ShowServiceAreasButton"
+                        Grid.Row="3"
+                        Grid.ColumnSpan="2"
+                        Margin="5,5,5,5"
                         Content="Show Service Areas"
                         Click="ShowServiceAreasButton_Click" />
-                <Button Name="Reset"
+                <Button Name="ResetButton"
+                        Grid.Row="4"
+                        Grid.ColumnSpan="2"
+                        Margin="5,5,5,5"
                         Content="Reset"
                         Click="Reset_Click" />
-            </StackPanel>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

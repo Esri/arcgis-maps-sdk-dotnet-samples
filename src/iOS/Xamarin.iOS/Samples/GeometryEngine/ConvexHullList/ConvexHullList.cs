@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -41,7 +41,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         private Graphic _polygonGraphic2;
 
         // Text view to display the instructions for the sample.
-        UITextView _sampleInstructionUITextiew;
+        private UITextView _sampleInstructionUITextiew;
 
         // Create a UILabel to display label for the UISwitch.
         private UILabel _convexHullListInstructionsUILabel;
@@ -52,6 +52,9 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         // Create a UIButton to create convex hull(s).
         private UIButton _convexHullListButton;
 
+        // Create a UIButton to reset convex hull(s).
+        private UIButton _resetButton;
+
         public ConvexHullList()
         {
             Title = "Convex hull list";
@@ -61,7 +64,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization. 
+            // Create the UI, setup the control references and execute initialization.
             CreateLayout();
             Initialize();
         }
@@ -69,7 +72,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         public override void ViewDidLayoutSubviews()
         {
             // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 160, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 200, View.Bounds.Width, View.Bounds.Height);
 
             // Determine the offset where the MapView control should start.
             nfloat yPageOffset = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
@@ -85,6 +88,9 @@ namespace ArcGISRuntime.Samples.ConvexHullList
 
             // Setup the visual frame for the make convex hull(s) UIButton.
             _convexHullListButton.Frame = new CoreGraphics.CGRect(0, yPageOffset + 120, View.Bounds.Width, 40);
+
+            // Setup the visual frame for the make convex hull(s) UIButton.
+            _resetButton.Frame = new CoreGraphics.CGRect(0, yPageOffset + 160, View.Bounds.Width, 40);
 
             base.ViewDidLayoutSubviews();
         }
@@ -107,11 +113,11 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             SimpleLineSymbol polygonsSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid,
                 System.Drawing.Color.Blue, 4);
 
-            // Create the color that will be used for the fill of the two input polygon graphics. It will be a 
+            // Create the color that will be used for the fill of the two input polygon graphics. It will be a
             // semi -transparent, blue color.
             System.Drawing.Color polygonsFillColor = System.Drawing.Color.FromArgb(34, 0, 0, 255);
 
-            // Create the simple fill symbol for the two input polygon graphics - comprised of a fill style, fill 
+            // Create the simple fill symbol for the two input polygon graphics - comprised of a fill style, fill
             // color and outline.
             SimpleFillSymbol polygonsSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, polygonsFillColor,
                 polygonsSimpleLineSymbol);
@@ -182,6 +188,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             // Return the polygon.
             return polygon2;
         }
+
         private void BufferButton_Click(object sender, EventArgs e)
         {
             try
@@ -190,7 +197,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                 bool unionBool = (bool)_convexHullListUISwitch.On;
 
                 // Add the geometries of the two polygon graphics to a list of geometries. It will be used as the 1st
-                // input parameter of the GeometryEngine.ConvexHull function. 
+                // input parameter of the GeometryEngine.ConvexHull function.
                 List<Geometry> inputListOfGeomtries = new List<Geometry>
                 {
                     _polygonGraphic1.Geometry,
@@ -208,7 +215,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                     SimpleLineSymbol convexHullSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid,
                         System.Drawing.Color.Red, 10);
 
-                    // Create the simple fill symbol for the convex hull graphic(s) - comprised of a fill style, fill 
+                    // Create the simple fill symbol for the convex hull graphic(s) - comprised of a fill style, fill
                     // color and outline. It will be a hollow (i.e.. see-through) polygon graphic with a thick red outline.
                     SimpleFillSymbol convexHullSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Null,
                         System.Drawing.Color.Red, convexHullSimpleLineSymbol);
@@ -216,7 +223,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                     // Create the graphic for the convex hull(s) - comprised of a polygon shape and fill symbol.
                     Graphic convexHullGraphic = new Graphic(oneGeometry, convexHullSimpleFillSymbol);
 
-                    // Set the Z index for the convex hull graphic(s) so that they appear below the initial input graphics 
+                    // Set the Z index for the convex hull graphic(s) so that they appear below the initial input graphics
                     // added earlier (polygon1 and polygon2).
                     convexHullGraphic.ZIndex = 0;
 
@@ -236,6 +243,20 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                 PresentViewController(alertController, true, null);
                 return;
             }
+        }
+
+        private void ResetButton_Click(object sender, EventArgs e)
+        {
+            // Clear all existing graphics.
+            _graphicsOverlay.Graphics.Clear();
+
+            // Re-enable the button.
+            _convexHullListButton.Enabled = true;
+            _convexHullListButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+
+            // Add the polygons.
+            _graphicsOverlay.Graphics.Add(_polygonGraphic1);
+            _graphicsOverlay.Graphics.Add(_polygonGraphic2);
         }
 
         private void CreateLayout()
@@ -266,8 +287,16 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             // - Hook to touch event to do querying
             _convexHullListButton.TouchUpInside += BufferButton_Click;
 
+            // Create a UIButton to create the convex hull(s).
+            _resetButton = new UIButton();
+            _resetButton.SetTitle("Reset", UIControlState.Normal);
+            _resetButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _resetButton.BackgroundColor = UIColor.White;
+            // - Hook to touch event to do querying
+            _resetButton.TouchUpInside += ResetButton_Click;
+
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _sampleInstructionUITextiew, _convexHullListInstructionsUILabel, _convexHullListUISwitch, _convexHullListButton);
+            View.AddSubviews(_myMapView, _sampleInstructionUITextiew, _convexHullListInstructionsUILabel, _convexHullListUISwitch, _convexHullListButton, _resetButton);
         }
     }
 }

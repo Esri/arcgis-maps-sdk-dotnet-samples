@@ -15,6 +15,10 @@
                         Content="Create convex hull"
                         Margin="0,10,0,0"
                         Click="ConvexHullButton_Click" />
+                <Button x:Name="ResetButton"
+                        Content="Reset"
+                        Margin="0,10,0,0"
+                        Click="ResetButton_Click" />
             </StackPanel>
         </Border>
     </Grid>

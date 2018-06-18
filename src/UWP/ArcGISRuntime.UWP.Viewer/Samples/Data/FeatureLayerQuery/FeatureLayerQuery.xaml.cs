@@ -1,10 +1,10 @@
-// Copyright 2016 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -27,20 +27,20 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
         "The sample provides a panel with two controls: a text box where you can input the name of a US State, and a button that executes an attribute query using that value. A successful query will select (highlight) the state and zoom the map to its extent.")]
     public partial class FeatureLayerQuery
     {
-        // Create reference to service of US States  
+        // Create reference to service of US States
         private string _statesUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2";
 
-        // Create globally available feature table for easy referencing 
+        // Create globally available feature table for easy referencing
         private ServiceFeatureTable _featureTable;
 
-        // Create globally available feature layer for easy referencing 
+        // Create globally available feature layer for easy referencing
         private FeatureLayer _featureLayer;
 
         public FeatureLayerQuery()
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
@@ -63,11 +63,11 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
             // Set the Opacity of the Feature Layer
             _featureLayer.Opacity = 0.6;
 
-            // Create a new renderer for the States Feature Layer
-            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(
-                SimpleLineSymbolStyle.Solid, Color.Black, 1);
-            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(
-                SimpleFillSymbolStyle.Solid, Color.Yellow, lineSymbol);
+            // Create a new renderer for the States Feature Layer.
+            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
+            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Transparent, lineSymbol);
+            _featureLayer.SelectionColor = Color.Cyan;
+            _featureLayer.SelectionWidth = 4.0;
 
             // Set States feature layer renderer
             _featureLayer.Renderer = new SimpleRenderer(fillSymbol);
@@ -83,16 +83,16 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
         {
             try
             {
-                // Create a query parameters that will be used to Query the feature table  
+                // Create a query parameters that will be used to Query the feature table
                 QueryParameters queryParams = new QueryParameters();
 
                 // Trim whitespace on the state name to prevent broken queries
                 String formattedStateName = stateName.Trim().ToUpper();
 
-                // Construct and assign the where clause that will be used to query the feature table 
+                // Construct and assign the where clause that will be used to query the feature table
                 queryParams.WhereClause = "upper(STATE_NAME) LIKE '%" + formattedStateName + "%'";
 
-                // Query the feature table 
+                // Query the feature table
                 FeatureQueryResult queryResult = await _featureTable.QueryFeaturesAsync(queryParams);
 
                 // Cast the QueryResult to a List so the results can be interrogated
@@ -100,14 +100,20 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
 
                 if (features.Any())
                 {
-                    // Get the first feature returned in the Query result 
-                    Feature feature = features[0];
+                    // Create an envelope.
+                    EnvelopeBuilder envBuilder = new EnvelopeBuilder(SpatialReferences.WebMercator);
 
-                    // Add the returned feature to the collection of currently selected features
-                    _featureLayer.SelectFeature(feature);
+                    foreach (Feature feature in features)
+                    {
+                        // Add the extent of each matching feature to the envelope.
+                        envBuilder.UnionOf(feature.Geometry.Extent);
 
-                    // Zoom to the extent of the newly selected feature
-                    await MyMapView.SetViewpointGeometryAsync(feature.Geometry.Extent);
+                        // Select each feature.
+                        _featureLayer.SelectFeature(feature);
+                    }
+
+                    // Zoom to the extent of the selected feature(s).
+                    await MyMapView.SetViewpointGeometryAsync(envBuilder.ToGeometry(), 50);
                 }
                 else
                 {
@@ -126,10 +132,10 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
         {
             try
             {
-                // Remove any previous feature selections that may have been made 
+                // Remove any previous feature selections that may have been made
                 _featureLayer.ClearSelection();
 
-                // Begin query process 
+                // Begin query process
                 await QueryStateFeature(args.QueryText);
             }
             catch (Exception ex)

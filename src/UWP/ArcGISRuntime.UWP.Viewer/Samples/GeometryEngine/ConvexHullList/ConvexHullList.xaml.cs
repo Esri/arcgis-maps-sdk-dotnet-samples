@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using System.Drawing;
 
 namespace ArcGISRuntime.UWP.Samples.ConvexHullList
 {
@@ -60,11 +60,11 @@ namespace ArcGISRuntime.UWP.Samples.ConvexHullList
             // Create a simple line symbol for the outline for the two input polygon graphics.
             SimpleLineSymbol polygonsSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Blue, 4);
 
-            // Create the color that will be used for the fill of the two input polygon graphics. It will be a 
+            // Create the color that will be used for the fill of the two input polygon graphics. It will be a
             // semi -transparent, blue color.
             Color polygonsFillColor = Color.FromArgb(34, 0, 0, 255);
 
-            // Create the simple fill symbol for the two input polygon graphics - comprised of a fill style, fill 
+            // Create the simple fill symbol for the two input polygon graphics - comprised of a fill style, fill
             // color and outline.
             SimpleFillSymbol polygonsSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, polygonsFillColor,
                 polygonsSimpleLineSymbol);
@@ -144,7 +144,7 @@ namespace ArcGISRuntime.UWP.Samples.ConvexHullList
                 bool unionBool = (bool)ConvexHullListCheckBox.IsChecked;
 
                 // Add the geometries of the two polygon graphics to a list of geometries. It will be used as the 1st
-                // input parameter of the GeometryEngine.ConvexHull function. 
+                // input parameter of the GeometryEngine.ConvexHull function.
                 List<Geometry> inputListOfGeomtries = new List<Geometry>
                 {
                     _polygonGraphic1.Geometry,
@@ -161,7 +161,7 @@ namespace ArcGISRuntime.UWP.Samples.ConvexHullList
                     // Create a simple line symbol for the outline of the convex hull graphic(s).
                     SimpleLineSymbol convexHullSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 10);
 
-                    // Create the simple fill symbol for the convex hull graphic(s) - comprised of a fill style, fill 
+                    // Create the simple fill symbol for the convex hull graphic(s) - comprised of a fill style, fill
                     // color and outline. It will be a hollow (i.e.. see-through) polygon graphic with a thick red outline.
                     SimpleFillSymbol convexHullSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Null, Color.Red,
                         convexHullSimpleLineSymbol);
@@ -169,7 +169,7 @@ namespace ArcGISRuntime.UWP.Samples.ConvexHullList
                     // Create the graphic for the convex hull(s) - comprised of a polygon shape and fill symbol.
                     Graphic convexHullGraphic = new Graphic(oneGeometry, convexHullSimpleFillSymbol);
 
-                    // Set the Z index for the convex hull graphic(s) so that they appear below the initial input graphics 
+                    // Set the Z index for the convex hull graphic(s) so that they appear below the initial input graphics
                     // added earlier (polygon1 and polygon2).
                     convexHullGraphic.ZIndex = 0;
 
@@ -179,6 +179,7 @@ namespace ArcGISRuntime.UWP.Samples.ConvexHullList
 
                 // Disable the button after has been used.
                 ConvexHullListCheckBox.IsEnabled = false;
+                ConvexHullListButton.IsEnabled = false;
             }
             catch (Exception ex)
             {
@@ -188,5 +189,18 @@ namespace ArcGISRuntime.UWP.Samples.ConvexHullList
             }
         }
 
+        private void ResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Clear all existing graphics.
+            _graphicsOverlay.Graphics.Clear();
+
+            // Re-enable the button.
+            ConvexHullListCheckBox.IsEnabled = true;
+            ConvexHullListButton.IsEnabled = true;
+
+            // Add the polygons.
+            _graphicsOverlay.Graphics.Add(_polygonGraphic1);
+            _graphicsOverlay.Graphics.Add(_polygonGraphic2);
+        }
     }
 }

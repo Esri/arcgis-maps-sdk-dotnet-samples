@@ -16,6 +16,11 @@
                         Margin="0,5,0,0"
                         HorizontalAlignment="Stretch"
                         Click="ConvexHullButton_Click" />
+                <Button x:Name="ResetButton"
+                        Content="Reset"
+                        Margin="0,5,0,0"
+                        HorizontalAlignment="Stretch"
+                        Click="ResetButton_Click" />
             </StackPanel>
         </Border>
     </Grid>

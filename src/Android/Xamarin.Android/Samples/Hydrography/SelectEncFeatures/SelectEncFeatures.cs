@@ -10,19 +10,20 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.Collections.Generic;
 using System.Linq;
-using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.SelectEncFeatures
 {
     [Activity]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("a490098c60f64d3bbac10ad131cc62c7")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("a490098c60f64d3bbac10ad131cc62c7")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Select ENC features",
         "Hydrography",
@@ -116,14 +117,14 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             // Get the layer associated with this set of results
             EncLayer containingLayer = firstResult.LayerContent as EncLayer;
 
-            // Get the first identified ENC feature
-            EncFeature firstFeature = firstResult.GeoElements.First() as EncFeature;
+            // Select the smallest (area) feature in the layer.
+            EncFeature smallestFeature = (EncFeature)firstResult.GeoElements.OrderBy(f => GeometryEngine.Area(f.Geometry)).First();
 
-            // Select the feature
-            containingLayer.SelectFeature(firstFeature);
+            // Select the feature.
+            containingLayer.SelectFeature(smallestFeature);
 
-            // Create the callout definition
-            CalloutDefinition definition = new CalloutDefinition(firstFeature.Acronym, firstFeature.Description);
+            // Create the callout definition.
+            CalloutDefinition definition = new CalloutDefinition(smallestFeature.Acronym, smallestFeature.Description);
 
             // Show the callout
             _myMapView.ShowCalloutAt(e.Location, definition);

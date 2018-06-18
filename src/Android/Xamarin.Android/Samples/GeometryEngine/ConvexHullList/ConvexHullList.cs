@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
@@ -47,13 +47,16 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         // Create a Button to create convex hull(s).
         private Button _convexHullListButton;
 
+        // Create a Button to create convex hull(s).
+        private Button _resetButton;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             Title = "Convex hull list";
 
-            // Create the UI, setup the control references and execute initialization.  
-            CreateLayout(); 
+            // Create the UI, setup the control references and execute initialization.
+            CreateLayout();
             Initialize();
         }
 
@@ -75,11 +78,11 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             SimpleLineSymbol polygonsSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid,
                 System.Drawing.Color.Blue, 4);
 
-            // Create the color that will be used for the fill of the two input polygon graphics. It will be a 
+            // Create the color that will be used for the fill of the two input polygon graphics. It will be a
             // semi -transparent, blue color.
             System.Drawing.Color polygonsFillColor = System.Drawing.Color.FromArgb(34, 0, 0, 255);
 
-            // Create the simple fill symbol for the two input polygon graphics - comprised of a fill style, fill 
+            // Create the simple fill symbol for the two input polygon graphics - comprised of a fill style, fill
             // color and outline.
             SimpleFillSymbol polygonsSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, polygonsFillColor,
                 polygonsSimpleLineSymbol);
@@ -159,7 +162,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                 bool unionBool = (bool)_convexHullListSwitch.Checked;
 
                 // Add the geometries of the two polygon graphics to a list of geometries. It will be used as the 1st
-                // input parameter of the GeometryEngine.ConvexHull function. 
+                // input parameter of the GeometryEngine.ConvexHull function.
                 List<Geometry> inputListOfGeomtries = new List<Geometry>
                 {
                     _polygonGraphic1.Geometry,
@@ -177,7 +180,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                     SimpleLineSymbol convexHullSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid,
                         System.Drawing.Color.Red, 10);
 
-                    // Create the simple fill symbol for the convex hull graphic(s) - comprised of a fill style, fill 
+                    // Create the simple fill symbol for the convex hull graphic(s) - comprised of a fill style, fill
                     // color and outline. It will be a hollow (i.e.. see-through) polygon graphic with a thick red outline.
                     SimpleFillSymbol convexHullSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Null,
                         System.Drawing.Color.Red, convexHullSimpleLineSymbol);
@@ -185,7 +188,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                     // Create the graphic for the convex hull(s) - comprised of a polygon shape and fill symbol.
                     Graphic convexHullGraphic = new Graphic(oneGeometry, convexHullSimpleFillSymbol);
 
-                    // Set the Z index for the convex hull graphic(s) so that they appear below the initial input graphics 
+                    // Set the Z index for the convex hull graphic(s) so that they appear below the initial input graphics
                     // added earlier (polygon1 and polygon2).
                     convexHullGraphic.ZIndex = 0;
 
@@ -204,6 +207,19 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                 alertBuilder.SetMessage(ex.ToString());
                 alertBuilder.Show();
             }
+        }
+
+        private void OnResetClicked(object sender, EventArgs e)
+        {
+            // Clear all existing graphics.
+            _graphicsOverlay.Graphics.Clear();
+
+            // Re-enable the button.
+            _convexHullListButton.Enabled = true;
+
+            // Add the polygons.
+            _graphicsOverlay.Graphics.Add(_polygonGraphic1);
+            _graphicsOverlay.Graphics.Add(_polygonGraphic2);
         }
 
         private void CreateLayout()
@@ -238,6 +254,12 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             _convexHullListButton.Text = "Convex Hull";
             _convexHullListButton.Click += OnMakeUnionBufferClicked;
             layout.AddView(_convexHullListButton);
+
+            // Create button to reset the convex hull(s).
+            _resetButton = new Button(this);
+            _resetButton.Text = "Reset";
+            _resetButton.Click += OnResetClicked;
+            layout.AddView(_resetButton);
 
             // Add the map view to the layout.
             layout.AddView(_myMapView);

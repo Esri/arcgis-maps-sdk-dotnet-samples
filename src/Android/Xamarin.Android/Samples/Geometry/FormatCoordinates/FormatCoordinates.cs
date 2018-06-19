@@ -119,7 +119,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             UpdateUIFromMapPoint(enteredPoint);
         }
 
-        private void UpdateUIFromMapPoint(MapPoint startingPoint)
+        private void UpdateUIFromMapPoint(MapPoint selectedPoint)
         {
             // Clear event subscriptions - prevents an infinite loop
             _UtmEditText.TextChanged -= InputTextChanged;
@@ -127,19 +127,46 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             _DecimalDegreesEditText.TextChanged -= InputTextChanged;
             _UsngEditText.TextChanged -= InputTextChanged;
 
+            try
+            {
+                // Check if the selected point can be formatted into coordinates.
+                CoordinateFormatter.ToLatitudeLongitude(selectedPoint, LatitudeLongitudeFormat.DecimalDegrees, 0);
+            }
+            catch (Exception e)
+            {
+                // Check if the excpetion is because the coordinates are out of range.
+                if (e.Message == "Invalid argument: coordinates are out of range")
+                {
+                    // Set all of the text fields to contain the error message.
+                    _DecimalDegreesEditText.Text = "Coordinates are out of range";
+                    _DmsEditText.Text = "Coordinates are out of range";
+                    _UtmEditText.Text = "Coordinates are out of range";
+                    _UsngEditText.Text = "Coordinates are out of range";
+
+                    // Clear the selectionss symbol.
+                    _myMapView.GraphicsOverlays[0].Graphics.Clear();
+                }
+                // Restore event subscriptions.
+                _UtmEditText.TextChanged += InputTextChanged;
+                _DmsEditText.TextChanged += InputTextChanged;
+                _DecimalDegreesEditText.TextChanged += InputTextChanged;
+                _UsngEditText.TextChanged += InputTextChanged;
+                return;
+            }
+
             // Update the decimal degrees text
             _DecimalDegreesEditText.Text =
-                CoordinateFormatter.ToLatitudeLongitude(startingPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
+                CoordinateFormatter.ToLatitudeLongitude(selectedPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
 
             // Update the degrees, minutes, seconds text
-            _DmsEditText.Text = CoordinateFormatter.ToLatitudeLongitude(startingPoint,
+            _DmsEditText.Text = CoordinateFormatter.ToLatitudeLongitude(selectedPoint,
                 LatitudeLongitudeFormat.DegreesMinutesSeconds, 1);
 
             // Update the UTM text
-            _UtmEditText.Text = CoordinateFormatter.ToUtm(startingPoint, UtmConversionMode.NorthSouthIndicators, true);
+            _UtmEditText.Text = CoordinateFormatter.ToUtm(selectedPoint, UtmConversionMode.NorthSouthIndicators, true);
 
             // Update the USNG text
-            _UsngEditText.Text = CoordinateFormatter.ToUsng(startingPoint, 4, true);
+            _UsngEditText.Text = CoordinateFormatter.ToUsng(selectedPoint, 4, true);
 
             // Clear existing graphics overlays
             _myMapView.GraphicsOverlays[0].Graphics.Clear();
@@ -148,7 +175,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, Color.Yellow, 20);
 
             // Create the graphic
-            Graphic symbolGraphic = new Graphic(startingPoint, symbol);
+            Graphic symbolGraphic = new Graphic(selectedPoint, symbol);
 
             // Add the graphic to the graphics overlay
             _myMapView.GraphicsOverlays[0].Graphics.Add(symbolGraphic);

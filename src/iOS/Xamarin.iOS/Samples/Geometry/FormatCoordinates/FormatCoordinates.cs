@@ -33,12 +33,14 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
 
         // Create the text fields
         private UITextField _utmUITextField = new UITextField() { Placeholder = "UTM" };
+
         private UITextField _dmsUITextField = new UITextField() { Placeholder = "Degrees, Minutes, Seconds" };
         private UITextField _decimalDegreesUITextField = new UITextField() { Placeholder = "Decimal Degrees" };
         private UITextField _usngUITextField = new UITextField() { Placeholder = "USNG" };
 
         // Create the labels
         private UILabel _utmLabel = new UILabel() { Text = "UTM:", TextColor = UIColor.Blue };
+
         private UILabel _dmsLabel = new UILabel() { Text = "Degrees, Minutes, Seconds: ", TextColor = UIColor.Blue };
         private UILabel _decimalDegreeslabel = new UILabel() { Text = "Decimal Degrees: ", TextColor = UIColor.Blue };
         private UILabel _usngLabel = new UILabel() { Text = "USNG: ", TextColor = UIColor.Blue };

@@ -30,6 +30,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
     {
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
+
         private EditText _DecimalDegreesEditText;
         private EditText _DmsEditText;
         private EditText _UtmEditText;

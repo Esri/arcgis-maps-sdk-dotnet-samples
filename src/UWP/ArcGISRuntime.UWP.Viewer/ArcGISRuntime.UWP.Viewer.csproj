@@ -189,6 +189,7 @@
     <Content Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
     <Content Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.jpg" />
     <Content Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
+    <Content Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.jpg" />
     <Content Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg" />
     <Content Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.jpg" />
     <Content Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg" />
@@ -493,7 +494,7 @@
     </Compile>
     <Compile Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml.cs">
       <DependentUpon>MapImageSublayerQuery.xaml</DependentUpon>
-    </Compile>    
+    </Compile>
     <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
       <DependentUpon>RasterHillshade.xaml</DependentUpon>
     </Compile>
@@ -511,6 +512,9 @@
     </Compile>
     <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml.cs">
       <DependentUpon>RasterRgbRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.xaml.cs">
+      <DependentUpon>SceneLayerSelection.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml.cs">
       <DependentUpon>SceneLayerUrl.xaml</DependentUpon>
@@ -936,7 +940,7 @@
     <Page Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>    
+    </Page>
     <Page Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -958,6 +962,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -112,18 +112,30 @@ namespace ArcGISRuntime.Samples.FindRoute
             _routeStops = new List<Stop> { stop1, stop2 };
 
             // Picture marker symbols: from = car, to = checkered flag
-            PictureMarkerSymbol carSymbol = new PictureMarkerSymbol(_carIconUri);
-            PictureMarkerSymbol flagSymbol = new PictureMarkerSymbol(_checkedFlagIconUri);
-
-            // Add a slight offset (pixels) to the picture symbols.
-            carSymbol.OffsetX = -carSymbol.Width / 2;
-            carSymbol.OffsetY = -carSymbol.Height / 2;
-            flagSymbol.OffsetX = -flagSymbol.Width / 2;
-            flagSymbol.OffsetY = -flagSymbol.Height / 2;
+            PictureMarkerSymbol carSymbol = new PictureMarkerSymbol(_carIconUri)
+            {
+                Height = 40,
+                Width = 40
+            };
+            PictureMarkerSymbol flagSymbol = new PictureMarkerSymbol(_checkedFlagIconUri)
+            {
+                Height = 40,
+                Width =  40,
+                // Offset the icon so that it is anchored at the bottom of the flagpole
+                OffsetX = 20,
+                OffsetY = 20
+            };
 
             // Create graphics for the stops
-            Graphic fromGraphic = new Graphic(fromPoint, carSymbol);
-            Graphic toGraphic = new Graphic(toPoint, flagSymbol);
+            Graphic fromGraphic = new Graphic(fromPoint, carSymbol)
+            {
+                // Make sure the icons are shown over the route line
+                ZIndex = 1
+            };
+            Graphic toGraphic = new Graphic(toPoint, flagSymbol)
+            {
+                ZIndex = 1
+            };
 
             // Create the graphics overlay and add the stop graphics
             _routeGraphicsOverlay = new GraphicsOverlay();
@@ -172,7 +184,10 @@ namespace ArcGISRuntime.Samples.FindRoute
             SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Purple, 8.0);
 
             // Create a new graphic for the route geometry and add it to the graphics overlay
-            Graphic routeGraphic = new Graphic(routePolyline, routeSymbol);
+            Graphic routeGraphic = new Graphic(routePolyline, routeSymbol)
+            {
+                ZIndex = 0
+            };
             _routeGraphicsOverlay.Graphics.Add(routeGraphic);
 
             // Get a list of directions for the route and display it in the list box

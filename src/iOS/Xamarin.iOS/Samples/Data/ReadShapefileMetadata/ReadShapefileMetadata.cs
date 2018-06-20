@@ -124,7 +124,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             View.Add(metadataDialog);
 
             // Action to decrease the view transparency (will be 100% opaque).
-            void MakeOpaqueAction() => metadataDialog.Alpha = 1.0f;
+            Action MakeOpaqueAction = () => metadataDialog.Alpha = 1.0f;
 
             // Animate opacity to 100% in one second.
             UIView.Animate(1.00, MakeOpaqueAction, null);
@@ -213,7 +213,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         private void Hide()
         {
             // Action to make the view transparent.
-            void MakeTransparentAction() => Alpha = 0;
+            Action MakeTransparentAction = () => Alpha = 0;
 
             // Action to remove the view.
             Action removeViewAction = RemoveFromSuperview;

@@ -586,7 +586,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
         public void Hide()
         {
             // Action to make the view transparent.
-            void MakeTransparentAction() => Alpha = 0;
+            Action MakeTransparentAction = () => Alpha = 0;
 
             // Action to remove the view.
             Action removeViewAction = RemoveFromSuperview;
@@ -633,7 +633,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
 
         public MapView AppMapView
         {
-            set => _mapView = value;
+            set { _mapView = value; }
         }
 
         private Map _map = new Map(Basemap.CreateStreetsVector());
@@ -641,7 +641,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
         // Gets or sets the map.
         public Map Map
         {
-            get => _map;
+            get { return _map; }
             set
             {
                 _map = value;

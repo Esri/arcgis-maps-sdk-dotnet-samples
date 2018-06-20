@@ -313,7 +313,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         public void Hide()
         {
             // Action to make the view transparent
-            void MakeTransparentAction() => Alpha = 0;
+            Action MakeTransparentAction = () => Alpha = 0;
 
             // Action to remove the view
             Action removeViewAction = RemoveFromSuperview;

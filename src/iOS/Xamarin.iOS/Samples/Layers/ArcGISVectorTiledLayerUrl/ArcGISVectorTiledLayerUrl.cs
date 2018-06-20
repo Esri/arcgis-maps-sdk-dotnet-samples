@@ -81,6 +81,13 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
                 layerSelectionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action => ChooseLayer(item)));
             }
 
+            // Fix to prevent crash on iPad.
+            var poppover = layerSelectionAlert.PopoverPresentationController;
+            if (poppover != null)
+            {
+                poppover.SourceView = (UIButton)sender;
+            }
+
             // Show the alert.
             PresentViewController(layerSelectionAlert, true, null);
         }

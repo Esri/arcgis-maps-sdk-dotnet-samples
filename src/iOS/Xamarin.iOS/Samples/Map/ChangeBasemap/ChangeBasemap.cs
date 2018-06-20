@@ -85,6 +85,13 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
                 basemapSelectionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action => _myMapView.Map.Basemap = _basemapOptions[item]));
             }
 
+            // Fix to prevent crash on iPad.
+            var poppover = basemapSelectionAlert.PopoverPresentationController;
+            if (poppover != null)
+            {
+                poppover.SourceView = (UIButton)sender;
+            }
+
             // Show the alert.
             PresentViewController(basemapSelectionAlert, true, null);
         }

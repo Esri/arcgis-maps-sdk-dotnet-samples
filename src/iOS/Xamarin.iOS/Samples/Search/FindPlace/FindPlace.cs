@@ -109,6 +109,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         private readonly UITextField _locationBox = new UITextField();
         private readonly UITableView _suggestionView = new UITableView();
         private readonly UIToolbar _toolbar = new UIToolbar();
+
         private readonly UIButton _searchButton = new UIButton(UIButtonType.RoundedRect)
         {
             BackgroundColor = UIColor.White
@@ -161,9 +162,9 @@ namespace ArcGISRuntime.Samples.FindPlace
                 _locationBox.Frame = new CGRect(margin, topMargin += margin + controlHeight, width, controlHeight);
                 _searchButton.Frame = new CGRect(margin, topMargin += margin + controlHeight, halfWidth, controlHeight);
                 _searchRestrictedButton.Frame = new CGRect(halfWidth + 3 * margin, topMargin, halfWidth, controlHeight);
-                _activityView.Frame = new CGRect(0, topMargin, View.Bounds.Width, _toolbar.Frame.Height);
                 _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
                 _suggestionView.Frame = new CGRect(2 * margin, topMargin + controlHeight, width - 2 * margin, 8 * controlHeight);
+                _activityView.Frame = new CGRect(0, _toolbar.Frame.Top, View.Bounds.Width, _toolbar.Frame.Height);
 
                 base.ViewDidLayoutSubviews();
             }
@@ -394,11 +395,8 @@ namespace ArcGISRuntime.Samples.FindPlace
             // Add the GraphicsOverlay to the MapView.
             _myMapView.GraphicsOverlays.Add(resultOverlay);
 
-            // Create a viewpoint for the extent containing all graphics.
-            Viewpoint viewExtent = new Viewpoint(resultOverlay.Extent);
-
             // Update the map viewpoint.
-            _myMapView.SetViewpoint(viewExtent);
+            await _myMapView.SetViewpointGeometryAsync(resultOverlay.Extent, 50);
         }
 
         /// <summary>

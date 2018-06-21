@@ -40,7 +40,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
 
         private readonly UISegmentedControl _areaSegment = new UISegmentedControl("Plain", "Symbolized")
         {
-            SelectedSegment = 0
+            SelectedSegment = 1
         };
 
         private readonly UISegmentedControl _pointSegment = new UISegmentedControl("Paper Chart", "Simplified")

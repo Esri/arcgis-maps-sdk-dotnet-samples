@@ -16,8 +16,9 @@ using Foundation;
 using System.Collections.Generic;
 using System.Linq;
 using ArcGISRuntime.Samples.Managers;
-using Esri.ArcGISRuntime.Data;
 using UIKit;
+using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
 
 namespace ArcGISRuntime.Samples.SelectEncFeatures
 {
@@ -133,13 +134,13 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             EncLayer containingLayer = firstResult.LayerContent as EncLayer;
 
             // Get the first identified ENC feature.
-            EncFeature firstFeature = firstResult.GeoElements.First() as EncFeature;
+            EncFeature smallestFeature = (EncFeature) firstResult.GeoElements.OrderBy(f => GeometryEngine.Area(f.Geometry)).First();
 
             // Select the feature.
-            containingLayer.SelectFeature(firstFeature);
+            containingLayer.SelectFeature(smallestFeature);
 
             // Create the callout definition.
-            CalloutDefinition definition = new CalloutDefinition(firstFeature.Acronym, firstFeature.Description);
+            CalloutDefinition definition = new CalloutDefinition(smallestFeature.Acronym, smallestFeature.Description);
 
             // Show the callout.
             _myMapView.ShowCalloutAt(e.Location, definition);

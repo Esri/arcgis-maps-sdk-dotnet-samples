@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -33,6 +33,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
         private readonly UIToolbar _helpToolbar = new UIToolbar();
         private readonly UIToolbar _controlsToolbar = new UIToolbar();
         private UIButton _convexHullButton;
+        private UIButton _resetButton;
         private UILabel _helpLabel;
 
         // Graphics overlay to display the graphics.
@@ -69,7 +70,8 @@ namespace ArcGISRuntime.Samples.ConvexHull
                 _helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
                 _controlsToolbar.Frame = new CGRect(0, View.Bounds.Height - controlHeight - 2 * margin, View.Bounds.Width, toolbarHeight);
                 _helpLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _convexHullButton.Frame = new CGRect(margin, View.Bounds.Height - margin - controlHeight, View.Bounds.Width - 2 * margin, controlHeight);
+                _convexHullButton.Frame = new CGRect(margin, _controlsToolbar.Frame.Top + margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
+                _resetButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, _controlsToolbar.Frame.Top + margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
 
                 base.ViewDidLayoutSubviews();
             }
@@ -83,7 +85,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
             // Create and show a map with a topographic basemap.
             _myMapView.Map = new Map(Basemap.CreateTopographic());
 
-            // Create a graphics overlay to hold the various graphics.
+            // Create an overlay to hold the lines of the hull.
             _graphicsOverlay = new GraphicsOverlay();
 
             // Add the created graphics overlay to the MapView.
@@ -103,7 +105,14 @@ namespace ArcGISRuntime.Samples.ConvexHull
                 // Add the map point to the list that will be used by the GeometryEngine.ConvexHull operation.
                 _inputPointCollection.Add(userTappedMapPoint);
 
-                // Create a simple marker symbol to display where the user tapped/clicked on the map. The marker symbol 
+                // Check if there are at least three points.
+                if (_inputPointCollection.Count > 2)
+                {
+                    // Enable the button for creating hulls.
+                    _convexHullButton.Enabled = true;
+                }
+
+                // Create a simple marker symbol to display where the user tapped/clicked on the map. The marker symbol
                 // will be a solid, red circle.
                 SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Red, 10);
 
@@ -120,7 +129,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
             catch (Exception ex)
             {
                 // Display an error message if there is a problem adding user tapped graphics.
-                UIAlertController alertController = UIAlertController.Create("Can't add user tapped graphic", ex.Message, UIAlertControllerStyle.Alert);
+                UIAlertController alertController = UIAlertController.Create("Can't add user-tapped graphic.", ex.Message, UIAlertControllerStyle.Alert);
                 alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alertController, true, null);
             }
@@ -139,7 +148,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
                 // Create a simple line symbol for the outline of the convex hull graphic(s).
                 SimpleLineSymbol convexHullSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Blue, 4);
 
-                // Create the simple fill symbol for the convex hull graphic(s) - comprised of a fill style, fill 
+                // Create the simple fill symbol for the convex hull graphic(s) - comprised of a fill style, fill
                 // color and outline. It will be a hollow (i.e.. see-through) polygon graphic with a thick red outline.
                 SimpleFillSymbol convexHullSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Null, System.Drawing.Color.Red, convexHullSimpleLineSymbol);
 
@@ -155,7 +164,6 @@ namespace ArcGISRuntime.Samples.ConvexHull
 
                 // Disable the button after has been used.
                 _convexHullButton.Enabled = false;
-                _convexHullButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
             }
             catch (Exception ex)
             {
@@ -164,6 +172,17 @@ namespace ArcGISRuntime.Samples.ConvexHull
                 alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alertController, true, null);
             }
+        }
+
+        private void ResetButton_Click(object sender, EventArgs e)
+        {
+            // Clear the existing points and graphics.
+            _inputPointCollection.Clear();
+            _graphicsOverlay.Graphics.Clear();
+
+            // Disable the convex hull button.
+            _convexHullButton.Enabled = false;
+            _convexHullButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
         }
 
         private void CreateLayout()
@@ -177,15 +196,30 @@ namespace ArcGISRuntime.Samples.ConvexHull
             };
 
             // Create a UIButton to create the convex hull.
-            _convexHullButton = new UIButton();
+            _convexHullButton = new UIButton
+            {
+                HorizontalAlignment = UIControlContentHorizontalAlignment.Left,
+                Enabled = false
+            };
             _convexHullButton.SetTitle("Create convex hull", UIControlState.Normal);
             _convexHullButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _convexHullButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
 
             // - Hook to touch event to do querying
             _convexHullButton.TouchUpInside += ConvexHullButton_Click;
 
+            // Create a UIButton to create the convex hull.
+            _resetButton = new UIButton
+            {
+                HorizontalAlignment = UIControlContentHorizontalAlignment.Right
+            };
+            _resetButton.SetTitle("Reset", UIControlState.Normal);
+            _resetButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            // - Hook to touch event to do querying
+            _resetButton.TouchUpInside += ResetButton_Click;
+
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _helpLabel, _convexHullButton);
+            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _helpLabel, _convexHullButton, _resetButton);
         }
     }
 }

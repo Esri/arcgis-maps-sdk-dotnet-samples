@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.UWP.Samples.QueryFeatureCountAndExtent
 {
@@ -62,7 +63,7 @@ namespace ArcGISRuntime.UWP.Samples.QueryFeatureCountAndExtent
         private async void BtnZoomToFeaturesClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             // Create the query parameters
-            QueryParameters queryStates = new QueryParameters() { WhereClause = $"upper(ST) LIKE '%{txtStateEntry.Text.ToUpper()}%'" };
+            QueryParameters queryStates = new QueryParameters() { WhereClause = $"upper(ST) LIKE '%{StateEntry.Text.ToUpper()}%'" };
 
             // Get the extent from the query
             Envelope resultExtent = await _myFeatureTable.QueryExtentAsync(queryStates);
@@ -80,7 +81,8 @@ namespace ArcGISRuntime.UWP.Samples.QueryFeatureCountAndExtent
             await MyMapView.SetViewpointAsync(resultViewpoint);
 
             // Update the UI
-            txtResults.Text = $"Zoomed to features in {txtStateEntry.Text}";
+            ResultView.Text = $"Zoomed to features in {StateEntry.Text}";
+            ResultView.Visibility = Visibility.Visible;
         }
 
         private async void BtnCountFeaturesClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -98,7 +100,8 @@ namespace ArcGISRuntime.UWP.Samples.QueryFeatureCountAndExtent
             long count = await _myFeatureTable.QueryFeatureCountAsync(queryCityCount);
 
             // Update the UI
-            txtResults.Text = $"{count} features in extent";
+            ResultView.Text = $"{count} features in extent";
+            ResultView.Visibility = Visibility.Visible;
         }
     }
 }

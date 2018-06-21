@@ -83,10 +83,10 @@ namespace ArcGISRuntime.UWP.Samples.SymbolizeShapefile
             MyMapView.Map = myMap;
 
             // Enable changing symbology now that sample is loaded
-            MyRendererButton.IsEnabled = true;
+            RendererButton.IsEnabled = true;
         }
 
-        private void Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void RendererButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             // Toggle the renderer
             if (_shapefileFeatureLayer.Renderer == _defaultRenderer)

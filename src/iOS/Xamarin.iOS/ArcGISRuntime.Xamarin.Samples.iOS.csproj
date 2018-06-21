@@ -32,7 +32,7 @@
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
     <LangVersion>6</LangVersion>
     <MtouchI18n />
-<CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -121,12 +121,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhoneSimulator'">
     <OutputPath>..\..\..\output\iOS\iPhoneSimulator\Ad-Hoc\</OutputPath>
     <MtouchArch>i386, x86_64</MtouchArch>
-<LangVersion>6</LangVersion>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AppStore|iPhoneSimulator'">
     <OutputPath>..\..\..\output\iOS\iPhoneSimulator\AppStore\</OutputPath>
     <MtouchArch>i386, x86_64</MtouchArch>
-<LangVersion>6</LangVersion>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <!-- References -->
   <ItemGroup>

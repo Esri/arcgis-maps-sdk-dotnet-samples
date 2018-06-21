@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -62,7 +62,6 @@ namespace ArcGISRuntime.Samples.FindRoute
         {
             base.ViewDidLoad();
 
-            // Create the UI then initialize the sample.
             CreateLayout();
             Initialize();
         }
@@ -72,11 +71,11 @@ namespace ArcGISRuntime.Samples.FindRoute
             // Configure the UI controls.
             _solveRouteButton.SetTitle("Solve route", UIControlState.Normal);
             _solveRouteButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _solveRouteButton.TouchUpInside += SolveRouteButtonClick;
+            _solveRouteButton.TouchUpInside += SolveRouteButton_Click;
 
             _resetButton.SetTitle("Reset", UIControlState.Normal);
             _resetButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _resetButton.TouchUpInside += ResetButtonClick;
+            _resetButton.TouchUpInside += ResetButton_Click;
 
             _showDirectionsButton.SetTitle("Directions", UIControlState.Normal);
             _showDirectionsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
@@ -128,7 +127,7 @@ namespace ArcGISRuntime.Samples.FindRoute
             _myMapView.GraphicsOverlays.Add(_routeGraphicsOverlay);
         }
 
-        private async void SolveRouteButtonClick(object sender, EventArgs e)
+        private async void SolveRouteButton_Click(object sender, EventArgs e)
         {
             // Create a new route task using the San Diego route service URI.
             RouteTask solveRouteTask = await RouteTask.CreateAsync(_sanDiegoRouteServiceUri);
@@ -163,7 +162,7 @@ namespace ArcGISRuntime.Samples.FindRoute
             _directionsList = firstRoute.DirectionManeuvers;
         }
 
-        private void ResetButtonClick(object sender, EventArgs e)
+        private void ResetButton_Click(object sender, EventArgs e)
         {
             // Clear the list of directions.
             _directionsList = null;

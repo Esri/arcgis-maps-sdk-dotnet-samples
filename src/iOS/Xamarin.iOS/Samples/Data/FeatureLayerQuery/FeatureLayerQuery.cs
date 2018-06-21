@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -68,14 +68,15 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
                 nfloat margin = 5;
                 nfloat controlHeight = 30;
                 nfloat toolbarHeight = controlHeight * 2 + margin * 3;
+                nfloat colBreak = View.Bounds.Width - 100;
 
                 // Setup the visual frames for the views.
                 _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
                 _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
                 _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
                 _helpLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _queryTextView.Frame = new CGRect(margin, topMargin + controlHeight + 2 * margin, View.Bounds.Width - 100 - 2 * margin, controlHeight);
-                _queryButton.Frame = new CGRect(View.Bounds.Width - 100 - 2 * margin, topMargin + controlHeight + 2 * margin, 100, controlHeight);
+                _queryTextView.Frame = new CGRect(margin, _helpLabel.Frame.Bottom + margin, colBreak - (2 * margin), controlHeight);
+                _queryButton.Frame = new CGRect(colBreak + margin, _queryTextView.Frame.Top, 100 - 2 * margin, controlHeight);
 
                 base.ViewDidLayoutSubviews();
             }
@@ -105,7 +106,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
 
             // Create a new renderer for the States Feature Layer.
             SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
-            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Yellow, lineSymbol);
+            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Transparent, lineSymbol);
+            _featureLayer.SelectionColor = Color.Cyan;
+            _featureLayer.SelectionWidth = 4.0;
 
             // Set States feature layer renderer.
             _featureLayer.Renderer = new SimpleRenderer(fillSymbol);
@@ -150,14 +153,21 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
 
                 if (features.Any())
                 {
-                    // Get the first feature returned in the Query result.
-                    Feature feature = features[0];
+                    // Create an envelope.
+                    EnvelopeBuilder envBuilder = new EnvelopeBuilder(SpatialReferences.WebMercator);
 
-                    // Add the returned feature to the collection of currently selected features.
-                    _featureLayer.SelectFeature(feature);
+                    // Loop over each feature from the query result.
+                    foreach (Feature feature in features)
+                    {
+                        // Add the extent of each matching feature to the envelope.
+                        envBuilder.UnionOf(feature.Geometry.Extent);
 
-                    // Zoom to the extent of the newly selected feature.
-                    await _myMapView.SetViewpointGeometryAsync(feature.Geometry.Extent);
+                        // Select each feature.
+                        _featureLayer.SelectFeature(feature);
+                    }
+
+                    // Zoom to the extent of the selected feature(s).
+                    await _myMapView.SetViewpointGeometryAsync(envBuilder.ToGeometry(), 50);
                 }
                 else
                 {
@@ -178,7 +188,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             _queryTextView = new UITextField
             {
                 Placeholder = "State name",
-                AdjustsFontSizeToFitWidth = true
+                AdjustsFontSizeToFitWidth = true,
+                BorderStyle = UITextBorderStyle.RoundedRect,
+                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f)
             };
 
             // Allow pressing 'return' to dismiss the keyboard.
@@ -189,10 +201,13 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             };
 
             // Create button to invoke the query.
-            _queryButton = new UIButton();
+            _queryButton = new UIButton()
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
+                Layer = {CornerRadius = 5 },
+            };
             _queryButton.SetTitle("Query", UIControlState.Normal);
             _queryButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _queryButton.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
 
             // Create the help label.
             _helpLabel = new UILabel

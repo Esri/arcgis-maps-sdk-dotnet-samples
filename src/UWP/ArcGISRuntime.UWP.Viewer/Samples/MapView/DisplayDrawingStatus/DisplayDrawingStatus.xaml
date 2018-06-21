@@ -9,8 +9,18 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
     <Grid>
-        <esriUI:MapView x:Name="MyMapView"/>
-        <ProgressRing x:Name="activityIndicator" VerticalAlignment="Bottom" HorizontalAlignment="Center"
-                      Margin="0,0,0,100" IsActive="True"/>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border BorderBrush="Black" BorderThickness="1" Background="White"
+                VerticalAlignment="Top" HorizontalAlignment="Right"
+                Margin="30" Padding="20" Width="300">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock x:Name="StatusDisplay"
+                           FontWeight="SemiBold" />
+                <ProgressRing x:Name="ActivityIndicator"
+                              HorizontalAlignment="Center"
+                              Margin="10,0,0,0"
+                              IsActive="True" />
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

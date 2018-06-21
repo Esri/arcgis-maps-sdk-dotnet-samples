@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <esri:MapView x:Name="MyMapView" />
         <Border
             Background="White"
             BorderBrush="Black" BorderThickness="1"
@@ -12,21 +12,25 @@
             Padding="20"
             Width="375">
             <StackPanel>
-                <TextBlock x:Name="ConvexHullListInstructionsLabel" 
+                <TextBlock x:Name="ConvexHullListInstructionsLabel"
                            TextWrapping="Wrap">
-                           Click the 'ConvexHull' button to create convex hull(s) from the polygon 
-                           graphics. If the 'Union' checkbox is checked, the resulting output will 
-                           be one polygon being the convex hull for the two input polygons. If the 
-                           'Union' checkbox is un-checked, the resulting output will have two convex 
+                           Click the 'ConvexHull' button to create convex hull(s) from the polygon
+                           graphics. If the 'Union' checkbox is checked, the resulting output will
+                           be one polygon being the convex hull for the two input polygons. If the
+                           'Union' checkbox is un-checked, the resulting output will have two convex
                            hull polygons - one for each of the two input polygons.
-                </TextBlock> 
-                <Button x:Name="ConvexHullListButton" 
+                </TextBlock>
+                <Button x:Name="ConvexHullListButton"
                     Content="Convex Hull"
                     Margin="0,5,0,5"
-                    Click="ConvexHullListButton_Click"/>
+                    Click="ConvexHullListButton_Click" />
+                <Button x:Name="ResetButton"
+                    Content="Reset"
+                    Margin="0,5,0,5"
+                    Click="ResetButton_Click" />
                 <CheckBox x:Name="ConvexHullListCheckBox"
                     Content="Union"
-                    IsChecked="True"/>
+                    IsChecked="True" />
             </StackPanel>
         </Border>
     </Grid>

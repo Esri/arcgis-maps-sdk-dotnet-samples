@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -96,8 +96,8 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
             PictureMarkerSymbol campsiteSymbol = new PictureMarkerSymbol(symbolUri)
             {
                 // Optionally set the size (if not set, the size in pixels of the image will be used).
-                Height = 18,
-                Width = 18
+                Height = 40,
+                Width = 40
             };
 
             // Create location for the campsite.
@@ -122,6 +122,8 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
 
             // Create new symbol using asynchronous factory method from stream.
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
+            pinSymbol.Width = 50;
+            pinSymbol.Height = 50;
 
             // Create location for the pin.
             MapPoint pinPoint = new MapPoint(-226773, 6550477, SpatialReferences.WebMercator);

@@ -21,16 +21,16 @@ namespace ArcGISRuntime.UWP.Samples.OpenMapURL
         "")]
     public partial class OpenMapURL
     {
-        // String array to hold urls to publicly available web maps
-        private string[] _itemURLs = new string[]
+        // String array to hold URLs to publicly available web maps.
+        private readonly string[] _itemUrls =
         {
             "http://www.arcgis.com/home/item.html?id=392451c381ad4109bf04f7bd442bc038",
             "http://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
             "http://www.arcgis.com/home/item.html?id=92ad152b9da94dee89b9e387dfe21acd"
         };
 
-        // String array to store titles for the webmaps specified above. These titles are in the same order as the urls above
-        private string[] _titles = new string[]
+        // String array to store titles for the webmaps specified above. These titles are in the same order as the URLs above.
+        private readonly string[] _titles =
         {
             "Population Pressure",
             "USA Tapestry Segmentation",
@@ -41,34 +41,20 @@ namespace ArcGISRuntime.UWP.Samples.OpenMapURL
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization 
-            Initialize();
-        }
-
-        private void Initialize()
-        {
-            // Create a new Map instance with url of the webmap that is displayed by default
-            Map myMap = new Map(new Uri(_itemURLs[0]));
-
-            // Provide used Map to the MapView
-            MyMapView.Map = myMap;
-   
-            // Set titles as a items source
-            mapsChooser.ItemsSource = _titles;
-
-            // Update selected item in list
-            mapsChooser.SelectedIndex = 0;
+            // Select the first item.
+            MapList.ItemsSource = _titles;
+            MapList.SelectedIndex = 0;
         }
 
         private void OnMapsChooseSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedMap = e.AddedItems[0].ToString();
+            string selectedMapName = e.AddedItems[0].ToString();
 
-            // Get index that is used to get the selected url
-            var selectedIndex = _titles.ToList().IndexOf(selectedMap);
+            // Get index that is used to get the selected URL.
+            int selectedIndex = _titles.ToList().IndexOf(selectedMapName);
 
-            // Create a new Map instance with url of the webmap that selected
-            MyMapView.Map = new Map(new Uri(_itemURLs[selectedIndex]));
+            // Create a new Map instance with URL of the webmap that selected.
+            MyMapView.Map = new Map(new Uri(_itemUrls[selectedIndex]));
         }
     }
 }

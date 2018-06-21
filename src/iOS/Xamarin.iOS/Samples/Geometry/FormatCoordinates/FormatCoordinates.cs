@@ -30,18 +30,50 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
     {
         // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
-        private readonly UITextField _utmEntry = new UITextField();
-        private readonly UITextField _dmsEntry = new UITextField();
-        private readonly UITextField _ddEntry = new UITextField();
-        private readonly UITextField _usngEntry = new UITextField();
         private readonly UIButton _recalculateButton = new UIButton();
         private readonly UIToolbar _toolbar = new UIToolbar();
-        private readonly UILabel _utmLabel = new UILabel {Text = "UTM:"};
-        private readonly UILabel _dmsLabel = new UILabel {Text = "Degrees, Minutes, Seconds: "};
-        private readonly UILabel _decimalDegreeslabel = new UILabel {Text = "Decimal Degrees: "};
-        private readonly UILabel _usngLabel = new UILabel {Text = "USNG: "};
         private readonly UILabel _helpLabel = new UILabel();
         private UITextField _selectedField;
+
+        private readonly UITextField _utmEntry = new UITextField
+        {
+            Placeholder = "UTM"
+        };
+
+        private readonly UITextField _dmsEntry = new UITextField
+        {
+            Placeholder = "Degrees, Minutes, Seconds"
+        };
+
+        private readonly UITextField _ddEntry = new UITextField
+        {
+            Placeholder = "Decimal Degrees"
+        };
+
+        private readonly UITextField _usngEntry = new UITextField
+        {
+            Placeholder = "USNG"
+        };
+
+        private readonly UILabel _utmLabel = new UILabel
+        {
+            Text = "UTM:"
+        };
+
+        private readonly UILabel _dmsLabel = new UILabel
+        {
+            Text = "Degrees, Minutes, Seconds: "
+        };
+
+        private readonly UILabel _decimalDegreeslabel = new UILabel
+        {
+            Text = "Decimal Degrees: "
+        };
+
+        private readonly UILabel _usngLabel = new UILabel
+        {
+            Text = "USNG: "
+        };
 
         public FormatCoordinates()
         {
@@ -115,9 +147,9 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             UpdateUiFromMapPoint(enteredPoint);
         }
 
-        private void UpdateUiFromMapPoint(MapPoint startingPoint)
+        private void UpdateUiFromMapPoint(MapPoint selectedPoint)
         {
-            if (startingPoint == null)
+            if (selectedPoint == null)
             {
                 return;
             }
@@ -128,31 +160,41 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             _ddEntry.EditingDidBegin -= InputValueChanged;
             _usngEntry.EditingDidBegin -= InputValueChanged;
 
-            // Update the decimal degrees text.
-            _ddEntry.Text =
-                CoordinateFormatter.ToLatitudeLongitude(startingPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
+            try
+            {
+                // Update the decimal degrees text.
+                _ddEntry.Text =
+                    CoordinateFormatter.ToLatitudeLongitude(selectedPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
 
-            // Update the degrees, minutes, seconds text.
-            _dmsEntry.Text = CoordinateFormatter.ToLatitudeLongitude(startingPoint,
-                LatitudeLongitudeFormat.DegreesMinutesSeconds, 1);
+                // Update the degrees, minutes, seconds text.
+                _dmsEntry.Text = CoordinateFormatter.ToLatitudeLongitude(selectedPoint,
+                    LatitudeLongitudeFormat.DegreesMinutesSeconds, 1);
 
-            // Update the UTM text.
-            _utmEntry.Text = CoordinateFormatter.ToUtm(startingPoint, UtmConversionMode.NorthSouthIndicators, true);
+                // Update the UTM text.
+                _utmEntry.Text = CoordinateFormatter.ToUtm(selectedPoint, UtmConversionMode.NorthSouthIndicators, true);
 
-            // Update the USNG text.
-            _usngEntry.Text = CoordinateFormatter.ToUsng(startingPoint, 4, true);
+                // Update the USNG text.
+                _usngEntry.Text = CoordinateFormatter.ToUsng(selectedPoint, 4, true);
 
-            // Clear existing graphics overlays.
-            _myMapView.GraphicsOverlays[0].Graphics.Clear();
+                // Clear existing graphics overlays.
+                _myMapView.GraphicsOverlays[0].Graphics.Clear();
 
-            // Create a symbol to symbolize the point.
-            SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, Color.Yellow, 20);
+                // Create a symbol to symbolize the point.
+                SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, Color.Yellow, 20);
 
-            // Create the graphic.
-            Graphic symbolGraphic = new Graphic(startingPoint, symbol);
+                // Create the graphic.
+                Graphic symbolGraphic = new Graphic(selectedPoint, symbol);
 
-            // Add the graphic to the graphics overlay.
-            _myMapView.GraphicsOverlays[0].Graphics.Add(symbolGraphic);
+                // Add the graphic to the graphics overlay.
+                _myMapView.GraphicsOverlays[0].Graphics.Add(symbolGraphic);
+            }
+            catch (Exception ex)
+            {
+                // The coordinate is malformed, warn and return.
+                UIAlertController alertController = UIAlertController.Create("There was a problem formatting coordinates.", ex.Message, UIAlertControllerStyle.Alert);
+                alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+                PresentViewController(alertController, true, null);
+            }
 
             // Restore event subscriptions.
             _utmEntry.EditingDidBegin += InputValueChanged;

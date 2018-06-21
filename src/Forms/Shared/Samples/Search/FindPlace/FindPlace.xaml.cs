@@ -200,8 +200,8 @@ namespace ArcGISRuntime.Samples.FindPlace
             // Create a viewpoint for the extent containing all graphics
             Viewpoint viewExtent = new Viewpoint(resultOverlay.Extent);
 
-            // Update the map viewpoint
-            MyMapView.SetViewpoint(viewExtent);
+            // Update the map viewpoint.
+            await MyMapView.SetViewpointGeometryAsync(resultOverlay.Extent, 50);
         }
 
         /// <summary>

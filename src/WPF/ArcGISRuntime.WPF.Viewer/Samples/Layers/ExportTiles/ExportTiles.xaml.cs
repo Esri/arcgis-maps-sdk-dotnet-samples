@@ -78,6 +78,9 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
 
                 // Enable the export button.
                 MyExportButton.IsEnabled = true;
+
+                // Set viewpoint of the map.
+                MyMapView.SetViewpoint(new Viewpoint(-4.853791, 140.983598, myMap.MinScale));
             }
             catch (Exception ex)
             {

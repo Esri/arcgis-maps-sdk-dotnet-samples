@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
@@ -90,8 +91,11 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
 
         private async void OnScreenshotButtonClicked(object sender, EventArgs e)
         {
-            // Export the image from mapview and assign it to the image preview.
-            _overlayImageView.Image = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(await _myMapView.ExportImageAsync());
+            // Export the image from the MapView.
+            RuntimeImage exportedImage = await _myMapView.ExportImageAsync();
+
+            // Convert the exported image to a suitable display format, then display it.
+            _overlayImageView.Image = await exportedImage.ToImageSourceAsync();
 
             // Enable the button to close image view.
             _closeImageViewButton.Enabled = true;
@@ -103,7 +107,11 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         private void CreateLayout()
         {
             // Configure the UI.
-            var screenshotButton = new UIBarButtonItem {Title = "Screenshot", Style = UIBarButtonItemStyle.Plain};
+            var screenshotButton = new UIBarButtonItem
+            {
+                Title = "Screenshot",
+                Style = UIBarButtonItemStyle.Plain
+            };
             screenshotButton.Clicked += OnScreenshotButtonClicked;
 
             // Initialize a button to close image preview.
@@ -111,7 +119,12 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             _closeImageViewButton.Enabled = false;
 
             // Add the buttons to the toolbar.
-            SetToolbarItems(new[] {screenshotButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null), _closeImageViewButton}, false);
+            SetToolbarItems(new[]
+            {
+                screenshotButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null),
+                _closeImageViewButton
+            }, false);
 
             // Show the toolbar.
             NavigationController.ToolbarHidden = false;

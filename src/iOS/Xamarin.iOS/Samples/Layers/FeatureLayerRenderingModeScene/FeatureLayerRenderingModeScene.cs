@@ -91,13 +91,12 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
             FeatureLayer outcropLayer = new FeatureLayer(outcropTable);
 
             // Add the layers to each scene.
-            staticScene.OperationalLayers.Add(faultLayer);
-            staticScene.OperationalLayers.Add(contactLayer);
             staticScene.OperationalLayers.Add(outcropLayer);
-            dynamicScene.OperationalLayers.Add(faultLayer.Clone());
-            dynamicScene.OperationalLayers.Add(contactLayer.Clone());
+            staticScene.OperationalLayers.Add(contactLayer);
+            staticScene.OperationalLayers.Add(faultLayer);
             dynamicScene.OperationalLayers.Add(outcropLayer.Clone());
-
+            dynamicScene.OperationalLayers.Add(contactLayer.Clone());
+            dynamicScene.OperationalLayers.Add(faultLayer.Clone());
             // Add the scenes to the scene views.
             _myStaticScene.Scene = staticScene;
             _myDynamicScene.Scene = dynamicScene;

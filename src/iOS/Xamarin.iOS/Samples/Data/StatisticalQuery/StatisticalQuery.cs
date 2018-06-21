@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CoreGraphics;
+using Esri.ArcGISRuntime.Http;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.StatisticalQuery
@@ -178,28 +179,28 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
                 statQueryParams.WhereClause = "POP_RANK = 1";
             }
 
-            // Execute the statistical query with these parameters and await the results.
-            StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
-
-            // Get the first (only) StatisticRecord in the results.
-            StatisticRecord record = statQueryResult.FirstOrDefault();
-
-            // Make sure a record was returned.
-            if (record == null || record.Statistics.Count == 0)
+            try
             {
-                // Notify the user that no results were returned.
-                UIAlertView alert = new UIAlertView
-                {
-                    Message = "No results were returned",
-                    Title = "Statistical Query"
-                };
-                alert.Show();
-                return;
-            }
+                // Execute the statistical query with these parameters and await the results.
+                StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
 
-            // Display results.
-            IReadOnlyDictionary<string, object> statistics = record.Statistics;
-            ShowStatsList(statistics);
+                // Get the first (only) StatisticRecord in the results.
+                StatisticRecord record = statQueryResult.FirstOrDefault();
+
+                // Make sure a record was returned.
+                if (record == null || record.Statistics.Count == 0)
+                {
+                    showMessage("No result", "No results were returned.");
+                }
+
+                // Display results.
+                IReadOnlyDictionary<string, object> statistics = record.Statistics;
+                ShowStatsList(statistics);
+            }
+            catch (ArcGISWebException exception)
+            {
+                showMessage("There was a problem running the query.", exception.ToString());
+            }
         }
 
         private void ShowStatsList(IReadOnlyDictionary<string, object> stats)
@@ -227,6 +228,11 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
 
             // Display the alert.
             PresentViewController(statsAlert, true, null);
+        }
+
+        private void showMessage(string title, string message)
+        {
+            new UIAlertView(title, message, (IUIAlertViewDelegate) null, "OK", null).Show();
         }
     }
 }

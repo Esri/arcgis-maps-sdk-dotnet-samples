@@ -253,17 +253,25 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     // This section creates a stretch renderer based on a MinMaxStretchParameters.
                     // TODO: Add you own logic to ensure that accurate min/max stretch values are used.
 
-                    // Create an IEnumerable from a list of double min stretch value doubles.
-                    IEnumerable<double> minValues = new List<double> { Convert.ToDouble(_inputParameter1.Text) };
+                    try
+                    {
+                        // Create an IEnumerable from a list of double min stretch value doubles.
+                        IEnumerable<double> minValues = new List<double> { Convert.ToDouble(_inputParameter1.Text) };
 
-                    // Create an IEnumerable from a list of double max stretch value doubles.
-                    IEnumerable<double> maxValues = new List<double> { Convert.ToDouble(_inputParameter2.Text) };
+                        // Create an IEnumerable from a list of double max stretch value doubles.
+                        IEnumerable<double> maxValues = new List<double> { Convert.ToDouble(_inputParameter2.Text) };
 
-                    // Create a new MinMaxStretchParameters based on the user choice for min and max stretch values.
-                    MinMaxStretchParameters minMaxStretchParameters = new MinMaxStretchParameters(minValues, maxValues);
+                        // Create a new MinMaxStretchParameters based on the user choice for min and max stretch values.
+                        MinMaxStretchParameters minMaxStretchParameters = new MinMaxStretchParameters(minValues, maxValues);
 
-                    // Create the stretch renderer based on the user defined min/max stretch values, empty gamma values, statistic estimates, and a predefined color ramp.
-                    stretchRenderer = new StretchRenderer(minMaxStretchParameters, gammaValues, true, colorRamp);
+                        // Create the stretch renderer based on the user defined min/max stretch values, empty gamma values, statistic estimates, and a predefined color ramp.
+                        stretchRenderer = new StretchRenderer(minMaxStretchParameters, gammaValues, true, colorRamp);
+                    }
+                    catch (Exception ex)
+                    {
+                        showMessage("Error configuring renderer.", "Ensure all values are valid and try again.");
+                        return;
+                    }
 
                     break;
 
@@ -272,12 +280,20 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     // This section creates a stretch renderer based on a PercentClipStretchParameters.
                     // TODO: Add you own logic to ensure that accurate min/max percent clip values are used.
 
-                    // Create a new PercentClipStretchParameters based on the user choice for min and max percent clip values.
-                    PercentClipStretchParameters percentClipStretchParameters = new PercentClipStretchParameters(
-                        Convert.ToDouble(_inputParameter1.Text), Convert.ToDouble(_inputParameter2.Text));
+                    try
+                    {
+                        // Create a new PercentClipStretchParameters based on the user choice for min and max percent clip values.
+                        PercentClipStretchParameters percentClipStretchParameters = new PercentClipStretchParameters(
+                            Convert.ToDouble(_inputParameter1.Text), Convert.ToDouble(_inputParameter2.Text));
 
-                    // Create the percent clip renderer based on the user defined min/max percent clip values, empty gamma values, statistic estimates, and a predefined color ramp.
-                    stretchRenderer = new StretchRenderer(percentClipStretchParameters, gammaValues, true, colorRamp);
+                        // Create the percent clip renderer based on the user defined min/max percent clip values, empty gamma values, statistic estimates, and a predefined color ramp.
+                        stretchRenderer = new StretchRenderer(percentClipStretchParameters, gammaValues, true, colorRamp);
+                    }
+                    catch (Exception ex)
+                    {
+                        showMessage("Error configuring renderer.", "Ensure all values are valid and try again.");
+                        return;
+                    }
 
                     break;
 
@@ -286,12 +302,18 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     // This section creates a stretch renderer based on a StandardDeviationStretchParameters.
                     // TODO: Add you own logic to ensure that an accurate standard deviation value is used
 
-                    // Create a new StandardDeviationStretchParameters based on the user choice for standard deviation value.
-                    StandardDeviationStretchParameters standardDeviationStretchParameters = new StandardDeviationStretchParameters(Convert.ToDouble(_inputParameter1.Text));
-
-                    // Create the standard deviation renderer based on the user defined standard deviation value, empty gamma values, statistic estimates, and a predefined color ramp.
-                    stretchRenderer = new StretchRenderer(standardDeviationStretchParameters, gammaValues, true, colorRamp);
-
+                    try
+                    {
+                        // Create a new StandardDeviationStretchParameters based on the user choice for standard deviation value.
+                        StandardDeviationStretchParameters standardDeviationStretchParameters = new StandardDeviationStretchParameters(Convert.ToDouble(_inputParameter1.Text));
+                        // Create the standard deviation renderer based on the user defined standard deviation value, empty gamma values, statistic estimates, and a predefined color ramp.
+                        stretchRenderer = new StretchRenderer(standardDeviationStretchParameters, gammaValues, true, colorRamp);
+                    }
+                    catch (Exception ex)
+                    {
+                        showMessage("Error configuring renderer.", "Ensure all values are valid and try again.");
+                        return;
+                    }
                     break;
             }
 
@@ -300,6 +322,11 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
 
             // Apply the stretch renderer to the raster layer.
             rasterLayer.Renderer = stretchRenderer;
+        }
+
+        private void showMessage(string title, string message)
+        {
+            new UIAlertView(title, message, (IUIAlertViewDelegate) null, "OK", null).Show();
         }
     }
 }

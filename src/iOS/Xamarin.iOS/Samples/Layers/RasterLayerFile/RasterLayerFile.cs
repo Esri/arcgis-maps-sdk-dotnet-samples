@@ -74,7 +74,7 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
             RasterLayer rasterLayer = new RasterLayer(rasterFile);
 
             // Add the layer to the map.
-            _myMapView.Map.OperationalLayers.Add(rasterLayer);
+            map.OperationalLayers.Add(rasterLayer);
 
             // Wait for the layer to load.
             await rasterLayer.LoadAsync();

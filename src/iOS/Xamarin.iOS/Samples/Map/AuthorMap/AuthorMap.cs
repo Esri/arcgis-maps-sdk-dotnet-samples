@@ -34,7 +34,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
     {
         // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
-        private readonly UISegmentedControl _segmentButton = new UISegmentedControl("Basemap", "Layers", "New", "Save");
+        private readonly UISegmentedControl _segmentButton = new UISegmentedControl("New", "Basemap", "Layers", "Save");
         private readonly UIToolbar _toolbar = new UIToolbar();
 
         // Dictionary of operational layer names and URLs.
@@ -139,17 +139,18 @@ namespace ArcGISRuntime.Samples.AuthorMap
             switch (buttonControl.SelectedSegment)
             {
                 case 0:
-                    // Show basemap choices.
-                    ShowBasemapList();
-                    break;
-                case 1:
-                    // Show a list of available operational layers.
-                    ShowLayerList();
-                    break;
-                case 2:
                     // Clear the map from the map view (allow the user to start over and save as a new portal item).
                     _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
                     break;
+                case 1:
+                    // Show basemap choices.
+                    ShowBasemapList();
+                    break;
+                case 2:
+                    // Show a list of available operational layers.
+                    ShowLayerList();
+                    break;
+                
                 case 3:
                     // Show the save map UI.
                     ShowSaveMapUi();

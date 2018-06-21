@@ -89,7 +89,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
                 // Set the selection color for feature layer.
                 SelectionColor = Color.Cyan,
                 // Set the selection width.
-                SelectionWidth = 3
+                SelectionWidth = 20
             };
 
             // Make sure that used feature layer is loaded before we hook into the tapped event.

@@ -348,6 +348,8 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
 
         private async Task StartGeodatabaseGeneration()
         {
+            _generateButton.Enabled = false;
+
             // Update geodatabase path.
             _gdbPath = $"{Path.GetTempFileName()}.geodatabase";
 
@@ -439,40 +441,6 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             }
         }
 
-        private void HandleSyncCompleted(SyncGeodatabaseJob job)
-        {
-            // Hide the progress bar & enable the sync button.
-            _progressBar.RemoveFromSuperview();
-            _syncButton.Enabled = true;
-
-            switch (job.Status)
-            {
-                // Tell the user about job completion.
-                case JobStatus.Succeeded:
-                    ShowStatusMessage("Sync task completed");
-                    break;
-                // See if the job failed.
-                case JobStatus.Failed:
-                    // Create a message to show the user.
-                    string message = "Sync geodatabase job failed";
-
-                    // Show an error message (if there is one).
-                    if (job.Error != null)
-                    {
-                        message += ": " + job.Error.Message;
-                    }
-                    else
-                    {
-                        // If no error, show messages from the job.
-                        message = job.Messages.Aggregate(message, (current, m) => current + "\n" + m.Message);
-                    }
-
-                    // Show the message.
-                    ShowStatusMessage(message);
-                    break;
-            }
-        }
-
         private async Task SyncGeodatabase()
         {
             // Return if not ready.
@@ -483,6 +451,9 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
 
             // Disable the sync button.
             _syncButton.Enabled = false;
+
+            // Disable editing.
+            _myMapView.GeoViewTapped -= GeoViewTapped;
 
             // Create parameters for the sync task.
             SyncGeodatabaseParameters parameters = new SyncGeodatabaseParameters
@@ -525,6 +496,43 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
 
             // Do the rest of the work.
             HandleSyncCompleted(job);
+        }
+
+        private void HandleSyncCompleted(SyncGeodatabaseJob job)
+        {
+            // Hide the progress bar & enable the sync button.
+            _progressBar.RemoveFromSuperview();
+            _syncButton.Enabled = true;
+
+            // Re-enable editing.
+            _myMapView.GeoViewTapped += GeoViewTapped;
+
+            switch (job.Status)
+            {
+                // Tell the user about job completion.
+                case JobStatus.Succeeded:
+                    ShowStatusMessage("Sync task completed");
+                    break;
+                // See if the job failed.
+                case JobStatus.Failed:
+                    // Create a message to show the user.
+                    string message = "Sync geodatabase job failed";
+
+                    // Show an error message (if there is one).
+                    if (job.Error != null)
+                    {
+                        message += ": " + job.Error.Message;
+                    }
+                    else
+                    {
+                        // If no error, show messages from the job.
+                        message = job.Messages.Aggregate(message, (current, m) => current + "\n" + m.Message);
+                    }
+
+                    // Show the message.
+                    ShowStatusMessage(message);
+                    break;
+            }
         }
 
         private void ShowStatusMessage(string message)

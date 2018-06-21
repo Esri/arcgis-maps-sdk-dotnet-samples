@@ -82,6 +82,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
                 nfloat topHeight = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
                 nfloat controlHeight = 30;
                 nfloat margin = 5;
+                nfloat sliderMargin = 50;
 
                 // Reposition the views.
                 _topToolbar.Frame = new CoreGraphics.CGRect(0, topHeight, View.Bounds.Width, controlHeight * 2 + margin * 3);
@@ -89,7 +90,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
                 _redLabel.Frame = new CoreGraphics.CGRect(margin, topHeight + margin, View.Bounds.Width - 2 * margin, controlHeight);
                 _blueLabel.Frame = new CoreGraphics.CGRect(margin, topHeight + 2 * margin + controlHeight, View.Bounds.Width - 2 * margin, controlHeight);
                 _timeLabel.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _timeSlider.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _timeSlider.Frame = new CoreGraphics.CGRect(sliderMargin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 2 * sliderMargin, controlHeight);
                 _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
                 _myMapView.ViewInsets = new UIEdgeInsets(topHeight + _topToolbar.Frame.Height, 0, _bottomToolbar.Frame.Height, 0);
 

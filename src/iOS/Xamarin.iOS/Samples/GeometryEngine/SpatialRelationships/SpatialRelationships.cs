@@ -124,8 +124,8 @@ namespace ArcGISRuntime.Samples.ListTransformations
                 return;
             }
 
-            // Get the first identified graphic.
-            Graphic identifiedGraphic = result.Graphics.First();
+            // Get the smallest identified graphic.
+            Graphic identifiedGraphic = result.Graphics.OrderBy(graphic => GeometryEngine.Area(graphic.Geometry)).First();
 
             // Clear any existing selection, then select the tapped graphic.
             _graphicsOverlay.ClearSelection();

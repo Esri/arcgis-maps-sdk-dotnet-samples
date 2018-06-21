@@ -78,7 +78,7 @@ namespace ArcGISRuntime.Samples.BufferList
                 _controlsToolbar.Frame = new CGRect(0, View.Bounds.Height - 2 * controlHeight - 3 * margin, View.Bounds.Width, controlToolbarHeight);
                 _sampleInstructionsLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, 3 * controlHeight);
                 _bufferDistanceInstructionLabel.Frame = new CGRect(margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, 175, controlHeight);
-                _bufferDistanceEntry.Frame = new CGRect(175 + 30, View.Bounds.Height - 2 * controlHeight - 2 * margin, 50, controlHeight);
+                _bufferDistanceEntry.Frame = new CGRect(_bufferDistanceInstructionLabel.Frame.Right + margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, 50, controlHeight);
                 _unionBufferSwitch.Frame = new CGRect(View.Bounds.Width - 75 + margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, 75 - 2 * margin, controlHeight);
                 _bufferButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 2 * margin, controlHeight);
 
@@ -233,7 +233,9 @@ namespace ArcGISRuntime.Samples.BufferList
             {
                 Text = "10",
                 AdjustsFontSizeToFitWidth = true,
-                VerticalAlignment = UIControlContentVerticalAlignment.Center
+                VerticalAlignment = UIControlContentVerticalAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
+                BorderStyle = UITextBorderStyle.RoundedRect
             };
             // - Allow pressing 'return' to dismiss the keyboard.
             _bufferDistanceEntry.ShouldReturn += textField =>

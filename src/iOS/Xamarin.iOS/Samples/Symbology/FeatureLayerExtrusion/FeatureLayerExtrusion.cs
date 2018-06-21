@@ -128,7 +128,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
                 // An offset of 100000 is added to ensure that polygons for large areas (like Alaska)
                 // with low populations will be extruded above the curvature of the Earth.
                 myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000 + 100000";
-                _toggleExtrusionButton.SetTitle("Total Population", UIControlState.Normal);
+                _toggleExtrusionButton.SetTitle("Total population", UIControlState.Normal);
             }
             else if (_toggleExtrusionButton.Title(UIControlState.Normal) == "Total population")
             {

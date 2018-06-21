@@ -265,13 +265,14 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
                 nfloat controlHeight = 30;
                 nfloat toolbarHeight = 40;
                 nfloat controlWidth = View.Bounds.Width - 2 * margin;
+                nfloat sliderMargin = 50;
 
                 // Reposition the controls.
                 _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
                 _labelToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
                 _sliderToolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
                 _myStatusLabel.Frame = new CGRect(margin, topMargin + margin, controlWidth, controlHeight);
-                _mySlider.Frame = new CGRect(margin, View.Bounds.Height - toolbarHeight + margin, controlWidth, controlHeight);
+                _mySlider.Frame = new CGRect(sliderMargin, _sliderToolbar.Frame.Top + margin, View.Bounds.Width - 2 * sliderMargin, controlHeight);
                 _mySceneView.ViewInsets = new UIEdgeInsets(_labelToolbar.Frame.Bottom, 0, _sliderToolbar.Frame.Height, 0);
 
                 base.ViewDidLayoutSubviews();

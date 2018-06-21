@@ -75,12 +75,13 @@ namespace ArcGISRuntime.Samples.MapRotation
                 nfloat controlHeight = 30;
                 nfloat toolbarHeight = controlHeight + (2 * margin);
                 nfloat labelWidth = 50;
+                nfloat sliderMargin = 50;
 
                 // Reposition the views.
                 _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
                 _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
                 _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _rotationSlider.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - labelWidth - (2 * margin), controlHeight);
+                _rotationSlider.Frame = new CGRect(sliderMargin, _toolbar.Frame.Top + margin, View.Bounds.Width - labelWidth - margin - sliderMargin, controlHeight);
                 _rotationLabel.Frame = new CGRect(View.Bounds.Width - labelWidth - (2 * margin), _toolbar.Frame.Top + margin, labelWidth, controlHeight);
 
                 base.ViewDidLayoutSubviews();

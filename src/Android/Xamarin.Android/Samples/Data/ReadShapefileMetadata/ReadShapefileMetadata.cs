@@ -137,6 +137,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             // The container for the dialog is a vertical linear layout
             dialogView = new LinearLayout(ctx);
             dialogView.Orientation = Orientation.Vertical;
+            dialogView.SetPadding(20, 20, 20, 20);
             
             // Add a text box for showing metadata summary
             TextView summaryTextView = new TextView(ctx);

@@ -123,7 +123,7 @@ namespace ArcGISRuntime.Samples.BufferList
             {
                 // Display an error message if there is a problem generating the buffer polygon.
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-                alertBuilder.SetTitle("Geometry Engine Failed!");
+                alertBuilder.SetTitle("Geometry Engine failed!");
                 alertBuilder.SetMessage(ex.ToString());
                 alertBuilder.Show();
             }
@@ -177,7 +177,7 @@ namespace ArcGISRuntime.Samples.BufferList
             {
                 // Display an error message if there is a problem generating the buffer polygon.
                 var alertBuilder = new AlertDialog.Builder(this);
-                alertBuilder.SetTitle("Geometry Engine Failed!");
+                alertBuilder.SetTitle("Geometry Engine failed!");
                 alertBuilder.SetMessage(ex.ToString());
                 alertBuilder.Show();
             }
@@ -229,7 +229,7 @@ namespace ArcGISRuntime.Samples.BufferList
 
             // Create button to create the unioned buffer.
             _bufferButton = new Button(this);
-            _bufferButton.Text = "Make Unioned Buffer";
+            _bufferButton.Text = "Make buffer";
             _bufferButton.Click += OnMakeUnionBufferClicked;
             layout.AddView(_bufferButton);
 

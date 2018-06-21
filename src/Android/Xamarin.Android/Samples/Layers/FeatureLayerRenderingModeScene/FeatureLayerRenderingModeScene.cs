@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
+using System.Collections.Generic;
 
 namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 {
@@ -64,15 +65,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 
             // Create the scene for displaying the feature layer in static mode
             Scene staticScene = new Scene(); // Basemap omitted to make it easier to distinguish the rendering modes
-            staticScene.LoadSettings.PreferredPointFeatureRenderingMode = FeatureRenderingMode.Static;
-            staticScene.LoadSettings.PreferredPolygonFeatureRenderingMode = FeatureRenderingMode.Static;
-            staticScene.LoadSettings.PreferredPolylineFeatureRenderingMode = FeatureRenderingMode.Static;
 
             // Create the scene for displaying the feature layer in dynamic mode
             Scene dynamicScene = new Scene();
-            dynamicScene.LoadSettings.PreferredPointFeatureRenderingMode = FeatureRenderingMode.Dynamic;
-            dynamicScene.LoadSettings.PreferredPolygonFeatureRenderingMode = FeatureRenderingMode.Dynamic;
-            dynamicScene.LoadSettings.PreferredPolylineFeatureRenderingMode = FeatureRenderingMode.Dynamic;
 
             // Create the service feature tables
             ServiceFeatureTable faultTable = new ServiceFeatureTable(new Uri(_featureService + "0"));
@@ -80,17 +75,22 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
             ServiceFeatureTable outcropTable = new ServiceFeatureTable(new Uri(_featureService + "9"));
 
             // Create the feature layers
-            FeatureLayer faultLayer = new FeatureLayer(faultTable);
-            FeatureLayer contactLayer = new FeatureLayer(contactTable);
-            FeatureLayer outcropLayer = new FeatureLayer(outcropTable);
+            List<FeatureLayer> layers = new List<FeatureLayer>()
+            {
+                new FeatureLayer(outcropTable),
+                new FeatureLayer(contactTable),
+                new FeatureLayer(faultTable)
+            };
 
-            // Add the layers to each scene
-            staticScene.OperationalLayers.Add(faultLayer);
-            staticScene.OperationalLayers.Add(contactLayer);
-            staticScene.OperationalLayers.Add(outcropLayer);
-            dynamicScene.OperationalLayers.Add(faultLayer.Clone());
-            dynamicScene.OperationalLayers.Add(contactLayer.Clone());
-            dynamicScene.OperationalLayers.Add(outcropLayer.Clone());
+            foreach (FeatureLayer layer in layers)
+            {
+                layer.RenderingMode = FeatureRenderingMode.Static;
+                staticScene.OperationalLayers.Add(layer);
+
+                FeatureLayer dynamicLayer = (FeatureLayer)layer.Clone();
+                dynamicLayer.RenderingMode = FeatureRenderingMode.Dynamic;
+                dynamicScene.OperationalLayers.Add(dynamicLayer);
+            }
 
             // Add the scenes to the scene views
             _myStaticScene.Scene = staticScene;

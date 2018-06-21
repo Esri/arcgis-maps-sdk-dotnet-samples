@@ -79,9 +79,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
             // Create feature layers from service feature tables
             List<FeatureLayer> featureLayers = new List<FeatureLayer>
             {
-                new FeatureLayer(pointServiceFeatureTable),
+                new FeatureLayer(polygonServiceFeatureTable),
                 new FeatureLayer(polylineServiceFeatureTable),
-                new FeatureLayer(polygonServiceFeatureTable)
+                new FeatureLayer(pointServiceFeatureTable)
             };
 
             // Add each layer to the map as a static layer and a dynamic layer

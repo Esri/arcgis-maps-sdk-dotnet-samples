@@ -264,7 +264,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             finally
             {
                 // Get rid of the search input controls.
-                _searchMapsUi.Hide();
+                _searchMapsUi?.Hide();
                 _searchMapsUi = null;
             }
         }

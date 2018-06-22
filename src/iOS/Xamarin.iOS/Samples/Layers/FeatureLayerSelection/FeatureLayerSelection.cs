@@ -89,7 +89,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
                 // Set the selection color for feature layer.
                 SelectionColor = Color.Cyan,
                 // Set the selection width.
-                SelectionWidth = 20
+                SelectionWidth = 3
             };
 
             // Make sure that used feature layer is loaded before we hook into the tapped event.
@@ -110,7 +110,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Define the selection tolerance.
-            double tolerance = 5;
+            double tolerance = 25;
 
             // Convert the tolerance to map units.
             double mapTolerance = tolerance * _myMapView.UnitsPerPixel;

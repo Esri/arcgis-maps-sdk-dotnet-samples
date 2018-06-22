@@ -9,6 +9,7 @@
 
 using System;
 using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
@@ -67,7 +68,10 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
         private async void Initialize()
         {
             // Create a map with a light gray canvas basemap.
-            Map sampleMap = new Map(Basemap.CreateLightGrayCanvas());
+            Map sampleMap = new Map(Basemap.CreateLightGrayCanvas())
+            {
+                InitialViewpoint = new Viewpoint(new MapPoint(-100.175709, 39.221225, SpatialReferences.Wgs84), 20000000)
+            };
 
             // Assign the map to the MapView.
             _myMapView.Map = sampleMap;
@@ -86,9 +90,6 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
 
             // Load the US highways feature layer - this way we can obtain it's extent.
             await highwaysFeatureLayer.LoadAsync();
-
-            // Zoom the map view to the extent of the US highways feature layer.
-            await _myMapView.SetViewpointGeometryAsync(highwaysFeatureLayer.FullExtent);
 
             // Help regarding the JSON syntax for defining the LabelDefinition.FromJson syntax can be found here:
             // https://developers.arcgis.com/web-map-specification/objects/labelingInfo/

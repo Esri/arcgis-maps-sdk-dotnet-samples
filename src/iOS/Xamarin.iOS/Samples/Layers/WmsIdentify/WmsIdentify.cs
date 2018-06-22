@@ -17,6 +17,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using UIKit;
+using WebKit;
 
 namespace ArcGISRuntime.Samples.WmsIdentify
 {
@@ -28,8 +29,9 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         "Tap or click on a feature. A callout appears with the returned content for the WMS feature. Note that due to the nature of the WMS service implementation, an empty callout is shown when there is no result; an application might inspect the HTML to determine if the HTML actually contains a feature.")]
     public class WmsIdentify : UIViewController
     {
-        // Create and hold a reference to the MapView.
+        // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
+        private WKWebView _webView;
 
         // Create and hold the URL to the WMS service showing EPA water info.
         private readonly Uri _wmsUrl = new Uri("https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
@@ -47,8 +49,11 @@ namespace ArcGISRuntime.Samples.WmsIdentify
 
         private void CreateLayout()
         {
-            // Add MapView to the page.
-            View.AddSubviews(_myMapView);
+            // Create the webview for showing the identify result.
+            _webView = new WKWebView(new CGRect(), new WKWebViewConfiguration());
+
+            // Add the controls to the view.
+            View.AddSubviews(_myMapView, _webView);
         }
 
         public override void ViewDidLoad()
@@ -64,10 +69,12 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             try
             {
                 nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat webviewHeight = 200;
 
                 // Reposition controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - webviewHeight);
                 _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                _webView.Frame = new CGRect(0, View.Bounds.Height - webviewHeight, View.Bounds.Width, webviewHeight);
 
                 base.ViewDidLayoutSubviews();
             }
@@ -118,39 +125,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             //    here might be a good place to check for that and filter out spurious results.
 
             // Show a preview with the HTML content.
-            ShowHtml(htmlContent, e.Location);
-        }
-
-        private void ShowHtml(string htmlContent, MapPoint position)
-        {
-            // Create the web view.
-            WebKit.WKWebView myWebView = new WebKit.WKWebView(new CGRect(), new WebKit.WKWebViewConfiguration());
-
-            // Load the HTML content.
-            myWebView.LoadHtmlString(new NSString(htmlContent), new NSUrl(""));
-
-            // Show the callout.
-            _myMapView.ShowCalloutAt(position, new WebViewWrapper(myWebView));
-        }
-
-        // Class to override UIView; ShowCalloutAt uses IntrinsicContentSize to calculate the layout.
-        // Because IntrinsicContentSize is get-only, a custom UI view is being used to override that behavior.
-        // The wrapper view overrides IntrinsicContentSize and updates the child webview to fill the custom view.
-        private class WebViewWrapper : UIView
-        {
-            // Override intrinsic size so that the view displays properly in a callout.
-            public override CGSize IntrinsicContentSize => new CGSize(175, 100);
-
-            public WebViewWrapper(WebKit.WKWebView view)
-            {
-                var webview = view;
-
-                // Add the webview as a subview.
-                AddSubview(webview);
-
-                // Make the webview frame fill the wrapper view.
-                webview.Frame = new CGRect(0, 0, 175, 100);
-            }
+            _webView.LoadHtmlString(new NSString(htmlContent), new NSUrl(""));
         }
     }
 }

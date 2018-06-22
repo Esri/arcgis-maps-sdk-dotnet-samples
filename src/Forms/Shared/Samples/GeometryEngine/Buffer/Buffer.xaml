@@ -7,15 +7,15 @@
         <esriUI:MapView x:Name="MyMapView"/>
         <Frame BackgroundColor="DarkGray" Opacity="0.8"
                HorizontalOptions="End" VerticalOptions="StartAndExpand"
-               Margin="5" HeightRequest="200">
+               Margin="5" HeightRequest="230">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="50"/>
                     <RowDefinition Height="5"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
@@ -25,7 +25,7 @@
                 <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                        HorizontalTextAlignment="Center"
                        TextColor="Blue" LineBreakMode="WordWrap"
-                       Text="Click the map to create Planar and Geodesic buffers"/>
+                       Text="Tap the map to create Planar and Geodesic buffers"/>
                 <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                        HorizontalOptions="End" VerticalOptions="Center"
                        Text="Distance (miles):"/>

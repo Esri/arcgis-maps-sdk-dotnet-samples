@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -15,6 +16,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
 using UIKit;
+using Colors = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.Buffer
 {
@@ -22,22 +24,29 @@ namespace ArcGISRuntime.Samples.Buffer
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Buffer",
         "GeometryEngine",
-        "This sample demonstrates how to use the GeometryEngine.Buffer to generate a polygon from an input geometry with a buffer distance.",
-        "Tap on the map to specify a map point location. A buffer will created and displayed based upon the buffer value (in miles) specified in the textbox. Repeat the procedure to add additional map point and buffers. The generated buffers can overlap and are independent of each other.",
-        "")]
+        "This sample demonstrates how to use GeometryEngine to create planar and geodesic buffer polygons from a map location and buffer distance. It illustrates the difference between planar and geodesic results.",
+        "1. Tap on the map.\n2. A planar and a geodesic buffer will be created at the tap location using the distance (miles) specified in the text box.\n3. Continue tapping to create additional buffers. Notice that buffers closer to the equator are similar in size. As you move north or south from the equator, however, the geodesic polygons appear larger. Geodesic polygons are in fact a better representation of the true shape and size of the buffer.\n 4. Click `Clear` to remove all buffers and start again.",
+        "Buffer, Geodesic, Planar")]
     public class Buffer : UIViewController
     {
-        // Create and hold reference to the used MapView.
+        // Create a map view control to display the map and buffers.
         private MapView _myMapView = new MapView();
 
-        // Create a UILabel to display the instructions.
-        private UILabel _bufferInstructionsUILabel;
+        // Instruction label to describe how to use the sample. 
+        private UILabel _helpLabel;
 
-        // Create UITextField to enter a buffer value (in miles). 
-        private UITextField _bufferDistanceMilesUITextField;
+        // A toolbar, label, and text view to enter a buffer value (in miles).
+        private UIToolbar _bufferInputArea;
+        private UILabel _bufferInputLabel;
+        private UITextField _bufferDistanceMilesTextField;
 
-        // Graphics overlay to display buffer-related graphics.
-        private GraphicsOverlay _graphicsOverlay;
+        // Toolbar and label controls to show the buffer colors in the UI.
+        private UIToolbar _legendArea;
+        private UILabel _geodesicSwatchLabel;
+        private UILabel _planarSwatchLabel;
+
+        // A button to clear buffer graphics from the display.
+        private UIButton _clearBuffersButton;
 
         public Buffer()
         {
@@ -48,124 +57,245 @@ namespace ArcGISRuntime.Samples.Buffer
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization. 
+            // Create the UI.
             CreateLayout();
+
+            // Initialize the map and graphics overlays.
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Determine the offset where the MapView control should start.
-            nfloat yPageOffset = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-            // Setup the visual frame for the instructions UILabel.
-            _bufferInstructionsUILabel.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the buffer value UITextField.
-            _bufferDistanceMilesUITextField.Frame = new CoreGraphics.CGRect(150, yPageOffset, View.Bounds.Width, 40);
-
-            base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
         {
-            // Create a map with a topographic basemap.
-            Map theMap = new Map(Basemap.CreateTopographic());
+            // Create a map with a topographic basemap and add it to the map view.
+            _myMapView.Map = new Map(Basemap.CreateTopographic());
 
-            // Create an envelope that covers the Dallas/Fort Worth area.
-            Geometry startingEnvelope = new Envelope(-10863035.97, 3838021.34, -10744801.344, 3887145.299, SpatialReferences.WebMercator);
-
-            // Set the map's initial extent to the envelope.
-            theMap.InitialViewpoint = new Viewpoint(startingEnvelope);
-
-            // Assign the map to the MapView.
-            _myMapView.Map = theMap;
-
-            // Create a graphics overlay to show the buffered related graphics.
-            _graphicsOverlay = new GraphicsOverlay();
-
-            // Add the created graphics overlay to the MapView.
-            _myMapView.GraphicsOverlays.Add(_graphicsOverlay);
-
-            // Wire up the MapView's GeoViewTapped event handler.
+            // Handle the MapView's GeoViewTapped event to create buffers.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+
+            // Create a fill symbol for geodesic buffer polygons.            
+            Colors geodesicBufferColor = Colors.FromArgb(120, 255, 0, 0);
+            SimpleLineSymbol geodesicOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, geodesicBufferColor, 2);
+            SimpleFillSymbol geodesicBufferFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, geodesicBufferColor, geodesicOutlineSymbol);
+
+            // Create a fill symbol for planar buffer polygons.            
+            Colors planarBufferColor = Colors.FromArgb(120, 0, 0, 255);
+            SimpleLineSymbol planarOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, planarBufferColor, 2);
+            SimpleFillSymbol planarBufferFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, planarBufferColor, planarOutlineSymbol);
+
+            // Create a marker symbol for tap locations.
+            SimpleMarkerSymbol tapSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.White, 14);
+
+            // Create a graphics overlay to display geodesic polygons, set its renderer and add it to the map view.
+            GraphicsOverlay geodesicPolysOverlay = new GraphicsOverlay
+            {
+                Id = "GeodesicPolys",
+                Renderer = new SimpleRenderer(geodesicBufferFillSymbol)
+            };
+            _myMapView.GraphicsOverlays.Add(geodesicPolysOverlay);
+
+            // Create a graphics overlay to display planar polygons, set its renderer and add it to the map view.
+            GraphicsOverlay planarPolysOverlay = new GraphicsOverlay
+            {
+                Id = "PlanarPolys",
+                Renderer = new SimpleRenderer(planarBufferFillSymbol)
+            };
+            _myMapView.GraphicsOverlays.Add(planarPolysOverlay);
+
+            // Create a graphics overlay to display tap locations for buffers, set its renderer and add it to the map view.
+            GraphicsOverlay tapLocationsOverlay = new GraphicsOverlay
+            {
+                Id = "TapPoints",
+                Renderer = new SimpleRenderer(tapSymbol)
+            };
+            _myMapView.GraphicsOverlays.Add(tapLocationsOverlay);
+
+            // Show the colors for each type of buffer in the UI.
+            ShowBufferSwatches(planarBufferColor, geodesicBufferColor);
         }
 
         private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             try
             {
-                // Create a map point (in the WebMercator projected coordinate system) from the GUI screen coordinate.
-                MapPoint userTappedMapPoint = _myMapView.ScreenToLocation(e.Position);
+                // Get the location tapped by the user (a map point in the WebMercator projected coordinate system).
+                MapPoint userTapPoint = e.Location;
 
-                // Get the buffer size from the UITextField.
-                double bufferInMiles = System.Convert.ToDouble(_bufferDistanceMilesUITextField.Text);
+                // Get the buffer distance (miles) entered in the text box.
+                double bufferInMiles = System.Convert.ToDouble(_bufferDistanceMilesTextField.Text);
 
-                // Create a variable to be the buffer size in meters. There are 1609.34 meters in one mile.
+                // Convert the input distance to meters. There are 1609.34 meters in one mile.
                 double bufferInMeters = bufferInMiles * 1609.34;
 
-                // Get a buffered polygon from the GeometryEngine Buffer operation centered on the map point. 
-                // Note: The input distance to the Buffer operation is in meters. This matches the backdrop 
-                // basemap units which is also meters.
-                Geometry bufferGeometry = GeometryEngine.Buffer(userTappedMapPoint, bufferInMeters);
+                // Create a planar buffer graphic around the input location at the specified distance.
+                Geometry bufferGeometryPlanar = GeometryEngine.Buffer(userTapPoint, bufferInMeters);
+                Graphic planarBufferGraphic = new Graphic(bufferGeometryPlanar);
 
-                // Create the outline (a simple line symbol) for the buffered polygon. It will be a solid, thick, green line.
-                SimpleLineSymbol bufferSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Green, 5);
+                // Create a geodesic buffer graphic using the same location and distance.
+                Geometry bufferGeometryGeodesic = GeometryEngine.BufferGeodetic(userTapPoint, bufferInMeters, LinearUnits.Meters, double.NaN, GeodeticCurveType.Geodesic);
+                Graphic geodesicBufferGraphic = new Graphic(bufferGeometryGeodesic);
 
-                // Create the color that will be used for the fill of the buffered polygon. It will be a semi-transparent, green color.
-                System.Drawing.Color bufferFillColor = System.Drawing.Color.FromArgb(125, 0, 255, 0);
+                // Create a graphic for the user tap location.
+                Graphic locationGraphic = new Graphic(userTapPoint);
 
-                // Create simple fill symbol for the buffered polygon. It will be solid, semi-transparent, green fill with a solid, 
-                // thick, green outline.
-                SimpleFillSymbol bufferSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, bufferFillColor, bufferSimpleLineSymbol);
+                // Get the graphics overlays.
+                GraphicsOverlay planarBufferGraphicsOverlay = _myMapView.GraphicsOverlays["PlanarPolys"];
+                GraphicsOverlay geodesicBufferGraphicsOverlay = _myMapView.GraphicsOverlays["GeodesicPolys"];
+                GraphicsOverlay tapPointGraphicsOverlay = _myMapView.GraphicsOverlays["TapPoints"];
 
-                // Create a new graphic for the buffered polygon using the defined simple fill symbol.
-                Graphic bufferGraphic = new Graphic(bufferGeometry, bufferSimpleFillSymbol);
-
-                // Add the buffered polygon graphic to the graphic overlay.
-                _graphicsOverlay.Graphics.Add(bufferGraphic);
-
-                // Create a simple marker symbol to display where the user tapped/clicked on the map. The marker symbol will be a 
-                // solid, red circle.
-                SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Red, 5);
-
-                // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol. 
-                Graphic userTappedGraphic = new Graphic(userTappedMapPoint, userTappedSimpleMarkerSymbol);
-
-                // Add the user tapped/clicked map point graphic to the graphic overlay.
-                _graphicsOverlay.Graphics.Add(userTappedGraphic);
+                // Add the buffer polygons and tap location graphics to the appropriate graphic overlays.
+                planarBufferGraphicsOverlay.Graphics.Add(planarBufferGraphic);
+                geodesicBufferGraphicsOverlay.Graphics.Add(geodesicBufferGraphic);
+                tapPointGraphicsOverlay.Graphics.Add(locationGraphic);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                // Display an error message if there is a problem generating the buffer polygon.
-                UIAlertController alertController = UIAlertController.Create("Geometry Engine Failed!", ex.Message, UIAlertControllerStyle.Alert);
+                // Display an error message if there is a problem generating the buffers.
+                UIAlertController alertController = UIAlertController.Create("Error creating buffers", ex.Message, UIAlertControllerStyle.Alert);
                 alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alertController, true, null);
                 return;
             }
         }
 
+        private void ShowBufferSwatches(Colors planarBufferColor, Colors geodesicBufferColor)
+        {
+            // Create UIKit.UIColors to represent the System.Drawing.Colors used for the buffers.
+            UIColor planarLabelColor = UIColor.FromRGBA(planarBufferColor.R,
+                planarBufferColor.G,
+                planarBufferColor.B,
+                planarBufferColor.A);
+            UIColor geodesicLabelColor = UIColor.FromRGBA(geodesicBufferColor.R,
+                geodesicBufferColor.G,
+                geodesicBufferColor.B,
+                geodesicBufferColor.A);
+
+            // Show buffer symbol colors in the UI by setting the appropriate text view fill color.
+            _planarSwatchLabel.BackgroundColor = planarLabelColor;
+            _geodesicSwatchLabel.BackgroundColor = geodesicLabelColor;
+        }
+
+        private void ClearBuffersButton_TouchUpInside(object sender, EventArgs e)
+        {
+            // Clear the buffer and point graphics.
+            foreach (GraphicsOverlay ov in _myMapView.GraphicsOverlays)
+            {
+                ov.Graphics.Clear();
+            }
+        }
+
         private void CreateLayout()
         {
-            // Create the UILabel for instructions.
-            _bufferInstructionsUILabel = new UILabel();
-            _bufferInstructionsUILabel.Text = "Buffer (miles):";
-            _bufferInstructionsUILabel.AdjustsFontSizeToFitWidth = true;
-            _bufferInstructionsUILabel.BackgroundColor = UIColor.White;
+            // Create the help label.
+            _helpLabel = new UILabel
+            {
+                TextColor = UIColor.Blue,
+                Text = "Tap the map to create Planar and Geodesic buffers",
+                TextAlignment = UITextAlignment.Center,
+                LineBreakMode = UILineBreakMode.WordWrap,
+                Lines = 0
+            };
 
-            // Create UITextFiled for the buffer value.
-            _bufferDistanceMilesUITextField = new UITextField();
-            _bufferDistanceMilesUITextField.Text = "10";
-            _bufferDistanceMilesUITextField.AdjustsFontSizeToFitWidth = true;
-            _bufferDistanceMilesUITextField.BackgroundColor = UIColor.White;
-            // - Allow pressing 'return' to dismiss the keyboard
-            _bufferDistanceMilesUITextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            // Create the buffer input area (toolbar).
+            _bufferInputArea = new UIToolbar();
 
-            // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _bufferInstructionsUILabel, _bufferDistanceMilesUITextField);
+            // Create the buffer input label.
+            _bufferInputLabel = new UILabel
+            {
+                TextColor = View.TintColor,
+                Text = "Distance (miles):",
+                TextAlignment = UITextAlignment.Left
+            };
+
+            // Create the buffer input control.
+            _bufferDistanceMilesTextField = new UITextField
+            {
+                BackgroundColor = UIColor.White,
+                KeyboardType = UIKeyboardType.NumberPad,
+                Text = "1000",
+                TextAlignment = UITextAlignment.Right,
+                TextColor = View.TintColor
+            };
+            _bufferDistanceMilesTextField.Layer.CornerRadius = 5;
+            
+            // Allow pressing 'return' to dismiss the keyboard.
+            _bufferDistanceMilesTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+
+            // Create the legend toolbar.
+            _legendArea = new UIToolbar();
+
+            // Create the label to show the planar buffer color.
+            _planarSwatchLabel = new UILabel
+            {
+                AdjustsFontSizeToFitWidth = true,
+                TextColor = UIColor.White,
+                Text = "Planar Buffers",
+                TextAlignment = UITextAlignment.Center
+            };
+
+            // Create the label to show the geodesic buffer color.
+            _geodesicSwatchLabel = new UILabel
+            {
+                AdjustsFontSizeToFitWidth = true,
+                TextColor = UIColor.White,
+                Text = "Geodesic Buffers",
+                TextAlignment = UITextAlignment.Center
+            };
+
+            // Create the clear buffers button.
+            _clearBuffersButton = new UIButton
+            {
+                ClipsToBounds = true,
+                BackgroundColor = View.TintColor
+            };
+            _clearBuffersButton.SetTitle("Clear", UIControlState.Normal);
+            _clearBuffersButton.SetTitleColor(UIColor.White, UIControlState.Normal);
+            _clearBuffersButton.Layer.CornerRadius = 10;
+
+            // Handle the clear buffers button press.
+            _clearBuffersButton.TouchUpInside += ClearBuffersButton_TouchUpInside; ;
+
+            // Add views to the page.
+            View.AddSubviews(_myMapView,
+                _helpLabel,
+                _bufferInputLabel,
+                _bufferDistanceMilesTextField,
+                _legendArea,
+                _planarSwatchLabel,
+                _geodesicSwatchLabel,
+                _clearBuffersButton);
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            var topMargin = NavigationController.NavigationBar.Frame.Height +
+                            UIApplication.SharedApplication.StatusBarFrame.Height + 10;
+            nfloat toolbarHeight = 30;
+
+            // Place the scene view and update the insets to avoid hiding view elements like the attribution bar.
+            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight * 2, 0);
+
+            // Place the help label.
+            _helpLabel.Frame = new CGRect(0, topMargin + 10, View.Bounds.Width, toolbarHeight * 2);
+
+            // Place the distance input toolbar.
+            _bufferInputArea.Frame = new CGRect(0, View.Bounds.Height - (toolbarHeight * 2), View.Bounds.Width, toolbarHeight);
+
+            // Place the buffer distance input text view and label.
+            _bufferInputLabel.Frame = new CGRect(10, View.Bounds.Height - (toolbarHeight * 2) + 5, 150, toolbarHeight - 10);
+            _bufferDistanceMilesTextField.Frame = new CGRect(150, View.Bounds.Height - (toolbarHeight * 2) + 5, 50, toolbarHeight - 10);
+
+            // Place the clear buffers button.
+            _clearBuffersButton.Frame = new CGRect(220, View.Bounds.Height - (toolbarHeight * 2) + 5, 90, toolbarHeight - 10);
+
+            // Place the legend toolbar.
+            _legendArea.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+
+            // Place the planar and geodesic legend labels.
+            _planarSwatchLabel.Frame = new CGRect(10, View.Bounds.Height - toolbarHeight + 5, 140, toolbarHeight - 10);
+            _geodesicSwatchLabel.Frame = new CGRect(160, View.Bounds.Height - toolbarHeight + 5, 140, toolbarHeight - 10);
+
+            base.ViewDidLayoutSubviews();
         }
     }
 }

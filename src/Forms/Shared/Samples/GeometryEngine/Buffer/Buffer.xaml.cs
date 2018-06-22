@@ -121,7 +121,8 @@ namespace ArcGISRuntime.Samples.Buffer
             catch (System.Exception ex)
             {
                 // Display an error message if there is a problem generating the buffers.
-                DisplayAlert(ex.Message, "Error creating buffers", "OK");
+                Page currentPage = (App.Current.MainPage as NavigationPage).CurrentPage;
+                currentPage.DisplayAlert(ex.Message, "Error creating buffers", "OK");
             }
         }
 

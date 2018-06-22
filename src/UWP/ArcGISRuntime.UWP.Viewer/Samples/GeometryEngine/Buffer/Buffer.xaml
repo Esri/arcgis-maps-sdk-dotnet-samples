@@ -25,7 +25,7 @@
                 <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                            HorizontalTextAlignment="Center" VerticalAlignment="Center"
                            Foreground="Blue"
-                           Text="Click to create Planar and Geodesic buffers"/>
+                           Text="Tap to create Planar and Geodesic buffers"/>
                 <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                            HorizontalAlignment="Right" VerticalAlignment="Center"
                            Text="Buffer distance (miles):"/>

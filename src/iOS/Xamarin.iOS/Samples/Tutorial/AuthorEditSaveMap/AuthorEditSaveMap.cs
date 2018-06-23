@@ -102,6 +102,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
                 // Update insets.
                 _mapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 40, 0);
             }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
             catch (NullReferenceException)
             {
             }

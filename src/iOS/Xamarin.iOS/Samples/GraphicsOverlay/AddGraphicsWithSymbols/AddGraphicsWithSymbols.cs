@@ -204,6 +204,7 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
 
                 base.ViewDidLayoutSubviews();
             }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
             catch (NullReferenceException)
             {
             }

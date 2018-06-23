@@ -77,6 +77,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
                 _colorRampsPicker.Frame = new CGRect(margin, formStart + 3 * controlHeight + 4 * margin, View.Bounds.Width - 2 * margin, controlHeight);
                 _updateRendererButton.Frame = new CGRect(margin, formStart + 4 * controlHeight + 5 * margin, View.Bounds.Width - 2 * margin, controlHeight);
             }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
             catch (NullReferenceException)
             {
             }

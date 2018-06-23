@@ -56,6 +56,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
                 _geodatabaseListField.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin);
                 _progressBar.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin);
             }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
             catch (NullReferenceException)
             {
             }

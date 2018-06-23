@@ -57,6 +57,7 @@ namespace ArcGISRuntime.Samples.SimpleRenderers
 
                 base.ViewDidLayoutSubviews();
             }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
             catch (NullReferenceException)
             {
             }

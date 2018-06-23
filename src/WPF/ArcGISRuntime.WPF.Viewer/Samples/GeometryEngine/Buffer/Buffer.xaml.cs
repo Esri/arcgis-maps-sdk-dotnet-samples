@@ -91,8 +91,8 @@ namespace ArcGISRuntime.WPF.Samples.Buffer
                 // Get the buffer distance (miles) entered in the text box.
                 double bufferInMiles = System.Convert.ToDouble(BufferDistanceMilesTextBox.Text);
 
-                // Convert the input distance to meters. There are 1609.34 meters in one mile.
-                double bufferInMeters = bufferInMiles * 1609.34;
+                // Call a helper method to convert the input distance to meters.
+                double bufferInMeters = LinearUnits.Miles.ToMeters(bufferInMiles);
 
                 // Create a planar buffer graphic around the input location at the specified distance.
                 Geometry bufferGeometryPlanar = GeometryEngine.Buffer(userTapPoint, bufferInMeters);

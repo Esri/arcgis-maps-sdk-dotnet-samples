@@ -123,8 +123,8 @@ namespace ArcGISRuntime.Samples.Buffer
                 // Get the buffer distance (miles) entered in the text box.
                 double bufferInMiles = System.Convert.ToDouble(_bufferDistanceMilesTextField.Text);
 
-                // Convert the input distance to meters. There are 1609.34 meters in one mile.
-                double bufferInMeters = bufferInMiles * 1609.34;
+                // Call a helper method to convert the input distance to meters.
+                double bufferInMeters = LinearUnits.Miles.ToMeters(bufferInMiles);
 
                 // Create a planar buffer graphic around the input location at the specified distance.
                 Geometry bufferGeometryPlanar = GeometryEngine.Buffer(userTapPoint, bufferInMeters);
@@ -267,35 +267,42 @@ namespace ArcGISRuntime.Samples.Buffer
 
         public override void ViewDidLayoutSubviews()
         {
-            var topMargin = NavigationController.NavigationBar.Frame.Height +
-                            UIApplication.SharedApplication.StatusBarFrame.Height + 10;
-            nfloat toolbarHeight = 30;
+            try
+            {
+                var topMargin = NavigationController.NavigationBar.Frame.Height +
+                                UIApplication.SharedApplication.StatusBarFrame.Height + 10;
+                nfloat toolbarHeight = 30;
 
-            // Place the scene view and update the insets to avoid hiding view elements like the attribution bar.
-            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight * 2, 0);
+                // Place the scene view and update the insets to avoid hiding view elements like the attribution bar.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight * 2, 0);
 
-            // Place the help label.
-            _helpLabel.Frame = new CGRect(0, topMargin + 10, View.Bounds.Width, toolbarHeight * 2);
+                // Place the help label.
+                _helpLabel.Frame = new CGRect(0, topMargin + 10, View.Bounds.Width, toolbarHeight * 2);
 
-            // Place the distance input toolbar.
-            _bufferInputArea.Frame = new CGRect(0, View.Bounds.Height - (toolbarHeight * 2), View.Bounds.Width, toolbarHeight);
+                // Place the distance input toolbar.
+                _bufferInputArea.Frame = new CGRect(0, View.Bounds.Height - (toolbarHeight * 2), View.Bounds.Width, toolbarHeight);
 
-            // Place the buffer distance input text view and label.
-            _bufferInputLabel.Frame = new CGRect(10, View.Bounds.Height - (toolbarHeight * 2) + 5, 150, toolbarHeight - 10);
-            _bufferDistanceMilesTextField.Frame = new CGRect(150, View.Bounds.Height - (toolbarHeight * 2) + 5, 50, toolbarHeight - 10);
+                // Place the buffer distance input text view and label.
+                _bufferInputLabel.Frame = new CGRect(10, View.Bounds.Height - (toolbarHeight * 2) + 5, 150, toolbarHeight - 10);
+                _bufferDistanceMilesTextField.Frame = new CGRect(150, View.Bounds.Height - (toolbarHeight * 2) + 5, 50, toolbarHeight - 10);
 
-            // Place the clear buffers button.
-            _clearBuffersButton.Frame = new CGRect(220, View.Bounds.Height - (toolbarHeight * 2) + 5, 90, toolbarHeight - 10);
+                // Place the clear buffers button.
+                _clearBuffersButton.Frame = new CGRect(220, View.Bounds.Height - (toolbarHeight * 2) + 5, 90, toolbarHeight - 10);
 
-            // Place the legend toolbar.
-            _legendArea.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                // Place the legend toolbar.
+                _legendArea.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
 
-            // Place the planar and geodesic legend labels.
-            _planarSwatchLabel.Frame = new CGRect(10, View.Bounds.Height - toolbarHeight + 5, 140, toolbarHeight - 10);
-            _geodesicSwatchLabel.Frame = new CGRect(160, View.Bounds.Height - toolbarHeight + 5, 140, toolbarHeight - 10);
+                // Place the planar and geodesic legend labels.
+                _planarSwatchLabel.Frame = new CGRect(10, View.Bounds.Height - toolbarHeight + 5, 140, toolbarHeight - 10);
+                _geodesicSwatchLabel.Frame = new CGRect(160, View.Bounds.Height - toolbarHeight + 5, 140, toolbarHeight - 10);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            catch(Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error laying out sub views: " + ex.Message);
+            }
         }
     }
 }

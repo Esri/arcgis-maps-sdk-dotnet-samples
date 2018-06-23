@@ -5,27 +5,27 @@
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView"/>
-        <Border Height="185" Width="330"
-                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30"
-                Background="DarkGray" Opacity="0.8">
+        <Border HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30"
+                Background="WhiteSmoke" Opacity="0.8">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="10"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                            HorizontalTextAlignment="Center" VerticalAlignment="Center"
-                           Foreground="Blue"
-                           Text="Tap to create Planar and Geodesic buffers"/>
+                           Foreground="Blue" FontWeight="Bold"
+                           Text="Tap to create Planar and Geodesic buffers"
+                           Margin="0,10"/>
                 <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                            HorizontalAlignment="Right" VerticalAlignment="Center"
                            Text="Buffer distance (miles):"/>
@@ -44,13 +44,13 @@
                 <Ellipse x:Name="BufferSwatchGeodesicEllipse"
                          Grid.Row="4" Grid.Column="0"
                          Stroke="LightGray"
-                         Width="20" Height="20" Margin="10,0"/>
+                         Width="20" Height="20" Margin="10"/>
                 <TextBlock Grid.Row="4" Grid.Column="1" 
                            HorizontalAlignment="Left" VerticalAlignment="Center"
                            Text="Geodesic buffers"/>
                 <Button x:Name="ClearBuffersButton"
                         Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"
-                        Height="30" Width="100"
+                        Height="30" Width="160" Margin="0,10"
                         HorizontalAlignment="Center"
                         Content="Clear"
                         Click="ClearBuffersButton_Click"/>

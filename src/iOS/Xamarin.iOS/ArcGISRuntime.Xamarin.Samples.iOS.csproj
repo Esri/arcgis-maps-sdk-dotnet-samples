@@ -339,6 +339,7 @@
     <Compile Include="Samples\GeometryEngine\ConvexHullList\ConvexHullList.cs" />
     <Compile Include="Samples\GeometryEngine\ConvexHull\ConvexHull.cs" />
     <Compile Include="Samples\GeometryEngine\CutGeometry\CutGeometry.cs" />
+    <Compile Include="Samples\GeometryEngine\SpatialOperations\SpatialOperations.cs" />
     <Compile Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.cs" />
     <Compile Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.cs" />
     <Compile Include="Samples\GeometryEngine\NearestVertex\NearestVertex.cs" />
@@ -493,6 +494,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Samples\GeometryEngine\SpatialOperations\SpatialOperations.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

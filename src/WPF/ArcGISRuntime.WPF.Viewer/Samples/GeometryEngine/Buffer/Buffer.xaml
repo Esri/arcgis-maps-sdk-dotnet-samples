@@ -3,18 +3,56 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView" />
-        <Border
-            Background="White" BorderBrush="Black" BorderThickness="1"
-            HorizontalAlignment="Right" VerticalAlignment="Top"
-            Margin="30" Padding="20" Width="375">
-            <StackPanel>
-                <TextBlock Text="Specify the distance (in miles) and the tap on the map."
-                           TextAlignment="Center" FontWeight="SemiBold" />
-                <TextBox x:Name="BufferDistanceMilesTextBox"
-                         Margin="0,5,0,0" TextAlignment="Center"
-                         Text="10" />
-            </StackPanel>
+        <esri:MapView x:Name="MyMapView"/>
+        <Border Height="170" Width="310"
+                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30"
+                Background="WhiteSmoke" Opacity="0.9">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                   HorizontalContentAlignment="Center"
+                   Foreground="Blue" FontWeight="Bold"
+                   Content="Click the map to create Planar and Geodesic buffers"/>
+                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                   HorizontalAlignment="Right"
+                   Content="Buffer distance (miles):"/>
+                <TextBox x:Name="BufferDistanceMilesTextBox" 
+                     Grid.Row="1" Grid.Column="2"
+                     TextAlignment="Right"
+                     Margin="15,5"
+                     Text="1000"/>
+                <Ellipse x:Name="BufferSwatchPlanarEllipse"
+                     Grid.Row="3" Grid.Column="0" 
+                     Stroke="LightGray"
+                     Width="20" Height="20" Margin="10,0"/>
+                <Label Grid.Row="3" Grid.Column="1" 
+                   HorizontalAlignment="Left"
+                   Content="Planar buffers (Web Mercator)"/>
+                <Ellipse x:Name="BufferSwatchGeodesicEllipse"
+                     Grid.Row="4" Grid.Column="0"
+                     Stroke="LightGray"
+                     Width="20" Height="20" Margin="10,0"/>
+                <Label Grid.Row="4" Grid.Column="1" 
+                   HorizontalAlignment="Left"
+                   Content="Geodesic buffers"/>
+                <Button x:Name="ClearBuffersButton"
+                    Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3"
+                    Margin="15,5"
+                    Content="Clear"
+                    Click="ClearBuffersButton_Click"/>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

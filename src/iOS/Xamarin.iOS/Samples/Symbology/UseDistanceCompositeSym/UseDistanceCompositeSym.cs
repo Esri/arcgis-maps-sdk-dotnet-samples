@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using System;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -15,6 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
         private readonly SceneView _mySceneView = new SceneView();
 
         // URL for an image service to use as an elevation source.
-        private readonly string _elevationSourceUrl = @"http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
+        private const string ElevationSourceUrl = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
         public UseDistanceCompositeSym()
         {
@@ -69,7 +69,7 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
             Scene myScene = new Scene(Basemap.CreateImagery());
 
             // Add elevation to the scene.
-            myScene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri(_elevationSourceUrl)));
+            myScene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri(ElevationSourceUrl)));
 
             // Add the Scene to the SceneView.
             _mySceneView.Scene = myScene;

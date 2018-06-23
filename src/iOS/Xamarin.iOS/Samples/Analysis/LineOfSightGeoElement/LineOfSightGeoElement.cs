@@ -7,6 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -16,8 +18,6 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Foundation;
 using System;
 using System.Timers;
-using ArcGISRuntime.Samples.Managers;
-using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.LineOfSightGeoElement
@@ -75,7 +75,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         // For taxi animation - tracks animation state.
         private int _pointIndex = 0;
         private int _frameIndex = 0;
-        private readonly int _frameMax = 150;
+        private const int FrameMax = 150;
 
         public LineOfSightGeoElement()
         {
@@ -162,7 +162,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             _frameIndex++;
 
             // Reset the frame counter once one segment of the path has been traveled.
-            if (_frameIndex == _frameMax)
+            if (_frameIndex == FrameMax)
             {
                 _frameIndex = 0;
 
@@ -181,7 +181,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             // Get the point the taxi is traveling to.
             MapPoint ending = _points[(_pointIndex + 1) % _points.Length];
             // Calculate the progress based on the current frame.
-            double progress = _frameIndex / (double) _frameMax;
+            double progress = _frameIndex / (double) FrameMax;
             // Calculate the position of the taxi when it is {progress}% of the way through.
             _taxiGraphic.Geometry = InterpolatedPoint(starting, ending, progress);
         }

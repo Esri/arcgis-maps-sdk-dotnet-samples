@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
         private readonly SceneView _mySceneView = new SceneView();
 
         // URL for an image service to use as an elevation source.
-        private readonly string _elevationSourceUrl = @"http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
+        private const string ElevationSourceUrl = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
         // Location line of sight analysis.
         private LocationLineOfSight _lineOfSightAnalysis;
@@ -42,7 +42,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
         private MapPoint _targetLocation;
 
         // Offset (meters) to use for the observer/target height (z-value for the points).
-        private readonly double _zOffset = 2.0;
+        private const double ZOffset = 2.0;
 
         public LineOfSightLocation()
         {
@@ -81,7 +81,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
             Scene scene = new Scene(Basemap.CreateImagery());
 
             // Create an elevation source for the Scene.
-            ArcGISTiledElevationSource elevationSrc = new ArcGISTiledElevationSource(new Uri(_elevationSourceUrl));
+            ArcGISTiledElevationSource elevationSrc = new ArcGISTiledElevationSource(new Uri(ElevationSourceUrl));
             scene.BaseSurface.ElevationSources.Add(elevationSrc);
 
             // Add the Scene to the SceneView.
@@ -120,7 +120,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
             if (_observerLocation == null)
             {
                 // Define the observer location (plus an offset for observer height) and set the target to the same point.
-                _observerLocation = new MapPoint(e.Location.X, e.Location.Y, e.Location.Z + _zOffset);
+                _observerLocation = new MapPoint(e.Location.X, e.Location.Y, e.Location.Z + ZOffset);
                 _lineOfSightAnalysis.ObserverLocation = _observerLocation;
                 _lineOfSightAnalysis.TargetLocation = _observerLocation;
 
@@ -130,7 +130,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
             else if (_targetLocation == null)
             {
                 // Define the target.
-                _targetLocation = new MapPoint(e.Location.X, e.Location.Y, e.Location.Z + _zOffset);
+                _targetLocation = new MapPoint(e.Location.X, e.Location.Y, e.Location.Z + ZOffset);
                 _lineOfSightAnalysis.TargetLocation = _targetLocation;
 
                 // Clear the observer location so it can be defined again.

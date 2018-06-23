@@ -7,13 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Foundation;
 using System;
-using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ViewshedCamera
@@ -32,10 +32,10 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         private UIButton _updateViewshedButton;
 
         // URL for a scene service of buildings in Brest, France.
-        private readonly string _buildingsServiceUrl = @"http://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0";
+        private const string BuildingsServiceUrl = "http://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0";
 
         // URL for an image service to use as an elevation source.
-        private readonly string _elevationSourceUrl = @"http://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer";
+        private const string ElevationSourceUrl = "http://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer";
 
         // Location viewshed analysis to show visible and obstructed areas from the camera.
         private LocationViewshed _viewshedForCamera;
@@ -60,10 +60,10 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
             Scene myScene = new Scene(Basemap.CreateImagery());
 
             // Create a scene layer to show buildings in the Scene.
-            myScene.OperationalLayers.Add(new ArcGISSceneLayer(new Uri(_buildingsServiceUrl)));
+            myScene.OperationalLayers.Add(new ArcGISSceneLayer(new Uri(BuildingsServiceUrl)));
 
             // Create an elevation source for the Scene.
-            myScene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri(_elevationSourceUrl)));
+            myScene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri(ElevationSourceUrl)));
 
             // Add the Scene to the SceneView.
             _mySceneView.Scene = myScene;

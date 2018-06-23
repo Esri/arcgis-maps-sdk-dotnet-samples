@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -17,9 +18,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Timers;
-using ArcGISRuntime.Samples.Managers;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ViewshedGeoElement
@@ -49,8 +48,8 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
         private MapPoint _tankEndPoint;
 
         // Units for geodetic calculation (used in animating tank)
-        private readonly LinearUnit _metersUnit = (LinearUnit) Unit.FromUnitId(9001);
-        private readonly AngularUnit _degreesUnit = (AngularUnit) Unit.FromUnitId(9102);
+        private readonly LinearUnit _metersUnit = LinearUnits.Meters;
+        private readonly AngularUnit _degreesUnit = AngularUnits.Degrees;
 
         public ViewshedGeoElement()
         {

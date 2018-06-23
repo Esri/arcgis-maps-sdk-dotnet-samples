@@ -232,9 +232,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
 
         private async Task GetLocalGeodatabase()
         {
-            // Get the path to the local geodatabase for this platform (temp directory, for example).
-            string localGeodatabasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "savethebay.geodatabase");
+            string localGeodatabasePath = GetGdbPath();
 
             try
             {
@@ -300,6 +298,13 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 // Show a message for the exception encountered.
                 InvokeOnMainThread(() => { ShowMessage("Generate Geodatabase", "Unable to create offline database: " + ex.Message, "OK"); });
             }
+        }
+
+        private static string GetGdbPath()
+        {
+            // Get the path to the local geodatabase for this platform (temp directory, for example).
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "savethebay.geodatabase");
         }
 
         // Function that loads the two point tables from the local geodatabase and displays them as feature layers.

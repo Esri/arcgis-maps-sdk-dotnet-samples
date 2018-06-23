@@ -29,6 +29,7 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
     {
         // Create and hold references to UI controls.
         private readonly MapView _myMapView = new MapView();
+
         private readonly UITextView _distanceLabel = new UITextView
         {
             Text = "Tap to set an end point.",
@@ -83,7 +84,7 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
         private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
         {
             // Get the tapped point, projected to WGS84.
-            MapPoint destination = (MapPoint)GeometryEngine.Project(geoViewInputEventArgs.Location, SpatialReferences.Wgs84);
+            MapPoint destination = (MapPoint) GeometryEngine.Project(geoViewInputEventArgs.Location, SpatialReferences.Wgs84);
 
             // Update the destination graphic.
             _endLocationGraphic.Geometry = destination;
@@ -91,7 +92,7 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
             // Get the points that define the route polyline.
             PointCollection polylinePoints = new PointCollection(SpatialReferences.Wgs84)
             {
-                (MapPoint)_startLocationGraphic.Geometry,
+                (MapPoint) _startLocationGraphic.Geometry,
                 destination
             };
 
@@ -106,7 +107,7 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
 
             // Calculate and show the distance.
             double distance = GeometryEngine.LengthGeodetic(pathGeometry, LinearUnits.Kilometers, GeodeticCurveType.Geodesic);
-            _distanceLabel.Text = $"{(int)distance} kilometers";
+            _distanceLabel.Text = $"{(int) distance} kilometers";
         }
 
         private void CreateLayout()

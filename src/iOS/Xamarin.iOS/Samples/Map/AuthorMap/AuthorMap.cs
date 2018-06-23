@@ -150,7 +150,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     // Show a list of available operational layers.
                     ShowLayerList();
                     break;
-                
+
                 case 3:
                     // Show the save map UI.
                     ShowSaveMapUi();

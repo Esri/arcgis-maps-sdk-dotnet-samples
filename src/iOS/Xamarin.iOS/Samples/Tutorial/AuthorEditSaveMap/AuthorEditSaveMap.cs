@@ -493,7 +493,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
                 Placeholder = "Title",
                 AutocapitalizationType = UITextAutocapitalizationType.None,
                 BackgroundColor = UIColor.LightGray,
-                LeftView = new UIView(new CGRect(0,0,5,20)),
+                LeftView = new UIView(new CGRect(0, 0, 5, 20)),
                 LeftViewMode = UITextFieldViewMode.Always
             };
 
@@ -513,7 +513,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
                 Placeholder = "Description",
                 AutocapitalizationType = UITextAutocapitalizationType.None,
                 BackgroundColor = UIColor.LightGray,
-                LeftView = new UIView(new CGRect(0,0,5,20)),
+                LeftView = new UIView(new CGRect(0, 0, 5, 20)),
                 LeftViewMode = UITextFieldViewMode.Always
             };
 
@@ -533,7 +533,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
                 Text = "ArcGIS Runtime, Web Map",
                 AutocapitalizationType = UITextAutocapitalizationType.None,
                 BackgroundColor = UIColor.LightGray,
-                LeftView = new UIView(new CGRect(0,0,5,20)),
+                LeftView = new UIView(new CGRect(0, 0, 5, 20)),
                 LeftViewMode = UITextFieldViewMode.Always
             };
 

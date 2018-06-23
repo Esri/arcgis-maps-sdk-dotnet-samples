@@ -131,7 +131,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             // Create the result label.
             _resultLabel = new UILabel
             {
-				TextAlignment = UITextAlignment.Center,
+                TextAlignment = UITextAlignment.Center,
                 AdjustsFontSizeToFitWidth = true
             };
 

@@ -85,7 +85,7 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
             var poppover = layerSelectionAlert.PopoverPresentationController;
             if (poppover != null)
             {
-                poppover.SourceView = (UIButton)sender;
+                poppover.SourceView = (UIButton) sender;
             }
 
             // Show the alert.

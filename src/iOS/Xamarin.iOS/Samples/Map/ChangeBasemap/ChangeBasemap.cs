@@ -89,7 +89,7 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
             var poppover = basemapSelectionAlert.PopoverPresentationController;
             if (poppover != null)
             {
-                poppover.SourceView = (UIButton)sender;
+                poppover.SourceView = (UIButton) sender;
             }
 
             // Show the alert.

@@ -19,9 +19,8 @@ using UIKit;
 
 namespace ArcGISRuntime.Samples.ChangeStretchRenderer
 {
-
     [Register("ChangeStretchRenderer")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Stretch renderer",
         "Layers",
@@ -40,7 +39,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
         private UITextField _inputParameter2;
         private UIButton _updateRendererButton;
 
-        private readonly string[] _rendererChoices = { "Min/Max", "% Clip", "Std. Deviation" };
+        private readonly string[] _rendererChoices = {"Min/Max", "% Clip", "Std. Deviation"};
 
         public ChangeStretchRenderer()
         {
@@ -151,7 +150,11 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             };
 
             // Allow pressing 'return' to dismiss the keyboard.
-            _inputParameter1.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
+            _inputParameter1.ShouldReturn += textField =>
+            {
+                textField.ResignFirstResponder();
+                return true;
+            };
 
             // Create label that displays the 2nd parameter used by the stretch renderer.
             _labelParameter2 = new UILabel
@@ -173,7 +176,11 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             };
 
             // Allow pressing 'return' to dismiss the keyboard.
-            _inputParameter2.ShouldReturn += textField => { textField.ResignFirstResponder(); return true; };
+            _inputParameter2.ShouldReturn += textField =>
+            {
+                textField.ResignFirstResponder();
+                return true;
+            };
 
             // Add all of the UI controls to the page.
             View.AddSubviews(_myMapView, _toolbar, _updateRendererButton, _rendererTypes, _labelParameter1, _inputParameter1, _labelParameter2, _inputParameter2);
@@ -256,10 +263,10 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     try
                     {
                         // Create an IEnumerable from a list of double min stretch value doubles.
-                        IEnumerable<double> minValues = new List<double> { Convert.ToDouble(_inputParameter1.Text) };
+                        IEnumerable<double> minValues = new List<double> {Convert.ToDouble(_inputParameter1.Text)};
 
                         // Create an IEnumerable from a list of double max stretch value doubles.
-                        IEnumerable<double> maxValues = new List<double> { Convert.ToDouble(_inputParameter2.Text) };
+                        IEnumerable<double> maxValues = new List<double> {Convert.ToDouble(_inputParameter2.Text)};
 
                         // Create a new MinMaxStretchParameters based on the user choice for min and max stretch values.
                         MinMaxStretchParameters minMaxStretchParameters = new MinMaxStretchParameters(minValues, maxValues);
@@ -314,11 +321,12 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                         showMessage("Error configuring renderer.", "Ensure all values are valid and try again.");
                         return;
                     }
+
                     break;
             }
 
             // Get the existing raster layer in the map.
-            RasterLayer rasterLayer = (RasterLayer)_myMapView.Map.OperationalLayers[0];
+            RasterLayer rasterLayer = (RasterLayer) _myMapView.Map.OperationalLayers[0];
 
             // Apply the stretch renderer to the raster layer.
             rasterLayer.Renderer = stretchRenderer;

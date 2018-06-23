@@ -23,7 +23,7 @@ using UIKit;
 namespace ArcGISRuntime.Samples.LineOfSightGeoElement
 {
     [Register("LineOfSightGeoElement")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Line of Sight (GeoElement)",
         "Analysis",
@@ -37,12 +37,14 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         private readonly UIToolbar _labelToolbar = new UIToolbar();
         private readonly UIToolbar _sliderToolbar = new UIToolbar();
         private readonly UISlider _mySlider = new UISlider();
+
         private readonly UILabel _myStatusLabel = new UILabel
         {
-            Text = "Status: ", 
-            TextAlignment = UITextAlignment.Center, AdjustsFontSizeToFitWidth = true
+            Text = "Status: ",
+            TextAlignment = UITextAlignment.Center,
+            AdjustsFontSizeToFitWidth = true
         };
-        
+
         // URL of the elevation service - provides elevation component of the scene.
         private readonly Uri _elevationUri = new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
@@ -62,7 +64,8 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         private GeoElementLineOfSight _geoLine;
 
         // For taxi animation - four points in a loop.
-        private readonly MapPoint[] _points = {
+        private readonly MapPoint[] _points =
+        {
             new MapPoint(-73.984513, 40.748469, SpatialReferences.Wgs84),
             new MapPoint(-73.985068, 40.747786, SpatialReferences.Wgs84),
             new MapPoint(-73.983452, 40.747091, SpatialReferences.Wgs84),
@@ -73,6 +76,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         private int _pointIndex = 0;
         private int _frameIndex = 0;
         private readonly int _frameMax = 150;
+
         public LineOfSightGeoElement()
         {
             Title = "Line of Sight (GeoElement)";
@@ -86,7 +90,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
                 // Set initial viewpoint.
                 InitialViewpoint = new Viewpoint(_observerPoint, 1000000)
             };
-            
+
             // Create the elevation source.
             ElevationSource myElevationSource = new ArcGISTiledElevationSource(_elevationUri);
             // Add the elevation source to the scene.
@@ -98,7 +102,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
 
             // Add the observer to the scene.
             // Create a graphics overlay with relative surface placement; relative surface placement allows the Z position of the observation point to be adjusted.
-            GraphicsOverlay overlay = new GraphicsOverlay { SceneProperties = new LayerSceneProperties(SurfacePlacement.Relative) };
+            GraphicsOverlay overlay = new GraphicsOverlay {SceneProperties = new LayerSceneProperties(SurfacePlacement.Relative)};
             // Create the symbol that will symbolize the observation point.
             SimpleMarkerSceneSymbol symbol = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Sphere, System.Drawing.Color.Red, 10, 10, 10, SceneSymbolAnchorPosition.Bottom);
             // Create the observation point graphic from the point and symbol.
@@ -142,13 +146,14 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             timer.AutoReset = true;
             // Start the timer.
             timer.Start();
-            
+
             // Subscribe to TargetVisible events; allows for updating the UI and selecting the taxi when it is visible.
             _geoLine.TargetVisibilityChanged += Geoline_TargetVisibilityChanged;
 
             // Add the scene to the view.
             _mySceneView.Scene = myScene;
         }
+
         private void AnimationTimer_Elapsed(object sender, EventArgs e)
         {
             // Note: the contents of this function are solely related to animating the taxi.
@@ -176,7 +181,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             // Get the point the taxi is traveling to.
             MapPoint ending = _points[(_pointIndex + 1) % _points.Length];
             // Calculate the progress based on the current frame.
-            double progress = _frameIndex / (double)_frameMax;
+            double progress = _frameIndex / (double) _frameMax;
             // Calculate the position of the taxi when it is {progress}% of the way through.
             _taxiGraphic.Geometry = InterpolatedPoint(starting, ending, progress);
         }
@@ -233,7 +238,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             double value = _mySlider.Value;
 
             // Get the current point.
-            MapPoint oldPoint = (MapPoint)_observerGraphic.Geometry;
+            MapPoint oldPoint = (MapPoint) _observerGraphic.Geometry;
 
             // Update geometry with a new point with the same (x,y) but updated z.
             _observerGraphic.Geometry = new MapPoint(oldPoint.X, oldPoint.Y, (maxHeight - minHeight) * value + minHeight);

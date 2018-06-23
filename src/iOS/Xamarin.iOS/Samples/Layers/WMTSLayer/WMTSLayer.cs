@@ -39,13 +39,13 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         private readonly UIButton _uriButton = new UIButton(UIButtonType.RoundedRect)
         {
             BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
-            Layer = { CornerRadius = 5}
+            Layer = {CornerRadius = 5}
         };
 
         private readonly UIButton _infoButton = new UIButton(UIButtonType.RoundedRect)
         {
             BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
-            Layer = { CornerRadius = 5}
+            Layer = {CornerRadius = 5}
         };
 
         public WMTSLayer()

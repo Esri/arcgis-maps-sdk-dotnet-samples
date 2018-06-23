@@ -303,7 +303,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
                 _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
                 _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
                 int index = 0;
-                foreach (UIButton button in new[] { _gridTypeButton, _gridColorButton, _labelPositionButton, _labelColorButton })
+                foreach (UIButton button in new[] {_gridTypeButton, _gridColorButton, _labelPositionButton, _labelColorButton})
                 {
                     // Apply the frame.
                     button.Frame = new CGRect(buttonWidth * index + toolbarPadding, View.Bounds.Height - toolbarHeight + toolbarPadding, buttonWidth - toolbarPadding, toolbarHeight - 2 * 5);

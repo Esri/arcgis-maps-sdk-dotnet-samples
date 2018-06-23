@@ -204,7 +204,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             _queryButton = new UIButton()
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
-                Layer = {CornerRadius = 5 },
+                Layer = {CornerRadius = 5},
             };
             _queryButton.SetTitle("Query", UIControlState.Normal);
             _queryButton.SetTitleColor(View.TintColor, UIControlState.Normal);

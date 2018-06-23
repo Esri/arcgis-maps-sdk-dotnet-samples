@@ -73,7 +73,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
         private async void BtnZoomToFeatures_Click(object sender, EventArgs e)
         {
             // Create the query parameters.
-            QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(ST) LIKE '%{_stateEntry.Text.ToUpper()}%'" };
+            QueryParameters queryStates = new QueryParameters {WhereClause = $"upper(ST) LIKE '%{_stateEntry.Text.ToUpper()}%'"};
 
             // Get the extent from the query.
             Envelope resultExtent = await _featureTable.QueryExtentAsync(queryStates);
@@ -132,7 +132,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
                 Text = "Enter a query to begin.",
                 TextAlignment = UITextAlignment.Center
             };
-            
+
             _stateEntry = new UITextField
             {
                 Placeholder = "e.g. NH",
@@ -151,7 +151,8 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             // Allow the search bar to dismiss the keyboard.
             _stateEntry.ShouldReturn += sender =>
             {
-                sender.ResignFirstResponder(); return true;
+                sender.ResignFirstResponder();
+                return true;
             };
 
             // Add views to the page.

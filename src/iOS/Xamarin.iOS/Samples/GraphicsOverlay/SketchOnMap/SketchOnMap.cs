@@ -37,7 +37,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private readonly UIToolbar _toolbar = new UIToolbar();
         private UISegmentedControl _segmentButton;
 
-        // Dictionary to hold sketch mode enumeration names and values.
+        // Dictionary associates SketchCreationMode names with values.
         private Dictionary<string, int> _sketchModeDictionary;
 
         // Graphics overlay to host sketch graphics.

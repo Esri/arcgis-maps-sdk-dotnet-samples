@@ -6,6 +6,22 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5,0,5,0" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Padding" Value="5,0,5,0" />
+        </Style>
+        <Style TargetType="Slider">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="5,0,5,0" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -17,38 +33,58 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="150" />
         </Grid.ColumnDefinitions>
-        <esri:SceneView x:Name="MySceneView" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" AtmosphereEffect="Realistic"/>
-        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="5">
-            <ComboBox VerticalAlignment="Top" x:Name="MissionSelectionBox" Height="25" />
-            <Button VerticalAlignment="Top" Click="MissionPlayPlauseClick" Margin="5,0,0,0" Height="25">Pause</Button>
-            <Label>Progress:</Label>
-            <Slider x:Name="MissionProgressBar" Width="100" Height="25" VerticalAlignment="Top" Minimum="0" Maximum="1" ValueChanged="MissionProgressOnSeek" />
-            <Button VerticalAlignment="Top" Click="ToggleFollowPlane" Height="25">Don't Follow</Button>
+        <esri:SceneView x:Name="MySceneView"
+                        Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3"
+                        AtmosphereEffect="Realistic" />
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                    Orientation="Horizontal" Margin="5">
+            <ComboBox x:Name="MissionSelectionBox"
+                      VerticalAlignment="Top" Height="25" Width="100" />
+            <Button Content="Pause"
+                    VerticalAlignment="Top" Height="25" Width="50"
+                    Click="MissionPlayPlauseClick" />
+            <TextBlock Text="Progress" Margin="5" />
+            <Slider x:Name="MissionProgressBar"
+                    VerticalAlignment="Top" Margin="5" Width="100" Height="25"
+                    Minimum="0" Maximum="1"
+                    ValueChanged="MissionProgressOnSeek" />
+            <Button Content="Don't follow"
+                    VerticalAlignment="Top" Height="25" Width="100"
+                    Click="ToggleFollowPlane" />
         </StackPanel>
-        <GroupBox Background="White" Opacity=".7" Grid.Row ="0" Grid.Column="2" Foreground="Red" Margin="5">
-            <StackPanel Margin="5" Opacity=".9">
-                <Label>Play Speed</Label>
+        <Border CornerRadius="5"
+                Grid.Row="0" Grid.Column="2" Margin="5">
+            <Border.Background>
+                <SolidColorBrush Color="White" Opacity="0.7" />
+            </Border.Background>
+            <StackPanel Margin="5">
+                <Label Content="Play speed" />
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="40" />
                     </Grid.ColumnDefinitions>
-                    <Slider Grid.Column="0" ValueChanged="MissionPlaySpeedChanged" Minimum="0.5" Maximum="8" Value="1" x:Name="MissionPlaySpeedSlider" />
-                    <!-- Bound label shows text for the value in the slider -->
-                    <Label Grid.Column="1" Content="{Binding ElementName=MissionPlaySpeedSlider,Path=Value}" />
+                    <Slider x:Name="MissionPlaySpeedSlider"
+                            Grid.Column="0"
+                            Minimum="0.5" Maximum="8" Value="1"
+                            ValueChanged="MissionPlaySpeedChanged" />
+                    <TextBlock Text="{Binding ElementName=MissionPlaySpeedSlider, Path=Value, StringFormat=N2}"
+                               Grid.Column="1" />
                 </Grid>
                 <Separator />
-                <Label FontSize="16" FontWeight="SemiBold">Stats</Label>
-                <Label>Altitude:</Label>
-                <Label x:Name="AltitudeLabel" />
-                <Label>Heading:</Label>
-                <Label x:Name="HeadingLabel" />
-                <Label>Pitch:</Label>
-                <Label x:Name="PitchLabel" />
-                <Label>Roll:</Label>
-                <Label x:Name="RollLabel" />
+                <Label FontSize="16" Content="Stats" />
+                <Label Content="Altitude:" />
+                <TextBlock x:Name="AltitudeLabel" />
+                <Label Content="Heading:" />
+                <TextBlock x:Name="HeadingLabel" />
+                <Label Content="Pitch:" />
+                <TextBlock x:Name="PitchLabel" />
+                <Label Content="Roll:" />
+                <TextBlock x:Name="RollLabel" />
             </StackPanel>
-        </GroupBox>
-        <esri:MapView x:Name="InsetMapView" Grid.Row="2" Grid.Column="0" Margin="10,0,0,25" IsAttributionTextVisible="False" />
+        </Border>
+        <esri:MapView x:Name="InsetMapView"
+                      Grid.Row="2" Grid.Column="0" Margin="5,0,0,25"
+                      IsAttributionTextVisible="False" />
     </Grid>
 </UserControl>

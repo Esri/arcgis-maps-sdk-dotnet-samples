@@ -16,6 +16,7 @@
 
         <!-- Show a message when the map isn't visible. -->
         <Grid x:Name="DownloadNotificationText"
+              Grid.Row="0"
               Background="White"
               Visibility="Collapsed">
             <TextBlock

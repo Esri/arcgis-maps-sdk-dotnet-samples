@@ -50,7 +50,7 @@ namespace ArcGISRuntime.WPF.Samples.ManageBookmarks
             myBookmark1.Name = "Mysterious Desert Pattern";
             myBookmark1.Viewpoint = myViewpoint1;
             MyMapView.Map.Bookmarks.Add(myBookmark1);
-            bookmarkChooser.Items.Add(myBookmark1);
+            BookmarkChooser.Items.Add(myBookmark1);
 
             // Bookmark-2
             Viewpoint myViewpoint2 = new Viewpoint(-39.299987, 174.060858, 600000);
@@ -58,7 +58,7 @@ namespace ArcGISRuntime.WPF.Samples.ManageBookmarks
             myBookmark2.Name = "Dormant Volcano";
             myBookmark2.Viewpoint = myViewpoint2;
             MyMapView.Map.Bookmarks.Add(myBookmark2);
-            bookmarkChooser.Items.Add(myBookmark2);
+            BookmarkChooser.Items.Add(myBookmark2);
 
             // Bookmark-3
             Viewpoint myViewpoint3 = new Viewpoint(-33.867886, -63.985, 40000);
@@ -66,7 +66,7 @@ namespace ArcGISRuntime.WPF.Samples.ManageBookmarks
             myBookmark3.Name = "Guitar-Shaped Forest";
             myBookmark3.Viewpoint = myViewpoint3;
             MyMapView.Map.Bookmarks.Add(myBookmark3);
-            bookmarkChooser.Items.Add(myBookmark3);
+            BookmarkChooser.Items.Add(myBookmark3);
 
             // Bookmark-4
             Viewpoint myViewpoint4 = new Viewpoint(44.525049, -110.83819, 6000);
@@ -74,16 +74,16 @@ namespace ArcGISRuntime.WPF.Samples.ManageBookmarks
             myBookmark4.Name = "Grand Prismatic Spring";
             myBookmark4.Viewpoint = myViewpoint4;
             MyMapView.Map.Bookmarks.Add(myBookmark4);
-            bookmarkChooser.Items.Add(myBookmark4);
+            BookmarkChooser.Items.Add(myBookmark4);
 
             // Set the initial combo box selection to the last bookmark added
-            bookmarkChooser.SelectedItem = MyMapView.Map.Bookmarks.Last();
+            BookmarkChooser.SelectedItem = MyMapView.Map.Bookmarks.Last();
 
             // Zoom to the last bookmark
             myMap.InitialViewpoint = myMap.Bookmarks.Last().Viewpoint;
 
             // Hide the controls for adding an additional bookmark
-            BorderAddBookmark.Visibility = System.Windows.Visibility.Hidden;
+            BorderAddBookmark.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         private void OnBookmarkChooserSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -97,14 +97,14 @@ namespace ArcGISRuntime.WPF.Samples.ManageBookmarks
         {
             // Show the controls to add a bookmark
             BorderAddBookmark.Visibility = System.Windows.Visibility.Visible;
-            ButtonAddBookmark.Visibility = System.Windows.Visibility.Hidden;
+            ButtonAddBookmark.Visibility = System.Windows.Visibility.Collapsed;
             TextBoxBookmarkName.Text = "";
         }
 
         private void ButtonCancel_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             // Hide the controls to add a bookmark
-            BorderAddBookmark.Visibility = System.Windows.Visibility.Hidden;
+            BorderAddBookmark.Visibility = System.Windows.Visibility.Collapsed;
             ButtonAddBookmark.Visibility = System.Windows.Visibility.Visible;
         }
 
@@ -133,13 +133,13 @@ namespace ArcGISRuntime.WPF.Samples.ManageBookmarks
             MyMapView.Map.Bookmarks.Add(myBookmark);
 
             // Add the bookmark to the list of choices in the combo box
-            bookmarkChooser.Items.Insert(bookmarkChooser.Items.Count, myBookmark);
+            BookmarkChooser.Items.Insert(BookmarkChooser.Items.Count, myBookmark);
 
             // Set the newly added bookmark to be the one selected in the combo box
-            bookmarkChooser.SelectedItem = myBookmark;
+            BookmarkChooser.SelectedItem = myBookmark;
 
             // Hide the controls to add a bookmark
-            BorderAddBookmark.Visibility = System.Windows.Visibility.Hidden;
+            BorderAddBookmark.Visibility = System.Windows.Visibility.Collapsed;
             ButtonAddBookmark.Visibility = System.Windows.Visibility.Visible;
         }
     }

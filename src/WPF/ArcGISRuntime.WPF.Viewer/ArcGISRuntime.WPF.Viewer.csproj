@@ -53,7 +53,7 @@
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\lib\net461\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
     </Reference>
     <Reference Include="Esri.ArcGISRuntime.LocalServices, Version=100.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0\lib\net461\Esri.ArcGISRuntime.LocalServices.dll</HintPath>
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0lib\net461\Esri.ArcGISRuntime.LocalServices.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -309,9 +309,12 @@
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml.cs">
       <DependentUpon>FeatureLayerUrl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.xaml.cs">
+      <DependentUpon>MapImageLayerTables.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml.cs">
       <DependentUpon>MapImageSublayerQuery.xaml</DependentUpon>
-    </Compile>
+    </Compile>    
     <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
       <DependentUpon>RasterHillshade.xaml</DependentUpon>
     </Compile>
@@ -357,22 +360,22 @@
     <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.xaml.cs">
       <DependentUpon>WMTSLayer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\LocalServer\DynamicWorkspaceRaster\DynamicWorkspaceRaster.xaml.cs">
+    <Compile Include="Samples\Local Server\DynamicWorkspaceRaster\DynamicWorkspaceRaster.xaml.cs">
       <DependentUpon>DynamicWorkspaceRaster.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\LocalServer\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.xaml.cs">
+    <Compile Include="Samples\Local Server\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.xaml.cs">
       <DependentUpon>DynamicWorkspaceShapefile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\LocalServer\LocalServerFeatureLayer\LocalServerFeatureLayer.xaml.cs">
+    <Compile Include="Samples\Local Server\LocalServerFeatureLayer\LocalServerFeatureLayer.xaml.cs">
       <DependentUpon>LocalServerFeatureLayer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\LocalServer\LocalServerGeoprocessing\LocalServerGeoprocessing.xaml.cs">
+    <Compile Include="Samples\Local Server\LocalServerGeoprocessing\LocalServerGeoprocessing.xaml.cs">
       <DependentUpon>LocalServerGeoprocessing.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\LocalServer\LocalServerMapImageLayer\LocalServerMapImageLayer.xaml.cs">
+    <Compile Include="Samples\Local Server\LocalServerMapImageLayer\LocalServerMapImageLayer.xaml.cs">
       <DependentUpon>LocalServerMapImageLayer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\LocalServer\LocalServerServices\LocalServerServices.xaml.cs">
+    <Compile Include="Samples\Local Server\LocalServerServices\LocalServerServices.xaml.cs">
       <DependentUpon>LocalServerServices.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
@@ -449,6 +452,9 @@
     </Compile>
     <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml.cs">
       <DependentUpon>SetMinMaxScale.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml.cs">
+      <DependentUpon>ClosestFacility.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Network Analysis\FindRoute\FindRoute.xaml.cs">
       <DependentUpon>FindRoute.xaml</DependentUpon>
@@ -759,10 +765,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml">
+    <Page Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>    
     <Page Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -823,27 +833,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\LocalServer\DynamicWorkspaceRaster\DynamicWorkspaceRaster.xaml">
+    <Page Include="Samples\Local Server\DynamicWorkspaceRaster\DynamicWorkspaceRaster.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\LocalServer\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.xaml">
+    <Page Include="Samples\Local Server\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\LocalServer\LocalServerFeatureLayer\LocalServerFeatureLayer.xaml">
+    <Page Include="Samples\Local Server\LocalServerFeatureLayer\LocalServerFeatureLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\LocalServer\LocalServerGeoprocessing\LocalServerGeoprocessing.xaml">
+    <Page Include="Samples\Local Server\LocalServerGeoprocessing\LocalServerGeoprocessing.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\LocalServer\LocalServerMapImageLayer\LocalServerMapImageLayer.xaml">
+    <Page Include="Samples\Local Server\LocalServerMapImageLayer\LocalServerMapImageLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\LocalServer\LocalServerServices\LocalServerServices.xaml">
+    <Page Include="Samples\Local Server\LocalServerServices\LocalServerServices.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -944,6 +954,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1201,9 +1215,12 @@
     <Content Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg">
+    <Content Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>    
     <Content Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1249,22 +1266,22 @@
     <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\LocalServer\DynamicWorkspaceRaster\DynamicWorkspaceRaster.jpg">
+    <Content Include="Samples\Local Server\DynamicWorkspaceRaster\DynamicWorkspaceRaster.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\LocalServer\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.jpg">
+    <Content Include="Samples\Local Server\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\LocalServer\LocalServerFeatureLayer\LocalServerFeatureLayer.jpg">
+    <Content Include="Samples\Local Server\LocalServerFeatureLayer\LocalServerFeatureLayer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\LocalServer\LocalServerGeoprocessing\LocalServerGeoprocessing.jpg">
+    <Content Include="Samples\Local Server\LocalServerGeoprocessing\LocalServerGeoprocessing.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\LocalServer\LocalServerMapImageLayer\LocalServerMapImageLayer.jpg">
+    <Content Include="Samples\Local Server\LocalServerMapImageLayer\LocalServerMapImageLayer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\LocalServer\LocalServerServices\LocalServerServices.jpg">
+    <Content Include="Samples\Local Server\LocalServerServices\LocalServerServices.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg">
@@ -1340,6 +1357,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Network Analysis\FindRoute\FindRoute.jpg">
@@ -1437,6 +1457,7 @@
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.3.0\build\net461\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.3.0\build\net461\Esri.ArcGISRuntime.WPF.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
@@ -1445,7 +1466,6 @@
     <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets'))" />
     <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0\build\net461\Esri.ArcGISRuntime.LocalServices.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0\build\net461\Esri.ArcGISRuntime.LocalServices.targets'))" />
   </Target>
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.3.0\build\net461\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.3.0\build\net461\Esri.ArcGISRuntime.WPF.targets')" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0\build\net461\Esri.ArcGISRuntime.LocalServices.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0\build\net461\Esri.ArcGISRuntime.LocalServices.targets')" />
 </Project>

@@ -38,7 +38,7 @@ namespace ArcGISRuntime.UWP.Samples.AccessLoadStatus
             myMap.LoadStatusChanged += OnMapsLoadStatusChanged;
 
             // Provide used Map to the MapView
-            myMapView.Map = myMap;
+            MyMapView.Map = myMap;
         }
 
         async private void OnMapsLoadStatusChanged(object sender, LoadStatusEventArgs e)
@@ -46,7 +46,7 @@ namespace ArcGISRuntime.UWP.Samples.AccessLoadStatus
             // Update the load status information
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                  {
-                     loadStatusTextBlock.Text = string.Format("Map's load status : {0}", e.Status.ToString());
+                     LoadStatusTextBlock.Text = string.Format("Map's load status : {0}", e.Status.ToString());
                  });
         }
     }

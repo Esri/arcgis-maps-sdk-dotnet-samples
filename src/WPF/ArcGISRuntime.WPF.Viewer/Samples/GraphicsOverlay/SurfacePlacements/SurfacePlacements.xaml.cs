@@ -3,14 +3,14 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.Geometry;
 using System;
 using System.Drawing;
 
@@ -27,7 +27,7 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
         {
             InitializeComponent();
 
-            // Execute initialization 
+            // Execute initialization
             Initialize();
         }
 
@@ -39,7 +39,7 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             // Set Scene's base map property
             myScene.Basemap = Basemap.CreateImagery();
 
-            // Create a camera with coordinates showing layer data 
+            // Create a camera with coordinates showing layer data
             Camera camera = new Camera(53.04, -4.04, 1300, 0, 90.0, 0);
 
             // Assign the Scene to the SceneView
@@ -52,7 +52,7 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             // Add elevationSource to BaseSurface's ElevationSources
             MySceneView.Scene.BaseSurface.ElevationSources.Add(elevationSource);
 
-            // Set view point of scene view using camera 
+            // Set view point of scene view using camera
             MySceneView.SetViewpointCameraAsync(camera);
 
             // Create overlays with elevation modes
@@ -72,20 +72,23 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             MapPoint point = new MapPoint(-4.04, 53.06, 1000, camera.Location.SpatialReference);
 
             // Create a red circle symbol
-            SimpleMarkerSymbol circleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.FromArgb(255, 255,0,0), 10);
+            SimpleMarkerSymbol circleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.FromArgb(255, 255, 0, 0), 10);
 
             // Create a text symbol for each elevation mode
-            TextSymbol drapedText = new TextSymbol("DRAPED", Color.FromArgb(255, 255,255,255), 10, 
-                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Left,
+            TextSymbol drapedText = new TextSymbol("DRAPED", Color.FromArgb(255, 255, 255, 255), 10,
+                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
+            drapedText.OffsetY += 20;
 
-            TextSymbol relativeText = new TextSymbol("RELATIVE", Color.FromArgb(255, 255, 255, 255), 10, 
-                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Left,
+            TextSymbol relativeText = new TextSymbol("RELATIVE", Color.FromArgb(255, 255, 255, 255), 10,
+                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
+            relativeText.OffsetY += 20;
 
-            TextSymbol absoluteText = new TextSymbol("ABSOLUTE", Color.FromArgb(255, 255, 255, 255), 10, 
-                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Left,
+            TextSymbol absoluteText = new TextSymbol("ABSOLUTE", Color.FromArgb(255, 255, 255, 255), 10,
+                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
+            absoluteText.OffsetY += 20;
 
             // Add the point graphic and text graphic to the corresponding graphics overlay
             drapedOverlay.Graphics.Add(new Graphic(point, circleSymbol));
@@ -96,8 +99,6 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
 
             absoluteOverlay.Graphics.Add(new Graphic(point, circleSymbol));
             absoluteOverlay.Graphics.Add(new Graphic(point, absoluteText));
-
         }
-
     }
 }

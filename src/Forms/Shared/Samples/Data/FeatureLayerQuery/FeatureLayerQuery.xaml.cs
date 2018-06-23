@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -26,21 +27,21 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         "The sample provides a search bar on the top, where you can input the name of a US State. When you hit search the app performs a query on the feature table and based on the result either highlights the state geometry or provides an error.")]
     public partial class FeatureLayerQuery : ContentPage
     {
-        // Create reference to service of US States  
+        // Create reference to service of US States
         private string _statesUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2";
 
-        // Create globally available feature table for easy referencing 
+        // Create globally available feature table for easy referencing
         private ServiceFeatureTable _featureTable;
 
-        // Create globally available feature layer for easy referencing 
+        // Create globally available feature layer for easy referencing
         private FeatureLayer _featureLayer;
 
         public FeatureLayerQuery()
         {
-            InitializeComponent ();
+            InitializeComponent();
 
             Title = "Feature layer query";
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
@@ -63,11 +64,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             // Set the Opacity of the Feature Layer
             _featureLayer.Opacity = 0.6;
 
-            // Create a new renderer for the States Feature Layer
-            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(
-                SimpleLineSymbolStyle.Solid, Colors.Black, 1);
-            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(
-                SimpleFillSymbolStyle.Solid, Colors.Yellow, lineSymbol);
+            // Create a new renderer for the States Feature Layer.
+            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Black, 1);
+            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Colors.Transparent, lineSymbol);
+            _featureLayer.SelectionColor = Colors.Cyan;
+            _featureLayer.SelectionWidth = 4.0;
 
             // Set States feature layer renderer
             _featureLayer.Renderer = new SimpleRenderer(fillSymbol);
@@ -81,10 +82,10 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
 
         private async void OnQueryClicked(object sender, EventArgs e)
         {
-            // Remove any previous feature selections that may have been made 
+            // Remove any previous feature selections that may have been made
             _featureLayer.ClearSelection();
 
-            // Begin query process 
+            // Begin query process
             await QueryStateFeature(queryEntry.Text);
         }
 
@@ -92,31 +93,38 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         {
             try
             {
-                // Create a query parameters that will be used to Query the feature table  
+                // Create a query parameters that will be used to Query the feature table
                 QueryParameters queryParams = new QueryParameters();
 
                 // Trim whitespace on the state name to prevent broken queries
                 String formattedStateName = stateName.Trim().ToUpper();
 
-                // Construct and assign the where clause that will be used to query the feature table 
+                // Construct and assign the where clause that will be used to query the feature table
                 queryParams.WhereClause = "upper(STATE_NAME) LIKE '%" + formattedStateName + "%'";
 
-                // Query the feature table 
+                // Query the feature table
                 FeatureQueryResult queryResult = await _featureTable.QueryFeaturesAsync(queryParams);
 
-                // Cast the QueryResult to a List so the results can be interrogated
-                var features = queryResult.ToList();
+                // Cast the QueryResult to a List so the results can be interrogated.
+                List<Feature> features = queryResult.ToList();
 
                 if (features.Any())
                 {
-                    // Get the first feature returned in the Query result 
-                    Feature feature = features[0];
+                    // Create an envelope.
+                    EnvelopeBuilder envBuilder = new EnvelopeBuilder(SpatialReferences.WebMercator);
 
-                    // Add the returned feature to the collection of currently selected features
-                    _featureLayer.SelectFeature(feature);
+                    // Loop over each feature from the query result.
+                    foreach (Feature feature in features)
+                    {
+                        // Add the extent of each matching feature to the envelope.
+                        envBuilder.UnionOf(feature.Geometry.Extent);
 
-                    // Zoom to the extent of the newly selected feature
-                    await myMapView.SetViewpointGeometryAsync(feature.Geometry.Extent);
+                        // Select each feature.
+                        _featureLayer.SelectFeature(feature);
+                    }
+
+                    // Zoom to the extent of the selected feature(s).
+                    await myMapView.SetViewpointGeometryAsync(envBuilder.ToGeometry(), 50);
                 }
                 else
                 {

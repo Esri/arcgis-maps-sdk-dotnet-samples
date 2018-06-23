@@ -9,6 +9,7 @@
 
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
@@ -22,14 +23,14 @@ namespace ArcGISRuntime.WPF.Samples.SelectEncFeatures
         "Hydrography",
         "This sample demonstrates how to select an ENC feature.",
         "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("a490098c60f64d3bbac10ad131cc62c7")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("a490098c60f64d3bbac10ad131cc62c7")]
     public partial class SelectEncFeatures
     {
         public SelectEncFeatures()
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization
+            // Create the UI, setup the control references and execute initialization.
             Initialize();
         }
 
@@ -41,19 +42,19 @@ namespace ArcGISRuntime.WPF.Samples.SelectEncFeatures
             // Get the path to the ENC Exchange Set
             string encPath = GetEncPath();
 
-            // Create the cell and layer
+            // Create the cell and layer.
             EncLayer myEncLayer = new EncLayer(new EncCell(encPath));
 
-            // Add the layer to the map
+            // Add the layer to the map.
             MyMapView.Map.OperationalLayers.Add(myEncLayer);
 
-            // Wait for the layer to load
+            // Wait for the layer to load.
             await myEncLayer.LoadAsync();
 
-            // Set the viewpoint
+            // Set the viewpoint.
             MyMapView.SetViewpoint(new Viewpoint(myEncLayer.FullExtent));
 
-            // Subscribe to tap events (in order to use them to identify and select features)
+            // Subscribe to tap events (in order to use them to identify and select features).
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
@@ -62,47 +63,47 @@ namespace ArcGISRuntime.WPF.Samples.SelectEncFeatures
             // For each layer in the operational layers that is an ENC layer
             foreach (EncLayer layer in MyMapView.Map.OperationalLayers.OfType<EncLayer>())
             {
-                // Clear the layer's selection
+                // Clear the layer's selection.
                 layer.ClearSelection();
             }
 
-            // Clear the callout
+            // Clear the callout.
             MyMapView.DismissCallout();
         }
 
         private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
-            // First clear any existing selections
+            // First clear any existing selections.
             ClearAllSelections();
 
-            // Perform the identify operation
+            // Perform the identify operation.
             IReadOnlyList<IdentifyLayerResult> results = await MyMapView.IdentifyLayersAsync(e.Position, 5, false);
 
-            // Return if there are no results
+            // Return if there are no results.
             if (results.Count < 1) { return; }
 
-            // Get the results that are from ENC layers
+            // Get the results that are from ENC layers.
             IEnumerable<IdentifyLayerResult> encResults = results.Where(result => result.LayerContent is EncLayer);
 
-            // Get the ENC results that have features
+            // Get the ENC results that have features.
             IEnumerable<IdentifyLayerResult> encResultsWithFeatures = encResults.Where(result => result.GeoElements.Count > 0);
 
-            // Get the first result with ENC features
+            // Get the first result with ENC features.
             IdentifyLayerResult firstResult = encResultsWithFeatures.First();
 
-            // Get the layer associated with this set of results
+            // Get the layer associated with this set of results.
             EncLayer containingLayer = firstResult.LayerContent as EncLayer;
 
-            // Get the first identified ENC feature
-            EncFeature firstFeature = firstResult.GeoElements.First() as EncFeature;
+            // Select the smallest (area) feature in the layer.
+            EncFeature smallestFeature = (EncFeature)firstResult.GeoElements.OrderBy(f => GeometryEngine.Area(f.Geometry)).First();
 
-            // Select the feature
-            containingLayer.SelectFeature(firstFeature);
+            // Select the feature.
+            containingLayer.SelectFeature(smallestFeature);
 
-            // Create the callout definition
-            CalloutDefinition definition = new CalloutDefinition(firstFeature.Acronym, firstFeature.Description);
+            // Create the callout definition.
+            CalloutDefinition definition = new CalloutDefinition(smallestFeature.Acronym, smallestFeature.Description);
 
-            // Show the callout
+            // Show the callout.
             MyMapView.ShowCalloutAt(e.Location, definition);
         }
 

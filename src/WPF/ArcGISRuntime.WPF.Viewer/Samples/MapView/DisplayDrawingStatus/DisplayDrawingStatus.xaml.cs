@@ -62,13 +62,13 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDrawingStatus
                 // Show the activity indicator if the map is drawing
                 if (e.Status == DrawStatus.InProgress)
                 {
-                    activityIndicator.IsEnabled = true;
-                    activityIndicator.Visibility = System.Windows.Visibility.Visible;
+                    ActivityIndicator.IsEnabled = true;
+                    ActivityIndicator.Visibility = System.Windows.Visibility.Visible;
                 }
                 else
                 {
-                    activityIndicator.IsEnabled = false;
-                    activityIndicator.Visibility = System.Windows.Visibility.Collapsed;
+                    ActivityIndicator.IsEnabled = false;
+                    ActivityIndicator.Visibility = System.Windows.Visibility.Collapsed;
                 }
             });
         }

@@ -41,8 +41,8 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDeviceLocation
             MyMapView.Map = myMap;
 
             // Set navigation types as items source and set default value
-            modeChooser.ItemsSource = _navigationTypes;
-            modeChooser.SelectedIndex = 0;
+            ModeChooser.ItemsSource = _navigationTypes;
+            ModeChooser.SelectedIndex = 0;
 
             // Update the UI when the user pans the view, changing the location mode
             MyMapView.LocationDisplay.AutoPanModeChanged += (sender, args) =>
@@ -50,16 +50,16 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDeviceLocation
                 switch (MyMapView.LocationDisplay.AutoPanMode)
                 {
                     case LocationDisplayAutoPanMode.Off:
-                        modeChooser.SelectedIndex = 0;
+                        ModeChooser.SelectedIndex = 0;
                         break;
                     case LocationDisplayAutoPanMode.Recenter:
-                        modeChooser.SelectedIndex = 1;
+                        ModeChooser.SelectedIndex = 1;
                         break;
                     case LocationDisplayAutoPanMode.Navigation:
-                        modeChooser.SelectedIndex = 2;
+                        ModeChooser.SelectedIndex = 2;
                         break;
                     case LocationDisplayAutoPanMode.CompassNavigation:
-                        modeChooser.SelectedIndex = 3;
+                        ModeChooser.SelectedIndex = 3;
                         break;
                 }
             };
@@ -77,7 +77,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDeviceLocation
         private void OnModeChooserSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             // Get index that is used to get the selected URL
-            var selectedIndex = modeChooser.SelectedIndex;
+            var selectedIndex = ModeChooser.SelectedIndex;
 
             switch (selectedIndex)
             {

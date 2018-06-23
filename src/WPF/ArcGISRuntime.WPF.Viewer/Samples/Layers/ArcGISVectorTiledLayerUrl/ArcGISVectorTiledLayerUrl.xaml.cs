@@ -49,10 +49,10 @@ namespace ArcGISRuntime.WPF.Samples.ArcGISVectorTiledLayerUrl
             Map myMap = new Map(new Basemap(vectorTiledLayer));
 
             // Set titles as items source
-            vectorLayersChooser.ItemsSource = _layerUrls.Keys;
+            VectorLayersChooser.ItemsSource = _layerUrls.Keys;
 
             // Select the first item
-            vectorLayersChooser.SelectedIndex = 0;
+            VectorLayersChooser.SelectedIndex = 0;
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;

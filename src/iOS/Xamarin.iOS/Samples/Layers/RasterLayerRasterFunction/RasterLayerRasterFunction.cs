@@ -92,7 +92,7 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
             //}
 
             // Define the JSON string needed for the raster function
-            string theJSON_String =
+            string theJsonString =
                 @"{
                 ""raster_function_arguments"":
                 {
@@ -109,7 +109,7 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
             }";
 
             // Create a raster function from the JSON string using the static/Shared method called: RasterFunction.FromJson(JSON as String).
-            RasterFunction rasterFunction = RasterFunction.FromJson(theJSON_String);
+            RasterFunction rasterFunction = RasterFunction.FromJson(theJsonString);
 
             // NOTE: You could have alternatively created the raster function via a JSON string that is contained in a 
             // file on disk (ex: hillshade_simplified.json) via the constructor: Esri.ArcGISRuntime.Rasters.RasterFunction(path as String).

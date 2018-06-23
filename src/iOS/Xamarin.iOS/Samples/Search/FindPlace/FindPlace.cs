@@ -35,7 +35,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         public List<string> TableItems = new List<string>();
 
         // Used when re-using cells to ensure that a cell of the right type is used.
-        private readonly string CellId = "TableCell";
+        private const string CellId = "TableCell";
 
         // Hold a reference to the owning view controller; this will be the active instance of FindPlace.
         private FindPlace Owner { get; }

@@ -191,7 +191,7 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
         private readonly List<string> _viewModelList = new List<string>();
 
         // Used when re-using cells to ensure that a cell of the right type is used.
-        private readonly string CellId = "TableCell";
+        private const string CellId = "TableCell";
 
         public LayerListSource(List<string> items)
         {
@@ -208,7 +208,11 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             // Try to get a re-usable cell (this is for performance). If there are no cells, create a new one.
-            UITableViewCell cell = tableView.DequeueReusableCell(CellId) ?? new UITableViewCell(UITableViewCellStyle.Default, CellId);
+            UITableViewCell cell = tableView.DequeueReusableCell(CellId);
+            if (cell == null)
+            {
+                cell = new UITableViewCell(UITableViewCellStyle.Default, CellId);
+            }
 
             // Set the text on the cell.
             cell.TextLabel.Text = _viewModelList[indexPath.Row];

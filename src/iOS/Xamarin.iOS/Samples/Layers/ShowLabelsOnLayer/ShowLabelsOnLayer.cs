@@ -101,7 +101,7 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
             // (3) The 'where' clause restricts the labels to be displayed that has valid (non-empty) data. Empty data
             //     for this service has a single blank space in the 'rte_num1' field.
             // (4) The 'symbol' for the labeled text will be blue with a yellow halo.
-            string theJSON_String =
+            string theJsonString =
                 @"{
                     ""labelExpressionInfo"":{""expression"":""'I - ' + $feature.rte_num1""},
                     ""labelPlacement"":""esriServerLinePlacementAboveAlong"",
@@ -132,7 +132,7 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
                }";
 
             // Create a label definition from the JSON string. 
-            LabelDefinition highwaysLabelDefinition = LabelDefinition.FromJson(theJSON_String);
+            LabelDefinition highwaysLabelDefinition = LabelDefinition.FromJson(theJsonString);
 
             // Add the label definition to the feature layer's label definition collection.
             highwaysFeatureLayer.LabelDefinitions.Add(highwaysLabelDefinition);

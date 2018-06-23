@@ -208,10 +208,10 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         public delegate void NewCommentSelectedHandler(object sender, ServiceRequestCommentSelectedEventArgs e);
 
         // A list of service request comment features.
-        protected List<ArcGISFeature> _comments;
+        protected List<ArcGISFeature> Comments;
 
         // An identifier for the table cell (for cell reuse).
-        protected string cellIdentifier = "TableCell";
+        protected string CellIdentifier = "TableCell";
 
         // Store the selected row.
         ArcGISFeature _selectedCommentRecord;
@@ -219,7 +219,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         // The constructor takes a list of service request comment features.
         public ServiceRequestCommentsTableSource(List<ArcGISFeature> comments)
         {
-            _comments = comments;
+            Comments = comments;
         }
 
         // Number of sections (groups) to display.
@@ -231,7 +231,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         // When the selected row changes, raise the ServiceRequestCommentSelected event to return the selected feature.
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
-            _selectedCommentRecord = _comments[indexPath.Row];
+            _selectedCommentRecord = Comments[indexPath.Row];
             ServiceRequestCommentSelected(this, new ServiceRequestCommentSelectedEventArgs(_selectedCommentRecord));
         }
 
@@ -239,23 +239,23 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         public override nint RowsInSection(UITableView tableview, nint section)
         {
             // If the feature list is null, return 0. Otherwise the number of features in the internal comments list.
-            return _comments != null ? _comments.Count : 0;
+            return Comments != null ? Comments.Count : 0;
         }
 
         // Get the cell to display for the specified row.
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             // Get the reused cell from the table view.
-            UITableViewCell cell = tableView.DequeueReusableCell(cellIdentifier);
+            UITableViewCell cell = tableView.DequeueReusableCell(CellIdentifier);
 
             // Get the comment feature at this cell index.
-            Feature commentRow = _comments[indexPath.Row];
+            Feature commentRow = Comments[indexPath.Row];
 
             // If there wasn't a cell for reuse, create a new one.
             if (cell == null)
             {
                 // Value1 provides a text label (for the request ID) and detail text label (for the comment text).
-                cell = new UITableViewCell(UITableViewCellStyle.Value1, cellIdentifier);
+                cell = new UITableViewCell(UITableViewCellStyle.Value1, CellIdentifier);
             }
 
             // Fill the cell text with attributes from the comment feature.

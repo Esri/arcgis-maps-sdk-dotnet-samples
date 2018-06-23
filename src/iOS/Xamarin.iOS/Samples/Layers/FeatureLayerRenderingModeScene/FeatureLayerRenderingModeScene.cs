@@ -42,7 +42,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
         private Camera _zoomedInCamera;
 
         // URI for the feature service.
-        private readonly string _featureService = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/";
+        private const string FeatureService = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/";
 
         // Hold the current zoom state.
         private bool _zoomed;
@@ -81,9 +81,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
             };
 
             // Create the service feature tables.
-            ServiceFeatureTable faultTable = new ServiceFeatureTable(new Uri(_featureService + "0"));
-            ServiceFeatureTable contactTable = new ServiceFeatureTable(new Uri(_featureService + "8"));
-            ServiceFeatureTable outcropTable = new ServiceFeatureTable(new Uri(_featureService + "9"));
+            ServiceFeatureTable faultTable = new ServiceFeatureTable(new Uri(FeatureService + "0"));
+            ServiceFeatureTable contactTable = new ServiceFeatureTable(new Uri(FeatureService + "8"));
+            ServiceFeatureTable outcropTable = new ServiceFeatureTable(new Uri(FeatureService + "9"));
 
             // Create the feature layers.
             FeatureLayer faultLayer = new FeatureLayer(faultTable);

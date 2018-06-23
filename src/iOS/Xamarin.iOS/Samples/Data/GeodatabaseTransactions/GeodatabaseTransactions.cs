@@ -216,7 +216,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 await GetLocalGeodatabase();
 
                 // Once the local geodatabase is available, load the tables as layers to the map.
-                LoadLocalGeodatabaseTables();
+                await LoadLocalGeodatabaseTables();
             };
 
             // Create a new map with the oceans basemap and add it to the map view.
@@ -308,7 +308,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         }
 
         // Function that loads the two point tables from the local geodatabase and displays them as feature layers.
-        private async void LoadLocalGeodatabaseTables()
+        private async Task LoadLocalGeodatabaseTables()
         {
             if (_localGeodatabase == null)
             {

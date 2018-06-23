@@ -217,7 +217,7 @@ namespace ArcGISRuntime.Samples.FindRoute
     public class DirectionsTableSource : UITableViewSource
     {
         private readonly IReadOnlyList<DirectionManeuver> _directionsList;
-        private readonly string _cellId = "TableCell";
+        private const string CellId = "TableCell";
 
         public DirectionsTableSource(IReadOnlyList<DirectionManeuver> directions)
         {
@@ -226,12 +226,12 @@ namespace ArcGISRuntime.Samples.FindRoute
 
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            UITableViewCell cell = tableView.DequeueReusableCell(_cellId);
+            UITableViewCell cell = tableView.DequeueReusableCell(CellId);
             string directionText = _directionsList[indexPath.Row].DirectionText;
 
             if (cell == null)
             {
-                cell = new UITableViewCell(UITableViewCellStyle.Default, _cellId);
+                cell = new UITableViewCell(UITableViewCellStyle.Default, CellId);
                 cell.TextLabel.Lines = 2;
                 cell.TextLabel.AdjustsFontSizeToFitWidth = true;
             }

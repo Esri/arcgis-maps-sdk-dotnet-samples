@@ -165,7 +165,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         private readonly List<LayerStatusModel> _layers;
 
         // Identifier for the table cell.
-        private readonly string cellIdentifier = "TableCell";
+        private const string CellIdentifier = "TableCell";
 
         public LayerViewStatusTableSource(List<LayerStatusModel> layers)
         {
@@ -191,7 +191,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             // Get the reused cell from the table view.
-            UITableViewCell cell = tableView.DequeueReusableCell(cellIdentifier);
+            UITableViewCell cell = tableView.DequeueReusableCell(CellIdentifier);
 
             // Get the model at this current cell index.
             LayerStatusModel model = _layers[indexPath.Row];
@@ -200,7 +200,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             // We are specifically using Value1 style so text for both layer name and status can be displayed.
             if (cell == null)
             {
-                cell = new UITableViewCell(UITableViewCellStyle.Value1, cellIdentifier);
+                cell = new UITableViewCell(UITableViewCellStyle.Value1, CellIdentifier);
             }
 
             cell.TextLabel.Text = model.LayerName ?? "Layer " + indexPath.Row;

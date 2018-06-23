@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
 
         // Coordinates for London.
         private readonly MapPoint _londonCoords = new MapPoint(-13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
-        private readonly double LondonScale = 8762.7156655228955;
+        private readonly double _londonScale = 8762.7156655228955;
 
         // Coordinates for Redlands.
         private readonly Polygon _redlandsEnvelope = new Polygon(
@@ -122,7 +122,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
                     await _myMapView.SetViewpointCenterAsync(_londonCoords);
 
                     // Set the Viewpoint scale to match the specified scale.
-                    await _myMapView.SetViewpointScaleAsync(LondonScale);
+                    await _myMapView.SetViewpointScaleAsync(_londonScale);
                     break;
                 case 2:
                     // Navigate to full extent of the first base layer before animating to specified geometry.

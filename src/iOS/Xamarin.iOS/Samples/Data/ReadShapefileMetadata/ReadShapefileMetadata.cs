@@ -7,14 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI.Controls;
-using Foundation;
 using System;
 using ArcGISRuntime.Samples.Managers;
 using CoreGraphics;
+using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
+using Foundation;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ReadShapefileMetadata
@@ -125,10 +125,10 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             View.Add(metadataDialog);
 
             // Action to decrease the view transparency (will be 100% opaque).
-            Action MakeOpaqueAction = () => metadataDialog.Alpha = 1.0f;
+            Action makeOpaqueAction = () => metadataDialog.Alpha = 1.0f;
 
             // Animate opacity to 100% in one second.
-            UIView.Animate(1.00, MakeOpaqueAction, null);
+            UIView.Animate(1.00, makeOpaqueAction, null);
         }
     }
 
@@ -214,7 +214,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         private void Hide()
         {
             // Action to make the view transparent.
-            Action MakeTransparentAction = () => Alpha = 0;
+            Action makeTransparentAction = () => Alpha = 0;
 
             // Action to remove the view.
             Action removeViewAction = RemoveFromSuperview;
@@ -223,7 +223,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             double secondsToComplete = 0.75;
 
             // Animate transparency to zero, then remove the view.
-            Animate(secondsToComplete, MakeTransparentAction, removeViewAction);
+            Animate(secondsToComplete, makeTransparentAction, removeViewAction);
         }
     }
 }

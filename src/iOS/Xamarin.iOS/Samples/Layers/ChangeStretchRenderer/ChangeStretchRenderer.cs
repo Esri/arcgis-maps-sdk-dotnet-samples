@@ -277,7 +277,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     }
                     catch (Exception ex)
                     {
-                        showMessage("Error configuring renderer.", "Ensure all values are valid and try again.");
+                        ShowMessage("Error configuring renderer.", "Ensure all values are valid and try again.");
                         return;
                     }
 
@@ -299,7 +299,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     }
                     catch (Exception ex)
                     {
-                        showMessage("Error configuring renderer.", "Ensure all values are valid and try again.");
+                        ShowMessage("Error configuring renderer.", "Ensure all values are valid and try again.");
                         return;
                     }
 
@@ -319,7 +319,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     }
                     catch (Exception ex)
                     {
-                        showMessage("Error configuring renderer.", "Ensure all values are valid and try again.");
+                        ShowMessage("Error configuring renderer.", "Ensure all values are valid and try again.");
                         return;
                     }
 
@@ -333,7 +333,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             rasterLayer.Renderer = stretchRenderer;
         }
 
-        private void showMessage(string title, string message)
+        private void ShowMessage(string title, string message)
         {
             new UIAlertView(title, message, (IUIAlertViewDelegate) null, "OK", null).Show();
         }

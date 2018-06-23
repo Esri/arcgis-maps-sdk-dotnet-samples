@@ -191,7 +191,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
                 // Make sure a record was returned.
                 if (record == null || record.Statistics.Count == 0)
                 {
-                    showMessage("No result", "No results were returned.");
+                    ShowMessage("No result", "No results were returned.");
                 }
 
                 // Display results.
@@ -200,7 +200,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             }
             catch (ArcGISWebException exception)
             {
-                showMessage("There was a problem running the query.", exception.ToString());
+                ShowMessage("There was a problem running the query.", exception.ToString());
             }
         }
 
@@ -231,7 +231,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             PresentViewController(statsAlert, true, null);
         }
 
-        private void showMessage(string title, string message)
+        private void ShowMessage(string title, string message)
         {
             new UIAlertView(title, message, (IUIAlertViewDelegate) null, "OK", null).Show();
         }

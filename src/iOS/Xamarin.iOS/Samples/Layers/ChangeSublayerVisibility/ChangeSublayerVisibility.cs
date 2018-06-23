@@ -140,7 +140,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
     {
         private readonly List<ArcGISSublayer> _sublayers;
 
-        private static readonly string CellId = "cellid";
+        private const string CellId = "cellid";
 
         public SublayerDataSource(List<ArcGISSublayer> sublayers)
         {

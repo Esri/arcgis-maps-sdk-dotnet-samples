@@ -39,7 +39,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         private UIButton _queryButton;
 
         // Create reference to service of US States  
-        private readonly string _statesUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2";
+        private const string StatesUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2";
 
         // Create globally available feature table for easy referencing 
         private ServiceFeatureTable _featureTable;
@@ -96,7 +96,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             map.InitialViewpoint = new Viewpoint(initialLocation, 100000000);
 
             // Create feature table using a URL.
-            _featureTable = new ServiceFeatureTable(new Uri(_statesUrl));
+            _featureTable = new ServiceFeatureTable(new Uri(StatesUrl));
 
             // Create feature layer using this feature table.
             _featureLayer = new FeatureLayer(_featureTable)

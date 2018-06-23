@@ -290,7 +290,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                     {
                         // If no error, show messages from the job.
                         IEnumerable<string> m = from msg in job.Messages select msg.Message;
-                        message += ": " + string.Join<string>("\n", m);
+                        message += ": " + string.Join("\n", m);
                     }
 
                     ShowStatusMessage(message);
@@ -339,7 +339,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             InvokeOnMainThread(() =>
             {
                 // Update the progress bar value.
-                _progressBar.Progress = (float) (_generateGdbJob.Progress / 100.0);
+                _progressBar.Progress = _generateGdbJob.Progress / 100.0f;
             });
         }
     }

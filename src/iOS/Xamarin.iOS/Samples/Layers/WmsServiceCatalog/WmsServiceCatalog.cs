@@ -242,7 +242,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         public readonly List<LayerDisplayVm> ViewModelList = new List<LayerDisplayVm>();
 
         // Used when re-using cells to ensure that a cell of the right type is used
-        private readonly string _cellId = "TableCell";
+        private const string CellId = "TableCell";
 
         // Hold a reference to the owning view controller; this will be the active instance of WmsServiceCatalog.
         private WmsServiceCatalog Owner { get; }
@@ -265,12 +265,12 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             // Try to get a re-usable cell (this is for performance).
-            UITableViewCell cell = tableView.DequeueReusableCell(_cellId);
+            UITableViewCell cell = tableView.DequeueReusableCell(CellId);
 
             // If there are no cells, create a new one.
             if (cell == null)
             {
-                cell = new UITableViewCell(UITableViewCellStyle.Default, _cellId)
+                cell = new UITableViewCell(UITableViewCellStyle.Default, CellId)
                 {
                     BackgroundColor = UIColor.FromWhiteAlpha(0, 0f)
                 };

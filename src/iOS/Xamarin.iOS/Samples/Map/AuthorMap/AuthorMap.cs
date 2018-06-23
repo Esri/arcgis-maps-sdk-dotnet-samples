@@ -59,7 +59,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         // Constants for OAuth-related values ...
         // URL of the server to authenticate with.
-        private readonly string ServerUrl = "https://www.arcgis.com/sharing/rest";
+        private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
 
         // TODO: Add Client ID for an app registered with the server.
         private string _appClientId = "2Gh53JRzkPtOENQq";
@@ -69,7 +69,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private string _oAuthRedirectUrl = "https://developers.arcgis.com";
 
         // URL used by the server for authorization.
-        private readonly string _authorizeUrl = "https://www.arcgis.com/sharing/oauth2/authorize";
+        private const string AuthorizeUrl = "https://www.arcgis.com/sharing/oauth2/authorize";
 
         public AuthorMap()
         {
@@ -489,7 +489,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             OAuth2Authenticator auth = new OAuth2Authenticator(
                 clientId: _appClientId,
                 scope: "",
-                authorizeUrl: new Uri(_authorizeUrl),
+                authorizeUrl: new Uri(AuthorizeUrl),
                 redirectUrl: new Uri(_oAuthRedirectUrl))
             {
                 ShowErrors = false,

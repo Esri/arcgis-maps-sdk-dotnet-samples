@@ -82,10 +82,10 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
             }
 
             // Fix to prevent crash on iPad.
-            var poppover = layerSelectionAlert.PopoverPresentationController;
-            if (poppover != null)
+            var popoverPresentationController = layerSelectionAlert.PopoverPresentationController;
+            if (popoverPresentationController != null)
             {
-                poppover.SourceView = (UIButton) sender;
+                popoverPresentationController.SourceView = (UIButton) sender;
             }
 
             // Show the alert.

@@ -149,16 +149,16 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             };
 
             // Update the inset map with a new GraphicsOverlay based on the renderer.
-            GraphicsOverlay insetMapOperlay = new GraphicsOverlay
+            GraphicsOverlay insetMapOverlay = new GraphicsOverlay
             {
                 Renderer = renderer2D
             };
-            _insetMapView.GraphicsOverlays.Add(insetMapOperlay);
+            _insetMapView.GraphicsOverlays.Add(insetMapOverlay);
 
             // Create placeholder graphic for showing the mission route in the inset map.
             SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
             _routeGraphic = new Graphic {Symbol = routeSymbol};
-            insetMapOperlay.Graphics.Add(_routeGraphic);
+            insetMapOverlay.Graphics.Add(_routeGraphic);
 
             // Create the plane graphic; this is symbolized as a blue triangle because of renderer implemented above.
             Dictionary<string, object> plane2DAttributes = new Dictionary<string, object>
@@ -170,7 +170,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             _plane2D = new Graphic(new MapPoint(0, 0, SpatialReferences.Wgs84), plane2DAttributes);
 
             // Add the plane graphic to the inset map via the overlay.
-            insetMapOperlay.Graphics.Add(_plane2D);
+            insetMapOverlay.Graphics.Add(_plane2D);
 
             // Create the model graphic for the plane.
             string modelPath = DataManager.GetDataFolder("681d6f7694644709a7c830ec57a2d72b", "Bristol.dae");

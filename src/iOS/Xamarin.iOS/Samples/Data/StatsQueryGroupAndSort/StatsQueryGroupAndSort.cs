@@ -76,7 +76,6 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
                 _showOrderByFieldsButton.Frame = new CGRect(margin, pageOffset + controlHeight * 6 + margin * 4, controlWidth, controlHeight);
                 _getStatsButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, controlWidth, controlHeight);
 
-
                 base.ViewDidLayoutSubviews();
             }
             // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
@@ -173,7 +172,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             UITableViewController sortFieldsTable = new UITableViewController(UITableViewStyle.Plain);
 
             // Get the current list of group fields and create/update the sort field choices.
-            IEnumerable<KeyValuePair<string, bool>> sortFieldChoices = _groupByFields.Where(field => field.Value);
+            List<KeyValuePair<string, bool>> sortFieldChoices = _groupByFields.Where(field => field.Value).ToList();
             foreach (KeyValuePair<string, bool> sortChoice in sortFieldChoices)
             {
                 // If this group field is not in the list of available order fields, add it to the list.
@@ -371,14 +370,14 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         }
 
         // Return the desired width for each component in the picker.
-        public override nfloat GetComponentWidth(UIPickerView picker, nint component)
+        public override nfloat GetComponentWidth(UIPickerView pickerView, nint component)
         {
             // first component is the fields list, second is the statistic types.
             return component == 0 ? 160f : 120f;
         }
 
         // Return the desired height for rows in the picker.
-        public override nfloat GetRowHeight(UIPickerView picker, nint component)
+        public override nfloat GetRowHeight(UIPickerView pickerView, nint component)
         {
             return 40f;
         }
@@ -535,7 +534,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         }
 
         // Return the number of rows for the table (count of the statistics definition list).
-        public override nint RowsInSection(UITableView tableView, nint section)
+        public override nint RowsInSection(UITableView tableview, nint section)
         {
             return _statisticDefinitions.Count;
         }
@@ -596,7 +595,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         }
 
         // Return the number of rows to display.
-        public override nint RowsInSection(UITableView tableView, nint section)
+        public override nint RowsInSection(UITableView tableview, nint section)
         {
             return _potentialGroupFields.Count;
         }
@@ -657,7 +656,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         }
 
         // Return the number of rows to display.
-        public override nint RowsInSection(UITableView tableView, nint section)
+        public override nint RowsInSection(UITableView tableview, nint section)
         {
             return _potentialOrderByFields.Count;
         }
@@ -708,7 +707,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         }
 
         // Return the number of rows in the specified section (group).
-        public override nint RowsInSection(UITableView tableView, nint section)
+        public override nint RowsInSection(UITableView tableview, nint section)
         {
             return _statisticsResults[_statisticsResults.Keys.ElementAt((int) section)].Count;
         }

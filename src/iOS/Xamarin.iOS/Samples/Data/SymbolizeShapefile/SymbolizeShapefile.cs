@@ -64,10 +64,10 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
             };
 
             // Get the path to the shapefile.
-            string shapefilepath = DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "Subdivisions.shp");
+            string shapefilePath = DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "Subdivisions.shp");
 
             // Create a shapefile feature table from the shapefile path.
-            ShapefileFeatureTable featureTable = new ShapefileFeatureTable(shapefilepath);
+            ShapefileFeatureTable featureTable = new ShapefileFeatureTable(shapefilePath);
 
             // Create a layer from the feature table.
             _shapefileFeatureLayer = new FeatureLayer(featureTable);

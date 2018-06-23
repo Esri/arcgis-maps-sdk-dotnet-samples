@@ -134,7 +134,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
             View.BackgroundColor = UIColor.White;
         }
 
-        private void _zoomButton_TouchUpInside(object sender, System.EventArgs e)
+        private void _zoomButton_TouchUpInside(object sender, EventArgs e)
         {
             // Zoom out if zoomed.
             if (_zoomed)

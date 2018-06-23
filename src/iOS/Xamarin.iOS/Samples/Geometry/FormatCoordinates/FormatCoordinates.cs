@@ -65,7 +65,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             Text = "Degrees, Minutes, Seconds: "
         };
 
-        private readonly UILabel _decimalDegreeslabel = new UILabel
+        private readonly UILabel _decimalDegressLabel = new UILabel
         {
             Text = "Decimal Degrees: "
         };
@@ -216,26 +216,10 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             _dmsEntry.BorderStyle = UITextBorderStyle.RoundedRect;
 
             // Enable text fields to close keyboard.
-            _dmsEntry.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
-            _ddEntry.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
-            _utmEntry.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
-            _usngEntry.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
+            _dmsEntry.ShouldReturn += HandleShouldReturn;
+            _ddEntry.ShouldReturn += HandleShouldReturn;
+            _utmEntry.ShouldReturn += HandleShouldReturn;
+            _usngEntry.ShouldReturn += HandleShouldReturn;
 
             // Set up the help label.
             _helpLabel.Text = "Tap the map to see coordinates in each format. Update any value and tap 'Recalculate' to see updated coordinates.";
@@ -249,7 +233,13 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
 
             // Add views to the page.
             View.AddSubviews(_myMapView, _toolbar, _helpLabel, _recalculateButton, _ddEntry,
-                _decimalDegreeslabel, _dmsLabel, _dmsEntry, _usngLabel, _usngEntry, _utmLabel, _utmEntry);
+                _decimalDegressLabel, _dmsLabel, _dmsEntry, _usngLabel, _usngEntry, _utmLabel, _utmEntry);
+        }
+
+        private bool HandleShouldReturn(UITextField tf)
+        {
+            tf.ResignFirstResponder();
+            return true;
         }
 
         public override void ViewDidLoad()
@@ -278,7 +268,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
                 topMargin += controlHeight * 2 + margin * 2;
 
                 // Decimal degrees.
-                _decimalDegreeslabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
+                _decimalDegressLabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
                 topMargin += controlHeight;
                 _ddEntry.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
                 topMargin += controlHeight;

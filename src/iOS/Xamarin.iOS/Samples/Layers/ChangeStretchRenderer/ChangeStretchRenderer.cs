@@ -275,7 +275,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                         // Create the stretch renderer based on the user defined min/max stretch values, empty gamma values, statistic estimates, and a predefined color ramp.
                         stretchRenderer = new StretchRenderer(minMaxStretchParameters, gammaValues, true, colorRamp);
                     }
-                    catch (Exception ex)
+                    catch (ArgumentException)
                     {
                         ShowMessage("Error configuring renderer.", "Ensure all values are valid and try again.");
                         return;
@@ -297,7 +297,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                         // Create the percent clip renderer based on the user defined min/max percent clip values, empty gamma values, statistic estimates, and a predefined color ramp.
                         stretchRenderer = new StretchRenderer(percentClipStretchParameters, gammaValues, true, colorRamp);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         ShowMessage("Error configuring renderer.", "Ensure all values are valid and try again.");
                         return;
@@ -317,7 +317,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                         // Create the standard deviation renderer based on the user defined standard deviation value, empty gamma values, statistic estimates, and a predefined color ramp.
                         stretchRenderer = new StretchRenderer(standardDeviationStretchParameters, gammaValues, true, colorRamp);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         ShowMessage("Error configuring renderer.", "Ensure all values are valid and try again.");
                         return;

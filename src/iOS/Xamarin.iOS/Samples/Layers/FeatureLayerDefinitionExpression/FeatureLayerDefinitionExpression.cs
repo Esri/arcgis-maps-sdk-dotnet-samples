@@ -111,7 +111,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
         private void OnResetButtonClicked(object sender, EventArgs e)
         {
             // Reset the definition expression to see all features again.
-            _featureLayer.DefinitionExpression = String.Empty;
+            _featureLayer.DefinitionExpression = "";
         }
 
         private void CreateLayout()

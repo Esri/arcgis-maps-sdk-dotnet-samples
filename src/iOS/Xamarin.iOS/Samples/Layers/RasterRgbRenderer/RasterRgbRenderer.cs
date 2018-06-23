@@ -610,7 +610,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         // Get the title to display in each picker component.
         public override string GetTitle(UIPickerView pickerView, nint row, nint component)
         {
-            string title = string.Empty;
+            string title = "";
 
             // First component is red, second is green, third is blue.
             switch (component)
@@ -639,14 +639,14 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         }
 
         // Return the desired width for each component in the picker.
-        public override nfloat GetComponentWidth(UIPickerView picker, nint component)
+        public override nfloat GetComponentWidth(UIPickerView pickerView, nint component)
         {
             // All components display the same range of values (largest is 3 digits).
             return 60f;
         }
 
         // Return the desired height for rows in the picker.
-        public override nfloat GetRowHeight(UIPickerView picker, nint component)
+        public override nfloat GetRowHeight(UIPickerView pickerView, nint component)
         {
             return 30f;
         }
@@ -687,13 +687,13 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         }
 
         // Return the desired width for each component in the picker.
-        public override nfloat GetComponentWidth(UIPickerView picker, nint component)
+        public override nfloat GetComponentWidth(UIPickerView pickerView, nint component)
         {
             return 60f;
         }
 
         // Return the desired height for rows in the picker.
-        public override nfloat GetRowHeight(UIPickerView picker, nint component)
+        public override nfloat GetRowHeight(UIPickerView pickerView, nint component)
         {
             return 30f;
         }

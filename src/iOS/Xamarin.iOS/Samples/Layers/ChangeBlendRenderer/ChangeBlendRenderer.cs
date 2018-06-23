@@ -7,15 +7,15 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
+using CoreGraphics;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
 using System.Collections.Generic;
-using ArcGISRuntime.Samples.Managers;
-using CoreGraphics;
-using Esri.ArcGISRuntime.Geometry;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ChangeBlendRenderer
@@ -108,13 +108,13 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             await rasterLayerImagery.LoadAsync();
 
             // Create a new EnvelopeBuilder from the full extent of the raster layer.
-            EnvelopeBuilder envelopBuilder = new EnvelopeBuilder(rasterLayerImagery.FullExtent);
+            EnvelopeBuilder envelopeBuilder = new EnvelopeBuilder(rasterLayerImagery.FullExtent);
 
             // Zoom in the extent just a bit so that raster layer encompasses the entire viewable area of the map.
-            envelopBuilder.Expand(0.75);
+            envelopeBuilder.Expand(0.75);
 
             // Set the viewpoint of the map to the EnvelopeBuilder's extent.
-            map.InitialViewpoint = new Viewpoint(envelopBuilder.ToGeometry().Extent);
+            map.InitialViewpoint = new Viewpoint(envelopeBuilder.ToGeometry().Extent);
 
             // Add map to the map view.
             _myMapView.Map = map;

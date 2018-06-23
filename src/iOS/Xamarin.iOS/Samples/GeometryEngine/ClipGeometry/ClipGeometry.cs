@@ -137,7 +137,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             _inputGeometriesGraphicsOverlay.Graphics.Add(_coloradoGraphic);
 
             // Create a simple line symbol for the three different clip geometries.
-            SimpleLineSymbol clipGeomtriesSimpleLineSymbol = new SimpleLineSymbol(
+            SimpleLineSymbol clipGeometriesLineSymbol = new SimpleLineSymbol(
                 SimpleLineSymbolStyle.Dot, System.Drawing.Color.Red, 5);
 
             // Create an envelope outside Colorado.
@@ -147,7 +147,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             );
 
             // Create the graphic for an envelope outside Colorado - comprised of a polyline shape and line symbol.
-            _outsideGraphic = new Graphic(outsideEnvelope, clipGeomtriesSimpleLineSymbol);
+            _outsideGraphic = new Graphic(outsideEnvelope, clipGeometriesLineSymbol);
 
             // Add the envelope outside Colorado graphic to the graphics overlay collection.
             _inputGeometriesGraphicsOverlay.Graphics.Add(_outsideGraphic);
@@ -159,7 +159,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             );
 
             // Create the graphic for an envelope intersecting Colorado - comprised of a polyline shape and line symbol.
-            _intersectingGraphic = new Graphic(intersectingEnvelope, clipGeomtriesSimpleLineSymbol);
+            _intersectingGraphic = new Graphic(intersectingEnvelope, clipGeometriesLineSymbol);
 
             // Add the envelope intersecting Colorado graphic to the graphics overlay collection.
             _inputGeometriesGraphicsOverlay.Graphics.Add(_intersectingGraphic);
@@ -171,7 +171,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             );
 
             // Create the graphic for an envelope inside Colorado - comprised of a polyline shape and line symbol.
-            _containedGraphic = new Graphic(containedEnvelope, clipGeomtriesSimpleLineSymbol);
+            _containedGraphic = new Graphic(containedEnvelope, clipGeometriesLineSymbol);
 
             // Add the envelope inside Colorado graphic to the graphics overlay collection.
             _inputGeometriesGraphicsOverlay.Graphics.Add(_containedGraphic);

@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         // URL for the geoprocessing service.
         private const string HotspotUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/911CallsHotspot/GPServer/911%20Calls%20Hotspot";
 
-        // The geoprocessing task for hot spots analysis .
+        // The geoprocessing task for hot spots analysis.
         private GeoprocessingTask _hotspotTask;
 
         // The job that handles the communication between the application and the geoprocessing task.

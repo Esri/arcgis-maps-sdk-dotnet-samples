@@ -264,28 +264,28 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         }
 
         // Number of rows to display in the picker (items in the list).
-        public override nint GetRowsInComponent(UIPickerView picker, nint component)
+        public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
         {
             return Items.Count;
         }
 
         // Text to display in the picker (spatial operation in each row).
-        public override string GetTitle(UIPickerView picker, nint row, nint component)
+        public override string GetTitle(UIPickerView pickerView, nint row, nint component)
         {
             return Items[(int) row];
         }
 
         // Number of columns to show in the picker.
-        public override nint GetComponentCount(UIPickerView picker)
+        public override nint GetComponentCount(UIPickerView pickerView)
         {
             return 1;
         }
 
         // Raise the ValueChanged event when a new value is selected.
-        public override void Selected(UIPickerView picker, nint row, nint component)
+        public override void Selected(UIPickerView pickerView, nint row, nint component)
         {
             _selectedIndex = (int) row;
-            ValueChanged?.Invoke(this, new EventArgs());
+            ValueChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

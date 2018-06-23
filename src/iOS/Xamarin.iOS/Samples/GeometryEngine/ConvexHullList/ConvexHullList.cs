@@ -192,7 +192,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
 
                 // Add the geometries of the two polygon graphics to a list of geometries. It will be used as the 1st
                 // input parameter of the GeometryEngine.ConvexHull function.
-                List<Geometry> inputListOfGeomtries = new List<Geometry>
+                List<Geometry> inputGeometryList = new List<Geometry>
                 {
                     _polygonGraphic1.Geometry,
                     _polygonGraphic2.Geometry
@@ -200,7 +200,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
 
                 // Get the returned result from the convex hull operation. When unionBool = true there will be one returned
                 // polygon, when unionBool = false there will be one convex hull returned per input geometry.
-                foreach (Geometry oneGeometry in GeometryEngine.ConvexHull(inputListOfGeomtries, unionBool))
+                foreach (Geometry oneGeometry in GeometryEngine.ConvexHull(inputGeometryList, unionBool))
                 {
                     // Create a simple line symbol for the outline of the convex hull graphic(s).
                     SimpleLineSymbol convexHullSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid,

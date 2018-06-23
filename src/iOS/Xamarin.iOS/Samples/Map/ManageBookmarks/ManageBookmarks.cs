@@ -121,7 +121,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private void OnAddBookmarksButtonClicked(object sender, EventArgs e)
         {
             // Create Alert for naming the bookmark.
-            var textInputAlertController = UIAlertController.Create("Provide the bookmark name", string.Empty, UIAlertControllerStyle.Alert);
+            var textInputAlertController = UIAlertController.Create("Provide the bookmark name", "", UIAlertControllerStyle.Alert);
 
             // Add Text Input.
             textInputAlertController.AddTextField(textField => { });
@@ -164,7 +164,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private void OnShowBookmarksButtonClicked(object sender, EventArgs e)
         {
             // Create a new Alert Controller.
-            UIAlertController actionAlert = UIAlertController.Create("Bookmarks", string.Empty,
+            UIAlertController actionAlert = UIAlertController.Create("Bookmarks", "",
                 UIAlertControllerStyle.Alert);
 
             // Add Bookmarks as Actions.

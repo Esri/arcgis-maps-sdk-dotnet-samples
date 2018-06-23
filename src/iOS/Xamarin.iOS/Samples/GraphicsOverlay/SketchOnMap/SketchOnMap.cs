@@ -140,7 +140,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             }
         }
 
-        private void SegmentButtonClicked(object sender, EventArgs e)
+        private async void SegmentButtonClicked(object sender, EventArgs e)
         {
             // Get the segmented button control that raised the event.
             var buttonControl = sender as UISegmentedControl;
@@ -153,7 +153,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                     ShowSketchModeList();
                     break;
                 case 1:
-                    EditGraphic();
+                    await EditGraphicAsync();
                     break;
                 case 2: // Undo.
                     if (_myMapView.SketchEditor.UndoCommand.CanExecute(null))
@@ -317,7 +317,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             }
         }
 
-        private async void EditGraphic()
+        private async Task EditGraphicAsync()
         {
             try
             {

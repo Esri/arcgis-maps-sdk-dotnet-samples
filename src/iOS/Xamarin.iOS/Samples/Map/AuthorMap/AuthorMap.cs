@@ -553,7 +553,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private static IDictionary<string, string> DecodeParameters(Uri uri)
         {
             // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string.
-            string answer = string.Empty;
+            string answer = "";
 
             // Get the values from the URI fragment or query string.
             if (!string.IsNullOrEmpty(uri.Fragment))
@@ -575,7 +575,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             {
                 string[] pair = kvString.Split('=');
                 string key = pair[0];
-                string value = string.Empty;
+                string value = "";
                 if (key.Length > 1)
                 {
                     value = Uri.UnescapeDataString(pair[1]);

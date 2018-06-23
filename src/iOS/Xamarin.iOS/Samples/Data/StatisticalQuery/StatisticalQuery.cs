@@ -166,8 +166,11 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             // If only using features in the current extent, set up the spatial filter for the statistics query parameters.
             if (_onlyInExtentSwitch.On)
             {
-                // Set the statistics query parameters geometry with the current extent (envelope) from the map view.
-                statQueryParams.Geometry = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
+                // Get the current extent (envelope) from the map view.
+                Envelope currentExtent = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
+
+                // Set the statistics query parameters geometry with the current extent.
+                statQueryParams.Geometry = currentExtent;
 
                 // Set the spatial relationship to Intersects (which is the default).
                 statQueryParams.SpatialRelationship = SpatialRelationship.Intersects;
@@ -195,8 +198,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
                 }
 
                 // Display results.
-                IReadOnlyDictionary<string, object> statistics = record.Statistics;
-                ShowStatsList(statistics);
+                ShowStatsList(record.Statistics);
             }
             catch (ArcGISWebException exception)
             {
@@ -207,7 +209,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         private void ShowStatsList(IReadOnlyDictionary<string, object> stats)
         {
             // Create a new Alert Controller.
-            UIAlertController statsAlert = UIAlertController.Create("Statistics", string.Empty, UIAlertControllerStyle.Alert);
+            UIAlertController statsAlert = UIAlertController.Create("Statistics", "", UIAlertControllerStyle.Alert);
 
             // Loop through all key/value pairs in the results.
             foreach (KeyValuePair<string, object> kvp in stats)

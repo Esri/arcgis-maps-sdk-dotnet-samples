@@ -112,7 +112,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
     [Register("SublayersTable")]
     public sealed class SublayersTable : UITableViewController
     {
-        public ArcGISMapImageLayer MapImageLayer;
+        public ArcGISMapImageLayer MapImageLayer { private get; set; }
 
         public SublayersTable()
         {

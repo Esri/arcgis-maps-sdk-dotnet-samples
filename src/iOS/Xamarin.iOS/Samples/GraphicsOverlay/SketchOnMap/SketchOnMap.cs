@@ -271,7 +271,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             // Create a new Alert Controller.
             UIAlertController sketchModeActionSheet = UIAlertController.Create("Sketch Modes", "Choose a sketch mode", UIAlertControllerStyle.ActionSheet);
 
-            // Create a dictionary of enumeration names and values.
+            // Create a dictionary that associates SketchCreationMode names with values.
             IEnumerable<int> enumValues = Enum.GetValues(typeof(SketchCreationMode)).Cast<int>();
             _sketchModeDictionary = enumValues.ToDictionary(v => Enum.GetName(typeof(SketchCreationMode), v), v => v);
 

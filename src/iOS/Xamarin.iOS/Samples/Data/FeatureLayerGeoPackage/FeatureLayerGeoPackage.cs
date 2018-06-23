@@ -9,12 +9,12 @@
 
 using System;
 using System.Linq;
+using ArcGISRuntime.Samples.Managers;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
-using ArcGISRuntime.Samples.Managers;
-using Esri.ArcGISRuntime.Data;
 
 namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
 {

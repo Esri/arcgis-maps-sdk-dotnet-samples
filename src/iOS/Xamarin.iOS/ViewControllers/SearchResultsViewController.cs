@@ -29,7 +29,7 @@ namespace ArcGISRuntime
         public SearchResultsViewController(UIViewController controller)
         {
             _parentViewController = controller;
-            
+
             // Using the allsamples list avoids duplicate sample entries in the 'featured' category
             _sampleItems = SampleManager.Current.AllSamples.ToList();
         }
@@ -101,7 +101,7 @@ namespace ArcGISRuntime
                     _loadPopup.Hide();
                 }
 
-                var control = (UIViewController)SampleManager.Current.SampleToControl(sample);
+                var control = (UIViewController) SampleManager.Current.SampleToControl(sample);
                 _parentViewController.NavigationController.PushViewController(control, true);
             }
             catch (Exception ex)

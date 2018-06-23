@@ -8,11 +8,10 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.LoadWebTiledLayer

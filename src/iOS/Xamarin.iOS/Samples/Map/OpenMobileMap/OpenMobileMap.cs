@@ -9,12 +9,12 @@
 
 using System;
 using System.Linq;
+using ArcGISRuntime.Samples.Managers;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
-using ArcGISRuntime.Samples.Managers;
-using CoreGraphics;
 
 namespace ArcGISRuntime.Samples.OpenMobileMap
 {

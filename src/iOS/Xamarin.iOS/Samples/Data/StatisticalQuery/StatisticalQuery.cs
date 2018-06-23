@@ -7,16 +7,16 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI.Controls;
-using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using CoreGraphics;
+using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Http;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI.Controls;
+using Foundation;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.StatisticalQuery

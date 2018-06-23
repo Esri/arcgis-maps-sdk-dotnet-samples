@@ -8,13 +8,13 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Linq;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System.Linq;
-using ArcGISRuntime.Samples.Managers;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.RasterLayerGeoPackage

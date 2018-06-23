@@ -8,11 +8,11 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using UIKit;
-using Foundation;
-using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
+using Foundation;
+using UIKit;
 
 namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 {

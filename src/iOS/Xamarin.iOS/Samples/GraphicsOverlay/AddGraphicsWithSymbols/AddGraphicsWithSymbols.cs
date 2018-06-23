@@ -8,13 +8,13 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Drawing;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System.Drawing;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols

@@ -7,13 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using Foundation;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ListGeodatabaseVersions

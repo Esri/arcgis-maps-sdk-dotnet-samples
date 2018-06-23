@@ -8,14 +8,14 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using ArcGISRuntime.Samples.Managers;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using ArcGISRuntime.Samples.Managers;
-using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.SymbolizeShapefile

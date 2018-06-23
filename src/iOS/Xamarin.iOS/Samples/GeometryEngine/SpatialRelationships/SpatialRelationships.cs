@@ -8,6 +8,8 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -16,8 +18,6 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System.Collections.Generic;
-using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ListTransformations

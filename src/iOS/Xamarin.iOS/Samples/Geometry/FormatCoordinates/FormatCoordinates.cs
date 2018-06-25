@@ -33,12 +33,14 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
 
         // Create the text fields
         private UITextField _utmUITextField = new UITextField() { Placeholder = "UTM" };
+
         private UITextField _dmsUITextField = new UITextField() { Placeholder = "Degrees, Minutes, Seconds" };
         private UITextField _decimalDegreesUITextField = new UITextField() { Placeholder = "Decimal Degrees" };
         private UITextField _usngUITextField = new UITextField() { Placeholder = "USNG" };
 
         // Create the labels
         private UILabel _utmLabel = new UILabel() { Text = "UTM:", TextColor = UIColor.Blue };
+
         private UILabel _dmsLabel = new UILabel() { Text = "Degrees, Minutes, Seconds: ", TextColor = UIColor.Blue };
         private UILabel _decimalDegreeslabel = new UILabel() { Text = "Decimal Degrees: ", TextColor = UIColor.Blue };
         private UILabel _usngLabel = new UILabel() { Text = "USNG: ", TextColor = UIColor.Blue };
@@ -121,28 +123,55 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             UpdateUIFromMapPoint(enteredPoint);
         }
 
-        private void UpdateUIFromMapPoint(MapPoint startingPoint)
+        private void UpdateUIFromMapPoint(MapPoint selectedPoint)
         {
-            if (startingPoint == null) { return; }
+            if (selectedPoint == null) { return; }
             // Clear event subscriptions - prevents an infinite loop
             _utmUITextField.EditingDidBegin -= InputValueChanged;
             _dmsUITextField.EditingDidBegin -= InputValueChanged;
             _decimalDegreesUITextField.EditingDidBegin -= InputValueChanged;
             _usngUITextField.EditingDidBegin -= InputValueChanged;
 
+            try
+            {
+                // Check if the selected point can be formatted into coordinates.
+                CoordinateFormatter.ToLatitudeLongitude(selectedPoint, LatitudeLongitudeFormat.DecimalDegrees, 0);
+            }
+            catch (Exception e)
+            {
+                // Check if the excpetion is because the coordinates are out of range.
+                if (e.Message == "Invalid argument: coordinates are out of range")
+                {
+                    // Set all of the text fields to contain the error message.
+                    _decimalDegreesUITextField.Text = "Coordinates are out of range";
+                    _dmsUITextField.Text = "Coordinates are out of range";
+                    _utmUITextField.Text = "Coordinates are out of range";
+                    _usngUITextField.Text = "Coordinates are out of range";
+
+                    // Clear the selectionss symbol.
+                    _myMapView.GraphicsOverlays[0].Graphics.Clear();
+                }
+                // Restore event subscriptions
+                _utmUITextField.EditingDidBegin += InputValueChanged;
+                _dmsUITextField.EditingDidBegin += InputValueChanged;
+                _decimalDegreesUITextField.EditingDidBegin += InputValueChanged;
+                _usngUITextField.EditingDidBegin += InputValueChanged;
+                return;
+            }
+
             // Update the decimal degrees text
             _decimalDegreesUITextField.Text =
-                CoordinateFormatter.ToLatitudeLongitude(startingPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
+                CoordinateFormatter.ToLatitudeLongitude(selectedPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
 
             // Update the degrees, minutes, seconds text
-            _dmsUITextField.Text = CoordinateFormatter.ToLatitudeLongitude(startingPoint,
+            _dmsUITextField.Text = CoordinateFormatter.ToLatitudeLongitude(selectedPoint,
                 LatitudeLongitudeFormat.DegreesMinutesSeconds, 1);
 
             // Update the UTM text
-            _utmUITextField.Text = CoordinateFormatter.ToUtm(startingPoint, UtmConversionMode.NorthSouthIndicators, true);
+            _utmUITextField.Text = CoordinateFormatter.ToUtm(selectedPoint, UtmConversionMode.NorthSouthIndicators, true);
 
             // Update the USNG text
-            _usngUITextField.Text = CoordinateFormatter.ToUsng(startingPoint, 4, true);
+            _usngUITextField.Text = CoordinateFormatter.ToUsng(selectedPoint, 4, true);
 
             // Clear existing graphics overlays
             _myMapView.GraphicsOverlays[0].Graphics.Clear();
@@ -151,7 +180,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, Color.Yellow, 20);
 
             // Create the graphic
-            Graphic symbolGraphic = new Graphic(startingPoint, symbol);
+            Graphic symbolGraphic = new Graphic(selectedPoint, symbol);
 
             // Add the graphic to the graphics overlay
             _myMapView.GraphicsOverlays[0].Graphics.Add(symbolGraphic);

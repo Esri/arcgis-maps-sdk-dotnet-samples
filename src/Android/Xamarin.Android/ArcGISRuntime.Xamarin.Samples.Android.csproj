@@ -429,6 +429,12 @@
     <None Include="Samples\Map\OpenScene\OpenScene.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\layout\Buffer.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -437,6 +443,11 @@
   <ItemGroup>
     <AndroidResource Include="Resources\layout\MapImageLayerTables.axml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\DensifyAndGeneralize.axml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
   </ItemGroup>

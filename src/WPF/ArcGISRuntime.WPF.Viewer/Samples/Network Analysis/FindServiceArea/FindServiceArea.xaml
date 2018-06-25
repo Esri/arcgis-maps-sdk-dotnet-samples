@@ -18,7 +18,6 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Button Name="PlaceFacilityButton"
                         Grid.Row="0" Grid.Column="0"
@@ -30,24 +29,6 @@
                         Margin="5,5,5,5"
                         Content="Draw Barrier"
                         Click="DrawBarrierButton_Click" />
-                <Button Name="AddFeatureButton"
-                        Grid.Row="1"
-                        Grid.ColumnSpan="2"
-                        HorizontalAlignment="Stretch"
-                        Margin="5,5,5,5"
-                        Content="Add Feature"
-                        Click="ButtonReset"
-                        Command="{Binding CompleteCommand}"
-                        IsEnabled="False" />
-                <Button Name="CancelButton"
-                        Grid.Row="2"
-                        Grid.ColumnSpan="2"
-                        HorizontalAlignment="Stretch"
-                        Margin="5,5,5,5"
-                        Content="Cancel Feature"
-                        Click="ButtonReset"
-                        Command="{Binding CancelCommand}"
-                        IsEnabled='False' />
                 <Button Name="ShowServiceAreasButton"
                         Grid.Row="3"
                         Grid.ColumnSpan="2"

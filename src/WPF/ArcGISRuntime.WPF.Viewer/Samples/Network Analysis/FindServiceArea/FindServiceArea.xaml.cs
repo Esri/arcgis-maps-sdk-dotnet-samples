@@ -24,18 +24,11 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
         "Find service area (interactive)",
         "Network Analysis",
         "Demonstrates how to find services areas around a point using the ServiceAreaTask. A service area shows locations that can be reached from a facility based off a certain impedance [such as travel time]. Barriers can also be added which can effect the impedance by not letting traffic through or adding the time is takes to pass that barrier.",
-        "")]
+        "To add a facility, click the facility button, then click anywhere on the MapView.\nTo add a barrier, click the barrier button, and click multiple locations on MapView.\nDouble tap on the MapView to finish drawing the barrier.\nTo show service areas around facilities that were added, click the show service areas button.\nClick the reset button to clear all graphics and features.",
+        "ArcGISMap, GraphicsOverlay, MapView, PolylineBarrier, ServiceAreaFacility, ServiceAreaParameters, ServiceAreaPolygon, ServiceAreaResult, ServiceAreaTask, SketchEditor")]
     public partial class FindServiceArea
     {
-        // An object that defines the task to find service area around a facility.
-        private ServiceAreaTask _serviceAreaTask;
-
-        // A symbol for facilities.
-        private PictureMarkerSymbol _facilitySymbol;
-
-        // A symbol for service area outlines.
-        private SimpleLineSymbol _outline;
-
+        // Uri for the service area around San Diego.
         private Uri _serviceAreaUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ServiceArea");
 
         public FindServiceArea()
@@ -56,19 +49,10 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
             // Create graphics overlays for all of the elements of the map.
             MyMapView.GraphicsOverlays.Add(new GraphicsOverlay());
 
-            // Symbology for a facility.
-            _facilitySymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/Hospital.png"))
-            {
-                Height = 30,
-                Width = 30
-            };
-
-            // Symbology for a service area.
-            _outline = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Black, 3.0f);
-
             // Set the sketch editor configuration to allow vertex editing, resizing, and moving.
             SketchEditConfiguration config = MyMapView.SketchEditor.EditConfiguration;
 
+            // Add a new behavior for double taps on the MapView.
             MyMapView.GeoViewDoubleTapped += (s, e) =>
             {
                 // If the sketch editor complete command is enabled, a sketch is in progress.
@@ -88,11 +72,21 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
                 SketchCreationMode creationMode = SketchCreationMode.Point;
                 Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, false);
 
-                // Create and add a graphic for the facility.
-                MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(geometry, new Dictionary<string, object>() { { "Type", "Facility" } }, _facilitySymbol)
+                // Symbology for a facility.
+                PictureMarkerSymbol facilitySymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/Hospital.png"))
+                {
+                    Height = 30,
+                    Width = 30
+                };
+
+                // Create a graphic for the facility.
+                Graphic facilityGraphic = new Graphic(geometry, new Dictionary<string, object>() { { "Type", "Facility" } }, facilitySymbol)
                 {
                     ZIndex = 2
-                });
+                };
+
+                // Add the graphic to the graphics overlay.
+                MyMapView.GraphicsOverlays[0].Graphics.Add(facilityGraphic);
             }
             catch (TaskCanceledException)
             {
@@ -113,11 +107,17 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
                 SketchCreationMode creationMode = SketchCreationMode.Polyline;
                 Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, false);
 
-                // Create and add a graphic from the polyline the user drew.
-                MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(geometry, new Dictionary<string, object>() { { "Type", "Barrier" } }, _outline)
+                // Symbol for the barriers.
+                SimpleLineSymbol barrierSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.DarkSlateGray, 5.0f);
+
+                // Create the graphic to be used for barriers.
+                Graphic barrierGraphic = new Graphic(geometry, new Dictionary<string, object>() { { "Type", "Barrier" } }, barrierSymbol)
                 {
                     ZIndex = 1
-                });
+                };
+
+                // Add a graphic from the polyline the user drew.
+                MyMapView.GraphicsOverlays[0].Graphics.Add(barrierGraphic);
             }
             catch (TaskCanceledException)
             {
@@ -132,8 +132,11 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
 
         private async void ShowServiceAreasButton_Click(object sender, RoutedEventArgs e)
         {
+            // Use a local variable for the graphics overlay.
+            GraphicCollection allGraphics = MyMapView.GraphicsOverlays[0].Graphics;
+
             // Get a list of the facilities from the graphics overlay.
-            List<ServiceAreaFacility> serviceAreaFacilities = (from g in MyMapView.GraphicsOverlays[0].Graphics
+            List<ServiceAreaFacility> serviceAreaFacilities = (from g in allGraphics
                                                                where (string)g.Attributes["Type"] == "Facility"
                                                                select new ServiceAreaFacility((MapPoint)g.Geometry)).ToList();
 
@@ -145,19 +148,15 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
             }
 
             // Create the service area task and parameters based on the Uri.
-            _serviceAreaTask = await ServiceAreaTask.CreateAsync(_serviceAreaUri);
+            ServiceAreaTask serviceAreaTask = await ServiceAreaTask.CreateAsync(_serviceAreaUri);
 
             // An object that defines parameters for solving a service area task.
             ServiceAreaParameters serviceAreaParameters;
 
             // Store the default parameters for the service area in an object.
-            serviceAreaParameters = await _serviceAreaTask.CreateDefaultParametersAsync();
+            serviceAreaParameters = await serviceAreaTask.CreateDefaultParametersAsync();
 
-            // Set the parameters to return polygons.
-            serviceAreaParameters.ReturnPolygons = true;
-            serviceAreaParameters.ReturnPolylines = false;
-
-            // Add impedance cutoffs for facilities.
+            // Add impedance cutoffs for facilities (drive time minutes).
             serviceAreaParameters.DefaultImpedanceCutoffs.Add(2.0);
             serviceAreaParameters.DefaultImpedanceCutoffs.Add(5.0);
 
@@ -165,7 +164,7 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
             serviceAreaParameters.PolygonDetail = ServiceAreaPolygonDetail.High;
 
             // Get a list of the barriers from the graphics overlay.
-            List<PolylineBarrier> polylineBarriers = (from g in MyMapView.GraphicsOverlays[0].Graphics
+            List<PolylineBarrier> polylineBarriers = (from g in allGraphics
                                                       where (string)g.Attributes["Type"] == "Barrier"
                                                       select new PolylineBarrier((Polyline)g.Geometry)).ToList();
 
@@ -176,18 +175,19 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
             serviceAreaParameters.SetFacilities(serviceAreaFacilities);
 
             // Clear existing graphics for service areas.
-            foreach (Graphic g in MyMapView.GraphicsOverlays[0].Graphics.ToList())
+            foreach (Graphic g in allGraphics)
             {
+                // Check if the graphic g is a service area.
                 if ((string)g.Attributes["Type"] == "ServiceArea")
                 {
-                    MyMapView.GraphicsOverlays[0].Graphics.Remove(g);
+                    allGraphics.Remove(g);
                 }
             }
 
             try
             {
                 // Solve for the service area of the facilities.
-                ServiceAreaResult result = await _serviceAreaTask.SolveServiceAreaAsync(serviceAreaParameters);
+                ServiceAreaResult result = await serviceAreaTask.SolveServiceAreaAsync(serviceAreaParameters);
 
                 // Loop over each facility.
                 for (int i = 0; i < serviceAreaFacilities.Count; i++)
@@ -195,16 +195,25 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
                     // Create list of polygons from a service facility.
                     List<ServiceAreaPolygon> polygons = result.GetResultPolygons(i).ToList();
 
+                    // Symbol for the outline of the service areas.
+                    SimpleLineSymbol serviceOutline = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Black, 3.0f);
+
                     // Create a list of fill symbols for the polygons.
                     List<SimpleFillSymbol> fillSymbols = new List<SimpleFillSymbol>();
-                    fillSymbols.Add(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Drawing.Color.FromArgb(70, 255, 0, 0), _outline));
-                    fillSymbols.Add(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Drawing.Color.FromArgb(70, 255, 165, 0), _outline));
+                    fillSymbols.Add(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Drawing.Color.FromArgb(70, 255, 0, 0), serviceOutline));
+                    fillSymbols.Add(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Drawing.Color.FromArgb(70, 255, 165, 0), serviceOutline));
 
                     // Loop over every polygon in every facilities result.
                     for (int j = 0; j < polygons.Count; j++)
                     {
+                        // Create the graphic for the service areas, alternating between fill symbols.
+                        Graphic serviceGraphic = new Graphic(polygons[j].Geometry, new Dictionary<string, object>() { { "Type", "ServiceArea" } }, fillSymbols[j % 2])
+                        {
+                            ZIndex = 0
+                        };
+
                         // Add graphic for service area. Alternate the color of each polygon.
-                        MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(polygons[j].Geometry, new Dictionary<string, object>() { { "Type", "ServiceArea" } }, fillSymbols[j % 2]) { ZIndex = 0 });
+                        allGraphics.Add(serviceGraphic);
                     }
                 }
             }

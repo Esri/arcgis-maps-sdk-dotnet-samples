@@ -102,7 +102,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
                     Opacity = 0.55
                 };
 
-                // Load the RasterLayer - that way we can get to it's properties.
+                // Load the RasterLayer - that way we can get to its properties.
                 await rasterLayer.LoadAsync();
 
                 // Create a string variable to hold the human-readable name of the RasterLayer for display.
@@ -138,7 +138,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
                 // Create a FeatureLayer from the GeoPackageFeatureLayer.
                 FeatureLayer featureLayer = new FeatureLayer(oneGeoPackageFeatureTable);
 
-                // Load the FeatureLayer - that way we can get to it's properties.
+                // Load the FeatureLayer - that way we can get to its properties.
                 await featureLayer.LoadAsync();
 
                 // Create a string variable to hold the human-readable name of the FeatureLayer for 

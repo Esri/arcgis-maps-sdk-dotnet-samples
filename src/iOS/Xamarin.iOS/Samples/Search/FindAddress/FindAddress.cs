@@ -91,17 +91,17 @@ namespace ArcGISRuntime.Samples.FindAddress
         private void CreateLayout()
         {
             // Configure the search bar to support search.
-            _addressSearchBar.SearchButtonClicked += _addressSearchBar_Clicked;
+            _addressSearchBar.SearchButtonClicked += AddressSearchBar_Clicked;
 
             // Configure the search bar to support popover address suggestion.
             _addressSearchBar.ShowsSearchResultsButton = true;
-            _addressSearchBar.ListButtonClicked += _addressSearch_ListButtonClicked;
+            _addressSearchBar.ListButtonClicked += AddressSearch_ListButtonClicked;
 
             // Disable user interaction until the geocoder is ready.
             _addressSearchBar.UserInteractionEnabled = false;
 
             // Enable tap-for-info pattern on results.
-            _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
             // Add the controls to the view.
             View.AddSubviews(_myMapView, _addressSearchBar);
@@ -115,11 +115,11 @@ namespace ArcGISRuntime.Samples.FindAddress
             // Initialize the geocoder with the provided service URL.
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);
 
-            // Enable controls now that the geocoder is reaRL.
+            // Enable controls now that the geocoder is ready.
             _addressSearchBar.UserInteractionEnabled = true;
         }
 
-        private void _addressSearchBar_Clicked(object sender, EventArgs e)
+        private void AddressSearchBar_Clicked(object sender, EventArgs e)
         {
             UpdateSearch();
 
@@ -197,7 +197,7 @@ namespace ArcGISRuntime.Samples.FindAddress
             return new Graphic(point, pinSymbol);
         }
 
-        private void _addressSearch_ListButtonClicked(object sender, EventArgs e)
+        private void AddressSearch_ListButtonClicked(object sender, EventArgs e)
         {
             // Create the alert view.
             UIAlertController alert = UIAlertController.Create("Suggestions", "Location searches to try", UIAlertControllerStyle.Alert);
@@ -219,35 +219,43 @@ namespace ArcGISRuntime.Samples.FindAddress
         /// <summary>
         /// Handle tap event on the map; displays callouts showing the address for a tapped search result.
         /// </summary>
-        private async void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Search for the graphics underneath the user's tap.
-            IReadOnlyList<IdentifyGraphicsOverlayResult> results = await _myMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
-
-            // Return gracefully if there was no result.
-            if (results.Count < 1 || results.First().Graphics.Count < 1)
+            try
             {
-                return;
+                IReadOnlyList<IdentifyGraphicsOverlayResult> results = await _myMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
+
+                // Return gracefully if there was no result.
+                if (results.Count < 1 || results.First().Graphics.Count < 1)
+                {
+                    return;
+                }
+
+                // Reverse geocode to get addresses.
+                IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location);
+
+                // Get the first result.
+                GeocodeResult address = addresses.First();
+                // Use the city and region for the Callout Title.
+                string calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
+                // Use the metro area for the Callout Detail.
+                string calloutDetail = address.Attributes["MetroArea"].ToString();
+
+                // Use the MapView to convert from the on-screen location to the on-map location.
+                MapPoint point = _myMapView.ScreenToLocation(e.Position);
+
+                // Define the callout.
+                CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);
+
+                // Show the callout on the map at the tapped location.
+                _myMapView.ShowCalloutAt(point, calloutBody);
             }
-
-            // Reverse geocode to get addresses.
-            IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location);
-
-            // Get the first result.
-            GeocodeResult address = addresses.First();
-            // Use the city and region for the Callout Title.
-            string calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
-            // Use the metro area for the Callout Detail.
-            string calloutDetail = address.Attributes["MetroArea"].ToString();
-
-            // Use the MapView to convert from the on-screen location to the on-map location.
-            MapPoint point = _myMapView.ScreenToLocation(e.Position);
-
-            // Define the callout.
-            CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);
-
-            // Show the callout on the map at the tapped location.
-            _myMapView.ShowCalloutAt(point, calloutBody);
+            // Uncaught exceptions in async void will crash the app.
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
         }
     }
 }

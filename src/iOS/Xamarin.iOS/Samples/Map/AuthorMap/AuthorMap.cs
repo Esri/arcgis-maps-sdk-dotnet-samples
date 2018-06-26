@@ -192,9 +192,9 @@ namespace ArcGISRuntime.Samples.AuthorMap
             UIAlertController layersActionSheet = UIAlertController.Create("Layers", "Choose layers", UIAlertControllerStyle.ActionSheet);
 
             // Add actions to add or remove each of the available layers.
-            foreach (KeyValuePair<string, string> kvp in _operationalLayerUrls)
+            foreach (string key in _operationalLayerUrls.Keys)
             {
-                layersActionSheet.AddAction(UIAlertAction.Create(kvp.Key, UIAlertActionStyle.Default, action => AddOrRemoveLayer(kvp.Key)));
+                layersActionSheet.AddAction(UIAlertAction.Create(key, UIAlertActionStyle.Default, action => AddOrRemoveLayer(key)));
             }
 
             // Add a choice to cancel.
@@ -528,7 +528,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             };
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
-            auth.Error += (sndr, errArgs) =>
+            auth.Error += (sender, errArgs) =>
             {
                 if (errArgs.Exception != null)
                 {
@@ -549,45 +549,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;
         }
-
-        private static IDictionary<string, string> DecodeParameters(Uri uri)
-        {
-            // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string.
-            string answer = "";
-
-            // Get the values from the URI fragment or query string.
-            if (!string.IsNullOrEmpty(uri.Fragment))
-            {
-                answer = uri.Fragment.Substring(1);
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(uri.Query))
-                {
-                    answer = uri.Query.Substring(1);
-                }
-            }
-
-            // Parse parameters into key / value pairs.
-            Dictionary<string, string> keyValueDictionary = new Dictionary<string, string>();
-            string[] keysAndValues = answer.Split(new[] {'&'}, StringSplitOptions.RemoveEmptyEntries);
-            foreach (string kvString in keysAndValues)
-            {
-                string[] pair = kvString.Split('=');
-                string key = pair[0];
-                string value = "";
-                if (key.Length > 1)
-                {
-                    value = Uri.UnescapeDataString(pair[1]);
-                }
-
-                keyValueDictionary.Add(key, value);
-            }
-
-            // Return the dictionary of string keys/values.
-            return keyValueDictionary;
-        }
-
         #endregion OAuth helpers
     }
 

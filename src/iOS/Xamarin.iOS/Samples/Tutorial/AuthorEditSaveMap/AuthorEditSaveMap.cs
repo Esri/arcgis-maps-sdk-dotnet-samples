@@ -35,11 +35,8 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
         // View model that stores the map.
         private readonly MapViewModel _mapViewModel;
 
-        // Map view to display the map.
-
-
         // UI controls that need to be referenced.
-        private readonly UISegmentedControl _segmentButton = new UISegmentedControl("Basemap", "New", "Save");
+        private readonly UISegmentedControl _segmentButton = new UISegmentedControl("New", "Basemap", "Save");
         private readonly UIToolbar _toolbar = new UIToolbar();
         private readonly MapView _mapView = new MapView();
 
@@ -120,7 +117,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
         private void MapViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             // Update the map view with the view model's new map.
-            if (e.PropertyName == "Map" && _mapView != null)
+            if (e.PropertyName == nameof(MapViewModel.Map) && _mapView != null)
             {
                 _mapView.Map = _mapViewModel.Map;
             }
@@ -214,7 +211,7 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             };
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
-            authenticator.Error += (sndr, errArgs) =>
+            authenticator.Error += (sender, errArgs) =>
             {
                 // If the user cancels, the Error event is raised but there is no exception ... best to check first.
                 if (errArgs.Exception != null)
@@ -277,12 +274,12 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             switch (buttonControl.SelectedSegment)
             {
                 case 0:
-                    // Show basemap choices.
-                    ShowBasemapList();
-                    break;
-                case 1:
                     // Create a new map.
                     _mapViewModel.ResetMap();
+                    break;
+                case 1:
+                    // Show basemap choices.
+                    ShowBasemapList();
                     break;
                 case 2:
                     // Create a challenge request for portal credentials (OAuth credential request for arcgis.com).

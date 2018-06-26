@@ -37,7 +37,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         private readonly UISlider _pitchSlider = new UISlider {MinValue = 0, MaxValue = 180, Value = 60};
         private readonly UISlider _horizontalAngleSlider = new UISlider {MinValue = 1, MaxValue = 120, Value = 75};
         private readonly UISlider _verticalAngleSlider = new UISlider {MinValue = 1, MaxValue = 120, Value = 90};
-        private readonly UISlider _minimumDistanceSlider = new UISlider {MinValue = 0, MaxValue = 8999, Value = 0};
+        private readonly UISlider _minimumDistanceSlider = new UISlider {MinValue = 11, MaxValue = 8999, Value = 11};
         private readonly UISlider _maximumDistanceSlider = new UISlider {MinValue = 0, MaxValue = 9999, Value = 1500};
         private readonly UISwitch _analysisVisibilitySwitch = new UISwitch {On = true};
         private readonly UISwitch _frustumVisibilitySwitch = new UISwitch {On = false};

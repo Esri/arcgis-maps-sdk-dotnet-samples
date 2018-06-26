@@ -205,7 +205,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             UIButton cancelButton = new UIButton();
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
             cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
-            cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
+            cancelButton.TouchUpInside += (s, e) => { OnCanceled?.Invoke(this, null); };
 
             CreateHillshadeInputUi(inputHillshadeParamsButton, cancelButton);
         }
@@ -227,7 +227,6 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             // Find the start x and y for the control layout.
             nfloat controlX = centerX - totalWidth / 2;
             nfloat controlY = 30;
-
 
             // Create a label for the slope type input.
             UILabel slopeTypeLabel = new UILabel(new CGRect(controlX, controlY, totalWidth, controlHeight))

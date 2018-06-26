@@ -25,69 +25,6 @@ using UIKit;
 
 namespace ArcGISRuntime.Samples.FindPlace
 {
-    /// <summary>
-    /// Class defines how a UITableView renders its contents.
-    /// This implements the suggestion UI for the table view.
-    /// </summary>
-    public class SuggestionSource : UITableViewSource
-    {
-        // List of strings; these will be the suggestions.
-        public List<string> TableItems = new List<string>();
-
-        // Used when re-using cells to ensure that a cell of the right type is used.
-        private const string CellId = "TableCell";
-
-        // Hold a reference to the owning view controller; this will be the active instance of FindPlace.
-        private FindPlace Owner { get; }
-
-        public SuggestionSource(List<string> items, FindPlace owner)
-        {
-            // Set the items.
-            if (items != null)
-            {
-                TableItems = items;
-            }
-
-            // Set the owner.
-            Owner = owner;
-        }
-
-        /// <summary>
-        /// This method gets a table view cell for the suggestion at the specified index.
-        /// </summary>
-        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
-        {
-            // Try to get a re-usable cell (this is for performance). If there are no cells, create a new one.
-            UITableViewCell cell = tableView.DequeueReusableCell(CellId) ?? new UITableViewCell(UITableViewCellStyle.Default, CellId);
-
-            // Set the text on the cell.
-            cell.TextLabel.Text = TableItems[indexPath.Row];
-
-            // Return the cell.
-            return cell;
-        }
-
-        /// <summary>
-        /// This method allows the UITableView to know how many rows to render.
-        /// </summary>
-        public override nint RowsInSection(UITableView tableview, nint section)
-        {
-            return TableItems.Count;
-        }
-
-        /// <summary>
-        /// Method called when a row is selected; notifies the primary view.
-        /// </summary>
-        public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
-        {
-            // Deselect the row.
-            tableView.DeselectRow(indexPath, true);
-
-            // Accept the suggestion.
-            Owner.AcceptSuggestion(TableItems[indexPath.Row]);
-        }
-    }
-
     [Register("FindPlace")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Find place",
@@ -321,7 +258,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         /// <param name="enteredText">Results to search for.</param>
         /// <param name="locationText">Location around which to find results.</param>
         /// <param name="restrictToExtent">If true, limits results to only those that are within the current extent.</param>
-        private async void UpdateSearch(string enteredText, string locationText, bool restrictToExtent = false)
+        private async Task UpdateSearchAsync(string enteredText, string locationText, bool restrictToExtent = false)
         {
             // Clear any existing markers.
             _myMapView.GraphicsOverlays.Clear();
@@ -372,7 +309,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             foreach (GeocodeResult location in locations)
             {
                 // Get the Graphic to display.
-                Graphic point = await GraphicForPoint(location.DisplayLocation);
+                Graphic point = await GraphicForPointAsync(location.DisplayLocation);
 
                 // Add the specific result data to the point.
                 point.Attributes["Match_Title"] = location.Label;
@@ -403,7 +340,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         /// <summary>
         /// Creates and returns a Graphic associated with the given MapPoint.
         /// </summary>
-        private async Task<Graphic> GraphicForPoint(MapPoint point)
+        private async Task<Graphic> GraphicForPointAsync(MapPoint point)
         {
             // Get current assembly that contains the image.
             var currentAssembly = Assembly.GetExecutingAssembly();
@@ -442,10 +379,10 @@ namespace ArcGISRuntime.Samples.FindPlace
             // Get the first graphic from the first result.
             Graphic matchingGraphic = results.First().Graphics.First();
 
-            // Get the title; manually added to the point's attributes in UpdateSearch.
+            // Get the title; manually added to the point's attributes in UpdateSearchAsync.
             string title = matchingGraphic.Attributes["Match_Title"] as string;
 
-            // Get the address; manually added to the point's attributes in UpdateSearch.
+            // Get the address; manually added to the point's attributes in UpdateSearchAsync.
             string address = matchingGraphic.Attributes["Match_Address"] as string;
 
             // Define the callout.
@@ -462,8 +399,8 @@ namespace ArcGISRuntime.Samples.FindPlace
         /// <param name="location">Location around which to look for suggestions.</param>
         /// <param name="poiOnly">If true, restricts suggestions to only Points of Interest (e.g. businesses, parks),
         /// rather than all matching results.</param>
-        /// <returns>List of suggestions as strings.</returns>
-        private async Task<IEnumerable<string>> GetSuggestResults(string searchText, string location = "", bool poiOnly = false)
+        /// <returns>List of suggestions as strings or null if suggestions couldn't be retrieved.</returns>
+        private async Task<IEnumerable<string>> GetSuggestResultsAsync(string searchText, string location = "", bool poiOnly = false)
         {
             // Quit if string is null, empty, or whitespace.
             if (String.IsNullOrWhiteSpace(searchText))
@@ -521,22 +458,20 @@ namespace ArcGISRuntime.Samples.FindPlace
             string searchText = _locationBox.Text;
 
             // Get the results.
-            IEnumerable<string> results = await GetSuggestResults(searchText);
+            IEnumerable<string> results = await GetSuggestResultsAsync(searchText);
+            List<string> resultList = results?.ToList();
 
             // Quit if there are no results.
-            if (results == null || !results.Any())
+            if (resultList == null || !resultList.Any())
             {
                 return;
             }
 
-            // Get a modifiable list from the results.
-            List<string> mutableResults = results.ToList();
-
             // Add a 'current location' option to the list.
-            mutableResults.Insert(0, "Current location");
+            resultList.Insert(0, "Current location");
 
             // Update the list of options.
-            _mySuggestionSource.TableItems = mutableResults.ToList();
+            _mySuggestionSource.TableItems = resultList;
 
             // Force the view to refresh.
             _suggestionView.ReloadData();
@@ -563,16 +498,17 @@ namespace ArcGISRuntime.Samples.FindPlace
             string locationText = _locationBox.Text;
 
             // Convert the list into a usable format for the suggest box.
-            IEnumerable<string> results = await GetSuggestResults(searchText, locationText, true);
+            IEnumerable<string> results = await GetSuggestResultsAsync(searchText, locationText, true);
+            List<string> resultList = results?.ToList();
 
             // Quit if there are no results.
-            if (results == null || !results.Any())
+            if (resultList == null || !resultList.Any())
             {
                 return;
             }
 
             // Update the list of options.
-            _mySuggestionSource.TableItems = results.ToList();
+            _mySuggestionSource.TableItems = resultList;
 
             // Force the view to refresh.
             _suggestionView.ReloadData();
@@ -584,37 +520,53 @@ namespace ArcGISRuntime.Samples.FindPlace
         /// <summary>
         /// Method called to start a search that is restricted to results within the current extent.
         /// </summary>
-        private void SearchRestrictedButton_Touched(object sender, EventArgs e)
+        private async void SearchRestrictedButton_Touched(object sender, EventArgs e)
         {
             // Dismiss callout, if any.
-            UserInteracted();
+            try
+            {
+                UserInteracted();
 
-            // Get the search text.
-            string searchText = _searchBox.Text;
+                // Get the search text.
+                string searchText = _searchBox.Text;
 
-            // Get the location text.
-            string locationText = _locationBox.Text;
+                // Get the location text.
+                string locationText = _locationBox.Text;
 
-            // Run the search.
-            UpdateSearch(searchText, locationText, true);
+                // Run the search.
+                await UpdateSearchAsync(searchText, locationText, true);
+            }
+            // Uncaught exceptions in async void method will crash the app.
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
         }
 
         /// <summary>
         /// Method called to start an unrestricted search.
         /// </summary>
-        private void SearchButton_Touched(object sender, EventArgs e)
+        private async void SearchButton_Touched(object sender, EventArgs e)
         {
             // Dismiss callout, if any.
-            UserInteracted();
+            try
+            {
+                UserInteracted();
 
-            // Get the search text.
-            string searchText = _searchBox.Text;
+                // Get the search text.
+                string searchText = _searchBox.Text;
 
-            // Get the location text.
-            string locationText = _locationBox.Text;
+                // Get the location text.
+                string locationText = _locationBox.Text;
 
-            // Run the search.
-            UpdateSearch(searchText, locationText, false);
+                // Run the search.
+                await UpdateSearchAsync(searchText, locationText, false);
+            }
+            // Uncaught exceptions in async void method will crash the app.
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
         }
 
         /// <summary>
@@ -647,6 +599,68 @@ namespace ArcGISRuntime.Samples.FindPlace
         {
             // Hide the callout.
             _myMapView.DismissCallout();
+        }
+    }
+    /// <summary>
+    /// Class defines how a UITableView renders its contents.
+    /// This implements the suggestion UI for the table view.
+    /// </summary>
+    public class SuggestionSource : UITableViewSource
+    {
+        // List of strings; these will be the suggestions.
+        public List<string> TableItems = new List<string>();
+
+        // Used when re-using cells to ensure that a cell of the right type is used.
+        private const string CellId = "TableCell";
+
+        // Hold a reference to the owning view controller; this will be the active instance of FindPlace.
+        private FindPlace Owner { get; }
+
+        public SuggestionSource(List<string> items, FindPlace owner)
+        {
+            // Set the items.
+            if (items != null)
+            {
+                TableItems = items;
+            }
+
+            // Set the owner.
+            Owner = owner;
+        }
+
+        /// <summary>
+        /// This method gets a table view cell for the suggestion at the specified index.
+        /// </summary>
+        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
+        {
+            // Try to get a re-usable cell (this is for performance). If there are no cells, create a new one.
+            UITableViewCell cell = tableView.DequeueReusableCell(CellId) ?? new UITableViewCell(UITableViewCellStyle.Default, CellId);
+
+            // Set the text on the cell.
+            cell.TextLabel.Text = TableItems[indexPath.Row];
+
+            // Return the cell.
+            return cell;
+        }
+
+        /// <summary>
+        /// This method allows the UITableView to know how many rows to render.
+        /// </summary>
+        public override nint RowsInSection(UITableView tableview, nint section)
+        {
+            return TableItems.Count;
+        }
+
+        /// <summary>
+        /// Method called when a row is selected; notifies the primary view.
+        /// </summary>
+        public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
+        {
+            // Deselect the row.
+            tableView.DeselectRow(indexPath, true);
+
+            // Accept the suggestion.
+            Owner.AcceptSuggestion(TableItems[indexPath.Row]);
         }
     }
 }

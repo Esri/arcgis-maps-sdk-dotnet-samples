@@ -116,7 +116,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
             nint selectedSegmentId = (sender as UISegmentedControl).SelectedSegment;
 
             // Get the rendering rule info name from the UISegmentedControl that was chosen by the user.
-            string renderingRuleInfoName = (sender as UISegmentedControl).TitleAt(selectedSegmentId);
+            string selectedRuleName = (sender as UISegmentedControl).TitleAt(selectedSegmentId);
 
             // Loop through each rendering rule info in the image service raster.
             foreach (RenderingRuleInfo renderingRuleInfo in _renderRuleInfos)
@@ -125,7 +125,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
                 string renderingRuleName = renderingRuleInfo.Name;
 
                 // If the name of the rendering rule info matches what was chosen by the user, proceed.
-                if (renderingRuleName == renderingRuleInfoName)
+                if (renderingRuleName == selectedRuleName)
                 {
                     // Create a new rendering rule from the rendering rule info.
                     RenderingRule renderingRule = new RenderingRule(renderingRuleInfo);
@@ -142,6 +142,9 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
 
                     // Add the raster layer to the operational layers of the  map view.
                     _myMapView.Map.OperationalLayers.Add(rasterLayer);
+
+                    // Stop iterating once match is found.
+                    break;
                 }
             }
         }

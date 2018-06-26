@@ -95,7 +95,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             {
                 _serviceRequestComments.Add(commentFeature);
             }
-
+            
             // Create the table view source that uses the list of features.
             ServiceRequestCommentsTableSource commentsTableSource = new ServiceRequestCommentsTableSource(_serviceRequestComments);
 
@@ -207,18 +207,18 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         public delegate void NewCommentSelectedHandler(object sender, ServiceRequestCommentSelectedEventArgs e);
 
         // A list of service request comment features.
-        protected List<ArcGISFeature> Comments;
+        private readonly List<ArcGISFeature> _comments;
 
         // An identifier for the table cell (for cell reuse).
-        protected string CellIdentifier = "TableCell";
+        private const string CellIdentifier = "TableCell";
 
         // Store the selected row.
-        ArcGISFeature _selectedCommentRecord;
+        private ArcGISFeature _selectedCommentRecord;
 
         // The constructor takes a list of service request comment features.
         public ServiceRequestCommentsTableSource(List<ArcGISFeature> comments)
         {
-            Comments = comments;
+            _comments = comments;
         }
 
         // Number of sections (groups) to display.
@@ -230,15 +230,15 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         // When the selected row changes, raise the ServiceRequestCommentSelected event to return the selected feature.
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
-            _selectedCommentRecord = Comments[indexPath.Row];
-            ServiceRequestCommentSelected(this, new ServiceRequestCommentSelectedEventArgs(_selectedCommentRecord));
+            _selectedCommentRecord = _comments[indexPath.Row];
+            ServiceRequestCommentSelected?.Invoke(this, new ServiceRequestCommentSelectedEventArgs(_selectedCommentRecord));
         }
 
         // Number of rows in the specified section (group).
         public override nint RowsInSection(UITableView tableview, nint section)
         {
             // If the feature list is null, return 0. Otherwise the number of features in the internal comments list.
-            return Comments != null ? Comments.Count : 0;
+            return _comments != null ? _comments.Count : 0;
         }
 
         // Get the cell to display for the specified row.
@@ -248,7 +248,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             UITableViewCell cell = tableView.DequeueReusableCell(CellIdentifier);
 
             // Get the comment feature at this cell index.
-            Feature commentRow = Comments[indexPath.Row];
+            Feature commentRow = _comments[indexPath.Row];
 
             // If there wasn't a cell for reuse, create a new one.
             if (cell == null)

@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
@@ -61,7 +62,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             CreateLayout();
 
             // Load the map using Uri to the WMTS service.
-            LoadWMTSLayer(true);
+            LoadWMTSLayerAsync(true);
         }
 
         public override void ViewDidLayoutSubviews()
@@ -89,12 +90,12 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             }
         }
 
-        private void UriButton_Clicked(object sender, EventArgs e)
+        private async void UriButton_Clicked(object sender, EventArgs e)
         {
             try
             {
                 //Load the WMTS layer using Uri method.
-                LoadWMTSLayer(true);
+                await LoadWMTSLayerAsync(true);
 
                 // Disable and enable the appropriate buttons.
                 _uriButton.Enabled = false;
@@ -109,12 +110,12 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             }
         }
 
-        private void InfoButton_Clicked(object sender, EventArgs e)
+        private async void InfoButton_Clicked(object sender, EventArgs e)
         {
             try
             {
                 //Load the WMTS layer using layer info.
-                LoadWMTSLayer(false);
+                await LoadWMTSLayerAsync(false);
 
                 // Disable and enable the appropriate buttons.
                 _uriButton.Enabled = true;
@@ -129,7 +130,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             }
         }
 
-        private async void LoadWMTSLayer(bool uriMode)
+        private async Task LoadWMTSLayerAsync(bool uriMode)
         {
             try
             {

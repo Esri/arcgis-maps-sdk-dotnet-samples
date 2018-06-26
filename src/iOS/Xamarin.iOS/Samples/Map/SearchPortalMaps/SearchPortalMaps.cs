@@ -158,25 +158,33 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             View.AddSubviews(_myMapView, _toolbar, _segmentButton);
         }
 
-        private void SegmentButtonClicked(object sender, EventArgs e)
+        private async void SegmentButtonClicked(object sender, EventArgs e)
         {
-            // Get the segmented button control that raised the event.
-            var buttonControl = sender as UISegmentedControl;
-
-            switch (buttonControl.SelectedSegment)
+            try
             {
-                case 0:
-                    // Show search UI.
-                    ShowSearchMapUi();
-                    break;
-                case 1:
-                    // Authenticate user on ArcGIS Online, then show their maps.
-                    GetMyMaps();
-                    break;
-            }
+                // Get the segmented button control that raised the event.
+                var buttonControl = sender as UISegmentedControl;
 
-            // Deselect all segments (user might want to click the same control twice).
-            buttonControl.SelectedSegment = -1;
+                switch (buttonControl.SelectedSegment)
+                {
+                    case 0:
+                        // Show search UI.
+                        ShowSearchMapUi();
+                        break;
+                    case 1:
+                        // Authenticate user on ArcGIS Online, then show their maps.
+                        await GetMyMaps();
+                        break;
+                }
+
+                // Deselect all segments (user might want to click the same control twice).
+                buttonControl.SelectedSegment = -1;
+            }
+            // Exceptions not caught in an async void method will crash the app.
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
         }
 
         private void ShowSearchMapUi()
@@ -202,7 +210,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             View.Add(_searchMapsUi);
         }
 
-        private async void GetMyMaps()
+        private async Task GetMyMaps()
         {
             // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already).
             bool loggedIn = await EnsureLoggedInAsync();
@@ -278,7 +286,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Add actions to load the available web maps.
             foreach (var item in webmapItems)
             {
-                mapListActionSheet.AddAction(UIAlertAction.Create(item.Title, UIAlertActionStyle.Default, action => DisplayMap(item.Url)));
+                mapListActionSheet.AddAction(UIAlertAction.Create(item.Title, UIAlertActionStyle.Default, async action => await DisplayMap(item.Url)));
             }
 
             // Add a choice to cancel.
@@ -296,7 +304,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             PresentViewController(mapListActionSheet, true, null);
         }
 
-        private async void DisplayMap(Uri webMapUri)
+        private async Task DisplayMap(Uri webMapUri)
         {
             var webMap = new Map(webMapUri);
             try
@@ -463,7 +471,6 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 AllowCancel = true
             };
 
-
             // Define a handler for the OAuth2Authenticator.Completed event.
             auth.Completed += (sender, authArgs) =>
             {
@@ -495,7 +502,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             };
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
-            auth.Error += (sndr, errArgs) =>
+            auth.Error += (sender, errArgs) =>
             {
                 if (errArgs.Exception != null)
                 {
@@ -516,45 +523,6 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;
         }
-
-        private static IDictionary<string, string> DecodeParameters(Uri uri)
-        {
-            // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string.
-            string answer = "";
-
-            // Get the values from the URI fragment or query string.
-            if (!string.IsNullOrEmpty(uri.Fragment))
-            {
-                answer = uri.Fragment.Substring(1);
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(uri.Query))
-                {
-                    answer = uri.Query.Substring(1);
-                }
-            }
-
-            // Parse parameters into key / value pairs.
-            Dictionary<string, string> keyValueDictionary = new Dictionary<string, string>();
-            string[] keysAndValues = answer.Split(new[] {'&'}, StringSplitOptions.RemoveEmptyEntries);
-            foreach (string kvString in keysAndValues)
-            {
-                string[] pair = kvString.Split('=');
-                string key = pair[0];
-                string value = "";
-                if (key.Length > 1)
-                {
-                    value = Uri.UnescapeDataString(pair[1]);
-                }
-
-                keyValueDictionary.Add(key, value);
-            }
-
-            // Return the dictionary of string keys/values.
-            return keyValueDictionary;
-        }
-
         #endregion OAuth helpers
     }
 

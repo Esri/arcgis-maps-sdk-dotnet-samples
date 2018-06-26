@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Http;
 using Foundation;
 using UIKit;
 
@@ -267,23 +268,30 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             }
 
             // Execute the statistical query with these parameters and await the results.
-            StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
-
-            // Get results formatted as a dictionary (group names and their associated dictionary of results).
-            Dictionary<string, IReadOnlyDictionary<string, object>> resultsLookup = statQueryResult.ToDictionary(result => string.Join(", ", result.Group.Values), result => result.Statistics);
-
-            // Create an instance of a custom data source to display the results.
-            StatisticQueryResultsDataSource statResultsDataSource = new StatisticQueryResultsDataSource(resultsLookup);
-
-            // Create a new table with a grouped style for displaying rows.
-            UITableViewController statResultsTable = new UITableViewController(UITableViewStyle.Grouped)
+            try
             {
-                // Set the table view data source.
-                TableView = {Source = statResultsDataSource}
-            };
+                StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
 
-            // Show the table view.
-            NavigationController.PushViewController(statResultsTable, true);
+                // Get results formatted as a dictionary (group names and their associated dictionary of results).
+                Dictionary<string, IReadOnlyDictionary<string, object>> resultsLookup = statQueryResult.ToDictionary(result => string.Join(", ", result.Group.Values), result => result.Statistics);
+
+                // Create an instance of a custom data source to display the results.
+                StatisticQueryResultsDataSource statResultsDataSource = new StatisticQueryResultsDataSource(resultsLookup);
+
+                // Create a new table with a grouped style for displaying rows.
+                UITableViewController statResultsTable = new UITableViewController(UITableViewStyle.Grouped)
+                {
+                    // Set the table view data source.
+                    TableView = { Source = statResultsDataSource }
+                };
+
+                // Show the table view.
+                NavigationController.PushViewController(statResultsTable, true);
+            }
+            catch (ArcGISWebException exception)
+            {
+                ShowAlert("There was a problem performing the query.", exception.ToString());
+            }
         }
 
         private void ShowAlert(string title, string message)
@@ -650,7 +658,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             // Use the control's tag to get the row that was changed.
             nint index = (sender as UISwitch).Tag;
 
-            // Get the corresponding field and update it's choice as a sort field.
+            // Get the corresponding field and update its choice as a sort field.
             OrderFieldOption orderByOption = _potentialOrderByFields.ElementAt((int) index);
             orderByOption.OrderWith = (sender as UISwitch).On;
         }
@@ -691,7 +699,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             object value = stats.Values.ElementAt(indexPath.Row);
 
             // Set the main text with the statistic value.
-            cell.TextLabel.Text = value.ToString();
+            cell.TextLabel.Text = (value ?? "").ToString();
 
             // Set the sub text with the field alias name.
             cell.DetailTextLabel.Text = field;

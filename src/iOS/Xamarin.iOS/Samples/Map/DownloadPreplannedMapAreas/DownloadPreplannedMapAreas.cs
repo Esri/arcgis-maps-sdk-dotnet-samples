@@ -108,41 +108,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
                 }
 
                 // Show a popup menu of available areas when the download button is clicked.
-                _downloadButton.TouchUpInside += (s, e) =>
-                {
-                    // Create the alert controller.
-                    UIAlertController mapAreaSelectionAlertController = UIAlertController.Create("Map Area Selection",
-                        "Select a map area to download and show.", UIAlertControllerStyle.ActionSheet);
-
-                    // Add one action per map area.
-                    foreach (PreplannedMapArea area in _preplannedMapAreas)
-                    {
-                        mapAreaSelectionAlertController.AddAction(UIAlertAction.Create(area.PortalItem.Title, UIAlertActionStyle.Default,
-                            action =>
-                            {
-                                // Download and show the selected map area.
-                                OnDownloadMapAreaClicked(action.Title);
-                            }));
-                    }
-
-                    // Needed to prevent a crash on iPad.
-                    UIPopoverPresentationController presentationPopover = mapAreaSelectionAlertController.PopoverPresentationController;
-                    if (presentationPopover != null)
-                    {
-                        presentationPopover.SourceView = View;
-                        presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
-                    }
-
-                    // Display the alert.
-                    PresentViewController(mapAreaSelectionAlertController, true, null);
-
-                    // Remove the startup prompt if it hasn't been removed already.
-                    if (_initialPrompt != null)
-                    {
-                        _initialPrompt.RemoveFromSuperview();
-                        _initialPrompt = null;
-                    }
-                };
+                _downloadButton.TouchUpInside += DownloadButton_Click;
 
                 // Remove loading indicators from UI.
                 _progressIndicator.RemoveFromSuperview();
@@ -153,6 +119,42 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
                 UIAlertController alertController = UIAlertController.Create("An error occurred.", ex.Message, UIAlertControllerStyle.Alert);
                 alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alertController, true, null);
+            }
+        }
+
+        private void DownloadButton_Click(object sender, EventArgs e)
+        {
+            // Create the alert controller.
+            UIAlertController mapAreaSelectionAlertController = UIAlertController.Create("Map Area Selection",
+                "Select a map area to download and show.", UIAlertControllerStyle.ActionSheet);
+
+            // Add one action per map area.
+            foreach (PreplannedMapArea area in _preplannedMapAreas)
+            {
+                mapAreaSelectionAlertController.AddAction(UIAlertAction.Create(area.PortalItem.Title, UIAlertActionStyle.Default,
+                    action =>
+                    {
+                        // Download and show the selected map area.
+                        OnDownloadMapAreaClicked(action.Title);
+                    }));
+            }
+
+            // Needed to prevent a crash on iPad.
+            UIPopoverPresentationController presentationPopover = mapAreaSelectionAlertController.PopoverPresentationController;
+            if (presentationPopover != null)
+            {
+                presentationPopover.SourceView = View;
+                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+            }
+
+            // Display the alert.
+            PresentViewController(mapAreaSelectionAlertController, true, null);
+
+            // Remove the startup prompt if it hasn't been removed already.
+            if (_initialPrompt != null)
+            {
+                _initialPrompt.RemoveFromSuperview();
+                _initialPrompt = null;
             }
         }
 
@@ -180,9 +182,10 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
                     // Return without proceeding to download.
                     return;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // Do nothing, continue as if map wasn't downloaded.
+                    // Log the error, then continue as if map wasn't downloaded.
+                    System.Diagnostics.Debug.WriteLine(ex);
                 }
             }
 

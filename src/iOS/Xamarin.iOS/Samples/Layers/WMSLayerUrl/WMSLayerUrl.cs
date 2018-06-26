@@ -58,7 +58,7 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
             // Apply an imagery basemap to the map and set the viewpoint to a zoomed-in part of Africa.
             Map myMap = new Map(Basemap.CreateImagery())
             {
-                InitialViewpoint = new Viewpoint(new MapPoint(25.450, -4.59, new SpatialReference(4326)), 1000000)
+                InitialViewpoint = new Viewpoint(new MapPoint(25.450, -4.59, SpatialReferences.Wgs84), 1000000)
             };
 
             // Show the map.

@@ -86,10 +86,10 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
             }
 
             // Fix to prevent crash on iPad.
-            var poppover = basemapSelectionAlert.PopoverPresentationController;
-            if (poppover != null)
+            var popoverPresentationController = basemapSelectionAlert.PopoverPresentationController;
+            if (popoverPresentationController != null)
             {
-                poppover.SourceView = (UIButton) sender;
+                popoverPresentationController.SourceView = (UIButton) sender;
             }
 
             // Show the alert.

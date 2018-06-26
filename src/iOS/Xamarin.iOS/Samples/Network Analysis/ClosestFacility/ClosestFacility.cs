@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
         "Network Analysis",
         "Demonstrates how to solve a Closest Facility Task to find the closest route between a facility (hospital) and a incident (black cross).",
         "Tap to find the route to the nearest hospital.")]
-    public partial class ClosestFacility : UIViewController
+    public class ClosestFacility : UIViewController
     {
         // Map view that will be used.
         private MapView _myMapView;

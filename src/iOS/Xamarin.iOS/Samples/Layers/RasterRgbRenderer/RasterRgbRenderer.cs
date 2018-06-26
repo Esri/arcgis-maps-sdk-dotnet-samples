@@ -567,17 +567,6 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
     // Class that defines a view model for showing color values (0-255 for RGB) in a picker control.
     public class RgbValuePickerModel : UIPickerViewModel
     {
-        // Array of red values (0-255).
-        private readonly int[] _redValues = Enumerable.Range(0, 256).ToArray();
-
-        // Array of green values (0-255).
-        private readonly int[] _greenValues = Enumerable.Range(0, 256).ToArray();
-
-        // Array of blue values (0-255).
-        private readonly int[] _blueValues = Enumerable.Range(0, 256).ToArray();
-
-        // Currently selected red, green, and blue values.
-
         // Constructor takes the default values for RGB.
         public RgbValuePickerModel(int defaultRed, int defaultGreen, int defaultBlue)
         {
@@ -610,32 +599,16 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         // Get the title to display in each picker component.
         public override string GetTitle(UIPickerView pickerView, nint row, nint component)
         {
-            string title = "";
-
-            // First component is red, second is green, third is blue.
-            switch (component)
-            {
-                case 0:
-                    title = _redValues[row].ToString();
-                    break;
-                case 1:
-                    title = _greenValues[row].ToString();
-                    break;
-                case 2:
-                    title = _blueValues[row].ToString();
-                    break;
-            }
-
-            return title;
+            return row.ToString();
         }
 
         // Handle the selection event for the picker.
         public override void Selected(UIPickerView pickerView, nint row, nint component)
         {
             // Get the selected RGB values.
-            SelectedRed = _redValues[pickerView.SelectedRowInComponent(0)];
-            SelectedGreen = _greenValues[pickerView.SelectedRowInComponent(1)];
-            SelectedBlue = _blueValues[pickerView.SelectedRowInComponent(2)];
+            SelectedRed = (int)pickerView.SelectedRowInComponent(0);
+            SelectedGreen = (int)pickerView.SelectedRowInComponent(1);
+            SelectedBlue = (int)pickerView.SelectedRowInComponent(2);
         }
 
         // Return the desired width for each component in the picker.

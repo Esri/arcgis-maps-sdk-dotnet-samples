@@ -57,35 +57,35 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
                 var featureTableUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
 
                 // Create a new service feature table from the URI.
-                ServiceFeatureTable myServiceFeatureTable = new ServiceFeatureTable(featureTableUri);
+                ServiceFeatureTable censusServiceFeatureTable = new ServiceFeatureTable(featureTableUri);
 
                 // Create a new feature layer from the service feature table.
-                FeatureLayer myFeatureLayer = new FeatureLayer(myServiceFeatureTable)
+                FeatureLayer censusFeatureLayer = new FeatureLayer(censusServiceFeatureTable)
                 {
                     // Set the rendering mode of the feature layer to be dynamic (needed for extrusion to work).
                     RenderingMode = FeatureRenderingMode.Dynamic
                 };
 
                 // Create a new simple line symbol for the feature layer.
-                SimpleLineSymbol mySimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
+                SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
 
                 // Create a new simple fill symbol for the feature layer.
-                SimpleFillSymbol mysimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Blue, mySimpleLineSymbol);
+                SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Blue, lineSymbol);
 
                 // Create a new simple renderer for the feature layer.
-                SimpleRenderer mySimpleRenderer = new SimpleRenderer(mysimpleFillSymbol);
+                SimpleRenderer renderer = new SimpleRenderer(fillSymbol);
 
                 // Get the scene properties from the simple renderer.
-                RendererSceneProperties myRendererSceneProperties = mySimpleRenderer.SceneProperties;
+                RendererSceneProperties sceneProperties = renderer.SceneProperties;
 
                 // Set the extrusion mode for the scene properties.
-                myRendererSceneProperties.ExtrusionMode = ExtrusionMode.AbsoluteHeight;
+                sceneProperties.ExtrusionMode = ExtrusionMode.AbsoluteHeight;
 
                 // Set the initial extrusion expression.
-                myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
+                sceneProperties.ExtrusionExpression = "[POP2007] / 10";
 
                 // Set the feature layer's renderer to the define simple renderer.
-                myFeatureLayer.Renderer = mySimpleRenderer;
+                censusFeatureLayer.Renderer = renderer;
 
                 // Create a new scene with a topographic basemap.
                 Scene myScene = new Scene(BasemapType.Topographic);
@@ -94,7 +94,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
                 _mySceneView.Scene = myScene;
 
                 // Add the feature layer to the scene's operational layer collection.
-                myScene.OperationalLayers.Add(myFeatureLayer);
+                myScene.OperationalLayers.Add(censusFeatureLayer);
 
                 // Create a new map point to define where to look on the scene view.
                 MapPoint myMapPoint = new MapPoint(-10974490, 4814376, 0, SpatialReferences.WebMercator);
@@ -114,25 +114,25 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         private void ChangeExtrusionExpression()
         {
             // Get the first layer from the scene view's operation layers, it should be a feature layer.
-            FeatureLayer myFeatureLayer = (FeatureLayer) _mySceneView.Scene.OperationalLayers[0];
+            FeatureLayer censusFeatureLayer = (FeatureLayer) _mySceneView.Scene.OperationalLayers[0];
 
             // Get the renderer from the feature layer.
-            Renderer myRenderer = myFeatureLayer.Renderer;
+            Renderer censusRenderer = censusFeatureLayer.Renderer;
 
             // Get the scene properties from the feature layer's renderer.
-            RendererSceneProperties myRendererSceneProperties = myRenderer.SceneProperties;
+            RendererSceneProperties sceneProperties = censusRenderer.SceneProperties;
 
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text.
             if (_toggleExtrusionButton.Title(UIControlState.Normal) == "Population density")
             {
                 // An offset of 100000 is added to ensure that polygons for large areas (like Alaska)
                 // with low populations will be extruded above the curvature of the Earth.
-                myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000 + 100000";
+                sceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000 + 100000";
                 _toggleExtrusionButton.SetTitle("Total population", UIControlState.Normal);
             }
             else if (_toggleExtrusionButton.Title(UIControlState.Normal) == "Total population")
             {
-                myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
+                sceneProperties.ExtrusionExpression = "[POP2007] / 10";
                 _toggleExtrusionButton.SetTitle("Population density", UIControlState.Normal);
             }
         }

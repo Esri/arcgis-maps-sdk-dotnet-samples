@@ -146,7 +146,7 @@ namespace ArcGISRuntime.Samples.FindRoute
             RouteResult solveRouteResult = await solveRouteTask.SolveRouteAsync(routeParams);
 
             // Get the first (should be only) route from the result.
-            Route firstRoute = solveRouteResult.Routes.FirstOrDefault();
+            Route firstRoute = solveRouteResult.Routes.First();
 
             // Get the route geometry (polyline).
             Polyline routePolyline = firstRoute.RouteGeometry;

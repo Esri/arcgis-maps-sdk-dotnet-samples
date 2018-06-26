@@ -32,14 +32,12 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
 
         private readonly UIButton _firstStyleButton = new UIButton
         {
-            Enabled = false,
-            HorizontalAlignment = UIControlContentHorizontalAlignment.Center
+            Enabled = false
         };
 
         private readonly UIButton _secondStyleButton = new UIButton
         {
-            Enabled = false,
-            HorizontalAlignment = UIControlContentHorizontalAlignment.Center
+            Enabled = false
         };
 
         private readonly UILabel _helpLabel = new UILabel
@@ -57,7 +55,6 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
 
         // Hold a reference to the layer to enable re-styling.
         private WmsLayer _mnWmsLayer;
-
 
         public StyleWmsLayer()
         {

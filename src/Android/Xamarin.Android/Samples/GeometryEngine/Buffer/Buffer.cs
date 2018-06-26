@@ -118,7 +118,7 @@ namespace ArcGISRuntime.Samples.Buffer
             {
                 // Display an error message if there is a problem generating the buffer polygon.
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-                alertBuilder.SetTitle("Geometry Engine Failed!");
+                alertBuilder.SetTitle("There was a problem generating buffers.");
                 alertBuilder.SetMessage(ex.ToString());
                 alertBuilder.Show();
             }
@@ -138,6 +138,18 @@ namespace ArcGISRuntime.Samples.Buffer
             _bufferDistanceMilesEditText = new EditText(this);
             _bufferDistanceMilesEditText.Text = "10";
             layout.AddView(_bufferDistanceMilesEditText);
+
+            // Create a reset button.
+            Button resetButton = new Button(this)
+            {
+                Text = "Reset"
+            };
+            resetButton.Click += (sender, args) =>
+            {
+                _graphicsOverlay.Graphics.Clear();
+            };
+
+            layout.AddView(resetButton);
 
             // Add the map view to the layout.
             layout.AddView(_myMapView);

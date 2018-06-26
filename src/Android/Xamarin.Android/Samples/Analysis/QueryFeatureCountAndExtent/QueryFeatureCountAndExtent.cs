@@ -96,6 +96,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             // Return if there is no result (might happen if query is invalid)
             if (resultExtent?.SpatialReference == null)
             {
+                _myResultsLabel.Text = $"Couldn't zoom to features in {_myStateEntry.Text}.";
                 return;
             }
 
@@ -106,7 +107,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             await _myMapView.SetViewpointAsync(resultViewpoint);
 
             // Update label
-            _myResultsLabel.Text = $"Zoomed to features in {_myStateEntry.Text}";
+            _myResultsLabel.Text = $"Zoomed to features in {_myStateEntry.Text}.";
         }
 
         private async void BtnCountFeatures_Click(object sender, EventArgs e)
@@ -134,7 +135,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
                 // Sample wasn't ready
                 System.Diagnostics.Debug.WriteLine(exception);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Uncaught exception in async void will crash application
             }

@@ -133,7 +133,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
             {
                 // Display an error message if there is a problem generating cut operation.
                 var alertBuilder = new AlertDialog.Builder(this);
-                alertBuilder.SetTitle("Geometry Engine Failed!");
+                alertBuilder.SetTitle("There was a problem cutting the geometry.");
                 alertBuilder.SetMessage(ex.ToString());
                 alertBuilder.Show();
             }

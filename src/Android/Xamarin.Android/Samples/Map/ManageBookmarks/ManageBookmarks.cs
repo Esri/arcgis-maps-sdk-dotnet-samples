@@ -179,9 +179,18 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             // Create a layout for the text entry
             LinearLayout nameTextLayout = new LinearLayout(this);
             nameTextLayout.Orientation = Orientation.Horizontal;
+            nameTextLayout.SetPadding(10,0,10,0);
 
             // EditText control for entering the bookmark name
             _bookmarkNameText = new EditText(this);
+            
+            // Layout parameters for making views fill available width
+            LinearLayout.LayoutParams fillWidthParam = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MatchParent,
+                ViewGroup.LayoutParams.WrapContent,
+                1.0f
+            );
+            _bookmarkNameText.LayoutParameters = fillWidthParam;
             
             // Label for the text entry
             var nameLabel = new TextView(this);
@@ -196,13 +205,19 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             buttonLayout.Orientation = Orientation.Horizontal;
 
             // Button to cancel the new bookmark
-            var cancelButton = new Button(this);
-            cancelButton.Text = "Cancel";
+            var cancelButton = new Button(this)
+            {
+                Text = "Cancel",
+                LayoutParameters = fillWidthParam
+            };
             cancelButton.Click += (s, e) => _newBookmarkDialog.Dismiss();
 
             // Button to save the current viewpoint as a new bookmark
-            var okButton = new Button(this);
-            okButton.Text = "OK";
+            var okButton = new Button(this)
+            {
+                Text = "OK",
+                LayoutParameters = fillWidthParam
+            };
             okButton.Click += CreateNewBookmark;
 
             // Add the buttons to the layout

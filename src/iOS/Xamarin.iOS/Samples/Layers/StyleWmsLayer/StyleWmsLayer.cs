@@ -32,12 +32,14 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
 
         private readonly UIButton _firstStyleButton = new UIButton
         {
-            Enabled = false
+            Enabled = false,
+            HorizontalAlignment = UIControlContentHorizontalAlignment.Center
         };
 
         private readonly UIButton _secondStyleButton = new UIButton
         {
-            Enabled = false
+            Enabled = false,
+            HorizontalAlignment = UIControlContentHorizontalAlignment.Center
         };
 
         private readonly UILabel _helpLabel = new UILabel
@@ -80,10 +82,6 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             // Update the button text.
             _firstStyleButton.SetTitle("Style 1", UIControlState.Normal);
             _secondStyleButton.SetTitle("Style 2", UIControlState.Normal);
-
-            // Update alignment.
-            _firstStyleButton.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
-            _secondStyleButton.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
 
             // Update the colors.
             _firstStyleButton.SetTitleColor(View.TintColor, UIControlState.Normal);

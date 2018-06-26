@@ -101,7 +101,14 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
             BeginInvokeOnMainThread(() =>
             {
                 // Show the activity indicator if the map is drawing.
-                _activityIndicator.Hidden = e.Status != DrawStatus.InProgress;
+                if (e.Status == DrawStatus.InProgress)
+                {
+                    _activityIndicator.Hidden = false;
+                }
+                else
+                {
+                    _activityIndicator.Hidden = true;
+                }
             });
         }
 

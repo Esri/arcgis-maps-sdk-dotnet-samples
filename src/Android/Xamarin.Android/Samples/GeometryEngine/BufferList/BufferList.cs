@@ -243,6 +243,7 @@ namespace ArcGISRuntime.Samples.BufferList
             {
                 _graphicsOverlay.Graphics.Clear();
                 _bufferDistancesList.Clear();
+                _bufferPointsList.Clear();
             };
             layout.AddView(resetButton);
 

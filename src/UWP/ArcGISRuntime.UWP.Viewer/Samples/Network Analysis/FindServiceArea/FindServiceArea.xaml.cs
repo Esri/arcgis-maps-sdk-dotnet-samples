@@ -16,9 +16,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.WPF.Samples.FindServiceArea
+namespace ArcGISRuntime.UWP.Samples.FindServiceArea
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Find service area (interactive)",
@@ -95,7 +96,7 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
             catch (Exception ex)
             {
                 // Report exceptions.
-                MessageBox.Show("Error drawing facility:\n" + ex.Message);
+                await new MessageDialog("Error drawing facility:\n" + ex.Message, "Sample error").ShowAsync();
             }
         }
 
@@ -126,7 +127,7 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
             catch (Exception ex)
             {
                 // Report exceptions.
-                MessageBox.Show("Error drawing barrier:\n" + ex.Message);
+                await new MessageDialog("Error drawing barrier:\n" + ex.Message, "Sample error").ShowAsync();
             }
         }
 
@@ -143,7 +144,7 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
             // Check that there is at least 1 facility to find a service area for.
             if (!serviceAreaFacilities.Any())
             {
-                MessageBox.Show("Must have at least one Facility!", "Sample error");
+                await new MessageDialog("Must have at least one Facility!", "Sample error").ShowAsync();
                 return;
             }
 
@@ -221,11 +222,11 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
             {
                 if (exception.Message.ToString().Equals("Unable to complete operation."))
                 {
-                    MessageBox.Show("Facility not within San Diego area!", "Sample error");
+                    await new MessageDialog("Facility not within San Diego area!", "Sample error").ShowAsync();
                 }
                 else
                 {
-                    MessageBox.Show("An ArcGIS web exception occurred. \n" + exception.Message.ToString(), "Sample error");
+                    await new MessageDialog("An ArcGIS web exception occurred. \n", "Sample error").ShowAsync();
                 }
             }
         }

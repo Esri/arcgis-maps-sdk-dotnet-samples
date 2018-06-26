@@ -493,7 +493,7 @@
     </Compile>
     <Compile Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml.cs">
       <DependentUpon>MapImageSublayerQuery.xaml</DependentUpon>
-    </Compile>    
+    </Compile>
     <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
       <DependentUpon>RasterHillshade.xaml</DependentUpon>
     </Compile>
@@ -622,6 +622,9 @@
     </Compile>
     <Compile Include="Samples\Network Analysis\FindRoute\FindRoute.xaml.cs">
       <DependentUpon>FindRoute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml.cs">
+      <DependentUpon>FindServiceArea.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Search\FindAddress\FindAddress.xaml.cs">
       <DependentUpon>FindAddress.xaml</DependentUpon>
@@ -936,7 +939,7 @@
     <Page Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>    
+    </Page>
     <Page Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1109,6 +1112,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Search\FindAddress\FindAddress.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1211,7 +1218,7 @@
       <Version>100.3.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.UWP">
-      <Version>100.3.0</Version>
+      <Version>100.3.0-daily2099</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.8</Version>

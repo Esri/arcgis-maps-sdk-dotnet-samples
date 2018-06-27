@@ -270,6 +270,7 @@
     <Compile Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.cs" />
     <Compile Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.cs" />
     <Compile Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.cs" />
+    <Compile Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.cs" />
     <Compile Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.cs" />
     <Compile Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.cs" />
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.cs" />
@@ -445,6 +446,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\DensifyAndGeneralize.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

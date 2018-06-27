@@ -348,6 +348,7 @@
     <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.cs" />
     <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.cs" />
     <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.cs" />
+    <Compile Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.cs" />
     <Compile Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.cs" />
     <Compile Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.cs" />
     <Compile Include="Samples\MapView\DisplayGrid\DisplayGrid.cs" />
@@ -490,6 +491,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

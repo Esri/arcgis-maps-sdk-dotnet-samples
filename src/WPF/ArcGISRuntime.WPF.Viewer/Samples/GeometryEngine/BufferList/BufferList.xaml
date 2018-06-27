@@ -40,6 +40,10 @@
                         Content="Create buffer(s)"
                         Margin="0,10,0,0"
                         Click="BufferButton_Click" />
+                <Button x:Name="ClearButton"
+                        Content="Clear"
+                        Margin="0,10,0,0"
+                        Click="ClearButton_Click" />
             </StackPanel>
         </Border>
     </Grid>

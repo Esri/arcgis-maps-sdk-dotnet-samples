@@ -455,6 +455,9 @@
   <ItemGroup>
     <None Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.jpg" />
+  </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

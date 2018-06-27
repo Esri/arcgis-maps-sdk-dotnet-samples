@@ -7,91 +7,94 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Android.App;
-using Android.OS;
-using Android.Widget;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
+using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UIKit;
 
 namespace ArcGISRuntime.Samples.FindServiceArea
 {
-    [Activity(Label = "FindServiceArea")]
+    [Register("FindServiceArea")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Find service area (interactive)",
         "Network Analysis",
         "Demonstrates how to find services areas around a point using the ServiceAreaTask. A service area shows locations that can be reached from a facility based off a certain impedance [such as travel time]. Barriers can also be added which can effect the impedance by not letting traffic through or adding the time is takes to pass that barrier.",
         "To add a facility, click the facility button, then click anywhere on the MapView.\nTo add a barrier, click the barrier button, and click multiple locations on MapView.\nDouble tap on the MapView to finish drawing the barrier.\nTo show service areas around facilities that were added, click the show service areas button.\nClick the reset button to clear all graphics and features.",
         "ArcGISMap, GraphicsOverlay, MapView, PolylineBarrier, ServiceAreaFacility, ServiceAreaParameters, ServiceAreaPolygon, ServiceAreaResult, ServiceAreaTask, SketchEditor")]
-    public class FindServiceArea : Activity
+    public class FindServiceArea : UIViewController
     {
-        private MapView _myMapView = new MapView();
+        private MapView _myMapView;
+
+        private UIToolbar _toolbar = new UIToolbar();
+
+        // Create buttons for the UI.
+        private UIButton _addFacilitiesButton = new UIButton(UIButtonType.Plain);
+        private UIButton _addBarrierButton = new UIButton(UIButtonType.Plain);
+        private UIButton _showServiceAreasButton = new UIButton(UIButtonType.Plain);
+        private UIButton _resetButton = new UIButton(UIButtonType.Plain);
 
         // Uri for the service area around San Diego.
         private Uri _serviceAreaUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ServiceArea");
 
-        // Create buttons for the UI.
-        private Button _facilityButton;
-        private Button _barrierButton;
-        private Button _serviceAreasButton;
-        private Button _resetButton;
-
-        protected override void OnCreate(Bundle bundle)
+        public FindServiceArea()
         {
-            base.OnCreate(bundle);
+            Title = "Find service area";
+        }
 
-            Title = "Find service area (interactive)";
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
 
-            // Create the UI.
-            CreateLayout();
+            // Create a new MapView control and provide its location coordinates on the frame
+            _myMapView = new MapView();
 
-            // Initialize the app.
+            // Add all of the buttons and link their click methods.
+            _addFacilitiesButton.SetTitle("Facilities", UIControlState.Normal);
+            _addFacilitiesButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _addFacilitiesButton.TouchUpInside += PlaceFacilites_Click;
+
+            _addBarrierButton.SetTitle("Barrier", UIControlState.Normal);
+            _addBarrierButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _addBarrierButton.TouchUpInside += DrawBarrier_Click;
+
+            _showServiceAreasButton.SetTitle("Service areas", UIControlState.Normal);
+            _showServiceAreasButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _showServiceAreasButton.TouchUpInside += ShowServiceAreas_Click;
+
+            _resetButton.SetTitle("Reset", UIControlState.Normal);
+            _resetButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _resetButton.TouchUpInside += Reset_Click;
+
+            // Add the bar button items to an array of UIBarButtonItems
+            View.AddSubviews(_myMapView, _toolbar, _addFacilitiesButton, _addBarrierButton, _showServiceAreasButton, _resetButton);
+
             Initialize();
         }
 
-        private void CreateLayout()
+        public override void ViewDidLayoutSubviews()
         {
-            // Create a new layout for the entire page.
-            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            int yPageOffset = 60;
 
-            // Create a new layout for the toolbar (buttons).
-            GridLayout toolbar = new GridLayout(this) { RowCount = 2, ColumnCount = 2, AlignmentMode = GridAlign.Margins };
+            // Setup the visual frame for the MapView
+            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
 
-            // Create a button to reset the route display, add it to the toolbar.
-            _facilityButton = new Button(this) { Text = "Place Facility" };
-            _facilityButton.Click += PlaceFacilityButtonClick;
-            toolbar.AddView(_facilityButton);
+            // Setup the visual frame for the Toolbar
+            _toolbar.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 80);
 
-            // Create a button to reset the route display, add it to the toolbar.
-            _barrierButton = new Button(this) { Text = "Draw Barrier" };
-            _barrierButton.Click += DrawBarrierButtonClick;
-            toolbar.AddView(_barrierButton);
+            _addFacilitiesButton.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width / 2, 40);
+            _addBarrierButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2, yPageOffset, View.Bounds.Width / 2, 40);
+            _showServiceAreasButton.Frame = new CoreGraphics.CGRect(0, yPageOffset + 40, View.Bounds.Width / 2, 40);
+            _resetButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2, yPageOffset + 40, View.Bounds.Width / 2, 40);
 
-            // Create a button to reset the route display, add it to the toolbar.
-            _serviceAreasButton = new Button(this) { Text = "Show Service Areas" };
-            _serviceAreasButton.Click += ShowServiceAreasButtonClick;
-            toolbar.AddView(_serviceAreasButton);
-
-            // Create a button to reset the route display, add it to the toolbar.
-            _resetButton = new Button(this) { Text = "Reset" };
-            _resetButton.Click += ResetClick;
-            toolbar.AddView(_resetButton);
-
-            // Add the toolbar to the layout
-            layout.AddView(toolbar);
-
-            // Add the map view to the layout
-            layout.AddView(_myMapView);
-
-            // Show the layout in the app
-            SetContentView(layout);
+            base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
@@ -119,10 +122,11 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             };
         }
 
-        private async void PlaceFacilityButtonClick(object sender, EventArgs e)
+        private async void PlaceFacilites_Click(object sender, EventArgs e)
         {
             // Disable the button so the user recognizes that they are placing a facility.
-            _facilityButton.Enabled = false;
+            _addFacilitiesButton.Enabled = false;
+            _addFacilitiesButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
 
             try
             {
@@ -157,14 +161,15 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             }
 
             // Enable the button when the user is done.
-            _facilityButton.Enabled = true;
+            _addFacilitiesButton.Enabled = true;
+            _addFacilitiesButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
         }
 
-        private async void DrawBarrierButtonClick(object sender, EventArgs e)
+        private async void DrawBarrier_Click(object sender, EventArgs e)
         {
             // Disable the button so the user recognizes that they are drawing a barrier.
-            _barrierButton.Enabled = false;
-
+            _addBarrierButton.Enabled = false;
+            _addBarrierButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
             try
             {
                 // Let the user draw on the map view using the polyline sketch mode.
@@ -194,10 +199,11 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             }
 
             // Enable the button when the user is done.
-            _barrierButton.Enabled = true;
+            _addBarrierButton.Enabled = true;
+            _addBarrierButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
         }
 
-        private async void ShowServiceAreasButtonClick(object sender, EventArgs e)
+        private async void ShowServiceAreas_Click(object sender, EventArgs e)
         {
             // Use a local variable for the graphics overlay.
             GraphicCollection allGraphics = _myMapView.GraphicsOverlays[0].Graphics;
@@ -297,18 +303,22 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             }
         }
 
-        private void ResetClick(object sender, EventArgs e)
+        private void Reset_Click(object sender, EventArgs e)
         {
             // Clear all of the graphics.
             _myMapView.GraphicsOverlays[0].Graphics.Clear();
         }
 
-        private void CreateErrorDialog(string message)
+        private void CreateErrorDialog(String message)
         {
-            // Create a dialog to show message to user.
-            AlertDialog alert = new AlertDialog.Builder(this).Create();
-            alert.SetMessage(message);
-            alert.Show();
+            // Create Alert.
+            var okAlertController = UIAlertController.Create("Error", message, UIAlertControllerStyle.Alert);
+
+            // Add Action.
+            okAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+
+            // Present Alert.
+            PresentViewController(okAlertController, true, null);
         }
     }
 }

@@ -226,6 +226,7 @@
     <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
     <Content Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg" />
     <Content Include="Samples\Network Analysis\FindRoute\FindRoute.jpg" />
+    <Content Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.jpg" />
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <Content Include="Samples\Search\FindPlace\FindPlace.jpg" />
     <Content Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />

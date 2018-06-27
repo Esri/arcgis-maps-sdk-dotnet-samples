@@ -213,7 +213,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             {
                 // Display an error message if there is a problem generating clip operation.
                 var alertBuilder = new AlertDialog.Builder(this);
-                alertBuilder.SetTitle("Geometry Engine Failed!");
+                alertBuilder.SetTitle("There was a problem clipping the geometery.");
                 alertBuilder.SetMessage(ex.ToString());
                 alertBuilder.Show();
             }

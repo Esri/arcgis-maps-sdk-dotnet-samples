@@ -135,12 +135,11 @@ namespace ArcGISRuntime.Samples.Buffer
             }
             catch (System.Exception ex)
             {
-                // Display an error message if there is a problem generating the buffers.
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                AlertDialog alert = dialogBuilder.Create();
-                alert.SetTitle("Error creating buffers");
-                alert.SetMessage(ex.Message);
-                alert.Show();
+                // Display an error message if there is a problem generating the buffer polygon.
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+                alertBuilder.SetTitle("There was a problem generating buffers.");
+                alertBuilder.SetMessage(ex.ToString());
+                alertBuilder.Show();
             }
         }
 

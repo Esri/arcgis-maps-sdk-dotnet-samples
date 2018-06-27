@@ -7,10 +7,11 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.MapRotation
@@ -23,11 +24,12 @@ namespace ArcGISRuntime.Samples.MapRotation
         "")]
     public class MapRotation : UIViewController
     {
-        private MapView _myMapView;
-        private UIToolbar _toolbar = new UIToolbar();
-        private UILabel _rotationLabel = new UILabel();
+        // Create and hold references to UI controls.
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _toolbar = new UIToolbar();
+        private readonly UILabel _rotationLabel = new UILabel();
 
-        private UISlider _rotationSlider = new UISlider()
+        private readonly UISlider _rotationSlider = new UISlider
         {
             MinValue = 0,
             MaxValue = 360
@@ -42,38 +44,53 @@ namespace ArcGISRuntime.Samples.MapRotation
         {
             base.ViewDidLoad();
 
-            // Create a new MapView control and provide its location coordinates on the frame
-            _myMapView = new MapView();
+            CreateLayout();
+        }
 
-            // Create a new Map instance with the basemap
-            var myBasemap = Basemap.CreateStreets();
-            Map myMap = new Map(myBasemap);
+        private void CreateLayout()
+        {
+            // Show a streets basemap.
+            _myMapView.Map = new Map(Basemap.CreateStreets());
 
-            // Assign the Map to the MapView
-            _myMapView.Map = myMap;
+            // Create the label to display the MapView rotation value.
+            _rotationLabel.Text = $"{_myMapView.MapRotation:0}°";
+            _rotationLabel.TextAlignment = UITextAlignment.Center;
 
-            // Create the label to display the MapView rotation value
-            _rotationLabel.Text = string.Format("{0:0}°", _myMapView.MapRotation);
-
-            // Configure the slider
+            // Configure the slider.
             _rotationSlider.ValueChanged += (s, e) =>
             {
                 _myMapView.SetViewpointRotationAsync(_rotationSlider.Value);
-                _rotationLabel.Text = string.Format("{0:0}°", _rotationSlider.Value);
+                _rotationLabel.Text = $"{_rotationSlider.Value:0}°";
             };
 
+            // Add the controls to the view.
             View.AddSubviews(_myMapView, _toolbar, _rotationLabel, _rotationSlider);
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            // Setup the visual frame for the Toolbar
-            _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
-            _rotationSlider.Frame = new CoreGraphics.CGRect(10, _toolbar.Frame.Top + 10, View.Bounds.Width - 50 - 20, _toolbar.Frame.Height - 20);
-            _rotationLabel.Frame = new CoreGraphics.CGRect(View.Bounds.Width - 50 - 10, _toolbar.Frame.Top + 10, 50, _toolbar.Frame.Height - 20);
-            base.ViewDidLayoutSubviews();
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat margin = 5;
+                nfloat controlHeight = 30;
+                nfloat toolbarHeight = controlHeight + (2 * margin);
+                nfloat labelWidth = 50;
+                nfloat sliderMargin = 50;
+
+                // Reposition the views.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                _rotationSlider.Frame = new CGRect(sliderMargin, _toolbar.Frame.Top + margin, View.Bounds.Width - labelWidth - margin - sliderMargin, controlHeight);
+                _rotationLabel.Frame = new CGRect(View.Bounds.Width - labelWidth - (2 * margin), _toolbar.Frame.Top + margin, labelWidth, controlHeight);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 }

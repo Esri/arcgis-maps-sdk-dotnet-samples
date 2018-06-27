@@ -7,12 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
-using System.Collections.Generic;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
@@ -25,93 +26,97 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         "")]
     public class ChangeSublayerVisibility : UIViewController
     {
-        // Create a new MapView control and provide its location coordinates on the frame.
-        MapView myMapView = new MapView();
-
-        // Create a button to show sublayers
-        UIButton sublayersButton = new UIButton(UIButtonType.Custom);
+        // Create and hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIButton _sublayersButton = new UIButton(UIButtonType.Custom);
 
         public ChangeSublayerVisibility()
         {
             Title = "Change sublayer visibility";
         }
 
-        public override async void ViewDidLoad()
+        public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            // Create a new ArcGISMapImageLayer instance and pass a Url to the service
-            var mapImageLayer = new ArcGISMapImageLayer(
-                new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"));
+            CreateLayout();
+            Initialize();
+        }
 
-            // Await the load call for the layer.
+        private void CreateLayout()
+        {
+            _sublayersButton.BackgroundColor = UIColor.White;
+            _sublayersButton.SetTitle("Sublayers", UIControlState.Normal);
+            _sublayersButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+
+            // Add the controls to the view.
+            View.AddSubviews(_myMapView, _sublayersButton);
+        }
+
+        private async void Initialize()
+        {
+            // Create a new ArcGISMapImageLayer instance and pass a URL to the service.
+            var mapImageLayer = new ArcGISMapImageLayer(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"));
+
+            // Await the load call for the layer..
             await mapImageLayer.LoadAsync();
 
-            // Create a new Map instance with the basemap               
-            Map myMap = new Map(SpatialReferences.Wgs84);
-            myMap.Basemap = Basemap.CreateTopographic();
+            // Create a new Map instance with the basemap..
+            Map map = new Map(SpatialReferences.Wgs84)
+            {
+                Basemap = Basemap.CreateTopographic()
+            };
 
-            // Add the map image layer to the map's operational layers
-            myMap.OperationalLayers.Add(mapImageLayer);
+            // Add the map image layer to the map's operational layers.
+            map.OperationalLayers.Add(mapImageLayer);
 
-            // Assign the Map to the MapView
-            myMapView.Map = myMap;
-            
-            sublayersButton.BackgroundColor = UIColor.White;
-            sublayersButton.SetTitle("Sublayers", UIControlState.Normal);
-            sublayersButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            // Assign the Map to the MapView.
+            _myMapView.Map = map;
 
             // Create a new instance of the Sublayers Table View Controller. This View Controller
             // displays a table of sublayers with a switch for setting the layer visibility. 
             SublayersTable sublayersTableView = new SublayersTable();
 
-            // When the sublayers button is clicked, load the Sublayers Table View Controller
-            sublayersButton.TouchUpInside += (s, e) =>
+            // When the sublayers button is clicked, load the Sublayer Table View Controller.
+            _sublayersButton.TouchUpInside += (s, e) =>
             {
                 if (mapImageLayer.Sublayers.Count > 0)
                 {
-                    sublayersTableView.mapImageLayer = mapImageLayer;
+                    sublayersTableView.MapImageLayer = mapImageLayer;
                     NavigationController.PushViewController(sublayersTableView, true);
                 }
             };
-
-            // Add the MapView and Sublayers button to the View
-            View.AddSubviews(myMapView, sublayersButton);
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat barHeight = 40;
 
-            sublayersButton.Frame = new CoreGraphics.CGRect(0, myMapView.Bounds.Height - 40, View.Bounds.Width, 40);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, barHeight, 0);
+                _sublayersButton.Frame = new CGRect(0, _myMapView.Bounds.Height - barHeight, View.Bounds.Width, barHeight);
 
-            base.ViewDidLayoutSubviews();
-        }
-        
-
-        public override void DidReceiveMemoryWarning()
-        {
-            base.DidReceiveMemoryWarning();
-
-            // Release any cached data, images, etc that aren't in use.
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 
     [Register("SublayersTable")]
-    public class SublayersTable : UITableViewController
+    public sealed class SublayersTable : UITableViewController
     {
-        public ArcGISMapImageLayer mapImageLayer;
+        public ArcGISMapImageLayer MapImageLayer { private get; set; }
 
         public SublayersTable()
         {
             Title = "Sublayers";
-        }
-
-        public override void DidReceiveMemoryWarning()
-        {
-            // Releases the view if it doesn't have a superview.
-            base.DidReceiveMemoryWarning();
         }
 
         public override void ViewDidLoad()
@@ -120,49 +125,46 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
 
             List<ArcGISSublayer> sublayers = new List<ArcGISSublayer>();
 
-            // Add all the map image layer sublayers to a list and then pass that list to the SublayerDataSource
-            if (mapImageLayer != null)
+            // Add all the map image layer sublayers to a list and then pass that list to the SublayerDataSource.
+            if (MapImageLayer != null)
             {
-                foreach (var item in mapImageLayer.Sublayers)
-                {
-                    sublayers.Add(item);
-                }
+                sublayers.AddRange(MapImageLayer.Sublayers);
 
                 TableView.Source = new SublayerDataSource(sublayers);
-                TableView.Frame = new CoreGraphics.CGRect(0, 0, 100, 100);
+                TableView.Frame = new CGRect(0, 0, 100, 100);
             }
         }
     }
 
     public class SublayerDataSource : UITableViewSource
     {
-        private List<ArcGISSublayer> sublayers;
+        private readonly List<ArcGISSublayer> _sublayers;
 
-        static string CELL_ID = "cellid";
+        private const string CellId = "cellid";
 
         public SublayerDataSource(List<ArcGISSublayer> sublayers)
         {
-            this.sublayers = sublayers;
+            _sublayers = sublayers;
         }
 
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            // Create the cells in the table
-            var cell = new UITableViewCell(UITableViewCellStyle.Default, CELL_ID);
+            // Create the cells in the table.
+            var cell = new UITableViewCell(UITableViewCellStyle.Default, CellId);
 
-            var sublayer = sublayers[indexPath.Row] as ArcGISMapImageSublayer;
+            var sublayer = _sublayers[indexPath.Row] as ArcGISMapImageSublayer;
             cell.TextLabel.Text = sublayer.Name;
 
-            // Create a UISwitch for controlling the layer visibility
-            var visibilitySwitch = new UISwitch()
+            // Create a UISwitch for controlling the layer visibility.
+            var visibilitySwitch = new UISwitch
             {
-                Frame = new CoreGraphics.CGRect(cell.Bounds.Width - 60, 7, 50, cell.Bounds.Height)
+                Frame = new CGRect(cell.Bounds.Width - 60, 7, 50, cell.Bounds.Height),
+                Tag = indexPath.Row,
+                On = sublayer.IsVisible
             };
-            visibilitySwitch.Tag = indexPath.Row;
-            visibilitySwitch.On = sublayer.IsVisible;
             visibilitySwitch.ValueChanged += VisibilitySwitch_ValueChanged;
 
-            // Add the UISwitch to the cell's content view
+            // Add the UISwitch to the cell's content view.
             cell.ContentView.AddSubview(visibilitySwitch);
 
             return cell;
@@ -170,19 +172,17 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
 
         private void VisibilitySwitch_ValueChanged(object sender, EventArgs e)
         {
-            // Get the row containing the UISwitch that was changed
+            // Get the row containing the UISwitch that was changed.
             var index = (sender as UISwitch).Tag;
 
-            // Set the sublayer visibility according to the UISwitch setting
-            var sublayer = sublayers[(int)index] as ArcGISMapImageSublayer;
+            // Set the sublayer visibility according to the UISwitch setting.
+            var sublayer = _sublayers[(int) index] as ArcGISMapImageSublayer;
             sublayer.IsVisible = (sender as UISwitch).On;
         }
 
-        public override nint RowsInSection(UITableView tableView, nint section)
+        public override nint RowsInSection(UITableView tableview, nint section)
         {
-            return sublayers.Count;
+            return _sublayers.Count;
         }
     }
 }
-
-

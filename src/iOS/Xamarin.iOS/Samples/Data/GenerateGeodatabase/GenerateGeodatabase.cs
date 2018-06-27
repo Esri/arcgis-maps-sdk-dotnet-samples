@@ -7,7 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -17,11 +24,6 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.GenerateGeodatabase
@@ -35,8 +37,18 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         "1. Pan and zoom to the area you would like to download features for, ensuring that all features are within the rectangle.\n2. Tap on the button. This will start the process of generating the offline geodatabase.\n3. Observe that the sample unregisters the geodatabase. This is best practice when changes won't be edited and synced back to the service.\n\nNote that the basemap will be automatically downloaded from an ArcGIS Online portal.")]
     public class GenerateGeodatabase : UIViewController
     {
+        // Create and hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIProgressView _progressBar = new UIProgressView();
+        private readonly UIToolbar _toolbar = new UIToolbar();
+
+        private readonly UIButton _generateButton = new UIButton
+        {
+            Enabled = false
+        };
+
         // URL for a feature service that supports geodatabase generation.
-        private Uri _featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer");
+        private readonly Uri _featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer");
 
         // Path to the geodatabase file on disk.
         private string _gdbPath;
@@ -47,15 +59,6 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         // Job used to generate the geodatabase.
         private GenerateGeodatabaseJob _generateGdbJob;
 
-        // MapView control.
-        private MapView myMapView = new MapView();
-
-        // Progress Bar.
-        private UIProgressView myProgressBar = new UIProgressView();
-
-        // Generate button.
-        private UIButton myGenerateButton = new UIButton() { Enabled = false };
-
         public GenerateGeodatabase()
         {
             Title = "Generate geodatabase";
@@ -65,41 +68,43 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization.
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLayoutSubviews();
-            // Place the MapView.
-            myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat toolbarHeight = controlHeight + 2 * margin;
 
-            // Place the Button.
-            myGenerateButton.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 30);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                _generateButton.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _progressBar.Frame = new CGRect(0, View.Bounds.Height - 42, View.Bounds.Width, 2);
 
-            // Place the progress bar.
-            myProgressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 10, View.Bounds.Width, 10);
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void CreateLayout()
         {
-            // Place the MapView.
-            myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Place the Button.
-            myGenerateButton.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 30);
-            myGenerateButton.SetTitle("Generate", UIControlState.Normal);
-            myGenerateButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            myGenerateButton.BackgroundColor = UIColor.LightTextColor;
-            myGenerateButton.TouchUpInside += GenerateButton_Clicked;
-
-            // Place the progress bar.
-            myProgressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 10, View.Bounds.Width, 10);
+            _generateButton.SetTitle("Generate", UIControlState.Normal);
+            _generateButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _generateButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+            _generateButton.TouchUpInside += GenerateButton_Clicked;
 
             // Add the views.
-            View.AddSubviews(myMapView, myProgressBar, myGenerateButton);
+            View.AddSubviews(_myMapView, _toolbar, _generateButton);
         }
 
         private async void Initialize()
@@ -107,19 +112,19 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             try
             {
                 // Create a tile cache and load it with the SanFrancisco streets tpk.
-                TileCache _tileCache = new TileCache(DataManager.GetDataFolder("3f1bbf0ec70b409a975f5c91f363fe7d", "SanFrancisco.tpk"));
+                TileCache tileCache = new TileCache(DataManager.GetDataFolder("3f1bbf0ec70b409a975f5c91f363fe7d", "SanFrancisco.tpk"));
 
                 // Create the corresponding layer based on the tile cache.
-                ArcGISTiledLayer _tileLayer = new ArcGISTiledLayer(_tileCache);
+                ArcGISTiledLayer tileLayer = new ArcGISTiledLayer(tileCache);
 
                 // Create the basemap based on the tile cache.
-                Basemap _sfBasemap = new Basemap(_tileLayer);
+                Basemap sfBasemap = new Basemap(tileLayer);
 
                 // Create the map with the tile-based basemap.
-                Map myMap = new Map(_sfBasemap);
+                Map myMap = new Map(sfBasemap);
 
                 // Assign the map to the MapView.
-                myMapView.Map = myMap;
+                _myMapView.Map = myMap;
 
                 // Create a new symbol for the extent graphic.
                 SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
@@ -131,10 +136,10 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 };
 
                 // Add graphics overlay to the map view.
-                myMapView.GraphicsOverlays.Add(extentOverlay);
+                _myMapView.GraphicsOverlays.Add(extentOverlay);
 
                 // Set up an event handler for when the viewpoint (extent) changes.
-                myMapView.ViewpointChanged += MapViewExtentChanged;
+                _myMapView.ViewpointChanged += MapViewExtentChanged;
 
                 // Create a task for generating a geodatabase (GeodatabaseSyncTask).
                 _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
@@ -159,7 +164,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 UpdateMapExtent();
 
                 // Enable the generate button now that the sample is ready.
-                myGenerateButton.Enabled = true;
+                _generateButton.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -169,30 +174,30 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
 
         private void UpdateMapExtent()
         {
-            // Return if mapview is null.
-            if (myMapView == null) { return; }
-
             // Get the new viewpoint.
-            Viewpoint myViewPoint = myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
-
-            // Return if viewpoint is null.
-            if (myViewPoint == null) { return; }
+            Viewpoint myViewPoint = _myMapView?.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
             // Get the updated extent for the new viewpoint.
-            Envelope extent = myViewPoint.TargetGeometry as Envelope;
+            Envelope extent = myViewPoint?.TargetGeometry as Envelope;
 
             // Return if extent is null.
-            if (extent == null) { return; }
+            if (extent == null)
+            {
+                return;
+            }
 
             // Create an envelope that is a bit smaller than the extent.
             EnvelopeBuilder envelopeBldr = new EnvelopeBuilder(extent);
             envelopeBldr.Expand(0.70);
 
             // Get the (only) graphics overlay in the map view.
-            var extentOverlay = myMapView.GraphicsOverlays.FirstOrDefault();
+            var extentOverlay = _myMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
-            if (extentOverlay == null) { return; }
+            if (extentOverlay == null)
+            {
+                return;
+            }
 
             // Get the extent graphic.
             Graphic extentGraphic = extentOverlay.Graphics.FirstOrDefault();
@@ -219,7 +224,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
             // Get the current extent of the red preview box.
-            Envelope extent = myMapView.GraphicsOverlays.First().Graphics.First().Geometry as Envelope;
+            Envelope extent = _myMapView.GraphicsOverlays.First().Graphics.First().Geometry as Envelope;
 
             // Get the default parameters for the generate geodatabase task.
             GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
@@ -228,10 +233,10 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             _generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the progress changed event (to show progress bar).
-            _generateGdbJob.ProgressChanged += ((sender, e) =>
-            {
-                UpdateProgressBar();
-            });
+            _generateGdbJob.ProgressChanged += (sender, e) => { UpdateProgressBar(); };
+
+            // Show the progress bar.
+            View.AddSubview(_progressBar);
 
             // Start the job.
             _generateGdbJob.Start();
@@ -245,62 +250,64 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
 
         private async Task HandleGenerationStatusChange(GenerateGeodatabaseJob job, Geodatabase resultGdb)
         {
-            JobStatus status = job.Status;
-
-            // If the job completed successfully, add the geodatabase data to the map.
-            if (status == JobStatus.Succeeded)
+            switch (job.Status)
             {
-                // Clear out the existing layers.
-                myMapView.Map.OperationalLayers.Clear();
+                // If the job completed successfully, add the geodatabase data to the map.
+                case JobStatus.Succeeded:
+                    // Clear out the existing layers.
+                    _myMapView.Map.OperationalLayers.Clear();
 
-                // Loop through all feature tables in the geodatabase and add a new layer to the map.
-                foreach (GeodatabaseFeatureTable table in resultGdb.GeodatabaseFeatureTables)
-                {
-                    // Create a new feature layer for the table.
-                    FeatureLayer _layer = new FeatureLayer(table);
+                    // Loop through all feature tables in the geodatabase and add a new layer to the map.
+                    foreach (GeodatabaseFeatureTable table in resultGdb.GeodatabaseFeatureTables)
+                    {
+                        // Create a new feature layer for the table.
+                        FeatureLayer layer = new FeatureLayer(table);
 
-                    // Add the new layer to the map.
-                    myMapView.Map.OperationalLayers.Add(_layer);
-                }
-                // Best practice is to unregister the geodatabase.
-                await _gdbSyncTask.UnregisterGeodatabaseAsync(resultGdb);
+                        // Add the new layer to the map.
+                        _myMapView.Map.OperationalLayers.Add(layer);
+                    }
 
-                // Tell the user that the geodatabase was unregistered.
-                ShowStatusMessage("Since no edits will be made, the local geodatabase has been unregistered per best practice.");
+                    // Best practice is to unregister the geodatabase.
+                    await _gdbSyncTask.UnregisterGeodatabaseAsync(resultGdb);
 
-                // Re-enable the generate button.
-                myGenerateButton.Enabled = true;
+                    // Tell the user that the geodatabase was unregistered.
+                    ShowStatusMessage("Since no edits will be made, the local geodatabase has been unregistered per best practice.");
+
+                    // Re-enable the generate button.
+                    _generateButton.Enabled = true;
+                    break;
+                // See if the job failed.
+                case JobStatus.Failed:
+                    // Create a message to show the user.
+                    string message = "Generate geodatabase job failed";
+
+                    // Show an error message (if there is one).
+                    if (job.Error != null)
+                    {
+                        message += ": " + job.Error.Message;
+                    }
+                    else
+                    {
+                        // If no error, show messages from the job.
+                        IEnumerable<string> m = from msg in job.Messages select msg.Message;
+                        message += ": " + string.Join("\n", m);
+                    }
+
+                    ShowStatusMessage(message);
+
+                    // Re-enable the generate button.
+                    _generateButton.Enabled = true;
+                    break;
             }
 
-            // See if the job failed.
-            if (status == JobStatus.Failed)
-            {
-                // Create a message to show the user.
-                string message = "Generate geodatabase job failed";
-
-                // Show an error message (if there is one).
-                if (job.Error != null)
-                {
-                    message += ": " + job.Error.Message;
-                }
-                else
-                {
-                    // If no error, show messages from the job.
-                    var m = from msg in job.Messages select msg.Message;
-                    message += ": " + string.Join<string>("\n", m);
-                }
-
-                ShowStatusMessage(message);
-
-                // Re-enable the generate button.
-                myGenerateButton.Enabled = true;
-            }
+            // Hide the progress bar.
+            _progressBar.RemoveFromSuperview();
         }
 
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            UIAlertView alertView = new UIAlertView("alert", message, null, "OK", null);
+            UIAlertView alertView = new UIAlertView("alert", message, (IUIAlertViewDelegate) null, "OK", null);
             alertView.Show();
         }
 
@@ -309,7 +316,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             try
             {
                 // Disable the generate button.
-                myGenerateButton.Enabled = false;
+                _generateButton.Enabled = false;
 
                 // Call the geodatabase generation method.
                 await StartGeodatabaseGeneration();
@@ -328,12 +335,11 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
 
         private void UpdateProgressBar()
         {
-            // Due to the nature of the threading implementation,
-            //     the dispatcher needs to be used to interact with the UI.
+            // Needed because this could be called from a non-UI thread.
             InvokeOnMainThread(() =>
             {
                 // Update the progress bar value.
-                myProgressBar.Progress = (float)(_generateGdbJob.Progress / 100.0);
+                _progressBar.Progress = _generateGdbJob.Progress / 100.0f;
             });
         }
     }

@@ -8,16 +8,14 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using UIKit;
-using Foundation;
-using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
+using Foundation;
+using UIKit;
 
 namespace ArcGISRuntime.Samples.DisplayDeviceLocation
-{    
+{
     [Register("DisplayDeviceLocation")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Display Device Location",
@@ -26,8 +24,8 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         "")]
     public class DisplayDeviceLocation : UIViewController
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Create and hold a reference to the MapView.
+        private readonly MapView _myMapView = new MapView();
 
         public DisplayDeviceLocation()
         {
@@ -38,86 +36,80 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization.
             Initialize();
             CreateLayout();
-
         }
 
-        public override void ViewWillDisappear(bool animated) {
+        public override void ViewWillDisappear(bool animated)
+        {
             base.ViewWillDisappear(animated);
             NavigationController.ToolbarHidden = true;
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLayoutSubviews();
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
         {
-            // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
-
-            // Provide used Map to the MapView
-            _myMapView.Map = myMap;
+            // Show an imagery basemap.
+            _myMapView.Map = new Map(Basemap.CreateImagery());
         }
 
         private void OnStopButtonClicked(object sender, EventArgs e)
         {
-            //TODO Remove this IsStarted check https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/182
-            if (_myMapView.LocationDisplay.IsEnabled)
-                _myMapView.LocationDisplay.IsEnabled = false;
+            _myMapView.LocationDisplay.IsEnabled = false;
         }
 
         private void OnStartButtonClicked(object sender, EventArgs e)
         {
             try
             {
-                UIAlertController actionAlert = UIAlertController.Create(
-                    "Select device location option", "", UIAlertControllerStyle.Alert);
+                UIAlertController actionAlert = UIAlertController.Create("Select device location option", "", UIAlertControllerStyle.Alert);
 
-                    // Add actions to alert. Selecting an option displays different option for auto pan modes.
-                    actionAlert.AddAction(UIAlertAction.Create("On", UIAlertActionStyle.Default, (action) =>
-                    {
-                        // Starts location display with auto pan mode set to Off
-                        _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Off;
+                // Add actions to alert. Selecting an option displays different option for auto pan modes.
+                actionAlert.AddAction(UIAlertAction.Create("On", UIAlertActionStyle.Default, action =>
+                {
+                    // Starts location display with auto pan mode set to Off.
+                    _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Off;
+                    _myMapView.LocationDisplay.IsEnabled = true;
+                }));
+                actionAlert.AddAction(UIAlertAction.Create("Re-center", UIAlertActionStyle.Default, action =>
+                {
+                    // Starts location display with auto pan mode set to Default.
+                    _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
+                    _myMapView.LocationDisplay.IsEnabled = true;
+                }));
+                actionAlert.AddAction(UIAlertAction.Create("Navigation", UIAlertActionStyle.Default, action =>
+                {
+                    // Starts location display with auto pan mode set to Navigation.
+                    _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
+                    _myMapView.LocationDisplay.IsEnabled = true;
+                }));
+                actionAlert.AddAction(UIAlertAction.Create("Compass", UIAlertActionStyle.Default, action =>
+                {
+                    // Starts location display with auto pan mode set to Compass Navigation.
+                    _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.CompassNavigation;
+                    _myMapView.LocationDisplay.IsEnabled = true;
+                }));
 
-                        //TODO Remove this IsStarted check https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/182
-                        if (!_myMapView.LocationDisplay.IsEnabled)
-                            _myMapView.LocationDisplay.IsEnabled = true;
-                    }));
-                    actionAlert.AddAction(UIAlertAction.Create("Re-center", UIAlertActionStyle.Default, (action) =>
-                    {
-                        // Starts location display with auto pan mode set to Default
-                        _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
-
-                        //TODO Remove this IsStarted check https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/182
-                        if (!_myMapView.LocationDisplay.IsEnabled)
-                            _myMapView.LocationDisplay.IsEnabled = true;
-                    }));
-                    actionAlert.AddAction(UIAlertAction.Create("Navigation", UIAlertActionStyle.Default, (action) =>
-                    {
-                        // Starts location display with auto pan mode set to Navigation
-                        _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
-
-                        //TODO Remove this IsStarted check https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/182
-                        if (!_myMapView.LocationDisplay.IsEnabled)
-                            _myMapView.LocationDisplay.IsEnabled = true;
-                    }));
-                    actionAlert.AddAction(UIAlertAction.Create("Compass", UIAlertActionStyle.Default, (action) =>
-                    {
-                        // Starts location display with auto pan mode set to Compass Navigation
-                        _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.CompassNavigation;
-
-                        //TODO Remove this IsStarted check https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/182
-                        if (!_myMapView.LocationDisplay.IsEnabled)
-                            _myMapView.LocationDisplay.IsEnabled = true;
-                    }));
-                //present alert
-                PresentViewController(actionAlert, true, null);                                    
+                // Show alert.
+                PresentViewController(actionAlert, true, null);
             }
             catch (Exception ex)
             {
@@ -128,23 +120,21 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 
         private void CreateLayout()
         {
-            // Create a button to start the location
-            var startButton = new UIBarButtonItem() { Title = "Start", Style = UIBarButtonItemStyle.Plain };
+            // Create a button to start the location.
+            var startButton = new UIBarButtonItem {Title = "Start", Style = UIBarButtonItemStyle.Plain};
             startButton.Clicked += OnStartButtonClicked;
 
-            // Create a button to apply new renderer
-            var stopButton = new UIBarButtonItem() { Title = "Stop", Style = UIBarButtonItemStyle.Plain };
+            // Create a button to apply new renderer.
+            var stopButton = new UIBarButtonItem {Title = "Stop", Style = UIBarButtonItemStyle.Plain};
             stopButton.Clicked += OnStopButtonClicked;
 
-            // Add the buttons to the toolbar
-            SetToolbarItems(new UIBarButtonItem[] {startButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null),
-                stopButton}, false);
+            // Add the buttons to the toolbar.
+            SetToolbarItems(new[] {startButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null), stopButton}, false);
 
-            // Show the toolbar
+            // Show the toolbar.
             NavigationController.ToolbarHidden = false;
 
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
     }

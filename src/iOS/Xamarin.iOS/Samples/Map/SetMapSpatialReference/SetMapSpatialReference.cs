@@ -7,11 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.SetMapSpatialReference
@@ -24,11 +25,8 @@ namespace ArcGISRuntime.Samples.SetMapSpatialReference
         "")]
     public class SetMapSpatialReference : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Create and hold a reference to the MapView.
+        private readonly MapView _myMapView = new MapView();
 
         public SetMapSpatialReference()
         {
@@ -39,40 +37,50 @@ namespace ArcGISRuntime.Samples.SetMapSpatialReference
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization.
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition the view.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
         {
-            // Create new Map using spatial reference as World Bonne (54024)
+            // Create new Map using the World Bonne spatial reference (54024).
             Map myMap = new Map(SpatialReference.Create(54024));
 
-            // Adding a map image layer which can reproject itself to the map's spatial reference
+            // Adding a map image layer which can reproject itself to the map's spatial reference.
             // Note: Some layer such as tiled layer cannot reproject and will fail to draw if their spatial 
-            // reference is not the same as the map's spatial reference
+            // reference is not the same as the map's spatial reference.
             ArcGISMapImageLayer operationalLayer = new ArcGISMapImageLayer(new Uri(
                 "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"));
 
-            // Add operational layer to the Map
+            // Add operational layer to the Map.
             myMap.OperationalLayers.Add(operationalLayer);
 
-            // Assign the map to the MapView
+            // Assign the map to the MapView.
             _myMapView.Map = myMap;
         }
 
         private void CreateLayout()
         {
-           // Add MapView to the page
+            // Add MapView to the view.
             View.AddSubviews(_myMapView);
         }
     }

@@ -7,6 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Diagnostics;
 using CoreGraphics;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
@@ -14,8 +16,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Foundation;
-using System;
-using System.Diagnostics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.DistanceMeasurement
@@ -29,7 +29,8 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         "Featured")]
     public class DistanceMeasurement : UIViewController
     {
-        // UI controls.
+        // Create and hold references to the UI controls.
+        private readonly UIToolbar _helpToolbar = new UIToolbar();
         private SceneView _mySceneView;
         private UILabel _helpLabel;
         private UILabel _resultLabel;
@@ -37,14 +38,10 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         private UIButton _unitChangeButton;
 
         // URLs to various services used to provide an interesting scene for the sample.
-        private readonly Uri _buildingService =
-            new Uri(
-                "http://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
+        private readonly Uri _buildingService = new Uri("http://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
+        private readonly Uri _worldElevationService = new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
-        private readonly Uri _worldElevationService =
-            new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
-
-        // Reference to the measurement used.
+        // Reference to the measurement.
         private LocationDistanceMeasurement _distanceMeasurement;
 
         public DistanceMeasurement()
@@ -127,7 +124,6 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             // Create the help label.
             _helpLabel = new UILabel
             {
-                TextColor = UIColor.Red,
                 Text = "Tap to update.",
                 TextAlignment = UITextAlignment.Center
             };
@@ -135,8 +131,8 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             // Create the result label.
             _resultLabel = new UILabel
             {
-                TextColor = View.TintColor,
-                TextAlignment = UITextAlignment.Center
+                TextAlignment = UITextAlignment.Center,
+                AdjustsFontSizeToFitWidth = true
             };
 
             // Create the result toolbar.
@@ -154,7 +150,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             _unitChangeButton.TouchUpInside += UnitChangeButton_TouchUpInside;
 
             // Add views to the page.
-            View.AddSubviews(_mySceneView, _resultArea, _helpLabel, _resultLabel, _unitChangeButton);
+            View.AddSubviews(_mySceneView, _helpToolbar, _resultArea, _helpLabel, _resultLabel, _unitChangeButton);
         }
 
         private void UnitChangeButton_TouchUpInside(object sender, EventArgs e)
@@ -194,29 +190,27 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
 
         public override void ViewDidLayoutSubviews()
         {
-            var topMargin = NavigationController.NavigationBar.Frame.Height +
-                            UIApplication.SharedApplication.StatusBarFrame.Height + 10;
-            nfloat toolbarHeight = 30;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat toolbarHeight = 40;
+                nfloat controlHeight = 30;
 
-            // Place the scene view and update the insets to avoid hiding view elements like the attribution bar.
-            _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-            _mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                // Reposition the views.
+                _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, toolbarHeight, 0);
+                _helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, 40);
+                _helpLabel.Frame = new CGRect(5, topMargin + 5, View.Bounds.Width - 10, controlHeight);
+                _resultArea.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                _resultLabel.Frame = new CGRect(10, View.Bounds.Height - toolbarHeight + 5, View.Bounds.Width - 20, toolbarHeight - 10);
+                _unitChangeButton.Frame = new CGRect(View.Bounds.Width / 4, View.Bounds.Height - 3 * toolbarHeight, View.Bounds.Width / 2, toolbarHeight);
 
-            // Place the help label.
-            _helpLabel.Frame = new CGRect(0, topMargin + 10, View.Bounds.Width, toolbarHeight);
-
-            // Place the result toolbar.
-            _resultArea.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-
-            // Place the result label.
-            _resultLabel.Frame = new CGRect(10, View.Bounds.Height - toolbarHeight + 5, View.Bounds.Width - 20,
-                toolbarHeight - 10);
-
-            // Place the unit system change button.
-            _unitChangeButton.Frame = new CGRect(View.Bounds.Width / 4, View.Bounds.Height - (3 * toolbarHeight),
-                View.Bounds.Width / 2, toolbarHeight);
-
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 }

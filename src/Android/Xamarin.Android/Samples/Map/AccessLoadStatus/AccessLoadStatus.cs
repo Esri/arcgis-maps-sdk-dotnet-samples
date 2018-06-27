@@ -9,6 +9,7 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
@@ -72,7 +73,9 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
 
             // Create control to show the maps' loading status
             _loadStatusTextView = new TextView(this);
+            _loadStatusTextView.TextSize = 20;
             layout.AddView(_loadStatusTextView);
+
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

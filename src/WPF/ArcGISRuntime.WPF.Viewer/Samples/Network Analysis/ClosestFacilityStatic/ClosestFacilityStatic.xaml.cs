@@ -23,16 +23,10 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Closest facility (static)",
         "Network Analysis",
-        "Demonstrates how to solve a Closest Facility Task to find the closest route between facilities (hospitals) and incidents.",
-        "Tap to find the route to the nearest hospital.")]
+        "Demonstrates how to solve a Closest Facility Task to find the closest route between facilities and incidents.",
+        "Click the solve button to find the closest facility to every incident.")]
     public partial class ClosestFacilityStatic
     {
-        // Symbol for facilities.
-        private PictureMarkerSymbol _facilitySymbol;
-
-        // Symbol for the incident.
-        private PictureMarkerSymbol _incidentSymbol;
-
         // Used to display route between incident and facility to mapview.
         private List<SimpleLineSymbol> _routeSymbols;
 
@@ -74,45 +68,61 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
             Map map = new Map(Basemap.CreateLightGrayCanvasVector());
             MyMapView.Map = map;
 
+            // Add a graphics overlay to MyMapView. (Will be used later to display routes)
+            MyMapView.GraphicsOverlays.Add(new GraphicsOverlay());
+
             // Create a ClosestFacilityTask using the San Diego Uri.
             _task = ClosestFacilityTask.CreateAsync(_closestFacilityUri).Result;
 
             // Create a symbol for displaying facilities.
-            _facilitySymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/FireStation.png"))
+            PictureMarkerSymbol facilitySymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/FireStation.png"))
             {
                 Height = 30,
                 Width = 30
             };
 
             // Incident symbol.
-            _incidentSymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/esriCrimeMarker_56_Gradient.png"))
+            PictureMarkerSymbol incidentSymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/esriCrimeMarker_56_Gradient.png"))
             {
-                Height = 40,
-                Width = 40
+                Height = 30,
+                Width = 30
             };
 
+            // Create a list of line symbols to show unique routes. Different colors help make different routes visually distinguishable.
             _routeSymbols = new List<SimpleLineSymbol>();
-            //-_routeSymbols.Add( new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 10, 20, 40), 5.0f));
             _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 25, 45, 85), 5.0f));
-            _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 35, 65, 120), 5.0f));            
+            _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 35, 65, 120), 5.0f));
             _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 55, 100, 190), 5.0f));
             _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 75, 140, 255), 5.0f));
 
-
-
-            // Add each graphics overlay to MyMapView.
-            MyMapView.GraphicsOverlays.Add(new GraphicsOverlay());
-
+            // Create a table for facilities using the FeatureServer.
             _facilityTable = new ServiceFeatureTable(_facilityUri);
+
+            // Create a feature layer from the table.
             _facilityLayer = new FeatureLayer(_facilityTable);
+
+            // Add the event listener for both tables being loaded.
             _facilityLayer.Loaded += OnTablesLoaded;
-            _facilityLayer.Renderer = new SimpleRenderer(_facilitySymbol);
+
+            // Add a renderer that uses the facility symbol.
+            _facilityLayer.Renderer = new SimpleRenderer(facilitySymbol);
+
+            // Add the layer to the map.
             MyMapView.Map.OperationalLayers.Add(_facilityLayer);
 
+            // Create a table for facilities using the FeatureServer.
             _incidentTable = new ServiceFeatureTable(_incidentUri);
+
+            // Create a feature layer from the table.
             _incidentLayer = new FeatureLayer(_incidentTable);
+
+            // Add the event listener for both tables being loaded.
             _incidentLayer.Loaded += OnTablesLoaded;
-            _incidentLayer.Renderer = new SimpleRenderer(_incidentSymbol);
+
+            // Add a renderer that uses the incident symbol.
+            _incidentLayer.Renderer = new SimpleRenderer(incidentSymbol);
+
+            // Add the layer to the map.
             MyMapView.Map.OperationalLayers.Add(_incidentLayer);
         }
 
@@ -134,7 +144,7 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
 
         private async void SolveRoutesClick(object sender, EventArgs e)
         {
-             // Holds locations of hospitals around San Diego.
+            // Holds locations of hospitals around San Diego.
             List<Facility> _facilities = new List<Facility>();
 
             // Holds locations of hospitals around San Diego.
@@ -180,7 +190,7 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
                 for (int i = 0; i < routes.Count; i++)
                 {
                     // Add the graphic for each route.
-                    MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(routes[i].RouteGeometry, _routeSymbols[i%_routeSymbols.Count]));
+                    MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(routes[i].RouteGeometry, _routeSymbols[i % _routeSymbols.Count]));
                 }
 
                 // Disable the solve button.
@@ -191,19 +201,16 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
             }
             catch (Esri.ArcGISRuntime.Http.ArcGISWebException exception)
             {
-                if (exception.Message.Equals("Unable to complete operation."))
-                {
-                    System.Windows.MessageBox.Show("Incident not within San Diego area!", "Sample error");
-                }
-                else
-                {
-                    System.Windows.MessageBox.Show("An ArcGIS web exception occurred. \n" + exception.Message.ToString(), "Sample error");
-                }
+                System.Windows.MessageBox.Show("An ArcGIS web exception occurred.\n" + exception.Message.ToString(), "Sample error");
             }
         }
+
         private void ResetClick(object sender, EventArgs e)
         {
+            // Clear the route graphics.
             MyMapView.GraphicsOverlays[0].Graphics.Clear();
+
+            // Reset the buttons.
             SolveRoutesButton.IsEnabled = true;
             ResetButton.IsEnabled = false;
         }

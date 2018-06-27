@@ -76,6 +76,7 @@
   </ItemGroup>
   <!-- Resources -->
   <ItemGroup>
+    <None Include="ArcGISLocalServer.AGSDeployment" />
     <None Include="packages.config" />
     <None Include="Readme.md" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-128.png" />
@@ -431,9 +432,6 @@
     </Compile>
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml.cs">
       <DependentUpon>ManageBookmarks.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Map\OpenScene\OpenScene.xaml.cs">
-      <DependentUpon>OpenScene.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.xaml.cs">
       <DependentUpon>OpenMapURL.xaml</DependentUpon>
@@ -935,10 +933,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\OpenScene\OpenScene.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\Map\OpenMapURL\OpenMapURL.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1350,9 +1344,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Map\OpenScene\OpenScene.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg">

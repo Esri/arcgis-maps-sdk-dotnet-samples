@@ -7,18 +7,19 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using System.Linq;
+using ArcGISRuntime.Samples.Managers;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
-using System.IO;
-using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.OpenMobileMap
 {
     [Register("OpenMobileMap")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e1f3a7254cb845b09450f54937c16061")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e1f3a7254cb845b09450f54937c16061")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Open mobile map (map package)",
         "Map",
@@ -26,8 +27,8 @@ namespace ArcGISRuntime.Samples.OpenMobileMap
         "The map package will be downloaded from an ArcGIS Online portal automatically.")]
     public class OpenMobileMap : UIViewController
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Create and hold a reference to the MapView.
+        private readonly MapView _myMapView = new MapView();
 
         public OpenMobileMap()
         {
@@ -43,40 +44,41 @@ namespace ArcGISRuntime.Samples.OpenMobileMap
 
         public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLayoutSubviews();
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Update the UI to account for new layout
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                // Reposition controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()
         {
-            // Get the path to the mobile map package
-            string filepath = GetMmpkPath();
+            // Get the path to the mobile map package.
+            string filepath = DataManager.GetDataFolder("e1f3a7254cb845b09450f54937c16061", "Yellowstone.mmpk");
 
-            // Open the map package
+            // Open the map package.
             MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(filepath);
 
-            // Check that there is at least one map
+            // Check that there is at least one map.
             if (myMapPackage.Maps.Count > 0)
             {
-                // Display the first map in the package
+                // Display the first map in the package.
                 _myMapView.Map = myMapPackage.Maps.First();
             }
         }
 
-        /// <summary>
-        /// This abstracts away platform & sample viewer-specific code for accessing local files
-        /// </summary>
-        /// <returns>String that is the path to the file on disk</returns>
-        private string GetMmpkPath()
-        {
-            return DataManager.GetDataFolder("e1f3a7254cb845b09450f54937c16061", "Yellowstone.mmpk");
-        }
-
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubview(_myMapView);
         }
     }

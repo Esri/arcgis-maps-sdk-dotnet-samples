@@ -7,32 +7,30 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
+using ArcGISRuntime.Samples.Managers;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
-using ArcGISRuntime.Samples.Managers;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.RasterHillshade
 {
     [Register("RasterHillshade")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("134d60f50e184e8fa56365f44e5ce3fb")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("134d60f50e184e8fa56365f44e5ce3fb")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Raster hillshade renderer",
         "Layers",
         "This sample demonstrates how to use a hillshade renderer on a raster layer. Hillshade renderers can adjust a grayscale raster (usually of terrain) according to a hypothetical sun position (azimuth and altitude).",
-        "", "Featured")]
+        "",
+        "Featured")]
     public class RasterHillshade : UIViewController
     {
-        // Button to show the hillshade parameters inputs.
+        // Hold references to the UI controls.
         private UIButton _applyHillshadeButton;
-
-        // Overlay with entry controls for applying a new hillshade renderer.
-        private ApplyHillshadeRendererDialogOverlay _applyHillshadeRendererUI;
-
-        // Store a reference to the map view control.
+        private ApplyHillshadeRendererDialogOverlay _applyHillshadeRendererUi;
         private MapView _myMapView;
 
         // Store a reference to the raster layer.
@@ -51,19 +49,24 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             CreateLayout();
             Initialize();
         }
-        
+
         public override void ViewDidLayoutSubviews()
         {
-            // Get height of status bar and navigation bar.
-            nfloat pageOffset = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            
-            // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, pageOffset, View.Bounds.Width, View.Bounds.Height - pageOffset - 40);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat barHeight = 40;
 
-            // Setup the visual frame for the hillshade button.
-            _applyHillshadeButton.Frame = new CoreGraphics.CGRect(0, pageOffset + _myMapView.Frame.Height, View.Bounds.Width, 40);
+                // Reposition thew views.
+                _myMapView.Frame = new CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin - barHeight);
+                _applyHillshadeButton.Frame = new CGRect(0, topMargin + _myMapView.Frame.Height, View.Bounds.Width, barHeight);
 
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()
@@ -72,23 +75,20 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             Map map = new Map(Basemap.CreateStreetsVector());
 
             // Get the file name for the local raster dataset.
-            string filepath = GetRasterPath();
+            string filepath = DataManager.GetDataFolder("134d60f50e184e8fa56365f44e5ce3fb", "srtm-hillshade", "srtm.tiff");
 
             // Load the raster file.
             Raster rasterFile = new Raster(filepath);
 
             // Create and load a new raster layer to show the image.
-            _rasterLayer = new RasterLayer(rasterFile);            
+            _rasterLayer = new RasterLayer(rasterFile);
             await _rasterLayer.LoadAsync();
 
             // Enable the apply renderer button when the layer loads.
             _applyHillshadeButton.Enabled = true;
 
-            // Create a viewpoint with the raster's full extent.
-            Viewpoint fullRasterExtent = new Viewpoint(_rasterLayer.FullExtent);
-
-            // Set the initial viewpoint for the map.
-            map.InitialViewpoint = fullRasterExtent;
+            // Set the initial viewpoint to the raster's full extent.
+            map.InitialViewpoint = new Viewpoint(_rasterLayer.FullExtent);
 
             // Add the layer to the map.
             map.OperationalLayers.Add(_rasterLayer);
@@ -96,7 +96,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             // Add the map to the map view.
             _myMapView.Map = map;
         }
-        
+
         private void CreateLayout()
         {
             View.BackgroundColor = UIColor.White;
@@ -110,26 +110,29 @@ namespace ArcGISRuntime.Samples.RasterHillshade
                 BackgroundColor = UIColor.White,
                 Enabled = false
             };
-            _applyHillshadeButton.SetTitle("Apply Hillshade", UIControlState.Normal);
-            _applyHillshadeButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _applyHillshadeButton.SetTitle("Apply hillshade", UIControlState.Normal);
+            _applyHillshadeButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Handle the button tap to show the hillshade renderer inputs.
             _applyHillshadeButton.TouchUpInside += ApplyHillshade_Click;
 
             // Add MapView and UI controls to the page.
             View.AddSubviews(_myMapView, _applyHillshadeButton);
-        }     
+        }
 
         private void ApplyHillshade_Click(object sender, EventArgs e)
         {
-            if (_applyHillshadeRendererUI != null) { return; }
+            if (_applyHillshadeRendererUi != null)
+            {
+                return;
+            }
 
             // Create a view to show map item info entry controls over the map view.
-            var ovBounds = new CoreGraphics.CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
-            _applyHillshadeRendererUI = new ApplyHillshadeRendererDialogOverlay(ovBounds, 0.75f, UIColor.White);
+            var ovBounds = new CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
+            _applyHillshadeRendererUi = new ApplyHillshadeRendererDialogOverlay(ovBounds, 0.9f, UIColor.White);
 
             // Handle the OnHillshadeInputsEntered event to get the new renderer defined by the user.
-            _applyHillshadeRendererUI.OnHillshadeInputsEntered += (s, hillshadeArgs) => 
+            _applyHillshadeRendererUi.OnHillshadeInputsEntered += (s, hillshadeArgs) =>
             {
                 // Get the new hillshade renderer.
                 HillshadeRenderer newHillshadeRenderer = hillshadeArgs.HillshadeRasterRenderer;
@@ -141,29 +144,25 @@ namespace ArcGISRuntime.Samples.RasterHillshade
                 }
 
                 // Remove the parameters input UI.
-                _applyHillshadeRendererUI.Hide();
-                _applyHillshadeRendererUI = null;
+                _applyHillshadeRendererUi.Hide();
+                _applyHillshadeRendererUi = null;
             };
 
-            // Handle the cancel event when the user closes the dialog without entering hillshade params.
-            _applyHillshadeRendererUI.OnCanceled += (s, args) =>
+            // Handle the cancel event when the user closes the dialog without entering hillshade parameters.
+            _applyHillshadeRendererUi.OnCanceled += (s, args) =>
             {
                 // Remove the parameters input UI.
-                _applyHillshadeRendererUI.Hide();
-                _applyHillshadeRendererUI = null;
+                _applyHillshadeRendererUi.Hide();
+                _applyHillshadeRendererUi = null;
             };
 
             // Add the input UI view (will display semi-transparent over the map view).
-            View.Add(_applyHillshadeRendererUI);
-        }
-
-        private static string GetRasterPath()
-        {
-            return DataManager.GetDataFolder("134d60f50e184e8fa56365f44e5ce3fb", "srtm-hillshade", "srtm.tiff");
+            View.Add(_applyHillshadeRendererUi);
         }
     }
 
     #region UI for entering raster hillshade renderer properties.
+
     // View containing hillshade renderer parameter input controls (altitude and azimuth).
     public class ApplyHillshadeRendererDialogOverlay : UIView
     {
@@ -186,11 +185,11 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         public event EventHandler OnCanceled;
 
         // Fields for controls that will be referenced later.
-        private UIPickerView _slopeTypePicker;
+        private UISegmentedControl _slopeTypePicker;
         private UISlider _altitudeSlider;
         private UISlider _azimuthSlider;
 
-        public ApplyHillshadeRendererDialogOverlay(CoreGraphics.CGRect frame, nfloat transparency, UIColor color) : base(frame)
+        public ApplyHillshadeRendererDialogOverlay(CGRect frame, nfloat transparency, UIColor color) : base(frame)
         {
             // Create a semi-transparent overlay with the specified background color.
             BackgroundColor = color;
@@ -199,19 +198,19 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             // Button to create the hillshade parameters and pass them back to the main page.
             UIButton inputHillshadeParamsButton = new UIButton();
             inputHillshadeParamsButton.SetTitle("Apply", UIControlState.Normal);
-            inputHillshadeParamsButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            inputHillshadeParamsButton.SetTitleColor(TintColor, UIControlState.Normal);
             inputHillshadeParamsButton.TouchUpInside += InputHillshadeParamsButton_Click;
 
             // Button to cancel the input.
             UIButton cancelButton = new UIButton();
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
-            cancelButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
+            cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
+            cancelButton.TouchUpInside += (s, e) => { OnCanceled?.Invoke(this, null); };
 
-            CreateHillshadeInputUI(inputHillshadeParamsButton, cancelButton);
-        }        
+            CreateHillshadeInputUi(inputHillshadeParamsButton, cancelButton);
+        }
 
-        private void CreateHillshadeInputUI(UIButton applyButton, UIButton cancelButton)
+        private void CreateHillshadeInputUi(UIButton applyButton, UIButton cancelButton)
         {
             // Set size and spacing for controls.
             nfloat controlHeight = 25;
@@ -220,51 +219,45 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             nfloat buttonWidth = 60;
 
             // Store the total height and width.
-            nfloat totalHeight = Frame.Height - 120;
             nfloat totalWidth = Frame.Width - 60;
 
             // Find the center x and y of the view.
             nfloat centerX = Frame.Width / 2;
-            nfloat centerY = Frame.Height / 2;
 
             // Find the start x and y for the control layout.
-            nfloat leftMargin = centerX - (totalWidth / 2);
-            nfloat controlX = leftMargin;
-            nfloat controlY = 30;            
+            nfloat controlX = centerX - totalWidth / 2;
+            nfloat controlY = 30;
 
             // Create a label for the slope type input.
-            UILabel slopeTypeLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight))
+            UILabel slopeTypeLabel = new UILabel(new CGRect(controlX, controlY, totalWidth, controlHeight))
             {
                 Text = "Slope type:",
                 TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Blue
+                TextColor = UIColor.Black
             };
 
             // Adjust the Y position for the next control.
-            controlY = controlY + 10;
-
-            // Create a picker for slope type.
-            _slopeTypePicker = new UIPickerView(new CoreGraphics.CGRect(controlX, controlY, 260, 80))
-            {
-                Model = new SlopeTypesPickerModel()
-            };
+            controlY = controlY + 30;
 
             // Adjust the Y position for the next control.
-            controlY = controlY + 80 + rowSpace;
+            _slopeTypePicker = new UISegmentedControl(Enum.GetNames(typeof(SlopeType)));
+            _slopeTypePicker.ApportionsSegmentWidthsByContent = true;
+            _slopeTypePicker.Frame = new CGRect(5, controlY, Bounds.Width - 10, 30);
+            controlY += 35;
 
             // Create a label for the altitude input.
-            UILabel altitudeLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight))
+            UILabel altitudeLabel = new UILabel(new CGRect(controlX, controlY, totalWidth, controlHeight))
             {
                 Text = "Altitude: ",
                 TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Blue
+                TextColor = UIColor.Black
             };
 
             // Adjust the Y position for the next control.
             controlY = controlY + 5;
 
             // Create a slider for altitude value.
-            _altitudeSlider = new UISlider(new CoreGraphics.CGRect(controlX, controlY, 200, 100))
+            _altitudeSlider = new UISlider(new CGRect(5, controlY, Bounds.Width - 10, 100))
             {
                 MinValue = 0,
                 MaxValue = 90,
@@ -275,18 +268,18 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             controlY = controlY + 100 + rowSpace;
 
             // Create a label for the azimuth input.
-            UILabel azimuthLabel = new UILabel(new CoreGraphics.CGRect(controlX, controlY, totalWidth, controlHeight))
+            UILabel azimuthLabel = new UILabel(new CGRect(controlX, controlY, totalWidth, controlHeight))
             {
                 Text = "Azimuth: ",
                 TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Blue
+                TextColor = UIColor.Black
             };
 
             // Adjust the Y position for the next control.
             controlY = controlY + 5;
 
             // Create a picker for the azimuth value.
-            _azimuthSlider = new UISlider(new CoreGraphics.CGRect(controlX, controlY, 200, 100))
+            _azimuthSlider = new UISlider(new CGRect(5, controlY, Bounds.Width - 10, 100))
             {
                 MinValue = 0,
                 MaxValue = 360,
@@ -297,13 +290,13 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             controlY = controlY + 100 + rowSpace;
 
             // Set the frame for the apply button.
-            applyButton.Frame = new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight);
+            applyButton.Frame = new CGRect(controlX, controlY, buttonWidth, controlHeight);
 
             // Adjust the X position for the next control.
             controlX = controlX + buttonWidth + columnSpace;
 
             // Set the frame for the cancel button.
-            cancelButton.Frame = new CoreGraphics.CGRect(controlX, controlY, buttonWidth, controlHeight);
+            cancelButton.Frame = new CGRect(controlX, controlY, buttonWidth, controlHeight);
 
             // Add the input controls.
             AddSubviews(slopeTypeLabel, _slopeTypePicker,
@@ -312,9 +305,9 @@ namespace ArcGISRuntime.Samples.RasterHillshade
                 applyButton, cancelButton);
 
             // Set the default value for the slope type.
-            _slopeTypePicker.Select(0, 0, false);
+            _slopeTypePicker.SelectedSegment = 0;
         }
-        
+
         // Animate increasing transparency to completely hide the view, then remove it
         public void Hide()
         {
@@ -322,7 +315,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             Action makeTransparentAction = () => Alpha = 0;
 
             // Action to remove the view
-            Action removeViewAction = () => RemoveFromSuperview();
+            Action removeViewAction = RemoveFromSuperview;
 
             // Time to complete the animation (seconds)
             double secondsToComplete = 0.75;
@@ -338,11 +331,11 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             {
                 // Read the inputs provided by the user.
                 // - Altitude and azimuth.
-                        double altitude = _altitudeSlider.Value;
-                        double azimuth = _azimuthSlider.Value;
+                double altitude = _altitudeSlider.Value;
+                double azimuth = _azimuthSlider.Value;
                 // - Get the model from the slope type picker and read the selected type.
-                SlopeTypesPickerModel model = _slopeTypePicker.Model as SlopeTypesPickerModel;
-                SlopeType selectedSlopeType = model.SelectedSlopeType;
+                nint selected = _slopeTypePicker.SelectedSegment;
+                SlopeType selectedSlopeType = ((SlopeType[]) Enum.GetValues(typeof(SlopeType)))[selected];
 
                 // Create a new HillshadeRenderer using the input values and constants.
                 HillshadeRenderer hillshade = new HillshadeRenderer(altitude, azimuth, ZFactor, selectedSlopeType, PixelSizeFactor, PixelSizePower, PixelBitDepth);
@@ -360,7 +353,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
     public class HillshadeParametersEventArgs : EventArgs
     {
         // Property to store raster stretch parameters.
-        public HillshadeRenderer HillshadeRasterRenderer { get; set; }
+        public HillshadeRenderer HillshadeRasterRenderer { get; }
 
         // Store the hillshade renderer passed into the constructor.
         public HillshadeParametersEventArgs(HillshadeRenderer renderer)
@@ -369,63 +362,5 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         }
     }
 
-    // Class that defines a view model for showing available hillshade slope types in a picker control.
-    public class SlopeTypesPickerModel : UIPickerViewModel
-    {
-        // Array of available slope values.
-        private Array _slopeTypeValues = Enum.GetValues(typeof(SlopeType));
-
-        // Store the selected slope type value.
-        private SlopeType _selectedSlopeType;
-
-        // Default constructor.
-        public SlopeTypesPickerModel()
-        {
-            
-        }
-        
-        // Property to expose the currently selected slope type value in the picker.
-        public SlopeType SelectedSlopeType
-        {
-            get { return _selectedSlopeType; }
-        }
-
-        // Return the number of picker components (just one).
-        public override nint GetComponentCount(UIPickerView pickerView)
-        {
-            return 1;
-        }
-
-        // Return the number of rows in the section (the size of the slope type array).
-        public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
-        {
-            return _slopeTypeValues.Length;
-        }
-
-        // Get the title to display in the picker component.
-        public override string GetTitle(UIPickerView pickerView, nint row, nint component)
-        {
-            return _slopeTypeValues.GetValue(row).ToString();
-        }
-
-        // Handle the selection event for the picker.
-        public override void Selected(UIPickerView pickerView, nint row, nint component)
-        {
-            // Get the selected standard deviation factor.
-            _selectedSlopeType = (SlopeType)_slopeTypeValues.GetValue(pickerView.SelectedRowInComponent(0));
-        }
-
-        // Return the desired width for each component in the picker.
-        public override nfloat GetComponentWidth(UIPickerView picker, nint component)
-        {
-            return 240f;
-        }
-
-        // Return the desired height for rows in the picker.
-        public override nfloat GetRowHeight(UIPickerView picker, nint component)
-        {
-            return 30f;
-        }
-    }
     #endregion
 }

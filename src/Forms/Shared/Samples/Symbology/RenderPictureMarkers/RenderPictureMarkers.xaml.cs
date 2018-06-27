@@ -102,6 +102,8 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
 
             // Create new symbol using asynchronous factory method from stream
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
+            pinSymbol.Height = 50;
+            pinSymbol.Width = 50;
 
             // Create location for the pint
             MapPoint pinPoint = new MapPoint(-226773, 6550477, SpatialReferences.WebMercator);

@@ -123,7 +123,7 @@ namespace ArcGISRuntime.Samples.BufferList
             {
                 // Display an error message if there is a problem generating the buffer polygon.
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-                alertBuilder.SetTitle("Geometry Engine Failed!");
+                alertBuilder.SetTitle("There was a problem generating buffers.");
                 alertBuilder.SetMessage(ex.ToString());
                 alertBuilder.Show();
             }
@@ -177,7 +177,7 @@ namespace ArcGISRuntime.Samples.BufferList
             {
                 // Display an error message if there is a problem generating the buffer polygon.
                 var alertBuilder = new AlertDialog.Builder(this);
-                alertBuilder.SetTitle("Geometry Engine Failed!");
+                alertBuilder.SetTitle("There was a problem generating buffers.");
                 alertBuilder.SetMessage(ex.ToString());
                 alertBuilder.Show();
             }
@@ -189,12 +189,13 @@ namespace ArcGISRuntime.Samples.BufferList
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a TextView for instructions.
-            TextView sampleInstructionsTextView = new TextView(this);
-            sampleInstructionsTextView.Text = "Tap on the map in several locations to create center map-points to generate buffer(s). You can " +
-                "optionally change the buffer distance (in miles) by adjusting the value in the edit text before each tap on the map. Then " +
-                "click on the 'Create Buffer(s)' button. If the 'Union the buffer(s)' switch is 'on' the resulting output buffer will " + 
-                "be one polygon (possibly multi-part). If the 'Union the buffer(s)' switch is 'off' the resulting output will have one " + 
-                "buffer polygon per input map point.";
+            TextView sampleInstructionsTextView = new TextView(this)
+            {
+                Text = "Tap on the map in several locations to create points. You can " +
+                       "change the buffer distance (in miles) before each tap on the map. Click 'Make buffer' to create the buffer. " +
+                       "If the 'Union the buffer(s)' is 'on' the output buffer will be one polygon (possibly multi-part). "+
+                       "Otherwise, the resulting output will have one buffer polygon per input point."
+            };
             layout.AddView(sampleInstructionsTextView);
 
             // Create a horizontal sub layout for the text view and edit text controls.
@@ -229,9 +230,22 @@ namespace ArcGISRuntime.Samples.BufferList
 
             // Create button to create the unioned buffer.
             _bufferButton = new Button(this);
-            _bufferButton.Text = "Make Unioned Buffer";
+            _bufferButton.Text = "Make buffer";
             _bufferButton.Click += OnMakeUnionBufferClicked;
             layout.AddView(_bufferButton);
+
+            // Create and add a reset button.
+            Button resetButton = new Button(this)
+            {
+                Text = "Reset"
+            };
+            resetButton.Click += (sender, args) =>
+            {
+                _graphicsOverlay.Graphics.Clear();
+                _bufferDistancesList.Clear();
+                _bufferPointsList.Clear();
+            };
+            layout.AddView(resetButton);
 
             // Add the map view to the layout.
             layout.AddView(_myMapView);

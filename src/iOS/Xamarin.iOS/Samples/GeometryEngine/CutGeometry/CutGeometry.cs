@@ -7,13 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.CutGeometry
@@ -27,8 +28,12 @@ namespace ArcGISRuntime.Samples.CutGeometry
         "")]
     public class CutGeometry : UIViewController
     {
-        // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        // Create and hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _helpToolbar = new UIToolbar();
+        private readonly UIToolbar _buttonToolbar = new UIToolbar();
+        private UIButton _cutButton;
+        private UITextView _helpLabel;
 
         // Graphics overlay to display the graphics.
         private GraphicsOverlay _graphicsOverlay;
@@ -39,12 +44,6 @@ namespace ArcGISRuntime.Samples.CutGeometry
         // Graphic that represents the Canada and USA border (polyline) of Lake Superior.
         private Graphic _countryBorderPolylineGraphic;
 
-        // Text view to display the sample instructions.
-        UITextView _sampleInstructionUITextiew;
-
-        // Create a UIButton to cut polygons.
-        private UIButton _cutButton;
-
         public CutGeometry()
         {
             Title = "Cut geometry";
@@ -54,35 +53,38 @@ namespace ArcGISRuntime.Samples.CutGeometry
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization. 
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 80, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat margin = 5;
+                nfloat controlHeight = 30;
 
-            // Determine the offset where the MapView control should start.
-            nfloat yPageOffset = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _helpToolbar.Frame = new CGRect(0, topStart, View.Bounds.Width, controlHeight + 2 * margin);
+                _buttonToolbar.Frame = new CGRect(0, View.Bounds.Height - controlHeight - 2 * margin, View.Bounds.Width, controlHeight + 2 * margin);
+                _helpLabel.Frame = new CGRect(margin, topStart + margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _cutButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _myMapView.ViewInsets = new UIEdgeInsets(topStart + _helpToolbar.Frame.Height, 0, _buttonToolbar.Frame.Height, 0);
 
-            // Setup the visual frame for the general sample instructions UTexView.
-            _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the cut UIButton.
-            _cutButton.Frame = new CoreGraphics.CGRect(0, yPageOffset + 40, View.Bounds.Width, 40);
-
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
         {
-            // Create a map with a topographic basemap.
-            Map newMap = new Map(Basemap.CreateTopographic());
-
-            // Assign the map to the MapView.
-            _myMapView.Map = newMap;
+            // Create and show a map with a topographic basemap.
+            _myMapView.Map = new Map(Basemap.CreateTopographic());
 
             // Create a graphics overlay to hold the various graphics.
             _graphicsOverlay = new GraphicsOverlay();
@@ -123,7 +125,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
             try
             {
                 // Cut the polygon geometry with the polyline, expect two geometries.
-                Geometry[] cutGeometries = GeometryEngine.Cut(_lakeSuperiorPolygonGraphic.Geometry, (Polyline)_countryBorderPolylineGraphic.Geometry);
+                Geometry[] cutGeometries = GeometryEngine.Cut(_lakeSuperiorPolygonGraphic.Geometry, (Polyline) _countryBorderPolylineGraphic.Geometry);
 
                 // Create a simple line symbol for the outline of the Canada side of Lake Superior.
                 SimpleLineSymbol canadaSideSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Null, System.Drawing.Color.Blue, 0);
@@ -152,13 +154,12 @@ namespace ArcGISRuntime.Samples.CutGeometry
                 // Disable the button after has been used.
                 _cutButton.Enabled = false;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 // Display an error message if there is a problem generating cut operation.
                 UIAlertController alertController = UIAlertController.Create("Geometry Engine Failed!", ex.Message, UIAlertControllerStyle.Alert);
                 alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alertController, true, null);
-                return;
             }
         }
 
@@ -177,11 +178,8 @@ namespace ArcGISRuntime.Samples.CutGeometry
                 new MapPoint(-9415655.737420, 5860851.784463)
             };
 
-            // Create a polyline geometry from the point collection.
-            Polyline borderCountryPolyline = new Polyline(borderCountryPointCollection);
-
-            // Return the polyline.
-            return borderCountryPolyline;
+            // Return a polyline geometry from the point collection.
+            return new Polyline(borderCountryPointCollection);
         }
 
         private Polygon CreateLakeSuperiorPolygon()
@@ -222,30 +220,29 @@ namespace ArcGISRuntime.Samples.CutGeometry
                 new MapPoint(-10254374.668616, 5901877.659929)
             };
 
-            // Create a polyline geometry from the point collection.
-            Polygon lakeSuperiorPolygon = new Polygon(lakeSuperiorPointCollection);
-
-            // Return the polygon.
-            return lakeSuperiorPolygon;
+            // Return a polyline geometry from the point collection.
+            return new Polygon(lakeSuperiorPointCollection);
         }
 
         private void CreateLayout()
         {
             // Create a UITextView for the overall sample instructions.
-            _sampleInstructionUITextiew = new UITextView();
-            _sampleInstructionUITextiew.Text = "Click the 'Cut' button to cut the polygon with the polyline and see the resulting parts.";
-            _sampleInstructionUITextiew.Font = UIFont.FromName("Helvetica", 9f);
+            _helpLabel = new UITextView
+            {
+                Text = "Tap 'Cut' to cut the polygon with the polyline.",
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, 0)
+            };
 
             // Create a UIButton to cut the polygons.
             _cutButton = new UIButton();
             _cutButton.SetTitle("Cut", UIControlState.Normal);
-            _cutButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _cutButton.BackgroundColor = UIColor.White;
+            _cutButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             // - Hook to touch event to cut the polygons.
             _cutButton.TouchUpInside += CutButton_TouchUpInside;
 
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _sampleInstructionUITextiew, _cutButton);
+            View.AddSubviews(_myMapView, _helpToolbar, _buttonToolbar, _helpLabel, _cutButton);
         }
     }
 }

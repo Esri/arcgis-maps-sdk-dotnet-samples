@@ -78,24 +78,25 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
             _task = ClosestFacilityTask.CreateAsync(_closestFacilityUri).Result;
 
             // Create a symbol for displaying facilities.
-            _facilitySymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/Hospital.png"))
+            _facilitySymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/FireStation.png"))
             {
                 Height = 30,
                 Width = 30
             };
 
             // Incident symbol.
-            _incidentSymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/Transportation/TrafficAccident.png"))
+            _incidentSymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/esriCrimeMarker_56_Gradient.png"))
             {
                 Height = 40,
                 Width = 40
             };
 
             _routeSymbols = new List<SimpleLineSymbol>();
-            _routeSymbols.Add( new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.ForestGreen, 5.0f));
-            _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.DarkTurquoise, 5.0f));
-            _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.OrangeRed, 5.0f));            
-            _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Plum, 5.0f));
+            //-_routeSymbols.Add( new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 10, 20, 40), 5.0f));
+            _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 25, 45, 85), 5.0f));
+            _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 35, 65, 120), 5.0f));            
+            _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 55, 100, 190), 5.0f));
+            _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 75, 140, 255), 5.0f));
 
 
 

@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using Android.Text;
 
 namespace ArcGISRuntime.Samples.FeatureLayerQuery
 {
@@ -158,12 +159,23 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create new Text box that will take the query parameter
-            _queryTextBox = new EditText(this);
+            _queryTextBox = new EditText(this)
+            {
+                InputType = InputTypes.ClassText | InputTypes.TextVariationNormal
+            };
+            _queryTextBox.SetMaxLines(1);
 
             // Create Button that will start the Feature Query
             var queryButton = new Button(this);
             queryButton.Text = "Query";
             queryButton.Click += OnQueryClicked;
+
+            // Create and add a help label
+            TextView helpLabel = new TextView(this)
+            {
+                Text = "Enter the name of a state, then press 'Query' to search."
+            };
+            layout.AddView(helpLabel);
 
             // Add TextBox to the layout
             layout.AddView(_queryTextBox);

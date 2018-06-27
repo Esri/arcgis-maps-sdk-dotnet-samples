@@ -97,7 +97,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         {
             base.OnCreate(bundle);
 
-            Title = "Animate 3D Graphic";
+            Title = "Animate 3D graphic";
 
             // Create the UI, setup the control references and execute initialization
             CreateLayout();
@@ -345,7 +345,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
             // Create an alert dialog builder
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Select a Mission");
+            builder.SetTitle("Select a mission");
 
             // Apply the list of items and provide a lambda to handle the selection event
             builder.SetItems(missions, async (sender, args) => { await ChangeMission(missions[args.Which]); });

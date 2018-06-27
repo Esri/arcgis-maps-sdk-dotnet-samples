@@ -41,7 +41,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
         {
             base.OnCreate(bundle);
 
-            Title = "List Geodatabase Versions";
+            Title = "List geodatabase versions";
 
             // Create the UI, setup the control references and execute initialization 
             CreateLayout();

@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -14,7 +15,6 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
 using UIKit;
 using Colors = System.Drawing.Color;
 
@@ -29,19 +29,13 @@ namespace ArcGISRuntime.Samples.Buffer
         "Buffer, Geodesic, Planar")]
     public class Buffer : UIViewController
     {
-        // Create a map view control to display the map and buffers.
-        private MapView _myMapView = new MapView();
-
-        // Instruction label to describe how to use the sample. 
+        // Create and hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
         private UILabel _helpLabel;
-
-        // A toolbar, label, and text view to enter a buffer value (in miles).
+        private UIToolbar _helpToolbar;
         private UIToolbar _bufferInputArea;
         private UILabel _bufferInputLabel;
         private UITextField _bufferDistanceMilesTextField;
-
-        // Toolbar and label controls to show the buffer colors in the UI.
-        private UIToolbar _legendArea;
         private UILabel _geodesicSwatchLabel;
         private UILabel _planarSwatchLabel;
 
@@ -57,10 +51,7 @@ namespace ArcGISRuntime.Samples.Buffer
         {
             base.ViewDidLoad();
 
-            // Create the UI.
             CreateLayout();
-
-            // Initialize the map and graphics overlays.
             Initialize();
         }
 
@@ -121,7 +112,7 @@ namespace ArcGISRuntime.Samples.Buffer
                 MapPoint userTapPoint = e.Location;
 
                 // Get the buffer distance (miles) entered in the text box.
-                double bufferInMiles = System.Convert.ToDouble(_bufferDistanceMilesTextField.Text);
+                double bufferInMiles = Convert.ToDouble(_bufferDistanceMilesTextField.Text);
 
                 // Call a helper method to convert the input distance to meters.
                 double bufferInMeters = LinearUnits.Miles.ToMeters(bufferInMiles);
@@ -153,7 +144,6 @@ namespace ArcGISRuntime.Samples.Buffer
                 UIAlertController alertController = UIAlertController.Create("Error creating buffers", ex.Message, UIAlertControllerStyle.Alert);
                 alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alertController, true, null);
-                return;
             }
         }
 
@@ -189,10 +179,10 @@ namespace ArcGISRuntime.Samples.Buffer
             _helpLabel = new UILabel
             {
                 TextColor = UIColor.Blue,
-                Text = "Tap the map to create Planar and Geodesic buffers",
+                Text = "Tap the map to create planar and geodesic buffers.",
                 TextAlignment = UITextAlignment.Center,
-                LineBreakMode = UILineBreakMode.WordWrap,
-                Lines = 0
+                AdjustsFontSizeToFitWidth = true,
+                Lines = 1
             };
 
             // Create the buffer input area (toolbar).
@@ -216,19 +206,27 @@ namespace ArcGISRuntime.Samples.Buffer
                 TextColor = View.TintColor
             };
             _bufferDistanceMilesTextField.Layer.CornerRadius = 5;
-            
-            // Allow pressing 'return' to dismiss the keyboard.
-            _bufferDistanceMilesTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
 
-            // Create the legend toolbar.
-            _legendArea = new UIToolbar();
+            // Add padding within the field.
+            _bufferDistanceMilesTextField.RightView = new UIView(new CGRect(0, 0, 5, 20)); // 5 is amount of left padding
+            _bufferDistanceMilesTextField.RightViewMode = UITextFieldViewMode.Always;
+
+            // Allow pressing 'return' to dismiss the keyboard.
+            _bufferDistanceMilesTextField.ShouldReturn += (textField) =>
+            {
+                textField.ResignFirstResponder();
+                return true;
+            };
+
+            // Create the help toolbar.
+            _helpToolbar = new UIToolbar();
 
             // Create the label to show the planar buffer color.
             _planarSwatchLabel = new UILabel
             {
                 AdjustsFontSizeToFitWidth = true,
                 TextColor = UIColor.White,
-                Text = "Planar Buffers",
+                Text = "Planar buffers",
                 TextAlignment = UITextAlignment.Center
             };
 
@@ -237,7 +235,7 @@ namespace ArcGISRuntime.Samples.Buffer
             {
                 AdjustsFontSizeToFitWidth = true,
                 TextColor = UIColor.White,
-                Text = "Geodesic Buffers",
+                Text = "Geodesic buffers",
                 TextAlignment = UITextAlignment.Center
             };
 
@@ -249,17 +247,18 @@ namespace ArcGISRuntime.Samples.Buffer
             };
             _clearBuffersButton.SetTitle("Clear", UIControlState.Normal);
             _clearBuffersButton.SetTitleColor(UIColor.White, UIControlState.Normal);
-            _clearBuffersButton.Layer.CornerRadius = 10;
+            _clearBuffersButton.Layer.CornerRadius = 5;
 
             // Handle the clear buffers button press.
-            _clearBuffersButton.TouchUpInside += ClearBuffersButton_TouchUpInside; ;
+            _clearBuffersButton.TouchUpInside += ClearBuffersButton_TouchUpInside;
 
             // Add views to the page.
             View.AddSubviews(_myMapView,
+                _helpToolbar,
+                _bufferInputArea,
                 _helpLabel,
                 _bufferInputLabel,
                 _bufferDistanceMilesTextField,
-                _legendArea,
                 _planarSwatchLabel,
                 _geodesicSwatchLabel,
                 _clearBuffersButton);
@@ -269,37 +268,37 @@ namespace ArcGISRuntime.Samples.Buffer
         {
             try
             {
-                var topMargin = NavigationController.NavigationBar.Frame.Height +
-                                UIApplication.SharedApplication.StatusBarFrame.Height + 10;
-                nfloat toolbarHeight = 30;
+                var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat toolbarHeight = controlHeight * 2 + margin * 3;
+                nfloat helpToolbarHeight = controlHeight + 2 * margin;
 
                 // Place the scene view and update the insets to avoid hiding view elements like the attribution bar.
                 _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight * 2, 0);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + helpToolbarHeight, 0, toolbarHeight, 0);
 
                 // Place the help label.
-                _helpLabel.Frame = new CGRect(0, topMargin + 10, View.Bounds.Width, toolbarHeight * 2);
+                _helpLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, helpToolbarHeight);
 
                 // Place the distance input toolbar.
-                _bufferInputArea.Frame = new CGRect(0, View.Bounds.Height - (toolbarHeight * 2), View.Bounds.Width, toolbarHeight);
+                _bufferInputArea.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
 
                 // Place the buffer distance input text view and label.
-                _bufferInputLabel.Frame = new CGRect(10, View.Bounds.Height - (toolbarHeight * 2) + 5, 150, toolbarHeight - 10);
-                _bufferDistanceMilesTextField.Frame = new CGRect(150, View.Bounds.Height - (toolbarHeight * 2) + 5, 50, toolbarHeight - 10);
+                _bufferInputLabel.Frame = new CGRect(margin, _bufferInputArea.Frame.Top + margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
+                _bufferDistanceMilesTextField.Frame = new CGRect(_bufferInputLabel.Frame.Right + 2 * margin, _bufferInputArea.Frame.Top + margin, View.Bounds.Width / 4 - 2 * margin, controlHeight);
 
                 // Place the clear buffers button.
-                _clearBuffersButton.Frame = new CGRect(220, View.Bounds.Height - (toolbarHeight * 2) + 5, 90, toolbarHeight - 10);
-
-                // Place the legend toolbar.
-                _legendArea.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                _clearBuffersButton.Frame = new CGRect(View.Bounds.Width / 4 * 3 + margin, _bufferInputArea.Frame.Top + margin, View.Bounds.Width / 4 - 2 * margin, controlHeight);
 
                 // Place the planar and geodesic legend labels.
-                _planarSwatchLabel.Frame = new CGRect(10, View.Bounds.Height - toolbarHeight + 5, 140, toolbarHeight - 10);
-                _geodesicSwatchLabel.Frame = new CGRect(160, View.Bounds.Height - toolbarHeight + 5, 140, toolbarHeight - 10);
+                _planarSwatchLabel.Frame = new CGRect(margin, _bufferInputLabel.Frame.Bottom + margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
+                _geodesicSwatchLabel.Frame = new CGRect(View.Bounds.Width / 2 + margin, _bufferInputLabel.Frame.Bottom + margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
 
                 base.ViewDidLayoutSubviews();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Error laying out sub views: " + ex.Message);
             }

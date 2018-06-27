@@ -7,12 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
@@ -25,10 +25,10 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
         "")]
     public class FeatureLayerDefinitionExpression : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the MapView.
         private MapView _myMapView = new MapView();
 
-        // Create and hold reference to the feature layer
+        // Create and hold reference to the feature layer.
         private FeatureLayer _featureLayer;
 
         public FeatureLayerDefinitionExpression()
@@ -40,93 +40,108 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
             CreateLayout();
             Initialize();
         }
 
-		public override void ViewWillDisappear(bool animated)
-		{
-			base.ViewWillDisappear(animated);
-			NavigationController.ToolbarHidden = true;
-		}
+        public override void ViewWillDisappear(bool animated)
+        {
+            base.ViewWillDisappear(animated);
+            NavigationController.ToolbarHidden = true;
+        }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()
         {
-            // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateTopographic());
+            // Create new Map with basemap.
+            Map map = new Map(Basemap.CreateTopographic());
 
-            // Create a mappoint the map should zoom to
+            // Create a point the map should zoom to.
             MapPoint mapPoint = new MapPoint(-13630484, 4545415, SpatialReferences.WebMercator);
 
-            // Set the initial viewpoint for map
-            myMap.InitialViewpoint = new Viewpoint(mapPoint, 90000);
+            // Set the initial viewpoint for map.
+            map.InitialViewpoint = new Viewpoint(mapPoint, 90000);
 
-            // Provide used Map to the MapView
-            _myMapView.Map = myMap;
+            // Provide used Map to the MapView.
+            _myMapView.Map = map;
 
-            // Create the uri for the feature service
+            // Create the URI for the feature service.
             Uri featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0");
 
-            // Initialize feature table using a url to feature server url
+            // Initialize feature table using a URL to feature server.
             ServiceFeatureTable featureTable = new ServiceFeatureTable(featureServiceUri);
 
-            // Initialize a new feature layer based on the feature table
+            // Initialize a new feature layer based on the feature table.
             _featureLayer = new FeatureLayer(featureTable);
 
-            // Load the layer
+            // Load the layer.
             await _featureLayer.LoadAsync();
 
-            // Check for the load status. If the layer is loaded then add it to map
+            // Check for the load status. If the layer is loaded then add it to map.
             if (_featureLayer.LoadStatus == Esri.ArcGISRuntime.LoadStatus.Loaded)
             {
-                //Add the feature layer to the map
-                myMap.OperationalLayers.Add(_featureLayer);
+                // Add the feature layer to the map.
+                map.OperationalLayers.Add(_featureLayer);
             }
         }
 
         private void OnApplyExpressionClicked(object sender, EventArgs e)
         {
-            // Adding definition expression to show specific features only
+            // Adding definition expression to show specific features only.
             _featureLayer.DefinitionExpression = "req_Type = 'Tree Maintenance or Damage'";
         }
 
         private void OnResetButtonClicked(object sender, EventArgs e)
         {
-            // Reset the definition expression to see all features again
+            // Reset the definition expression to see all features again.
             _featureLayer.DefinitionExpression = "";
         }
 
         private void CreateLayout()
         {
-            // Create MapView
+            // Create MapView.
             _myMapView = new MapView();
 
-            // Create a button to reset the renderer
-            var resetButton = new UIBarButtonItem() { Title = "Reset", Style = UIBarButtonItemStyle.Plain };
+            // Create a button to reset the renderer.
+            var resetButton = new UIBarButtonItem
+            {
+                Title = "Reset",
+                Style = UIBarButtonItemStyle.Plain
+            };
             resetButton.Clicked += OnResetButtonClicked;
 
-            // Create a button to apply new renderer
-            var expressionButton = new UIBarButtonItem() { Title = "Apply Expression", Style = UIBarButtonItemStyle.Plain };
+            // Create a button to apply new renderer.
+            var expressionButton = new UIBarButtonItem
+            {
+                Title = "Apply Expression",
+                Style = UIBarButtonItemStyle.Plain
+            };
             expressionButton.Clicked += OnApplyExpressionClicked;
 
-            // Add the buttons to the toolbar
-            SetToolbarItems(new UIBarButtonItem[] {resetButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null),
-                expressionButton}, false);
+            // Add the buttons to the toolbar.
+            SetToolbarItems(new[] {resetButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null), expressionButton}, false);
 
-            // Show the toolbar
+            // Show the toolbar.
             NavigationController.ToolbarHidden = false;
 
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
     }

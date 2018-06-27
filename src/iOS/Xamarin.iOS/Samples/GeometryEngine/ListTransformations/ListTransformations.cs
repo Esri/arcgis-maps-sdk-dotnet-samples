@@ -7,6 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 using CoreGraphics;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
@@ -15,15 +18,11 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ListTransformations
 {
     [Register("ListTransformations")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "List transformations by suitability",
         "GeometryEngine",
@@ -33,10 +32,10 @@ namespace ArcGISRuntime.Samples.ListTransformations
     public class ListTransformations : UIViewController
     {
         // Map view control to display a map in the app.
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // Stack view to contain the datum transformation UI.
-        private UIStackView _transformToolsView = new UIStackView();
+        private readonly UIStackView _transformToolsView = new UIStackView();
 
         // Store the height of each set of controls (may vary on different devices).
         private nfloat _mapViewHeight;
@@ -66,7 +65,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
         public ListTransformations()
         {
-            Title = "List datum transformations";
+            Title = "List transformations by suitability";
         }
 
         public override void ViewDidLoad()
@@ -74,8 +73,8 @@ namespace ArcGISRuntime.Samples.ListTransformations
             base.ViewDidLoad();
 
             // Get the height of the map view and the UI tools view (one half each).
-            _mapViewHeight = (nfloat)(View.Bounds.Height / 2.0);
-            _transformToolsHeight = (nfloat)(View.Bounds.Height / 2.0);
+            _mapViewHeight = (nfloat) (View.Bounds.Height / 2.0);
+            _transformToolsHeight = (nfloat) (View.Bounds.Height / 2.0);
 
             // Create the UI.
             CreateLayout();
@@ -86,13 +85,21 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
         public override void ViewDidLayoutSubviews()
         {
-            base.ViewDidLayoutSubviews();
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Place the MapView (top 2/3 of the view)
-            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, _mapViewHeight);
+                // Reposition the views.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, _mapViewHeight);
+                _transformToolsView.Frame = new CGRect(0, _mapViewHeight, View.Bounds.Width, _transformToolsHeight);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
 
-            // Place the edit tools (bottom 1/3 of the view)
-            _transformToolsView.Frame = new CGRect(0, _mapViewHeight, View.Bounds.Width, _transformToolsHeight);
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()
@@ -104,8 +111,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             _originalPoint = new MapPoint(538985.355, 177329.516, SpatialReference.Create(27700));
 
             // Set the initial extent to an extent centered on the point.
-            Viewpoint initialViewpoint = new Viewpoint(_originalPoint, 5000);
-            myMap.InitialViewpoint = initialViewpoint;
+            myMap.InitialViewpoint = new Viewpoint(_originalPoint, 5000);
 
             // Handle the map loading to fill the UI controls.
             myMap.Loaded += MyMap_Loaded;
@@ -133,7 +139,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             else
             {
                 _messagesTextView.Text = "Projection engine data not found.";
-            }           
+            }
         }
 
         private void MyMap_Loaded(object sender, EventArgs e)
@@ -142,7 +148,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             SpatialReference mapSpatialReference = (sender as Map).SpatialReference;
 
             // Run on the UI thread.
-            InvokeOnMainThread(() => 
+            InvokeOnMainThread(() =>
             {
                 // Show the input and output spatial reference (WKID) in the labels.
                 _inWkidLabel.Text = "In WKID = " + _originalPoint.SpatialReference.Wkid;
@@ -162,29 +168,29 @@ namespace ArcGISRuntime.Samples.ListTransformations
             _transformToolsView.Axis = UILayoutConstraintAxis.Vertical;
             _transformToolsView.Frame = new CGRect(0, _mapViewHeight, View.Bounds.Width, _transformToolsHeight);
 
-            // View for the input/output wkid labels.
-            UIStackView wkidLabelsStackView = new UIStackView(new CGRect(10, 5, View.Bounds.Width-10, 35))
+            // View for the input/output WKID labels.
+            UIStackView wkidLabelsStackView = new UIStackView(new CGRect(10, 5, View.Bounds.Width - 10, 35))
             {
                 Axis = UILayoutConstraintAxis.Horizontal
             };
 
             // Create a label for the input spatial reference.
-            _inWkidLabel = new UILabel(new CGRect(5, 0, (View.Bounds.Width / 2) - 15, 30))
+            _inWkidLabel = new UILabel(new CGRect(5, 0, View.Bounds.Width / 2 - 15, 30))
             {
                 Text = "In WKID = ",
                 TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Blue
+                TextColor = UIColor.Black
             };
-            
+
             // Create a label for the output spatial reference.
-            _outWkidLabel = new UILabel(new CGRect((View.Bounds.Width / 2) + 5, 0, (View.Bounds.Width / 2) - 15, 30))
+            _outWkidLabel = new UILabel(new CGRect(View.Bounds.Width / 2 + 5, 0, View.Bounds.Width / 2 - 15, 30))
             {
                 Text = "Out WKID = ",
                 TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Blue
+                TextColor = UIColor.Black
             };
 
-            // Add the Wkid labels to the stack view.
+            // Add the WKID labels to the stack view.
             wkidLabelsStackView.Add(_inWkidLabel);
             wkidLabelsStackView.Add(_outWkidLabel);
 
@@ -204,18 +210,18 @@ namespace ArcGISRuntime.Samples.ListTransformations
             {
                 Text = "Use extent",
                 TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Blue
+                TextColor = UIColor.Black
             };
 
             // Add the switch and the label to the horizontal stack view.
             extentSwitchRow.Add(_useExtentSwitch);
             extentSwitchRow.Add(useExtentLabel);
-                        
+
             // Create a picker for datum transformations.
-            _transformationsPicker = new UIPickerView(new CGRect(20, 70, View.Bounds.Width-20, 120));
-            
+            _transformationsPicker = new UIPickerView(new CGRect(20, 70, View.Bounds.Width - 20, 120));
+
             // Create a text view to show messages.
-            _messagesTextView = new UITextView(new CGRect(20, 200, View.Bounds.Width-20, 60));
+            _messagesTextView = new UITextView(new CGRect(20, 200, View.Bounds.Width - 20, 60));
 
             // Add the controls to the transform UI (stack view).
             _transformToolsView.AddSubviews(wkidLabelsStackView, extentSwitchRow, _transformationsPicker, _messagesTextView);
@@ -266,12 +272,15 @@ namespace ArcGISRuntime.Samples.ListTransformations
         {
             // Get the selected transform from the event arguments. Return if none is selected.
             DatumTransformation selectedTransform = e.Transformation;
-            if(selectedTransform == null) { return; }
+            if (selectedTransform == null)
+            {
+                return;
+            }
 
             try
             {
                 // Project the original point using the selected transform.
-                MapPoint projectedPoint = (MapPoint)GeometryEngine.Project(_originalPoint, _myMapView.SpatialReference, selectedTransform);
+                MapPoint projectedPoint = (MapPoint) GeometryEngine.Project(_originalPoint, _myMapView.SpatialReference, selectedTransform);
 
                 // Update the projected graphic (if it already exists), create it otherwise.
                 if (_projectedPointGraphic != null)
@@ -319,10 +328,10 @@ namespace ArcGISRuntime.Samples.ListTransformations
         public event EventHandler<TransformationSelectionEventArgs> TransformationSelected;
 
         // List of datum transformation values.
-        private IReadOnlyList<DatumTransformation> _datumTransformations;
+        private readonly IReadOnlyList<DatumTransformation> _datumTransformations;
 
         // Store the default transformation.
-        private DatumTransformation _defaultTransformation;
+        private readonly DatumTransformation _defaultTransformation;
 
         // Store the selected transformation.
         private DatumTransformation _selectedTransformation;
@@ -332,12 +341,6 @@ namespace ArcGISRuntime.Samples.ListTransformations
         {
             _datumTransformations = transformationList;
             _defaultTransformation = defaultTransform;
-        }
-
-        // Property to expose the currently selected transformation value in the picker.
-        public DatumTransformation SelectedDatumTransformation
-        {
-            get { return _selectedTransformation; }
         }
 
         // Return the number of picker components (just one).
@@ -355,18 +358,18 @@ namespace ArcGISRuntime.Samples.ListTransformations
         // Get the title to display in the picker component.
         public override string GetTitle(UIPickerView pickerView, nint row, nint component)
         {
-            return _datumTransformations[(int)row].Name;
+            return _datumTransformations[(int) row].Name;
         }
 
         // Handle the selection event for the picker.
         public override void Selected(UIPickerView pickerView, nint row, nint component)
         {
             // Get the selected datum transformation factor.
-            _selectedTransformation = _datumTransformations[(int)pickerView.SelectedRowInComponent(0)];
+            _selectedTransformation = _datumTransformations[(int) pickerView.SelectedRowInComponent(0)];
 
             // Raise the selection event (with the new transformation) so listeners can handle it.
             EventHandler<TransformationSelectionEventArgs> selectionEventHandler = TransformationSelected;
-            if(selectionEventHandler != null)
+            if (selectionEventHandler != null)
             {
                 TransformationSelectionEventArgs args = new TransformationSelectionEventArgs(_selectedTransformation);
                 selectionEventHandler(this, args);
@@ -389,7 +392,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         public override UIView GetView(UIPickerView pickerView, nint row, nint component, UIView view)
         {
             // Get the transformation being displayed.
-            DatumTransformation thisTransform = _datumTransformations[(int)row];
+            DatumTransformation thisTransform = _datumTransformations[(int) row];
 
             // See if this is the default transformation and if it's available (has required PE files).
             bool isDefault = thisTransform.Name == _defaultTransformation.Name;
@@ -404,19 +407,17 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
             if (isDefault)
             {
-                labelColor = UIColor.Blue;
+                labelColor = UIColor.Black;
             }
 
             // Create a label to display the transform.
-            UILabel transformLabel = new UILabel(new RectangleF(0, 0, 260f, 30f))
+            return new UILabel(new RectangleF(0, 0, 260f, 30f))
             {
                 TextColor = labelColor,
                 Font = UIFont.SystemFontOfSize(16f),
                 TextAlignment = UITextAlignment.Center,
                 Text = thisTransform.Name
             };
-
-            return transformLabel;
         }
     }
 
@@ -424,7 +425,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
     public class TransformationSelectionEventArgs : EventArgs
     {
         // Selected datum transformation.
-        public DatumTransformation Transformation { get; set; }
+        public DatumTransformation Transformation { get; }
 
         public TransformationSelectionEventArgs(DatumTransformation transformation)
         {

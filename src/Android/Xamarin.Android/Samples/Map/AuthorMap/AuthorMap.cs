@@ -197,7 +197,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     await SaveNewMapAsync(myMap, title, description, tags, thumbnailImg);
 
                     // Report a successful save
-                    alertBuilder.SetTitle("Map Saved");
+                    alertBuilder.SetTitle("Map saved");
                     alertBuilder.SetMessage("Saved '" + title + "' to ArcGIS Online!");
                     alertBuilder.Show();
                 }
@@ -214,7 +214,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     await myMap.SaveAsync();
 
                     // Report update was successful
-                    alertBuilder.SetTitle("Updates Saved");
+                    alertBuilder.SetTitle("Updates saved");
                     alertBuilder.SetMessage("Saved changes to '" + myMap.Item.Title + "'");
                     alertBuilder.Show();
                 }
@@ -645,7 +645,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             Android.Content.Context ctx = Activity.ApplicationContext;
 
             // Set a dialog title
-            Dialog.SetTitle("Save Map to Portal");
+            Dialog.SetTitle("Save map to Portal");
 
             try
             {
@@ -654,6 +654,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 // The container for the dialog is a vertical linear layout
                 dialogView = new LinearLayout(ctx);
                 dialogView.Orientation = Orientation.Vertical;
+                dialogView.SetPadding(10,0,10,10);
 
                 // Add a text box for entering a title for the new web map
                 _mapTitleTextbox = new EditText(ctx);
@@ -689,7 +690,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     _tagsTextbox.Enabled = false;
 
                     // Change some of the control text
-                    Dialog.SetTitle("Save Changes to Map");
+                    Dialog.SetTitle("Save changes to map");
                     saveMapButton.Text = "Update";
                 }
             }

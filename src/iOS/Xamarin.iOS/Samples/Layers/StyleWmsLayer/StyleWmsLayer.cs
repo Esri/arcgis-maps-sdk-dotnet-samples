@@ -7,13 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.StyleWmsLayer
@@ -23,37 +23,40 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
         "Style WMS layers",
         "Layers",
         "This sample demonstrates how to select from the available styles on WMS sublayers. ",
-        "Click to select from one of the two pre-set styles.")]
+        "Click to select from one of the two preset styles.")]
     public class StyleWmsLayer : UIViewController
     {
+        // Create and hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _buttonContainer = new UIToolbar();
+
+        private readonly UIButton _firstStyleButton = new UIButton
+        {
+            Enabled = false,
+            HorizontalAlignment = UIControlContentHorizontalAlignment.Center
+        };
+
+        private readonly UIButton _secondStyleButton = new UIButton
+        {
+            Enabled = false,
+            HorizontalAlignment = UIControlContentHorizontalAlignment.Center
+        };
+
+        private readonly UILabel _helpLabel = new UILabel
+        {
+            Text = "Choose a style:",
+            TextAlignment = UITextAlignment.Center,
+            TextColor = UIColor.Black
+        };
+
         // Hold the URL to the service, which has satellite imagery covering the state of Minnesota.
-        private Uri _wmsUrl = new Uri("http://geoint.lmic.state.mn.us/cgi-bin/wms?VERSION=1.3.0&SERVICE=WMS&REQUEST=GetCapabilities");
+        private readonly Uri _wmsUrl = new Uri("http://geoint.lmic.state.mn.us/cgi-bin/wms?VERSION=1.3.0&SERVICE=WMS&REQUEST=GetCapabilities");
 
         // Hold a list of uniquely-identifying WMS layer names to display.
-        private List<String> _wmsLayerNames = new List<string> { "fsa2017" };
+        private readonly List<string> _wmsLayerNames = new List<string> {"fsa2017"};
 
         // Hold a reference to the layer to enable re-styling.
         private WmsLayer _mnWmsLayer;
-
-        // Hold references to the views.
-        private MapView _myMapView = new MapView();
-        private UIButton _firstStyleButton = new UIButton
-        {
-            Enabled = false,
-            HorizontalAlignment = UIControlContentHorizontalAlignment.Center
-        };
-        private UIButton _secondStyleButton = new UIButton
-        {
-            Enabled = false,
-            HorizontalAlignment = UIControlContentHorizontalAlignment.Center
-        };
-        private UILabel _helpLabel = new UILabel
-        {
-            Text = "Choose a Style",
-            TextAlignment = UITextAlignment.Center,
-            TextColor = UIColor.Red
-        };
-        private UIToolbar _buttonContainer = new UIToolbar();
 
         public StyleWmsLayer()
         {
@@ -81,8 +84,8 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             _secondStyleButton.SetTitle("Style 2", UIControlState.Normal);
 
             // Update the colors.
-            _firstStyleButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _secondStyleButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _firstStyleButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _secondStyleButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Subscribe to the button click events.
             _firstStyleButton.TouchUpInside += FirstStyleButton_Clicked;
@@ -143,24 +146,27 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
 
         public override void ViewDidLayoutSubviews()
         {
-            // Calculate the top margin.
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat toolbarHeight = controlHeight * 2 + margin * 3;
 
-            // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                // Reposition the views.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _buttonContainer.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                _helpLabel.Frame = new CGRect(margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _firstStyleButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - margin, controlHeight);
+                _secondStyleButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
 
-            // Update the insets for the map view (to ensure attribution bar is visible, among other reasons).
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 50, 0);
-
-            // Update the toolbar and button positions.
-            _buttonContainer.Frame = new CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
-            _firstStyleButton.Frame = new CGRect(10, View.Bounds.Height - 40, View.Bounds.Width / 2 - 10, 30);
-            _secondStyleButton.Frame = new CGRect(View.Bounds.Width / 2 + 10, View.Bounds.Height - 40, View.Bounds.Width / 2 - 10, 30);
-
-            // Update the help label position.
-            _helpLabel.Frame = new CGRect(0, View.Bounds.Height - 90, View.Bounds.Width, 20);
-
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 }

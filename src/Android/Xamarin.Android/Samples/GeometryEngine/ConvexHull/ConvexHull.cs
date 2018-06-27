@@ -154,7 +154,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
             {
                 // Display an error message if there is a problem generating convex hull operation.
                 var alertBuilder = new AlertDialog.Builder(this);
-                alertBuilder.SetTitle("Geometry Engine Failed!");
+                alertBuilder.SetTitle("There was a problem generating the convex hull.");
                 alertBuilder.SetMessage(ex.ToString());
                 alertBuilder.Show();
             }

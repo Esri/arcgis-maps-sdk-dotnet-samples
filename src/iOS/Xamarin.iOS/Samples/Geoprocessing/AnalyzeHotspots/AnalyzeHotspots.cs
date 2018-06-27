@@ -7,13 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Threading.Tasks;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
-using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.AnalyzeHotspots
@@ -26,160 +27,145 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         "To run the hotspot analysis, select a data range and click on the 'Run analysis' button. Note the larger the date range, the longer it may take for the task to run and send back the results.")]
     public class AnalyzeHotspots : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int _yPageOffset = 60;
-
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
-
-        // Create a label to display "Start Date:"
+        // Create and hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _toolbar = new UIToolbar();
         private UILabel _startDateLabel;
-
-        // Create a text field to display an initial start date "1/1/98" for the analysis  
         private UITextField _startDateTextField;
-
-        // Create a label to display "End Date:"
         private UILabel _endDateLabel;
-
-        // Create a text field to display an initial end date "1/31/98" for the analysis
         private UITextField _endDateTextField;
-
-        // Create button to execute the geoprocessing analyze hot spots function
         private UIButton _runAnalysisButton;
+        private UIActivityIndicatorView _progressBar;
 
-        // Create the progress indicator
-        private UIActivityIndicatorView _myProgressBar;
+        // URL for the geoprocessing service.
+        private const string HotspotUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/911CallsHotspot/GPServer/911%20Calls%20Hotspot";
 
-        // Url for the geoprocessing service
-        private const string _hotspotUrl =
-            "https://sampleserver6.arcgisonline.com/arcgis/rest/services/911CallsHotspot/GPServer/911%20Calls%20Hotspot";
-
-        // The geoprocessing task for hot spots analysis 
+        // The geoprocessing task for hot spots analysis.
         private GeoprocessingTask _hotspotTask;
 
-        // The job that handles the communication between the application and the geoprocessing task
+        // The job that handles the communication between the application and the geoprocessing task.
         private GeoprocessingJob _hotspotJob;
 
         public AnalyzeHotspots()
         {
-            Title = "Analyze Hotspots";
+            Title = "Analyze hotspots";
         }
 
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
             CreateLayout();
             Initialize();
         }
+
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 100, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat margin = 5;
+                nfloat controlHeight = 30;
+                nfloat columnSplit = 100;
+                nfloat topStart = topMargin;
 
-            // Setup the visual frame for the start date UILabel
-            _startDateLabel.Frame = new CoreGraphics.CGRect(0, _yPageOffset, View.Bounds.Width, 40);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _toolbar.Frame = new CGRect(0, topStart, View.Bounds.Width, controlHeight * 3 + margin * 4);
+                _startDateLabel.Frame = new CGRect(margin, topStart + margin, columnSplit - 2 * margin, controlHeight);
+                _startDateTextField.Frame = new CGRect(columnSplit + margin, topStart + margin, View.Bounds.Width - columnSplit - 2 * margin, controlHeight);
+                _endDateLabel.Frame = new CGRect(margin, topStart + controlHeight + 2 * margin, columnSplit - 2 * margin, controlHeight);
+                _endDateTextField.Frame = new CGRect(columnSplit + margin, topStart + controlHeight + 2 * margin, View.Bounds.Width - columnSplit - 2 * margin, controlHeight);
+                _runAnalysisButton.Frame = new CGRect(margin, topStart + 2 * controlHeight + 3 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + _toolbar.Frame.Height, 0, 0, 0);
+                _progressBar.Frame = new CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin);
 
-            // Setup the visual frame for the initial start date text ("1/1/98") for the analysis in a UITextField
-            _startDateTextField.Frame = new CoreGraphics.CGRect(100, _yPageOffset, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the end date UILabel
-            _endDateLabel.Frame = new CoreGraphics.CGRect(0, _yPageOffset + 40, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the initial end date text ("1/31/98") for the analysis in a UITextField
-            _endDateTextField.Frame = new CoreGraphics.CGRect(100, _yPageOffset + 40, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the button to execute the geoprocessing analyze hot spots function
-            _runAnalysisButton.Frame = new CoreGraphics.CGRect(0, _yPageOffset + 80, View.Bounds.Width, 40);
-
-            // The progress bar is will appear overlaid in the middle of the map view
-            _myProgressBar.Frame = new CoreGraphics.CGRect(0, 300, View.Bounds.Width, 40);
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()
         {
-            // Create a map with a topographic basemap
-            Map myMap = new Map(Basemap.CreateTopographic());
+            // Create and show a map with a topographic basemap.
+            _myMapView.Map = new Map(Basemap.CreateTopographic());
 
-            // Create a new geoprocessing task
-            _hotspotTask = await GeoprocessingTask.CreateAsync(new Uri(_hotspotUrl));
-
-            // Assign the map to the MapView
-            _myMapView.Map = myMap;
+            // Create a new geoprocessing task.
+            _hotspotTask = await GeoprocessingTask.CreateAsync(new Uri(HotspotUrl));
         }
 
         private async void OnRunAnalysisClicked(object sender, EventArgs e)
         {
-            // Clear any existing results
+            // Clear any existing results.
             _myMapView.Map.OperationalLayers.Clear();
 
-            // Show the animating progress bar 
-            _myProgressBar.StartAnimating();
+            // Show the animating progress bar .
+            _progressBar.StartAnimating();
 
-            // Get the 'from' and 'to' dates from the date pickers for the geoprocessing analysis
-            DateTime myFromDate;
-            DateTime myToDate;
+            // Get the 'from' and 'to' dates from the date pickers for the geoprocessing analysis.
+            DateTime fromDate;
+            DateTime toDate;
             try
             {
-                myFromDate = Convert.ToDateTime(_startDateTextField.Text);
-                myToDate = Convert.ToDateTime(_endDateTextField.Text);
+                fromDate = Convert.ToDateTime(_startDateTextField.Text);
+                toDate = Convert.ToDateTime(_endDateTextField.Text);
             }
             catch (Exception)
             {
-                // Handle badly formatted dates
+                // Handle badly formatted dates.
                 UIAlertController alert = UIAlertController.Create("Invalid date", "Please enter a valid date", UIAlertControllerStyle.Alert);
                 alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alert, true, null);
 
-                // Stop the progress bar from animating (which also hides it as well)
-                _myProgressBar.StopAnimating();
+                // Stop the progress bar from animating (which also hides it as well).
+                _progressBar.StopAnimating();
 
                 return;
             }
 
-            // The end date must be at least one day after the start date
-            if (myToDate <= myFromDate.AddDays(1))
+            // The end date must be at least one day after the start date.
+            if (toDate <= fromDate.AddDays(1))
             {
-                // Show error message
-                UIAlertController alert = UIAlertController.Create("Invalid date range", 
+                // Show error message.
+                UIAlertController alert = UIAlertController.Create("Invalid date range",
                     "Please enter a valid date range. There has to be at least one day in between To and From dates.", UIAlertControllerStyle.Alert);
                 alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alert, true, null);
 
-                // Stop the progress bar from animating (which also hides it as well)
-                _myProgressBar.StopAnimating();
+                // Stop the progress bar from animating (which also hides it as well).
+                _progressBar.StopAnimating();
 
                 return;
             }
 
-            // Create the parameters that are passed to the used geoprocessing task
-            GeoprocessingParameters myHotspotParameters = new GeoprocessingParameters(GeoprocessingExecutionType.AsynchronousSubmit);
+            // Create the parameters that are passed to the used geoprocessing task.
+            GeoprocessingParameters hotspotParameters = new GeoprocessingParameters(GeoprocessingExecutionType.AsynchronousSubmit);
 
-            // Construct the date query
-            var myQueryString = string.Format("(\"DATE\" > date '{0} 00:00:00' AND \"DATE\" < date '{1} 00:00:00')",
-                myFromDate.ToString("yyyy-MM-dd"),
-                myToDate.ToString("yyyy-MM-dd"));
+            // Construct the date query.
+            string myQueryString = $"(\"DATE\" > date '{fromDate:yyyy-MM-dd 00:00:00}' AND \"DATE\" < date '{toDate:yyy-MM-dd 00:00:00}')";
 
-            // Add the query that contains the date range used in the analysis
-            myHotspotParameters.Inputs.Add("Query", new GeoprocessingString(myQueryString));
+            // Add the query that contains the date range used in the analysis.
+            hotspotParameters.Inputs.Add("Query", new GeoprocessingString(myQueryString));
 
-            // Create job that handles the communication between the application and the geoprocessing task
-            _hotspotJob = _hotspotTask.CreateJob(myHotspotParameters);
+            // Create job that handles the communication between the application and the geoprocessing task.
+            _hotspotJob = _hotspotTask.CreateJob(hotspotParameters);
             try
             {
-                // Execute the geoprocessing analysis and wait for the results
-                GeoprocessingResult myAnalysisResult = await _hotspotJob.GetResultAsync();
+                // Execute the geoprocessing analysis and wait for the results.
+                GeoprocessingResult analysisResult = await _hotspotJob.GetResultAsync();
 
-                // Add results to a map using map server from a geoprocessing task
-                // Load to get access to full extent
-                await myAnalysisResult.MapImageLayer.LoadAsync();
+                // Add results to a map using map server from a geoprocessing task.
+                // Load to get access to full extent.
+                await analysisResult.MapImageLayer.LoadAsync();
 
-                // Add the analysis layer to the map view
-                _myMapView.Map.OperationalLayers.Add(myAnalysisResult.MapImageLayer);
+                // Add the analysis layer to the map view.
+                _myMapView.Map.OperationalLayers.Add(analysisResult.MapImageLayer);
 
-                // Zoom to the results
-                await _myMapView.SetViewpointAsync(new Viewpoint(myAnalysisResult.MapImageLayer.FullExtent));
+                // Zoom to the results.
+                await _myMapView.SetViewpointAsync(new Viewpoint(analysisResult.MapImageLayer.FullExtent));
             }
             catch (TaskCanceledException)
             {
@@ -187,17 +173,17 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             }
             catch (Exception ex)
             {
-                // Display error messages if the geoprocessing task fails
+                // Display error messages if the geoprocessing task fails.
                 if (_hotspotJob.Status == JobStatus.Failed && _hotspotJob.Error != null)
                 {
-                    // Report error
+                    // Report error.
                     UIAlertController alert = UIAlertController.Create("Geoprocessing Error", _hotspotJob.Error.Message, UIAlertControllerStyle.Alert);
                     alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                     PresentViewController(alert, true, null);
                 }
                 else
                 {
-                    // Report error
+                    // Report error.
                     UIAlertController alert = UIAlertController.Create("Sample error", ex.ToString(), UIAlertControllerStyle.Alert);
                     alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                     PresentViewController(alert, true, null);
@@ -205,57 +191,78 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             }
             finally
             {
-                // Stop the progress bar from animating (which also hides it as well)
-                _myProgressBar.StopAnimating();
+                // Stop the progress bar from animating (which also hides it).
+                _progressBar.StopAnimating();
             }
         }
 
         private void CreateLayout()
         {
-            // Create label for the start date
-            _startDateLabel = new UILabel();
-            _startDateLabel.Text = "Start Date:";
-            _startDateLabel.AdjustsFontSizeToFitWidth = true;
-            _startDateLabel.BackgroundColor = UIColor.White;
+            // Create label for the start date.
+            _startDateLabel = new UILabel
+            {
+                Text = "Start date:",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Right
+            };
 
-            // Create text field for the initial start date "1/1/98" for the analysis
-            _startDateTextField = new UITextField();
-            _startDateTextField.Text = "1/01/98";
-            _startDateTextField.AdjustsFontSizeToFitWidth = true;
-            _startDateTextField.BackgroundColor = UIColor.White;
-            // Allow pressing 'return' to dismiss the keyboard
-            _startDateTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            // Create text field for the initial start date "1/1/98" for the analysis.
+            _startDateTextField = new UITextField
+            {
+                Text = "1/01/98",
+                AdjustsFontSizeToFitWidth = true,
+                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
+                BorderStyle = UITextBorderStyle.RoundedRect
+            };
 
-            // Create label for the end date
-            _endDateLabel = new UILabel();
-            _endDateLabel.Text = "End Date:";
-            _endDateLabel.AdjustsFontSizeToFitWidth = true;
-            _endDateLabel.BackgroundColor = UIColor.White;
+            // Allow pressing 'return' to dismiss the keyboard.
+            _startDateTextField.ShouldReturn += textField =>
+            {
+                textField.ResignFirstResponder();
+                return true;
+            };
 
-            // Create text field for the initial end date "1/31/98" for the analysis
-            _endDateTextField = new UITextField();
-            _endDateTextField.Text = "1/31/98";
-            _endDateTextField.AdjustsFontSizeToFitWidth = true;
-            _endDateTextField.BackgroundColor = UIColor.White;
-            // Allow pressing 'return' to dismiss the keyboard
-            _endDateTextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
+            // Create label for the end date.
+            _endDateLabel = new UILabel
+            {
+                Text = "End date:",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Right
+            };
 
-            // Create button to invoke the geoprocessing request
+            // Create text field for the initial end date "1/31/98" for the analysis.
+            _endDateTextField = new UITextField
+            {
+                Text = "1/31/98",
+                AdjustsFontSizeToFitWidth = true,
+                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
+                BorderStyle = UITextBorderStyle.RoundedRect
+            };
+
+            // Allow pressing 'return' to dismiss the keyboard.
+            _endDateTextField.ShouldReturn += textField =>
+            {
+                textField.ResignFirstResponder();
+                return true;
+            };
+
+            // Create button to invoke the geoprocessing request.
             _runAnalysisButton = new UIButton();
-            _runAnalysisButton.SetTitle("Run Analysis", UIControlState.Normal);
-            _runAnalysisButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _runAnalysisButton.BackgroundColor = UIColor.White;
+            _runAnalysisButton.SetTitle("Run analysis", UIControlState.Normal);
+            _runAnalysisButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
-            // Hook to touch event to do geoprocessing request
+            // Hook to touch event to do geoprocessing request.
             _runAnalysisButton.TouchUpInside += OnRunAnalysisClicked;
 
-            // Hide the activity indicator (progress bar) when stopped
-            _myProgressBar = new UIActivityIndicatorView();
-            _myProgressBar.BackgroundColor = UIColor.Black;
-            _myProgressBar.HidesWhenStopped = true;
+            // Hide the activity indicator (progress bar) when stopped.
+            _progressBar = new UIActivityIndicatorView
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .5f),
+                HidesWhenStopped = true
+            };
 
-            // Add all of the UI controls to the page
-            View.AddSubviews(_myMapView, _startDateLabel, _startDateTextField, _endDateLabel, _endDateTextField, _runAnalysisButton, _myProgressBar);
+            // Add all of the UI controls to the page.
+            View.AddSubviews(_myMapView, _toolbar, _startDateLabel, _startDateTextField, _endDateLabel, _endDateTextField, _runAnalysisButton, _progressBar);
         }
     }
 }

@@ -23,15 +23,13 @@ namespace ArcGISRuntime
     {
         private readonly UIViewController _parentViewController;
         private List<SampleInfo> _visibleSamples = new List<SampleInfo>();
-        private readonly IList<SearchableTreeNode> _categories;
-        private List<SampleInfo> _sampleItems = new List<SampleInfo>();
+        private readonly List<SampleInfo> _sampleItems;
         private LoadingOverlay _loadPopup;
 
-        public SearchResultsViewController(UIViewController controller, IList<SearchableTreeNode> categories)
+        public SearchResultsViewController(UIViewController controller)
         {
             _parentViewController = controller;
-            _categories = categories;
-            
+
             // Using the allsamples list avoids duplicate sample entries in the 'featured' category
             _sampleItems = SampleManager.Current.AllSamples.ToList();
         }
@@ -103,7 +101,7 @@ namespace ArcGISRuntime
                     _loadPopup.Hide();
                 }
 
-                var control = (UIViewController)SampleManager.Current.SampleToControl(sample);
+                var control = (UIViewController) SampleManager.Current.SampleToControl(sample);
                 _parentViewController.NavigationController.PushViewController(control, true);
             }
             catch (Exception ex)

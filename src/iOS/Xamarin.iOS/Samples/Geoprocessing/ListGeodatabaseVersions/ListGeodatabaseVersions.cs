@@ -7,12 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using Foundation;
-using System;
-using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
@@ -25,15 +26,12 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
         "")]
     public class ListGeodatabaseVersions : UIViewController
     {
-        // Progress bar to show when the geoprocessing task is working
-        UIActivityIndicatorView _myProgressBar = new UIActivityIndicatorView();
+        // Create and hold references to the UI controls.
+        private readonly UIActivityIndicatorView _progressBar = new UIActivityIndicatorView();
+        private readonly UITextView _geodatabaseListField = new UITextView();
 
-        // Text view to display the list of geodatabases
-        UITextView _myEditText_ListGeodatabases = new UITextView();
-
-        // Url to used geoprocessing service
-        private Uri ListVersionsUrl = 
-            new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/GDBVersions/GPServer/ListVersions");
+        // URL to used geoprocessing service
+        private readonly Uri _listVersionsUrl = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/GDBVersions/GPServer/ListVersions");
 
         public ListGeodatabaseVersions()
         {
@@ -44,108 +42,116 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
             CreateLayout();
             Initialize();
         }
+
         public override void ViewDidLayoutSubviews()
         {
-            // Set the visual frame for the text view
-            _myEditText_ListGeodatabases.Frame = new CoreGraphics.CGRect(10, 80, View.Bounds.Width - 20, View.Bounds.Height - 80);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            // Set the visual frame for the progress view
-            _myProgressBar.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 - 50, View.Bounds.Height / 2 - 50, 100, 100);
+                // Reposition controls.
+                _geodatabaseListField.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin);
+                _progressBar.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin);
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()
         {
-            // Set the UI to indicate that the geoprocessing is running
+            // Set the UI to indicate that the geoprocessing is running.
             SetBusy(true);
 
-            // Get versions from a geodatabase
+            // Get versions from a geodatabase.
             IFeatureSet versionsFeatureSet = await GetGeodatabaseVersionsAsync();
 
-            // Continue if we got a valid geoprocessing result
+            // Continue if there is a valid geoprocessing result.
             if (versionsFeatureSet != null)
             {
-                // Create a string builder to hold all of the information from the geoprocessing 
-                // task to display in the UI 
-                var myStringBuilder = new System.Text.StringBuilder();
+                // Create a string builder to hold all of the information from the geoprocessing
+                // task to display in the UI.
+                var stringBuilder = new System.Text.StringBuilder();
 
-                // Loop through each Feature in the FeatureSet 
+                // Loop through each Feature in the FeatureSet.
                 foreach (var version in versionsFeatureSet)
                 {
-                    // Get the attributes (a dictionary of <key,value> pairs) from the Feature
-                    var myDictionary = version.Attributes;
-
-                    // Loop through each attribute (a <key,value> pair)
-                    foreach (var oneAttribute in myDictionary)
+                    // Loop through each attribute (a <key,value> pair).
+                    foreach (KeyValuePair<string, object> oneAttribute in version.Attributes)
                     {
-                        // Get the key
-                        var myKey = oneAttribute.Key;
+                        // Get the key.
+                        string key = oneAttribute.Key;
 
-                        // Get the value
-                        var myValue = oneAttribute.Value;
+                        // Get the value.
+                        var value = oneAttribute.Value;
 
-                        // Add the key and value strings to the string builder 
-                        myStringBuilder.AppendLine(myKey + ": " + myValue);
+                        // Add the key and value strings to the string builder.
+                        stringBuilder.AppendLine(key + ": " + value);
                     }
 
-                    // Add a blank line after each Feature (the listing of geodatabase versions)
-                    myStringBuilder.AppendLine();
+                    // Add a blank line after each Feature (the listing of geodatabase versions).
+                    stringBuilder.AppendLine();
                 }
 
-                // Display the results to the user
-                _myEditText_ListGeodatabases.Text = myStringBuilder.ToString();
+                // Display the results to the user.
+                _geodatabaseListField.Text = stringBuilder.ToString();
             }
 
-            // Set the UI to indicate that the geoprocessing is not running
+            // Set the UI to indicate that the geoprocessing is not running.
             SetBusy(false);
         }
 
         private async Task<IFeatureSet> GetGeodatabaseVersionsAsync()
         {
-            // Results will be returned as a feature set
+            // Results will be returned as a feature set.
             IFeatureSet results = null;
 
-            // Create new geoprocessing task 
-            var listVersionsTask = await GeoprocessingTask.CreateAsync(ListVersionsUrl);
+            // Create new geoprocessing task.
+            var listVersionsTask = await GeoprocessingTask.CreateAsync(_listVersionsUrl);
 
-            // Create default parameters that are passed to the geoprocessing task
+            // Create default parameters that are passed to the geoprocessing task.
             GeoprocessingParameters listVersionsParameters = await listVersionsTask.CreateDefaultParametersAsync();
 
-            // Create job that handles the communication between the application and the geoprocessing task
+            // Create job that handles the communication between the application and the geoprocessing task.
             var listVersionsJob = listVersionsTask.CreateJob(listVersionsParameters);
             try
             {
-                // Execute analysis and wait for the results
+                // Execute analysis and wait for the results.
                 GeoprocessingResult analysisResult = await listVersionsJob.GetResultAsync();
 
-                // Get results from the outputs
+                // Get results from the outputs.
                 GeoprocessingFeatures listVersionsResults = analysisResult.Outputs["Versions"] as GeoprocessingFeatures;
 
-                // Set results
+                // Set results.
                 results = listVersionsResults.Features;
             }
             catch (Exception ex)
             {
-                // Error handling if something goes wrong
+                // Error handling if something goes wrong.
                 if (listVersionsJob.Status == JobStatus.Failed && listVersionsJob.Error != null)
                 {
-                    UIAlertController alert = new UIAlertController();
-                    alert.Message = "Executing geoprocessing failed. " + listVersionsJob.Error.Message;
+                    UIAlertController alert = new UIAlertController
+                    {
+                        Message = "Executing geoprocessing failed. " + listVersionsJob.Error.Message
+                    };
                     alert.ShowViewController(this, this);
                 }
                 else
                 {
-                    UIAlertController alert = new UIAlertController();
-                    alert.Message = "An error occurred. " + ex.ToString();
+                    UIAlertController alert = new UIAlertController
+                    {
+                        Message = "An error occurred. " + ex
+                    };
                     alert.ShowViewController(this, this);
                 }
             }
             finally
             {
-                // Set the UI to indicate that the geoprocessing is not running
+                // Set the UI to indicate that the geoprocessing is not running.
                 SetBusy(false);
             }
 
@@ -155,32 +161,27 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
         private void SetBusy(bool isBusy = true)
         {
             // This function toggles running of the 'progress' control feedback status to denote if 
-            // the viewshed analysis is executing as a result of the user click on the map
-            if (isBusy)
-            {
-                // Show busy activity indication
-                _myProgressBar.Hidden = false;
-            }
-            else
-            {
-                // Remove the busy activity indication
-                _myProgressBar.Hidden = true;
-            }
+            // the viewshed analysis is executing as a result of the user click on the map.
+            _progressBar.Hidden = !isBusy;
         }
 
         private void CreateLayout()
         {
-            // Hide the progress bar
-            _myProgressBar.Hidden = true;
+            // Hide the progress bar.
+            _progressBar.Hidden = true;
 
-            // Enable animation
-            _myProgressBar.StartAnimating();
+            // Enable animation.
+            _progressBar.StartAnimating();
 
-            // Set the color
-            _myProgressBar.Color = UIColor.Blue;
+            // Set the color.
+            _progressBar.Color = View.TintColor;
+            _progressBar.BackgroundColor = UIColor.FromWhiteAlpha(.5f, .8f);
 
-            // Add views to the layout
-            View.AddSubviews(_myEditText_ListGeodatabases, _myProgressBar);
+            // Make the view background color white (so the navigation bar looks good).
+            View.BackgroundColor = UIColor.White;
+
+            // Add views to the layout.
+            View.AddSubviews(_geodatabaseListField, _progressBar);
         }
     }
 }

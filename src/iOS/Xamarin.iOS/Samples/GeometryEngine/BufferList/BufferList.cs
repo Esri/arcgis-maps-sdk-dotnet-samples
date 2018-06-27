@@ -7,14 +7,15 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
-using System.Collections.Generic;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.BufferList
@@ -28,35 +29,24 @@ namespace ArcGISRuntime.Samples.BufferList
         "")]
     public class BufferList : UIViewController
     {
-        // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        // Create and hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _helpToolbar = new UIToolbar();
+        private readonly UIToolbar _controlsToolbar = new UIToolbar();
+        private UILabel _sampleInstructionsLabel;
+        private UILabel _bufferDistanceInstructionLabel;
+        private UITextField _bufferDistanceEntry;
+        private UISwitch _unionBufferSwitch;
+        private UIButton _bufferButton;
 
         // Graphics overlay to display buffer-related graphics.
         private GraphicsOverlay _graphicsOverlay;
 
         // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.Buffer operation.
-        private List<Geometry> _bufferPointsList = new List<Geometry>();
+        private readonly List<Geometry> _bufferPointsList = new List<Geometry>();
 
         // List of buffer distance values (in meters) that will be used by the GeometryEngine.Buffer operation.
-        private List<double> _bufferDistancesList = new List<double>();
-
-        // Text view to display the list of geodatabases
-        UITextView _sampleInstructionUITextiew;
-
-        // Create a UILabel to display instructions.
-        private UILabel _bufferDistanceInstructionsUILabel;
-
-        // Create UITextField to enter a buffer value (in miles). 
-        private UITextField _bufferDistanceMilesUITextField;
-
-        // Create a UILabel to display instructions.
-        private UILabel _unionBufferInstructionsUILabel;
-
-        // Create a UISwitch to toggle whether to union the buffered results.
-        private UISwitch _unionBufferUISwitch;
-
-        // Create a UIButton to create a unioned buffer.
-        private UIButton _bufferButton;
+        private readonly List<double> _bufferDistancesList = new List<double>();
 
         public BufferList()
         {
@@ -67,38 +57,37 @@ namespace ArcGISRuntime.Samples.BufferList
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization. 
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 200, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat helpToolbarHeight = controlHeight * 3 + margin * 2;
+                nfloat controlToolbarHeight = 2 * controlHeight + 3 * margin;
 
-            // Determine the offset where the MapView control should start.
-            nfloat yPageOffset = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + helpToolbarHeight, 0, controlToolbarHeight, 0);
+                _helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, helpToolbarHeight);
+                _controlsToolbar.Frame = new CGRect(0, View.Bounds.Height - 2 * controlHeight - 3 * margin, View.Bounds.Width, controlToolbarHeight);
+                _sampleInstructionsLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, 3 * controlHeight);
+                _bufferDistanceInstructionLabel.Frame = new CGRect(margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, 175, controlHeight);
+                _bufferDistanceEntry.Frame = new CGRect(_bufferDistanceInstructionLabel.Frame.Right + margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, 50, controlHeight);
+                _unionBufferSwitch.Frame = new CGRect(View.Bounds.Width - 75 + margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, 75 - 2 * margin, controlHeight);
+                _bufferButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 2 * margin, controlHeight);
 
-            // Setup the visual frame for the general sample instructions UTexView.
-            _sampleInstructionUITextiew.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 80);
-
-            // Setup the visual frame for the instructions UILabel.
-            _bufferDistanceInstructionsUILabel.Frame = new CoreGraphics.CGRect(0, yPageOffset + 80, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the buffer value UITextField.
-            _bufferDistanceMilesUITextField.Frame = new CoreGraphics.CGRect(175, yPageOffset + 80, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the instructions UILabel.
-            _unionBufferInstructionsUILabel.Frame = new CoreGraphics.CGRect(0, yPageOffset + 120, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the union buffer toggle value UISwitch.
-            _unionBufferUISwitch.Frame = new CoreGraphics.CGRect(175, yPageOffset + 120, View.Bounds.Width, 40);
-
-            // Setup the visual frame for the make buffer UIButton.
-            _bufferButton.Frame = new CoreGraphics.CGRect(0, yPageOffset + 160, View.Bounds.Width, 40);
-
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
@@ -133,7 +122,7 @@ namespace ArcGISRuntime.Samples.BufferList
                 MapPoint userTappedMapPoint = _myMapView.ScreenToLocation(e.Position);
 
                 // Get the buffer size (in miles) from the text field.
-                double bufferDistanceInMiles = System.Convert.ToDouble(_bufferDistanceMilesUITextField.Text);
+                double bufferDistanceInMiles = System.Convert.ToDouble(_bufferDistanceEntry.Text);
 
                 // Create a variable to be the buffer size in meters. There are 1609.34 meters in one mile.
                 double bufferDistanceInMeters = bufferDistanceInMiles * 1609.34;
@@ -149,23 +138,23 @@ namespace ArcGISRuntime.Samples.BufferList
                 SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Red, 10);
 
                 // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol. 
-                Graphic userTappedGraphic = new Graphic(userTappedMapPoint, userTappedSimpleMarkerSymbol);
-
-                // Specify a ZIndex value on the user input map point graphic to assist with the drawing order of mixed geometry types 
-                // being added to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is 
-                // drawn. Typically, Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2).
-                userTappedGraphic.ZIndex = 2;
+                Graphic userTappedGraphic = new Graphic(userTappedMapPoint, userTappedSimpleMarkerSymbol)
+                {
+                    // Specify a ZIndex value on the user input map point graphic to assist with the drawing order of mixed geometry types 
+                    // being added to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is 
+                    // drawn. Typically, Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2)
+                    ZIndex = 2
+                };
 
                 // Add the user tapped/clicked map point graphic to the graphic overlay.
                 _graphicsOverlay.Graphics.Add(userTappedGraphic);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 // Display an error message if there is a problem generating the buffer polygon.
                 UIAlertController alertController = UIAlertController.Create("Geometry Engine Failed!", ex.Message, UIAlertControllerStyle.Alert);
                 alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alertController, true, null);
-                return;
             }
         }
 
@@ -174,7 +163,7 @@ namespace ArcGISRuntime.Samples.BufferList
             try
             {
                 // Get the boolean value whether to create a single unioned buffer (true) or independent buffer around each map point (false).
-                bool unionBufferBool = (bool)_unionBufferUISwitch.On;
+                bool unionBufferBool = _unionBufferSwitch.On;
 
                 // Create an IEnumerable that contains buffered polygon(s) from the GeometryEngine Buffer operation based on a list of map 
                 // points and list of buffered distances. The input distances used in the Buffer operation are in meters; this matches the 
@@ -198,12 +187,13 @@ namespace ArcGISRuntime.Samples.BufferList
                     SimpleFillSymbol bufferPolygonSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, bufferPolygonFillColor, bufferPolygonSimpleLineSymbol);
 
                     // Create a new graphic for the buffered polygon using the defined simple fill symbol.
-                    Graphic bufferPolygonGraphic = new Graphic(oneGeometry, bufferPolygonSimpleFillSymbol);
-
-                    // Specify a ZIndex value on the buffered polygon graphic to assist with the drawing order of mixed geometry types being added
-                    // to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is drawn. Typically, 
-                    // Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2).
-                    bufferPolygonGraphic.ZIndex = 0;
+                    Graphic bufferPolygonGraphic = new Graphic(oneGeometry, bufferPolygonSimpleFillSymbol)
+                    {
+                        // Specify a ZIndex value on the buffered polygon graphic to assist with the drawing order of mixed geometry types being added
+                        // to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is drawn. Typically, 
+                        // Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2).
+                        ZIndex = 0
+                    };
 
                     // Add the buffered polygon graphic to the graphic overlay.
                     // NOTE: While you can control the positional placement of a graphic within the GraphicCollection of a GraphicsOverlay, 
@@ -212,62 +202,65 @@ namespace ArcGISRuntime.Samples.BufferList
                     _graphicsOverlay.Graphics.Insert(0, bufferPolygonGraphic);
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 // Display an error message if there is a problem generating the buffer polygon.
                 UIAlertController alertController = UIAlertController.Create("Geometry Engine Failed!", ex.Message, UIAlertControllerStyle.Alert);
                 alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alertController, true, null);
-                return;
             }
         }
 
         private void CreateLayout()
         {
-
             // Create a UITextView for the overall sample instructions.
-            _sampleInstructionUITextiew = new UITextView();
-            _sampleInstructionUITextiew.Text = "Tap on the map in several locations to create center map-points to generate buffer(s). You can " + 
-                "optionally change the buffer distance(in miles) by adjusting the value in the text field before each tap on the map. Then click " + 
-                "on the 'Create Buffer(s)' button. If the 'Union the buffer(s)' switch is 'on' the resulting output buffer will be one polygon "+
-                "(possibly multi - part). If the 'Union the buffer(s)' switch is 'off' the resulting output will have one buffer polygon per input map point.";
-            _sampleInstructionUITextiew.Font = UIFont.FromName("Helvetica", 9f);
+            _sampleInstructionsLabel = new UILabel
+            {
+                Text = "Tap on the map to create several points. You can specify the buffer distance for each point. " +
+                       "Tap 'Create buffer(s)'. If the switch is 'on' the resulting output buffer will be unioned (one polygon). Otherwise, the result will have one buffer per point.",
+                Lines = 4,
+                AdjustsFontSizeToFitWidth = true
+            };
 
             // Create a UILabel for instructions.
-            _bufferDistanceInstructionsUILabel = new UILabel();
-            _bufferDistanceInstructionsUILabel.Text = "Buffer distance (miles):";
-            _bufferDistanceInstructionsUILabel.AdjustsFontSizeToFitWidth = true;
-            _bufferDistanceInstructionsUILabel.BackgroundColor = UIColor.White;
+            _bufferDistanceInstructionLabel = new UILabel
+            {
+                Text = "Buffer distance (miles):",
+                AdjustsFontSizeToFitWidth = true
+            };
 
             // Create a UITextFiled for the buffer value.
-            _bufferDistanceMilesUITextField = new UITextField();
-            _bufferDistanceMilesUITextField.Text = "10";
-            _bufferDistanceMilesUITextField.AdjustsFontSizeToFitWidth = true;
-            _bufferDistanceMilesUITextField.BackgroundColor = UIColor.White;
-            // - Allow pressing 'return' to dismiss the keyboard
-            _bufferDistanceMilesUITextField.ShouldReturn += (textField) => { textField.ResignFirstResponder(); return true; };
-
-            // Create a UILabel for instructions.
-            _unionBufferInstructionsUILabel = new UILabel();
-            _unionBufferInstructionsUILabel.Text = "Union the buffer(s):";
-            _unionBufferInstructionsUILabel.AdjustsFontSizeToFitWidth = true;
-            _unionBufferInstructionsUILabel.BackgroundColor = UIColor.White;
+            _bufferDistanceEntry = new UITextField
+            {
+                Text = "10",
+                AdjustsFontSizeToFitWidth = true,
+                VerticalAlignment = UIControlContentVerticalAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
+                BorderStyle = UITextBorderStyle.RoundedRect
+            };
+            // - Allow pressing 'return' to dismiss the keyboard.
+            _bufferDistanceEntry.ShouldReturn += textField =>
+            {
+                textField.ResignFirstResponder();
+                return true;
+            };
 
             // Create a UISwitch for toggling the union of the buffer geometries.
-            _unionBufferUISwitch = new UISwitch();
-            _unionBufferUISwitch.On = true;
-            _unionBufferUISwitch.BackgroundColor = UIColor.White;
+            _unionBufferSwitch = new UISwitch
+            {
+                On = true,
+                HorizontalAlignment = UIControlContentHorizontalAlignment.Right
+            };
 
             // Create a UIButton to create the buffers.
             _bufferButton = new UIButton();
-            _bufferButton.SetTitle("Make Unioned Buffer", UIControlState.Normal);
-            _bufferButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _bufferButton.BackgroundColor = UIColor.White;
-            // - Hook to touch event to do querying
+            _bufferButton.SetTitle("Create buffer(s)", UIControlState.Normal);
+            _bufferButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            // - Hook to touch event to do querying.
             _bufferButton.TouchUpInside += BufferButton_Click;
 
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _sampleInstructionUITextiew, _bufferDistanceInstructionsUILabel, _bufferDistanceMilesUITextField, _unionBufferInstructionsUILabel, _unionBufferUISwitch, _bufferButton);
+            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _sampleInstructionsLabel, _bufferDistanceInstructionLabel, _bufferDistanceEntry, _unionBufferSwitch, _bufferButton);
         }
     }
 }

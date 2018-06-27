@@ -7,6 +7,11 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Timers;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -14,18 +19,12 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Foundation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Timers;
-using ArcGISRuntime.Samples.Managers;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ViewshedGeoElement
 {
     [Register("ViewshedGeoElement")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("07d62a792ab6496d9b772a24efea45d0")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("07d62a792ab6496d9b772a24efea45d0")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Viewshed (GeoElement)",
         "Analysis",
@@ -34,7 +33,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
         "Featured")]
     public class ViewshedGeoElement : UIViewController
     {
-        // Create and hold reference to the used MapView.
+        // Create and hold a reference to the used MapView.
         private readonly SceneView _mySceneView = new SceneView();
 
         // URLs to the scene layer with buildings and the elevation source
@@ -49,26 +48,25 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
         private MapPoint _tankEndPoint;
 
         // Units for geodetic calculation (used in animating tank)
-        private readonly LinearUnit _metersUnit = (LinearUnit)Unit.FromUnitId(9001);
-        private readonly AngularUnit _degreesUnit = (AngularUnit)Unit.FromUnitId(9102);
+        private readonly LinearUnit _metersUnit = LinearUnits.Meters;
+        private readonly AngularUnit _degreesUnit = AngularUnits.Degrees;
 
         public ViewshedGeoElement()
         {
             Title = "Viewshed (GeoElement)";
         }
 
-        private async Task Initialize()
+        private async void Initialize()
         {
             // Create the scene with an imagery basemap.
             _mySceneView.Scene = new Scene(Basemap.CreateImagery());
 
             // Add the elevation surface.
             ArcGISTiledElevationSource tiledElevationSource = new ArcGISTiledElevationSource(_elevationUri);
-            Surface baseSurface = new Surface
+            _mySceneView.Scene.BaseSurface = new Surface
             {
-                ElevationSources = { tiledElevationSource }
+                ElevationSources = {tiledElevationSource}
             };
-            _mySceneView.Scene.BaseSurface = baseSurface;
 
             // Add buildings.
             _mySceneView.Scene.OperationalLayers.Add(new ArcGISSceneLayer(_buildingsUri));
@@ -79,12 +77,13 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
 
             // Configure the heading expression for the tank; this will allow the
             //     viewshed to update automatically based on the tank's position.
-            SimpleRenderer renderer3D = new SimpleRenderer();
-            renderer3D.SceneProperties.HeadingExpression = "[HEADING]";
-            _tankOverlay.Renderer = renderer3D;
+            _tankOverlay.Renderer = new SimpleRenderer
+            {
+                SceneProperties = {HeadingExpression = "[HEADING]"}
+            };
 
             // Create the tank graphic - get the model path.
-            string modelPath = GetModelPath();
+            string modelPath = DataManager.GetDataFolder("07d62a792ab6496d9b772a24efea45d0", "bradle.3ds");
             // - Create the symbol and make it 10x larger (to be the right size relative to the scene).
             ModelSceneSymbol tankSymbol = await ModelSceneSymbol.CreateAsync(new Uri(modelPath), 10);
             // - Adjust the position.
@@ -118,13 +117,11 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
             overlay.Analyses.Add(geoViewshed);
             _mySceneView.AnalysisOverlays.Add(overlay);
 
-            // Create a camera controller to orbit the tank.
-            OrbitGeoElementCameraController cameraController = new OrbitGeoElementCameraController(_tank, 200.0)
+            // Create and use a camera controller to orbit the tank.
+            _mySceneView.CameraController = new OrbitGeoElementCameraController(_tank, 200.0)
             {
                 CameraPitchOffset = 45.0
             };
-            // - Apply the camera controller to the SceneView.
-            _mySceneView.CameraController = cameraController;
 
             // Create a timer; this will enable animating the tank.
             Timer animationTimer = new Timer(60)
@@ -133,10 +130,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
                 AutoReset = true
             };
             // - Move the tank every time the timer expires.
-            animationTimer.Elapsed += (o, e) =>
-            {
-                AnimateTank();
-            };
+            animationTimer.Elapsed += (o, e) => { AnimateTank(); };
             // - Start the timer.
             animationTimer.Start();
 
@@ -153,18 +147,18 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
             }
 
             // Get current location and distance from the destination.
-            MapPoint location = (MapPoint)_tank.Geometry;
+            MapPoint location = (MapPoint) _tank.Geometry;
             GeodeticDistanceResult distance = GeometryEngine.DistanceGeodetic(
                 location, _tankEndPoint, _metersUnit, _degreesUnit, GeodeticCurveType.Geodesic);
 
             // Move the tank a short distance.
-            location = GeometryEngine.MoveGeodetic(new List<MapPoint>() { location }, 1.0, _metersUnit, distance.Azimuth1, _degreesUnit,
+            location = GeometryEngine.MoveGeodetic(new List<MapPoint> {location}, 1.0, _metersUnit, distance.Azimuth1, _degreesUnit,
                 GeodeticCurveType.Geodesic).First();
             _tank.Geometry = location;
 
             // Rotate to face the destination.
-            double heading = (double)_tank.Attributes["HEADING"];
-            heading = heading + ((distance.Azimuth1 - heading) / 10);
+            double heading = (double) _tank.Attributes["HEADING"];
+            heading += (distance.Azimuth1 - heading) / 10;
             _tank.Attributes["HEADING"] = heading;
 
             // Clear the destination if the tank already arrived.
@@ -174,32 +168,36 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
             }
         }
 
-        private static string GetModelPath()
-        {
-            // Returns the tank model.
-            return DataManager.GetDataFolder("07d62a792ab6496d9b772a24efea45d0", "bradle.3ds");
-        }
-
         private void CreateLayout()
         {
             // Add MapView to the page.
             View.AddSubviews(_mySceneView);
         }
 
-        public override async void ViewDidLoad()
+        public override void ViewDidLoad()
         {
             CreateLayout();
-            await Initialize();
+            Initialize();
 
             base.ViewDidLoad();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView.
-            _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition controls.
+                _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 }

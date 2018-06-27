@@ -7,26 +7,37 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+using Esri.ArcGISRuntime.UI.Controls;
+using Foundation;
+using UIKit;
 
-namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
+namespace ArcGISRuntime.Samples.ClosestFacilityStatic
 {
+    [Register("ClosestFacilityStatic")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Closest facility (static)",
         "Network Analysis",
         "Demonstrates how to solve a Closest Facility Task to find the closest route between facilities and incidents.",
         "Click the solve button to find the closest facility to every incident.")]
-    public partial class ClosestFacilityStatic
+    public class ClosestFacilityStatic : UIViewController
     {
+        // Create and hold references to the views.
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _toolbar = new UIToolbar();
+        private readonly UIButton _solveRoutesButton = new UIButton(UIButtonType.Plain);
+        private readonly UIButton _resetButton = new UIButton(UIButtonType.Plain);
+
         // Used to display route between incident and facility to mapview.
         private List<SimpleLineSymbol> _routeSymbols;
 
@@ -56,10 +67,30 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
 
         public ClosestFacilityStatic()
         {
-            InitializeComponent();
+            Title = "Closest facility (static)";
+        }
 
-            // Create the map and graphics overlays.
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+
+            CreateLayout();
             Initialize();
+        }
+
+        private void CreateLayout()
+        {
+            // Configure the UI controls.
+            _solveRoutesButton.SetTitle("Solve routes", UIControlState.Normal);
+            _solveRoutesButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _solveRoutesButton.TouchUpInside += SolveRoutesButton_Click;
+
+            _resetButton.SetTitle("Reset", UIControlState.Normal);
+            _resetButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _resetButton.TouchUpInside += ResetButton_Click;
+
+            // Add the controls to the view.
+            View.AddSubviews(_myMapView, _toolbar, _solveRoutesButton, _resetButton);
         }
 
         private async void Initialize()
@@ -68,10 +99,10 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
             {
                 // Construct the map and set the MapView.Map property.
                 Map map = new Map(Basemap.CreateLightGrayCanvasVector());
-                MyMapView.Map = map;
+                _myMapView.Map = map;
 
                 // Add a graphics overlay to MyMapView. (Will be used later to display routes)
-                MyMapView.GraphicsOverlays.Add(new GraphicsOverlay());
+                _myMapView.GraphicsOverlays.Add(new GraphicsOverlay());
 
                 // Create a ClosestFacilityTask using the San Diego Uri.
                 _task = ClosestFacilityTask.CreateAsync(_closestFacilityUri).Result;
@@ -116,8 +147,8 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
                 _incidentLayer.Renderer = new SimpleRenderer(incidentSymbol);
 
                 // Add the layers to the map.
-                MyMapView.Map.OperationalLayers.Add(_facilityLayer);
-                MyMapView.Map.OperationalLayers.Add(_incidentLayer);
+                _myMapView.Map.OperationalLayers.Add(_facilityLayer);
+                _myMapView.Map.OperationalLayers.Add(_incidentLayer);
 
                 // Wait for both layers to load.
                 await _facilityLayer.LoadAsync();
@@ -125,17 +156,17 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
 
                 // Zoom to the combined extent of both layers.
                 Envelope fullExtent = GeometryEngine.CombineExtents(_facilityLayer.FullExtent, _incidentLayer.FullExtent);
-                await MyMapView.SetViewpointGeometryAsync(fullExtent, 50);
+                await _myMapView.SetViewpointGeometryAsync(fullExtent, 50);
 
                 // Enable the solve button.
-                SolveRoutesButton.IsEnabled = true;
+                _solveRoutesButton.Enabled = true;
             }
             catch
             {
             }
         }
 
-        private async void SolveRoutesClick(object sender, EventArgs e)
+        private async void SolveRoutesButton_Click(object sender, EventArgs e)
         {
             // Holds locations of hospitals around San Diego.
             List<Facility> _facilities = new List<Facility>();
@@ -183,29 +214,61 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
                 for (int i = 0; i < routes.Count; i++)
                 {
                     // Add the graphic for each route.
-                    MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(routes[i].RouteGeometry, _routeSymbols[i % _routeSymbols.Count]));
+                    _myMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(routes[i].RouteGeometry, _routeSymbols[i % _routeSymbols.Count]));
                 }
 
                 // Disable the solve button.
-                SolveRoutesButton.IsEnabled = false;
+                _solveRoutesButton.Enabled = false;
 
                 // Enable the reset button.
-                ResetButton.IsEnabled = true;
+                _resetButton.Enabled = true;
             }
             catch (Esri.ArcGISRuntime.Http.ArcGISWebException exception)
             {
-                System.Windows.MessageBox.Show("An ArcGIS web exception occurred.\n" + exception.Message, "Sample error");
+                CreateErrorDialog("An ArcGIS web exception occurred.\n" + exception.Message);
             }
         }
 
-        private void ResetClick(object sender, EventArgs e)
+        private void ResetButton_Click(object sender, EventArgs e)
         {
             // Clear the route graphics.
-            MyMapView.GraphicsOverlays[0].Graphics.Clear();
+            _myMapView.GraphicsOverlays[0].Graphics.Clear();
 
             // Reset the buttons.
-            SolveRoutesButton.IsEnabled = true;
-            ResetButton.IsEnabled = false;
+            _solveRoutesButton.Enabled = true;
+            _resetButton.Enabled = false;
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat toolbarHeight = 40;
+
+                // Reposition the views.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _toolbar.Frame = new CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
+                _solveRoutesButton.Frame = new CGRect(10, _toolbar.Frame.Top + 10, View.Bounds.Width/2, 20);
+                _resetButton.Frame = new CGRect((View.Bounds.Width-20)/2, _toolbar.Frame.Top + 10, View.Bounds.Width/2, 20);
+
+                base.ViewDidLayoutSubviews();
+            }
+            catch (NullReferenceException)
+            {
+            }
+        }
+        private void CreateErrorDialog(string message)
+        {
+            // Create Alert.
+            UIAlertController okAlertController = UIAlertController.Create("Error", message, UIAlertControllerStyle.Alert);
+
+            // Add Action.
+            okAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+
+            // Present Alert.
+            PresentViewController(okAlertController, true, null);
         }
     }
 }

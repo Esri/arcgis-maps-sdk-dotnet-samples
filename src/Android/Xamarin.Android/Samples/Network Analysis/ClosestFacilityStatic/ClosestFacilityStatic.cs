@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,26 +7,36 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Android.App;
+using Android.OS;
+using Android.Widget;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
+namespace ArcGISRuntime.Samples.ClosestFacilityStatic
 {
+    [Activity(Label = "ClosestFacilityStatic")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Closest facility (static)",
         "Network Analysis",
         "Demonstrates how to solve a Closest Facility Task to find the closest route between facilities and incidents.",
         "Click the solve button to find the closest facility to every incident.")]
-    public partial class ClosestFacilityStatic
+    public class ClosestFacilityStatic : Activity
     {
+        private MapView _myMapView = new MapView();
+
+        private Button _solveRoutesButton;
+        private Button _resetButton;
+
         // Used to display route between incident and facility to mapview.
         private List<SimpleLineSymbol> _routeSymbols;
 
@@ -54,12 +64,45 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
         // Uri for the closest facility service.
         private Uri _closestFacilityUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ClosestFacility");
 
-        public ClosestFacilityStatic()
+        protected override void OnCreate(Bundle bundle)
         {
-            InitializeComponent();
+            base.OnCreate(bundle);
 
-            // Create the map and graphics overlays.
+            Title = "Closest facility (static)";
+
+            // Create the UI
+            CreateLayout();
+
+            // Initialize the app
             Initialize();
+        }
+
+        private void CreateLayout()
+        {
+            // Create a new layout for the entire page
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+
+            // Create a new layout for the toolbar (buttons)
+            LinearLayout toolbar = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+
+            // Create a button to solve the route and add it to the toolbar
+            _solveRoutesButton = new Button(this) { Text = "Solve Routes" };
+            _solveRoutesButton.Click += SolveRoutesClick;
+            toolbar.AddView(_solveRoutesButton);
+
+            // Create a button to reset the route display, add it to the toolbar
+            _resetButton = new Button(this) { Text = "Reset" };
+            _resetButton.Click += ResetClick;
+            toolbar.AddView(_resetButton);
+
+            // Add the toolbar to the layout
+            layout.AddView(toolbar);
+
+            // Add the map view to the layout
+            layout.AddView(_myMapView);
+
+            // Show the layout in the app
+            SetContentView(layout);
         }
 
         private async void Initialize()
@@ -68,10 +111,10 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
             {
                 // Construct the map and set the MapView.Map property.
                 Map map = new Map(Basemap.CreateLightGrayCanvasVector());
-                MyMapView.Map = map;
+                _myMapView.Map = map;
 
                 // Add a graphics overlay to MyMapView. (Will be used later to display routes)
-                MyMapView.GraphicsOverlays.Add(new GraphicsOverlay());
+                _myMapView.GraphicsOverlays.Add(new GraphicsOverlay());
 
                 // Create a ClosestFacilityTask using the San Diego Uri.
                 _task = ClosestFacilityTask.CreateAsync(_closestFacilityUri).Result;
@@ -116,8 +159,8 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
                 _incidentLayer.Renderer = new SimpleRenderer(incidentSymbol);
 
                 // Add the layers to the map.
-                MyMapView.Map.OperationalLayers.Add(_facilityLayer);
-                MyMapView.Map.OperationalLayers.Add(_incidentLayer);
+                _myMapView.Map.OperationalLayers.Add(_facilityLayer);
+                _myMapView.Map.OperationalLayers.Add(_incidentLayer);
 
                 // Wait for both layers to load.
                 await _facilityLayer.LoadAsync();
@@ -125,10 +168,10 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
 
                 // Zoom to the combined extent of both layers.
                 Envelope fullExtent = GeometryEngine.CombineExtents(_facilityLayer.FullExtent, _incidentLayer.FullExtent);
-                await MyMapView.SetViewpointGeometryAsync(fullExtent, 50);
+                await _myMapView.SetViewpointGeometryAsync(fullExtent, 50);
 
                 // Enable the solve button.
-                SolveRoutesButton.IsEnabled = true;
+                _solveRoutesButton.Enabled = true;
             }
             catch
             {
@@ -183,29 +226,37 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
                 for (int i = 0; i < routes.Count; i++)
                 {
                     // Add the graphic for each route.
-                    MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(routes[i].RouteGeometry, _routeSymbols[i % _routeSymbols.Count]));
+                    _myMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(routes[i].RouteGeometry, _routeSymbols[i % _routeSymbols.Count]));
                 }
 
                 // Disable the solve button.
-                SolveRoutesButton.IsEnabled = false;
+                _solveRoutesButton.Enabled = false;
 
                 // Enable the reset button.
-                ResetButton.IsEnabled = true;
+               _resetButton.Enabled = true;
             }
             catch (Esri.ArcGISRuntime.Http.ArcGISWebException exception)
             {
-                System.Windows.MessageBox.Show("An ArcGIS web exception occurred.\n" + exception.Message, "Sample error");
+                CreateErrorDialog("An ArcGIS web exception occurred.\n" + exception.Message);
             }
         }
 
         private void ResetClick(object sender, EventArgs e)
         {
             // Clear the route graphics.
-            MyMapView.GraphicsOverlays[0].Graphics.Clear();
+            _myMapView.GraphicsOverlays[0].Graphics.Clear();
 
             // Reset the buttons.
-            SolveRoutesButton.IsEnabled = true;
-            ResetButton.IsEnabled = false;
+            _solveRoutesButton.Enabled = true;
+            _resetButton.Enabled = false;
+        }
+
+        private void CreateErrorDialog(string message)
+        {
+            // Create a dialog to show message to user.
+            AlertDialog alert = new AlertDialog.Builder(this).Create();
+            alert.SetMessage(message);
+            alert.Show();
         }
     }
 }

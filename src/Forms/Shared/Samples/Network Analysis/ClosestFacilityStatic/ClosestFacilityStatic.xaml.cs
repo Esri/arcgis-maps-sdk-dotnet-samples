@@ -15,17 +15,17 @@ using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
+using Xamarin.Forms;
 
-namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
+namespace ArcGISRuntime.Samples.ClosestFacilityStatic
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Closest facility (static)",
         "Network Analysis",
         "Demonstrates how to solve a Closest Facility Task to find the closest route between facilities and incidents.",
         "Click the solve button to find the closest facility to every incident.")]
-    public partial class ClosestFacilityStatic
+    public partial class ClosestFacilityStatic : ContentPage
     {
         // Used to display route between incident and facility to mapview.
         private List<SimpleLineSymbol> _routeSymbols;
@@ -92,10 +92,10 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
 
                 // Create a list of line symbols to show unique routes. Different colors help make different routes visually distinguishable.
                 _routeSymbols = new List<SimpleLineSymbol>();
-                _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 25, 45, 85), 5.0f));
-                _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 35, 65, 120), 5.0f));
-                _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 55, 100, 190), 5.0f));
-                _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 75, 140, 255), 5.0f));
+                _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.FromArgb(125, 25, 45, 85), 5.0f));
+                _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.FromArgb(125, 35, 65, 120), 5.0f));
+                _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.FromArgb(125, 55, 100, 190), 5.0f));
+                _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.FromArgb(125, 75, 140, 255), 5.0f));
 
                 // Create a table for facilities using the FeatureServer.
                 _facilityTable = new ServiceFeatureTable(_facilityUri);
@@ -194,7 +194,7 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
             }
             catch (Esri.ArcGISRuntime.Http.ArcGISWebException exception)
             {
-                System.Windows.MessageBox.Show("An ArcGIS web exception occurred.\n" + exception.Message, "Sample error");
+                await DisplayAlert("Error", "An ArcGIS web exception occurred.\n" + exception.Message, "OK");
             }
         }
 

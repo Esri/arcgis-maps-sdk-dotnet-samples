@@ -17,8 +17,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
+namespace ArcGISRuntime.UWP.Samples.ClosestFacilityStatic
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Closest facility (static)",
@@ -135,7 +137,7 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
             }
         }
 
-        private async void SolveRoutesClick(object sender, EventArgs e)
+        private async void SolveRoutesClick(object sender, RoutedEventArgs e)
         {
             // Holds locations of hospitals around San Diego.
             List<Facility> _facilities = new List<Facility>();
@@ -194,11 +196,11 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
             }
             catch (Esri.ArcGISRuntime.Http.ArcGISWebException exception)
             {
-                System.Windows.MessageBox.Show("An ArcGIS web exception occurred.\n" + exception.Message, "Sample error");
+                await new MessageDialog("An ArcGIS web exception occurred.\n" + exception.Message.ToString(), "Sample error").ShowAsync();
             }
         }
 
-        private void ResetClick(object sender, EventArgs e)
+        private void ResetClick(object sender, RoutedEventArgs e)
         {
             // Clear the route graphics.
             MyMapView.GraphicsOverlays[0].Graphics.Clear();

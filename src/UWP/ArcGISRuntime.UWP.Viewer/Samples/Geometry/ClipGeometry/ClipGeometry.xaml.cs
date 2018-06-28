@@ -19,7 +19,7 @@ namespace ArcGISRuntime.UWP.Samples.ClipGeometry
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Clip geometry",
-        "GeometryEngine",
+        "Geometry",
         "This sample demonstrates how to clip a geometry with an envelope using the GeometryEngine",
         "Click the 'Clip' button to clip the blue graphic with red envelopes.",
         "")]

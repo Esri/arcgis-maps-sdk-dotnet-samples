@@ -22,6 +22,10 @@ using System.Drawing;
 namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
 {
     [Activity]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample("Spatial operations",
+        "Geometry",
+        "Demonstrates how to use the GeometryEngine to perform geometry operations between overlapping polygons in a GraphicsOverlay.",
+        "The sample provides a drop down on the top, where you can select a geometry operation. When you choose a geometry operation, the application performs this operation between the overlapping polygons and applies the result to the geometries.")]
     public class SpatialOperations : Activity
     {
         // MapView control to display the operation polygons.

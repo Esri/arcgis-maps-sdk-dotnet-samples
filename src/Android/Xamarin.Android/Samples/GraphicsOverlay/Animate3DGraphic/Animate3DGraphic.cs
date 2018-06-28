@@ -269,10 +269,10 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 _missionProgressBar.ProgressChanged += MissionProgressOnSeek;
 
                 // Update stats display
-                _altitudeTextView.Text = currentFrame.Elevation.ToString("F");
-                _headingTextView.Text = currentFrame.Heading.ToString("F");
-                _pitchTextView.Text = currentFrame.Pitch.ToString("F");
-                _rollTextView.Text = currentFrame.Roll.ToString("F");
+                _altitudeTextView.Text = $"{currentFrame.Elevation:F}m";
+                _headingTextView.Text = $"{currentFrame.Heading:F}°";
+                _pitchTextView.Text = $"{currentFrame.Pitch:F}°";
+                _rollTextView.Text = $"{currentFrame.Roll:F}°";
             });
 
             // Update plane's position

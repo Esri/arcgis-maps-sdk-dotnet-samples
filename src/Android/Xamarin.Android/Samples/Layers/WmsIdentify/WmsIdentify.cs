@@ -19,6 +19,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using Android.Graphics;
+using Android.Graphics.Drawables;
 using Android.Views;
 
 namespace ArcGISRuntime.Samples.WmsIdentify
@@ -28,7 +29,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         "Identify WMS features",
         "Layers",
         "This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.",
-        "Tap or click on a feature. A callout appears with the returned content for the WMS feature. Note that due to the nature of the WMS service implementation, an empty callout is shown when there is no result; an application might inspect the HTML to determine if the HTML actually contains a feature.")]
+        "Tap or click on a feature. A callout appears with the returned content for the WMS feature. Note that due to the nature of the WMS service implementation, an empty result is shown when there is no result; an application might inspect the HTML to determine if the HTML actually contains a feature.")]
     public class WmsIdentify : Activity
     {
         // Create and hold reference to the used MapView
@@ -86,7 +87,10 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            _sampleLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            _sampleLayout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Vertical
+            };
 
             // Configuration for having the mapview and webview fill the screen.
             _layoutParams = new LinearLayout.LayoutParams(
@@ -102,6 +106,14 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             };
 
             _myMapView.LayoutParameters = _layoutParams;
+
+            // Create and add a help label
+            TextView helpLabel = new TextView(this)
+            {
+                Text = "Tap to identify features."
+            };
+            helpLabel.SetTextColor(Color.Black);
+            _sampleLayout.AddView(helpLabel);
 
             // Add the map view to the layout
             _sampleLayout.AddView(_myMapView);
@@ -131,10 +143,16 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             // Retrieve the WmsFeature's HTML content
             string htmlContent = identifiedFeature.Attributes["HTML"].ToString();
 
-            // Note that the service returns a boilerplate HTML result if there is no feature found;
-            //    here might be a good place to check for that and filter out spurious results
+            // Note that the service returns a boilerplate HTML result if there is no feature found.
+            //    This would be a good place to check if the result looks like it includes feature detail. 
 
-            // Display the string content as an HTML document. Webview has to be re-created each time.
+            // Display the string content as an HTML document. 
+            ShowResult(htmlContent);
+        }
+
+        private void ShowResult(string htmlContent)
+        {
+            // Display the content in a web view. Note that the web view needs to be re-created each time.
             _sampleLayout.RemoveView(_htmlView);
             _htmlView = new WebView(this)
             {

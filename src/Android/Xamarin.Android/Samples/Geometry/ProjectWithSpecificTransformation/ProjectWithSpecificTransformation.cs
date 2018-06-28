@@ -17,7 +17,7 @@ namespace ArcGISRuntime.Samples.ProjectWithSpecificTransformation
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Project with specific transformation",
-        "GeometryEngine",
+        "Geometry",
         "This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. ",
         "See [Coordinate Systems and Transformations](https://developers.arcgis.com/net/latest/wpf/guide/coordinate-systems-and-transformations.htm) for more information about geographic coordinate systems, geographic transformations, and projected coordinate systems. ")]
     public class ProjectWithSpecificTransformation : Activity
@@ -80,9 +80,18 @@ namespace ArcGISRuntime.Samples.ProjectWithSpecificTransformation
             _nonSpecificLabel = new TextView(this);
 
             // Create three more labels to label the output
-            TextView beforeLabelTitle = new TextView(this) { Text = "Before: " };
-            TextView afterLabelTitle = new TextView(this) { Text = "After: " };
-            TextView nonSpecificLabelTitle = new TextView(this) {Text = "After (without specific transformation):"};
+            TextView beforeLabelTitle = new TextView(this)
+            {
+                Text = "Geometry before (WGS 84):"
+            };
+            TextView afterLabelTitle = new TextView(this)
+            {
+                Text = "Geometry to NAD_1983_HARN_StatePlane_New_York_Central_FIPS_3102 after WGS_1984_To_MSK_1942:"
+            };
+            TextView nonSpecificLabelTitle = new TextView(this)
+            {
+                Text = "Geometry to NAD_1983_HARN_StatePlane_New_York_Central_FIPS_3102 after (without specific transform):"
+            };
 
             // Add all labels to the layout
             layout.AddView(beforeLabelTitle);

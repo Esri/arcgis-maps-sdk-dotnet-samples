@@ -22,7 +22,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Cut geometry",
-        "GeometryEngine",
+        "Geometry",
         "This sample demonstrates how to cut a geometry with a polyline using the GeometryEngine.",
         "Click the 'Cut' button to cut the polygon with the polyline and see the resulting parts.",
         "")]

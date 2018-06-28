@@ -461,8 +461,7 @@
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.3.0
-  \build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>

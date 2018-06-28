@@ -67,14 +67,13 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             try
             {
                 // Construct the map and set the MapView.Map property.
-                Map map = new Map(Basemap.CreateLightGrayCanvasVector());
-                MyMapView.Map = map;
+                MyMapView.Map = new Map(Basemap.CreateLightGrayCanvasVector());
 
                 // Add a graphics overlay to MyMapView. (Will be used later to display routes)
                 MyMapView.GraphicsOverlays.Add(new GraphicsOverlay());
 
                 // Create a ClosestFacilityTask using the San Diego Uri.
-                _task = ClosestFacilityTask.CreateAsync(_closestFacilityUri).Result;
+                _task = await ClosestFacilityTask.CreateAsync(_closestFacilityUri);
 
                 // Create a symbol for displaying facilities.
                 PictureMarkerSymbol facilitySymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/FireStation.png"))
@@ -91,29 +90,31 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
                 };
 
                 // Create a list of line symbols to show unique routes. Different colors help make different routes visually distinguishable.
-                _routeSymbols = new List<SimpleLineSymbol>();
-                _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.FromArgb(125, 25, 45, 85), 5.0f));
-                _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.FromArgb(125, 35, 65, 120), 5.0f));
-                _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.FromArgb(125, 55, 100, 190), 5.0f));
-                _routeSymbols.Add(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.FromArgb(125, 75, 140, 255), 5.0f));
+                _routeSymbols = new List<SimpleLineSymbol>()
+                {
+                    new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.FromArgb(125, 25, 45, 85), 5.0f),
+                    new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.FromArgb(125, 35, 65, 120), 5.0f),
+                    new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.FromArgb(125, 55, 100, 190), 5.0f),
+                    new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.FromArgb(125, 75, 140, 255), 5.0f)
+                };
 
                 // Create a table for facilities using the FeatureServer.
                 _facilityTable = new ServiceFeatureTable(_facilityUri);
 
                 // Create a feature layer from the table.
-                _facilityLayer = new FeatureLayer(_facilityTable);
-
-                // Add a renderer that uses the facility symbol.
-                _facilityLayer.Renderer = new SimpleRenderer(facilitySymbol);
+                _facilityLayer = new FeatureLayer(_facilityTable)
+                {
+                    Renderer = new SimpleRenderer(facilitySymbol)
+                };
 
                 // Create a table for facilities using the FeatureServer.
                 _incidentTable = new ServiceFeatureTable(_incidentUri);
 
                 // Create a feature layer from the table.
-                _incidentLayer = new FeatureLayer(_incidentTable);
-
-                // Add a renderer that uses the incident symbol.
-                _incidentLayer.Renderer = new SimpleRenderer(incidentSymbol);
+                _incidentLayer = new FeatureLayer(_incidentTable)
+                {
+                    Renderer = new SimpleRenderer(incidentSymbol)
+                };
 
                 // Add the layers to the map.
                 MyMapView.Map.OperationalLayers.Add(_facilityLayer);
@@ -130,60 +131,58 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
                 // Enable the solve button.
                 SolveRoutesButton.IsEnabled = true;
             }
-            catch
+            catch (Exception exception)
             {
+                await DisplayAlert("Error", "An exception has occurred.\n" + exception.Message, "OK");
             }
         }
 
         private async void SolveRoutesClick(object sender, EventArgs e)
         {
             // Holds locations of hospitals around San Diego.
-            List<Facility> _facilities = new List<Facility>();
+            List<Facility> facilities = new List<Facility>();
 
             // Holds locations of hospitals around San Diego.
-            List<Incident> _incidents = new List<Incident>();
+            List<Incident> incidents = new List<Incident>();
 
             // Create query parameters to select all features.
-            QueryParameters queryParams = new QueryParameters() { WhereClause = "1=1" };
+            QueryParameters queryParams = new QueryParameters()
+            {
+                WhereClause = "1=1"
+            };
 
             // Query all features in the facility table.
             FeatureQueryResult facilityResult = await _facilityTable.QueryFeaturesAsync(queryParams);
 
             // Add all of the query results to facilities as new Facility objects.
-            _facilities.AddRange(facilityResult.ToList().Select(feature => new Facility((MapPoint)feature.Geometry)));
+            facilities.AddRange(facilityResult.ToList().Select(feature => new Facility((MapPoint)feature.Geometry)));
 
             // Query all features in the incident table.
             FeatureQueryResult incidentResult = await _incidentTable.QueryFeaturesAsync(queryParams);
 
             // Add all of the query results to facilities as new Incident objects.
-            _incidents.AddRange(incidentResult.ToList().Select(feature => new Incident((MapPoint)feature.Geometry)));
+            incidents.AddRange(incidentResult.ToList().Select(feature => new Incident((MapPoint)feature.Geometry)));
 
             // Set facilities and incident in parameters.
             ClosestFacilityParameters closestFacilityParameters = await _task.CreateDefaultParametersAsync();
-            closestFacilityParameters.SetFacilities(_facilities);
-            closestFacilityParameters.SetIncidents(_incidents);
+            closestFacilityParameters.SetFacilities(facilities);
+            closestFacilityParameters.SetIncidents(incidents);
 
             try
             {
                 // Use the task to solve for the closest facility.
                 ClosestFacilityResult result = await _task.SolveClosestFacilityAsync(closestFacilityParameters);
 
-                // Create a list of routes between incidents and facilities.
-                List<ClosestFacilityRoute> routes = new List<ClosestFacilityRoute>();
-
-                for (int i = 0; i < _incidents.Count; i++)
+                for (int i = 0; i < incidents.Count; i++)
                 {
                     // Get the index of the closest facility to incident. (i) is the index of the incident, [0] is the index of the closest facility.
                     int closestFacility = result.GetRankedFacilityIndexes(i)[0];
 
-                    // Add the closest route to the routes list.
-                    routes.Add(result.GetRoute(closestFacility, i));
-                }
+                    // Get the route to the closest facility.
+                    ClosestFacilityRoute route = result.GetRoute(closestFacility, i);
 
-                for (int i = 0; i < routes.Count; i++)
-                {
-                    // Add the graphic for each route.
-                    MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(routes[i].RouteGeometry, _routeSymbols[i % _routeSymbols.Count]));
+                    // Display the route on the graphics overlay.
+                    MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(route.RouteGeometry, _routeSymbols[i % _routeSymbols.Count]));
                 }
 
                 // Disable the solve button.

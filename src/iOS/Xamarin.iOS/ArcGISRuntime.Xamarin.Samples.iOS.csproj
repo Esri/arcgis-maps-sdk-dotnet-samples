@@ -130,12 +130,6 @@
   </PropertyGroup>
   <!-- References -->
   <ItemGroup>
-    <Reference Include="Esri.ArcGISRuntime, Version=100.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.3.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.dll</HintPath>
-    </Reference>
-    <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
-    </Reference>
     <Reference Include="MonoTouch.Dialog-1" />
     <Reference Include="OpenTK-1.0" />
     <Reference Include="PCLCrypto, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d4421c8a4786956c, processorArchitecture=MSIL">
@@ -150,6 +144,12 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
+    <Reference Include="Esri.ArcGISRuntime, Version=100.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.3.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
+    </Reference>
     <Reference Include="Xamarin.Auth">
       <HintPath>..\..\..\packages\Xamarin.Auth.1.6.0.2\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
     </Reference>

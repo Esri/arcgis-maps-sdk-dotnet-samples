@@ -17,7 +17,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Nearest vertex",
-        "GeometryEngine",
+        "Geometry",
         "This sample demonstrates how to use the Geometry engine find the nearest vertex and nearest coordinate of a polygon to a point. The distance for each is shown.",
         "Tap on the map. The nearest point/coordinate and nearest vertex in the polygon will be shown.")]
     public partial class NearestVertex

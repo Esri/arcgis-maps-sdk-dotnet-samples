@@ -13,15 +13,14 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Collections.Generic;
 using Xamarin.Forms;
-
-#if WINDOWS_UWP
-using Colors = Windows.UI.Colors;
-#else
 using Colors = System.Drawing.Color;
-#endif
 
 namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample("Spatial operations",
+        "Geometry",
+        "Demonstrates how to use the GeometryEngine to perform geometry operations between overlapping polygons in a GraphicsOverlay.",
+        "The sample provides a drop down on the top, where you can select a geometry operation. When you choose a geometry operation, the application performs this operation between the overlapping polygons and applies the result to the geometries.")]
     public partial class SpatialOperations : ContentPage
     {
         // GraphicsOverlay to hold the polygon graphics.

@@ -14,16 +14,15 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ProjectWithSpecificTransformation\README.md" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\SpatialOperations\SpatialOperations.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Geometry\ProjectWithSpecificTransformation\README.md" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Geometry\SpatialRelationships\SpatialRelationships.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Geometry\CreateGeometries\CreateGeometries.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Geometry\ListTransformations\ListTransformations.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Geometry\GeodesicOperations\GeodesicOperations.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Geometry\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
@@ -136,36 +135,39 @@
       <SubType>Code</SubType>
       <DependentUpon>FeatureLayerGeodatabase.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geometry\DensifyAndGeneralize\DensifyAndGeneralize.xaml.cs">
       <DependentUpon>DensifyAndGeneralize.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\BufferList\BufferList.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geometry\BufferList\BufferList.xaml.cs">
       <DependentUpon>BufferList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\Buffer\Buffer.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geometry\Buffer\Buffer.xaml.cs">
       <DependentUpon>Buffer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ClipGeometry\ClipGeometry.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geometry\ClipGeometry\ClipGeometry.xaml.cs">
       <DependentUpon>ClipGeometry.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ConvexHullList\ConvexHullList.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geometry\ConvexHullList\ConvexHullList.xaml.cs">
       <DependentUpon>ConvexHullList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ConvexHull\ConvexHull.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geometry\ConvexHull\ConvexHull.xaml.cs">
       <DependentUpon>ConvexHull.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\CutGeometry\CutGeometry.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geometry\CutGeometry\CutGeometry.xaml.cs">
       <DependentUpon>CutGeometry.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geometry\SpatialOperations\SpatialOperations.xaml.cs">
+      <DependentUpon>SpatialOperations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geometry\SpatialRelationships\SpatialRelationships.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>SpatialRelationships.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geometry\GeodesicOperations\GeodesicOperations.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>GeodesicOperations.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\NearestVertex\NearestVertex.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geometry\NearestVertex\NearestVertex.xaml.cs">
       <DependentUpon>NearestVertex.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml.cs">
@@ -174,7 +176,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml.cs">
       <DependentUpon>ChangeEncDisplaySettings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\CreateGeometries\CreateGeometries.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geometry\CreateGeometries\CreateGeometries.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>CreateGeometries.xaml</DependentUpon>
     </Compile>
@@ -188,7 +190,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>MapImageSublayerQuery.xaml</DependentUpon>
-    </Compile>    
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>RasterHillshade.xaml</DependentUpon>
@@ -197,7 +199,7 @@
       <SubType>Code</SubType>
       <DependentUpon>ReadGeoPackage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ListTransformations\ListTransformations.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geometry\ListTransformations\ListTransformations.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>ListTransformations.xaml</DependentUpon>
     </Compile>
@@ -256,7 +258,7 @@
       <DependentUpon>Animate3DGraphic.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geometry\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
       <DependentUpon>ProjectWithSpecificTransformation.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -624,33 +626,33 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\DensifyAndGeneralize\DensifyAndGeneralize.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\BufferList\BufferList.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\BufferList\BufferList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ClipGeometry\ClipGeometry.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\ClipGeometry\ClipGeometry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ConvexHull\ConvexHull.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\ConvexHull\ConvexHull.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\CutGeometry\CutGeometry.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\CutGeometry\CutGeometry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\SpatialRelationships\SpatialRelationships.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\GeodesicOperations\GeodesicOperations.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\CreateGeometries\CreateGeometries.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\CreateGeometries\CreateGeometries.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.xaml">
@@ -662,14 +664,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>    
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterHillshade\RasterHillshade.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ReadGeoPackage\ReadGeoPackage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ListTransformations\ListTransformations.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\ListTransformations\ListTransformations.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.xaml">
@@ -715,7 +717,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml">
@@ -1022,20 +1024,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Info.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\BufferList\BufferList.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\Buffer\Buffer.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ConvexHullList\ConvexHullList.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ConvexHull\ConvexHull.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\CutGeometry\CutGeometry.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Geometry\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Geometry\BufferList\BufferList.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Geometry\Buffer\Buffer.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Geometry\ClipGeometry\ClipGeometry.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Geometry\ConvexHullList\ConvexHullList.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Geometry\ConvexHull\ConvexHull.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Geometry\CutGeometry\CutGeometry.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Geometry\NearestVertex\NearestVertex.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Geometry\SpatialOperations\SpatialOperations.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\NearestVertex\NearestVertex.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\NearestVertex\NearestVertex.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -1051,13 +1054,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\Buffer\Buffer.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\Buffer\Buffer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\ConvexHullList\ConvexHullList.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\ConvexHullList\ConvexHullList.xaml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -1065,6 +1068,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\SpatialOperations\SpatialOperations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

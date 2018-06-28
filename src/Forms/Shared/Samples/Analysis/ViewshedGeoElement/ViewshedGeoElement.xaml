@@ -4,8 +4,9 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
              x:Class="ArcGISRuntime.Samples.ViewshedGeoElement.ViewshedGeoElement">
     <StackLayout Orientation="Vertical">
-        <Label Text="Tap to set a destination for the vehicle." />
+        <Label Text="Tap to set a destination for the vehicle."
+               VerticalOptions="Start"/>
         <esriUI:SceneView x:Name="MySceneView"
-                          VerticalOptions="EndAndExpand"/>
+                          VerticalOptions="FillAndExpand"/>
     </StackLayout>
 </ContentPage>

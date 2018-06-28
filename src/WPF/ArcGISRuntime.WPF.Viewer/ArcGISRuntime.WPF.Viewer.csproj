@@ -52,8 +52,8 @@
     <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\lib\net461\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
     </Reference>
-    <Reference Include="Esri.ArcGISRuntime.LocalServices, Version=100.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0\lib\net461\Esri.ArcGISRuntime.LocalServices.dll</HintPath>
+    <Reference Include="Esri.ArcGISRuntime.LocalServices, Version=100.2.1.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.1\lib\net452\Esri.ArcGISRuntime.LocalServices.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -77,6 +77,7 @@
   <!-- Resources -->
   <ItemGroup>
     <None Include="ArcGISLocalServer.AGSDeployment" />
+    <None Include="ArcGISLocalServer_100.3.AGSDeployment" />
     <None Include="packages.config" />
     <None Include="Readme.md" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-128.png" />
@@ -1485,7 +1486,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.3.0\build\net461\Esri.ArcGISRuntime.WPF.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.WPF.100.3.0\build\net461\Esri.ArcGISRuntime.WPF.targets'))" />
     <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets'))" />
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0\build\net461\Esri.ArcGISRuntime.LocalServices.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0\build\net461\Esri.ArcGISRuntime.LocalServices.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.1\build\net452\Esri.ArcGISRuntime.LocalServices.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.1\build\net452\Esri.ArcGISRuntime.LocalServices.targets'))" />
   </Target>
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.1\build\net452\Esri.ArcGISRuntime.LocalServices.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.1\build\net452\Esri.ArcGISRuntime.LocalServices.targets')" />

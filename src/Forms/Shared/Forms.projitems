@@ -237,12 +237,12 @@
       <SubType>Code</SubType>
       <DependentUpon>OpenScene.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>ClosestFacilityStatic.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml.cs">
       <DependentUpon>ClosestFacility.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>FindServiceArea.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml.cs">
       <SubType>Code</SubType>
@@ -703,7 +703,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenScene\OpenScene.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml">
@@ -1039,6 +1039,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceArea\FindServiceArea.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.jpg" />
   </ItemGroup>
   <ItemGroup>

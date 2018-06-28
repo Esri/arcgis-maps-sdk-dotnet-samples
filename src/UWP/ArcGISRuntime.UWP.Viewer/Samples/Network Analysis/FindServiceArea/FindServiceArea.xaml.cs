@@ -24,8 +24,8 @@ namespace ArcGISRuntime.UWP.Samples.FindServiceArea
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Find service area (interactive)",
         "Network Analysis",
-        "Demonstrates how to find services areas around a point using the ServiceAreaTask. A service area shows locations that can be reached from a facility based off a certain impedance [such as travel time]. Barriers can also be added which can effect the impedance by not letting traffic through or adding the time is takes to pass that barrier.",
-        "To add a facility, click the facility button, then click anywhere on the MapView.\nTo add a barrier, click the barrier button, and click multiple locations on MapView.\nDouble tap on the MapView to finish drawing the barrier.\nTo show service areas around facilities that were added, click the show service areas button.\nClick the reset button to clear all graphics and features.",
+        "Demonstrates how to find services areas around a point using the ServiceAreaTask. A service area shows locations that can be reached from a facility based off a certain impedance [travel time in this case]. Service areas for a two and five minute travel time are used. Barriers can also be added which can effect the service area by not letting traffic through and adding to the time to get to locations.",
+        "-To add a facility, click the facility button, then click anywhere on the MapView.\n-To add a barrier, click the barrier button, and click multiple locations on MapView.\n-Double tap on the MapView to finish drawing the barrier.\n-To show service areas around facilities that were added, click the show service areas button.\n-Click the reset button to clear all graphics and features.",
         "ArcGISMap, GraphicsOverlay, MapView, PolylineBarrier, ServiceAreaFacility, ServiceAreaParameters, ServiceAreaPolygon, ServiceAreaResult, ServiceAreaTask, SketchEditor")]
     public partial class FindServiceArea
     {
@@ -49,9 +49,6 @@ namespace ArcGISRuntime.UWP.Samples.FindServiceArea
 
             // Create graphics overlays for all of the elements of the map.
             MyMapView.GraphicsOverlays.Add(new GraphicsOverlay());
-
-            // Set the sketch editor configuration to allow vertex editing, resizing, and moving.
-            SketchEditConfiguration config = MyMapView.SketchEditor.EditConfiguration;
 
             // Add a new behavior for double taps on the MapView.
             MyMapView.GeoViewDoubleTapped += (s, e) =>
@@ -109,7 +106,7 @@ namespace ArcGISRuntime.UWP.Samples.FindServiceArea
                 Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, false);
 
                 // Symbol for the barriers.
-                SimpleLineSymbol barrierSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.DarkSlateGray, 5.0f);
+                SimpleLineSymbol barrierSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Black, 5.0f);
 
                 // Create the graphic to be used for barriers.
                 Graphic barrierGraphic = new Graphic(geometry, new Dictionary<string, object>() { { "Type", "Barrier" } }, barrierSymbol)
@@ -197,7 +194,7 @@ namespace ArcGISRuntime.UWP.Samples.FindServiceArea
                     List<ServiceAreaPolygon> polygons = result.GetResultPolygons(i).ToList();
 
                     // Symbol for the outline of the service areas.
-                    SimpleLineSymbol serviceOutline = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Black, 3.0f);
+                    SimpleLineSymbol serviceOutline = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.DarkGray, 3.0f);
 
                     // Create a list of fill symbols for the polygons.
                     List<SimpleFillSymbol> fillSymbols = new List<SimpleFillSymbol>();

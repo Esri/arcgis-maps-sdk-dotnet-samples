@@ -497,11 +497,10 @@
     <None Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <None Include="Samples\Network Analysis\FindServiceArea\FindServiceAreaiOS.jpg" />
-=======
+  </ItemGroup>
+  <ItemGroup>
     <BundleResource Include="Samples\GeometryEngine\SpatialOperations\SpatialOperations.jpg" />
->>>>>>> v.next
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

@@ -249,10 +249,10 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
                 MissionProgressBar.Value = missionProgress;
 
                 // Update stats display
-                AltitudeLabel.Text = currentFrame.Elevation.ToString("F");
-                HeadingLabel.Text = currentFrame.Heading.ToString("F");
-                PitchLabel.Text = currentFrame.Pitch.ToString("F");
-                RollLabel.Text = currentFrame.Roll.ToString("F");
+                AltitudeLabel.Text = currentFrame.Elevation.ToString("F") + "m";
+                HeadingLabel.Text = currentFrame.Heading.ToString("F") + "°";
+                PitchLabel.Text = currentFrame.Pitch.ToString("F") + "°";
+                RollLabel.Text = currentFrame.Roll.ToString("F") + "°";
             }));
 
             // Update plane's position

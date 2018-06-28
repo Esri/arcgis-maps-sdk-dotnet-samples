@@ -19,7 +19,7 @@ namespace ArcGISRuntime.WPF.Samples.ConvexHull
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Convex hull",
-        "GeometryEngine",
+        "Geometry",
         "This sample demonstrates how to use the GeometryEngine.ConvexHull operation to generate a polygon that encloses a series of user-tapped map points.",
         "Tap on the map in several places, then click the 'Convex Hull' button.",
         "Analysis", "ConvexHull", "GeometryEngine")]

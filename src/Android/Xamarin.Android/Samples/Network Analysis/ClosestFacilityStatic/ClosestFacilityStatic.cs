@@ -81,37 +81,37 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
 
         private void CreateLayout()
         {
-            // Create a new layout for the entire page
+            // Create a new layout for the entire page.
             LinearLayout layout = new LinearLayout(this)
             {
                 Orientation = Orientation.Vertical
             };
 
-            // Create a new layout for the toolbar (buttons)
+            // Create a new layout for the toolbar (buttons).
             LinearLayout toolbar = new LinearLayout(this)
             {
                 Orientation = Orientation.Horizontal
             };
 
-            // Create a button to solve the route and add it to the toolbar
+            // Create a button to solve the routes and add it to the toolbar.
             _solveRoutesButton = new Button(this) { Text = "Solve Routes" };
             _solveRoutesButton.Click += SolveRoutesClick;
             _solveRoutesButton.Enabled = false;
             toolbar.AddView(_solveRoutesButton);
 
-            // Create a button to reset the route display, add it to the toolbar
+            // Create a button to reset the route display, add it to the toolbar.
             _resetButton = new Button(this) { Text = "Reset" };
             _resetButton.Click += ResetClick;
             _resetButton.Enabled = false;
             toolbar.AddView(_resetButton);
 
-            // Add the toolbar to the layout
+            // Add the toolbar to the layout.
             layout.AddView(toolbar);
 
-            // Add the map view to the layout
+            // Add the map view to the layout.
             layout.AddView(_myMapView);
 
-            // Show the layout in the app
+            // Show the layout in the app.
             SetContentView(layout);
         }
 

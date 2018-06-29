@@ -123,17 +123,17 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             RendererSceneProperties sceneProperties = censusRenderer.SceneProperties;
 
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text.
-            if (_toggleExtrusionButton.Title(UIControlState.Normal) == "Population density")
+            if (_toggleExtrusionButton.Title(UIControlState.Normal) == "Show population density")
             {
                 // An offset of 100000 is added to ensure that polygons for large areas (like Alaska)
                 // with low populations will be extruded above the curvature of the Earth.
                 sceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000 + 100000";
-                _toggleExtrusionButton.SetTitle("Total population", UIControlState.Normal);
+                _toggleExtrusionButton.SetTitle("Show total population", UIControlState.Normal);
             }
-            else if (_toggleExtrusionButton.Title(UIControlState.Normal) == "Total population")
+            else if (_toggleExtrusionButton.Title(UIControlState.Normal) == "Show total population")
             {
                 sceneProperties.ExtrusionExpression = "[POP2007] / 10";
-                _toggleExtrusionButton.SetTitle("Population density", UIControlState.Normal);
+                _toggleExtrusionButton.SetTitle("Show population density", UIControlState.Normal);
             }
         }
 
@@ -169,7 +169,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         private void CreateLayout()
         {
             // Configure the button.
-            _toggleExtrusionButton.SetTitle("Population density", UIControlState.Normal);
+            _toggleExtrusionButton.SetTitle("Show population density", UIControlState.Normal);
             _toggleExtrusionButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Handle button touches.

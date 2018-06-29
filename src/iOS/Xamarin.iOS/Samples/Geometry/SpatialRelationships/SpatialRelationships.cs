@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
     [Register("SpatialRelationships")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Spatial relationships",
-        "GeometryEngine",
+        "Geometry",
         "This sample demonstrates how to use the GeometryEngine to evaluate the spatial relationships (for example, polygon a contains line b) between geometries.",
         "Tap a graphic to select it. The display will update to show the relationships with the other graphics.")]
     public class SpatialRelationships : UIViewController

@@ -22,11 +22,16 @@ using UIKit;
 namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
 {
     [Register("SpatialOperations")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample("Spatial operations",
+        "Geometry",
+        "Demonstrates how to use the GeometryEngine to perform geometry operations between overlapping polygons in a GraphicsOverlay.",
+        "The sample provides a drop down on the top, where you can select a geometry operation. When you choose a geometry operation, the application performs this operation between the overlapping polygons and applies the result to the geometries.")]
     public class SpatialOperations : UIViewController
     {
         // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
         private readonly UIStackView _operationToolsView = new UIStackView();
+        private readonly UIToolbar _toolbar = new UIToolbar();
         private UIPickerView _operationPicker;
 
         // GraphicsOverlay to hold the polygon graphics.
@@ -58,15 +63,16 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             {
                 nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
                 nfloat operationsToolsHeight = View.Bounds.Height * 0.33f;
-                nfloat mapViewHeight = View.Bounds.Height * 0.67f;
 
                 // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, mapViewHeight);
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
                 _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-                _operationToolsView.Frame = new CGRect(0, mapViewHeight, View.Bounds.Width, operationsToolsHeight);
+                _operationToolsView.Frame = new CGRect(5, topMargin + 5, View.Bounds.Width - 10, operationsToolsHeight - 10);
+                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, operationsToolsHeight);
 
                 base.ViewDidLayoutSubviews();
             }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
             catch (NullReferenceException)
             {
             }
@@ -120,10 +126,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             _operationToolsView.AddSubviews(operationLabel, _operationPicker, resetButton);
 
             // Add the map view and tools sub-views to the view.
-            View.AddSubviews(_myMapView, _operationToolsView);
-
-            // Set the view background color.
-            View.BackgroundColor = UIColor.White;
+            View.AddSubviews(_myMapView, _toolbar, _operationToolsView);
         }
 
         // Handle selection events in the spatial operations picker.

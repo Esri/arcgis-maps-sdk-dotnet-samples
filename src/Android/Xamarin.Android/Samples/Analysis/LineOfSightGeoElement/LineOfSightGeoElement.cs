@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
     [Activity]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Line of Sight (GeoElement)",
+        "Line of sight (GeoElement)",
         "Analysis",
         "This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.",
         "Use the slider to adjust the height of the observer.",
@@ -76,7 +76,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         {
             base.OnCreate(bundle);
 
-            Title = "Line of Sight (GeoElement)";
+            Title = "Line of sight (GeoElement)";
 
             // Create the UI, setup the control references and execute initialization
             CreateLayout();

@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
     [Register("Animate3DGraphic")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("290f0c571c394461a8b58b6775d0bd63", "e87c154fb9c2487f999143df5b08e9b1", "5a9b60cee9ba41e79640a06bcdf8084d", "12509ffdc684437f8f2656b0129d2c13", "681d6f7694644709a7c830ec57a2d72b")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Animate 3D Graphic",
+        "Animate 3D graphic",
         "GraphicsOverlay",
         "This sample demonstrates how to animate a graphic's position and follow it using a camera controller.",
         "Click-and-drag to pan the sceneview, orbiting the moving plane. Click 'Camera' to toggle between the default and the orbiting camera controller.\nThe plane's route is shown on the inset map in the bottom left corner of the screen. Click 'Stats' to toggle stats display. Tap 'Mission' to choose from a list of alternative routes. \n\nNote that this is a graphics-intensive sample; performance may be degraded in certain situations (such as using a simulator).",
@@ -106,7 +106,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         // Set the title of the sample.
         public Animate3DGraphic()
         {
-            Title = "Animate 3D Graphic";
+            Title = "Animate 3D graphic";
         }
 
         private async void Initialize()

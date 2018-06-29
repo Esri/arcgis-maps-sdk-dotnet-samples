@@ -25,7 +25,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
         "Feature layer dictionary renderer",
         "Layers",
         "Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.",
-        "")]
+        "",
+        "Military", "Symbology", "Military symbology")]
     public class FeatureLayerDictionaryRenderer : UIViewController
     {
         // Create and hold a reference to the MapView.

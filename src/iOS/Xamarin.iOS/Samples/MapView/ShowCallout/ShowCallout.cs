@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
@@ -25,7 +26,17 @@ namespace ArcGISRuntime.Samples.ShowCallout
         "Tap on the map to show that point's coordinates.")]
     public class ShowCallout : UIViewController
     {
+        // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _toolbar = new UIToolbar();
+
+        private readonly UILabel _helpLabel = new UILabel
+        {
+            Text = "Tap to show a callout.",
+            AdjustsFontSizeToFitWidth = true,
+            TextAlignment = UITextAlignment.Center,
+            Lines = 1
+        };
 
         public ShowCallout()
         {
@@ -42,8 +53,11 @@ namespace ArcGISRuntime.Samples.ShowCallout
             // Respond to taps on the map.
             _myMapView.GeoViewTapped += MapView_GeoViewTapped;
 
-            // Add the MapView to the page.
-            View.AddSubview(_myMapView);
+            // Add the controls to the view.
+            View.AddSubviews(_myMapView, _toolbar);
+
+            // Add the help label to the toolbar.
+            _toolbar.AddSubview(_helpLabel);
         }
 
         public override void ViewDidLayoutSubviews()
@@ -51,10 +65,17 @@ namespace ArcGISRuntime.Samples.ShowCallout
             try
             {
                 nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat toolbarHeight = 40;
+                nfloat margin = 5;
 
                 // Reposition the controls.
-                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
+                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
+
+                // Reposition the label within the toolbar.
+                _helpLabel.Frame = new CGRect(margin, margin, _toolbar.Bounds.Width - (2 * margin), controlHeight);
 
                 base.ViewDidLayoutSubviews();
             }

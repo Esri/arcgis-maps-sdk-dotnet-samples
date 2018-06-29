@@ -25,8 +25,17 @@ namespace ArcGISRuntime.Samples.ShowMagnifier
         "")]
     public class ShowMagnifier : UIViewController
     {
-        // Create and hold a reference to the used MapView.
+        // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _toolbar = new UIToolbar();
+
+        private readonly UILabel _helpLabel = new UILabel
+        {
+            Text = "Tap and hold to show the magnifier.",
+            AdjustsFontSizeToFitWidth = true,
+            TextAlignment = UITextAlignment.Center,
+            Lines = 1
+        };
 
         public ShowMagnifier()
         {
@@ -47,10 +56,17 @@ namespace ArcGISRuntime.Samples.ShowMagnifier
             try
             {
                 nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat toolbarHeight = 40;
+                nfloat margin = 5;
 
-                // Reposition the control.
+                // Reposition the controls.
                 _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
+                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
+
+                // Reposition the label within the toolbar.
+                _helpLabel.Frame = new CGRect(margin, margin, _toolbar.Bounds.Width - (2 * margin), controlHeight);
 
                 base.ViewDidLayoutSubviews();
             }
@@ -77,8 +93,11 @@ namespace ArcGISRuntime.Samples.ShowMagnifier
 
         private void CreateLayout()
         {
-            // Add the map view to the view.
-            View.AddSubviews(_myMapView);
+            // Add the controls to the view.
+            View.AddSubviews(_myMapView, _toolbar);
+
+            // Add the help label to the toolbar.
+            _toolbar.AddSubview(_helpLabel);
         }
     }
 }

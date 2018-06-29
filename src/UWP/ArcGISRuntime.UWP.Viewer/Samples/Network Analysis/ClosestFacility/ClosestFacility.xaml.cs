@@ -130,8 +130,8 @@ namespace ArcGISRuntime.UWP.Samples.ClosestFacility
             // Clear any prior incident and routes from the graphics.
             _incidentGraphicsOverlay.Graphics.Clear();
 
-            // Create a MapPoint where the user clicked.
-            _incidentPoint = MyMapView.ScreenToLocation(e.Position);
+            // Get the tapped point.
+            _incidentPoint = e.Location;
 
             // Populate the facility parameters than solve using the task.
             PopulateParametersAndSolveRouteAsync();

@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using CoreGraphics;
@@ -647,54 +648,25 @@ namespace ArcGISRuntime.Samples.AuthorEditSaveMap
             }
         }
 
-        // String array to store basemap constructor types.
+        public string[] BasemapChoices => _basemapChoices.Keys.ToArray();
 
-        // Read-only property to return the available basemap names.
-        public string[] BasemapChoices { get; } =
+        // Dictionary associates names with basemaps.
+        private readonly Dictionary<string, Basemap> _basemapChoices = new Dictionary<string, Basemap>
         {
-            "Topographic",
-            "Topographic Vector",
-            "Streets",
-            "Streets Vector",
-            "Imagery",
-            "Oceans"
+            {"Imagery", Basemap.CreateImagery()},
+            {"Imagery with vector labels", Basemap.CreateImageryWithLabelsVector()},
+            {"Navigation (vector)", Basemap.CreateNavigationVector()},
+            {"Topographic", Basemap.CreateTopographic()},
+            {"National Geographic", Basemap.CreateNationalGeographic()},
+            {"Oceans", Basemap.CreateOceans()},
+            {"OpenStreetMap", Basemap.CreateOpenStreetMap()}
         };
+
 
         public void ChangeBasemap(string basemap)
         {
             // Apply the selected basemap to the map.
-            switch (basemap)
-            {
-                case "Topographic":
-                    // Set the basemap to Topographic.
-                    _map.Basemap = Basemap.CreateTopographic();
-                    break;
-
-                case "Topographic Vector":
-                    // Set the basemap to Topographic (vector).
-                    _map.Basemap = Basemap.CreateTopographicVector();
-                    break;
-
-                case "Streets":
-                    // Set the basemap to Streets.
-                    _map.Basemap = Basemap.CreateStreets();
-                    break;
-
-                case "Streets Vector":
-                    // Set the basemap to Streets (vector).
-                    _map.Basemap = Basemap.CreateStreetsVector();
-                    break;
-
-                case "Imagery":
-                    // Set the basemap to Imagery.
-                    _map.Basemap = Basemap.CreateImagery();
-                    break;
-
-                case "Oceans":
-                    // Set the basemap to Oceans.
-                    _map.Basemap = Basemap.CreateOceans();
-                    break;
-            }
+            _map.Basemap = _basemapChoices[basemap];
         }
 
         // Save the current map to ArcGIS Online. The initial extent, title, description, and tags are passed in.

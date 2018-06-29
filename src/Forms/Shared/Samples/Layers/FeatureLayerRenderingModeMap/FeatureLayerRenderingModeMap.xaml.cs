@@ -18,7 +18,7 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature Layer Rendering Mode (Map)",
+        "Feature layer rendering mode (Map)",
         "Layers",
         "This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.",
         "")]
@@ -32,7 +32,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
         {
             InitializeComponent();
 
-            Title = "Feature Layer Rendering Mode (Map)";
+            Title = "Feature layer rendering mode (Map)";
 
             // Setup the control references and execute initialization 
             Initialize();

@@ -179,7 +179,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorEditSaveMap
             catch (Exception ex)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;

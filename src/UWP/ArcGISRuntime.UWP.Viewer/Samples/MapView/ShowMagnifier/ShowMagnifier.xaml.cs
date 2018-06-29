@@ -8,7 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using Windows.UI.Xaml.Controls.Primitives;
+using Esri.ArcGISRuntime.UI;
 
 namespace ArcGISRuntime.UWP.Samples.ShowMagnifier
 {
@@ -32,7 +32,10 @@ namespace ArcGISRuntime.UWP.Samples.ShowMagnifier
             Map myMap = new Map(BasemapType.Topographic, 34.056295, -117.195800, 10);
 
             // Enable magnifier
-            MyMapView.InteractionOptions.IsMagnifierEnabled = true;
+            MyMapView.InteractionOptions = new MapViewInteractionOptions
+            {
+                IsMagnifierEnabled = true
+            };
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;

@@ -32,7 +32,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("Animate3DGraphic.axml")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("290f0c571c394461a8b58b6775d0bd63","e87c154fb9c2487f999143df5b08e9b1","5a9b60cee9ba41e79640a06bcdf8084d","12509ffdc684437f8f2656b0129d2c13","681d6f7694644709a7c830ec57a2d72b")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Animate 3D Graphic",
+        "Animate 3D graphic",
         "GraphicsOverlay",
         "This sample demonstrates how to animate a graphic's position and follow it using a camera controller.",
         "Click-and-drag to pan the sceneview, orbiting the moving plane. Click 'Camera' to toggle between the default and the orbiting camera controller.\nThe plane's route is shown on the inset map in the bottom left corner of the screen. The progress through the plane's mission is shown in a slider within the stats panel. Click 'Stats' to toggle stats display. Drag the slider to seek through the mission (like you might seek through a song). Tap 'Mission' to choose from a list of alternative routes. \n\nNote that this is a graphics-intensive sample; performance may be degraded in certain situations (such as using a simulator).",
@@ -269,10 +269,10 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 _missionProgressBar.ProgressChanged += MissionProgressOnSeek;
 
                 // Update stats display
-                _altitudeTextView.Text = currentFrame.Elevation.ToString("F");
-                _headingTextView.Text = currentFrame.Heading.ToString("F");
-                _pitchTextView.Text = currentFrame.Pitch.ToString("F");
-                _rollTextView.Text = currentFrame.Roll.ToString("F");
+                _altitudeTextView.Text = $"{currentFrame.Elevation:F}m";
+                _headingTextView.Text = $"{currentFrame.Heading:F}°";
+                _pitchTextView.Text = $"{currentFrame.Pitch:F}°";
+                _rollTextView.Text = $"{currentFrame.Roll:F}°";
             });
 
             // Update plane's position

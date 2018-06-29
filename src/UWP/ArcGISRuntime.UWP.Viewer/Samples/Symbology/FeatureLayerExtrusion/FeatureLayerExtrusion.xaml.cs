@@ -38,37 +38,38 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerExtrusion
             try
             {
                 // Define the Uri for the service feature table (US state polygons)
-                var myServiceFeatureTable_Uri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
+                Uri serviceFeatureTableUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
 
                 // Create a new service feature table from the Uri
-                ServiceFeatureTable myServiceFeatureTable = new ServiceFeatureTable(myServiceFeatureTable_Uri);
+                ServiceFeatureTable censusTable = new ServiceFeatureTable(serviceFeatureTableUri);
 
                 // Create a new feature layer from the service feature table
-                FeatureLayer myFeatureLayer = new FeatureLayer(myServiceFeatureTable);
-
-                // Set the rendering mode of the feature layer to be dynamic (needed for extrusion to work)
-                myFeatureLayer.RenderingMode = FeatureRenderingMode.Dynamic;
+                FeatureLayer censusLayer = new FeatureLayer(censusTable)
+                {
+                    // Set the rendering mode of the feature layer to be dynamic (needed for extrusion to work)
+                    RenderingMode = FeatureRenderingMode.Dynamic
+                };
 
                 // Create a new simple line symbol for the feature layer
-                SimpleLineSymbol mySimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
+                SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
 
                 // Create a new simple fill symbol for the feature layer 
-                SimpleFillSymbol mysimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Blue, mySimpleLineSymbol);
+                SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Blue, lineSymbol);
 
                 // Create a new simple renderer for the feature layer
-                SimpleRenderer mySimpleRenderer = new SimpleRenderer(mysimpleFillSymbol);
+                SimpleRenderer layerRenderer = new SimpleRenderer(fillSymbol);
 
                 // Get the scene properties from the simple renderer
-                RendererSceneProperties myRendererSceneProperties = mySimpleRenderer.SceneProperties;
+                RendererSceneProperties sceneProperties = layerRenderer.SceneProperties;
 
                 // Set the extrusion mode for the scene properties
-                myRendererSceneProperties.ExtrusionMode = ExtrusionMode.AbsoluteHeight;
+                sceneProperties.ExtrusionMode = ExtrusionMode.AbsoluteHeight;
 
                 // Set the initial extrusion expression
-                myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
+                sceneProperties.ExtrusionExpression = "[POP2007] / 10";
 
                 // Set the feature layer's renderer to the define simple renderer
-                myFeatureLayer.Renderer = mySimpleRenderer;
+                censusLayer.Renderer = layerRenderer;
 
                 // Create a new scene with the topographic backdrop 
                 Scene myScene = new Scene(BasemapType.Topographic);
@@ -77,16 +78,13 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerExtrusion
                 MySceneView.Scene = myScene;
 
                 // Add the feature layer to the scene's operational layer collection
-                myScene.OperationalLayers.Add(myFeatureLayer);
+                myScene.OperationalLayers.Add(censusLayer);
 
                 // Create a new map point to define where to look on the scene view
                 MapPoint myMapPoint = new MapPoint(-10974490, 4814376, 0, SpatialReferences.WebMercator);
 
-                // Create a new orbit location camera controller using the map point and defined distance
-                OrbitLocationCameraController myOrbitLocationCameraController = new OrbitLocationCameraController(myMapPoint, 20000000);
-
                 // Set the scene view's camera controller to the orbit location camera controller
-                MySceneView.CameraController = myOrbitLocationCameraController;
+                MySceneView.CameraController = new OrbitLocationCameraController(myMapPoint, 20000000);
             }
             catch (Exception ex)
             {
@@ -109,18 +107,18 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerExtrusion
             RendererSceneProperties myRendererSceneProperties = myRenderer.SceneProperties;
 
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text
-            if (ToggleButton.Content.ToString() == "Population density")
+            if (ToggleButton.Content.ToString() == "Show population density")
             {
                 // An offset of 100000 is added to ensure that polygons for large areas (like Alaska)
                 // with low populations will be extruded above the curvature of the Earth.
                 myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000 + 100000";
-                ToggleButton.Content = "Total Population";
+                ToggleButton.Content = "Show total population";
 
             }
-            else if (ToggleButton.Content.ToString() == "Total population")
+            else if (ToggleButton.Content.ToString() == "Show total population")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
-                ToggleButton.Content = "Population density";
+                ToggleButton.Content = "Show population density";
             }
         }
 

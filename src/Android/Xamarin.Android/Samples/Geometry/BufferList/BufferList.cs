@@ -116,7 +116,7 @@ namespace ArcGISRuntime.Samples.BufferList
                 _graphicsOverlay.Graphics.Add(userTappedGraphic);
 
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 // Display an error message if there is a problem generating the buffer polygon.
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
@@ -131,7 +131,7 @@ namespace ArcGISRuntime.Samples.BufferList
             try
             {
                 // Get the boolean value whether to create a single unioned buffer (true) or independent buffer around each map point (false).
-                bool unionBufferBool = (bool)_unionBufferSwitch.Checked;
+                bool unionBufferBool = _unionBufferSwitch.Checked;
 
                 // Create an IEnumerable that contains buffered polygon(s) from the GeometryEngine Buffer operation based on a list of map 
                 // points and list of buffered distances. The input distances used in the Buffer operation are in meters; this matches the 
@@ -139,28 +139,29 @@ namespace ArcGISRuntime.Samples.BufferList
                 // independent buffers will be created around each map point.
                 IEnumerable<Geometry> theIEnumerableOfGeometryBuffer = GeometryEngine.Buffer(_bufferPointsList, _bufferDistancesList, unionBufferBool);
 
+                // Create the outline (a simple line symbol) for the buffered polygon. It will be a solid, thick, green line.
+                SimpleLineSymbol bufferPolygonSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Green, 5);
+
+                // Create the color that will be used for the fill of the buffered polygon. It will be a semi-transparent, yellow color.
+                System.Drawing.Color bufferPolygonFillColor = System.Drawing.Color.FromArgb(155, 255, 255, 0);
+
+                // Create simple fill symbol for the buffered polygon. It will be solid, semi-transparent, yellow fill with a solid, 
+                // thick, green outline.
+                SimpleFillSymbol bufferPolygonSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, bufferPolygonFillColor, bufferPolygonSimpleLineSymbol);
+
                 // Loop through all the geometries in the IEnumerable from the GeometryEngine Buffer operation. There should only be one buffered 
                 // polygon returned from the IEnumerable collection if the bool unionResult parameter was set to true in the GeometryEngine.Buffer 
                 // operation. If the bool unionResult parameter was set to false there will be one buffer per input geometry.
                 foreach (Geometry oneGeometry in theIEnumerableOfGeometryBuffer)
                 {
-                    // Create the outline (a simple line symbol) for the buffered polygon. It will be a solid, thick, green line.
-                    SimpleLineSymbol bufferPolygonSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Green, 5);
-
-                    // Create the color that will be used for the fill of the buffered polygon. It will be a semi-transparent, yellow color.
-                    System.Drawing.Color bufferPolygonFillColor = System.Drawing.Color.FromArgb(155, 255, 255, 0);
-
-                    // Create simple fill symbol for the buffered polygon. It will be solid, semi-transparent, yellow fill with a solid, 
-                    // thick, green outline.
-                    SimpleFillSymbol bufferPolygonSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, bufferPolygonFillColor, bufferPolygonSimpleLineSymbol);
-
                     // Create a new graphic for the buffered polygon using the defined simple fill symbol.
-                    Graphic bufferPolygonGraphic = new Graphic(oneGeometry, bufferPolygonSimpleFillSymbol);
-
-                    // Specify a ZIndex value on the buffered polygon graphic to assist with the drawing order of mixed geometry types being added
-                    // to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is drawn. Typically, 
-                    // Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2).
-                    bufferPolygonGraphic.ZIndex = 0;
+                    Graphic bufferPolygonGraphic = new Graphic(oneGeometry, bufferPolygonSimpleFillSymbol)
+                    {
+                        // Specify a ZIndex value on the buffered polygon graphic to assist with the drawing order of mixed geometry types being added
+                        // to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is drawn. Typically, 
+                        // Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2).
+                        ZIndex = 0
+                    };
 
                     // Add the buffered polygon graphic to the graphic overlay.
                     // NOTE: While you can control the positional placement of a graphic within the GraphicCollection of a GraphicsOverlay, 
@@ -170,7 +171,7 @@ namespace ArcGISRuntime.Samples.BufferList
 
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 // Display an error message if there is a problem generating the buffer polygon.
                 var alertBuilder = new AlertDialog.Builder(this);

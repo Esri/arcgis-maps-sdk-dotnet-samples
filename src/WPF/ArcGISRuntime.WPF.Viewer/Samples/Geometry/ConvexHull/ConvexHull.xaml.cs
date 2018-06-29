@@ -66,11 +66,8 @@ namespace ArcGISRuntime.WPF.Samples.ConvexHull
         {
             try
             {
-                // Create a map point (in the WebMercator projected coordinate system) from the GUI screen coordinate.
-                MapPoint userTappedMapPoint = MyMapView.ScreenToLocation(e.Position);
-
                 // Add the map point to the list that will be used by the GeometryEngine.ConvexHull operation.
-                _inputPointCollection.Add(userTappedMapPoint);
+                _inputPointCollection.Add(e.Location);
 
                 // Check if there are at least three points.
                 if (_inputPointCollection.Count > 2)
@@ -84,7 +81,10 @@ namespace ArcGISRuntime.WPF.Samples.ConvexHull
                 SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Red, 10);
 
                 // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol.
-                Graphic userTappedGraphic = new Graphic(userTappedMapPoint, new Dictionary<string, object>() { { "Type", "Point" } }, userTappedSimpleMarkerSymbol) { ZIndex = 0 };
+                Graphic userTappedGraphic = new Graphic(e.Location, new Dictionary<string, object>
+                {
+                    { "Type", "Point" }
+                }, userTappedSimpleMarkerSymbol) { ZIndex = 0 };
 
                 // Set the Z index for the user tapped graphic so that it appears above the convex hull graphic(s) added later.
                 userTappedGraphic.ZIndex = 1;

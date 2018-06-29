@@ -70,9 +70,6 @@ namespace ArcGISRuntime.Samples.BufferList
         {
             try
             {
-                // Create a map point (in the WebMercator projected coordinate system) from the GUI screen coordinate.
-                MapPoint userTappedMapPoint = MyMapView.ScreenToLocation(e.Position);
-
                 // Get the buffer size (in miles) from the entry.
                 double bufferDistanceInMiles = System.Convert.ToDouble(BufferDistanceMilesEntry.Text);
 
@@ -80,7 +77,7 @@ namespace ArcGISRuntime.Samples.BufferList
                 double bufferDistanceInMeters = bufferDistanceInMiles * 1609.34;
 
                 // Add the map point to the list that will be used by the GeometryEngine.Buffer operation.
-                _bufferPointsList.Add(userTappedMapPoint);
+                _bufferPointsList.Add(e.Location);
 
                 // Add the buffer distance to the list that will be used by the GeometryEngine.Buffer operation.
                 _bufferDistancesList.Add(bufferDistanceInMeters);
@@ -90,7 +87,7 @@ namespace ArcGISRuntime.Samples.BufferList
                 SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Red, 10);
 
                 // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol. 
-                Graphic userTappedGraphic = new Graphic(userTappedMapPoint, userTappedSimpleMarkerSymbol);
+                Graphic userTappedGraphic = new Graphic(e.Location, userTappedSimpleMarkerSymbol);
 
                 // Specify a ZIndex value on the user input map point graphic to assist with the drawing order of mixed geometry types 
                 // being added to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is 

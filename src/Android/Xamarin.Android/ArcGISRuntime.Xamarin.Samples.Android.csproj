@@ -357,6 +357,7 @@
     <Compile Include="Samples\MapView\ShowCallout\ShowCallout.cs" />
     <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.cs" />
     <Compile Include="Samples\MapView\TakeScreenshot\TakeScreenshot.cs" />
+    <Compile Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.cs" />
     <Compile Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
@@ -460,6 +461,9 @@
   <ItemGroup>
     <None Include="Samples\Geometry\SpatialOperations\SpatialOperations.jpg" />
     <None Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.jpg.png" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

@@ -226,6 +226,7 @@
     <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
     <Content Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg" />
     <Content Include="Samples\Network Analysis\FindRoute\FindRoute.jpg" />
+    <Content Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.jpg" />
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <Content Include="Samples\Search\FindPlace\FindPlace.jpg" />
     <Content Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
@@ -622,6 +623,9 @@
     </Compile>
     <Compile Include="Samples\Network Analysis\FindRoute\FindRoute.xaml.cs">
       <DependentUpon>FindRoute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml.cs">
+      <DependentUpon>FindServiceArea.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Search\FindAddress\FindAddress.xaml.cs">
       <DependentUpon>FindAddress.xaml</DependentUpon>
@@ -1106,6 +1110,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Network Analysis\FindRoute\FindRoute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

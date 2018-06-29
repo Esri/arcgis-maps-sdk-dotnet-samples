@@ -455,6 +455,9 @@
     <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml.cs">
       <DependentUpon>SetMinMaxScale.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml.cs">
+      <DependentUpon>ClosestFacilityStatic.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml.cs">
       <DependentUpon>ClosestFacility.xaml</DependentUpon>
     </Compile>
@@ -966,6 +969,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1366,6 +1373,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg">

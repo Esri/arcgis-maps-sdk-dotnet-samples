@@ -237,6 +237,9 @@
       <SubType>Code</SubType>
       <DependentUpon>OpenScene.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml.cs">
+      <DependentUpon>ClosestFacilityStatic.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml.cs">
       <DependentUpon>ClosestFacility.xaml</DependentUpon>
     </Compile>
@@ -1039,6 +1042,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceArea\FindServiceArea.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.jpg" />
   </ItemGroup>
@@ -1073,6 +1077,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

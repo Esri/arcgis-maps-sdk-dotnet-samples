@@ -358,6 +358,7 @@
     <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.cs" />
     <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.cs" />
     <Compile Include="Samples\Map\OpenScene\OpenScene.cs" />
+    <Compile Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.cs" />
     <Compile Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.cs" />
     <Compile Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.cs" />
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
@@ -497,10 +498,13 @@
     <None Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Samples\Network Analysis\FindServiceArea\FindServiceAreaiOS.jpg" />
+    <None Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Samples\GeometryEngine\SpatialOperations\SpatialOperations.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

@@ -114,6 +114,7 @@
   <!-- Screenshots -->
   <ItemGroup>
     <Content Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
+    <Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
     <Content Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
@@ -136,20 +137,20 @@
     <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg" />
     <Content Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg" />
     <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
-    <Content Include="Samples\Geometry\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
-    <Content Include="Samples\Geometry\BufferList\BufferList.jpg" />
     <Content Include="Samples\Geometry\Buffer\Buffer.jpg" />
-    <Content Include="Samples\Geometry\ConvexHull\ConvexHull.jpg" />
+    <Content Include="Samples\Geometry\BufferList\BufferList.jpg" />
     <Content Include="Samples\Geometry\ClipGeometry\ClipGeometry.jpg" />
+    <Content Include="Samples\Geometry\ConvexHull\ConvexHull.jpg" />
     <Content Include="Samples\Geometry\ConvexHullList\ConvexHullList.jpg" />
-    <Content Include="Samples\Geometry\CutGeometry\CutGeometry.jpg" />
     <Content Include="Samples\Geometry\CreateGeometries\CreateGeometries.jpg" />
-    <Content Include="Samples\Geometry\ListTransformations\ListTransformations.jpg" />
-    <Content Include="Samples\Geometry\SpatialRelationships\SpatialRelationships.jpg" />
+    <Content Include="Samples\Geometry\CutGeometry\CutGeometry.jpg" />
+    <Content Include="Samples\Geometry\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
+    <Content Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
     <Content Include="Samples\Geometry\GeodesicOperations\GeodesicOperations.jpg" />
+    <Content Include="Samples\Geometry\ListTransformations\ListTransformations.jpg" />
     <Content Include="Samples\Geometry\NearestVertex\NearestVertex.jpg" />
     <Content Include="Samples\Geometry\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
-    <Content Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
+    <Content Include="Samples\Geometry\SpatialRelationships\SpatialRelationships.jpg" />
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
     <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
     <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
@@ -181,6 +182,7 @@
     <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
     <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <Content Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
+    <Content Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.jpg" />
     <Content Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.jpg" />
     <Content Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
     <Content Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
@@ -191,18 +193,31 @@
     <Content Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
     <Content Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg" />
     <Content Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.jpg" />
-    <Content Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg" />
-    <Content Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.jpg" />
-    <Content Include="Samples\Layers\WmsIdentify\WmsIdentify.jpg" />
     <Content Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.jpg" />
+    <Content Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg" />
+    <Content Include="Samples\Layers\WmsIdentify\WmsIdentify.jpg" />
     <Content Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
     <Content Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg" />
     <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
     <Content Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg" />
-    <Content Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
+    <Content Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg" />
+    <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg" />
+    <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
+    <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
+    <Content Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
+    <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
+    <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
+    <Content Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
+    <Content Include="Samples\Map\OpenScene\OpenScene.jpg" />
+    <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
+    <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
+    <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
+    <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
+    <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
     <Content Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />
     <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
     <Content Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
+    <Content Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
     <Content Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
     <Content Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.jpg" />
     <Content Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
@@ -210,22 +225,8 @@
     <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
     <Content Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
-    <Content Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg" />
-    <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg" />
-    <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
-    <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
-    <Content Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
-    <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
-    <Content Include="Samples\Map\OpenScene\OpenScene.jpg" />
-    <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
-    <Content Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
-    <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
-    <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
-    <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
-    <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
-    <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
-    <Content Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.jpg" />
     <Content Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg" />
+    <Content Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.jpg" />
     <Content Include="Samples\Network Analysis\FindRoute\FindRoute.jpg" />
     <Content Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.jpg" />
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
@@ -278,7 +279,6 @@
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
   </ItemGroup>
   <!-- Sample Code -->
@@ -658,6 +658,7 @@
     <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml.cs">
       <DependentUpon>AuthorEditSaveMap.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Tutorial\AuthorEditSaveMap\MapViewModel.cs" />
   </ItemGroup>
   <!-- Sample Layouts -->
   <ItemGroup>
@@ -1186,7 +1187,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Samples\Tutorial\AuthorEditSaveMap\MapViewModel.cs" />
     <Compile Include="WaitPage.xaml.cs">
       <DependentUpon>WaitPage.xaml</DependentUpon>
     </Compile>

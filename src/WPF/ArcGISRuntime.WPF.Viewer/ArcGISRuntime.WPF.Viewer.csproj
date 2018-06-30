@@ -440,6 +440,9 @@
     <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMap.xaml.cs">
       <DependentUpon>OpenMobileMap.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Map\OpenScene\OpenScene.xaml.cs">
+      <DependentUpon>OpenScene.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.xaml.cs">
       <DependentUpon>SearchPortalMaps.xaml</DependentUpon>
     </Compile>
@@ -464,10 +467,6 @@
     <Compile Include="Samples\Network Analysis\FindRoute\FindRoute.xaml.cs">
       <DependentUpon>FindRoute.xaml</DependentUpon>
     </Compile>
-    <Page Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Compile Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml.cs">
       <DependentUpon>FindServiceArea.xaml</DependentUpon>
     </Compile>
@@ -501,6 +500,14 @@
   </ItemGroup>
   <!-- Sample XAML -->
   <ItemGroup>
+    <Page Include="Samples\Map\OpenScene\OpenScene.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1358,6 +1365,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\OpenScene\OpenScene.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg">

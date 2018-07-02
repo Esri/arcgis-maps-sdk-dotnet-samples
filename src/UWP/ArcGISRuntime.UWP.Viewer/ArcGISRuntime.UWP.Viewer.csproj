@@ -237,7 +237,6 @@
     <Content Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
     <Content Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg" />
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
-    <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
   </ItemGroup>
   <!-- Misc Resources -->
   <ItemGroup>
@@ -655,10 +654,6 @@
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml.cs">
       <DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml.cs">
-      <DependentUpon>AuthorEditSaveMap.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Tutorial\AuthorEditSaveMap\MapViewModel.cs" />
   </ItemGroup>
   <!-- Sample Layouts -->
   <ItemGroup>
@@ -1155,10 +1150,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

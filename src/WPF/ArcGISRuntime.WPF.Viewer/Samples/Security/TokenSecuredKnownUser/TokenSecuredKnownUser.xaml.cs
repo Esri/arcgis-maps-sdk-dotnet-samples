@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -12,14 +12,16 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace TokenSecuredServices
+namespace ArcGISRuntime.WPF.Samples.TokenSecuredKnownUser
 {
-    public partial class MainWindow : Window
+    public partial class TokenSecuredKnownUser
     {
-        public MainWindow()
+        // Task completion source to track a login attempt
+        private TaskCompletionSource<Credential> _loginTaskCompletionSource;
+
+        public TokenSecuredKnownUser()
         {
             InitializeComponent();
-
             // Define a method that will try to create the required credentials when a secured resource is encountered
             // (Access to the secure resource will be seamless to the user)
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateKnownCredentials);

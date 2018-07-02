@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -12,71 +12,80 @@ using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
-using Windows.UI.Xaml.Controls;
 
-namespace OAuth
+namespace ArcGISRuntime.UWP.Samples.OAuth
 {
-    public sealed partial class MainPage : Page
+    public partial class OAuth
     {
         // Constants for OAuth-related values ...
-        // URL of the server to authenticate with
+        // TODO: URL of the portal to authenticate with
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
-        // TODO: Provide the client ID for your app (registered with the server)
-        private const string ClientId = "";
-        // TODO: [optional] Provide the client secret for the app (only needed for the OAuthAuthorizationCode auth type)
+
+        // TODO: Add Client ID for an app registered with the server
+        private const string AppClientId = @"lgAdHkYZYlwwfAhC";
+
+        // TODO: [optional] Provide the client secret for the app (only needed for the OAuthAuthorizationCode authorization type)
         private const string ClientSecret = "";
-        // TODO: Provide a URL registered for the app for redirecting after a successful authorization
-        private const string RedirectUrl = "http://my.redirect.url";
-        // TODO: Provide an ID for a secured web map item hosted on the server
-        private const string WebMapId = "";
 
-        public MainPage()
+        // TODO: Add URL for redirecting after a successful authorization
+        //       Note - this must be a URL configured as a valid Redirect URI with your app
+        private const string OAuthRedirectUrl = @"my-ags-app://auth";
+
+        // TODO: Provide an ID for a web map item hosted on the server
+        // (perhaps shared only with your organization or containing secured layers)
+        private const string WebMapId = "cbd8ac5252fa4cf8a55d8350265c531b";
+
+        public OAuth()
         {
-            this.InitializeComponent();
-
+            InitializeComponent();
+            
             // Call a function to initialize the app
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Set up the AuthenticationManager to use OAuth for secure ArcGIS Online requests
-            UpdateAuthenticationManager();
+            SetOAuthInfo();
 
-            // Display a secured web map from ArcGIS Online (will be challenged to log in)
-            DisplayWebMap();
+            // Connect to the portal (ArcGIS Online, for example)
+            ArcGISPortal arcgisPortal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
+
+            // Get a web map portal item using its ID
+            // (If the item contains layers not shared publicly, the user will be challenged for credentials at this point)
+            PortalItem portalItem = await PortalItem.CreateAsync(arcgisPortal, WebMapId);
+
+            // Create a new map with the portal item and display it in the map view
+            // (If authentication failed, only the public layers will be displayed)
+            Map myMap = new Map(portalItem);
+            MyMapView.Map = myMap;
         }
 
-        private void UpdateAuthenticationManager()
+        private void SetOAuthInfo()
         {
             // Register the server information with the AuthenticationManager
-            Esri.ArcGISRuntime.Security.ServerInfo serverInfo = new ServerInfo
+            var serverInfo = new ServerInfo
             {
                 ServerUri = new Uri(ServerUrl),
+                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,
                 OAuthClientInfo = new OAuthClientInfo
                 {
-                    ClientId = ClientId,
-                    RedirectUri = new Uri(RedirectUrl)
+                    ClientId = AppClientId,
+                    RedirectUri = new Uri(OAuthRedirectUrl)
                 }
             };
 
             // If a client secret has been configured, set the authentication type to OAuthAuthorizationCode
-            if(!string.IsNullOrEmpty(ClientSecret))
+            if (!string.IsNullOrEmpty(ClientSecret))
             {
                 // Use OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
                 serverInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode;
                 serverInfo.OAuthClientInfo.ClientSecret = ClientSecret;
             }
-            else
-            {
-                // Otherwise, use OAuthImplicit
-                serverInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit;
-            }
 
             // Register this server with AuthenticationManager
-            AuthenticationManager.Current.RegisterServer(serverInfo);
-            
+            AuthenticationManager.Current.RegisterServer(serverInfo);            
+
             // Use a function in this class to challenge for credentials
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
 
@@ -85,58 +94,20 @@ namespace OAuth
             //     The UWP AuthenticationManager, however, uses a built-in IOAuthAuthorizeHandler (based on WebAuthenticationBroker).
         }
 
-        private async void DisplayWebMap()
-        {
-            // Display a web map hosted in a portal. If the web map item is secured, AuthenticationManager will
-            // challenge for credentials
-            try
-            {
-                // Connect to a portal (ArcGIS Online, for example)
-                ArcGISPortal arcgisPortal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
-
-                // Get a web map portal item using its ID
-                // If the item is secured (not shared publicly) the user will be challenged for credentials at this point
-                PortalItem portalItem = await PortalItem.CreateAsync(arcgisPortal, WebMapId);
-
-                // Create a new map with the portal item
-                Map myMap = new Map(portalItem);
-
-                // Assign the map to the MapView.Map property to display it in the app
-                MyMapView.Map = myMap;
-                await myMap.RetryLoadAsync();
-            }
-            catch (Exception ex)
-            {
-                MessageDialog dlg = new MessageDialog(ex.Message);
-                await dlg.ShowAsync();
-            }
-        }
-        
         public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
-            // ChallengeHandler function for AuthenticationManager that will be called whenever access to a secured
-            // resource is attempted
-            OAuthTokenCredential credential = null;
-            
+            // ChallengeHandler function for AuthenticationManager that will be called whenever a secured resource is accessed
+            Credential credential = null;
+
             try
             {
-                // Create generate token options if necessary
-                if (info.GenerateTokenOptions == null)
-                {
-                    info.GenerateTokenOptions = new GenerateTokenOptions();
-                }
-
                 // AuthenticationManager will handle challenging the user for credentials
-                credential = await AuthenticationManager.Current.GenerateCredentialAsync
-                    (
-                            info.ServiceUri,
-                            info.GenerateTokenOptions
-                    ) as OAuthTokenCredential;
+                credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;

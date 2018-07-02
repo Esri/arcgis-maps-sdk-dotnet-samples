@@ -1,0 +1,24 @@
+{
+  "Name": "Authenticate with OAuth",
+  "SampleName": "OAuth",
+  "Description": "This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access a secure web map (or the secured layers it contains). Accessing secured items requires a login on the portal (an ArcGIS Online account, for example).",
+  "Instructions": "1. When you run the sample, the app will load a web map that contains premium content.\n2. You will be challenged for an ArcGIS Online login to view that layer (world traffic).\n3. Enter your ArcGIS Online user name and password.\n4. If you authenticate successfully, the traffic layer will display, otherwise the map will contain only the public layers.\n5. You can alter the code to supply OAuth configuration settings specific to your app.",
+  "Type": 1,
+  "RequiresOnlineConnection": true,
+  "RequiresOfflineData": false,
+  "RequiresLocalServer": false,
+  "Image": "OAuth.jpg",
+  "Link": "",
+  "TypeLink": [
+    "M:Esri.ArcGISRuntime.Portal.ArcGISPortal.CreateAsync",
+    "T:Esri.ArcGISRuntime.Security.ServerInfo",
+    "T:Esri.ArcGISRuntime.Security.TokenAuthenticationType",
+    "M:Esri.ArcGISRuntime.Security.AuthenticationManager.GenerateCredentialAsync(System.Uri,Esri.ArcGISRuntime.Security.GenerateTokenOptions)",
+    "M:Esri.ArcGISRuntime.Security.AuthenticationManager.RegisterServer(Esri.ArcGISRuntime.Security.ServerInfo)",
+    "P:Esri.ArcGISRuntime.Security.OAuthClientInfo.ClientId",
+    "P:Esri.ArcGISRuntime.Security.OAuthClientInfo.RedirectUri",
+    "P:Esri.ArcGISRuntime.Security.ServerInfo.OAuthClientInfo",
+    "P:Esri.ArcGISRuntime.Security.ServerInfo.ServerUri",
+    "P:Esri.ArcGISRuntime.Security.ServerInfo.TokenAuthenticationType"
+  ]
+}

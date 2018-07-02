@@ -3,22 +3,24 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using Android.App;
+using Android.Graphics;
+using Android.OS;
+using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI.Controls;
-using Foundation;
 using System;
 using System.Threading.Tasks;
-using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
 {
-    [Register("TokenSecuredKnownUser")]
-    public class TokenSecuredKnownUser : UIViewController
+    [Activity(Label = "TokenSecuredKnownUser")]
+    public class TokenSecuredKnownUser : Activity
     {
         // Constants for the public and secured map service URLs
         private const string PublicMapServiceUrl = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer";
@@ -28,21 +30,21 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
         private const string PublicLayerName = "World Street Map - Public";
         private const string SecureLayerName = "USA - Secure";
 
+        // Use a TaskCompletionSource to store the result of a login task
+        TaskCompletionSource<Credential> _loginTaskCompletionSource;
+
         // Store the map view displayed in the app
-        MapView _myMapView;
+        private MapView _myMapView = new MapView();
 
         // Labels to show layer load status
-        UILabel _publicLayerLabel;
-        UILabel _secureLayerLabel;
+        private TextView _publicLayerLabel;
+        private TextView _secureLayerLabel;
 
-        public TokenSecuredKnownUser()
+        protected override void OnCreate(Bundle bundle)
         {
+            base.OnCreate(bundle);
+
             Title = "Token known user";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
 
             // Call a function to create the user interface
             CreateLayout();
@@ -53,29 +55,28 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
 
         private void CreateLayout()
         {
+            // Create a new vertical layout for the app
+            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+
             // Create a label for showing the load status for the public service
-            var label1ViewFrame = new CoreGraphics.CGRect(10, 70, View.Bounds.Width - 10, 20);
-            _publicLayerLabel = new UILabel(label1ViewFrame);
-            _publicLayerLabel.TextColor = UIColor.Gray;
-            _publicLayerLabel.Font = _publicLayerLabel.Font.WithSize(12);
+            _publicLayerLabel = new TextView(this);
             _publicLayerLabel.Text = PublicLayerName;
+            _publicLayerLabel.TextSize = 12;
+            _publicLayerLabel.SetTextColor(Color.Gray);
+            layout.AddView(_publicLayerLabel);
 
             // Create a label to show the load status of the secured layer
-            var label2ViewFrame = new CoreGraphics.CGRect(10, 95, View.Bounds.Width - 10, 20);
-            _secureLayerLabel = new UILabel(label2ViewFrame);
-            _secureLayerLabel.TextColor = UIColor.Gray;
-            _secureLayerLabel.Font = _secureLayerLabel.Font.WithSize(12);
+            _secureLayerLabel = new TextView(this);
             _secureLayerLabel.Text = SecureLayerName;
+            _secureLayerLabel.TextSize = 12;
+            _secureLayerLabel.SetTextColor(Color.Gray);
+            layout.AddView(_secureLayerLabel);
 
-            // Setup the visual frame for the MapView
-            var mapViewRect = new CoreGraphics.CGRect(0, 120, View.Bounds.Width, View.Bounds.Height - 120);
+            // Add the map view to the layout
+            layout.AddView(_myMapView);
 
-            // Create a map view with a basemap
-            _myMapView = new MapView();
-            _myMapView.Frame = mapViewRect;
-
-            // Add the map view and button to the page
-            View.AddSubviews(_publicLayerLabel, _secureLayerLabel, _myMapView);
+            // Show the layout in the app
+            SetContentView(layout);
         }
 
         private void Initialize()
@@ -104,14 +105,15 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
             // Add the map to the map view
             _myMapView.Map = myMap;
         }
+
         // Handle the load status changed event for the public and token-secured layers
         private void LayerLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
             // Get the layer that triggered the event
             var layer = sender as Layer;
 
-            // Get the label for this layer
-            UILabel labelToUpdate = null;
+            // Get the label (TextView) for this layer
+            TextView labelToUpdate = null;
             if (layer.Name == PublicLayerName)
             {
                 labelToUpdate = _publicLayerLabel;
@@ -123,33 +125,33 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
 
             // Create the text string and font color to describe the current load status
             var updateText = layer.Name;
-            var textColor = UIColor.Gray;
+            var textColor = Color.Gray;
 
             switch (e.Status)
             {
                 case Esri.ArcGISRuntime.LoadStatus.FailedToLoad:
                     updateText = layer.Name + " (Load failed)";
-                    textColor = UIColor.Red;
+                    textColor = Color.Red;
                     break;
                 case Esri.ArcGISRuntime.LoadStatus.Loaded:
                     updateText = layer.Name + " (Loaded)";
-                    textColor = UIColor.Green;
+                    textColor = Color.Green;
                     break;
                 case Esri.ArcGISRuntime.LoadStatus.Loading:
                     updateText = layer.Name + " (Loading ...)";
-                    textColor = UIColor.Gray;
+                    textColor = Color.Gray;
                     break;
                 case Esri.ArcGISRuntime.LoadStatus.NotLoaded:
                     updateText = layer.Name + " (Not loaded)";
-                    textColor = UIColor.LightGray;
+                    textColor = Color.LightGray;
                     break;
             }
 
             // Update the layer label on the UI thread
-            this.BeginInvokeOnMainThread(() =>
+            RunOnUiThread(() =>
             {
                 labelToUpdate.Text = updateText;
-                labelToUpdate.TextColor = textColor;
+                labelToUpdate.SetTextColor(textColor);
             });
         }
 
@@ -184,8 +186,10 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
             catch (Exception ex)
             {
                 // Report error accessing a secured resource
-                var alertView = new UIAlertView("Credential Error", "Access to " + info.ServiceUri.AbsoluteUri + " denied. " + ex.Message, null, "Cancel", null);
-                alertView.Show();
+                var alertBuilder = new AlertDialog.Builder(this.ApplicationContext);
+                alertBuilder.SetTitle("Credential Error");
+                alertBuilder.SetMessage("Access to " + info.ServiceUri.AbsoluteUri + " denied. " + ex.Message);
+                alertBuilder.Show();
             }
 
             // Return the credential

@@ -26,7 +26,7 @@ namespace ArcGISRuntime.UWP.Samples.RenderUniqueValues
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Initialize the sample.
             Initialize();
         }
 
@@ -35,7 +35,7 @@ namespace ArcGISRuntime.UWP.Samples.RenderUniqueValues
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateTopographic());
 
-            // Create uri to the used feature service
+            // Create uri to the feature service
             var serviceUri = new Uri(
                 "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
 
@@ -73,7 +73,7 @@ namespace ArcGISRuntime.UWP.Samples.RenderUniqueValues
 
             // Set the default region fill symbol (transparent with no outline) for regions not explicitly defined in the renderer
             var defaultFillSymbol = new SimpleFillSymbol(
-                SimpleFillSymbolStyle.Null, Color.Transparent, null);
+                SimpleFillSymbolStyle.Cross, Color.Gray, null);
             regionRenderer.DefaultSymbol = defaultFillSymbol;
             regionRenderer.DefaultLabel = "Other";
 

@@ -22,7 +22,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Change viewpoint",
         "MapView",
-        "This sample demonstrates different ways in which you can change the viewpoint or visible area of the map.",
+        "This sample demonstrates different ways in which you can change the viewpoint of the MapView.",
         "")]
     public class ChangeViewpoint : UIViewController
     {

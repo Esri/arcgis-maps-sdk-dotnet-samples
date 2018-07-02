@@ -102,7 +102,7 @@ namespace ArcGISRuntime.Samples.RenderUniqueValues
                 new UniqueValue("West South Central", "West South Central Region", westSouthCentralFillSymbol, "West South Central"));
 
             // Set the default region fill symbol (transparent with no outline) for regions not explicitly defined in the renderer
-            regionRenderer.DefaultSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Null, System.Drawing.Color.Transparent, null);
+            regionRenderer.DefaultSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Cross, System.Drawing.Color.Gray, null);
             regionRenderer.DefaultLabel = "Other";
 
             // Apply the unique value renderer to the states layer.

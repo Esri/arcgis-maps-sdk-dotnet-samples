@@ -25,11 +25,19 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         "Identify WMS features",
         "Layers",
         "This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.",
-        "Tap or click on a feature. A callout appears with the returned content for the WMS feature. Note that due to the nature of the WMS service implementation, an empty callout is shown when there is no result; an application might inspect the HTML to determine if the HTML actually contains a feature.")]
+        "Tap to identify a features. Note that due to the nature of the WMS service implementation, an empty result is shown when there is no result; an application might inspect the HTML to determine if the HTML actually contains a feature.")]
     public class WmsIdentify : UIViewController
     {
         // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _toolbar = new UIToolbar();
+        private readonly UILabel _helpLabel = new UILabel
+        {
+            Text = "Tap to identify features",
+            TextAlignment = UITextAlignment.Center,
+            AdjustsFontSizeToFitWidth = true,
+            Lines = 1
+        };
         private WKWebView _webView;
 
         // Create and hold the URL to the WMS service showing EPA water info.
@@ -52,7 +60,10 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             _webView = new WKWebView(new CGRect(), new WKWebViewConfiguration());
 
             // Add the controls to the view.
-            View.AddSubviews(_myMapView, _webView);
+            View.AddSubviews(_myMapView, _webView, _toolbar);
+
+            // Add the help label to the toolbar.
+            _toolbar.AddSubview(_helpLabel);
         }
 
         public override void ViewDidLoad()
@@ -68,12 +79,19 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             try
             {
                 nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat toolbarHeight = 40;
+                nfloat margin = 5;
+                nfloat controlHeight = toolbarHeight - (2 * margin);
                 nfloat webviewHeight = 200;
 
                 // Reposition controls.
                 _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - webviewHeight);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
+                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
                 _webView.Frame = new CGRect(0, View.Bounds.Height - webviewHeight, View.Bounds.Width, webviewHeight);
+
+                // Position the help label within the toolbar.
+                _helpLabel.Frame = new CGRect(margin, margin, _toolbar.Bounds.Width - (2 * margin), controlHeight);
 
                 base.ViewDidLayoutSubviews();
             }
@@ -121,8 +139,8 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             // Retrieve the WmsFeature's HTML content.
             string htmlContent = identifiedFeature.Attributes["HTML"].ToString();
 
-            // Note that the service returns a boilerplate HTML result if there is no feature found;
-            //    here might be a good place to check for that and filter out spurious results.
+            // Note that the service returns a boilerplate HTML result if there is no feature found.
+            //    This would be a good place to check if the result looks like it includes feature details. 
 
             // Show a preview with the HTML content.
             _webView.LoadHtmlString(new NSString(htmlContent), new NSUrl(""));

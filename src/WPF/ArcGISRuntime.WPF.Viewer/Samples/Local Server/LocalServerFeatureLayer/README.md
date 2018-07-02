@@ -1,4 +1,4 @@
-# Local Server Feature Layer
+# Local Server feature layer
 
 This sample demonstrates how to display a Feature Layer service by a Local Server feature service.
 

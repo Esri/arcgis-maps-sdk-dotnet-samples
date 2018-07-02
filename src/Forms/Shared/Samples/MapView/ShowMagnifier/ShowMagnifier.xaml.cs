@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.ShowMagnifier
@@ -21,11 +22,11 @@ namespace ArcGISRuntime.Samples.ShowMagnifier
     {
         public ShowMagnifier()
         {
-            InitializeComponent ();
+            InitializeComponent();
 
             Title = "Show magnifier";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Initialize the sample
             Initialize();
         }
 
@@ -35,7 +36,10 @@ namespace ArcGISRuntime.Samples.ShowMagnifier
             Map myMap = new Map(BasemapType.Topographic, 34.056295, -117.195800, 10);
 
             // Enable magnifier
-            MyMapView.InteractionOptions.IsMagnifierEnabled = true;
+            MyMapView.InteractionOptions = new MapViewInteractionOptions
+            {
+                IsMagnifierEnabled = true
+            };
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;

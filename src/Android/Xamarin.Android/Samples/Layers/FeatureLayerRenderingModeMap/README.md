@@ -1,4 +1,4 @@
-# Feature Layer Rendering Mode (Map)
+# Feature layer rendering mode (Map)
 
 This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.
 

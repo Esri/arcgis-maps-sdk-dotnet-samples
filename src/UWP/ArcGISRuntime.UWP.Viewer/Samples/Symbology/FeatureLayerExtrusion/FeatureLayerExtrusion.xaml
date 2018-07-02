@@ -13,7 +13,7 @@
                 <Button x:Name="ToggleButton"
                         Click="Button_ToggleExtrusionData_Click"
                         HorizontalAlignment="Stretch"
-                        Content="Population density" />
+                        Content="Show population density" />
             </StackPanel>
         </Border>
     </Grid>

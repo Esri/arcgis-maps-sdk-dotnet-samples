@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 
 namespace ArcGISRuntime.WPF.Samples.ShowMagnifier
 {
@@ -27,13 +28,16 @@ namespace ArcGISRuntime.WPF.Samples.ShowMagnifier
 
         private void Initialize()
         {
-            // Create new Map with basemap and initial location
+            // Create new Map with basemap and initial location.
             Map myMap = new Map(BasemapType.Topographic, 34.056295, -117.195800, 10);
 
-            // Enable magnifier
-            MyMapView.InteractionOptions.IsMagnifierEnabled = true;
+            // Enable magnifier.
+            MyMapView.InteractionOptions = new MapViewInteractionOptions()
+            {
+                IsMagnifierEnabled = true
+            };
 
-            // Assign the map to the MapView
+            // Assign the map to the MapView.
             MyMapView.Map = myMap;
         }
     }

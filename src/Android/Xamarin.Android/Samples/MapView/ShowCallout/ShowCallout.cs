@@ -32,14 +32,16 @@ namespace ArcGISRuntime.Samples.ShowCallout
         {
             base.OnCreate(bundle);
 
+            CreateLayout();
+
             Initialize();
 
-            Title = "Show Callout";
+            Title = "Show callout";
         }
 
         private void Initialize()
         {
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            
 
             // Create a new basemap using the streets base layer
             Basemap myBasemap = Basemap.CreateStreets();
@@ -52,6 +54,23 @@ namespace ArcGISRuntime.Samples.ShowCallout
 
             // Wire up the MapView GeoVewTapped event
             _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
+
+            
+        }
+
+        private void CreateLayout()
+        {
+            var layout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Vertical
+            };
+
+            // Create and add a help label
+            TextView helpLabel = new TextView(this)
+            {
+                Text = "Tap to show a callout."
+            };
+            layout.AddView(helpLabel);
 
             // Add the MapView to the page
             layout.AddView(_myMapView);

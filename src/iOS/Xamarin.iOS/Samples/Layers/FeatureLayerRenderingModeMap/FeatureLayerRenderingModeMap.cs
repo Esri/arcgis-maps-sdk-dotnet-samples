@@ -22,7 +22,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
 {
     [Register("FeatureLayerRenderingModeMap")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature Layer Rendering Mode (Map)",
+        "Feature layer rendering mode (Map)",
         "Layers",
         "This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.",
         "")]
@@ -41,7 +41,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
 
         public FeatureLayerRenderingModeMap()
         {
-            Title = "Feature Layer Rendering Mode (Map)";
+            Title = "Feature layer rendering mode (Map)";
         }
 
         public override void ViewDidLoad()

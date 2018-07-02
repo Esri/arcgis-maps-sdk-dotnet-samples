@@ -1,4 +1,4 @@
-# Line of Sight (GeoElement)
+# Line of sight (GeoElement)
 
 This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.
 

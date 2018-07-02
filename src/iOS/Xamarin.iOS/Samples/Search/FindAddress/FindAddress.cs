@@ -242,14 +242,11 @@ namespace ArcGISRuntime.Samples.FindAddress
                 // Use the metro area for the Callout Detail.
                 string calloutDetail = address.Attributes["MetroArea"].ToString();
 
-                // Use the MapView to convert from the on-screen location to the on-map location.
-                MapPoint point = _myMapView.ScreenToLocation(e.Position);
-
                 // Define the callout.
                 CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);
 
                 // Show the callout on the map at the tapped location.
-                _myMapView.ShowCalloutAt(point, calloutBody);
+                _myMapView.ShowCalloutAt(e.Location, calloutBody);
             }
             // Uncaught exceptions in async void will crash the app.
             catch (Exception ex)

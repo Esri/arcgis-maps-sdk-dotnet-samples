@@ -21,32 +21,32 @@ using Xamarin.Auth;
 
 namespace ArcGISRuntimeXamarin.Samples.OAuth
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+           "Authenticate with OAuth",
+           "Security",
+           "This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access a secure web map (or the secured layers it contains). Accessing secured items requires a login on the portal (an ArcGIS Online account, for example).",
+           "1. When you run the sample, the app will load a web map that contains premium content.\n2. You will be challenged for an ArcGIS Online login to view that layer (world traffic).\n3. Enter your ArcGIS Online user name and password.\n4. If you authenticate successfully, the traffic layer will display, otherwise the map will contain only the public basemap layer.\n5. You can alter the code to supply OAuth configuration settings specific to your app.",
+           "Authentication, Security, OAuth")]
     [Activity(Label = "OAuth")]
     public class OAuth : Activity, IOAuthAuthorizeHandler
     {
-        // MapView control to display a map
+        // MapView control to display a map.
         private MapView _myMapView = new MapView();
 
-        // Use a TaskCompletionSource to track the completion of the authorization
+        // Use a TaskCompletionSource to track the completion of the authorization.
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 
-        // Constants for OAuth-related values ...
-        // TODO: URL of the portal to authenticate with
+        // Constants for OAuth-related values.
+        // - The URL of the portal to authenticate with
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
-
-        // TODO: Add Client ID for an app registered with the server
+        // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
         private const string AppClientId = @"lgAdHkYZYlwwfAhC";
-
-        // TODO: [optional] Provide the client secret for the app (only needed for the OAuthAuthorizationCode authorization type)
+        // - An optional client secret for the app (only needed for the OAuthAuthorizationCode authorization type).
         private const string ClientSecret = "";
-
-        // TODO: Add URL for redirecting after a successful authorization
-        //       Note - this must be a URL configured as a valid Redirect URI with your app
+        // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
         private const string OAuthRedirectUrl = @"my-ags-app://auth";
-
-        // TODO: Provide an ID for a web map item hosted on the server
-        // (perhaps shared only with your organization or containing secured layers)
-        private const string WebMapId = "cbd8ac5252fa4cf8a55d8350265c531b";
+        // - The ID for a web map item hosted on the server (the ID below is for a traffic map of Paris).
+        private const string WebMapId = "e5039444ef3c48b8a8fdc9227f9be7c1";
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -56,31 +56,31 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
 
             CreateLayout();
 
-            // Call a function to initialize the app and request a web map (with secured layers) to display
+            // Call a function to initialize the app and request a web map (with secured layers) to display.
             Initialize();
         }
 
         private async void Initialize()
         {
-            // Set up the AuthenticationManager to use OAuth for secure ArcGIS Online requests
+            // Set up the AuthenticationManager to use OAuth for secure ArcGIS Online requests.
             SetOAuthInfo();
 
-            // Connect to the portal (ArcGIS Online, for example)
+            // Connect to the portal (ArcGIS Online, for example).
             ArcGISPortal arcgisPortal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
 
-            // Get a web map portal item using its ID
-            // (If the item contains layers not shared publicly, the user will be challenged for credentials at this point)
+            // Get a web map portal item using its ID.
+            // If the item contains layers not shared publicly, the user will be challenged for credentials at this point.
             PortalItem portalItem = await PortalItem.CreateAsync(arcgisPortal, WebMapId);
 
-            // Create a new map with the portal item and display it in the map view
-            // (If authentication failed, only the public layers will be displayed)
+            // Create a new map with the portal item and display it in the map view.
+            // If authentication failed, only the public layers will be displayed.
             Map myMap = new Map(portalItem);
             _myMapView.Map = myMap;
         }
 
         private void SetOAuthInfo()
         {
-            // Register the server information with the AuthenticationManager
+            // Register the server information with the AuthenticationManager.
             var serverInfo = new ServerInfo
             {
                 ServerUri = new Uri(ServerUrl),
@@ -92,50 +92,50 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
                 }
             };
 
-            // If a client secret has been configured, set the authentication type to OAuthAuthorizationCode
+            // If a client secret has been configured, set the authentication type to OAuthAuthorizationCode.
             if (!string.IsNullOrEmpty(ClientSecret))
             {
-                // Use OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
+                // Use OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret).
                 serverInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode;
                 serverInfo.OAuthClientInfo.ClientSecret = ClientSecret;
             }
 
-            // Register this server with AuthenticationManager
+            // Register this server with AuthenticationManager.
             AuthenticationManager.Current.RegisterServer(serverInfo);
 
-            // Use a function in this class to challenge for credentials
+            // Use a function in this class to challenge for credentials.
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
 
-            // Set the OAuthAuthorizeHandler component (this class)
+            // Set the OAuthAuthorizeHandler component (this class).
             AuthenticationManager.Current.OAuthAuthorizeHandler = this;
         }
 
         private void CreateLayout()
         {
-            // Create a new vertical layout for the app
+            // Create a new vertical layout for the app.
             var mainLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
             
-            // Add the map view to the layout
+            // Add the map view to the layout.
             mainLayout.AddView(_myMapView);
 
-            // Show the layout in the app
+            // Show the layout in the app.
             SetContentView(mainLayout);
         }
 
-        // ChallengeHandler function that will be called whenever access to a secured resource is attempted
+        // ChallengeHandler function that will be called whenever access to a secured resource is attempted.
         public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
             Credential credential = null;
 
             try
             {
-                // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
+                // IOAuthAuthorizeHandler will challenge the user for OAuth credentials.
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
             catch (TaskCanceledException) { return credential; }
             catch (Exception)
             {
-                // Exception will be reported in calling function
+                // Exception will be reported in calling function.
                 throw;
             }
 
@@ -143,67 +143,68 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
         }
 
 
-        // IOAuthAuthorizeHandler.AuthorizeAsync implementation
+        // IOAuthAuthorizeHandler.AuthorizeAsync implementation.
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization is in progress
+            // If the TaskCompletionSource is not null, authorization is in progress.
             if (_taskCompletionSource != null)
             {
-                // Allow only one authorization process at a time
+                // Allow only one authorization process at a time.
                 throw new Exception();
             }
 
-            // Create a task completion source
+            // Create a task completion source.
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
-            // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
+            // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
             Xamarin.Auth.OAuth2Authenticator authenticator = new OAuth2Authenticator(
                 clientId: AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
+                redirectUrl: callbackUri)
+            {
+                // Allow the user to cancel the OAuth attempt.
+                AllowCancel = true
+            };
 
-            // Allow the user to cancel the OAuth attempt
-            authenticator.AllowCancel = true;
-
-            // Define a handler for the OAuth2Authenticator.Completed event
+            // Define a handler for the OAuth2Authenticator.Completed event.
             authenticator.Completed += (sender, authArgs) =>
             {
                 try
                 {
-                    // Check if the user is authenticated
+                    // Check if the user is authenticated.
                     if (authArgs.IsAuthenticated)
                     {
-                        // If authorization was successful, get the user's account
+                        // If authorization was successful, get the user's account.
                         Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
 
-                        // Set the result (Credential) for the TaskCompletionSource
+                        // Set the result (Credential) for the TaskCompletionSource.
                         _taskCompletionSource.SetResult(authenticatedAccount.Properties);
                     }
                 }
                 catch (Exception ex)
                 {
-                    // If authentication failed, set the exception on the TaskCompletionSource
+                    // If authentication failed, set the exception on the TaskCompletionSource.
                     _taskCompletionSource.SetException(ex);
                 }
                 finally
                 {
-                    // End the OAuth login activity
+                    // End the OAuth login activity.
                     this.FinishActivity(99);
                 }
             };
 
-            // If an error was encountered when authenticating, set the exception on the TaskCompletionSource
+            // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
             authenticator.Error += (sndr, errArgs) =>
             {
-                // If the user cancels, the Error event is raised but there is no exception ... best to check first
+                // If the user cancels, the Error event is raised but there is no exception ... best to check first.
                 if (errArgs.Exception != null)
                 {
                     _taskCompletionSource.SetException(errArgs.Exception);
                 }
                 else
                 {
-                    // Login canceled: end the OAuth login activity
+                    // Login canceled: end the OAuth login activity.
                     if (_taskCompletionSource != null)
                     {
                         _taskCompletionSource.TrySetCanceled();
@@ -212,20 +213,20 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
                 }
             };
 
-            // Present the OAuth UI (Activity) so the user can enter user name and password
+            // Present the OAuth UI (Activity) so the user can enter user name and password.
             var intent = authenticator.GetUI(this);
             this.StartActivityForResult(intent, 99);
 
-            // Return completion source task so the caller can await completion
+            // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;
         }
 
         private static IDictionary<string, string> DecodeParameters(Uri uri)
         {
-            // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string
+            // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string.
             var answer = string.Empty;
 
-            // Get the values from the URI fragment or query string
+            // Get the values from the URI fragment or query string.
             if (!string.IsNullOrEmpty(uri.Fragment))
             {
                 answer = uri.Fragment.Substring(1);
@@ -238,7 +239,7 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
                 }
             }
 
-            // Parse parameters into key / value pairs
+            // Parse parameters into key / value pairs.
             var keyValueDictionary = new Dictionary<string, string>();
             var keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var kvString in keysAndValues)
@@ -254,7 +255,7 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
                 keyValueDictionary.Add(key, value);
             }
 
-            // Return the dictionary of string keys/values
+            // Return the dictionary of string keys/values.
             return keyValueDictionary;
         }
     }

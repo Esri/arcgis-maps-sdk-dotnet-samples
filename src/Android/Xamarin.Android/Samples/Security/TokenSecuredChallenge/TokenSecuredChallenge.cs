@@ -20,24 +20,30 @@ using System.Threading.Tasks;
 
 namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+           "ArcGIS token challenge",
+           "Security",
+           "This sample demonstrates how to authenticate with ArcGIS Server using ArcGIS Tokens to access a secure service. Accessing secured services requires a login that's been defined on the server.",
+           "1. When you run the sample, the app will load a map that contains a layer from a secured service.\n2. You will be challenged for a user name and password to view that layer.\n3. Enter the correct user name (user1) and password (user1).\n4. If you authenticate successfully, the secured layer will display, otherwise the map will contain only the public layers.",
+           "Authentication, Security, ArcGIS Token")]
     [Activity(Label = "TokenSecuredChallenge")]
     public class TokenSecuredChallenge : Activity
     {
-        // Constants for the public and secured map service URLs
-        private const string PublicMapServiceUrl = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer";
-        private const string SecureMapServiceUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer";
+        // Public and secured map service URLs.
+        private string _publicMapServiceUrl = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer";
+        private string _secureMapServiceUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer";
 
-        // Constants for the public and secured layer names
-        private const string PublicLayerName = "World Street Map - Public";
-        private const string SecureLayerName = "USA - Secure";
+        // Public and secured layer names.
+        private string _publicLayerName = "World Street Map - Public";
+        private string _secureLayerName = "USA - Secure";
 
-        // Use a TaskCompletionSource to store the result of a login task
+        // Use a TaskCompletionSource to store the result of a login task.
         TaskCompletionSource<Credential> _loginTaskCompletionSource;
 
-        // Store the map view displayed in the app
+        // Store the map view displayed in the app.
         private MapView _myMapView = new MapView();
 
-        // Labels to show layer load status
+        // Labels to show layer load status.
         private TextView _publicLayerLabel;
         private TextView _secureLayerLabel;
 
@@ -47,75 +53,83 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
 
             Title = "Token challenge";
 
-            // Call a function to create the user interface
+            // Call a function to create the user interface.
             CreateLayout();
 
-            // Call a function to initialize the app
+            // Call a function to initialize the app.
             Initialize();
         }
 
         private void CreateLayout()
         {
-            // Create a new vertical layout for the app
+            // Create a new vertical layout for the app.
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-            // Create a label for showing the load status for the public service
-            _publicLayerLabel = new TextView(this);
-            _publicLayerLabel.Text = PublicLayerName;
-            _publicLayerLabel.TextSize = 12;
+            // Create a label for showing the load status for the public service.
+            _publicLayerLabel = new TextView(this)
+            {
+                Text = _publicLayerName,
+                TextSize = 12
+            };
             _publicLayerLabel.SetTextColor(Color.Gray);
             layout.AddView(_publicLayerLabel);
 
-            // Create a label to show the load status of the secured layer
-            _secureLayerLabel = new TextView(this);
-            _secureLayerLabel.Text = SecureLayerName;
-            _secureLayerLabel.TextSize = 12;
+            // Create a label to show the load status of the secured layer.
+            _secureLayerLabel = new TextView(this)
+            {
+                Text = _secureLayerName,
+                TextSize = 12
+            };
             _secureLayerLabel.SetTextColor(Color.Gray);
             layout.AddView(_secureLayerLabel);
 
-            // Add the map view to the layout
+            // Add the map view to the layout.
             layout.AddView(_myMapView);
 
-            // Show the layout in the app
+            // Show the layout in the app.
             SetContentView(layout);
         }
 
         private void Initialize()
         {
-            // Define a challenge handler method for the AuthenticationManager 
-            // (this method handles getting credentials when a secured resource is encountered)
+            // Define a challenge handler method for the AuthenticationManager.
+            // This method handles getting credentials when a secured resource is encountered.
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
 
-            // Create the public layer and provide a name
-            var publicLayer = new ArcGISTiledLayer(new Uri(PublicMapServiceUrl));
-            publicLayer.Name = PublicLayerName;
+            // Create the public layer and provide a name.
+            var publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
+            {
+                Name = _publicLayerName
+            };
 
-            // Create the secured layer and provide a name
-            var tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(SecureMapServiceUrl));
-            tokenSecuredLayer.Name = SecureLayerName;
+            // Create the secured layer and provide a name.
+            var tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
+            {
+                Name = _secureLayerName
+            };
 
-            // Track the load status of each layer with a LoadStatusChangedEvent handler
+            // Track the load status of each layer with a LoadStatusChangedEvent handler.
             publicLayer.LoadStatusChanged += LayerLoadStatusChanged;
             tokenSecuredLayer.LoadStatusChanged += LayerLoadStatusChanged;
 
-            // Create a new map and add the layers
+            // Create a new map and add the layers.
             var myMap = new Map();
             myMap.OperationalLayers.Add(publicLayer);
             myMap.OperationalLayers.Add(tokenSecuredLayer);
 
-            // Add the map to the map view
+            // Add the map to the map view.
             _myMapView.Map = myMap;
         }
 
-        // Handle the load status changed event for the public and token-secured layers
+        // Handle the load status changed event for the public and token-secured layers.
         private void LayerLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
-            // Get the layer that triggered the event
+            // Get the layer that triggered the event.
             var layer = sender as Layer;
 
-            // Get the label (TextView) for this layer
+            // Get the label (TextView) for this layer.
             TextView labelToUpdate = null;
-            if (layer.Name == PublicLayerName)
+            if (layer.Name == _publicLayerName)
             {
                 labelToUpdate = _publicLayerLabel;
             }
@@ -124,7 +138,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
                 labelToUpdate = _secureLayerLabel;
             }
 
-            // Create the text string and font color to describe the current load status
+            // Create the text string and font color to describe the current load status.
             var updateText = layer.Name;
             var textColor = Color.Gray;
 
@@ -148,7 +162,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
                     break;
             }
 
-            // Update the layer label on the UI thread
+            // Update the layer label on the UI thread.
             RunOnUiThread(() =>
             {
                 labelToUpdate.Text = updateText;
@@ -156,20 +170,20 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             });
         }
 
-        // AuthenticationManager.ChallengeHandler function that prompts the user for login information to create a credential
+        // AuthenticationManager.ChallengeHandler function that prompts the user for login information to create a credential.
         private async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
             // See if authentication is already in process
             if (_loginTaskCompletionSource != null) { return null; }
 
-            // Create a new TaskCompletionSource for the login operation
-            // (passing the CredentialRequestInfo object to the constructor will make it available from its AsyncState property)
+            // Create a new TaskCompletionSource for the login operation.
+            // Passing the CredentialRequestInfo object to the constructor will make it available from its AsyncState property.
             _loginTaskCompletionSource = new TaskCompletionSource<Credential>(info);
 
-            // Create a dialog (fragment) with login controls
+            // Create a dialog (fragment) with login controls.
             LoginDialogFragment enterLoginDialog = new LoginDialogFragment();
 
-            // Handle the login and the cancel events
+            // Handle the login and the cancel events.
             enterLoginDialog.OnLoginClicked += LoginClicked;
             enterLoginDialog.OnLoginCanceled += (s, e) =>
             {
@@ -177,19 +191,19 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
                 _loginTaskCompletionSource = null;
             };
 
-            // Begin a transaction to show a UI fragment (the login dialog)
+            // Begin a transaction to show a UI fragment (the login dialog).
             FragmentTransaction transax = FragmentManager.BeginTransaction();
             enterLoginDialog.Show(transax, "login");
 
-            // Return the login task, the result will be ready when completed (user provides login info and clicks the "Login" button)
+            // Return the login task, the result will be ready when completed (user provides login info and clicks the "Login" button).
             return await _loginTaskCompletionSource.Task;
         }
 
-        // Handler for the OnLoginClicked event defined in the LoginDialogFragment
-        // OnEnterCredentialsEventArgs contains the username, password, and domain the user entered
+        // Handler for the OnLoginClicked event defined in the LoginDialogFragment.
+        // OnEnterCredentialsEventArgs contains the username and password the user entered.
         private async void LoginClicked(object sender, OnEnterCredentialsEventArgs e)
         {
-            // If no login information is available from the Task, return
+            // If no login information is available from the Task, return.
             if (_loginTaskCompletionSource == null || _loginTaskCompletionSource.Task == null || _loginTaskCompletionSource.Task.AsyncState == null)
             {
                 return;
@@ -197,17 +211,17 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
 
             try
             {
-                // Get the associated CredentialRequestInfo (will need the URI of the service being accessed)
+                // Get the associated CredentialRequestInfo (will need the URI of the service being accessed).
                 CredentialRequestInfo requestInfo = _loginTaskCompletionSource.Task.AsyncState as CredentialRequestInfo;
 
-                // Create a token credential using the provided username and password
+                // Create a token credential using the provided username and password.
                 TokenCredential userCredentials = await AuthenticationManager.Current.GenerateCredentialAsync
                                             (requestInfo.ServiceUri,
                                              e.Username,
                                              e.Password,
                                              requestInfo.GenerateTokenOptions);
 
-                // Set the result on the task completion source
+                // Set the result on the task completion source.
                 _loginTaskCompletionSource.TrySetResult(userCredentials);
             }
             catch (Exception ex)
@@ -216,93 +230,101 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             }
             finally
             {
-                // Set the task completion source to null to indicate authentication is complete
+                // Set the task completion source to null to indicate authentication is complete.
                 _loginTaskCompletionSource = null;
             }
         }
     }
 
-    // Custom DialogFragment class to show input controls for providing login information (username and password)
+    // Custom DialogFragment class to show input controls for providing login information (username and password).
     public class LoginDialogFragment : DialogFragment
     {
-        // Login entries for the user to complete
+        // Login entries for the user to complete.
         private EditText _usernameTextbox;
         private EditText _passwordTextbox;
 
-        // Event raised when the login button is clicked
+        // Event raised when the login button is clicked.
         public event EventHandler<OnEnterCredentialsEventArgs> OnLoginClicked;
 
-        // Event raised when the login is canceled (Cancel button is clicked)
+        // Event raised when the login is canceled (Cancel button is clicked).
         public event EventHandler<EventArgs> OnLoginCanceled;
 
-        // Override OnCreateView to create the dialog controls
+        // Override OnCreateView to create the dialog controls.
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
             var ctx = this.Activity.ApplicationContext;
 
-            // The container for the dialog is a vertical linear layout
+            // The container for the dialog is a vertical linear layout.
             LinearLayout dialogView = new LinearLayout(ctx) { Orientation = Orientation.Vertical };
 
-            // Add a text box for entering a username
-            _usernameTextbox = new EditText(ctx);
-            _usernameTextbox.Hint = "Username = user1";
+            // Add a text box for entering a username.
+            _usernameTextbox = new EditText(ctx)
+            {
+                Hint = "Username = user1"
+            };
             dialogView.AddView(_usernameTextbox);
 
-            // Add a text box for entering a password
-            _passwordTextbox = new EditText(ctx);
-            _passwordTextbox.Hint = "Password = user1";
-            _passwordTextbox.InputType = Android.Text.InputTypes.TextVariationPassword | Android.Text.InputTypes.ClassText;
+            // Add a text box for entering a password.
+            _passwordTextbox = new EditText(ctx)
+            {
+                Hint = "Password = user1",
+                InputType = Android.Text.InputTypes.TextVariationPassword | Android.Text.InputTypes.ClassText
+            };
             dialogView.AddView(_passwordTextbox);
 
-            // Use a horizontal layout for the two buttons (login and cancel)
+            // Use a horizontal layout for the two buttons (login and cancel).
             LinearLayout buttonsRow = new LinearLayout(ctx) { Orientation = Orientation.Horizontal };
 
-            // Create a button to login with these credentials
-            Button loginButton = new Button(ctx);
-            loginButton.Text = "Login";
+            // Create a button to login with these credentials.
+            Button loginButton = new Button(ctx)
+            {
+                Text = "Login"
+            };
             loginButton.Click += LoginButtonClick;
             buttonsRow.AddView(loginButton);
 
-            // Create a button to cancel
-            Button cancelButton = new Button(ctx);
-            cancelButton.Text = "Cancel";
+            // Create a button to cancel.
+            Button cancelButton = new Button(ctx)
+            {
+                Text = "Cancel"
+            };
             cancelButton.Click += CancelButtonClick;
             buttonsRow.AddView(cancelButton);
 
             dialogView.AddView(buttonsRow);
 
-            // Return the new view for display
+            // Return the new view for display.
             return dialogView;
         }
 
-        // Click handler for the login button
+        // Click handler for the login button.
         private void LoginButtonClick(object sender, EventArgs e)
         {
             try
             {
-                // Get information for the login
+                // Get information for the login.
                 var username = _usernameTextbox.Text;
                 var password = _passwordTextbox.Text;
 
-                // Make sure all required info was entered
+                // Make sure all required info was entered.
                 if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 {
                     throw new Exception("Please enter a username and password.");
                 }
 
-                // Create a new OnEnterCredentialsEventArgs object to store the information entered by the user
+                // Create a new OnEnterCredentialsEventArgs object to store the information entered by the user.
                 var credentialsEnteredArgs = new OnEnterCredentialsEventArgs(username, password);
 
-                // Raise the OnLoginClicked event so the main activity can handle the event and try to authenticate with the credentials
+                // Raise the OnLoginClicked event so the main activity can handle the event and try to authenticate with the credentials.
                 OnLoginClicked(this, credentialsEnteredArgs);
 
-                // Close the dialog
+                // Close the dialog.
                 this.Dismiss();
             }
             catch (Exception ex)
             {
-                // Show the exception message (dialog will stay open so user can try again)
+                // Show the exception message (dialog will stay open so user can try again).
                 var alertBuilder = new AlertDialog.Builder(this.Activity);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage(ex.Message);
@@ -310,24 +332,24 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             }
         }
 
-        // Click handler for the cancel button
+        // Click handler for the cancel button.
         private void CancelButtonClick(object sender, EventArgs e)
         {
-            // Raise an event to indicate that the login was canceled
+            // Raise an event to indicate that the login was canceled.
             OnLoginCanceled(this, e);
 
-            // Close the dialog
+            // Close the dialog.
             this.Dismiss();
         }
     }
 
-    // Custom EventArgs class for containing login info
+    // Custom EventArgs class for containing login info.
     public class OnEnterCredentialsEventArgs : EventArgs
     {
         public string Username { get; set; }
         public string Password { get; set; }
 
-        // Constructor gets username and password and stores them in properties
+        // Constructor gets username and password and stores them in properties.
         public OnEnterCredentialsEventArgs(string username, string password) : base()
         {
             Username = username;

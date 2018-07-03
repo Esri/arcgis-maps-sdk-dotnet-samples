@@ -33,7 +33,7 @@ namespace ArcGISRuntime.UWP.Samples.TokenSecuredChallenge
         private string _publicMapServiceUrl = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer";
         private string _secureMapServiceUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer";
 
-        // Constants for the public and secured layer names.
+        // Public and secured layer names.
         private string _publicLayerName = "World Street Map - Public";
         private string _secureLayerName = "USA - Secure";
 

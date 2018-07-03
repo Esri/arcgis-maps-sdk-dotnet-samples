@@ -14,96 +14,106 @@ using System.Globalization;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
+namespace ArcGISRuntime.Samples.TokenSecuredChallenge
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+           "ArcGIS token challenge",
+           "Security",
+           "This sample demonstrates how to authenticate with ArcGIS Server using ArcGIS Tokens to access a secure service. Accessing secured services requires a login that's been defined on the server.",
+           "1. When you run the sample, the app will load a map that contains a layer from a secured service.\n2. You will be challenged for a user name and password to view that layer.\n3. Enter the correct user name (user1) and password (user1).\n4. If you authenticate successfully, the secured layer will display, otherwise the map will contain only the public layers.",
+           "Authentication, Security, ArcGIS Token")]
     public partial class TokenSecuredChallenge : ContentPage
     {
-        // Constants for the public and secured map service URLs
-        private const string PublicMapServiceUrl = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer";
-        private const string SecureMapServiceUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer";
+        // Public and secured map service URLs.
+        private string _publicMapServiceUrl = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer";
+        private string _secureMapServiceUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer";
 
-        // Constants for the public and secured layer names
-        private const string PublicLayerName = "World Street Map - Public";
-        private const string SecureLayerName = "USA - Secure";
+        // Public and secured layer names.
+        private string _publicLayerName = "World Street Map - Public";
+        private string _secureLayerName = "USA - Secure";
 
-        // Use a TaskCompletionSource to store the result of a login task
+        // A TaskCompletionSource to store the result of a login task.
         TaskCompletionSource<Credential> _loginTaskCompletionSrc;
 
-        // Page for the user to enter login information
+        // Page for the user to enter login information.
         LoginPage _loginPage;
 
         public TokenSecuredChallenge()
         {
             InitializeComponent();
 
-            // Call a function to display a simple map and set up the AuthenticationManager
+            // Call a function to display a simple map and set up the AuthenticationManager.
             Initialize();
         }
 
         private async void Initialize()
         {
-            // Define a challenge handler method for the AuthenticationManager 
-            // (this method handles getting credentials when a secured resource is encountered)
+            // Define a challenge handler method for the AuthenticationManager.
+            // This method handles getting credentials when a secured resource is encountered.
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
 
-            // Create the public layer and provide a name
-            var publicLayer = new ArcGISTiledLayer(new Uri(PublicMapServiceUrl));
-            publicLayer.Name = PublicLayerName;
+            // Create the public layer and provide a name.
+            var publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
+            {
+                Name = _publicLayerName
+            };
 
-            // Create the secured layer and provide a name
-            var tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(SecureMapServiceUrl));
-            tokenSecuredLayer.Name = SecureLayerName;
+            // Create the secured layer and provide a name.
+            var tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
+            {
+                Name = _secureLayerName
+            };
 
-            // Bind the layer to UI controls to show the load status
+            // Bind the layer to UI controls to show the load status.
             PublicLayerStatusPanel.BindingContext = publicLayer;
             SecureLayerStatusPanel.BindingContext = tokenSecuredLayer;
 
-            // Create a new map and add the layers
+            // Create a new map and add the layers.
             var myMap = new Map();
             myMap.OperationalLayers.Add(publicLayer);
             myMap.OperationalLayers.Add(tokenSecuredLayer);
 
-            // Add the map to the map view
+            // Add the map to the map view.
             MyMapView.Map = myMap;
 
-            // Create the login UI (will display when the user accesses a secured resource)
+            // Create the login UI (will display when the user accesses a secured resource).
             _loginPage = new LoginPage();
 
-            // Set up event handlers for when the user completes the login entry or cancels
+            // Set up event handlers for when the user completes the login entry or cancels.
             _loginPage.OnLoginInfoEntered += LoginInfoEntered;
             _loginPage.OnCanceled += LoginCanceled;
         }
 
-        // AuthenticationManager.ChallengeHandler function that prompts the user for login information to create a credential
+        // AuthenticationManager.ChallengeHandler function that prompts the user for login information to create a credential.
         private async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
-            // Return if authentication is already in process
+            // Return if authentication is already in process.
             if (_loginTaskCompletionSrc != null && !_loginTaskCompletionSrc.Task.IsCanceled) { return null; }
 
-            // Create a new TaskCompletionSource for the login operation
-            // (passing the CredentialRequestInfo object to the constructor will make it available from its AsyncState property)
+            // Create a new TaskCompletionSource for the login operation.
+            // Passing the CredentialRequestInfo object to the constructor will make it available from its AsyncState property.
             _loginTaskCompletionSrc = new TaskCompletionSource<Credential>(info);
 
-            // Provide a title for the login form (show which service needs credentials)
+            // Provide a title for the login form (show which service needs credentials).
 #if WINDOWS_UWP
             // UWP doesn't have ServiceUri.GetLeftPart (could use ServiceUri.AbsoluteUri for all, but why not use a compilation condition?)
             _loginPage.TitleText = "Login for " + info.ServiceUri.AbsoluteUri;
 #else
             _loginPage.TitleText = "Login for " + info.ServiceUri.GetLeftPart(UriPartial.Path);
 #endif
-            // Show the login controls on the UI thread
-            // OnLoginInfoEntered event will return the values entered (username, password, and domain)
+            // Show the login controls on the UI thread.
+            // OnLoginInfoEntered event will return the values entered (username and password).
             Device.BeginInvokeOnMainThread(async () => await Navigation.PushAsync(_loginPage));
 
             // Return the login task, the result will be ready when completed (user provides login info and clicks the "Login" button)
             return await _loginTaskCompletionSrc.Task;
         }
 
-        // Handle the OnLoginEntered event from the login UI
-        // LoginEventArgs contains the username, password, and domain that were entered
+        // Handle the OnLoginEntered event from the login UI.
+        // LoginEventArgs contains the username and password that were entered.
         private async void LoginInfoEntered(object sender, LoginEventArgs e)
         {
-            // Make sure the task completion source has all the information needed
+            // Make sure the task completion source has all the information needed.
             if (_loginTaskCompletionSrc == null ||
                 _loginTaskCompletionSrc.Task == null ||
                 _loginTaskCompletionSrc.Task.AsyncState == null)
@@ -113,38 +123,38 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
 
             try
             {
-                // Get the associated CredentialRequestInfo (will need the URI of the service being accessed)
+                // Get the associated CredentialRequestInfo (will need the URI of the service being accessed).
                 CredentialRequestInfo requestInfo = _loginTaskCompletionSrc.Task.AsyncState as CredentialRequestInfo;
 
-                // Create a token credential using the provided username and password
+                // Create a token credential using the provided username and password.
                 TokenCredential userCredentials = await AuthenticationManager.Current.GenerateCredentialAsync
                                             (requestInfo.ServiceUri,
                                              e.Username,
                                              e.Password,
                                              requestInfo.GenerateTokenOptions);
 
-                // Set the task completion source result with the ArcGIS network credential
-                // AuthenticationManager is waiting for this result and will add it to its Credentials collection
+                // Set the task completion source result with the ArcGIS network credential.
+                // AuthenticationManager is waiting for this result and will add it to its Credentials collection.
                 _loginTaskCompletionSrc.TrySetResult(userCredentials);
             }
             catch (Exception ex)
             {
-                // Unable to create credential, set the exception on the task completion source
+                // Unable to create credential, set the exception on the task completion source.
                 _loginTaskCompletionSrc.TrySetException(ex);
             }
             finally
             {
-                // Dismiss the login controls
+                // Dismiss the login controls.
                 Navigation.PopAsync();
             }
         }
 
         private void LoginCanceled(object sender, EventArgs e)
         {
-            // Dismiss the login controls
+            // Dismiss the login controls.
             Navigation.PopAsync();
 
-            // Cancel the task completion source task
+            // Cancel the task completion source task.
             _loginTaskCompletionSrc.TrySetCanceled();
         }
     }
@@ -159,15 +169,13 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            // Default to gray as the text color
+            // Default to gray as the text color.
             Color statusColor = Color.Gray;
 
-            // Check the provided load status value
+            // Check the provided load status value.
             switch ((int)value)
             {
-                // Green for loaded
-                // Red for not loaded or failure to load
-                // Gray if still loading
+                // Green for loaded, red for not loaded (or failure to load), gray if still loading.
                 case (int)Esri.ArcGISRuntime.LoadStatus.Loaded:
                     statusColor = Color.Green;
                     break;
@@ -187,7 +195,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            // No need to convert the other way
+            // No need to convert the other way.
             throw new NotImplementedException();
         }
     }

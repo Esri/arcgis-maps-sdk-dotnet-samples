@@ -1,15 +1,15 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
+namespace ArcGISRuntime.Samples.TokenSecuredChallenge
 {
 	public partial class LoginPage : ContentPage
 	{
 
-        // Event to provide login information when the user dismisses the view
+        // Event to provide login information when the user dismisses the view.
         public event EventHandler<LoginEventArgs> OnLoginInfoEntered;
 
-        // Event to report that the login was canceled
+        // Event to report that the login was canceled.
         public event EventHandler OnCanceled;
 
         public LoginPage()
@@ -17,7 +17,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             this.InitializeComponent();
         }
 
-        // Text to display at the top of the login controls
+        // Text to display at the top of the login controls.
         public string TitleText
         {
             set
@@ -28,11 +28,11 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
 
         private void LoginButtonClicked(object sender, EventArgs e)
         {
-            // Get the values entered in the text fields
+            // Get the values entered in the text fields.
             var username = UsernameEntry.Text;
             var password = PasswordEntry.Text;
 
-            // Make sure the user entered all values
+            // Make sure the user entered all values.
             if (string.IsNullOrEmpty(username) ||
                 string.IsNullOrEmpty(password))
             {
@@ -40,20 +40,20 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
                 return;
             }
 
-            // Fire the OnLoginInfoEntered event and provide the login values
+            // Fire the OnLoginInfoEntered event and provide the login values.
             if (OnLoginInfoEntered != null)
             {
-                // Create a new LoginEventArgs to contain the user's values
+                // Create a new LoginEventArgs to contain the user's values.
                 var loginEventArgs = new LoginEventArgs(username.Trim(), password.Trim());
 
-                // Raise the event
+                // Raise the event.
                 OnLoginInfoEntered(sender, loginEventArgs);
             }
         }
 
         private void CancelButtonClicked(object sender, EventArgs e)
         {
-            // Fire the OnCanceled event to let the calling code no the login was canceled
+            // Fire the OnCanceled event to let the calling code no the login was canceled.
             if (OnCanceled != null)
             {
                 OnCanceled(this, null);
@@ -61,16 +61,16 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         }
     }
 
-    // Custom EventArgs implementation to hold login information (username and password)
+    // Custom EventArgs implementation to hold login information (username and password).
     public class LoginEventArgs : EventArgs
     {
-        // Username property
+        // Username property.
         public string Username { get; set; }
 
-        // Password property
+        // Password property.
         public string Password { get; set; }        
 
-        // Store login values passed into the constructor
+        // Store login values passed into the constructor.
         public LoginEventArgs(string username, string password)
         {
             Username = username;

@@ -156,7 +156,11 @@ namespace ArcGISRuntime.Samples.OAuth
 #endif
 #if __IOS__
             // Get the current iOS ViewController.
-            var viewController = Xamarin.Forms.Platform.iOS.Platform.GetRenderer(this).ViewController;
+            UIViewController viewController = null;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                viewController = UIApplication.SharedApplication.KeyWindow.RootViewController;
+            });
 #endif
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
             Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(

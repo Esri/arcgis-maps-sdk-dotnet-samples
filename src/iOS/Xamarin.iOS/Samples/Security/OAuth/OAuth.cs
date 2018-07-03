@@ -44,6 +44,12 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
         private const string ClientSecret = "";
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
         private const string OAuthRedirectUrl = @"my-ags-app://auth";
+        // NOTE: to use a custom URL scheme like the one above, you need to add it to CFBundleURLSchemes in info.plist.
+        // For example -
+        //  <key>CFBundleURLSchemes</key>
+        //  <array>
+        //  	<string>my-ags-app</string>
+        //  </array>
         // - The ID for a web map item hosted on the server (the ID below is for a traffic map of Paris).
         private const string WebMapId = "e5039444ef3c48b8a8fdc9227f9be7c1";
 

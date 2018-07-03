@@ -99,17 +99,17 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
     
         public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
-            // ChallengeHandler function for AuthenticationManager that will be called whenever a secured resource is accessed
+            // ChallengeHandler function for AuthenticationManager that will be called whenever a secured resource is accessed.
             Credential credential = null;
 
             try
             {
-                // AuthenticationManager will handle challenging the user for credentials
+                // AuthenticationManager will handle challenging the user for credentials.
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
             catch (Exception)
             {
-                // Exception will be reported in calling function
+                // Exception will be reported in calling function.
                 throw;
             }
 
@@ -122,39 +122,39 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
     //     When the user logs in successfully, cancels the login, or closes the window without continuing, the IOAuthAuthorizeHandler
     //     is responsible for obtaining the authorization from the server or raising an OperationCanceledException.
     // Note: a custom IOAuthAuthorizeHandler component is not necessary when using OAuth in an ArcGIS Runtime Universal Windows app.
-    //     The UWP AuthenticationManager uses a built-in IOAuthAuthorizeHandler that is based on WebAuthenticationBroker
+    //     The UWP AuthenticationManager uses a built-in IOAuthAuthorizeHandler that is based on WebAuthenticationBroker.
     public class OAuthAuthorize : IOAuthAuthorizeHandler
     {
-        // Window to contain the OAuth UI
-        private Window _window;
+        // A window to contain the OAuth UI.
+        private Window _authWindow;
 
-        // Use a TaskCompletionSource to track the completion of the authorization
-        private TaskCompletionSource<IDictionary<string, string>> _tcs;
+        // A TaskCompletionSource to track the completion of the authorization.
+        private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 
-        // URL for the authorization callback result (the redirect URI configured for your application)
+        // URL for the authorization callback result (the redirect URI configured for the application).
         private string _callbackUrl;
 
-        // URL that handles the OAuth request
+        // URL that handles the OAuth request.
         private string _authorizeUrl;
 
-        // Function to handle authorization requests, takes the URIs for the secured service, the authorization endpoint, and the redirect URI
+        // A function to handle authorization requests. It takes the URIs for the secured service, the authorization endpoint, and the redirect URI.
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource.Task has not completed, authorization is in progress
-            if (_tcs != null || _window != null)
+            // If the TaskCompletionSource.Task has not completed, authorization is in progress.
+            if (_taskCompletionSource != null || _authWindow != null)
             {
-                // Allow only one authorization process at a time
-                throw new Exception("Task in progress");
+                // Allow only one authorization process at a time.
+                throw new Exception("Authorization is in progress");
             }
 
-            // Store the authorization and redirect URLs
+            // Store the authorization and redirect URLs.
             _authorizeUrl = authorizeUri.AbsoluteUri;
             _callbackUrl = callbackUri.AbsoluteUri;
 
-            // Create a task completion source
-            _tcs = new TaskCompletionSource<IDictionary<string, string>>();
+            // Create a task completion source to track completion.
+            _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
-            // Call a function to show the login controls, make sure it runs on the UI thread for this app
+            // Call a function to show the login controls, make sure it runs on the UI thread.
             var dispatcher = Application.Current.Dispatcher;
             if (dispatcher == null || dispatcher.CheckAccess())
                 AuthorizeOnUIThread(_authorizeUrl);
@@ -164,110 +164,110 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
                 dispatcher.BeginInvoke(authorizeOnUIAction);
             }
 
-            // Return the task associated with the TaskCompletionSource
-            return _tcs.Task;
+            // Return the task associated with the TaskCompletionSource.
+            return _taskCompletionSource.Task;
         }
 
-        // Challenge for OAuth credentials on the UI thread
+        // A function to challenge for OAuth credentials on the UI thread.
         private void AuthorizeOnUIThread(string authorizeUri)
         {
-            // Create a WebBrowser control to display the authorize page
-            var webBrowser = new WebBrowser();
+            // Create a WebBrowser control to display the authorize page.
+            var authBrowser = new WebBrowser();
 
-            // Handle the navigation event for the browser to check for a response to the redirect URL
-            webBrowser.Navigating += WebBrowserOnNavigating;
+            // Handle the navigating event for the browser to check for a response sent to the redirect URL.
+            authBrowser.Navigating += WebBrowserOnNavigating;
 
-            // Display the web browser in a new window 
-            _window = new Window
+            // Display the web browser in a new window.
+            _authWindow = new Window
             {
-                Content = webBrowser,
+                Content = authBrowser,
                 Height = 420,
                 Width = 350,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
             };
 
-            // Set the app's window as the owner of the browser window (if main window closes, so will the browser)
+            // Set the app's window as the owner of the browser window (if main window closes, so will the browser).
             if (Application.Current != null && Application.Current.MainWindow != null)
             {
-                _window.Owner = Application.Current.MainWindow;
+                _authWindow.Owner = Application.Current.MainWindow;
             }
 
-            // Handle the window closed event then navigate to the authorize url
-            _window.Closed += OnWindowClosed;
-            webBrowser.Navigate(authorizeUri);
+            // Handle the window closed event then navigate to the authorize url.
+            _authWindow.Closed += OnWindowClosed;
+            authBrowser.Navigate(authorizeUri);
 
-            // Display the Window
-            if (_window != null)
+            // Display the Window.
+            if (_authWindow != null)
             {
-                _window.ShowDialog();
+                _authWindow.ShowDialog();
             }
         }
 
         void OnWindowClosed(object sender, EventArgs e)
         {
-            // If the browser window closes, return the focus to the main window
-            if (_window != null && _window.Owner != null)
+            // If the browser window closes, return the focus to the main window.
+            if (_authWindow != null && _authWindow.Owner != null)
             {
-                _window.Owner.Focus();
+                _authWindow.Owner.Focus();
             }
 
-            // If the task wasn't completed, the user must have closed the window without logging in
-            if (_tcs != null && !_tcs.Task.IsCompleted)
+            // If the task wasn't completed, the user must have closed the window without logging in.
+            if (_taskCompletionSource != null && !_taskCompletionSource.Task.IsCompleted)
             {
-                // Set the task completion to indicate a canceled operation
-                _tcs.TrySetCanceled();
+                // Set the task completion to indicate a canceled operation.
+                _taskCompletionSource.TrySetCanceled();
             }
 
-            _tcs = null;
-            _window = null;
+            _taskCompletionSource = null;
+            _authWindow = null;
         }
 
-        // Handle browser navigation (content changing)
+        // Handle browser navigation (page content changing).
         void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
         {
-            // Check for a response to the callback url
+            // Check for a response to the callback url.
             var webBrowser = sender as WebBrowser;
             Uri uri = e.Uri;
 
-            // If no browser, uri, or an empty url, return
-            if (webBrowser == null || uri == null || _tcs == null || string.IsNullOrEmpty(uri.AbsoluteUri))
+            // If no browser, uri, or an empty url return.
+            if (webBrowser == null || uri == null || _taskCompletionSource == null || string.IsNullOrEmpty(uri.AbsoluteUri))
             { 
                 return;
             }
 
-            // Check for redirect
+            // Check if the new content is from the callback url.
             bool isRedirected = uri.AbsoluteUri.StartsWith(_callbackUrl);
 
             if (isRedirected)
             {
-                // Browser was redirected to the callbackUrl (success!)
-                //    -close the window 
-                //    -decode the parameters (returned as fragments or query)
-                //    -return these parameters as result of the Task
+                // Cancel the event to prevent it from being handled elsewhere.
                 e.Cancel = true;
 
-                TaskCompletionSource<IDictionary<string,string>> tcs = _tcs;
-                _tcs = null;
+                // Get a local copy of the task completion source.
+                TaskCompletionSource<IDictionary<string,string>> tcs = _taskCompletionSource;
+                _taskCompletionSource = null;
 
-                if (_window != null)
+                // Close the window.
+                if (_authWindow != null)
                 {
-                    _window.Close();
+                    _authWindow.Close();
                 }
 
-                // Call a helper function to decode the response parameters
+                // Call a helper function to decode the response parameters (which includes the authorization key).
                 var authResponse = DecodeParameters(uri);
 
-                // Set the result for the task completion source
+                // Set the result for the task completion source.
                 tcs.SetResult(authResponse);
             }
         }
 
+        // A helper function that decodes values from a querystring into a dictionary of keys and values.
         private static IDictionary<string, string> DecodeParameters(Uri uri)
         {
-            // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string
+            // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string.
             var answer = string.Empty;
 
-            // Get the values from the URI fragment or query string
+            // Get the values from the URI fragment or query string.
             if (!string.IsNullOrEmpty(uri.Fragment))
             {
                 answer = uri.Fragment.Substring(1);
@@ -280,7 +280,7 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
                 }
             }
 
-            // Parse parameters into key / value pairs
+            // Parse parameters into key / value pairs.
             var keyValueDictionary = new Dictionary<string, string>();
             var keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var kvString in keysAndValues)
@@ -296,7 +296,7 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
                 keyValueDictionary.Add(key, value);
             }
 
-            // Return the dictionary of string keys/values
+            // Return the dictionary of string keys/values.
             return keyValueDictionary;
         }
     }

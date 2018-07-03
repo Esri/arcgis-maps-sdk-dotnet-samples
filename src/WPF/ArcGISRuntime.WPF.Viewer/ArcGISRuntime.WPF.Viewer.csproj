@@ -477,6 +477,15 @@
     <Compile Include="Samples\Search\FindPlace\FindPlace.xaml.cs">
       <DependentUpon>FindPlace.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Security\OAuth\OAuth.xaml.cs">
+      <DependentUpon>OAuth.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.xaml.cs">
+      <DependentUpon>TokenSecuredChallenge.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.xaml.cs">
+      <DependentUpon>TokenSecuredKnownUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml.cs">
       <DependentUpon>FeatureLayerExtrusion.xaml</DependentUpon>
     </Compile>
@@ -494,9 +503,6 @@
     </Compile>
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml.cs">
       <DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml.cs">
-      <DependentUpon>AuthorEditSaveMap.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <!-- Sample XAML -->
@@ -989,6 +995,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Security\OAuth\OAuth.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1010,10 +1028,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1393,6 +1407,15 @@
     <Content Include="Samples\Search\FindPlace\FindPlace.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Security\OAuth\OAuth.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1409,9 +1432,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

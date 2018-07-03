@@ -16,111 +16,117 @@ using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+           "ArcGIS token challenge",
+           "Security",
+           "This sample demonstrates how to authenticate with ArcGIS Server using ArcGIS Tokens to access a secure service. Accessing secured services requires a login that's been defined on the server.",
+           "1. When you run the sample, the app will load a map that contains a layer from a secured service.\n2. You will be challenged for a user name and password to view that layer.\n3. Enter the correct user name (user1) and password (user1).\n4. If you authenticate successfully, the secured layer will display, otherwise the map will contain only the public layers.",
+           "Authentication, Security, ArcGIS Token")]
     public partial class TokenSecuredChallenge
     {
-        // Task completion source to track a login attempt
+        // Task completion source to track a login attempt.
         private TaskCompletionSource<Credential> _loginTaskCompletionSource;
 
         public TokenSecuredChallenge()
         {
             InitializeComponent();
 
-            // Define a method to challenge the user for credentials when a secured resource is encountered
+            // Define a method to challenge the user for credentials when a secured resource is encountered.
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(Challenge);
         }
 
+        // Function that's called when authentication is needed for a secure resource.
         private async Task<Credential> Challenge(CredentialRequestInfo info)
         {
-            // Call code to get user credentials
-            // Make sure it runs on the UI thread
+            // Make sure to run on the UI thread.
             if (this.Dispatcher == null)
             {
-                // No current dispatcher, code is already running on the UI thread
+                // No current dispatcher, code is already running on the UI thread.
                 return await GetUserCredentialsFromUI(info);
             }
             else
             {
-                // Use the dispatcher to invoke the challenge UI
+                // Use the dispatcher to invoke the challenge UI.
                 return await this.Dispatcher.Invoke(() => GetUserCredentialsFromUI(info));
             }
         }
 
         private async Task<Credential> GetUserCredentialsFromUI(CredentialRequestInfo info)
         {
-            // Show the login UI
+            // Show the login UI (text boxes for username and password).
             try
             {
-                // Create a new LoginInfo to store the entered username and password
-                // Pass the CredentialRequestInfo object so the resource URI can be stored
-                var loginInputInfo = new LoginInfo(info);
+                // Create an instance of the custom LoginInfo class to store the entered username and password.
+                // Pass the CredentialRequestInfo object so the resource URI can be stored.
+                LoginInfo loginInputInfo = new LoginInfo(info);
 
-                // Set the login UI data context with the LoginInfo
+                // Set the login UI data context with the LoginInfo.
                 loginPanel.DataContext = loginInputInfo;
 
-                // Show the login UI
+                // Show the login UI.
                 loginPanel.Visibility = Visibility.Visible;
 
-                // Create a new task completion source to return the user's login when complete
-                // Set the login UI data context (LoginInfo object) as the AsyncState so it can be retrieved later
+                // Create a new task completion source to return the user's login when complete.
+                // Set the login UI data context (LoginInfo object) as the AsyncState so it can be retrieved later.
                 _loginTaskCompletionSource = new TaskCompletionSource<Credential>(loginPanel.DataContext);
 
-                // Return the task from the completion source
-                // When the login button on the UI is clicked, the info will be returned for creating the credential
+                // Return the task from the completion source.
+                // When the login button on the UI is clicked, the info will be returned for creating the credential.
                 return await _loginTaskCompletionSource.Task;
             }
             finally
             {
-                // Hide the login UI
+                // Hide the login UI when done.
                 loginPanel.Visibility = Visibility.Collapsed;
             }
         }
 
-        // Handle the click event for the login button on the login UI
+        // Handle the click event for the login button on the login UI.
         private async void LoginButtonClick(object sender, RoutedEventArgs e)
         {
-            // Make sure there's a task completion source for the login operation
+            // Make sure there's a task completion source for the login operation.
             if (_loginTaskCompletionSource == null || _loginTaskCompletionSource.Task == null || _loginTaskCompletionSource.Task.AsyncState == null)
             {
                 return;
             }
 
-            // Get the login info from the task completion source
-            var loginEntry = _loginTaskCompletionSource.Task.AsyncState as LoginInfo;
+            // Get the login info from the task completion source.
+            LoginInfo loginEntry = _loginTaskCompletionSource.Task.AsyncState as LoginInfo;
 
             try
             {
-                // Create a token credential using the provided username and password
+                // Create a token credential using the provided username and password.
                 TokenCredential userCredentials = await AuthenticationManager.Current.GenerateCredentialAsync
                                             (new Uri(loginEntry.ServiceUrl),
                                              loginEntry.UserName,
                                              loginEntry.Password,
                                              loginEntry.RequestInfo.GenerateTokenOptions);
 
-                // Set the result on the task completion source
+                // Set the result on the task completion source.
                 _loginTaskCompletionSource.TrySetResult(userCredentials);
             }
             catch (Exception ex)
             {
-                // Show exceptions on the login UI
+                // Show exceptions on the login UI.
                 loginEntry.ErrorMessage = ex.Message;
 
-                // Increment the login attempt count
+                // Increment the login attempt count.
                 loginEntry.AttemptCount++;
 
-                // Set an exception on the login task completion source after three login attempts
+                // Set an exception on the login task completion source after three login attempts.
                 if (loginEntry.AttemptCount >= 3)
                 {
-                    // This causes the login attempt to fail
+                    // This causes the login attempt to fail.
                     _loginTaskCompletionSource.TrySetException(ex);
                 }
             }
         }
     }
 
-    // Helper class to contain login information
+    // Helper class to contain login information.
     internal class LoginInfo : INotifyPropertyChanged
     {
-        // Information about the current request for credentials 
+        // Information about the current request for credentials.
         private CredentialRequestInfo _requestInfo;
         public CredentialRequestInfo RequestInfo
         {
@@ -132,7 +138,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
             }
         }
 
-        // URI for the service that is requesting credentials
+        // URI for the service that is requesting credentials.
         private string _serviceUrl;
         public string ServiceUrl
         {
@@ -144,7 +150,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
             }
         }
 
-        // Username entered by the user
+        // Username entered by the user.
         private string _userName;
         public string UserName
         {
@@ -156,7 +162,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
             }
         }
 
-        // Password entered by the user
+        // Password entered by the user.
         private string _password;
         public string Password
         {
@@ -168,7 +174,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
             }
         }
 
-        // Last error message encountered while creating credentials
+        // Last error message encountered while creating credentials.
         private string _errorMessage;
         public string ErrorMessage
         {
@@ -180,7 +186,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
             }
         }
 
-        // Number of login attempts
+        // Number of login attempts.
         private int _attemptCount;
         public int AttemptCount
         {
@@ -192,7 +198,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
             }
         }
 
-        // Store the credential request information when the class is constructed
+        // Store the credential request information when the class is constructed.
         public LoginInfo(CredentialRequestInfo info)
         {
             RequestInfo = info;
@@ -201,7 +207,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
             AttemptCount = 0;
         }
 
-        // Raise a property changed event so bound controls can update
+        // Raise a property changed event so bound controls can update.
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

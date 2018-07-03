@@ -361,6 +361,9 @@
     <Compile Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.cs" />
     <Compile Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.cs" />
     <Compile Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.cs" />
+    <Compile Include="Samples\Security\OAuth\OAuth.cs" />
+    <Compile Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.cs" />
+    <Compile Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.cs" />
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
     <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.cs" />
@@ -505,6 +508,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Security\OAuth\OAuth.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

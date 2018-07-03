@@ -17,21 +17,27 @@ using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
 {
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+       "ArcGIS token with a known user",
+       "Security",
+       "This sample demonstrates how to authenticate with ArcGIS Server using ArcGIS Tokens to access a secure service. Accessing secured services requires a login that's been defined on the server.",
+       "1. When you run the sample, the app will load a map that contains a layer from a secured service.\n2. You will NOT be challenged for a user name and password to view that layer because that info has been hard-coded into the app.\n3. If the credentials in the code are correct, the secured layer will display, otherwise the map will contain only the public layers.",
+       "Authentication, Security, ArcGIS Token")]
     [Register("TokenSecuredKnownUser")]
     public class TokenSecuredKnownUser : UIViewController
     {
-        // Constants for the public and secured map service URLs
-        private const string PublicMapServiceUrl = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer";
-        private const string SecureMapServiceUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer";
+        // Public and secured map service URLs.
+        private string _publicMapServiceUrl = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer";
+        private string _secureMapServiceUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer";
 
-        // Constants for the public and secured layer names
-        private const string PublicLayerName = "World Street Map - Public";
-        private const string SecureLayerName = "USA - Secure";
+        // Public and secured layer names.
+        private string _publicLayerName = "World Street Map - Public";
+        private string _secureLayerName = "USA - Secure";
 
-        // Store the map view displayed in the app
+        // Store the map view displayed in the app.
         MapView _myMapView;
 
-        // Labels to show layer load status
+        // Labels to show layer load status.
         UILabel _publicLayerLabel;
         UILabel _secureLayerLabel;
 
@@ -44,75 +50,85 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
         {
             base.ViewDidLoad();
 
-            // Call a function to create the user interface
+            // Call a function to create the user interface.
             CreateLayout();
 
-            // Call a function to initialize the app
+            // Call a function to initialize the app.
             Initialize();
         }
 
         private void CreateLayout()
         {
-            // Create a label for showing the load status for the public service
+            // Create a label for showing the load status for the public service.
             var label1ViewFrame = new CoreGraphics.CGRect(10, 70, View.Bounds.Width - 10, 20);
-            _publicLayerLabel = new UILabel(label1ViewFrame);
-            _publicLayerLabel.TextColor = UIColor.Gray;
+            _publicLayerLabel = new UILabel(label1ViewFrame)
+            {
+                TextColor = UIColor.Gray,
+                Text = _publicLayerName
+            };
             _publicLayerLabel.Font = _publicLayerLabel.Font.WithSize(12);
-            _publicLayerLabel.Text = PublicLayerName;
 
-            // Create a label to show the load status of the secured layer
-            var label2ViewFrame = new CoreGraphics.CGRect(10, 95, View.Bounds.Width - 10, 20);
-            _secureLayerLabel = new UILabel(label2ViewFrame);
-            _secureLayerLabel.TextColor = UIColor.Gray;
+            // Create a label to show the load status of the secured layer.
+            CoreGraphics.CGRect label2ViewFrame = new CoreGraphics.CGRect(10, 95, View.Bounds.Width - 10, 20);
+            _secureLayerLabel = new UILabel(label2ViewFrame)
+            {
+                TextColor = UIColor.Gray,
+                Text = _secureLayerName
+            };
             _secureLayerLabel.Font = _secureLayerLabel.Font.WithSize(12);
-            _secureLayerLabel.Text = SecureLayerName;
 
-            // Setup the visual frame for the MapView
+            // Setup the visual frame for the MapView.
             var mapViewRect = new CoreGraphics.CGRect(0, 120, View.Bounds.Width, View.Bounds.Height - 120);
 
-            // Create a map view with a basemap
-            _myMapView = new MapView();
-            _myMapView.Frame = mapViewRect;
+            // Create a map view with a basemap.
+            _myMapView = new MapView
+            {
+                Frame = mapViewRect
+            };
 
-            // Add the map view and button to the page
+            // Add the map view and button to the page.
             View.AddSubviews(_publicLayerLabel, _secureLayerLabel, _myMapView);
         }
 
         private void Initialize()
         {
-            // Define a challenge handler method for the AuthenticationManager 
-            // (this method handles getting credentials when a secured resource is encountered)
+            // Define a challenge handler method for the AuthenticationManager.
+            // This method handles getting credentials when a secured resource is encountered.
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateKnownCredentials);
 
-            // Create the public layer and provide a name
-            var publicLayer = new ArcGISTiledLayer(new Uri(PublicMapServiceUrl));
-            publicLayer.Name = PublicLayerName;
+            // Create the public layer and provide a name.
+            var publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
+            {
+                Name = _publicLayerName
+            };
 
-            // Create the secured layer and provide a name
-            var tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(SecureMapServiceUrl));
-            tokenSecuredLayer.Name = SecureLayerName;
+            // Create the secured layer and provide a name.
+            var tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
+            {
+                Name = _secureLayerName
+            };
 
-            // Track the load status of each layer with a LoadStatusChangedEvent handler
+            // Track the load status of each layer with a LoadStatusChangedEvent handler.
             publicLayer.LoadStatusChanged += LayerLoadStatusChanged;
             tokenSecuredLayer.LoadStatusChanged += LayerLoadStatusChanged;
 
-            // Create a new map and add the layers
+            // Create a new map and add the layers.
             var myMap = new Map();
             myMap.OperationalLayers.Add(publicLayer);
             myMap.OperationalLayers.Add(tokenSecuredLayer);
 
-            // Add the map to the map view
+            // Add the map to the map view.
             _myMapView.Map = myMap;
         }
-        // Handle the load status changed event for the public and token-secured layers
+        // Handle the load status changed event for the public and token-secured layers.
         private void LayerLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
-            // Get the layer that triggered the event
+            // Get the layer that triggered the event.
             var layer = sender as Layer;
 
-            // Get the label for this layer
+            // Get the label for this layer.
             UILabel labelToUpdate = null;
-            if (layer.Name == PublicLayerName)
+            if (layer.Name == _publicLayerName)
             {
                 labelToUpdate = _publicLayerLabel;
             }
@@ -121,7 +137,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
                 labelToUpdate = _secureLayerLabel;
             }
 
-            // Create the text string and font color to describe the current load status
+            // Create the text string and font color to describe the current load status.
             var updateText = layer.Name;
             var textColor = UIColor.Gray;
 
@@ -145,7 +161,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
                     break;
             }
 
-            // Update the layer label on the UI thread
+            // Update the layer label on the UI thread.
             this.BeginInvokeOnMainThread(() =>
             {
                 labelToUpdate.Text = updateText;
@@ -153,23 +169,22 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
             });
         }
 
-        // Challenge method that checks for service access with known (hard coded) credentials
+        // Challenge method that checks for service access with known (hard coded) credentials.
         private async Task<Credential> CreateKnownCredentials(CredentialRequestInfo info)
         {
-            // If this isn't the expected resource, the credential will stay null
+            // If this isn't the expected resource, the credential will stay null.
             Credential knownCredential = null;
 
             try
             {
-                // Check the URL of the requested resource
+                // Check the URL of the requested resource.
                 if (info.ServiceUri.AbsoluteUri.ToLower().Contains("usa_secure_user1"))
                 {
-                    // Username and password is hard-coded for this resource
-                    // (Would be better to read them from a secure source)
+                    // Username and password is hard-coded for this resource (would be better to read them from a secure source).
                     string username = "user1";
                     string password = "user1";
 
-                    // Create a credential for this resource
+                    // Create a credential for this resource.
                     knownCredential = await AuthenticationManager.Current.GenerateCredentialAsync
                                             (info.ServiceUri,
                                              username,
@@ -178,17 +193,17 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
                 }
                 else
                 {
-                    // Another option would be to prompt the user here if the username and password is not known
+                    // Another option would be to prompt the user here if the username and password is not known.
                 }
             }
             catch (Exception ex)
             {
-                // Report error accessing a secured resource
+                // Report error accessing a secured resource.
                 var alertView = new UIAlertView("Credential Error", "Access to " + info.ServiceUri.AbsoluteUri + " denied. " + ex.Message, null, "Cancel", null);
                 alertView.Show();
             }
 
-            // Return the credential
+            // Return the credential.
             return knownCredential;
         }
     }

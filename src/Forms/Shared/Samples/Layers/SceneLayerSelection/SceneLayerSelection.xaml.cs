@@ -60,7 +60,7 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
             MySceneView.SetViewpointCameraAsync(brestCamera);
         }
 
-        private async void SceneViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        private async void SceneViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             // Get the scene layer from the scene (first and only operational layer).
             ArcGISSceneLayer sceneLayer = MySceneView.Scene.OperationalLayers.FirstOrDefault() as ArcGISSceneLayer;

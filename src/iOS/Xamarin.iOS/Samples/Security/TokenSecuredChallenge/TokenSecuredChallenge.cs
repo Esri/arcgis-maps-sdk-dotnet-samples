@@ -64,34 +64,41 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             Initialize();
         }
 
+        public override void ViewDidLayoutSubviews()
+        {
+            base.ViewDidLayoutSubviews();
+
+            // Setup the visual frame for the MapView and status labels.
+            CGRect mapViewFrame = new CGRect(0, 120, View.Bounds.Width, View.Bounds.Height - 120);
+            CGRect label1Frame = new CGRect(10, 70, View.Bounds.Width - 10, 20);
+            CGRect label2Frame = new CGRect(10, 95, View.Bounds.Width - 10, 20);
+
+            // Apply the layout frames.
+            _myMapView.Frame = mapViewFrame;
+            _publicLayerLabel.Frame = label1Frame;
+            _secureLayerLabel.Frame = label2Frame;
+        }
+
         private void CreateLayout()
         {
             // Create a label for showing the load status for the public service.
-            var label1ViewFrame = new CoreGraphics.CGRect(10, 70, View.Bounds.Width - 10, 20);
-            _publicLayerLabel = new UILabel(label1ViewFrame)
+            _publicLayerLabel = new UILabel()
             {
                 TextColor = UIColor.Gray,
-                Text = _publicLayerName
+                Text = _publicLayerName,
+                Font = _publicLayerLabel.Font.WithSize(12)
             };
-            _publicLayerLabel.Font = _publicLayerLabel.Font.WithSize(12);
 
             // Create a label to show the load status of the secured layer.
-            var label2ViewFrame = new CoreGraphics.CGRect(10, 95, View.Bounds.Width - 10, 20);
-            _secureLayerLabel = new UILabel(label2ViewFrame)
+            _secureLayerLabel = new UILabel()
             {
                 TextColor = UIColor.Gray,
-                Text = _secureLayerName
+                Text = _secureLayerName,
+                Font = _secureLayerLabel.Font.WithSize(12)
             };
-            _secureLayerLabel.Font = _secureLayerLabel.Font.WithSize(12);
-
-            // Setup the visual frame for the MapView.
-            var mapViewRect = new CoreGraphics.CGRect(0, 120, View.Bounds.Width, View.Bounds.Height - 120);
-
-            // Create a map view with a basemap
-            _myMapView = new MapView
-            {
-                Frame = mapViewRect
-            };
+            
+            // Create the map view control.
+            _myMapView = new MapView();
 
             // Add the map view and button to the page.
             View.AddSubviews(_publicLayerLabel, _secureLayerLabel, _myMapView);

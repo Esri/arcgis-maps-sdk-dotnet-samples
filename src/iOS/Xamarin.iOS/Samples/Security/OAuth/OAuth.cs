@@ -63,6 +63,17 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
             Initialize();
         }
 
+        public override void ViewDidLayoutSubviews()
+        {
+            base.ViewDidLayoutSubviews();
+
+            // Define an offset from the top of the page (to account for the iOS status bar).
+            int yPageOffset = 60;
+
+            // Define the visual frame for the MapView.
+            _myMapView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset);
+        }
+
         private async void Initialize()
         {
             // Set up the AuthenticationManager to use OAuth for secure ArcGIS Online requests.
@@ -115,17 +126,8 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
 
         private void CreateLayout()
         {
-            // Define an offset from the top of the page (to account for the iOS status bar).
-            var yPageOffset = 60;
-
-            // Create a new MapView control.
-            _myMapView = new MapView
-            {
-                // Define the visual frame for the MapView.
-                Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset)
-            };
-
-            // Add the MapView.
+            // Create a new MapView control and add it to the main view.
+            _myMapView = new MapView();
             View.AddSubviews(_myMapView);
         }
 

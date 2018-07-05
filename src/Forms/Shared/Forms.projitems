@@ -213,6 +213,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml.cs">
       <DependentUpon>ChangeStretchRenderer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\SceneLayerSelection\SceneLayerSelection.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>SceneLayerSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\StyleWmsLayer\StyleWmsLayer.xaml.cs">
       <DependentUpon>StyleWmsLayer.xaml</DependentUpon>
     </Compile>
@@ -574,6 +578,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\SceneLayerSelection\SceneLayerSelection.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\StyleWmsLayer\StyleWmsLayer.xaml">

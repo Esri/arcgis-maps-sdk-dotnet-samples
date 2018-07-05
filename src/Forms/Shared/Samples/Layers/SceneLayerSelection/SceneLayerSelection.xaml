@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntime.Samples.SceneLayerSelection.SceneLayerSelection">
+    <Grid>
+        <esriUI:SceneView x:Name="MySceneView"
+                          GeoViewTapped="SceneViewTapped"/>
+        <Frame HorizontalOptions="Center" VerticalOptions="Start"
+               Margin="20" 
+               BackgroundColor="LightGray">
+            <Label Text="Click a building to select it"
+                   FontSize="18" TextColor="Red"
+                   HeightRequest="35" Margin="10,0"/>
+        </Frame>
+    </Grid>
+</ContentPage>

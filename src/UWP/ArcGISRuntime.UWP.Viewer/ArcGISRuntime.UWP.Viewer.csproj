@@ -191,6 +191,7 @@
     <Content Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
     <Content Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.jpg" />
     <Content Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
+    <Content Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.jpg" />
     <Content Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg" />
     <Content Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.jpg" />
     <Content Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.jpg" />
@@ -512,6 +513,9 @@
     </Compile>
     <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml.cs">
       <DependentUpon>RasterRgbRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.xaml.cs">
+      <DependentUpon>SceneLayerSelection.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml.cs">
       <DependentUpon>SceneLayerUrl.xaml</DependentUpon>
@@ -962,6 +966,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

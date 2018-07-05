@@ -422,6 +422,9 @@
     <AndroidResource Include="Resources\layout\GroupedResultsList_GroupItem.axml" />
     <AndroidResource Include="Resources\layout\MapImageLayerTables.axml" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.jpg" />
+  </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

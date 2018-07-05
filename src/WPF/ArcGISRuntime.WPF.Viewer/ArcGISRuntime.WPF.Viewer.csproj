@@ -335,6 +335,9 @@
     <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml.cs">
       <DependentUpon>RasterRgbRenderer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.xaml.cs">
+      <DependentUpon>SceneLayerSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml.cs">
       <DependentUpon>SceneLayerUrl.xaml</DependentUpon>
     </Compile>
@@ -813,6 +816,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1253,6 +1260,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg">

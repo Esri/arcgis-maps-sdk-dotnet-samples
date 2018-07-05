@@ -170,14 +170,11 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
             // Use the metro area for the Callout Detail.
             string calloutDetail = address.Attributes["MetroArea"].ToString();
 
-            // Use the MapView to convert from the on-screen location to the on-map location.
-            MapPoint point = MyMapView.ScreenToLocation(e.Position);
-
             // Define the callout.
             CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);
 
             // Show the callout on the map at the tapped location.
-            MyMapView.ShowCalloutAt(point, calloutBody);
+            MyMapView.ShowCalloutAt(e.Location, calloutBody);
         }
 
         private void Search_Submitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)

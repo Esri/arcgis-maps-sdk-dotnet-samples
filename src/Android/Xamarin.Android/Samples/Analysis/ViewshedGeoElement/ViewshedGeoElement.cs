@@ -191,7 +191,17 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            var layout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Vertical
+            };
+
+            // Create and add a help label.
+            TextView helpLabel = new TextView(this)
+            {
+                Text = "Tap to set a destination for the vehicle."
+            };
+            layout.AddView(helpLabel);
 
             // Add the map view to the layout.
             layout.AddView(_mySceneView);

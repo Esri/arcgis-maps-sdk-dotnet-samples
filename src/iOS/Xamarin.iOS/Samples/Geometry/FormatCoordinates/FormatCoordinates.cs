@@ -7,6 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Drawing;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -14,8 +16,6 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
-using System.Drawing;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.FormatCoordinates
@@ -28,26 +28,52 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         "Tap on the map to see the point in several coordinate systems. Update one of the coordinates and select 'recalculate' to see the point converted into other coordinate systems. ")]
     public class FormatCoordinates : UIViewController
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
-
-        // Create the text fields
-        private UITextField _utmUITextField = new UITextField() { Placeholder = "UTM" };
-        private UITextField _dmsUITextField = new UITextField() { Placeholder = "Degrees, Minutes, Seconds" };
-        private UITextField _decimalDegreesUITextField = new UITextField() { Placeholder = "Decimal Degrees" };
-        private UITextField _usngUITextField = new UITextField() { Placeholder = "USNG" };
-
-        // Create the labels
-        private UILabel _utmLabel = new UILabel() { Text = "UTM:", TextColor = UIColor.Blue };
-        private UILabel _dmsLabel = new UILabel() { Text = "Degrees, Minutes, Seconds: ", TextColor = UIColor.Blue };
-        private UILabel _decimalDegreeslabel = new UILabel() { Text = "Decimal Degrees: ", TextColor = UIColor.Blue };
-        private UILabel _usngLabel = new UILabel() { Text = "USNG: ", TextColor = UIColor.Blue };
-
-        // Create the recalculate button
-        private UIButton _recalculateButton = new UIButton();
-
-        // Track the most recently edited field
+        // Create and hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIButton _recalculateButton = new UIButton();
+        private readonly UIToolbar _toolbar = new UIToolbar();
+        private readonly UILabel _helpLabel = new UILabel();
         private UITextField _selectedField;
+
+        private readonly UITextField _utmEntry = new UITextField
+        {
+            Placeholder = "UTM"
+        };
+
+        private readonly UITextField _dmsEntry = new UITextField
+        {
+            Placeholder = "Degrees, Minutes, Seconds"
+        };
+
+        private readonly UITextField _ddEntry = new UITextField
+        {
+            Placeholder = "Decimal Degrees"
+        };
+
+        private readonly UITextField _usngEntry = new UITextField
+        {
+            Placeholder = "USNG"
+        };
+
+        private readonly UILabel _utmLabel = new UILabel
+        {
+            Text = "UTM:"
+        };
+
+        private readonly UILabel _dmsLabel = new UILabel
+        {
+            Text = "Degrees, Minutes, Seconds: "
+        };
+
+        private readonly UILabel _decimalDegressLabel = new UILabel
+        {
+            Text = "Decimal Degrees: "
+        };
+
+        private readonly UILabel _usngLabel = new UILabel
+        {
+            Text = "USNG: "
+        };
 
         public FormatCoordinates()
         {
@@ -56,37 +82,37 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
 
         private void Initialize()
         {
-            // Update the initial field selection
-            _selectedField = _decimalDegreesUITextField;
+            // Update the initial field selection.
+            _selectedField = _ddEntry;
 
-            // Create the map
+            // Create the map.
             _myMapView.Map = new Map(Basemap.CreateStreets());
 
-            // Add the graphics overlay to the map
+            // Add the graphics overlay to the map.
             _myMapView.GraphicsOverlays.Add(new GraphicsOverlay());
 
-            // Create the starting point
+            // Create the starting point.
             MapPoint startingPoint = new MapPoint(0, 0, SpatialReferences.WebMercator);
 
-            // Update the UI with the initial point
-            UpdateUIFromMapPoint(startingPoint);
+            // Update the UI with the initial point.
+            UpdateUiFromMapPoint(startingPoint);
 
-            // Subscribe to map tap events to enable tapping on map to update coordinates
-            _myMapView.GeoViewTapped += (sender, args) => { UpdateUIFromMapPoint(args.Location); };
+            // Subscribe to map tap events to enable tapping on map to update coordinates.
+            _myMapView.GeoViewTapped += (sender, args) => UpdateUiFromMapPoint(args.Location);
         }
 
         private void InputValueChanged(object sender, EventArgs e)
         {
-            // Keep track of the last edited field
-            _selectedField = (UITextField)sender;
+            // Keep track of the last edited field.
+            _selectedField = (UITextField) sender;
         }
 
         private void RecalculateFields(object sender, EventArgs e)
         {
-            // Hold the entered point
+            // Hold the entered point.
             MapPoint enteredPoint = null;
 
-            // Update the point based on which text sent the event
+            // Update the point based on which text sent the event.
             try
             {
                 switch (_selectedField.Placeholder)
@@ -110,71 +136,110 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             }
             catch (Exception ex)
             {
-                // The coordinate is malformed, warn and return
+                // The coordinate is malformed, warn and return.
                 UIAlertController alertController = UIAlertController.Create("Invalid Format", ex.Message, UIAlertControllerStyle.Alert);
-                alertController.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Default, null));
+                alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alertController, true, null);
                 return;
             }
 
-            // Update the UI from the MapPoint
-            UpdateUIFromMapPoint(enteredPoint);
+            // Update the UI from the MapPoint.
+            UpdateUiFromMapPoint(enteredPoint);
         }
 
-        private void UpdateUIFromMapPoint(MapPoint startingPoint)
+        private void UpdateUiFromMapPoint(MapPoint selectedPoint)
         {
-            if (startingPoint == null) { return; }
-            // Clear event subscriptions - prevents an infinite loop
-            _utmUITextField.EditingDidBegin -= InputValueChanged;
-            _dmsUITextField.EditingDidBegin -= InputValueChanged;
-            _decimalDegreesUITextField.EditingDidBegin -= InputValueChanged;
-            _usngUITextField.EditingDidBegin -= InputValueChanged;
+            if (selectedPoint == null)
+            {
+                return;
+            }
 
-            // Update the decimal degrees text
-            _decimalDegreesUITextField.Text =
-                CoordinateFormatter.ToLatitudeLongitude(startingPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
+            // Clear event subscriptions - prevents an infinite loop.
+            _utmEntry.EditingDidBegin -= InputValueChanged;
+            _dmsEntry.EditingDidBegin -= InputValueChanged;
+            _ddEntry.EditingDidBegin -= InputValueChanged;
+            _usngEntry.EditingDidBegin -= InputValueChanged;
 
-            // Update the degrees, minutes, seconds text
-            _dmsUITextField.Text = CoordinateFormatter.ToLatitudeLongitude(startingPoint,
-                LatitudeLongitudeFormat.DegreesMinutesSeconds, 1);
+            try
+            {
+                // Update the decimal degrees text.
+                _ddEntry.Text =
+                    CoordinateFormatter.ToLatitudeLongitude(selectedPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
 
-            // Update the UTM text
-            _utmUITextField.Text = CoordinateFormatter.ToUtm(startingPoint, UtmConversionMode.NorthSouthIndicators, true);
+                // Update the degrees, minutes, seconds text.
+                _dmsEntry.Text = CoordinateFormatter.ToLatitudeLongitude(selectedPoint,
+                    LatitudeLongitudeFormat.DegreesMinutesSeconds, 1);
 
-            // Update the USNG text
-            _usngUITextField.Text = CoordinateFormatter.ToUsng(startingPoint, 4, true);
+                // Update the UTM text.
+                _utmEntry.Text = CoordinateFormatter.ToUtm(selectedPoint, UtmConversionMode.NorthSouthIndicators, true);
 
-            // Clear existing graphics overlays
-            _myMapView.GraphicsOverlays[0].Graphics.Clear();
+                // Update the USNG text.
+                _usngEntry.Text = CoordinateFormatter.ToUsng(selectedPoint, 4, true);
 
-            // Create a symbol to symbolize the point
-            SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, Color.Yellow, 20);
+                // Clear existing graphics overlays.
+                _myMapView.GraphicsOverlays[0].Graphics.Clear();
 
-            // Create the graphic
-            Graphic symbolGraphic = new Graphic(startingPoint, symbol);
+                // Create a symbol to symbolize the point.
+                SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, Color.Yellow, 20);
 
-            // Add the graphic to the graphics overlay
-            _myMapView.GraphicsOverlays[0].Graphics.Add(symbolGraphic);
+                // Create the graphic.
+                Graphic symbolGraphic = new Graphic(selectedPoint, symbol);
 
-            // Restore event subscriptions
-            _utmUITextField.EditingDidBegin += InputValueChanged;
-            _dmsUITextField.EditingDidBegin += InputValueChanged;
-            _decimalDegreesUITextField.EditingDidBegin += InputValueChanged;
-            _usngUITextField.EditingDidBegin += InputValueChanged;
+                // Add the graphic to the graphics overlay.
+                _myMapView.GraphicsOverlays[0].Graphics.Add(symbolGraphic);
+            }
+            catch (Exception ex)
+            {
+                // The coordinate is malformed, warn and return.
+                UIAlertController alertController = UIAlertController.Create("There was a problem formatting coordinates.", ex.Message, UIAlertControllerStyle.Alert);
+                alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+                PresentViewController(alertController, true, null);
+            }
+
+            // Restore event subscriptions.
+            _utmEntry.EditingDidBegin += InputValueChanged;
+            _dmsEntry.EditingDidBegin += InputValueChanged;
+            _ddEntry.EditingDidBegin += InputValueChanged;
+            _usngEntry.EditingDidBegin += InputValueChanged;
         }
 
         private void CreateLayout()
         {
-            View.BackgroundColor = UIColor.White;
+            // Update the colors.
+            _dmsEntry.TextColor = View.TintColor;
+            _utmEntry.TextColor = View.TintColor;
+            _usngEntry.TextColor = View.TintColor;
+            _ddEntry.TextColor = View.TintColor;
+            _ddEntry.BorderStyle = UITextBorderStyle.RoundedRect;
+            _utmEntry.BorderStyle = UITextBorderStyle.RoundedRect;
+            _usngEntry.BorderStyle = UITextBorderStyle.RoundedRect;
+            _dmsEntry.BorderStyle = UITextBorderStyle.RoundedRect;
 
-            // Create the UI button
+            // Enable text fields to close keyboard.
+            _dmsEntry.ShouldReturn += HandleShouldReturn;
+            _ddEntry.ShouldReturn += HandleShouldReturn;
+            _utmEntry.ShouldReturn += HandleShouldReturn;
+            _usngEntry.ShouldReturn += HandleShouldReturn;
+
+            // Set up the help label.
+            _helpLabel.Text = "Tap the map to see coordinates in each format. Update any value and tap 'Recalculate' to see updated coordinates.";
+            _helpLabel.Lines = 2;
+            _helpLabel.AdjustsFontSizeToFitWidth = true;
+
+            // Create the UI button.
             _recalculateButton.SetTitle("Recalculate", UIControlState.Normal);
-            _recalculateButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _recalculateButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _recalculateButton.TouchUpInside += RecalculateFields;
 
-            // Add views to the page
-            View.AddSubviews(_myMapView, _recalculateButton, _decimalDegreesUITextField, _decimalDegreeslabel, _dmsLabel, _dmsUITextField,
-                _usngLabel, _usngUITextField, _utmLabel, _utmUITextField);
+            // Add views to the page.
+            View.AddSubviews(_myMapView, _toolbar, _helpLabel, _recalculateButton, _ddEntry,
+                _decimalDegressLabel, _dmsLabel, _dmsEntry, _usngLabel, _usngEntry, _utmLabel, _utmEntry);
+        }
+
+        private bool HandleShouldReturn(UITextField tf)
+        {
+            tf.ResignFirstResponder();
+            return true;
         }
 
         public override void ViewDidLoad()
@@ -187,37 +252,59 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
 
         public override void ViewDidLayoutSubviews()
         {
-            var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height + 10;
-            var controlHeight = 20;
-            var controlWidth = View.Bounds.Width - 20;
+            try
+            {
+                var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                int controlHeight = 20;
+                int margin = 5;
+                var controlWidth = View.Bounds.Width - 2 * margin;
 
-            // Decimal degrees
-            _decimalDegreeslabel.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
-            topMargin += controlHeight;
-            _decimalDegreesUITextField.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
-            topMargin += controlHeight;
-            // DMS
-            _dmsLabel.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
-            topMargin += controlHeight;
-            _dmsUITextField.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
-            topMargin += controlHeight;
-            // UTM
-            _utmLabel.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
-            topMargin += controlHeight;
-            _utmUITextField.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
-            topMargin += controlHeight;
-            // USNG
-            _usngLabel.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
-            topMargin += controlHeight;
-            _usngUITextField.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
-            topMargin += controlHeight;
-            // Button
-            _recalculateButton.Frame = new CGRect(10, topMargin, controlWidth, controlHeight);
-            topMargin += controlHeight;
-            // MapView
-            _myMapView.Frame = new CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin);
+                // Reposition the controls.
+                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, controlHeight * 11 + margin * 5);
 
-            base.ViewDidLayoutSubviews();
+                // Help label.
+                topMargin += margin;
+                _helpLabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight * 2);
+                topMargin += controlHeight * 2 + margin * 2;
+
+                // Decimal degrees.
+                _decimalDegressLabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
+                topMargin += controlHeight;
+                _ddEntry.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
+                topMargin += controlHeight;
+
+                // DMS.
+                _dmsLabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
+                topMargin += controlHeight;
+                _dmsEntry.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
+                topMargin += controlHeight;
+
+                // UTM.
+                _utmLabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
+                topMargin += controlHeight;
+                _utmEntry.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
+                topMargin += controlHeight;
+
+                // USNG.
+                _usngLabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
+                topMargin += controlHeight;
+                _usngEntry.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
+                topMargin += controlHeight + margin;
+
+                // Button.
+                _recalculateButton.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
+                topMargin += controlHeight + margin;
+
+                // MapView.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 }

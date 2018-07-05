@@ -1,4 +1,4 @@
-# Dynamic workspace Raster
+# Dynamic workspace raster
 
 This sample demonstrates how to dynamically add a local Raster to a map using Local Server.
 

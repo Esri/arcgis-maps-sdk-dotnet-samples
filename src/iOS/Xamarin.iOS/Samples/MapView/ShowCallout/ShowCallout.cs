@@ -7,6 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
@@ -24,7 +26,17 @@ namespace ArcGISRuntime.Samples.ShowCallout
         "Tap on the map to show that point's coordinates.")]
     public class ShowCallout : UIViewController
     {
-        private MapView _myMapView = new MapView();
+        // Create and hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _toolbar = new UIToolbar();
+
+        private readonly UILabel _helpLabel = new UILabel
+        {
+            Text = "Tap to show a callout.",
+            AdjustsFontSizeToFitWidth = true,
+            TextAlignment = UITextAlignment.Center,
+            Lines = 1
+        };
 
         public ShowCallout()
         {
@@ -35,48 +47,59 @@ namespace ArcGISRuntime.Samples.ShowCallout
         {
             base.ViewDidLoad();
 
-            // Create a new basemap using the streets base layer
-            Basemap myBasemap = Basemap.CreateStreets();
+            // Show a streets basemap.
+            _myMapView.Map = new Map(Basemap.CreateStreets());
 
-            // Create a new map based on the streets basemap
-            Map myMap = new Map(myBasemap);
+            // Respond to taps on the map.
+            _myMapView.GeoViewTapped += MapView_GeoViewTapped;
 
-            // Assign the map to the MapView
-            _myMapView.Map = myMap;
+            // Add the controls to the view.
+            View.AddSubviews(_myMapView, _toolbar);
 
-            // Wire up the MapView GeoVewTapped event
-            _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
-
-            // Add the MapView to the page
-            View.AddSubview(_myMapView);
+            // Add the help label to the toolbar.
+            _toolbar.AddSubview(_helpLabel);
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat toolbarHeight = 40;
+                nfloat margin = 5;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
+                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
+
+                // Reposition the label within the toolbar.
+                _helpLabel.Frame = new CGRect(margin, margin, _toolbar.Bounds.Width - (2 * margin), controlHeight);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
-        private void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private void MapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // Get the user-tapped location
+            // Get the user-tapped location.
             MapPoint mapLocation = e.Location;
 
-            // Project the user-tapped map point location to a geometry
-            Geometry myGeometry = GeometryEngine.Project(mapLocation, SpatialReferences.Wgs84);
+            // Project the map point to WGS84 for latitude/longitude display.
+            MapPoint projectedLocation = (MapPoint) GeometryEngine.Project(mapLocation, SpatialReferences.Wgs84);
 
-            // Convert to geometry to a traditional Lat/Long map point
-            MapPoint projectedLocation = (MapPoint)myGeometry;
+            // Format the display callout string based upon the projected map point (example: "Lat: 100.123, Long: 100.234").
+            string mapLocationDescription = $"Lat: {projectedLocation.Y:F3} Long:{projectedLocation.X:F3}";
 
-            // Format the display callout string based upon the projected map point (example: "Lat: 100.123, Long: 100.234")
-            string mapLocationDescription = string.Format("Lat: {0:F3} Long:{1:F3}", projectedLocation.Y, projectedLocation.X);
-
-            // Create a new callout definition using the formatted string
+            // Create a new callout definition using the formatted string.
             CalloutDefinition myCalloutDefinition = new CalloutDefinition("Location:", mapLocationDescription);
 
-            // Display the callout
+            // Display the callout.
             _myMapView.ShowCalloutAt(mapLocation, myCalloutDefinition);
         }
     }

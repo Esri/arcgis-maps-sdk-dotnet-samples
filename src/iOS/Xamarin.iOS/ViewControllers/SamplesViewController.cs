@@ -88,8 +88,8 @@ namespace ArcGISRuntime
                         // Hide progress overlay
                         _loadPopup.Hide();
                     }
-                    
-                    var control = (UIViewController)SampleManager.Current.SampleToControl(sample);
+
+                    var control = (UIViewController) SampleManager.Current.SampleToControl(sample);
                     _controller.NavigationController.PushViewController(control, true);
                 }
                 catch (Exception ex)

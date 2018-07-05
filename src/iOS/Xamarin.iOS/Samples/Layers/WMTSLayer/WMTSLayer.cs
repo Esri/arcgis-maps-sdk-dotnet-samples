@@ -7,12 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
-using System.Collections.Generic;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.WMTSLayer
@@ -25,73 +27,110 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         "")]
     public class WMTSLayer : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
+        // Create and hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly UILabel _label = new UILabel
+        {
+            Text = "Construct layer with:",
+            TextAlignment = UITextAlignment.Center
+        };
 
-        // Button for loading layer using Uri constructor.
-        private UIButton _uriButton;
+        private readonly UIButton _uriButton = new UIButton(UIButtonType.RoundedRect)
+        {
+            BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
+            Layer = {CornerRadius = 5}
+        };
 
-        // Button for loading layer using WmtsService.
-        private UIButton _infoButton;
+        private readonly UIButton _infoButton = new UIButton(UIButtonType.RoundedRect)
+        {
+            BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
+            Layer = {CornerRadius = 5}
+        };
 
         public WMTSLayer()
         {
             Title = "WMTS layer";
         }
 
-        public override void ViewDidLoad()
+        public override async void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references
+            // Create the UI, setup the control references.
             CreateLayout();
 
             // Load the map using Uri to the WMTS service.
-            LoadWMTSLayer(true);
+            await LoadWMTSLayerAsync(true);
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat toolbarHeight = controlHeight * 2 + margin * 3;
 
-            // Setup the visual frame for button1
-            _uriButton.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 40);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _toolbar.Frame = new CGRect(0, View.Bounds.Height - 2 * controlHeight - 3 * margin, View.Bounds.Width, 2 * controlHeight + 3 * margin);
+                _label.Frame = new CGRect(margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _uriButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
+                _infoButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
 
-            // Setup the visual frame for button2
-            _infoButton.Frame = new CoreGraphics.CGRect(0, yPageOffset + 40, View.Bounds.Width, 40);
-
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
-        private void OnUriButtonClicked(object sender, EventArgs e)
+        private async void UriButton_Clicked(object sender, EventArgs e)
         {
-            //Load the WMTS layer using Uri method.
-            LoadWMTSLayer(true);
+            try
+            {
+                //Load the WMTS layer using Uri method.
+                await LoadWMTSLayerAsync(true);
 
-            // Disable and enable the appropriate buttons.
-            _uriButton.Enabled = false;
-            _uriButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
-            _infoButton.Enabled = true;
-            _infoButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+                // Disable and enable the appropriate buttons.
+                _uriButton.Enabled = false;
+                _infoButton.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                // Report error.
+                UIAlertController alert = UIAlertController.Create("Error", ex.Message, UIAlertControllerStyle.Alert);
+                alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+                PresentViewController(alert, true, null);
+            }
         }
 
-        private void OnInfoButtonClicked(object sender, EventArgs e)
+        private async void InfoButton_Clicked(object sender, EventArgs e)
         {
-            //Load the WMTS layer using layer info.
-            LoadWMTSLayer(false);
+            try
+            {
+                //Load the WMTS layer using layer info.
+                await LoadWMTSLayerAsync(false);
 
-            // Disable and enable the appropriate buttons.
-            _uriButton.Enabled = true;
-            _uriButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _infoButton.Enabled = false;
-            _infoButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+                // Disable and enable the appropriate buttons.
+                _uriButton.Enabled = true;
+                _infoButton.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                // Report error.
+                UIAlertController alert = UIAlertController.Create("Error", ex.Message, UIAlertControllerStyle.Alert);
+                alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+                PresentViewController(alert, true, null);
+            }
         }
 
-        private async void LoadWMTSLayer(bool uriMode)
+        private async Task LoadWMTSLayerAsync(bool uriMode)
         {
             try
             {
@@ -153,26 +192,24 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         private void CreateLayout()
         {
             // Create a button for Uri
-            _uriButton = new UIButton();
-            _uriButton.SetTitle("WMTSLayer via Uri", UIControlState.Normal);
+            _uriButton.SetTitle("URL", UIControlState.Normal);
             _uriButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
-            _uriButton.BackgroundColor = UIColor.White;
+            _uriButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _uriButton.Enabled = false;
 
             // Hook to touch event to do button1
-            _uriButton.TouchUpInside += OnUriButtonClicked;
+            _uriButton.TouchUpInside += UriButton_Clicked;
 
             // Create a button for WmtsLayerInfo
-            _infoButton = new UIButton();
-            _infoButton.SetTitle("WMTSLayer via WmtsLayerInfo", UIControlState.Normal);
-            _infoButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _infoButton.BackgroundColor = UIColor.White;
+            _infoButton.SetTitle("WmtsLayerInfo", UIControlState.Normal);
+            _infoButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _infoButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
 
             // Hook to touch event to do button2
-            _infoButton.TouchUpInside += OnInfoButtonClicked;
+            _infoButton.TouchUpInside += InfoButton_Clicked;
 
-            // Add MapView to the page
-            View.AddSubviews(_myMapView, _uriButton, _infoButton);
+            // Add controls to the page.
+            View.AddSubviews(_myMapView, _toolbar, _label, _uriButton, _infoButton);
         }
     }
 }

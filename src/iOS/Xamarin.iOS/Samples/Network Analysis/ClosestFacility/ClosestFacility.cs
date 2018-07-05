@@ -7,6 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -14,9 +17,6 @@ using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ClosestFacility
@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
         "Network Analysis",
         "Demonstrates how to solve a Closest Facility Task to find the closest route between a facility (hospital) and a incident (black cross).",
         "Tap to find the route to the nearest hospital.")]
-    public partial class ClosestFacility : UIViewController
+    public class ClosestFacility : UIViewController
     {
         // Map view that will be used.
         private MapView _myMapView;
@@ -95,7 +95,8 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             _task = ClosestFacilityTask.CreateAsync(new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ClosestFacility")).Result;
 
             // List of facilities to be placed around San Diego area.
-            _facilities = new List<Facility> {
+            _facilities = new List<Facility>
+            {
                 new Facility(new MapPoint(-1.3042129900625112E7, 3860127.9479775648, SpatialReferences.WebMercator)),
                 new Facility(new MapPoint(-1.3042193400557665E7, 3862448.873041752, SpatialReferences.WebMercator)),
                 new Facility(new MapPoint(-1.3046882875518233E7, 3862704.9896770366, SpatialReferences.WebMercator)),
@@ -103,7 +104,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
                 new Facility(new MapPoint(-1.3042571225655518E7, 3858981.773018156, SpatialReferences.WebMercator)),
                 new Facility(new MapPoint(-1.3039784633928463E7, 3856692.5980474586, SpatialReferences.WebMercator)),
                 new Facility(new MapPoint(-1.3049023883956768E7, 3861993.789732541, SpatialReferences.WebMercator))
-                };
+            };
 
             // Center the map on the San Diego facilities.
             Envelope fullExtent = GeometryEngine.CombineExtents(_facilities.Select(facility => facility.Geometry));
@@ -154,8 +155,8 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             // Clear any prior incident and routes from the graphics.
             _incidentGraphicsOverlay.Graphics.Clear();
 
-            // Create a MapPoint where the user clicked.
-            _incidentPoint = _myMapView.ScreenToLocation(e.Position);
+            // Get the tapped point.
+            _incidentPoint = e.Location;
 
             // Populate the facility parameters than solve using the task.
             PopulateParametersAndSolveRouteAsync();
@@ -166,7 +167,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             // Set facilities and incident in parameters.
             ClosestFacilityParameters closestFacilityParameters = await _task.CreateDefaultParametersAsync();
             closestFacilityParameters.SetFacilities(_facilities);
-            closestFacilityParameters.SetIncidents(new List<Incident> { new Incident(_incidentPoint) });
+            closestFacilityParameters.SetIncidents(new List<Incident> {new Incident(_incidentPoint)});
 
             try
             {

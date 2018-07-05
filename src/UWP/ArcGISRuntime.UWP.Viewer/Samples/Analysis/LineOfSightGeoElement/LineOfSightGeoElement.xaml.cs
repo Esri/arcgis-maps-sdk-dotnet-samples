@@ -19,7 +19,7 @@ using System.Drawing;
 namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Line of Sight (GeoElement)",
+        "Line of sight (GeoElement)",
         "Analysis",
         "This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.",
         "Use the slider to adjust the height of the observer.",

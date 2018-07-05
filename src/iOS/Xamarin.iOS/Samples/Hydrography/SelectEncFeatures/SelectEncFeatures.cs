@@ -7,6 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -15,8 +18,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System.Collections.Generic;
-using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.SelectEncFeatures
@@ -30,8 +31,8 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
         "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.")]
     public class SelectEncFeatures : UIViewController
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Create and hold a reference to the MapView.
+        private readonly MapView _myMapView = new MapView();
 
         public SelectEncFeatures()
         {
@@ -48,80 +49,93 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
 
         private async void Initialize()
         {
-            // Initialize the map with an oceans basemap
+            // Initialize the map with an oceans basemap.
             _myMapView.Map = new Map(Basemap.CreateOceans());
 
-            // Get the path to the ENC Exchange Set
-            string encPath = GetEncPath();
+            // Get the path to the ENC Exchange Set.
+            string encPath = DataManager.GetDataFolder("a490098c60f64d3bbac10ad131cc62c7", "GB5X01NW.000");
 
-            // Create the cell and layer
-            EncLayer myEncLayer = new EncLayer(new EncCell(encPath));
+            // Create the cell and layer.
+            EncLayer encLayer = new EncLayer(new EncCell(encPath));
 
-            // Add the layer to the map
-            _myMapView.Map.OperationalLayers.Add(myEncLayer);
+            // Add the layer to the map.
+            _myMapView.Map.OperationalLayers.Add(encLayer);
 
-            // Wait for the layer to load
-            await myEncLayer.LoadAsync();
+            // Wait for the layer to load.
+            await encLayer.LoadAsync();
 
-            // Set the viewpoint
-            _myMapView.SetViewpoint(new Viewpoint(myEncLayer.FullExtent));
+            // Set the viewpoint.
+            _myMapView.SetViewpoint(new Viewpoint(encLayer.FullExtent));
 
-            // Subscribe to tap events (in order to use them to identify and select features)
+            // Subscribe to tap events (in order to use them to identify and select features).
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void ClearAllSelections()
         {
-            // For each layer in the operational layers that is an ENC layer
+            // For each layer in the operational layers that is an ENC layer.
             foreach (EncLayer layer in _myMapView.Map.OperationalLayers.OfType<EncLayer>())
             {
-                // Clear the layer's selection
+                // Clear the layer's selection.
                 layer.ClearSelection();
             }
 
-            // Clear the callout
+            // Clear the callout.
             _myMapView.DismissCallout();
         }
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // First clear any existing selections
+            // First clear any existing selections.
             ClearAllSelections();
 
-            // Perform the identify operation
+            // Perform the identify operation.
             IReadOnlyList<IdentifyLayerResult> results = await _myMapView.IdentifyLayersAsync(e.Position, 5, false);
 
-            // Return if there are no results
-            if (results.Count < 1) { return; }
+            // Return if there are no results.
+            if (results.Count < 1)
+            {
+                return;
+            }
 
-            // Get the results that are from ENC layers
+            // Get the results that are from ENC layers.
             IEnumerable<IdentifyLayerResult> encResults = results.Where(result => result.LayerContent is EncLayer);
 
-            // Get the ENC results that have features
+            // Get the ENC results that have features.
             IEnumerable<IdentifyLayerResult> encResultsWithFeatures = encResults.Where(result => result.GeoElements.Count > 0);
 
-            // Get the first result with ENC features
+            // Get the first result with ENC features.
             IdentifyLayerResult firstResult = encResultsWithFeatures.First();
 
-            // Get the layer associated with this set of results
+            // Get the layer associated with this set of results.
             EncLayer containingLayer = firstResult.LayerContent as EncLayer;
 
-            // Select the smallest (area) feature in the layer.
-            EncFeature smallestFeature = (EncFeature)firstResult.GeoElements.OrderBy(f => GeometryEngine.Area(f.Geometry)).First();
+            // Get the first identified ENC feature.
+            EncFeature smallestFeature = (EncFeature) firstResult.GeoElements.OrderBy(f => GeometryEngine.Area(f.Geometry)).First();
 
             // Select the feature.
             containingLayer.SelectFeature(smallestFeature);
@@ -129,13 +143,8 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             // Create the callout definition.
             CalloutDefinition definition = new CalloutDefinition(smallestFeature.Acronym, smallestFeature.Description);
 
-            // Show the callout
+            // Show the callout.
             _myMapView.ShowCalloutAt(e.Location, definition);
-        }
-
-        private static string GetEncPath()
-        {
-            return DataManager.GetDataFolder("a490098c60f64d3bbac10ad131cc62c7", "GB5X01NW.000");
         }
     }
 }

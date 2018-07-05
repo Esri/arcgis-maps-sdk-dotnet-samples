@@ -1,4 +1,4 @@
-// Copyright 2016 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -22,8 +22,8 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
         "")]
     public partial class FeatureCollectionLayerFromPortal : ContentPage
     { 
-        // Default portal item Id to load features from
-        private const string FeatureCollectionItemId = "5ffe7733754f44a9af12a489250fe12b";
+        // Default portal item Id to load features from.
+        private const string FeatureCollectionItemId = "32798dfad17942858d5eef82ee802f0b";
 
         public FeatureCollectionLayerFromPortal()
         {
@@ -31,16 +31,16 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             
             Title = "Feature collection layer from portal";
 
-            // call a function to initialize a map to display in the MyMapView control
+            // call a function to initialize a map to display in the MyMapView control.
             Initialize();
         }
 
         private void Initialize()
         {
-            // Add a default value for the portal item Id
+            // Add a default value for the portal item Id.
             CollectionItemIdTextBox.Text = FeatureCollectionItemId;
 
-            // Create a new map with the oceans basemap and add it to the map view
+            // Create a new map with the oceans basemap and add it to the map view.
             Map myMap = new Map(Basemap.CreateOceans());
             MyMapView.Map = myMap;
         }
@@ -49,17 +49,17 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
         {
             try
             {
-                // Open a portal item containing a feature collection
+                // Open a portal item containing a feature collection.
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync();
                 PortalItem collectionItem = await PortalItem.CreateAsync(portal, itemId);
 
-                // Verify that the item is a feature collection
+                // Verify that the item is a feature collection.
                 if (collectionItem.Type == PortalItemType.FeatureCollection)
                 {
-                    // Create a new FeatureCollection from the item
+                    // Create a new FeatureCollection from the item.
                     FeatureCollection featureCollection = new FeatureCollection(collectionItem);
 
-                    // Create a layer to display the collection and add it to the map as an operational layer
+                    // Create a layer to display the collection and add it to the map as an operational layer.
                     FeatureCollectionLayer featureCollectionLayer = new FeatureCollectionLayer(featureCollection);
                     featureCollectionLayer.Name = collectionItem.Title;
 
@@ -78,17 +78,17 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
 
         private async void OpenPortalFeatureCollectionClick(object sender, EventArgs e)
         {
-            // Get the portal item Id from the user
+            // Get the portal item Id from the user.
             var collectionItemId = CollectionItemIdTextBox.Text.Trim();
 
-            // Make sure an Id was entered
+            // Make sure an Id was entered.
             if (string.IsNullOrEmpty(collectionItemId))
             {
                 await DisplayAlert("Feature Collection ID", "Please enter a portal item ID", "OK");
                 return;
             }
 
-            // Call a function to add the feature collection from the specified portal item
+            // Call a function to add the feature collection from the specified portal item.
             OpenFeaturesFromArcGISOnline(collectionItemId);
         }
     }

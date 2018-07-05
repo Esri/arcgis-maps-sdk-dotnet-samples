@@ -114,6 +114,7 @@
   <!-- Screenshots -->
   <ItemGroup>
     <Content Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
+    <Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
     <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
     <Content Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
@@ -136,20 +137,20 @@
     <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg" />
     <Content Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg" />
     <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
-    <Content Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
-    <Content Include="Samples\GeometryEngine\BufferList\BufferList.jpg" />
-    <Content Include="Samples\GeometryEngine\Buffer\Buffer.jpg" />
-    <Content Include="Samples\GeometryEngine\ConvexHull\ConvexHull.jpg" />
-    <Content Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg" />
-    <Content Include="Samples\GeometryEngine\ConvexHullList\ConvexHullList.jpg" />
-    <Content Include="Samples\GeometryEngine\CutGeometry\CutGeometry.jpg" />
-    <Content Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
-    <Content Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
-    <Content Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.jpg" />
-    <Content Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.jpg" />
-    <Content Include="Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
-    <Content Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
+    <Content Include="Samples\Geometry\Buffer\Buffer.jpg" />
+    <Content Include="Samples\Geometry\BufferList\BufferList.jpg" />
+    <Content Include="Samples\Geometry\ClipGeometry\ClipGeometry.jpg" />
+    <Content Include="Samples\Geometry\ConvexHull\ConvexHull.jpg" />
+    <Content Include="Samples\Geometry\ConvexHullList\ConvexHullList.jpg" />
+    <Content Include="Samples\Geometry\CreateGeometries\CreateGeometries.jpg" />
+    <Content Include="Samples\Geometry\CutGeometry\CutGeometry.jpg" />
+    <Content Include="Samples\Geometry\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
     <Content Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
+    <Content Include="Samples\Geometry\GeodesicOperations\GeodesicOperations.jpg" />
+    <Content Include="Samples\Geometry\ListTransformations\ListTransformations.jpg" />
+    <Content Include="Samples\Geometry\NearestVertex\NearestVertex.jpg" />
+    <Content Include="Samples\Geometry\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
+    <Content Include="Samples\Geometry\SpatialRelationships\SpatialRelationships.jpg" />
     <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
     <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
     <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
@@ -181,6 +182,7 @@
     <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
     <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <Content Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
+    <Content Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.jpg" />
     <Content Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.jpg" />
     <Content Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
     <Content Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
@@ -192,18 +194,31 @@
     <Content Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.jpg" />
     <Content Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg" />
     <Content Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.jpg" />
-    <Content Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg" />
-    <Content Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.jpg" />
-    <Content Include="Samples\Layers\WmsIdentify\WmsIdentify.jpg" />
     <Content Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.jpg" />
+    <Content Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg" />
+    <Content Include="Samples\Layers\WmsIdentify\WmsIdentify.jpg" />
     <Content Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
     <Content Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg" />
     <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg" />
     <Content Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg" />
-    <Content Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
+    <Content Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg" />
+    <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg" />
+    <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
+    <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
+    <Content Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
+    <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
+    <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
+    <Content Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
+    <Content Include="Samples\Map\OpenScene\OpenScene.jpg" />
+    <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
+    <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
+    <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
+    <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
+    <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
     <Content Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />
     <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
     <Content Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
+    <Content Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
     <Content Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
     <Content Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.jpg" />
     <Content Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
@@ -211,22 +226,10 @@
     <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
     <Content Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
-    <Content Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg" />
-    <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg" />
-    <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
-    <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
-    <Content Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
-    <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
-    <Content Include="Samples\Map\OpenScene\OpenScene.jpg" />
-    <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
-    <Content Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
-    <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
-    <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
-    <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
-    <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
-    <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
     <Content Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg" />
+    <Content Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.jpg" />
     <Content Include="Samples\Network Analysis\FindRoute\FindRoute.jpg" />
+    <Content Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.jpg" />
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <Content Include="Samples\Search\FindPlace\FindPlace.jpg" />
     <Content Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
@@ -235,7 +238,6 @@
     <Content Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
     <Content Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg" />
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
-    <Content Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
   </ItemGroup>
   <!-- Misc Resources -->
   <ItemGroup>
@@ -277,7 +279,6 @@
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
   </ItemGroup>
   <!-- Sample Code -->
@@ -354,43 +355,43 @@
     <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
       <DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.xaml.cs">
+    <Compile Include="Samples\Geometry\DensifyAndGeneralize\DensifyAndGeneralize.xaml.cs">
       <DependentUpon>DensifyAndGeneralize.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeometryEngine\BufferList\BufferList.xaml.cs">
+    <Compile Include="Samples\Geometry\BufferList\BufferList.xaml.cs">
       <DependentUpon>BufferList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeometryEngine\Buffer\Buffer.xaml.cs">
+    <Compile Include="Samples\Geometry\Buffer\Buffer.xaml.cs">
       <DependentUpon>Buffer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeometryEngine\ConvexHull\ConvexHull.xaml.cs">
+    <Compile Include="Samples\Geometry\ConvexHull\ConvexHull.xaml.cs">
       <DependentUpon>ConvexHull.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.xaml.cs">
+    <Compile Include="Samples\Geometry\ClipGeometry\ClipGeometry.xaml.cs">
       <DependentUpon>ClipGeometry.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeometryEngine\ConvexHullList\ConvexHullList.xaml.cs">
+    <Compile Include="Samples\Geometry\ConvexHullList\ConvexHullList.xaml.cs">
       <DependentUpon>ConvexHullList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeometryEngine\CutGeometry\CutGeometry.xaml.cs">
+    <Compile Include="Samples\Geometry\CutGeometry\CutGeometry.xaml.cs">
       <DependentUpon>CutGeometry.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.xaml.cs">
+    <Compile Include="Samples\Geometry\CreateGeometries\CreateGeometries.xaml.cs">
       <DependentUpon>CreateGeometries.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.xaml.cs">
+    <Compile Include="Samples\Geometry\ListTransformations\ListTransformations.xaml.cs">
       <DependentUpon>ListTransformations.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.xaml.cs">
+    <Compile Include="Samples\Geometry\SpatialRelationships\SpatialRelationships.xaml.cs">
       <DependentUpon>SpatialRelationships.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.xaml.cs">
+    <Compile Include="Samples\Geometry\GeodesicOperations\GeodesicOperations.xaml.cs">
       <DependentUpon>GeodesicOperations.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeometryEngine\NearestVertex\NearestVertex.xaml.cs">
+    <Compile Include="Samples\Geometry\NearestVertex\NearestVertex.xaml.cs">
       <DependentUpon>NearestVertex.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
+    <Compile Include="Samples\Geometry\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
       <DependentUpon>ProjectWithSpecificTransformation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml.cs">
@@ -621,11 +622,17 @@
     <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml.cs">
       <DependentUpon>SetMinMaxScale.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml.cs">
+      <DependentUpon>ClosestFacilityStatic.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml.cs">
       <DependentUpon>ClosestFacility.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Network Analysis\FindRoute\FindRoute.xaml.cs">
       <DependentUpon>FindRoute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml.cs">
+      <DependentUpon>FindServiceArea.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Search\FindAddress\FindAddress.xaml.cs">
       <DependentUpon>FindAddress.xaml</DependentUpon>
@@ -650,9 +657,6 @@
     </Compile>
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml.cs">
       <DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml.cs">
-      <DependentUpon>AuthorEditSaveMap.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <!-- Sample Layouts -->
@@ -753,55 +757,55 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.xaml">
+    <Page Include="Samples\Geometry\DensifyAndGeneralize\DensifyAndGeneralize.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeometryEngine\BufferList\BufferList.xaml">
+    <Page Include="Samples\Geometry\BufferList\BufferList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeometryEngine\Buffer\Buffer.xaml">
+    <Page Include="Samples\Geometry\Buffer\Buffer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeometryEngine\ConvexHull\ConvexHull.xaml">
+    <Page Include="Samples\Geometry\ConvexHull\ConvexHull.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.xaml">
+    <Page Include="Samples\Geometry\ClipGeometry\ClipGeometry.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeometryEngine\ConvexHullList\ConvexHullList.xaml">
+    <Page Include="Samples\Geometry\ConvexHullList\ConvexHullList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeometryEngine\CutGeometry\CutGeometry.xaml">
+    <Page Include="Samples\Geometry\CutGeometry\CutGeometry.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.xaml">
+    <Page Include="Samples\Geometry\CreateGeometries\CreateGeometries.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeometryEngine\ListTransformations\ListTransformations.xaml">
+    <Page Include="Samples\Geometry\ListTransformations\ListTransformations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.xaml">
+    <Page Include="Samples\Geometry\SpatialRelationships\SpatialRelationships.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.xaml">
+    <Page Include="Samples\Geometry\GeodesicOperations\GeodesicOperations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeometryEngine\NearestVertex\NearestVertex.xaml">
+    <Page Include="Samples\Geometry\NearestVertex\NearestVertex.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml">
+    <Page Include="Samples\Geometry\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1109,11 +1113,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Network Analysis\FindRoute\FindRoute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1149,10 +1161,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <!-- Sample Manager Code -->
   <ItemGroup>
@@ -1178,7 +1186,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Samples\Tutorial\AuthorEditSaveMap\MapViewModel.cs" />
     <Compile Include="WaitPage.xaml.cs">
       <DependentUpon>WaitPage.xaml</DependentUpon>
     </Compile>
@@ -1225,6 +1232,7 @@
       <Version>6.0.8</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

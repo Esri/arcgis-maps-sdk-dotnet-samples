@@ -7,6 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
+using CoreGraphics;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -23,14 +25,14 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
         "")]
     public class AccessLoadStatus : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
+        // Create and hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
-
-        // Control to show the Map's load status
-        private UITextView _loadStatusTextView;
+        private readonly UILabel _loadStatusTextView = new UILabel
+        {
+            TextAlignment = UITextAlignment.Center
+        };
 
         public AccessLoadStatus()
         {
@@ -41,54 +43,60 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization.
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat margin = 5;
+                nfloat controlHeight = 30;
+                nfloat toolbarHeight = controlHeight + 2 * margin;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                _loadStatusTextView.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
         {
-            // Create new Map with basemap
+            // Create new Map with basemap.
             Map myMap = new Map(Basemap.CreateImagery());
 
-            // Register to handle loading status changes
+            // Register to handle loading status changes.
             myMap.LoadStatusChanged += OnMapsLoadStatusChanged;
 
-            // Provide used Map to the MapView
+            // Show the map.
             _myMapView.Map = myMap;
         }
 
         private void OnMapsLoadStatusChanged(object sender, LoadStatusEventArgs e)
         {
-            // Make sure that the UI changes are done in the UI thread
+            // Make sure that the UI changes are done in the UI thread.
             InvokeOnMainThread(() =>
             {
-                // Update the load status information
-                _loadStatusTextView.Text = string.Format(
-                    "Map's load status : {0}", 
-                    e.Status.ToString());
+                // Update the load status information.
+                _loadStatusTextView.Text = $"Map's load status: {e.Status}";
             });
         }
 
         private void CreateLayout()
         {
-            // Create control to show the maps' loading status
-            _loadStatusTextView = new UITextView()
-            {
-                Frame = new CoreGraphics.CGRect(
-                    0, yPageOffset, View.Bounds.Width, 40)
-            };
-  
-            // Add MapView to the page
-            View.AddSubviews(_myMapView, _loadStatusTextView);
+            // Add the controls to the view.
+            View.AddSubviews(_myMapView, _toolbar, _loadStatusTextView);
         }
     }
 }

@@ -7,6 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -14,11 +20,6 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ExportTiles
@@ -31,20 +32,14 @@ namespace ArcGISRuntime.Samples.ExportTiles
         "1. Pan and zoom until the area you want tiles for is within the red box.\n2. Click 'Export Tiles'.\n3. Pan and zoom to see the area covered by the downloaded tiles in the preview box.")]
     public class ExportTiles : UIViewController
     {
-        // Reference to the MapView used in the sample.
+        // Hold references to the UI controls.
         private MapView _myMapView;
-
-        // Reference to the preview MapView.
         private MapView _myPreviewMapView;
-
-        // Reference to the progress bar.
         private UIActivityIndicatorView _myProgressBar;
-
-        // Reference to the 'export' button.
         private UIButton _myExportButton;
 
         // URL to the service tiles will be exported from.
-        private Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
+        private readonly Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
 
         // Path to exported tiles on disk.
         private string _tilePath;
@@ -61,31 +56,29 @@ namespace ArcGISRuntime.Samples.ExportTiles
         {
             base.ViewDidLoad();
 
-            // Create the layout.
             CreateLayout();
-
-            // Initialize the app.
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Hold a margin value.
-            int margin = 30;
+            try
+            {
+                nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat barHeight = 40;
 
-            // Set up the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - barHeight);
+                _myPreviewMapView.Frame = new CGRect(0, topStart, View.Bounds.Width, View.Bounds.Height - topStart - barHeight);
+                _myProgressBar.Frame = new CGRect(0, View.Bounds.Height - barHeight, View.Bounds.Width, barHeight);
+                _myExportButton.Frame = new CGRect(0, View.Bounds.Height - barHeight, View.Bounds.Width, barHeight);
 
-            // Set up the visual frame for the preview MapView.
-            _myPreviewMapView.Frame = new CoreGraphics.CGRect(margin, margin * 2, View.Bounds.Width - 2 * margin, View.Bounds.Height - 4 * margin);
-
-            // Set up the visual frame for the progress bar.
-            _myProgressBar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 20);
-
-            // Set up the visual frame for the button.
-            _myExportButton.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 20, View.Bounds.Width, 20);
-
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()
@@ -98,15 +91,13 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 // Load the layer.
                 await myLayer.LoadAsync();
 
-                // Create the basemap with the layer.
-                Map myMap = new Map(new Basemap(myLayer));
-
-                // Set the min and max scale - export task fails if the scale is too big or small.
-                myMap.MaxScale = 5000000;
-                myMap.MinScale = 10000000;
-
-                // Assign the map to the mapview.
-                _myMapView.Map = myMap;
+                // Create and show the basemap with the layer.
+                _myMapView.Map = new Map(new Basemap(myLayer))
+                {
+                    // Set the min and max scale - export task fails if the scale is too big or small.
+                    MaxScale = 5000000,
+                    MinScale = 10000000
+                };
 
                 // Create a new symbol for the extent graphic.
                 //     This is the red box that visualizes the extent for which tiles will be exported.
@@ -131,7 +122,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 _myExportButton.Enabled = true;
 
                 // Set viewpoint of the map.
-                _myMapView.SetViewpoint(new Viewpoint(-4.853791, 140.983598, myMap.MinScale));
+                _myMapView.SetViewpoint(new Viewpoint(-4.853791, 140.983598, _myMapView.Map.MinScale));
             }
             catch (Exception ex)
             {
@@ -145,13 +136,13 @@ namespace ArcGISRuntime.Samples.ExportTiles
             _myMapView = new MapView();
 
             // Create the preview mapview.
-            _myPreviewMapView = new MapView()
+            _myPreviewMapView = new MapView
             {
                 Hidden = true // hide it by default.
             };
 
             // Set a border on the preview window.
-            _myPreviewMapView.Layer.BorderColor = new CoreGraphics.CGColor(.8f, .2f, .6f);
+            _myPreviewMapView.Layer.BorderColor = new CoreGraphics.CGColor(0, 0, 1f);
             _myPreviewMapView.Layer.BorderWidth = 2.0f;
 
             // Create the progress bar.
@@ -162,18 +153,18 @@ namespace ArcGISRuntime.Samples.ExportTiles
             };
 
             // Create the export button - disabled until sample is ready.
-            _myExportButton = new UIButton() { Enabled = false };
+            _myExportButton = new UIButton {Enabled = false, BackgroundColor = UIColor.White};
             _myExportButton.SetTitle("Export", UIControlState.Normal);
+            _myExportButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
-            // Set background color on the button and progressbar.
-            _myExportButton.BackgroundColor = UIColor.LightGray;
-            _myProgressBar.BackgroundColor = UIColor.LightGray;
+            // Set background color on the progress bar.
+            _myProgressBar.BackgroundColor = UIColor.FromWhiteAlpha(0, .5f);
 
             // Get notified of button taps.
             _myExportButton.TouchUpInside += MyExportButton_Click;
 
             // Add the views.
-            View.AddSubviews(_myMapView, _myProgressBar, _myExportButton, _myPreviewMapView);
+            View.AddSubviews(_myMapView, _myExportButton, _myProgressBar, _myPreviewMapView);
         }
 
         private void MyMapView_ViewpointChanged(object sender, EventArgs e)
@@ -188,20 +179,17 @@ namespace ArcGISRuntime.Samples.ExportTiles
         /// </summary>
         private void UpdateMapExtentGraphic()
         {
-            // Return if mapview is null.
-            if (_myMapView == null) { return; }
-
             // Get the new viewpoint.
-            Viewpoint myViewPoint = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
-
-            // Return if viewpoint is null.
-            if (myViewPoint == null) { return; }
+            Viewpoint myViewPoint = _myMapView?.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
             // Get the updated extent for the new viewpoint.
-            Envelope extent = myViewPoint.TargetGeometry as Envelope;
+            Envelope extent = myViewPoint?.TargetGeometry as Envelope;
 
             // Return if extent is null.
-            if (extent == null) { return; }
+            if (extent == null)
+            {
+                return;
+            }
 
             // Create an envelope that is a bit smaller than the extent.
             EnvelopeBuilder envelopeBldr = new EnvelopeBuilder(extent);
@@ -211,7 +199,10 @@ namespace ArcGISRuntime.Samples.ExportTiles
             GraphicsOverlay extentOverlay = _myMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
-            if (extentOverlay == null) { return; }
+            if (extentOverlay == null)
+            {
+                return;
+            }
 
             // Get the extent graphic.
             Graphic extentGraphic = extentOverlay.Graphics.FirstOrDefault();
@@ -285,54 +276,55 @@ namespace ArcGISRuntime.Samples.ExportTiles
         {
             // Hide the progress bar.
             _myProgressBar.StopAnimating();
-            // Update the view if the job is complete.
-            if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded)
+            switch (job.Status)
             {
-                // Dispatcher is necessary due to the threading implementation;
-                //     this method is called from a thread other than the UI thread.
-                InvokeOnMainThread(async () =>
-                {
-                    // Show the exported tiles on the preview map.
-                    try
+                // Update the view if the job is complete.
+                case Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded:
+                    // Dispatcher is necessary due to the threading implementation;
+                    //     this method is called from a thread other than the UI thread.
+                    InvokeOnMainThread(async () =>
                     {
-                        await UpdatePreviewMap(cache);
+                        // Show the exported tiles on the preview map.
+                        try
+                        {
+                            await UpdatePreviewMap(cache);
 
-                        // Show the preview window.
-                        _myPreviewMapView.Hidden = false;
+                            // Show the preview window.
+                            _myPreviewMapView.Hidden = false;
 
+                            // Change the export button text.
+                            _myExportButton.SetTitle("Close preview", UIControlState.Normal);
+
+                            // Re-enable the button.
+                            _myExportButton.Enabled = true;
+
+                            // Set the preview open flag.
+                            _previewOpen = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowStatusMessage(ex.ToString());
+                        }
+                    });
+                    break;
+                case Esri.ArcGISRuntime.Tasks.JobStatus.Failed:
+                    // Notify the user.
+                    ShowStatusMessage("Job failed");
+
+                    // Dispatcher is necessary due to the threading implementation;
+                    //     this method is called from a thread other than the UI thread.
+                    InvokeOnMainThread(() =>
+                    {
                         // Change the export button text.
-                        _myExportButton.SetTitle("Close Preview", UIControlState.Normal);
+                        _myExportButton.SetTitle("Export Tiles", UIControlState.Normal);
 
-                        // Re-enable the button.
+                        // Re-enable the export button.
                         _myExportButton.Enabled = true;
 
                         // Set the preview open flag.
-                        _previewOpen = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        ShowStatusMessage(ex.ToString());
-                    }
-                });
-            }
-            else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
-            {
-                // Notify the user.
-                ShowStatusMessage("Job failed");
-
-                // Dispatcher is necessary due to the threading implementation;
-                //     this method is called from a thread other than the UI thread.
-                InvokeOnMainThread(() =>
-                {
-                    // Change the export button text.
-                    _myExportButton.SetTitle("Export Tiles", UIControlState.Normal);
-
-                    // Re-enable the export button.
-                    _myExportButton.Enabled = true;
-
-                    // Set the preview open flag.
-                    _previewOpen = false;
-                });
+                        _previewOpen = false;
+                    });
+                    break;
             }
         }
 
@@ -388,7 +380,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            UIAlertView alertView = new UIAlertView("alert", message, null, "OK", null);
+            UIAlertView alertView = new UIAlertView("alert", message, (IUIAlertViewDelegate) null, "OK", null);
             alertView.Show();
         }
     }

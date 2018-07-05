@@ -12,6 +12,7 @@ using System.Windows;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
+using System.Drawing;
 
 namespace ArcGISRuntime.WPF.Samples.ChangeSublayerRenderer
 {
@@ -62,12 +63,12 @@ namespace ArcGISRuntime.WPF.Samples.ChangeSublayerRenderer
         private ClassBreaksRenderer CreateClassBreaksRenderer()
         {
             // Define the colors that will be used by the unique value renderer.
-            System.Windows.Media.Color gray = System.Windows.Media.Color.FromArgb(255, 153, 153, 153);
-            System.Windows.Media.Color blue1 = System.Windows.Media.Color.FromArgb(255, 227, 235, 207);
-            System.Windows.Media.Color blue2 = System.Windows.Media.Color.FromArgb(255, 150, 194, 191);
-            System.Windows.Media.Color blue3 = System.Windows.Media.Color.FromArgb(255, 97, 166, 181);
-            System.Windows.Media.Color blue4 = System.Windows.Media.Color.FromArgb(255, 69, 125, 150);
-            System.Windows.Media.Color blue5 = System.Windows.Media.Color.FromArgb(255, 41, 84, 120);
+            Color gray = Color.FromArgb(255, 153, 153, 153);
+            Color blue1 = Color.FromArgb(255, 227, 235, 207);
+            Color blue2 = Color.FromArgb(255, 150, 194, 191);
+            Color blue3 = Color.FromArgb(255, 97, 166, 181);
+            Color blue4 = Color.FromArgb(255, 69, 125, 150);
+            Color blue5 = Color.FromArgb(255, 41, 84, 120);
 
             // Create a gray outline and five fill symbols with different shades of blue.
             SimpleLineSymbol outlineSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, gray, 1);

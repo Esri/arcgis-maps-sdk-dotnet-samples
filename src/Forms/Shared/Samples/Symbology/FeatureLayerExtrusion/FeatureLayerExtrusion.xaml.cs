@@ -14,12 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
 using Xamarin.Forms;
-
-#if WINDOWS_UWP
-using Colors = Windows.UI.Colors;
-#else
 using Colors = System.Drawing.Color;
-#endif
 
 namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
 {
@@ -67,8 +62,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
                 // Get the scene properties from the simple renderer
                 RendererSceneProperties myRendererSceneProperties = mySimpleRenderer.SceneProperties;
 
-                // Set the extrusion mode for the scene properties to be base height
-                myRendererSceneProperties.ExtrusionMode = ExtrusionMode.BaseHeight;
+                // Set the extrusion mode for the scene properties
+                myRendererSceneProperties.ExtrusionMode = ExtrusionMode.AbsoluteHeight;
 
                 // Set the initial extrusion expression
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
@@ -114,19 +109,21 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             RendererSceneProperties myRendererSceneProperties = myRenderer.SceneProperties;
 
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text
-            if (Button_ToggleExtrusionData.Text == "Population Density")
+            if (ToggleExtrusionDataButton.Text == "Show population density")
             {
-                myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000";
-                Button_ToggleExtrusionData.Text = "Total Population";
+                // An offset of 100000 is added to ensure that polygons for large areas (like Alaska)
+                // with low populations will be extruded above the curvature of the Earth.
+                myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000 + 100000";
+                ToggleExtrusionDataButton.Text = "Show total population";
             }
-            else if (Button_ToggleExtrusionData.Text == "Total Population")
+            else if (ToggleExtrusionDataButton.Text == "Show total population")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
-                Button_ToggleExtrusionData.Text = "Population Density";
+                ToggleExtrusionDataButton.Text = "Show population density";
             }
         }
 
-        private void Button_ToggleExtrusionData_Click(object sender, EventArgs e)
+        private void ToggleExtrusionData_Click(object sender, EventArgs e)
         {
             // Call the function to change the feature layer's renderer scene properties extrusion expression
             ChangeExtrusionExpression();

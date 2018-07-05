@@ -57,7 +57,7 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
             ArcGISVectorTiledLayer vectorTiledLayer = new ArcGISVectorTiledLayer(_layerUrls.Values.First());
 
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
+            Map myMap = new Map();
             myMap.OperationalLayers.Add(vectorTiledLayer);
 
             // Provide used Map to the MapView
@@ -91,7 +91,7 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
             ArcGISVectorTiledLayer vectorTiledLayer = new ArcGISVectorTiledLayer(_layerUrls[selected]);
 
             // Create a new map with a basemap that was selected. Assign this to the mapview's map
-            _myMapView.Map = new Map(Basemap.CreateImagery());
+            _myMapView.Map.OperationalLayers.Clear();
             _myMapView.Map.OperationalLayers.Add(vectorTiledLayer);
         }
 

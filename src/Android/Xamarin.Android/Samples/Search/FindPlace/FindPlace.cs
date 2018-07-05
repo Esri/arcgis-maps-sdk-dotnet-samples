@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Android.Views;
 
 namespace ArcGISRuntime.Samples.FindPlace
 {
@@ -121,9 +122,14 @@ namespace ArcGISRuntime.Samples.FindPlace
             _myLocationBox.SetMaxLines(1);
 
             // Search buttons; horizontal layout
+            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MatchParent,
+                ViewGroup.LayoutParams.MatchParent,
+                1.0f
+            );
             var searchButtonLayout = new LinearLayout(this) { Orientation = Orientation.Horizontal };
-            _mySearchButton = new Button(this) { Text = "Search All" };
-            _mySearchRestrictedButton = new Button(this) { Text = "Search View" };
+            _mySearchButton = new Button(this) { Text = "Search All", LayoutParameters = param};
+            _mySearchRestrictedButton = new Button(this) { Text = "Search View", LayoutParameters = param };
 
             // Add the buttons to the layout
             searchButtonLayout.AddView(_mySearchButton);
@@ -264,11 +270,8 @@ namespace ArcGISRuntime.Samples.FindPlace
             // Add the GraphicsOverlay to the MapView
             _myMapView.GraphicsOverlays.Add(resultOverlay);
 
-            // Create a viewpoint for the extent containing all graphics
-            Viewpoint viewExtent = new Viewpoint(resultOverlay.Extent);
-
-            // Update the map viewpoint
-            _myMapView.SetViewpoint(viewExtent);
+            // Update the map viewpoint.
+            await _myMapView.SetViewpointGeometryAsync(resultOverlay.Extent, 50);
         }
 
         /// <summary>

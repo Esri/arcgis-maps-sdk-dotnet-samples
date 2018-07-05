@@ -1,9 +1,7 @@
-﻿<Window x:Class="TokenSecuredServices.MainWindow"
-		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-		Title="Token Secured Services (Challenge)">
-
+﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.TokenSecuredChallenge.TokenSecuredChallenge"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid x:Name="layoutGrid">
         <esri:MapView x:Name="MyMapView">
             <esri:Map>
@@ -134,4 +132,4 @@
             </StackPanel>
         </Border>
     </Grid>
-</Window>
+</UserControl>

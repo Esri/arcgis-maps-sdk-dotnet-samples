@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
-using Windows.UI;
+using System.Drawing;
 using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.UWP.Samples.ChangeFeatureLayerRenderer
@@ -77,7 +77,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeFeatureLayerRenderer
             // Create a symbol to be used in the renderer
             SimpleLineSymbol symbol = new SimpleLineSymbol()
             {
-                Color = Colors.Blue,
+                Color = Color.Blue,
                 Width = 2,
                 Style = SimpleLineSymbolStyle.Solid
             };

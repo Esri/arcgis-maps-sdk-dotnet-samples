@@ -7,12 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ServiceFeatureTableCache
@@ -25,11 +25,8 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableCache
         "")]
     public class ServiceFeatureTableCache : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Create and hold a reference to the MapView.
+        private readonly MapView _myMapView = new MapView();
 
         public ServiceFeatureTableCache()
         {
@@ -40,53 +37,63 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableCache
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
         {
-            // Create new Map with basemap
+            // Create new Map with basemap.
             Map myMap = new Map(Basemap.CreateTopographic());
 
-            // Create and set initial map area
-            Envelope initialLocation = new Envelope(
-                -1.30758164047166E7, 4014771.46954516, -1.30730056797177E7, 4016869.78617381,
-                SpatialReferences.WebMercator);
+            // Create and set initial map area.
+            Envelope initialLocation = new Envelope(-1.30758164047166E7, 4014771.46954516, -1.30730056797177E7, 4016869.78617381, SpatialReferences.WebMercator);
             myMap.InitialViewpoint = new Viewpoint(initialLocation);
 
-            // Create uri to the used feature service
+            // Create URI to the used feature service.
             var serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/FeatureServer/0");
 
-            // Create feature table for the pools feature service
-            ServiceFeatureTable poolsFeatureTable = new ServiceFeatureTable(serviceUri);
+            // Create feature table for the pools feature service.
+            ServiceFeatureTable poolsFeatureTable = new ServiceFeatureTable(serviceUri)
+            {
+                // Define the request mode.
+                FeatureRequestMode = FeatureRequestMode.OnInteractionCache
+            };
 
-            // Define the request mode
-            poolsFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionCache;
-
-            // Create FeatureLayer that uses the created table
+            // Create FeatureLayer that uses the created table.
             FeatureLayer poolsFeatureLayer = new FeatureLayer(poolsFeatureTable);
 
-            // Add created layer to the map
+            // Add created layer to the map.
             myMap.OperationalLayers.Add(poolsFeatureLayer);
 
-            // Assign the map to the MapView
+            // Assign the map to the MapView.
             _myMapView.Map = myMap;
 
-            // Feature table initialization
+            // Feature table initialization.
             poolsFeatureTable.RetryLoadAsync();
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
     }

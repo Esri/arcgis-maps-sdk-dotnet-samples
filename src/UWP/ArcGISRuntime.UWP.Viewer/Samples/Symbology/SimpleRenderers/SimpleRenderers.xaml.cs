@@ -3,15 +3,15 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using Windows.UI;
+using System.Drawing;
 
 namespace ArcGISRuntime.UWP.Samples.SimpleRenderers
 {
@@ -26,7 +26,7 @@ namespace ArcGISRuntime.UWP.Samples.SimpleRenderers
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
@@ -49,7 +49,10 @@ namespace ArcGISRuntime.UWP.Samples.SimpleRenderers
             // Add the map to the map view
             MyMapView.Map = myMap;
 
-            // Create a graphics overlay 
+            // Set the viewpoint to the envelope with padding.
+            MyMapView.SetViewpointGeometryAsync(initialEnvelope, 50);
+
+            // Create a graphics overlay
             GraphicsOverlay myGraphicOverlay = new GraphicsOverlay();
 
             // Create graphics based upon the map points
@@ -63,7 +66,7 @@ namespace ArcGISRuntime.UWP.Samples.SimpleRenderers
             myGraphicOverlay.Graphics.Add(plumeGeyserGraphic);
 
             // Create a simple marker symbol - red, cross, size 12
-            SimpleMarkerSymbol mySymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, Colors.Red, 12);
+            SimpleMarkerSymbol mySymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, Color.Red, 12);
 
             // Create a simple renderer based on the simple marker symbol
             SimpleRenderer myRenderer = new SimpleRenderer(mySymbol);

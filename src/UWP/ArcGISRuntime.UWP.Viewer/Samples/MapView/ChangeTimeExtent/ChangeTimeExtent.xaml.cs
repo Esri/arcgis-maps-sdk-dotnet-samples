@@ -49,7 +49,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeTimeExtent
             MyMapView.Map.OperationalLayers.Add(pointLayer);
         }
 
-        private void twoThousand_Click(object sender, RoutedEventArgs e)
+        private void TwoThousand_Click(object sender, RoutedEventArgs e)
         {
             // Hard-coded start value: January 1st, 2000.
             DateTime start = new DateTime(2000, 1, 1);
@@ -61,7 +61,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeTimeExtent
             MyMapView.TimeExtent = new TimeExtent(start, end);
         }
 
-        private void twoThousandFive_Click(object sender, RoutedEventArgs e)
+        private void TwoThousandFive_Click(object sender, RoutedEventArgs e)
         {
             // Hard-coded start value: January 1st, 2005.
             DateTime start = new DateTime(2005, 1, 1);

@@ -48,7 +48,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
 
         // Client ID for the app registered with the server (Portal Maps)
-        public string _appClientId = "2Gh53JRzkPtOENQq";
+        public static string AppClientId = "2Gh53JRzkPtOENQq";
 
         // Redirect URL after a successful authorization (configured for the Portal Maps application)
         private string _oAuthRedirectUrl = "https://developers.arcgis.com";
@@ -86,7 +86,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             CreateNewMap();
 
             // Show the default OAuth settings in the entry controls
-            ClientIDEntry.Text = _appClientId;
+            ClientIDEntry.Text = AppClientId;
             RedirectUrlEntry.Text = _oAuthRedirectUrl;
 
             // Change the style of the layer list view for Android and UWP
@@ -112,7 +112,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         private void SaveOAuthSettings(object sender, EventArgs e)
         {
-            _appClientId = ClientIDEntry.Text.Trim();
+            AppClientId = ClientIDEntry.Text.Trim();
             _oAuthRedirectUrl = RedirectUrlEntry.Text.Trim();
 
             OAuthSettingsGrid.IsVisible = false;
@@ -354,7 +354,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Define the OAuth information
             OAuthClientInfo oAuthInfo = new OAuthClientInfo
             {
-                ClientId = _appClientId,
+                ClientId = AppClientId,
                 RedirectUri = new Uri(_oAuthRedirectUrl)
             };
             portalServerInfo.OAuthClientInfo = oAuthInfo;
@@ -422,7 +422,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 #endif
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(
-                clientId: _appClientId,
+                clientId: AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
                 redirectUrl: callbackUri)

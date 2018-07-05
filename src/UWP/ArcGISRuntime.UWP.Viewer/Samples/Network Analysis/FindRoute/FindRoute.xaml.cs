@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -14,8 +14,8 @@ using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using Windows.UI;
 
 namespace ArcGISRuntime.UWP.Samples.FindRoute
 {
@@ -37,6 +37,7 @@ namespace ArcGISRuntime.UWP.Samples.FindRoute
 
         // URIs for picture marker images
         private Uri _checkedFlagIconUri = new Uri("http://static.arcgis.com/images/Symbols/Transportation/CheckeredFlag.png");
+
         private Uri _carIconUri = new Uri("http://static.arcgis.com/images/Symbols/Transportation/CarRedFront.png");
 
         public FindRoute()
@@ -61,9 +62,11 @@ namespace ArcGISRuntime.UWP.Samples.FindRoute
             PictureMarkerSymbol carSymbol = new PictureMarkerSymbol(_carIconUri);
             PictureMarkerSymbol flagSymbol = new PictureMarkerSymbol(_checkedFlagIconUri);
 
-            // Add a slight offset (pixels) to the picture symbols
-            carSymbol.OffsetX = -30;
-            flagSymbol.OffsetY = -15;
+            // Add a slight offset (pixels) to the picture symbols.
+            carSymbol.OffsetX = -carSymbol.Width / 2;
+            carSymbol.OffsetY = -carSymbol.Height / 2;
+            flagSymbol.OffsetX = -flagSymbol.Width / 2;
+            flagSymbol.OffsetY = -flagSymbol.Height / 2;
 
             // Create graphics for the stops
             Graphic fromGraphic = new Graphic(fromPoint, carSymbol);
@@ -113,7 +116,7 @@ namespace ArcGISRuntime.UWP.Samples.FindRoute
             Polyline routePolyline = firstRoute.RouteGeometry;
 
             // Create a thick purple line symbol for the route
-            SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Purple, 8.0);
+            SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Purple, 8.0);
 
             // Create a new graphic for the route geometry and add it to the graphics overlay
             Graphic routeGraphic = new Graphic(routePolyline, routeSymbol);

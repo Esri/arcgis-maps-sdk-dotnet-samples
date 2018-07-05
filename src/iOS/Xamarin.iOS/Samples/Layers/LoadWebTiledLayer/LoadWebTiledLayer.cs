@@ -7,84 +7,91 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.LoadWebTiledLayer
 {
     [Register("LoadWebTiledLayer")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Web TiledLayer",
+        "Web tiled layer",
         "Layers",
         "This sample demonstrates how to load a web tiled layer from a non-ArcGIS service, including how to include proper attribution.",
         "")]
     public class LoadWebTiledLayer : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold a reference to the MapView.
         private readonly MapView _myMapView = new MapView();
 
-        // Templated URL to the tile service
-        private readonly string _templateUri = "http://{subDomain}.tile.stamen.com/terrain/{level}/{col}/{row}.png";
+        // Templated URL to the tile service.
+        private const string TemplateUri = "http://{subDomain}.tile.stamen.com/watercolor/{level}/{col}/{row}.jpg";
 
-        // List of subdomains for use when constructing the web tiled layer
-        private readonly List<string> _tiledLayerSubdomains = new List<string> { "a", "b", "c", "d" };
+        // List of subdomains for use when constructing the web tiled layer.
+        private readonly List<string> _tiledLayerSubdomains = new List<string> {"a", "b", "c", "d"};
 
-        // Attribution string for the Stamen service
-        private readonly string _attribution = "Map tiles by <a href=\"http://stamen.com/\">Stamen Design</a>," +
-                                               "under <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>." +
-                                               "Data by <a href=\"http://openstreetmap.org/\">OpenStreetMap</a>," +
-                                               "under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.";
+        // Attribution string for the Stamen service.
+        private const string Attribution = "Map tiles by <a href=\"http://stamen.com/\">Stamen Design</a>," +
+                                           "under <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>." +
+                                           "Data by <a href=\"http://openstreetmap.org/\">OpenStreetMap</a>," +
+                                           "under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.";
 
         public LoadWebTiledLayer()
         {
-            Title = "Web TiledLayer";
+            Title = "Web tiled layer";
         }
 
-        private async Task Initialize()
+        private async void Initialize()
         {
-            // Create the layer from the URL and the subdomain list
-            WebTiledLayer myBaseLayer = new WebTiledLayer(_templateUri, _tiledLayerSubdomains);
+            // Create the layer from the URL and the subdomain list.
+            WebTiledLayer baseLayer = new WebTiledLayer(TemplateUri, _tiledLayerSubdomains);
 
-            // Wait for the layer to load
-            await myBaseLayer.LoadAsync();
+            // Wait for the layer to load.
+            await baseLayer.LoadAsync();
 
-            // Create a basemap from the layer
-            Basemap layerBasemap = new Basemap(myBaseLayer);
+            // Create a basemap from the layer.
+            Basemap layerBasemap = new Basemap(baseLayer);
 
-            // Apply the attribution for the layer
-            myBaseLayer.Attribution = _attribution;
+            // Apply the attribution for the layer.
+            baseLayer.Attribution = Attribution;
 
-            // Create a map to hold the basemap
-            Map myMap = new Map(layerBasemap);
-
-            // Add the map to the map view
-            _myMapView.Map = myMap;
+            // Show the tiled layer basemap.
+            _myMapView.Map = new Map(layerBasemap);
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
 
-        public override async void ViewDidLoad()
+        public override void ViewDidLoad()
         {
             CreateLayout();
-            await Initialize();
+            Initialize();
 
             base.ViewDidLoad();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 }

@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
@@ -44,6 +44,7 @@ namespace ArcGISRuntime.Samples.FindRoute
 
         // URIs for picture marker images
         private Uri _checkedFlagIconUri = new Uri("https://static.arcgis.com/images/Symbols/Transportation/CheckeredFlag.png");
+
         private Uri _carIconUri = new Uri("https://static.arcgis.com/images/Symbols/Transportation/CarRedFront.png");
 
         // UI control to show/hide directions dialog (private scope so it can be enabled/disabled as needed)
@@ -111,16 +112,30 @@ namespace ArcGISRuntime.Samples.FindRoute
             _routeStops = new List<Stop> { stop1, stop2 };
 
             // Picture marker symbols: from = car, to = checkered flag
-            PictureMarkerSymbol carSymbol = new PictureMarkerSymbol(_carIconUri);
-            PictureMarkerSymbol flagSymbol = new PictureMarkerSymbol(_checkedFlagIconUri);
-
-            // Add a slight offset (pixels) to the picture symbols
-            carSymbol.OffsetX = -20;
-            flagSymbol.OffsetY = -5;
+            PictureMarkerSymbol carSymbol = new PictureMarkerSymbol(_carIconUri)
+            {
+                Height = 40,
+                Width = 40
+            };
+            PictureMarkerSymbol flagSymbol = new PictureMarkerSymbol(_checkedFlagIconUri)
+            {
+                Height = 40,
+                Width =  40,
+                // Offset the icon so that it is anchored at the bottom of the flagpole
+                OffsetX = 20,
+                OffsetY = 20
+            };
 
             // Create graphics for the stops
-            Graphic fromGraphic = new Graphic(fromPoint, carSymbol);
-            Graphic toGraphic = new Graphic(toPoint, flagSymbol);
+            Graphic fromGraphic = new Graphic(fromPoint, carSymbol)
+            {
+                // Make sure the icons are shown over the route line
+                ZIndex = 1
+            };
+            Graphic toGraphic = new Graphic(toPoint, flagSymbol)
+            {
+                ZIndex = 1
+            };
 
             // Create the graphics overlay and add the stop graphics
             _routeGraphicsOverlay = new GraphicsOverlay();
@@ -169,7 +184,10 @@ namespace ArcGISRuntime.Samples.FindRoute
             SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Purple, 8.0);
 
             // Create a new graphic for the route geometry and add it to the graphics overlay
-            Graphic routeGraphic = new Graphic(routePolyline, routeSymbol);
+            Graphic routeGraphic = new Graphic(routePolyline, routeSymbol)
+            {
+                ZIndex = 0
+            };
             _routeGraphicsOverlay.Graphics.Add(routeGraphic);
 
             // Get a list of directions for the route and display it in the list box
@@ -201,7 +219,7 @@ namespace ArcGISRuntime.Samples.FindRoute
         {
             // Show the directions dialog
             if (_directionsDialog != null)
-            {                
+            {
                 _directionsDialog.Show();
             }
         }
@@ -213,7 +231,7 @@ namespace ArcGISRuntime.Samples.FindRoute
 
             // Create the layout
             LinearLayout dialogLayout = new LinearLayout(this);
-            dialogLayout.Orientation = Orientation.Vertical;            
+            dialogLayout.Orientation = Orientation.Vertical;
 
             // Create a list box for showing the route directions
             var directionsList = new ListView(this);
@@ -228,6 +246,5 @@ namespace ArcGISRuntime.Samples.FindRoute
             // Create the dialog (don't show it)
             _directionsDialog = dialogBuilder.Create();
         }
-
     }
 }

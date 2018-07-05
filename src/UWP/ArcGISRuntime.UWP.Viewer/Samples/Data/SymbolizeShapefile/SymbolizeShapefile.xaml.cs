@@ -12,7 +12,9 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using Windows.UI;
+using System.IO;
+using System.Threading.Tasks;
+using System.Drawing;
 
 namespace ArcGISRuntime.UWP.Samples.SymbolizeShapefile
 {
@@ -68,8 +70,8 @@ namespace ArcGISRuntime.UWP.Samples.SymbolizeShapefile
             myMap.OperationalLayers.Add(_shapefileFeatureLayer);
 
             // Create the symbology for the alternate renderer
-            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 1.0);
-            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Colors.Yellow, lineSymbol);
+            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 1.0);
+            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Yellow, lineSymbol);
 
             // Create the alternate renderer
             _alternateRenderer = new SimpleRenderer(fillSymbol);
@@ -81,10 +83,10 @@ namespace ArcGISRuntime.UWP.Samples.SymbolizeShapefile
             MyMapView.Map = myMap;
 
             // Enable changing symbology now that sample is loaded
-            MyRendererButton.IsEnabled = true;
+            RendererButton.IsEnabled = true;
         }
 
-        private void Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void RendererButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             // Toggle the renderer
             if (_shapefileFeatureLayer.Renderer == _defaultRenderer)

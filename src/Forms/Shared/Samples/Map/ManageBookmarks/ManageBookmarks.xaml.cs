@@ -56,9 +56,9 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             bookmarkPicker.Items.Add(myBookmark1.Name);
 
             // Bookmark-2
-            Viewpoint myViewpoint2 = new Viewpoint(37.401573, -116.867808, 6000);
+            Viewpoint myViewpoint2 = new Viewpoint(-39.299987, 174.060858, 600000);
             Bookmark myBookmark2 = new Bookmark();
-            myBookmark2.Name = "Strange Symbol";
+            myBookmark2.Name = "Dormant Volcano";
             myBookmark2.Viewpoint = myViewpoint2;
             MyMapView.Map.Bookmarks.Add(myBookmark2);
             bookmarkPicker.Items.Add(myBookmark2.Name);

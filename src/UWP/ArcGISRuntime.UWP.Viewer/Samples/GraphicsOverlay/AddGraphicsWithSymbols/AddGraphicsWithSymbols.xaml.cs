@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using Windows.UI;
+using System.Drawing;
 
 namespace ArcGISRuntime.UWP.Samples.AddGraphicsWithSymbols
 {
@@ -133,10 +133,10 @@ namespace ArcGISRuntime.UWP.Samples.AddGraphicsWithSymbols
         private void CreateText()
         {
             // Create two text symbols
-            TextSymbol bassRockTextSymbol = new TextSymbol("Black Rock", Colors.Blue, 10,
+            TextSymbol bassRockTextSymbol = new TextSymbol("Black Rock", Color.Blue, 10,
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Left, Esri.ArcGISRuntime.Symbology.VerticalAlignment.Bottom);
 
-            TextSymbol craigleithTextSymbol = new TextSymbol("Craigleith", Colors.Blue, 10,
+            TextSymbol craigleithTextSymbol = new TextSymbol("Craigleith", Color.Blue, 10,
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Right, Esri.ArcGISRuntime.Symbology.VerticalAlignment.Top);
 
             // Create two points

@@ -75,7 +75,7 @@ namespace ArcGISRuntime.WPF.Samples.ListGeodatabaseVersions
                     }
 
                 // Display the result in the textbox
-                theTextBox.Text = myStringBuilder.ToString();
+                ResultView.Text = myStringBuilder.ToString();
             }
 
             // Set the UI to indicate that the geoprocessing is not running
@@ -128,14 +128,14 @@ namespace ArcGISRuntime.WPF.Samples.ListGeodatabaseVersions
             if (isBusy)
             {
                 // Change UI to indicate that the geoprocessing is running
-                busyOverlay.Visibility = Visibility.Visible;
-                progress.IsIndeterminate = true;
+                BusyOverlay.Visibility = Visibility.Visible;
+                Progress.IsIndeterminate = true;
             }
             else
             {
                 // Change UI to indicate that the geoprocessing is not running
-                busyOverlay.Visibility = Visibility.Collapsed;
-                progress.IsIndeterminate = false;
+                BusyOverlay.Visibility = Visibility.Collapsed;
+                Progress.IsIndeterminate = false;
             }
         }
     }

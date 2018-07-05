@@ -11,7 +11,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Geometry;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -20,55 +19,47 @@ namespace ArcGISRuntime.WPF.Samples.ChangeViewpoint
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Change viewpoint",
         "MapView",
-        "This sample demonstrates different ways in which you can change the viewpoint or visible area of the map.",
+        "This sample demonstrates different ways in which you can change the viewpoint of the MapView.",
         "Click any of the available buttons to change the current viewpoint")]
     public partial class ChangeViewpoint
     {
         // Coordinates for London
         private MapPoint _londonCoords = new MapPoint(
             -13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
+
         private double _londonScale = 8762.7156655228955;
 
         // Coordinates for Redlands
-        private Polygon _redlandsEnvelope = new Polygon(new List<MapPoint> {
-            (new MapPoint(-13049785.1566222, 4032064.6003424)),
-            (new MapPoint(-13049785.1566222, 4040202.42595729)),
-            (new MapPoint(-13037033.5780234, 4032064.6003424)),
-            (new MapPoint(-13037033.5780234, 4040202.42595729))},
+        private Polygon _redlandsEnvelope = new Polygon(new List<MapPoint>
+            {
+                new MapPoint(-13049785.1566222, 4032064.6003424),
+                new MapPoint(-13049785.1566222, 4040202.42595729),
+                new MapPoint(-13037033.5780234, 4032064.6003424),
+                new MapPoint(-13037033.5780234, 4040202.42595729)
+            },
             SpatialReferences.WebMercator);
 
         // Coordinates for Edinburgh
-        private Polygon _edinburghEnvelope = new Polygon(new List<MapPoint> {
-            (new MapPoint(-354262.156621384, 7548092.94093301)),
-            (new MapPoint(-354262.156621384, 7548901.50684376)),
-            (new MapPoint(-353039.164455303, 7548092.94093301)),
-            (new MapPoint(-353039.164455303, 7548901.50684376))},
+        private Polygon _edinburghEnvelope = new Polygon(new List<MapPoint>
+            {
+                new MapPoint(-354262.156621384, 7548092.94093301),
+                new MapPoint(-354262.156621384, 7548901.50684376),
+                new MapPoint(-353039.164455303, 7548092.94093301),
+                new MapPoint(-353039.164455303, 7548901.50684376)
+            },
             SpatialReferences.WebMercator);
 
         public ChangeViewpoint()
         {
             InitializeComponent();
-
-            // Create the UI, setup the control references and execute initialization 
-            Initialize();
-        }
-
-        private void Initialize()
-        {
-            // Create new Map with basemap and initial location
-            Map myMap = new Map(Esri.ArcGISRuntime.Mapping.Basemap.CreateTopographic());
-
-            // Assign the map to the MapView
-            MyMapView.Map = myMap;
         }
 
         private async void OnButtonClick(object sender, RoutedEventArgs e)
         {
-            // Get .Content from the selected item
+            // Get content from the selected item
             Button myButton = sender as Button;
-            var selectedMapTitle = myButton.Content.ToString();
 
-            switch (selectedMapTitle)
+            switch (myButton.Content.ToString())
             {
                 case "Geometry":
 
@@ -89,7 +80,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeViewpoint
 
                     // Navigate to full extent of the first baselayer before animating to specified geometry
                     await MyMapView.SetViewpointAsync(
-                        new Viewpoint(MyMapView.Map.Basemap.BaseLayers.First().FullExtent));
+                        new Viewpoint(Basemap.FullExtent));
 
                     // Create a new Viewpoint using the specified geometry
                     var viewpoint = new Viewpoint(_edinburghEnvelope);

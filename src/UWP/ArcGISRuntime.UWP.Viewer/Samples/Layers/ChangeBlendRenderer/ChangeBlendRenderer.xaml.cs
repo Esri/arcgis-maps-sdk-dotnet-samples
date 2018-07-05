@@ -50,14 +50,14 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
             SlopeTypes.SelectedIndex = 0;
 
             // Set the altitude slider min/max and initial value
-            Altitude_Slider.Minimum = 0;
-            Altitude_Slider.Maximum = 90;
-            Altitude_Slider.Value = 45;
+            AltitudeSlider.Minimum = 0;
+            AltitudeSlider.Maximum = 90;
+            AltitudeSlider.Value = 45;
 
             // Set the azimuth slider min/max and initial value
-            Azimuth_Slider.Minimum = 0;
-            Azimuth_Slider.Maximum = 360;
-            Azimuth_Slider.Value = 180;
+            AzimuthSlider.Minimum = 0;
+            AzimuthSlider.Maximum = 360;
+            AzimuthSlider.Value = 180;
 
             // Load the raster file using a path on disk
             Raster myRasterImagery = new Raster(GetRasterPath_Imagery());
@@ -94,7 +94,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
         private void OnUpdateRendererClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             // Define the RasterLayer that will be used to display in the map
-            RasterLayer rasterLayer_ForDisplayInMap;
+            RasterLayer layerForDisplayInMap;
 
             // Define the ColorRamp that will be used by the BlendRenderer
             ColorRamp myColorRamp;
@@ -109,10 +109,10 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
                 // parameters in the BlendRenderer constructor
 
                 // Load the raster file using a path on disk
-                Raster raster_Imagery = new Raster(GetRasterPath_Imagery());
+                Raster rasterImagery = new Raster(GetRasterPath_Imagery());
 
                 // Create the raster layer from the raster
-                rasterLayer_ForDisplayInMap = new RasterLayer(raster_Imagery);
+                layerForDisplayInMap = new RasterLayer(rasterImagery);
 
                 // Set up the ColorRamp as being null
                 myColorRamp = null;
@@ -126,10 +126,10 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
                 // in the BlendRenderer constructor
 
                 // Load the raster file using a path on disk
-                Raster raster_Elevation = new Raster(GetRasterPath_Elevation());
+                Raster rasterElevation = new Raster(GetRasterPath_Elevation());
 
                 // Create the raster layer from the raster
-                rasterLayer_ForDisplayInMap = new RasterLayer(raster_Elevation);
+                layerForDisplayInMap = new RasterLayer(rasterElevation);
 
                 // Create a ColorRamp based on the user choice, translated into an Enumeration
                 PresetColorRampType myPresetColorRampType = (PresetColorRampType)Enum.Parse(typeof(PresetColorRampType), ColorRamps.SelectedValue.ToString());
@@ -137,17 +137,17 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
             }
 
             // Define the parameters used by the BlendRenderer constructor
-            Raster raster_ForMakingBlendRenderer = new Raster(GetRasterPath_Elevation());
+            Raster rasterForMakingBlendRenderer = new Raster(GetRasterPath_Elevation());
             IEnumerable<double> myOutputMinValues = new List<double> { 9 };
             IEnumerable<double> myOutputMaxValues = new List<double> { 255 };
-            IEnumerable<double> mySourceMinValues = new List<double> { };
-            IEnumerable<double> mySourceMaxValues = new List<double> { };
-            IEnumerable<double> myNoDataValues = new List<double> { };
-            IEnumerable<double> myGammas = new List<double> { };
+            IEnumerable<double> mySourceMinValues = new List<double>();
+            IEnumerable<double> mySourceMaxValues = new List<double>();
+            IEnumerable<double> myNoDataValues = new List<double>();
+            IEnumerable<double> myGammas = new List<double>();
             SlopeType mySlopeType = (SlopeType)Enum.Parse(typeof(SlopeType), SlopeTypes.SelectedValue.ToString());
 
             BlendRenderer myBlendRenderer = new BlendRenderer(
-                raster_ForMakingBlendRenderer, // elevationRaster - Raster based on a elevation source
+                rasterForMakingBlendRenderer, // elevationRaster - Raster based on a elevation source
                 myOutputMinValues, // outputMinValues - Output stretch values, one for each band
                 myOutputMaxValues, // outputMaxValues - Output stretch values, one for each band
                 mySourceMinValues, // sourceMinValues - Input stretch values, one for each band
@@ -155,8 +155,8 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
                 myNoDataValues, // noDataValues - NoData values, one for each band
                 myGammas, // gammas - Gamma adjustment
                 myColorRamp, // colorRamp - ColorRamp object to use, could be null
-                Altitude_Slider.Value, // altitude - Altitude angle of the light source
-                Azimuth_Slider.Value, // azimuth - Azimuth angle of the light source, measured clockwise from north
+                AltitudeSlider.Value, // altitude - Altitude angle of the light source
+                AzimuthSlider.Value, // azimuth - Azimuth angle of the light source, measured clockwise from north
                 1, // zfactor - Factor to convert z unit to x,y units, default is 1
                 mySlopeType, // slopeType - Slope Type
                 1, // pixelSizeFactor - Pixel size factor, default is 1
@@ -164,10 +164,10 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
                 8); // outputBitDepth - Output bit depth, default is 8-bi
 
             // Set the RasterLayer.Renderer to be the BlendRenderer
-            rasterLayer_ForDisplayInMap.Renderer = myBlendRenderer;
+            layerForDisplayInMap.Renderer = myBlendRenderer;
 
             // Set the new base map to be the RasterLayer with the BlendRenderer applied
-            MyMapView.Map.Basemap = new Basemap(rasterLayer_ForDisplayInMap);
+            MyMapView.Map.Basemap = new Basemap(layerForDisplayInMap);
         }
 
         private static string GetRasterPath_Imagery()

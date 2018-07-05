@@ -92,10 +92,10 @@ namespace ArcGISRuntime.UWP.Samples.ChangeStretchRenderer
                     // TODO: Add you own logic to ensure that accurate min/max stretch values are used
 
                     // Create an IEnumerable from a list of double min stretch value doubles
-                    IEnumerable<double> myMinValues = new List<double> { Convert.ToDouble(Input_Parameter1.Text) };
+                    IEnumerable<double> myMinValues = new List<double> { Convert.ToDouble(FirstParameterInput.Text) };
 
                     // Create an IEnumerable from a list of double max stretch value doubles
-                    IEnumerable<double> myMaxValues = new List<double> { Convert.ToDouble(Input_Parameter2.Text) };
+                    IEnumerable<double> myMaxValues = new List<double> { Convert.ToDouble(SecondParameterInput.Text) };
 
                     // Create a new MinMaxStretchParameters based on the user choice for min and max stretch values
                     MinMaxStretchParameters myMinMaxStretchParameters = new MinMaxStretchParameters(myMinValues, myMaxValues);
@@ -111,7 +111,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeStretchRenderer
                     // TODO: Add you own logic to ensure that accurate min/max percent clip values are used
 
                     // Create a new PercentClipStretchParameters based on the user choice for min and max percent clip values
-                    PercentClipStretchParameters myPercentClipStretchParameters = new PercentClipStretchParameters(Convert.ToDouble(Input_Parameter1.Text), Convert.ToDouble(Input_Parameter2.Text));
+                    PercentClipStretchParameters myPercentClipStretchParameters = new PercentClipStretchParameters(Convert.ToDouble(FirstParameterInput.Text), Convert.ToDouble(SecondParameterInput.Text));
 
                     // Create the percent clip renderer based on the user defined min/max percent clip values, empty gamma values, statistic estimates, and a predefined color ramp 
                     myStretchRenderer = new StretchRenderer(myPercentClipStretchParameters, myGammaValues, true, myColorRamp);
@@ -124,7 +124,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeStretchRenderer
                     // TODO: Add you own logic to ensure that an accurate standard deviation value is used
 
                     // Create a new StandardDeviationStretchParameters based on the user choice for standard deviation value
-                    StandardDeviationStretchParameters myStandardDeviationStretchParameters = new StandardDeviationStretchParameters(Convert.ToDouble(Input_Parameter1.Text));
+                    StandardDeviationStretchParameters myStandardDeviationStretchParameters = new StandardDeviationStretchParameters(Convert.ToDouble(FirstParameterInput.Text));
 
                     // Create the standard deviation renderer based on the user defined standard deviation value, empty gamma values, statistic estimates, and a predefined color ramp 
                     myStretchRenderer = new StretchRenderer(myStandardDeviationStretchParameters, myGammaValues, true, myColorRamp);
@@ -151,16 +151,16 @@ namespace ArcGISRuntime.UWP.Samples.ChangeStretchRenderer
                     // This section displays/resets the user choice options for MinMaxStretchParameters
 
                     // Make sure all the GUI items are visible
-                    Label_Parameter1.Visibility = Visibility.Visible;
-                    Label_Parameter2.Visibility = Visibility.Visible;
-                    Input_Parameter1.Visibility = Visibility.Visible;
-                    Input_Parameter2.Visibility = Visibility.Visible;
+                    FirstParameterLabel.Visibility = Visibility.Visible;
+                    SecondParameterLabel.Visibility = Visibility.Visible;
+                    FirstParameterInput.Visibility = Visibility.Visible;
+                    SecondParameterInput.Visibility = Visibility.Visible;
 
                     // Define what values/options the user sees
-                    Label_Parameter1.Text = "Minimum value (0 - 255):";
-                    Label_Parameter2.Text = "Maximum value (0 - 255):";
-                    Input_Parameter1.Text = "10";
-                    Input_Parameter2.Text = "150";
+                    FirstParameterLabel.Text = "Minimum value (0 - 255):";
+                    SecondParameterLabel.Text = "Maximum value (0 - 255):";
+                    FirstParameterInput.Text = "10";
+                    SecondParameterInput.Text = "150";
 
                     break;
 
@@ -169,16 +169,16 @@ namespace ArcGISRuntime.UWP.Samples.ChangeStretchRenderer
                     // This section displays/resets the user choice options for PercentClipStretchParameters
 
                     // Make sure all the GUI items are visible
-                    Label_Parameter1.Visibility = Visibility.Visible;
-                    Label_Parameter2.Visibility = Visibility.Visible;
-                    Input_Parameter1.Visibility = Visibility.Visible;
-                    Input_Parameter2.Visibility = Visibility.Visible;
+                    FirstParameterLabel.Visibility = Visibility.Visible;
+                    SecondParameterLabel.Visibility = Visibility.Visible;
+                    FirstParameterInput.Visibility = Visibility.Visible;
+                    SecondParameterInput.Visibility = Visibility.Visible;
 
                     // Define what values/options the user sees
-                    Label_Parameter1.Text = "Minimum (0 - 100):";
-                    Label_Parameter2.Text = "Maximum (0 - 100)";
-                    Input_Parameter1.Text = "0";
-                    Input_Parameter2.Text = "50";
+                    FirstParameterLabel.Text = "Minimum (0 - 100):";
+                    SecondParameterLabel.Text = "Maximum (0 - 100)";
+                    FirstParameterInput.Text = "0";
+                    SecondParameterInput.Text = "50";
 
                     break;
 
@@ -187,14 +187,14 @@ namespace ArcGISRuntime.UWP.Samples.ChangeStretchRenderer
                     // This section displays/resets the user choice options for StandardDeviationStretchParameters
 
                     // Make sure that only the necessary GUI items are visible
-                    Label_Parameter1.Visibility = Visibility.Visible;
-                    Label_Parameter2.Visibility = Visibility.Collapsed;
-                    Input_Parameter1.Visibility = Visibility.Visible;
-                    Input_Parameter2.Visibility = Visibility.Collapsed;
+                    FirstParameterLabel.Visibility = Visibility.Visible;
+                    SecondParameterLabel.Visibility = Visibility.Collapsed;
+                    FirstParameterInput.Visibility = Visibility.Visible;
+                    SecondParameterInput.Visibility = Visibility.Collapsed;
 
                     // Define what values/options the user sees
-                    Label_Parameter1.Text = "Factor (.25 to 4):";
-                    Input_Parameter1.Text = "0.5";
+                    FirstParameterLabel.Text = "Factor (.25 to 4):";
+                    FirstParameterInput.Text = "0.5";
 
                     break;
             }

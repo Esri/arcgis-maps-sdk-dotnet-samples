@@ -23,7 +23,7 @@ namespace ArcGISRuntime.WPF.Samples.OpenMapURL
         // String array to hold urls to publicly available web maps
         private string[] _itemURLs = new string[]
         {
-            "http://www.arcgis.com/home/item.html?id=2d6fa24b357d427f9c737774e7b0f977",
+            "http://www.arcgis.com/home/item.html?id=392451c381ad4109bf04f7bd442bc038",
             "http://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
             "http://www.arcgis.com/home/item.html?id=92ad152b9da94dee89b9e387dfe21acd"
         };
@@ -31,9 +31,9 @@ namespace ArcGISRuntime.WPF.Samples.OpenMapURL
         // String array to store titles for the webmaps specified above. These titles are in the same order as the urls above
         private string[] _titles = new string[]
         {
-            "Housing with Mortgages",
+            "Population Pressure",
             "USA Tapestry Segmentation",
-            "Geology of United States"
+            "Geology of the United States"
         };
 
         // Construct Load Map sample control.
@@ -48,10 +48,10 @@ namespace ArcGISRuntime.WPF.Samples.OpenMapURL
         private void Initialize()
         {
             // Set titles as a items source
-            mapsChooser.ItemsSource = _titles;
+            MapsChooser.ItemsSource = _titles;
             
             // Select the first option in the map titles. 
-            mapsChooser.SelectedIndex = 0;
+            MapsChooser.SelectedIndex = 0;
 
             // Create a new Map instance with url of the webmap that is displayed by default
             Map myMap = new Map(new Uri(_itemURLs[0]));

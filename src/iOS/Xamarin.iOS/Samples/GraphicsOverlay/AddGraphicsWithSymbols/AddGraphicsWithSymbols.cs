@@ -7,13 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Drawing;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System.Drawing;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
@@ -26,10 +27,10 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
         "")]
     public class AddGraphicsWithSymbols : UIViewController
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Create and hold a reference to the MapView.
+        private readonly MapView _myMapView = new MapView();
 
-        // Create the graphics overlay
+        // Create the graphics overlay.
         private readonly GraphicsOverlay _overlay = new GraphicsOverlay();
 
         public AddGraphicsWithSymbols()
@@ -39,31 +40,28 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
 
         private void Initialize()
         {
-            // Create the map
-            Map myMap = new Map(BasemapType.Oceans, 56.075844, -2.681572, 13);
+            // Add the map to the map view.
+            _myMapView.Map = new Map(BasemapType.Oceans, 56.075844, -2.681572, 13);
 
-            // Add the map to the map view
-            _myMapView.Map = myMap;
-
-            // Add the graphics overlay to the map view
+            // Add the graphics overlay to the map view.
             _myMapView.GraphicsOverlays.Add(_overlay);
 
-            // Call functions to create the graphics
+            // Call functions to create the graphics.
             CreatePoints();
             CreatePolygon();
             CreatePolyline();
             CreateText();
 
-            // Update the extent to encompass all of the symbols
+            // Update the extent to encompass all of the symbols.
             SetExtent();
         }
 
         private void CreatePoints()
         {
-            // Create a red circle simple marker symbol
+            // Create a red circle simple marker symbol.
             SimpleMarkerSymbol redCircleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Red, 10);
 
-            // Create graphics and add them to graphics overlay
+            // Create graphics and add them to graphics overlay.
             Graphic graphic = new Graphic(new MapPoint(-2.72, 56.065, SpatialReferences.Wgs84), redCircleSymbol);
             _overlay.Graphics.Add(graphic);
 
@@ -79,10 +77,10 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
 
         private void CreatePolyline()
         {
-            // Create a purple simple line symbol
+            // Create a purple simple line symbol.
             SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.Purple, 4);
 
-            // Create a new point collection for polyline
+            // Create a new point collection for polyline.
             PointCollection points = new PointCollection(SpatialReferences.Wgs84)
             {
                 // Create and add points to the point collection
@@ -95,28 +93,28 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
                 new MapPoint(-2.715, 56.061)
             };
 
-            // Create the polyline from the point collection
+            // Create the polyline from the point collection.
             Polyline polyline = new Polyline(points);
 
-            // Create the graphic with polyline and symbol
+            // Create the graphic with polyline and symbol.
             Graphic graphic = new Graphic(polyline, lineSymbol);
 
-            // Add graphic to the graphics overlay
+            // Add graphic to the graphics overlay.
             _overlay.Graphics.Add(graphic);
         }
 
         private void CreatePolygon()
         {
-            // Create a green simple line symbol
+            // Create a green simple line symbol.
             SimpleLineSymbol outlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.Green, 1);
 
-            // Create a green mesh simple fill symbol
+            // Create a green mesh simple fill symbol.
             SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.DiagonalCross, Color.Green, outlineSymbol);
 
-            // Create a new point collection for polygon
+            // Create a new point collection for polygon.
             PointCollection points = new PointCollection(SpatialReferences.Wgs84)
             {
-                // Create and add points to the point collection
+                // Create and add points to the point collection.
                 new MapPoint(-2.6425, 56.0784),
                 new MapPoint(-2.6430, 56.0763),
                 new MapPoint(-2.6410, 56.0759),
@@ -125,64 +123,64 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
                 new MapPoint(-2.6410, 56.0786)
             };
 
-            // Create the polyline from the point collection
+            // Create the polyline from the point collection.
             Polygon polygon = new Polygon(points);
 
-            // Create the graphic with polyline and symbol
+            // Create the graphic with polyline and symbol.
             Graphic graphic = new Graphic(polygon, fillSymbol);
 
-            // Add graphic to the graphics overlay
+            // Add graphic to the graphics overlay.
             _overlay.Graphics.Add(graphic);
         }
 
         private void CreateText()
         {
-            // Create two text symbols
+            // Create two text symbols.
             TextSymbol bassRockTextSymbol = new TextSymbol("Black Rock", Color.Blue, 10,
                 HorizontalAlignment.Left, VerticalAlignment.Bottom);
 
             TextSymbol craigleithTextSymbol = new TextSymbol("Craigleith", Color.Blue, 10,
                 HorizontalAlignment.Right, VerticalAlignment.Top);
 
-            // Create two points
+            // Create two points.
             MapPoint bassPoint = new MapPoint(-2.64, 56.079, SpatialReferences.Wgs84);
             MapPoint craigleithPoint = new MapPoint(-2.72, 56.076, SpatialReferences.Wgs84);
 
-            // Create two graphics from the points and symbols
+            // Create two graphics from the points and symbols.
             Graphic bassRockGraphic = new Graphic(bassPoint, bassRockTextSymbol);
             Graphic craigleithGraphic = new Graphic(craigleithPoint, craigleithTextSymbol);
 
-            // Add graphics to the graphics overlay
+            // Add graphics to the graphics overlay.
             _overlay.Graphics.Add(bassRockGraphic);
             _overlay.Graphics.Add(craigleithGraphic);
         }
 
         private void SetExtent()
         {
-            // Get all of the graphics contained in the graphics overlay
+            // Get all of the graphics contained in the graphics overlay.
             GraphicCollection myGraphicCollection = _overlay.Graphics;
 
-            // Create a new envelope builder using the same spatial reference as the graphics
+            // Create a new envelope builder using the same spatial reference as the graphics.
             EnvelopeBuilder myEnvelopeBuilder = new EnvelopeBuilder(SpatialReferences.Wgs84);
 
-            // Loop through each graphic in the graphic collection
+            // Loop through each graphic in the graphic collection.
             foreach (Graphic oneGraphic in myGraphicCollection)
             {
-                // Union the extent of each graphic in the envelope builder
+                // Union the extent of each graphic in the envelope builder.
                 myEnvelopeBuilder.UnionOf(oneGraphic.Geometry.Extent);
             }
 
-            // Expand the envelope builder by 30%
+            // Expand the envelope builder by 30%.
             myEnvelopeBuilder.Expand(1.3);
 
             // Adjust the viewable area of the map to encompass all of the graphics in the
-            // graphics overlay plus an extra 30% margin for better viewing
+            // graphics overlay plus an extra 30% margin for better viewing.
             _myMapView.SetViewpointAsync(new Viewpoint(myEnvelopeBuilder.Extent));
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
 
@@ -196,10 +194,20 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 }

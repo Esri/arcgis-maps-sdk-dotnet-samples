@@ -14,6 +14,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Android.App;
 using Android.OS;
+using Android.Text;
+using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -91,10 +93,18 @@ namespace ArcGISRuntime.Samples.FindAddress
         {
             //initialize the layout
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
-            var searchBarLayout = new RelativeLayout(this);
+            var searchBarLayout = new LinearLayout(this);
             // Add the search bar
-            _addressSearchBar = new EditText(this);
-
+            _addressSearchBar = new EditText(this)
+            {
+                LayoutParameters = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MatchParent,
+                    ViewGroup.LayoutParams.MatchParent,
+                    1.0f
+                ),
+                InputType = InputTypes.ClassText | InputTypes.TextVariationNormal
+            };
+            _addressSearchBar.SetMaxLines(1);
             layout.AddView(searchBarLayout);
             searchBarLayout.AddView(_addressSearchBar);
             // Add a search button
@@ -105,10 +115,6 @@ namespace ArcGISRuntime.Samples.FindAddress
             layout.AddView(_suggestButton);
             // Add the MapView to the layout
             layout.AddView(_myMapView);
-            var x = (RelativeLayout.LayoutParams)_searchButton.LayoutParameters;
-            x.AddRule(LayoutRules.AlignParentEnd);
-            var y = (RelativeLayout.LayoutParams)_addressSearchBar.LayoutParameters;
-            y.AddRule(LayoutRules.AlignParentStart);
             // Keep the search bar from overflowing into multiple lines
             _addressSearchBar.SetMaxLines(1);
             // Show the layout in the app
@@ -230,14 +236,11 @@ namespace ArcGISRuntime.Samples.FindAddress
             // Use the metro area for the Callout Detail
             String calloutDetail = address.Attributes["MetroArea"].ToString();
 
-            // Use the MapView to convert from the on-screen location to the on-map location
-            MapPoint point = _myMapView.ScreenToLocation(e.Position);
-
             // Define the callout
             CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);
 
             // Show the callout on the map at the tapped location
-            _myMapView.ShowCalloutAt(point, calloutBody);
+            _myMapView.ShowCalloutAt(e.Location, calloutBody);
         }
     }
 }

@@ -74,8 +74,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
                 // Get the scene properties from the simple renderer
                 RendererSceneProperties myRendererSceneProperties = mySimpleRenderer.SceneProperties;
 
-                // Set the extrusion mode for the scene properties to be base height
-                myRendererSceneProperties.ExtrusionMode = ExtrusionMode.BaseHeight;
+                // Set the extrusion mode for the scene properties
+                myRendererSceneProperties.ExtrusionMode = ExtrusionMode.AbsoluteHeight;
 
                 // Set the initial extrusion expression
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
@@ -123,15 +123,17 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             RendererSceneProperties myRendererSceneProperties = myRenderer.SceneProperties;
 
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text
-            if (_button_ToggleExtrusionData.Text == "Population Density")
+            if (_button_ToggleExtrusionData.Text == "Show population density")
             {
-                myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000";
-                _button_ToggleExtrusionData.Text = "Total Population";
+                // An offset of 100000 is added to ensure that polygons for large areas (like Alaska)
+                // with low populations will be extruded above the curvature of the Earth.
+                myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000 + 100000";
+                _button_ToggleExtrusionData.Text = "Show total population";
             }
-            else if (_button_ToggleExtrusionData.Text == "Total Population")
+            else if (_button_ToggleExtrusionData.Text == "Show total population")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
-                _button_ToggleExtrusionData.Text = "Population Density";
+                _button_ToggleExtrusionData.Text = "Show population density";
             }
         }
 
@@ -149,7 +151,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
 
             // Create Button
             _button_ToggleExtrusionData = new Button(this);
-            _button_ToggleExtrusionData.Text = "Population Density";
+            _button_ToggleExtrusionData.Text = "Show population density";
             _button_ToggleExtrusionData.Click += Button_ToggleExtrusionData_Clicked;
 
             // Add Button to the layout  

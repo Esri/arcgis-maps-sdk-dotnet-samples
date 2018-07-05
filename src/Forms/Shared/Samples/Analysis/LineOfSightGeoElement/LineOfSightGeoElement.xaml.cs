@@ -14,18 +14,14 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
-
-#if WINDOWS_UWP
-using Colors = Windows.UI.Colors;
-#else
 using Colors = System.Drawing.Color;
-#endif
 
 namespace ArcGISRuntime.Samples.LineOfSightGeoElement
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Line of Sight (GeoElement)",
+        "Line of sight (GeoElement)",
         "Analysis",
         "This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.",
         "Use the slider to adjust the height of the observer.",
@@ -68,7 +64,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         {
             InitializeComponent();
 
-            Title = "Line of Sight (GeoElement)";
+            Title = "Line of sight (GeoElement)";
 
             // Create the UI, setup the control references and execute initialization
             Initialize();

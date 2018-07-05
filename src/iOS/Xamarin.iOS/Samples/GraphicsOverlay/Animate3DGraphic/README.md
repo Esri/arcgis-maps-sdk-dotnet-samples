@@ -1,4 +1,4 @@
-# Animate 3D Graphic
+# Animate 3D graphic
 
 This sample demonstrates how to animate a graphic's position and follow it using a camera controller.
 

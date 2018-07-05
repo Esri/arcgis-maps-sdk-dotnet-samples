@@ -17,12 +17,12 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Timers;
-using System.Windows.Media;
+using System.Drawing;
 
 namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Line of Sight (GeoElement)",
+        "Line of sight (GeoElement)",
         "Analysis",
         "This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.",
         "Use the slider to adjust the height of the observer.",
@@ -88,7 +88,7 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
             // Create a graphics overlay with relative surface placement; relative surface placement allows the Z position of the observation point to be adjusted
             GraphicsOverlay overlay = new GraphicsOverlay() { SceneProperties = new LayerSceneProperties(SurfacePlacement.Relative) };
             // Create the symbol that will symbolize the observation point
-            SimpleMarkerSceneSymbol symbol = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Sphere, Colors.Red, 10, 10, 10, SceneSymbolAnchorPosition.Bottom);
+            SimpleMarkerSceneSymbol symbol = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Sphere, Color.Red, 10, 10, 10, SceneSymbolAnchorPosition.Bottom);
             // Create the observation point graphic from the point and symbol
             _observerGraphic = new Graphic(_observerPoint, symbol);
             // Add the observer to the overlay
@@ -193,18 +193,18 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
             switch (_geoLine.TargetVisibility)
             {
                 case LineOfSightTargetVisibility.Obstructed:
-                    MyStatusLabel.Content = "Status: Obstructed";
+                    MyStatusLabel.Text = "Status: Obstructed";
                     _taxiGraphic.IsSelected = false;
                     break;
 
                 case LineOfSightTargetVisibility.Visible:
-                    MyStatusLabel.Content = "Status: Visible";
+                    MyStatusLabel.Text = "Status: Visible";
                     _taxiGraphic.IsSelected = true;
                     break;
 
                 default:
                 case LineOfSightTargetVisibility.Unknown:
-                    MyStatusLabel.Content = "Status: Unknown";
+                    MyStatusLabel.Text = "Status: Unknown";
                     _taxiGraphic.IsSelected = false;
                     break;
             }
@@ -216,7 +216,7 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
             return DataManager.GetDataFolder("3af5cfec0fd24dac8d88aea679027cb9", "dolmus.3ds");
         }
 
-        private void MyHeightSlider_ValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double> e)
+        private void HeightSlider_ValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double> e)
         {
             // Update the height of the observer based on the slider value
 

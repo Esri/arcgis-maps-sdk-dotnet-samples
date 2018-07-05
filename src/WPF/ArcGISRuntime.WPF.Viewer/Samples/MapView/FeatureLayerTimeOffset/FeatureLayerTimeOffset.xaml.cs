@@ -44,7 +44,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerTimeOffset
             FeatureLayer noOffsetLayer = new FeatureLayer(_featureLayerUri);
 
             // Apply a blue dot renderer to distinguish hurricanes without offsets
-            SimpleMarkerSymbol blueDot = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Windows.Media.Colors.Blue, 10);
+            SimpleMarkerSymbol blueDot = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Blue, 10);
             noOffsetLayer.Renderer = new SimpleRenderer(blueDot);
 
             // Add the non-offset layer to the map
@@ -54,7 +54,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerTimeOffset
             FeatureLayer withOffsetLayer = new FeatureLayer(_featureLayerUri);
 
             // Apply a red dot renderer to distinguish these hurricanes from the non-offset hurricanes
-            SimpleMarkerSymbol redDot = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Windows.Media.Colors.Red, 10);
+            SimpleMarkerSymbol redDot = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Red, 10);
             withOffsetLayer.Renderer = new SimpleRenderer(redDot);
 
             // Apply the time offset (red hurricane dots will be from 10 days before the current extent)
@@ -118,7 +118,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerTimeOffset
             MyMapView.TimeExtent = new TimeExtent(newStart, newEnd);
 
             // Update the label
-            lblCurrentDate.Content = String.Format("{0} - {1}", newStart.ToShortDateString(), newEnd.ToShortDateString());
+            CurrentDateLabel.Text = string.Format("{0} - {1}", newStart.ToShortDateString(), newEnd.ToShortDateString());
         }
     }
 }

@@ -33,7 +33,7 @@
         <Slider Grid.Row="1" Grid.Column="1" Maximum="180" Value="60" x:Name="PitchSlider" ValueChanged="HandleSettingsChange" />
         <Slider Grid.Row="2" Grid.Column="1" Maximum="120" Minimum="1" Value="75" x:Name="HorizontalAngleSlider" ValueChanged="HandleSettingsChange" />
         <Slider Grid.Row="3" Grid.Column="1" Maximum="120" Minimum="1" Value="90" x:Name="VerticalAngleSlider" ValueChanged="HandleSettingsChange" />
-        <Slider Grid.Row="4" Grid.Column="1" Maximum="8999" Value="0" x:Name="MinimumDistanceSlider" ValueChanged="HandleSettingsChange" />
+        <Slider Grid.Row="4" Grid.Column="1" Maximum="8999" Minimum ="5" Value="5" x:Name="MinimumDistanceSlider" ValueChanged="HandleSettingsChange" />
         <Slider Grid.Row="5" Grid.Column="1" Maximum="9999" Value="1500" x:Name="MaximumDistanceSlider" ValueChanged="HandleSettingsChange" />
         <Switch Grid.Row="6" Grid.Column="1" x:Name="FrustumVisibilityCheck" Toggled="HandleSettingsChange" />
         <Switch Grid.Row="7" Grid.Column="1" x:Name="AnalysisVisibilityCheck" Toggled="HandleSettingsChange" IsToggled="True" />

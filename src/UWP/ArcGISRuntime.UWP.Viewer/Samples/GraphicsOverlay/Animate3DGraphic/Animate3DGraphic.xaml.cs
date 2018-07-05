@@ -24,7 +24,7 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Animate 3D Graphic",
+        "Animate 3D graphic",
         "GraphicsOverlay",
         "This sample demonstrates how to animate a graphic's position and follow it using a camera controller.",
         "Click-and-drag to pan the SceneView, orbiting the moving plane. Click \"Don't Follow\" to switch to the default camera controller, which does not orbit the plane.\nThe plane's route is shown on the inset map in the bottom left corner of the window. The progress through the plane's mission is shown in a slider at the top of the window. Drag the slider to seek through the mission (like you might seek through a song). The play speed can be adjusted to either be slower or faster using the slider in the panel on the right.\nThere is a drop-down box on the top left part of the window for selecting a mission (route) for the plane.\n\nNote that this is a graphics-intensive sample; performance may be degraded in certain situations (such as viewing over Remote Desktop).")]
@@ -115,22 +115,22 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             // Create renderer to symbolize plane and update plane orientation in the inset map
             SimpleRenderer renderer2D = new SimpleRenderer();
             // Create the symbol that will be used for the plane
-            SimpleMarkerSymbol plane2DSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Windows.UI.Colors.Blue, 10);
+            SimpleMarkerSymbol plane2DSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, System.Drawing.Color.Blue, 10);
             // Apply the symbol to the renderer
             renderer2D.Symbol = plane2DSymbol;
             // Apply a rotation expression to the renderer
             renderer2D.RotationExpression = "[ANGLE]";
             // Update the inset map with a new GraphicsOverlay based on the renderer
-            GraphicsOverlay insetMapOperlay = new GraphicsOverlay
+            GraphicsOverlay insetMapOverlay = new GraphicsOverlay
             {
                 Renderer = renderer2D
             };
-            InsetMapView.GraphicsOverlays.Add(insetMapOperlay);
+            InsetMapView.GraphicsOverlays.Add(insetMapOverlay);
 
             // Create placeholder graphic for showing the mission route in the inset map
-            SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Windows.UI.Colors.Red, 2);
+            SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2);
             _routeGraphic = new Graphic { Symbol = routeSymbol };
-            insetMapOperlay.Graphics.Add(_routeGraphic);
+            insetMapOverlay.Graphics.Add(_routeGraphic);
 
             // Create the plane graphic; this is symbolized as a blue triangle because of renderer implemented above
             // Create the attribute dictionary
@@ -140,7 +140,7 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             // Create the graphic from the attributes and the initial point
             _plane2D = new Graphic(new MapPoint(0, 0, SpatialReferences.Wgs84), plane2DAttributes);
             // Add the plane graphic to the inset map via the overlay
-            insetMapOperlay.Graphics.Add(_plane2D);
+            insetMapOverlay.Graphics.Add(_plane2D);
 
             // Create the model graphic for the plane
             // Get the path to the 3D model
@@ -242,10 +242,10 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
                 MissionProgressBar.Value = missionProgress;
 
                 // Update stats display
-                AltitudeTextBlock.Text = currentFrame.Elevation.ToString("F");
-                HeadingTextBlock.Text = currentFrame.Heading.ToString("F");
-                PitchTextBlock.Text = currentFrame.Pitch.ToString("F");
-                RollTextBlock.Text = currentFrame.Roll.ToString("F");
+                AltitudeTextBlock.Text = $"{currentFrame.Elevation:F}m";
+                HeadingTextBlock.Text = $"{currentFrame.Heading:F}°";
+                PitchTextBlock.Text = $"{currentFrame.Pitch:F}°";
+                RollTextBlock.Text = $"{currentFrame.Roll:F}°";
             });
 
             // Update plane's position
@@ -276,7 +276,7 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             return DataManager.GetDataFolder("681d6f7694644709a7c830ec57a2d72b", "Bristol.dae");
         }
 
-        private void MissionPlayPlauseClick(object sender, RoutedEventArgs e)
+        private void MissionPlayPause_Click(object sender, RoutedEventArgs e)
         {
             // Get a reference to the button that sent the event
             Button playButton = (Button)sender;
@@ -336,11 +336,11 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
             {
                 // Resume following
                 case "Follow":
-                    cameraControlButton.Content = "Don't Follow";
+                    cameraControlButton.Content = "Don't follow";
                     MySceneView.CameraController = _orbitCameraController;
                     break;
                 // Stop following
-                case "Don't Follow":
+                case "Don't follow":
                     cameraControlButton.Content = "Follow";
                     // Setting the scene view's camera controller to null has the effect of resetting the value to the default
                     MySceneView.CameraController = null;

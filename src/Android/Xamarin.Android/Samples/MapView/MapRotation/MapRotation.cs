@@ -9,6 +9,7 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -26,27 +27,37 @@ namespace ArcGISRuntime.Samples.MapRotation
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
-        private TextView _loadStatusTextView;
+        private TextView _mapRotationLabel;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
+            CreateLayout();
             Initialize();
 
             Title = "Map rotation";
         }
 
-        void Initialize()
+        private void Initialize()
+        {
+            // Create a new Map instance with the basemap  
+            Basemap myBasemap = Basemap.CreateStreets();
+
+            _myMapView.Map = new Map(myBasemap);
+        }
+
+        private void CreateLayout()
         {
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a slider (SeekBar) control for selecting an angle
-            var angleSlider = new SeekBar(this);
-
-            // Set a maximum slider value of 180 and a current value of 90 (minimum is always 0)
-            angleSlider.Max = 180;
-            angleSlider.Progress = 0;
+            var angleSlider = new SeekBar(this)
+            {
+                // Set a maximum slider value of 180 and a current value of 90 (minimum is always 0)
+                Max = 180,
+                Progress = 0
+            };
 
             // When the slider value (Progress) changes, rotate the map   
             angleSlider.ProgressChanged += (s, e) => 
@@ -57,28 +68,29 @@ namespace ArcGISRuntime.Samples.MapRotation
                     _myMapView.SetViewpointRotationAsync(e.Progress);
 
                     // Display the MapView's rotation.
-                    _loadStatusTextView.Text = string.Format("{0:0}%", angleSlider.Progress);
+                    _mapRotationLabel.Text = string.Format("{0:0}%", angleSlider.Progress);
                 }
             };
 
-            // Create a new Map instance with the basemap  
-            Basemap myBasemap = Basemap.CreateStreets();
-            Map myMap = new Map(myBasemap);
+            // Create a layout to show the slider and label
+            LinearLayout sliderLayout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Horizontal
+            };
+            sliderLayout.SetPadding(10,10,10,10);
+            angleSlider.LayoutParameters = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MatchParent,
+                ViewGroup.LayoutParams.MatchParent,
+                1.0f
+            );
+            _mapRotationLabel = new TextView(this);
+            _mapRotationLabel.SetMaxWidth(150);
+            _mapRotationLabel.SetMinWidth(150);
+            sliderLayout.AddView(angleSlider);
+            sliderLayout.AddView(_mapRotationLabel);
 
-            // Create a new map view control to display the map
-            _myMapView = new MapView();
-            _myMapView.Map = myMap;
-
-            // Set the current map rotation to match the default slider value
-            // (no need to await the asynchronous call)
-            _myMapView.SetViewpointRotationAsync(angleSlider.Progress);
-
-            // Add a label to display the MapView's rotation.
-            _loadStatusTextView = new TextView(this);
-            layout.AddView(_loadStatusTextView);
-
-            // Add the slider and map view to the layout
-            layout.AddView(angleSlider);
+            // Add the controls to the view
+            layout.AddView(sliderLayout);
             layout.AddView(_myMapView);
 
             // Apply the layout to the app

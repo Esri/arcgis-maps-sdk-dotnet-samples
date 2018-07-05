@@ -7,9 +7,11 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
 
@@ -23,11 +25,17 @@ namespace ArcGISRuntime.Samples.ShowMagnifier
         "")]
     public class ShowMagnifier : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
+        // Create and hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly UILabel _helpLabel = new UILabel
+        {
+            Text = "Tap and hold to show the magnifier.",
+            AdjustsFontSizeToFitWidth = true,
+            TextAlignment = UITextAlignment.Center,
+            Lines = 1
+        };
 
         public ShowMagnifier()
         {
@@ -38,35 +46,58 @@ namespace ArcGISRuntime.Samples.ShowMagnifier
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization.
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat toolbarHeight = 40;
+                nfloat margin = 5;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
+                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
+
+                // Reposition the label within the toolbar.
+                _helpLabel.Frame = new CGRect(margin, margin, _toolbar.Bounds.Width - (2 * margin), controlHeight);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
         {
-            // Create new Map with basemap and initial location
+            // Create new Map with basemap and initial location.
             Map myMap = new Map(BasemapType.Topographic, 34.056295, -117.195800, 10);
 
-            // Enable magnifier
-            _myMapView.InteractionOptions = new MapViewInteractionOptions { IsMagnifierEnabled = true };
+            // Enable magnifier.
+            _myMapView.InteractionOptions = new MapViewInteractionOptions
+            {
+                IsMagnifierEnabled = true
+            };
 
-            // Assign the map to the MapView
+            // Show the map in the view.
             _myMapView.Map = myMap;
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
-            View.AddSubviews(_myMapView);
+            // Add the controls to the view.
+            View.AddSubviews(_myMapView, _toolbar);
+
+            // Add the help label to the toolbar.
+            _toolbar.AddSubview(_helpLabel);
         }
     }
 }

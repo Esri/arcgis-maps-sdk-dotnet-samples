@@ -51,10 +51,10 @@ namespace ArcGISRuntime.WPF.Samples.ChangeBasemap
             MyMapView.Map = new Map(_basemapOptions.Values.First());
 
             // Set basemap titles as a items source
-            basemapChooser.ItemsSource = _basemapOptions.Keys;
+            BasemapChooser.ItemsSource = _basemapOptions.Keys;
 
             // Show the first basemap in the list
-            basemapChooser.SelectedIndex = 0;
+            BasemapChooser.SelectedIndex = 0;
         }
 
         private void OnBasemapChooserSelectionChanged(object sender, SelectionChangedEventArgs e)

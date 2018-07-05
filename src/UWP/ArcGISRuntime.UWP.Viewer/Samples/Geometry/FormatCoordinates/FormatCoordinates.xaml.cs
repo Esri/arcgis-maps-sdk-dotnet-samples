@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
-using Windows.UI;
+using System.Drawing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -69,30 +69,52 @@ namespace ArcGISRuntime.UWP.Samples.FormatCoordinates
             _selectedTextField = (TextBox)sender;
         }
 
-        private void UpdateUIFromMapPoint(MapPoint startingPoint)
+        private void UpdateUIFromMapPoint(MapPoint selectedPoint)
         {
+            try
+            {
+                // Check if the selected point can be formatted into coordinates.
+                CoordinateFormatter.ToLatitudeLongitude(selectedPoint, LatitudeLongitudeFormat.DecimalDegrees, 0);
+            }
+            catch (Exception e)
+            {
+                // Check if the excpetion is because the coordinates are out of range.
+                if (e.Message == "Invalid argument: coordinates are out of range")
+                {
+                    // Set all of the text fields to contain the error message.
+                    DecimalDegreesTextField.Text = "Coordinates are out of range";
+                    DmsTextField.Text = "Coordinates are out of range";
+                    UtmTextField.Text = "Coordinates are out of range";
+                    UsngTextField.Text = "Coordinates are out of range";
+
+                    // Clear the selectionss symbol.
+                    MyMapView.GraphicsOverlays[0].Graphics.Clear();
+                }
+                return;
+            }
+
             // Update the decimal degrees text
             DecimalDegreesTextField.Text =
-                CoordinateFormatter.ToLatitudeLongitude(startingPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
+                CoordinateFormatter.ToLatitudeLongitude(selectedPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
 
             // Update the degrees, minutes, seconds text
-            DmsTextField.Text = CoordinateFormatter.ToLatitudeLongitude(startingPoint,
+            DmsTextField.Text = CoordinateFormatter.ToLatitudeLongitude(selectedPoint,
                 LatitudeLongitudeFormat.DegreesMinutesSeconds, 1);
 
             // Update the UTM text
-            UtmTextField.Text = CoordinateFormatter.ToUtm(startingPoint, UtmConversionMode.NorthSouthIndicators, true);
+            UtmTextField.Text = CoordinateFormatter.ToUtm(selectedPoint, UtmConversionMode.NorthSouthIndicators, true);
 
             // Update the USNG text
-            UsngTextField.Text = CoordinateFormatter.ToUsng(startingPoint, 4, true);
+            UsngTextField.Text = CoordinateFormatter.ToUsng(selectedPoint, 4, true);
 
             // Clear existing graphics overlays
             MyMapView.GraphicsOverlays[0].Graphics.Clear();
 
             // Create a symbol to symbolize the point
-            SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, Colors.Yellow, 20);
+            SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, Color.Yellow, 20);
 
             // Create the graphic
-            Graphic symbolGraphic = new Graphic(startingPoint, symbol);
+            Graphic symbolGraphic = new Graphic(selectedPoint, symbol);
 
             // Add the graphic to the graphics overlay
             MyMapView.GraphicsOverlays[0].Graphics.Add(symbolGraphic);

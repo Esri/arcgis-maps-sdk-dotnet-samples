@@ -7,14 +7,16 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Drawing;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Foundation;
-using System;
-using System.Drawing;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ViewshedLocation
@@ -28,8 +30,25 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         "Featured")]
     public class ViewshedLocation : UIViewController
     {
-        // Create and hold reference to the used SceneView.
+        // Create and hold references to the UI controls.
         private readonly SceneView _mySceneView = new SceneView();
+        private readonly UIToolbar _toolbar = new UIToolbar();
+        private readonly UISlider _headingSlider = new UISlider {MinValue = 0, MaxValue = 360, Value = 0};
+        private readonly UISlider _pitchSlider = new UISlider {MinValue = 0, MaxValue = 180, Value = 60};
+        private readonly UISlider _horizontalAngleSlider = new UISlider {MinValue = 1, MaxValue = 120, Value = 75};
+        private readonly UISlider _verticalAngleSlider = new UISlider {MinValue = 1, MaxValue = 120, Value = 90};
+        private readonly UISlider _minimumDistanceSlider = new UISlider {MinValue = 11, MaxValue = 8999, Value = 11};
+        private readonly UISlider _maximumDistanceSlider = new UISlider {MinValue = 0, MaxValue = 9999, Value = 1500};
+        private readonly UISwitch _analysisVisibilitySwitch = new UISwitch {On = true};
+        private readonly UISwitch _frustumVisibilitySwitch = new UISwitch {On = false};
+        private readonly UILabel _headingLabel = new UILabel {Text = "Heading:", TextAlignment = UITextAlignment.Right};
+        private readonly UILabel _pitchLabel = new UILabel {Text = "Pitch:", TextAlignment = UITextAlignment.Right};
+        private readonly UILabel _horizontalAngleLabel = new UILabel {Text = "Horiz. Angle:", TextAlignment = UITextAlignment.Right};
+        private readonly UILabel _verticalAngleLabel = new UILabel {Text = "Vert. Angle:", TextAlignment = UITextAlignment.Right};
+        private readonly UILabel _minimumDistanceLabel = new UILabel {Text = "Min. Dist.:", TextAlignment = UITextAlignment.Right};
+        private readonly UILabel _maximumDistanceLabel = new UILabel {Text = "Max. Dist.:", TextAlignment = UITextAlignment.Right};
+        private readonly UILabel _analysisVisibilityLabel = new UILabel {Text = "Show Analysis:", TextAlignment = UITextAlignment.Right};
+        private readonly UILabel _frustumVisibilityLabel = new UILabel {Text = "Show Frustum:", TextAlignment = UITextAlignment.Right};
 
         // Hold the URL to the elevation source.
         private readonly Uri _localElevationImageService = new Uri("https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
@@ -43,48 +62,33 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         // Hold a reference to the analysis overlay that will hold the viewshed analysis.
         private AnalysisOverlay _analysisOverlay;
 
-        // Create the UI controls.
-        private readonly UISlider _headingSlider = new UISlider() { MinValue = 0, MaxValue = 360, Value = 0 };
-        private readonly UISlider _pitchSlider = new UISlider() { MinValue = 0, MaxValue = 180, Value = 60 };
-        private readonly UISlider _horizontalAngleSlider = new UISlider() { MinValue = 1, MaxValue = 120, Value = 75 };
-        private readonly UISlider _verticalAngleSlider = new UISlider { MinValue = 1, MaxValue = 120, Value = 90 };
-        private readonly UISlider _minimumDistanceSlider = new UISlider() { MinValue = 0, MaxValue = 8999, Value = 0 };
-        private readonly UISlider _maximumDistanceSlider = new UISlider() { MinValue = 0, MaxValue = 9999, Value = 1500 };
-        private readonly UISwitch _analysisVisibilitySwitch = new UISwitch() { On = true };
-        private readonly UISwitch _frustumVisibilitySwitch = new UISwitch() { On = false };
+        // Graphics overlay for viewpoint symbol.
+        private GraphicsOverlay _viewpointOverlay;
 
-        // Create labels for the UI controls.
-        private readonly UILabel _headingLabel = new UILabel() { Text = "Heading:", TextColor = UIColor.Red };
-        private readonly UILabel _pitchLabel = new UILabel() { Text = "Pitch", TextColor = UIColor.Red };
-        private readonly UILabel _horizontalAngleLabel = new UILabel() { Text = "Horiz. Angle:", TextColor = UIColor.Red };
-        private readonly UILabel _verticalAngleLabel = new UILabel() { Text = "Vert. Angle:", TextColor = UIColor.Red };
-        private readonly UILabel _minimumDistanceLabel = new UILabel() { Text = "Min. Dist.:", TextColor = UIColor.Red };
-        private readonly UILabel _maximumDistanceLabel = new UILabel() { Text = "Max. Dist.:", TextColor = UIColor.Red };
-        private readonly UILabel _analysisVisibilityLabel = new UILabel() { Text = "Show Analysis:", TextColor = UIColor.Red };
-        private readonly UILabel _frustumVisibilityLabel = new UILabel() { Text = "Show Frustum:", TextColor = UIColor.Red };
+        // Symbol for viewpoint.
+        private SimpleMarkerSceneSymbol _viewpointSymbol;
 
         public ViewshedLocation()
         {
-            Title = "Viewshed (Location)";
+            Title = "Viewshed (location)";
         }
 
         private void Initialize()
         {
             // Create the scene with the imagery basemap.
-            Scene myScene = new Scene(Basemap.CreateImagery());
-            _mySceneView.Scene = myScene;
+            _mySceneView.Scene = new Scene(Basemap.CreateImagery());
 
             // Add the surface elevation.
             Surface mySurface = new Surface();
             mySurface.ElevationSources.Add(new ArcGISTiledElevationSource(_localElevationImageService));
-            myScene.BaseSurface = mySurface;
+            _mySceneView.Scene.BaseSurface = mySurface;
 
             // Add the scene layer.
             ArcGISSceneLayer sceneLayer = new ArcGISSceneLayer(_buildingsUrl);
-            myScene.OperationalLayers.Add(sceneLayer);
+            _mySceneView.Scene.OperationalLayers.Add(sceneLayer);
 
             // Create the MapPoint representing the initial location.
-            MapPoint initialLocation = new MapPoint(-4.5, 48.4, 100.0);
+            MapPoint initialLocation = new MapPoint(-4.5, 48.4, 56.0);
 
             // Create the location viewshed analysis.
             _viewshed = new LocationViewshed(
@@ -108,21 +112,39 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             // Add the viewshed analysis to the overlay.
             _analysisOverlay.Analyses.Add(_viewshed);
 
+            // Create a symbol for the viewpoint.
+            _viewpointSymbol = SimpleMarkerSceneSymbol.CreateSphere(Color.Blue, 10, SceneSymbolAnchorPosition.Center);
+
+            // Add the symbol to the viewpoint overlay.
+            _viewpointOverlay = new GraphicsOverlay();
+            _viewpointOverlay.SceneProperties = new LayerSceneProperties(SurfacePlacement.Absolute);
+            _viewpointOverlay.Graphics.Add(new Graphic(initialLocation, _viewpointSymbol));
+
             // Add the analysis overlay to the SceneView.
             _mySceneView.AnalysisOverlays.Add(_analysisOverlay);
+
+            // Add the graphics overlay
+            _mySceneView.GraphicsOverlays.Add(_viewpointOverlay);
 
             // Update the frustum outline color.
             // The frustum outline shows the volume in which the viewshed analysis is performed.
             Viewshed.FrustumOutlineColor = Color.Blue;
 
             // Subscribe to tap events to enable moving the observer.
-            _mySceneView.GeoViewTapped += MySceneViewOnGeoViewTapped;
+            _mySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
         }
 
-        private void MySceneViewOnGeoViewTapped(object sender, GeoViewInputEventArgs viewInputEventArgs)
+        private void MySceneView_GeoViewTapped(object sender, GeoViewInputEventArgs viewInputEventArgs)
         {
             // Update the viewshed location.
             _viewshed.Location = viewInputEventArgs.Location;
+
+            // Move the location off of the ground.
+            _viewshed.Location = new MapPoint(_viewshed.Location.X, _viewshed.Location.Y, _viewshed.Location.Z + 10.0);
+
+            // Update the viewpoint symbol.
+            _viewpointOverlay.Graphics.Clear();
+            _viewpointOverlay.Graphics.Add(new Graphic(_viewshed.Location, _viewpointSymbol));
         }
 
         private void HandleSettingsChange(object sender, EventArgs e)
@@ -145,18 +167,18 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
 
         private void CreateLayout()
         {
-            // Add SceneView to the page
-            View.AddSubviews(_mySceneView);
+            // Add SceneView to the page.
+            View.AddSubviews(_mySceneView, _toolbar);
 
-            // Add the labels
+            // Add the labels.
             View.AddSubviews(_headingLabel, _pitchLabel, _horizontalAngleLabel, _verticalAngleLabel,
                 _minimumDistanceLabel, _maximumDistanceLabel, _analysisVisibilityLabel, _frustumVisibilityLabel);
 
-            // Add the controls
+            // Add the controls.
             View.AddSubviews(_headingSlider, _pitchSlider, _horizontalAngleSlider, _verticalAngleSlider,
                 _minimumDistanceSlider, _maximumDistanceSlider, _analysisVisibilitySwitch, _frustumVisibilitySwitch);
 
-            // Subscribe to events
+            // Subscribe to events.
             _headingSlider.ValueChanged += HandleSettingsChange;
             _pitchSlider.ValueChanged += HandleSettingsChange;
             _horizontalAngleSlider.ValueChanged += HandleSettingsChange;
@@ -169,71 +191,72 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
 
         public override void ViewDidLoad()
         {
-            // Create the layout.
-            CreateLayout();
-
-            // Initialize the sample.
-            Initialize();
-
             base.ViewDidLoad();
+
+            CreateLayout();
+            Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the SceneView
-            _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat rowHeight = 30;
+                nfloat labelWidth = 125;
+                nfloat margin = 5;
 
-            // Top of visible area is offset by the height of the navigation controller bar and the height of the status bar
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height +
-                               UIApplication.SharedApplication.StatusBarFrame.Height;
+                // Reposition the controls.
+                _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, rowHeight * 8 + margin * 9);
+                _mySceneView.ViewInsets = new UIEdgeInsets(_toolbar.Frame.Bottom, 0, 0, 0);
 
-            // Each row will have consistent height.
-            nfloat rowHeight = 30;
+                // Heading
+                topMargin += margin;
+                _headingLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
+                _headingSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
 
-            // Labels will be of consistent width.
-            nfloat labelWidth = 100;
+                // Pitch
+                topMargin += rowHeight + margin;
+                _pitchLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
+                _pitchSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
 
-            // Heading
-            topMargin += rowHeight;
-            _headingLabel.Frame = new CGRect(10, topMargin, labelWidth, rowHeight);
-            _headingSlider.Frame = new CGRect(labelWidth + 10, topMargin, View.Bounds.Width - labelWidth - 10, rowHeight);
+                // Horizontal Angle
+                topMargin += rowHeight + margin;
+                _horizontalAngleLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
+                _horizontalAngleSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
 
-            // Pitch
-            topMargin += rowHeight;
-            _pitchLabel.Frame = new CGRect(10, topMargin, labelWidth, rowHeight);
-            _pitchSlider.Frame = new CGRect(labelWidth + 10, topMargin, View.Bounds.Width - labelWidth - 10, rowHeight);
+                // Vertical Angle
+                topMargin += rowHeight + margin;
+                _verticalAngleLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
+                _verticalAngleSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
 
-            // Horizontal Angle
-            topMargin += rowHeight;
-            _horizontalAngleLabel.Frame = new CGRect(10, topMargin, labelWidth, rowHeight);
-            _horizontalAngleSlider.Frame = new CGRect(labelWidth + 10, topMargin, View.Bounds.Width - labelWidth - 10, rowHeight);
+                // Min Distance
+                topMargin += rowHeight + margin;
+                _minimumDistanceLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
+                _minimumDistanceSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
 
-            // Vertical Angle
-            topMargin += rowHeight;
-            _verticalAngleLabel.Frame = new CGRect(10, topMargin, labelWidth, rowHeight);
-            _verticalAngleSlider.Frame = new CGRect(labelWidth + 10, topMargin, View.Bounds.Width - labelWidth - 10, rowHeight);
+                // Max Distance
+                topMargin += rowHeight + margin;
+                _maximumDistanceLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
+                _maximumDistanceSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
 
-            // Min Distance
-            topMargin += rowHeight;
-            _minimumDistanceLabel.Frame = new CGRect(10, topMargin, labelWidth, rowHeight);
-            _minimumDistanceSlider.Frame = new CGRect(labelWidth + 10, topMargin, View.Bounds.Width - labelWidth - 10, rowHeight);
+                // Analysis Visibility
+                topMargin += rowHeight + margin;
+                _analysisVisibilityLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
+                _analysisVisibilitySwitch.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
 
-            // Max Distance
-            topMargin += rowHeight;
-            _maximumDistanceLabel.Frame = new CGRect(10, topMargin, labelWidth, rowHeight);
-            _maximumDistanceSlider.Frame = new CGRect(labelWidth + 10, topMargin, View.Bounds.Width - labelWidth - 10, rowHeight);
+                // Frustum Visibility
+                topMargin += rowHeight + margin;
+                _frustumVisibilityLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
+                _frustumVisibilitySwitch.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
 
-            // Analysis Visibility
-            topMargin += rowHeight;
-            _analysisVisibilityLabel.Frame = new CGRect(10, topMargin, View.Bounds.Width - labelWidth - 10, rowHeight);
-            _analysisVisibilitySwitch.Frame = new CGRect(labelWidth * 2, topMargin, labelWidth, rowHeight);
-
-            // Frustum Visibility
-            topMargin += rowHeight;
-            _frustumVisibilityLabel.Frame = new CGRect(10, topMargin, View.Bounds.Width - labelWidth - 10, rowHeight);
-            _frustumVisibilitySwitch.Frame = new CGRect(labelWidth * 2, topMargin, labelWidth, rowHeight);
-
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-// Copyright 2017 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -13,17 +13,11 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using System;
-using System.Linq;
-using Xamarin.Forms;
 using System.IO;
-
-#if WINDOWS_UWP
-using Colors = Windows.UI.Colors;
-#else
-
+using System.Linq;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 using Colors = System.Drawing.Color;
-
-#endif
 
 namespace ArcGISRuntime.Samples.ExportTiles
 {
@@ -34,69 +28,81 @@ namespace ArcGISRuntime.Samples.ExportTiles
         "1. Pan and zoom until the area you want tiles for is within the red box.\n2. Click 'Export Tiles'.\n3. Pan and zoom to see the area covered by the downloaded tiles in the preview box.")]
     public partial class ExportTiles : ContentPage
     {
-        // URL to the service tiles will be exported from
+        // URL to the service tiles will be exported from.
         private Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
 
-        // Path to exported tile cache
+        // Path to exported tile cache.
         private string _tilePath;
 
-        // Flag to indicate whether an exported tile cache is being previewed
+        // Flag to indicate whether an exported tile cache is being previewed.
         private bool _previewOpen = false;
 
-        // Reference to the original basemap
+        // Reference to the original basemap.
         private Map _basemap;
 
-        // Reference to the original viewpoint (when previewing)
+        // Reference to the original viewpoint (when previewing).
         private Viewpoint _originalView;
 
-        // Holder for the Graphics Overlay (so that it can be hidden and re-added for preview/non-preview state)
+        // Holder for the Graphics Overlay (so that it can be hidden and re-added for preview/non-preview state).
         private GraphicsOverlay _overlay;
 
         public ExportTiles()
         {
             InitializeComponent();
 
-            // Call a function to set up the map
+            // Call a function to set up the sample.
             Initialize();
         }
 
         private async void Initialize()
         {
-            // Create the tile layer
-            ArcGISTiledLayer myLayer = new ArcGISTiledLayer(_serviceUri);
+            // Create the tile layer.
+            try
+            {
+                ArcGISTiledLayer myLayer = new ArcGISTiledLayer(_serviceUri);
 
-            // Load the layer
-            await myLayer.LoadAsync();
+                // Load the layer.
+                await myLayer.LoadAsync();
 
-            // Create the basemap with the layer
-            _basemap = new Map(new Basemap(myLayer));
+                // Create the basemap with the layer.
+                _basemap = new Map(new Basemap(myLayer));
 
-            // Set the min and max scale - export task fails if the scale is too big or small
-            _basemap.MaxScale = 5000000;
-            _basemap.MinScale = 10000000;
+                // Set the min and max scale - export task fails if the scale is too big or small.
+                _basemap.MaxScale = 5000000;
+                _basemap.MinScale = 10000000;
 
-            // Assign the map to the mapview
-            MyMapView.Map = _basemap;
+                // Assign the map to the mapview.
+                MyMapView.Map = _basemap;
 
-            // Create a new symbol for the extent graphic
-            //     This is the red box that visualizes the extent for which tiles will be exported
-            SimpleLineSymbol myExtentSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 2);
+                // Create a new symbol for the extent graphic.
+                //     This is the red box that visualizes the extent for which tiles will be exported.
+                SimpleLineSymbol myExtentSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 2);
 
-            // Create graphics overlay for the extent graphic and apply a renderer
-            GraphicsOverlay extentOverlay = new GraphicsOverlay();
-            extentOverlay.Renderer = new SimpleRenderer(myExtentSymbol);
+                // Create graphics overlay for the extent graphic and apply a renderer.
+                GraphicsOverlay extentOverlay = new GraphicsOverlay
+                {
+                    Renderer = new SimpleRenderer(myExtentSymbol)
+                };
 
-            // Add graphics overlay to the map view
-            MyMapView.GraphicsOverlays.Add(extentOverlay);
+                // Add graphics overlay to the map view.
+                MyMapView.GraphicsOverlays.Add(extentOverlay);
 
-            // Subscribe to changes in the mapview's viewpoint so the preview box can be kept in position
-            MyMapView.ViewpointChanged += MyMapView_ViewpointChanged;
+                // Subscribe to changes in the mapview's viewpoint so the preview box can be kept in position.
+                MyMapView.ViewpointChanged += MyMapView_ViewpointChanged;
 
-            // Update the graphic - needed in case the user decides not to interact before pressing the button
-            UpdateMapExtentGraphic();
+                // Update the graphic - needed in case the user decides not to interact before pressing the button.
+                UpdateMapExtentGraphic();
 
-            // Enable the export button once sample is ready
-            MyExportPreviewButton.IsEnabled = true;
+                // Enable the export button once the sample is ready.
+                MyExportPreviewButton.IsEnabled = true;
+
+                // Set viewpoint of the map.
+                MyMapView.SetViewpoint(new Viewpoint(-4.853791, 140.983598, _basemap.MinScale));
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.ToString(), "OK");
+            }
         }
 
         private void MyMapView_ViewpointChanged(object sender, EventArgs e)
@@ -111,35 +117,35 @@ namespace ArcGISRuntime.Samples.ExportTiles
         /// </summary>
         private void UpdateMapExtentGraphic()
         {
-            // Return if mapview is null
+            // Return if mapview is null.
             if (MyMapView == null) { return; }
 
-            // Get the new viewpoint
+            // Get the new viewpoint.
             Viewpoint myViewPoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
-            // Return if viewpoint is null
+            // Return if viewpoint is null.
             if (myViewPoint == null) { return; }
 
-            // Get the updated extent for the new viewpoint
+            // Get the updated extent for the new viewpoint.
             Envelope extent = myViewPoint.TargetGeometry as Envelope;
 
-            // Return if extent is null
+            // Return if extent is null.
             if (extent == null) { return; }
 
-            // Create an envelope that is a bit smaller than the extent
+            // Create an envelope that is a bit smaller than the extent.
             EnvelopeBuilder envelopeBldr = new EnvelopeBuilder(extent);
             envelopeBldr.Expand(0.80);
 
-            // Get the (only) graphics overlay in the map view
+            // Get the (only) graphics overlay in the map view.
             GraphicsOverlay extentOverlay = MyMapView.GraphicsOverlays.FirstOrDefault();
 
-            // Return if there is none (in preview, the overlay shouldn't be there)
+            // Return if there is none (in preview, the overlay shouldn't be there).
             if (extentOverlay == null) { return; }
 
-            // Get the extent graphic
+            // Get the extent graphic.
             Graphic extentGraphic = extentOverlay.Graphics.FirstOrDefault();
 
-            // Create the extent graphic and add it to the overlay if it doesn't exist
+            // Create the extent graphic and add it to the overlay if it doesn't exist.
             if (extentGraphic == null)
             {
                 extentGraphic = new Graphic(envelopeBldr.ToGeometry());
@@ -147,210 +153,177 @@ namespace ArcGISRuntime.Samples.ExportTiles
             }
             else
             {
-                // Otherwise, simply update the graphic's geometry
+                // Otherwise, update the graphic's geometry.
                 extentGraphic.Geometry = envelopeBldr.ToGeometry();
             }
         }
 
-        private string GetTilePath()
+        private async Task StartExport()
         {
-            // Return a new temporary path
-            return $"{Path.GetTempFileName()}.tpk";
+            try
+            {
+                // Update the tile cache path.
+                _tilePath = $"{Path.GetTempFileName()}.tpk";
+
+                // Get the parameters for the job.
+                ExportTileCacheParameters parameters = GetExportParameters();
+
+                // Create the task.
+                ExportTileCacheTask exportTask = await ExportTileCacheTask.CreateAsync(_serviceUri);
+
+                // Create the export job.
+                ExportTileCacheJob job = exportTask.ExportTileCache(parameters, _tilePath);
+
+                // Show the progress bar.
+                MyProgressBar.IsVisible = true;
+
+                // Start the export job.
+                job.Start();
+
+                // Get the tile cache result.
+                TileCache resultTileCache = await job.GetResultAsync();
+
+                // Hide the progress bar.
+                MyProgressBar.IsVisible = false;
+
+                // Do the rest of the work.
+                await HandleJobCompletion(job, resultTileCache);
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.ToString(), "OK");
+            }
         }
 
-        /// <summary>
-        /// Starts the export job and registers callbacks to be notified of changes to job status
-        /// </summary>
-        private async void StartExport()
-        {
-            // Update the tile cache path
-            _tilePath = GetTilePath();
-
-            // Get the parameters for the job
-            ExportTileCacheParameters parameters = GetExportParameters();
-
-            // Create the task
-            ExportTileCacheTask exportTask = await ExportTileCacheTask.CreateAsync(_serviceUri);
-
-            // Create the export job
-            ExportTileCacheJob job = exportTask.ExportTileCache(parameters, _tilePath);
-
-            // Subscribe to notifications for status updates
-            job.JobChanged += Job_JobChanged;
-
-            // Start the export job
-            job.Start();
-        }
-
-        /// <summary>
-        /// Constructs and returns parameters for the Export Tile Cache Job
-        /// </summary>
-        /// <returns></returns>
         private ExportTileCacheParameters GetExportParameters()
         {
-            // Create a new parameters instance
+            // Create a new parameters instance.
             ExportTileCacheParameters parameters = new ExportTileCacheParameters();
 
-            // Get the (only) graphics overlay in the map view
+            // Get the (only) graphics overlay in the map view.
             GraphicsOverlay extentOverlay = MyMapView.GraphicsOverlays.First();
 
-            // Get the area selection graphic's extent
+            // Get the area selection graphic's extent.
             Graphic extentGraphic = extentOverlay.Graphics.First();
 
-            // Set the area for the export
+            // Set the area for the export.
             parameters.AreaOfInterest = extentGraphic.Geometry;
 
-            // Get the highest possible export quality
+            // Set the highest possible export quality.
             parameters.CompressionQuality = 100;
 
-            // Add level IDs 1-9
-            //     Note: Failing to add at least one Level ID will result in job failure
+            // Add level IDs 1-9.
+            //     Note: Failing to add at least one Level ID will result in job failure.
             for (int x = 1; x < 10; x++)
             {
                 parameters.LevelIds.Add(x);
             }
 
-            // Return the parameters
+            // Return the parameters.
             return parameters;
         }
 
-        /// <summary>
-        /// Called by the ExportTileCacheJob on any status changes
-        /// </summary>
-        private void Job_JobChanged(object sender, EventArgs e)
+        private async Task HandleJobCompletion(ExportTileCacheJob job, TileCache cache)
         {
-            // Get reference to the job
-            ExportTileCacheJob job = sender as ExportTileCacheJob;
-
-            // Update the view if the job is complete
+            // Update the view if the job is complete.
             if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded)
             {
-                // Dispatcher is necessary due to the threading implementation;
-                //     this method is called from a thread other than the UI thread
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    // Show the exported tiles on the preview map
-                    UpdatePreviewMap();
+                // Show the exported tiles on the preview map.
+                await UpdatePreviewMap(cache);
 
-                    // Hide the progress bar
-                    MyProgressBar.IsVisible = false;
+                // Change the export button text.
+                MyExportPreviewButton.Text = "Close Preview";
 
-                    // Change the export button text
-                    MyExportPreviewButton.Text = "Close Preview";
+                // Re-enable the button.
+                MyExportPreviewButton.IsEnabled = true;
 
-                    // Re-enable the button
-                    MyExportPreviewButton.IsEnabled = true;
+                // Set the preview open flag.
+                _previewOpen = true;
 
-                    // Set the preview open flag
-                    _previewOpen = true;
+                // Store the overlay for later.
+                _overlay = MyMapView.GraphicsOverlays.FirstOrDefault();
 
-                    // Store the overlay for later
-                    _overlay = MyMapView.GraphicsOverlays.FirstOrDefault();
-
-                    // Then hide it
-                    MyMapView.GraphicsOverlays.Clear();
-                });
+                // Then hide it.
+                MyMapView.GraphicsOverlays.Clear();
             }
             else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
             {
-                // Notify the user
-                ShowStatusMessage("Job failed");
+                // Notify the user.
+                await DisplayAlert("Error", "Job Failed", "OK");
 
-                // Dispatcher is necessary due to the threading implementation;
-                //     this method is called from a thread other than the UI thread
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    // Hide the progress bar
-                    MyProgressBar.IsVisible = false;
+                // Change the export button text.
+                MyExportPreviewButton.Text = "Export Tiles";
 
-                    // Change the export button text
-                    MyExportPreviewButton.Text = "Export Tiles";
+                // Re-enable the export button.
+                MyExportPreviewButton.IsEnabled = true;
 
-                    // Re-enable the export button
-                    MyExportPreviewButton.IsEnabled = true;
-
-                    // Set the preview open flag
-                    _previewOpen = false;
-                });
+                // Set the preview open flag.
+                _previewOpen = false;
             }
         }
 
-        /// <summary>
-        /// Loads the tile cache from disk and displays it in the preview map
-        /// </summary>
-        private async void UpdatePreviewMap()
+        private async Task UpdatePreviewMap(TileCache cache)
         {
-            // Load the saved tile cache
-            TileCache cache = new TileCache(_tilePath);
-
-            // Load the cache
+            // Load the cache.
             await cache.LoadAsync();
 
-            // Create a tile layer with the cache
+            // Create a tile layer with the cache.
             ArcGISTiledLayer myLayer = new ArcGISTiledLayer(cache);
 
-            // Create a new map with the layer as basemap
-            Map previewMap = new Map(new Basemap(myLayer));
+            // Show the layer in a new map.
+            MyMapView.Map = new Map(new Basemap(myLayer));
 
-            // Apply the map to the preview mapview
-            MyMapView.Map = previewMap;
-
-            // Re-size the mapview
+            // Re-size the mapview.
             MyMapView.Margin = new Thickness(40);
         }
 
-        /// <summary>
-        /// Begins the export process
-        /// </summary>
-        private void MyExportPreviewButton_Clicked(object sender, EventArgs e)
+        private async void MyExportPreviewButton_Clicked(object sender, EventArgs e)
         {
-            // If preview isn't open, start an export
-            if (!_previewOpen)
+            // If preview isn't open, start an export.
+            try
             {
-                // Disable the export button
-                MyExportPreviewButton.IsEnabled = false;
+                if (!_previewOpen)
+                {
+                    // Disable the export button.
+                    MyExportPreviewButton.IsEnabled = false;
 
-                // Show the progress bar
-                MyProgressBar.IsVisible = true;
+                    // Show the progress bar.
+                    MyProgressBar.IsVisible = true;
 
-                // Save the map viewpoint
-                _originalView = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+                    // Save the map viewpoint.
+                    _originalView = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
-                // Start the export
-                StartExport();
+                    // Start the export.
+                    await StartExport();
+                }
+                else // Otherwise, close the preview.
+                {
+                    // Change the button text.
+                    MyExportPreviewButton.Text = "Export Tiles";
+
+                    // Clear the preview open flag.
+                    _previewOpen = false;
+
+                    // Re-size the mapview.
+                    MyMapView.Margin = new Thickness(0);
+
+                    // Re-apply the original map.
+                    MyMapView.Map = _basemap;
+
+                    // Re-apply the original viewpoint.
+                    MyMapView.SetViewpoint(_originalView);
+
+                    // Re-show the overlay.
+                    MyMapView.GraphicsOverlays.Add(_overlay);
+
+                    // Update the graphic.
+                    UpdateMapExtentGraphic();
+                }
             }
-            else // Otherwise, close the preview
+            catch (Exception ex)
             {
-                // Change the button text
-                MyExportPreviewButton.Text = "Export Tiles";
-
-                // Clear the preview open flag
-                _previewOpen = false;
-
-                // Re-size the mapview
-                MyMapView.Margin = new Thickness(0);
-
-                // Re-apply the original map
-                MyMapView.Map = _basemap;
-
-                // Re-apply the original viewpoint
-                MyMapView.SetViewpoint(_originalView);
-
-                // Re-show the overlay
-                MyMapView.GraphicsOverlays.Add(_overlay);
-
-                // Update the graphic
-                UpdateMapExtentGraphic();
+                await DisplayAlert("Error", ex.ToString(), "OK");
             }
-        }
-
-        /// <summary>
-        /// Abstraction of platform-specific functionality to maximize re-use of common code
-        /// </summary>
-        private async void ShowStatusMessage(string message)
-        {
-            // Display the message to the user
-            await DisplayAlert("Alert", message, "OK");
         }
     }
 }

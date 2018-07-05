@@ -156,9 +156,9 @@ namespace ArcGISRuntime.WPF.Samples.RasterRgbRenderer
         private void StretchTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Hide all UI controls for the input parameters.
-            MinMaxParametersGrid.Visibility = System.Windows.Visibility.Hidden;
-            PercentClipParametersGrid.Visibility = System.Windows.Visibility.Hidden;
-            StdDeviationParametersGrid.Visibility = System.Windows.Visibility.Hidden;
+            MinMaxParametersGrid.Visibility = System.Windows.Visibility.Collapsed;
+            PercentClipParametersGrid.Visibility = System.Windows.Visibility.Collapsed;
+            StdDeviationParametersGrid.Visibility = System.Windows.Visibility.Collapsed;
 
             // See which type was selected and show the corresponding input controls.
             switch (StretchTypeComboBox.SelectedValue.ToString())

@@ -17,10 +17,18 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Label Content="Static Mode:" Foreground="Red" Grid.Row="0" Grid.ColumnSpan="2" />
-        <esri:SceneView x:Name="MyStaticSceneView" Grid.Row="1" Grid.ColumnSpan="2" />
-        <Label Content="Dynamic Mode:" Foreground="Red" Grid.Row="2" Grid.Column="0" />
-        <Button Content="Animated Zoom" Click="Button_Click" Grid.Row="2" Grid.Column="1" />
-        <esri:SceneView x:Name="MyDynamicSceneView" Grid.Row="3" Grid.ColumnSpan="2" />
+        <Label Content="Static Mode:"
+               Grid.Row="0" Grid.ColumnSpan="2"
+               Foreground="Red" />
+        <esri:SceneView x:Name="MyStaticSceneView"
+                        Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
+        <Label Content="Dynamic Mode:"
+               Grid.Row="2" Grid.Column="0"
+               Foreground="Red" />
+        <Button Content="Animated Zoom"
+                Grid.Row="2" Grid.Column="1"
+                Click="Button_Click" />
+        <esri:SceneView x:Name="MyDynamicSceneView"
+                        Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" />
     </Grid>
 </UserControl>

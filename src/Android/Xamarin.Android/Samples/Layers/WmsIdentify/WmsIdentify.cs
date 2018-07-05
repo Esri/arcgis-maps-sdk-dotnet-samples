@@ -18,6 +18,9 @@ using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
+using Android.Graphics;
+using Android.Graphics.Drawables;
+using Android.Views;
 
 namespace ArcGISRuntime.Samples.WmsIdentify
 {
@@ -26,7 +29,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         "Identify WMS features",
         "Layers",
         "This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.",
-        "Tap or click on a feature. A callout appears with the returned content for the WMS feature. Note that due to the nature of the WMS service implementation, an empty callout is shown when there is no result; an application might inspect the HTML to determine if the HTML actually contains a feature.")]
+        "Tap or click on a feature. A callout appears with the returned content for the WMS feature. Note that due to the nature of the WMS service implementation, an empty result is shown when there is no result; an application might inspect the HTML to determine if the HTML actually contains a feature.")]
     public class WmsIdentify : Activity
     {
         // Create and hold reference to the used MapView
@@ -40,6 +43,11 @@ namespace ArcGISRuntime.Samples.WmsIdentify
 
         // Hold the WMS layer
         private WmsLayer _wmsLayer;
+
+        // Hold the webview
+        private WebView _htmlView;
+        private LinearLayout _sampleLayout;
+        private LinearLayout.LayoutParams _layoutParams;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -79,13 +87,43 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            _sampleLayout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Vertical
+            };
+
+            // Configuration for having the mapview and webview fill the screen.
+            _layoutParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MatchParent,
+                ViewGroup.LayoutParams.MatchParent,
+                1.0f
+            );
+
+            // Create and add the webview
+            _htmlView = new WebView(this)
+            {
+                LayoutParameters = _layoutParams
+            };
+
+            _myMapView.LayoutParameters = _layoutParams;
+
+            // Create and add a help label
+            TextView helpLabel = new TextView(this)
+            {
+                Text = "Tap to identify features."
+            };
+            helpLabel.SetTextColor(Color.Black);
+            _sampleLayout.AddView(helpLabel);
 
             // Add the map view to the layout
-            layout.AddView(_myMapView);
+            _sampleLayout.AddView(_myMapView);
+            _sampleLayout.AddView(_htmlView);
+
+            // Make the background white to hide the flash when the webview is removed/re-created.
+            _sampleLayout.SetBackgroundColor(Color.White);
 
             // Show the layout in the app
-            SetContentView(layout);
+            SetContentView(_sampleLayout);
         }
 
         private async void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -105,41 +143,23 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             // Retrieve the WmsFeature's HTML content
             string htmlContent = identifiedFeature.Attributes["HTML"].ToString();
 
-            // Note that the service returns a boilerplate HTML result if there is no feature found;
-            //    here might be a good place to check for that and filter out spurious results
+            // Note that the service returns a boilerplate HTML result if there is no feature found.
+            //    This would be a good place to check if the result looks like it includes feature detail. 
 
-            // Show a callout with the HTML content
-            ShowHtmlCallout(htmlContent, e.Location);
+            // Display the string content as an HTML document. 
+            ShowResult(htmlContent);
         }
 
-        private void ShowHtmlCallout(string htmlContent, MapPoint position)
+        private void ShowResult(string htmlContent)
         {
-            // Create the web browser control
-            WebView htmlView = new WebViewOverride(this);
-
-            // Display the string content as an HTML document
-            htmlView.LoadData(htmlContent, "text/html", null);
-
-            // Create the callout with the browser
-            _myMapView.ShowCalloutAt(position, htmlView);
-        }
-
-        /// <summary>
-        /// This is necessary because of how the callout calculates its size 
-        /// based on the reported size of the content
-        /// </summary>
-        private class WebViewOverride : WebView
-        {
-            public WebViewOverride(Android.Content.Context context) : base(context) { }
-
-            // Ensures that there is always a consistent reported size
-            protected override void OnMeasure(int widthMeasureSpec, int heightMeasureSpec)
+            // Display the content in a web view. Note that the web view needs to be re-created each time.
+            _sampleLayout.RemoveView(_htmlView);
+            _htmlView = new WebView(this)
             {
-                base.OnMeasure(widthMeasureSpec, heightMeasureSpec);
-                var width = ResolveSize(800, widthMeasureSpec);
-                var height = ResolveSize(150, heightMeasureSpec);
-                SetMeasuredDimension(width, height);
-            }
+                LayoutParameters = _layoutParams
+            };
+            _htmlView.LoadData(htmlContent, "text/html", "UTF-8");
+            _sampleLayout.AddView(_htmlView);
         }
     }
 }

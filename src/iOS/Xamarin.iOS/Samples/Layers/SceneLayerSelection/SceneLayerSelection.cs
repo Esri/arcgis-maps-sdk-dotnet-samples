@@ -53,12 +53,12 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
 
             // Add a base surface with elevation data.
             Surface elevationSurface = new Surface();
-            Uri elevationService = new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+            Uri elevationService = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
             elevationSurface.ElevationSources.Add(new ArcGISTiledElevationSource(elevationService));
             scene.BaseSurface = elevationSurface;
 
             // Add a scene layer of buildings in Brest, France.
-            Uri buildingsService = new Uri("http://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
+            Uri buildingsService = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
             ArcGISSceneLayer buildingsLayer = new ArcGISSceneLayer(buildingsService);
             scene.OperationalLayers.Add(buildingsLayer);
 
@@ -75,7 +75,7 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
         private async void SceneViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Get the scene layer from the scene (first and only operational layer).
-            ArcGISSceneLayer sceneLayer = _mySceneView.Scene.OperationalLayers.FirstOrDefault() as ArcGISSceneLayer;
+            ArcGISSceneLayer sceneLayer = (ArcGISSceneLayer)_mySceneView.Scene.OperationalLayers.First();
 
             // Clear any existing selection.
             sceneLayer.ClearSelection();
@@ -88,7 +88,7 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
             IReadOnlyList<GeoElement> geoElements = result.GeoElements;
 
             // If a GeoElement was identified, select it in the scene.
-            if (geoElements.Count() > 0)
+            if (geoElements.Any())
             {
                 GeoElement geoElement = geoElements.FirstOrDefault();
                 if (geoElement != null)

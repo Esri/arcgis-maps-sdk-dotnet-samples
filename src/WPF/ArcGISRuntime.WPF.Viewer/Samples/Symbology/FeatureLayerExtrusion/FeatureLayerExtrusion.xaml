@@ -14,7 +14,7 @@
             Margin="30" Padding="20" Width="200">
             <StackPanel>
                 <Button x:Name="ToggleDataButton"
-                        Content="Population Density"
+                        Content="Show population density"
                         Click="Button_ToggleExtrusionData_Click" />
             </StackPanel>
         </Border>

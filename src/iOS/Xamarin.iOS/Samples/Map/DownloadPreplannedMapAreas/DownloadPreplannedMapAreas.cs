@@ -7,6 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
@@ -14,12 +20,6 @@ using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
@@ -32,33 +32,39 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
         "Select an area from the list to download. When you're done, select 'delete offline areas' to delete the downloaded copy of the map areas. ")]
     public class DownloadPreplannedMapAreas : UIViewController
     {
-        // Create and hold reference to the used MapView.
+        // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
 
-        // ID of webmap item that has preplanned areas defined
-        private const string PortalItemId = "acc027394bc84c2fb04d1ed317aac674";
+        private readonly UIButton _downloadButton = new UIButton(UIButtonType.RoundedRect)
+        {
+            HorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        };
 
-        // Folder where the areas are downloaded
-        private string _offlineDataFolder;
+        private readonly UIButton _deleteButton = new UIButton(UIButtonType.RoundedRect)
+        {
+            HorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        };
 
-        // Task that is used to work with preplanned map areas
-        private OfflineMapTask _offlineMapTask;
-
-        // Reference to the list of available map areas
-        private IReadOnlyList<PreplannedMapArea> _preplannedMapAreas;
-
-        // UI controls
-        private UIButton _downloadButton;
-
-        private UIButton _deleteButton;
-        private UIToolbar _toolbarTray;
+        private readonly UIToolbar _toolbarTray = new UIToolbar();
         private LoadingOverlay _progressIndicator;
 
-        private UILabel _initialPrompt = new UILabel()
+        private UILabel _initialPrompt = new UILabel
         {
             Text = "Download a map area",
             TextColor = UIColor.White
         };
+
+        // ID of webmap item that has preplanned areas defined.
+        private const string PortalItemId = "acc027394bc84c2fb04d1ed317aac674";
+
+        // Folder where the areas are downloaded.
+        private string _offlineDataFolder;
+
+        // Task that is used to work with preplanned map areas.
+        private OfflineMapTask _offlineMapTask;
+
+        // Reference to the list of available map areas.
+        private IReadOnlyList<PreplannedMapArea> _preplannedMapAreas;
 
         public DownloadPreplannedMapAreas()
         {
@@ -102,41 +108,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
                 }
 
                 // Show a popup menu of available areas when the download button is clicked.
-                _downloadButton.TouchUpInside += (s, e) =>
-                    {
-                        // Create the alert controller.
-                        UIAlertController mapAreaSelectionAlertController = UIAlertController.Create("Map Area Selection",
-                            "Select a map area to download and show.", UIAlertControllerStyle.ActionSheet);
-
-                        // Add one action per map area.
-                        foreach (PreplannedMapArea area in _preplannedMapAreas)
-                        {
-                            mapAreaSelectionAlertController.AddAction(UIAlertAction.Create(area.PortalItem.Title, UIAlertActionStyle.Default,
-                                action =>
-                                {
-                                    // Download and show the selected map area.
-                                    OnDownloadMapAreaClicked(action.Title);
-                                }));
-                        }
-
-                        // Needed to prevent a crash on iPad.
-                        UIPopoverPresentationController presentationPopover = mapAreaSelectionAlertController.PopoverPresentationController;
-                        if (presentationPopover != null)
-                        {
-                            presentationPopover.SourceView = View;
-                            presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
-                        }
-
-                        // Display the alert.
-                        PresentViewController(mapAreaSelectionAlertController, true, null);
-
-                        // Remove the startup prompt if it hasn't been removed already.
-                        if (_initialPrompt != null)
-                        {
-                            _initialPrompt.RemoveFromSuperview();
-                            _initialPrompt = null;
-                        }
-                    };
+                _downloadButton.TouchUpInside += DownloadButton_Click;
 
                 // Remove loading indicators from UI.
                 _progressIndicator.RemoveFromSuperview();
@@ -150,6 +122,42 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             }
         }
 
+        private void DownloadButton_Click(object sender, EventArgs e)
+        {
+            // Create the alert controller.
+            UIAlertController mapAreaSelectionAlertController = UIAlertController.Create("Map Area Selection",
+                "Select a map area to download and show.", UIAlertControllerStyle.ActionSheet);
+
+            // Add one action per map area.
+            foreach (PreplannedMapArea area in _preplannedMapAreas)
+            {
+                mapAreaSelectionAlertController.AddAction(UIAlertAction.Create(area.PortalItem.Title, UIAlertActionStyle.Default,
+                    action =>
+                    {
+                        // Download and show the selected map area.
+                        OnDownloadMapAreaClicked(action.Title);
+                    }));
+            }
+
+            // Needed to prevent a crash on iPad.
+            UIPopoverPresentationController presentationPopover = mapAreaSelectionAlertController.PopoverPresentationController;
+            if (presentationPopover != null)
+            {
+                presentationPopover.SourceView = View;
+                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+            }
+
+            // Display the alert.
+            PresentViewController(mapAreaSelectionAlertController, true, null);
+
+            // Remove the startup prompt if it hasn't been removed already.
+            if (_initialPrompt != null)
+            {
+                _initialPrompt.RemoveFromSuperview();
+                _initialPrompt = null;
+            }
+        }
+
         private async Task DownloadMapAreaAsync(PreplannedMapArea mapArea)
         {
             // Show the download UI.
@@ -157,7 +165,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             View.AddSubview(_progressIndicator);
 
             // Get the path for the downloaded map area.
-            var path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
+            string path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
 
             // If the area is already downloaded, open it and don't download it again.
             if (Directory.Exists(path))
@@ -174,9 +182,10 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
                     // Return without proceeding to download.
                     return;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // Do nothing, continue as if map wasn't downloaded.
+                    // Log the error, then continue as if map wasn't downloaded.
+                    System.Diagnostics.Debug.WriteLine(ex);
                 }
             }
 
@@ -372,21 +381,15 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
 
         private void CreateLayout()
         {
-            // Create the progress indicator.
-            _progressIndicator = new LoadingOverlay(View.Frame);
+            _progressIndicator = new LoadingOverlay(View.Bounds);
 
             // Create the download button.
-            _downloadButton = new UIButton();
-            _downloadButton.SetTitle("Download Area", UIControlState.Normal);
-            _downloadButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _downloadButton.SetTitle("Download area", UIControlState.Normal);
+            _downloadButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
-            // Create the delete button.
-            _deleteButton = new UIButton();
+            // Configure the delete button.
             _deleteButton.SetTitle("Delete all areas", UIControlState.Normal);
             _deleteButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
-
-            // Create the toolbar that will be used to contain the buttons.
-            _toolbarTray = new UIToolbar();
 
             // Add the MapView to the page
             View.AddSubviews(_myMapView, _toolbarTray, _downloadButton, _deleteButton, _initialPrompt);
@@ -406,32 +409,33 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
 
         public override void ViewDidLayoutSubviews()
         {
-            // Get the top margin; this is used to adjust the MapView inset
-            //    (because the MapView is shown under the navigation area).
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-            // Set up the visual frame for the MapView.
-            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Update the map insets. This will keep the map content centered
-            //     within the visible area of the MapView. Additionally, it will
-            //     ensure that the attribution bar is not obscured by the toolbar.
-            _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 50, 0);
-
-            // Set up the visual frame for the Toolbar.
-            _toolbarTray.Frame = new CGRect(0, View.Bounds.Height - 50, View.Bounds.Width, 50);
-
-            // Set up the visual frames for the buttons.
-            _downloadButton.Frame = new CGRect(10, _toolbarTray.Frame.Top + 10, View.Bounds.Width / 2 - 10, _toolbarTray.Frame.Height - 20);
-            _deleteButton.Frame = new CGRect(View.Bounds.Width / 2 + 15, _toolbarTray.Frame.Top + 10, View.Bounds.Width / 2 - 10, _toolbarTray.Frame.Height - 20);
-
-            // Set up the visual frame for the initial prompt, if it is still there.
-            if (_initialPrompt != null)
+            try
             {
-                _initialPrompt.Frame = new CGRect(10, View.Bounds.Height / 2, View.Bounds.Width, 20);
-            }
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat margin = 5;
+                nfloat controlHeight = 30;
+                nfloat controlWidth = View.Bounds.Width / 2 - 2 * margin;
+                nfloat toolbarHeight = 40;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition the views.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
+                _toolbarTray.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                _downloadButton.Frame = new CGRect(margin, _toolbarTray.Frame.Top + margin, controlWidth, controlHeight);
+                _deleteButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, _toolbarTray.Frame.Top + margin, controlWidth, controlHeight);
+
+                // Set up the visual frame for the initial prompt, if it is still there.
+                if (_initialPrompt != null)
+                {
+                    _initialPrompt.Frame = new CGRect(10, View.Bounds.Height / 2, View.Bounds.Width, 20);
+                }
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 
@@ -460,10 +464,10 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             var activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
 
             // Update the spinner's frame
-            activityIndicator.Frame = new CGRect(centerX - (activityIndicator.Frame.Width / 2),
-                    centerY - activityIndicator.Frame.Height - 20,
-                    activityIndicator.Frame.Width,
-                    activityIndicator.Frame.Height);
+            activityIndicator.Frame = new CGRect(centerX - activityIndicator.Frame.Width / 2,
+                centerY - activityIndicator.Frame.Height - 20,
+                activityIndicator.Frame.Width,
+                activityIndicator.Frame.Height);
             activityIndicator.AutoresizingMask = UIViewAutoresizing.All;
 
             // Add the spinner to the view.
@@ -473,9 +477,9 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             activityIndicator.StartAnimating();
 
             // Create the label.
-            _loadingMessageLabel = new UILabel()
+            _loadingMessageLabel = new UILabel
             {
-                Frame = new CGRect(centerX - (labelWidth / 2), centerY + 20, labelWidth, labelHeight),
+                Frame = new CGRect(centerX - labelWidth / 2, centerY + 20, labelWidth, labelHeight),
                 BackgroundColor = UIColor.Clear,
                 TextColor = UIColor.White,
                 Text = "Loading...",
@@ -493,14 +497,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
         public void UpdateMessageAndProgress(string message, int progress)
         {
             // Negative progress value is interpreted as indeterminate.
-            if (progress >= 0)
-            {
-                _loadingMessageLabel.Text = $"{message}... ({progress})%";
-            }
-            else
-            {
-                _loadingMessageLabel.Text = message;
-            }
+            _loadingMessageLabel.Text = progress >= 0 ? $"{message}... ({progress})%" : message;
         }
     }
 }

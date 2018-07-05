@@ -7,6 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
@@ -22,11 +24,8 @@ namespace ArcGISRuntime.Samples.SetInitialMapLocation
         "")]
     public class SetInitialMapLocation : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Create and hold a reference to the MapView.
+        private readonly MapView _myMapView = new MapView();
 
         public SetInitialMapLocation()
         {
@@ -37,31 +36,38 @@ namespace ArcGISRuntime.Samples.SetInitialMapLocation
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization.
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition the view.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
         {
-            // Create a map with 'Imagery with Labels' basemap and an initial location
-            Map myMap = new Map(BasemapType.ImageryWithLabels, -33.867886, -63.985, 16);
-
-            // Provide used Map to the MapView
-            _myMapView.Map = myMap;
+            // Show a map with 'Imagery with Labels' basemap and an initial location.
+            _myMapView.Map = new Map(BasemapType.ImageryWithLabels, -33.867886, -63.985, 16);
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
     }

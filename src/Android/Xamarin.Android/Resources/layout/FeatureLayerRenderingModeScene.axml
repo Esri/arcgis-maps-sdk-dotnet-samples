@@ -4,11 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/gridLayout1">
+    <TextView
+        android:text="Static:"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
     <Esri.ArcGISRuntime.UI.Controls.SceneView
         android:id="@+id/flrms_staticSceneView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" />
+    <TextView
+        android:text="Dynamic:"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
     <Esri.ArcGISRuntime.UI.Controls.SceneView
         android:id="@+id/flrms_dynamicSceneView"
         android:layout_width="match_parent"

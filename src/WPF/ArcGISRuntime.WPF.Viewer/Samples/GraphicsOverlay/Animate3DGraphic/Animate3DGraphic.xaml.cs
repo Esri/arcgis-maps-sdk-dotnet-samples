@@ -28,7 +28,7 @@ using Viewpoint = Esri.ArcGISRuntime.Mapping.Viewpoint;
 namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Animate 3D Graphic",
+        "Animate 3D graphic",
         "GraphicsOverlay",
         "This sample demonstrates how to animate a graphic's position and follow it using a camera controller.",
         "Click-and-drag to pan the SceneView, orbiting the moving plane. Click \"Don't follow\" to switch to the default camera controller, which does not orbit the plane.\nThe plane's route is shown on the inset map in the bottom left corner of the window. The progress through the plane's mission is shown in a slider at the top of the window. Drag the slider to seek through the mission (like you might seek through a song). The play speed can be adjusted to either be slower or faster using the slider in the panel on the right.\nThere is a drop-down box on the top left part of the window for selecting a mission (route) for the plane.\n\nNote that this is a graphics-intensive sample; performance may be degraded in certain situations (such as viewing over Remote Desktop).",
@@ -249,10 +249,10 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
                 MissionProgressBar.Value = missionProgress;
 
                 // Update stats display
-                AltitudeLabel.Text = currentFrame.Elevation.ToString("F");
-                HeadingLabel.Text = currentFrame.Heading.ToString("F");
-                PitchLabel.Text = currentFrame.Pitch.ToString("F");
-                RollLabel.Text = currentFrame.Roll.ToString("F");
+                AltitudeLabel.Text = currentFrame.Elevation.ToString("F") + "m";
+                HeadingLabel.Text = currentFrame.Heading.ToString("F") + "°";
+                PitchLabel.Text = currentFrame.Pitch.ToString("F") + "°";
+                RollLabel.Text = currentFrame.Roll.ToString("F") + "°";
             }));
 
             // Update plane's position

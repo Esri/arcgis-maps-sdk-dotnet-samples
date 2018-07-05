@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("FeatureLayerRenderingModeMapLayout.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature Layer Rendering Mode (Map)",
+        "Feature layer rendering mode (Map)",
         "Layers",
         "This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.",
         "")]
@@ -42,7 +42,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
         {
             base.OnCreate(bundle);
 
-            Title = "Feature Layer Rendering Mode (Map)";
+            Title = "Feature layer rendering mode (Map)";
 
             // Create the UI, setup the control references and execute initialization
             CreateLayout();
@@ -79,9 +79,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
             // Create feature layers from service feature tables
             List<FeatureLayer> featureLayers = new List<FeatureLayer>
             {
-                new FeatureLayer(pointServiceFeatureTable),
+                new FeatureLayer(polygonServiceFeatureTable),
                 new FeatureLayer(polylineServiceFeatureTable),
-                new FeatureLayer(polygonServiceFeatureTable)
+                new FeatureLayer(pointServiceFeatureTable)
             };
 
             // Add each layer to the map as a static layer and a dynamic layer

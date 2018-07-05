@@ -94,7 +94,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
 
             // Create a button to apply new renderer
             var overrideButton = new Button(this);
-            overrideButton.Text = "Expression";
+            overrideButton.Text = "Apply expression";
             overrideButton.Click += OnApplyExpressionClicked;
 
             // Add Reset Button to the layout

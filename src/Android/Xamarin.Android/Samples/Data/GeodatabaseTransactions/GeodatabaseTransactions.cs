@@ -339,11 +339,15 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         private void BeginTransaction(object sender, EventArgs e)
         {
             // See if there is a transaction active for the geodatabase
-            if (!_localGeodatabase.IsInTransaction)
+            if (_localGeodatabase!= null && !_localGeodatabase.IsInTransaction)
             {
                 // If not, begin a transaction
                 _localGeodatabase.BeginTransaction();
                 _messageTextBlock.Text = "Transaction started";
+            }
+            else
+            {
+                _messageTextBlock.Text = "Not yet ready for new transaction.";
             }
         }
 

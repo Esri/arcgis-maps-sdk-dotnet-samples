@@ -105,17 +105,17 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerExtrusion
             RendererSceneProperties myRendererSceneProperties = myRenderer.SceneProperties;
 
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text
-            if (ToggleDataButton.Content.ToString() == "Population Density")
+            if (ToggleDataButton.Content.ToString() == "Show population density")
             {
                 // An offset of 100000 is added to ensure that polygons for large areas (like Alaska)
                 // with low populations will be extruded above the curvature of the Earth.
                 myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000 + 100000";
-                ToggleDataButton.Content = "Total Population";
+                ToggleDataButton.Content = "Show total population";
             }
-            else if(ToggleDataButton.Content.ToString() == "Total Population")
+            else if(ToggleDataButton.Content.ToString() == "Show total population")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
-                ToggleDataButton.Content = "Population Density";
+                ToggleDataButton.Content = "Show population density";
             }
         }
 

@@ -7,12 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
@@ -25,26 +26,20 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
         "Use the button to zoom to the extent of the state specified (by abbreviation) in the textbox or use the button to count the features in the current extent.")]
     public class QueryFeatureCountAndExtent : UIViewController
     {
-        // Create and hold reference to the used MapView
+        // Create and hold references to the UI controls.
         private readonly MapView _myMapView = new MapView();
+        private readonly UIToolbar _toolbar = new UIToolbar();
+        private UIButton _queryExtentButton;
+        private UIButton _queryStateButton;
+        private UITextField _stateEntry;
+        private UILabel _resultsLabel;
+        private UILabel _helpLabel;
 
-        // Button for querying cities in the current extent
-        private UIButton _myQueryExtentButton;
-
-        // Button for querying cities by state
-        private UIButton _myQueryStateButton;
-
-        // Search box for entering state name
-        private UISearchBar _myStateEntry;
-
-        // Label to show the results
-        private UILabel _myResultsLabel;
-
-        // URL to the feature service
+        // URL to the feature service.
         private readonly Uri _usaCitiesSource = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
 
-        // Feature table to query
-        private ServiceFeatureTable _myFeatureTable;
+        // Feature table to query.
+        private ServiceFeatureTable _featureTable;
 
         public QueryFeatureCountAndExtent()
         {
@@ -53,96 +48,115 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
 
         private async void Initialize()
         {
-            // Create the map with a vector street basemap
-            Map myMap = new Map(Basemap.CreateStreetsVector());
+            // Create the map with a vector street basemap.
+            Map map = new Map(Basemap.CreateStreetsVector());
 
-            // Create the feature table from the service URL
-            _myFeatureTable = new ServiceFeatureTable(_usaCitiesSource);
+            // Create the feature table from the service URL.
+            _featureTable = new ServiceFeatureTable(_usaCitiesSource);
 
-            // Create the feature layer from the table
-            FeatureLayer myFeatureLayer = new FeatureLayer(_myFeatureTable);
+            // Create the feature layer from the table.
+            FeatureLayer featureLayer = new FeatureLayer(_featureTable);
 
-            // Add the feature layer to the map
-            myMap.OperationalLayers.Add(myFeatureLayer);
+            // Add the feature layer to the map.
+            map.OperationalLayers.Add(featureLayer);
 
-            // Wait for the feature layer to load
-            await myFeatureLayer.LoadAsync();
+            // Wait for the feature layer to load.
+            await featureLayer.LoadAsync();
 
-            // Set the map initial extent to the extent of the feature layer
-            myMap.InitialViewpoint = new Viewpoint(myFeatureLayer.FullExtent);
+            // Set the map initial extent to the extent of the feature layer.
+            map.InitialViewpoint = new Viewpoint(featureLayer.FullExtent);
 
-            // Add the map to the MapView
-            _myMapView.Map = myMap;
+            // Add the map to the MapView.
+            _myMapView.Map = map;
         }
 
         private async void BtnZoomToFeatures_Click(object sender, EventArgs e)
         {
-            // Create the query parameters
-            QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(ST) LIKE '%{_myStateEntry.Text.ToUpper()}%'" };
+            // Create the query parameters.
+            QueryParameters queryStates = new QueryParameters {WhereClause = $"upper(ST) LIKE '%{_stateEntry.Text.ToUpper()}%'"};
 
-            // Get the extent from the query
-            Envelope resultExtent = await _myFeatureTable.QueryExtentAsync(queryStates);
+            // Get the extent from the query.
+            Envelope resultExtent = await _featureTable.QueryExtentAsync(queryStates);
 
-            // Return if there is no result (might happen if query is invalid)
+            // Return if there is no result (might happen if query is invalid).
             if (resultExtent?.SpatialReference == null)
             {
                 return;
             }
 
-            // Create a viewpoint from the extent
+            // Create a viewpoint from the extent.
             Viewpoint resultViewpoint = new Viewpoint(resultExtent);
 
-            // Zoom to the viewpoint
+            // Zoom to the viewpoint.
             await _myMapView.SetViewpointAsync(resultViewpoint);
 
-            // Update the UI
-            _myResultsLabel.Text = $"Zoomed to features in {_myStateEntry.Text}";
+            // Update the UI.
+            _resultsLabel.Text = $"Zoomed to features in {_stateEntry.Text}";
         }
 
         private async void BtnCountFeatures_Click(object sender, EventArgs e)
         {
-            // Create the query parameters
+            // Create the query parameters.
             QueryParameters queryCityCount = new QueryParameters
             {
-                // Get the current view extent and use that as a query parameters
+                // Get the current view extent and use that as a query parameters.
                 Geometry = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry,
-                // Specify the interpretation of the Geometry query parameters
+                // Specify the interpretation of the Geometry query parameters.
                 SpatialRelationship = SpatialRelationship.Intersects
             };
 
-            // Get the count of matching features
-            long count = await _myFeatureTable.QueryFeatureCountAsync(queryCityCount);
+            // Get the count of matching features.
+            long count = await _featureTable.QueryFeatureCountAsync(queryCityCount);
 
-            // Update the UI
-            _myResultsLabel.Text = $"{count} features in extent";
+            // Update the UI.
+            _resultsLabel.Text = $"{count} features in extent";
         }
 
         private void CreateLayout()
         {
-            // Create the extent query button and subscribe to events
-            _myQueryExtentButton = new UIButton();
-            _myQueryExtentButton.SetTitle("Count in Extent", UIControlState.Normal);
-            _myQueryExtentButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _myQueryExtentButton.TouchUpInside += BtnCountFeatures_Click;
+            // Create the extent query button and subscribe to events.
+            _queryExtentButton = new UIButton();
+            _queryExtentButton.SetTitle("Count in extent", UIControlState.Normal);
+            _queryExtentButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _queryExtentButton.TouchUpInside += BtnCountFeatures_Click;
 
-            // Create the state query button and subscribe to events
-            _myQueryStateButton = new UIButton();
-            _myQueryStateButton.SetTitle("Zoom to match", UIControlState.Normal);
-            _myQueryStateButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _myQueryStateButton.TouchUpInside += BtnZoomToFeatures_Click;
+            // Create the state query button and subscribe to events.
+            _queryStateButton = new UIButton();
+            _queryStateButton.SetTitle("Zoom to match", UIControlState.Normal);
+            _queryStateButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _queryStateButton.TouchUpInside += BtnZoomToFeatures_Click;
 
-            // Create the results label and the search bar
-            _myResultsLabel = new UILabel() { TextColor = UIColor.Red };
-            _myStateEntry = new UISearchBar() { Placeholder = "e.g. NH" };
-
-            // Allow the search bar to dismiss the keyboard
-            _myStateEntry.SearchButtonClicked += (sender, e) =>
+            // Create the results label and the search bar.
+            _resultsLabel = new UILabel
             {
-                _myStateEntry.EndEditing(true);
+                Text = "Enter a query to begin.",
+                TextAlignment = UITextAlignment.Center
             };
 
-            // Add views to the page
-            View.AddSubviews(_myMapView, _myQueryExtentButton, _myQueryStateButton, _myResultsLabel, _myStateEntry);
+            _stateEntry = new UITextField
+            {
+                Placeholder = "e.g. NH",
+                BorderStyle = UITextBorderStyle.RoundedRect,
+                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f)
+            };
+
+            // Create the help label.
+            _helpLabel = new UILabel
+            {
+                Text = "Tap 'Zoom to match' to zoom to features matching the given state abbreviation. Tap 'Count in extent' to count the features in the current extent, regardless of the query result.",
+                Lines = 4,
+                AdjustsFontSizeToFitWidth = true
+            };
+
+            // Allow the search bar to dismiss the keyboard.
+            _stateEntry.ShouldReturn += sender =>
+            {
+                sender.ResignFirstResponder();
+                return true;
+            };
+
+            // Add views to the page.
+            View.AddSubviews(_myMapView, _toolbar, _helpLabel, _queryExtentButton, _queryStateButton, _resultsLabel, _stateEntry);
         }
 
         public override void ViewDidLoad()
@@ -155,24 +169,28 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
 
         public override void ViewDidLayoutSubviews()
         {
-            var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height + 10;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat margin = 5;
+                nfloat controlHeight = 30;
 
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, controlHeight * 6 + margin * 5);
+                _helpLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight * 3);
+                _stateEntry.Frame = new CGRect(margin, topMargin + controlHeight * 3 + 2 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _queryExtentButton.Frame = new CGRect(margin, topMargin + 4 * controlHeight + 3 * margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
+                _queryStateButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, topMargin + 4 * controlHeight + 3 * margin, View.Bounds.Width / 2 - margin, controlHeight);
+                _resultsLabel.Frame = new CGRect(margin, topMargin + 5 * controlHeight + 4 * margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _myMapView.ViewInsets = new UIEdgeInsets(_toolbar.Frame.Bottom, 0, 0, 0);
 
-            // Place extent button
-            _myQueryExtentButton.Frame = new CoreGraphics.CGRect(10, topMargin + 25, View.Bounds.Width / 2 - 15, 20);
-
-            // Place state button
-            _myQueryStateButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2 + 5, topMargin + 25, View.Bounds.Width / 2 - 15, 20);
-
-            // Place state text field
-            _myStateEntry.Frame = new CoreGraphics.CGRect(10, topMargin, View.Bounds.Width - 20, 20);
-
-            // Place result label
-            _myResultsLabel.Frame = new CoreGraphics.CGRect(10, topMargin + 50, View.Bounds.Width - 20, 20);
-
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
     }
 }

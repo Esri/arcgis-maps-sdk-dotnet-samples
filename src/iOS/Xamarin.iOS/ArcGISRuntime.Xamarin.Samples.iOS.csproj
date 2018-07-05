@@ -206,49 +206,64 @@
   </ItemGroup>
   <!-- Screenshots -->
   <ItemGroup>
-    <None Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
-    <None Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
-    <None Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg" />
-    <None Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
-    <None Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
-    <None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
+    <None Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
     <None Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
-    <None Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
-    <None Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
-    <None Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
-    <None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
-    <None Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
-    <None Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.jpg" />
-    <None Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg" />
-    <None Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
-    <None Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
-    <None Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
-    <None Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
     <None Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
+    <None Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg" />
     <None Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg" />
+    <None Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg" />
+    <None Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg" />
     <None Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg" />
+    <None Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.jpg" />
     <None Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg" />
     <None Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg" />
     <None Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg" />
     <None Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg" />
     <None Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.jpg" />
+    <None Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg" />
     <None Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg" />
+    <None Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg" />
     <None Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.jpg" />
     <None Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
     <None Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
     <None Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg" />
     <None Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg" />
     <None Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg" />
+    <None Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
+    <None Include="Samples\Geometry\Buffer\Buffer.jpg" />
+    <None Include="Samples\Geometry\BufferList\BufferList.jpg" />
+    <None Include="Samples\Geometry\ClipGeometry\ClipGeometry.jpg" />
+    <None Include="Samples\Geometry\ConvexHull\ConvexHull.jpg" />
+    <None Include="Samples\Geometry\ConvexHullList\ConvexHullList.jpg" />
+    <None Include="Samples\Geometry\CreateGeometries\CreateGeometries.jpg" />
+    <None Include="Samples\Geometry\CutGeometry\CutGeometry.jpg" />
+    <None Include="Samples\Geometry\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
+    <None Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg" />
+    <None Include="Samples\Geometry\GeodesicOperations\GeodesicOperations.jpg" />
+    <None Include="Samples\Geometry\ListTransformations\ListTransformations.jpg" />
+    <None Include="Samples\Geometry\NearestVertex\NearestVertex.jpg" />
+    <None Include="Samples\Geometry\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg" />
+    <None Include="Samples\Geometry\SpatialOperations\SpatialOperations.jpg" />
+    <None Include="Samples\Geometry\SpatialRelationships\SpatialRelationships.jpg" />
     <None Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
     <None Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
+    <None Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
     <None Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg" />
+    <None Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg" />
+    <None Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
     <None Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <None Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
     <None Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.jpg" />
+    <None Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
+    <None Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
+    <None Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg" />
     <None Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg" />
     <None Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg" />
     <None Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.jpg" />
+    <None Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.jpg" />
     <None Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg" />
+    <None Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
+    <None Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.jpg" />
     <None Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg" />
     <None Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.jpg" />
     <None Include="Samples\Layers\DisplayScene\DisplayScene.jpg" />
@@ -258,13 +273,19 @@
     <None Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg" />
     <None Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.jpg" />
     <None Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.jpg" />
+    <None Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg" />
     <None Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg" />
     <None Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg" />
+    <None Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.jpg" />
+    <None Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
     <None Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg" />
     <None Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg" />
     <None Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg" />
     <None Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.jpg" />
+    <None Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
     <None Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg" />
+    <None Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.jpg" />
+    <None Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.jpg" />
     <None Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg" />
     <None Include="Samples\Layers\WmsIdentify\WmsIdentify.jpg" />
     <None Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg" />
@@ -275,16 +296,20 @@
     <None Include="Samples\Map\AuthorMap\AuthorMap.jpg" />
     <None Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
     <None Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
+    <None Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
     <None Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
     <None Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
     <None Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
+    <None Include="Samples\Map\OpenScene\OpenScene.jpg" />
     <None Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
     <None Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
     <None Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
     <None Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
     <None Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
+    <None Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />
     <None Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
     <None Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
+    <None Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
     <None Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
     <None Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.jpg" />
     <None Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
@@ -292,118 +317,79 @@
     <None Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <None Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
     <None Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
+    <None Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg" />
+    <None Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.jpg" />
     <None Include="Samples\Network Analysis\FindRoute\FindRoute.jpg" />
+    <None Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.jpg" />
     <None Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <None Include="Samples\Search\FindPlace\FindPlace.jpg" />
+    <None Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
     <None Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
     <None Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
     <None Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
     <None Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg" />
     <None Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
-    <None Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.jpg" />
-    <None Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.jpg" />
-    <None Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg" />
-    <None Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg" />
-    <None Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
-    <None Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg" />
-    <None Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
-    <None Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg" />
-    <None Include="Samples\GeometryEngine\ListTransformations\ListTransformations.jpg" />
-    <None Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg" />
-    <None Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.jpg" />
-    <None Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.jpg" />
-    <None Include="Samples\GeometryEngine\NearestVertex\NearestVertex.jpg" />
-    <None Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
-    <None Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg" />
-    <None Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.jpg" />
-    <None Include="Samples\GeometryEngine\Buffer\Buffer.jpg" />
-    <None Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />
-    <None Include="Samples\GeometryEngine\BufferList\BufferList.jpg" />
-    <None Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg" />
-    <None Include="Samples\GeometryEngine\CutGeometry\CutGeometry.jpg" />
-    <None Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.jpg" />
-    <None Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
-    <None Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
-    <None Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.jpg" />
-    <None Include="Samples\Map\OpenScene\OpenScene.jpg" />
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
     <Compile Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.cs" />
-    <Compile Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.cs" />
-    <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
-    <Compile Include="Samples\GeometryEngine\DensifyAndGeneralize\DensifyAndGeneralize.cs" />
-    <Compile Include="Samples\GeometryEngine\BufferList\BufferList.cs" />
-    <Compile Include="Samples\GeometryEngine\Buffer\Buffer.cs" />
-    <Compile Include="Samples\GeometryEngine\ClipGeometry\ClipGeometry.cs" />
-    <Compile Include="Samples\GeometryEngine\ConvexHullList\ConvexHullList.cs" />
-    <Compile Include="Samples\GeometryEngine\ConvexHull\ConvexHull.cs" />
-    <Compile Include="Samples\GeometryEngine\CutGeometry\CutGeometry.cs" />
-    <Compile Include="Samples\GeometryEngine\SpatialOperations\SpatialOperations.cs" />
-    <Compile Include="Samples\GeometryEngine\SpatialRelationships\SpatialRelationships.cs" />
-    <Compile Include="Samples\GeometryEngine\GeodesicOperations\GeodesicOperations.cs" />
-    <Compile Include="Samples\GeometryEngine\NearestVertex\NearestVertex.cs" />
-    <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.cs" />
-    <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.cs" />
-    <Compile Include="Samples\GeometryEngine\CreateGeometries\CreateGeometries.cs" />
-    <Compile Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.cs" />
-    <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.cs" />
-    <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.cs" />
-    <Compile Include="Samples\GeometryEngine\ListTransformations\ListTransformations.cs" />
-    <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.cs" />
-    <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.cs" />
-    <Compile Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.cs" />
-    <Compile Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.cs" />
-    <Compile Include="Samples\MapView\DisplayGrid\DisplayGrid.cs" />
-    <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.cs" />
-    <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.cs" />
-    <Compile Include="Samples\Map\OpenScene\OpenScene.cs" />
-    <Compile Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.cs" />
-    <Compile Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.cs" />
-    <Compile Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.cs" />
-    <Compile Include="Samples\Security\OAuth\OAuth.cs" />
-    <Compile Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.cs" />
-    <Compile Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.cs" />
-    <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
-    <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
-    <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.cs" />
-    <Compile Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.cs" />
-    <Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.cs" />
-    <Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.cs" />
-    <Compile Include="Samples\GeometryEngine\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
-    <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.cs" />
-    <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.cs" />
-    <Compile Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.cs" />
-    <Compile Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.cs" />
     <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.cs" />
-    <Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.cs" />
-    <Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.cs" />
-    <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.cs" />
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.cs" />
+    <Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.cs" />
     <Compile Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.cs" />
+    <Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.cs" />
+    <Compile Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.cs" />
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.cs" />
+    <Compile Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.cs" />
     <Compile Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.cs" />
     <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.cs" />
     <Compile Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.cs" />
     <Compile Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.cs" />
     <Compile Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.cs" />
+    <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.cs" />
     <Compile Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.cs" />
+    <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.cs" />
     <Compile Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.cs" />
     <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.cs" />
     <Compile Include="Samples\Data\StatisticalQuery\StatisticalQuery.cs" />
     <Compile Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.cs" />
+    <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.cs" />
+    <Compile Include="Samples\Geometry\Buffer\Buffer.cs" />
+    <Compile Include="Samples\Geometry\BufferList\BufferList.cs" />
+    <Compile Include="Samples\Geometry\ClipGeometry\ClipGeometry.cs" />
+    <Compile Include="Samples\Geometry\ConvexHull\ConvexHull.cs" />
+    <Compile Include="Samples\Geometry\ConvexHullList\ConvexHullList.cs" />
+    <Compile Include="Samples\Geometry\CreateGeometries\CreateGeometries.cs" />
+    <Compile Include="Samples\Geometry\CutGeometry\CutGeometry.cs" />
+    <Compile Include="Samples\Geometry\DensifyAndGeneralize\DensifyAndGeneralize.cs" />
+    <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.cs" />
+    <Compile Include="Samples\Geometry\GeodesicOperations\GeodesicOperations.cs" />
+    <Compile Include="Samples\Geometry\ListTransformations\ListTransformations.cs" />
+    <Compile Include="Samples\Geometry\NearestVertex\NearestVertex.cs" />
+    <Compile Include="Samples\Geometry\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.cs" />
+    <Compile Include="Samples\Geometry\SpatialOperations\SpatialOperations.cs" />
+    <Compile Include="Samples\Geometry\SpatialRelationships\SpatialRelationships.cs" />
     <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.cs" />
     <Compile Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.cs" />
+    <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.cs" />
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.cs" />
+    <Compile Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.cs" />
+    <Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.cs" />
     <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.cs" />
     <Compile Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.cs" />
     <Compile Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.cs" />
+    <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.cs" />
+    <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.cs" />
+    <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.cs" />
     <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.cs" />
     <Compile Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.cs" />
     <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.cs" />
+    <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.cs" />
     <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.cs" />
+    <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.cs" />
+    <Compile Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.cs" />
     <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.cs" />
     <Compile Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.cs" />
     <Compile Include="Samples\Layers\DisplayScene\DisplayScene.cs" />
@@ -413,13 +399,21 @@
     <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.cs" />
     <Compile Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.cs" />
     <Compile Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.cs" />
+    <Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.cs" />
     <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.cs" />
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.cs" />
+    <Compile Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.cs" />
+    <Compile Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.cs" />
+    <Compile Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.cs" />
+    <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.cs" />
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.cs" />
     <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.cs" />
     <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.cs" />
     <Compile Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.cs" />
+    <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.cs" />
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.cs" />
+    <Compile Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.cs" />
+    <Compile Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.cs" />
     <Compile Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.cs" />
     <Compile Include="Samples\Layers\WmsIdentify\WmsIdentify.cs" />
     <Compile Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.cs" />
@@ -430,16 +424,20 @@
     <Compile Include="Samples\Map\AuthorMap\AuthorMap.cs" />
     <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemap.cs" />
     <Compile Include="Samples\Map\DisplayMap\DisplayMap.cs" />
+    <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.cs" />
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.cs" />
     <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.cs" />
     <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMap.cs" />
+    <Compile Include="Samples\Map\OpenScene\OpenScene.cs" />
     <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.cs" />
     <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.cs" />
     <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.cs" />
     <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.cs" />
     <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.cs" />
+    <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.cs" />
     <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.cs" />
     <Compile Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.cs" />
+    <Compile Include="Samples\MapView\DisplayGrid\DisplayGrid.cs" />
     <Compile Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.cs" />
     <Compile Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.cs" />
     <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.cs" />
@@ -447,17 +445,18 @@
     <Compile Include="Samples\MapView\ShowCallout\ShowCallout.cs" />
     <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.cs" />
     <Compile Include="Samples\MapView\TakeScreenshot\TakeScreenshot.cs" />
+    <Compile Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.cs" />
+    <Compile Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.cs" />
     <Compile Include="Samples\Network Analysis\FindRoute\FindRoute.cs" />
+    <Compile Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.cs" />
     <Compile Include="Samples\Search\FindAddress\FindAddress.cs" />
     <Compile Include="Samples\Search\FindPlace\FindPlace.cs" />
+    <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
     <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.cs" />
     <Compile Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.cs" />
     <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.cs" />
     <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.cs" />
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
-    <Compile Include="Samples\Tutorial\AuthorEditSaveMap\AuthorEditSaveMap.cs" />
-    <Compile Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.cs" />
-    <Compile Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.cs" />
   </ItemGroup>
   <!-- Miscellaneous Configuration -->
   <ItemGroup>
@@ -478,45 +477,6 @@
     <Compile Include="ViewControllers\CategoriesViewController.designer.cs">
       <DependentUpon>CategoriesViewController.cs</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\GeometryEngine\ConvexHullList\ConvexHullList.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\GeometryEngine\ConvexHull\ConvexHull.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Samples\GeometryEngine\SpatialOperations\SpatialOperations.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\Security\OAuth\OAuth.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

@@ -76,7 +76,7 @@ namespace ArcGISRuntime.Samples.RenderUniqueValues
 
             // Set the default region fill symbol (transparent with no outline) for regions not explicitly defined in the renderer
             var defaultFillSymbol = new SimpleFillSymbol(
-                SimpleFillSymbolStyle.Null, Colors.Transparent, null);
+                SimpleFillSymbolStyle.Cross, Colors.Gray, null);
             regionRenderer.DefaultSymbol = defaultFillSymbol;
             regionRenderer.DefaultLabel = "Other";
 

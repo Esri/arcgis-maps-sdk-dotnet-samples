@@ -54,7 +54,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             Title = "WMTS layer";
         }
 
-        public override void ViewDidLoad()
+        public override async void ViewDidLoad()
         {
             base.ViewDidLoad();
 
@@ -62,7 +62,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             CreateLayout();
 
             // Load the map using Uri to the WMTS service.
-            LoadWMTSLayerAsync(true);
+            await LoadWMTSLayerAsync(true);
         }
 
         public override void ViewDidLayoutSubviews()

@@ -1,4 +1,4 @@
-# Local Server Services
+# Local Server services
 
 This sample demonstrates how to control local server and manage running services.
 

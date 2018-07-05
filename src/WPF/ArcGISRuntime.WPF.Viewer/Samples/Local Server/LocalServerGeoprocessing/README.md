@@ -1,4 +1,4 @@
-# Local Server Geoprocessing
+# Local Server geoprocessing
 
 This sample demonstrates how to perform geoprocessing tasks using Local Server.
 

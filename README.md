@@ -35,20 +35,8 @@ See Table of Contents under different platforms
   
 Notes:
 
-Running sample viewer for WPF / UWP so that it uses VB samples
-  * WPF
-       To run samples in VB, your sample viewer can be started with `/vb` parameter on start up. When the application is compiled, we also deploy `Launch Viewer VB.bat` file to the output folder.
-       
-   * Universal Windows Platform
-      To run samples in VB, you need to manually change the constant in `App.cs` file. 
-      
-      ````CSharp
-      private const Language SamplesLanguageUsed = Language.CSharp;
-      // or 
-      private const Language SamplesLanguageUsed = Language.VBnet;
-      ````
 When compiling Universal Windows Platform samples, make sure that you are compiling against x86/x64/ARM platform and not using AnyCPU.
-	  
+
 ## Requirements
 
 * Supported system configurations for: 

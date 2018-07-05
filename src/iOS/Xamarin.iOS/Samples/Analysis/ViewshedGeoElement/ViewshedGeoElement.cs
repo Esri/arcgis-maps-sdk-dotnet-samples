@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
 using ArcGISRuntime.Samples.Managers;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -33,8 +34,17 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
         "Featured")]
     public class ViewshedGeoElement : UIViewController
     {
-        // Create and hold a reference to the used MapView.
+        // Create and hold references to the UI controls.
         private readonly SceneView _mySceneView = new SceneView();
+        private readonly UIToolbar _toolbar = new UIToolbar();
+
+        private readonly UILabel _helpLabel = new UILabel
+        {
+            Text = "Tap to set a destination for the vehicle.",
+            AdjustsFontSizeToFitWidth = true,
+            TextAlignment = UITextAlignment.Center,
+            Lines = 1
+        };
 
         // URLs to the scene layer with buildings and the elevation source
         private readonly Uri _elevationUri = new Uri("https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
@@ -170,8 +180,11 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
 
         private void CreateLayout()
         {
-            // Add MapView to the page.
-            View.AddSubviews(_mySceneView);
+            // Add controls to the view.
+            View.AddSubviews(_mySceneView, _toolbar);
+
+            // Add help label to the toolbar.
+            _toolbar.AddSubview(_helpLabel);
         }
 
         public override void ViewDidLoad()
@@ -187,10 +200,17 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
             try
             {
                 nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat toolbarHeight = 40;
+                nfloat margin = 5;
 
-                // Reposition controls.
-                _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                // Reposition the controls.
+                _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
+                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
+
+                // Reposition the label within the toolbar.
+                _helpLabel.Frame = new CGRect(margin, margin, _toolbar.Bounds.Width - (2 * margin), controlHeight);
 
                 base.ViewDidLayoutSubviews();
             }

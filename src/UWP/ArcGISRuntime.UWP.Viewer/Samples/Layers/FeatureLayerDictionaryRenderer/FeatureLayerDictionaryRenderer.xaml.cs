@@ -19,7 +19,8 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerDictionaryRenderer
         "Feature layer dictionary renderer",
         "Layers",
         "Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.",
-        "")]
+        "",
+        "Military", "Symbology", "Military symbology")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e34835bf5ec5430da7cf16bb8c0b075c","e0d41b4b409a49a5a7ba11939d8535dc")]
     public partial class FeatureLayerDictionaryRenderer
     {

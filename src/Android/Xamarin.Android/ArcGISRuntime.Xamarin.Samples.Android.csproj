@@ -365,6 +365,9 @@
     <Compile Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.cs" />
     <Compile Include="Samples\Search\FindAddress\FindAddress.cs" />
     <Compile Include="Samples\Search\FindPlace\FindPlace.cs" />
+    <Compile Include="Samples\Security\OAuth\OAuth.cs" />
+    <Compile Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.cs" />
+    <Compile Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.cs" />
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.cs" />
     <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.cs" />
     <Compile Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.cs" />
@@ -424,6 +427,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Security\OAuth\OAuth.jpg" />
+    <None Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.jpg" />
+    <None Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

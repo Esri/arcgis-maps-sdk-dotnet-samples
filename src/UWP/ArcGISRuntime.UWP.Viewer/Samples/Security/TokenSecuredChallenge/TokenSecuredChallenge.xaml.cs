@@ -7,14 +7,19 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.UI;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Media;
 
-namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
+namespace ArcGISRuntime.UWP.Samples.TokenSecuredChallenge
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
            "ArcGIS token challenge",
@@ -24,6 +29,14 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
            "Authentication, Security, ArcGIS Token")]
     public partial class TokenSecuredChallenge
     {
+        // Public and secured map service URLs.
+        private string _publicMapServiceUrl = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer";
+        private string _secureMapServiceUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer";
+
+        // Public and secured layer names.
+        private string _publicLayerName = "World Street Map - Public";
+        private string _secureLayerName = "USA - Secure";
+
         // Task completion source to track a login attempt.
         private TaskCompletionSource<Credential> _loginTaskCompletionSource;
 
@@ -33,12 +46,43 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
 
             // Define a method to challenge the user for credentials when a secured resource is encountered.
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(Challenge);
+
+            // Call a function to create a map and add public and secure layers.
+            Initialize();
         }
 
-        // Function that's called when authentication is needed for a secure resource.
+        private void Initialize()
+        {
+            // Create the public layer and provide a name.
+            var publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
+            {
+                Name = _publicLayerName
+            };
+
+            // Set the data context for the public layer stack panel controls (to report name and load status).
+            PublicLayerPanel.DataContext = publicLayer;
+
+            // Create the secured layer and provide a name.
+            var tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
+            {
+                Name = _secureLayerName
+            };
+
+            // Set the data context for the secure layer stack panel controls (to report name and load status).
+            SecureLayerPanel.DataContext = tokenSecuredLayer;
+
+            // Create a new map and add the layers.
+            var myMap = new Map();
+            myMap.OperationalLayers.Add(publicLayer);
+            myMap.OperationalLayers.Add(tokenSecuredLayer);
+
+            // Add the map to the map view.
+            MyMapView.Map = myMap;
+        }
+
         private async Task<Credential> Challenge(CredentialRequestInfo info)
         {
-            // Make sure to run on the UI thread.
+            // Get user credentials (on the UI thread).
             if (this.Dispatcher == null)
             {
                 // No current dispatcher, code is already running on the UI thread.
@@ -47,18 +91,31 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
             else
             {
                 // Use the dispatcher to invoke the challenge UI.
-                return await this.Dispatcher.Invoke(() => GetUserCredentialsFromUI(info));
+                await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                {
+                    try
+                    {
+                        await GetUserCredentialsFromUI(info);
+                    }
+                    catch
+                    {
+                        // Login was canceled or unsuccessful, dialog will close.
+                    }
+                });
             }
+
+            // Use the task completion source to return the results.
+            return await _loginTaskCompletionSource.Task;
         }
 
         private async Task<Credential> GetUserCredentialsFromUI(CredentialRequestInfo info)
         {
-            // Show the login UI (text boxes for username and password).
+            // Show the login UI.
             try
             {
-                // Create an instance of the custom LoginInfo class to store the entered username and password.
+                // Create a new LoginInfo to store the entered username and password.
                 // Pass the CredentialRequestInfo object so the resource URI can be stored.
-                LoginInfo loginInputInfo = new LoginInfo(info);
+                var loginInputInfo = new LoginInfo(info);
 
                 // Set the login UI data context with the LoginInfo.
                 loginPanel.DataContext = loginInputInfo;
@@ -76,7 +133,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
             }
             finally
             {
-                // Hide the login UI when done.
+                // Hide the login UI.
                 loginPanel.Visibility = Visibility.Collapsed;
             }
         }
@@ -91,7 +148,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
             }
 
             // Get the login info from the task completion source.
-            LoginInfo loginEntry = _loginTaskCompletionSource.Task.AsyncState as LoginInfo;
+            var loginEntry = _loginTaskCompletionSource.Task.AsyncState as LoginInfo;
 
             try
             {
@@ -117,7 +174,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
                 if (loginEntry.AttemptCount >= 3)
                 {
                     // This causes the login attempt to fail.
-                    _loginTaskCompletionSource.TrySetException(ex);
+                    _loginTaskCompletionSource.TrySetException(new Exception("Exceeded the number of allowed login attempts"));
                 }
             }
         }
@@ -202,7 +259,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
         public LoginInfo(CredentialRequestInfo info)
         {
             RequestInfo = info;
-            ServiceUrl = info.ServiceUri.GetLeftPart(UriPartial.Path);
+            ServiceUrl = info.ServiceUri.AbsoluteUri;
             ErrorMessage = string.Empty;
             AttemptCount = 0;
         }
@@ -217,6 +274,42 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
             {
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+    }
+
+    // Status to Color converter used by some UI elements.
+    public class LoadStatusToColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            Color statusColor;
+
+            // Show red for unloaded (or failed), green for loaded, and gray for loading.
+            switch ((int)value)
+            {
+                case (int)Esri.ArcGISRuntime.LoadStatus.Loaded:
+                    statusColor = Colors.Green;
+                    break;
+                case (int)Esri.ArcGISRuntime.LoadStatus.Loading:
+                    statusColor = Colors.Gray;
+                    break;
+                case (int)Esri.ArcGISRuntime.LoadStatus.FailedToLoad:
+                    statusColor = Colors.Red;
+                    break;
+                case (int)Esri.ArcGISRuntime.LoadStatus.NotLoaded:
+                    statusColor = Colors.Red;
+                    break;
+                default:
+                    statusColor = Colors.Gray;
+                    break;
+            }
+
+            return new SolidColorBrush(statusColor);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
         }
     }
 }

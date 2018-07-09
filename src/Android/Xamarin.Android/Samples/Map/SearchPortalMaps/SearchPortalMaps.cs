@@ -134,7 +134,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
 
             // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
-            var queryExpression = string.Format("tags:\"{0}\" access:public type: (\"web map\" NOT \"web mapping application\")", e.SearchText);
+            var queryExpression = $"tags:\"{e.SearchText}\" access:public type: (\"web map\" NOT \"web mapping application\")";
             
             // Create a query parameters object with the expression and a limit of 10 results
             PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);

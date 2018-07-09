@@ -60,9 +60,7 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
             RunOnUiThread(() =>
             {
                 // Update the load status information
-                _loadStatusTextView.Text = string.Format(
-                    "Map's load status : {0}", 
-                    e.Status.ToString());
+                _loadStatusTextView.Text = $"Map's load status : {e.Status}";
             });
         }
 

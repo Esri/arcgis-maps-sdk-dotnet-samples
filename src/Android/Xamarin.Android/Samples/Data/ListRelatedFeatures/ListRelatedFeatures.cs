@@ -123,7 +123,7 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
                     string featureDisplayname = resultFeature.Attributes[displayFieldName].ToString();
 
                     // Create a formatted result string
-                    string formattedResult = String.Format("{0} - {1}", tableName, featureDisplayname);
+                    string formattedResult = $"{tableName} - {featureDisplayname}";
 
                     // Add the result to the list
                     queryResultsForUi.Add(formattedResult);

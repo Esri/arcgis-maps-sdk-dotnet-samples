@@ -68,7 +68,7 @@ namespace ArcGISRuntime.Samples.MapRotation
                     _myMapView.SetViewpointRotationAsync(e.Progress);
 
                     // Display the MapView's rotation.
-                    _mapRotationLabel.Text = string.Format("{0:0}%", angleSlider.Progress);
+                    _mapRotationLabel.Text = $"{angleSlider.Progress:0}%";
                 }
             };
 

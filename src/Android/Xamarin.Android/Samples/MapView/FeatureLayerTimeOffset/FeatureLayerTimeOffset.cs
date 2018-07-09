@@ -163,7 +163,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
             _myMapView.TimeExtent = new TimeExtent(newStart, newEnd);
 
             // Update the label
-            _timeLabel.Text = String.Format("{0} - {1}", newStart.ToString("d"), newEnd.ToString("d"));
+            _timeLabel.Text = $"{newStart:d} - {newEnd:d}";
         }
     }
 }

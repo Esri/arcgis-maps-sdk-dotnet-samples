@@ -214,8 +214,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <BundleResource Include="Resources\Default-568h%402x.png" />
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImages.launchimage\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImages.launchimage\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
     <None Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.jpg" />
     <None Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
   </ItemGroup>

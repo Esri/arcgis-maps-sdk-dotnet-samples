@@ -55,7 +55,6 @@ namespace ArcGISRuntime.Samples.OAuth
             InitializeComponent();
 
             Title = "OAuth authentication";
-            Esri.ArcGISRuntime.Xamarin.Forms.MapView mv;
             // Call a function to initialize the app and request a web map (with secured layers) to display.
             Initialize();
         }
@@ -152,7 +151,7 @@ namespace ArcGISRuntime.Samples.OAuth
 
 #if __ANDROID__
             // Get the current Android Activity
-            var activity = Xamarin.Forms.Forms.Context as Activity; 
+            Activity activity = (Activity)Android.App.Application.Context;
 #endif
 #if __IOS__
             // Get the current iOS ViewController.

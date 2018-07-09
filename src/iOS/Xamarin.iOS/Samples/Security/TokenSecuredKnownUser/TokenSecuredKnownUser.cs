@@ -19,11 +19,11 @@ using UIKit;
 namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-       "ArcGIS token with a known user",
-       "Security",
-       "This sample demonstrates how to authenticate with ArcGIS Server using ArcGIS Tokens to access a secure service. Accessing secured services requires a login that's been defined on the server.",
-       "1. When you run the sample, the app will load a map that contains a layer from a secured service.\n2. You will NOT be challenged for a user name and password to view that layer because that info has been hard-coded into the app.\n3. If the credentials in the code are correct, the secured layer will display, otherwise the map will contain only the public layers.",
-       "Authentication, Security, ArcGIS Token")]
+        "ArcGIS token with a known user",
+        "Security",
+        "This sample demonstrates how to authenticate with ArcGIS Server using ArcGIS Tokens to access a secure service. Accessing secured services requires a login that's been defined on the server.",
+        "1. When you run the sample, the app will load a map that contains a layer from a secured service.\n2. You will NOT be challenged for a user name and password to view that layer because that info has been hard-coded into the app.\n3. If the credentials in the code are correct, the secured layer will display, otherwise the map will contain only the public layers.",
+        "Authentication, Security, ArcGIS Token")]
     [Register("TokenSecuredKnownUser")]
     public class TokenSecuredKnownUser : UIViewController
     {
@@ -125,6 +125,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
             // Add the map to the map view.
             _myMapView.Map = myMap;
         }
+
         // Handle the load status changed event for the public and token-secured layers.
         private void LayerLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
@@ -191,10 +192,10 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
 
                     // Create a credential for this resource.
                     knownCredential = await AuthenticationManager.Current.GenerateCredentialAsync
-                                            (info.ServiceUri,
-                                             username,
-                                             password,
-                                             info.GenerateTokenOptions);
+                    (info.ServiceUri,
+                        username,
+                        password,
+                        info.GenerateTokenOptions);
                 }
                 else
                 {
@@ -204,8 +205,9 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
             catch (Exception ex)
             {
                 // Report error accessing a secured resource.
-                var alertView = new UIAlertView("Credential Error", "Access to " + info.ServiceUri.AbsoluteUri + " denied. " + ex.Message, null, "Cancel", null);
-                alertView.Show();
+                new UIAlertView("Credential Error",
+                    $"Access to {info.ServiceUri.AbsoluteUri} denied. {ex.Message}",
+                    (IUIAlertViewDelegate) null, "Cancel", null).Show();
             }
 
             // Return the credential.

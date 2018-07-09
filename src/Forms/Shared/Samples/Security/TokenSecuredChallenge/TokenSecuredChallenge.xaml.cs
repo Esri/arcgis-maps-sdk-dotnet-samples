@@ -46,7 +46,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Define a challenge handler method for the AuthenticationManager.
             // This method handles getting credentials when a secured resource is encountered.
@@ -145,7 +145,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
             finally
             {
                 // Dismiss the login controls.
-                Navigation.PopAsync();
+                await Navigation.PopAsync();
             }
         }
 

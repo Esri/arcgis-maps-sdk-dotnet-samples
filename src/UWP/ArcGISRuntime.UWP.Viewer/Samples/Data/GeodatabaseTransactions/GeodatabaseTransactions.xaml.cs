@@ -128,10 +128,9 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
             catch (Exception ex)
             {
                 // Show a message for the exception encountered
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => 
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => 
                 {
-                    MessageDialog dialog = new MessageDialog("Unable to create offline database: " + ex.Message);
-                    dialog.ShowAsync();
+                    await new MessageDialog("Unable to create offline database: " + ex.Message).ShowAsync();
                 });
             }
         }
@@ -309,7 +308,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
         }
 
         // Change which controls are enabled if the user chooses to require/not require transactions for edits
-        private void RequireTransactionChanged(object sender, RoutedEventArgs e)
+        private async void RequireTransactionChanged(object sender, RoutedEventArgs e)
         {
             // If the local geodatabase isn't created yet, return
             if (_localGeodatabase == null) { return; }
@@ -320,8 +319,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
             // Warn the user if disabling transactions while a transaction is active
             if (!mustHaveTransaction && _localGeodatabase.IsInTransaction)
             {
-                MessageDialog dialog = new MessageDialog("Stop editing to end the current transaction.", "Current Transaction");
-                dialog.ShowAsync();
+                await new MessageDialog("Stop editing to end the current transaction.", "Current Transaction").ShowAsync();
                 RequireTransactionCheckBox.IsChecked = true;
                 return;
             }
@@ -351,23 +349,23 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
                 SyncGeodatabaseJob job = syncTask.SyncGeodatabase(taskParameters, _localGeodatabase);
 
                 // Handle the JobChanged event for the job
-                job.JobChanged += (s, arg) =>
+                job.JobChanged += async (s, arg) =>
                 {
                     // Report changes in the job status
                     if (job.Status == JobStatus.Succeeded)
                     {
                         // Report success ...
-                        Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MessageTextBlock.Text = "Synchronization is complete!");
+                        await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MessageTextBlock.Text = "Synchronization is complete!");
                     }
                     else if (job.Status == JobStatus.Failed)
                     {
                         // Report failure ...
-                        Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MessageTextBlock.Text = job.Error.Message);
+                        await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MessageTextBlock.Text = job.Error.Message);
                     }
                     else
                     {
                         // Report that the job is in progress ...
-                        Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MessageTextBlock.Text = "Sync in progress ...");
+                        await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MessageTextBlock.Text = "Sync in progress ...");
                     }
                 };
 

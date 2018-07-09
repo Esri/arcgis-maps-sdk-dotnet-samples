@@ -33,6 +33,7 @@
     <LangVersion>6</LangVersion>
     <MtouchI18n />
     <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignProvision />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -70,6 +71,7 @@
     <IpaIncludeArtwork>False</IpaIncludeArtwork>
     <DeviceSpecificBuild>False</DeviceSpecificBuild>
     <LangVersion>6</LangVersion>
+    <CodesignProvision />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -127,6 +129,9 @@
     <OutputPath>..\..\..\output\iOS\iPhoneSimulator\AppStore\</OutputPath>
     <MtouchArch>i386, x86_64</MtouchArch>
     <LangVersion>6</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
+    <AppExtensionDebugBundleId />
   </PropertyGroup>
   <!-- References -->
   <ItemGroup>
@@ -197,6 +202,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <BundleResource Include="Resources\Default-568h%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImages.launchimage\Contents.json" />
     <None Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.jpg" />
     <None Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
   </ItemGroup>
@@ -489,6 +496,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-120.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-152.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-167.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-58.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-80.png" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

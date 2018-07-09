@@ -399,7 +399,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             if (string.IsNullOrEmpty(username) ||
                 string.IsNullOrEmpty(password))
             {
-                new UIAlertView("Login", "Please enter a username and password", null, "OK", null).Show();
+                new UIAlertView("Login", "Please enter a username and password", (IUIAlertViewDelegate)null, "OK", null).Show();
                 return;
             }
 

@@ -59,16 +59,15 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             RedirectUrlEntry.Text = _oAuthRedirectUrl;
 
             // Change the style of the layer list view for Android and UWP
-            Device.OnPlatform(
-                Android: () =>
-                {
+            switch (Device.RuntimePlatform)
+            {
+                case Device.Android:
                     // Black background on Android (transparent by default)
                     MapsListView.BackgroundColor = Color.Black;
                     SearchMapsUI.BackgroundColor = Color.Black;
                     OAuthSettingsGrid.BackgroundColor = Color.Black;
-                },
-                WinPhone: () =>
-                {
+                    break;
+                case Device.UWP:
                     // Semi-transparent background on Windows with a small margin around the control
                     MapsListView.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
                     MapsListView.Margin = new Thickness(50);
@@ -76,7 +75,8 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                     SearchMapsUI.Margin = new Thickness(50);
                     OAuthSettingsGrid.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
                     OAuthSettingsGrid.Margin = new Thickness(50);
-                });
+                    break;
+            }
         }
 
         private void DisplayDefaultMap()
@@ -327,7 +327,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
 #if __ANDROID__
             // Get the current Android Activity
-            var activity = Xamarin.Forms.Forms.Context as Activity;
+            Activity activity = (Activity)Android.App.Application.Context;
 #endif
 #if __IOS__
             // Get the current iOS ViewController

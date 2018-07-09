@@ -95,15 +95,20 @@ namespace ArcGISRuntime
                 if (item.OfflineDataItems != null)
                 {
                     // Show the waiting dialog.
-                    ProgressDialog mDialog = new ProgressDialog(this) { Indeterminate = true };
-                    mDialog.SetMessage("Downloading Data");
-                    mDialog.Show();
+                    var builder = new AlertDialog.Builder(this);
+                    builder.SetView(new ProgressBar(this)
+                    {
+                        Indeterminate = true
+                    });
+                    builder.SetMessage("Downloading data");
+                    AlertDialog dialog = builder.Create();
+                    dialog.Show();
 
                     // Begin downloading data.
                     await DataManager.EnsureSampleDataPresent(item);
 
                     // Hide the progress dialog.
-                    mDialog.Dismiss();
+                    dialog.Dismiss();
                 }
 
                 // Each sample is an Activity, so locate it and launch it via an Intent.

@@ -5,6 +5,7 @@ using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Android.Content;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -15,13 +16,15 @@ namespace ArcGISRuntime.AndroidPageRenderer
     {
         // Use a TaskCompletionSource to track the completion of the authorization
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
-        
+
+
         // ctor
-        public SaveMapPageRenderer()
+        public SaveMapPageRenderer(Context context) : base(context)
         {
             // Set the OAuth authorization handler to this class (Implements IOAuthAuthorize interface)
             AuthenticationManager.Current.OAuthAuthorizeHandler = this;
         }
+#pragma warning restore CS0618 // Type or member is obsolete
 
         #region IOAuthAuthorizationHandler implementation
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation

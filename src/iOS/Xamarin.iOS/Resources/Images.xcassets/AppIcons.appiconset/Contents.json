@@ -7,10 +7,16 @@
       "filename": "sdk-58.png"
     },
     {
-      "scale": "3x",
+      "scale": "1x",
       "size": "29x29",
       "idiom": "iphone",
-      "filename": "sdk-87.png"
+      "filename": "sdk-29.png"
+    },
+    {
+      "scale": "1x",
+      "size": "40x40",
+      "idiom": "iphone",
+      "filename": "sdk-40.png"
     },
     {
       "scale": "2x",
@@ -19,22 +25,28 @@
       "filename": "sdk-80.png"
     },
     {
-      "scale": "3x",
-      "size": "40x40",
-      "idiom": "iphone",
-      "filename": "sdk-120.png"
-    },
-    {
       "scale": "2x",
       "size": "60x60",
       "idiom": "iphone",
       "filename": "sdk-120.png"
     },
     {
-      "scale": "3x",
-      "size": "60x60",
+      "scale": "2x",
+      "size": "76x76",
       "idiom": "iphone",
-      "filename": "sdk-180.png"
+      "filename": "sdk-152.png"
+    },
+    {
+      "scale": "2x",
+      "size": "76x76",
+      "idiom": "ipad",
+      "filename": "sdk-152.png"
+    },
+    {
+      "scale": "2x",
+      "size": "83.5x83.5",
+      "idiom": "ipad",
+      "filename": "sdk-167.png"
     }
   ],
   "properties": {

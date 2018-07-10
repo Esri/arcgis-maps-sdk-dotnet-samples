@@ -33,10 +33,10 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
         private string _secureLayerName = "USA - Secure";
 
         // A TaskCompletionSource to store the result of a login task.
-        TaskCompletionSource<Credential> _loginTaskCompletionSrc;
+        private TaskCompletionSource<Credential> _loginTaskCompletionSrc;
 
         // Page for the user to enter login information.
-        LoginPage _loginPage;
+        private LoginPage _loginPage;
 
         public TokenSecuredChallenge()
         {

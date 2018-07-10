@@ -37,10 +37,10 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         private const int PixelBitDepth = 8;
 
         // Store a reference to the layer
-        RasterLayer _rasterLayer;
+        private RasterLayer _rasterLayer;
 
         // Store a dictionary of slope types
-        Dictionary<string, SlopeType> _slopeTypeValues = new Dictionary<string, SlopeType>();
+        private Dictionary<string, SlopeType> _slopeTypeValues = new Dictionary<string, SlopeType>();
 
         public RasterHillshade()
         {

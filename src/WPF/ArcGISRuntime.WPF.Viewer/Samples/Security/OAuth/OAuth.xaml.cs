@@ -204,7 +204,7 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
             }
         }
 
-        void OnWindowClosed(object sender, EventArgs e)
+        private void OnWindowClosed(object sender, EventArgs e)
         {
             // If the browser window closes, return the focus to the main window.
             if (_authWindow != null && _authWindow.Owner != null)
@@ -224,7 +224,7 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
         }
 
         // Handle browser navigation (page content changing).
-        void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
+        private void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
         {
             // Check for a response to the callback url.
             WebBrowser webBrowser = sender as WebBrowser;

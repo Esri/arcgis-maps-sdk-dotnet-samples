@@ -38,7 +38,7 @@ namespace ArcGISRuntime.WPF.Samples.ReadGeoPackage
         // the layer itself (RasterLayer or FeatureLayer) - object
         // NOTE: According to MSDN, a HybridDictionary is useful for cases where the number 
         // of elements in a dictionary is unknown
-        HybridDictionary _myHybridDictionary_Layers = new HybridDictionary();
+        private HybridDictionary _myHybridDictionary_Layers = new HybridDictionary();
 
         private async void Initialize()
         {

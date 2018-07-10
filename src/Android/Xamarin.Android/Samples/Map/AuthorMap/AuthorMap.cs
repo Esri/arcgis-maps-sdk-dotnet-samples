@@ -38,7 +38,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private MapView _myMapView = new MapView();
 
         // Progress bar to show when the app is working
-        ProgressBar _progressBar;
+        private ProgressBar _progressBar;
 
         // Use a TaskCompletionSource to track the completion of the authorization
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;

@@ -36,11 +36,11 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
         private string _secureLayerName = "USA - Secure";
 
         // Store the map view displayed in the app.
-        MapView _myMapView;
+        private MapView _myMapView;
 
         // Labels to show layer load status.
-        UILabel _publicLayerLabel;
-        UILabel _secureLayerLabel;
+        private UILabel _publicLayerLabel;
+        private UILabel _secureLayerLabel;
 
         public TokenSecuredKnownUser()
         {

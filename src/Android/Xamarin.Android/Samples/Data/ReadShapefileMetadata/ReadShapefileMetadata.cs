@@ -116,8 +116,8 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
     // A custom DialogFragment class to show shapefile metadata
     public class MetadataDialogFragment : DialogFragment
     {
-        ShapefileInfo _metadata;
-        ImageView _thumbnailImageView;
+        private ShapefileInfo _metadata;
+        private ImageView _thumbnailImageView;
 
         public MetadataDialogFragment(ShapefileInfo metadata)
         {

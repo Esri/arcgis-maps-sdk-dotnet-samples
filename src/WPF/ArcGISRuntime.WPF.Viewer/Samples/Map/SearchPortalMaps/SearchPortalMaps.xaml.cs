@@ -353,7 +353,7 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
         }
 
         // Handle the browser window closing
-        void OnWindowClosed(object sender, EventArgs e)
+        private void OnWindowClosed(object sender, EventArgs e)
         {
             // If the browser window closes, return the focus to the main window
             if (_window != null && _window.Owner != null)
@@ -372,7 +372,7 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
         }
 
         // Handle browser navigation (content changing)
-        void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
+        private void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
         {
             // Check for a response to the callback url
             const string portalApprovalMarker = "/oauth2/approval";

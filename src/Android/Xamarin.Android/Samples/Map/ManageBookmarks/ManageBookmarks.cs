@@ -32,7 +32,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private AlertDialog _newBookmarkDialog = null;
 
         // Button to show available bookmarks (in a menu)
-        Button _bookmarksButton;
+        private Button _bookmarksButton;
 
         // Text input for the name of a new bookmark
         private EditText _bookmarkNameText;

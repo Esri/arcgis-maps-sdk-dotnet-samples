@@ -29,7 +29,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
     public class SpatialOperations : Activity
     {
         // MapView control to display the operation polygons.
-        MapView _myMapView = new MapView();
+        private MapView _myMapView = new MapView();
 
         // GraphicsOverlay to hold the polygon graphics.
         private GraphicsOverlay _polygonsOverlay;
@@ -42,7 +42,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         private Graphic _resultGraphic;
 
         // Picker control to choose a spatial operation.
-        Spinner _operationPicker;
+        private Spinner _operationPicker;
 
         protected override void OnCreate(Bundle bundle)
         {

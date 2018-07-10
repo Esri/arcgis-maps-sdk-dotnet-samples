@@ -30,10 +30,10 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
     public class ListGeodatabaseVersions : Activity
     {
         // Progress bar to show when the geoprocessing task is working
-        ProgressBar _myProgressBar;
+        private ProgressBar _myProgressBar;
 
         // Edit text to display the list of geodatabases
-        EditText _myEditText_ListGeodatabases;
+        private EditText _myEditText_ListGeodatabases;
 
         // Url to used geoprocessing service
         private const string ListVersionsUrl =

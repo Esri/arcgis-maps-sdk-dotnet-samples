@@ -50,11 +50,11 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
 
         // Member ObservableCollection to hold the human-readable string name of the 
         // layers - used as the ListView_LayersNotInTheMap.ItemsSource 
-        ObservableCollection<string> _myObservableCollection_LayerNamesNotInTheMap = new ObservableCollection<string>();
+        private ObservableCollection<string> _myObservableCollection_LayerNamesNotInTheMap = new ObservableCollection<string>();
 
         // Member ObservableCollection to hold the human-readable string name of the 
         // layers - used as the ListView_LayersInTheMap.ItemsSource 
-        ObservableCollection<string> _myObservableCollection_LayerNamesInTheMap = new ObservableCollection<string>();
+        private ObservableCollection<string> _myObservableCollection_LayerNamesInTheMap = new ObservableCollection<string>();
 
         protected override void OnCreate(Bundle bundle)
         {

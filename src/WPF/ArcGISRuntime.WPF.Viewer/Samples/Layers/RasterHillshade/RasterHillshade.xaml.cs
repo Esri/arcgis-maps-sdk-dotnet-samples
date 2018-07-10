@@ -35,7 +35,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterHillshade
         private const int PixelBitDepth = 8;
 
         // Store a reference to the layer
-        RasterLayer _rasterLayer; 
+        private RasterLayer _rasterLayer; 
         
         public RasterHillshade()
         {

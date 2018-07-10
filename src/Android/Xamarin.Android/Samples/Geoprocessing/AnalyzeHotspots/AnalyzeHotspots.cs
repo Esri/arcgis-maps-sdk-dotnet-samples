@@ -33,13 +33,13 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         private MapView _myMapView = new MapView();
 
         // Progress bar to show when the geoprocessing task is working
-        ProgressBar _myProgressBar;
+        private ProgressBar _myProgressBar;
 
         // Edit text to define the start date for the date range
-        EditText _myEditText_StartDate;
+        private EditText _myEditText_StartDate;
 
         // Edit text to define the end date for the date range
-        EditText _myEditText_EndDate;
+        private EditText _myEditText_EndDate;
 
         // Url for the geoprocessing service
         private const string _hotspotUrl =

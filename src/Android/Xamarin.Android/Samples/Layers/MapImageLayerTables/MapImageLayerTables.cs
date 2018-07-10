@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         private GraphicsOverlay _selectedFeaturesOverlay;
 
         // A list view to show all service request comments.
-        ListView _commentsListBox;
+        private ListView _commentsListBox;
 
         // A list to hold service request comments.
         private List<Feature> _commentFeatures = new List<Feature>();

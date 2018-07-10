@@ -39,7 +39,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         private string _secureLayerName = "USA - Secure";
 
         // Use a TaskCompletionSource to store the result of a login task.
-        TaskCompletionSource<Credential> _loginTaskCompletionSource;
+        private TaskCompletionSource<Credential> _loginTaskCompletionSource;
 
         // Store the map view displayed in the app.
         private MapView _myMapView = new MapView();

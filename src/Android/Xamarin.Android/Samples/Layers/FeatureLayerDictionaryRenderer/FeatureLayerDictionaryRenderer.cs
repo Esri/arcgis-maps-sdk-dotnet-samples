@@ -15,7 +15,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI.Controls;
-using System.IO;
 using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer

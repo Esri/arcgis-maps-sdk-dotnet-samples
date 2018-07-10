@@ -10,10 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using ArcGISRuntime.Samples.Managers;
-using System;
 using Xamarin.Forms;
-using System.IO;
-using Esri.ArcGISRuntime.Geometry;
 
 namespace ArcGISRuntime.Samples.RasterLayerFile
 {

@@ -10,7 +10,6 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using System;
 
 namespace ArcGISRuntime.UWP.Samples.RasterLayerFile
 {

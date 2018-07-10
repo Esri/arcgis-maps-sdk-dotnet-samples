@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using Android.App;
-using Android.Graphics;
 using Android.OS;
 using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;

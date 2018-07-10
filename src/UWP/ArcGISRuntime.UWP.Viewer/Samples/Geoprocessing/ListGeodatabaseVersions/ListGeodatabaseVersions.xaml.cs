@@ -15,7 +15,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.ListGeodatabaseVersions
 {

@@ -12,14 +12,12 @@ using Android.OS;
 using Android.Webkit;
 using Android.Widget;
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using Android.Graphics;
-using Android.Graphics.Drawables;
 using Android.Views;
 
 namespace ArcGISRuntime.Samples.WmsIdentify

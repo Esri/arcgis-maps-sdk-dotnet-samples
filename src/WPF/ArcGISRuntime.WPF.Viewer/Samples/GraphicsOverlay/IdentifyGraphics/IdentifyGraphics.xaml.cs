@@ -13,7 +13,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
-using System.Collections.Generic;
 using System.Windows;
 using System.Drawing;
 

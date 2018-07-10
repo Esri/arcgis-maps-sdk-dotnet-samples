@@ -14,8 +14,6 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
-using System.IO;
-using System.Threading.Tasks;
 using System.Timers;
 using System.Drawing;
 

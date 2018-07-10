@@ -16,7 +16,6 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.UI.Popups;
 
 namespace ArcGISRuntime.UWP.Samples.MapImageLayerTables

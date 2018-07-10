@@ -11,7 +11,6 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;

@@ -12,7 +12,6 @@ using Android.OS;
 using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
-using System.IO;
 using System.Linq;
 using ArcGISRuntime.Samples.Managers;
 

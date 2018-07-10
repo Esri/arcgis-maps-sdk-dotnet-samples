@@ -8,8 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using System.Globalization;
-using System.Windows;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 

@@ -15,7 +15,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Collections.Generic;
 
 namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 {

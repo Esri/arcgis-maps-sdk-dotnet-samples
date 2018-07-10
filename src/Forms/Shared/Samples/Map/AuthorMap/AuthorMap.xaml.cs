@@ -16,7 +16,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.Xamarin.Forms;
 using System.IO;
 
 

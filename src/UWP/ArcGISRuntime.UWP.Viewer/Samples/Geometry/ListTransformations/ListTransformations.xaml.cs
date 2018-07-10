@@ -14,7 +14,6 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Drawing;
 using Windows.UI.Xaml;
 

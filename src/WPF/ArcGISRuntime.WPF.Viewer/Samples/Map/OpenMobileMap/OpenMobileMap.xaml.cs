@@ -10,7 +10,6 @@
 using System.Linq;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.OpenMobileMap
 {

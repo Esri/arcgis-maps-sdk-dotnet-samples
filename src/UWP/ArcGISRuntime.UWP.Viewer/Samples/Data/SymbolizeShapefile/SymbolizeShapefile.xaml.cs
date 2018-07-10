@@ -12,8 +12,6 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using System.IO;
-using System.Threading.Tasks;
 using System.Drawing;
 
 namespace ArcGISRuntime.UWP.Samples.SymbolizeShapefile

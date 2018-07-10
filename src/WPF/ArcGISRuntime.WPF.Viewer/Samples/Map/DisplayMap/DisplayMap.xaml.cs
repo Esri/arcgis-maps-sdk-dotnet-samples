@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using System.IO;
 
 namespace ArcGISRuntime.WPF.Samples.DisplayMap
 {

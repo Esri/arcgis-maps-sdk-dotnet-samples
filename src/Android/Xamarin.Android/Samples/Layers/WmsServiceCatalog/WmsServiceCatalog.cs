@@ -146,10 +146,13 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             _myMapView.Map.OperationalLayers.Clear();
 
             // Get a list of selected LayerInfos
-            IEnumerable<WmsLayerInfo> selectedLayers = displayList.Where(vm => vm.IsEnabled).Select(vm => vm.Info);
+            List<WmsLayerInfo> selectedLayers = displayList.Where(vm => vm.IsEnabled).Select(vm => vm.Info).ToList();
 
             // Return if list is empty
-            if (!selectedLayers.Any()) { return; }
+            if (!selectedLayers.Any())
+            {
+                return;
+            }
 
             // Create a new WmsLayer from the selected layers
             WmsLayer myLayer = new WmsLayer(selectedLayers);

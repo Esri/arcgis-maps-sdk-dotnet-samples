@@ -421,19 +421,19 @@ namespace ArcGISRuntime.Samples.FindPlace
             string searchText = _myLocationBox.Text;
 
             // Get the results
-            IEnumerable<String> results = await GetSuggestResults(searchText);
+            List<string> results = (await GetSuggestResults(searchText)).ToList();
 
             // Quit if there are no results
-            if (results == null || !results.Any()) { return; }
-
-            // Get a modifiable list from the results
-            List<String> mutableResults = results.ToList();
+            if (!results.Any())
+            {
+                return;
+            }
 
             // Add a 'current location' option to the list
-            mutableResults.Insert(0, "Current Location");
+            results.Insert(0, "Current Location");
 
             // Create an array adapter to provide autocomplete suggestions
-            ArrayAdapter adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, mutableResults);
+            ArrayAdapter adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, results);
 
             // Apply the adapter
             _myLocationBox.Adapter = adapter;

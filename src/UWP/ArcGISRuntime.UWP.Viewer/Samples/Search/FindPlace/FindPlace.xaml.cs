@@ -348,19 +348,19 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             string searchText = LocationEntry.Text;
 
             // Get the results
-            IEnumerable<string> results = await GetSuggestResults(searchText);
+            List<string> results = (await GetSuggestResults(searchText)).ToList();
 
             // Quit if there are no results
-            if (results == null || !results.Any()) { return; }
-
-            // Get a modifiable list from the results
-            List<string> mutableResults = results.ToList();
+            if (!results.Any())
+            {
+                return;
+            }
 
             // Add a 'current location' option to the list
-            mutableResults.Insert(0, "Current Location");
+            results.Insert(0, "Current Location");
 
             // Update the list of options
-            LocationEntry.ItemsSource = mutableResults;
+            LocationEntry.ItemsSource = results;
         }
 
         /// <summary>

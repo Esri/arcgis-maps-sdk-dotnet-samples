@@ -328,19 +328,16 @@ namespace ArcGISRuntime.Samples.FindPlace
             string searchText = MyLocationBox.Text;
 
             // Get the results
-            IEnumerable<String> results = await GetSuggestResults(searchText);
+            List<String> results = (await GetSuggestResults(searchText)).ToList();
 
             // Quit if there are no results
-            if (results == null || !results.Any()) { return; }
-
-            // Get a modifiable list from the results
-            List<String> mutableResults = results.ToList();
+            if (!results.Any()) { return; }
 
             // Add a 'current location' option to the list
-            mutableResults.Insert(0, "Current Location");
+            results.Insert(0, "Current Location");
 
             // Update the list of options
-            lstViewSuggestions.ItemsSource = mutableResults;
+            lstViewSuggestions.ItemsSource = results;
         }
 
         /// <summary>
@@ -358,10 +355,13 @@ namespace ArcGISRuntime.Samples.FindPlace
             string locationText = MyLocationBox.Text;
 
             // Convert the list into a usable format for the suggest box
-            IEnumerable<String> results = await GetSuggestResults(searchText, locationText, true);
+            List<String> results = (await GetSuggestResults(searchText, locationText, true)).ToList();
 
             // Quit if there are no results
-            if (results == null || !results.Any()) { return; }
+            if (!results.Any())
+            {
+                return;
+            }
 
             // Update the list of options
             lstViewSuggestions.ItemsSource = results;

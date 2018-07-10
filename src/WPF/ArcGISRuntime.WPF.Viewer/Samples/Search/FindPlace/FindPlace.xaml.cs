@@ -343,10 +343,10 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             string locationText = MyLocationBox.Text;
 
             // Convert the list into a usable format for the suggest box.
-            IEnumerable<string> results = await GetSuggestResults(searchText, locationText, true);
+            List<string> results = (await GetSuggestResults(searchText, locationText, true)).ToList();
 
             // Quit if there are no results.
-            if (results == null || !results.Any())
+            if (!results.Any())
             {
                 return;
             }
@@ -377,22 +377,19 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             string searchText = MyLocationBox.Text;
 
             // Get the results.
-            IEnumerable<string> results = await GetSuggestResults(searchText);
+            List<string> results = (await GetSuggestResults(searchText)).ToList();
 
             // Quit if there are no results.
-            if (results == null || !results.Any())
+            if (!results.Any())
             {
                 return;
             }
 
-            // Get a modifiable list from the results.
-            List<string> mutableResults = results.ToList();
-
             // Add a 'current location' option to the list.
-            mutableResults.Insert(0, "Current Location");
+            results.Insert(0, "Current Location");
 
             // Update the list of options.
-            MyLocationBox.ItemsSource = mutableResults;
+            MyLocationBox.ItemsSource = results;
         }
 
         /// <summary>

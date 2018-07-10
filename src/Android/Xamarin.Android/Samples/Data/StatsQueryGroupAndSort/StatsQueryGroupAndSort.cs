@@ -153,7 +153,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 
                 // Get the current list of group fields and create/update the sort field choices
                 // (only fields selected for grouping can be used to order results)
-                IEnumerable<KeyValuePair<string, bool>> currentGroupFields = _groupByFields.Where(field => field.Value == true);
+                List<KeyValuePair<string, bool>> currentGroupFields = _groupByFields.Where(field => field.Value == true).ToList();
 
                 // Loop through the group fields
                 foreach (KeyValuePair<string, bool> groupField in currentGroupFields)

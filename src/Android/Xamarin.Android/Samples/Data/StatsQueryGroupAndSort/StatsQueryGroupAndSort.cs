@@ -213,7 +213,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         private async void ExecuteStatisticsQuery(object sender, EventArgs e)
         {
             // Verify that there is at least one statistic definition
-            if (_statisticDefinitions.Count() == 0)
+            if (!_statisticDefinitions.Any())
             {
                 // Warn the user to define a statistic to query
                 ShowMessage("Please define at least one statistic for the query.", "Statistical Query");

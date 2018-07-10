@@ -73,7 +73,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
             IReadOnlyList<GeoElement> geoElements = result.GeoElements;
 
             // If a GeoElement was identified, select it in the scene.
-            if (geoElements.Count() > 0)
+            if (geoElements.Any())
             {
                 GeoElement geoElement = geoElements.FirstOrDefault();
                 if (geoElement != null)

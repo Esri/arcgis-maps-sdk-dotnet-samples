@@ -75,7 +75,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         private async void OnExecuteStatisticsQueryClicked(object sender, EventArgs e)
         {
             // Verify that there is at least one statistic definition
-            if (_statDefinitions.Count() == 0)
+            if (!_statDefinitions.Any())
             {
                 await DisplayAlert("Please define at least one statistic for the query.", "Statistical Query","OK");
                 return;

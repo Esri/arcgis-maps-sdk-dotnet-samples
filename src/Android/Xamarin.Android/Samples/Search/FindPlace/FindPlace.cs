@@ -175,7 +175,7 @@ namespace ArcGISRuntime.Samples.FindPlace
                 IReadOnlyList<GeocodeResult> locations = await _geocoder.GeocodeAsync(locationText);
 
                 // return if there are no results
-                if (locations.Count() < 1) { return null; }
+                if (!locations.Any()) { return null; }
 
                 // Get the first result
                 GeocodeResult result = locations.First();
@@ -256,7 +256,7 @@ namespace ArcGISRuntime.Samples.FindPlace
                 IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(location.DisplayLocation);
 
                 // Add the first suitable address if possible
-                if (addresses.Count() > 0)
+                if (addresses.Any())
                 {
                     point.Attributes["Match_Address"] = addresses.First().Label;
                 }
@@ -424,7 +424,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             IEnumerable<String> results = await GetSuggestResults(searchText);
 
             // Quit if there are no results
-            if (results == null || results.Count() == 0) { return; }
+            if (results == null || !results.Any()) { return; }
 
             // Get a modifiable list from the results
             List<String> mutableResults = results.ToList();

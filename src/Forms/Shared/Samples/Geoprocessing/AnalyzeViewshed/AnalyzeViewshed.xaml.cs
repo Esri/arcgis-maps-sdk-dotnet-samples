@@ -145,11 +145,11 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
                 // Display an error message if there is a problem
                 if (myViewshedJob.Status == JobStatus.Failed && myViewshedJob.Error != null)
                 {
-                    await DisplayAlert("Geoprocessing error", "Executing geoprocessing failed. " + myViewshedJob.Error.Message, "OK");
+                    await ((Page)Parent).DisplayAlert("Geoprocessing error", "Executing geoprocessing failed. " + myViewshedJob.Error.Message, "OK");
                 }
                 else
                 {
-                    await DisplayAlert("Sample error", "An error occurred. " + ex.ToString(), "OK");
+                    await ((Page)Parent).DisplayAlert("Sample error", "An error occurred. " + ex.ToString(), "OK");
                 }
             }
             finally

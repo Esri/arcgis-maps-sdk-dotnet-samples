@@ -101,7 +101,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredKnownUser
             catch (Exception ex)
             {
                 // Report error accessing a secured resource.
-                await DisplayAlert("Credential Error", "Access to " + info.ServiceUri.AbsoluteUri + " denied. " + ex.Message, "OK");
+                await ((Page)Parent).DisplayAlert("Credential Error", "Access to " + info.ServiceUri.AbsoluteUri + " denied. " + ex.Message, "OK");
             }
 
             // Return the credential.

@@ -231,7 +231,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             catch (Exception ex)
             {
                 // Login failure
-                await DisplayAlert("Login Error", ex.Message, "OK");
+                await ((Page)Parent).DisplayAlert("Login Error", ex.Message, "OK");
             }
 
             return loggedIn;

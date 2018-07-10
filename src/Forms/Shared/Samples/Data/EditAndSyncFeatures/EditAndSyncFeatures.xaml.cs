@@ -130,7 +130,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -218,7 +218,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -462,7 +462,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -492,7 +492,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Alert", ex.ToString(), "OK");
+                await ((Page)Parent).DisplayAlert("Alert", ex.ToString(), "OK");
             }
         }
     }

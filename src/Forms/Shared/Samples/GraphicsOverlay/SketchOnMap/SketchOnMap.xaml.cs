@@ -176,7 +176,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                await DisplayAlert("Error", "Error drawing graphic shape: " + ex.Message, "OK");
+                await ((Page)Parent).DisplayAlert("Error", "Error drawing graphic shape: " + ex.Message, "OK");
             }
         }
 
@@ -220,7 +220,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                await DisplayAlert("Error", "Error editing shape: " + ex.Message,"OK");
+                await ((Page)Parent).DisplayAlert("Error", "Error editing shape: " + ex.Message,"OK");
             }
         }
 

@@ -109,10 +109,9 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         {
             // Get web map portal items from a keyword search
             IEnumerable<PortalItem> mapItems = null;
-            ArcGISPortal portal;
 
             // Connect to the portal (anonymously)
-            portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
+            ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
 
             // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
             string queryExpression = $"tags:\"{searchText}\" access:public type: (\"web map\" NOT \"web mapping application\")";
@@ -142,22 +141,18 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
         private async void GetMyMaps(object sender, EventArgs e)
         {
-            // Get web map portal items in the current user's folder or from a keyword search
-            IEnumerable<PortalItem> mapItems = null;
-            ArcGISPortal portal;
-
             // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
             bool loggedIn = await EnsureLoggedInAsync();
             if (!loggedIn) { return; }
 
             // Connect to the portal (will connect using the provided credentials)
-            portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
+            ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
 
             // Get the user's content (items in the root folder and a collection of sub-folders)
             PortalUserContent myContent = await portal.User.GetContentAsync();
 
             // Get the web map items in the root folder
-            mapItems = from item in myContent.Items where item.Type == PortalItemType.WebMap select item;
+            IEnumerable<PortalItem> mapItems = from item in myContent.Items where item.Type == PortalItemType.WebMap select item;
 
             // Loop through all sub-folders and get web map items, add them to the mapItems collection
             foreach (PortalFolder folder in myContent.Folders)

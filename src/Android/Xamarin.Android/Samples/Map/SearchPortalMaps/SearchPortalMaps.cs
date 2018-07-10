@@ -99,14 +99,13 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         {
             // Get web map portal items in the current user's folder
             IEnumerable<PortalItem> mapItems = null;
-            ArcGISPortal portal;
 
             // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
             bool loggedIn = await EnsureLoggedInAsync();
             if (!loggedIn) { return; }
 
             // Connect to the portal (will connect using the provided credentials)
-            portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
+            ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
 
             // Get the user's content (items in the root folder and a collection of sub-folders)
             PortalUserContent myContent = await portal.User.GetContentAsync();
@@ -129,10 +128,9 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         {
             // Get web map portal items from a keyword search
             IEnumerable<PortalItem> mapItems = null;
-            ArcGISPortal portal;
 
             // Connect to the portal (anonymously)
-            portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
+            ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
 
             // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
             string queryExpression = $"tags:\"{e.SearchText}\" access:public type: (\"web map\" NOT \"web mapping application\")";

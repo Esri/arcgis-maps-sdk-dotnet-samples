@@ -76,6 +76,10 @@ namespace ArcGISRuntime.Samples.SketchOnMap
 
             // Set the sketch editor as the page's data context
             BindingContext = MyMapView.SketchEditor;
+            // Hack to get around linker being too aggressive.
+            UndoButton.Command = MyMapView.SketchEditor.UndoCommand;
+            RedoButton.Command = MyMapView.SketchEditor.RedoCommand;
+            CompleteButton.Command = MyMapView.SketchEditor.CompleteCommand;
         }
 
         #region Graphic and symbol helpers

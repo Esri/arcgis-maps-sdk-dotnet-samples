@@ -61,15 +61,13 @@
                 Grid.Column="0"
                 Text="Sketch"
                 Clicked="ShowDrawTools"/>
-            <Button Grid.Column="1"
-                Text="Undo"
-                Command="{Binding UndoCommand}"/>
-            <Button Grid.Column="2"
-                Text="Redo"
-                Command="{Binding RedoCommand}"/>
-            <Button Grid.Column="3"
-                Text="Done"
-                Command="{Binding CompleteCommand}"/>
+            <Button x:Name="UndoButton"
+                Grid.Column="1"
+                Text="Undo"/>
+            <Button x:Name="RedoButton" Grid.Column="2"
+                Text="Redo"/>
+            <Button x:Name="CompleteButton" Grid.Column="3"
+                Text="Done"/>
             <Button x:Name="ClearButton" 
                 Grid.Column="4"
                 Text="Clear"

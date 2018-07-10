@@ -386,16 +386,18 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             try
             {
                 // Create a challenge request for portal credentials (OAuth credential request for arcgis.com).
-                CredentialRequestInfo challengeRequest = new CredentialRequestInfo();
-
-                // Use the OAuth implicit grant flow.
-                challengeRequest.GenerateTokenOptions = new GenerateTokenOptions
+                CredentialRequestInfo challengeRequest = new CredentialRequestInfo
                 {
-                    TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-                };
 
-                // Indicate the URL (portal) to authenticate with (ArcGIS Online).
-                challengeRequest.ServiceUri = new Uri(ServerUrl);
+                    // Use the OAuth implicit grant flow.
+                    GenerateTokenOptions = new GenerateTokenOptions
+                    {
+                        TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                    },
+
+                    // Indicate the URL (portal) to authenticate with (ArcGIS Online).
+                    ServiceUri = new Uri(ServerUrl)
+                };
 
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler.
                 Credential cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);

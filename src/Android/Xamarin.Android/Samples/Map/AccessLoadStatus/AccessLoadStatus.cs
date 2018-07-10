@@ -70,8 +70,10 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create control to show the maps' loading status
-            _loadStatusTextView = new TextView(this);
-            _loadStatusTextView.TextSize = 20;
+            _loadStatusTextView = new TextView(this)
+            {
+                TextSize = 20
+            };
             layout.AddView(_loadStatusTextView);
 
 

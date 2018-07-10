@@ -123,10 +123,12 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
 
             // Create the parameters that are passed to the used geoprocessing task
             GeoprocessingParameters myViewshedParameters =
-                new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute);
+                new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute)
+                {
 
-            // Request the output features to use the same SpatialReference as the map view
-            myViewshedParameters.OutputSpatialReference = _myMapView.SpatialReference;
+                    // Request the output features to use the same SpatialReference as the map view
+                    OutputSpatialReference = _myMapView.SpatialReference
+                };
 
             // Add an input location to the geoprocessing parameters
             myViewshedParameters.Inputs.Add("Input_Observation_Point", new GeoprocessingFeatures(myInputFeatures));
@@ -240,14 +242,18 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Label for the user instructions
-            TextView textview_Label1 = new TextView(this);
-            textview_Label1.Text = "Click a location on the map to perform the viewshed analysis.";
+            TextView textview_Label1 = new TextView(this)
+            {
+                Text = "Click a location on the map to perform the viewshed analysis."
+            };
             layout.AddView(textview_Label1);
 
             // Add the progress bar to indicate the geoprocessing task is running; make invisible by default
-            _myProgressBar = new ProgressBar(this);
-            _myProgressBar.Indeterminate = true;
-            _myProgressBar.Visibility = ViewStates.Invisible;
+            _myProgressBar = new ProgressBar(this)
+            {
+                Indeterminate = true,
+                Visibility = ViewStates.Invisible
+            };
             layout.AddView(_myProgressBar);
 
             // Add the map view to the layout

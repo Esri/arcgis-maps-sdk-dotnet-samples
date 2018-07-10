@@ -72,8 +72,10 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
                     FeatureCollection featureCollection = new FeatureCollection(collectionItem);
 
                     // Create a layer to display the collection and add it to the map as an operational layer.
-                    FeatureCollectionLayer featureCollectionLayer = new FeatureCollectionLayer(featureCollection);
-                    featureCollectionLayer.Name = collectionItem.Title;
+                    FeatureCollectionLayer featureCollectionLayer = new FeatureCollectionLayer(featureCollection)
+                    {
+                        Name = collectionItem.Title
+                    };
 
                     _myMapView.Map.OperationalLayers.Add(featureCollectionLayer);
                 }
@@ -124,8 +126,10 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             layout.AddView(loadFeaturesButton);
 
             // Create an edit text for the user to enter a portal item Id.
-            _portalItemIdEditText = new EditText(this);
-            _portalItemIdEditText.Hint = "Portal Item Id";
+            _portalItemIdEditText = new EditText(this)
+            {
+                Hint = "Portal Item Id"
+            };
             layout.AddView(_portalItemIdEditText);
 
             // Add the map view to the layout.

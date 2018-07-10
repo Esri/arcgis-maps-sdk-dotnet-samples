@@ -229,8 +229,10 @@ namespace ArcGISRuntime.Samples.FindRoute
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
             // Create the layout
-            LinearLayout dialogLayout = new LinearLayout(this);
-            dialogLayout.Orientation = Orientation.Vertical;
+            LinearLayout dialogLayout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Vertical
+            };
 
             // Create a list box for showing the route directions
             ListView directionsList = new ListView(this);

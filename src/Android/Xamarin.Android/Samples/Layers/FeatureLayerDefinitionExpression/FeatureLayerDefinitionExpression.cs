@@ -88,13 +88,17 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a button to reset the renderer
-            Button resetButton = new Button(this);
-            resetButton.Text = "Reset";
+            Button resetButton = new Button(this)
+            {
+                Text = "Reset"
+            };
             resetButton.Click += OnResetButtonClicked;
 
             // Create a button to apply new renderer
-            Button overrideButton = new Button(this);
-            overrideButton.Text = "Apply expression";
+            Button overrideButton = new Button(this)
+            {
+                Text = "Apply expression"
+            };
             overrideButton.Click += OnApplyExpressionClicked;
 
             // Add Reset Button to the layout

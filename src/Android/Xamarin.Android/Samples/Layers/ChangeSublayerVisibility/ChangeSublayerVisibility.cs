@@ -115,8 +115,10 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create button to show possible map options
-            Button mapsButton = new Button(this);
-            mapsButton.Text = "Sublayers";
+            Button mapsButton = new Button(this)
+            {
+                Text = "Sublayers"
+            };
             mapsButton.Click += OnSublayersClicked;
 
             // Add maps button to the layout

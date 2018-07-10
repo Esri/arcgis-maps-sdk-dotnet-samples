@@ -264,13 +264,19 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
         /// <param name="poiOnly">If true, restricts suggestions to only Points of Interest (e.g. businesses, parks),
         /// rather than all matching results</param>
         /// <returns>List of suggestions as strings</returns>
-        private async Task<IEnumerable<String>> GetSuggestResults(string searchText, string location = "", bool poiOnly = false)
+        private async Task<List<string>> GetSuggestResults(string searchText, string location = "", bool poiOnly = false)
         {
             // Quit if string is null, empty, or whitespace
-            if (String.IsNullOrWhiteSpace(searchText)) { return null; }
+            if (String.IsNullOrWhiteSpace(searchText))
+            {
+                return new List<string>();
+            }
 
             // Quit if the geocoder isn't ready
-            if (_geocoder == null) { return null; }
+            if (_geocoder == null)
+            {
+                return new List<string>();
+            }
 
             // Create geocode parameters
             SuggestParameters parameters = new SuggestParameters();
@@ -294,11 +300,8 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             // Get the updated results from the query so far
             IReadOnlyList<SuggestResult> results = await _geocoder.SuggestAsync(searchText, parameters);
 
-            // Convert the list into a list of strings (corresponding to the label property on each result)
-            IEnumerable<String> formattedResults = results.Select(result => result.Label);
-
             // Return the list
-            return formattedResults;
+            return results.Select(result => result.Label).ToList();
         }
 
         /// <summary>
@@ -327,10 +330,10 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             string locationText = LocationEntry.Text;
 
             // Convert the list into a usable format for the suggest box
-            IEnumerable<String> results = await GetSuggestResults(searchText, locationText, true);
+            List<string> results = await GetSuggestResults(searchText, locationText, true);
 
             // Quit if there are no results
-            if (results == null || !results.Any()) { return; }
+            if (!results.Any()) { return; }
 
             // Update the list of options
             SearchEntry.ItemsSource = results;

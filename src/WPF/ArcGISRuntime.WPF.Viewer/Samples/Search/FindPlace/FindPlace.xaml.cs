@@ -274,19 +274,19 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         /// <param name="poiOnly">If true, restricts suggestions to only Points of Interest (e.g. businesses, parks),
         /// rather than all matching results.</param>
         /// <returns>List of suggestions as strings.</returns>
-        private async Task<IEnumerable<string>> GetSuggestResults(string searchText, string location = "",
+        private async Task<List<string>> GetSuggestResults(string searchText, string location = "",
             bool poiOnly = false)
         {
             // Quit if string is null, empty, or whitespace.
             if (String.IsNullOrWhiteSpace(searchText))
             {
-                return null;
+                return new List<string>();
             }
 
             // Quit if the geocoder isn't ready.
             if (_geocoder == null)
             {
-                return null;
+                return new List<string>();
             }
 
             // Create geocode parameters.
@@ -315,7 +315,7 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             IReadOnlyList<SuggestResult> results = await _geocoder.SuggestAsync(searchText, parameters);
 
             // Convert the list into a list of strings (corresponding to the label property on each result) and return.
-            return results.Select(result => result.Label);
+            return results.Select(result => result.Label).ToList();
         }
 
         /// <summary>
@@ -343,7 +343,7 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             string locationText = MyLocationBox.Text;
 
             // Convert the list into a usable format for the suggest box.
-            List<string> results = (await GetSuggestResults(searchText, locationText, true)).ToList();
+            List<string> results = await GetSuggestResults(searchText, locationText, true);
 
             // Quit if there are no results.
             if (!results.Any())

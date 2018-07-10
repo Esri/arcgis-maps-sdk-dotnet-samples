@@ -401,18 +401,18 @@ namespace ArcGISRuntime.Samples.FindPlace
         /// <param name="poiOnly">If true, restricts suggestions to only Points of Interest (e.g. businesses, parks),
         /// rather than all matching results.</param>
         /// <returns>List of suggestions as strings or null if suggestions couldn't be retrieved.</returns>
-        private async Task<IEnumerable<string>> GetSuggestResultsAsync(string searchText, string location = "", bool poiOnly = false)
+        private async Task<List<string>> GetSuggestResultsAsync(string searchText, string location = "", bool poiOnly = false)
         {
             // Quit if string is null, empty, or whitespace.
             if (String.IsNullOrWhiteSpace(searchText))
             {
-                return null;
+                return new List<string>();
             }
 
             // Quit if the geocoder isn't ready.
             if (_geocoder == null)
             {
-                return null;
+                return new List<string>();
             }
 
             // Create geocode parameters.
@@ -441,7 +441,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             IReadOnlyList<SuggestResult> results = await _geocoder.SuggestAsync(searchText, parameters);
 
             // Return as a list of strings (corresponding to the label property on each result).
-            return results.Select(result => result.Label);
+            return results.Select(result => result.Label).ToList();
         }
 
         /// <summary>
@@ -499,17 +499,16 @@ namespace ArcGISRuntime.Samples.FindPlace
             string locationText = _locationBox.Text;
 
             // Convert the list into a usable format for the suggest box.
-            IEnumerable<string> results = await GetSuggestResultsAsync(searchText, locationText, true);
-            List<string> resultList = results?.ToList();
+            List<string> results = await GetSuggestResultsAsync(searchText, locationText, true);
 
             // Quit if there are no results.
-            if (resultList == null || !resultList.Any())
+            if (!results.Any())
             {
                 return;
             }
 
             // Update the list of options.
-            _mySuggestionSource.TableItems = resultList;
+            _mySuggestionSource.TableItems = results;
 
             // Force the view to refresh.
             _suggestionView.ReloadData();

@@ -17,6 +17,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Android.Content;
 using Xamarin.Auth;
 
 namespace ArcGISRuntimeXamarin.Samples.OAuth
@@ -81,7 +82,7 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
         private void SetOAuthInfo()
         {
             // Register the server information with the AuthenticationManager.
-            var serverInfo = new ServerInfo
+            ServerInfo serverInfo = new ServerInfo
             {
                 ServerUri = new Uri(ServerUrl),
                 TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,
@@ -113,7 +114,7 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
-            var mainLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout mainLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
             
             // Add the map view to the layout.
             mainLayout.AddView(_myMapView);
@@ -214,7 +215,7 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
             };
 
             // Present the OAuth UI (Activity) so the user can enter user name and password.
-            var intent = authenticator.GetUI(this);
+            Intent intent = authenticator.GetUI(this);
             this.StartActivityForResult(intent, 99);
 
             // Return completion source task so the caller can await completion.
@@ -224,7 +225,7 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
         private static IDictionary<string, string> DecodeParameters(Uri uri)
         {
             // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string.
-            var answer = string.Empty;
+            string answer = "";
 
             // Get the values from the URI fragment or query string.
             if (!string.IsNullOrEmpty(uri.Fragment))
@@ -240,11 +241,11 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
             }
 
             // Parse parameters into key / value pairs.
-            var keyValueDictionary = new Dictionary<string, string>();
-            var keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var kvString in keysAndValues)
+            Dictionary<string,string> keyValueDictionary = new Dictionary<string, string>();
+            string[] keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string kvString in keysAndValues)
             {
-                var pair = kvString.Split('=');
+                string[] pair = kvString.Split('=');
                 string key = pair[0];
                 string value = string.Empty;
                 if (key.Length > 1)

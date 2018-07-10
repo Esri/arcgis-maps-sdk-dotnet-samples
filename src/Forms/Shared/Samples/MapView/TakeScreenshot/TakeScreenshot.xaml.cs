@@ -51,13 +51,13 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             CreatingImageIndicator.IsVisible = true;
 
             // Export the image from mapview and assign it to the imageview
-            var exportedImage = await MyMapView.ExportImageAsync();
+            RuntimeImage exportedImage = await MyMapView.ExportImageAsync();
 
             // Create layout for sublayers page
             // Create root layout
-            var layout = new StackLayout();
+            StackLayout layout = new StackLayout();
 
-            var closeButton = new Button
+            Button closeButton = new Button
             {
                 Text = "Close"
             };
@@ -68,7 +68,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             byte[] data = new byte[buffer.Length];
             buffer.Read(data, 0, data.Length);
             var bitmap = ImageSource.FromStream(() => new System.IO.MemoryStream(data));
-            var image = new Image()
+            Image image = new Image()
             {
                 Source = bitmap,
                 Margin = new Thickness(10)
@@ -79,7 +79,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             layout.Children.Add(image);
 
             // Create internal page for the navigation page
-            var screenshotPage = new ContentPage()
+            ContentPage screenshotPage = new ContentPage()
             {
                 Content = layout,
                 Title = "Screenshot"

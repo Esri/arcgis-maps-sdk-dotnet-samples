@@ -109,13 +109,13 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
                 }
                 else
                 {
-                    var alert = new UIAlertView("Feature Collection", "Portal item with ID '" + itemId + "' is not a feature collection.", (IUIAlertViewDelegate) null, "OK");
+                    UIAlertView alert = new UIAlertView("Feature Collection", "Portal item with ID '" + itemId + "' is not a feature collection.", (IUIAlertViewDelegate) null, "OK");
                     alert.Show();
                 }
             }
             catch (Exception ex)
             {
-                var alert = new UIAlertView("Error", "Unable to open item with ID '" + itemId + "': " + ex.Message, (IUIAlertViewDelegate) null, "OK");
+                UIAlertView alert = new UIAlertView("Error", "Unable to open item with ID '" + itemId + "': " + ex.Message, (IUIAlertViewDelegate) null, "OK");
                 alert.Show();
             }
         }
@@ -128,7 +128,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             // Make sure an Id was entered.
             if (string.IsNullOrEmpty(collectionItemId))
             {
-                var alert = new UIAlertView("Feature Collection ID", "Please enter a portal item ID", (IUIAlertViewDelegate) null, "OK");
+                UIAlertView alert = new UIAlertView("Feature Collection ID", "Please enter a portal item ID", (IUIAlertViewDelegate) null, "OK");
                 alert.Show();
                 return;
             }

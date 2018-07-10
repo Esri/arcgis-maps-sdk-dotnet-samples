@@ -19,6 +19,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -107,7 +108,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         private void CreateLayout()
         {
             // Vertical stack layout
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Search bar
             _mySearchBox = new AutoCompleteTextView(this) { Text = "Coffee" };
@@ -127,7 +128,7 @@ namespace ArcGISRuntime.Samples.FindPlace
                 ViewGroup.LayoutParams.MatchParent,
                 1.0f
             );
-            var searchButtonLayout = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            LinearLayout searchButtonLayout = new LinearLayout(this) { Orientation = Orientation.Horizontal };
             _mySearchButton = new Button(this) { Text = "Search All", LayoutParameters = param};
             _mySearchRestrictedButton = new Button(this) { Text = "Search View", LayoutParameters = param };
 
@@ -280,11 +281,11 @@ namespace ArcGISRuntime.Samples.FindPlace
         private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
             // Get current assembly that contains the image
-            var currentAssembly = Assembly.GetExecutingAssembly();
+            Assembly currentAssembly = Assembly.GetExecutingAssembly();
 
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
-            var resourceStream = currentAssembly.GetManifestResourceStream(
+            Stream resourceStream = currentAssembly.GetManifestResourceStream(
                 "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream
@@ -377,7 +378,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user
-            var builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetMessage(message).SetTitle("Alert").Show();
         }
 

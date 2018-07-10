@@ -41,13 +41,13 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
             // Configure the UI options.
             gridTypePicker.ItemsSource = new[] {"LatLong", "MGRS", "UTM", "USNG"};
-            var colorItemsSource = new[] {"Red", "Green", "Blue", "White", "Purple"};
+            string[] colorItemsSource = {"Red", "Green", "Blue", "White", "Purple"};
             gridColorPicker.ItemsSource = colorItemsSource;
             labelColorPicker.ItemsSource = colorItemsSource;
             haloColorPicker.ItemsSource = colorItemsSource;
             labelPositionPicker.ItemsSource = Enum.GetNames(typeof(GridLabelPosition));
             labelFormatPicker.ItemsSource = Enum.GetNames(typeof(LatitudeLongitudeGridLabelFormat));
-            foreach (var combo in new[]
+            foreach (Picker combo in new[]
                 {gridTypePicker, gridColorPicker, labelColorPicker, labelPositionPicker, labelFormatPicker})
             {
                 combo.SelectedIndex = 0;

@@ -379,7 +379,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            var builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetMessage(message).SetTitle("Alert").Show();
         }
 

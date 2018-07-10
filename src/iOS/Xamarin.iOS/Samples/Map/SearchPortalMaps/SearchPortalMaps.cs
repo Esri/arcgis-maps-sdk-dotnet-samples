@@ -117,7 +117,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
             // Create a view to show entry controls over the map view.
-            var ovBounds = new CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height);
+            CGRect ovBounds = new CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height);
             _oauthInfoUi = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, _appClientId, _oAuthRedirectUrl);
 
             // Handle the OnOAuthPropsInfoEntered event to get the info entered by the user.
@@ -163,7 +163,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             try
             {
                 // Get the segmented button control that raised the event.
-                var buttonControl = sender as UISegmentedControl;
+                UISegmentedControl buttonControl = sender as UISegmentedControl;
 
                 switch (buttonControl.SelectedSegment)
                 {
@@ -197,7 +197,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
             // Create a view to show map item info entry controls over the map view.
-            var ovBounds = new CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height);
+            CGRect ovBounds = new CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height);
             _searchMapsUi = new SearchMapsDialogOverlay(ovBounds, 0.75f, UIColor.White);
 
             // Handle the OnSearchMapsTextEntered event to get the info entered by the user.
@@ -220,7 +220,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             }
 
             // Connect to the portal (will connect using the provided credentials).
-            var portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
+            ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
 
             // Get the user's content (items in the root folder and a collection of sub-folders).
             PortalUserContent myContent = await portal.User.GetContentAsync();
@@ -246,7 +246,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             try
             {
                 // Connect to the portal (anonymously).
-                var portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
 
                 // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags.
                 string queryExpression = $"tags:\"{e.SearchText}\" access:public type: (\"web map\" NOT \"web mapping application\")";
@@ -284,7 +284,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             UIAlertController mapListActionSheet = UIAlertController.Create("Web maps", "Choose a map", UIAlertControllerStyle.ActionSheet);
 
             // Add actions to load the available web maps.
-            foreach (var item in webmapItems)
+            foreach (PortalItem item in webmapItems)
             {
                 mapListActionSheet.AddAction(UIAlertAction.Create(item.Title, UIAlertActionStyle.Default, async action => await DisplayMap(item.Url)));
             }
@@ -306,14 +306,14 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
         private async Task DisplayMap(Uri webMapUri)
         {
-            var webMap = new Map(webMapUri);
+            Map webMap = new Map(webMapUri);
             try
             {
                 await webMap.LoadAsync();
             }
             catch (Esri.ArcGISRuntime.ArcGISRuntimeException e)
             {
-                var alert = new UIAlertView("Map Load Error", e.Message, (IUIAlertViewDelegate) null, "OK", null);
+                UIAlertView alert = new UIAlertView("Map Load Error", e.Message, (IUIAlertViewDelegate) null, "OK", null);
                 alert.Show();
             }
 
@@ -326,16 +326,16 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
             // Get the current status.
-            var status = e.Status;
+            LoadStatus status = e.Status;
 
             // Report errors if map failed to load.
             if (status == Esri.ArcGISRuntime.LoadStatus.FailedToLoad)
             {
-                var map = sender as Map;
-                var err = map.LoadError;
+                Map map = sender as Map;
+                Exception err = map.LoadError;
                 if (err != null)
                 {
-                    var alert = new UIAlertView("Map Load Error", err.Message, (IUIAlertViewDelegate) null, "OK", null);
+                    UIAlertView alert = new UIAlertView("Map Load Error", err.Message, (IUIAlertViewDelegate) null, "OK", null);
                     alert.Show();
                 }
             }
@@ -398,7 +398,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 challengeRequest.ServiceUri = new Uri(ServerUrl);
 
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler.
-                var cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
+                Credential cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
                 loggedIn = cred != null;
             }
             catch (OperationCanceledException)
@@ -409,7 +409,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             catch (Exception ex)
             {
                 // Login failure.
-                var alert = new UIAlertView("Login Error", ex.Message, (IUIAlertViewDelegate) null, "OK", null);
+                UIAlertView alert = new UIAlertView("Login Error", ex.Message, (IUIAlertViewDelegate) null, "OK", null);
                 alert.Show();
             }
 
@@ -560,7 +560,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             nfloat controlY = 5;
 
             // Label for inputs.
-            var description = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
+            UILabel description = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = "OAuth settings",
                 TextColor = UIColor.Black
@@ -570,7 +570,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             controlY = controlY + controlHeight + rowSpace;
 
             // Client ID text input and label.
-            var clientIdLabel = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
+            UILabel clientIdLabel = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = "Client ID"
             };
@@ -597,7 +597,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             controlY = controlY + controlHeight + rowSpace;
 
             // Redirect URL text input and label.
-            var redirectLabel = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
+            UILabel redirectLabel = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = "Redirect URL"
             };
@@ -667,7 +667,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Make sure all required info was entered.
             if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(redirectUrl))
             {
-                var alert = new UIAlertView("Error", "Please enter a client ID and redirect URL for OAuth authentication.", (IUIAlertViewDelegate) null, "OK", null);
+                UIAlertView alert = new UIAlertView("Error", "Please enter a client ID and redirect URL for OAuth authentication.", (IUIAlertViewDelegate) null, "OK", null);
                 alert.Show();
                 return;
             }
@@ -676,7 +676,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             if (OnOAuthPropsInfoEntered != null)
             {
                 // Create a new OAuthPropsSavedEventArgs to contain the user's values.
-                var oauthSaveEventArgs = new OAuthPropsSavedEventArgs(clientId, redirectUrl);
+                OAuthPropsSavedEventArgs oauthSaveEventArgs = new OAuthPropsSavedEventArgs(clientId, redirectUrl);
 
                 // Raise the event
                 OnOAuthPropsInfoEntered(sender, oauthSaveEventArgs);
@@ -732,7 +732,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             nfloat controlY = 5;
 
             // Label for inputs.
-            var description = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
+            UILabel description = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = "Search web maps",
                 TextColor = UIColor.Black
@@ -812,7 +812,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             if (OnSearchMapsTextEntered != null)
             {
                 // Create a new MapSavedEventArgs to contain the user's values.
-                var mapSaveEventArgs = new SearchMapsEventArgs(searchText);
+                SearchMapsEventArgs mapSaveEventArgs = new SearchMapsEventArgs(searchText);
 
                 // Raise the event.
                 OnSearchMapsTextEntered(sender, mapSaveEventArgs);

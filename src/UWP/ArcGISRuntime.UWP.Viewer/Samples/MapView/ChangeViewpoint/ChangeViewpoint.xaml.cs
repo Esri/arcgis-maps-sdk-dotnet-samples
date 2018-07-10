@@ -71,7 +71,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeViewpoint
         {
             // Get .Content from the selected item
             Button myButton = sender as Button;
-            var selectedMapTitle = myButton.Content.ToString();
+            string selectedMapTitle = myButton.Content.ToString();
 
             switch (selectedMapTitle)
             {
@@ -97,7 +97,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeViewpoint
                         new Viewpoint(MyMapView.Map.Basemap.BaseLayers.First().FullExtent));
 
                     // Create a new Viewpoint using the specified geometry
-                    var viewpoint = new Viewpoint(_edinburghEnvelope);
+                    Viewpoint viewpoint = new Viewpoint(_edinburghEnvelope);
 
                     // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
                     await MyMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));

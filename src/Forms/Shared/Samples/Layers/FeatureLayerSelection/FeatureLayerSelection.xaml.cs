@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
         private async void Initialize()
         {
             // Create new Map with basemap
-            var myMap = new Map(Basemap.CreateTopographic());
+            Map myMap = new Map(Basemap.CreateTopographic());
 
             // Create envelope to be used as a target extent for map's initial viewpoint
             Envelope myEnvelope = new Envelope(
@@ -58,7 +58,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
                 "https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0");
 
             // Initialize feature table using a url to feature server url
-            var featureTable = new ServiceFeatureTable(featureServiceUri);
+            ServiceFeatureTable featureTable = new ServiceFeatureTable(featureServiceUri);
 
             // Initialize a new feature layer based on the feature table
             _featureLayer = new FeatureLayer(featureTable);
@@ -103,11 +103,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
                 if (MyMapView.IsWrapAroundEnabled) { geometry = GeometryEngine.NormalizeCentralMeridian(geometry) as MapPoint; }
 
                 // Define the envelope around the tap location for selecting features
-                var selectionEnvelope = new Envelope(geometry.X - mapTolerance, geometry.Y - mapTolerance, geometry.X + mapTolerance,
+                Envelope selectionEnvelope = new Envelope(geometry.X - mapTolerance, geometry.Y - mapTolerance, geometry.X + mapTolerance,
                     geometry.Y + mapTolerance, MyMapView.Map.SpatialReference);
 
                 // Define the query parameters for selecting features
-                var queryParams = new QueryParameters();
+                QueryParameters queryParams = new QueryParameters();
 
                 // Set the geometry to selection envelope for selection by geometry
                 queryParams.Geometry = selectionEnvelope;

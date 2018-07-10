@@ -202,7 +202,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             catch (System.Exception ex)
             {
                 // Display an error message if there is a problem generating convex hull operation.
-                var alertBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("There was a problem generating the convex hull.");
                 alertBuilder.SetMessage(ex.ToString());
                 alertBuilder.Show();
@@ -235,7 +235,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             layout.AddView(sampleInstructionsTextView);
 
             // Create a horizontal sub layout for the text view and switch controls.
-            var subLayout2 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            LinearLayout subLayout2 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Create a TextView for the union label.
             TextView unionInstructionsTextView = new TextView(this);

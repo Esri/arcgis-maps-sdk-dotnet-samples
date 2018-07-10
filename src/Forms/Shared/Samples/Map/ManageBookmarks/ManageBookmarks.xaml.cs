@@ -89,16 +89,16 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private void BookmarkPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Get the selected bookmarks name
-            var selectedBookmarkName = bookmarkPicker.Items[bookmarkPicker.SelectedIndex];
+            string selectedBookmarkName = bookmarkPicker.Items[bookmarkPicker.SelectedIndex];
 
             // Get the collection of bookmarks in the map
             BookmarkCollection myBookmarkCollection = MyMapView.Map.Bookmarks;
 
             // Loop through each bookmark
-            foreach (var myBookmark in myBookmarkCollection)
+            foreach (Bookmark myBookmark in myBookmarkCollection)
             {
                 // Get the bookmarks name
-                var theBookmarkName = myBookmark.Name;
+                string theBookmarkName = myBookmark.Name;
 
                 // If the selected bookmarks name matches one in the bookmark collection
                 // set that to be the maps viewpoint
@@ -118,10 +118,10 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private async void ButtonAddBookmark_Clicked(object sender, EventArgs e)
         {
             // Create root layout
-            var layout = new StackLayout();
+            StackLayout layout = new StackLayout();
 
             // Label for the UI to let the user know to add a bookmark
-            var myLabel = new Label();
+            Label myLabel = new Label();
             myLabel.Text = "Bookmark Name:";
             layout.Children.Add(myLabel);
 
@@ -130,7 +130,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             layout.Children.Add(myEntryBookmarkName);
 
             // Button to accept the users bookmark name
-            var okButton = new Button();
+            Button okButton = new Button();
             okButton.Text = "OK";
             okButton.Clicked += OkButton_Clicked;
             layout.Children.Add(okButton);
@@ -149,7 +149,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private void OkButton_Clicked(object sender, EventArgs e)
         {
             // Get the name from the text field
-            var name = myEntryBookmarkName.Text;
+            string name = myEntryBookmarkName.Text;
 
             // Exit if the name is empty
             if (string.IsNullOrEmpty(name))

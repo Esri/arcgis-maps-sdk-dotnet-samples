@@ -105,7 +105,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             layout.AddView(_Label_SlopeTypes);
 
             // Create button to choose a specific SlopeType
-            var slopeTypesButton = new Button(this);
+            Button slopeTypesButton = new Button(this);
             slopeTypesButton.Text = "SlopeTypes";
             slopeTypesButton.Click += SlopeTypesButton_Click;
             layout.AddView(slopeTypesButton);
@@ -116,7 +116,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             layout.AddView(_Label_ColorRamps);
 
             // Create button to choose a specific ColorRamp
-            var colorRampsButton = new Button(this);
+            Button colorRampsButton = new Button(this);
             colorRampsButton.Text = "Color Ramps";
             colorRampsButton.Click += ColorRampsButton_Click;
             layout.AddView(colorRampsButton);

@@ -114,7 +114,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
 
             // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
-            var queryExpression = $"tags:\"{searchText}\" access:public type: (\"web map\" NOT \"web mapping application\")";
+            string queryExpression = $"tags:\"{searchText}\" access:public type: (\"web map\" NOT \"web mapping application\")";
             
             // Create a query parameters object with the expression and a limit of 10 results
             PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
@@ -146,7 +146,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             ArcGISPortal portal;
 
             // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
-            var loggedIn = await EnsureLoggedInAsync();
+            bool loggedIn = await EnsureLoggedInAsync();
             if (!loggedIn) { return; }
 
             // Connect to the portal (will connect using the provided credentials)
@@ -192,13 +192,13 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
             // Get the current status
-            var status = e.Status;
+            LoadStatus status = e.Status;
 
             // Report errors if map failed to load
             if (status == Esri.ArcGISRuntime.LoadStatus.FailedToLoad)
             {
-                var map = sender as Map;
-                var err = map.LoadError;
+                Map map = sender as Map;
+                Exception err = map.LoadError;
                 if (err != null)
                 {
                     DisplayAlert(err.Message, "Map Load Error", "OK");
@@ -225,7 +225,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 challengeRequest.ServiceUri = new Uri(ArcGISOnlineUrl);
 
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                var cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
+                Credential cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
                 loggedIn = cred != null;
             }
             catch (OperationCanceledException)

@@ -46,7 +46,7 @@ namespace ArcGISRuntime.WPF.Samples.MapImageSublayerQuery
             myMap.InitialViewpoint = new Viewpoint(initialLocation, 6000000);
 
             // Create the URI to the USA map service.
-            var usaServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer");
+            Uri usaServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer");
 
             // Create a new ArcGISMapImageLayer that uses the service URI.
             ArcGISMapImageLayer usaMapImageLayer = new ArcGISMapImageLayer(usaServiceUri);

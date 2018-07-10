@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Mapping;
 using System.Linq;
 using System.Windows.Controls;
@@ -111,10 +112,10 @@ namespace ArcGISRuntime.WPF.Samples.ManageBookmarks
         private void ButtonAddDone_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             // Get the name from the text field
-            var name = TextBoxBookmarkName.Text;
+            string name = TextBoxBookmarkName.Text;
 
             // Exit if the name is empty
-            if (string.IsNullOrEmpty(name))
+            if (String.IsNullOrEmpty(name))
                 return;
 
             // Check to see if there is a bookmark with same name

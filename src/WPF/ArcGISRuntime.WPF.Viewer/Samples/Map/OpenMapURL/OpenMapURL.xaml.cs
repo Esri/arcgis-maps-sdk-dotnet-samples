@@ -62,10 +62,10 @@ namespace ArcGISRuntime.WPF.Samples.OpenMapURL
 
         private void OnMapsChooseSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            var selectedMap = e.AddedItems[0].ToString();
+            string selectedMap = e.AddedItems[0].ToString();
 
             // Get index that is used to get the selected url
-            var selectedIndex = _titles.ToList().IndexOf(selectedMap);
+            int selectedIndex = _titles.ToList().IndexOf(selectedMap);
 
             // Create a new Map instance with url of the webmap that selected
             MyMapView.Map = new Map(new Uri(_itemURLs[selectedIndex]));

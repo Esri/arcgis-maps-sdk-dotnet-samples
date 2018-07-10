@@ -128,7 +128,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create Button
             _uriButton = new Button(this);

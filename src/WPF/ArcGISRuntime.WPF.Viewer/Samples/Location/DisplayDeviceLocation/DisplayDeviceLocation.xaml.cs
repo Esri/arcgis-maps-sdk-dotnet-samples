@@ -77,7 +77,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDeviceLocation
         private void OnModeChooserSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             // Get index that is used to get the selected URL
-            var selectedIndex = ModeChooser.SelectedIndex;
+            int selectedIndex = ModeChooser.SelectedIndex;
 
             switch (selectedIndex)
             {

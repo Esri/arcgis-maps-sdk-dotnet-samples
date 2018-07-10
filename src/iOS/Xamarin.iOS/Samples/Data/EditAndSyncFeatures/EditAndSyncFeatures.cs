@@ -323,7 +323,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             envelopeBldr.Expand(0.70);
 
             // Get the (only) graphics overlay in the map view.
-            var extentOverlay = _myMapView.GraphicsOverlays.FirstOrDefault();
+            GraphicsOverlay extentOverlay = _myMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
             if (extentOverlay == null)

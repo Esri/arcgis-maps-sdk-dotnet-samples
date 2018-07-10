@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ArcGISRuntime.Samples.SketchOnMap
 {
@@ -75,7 +76,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             _myMapView.Map = myMap;
 
             // Set the sketch editor configuration to allow vertex editing, resizing, and moving
-            var config = _myMapView.SketchEditor.EditConfiguration;
+            SketchEditConfiguration config = _myMapView.SketchEditor.EditConfiguration;
             config.AllowVertexEditing = true;
             config.ResizeMode = SketchResizeMode.Uniform;
             config.AllowMove = true;
@@ -92,11 +93,11 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private void CreateLayout()
         {
             // Create horizontal layouts for the buttons at the top
-            var buttonLayoutOne = new LinearLayout(this) { Orientation = Orientation.Horizontal };
-            var buttonLayoutTwo = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            LinearLayout buttonLayoutOne = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            LinearLayout buttonLayoutTwo = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Button to sketch a selected geometry type on the map view
-            var sketchButton = new Button(this);
+            Button sketchButton = new Button(this);
             sketchButton.Text = "Sketch";
             sketchButton.Click += OnSketchClicked;
 
@@ -138,7 +139,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             buttonLayoutTwo.AddView(_doneButton);
 
             // Create a new vertical layout for the app (buttons followed by map view)
-            var mainLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout mainLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the button layouts
             mainLayout.AddView(buttonLayoutOne);
@@ -153,20 +154,20 @@ namespace ArcGISRuntime.Samples.SketchOnMap
 
         private void OnSketchClicked(object sender, EventArgs e)
         {
-            var sketchButton = sender as Button;
+            Button sketchButton = sender as Button;
 
             // Create a dictionary of enum names and values
-            var enumValues = Enum.GetValues(typeof(SketchCreationMode)).Cast<int>();
+            IEnumerable<int> enumValues = Enum.GetValues(typeof(SketchCreationMode)).Cast<int>();
             _sketchModeDictionary = enumValues.ToDictionary(v => Enum.GetName(typeof(SketchCreationMode), v), v => v);
 
             // Create a menu to show sketch modes
-            var sketchModesMenu = new PopupMenu(sketchButton.Context, sketchButton);
+            PopupMenu sketchModesMenu = new PopupMenu(sketchButton.Context, sketchButton);
             sketchModesMenu.MenuItemClick += OnSketchModeItemClicked;
 
             // Create a menu option for each basemap type
-            foreach (var mode in _sketchModeDictionary)
+            foreach (string mode in _sketchModeDictionary.Keys)
             {
-                sketchModesMenu.Menu.Add(mode.Key);
+                sketchModesMenu.Menu.Add(mode);
             }
 
             // Show menu in the view
@@ -178,7 +179,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             try
             {
                 // Get the title of the selected menu item (sketch mode)
-                var sketchModeName = e.Item.TitleCondensedFormatted.ToString();
+                string sketchModeName = e.Item.TitleCondensedFormatted.ToString();
 
                 // Let the user draw on the map view using the chosen sketch mode
                 SketchCreationMode creationMode = (SketchCreationMode)_sketchModeDictionary[sketchModeName];
@@ -195,7 +196,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                var alertBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("Error drawing graphic shape");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();
@@ -223,7 +224,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                var alertBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("Error editing shape");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();
@@ -280,7 +281,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private void CanExecuteChanged(object sender, EventArgs e)
         {
             // Enable or disable the corresponding command for the sketch editor
-            var command = sender as System.Windows.Input.ICommand;
+            ICommand command = (ICommand)sender;
             if (command == _myMapView.SketchEditor.UndoCommand)
             {
                 _undoButton.Enabled = command.CanExecute(null);
@@ -346,13 +347,13 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private async Task<Graphic> GetGraphicAsync()
         {
             // Wait for the user to click a location on the map
-            var mapPoint = (MapPoint)await _myMapView.SketchEditor.StartAsync(SketchCreationMode.Point, false);
+            Geometry mapPoint = await _myMapView.SketchEditor.StartAsync(SketchCreationMode.Point, false);
 
             // Convert the map point to a screen point
-            var screenCoordinate = _myMapView.LocationToScreen(mapPoint);
+            Android.Graphics.PointF screenCoordinate = _myMapView.LocationToScreen((MapPoint)mapPoint);
 
             // Identify graphics in the graphics overlay using the point
-            var results = await _myMapView.IdentifyGraphicsOverlaysAsync(screenCoordinate, 2, false);
+            IReadOnlyList<IdentifyGraphicsOverlayResult> results = await _myMapView.IdentifyGraphicsOverlaysAsync(screenCoordinate, 2, false);
 
             // If results were found, get the first graphic
             Graphic graphic = null;
@@ -386,7 +387,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                var alertBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("Error drawing graphic shape");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();
@@ -414,7 +415,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                var alertBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("Error editing shape");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();

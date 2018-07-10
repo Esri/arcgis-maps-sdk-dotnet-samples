@@ -174,7 +174,7 @@ namespace ArcGISRuntime.Samples.BufferList
             catch (Exception ex)
             {
                 // Display an error message if there is a problem generating the buffer polygon.
-                var alertBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("There was a problem generating buffers.");
                 alertBuilder.SetMessage(ex.ToString());
                 alertBuilder.Show();
@@ -197,7 +197,7 @@ namespace ArcGISRuntime.Samples.BufferList
             layout.AddView(sampleInstructionsTextView);
 
             // Create a horizontal sub layout for the text view and edit text controls.
-            var subLayout1 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            LinearLayout subLayout1 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Create a TextView for instructions.
             TextView bufferDistanceInstructionsTextView = new TextView(this);
@@ -212,7 +212,7 @@ namespace ArcGISRuntime.Samples.BufferList
             layout.AddView(subLayout1);
 
             // Create a horizontal sub layout for the text view and swicth controls.
-            var subLayout2 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            LinearLayout subLayout2 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Create a TextView for instructions.
             TextView unionInstructionsTextView = new TextView(this);

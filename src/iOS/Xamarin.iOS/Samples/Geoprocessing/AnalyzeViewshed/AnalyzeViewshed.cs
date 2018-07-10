@@ -118,10 +118,10 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             // is a problem with the execution of the geoprocessing task an error message will be displayed.
 
             // Create new geoprocessing task using the URL defined in the member variables section.
-            var viewshedTask = await GeoprocessingTask.CreateAsync(new Uri(ViewshedServiceUrl));
+            GeoprocessingTask viewshedTask = await GeoprocessingTask.CreateAsync(new Uri(ViewshedServiceUrl));
 
             // Create a new feature collection table based upon point geometries using the current map view spatial reference.
-            var inputFeatures = new FeatureCollectionTable(new List<Field>(), GeometryType.Point, _myMapView.SpatialReference);
+            FeatureCollectionTable inputFeatures = new FeatureCollectionTable(new List<Field>(), GeometryType.Point, _myMapView.SpatialReference);
 
             // Create a new feature from the feature collection table. It will not have a coordinate location (x,y) yet.
             Feature inputFeature = inputFeatures.CreateFeature();
@@ -142,7 +142,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             viewshedParameters.Inputs.Add("Input_Observation_Point", new GeoprocessingFeatures(inputFeatures));
 
             // Create the job that handles the communication between the application and the geoprocessing task.
-            var viewshedJob = viewshedTask.CreateJob(viewshedParameters);
+            GeoprocessingJob viewshedJob = viewshedTask.CreateJob(viewshedParameters);
 
             try
             {
@@ -153,7 +153,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
                 GeoprocessingFeatures viewshedResultFeatures = analysisResult.Outputs["Viewshed_Result"] as GeoprocessingFeatures;
 
                 // Add all the results as a graphics to the map.
-                foreach (var feature in viewshedResultFeatures.Features)
+                foreach (Feature feature in viewshedResultFeatures.Features)
                 {
                     _resultOverlay.Graphics.Add(new Graphic(feature.Geometry));
                 }

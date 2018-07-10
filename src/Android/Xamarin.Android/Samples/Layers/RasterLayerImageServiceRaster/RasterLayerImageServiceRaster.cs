@@ -46,7 +46,7 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
             Map myMap = new Map(Basemap.CreateDarkGrayCanvasVector());
 
             // Create a Uri to the image service raster
-            var myUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NLCDLandCover2001/ImageServer");
+            Uri myUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NLCDLandCover2001/ImageServer");
 
             // Create new image service raster from the Uri
             ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(myUri);
@@ -78,7 +78,7 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

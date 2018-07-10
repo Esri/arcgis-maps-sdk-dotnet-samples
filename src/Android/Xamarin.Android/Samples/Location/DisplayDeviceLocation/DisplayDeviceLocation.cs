@@ -69,15 +69,17 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 
         private void OnStartButtonClicked(object sender, EventArgs e)
         {
-            var startButton = sender as Button;
+            Button startButton = (Button)sender;
 
             // Create menu to show navigation options
-            var navigationMenu = new PopupMenu(this, startButton);
+            PopupMenu navigationMenu = new PopupMenu(this, startButton);
             navigationMenu.MenuItemClick += OnNavigationMenuItemClicked;
 
             // Create menu options
-            foreach (var navigationType in _navigationTypes)
+            foreach (string navigationType in _navigationTypes)
+            {
                 navigationMenu.Menu.Add(navigationType);
+            }
 
             // Show menu in the view
             navigationMenu.Show();
@@ -86,10 +88,10 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         private void OnNavigationMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
         {
             // Get title from the selected item
-            var selectedNavigationType = e.Item.TitleCondensedFormatted.ToString();
+            string selectedNavigationType = e.Item.TitleCondensedFormatted.ToString();
 
             // Get index that is used to get the selected url
-            var selectedIndex = _navigationTypes.ToList().IndexOf(selectedNavigationType);
+            int selectedIndex = _navigationTypes.ToList().IndexOf(selectedNavigationType);
 
             switch (selectedIndex)
             {
@@ -135,15 +137,15 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         {
 
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create button to show possible navigation options
-            var startButton = new Button(this);
+            Button startButton = new Button(this);
             startButton.Text = "Start";
             startButton.Click += OnStartButtonClicked;
 
             // Create button to stop navigation
-            var stopButton = new Button(this);
+            Button stopButton = new Button(this);
             stopButton.Text = "Stop";
             stopButton.Click += OnStopButtonClicked;
 

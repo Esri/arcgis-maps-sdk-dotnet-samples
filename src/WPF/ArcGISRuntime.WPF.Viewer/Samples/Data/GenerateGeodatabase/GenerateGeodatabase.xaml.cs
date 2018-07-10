@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Esri.ArcGISRuntime.ArcGISServices;
 
 namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
 {
@@ -90,7 +91,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
                 _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
                 // Add all graphics from the service to the map.
-                foreach (var layer in _gdbSyncTask.ServiceInfo.LayerInfos)
+                foreach (IdInfo layer in _gdbSyncTask.ServiceInfo.LayerInfos)
                 {
                     // Create the ServiceFeatureTable for this layer.
                     ServiceFeatureTable onlineTable = new ServiceFeatureTable(new Uri(_featureServiceUri + "/" + layer.Id));
@@ -139,7 +140,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
             envelopeBldr.Expand(0.80);
 
             // Get the (only) graphics overlay in the map view.
-            var extentOverlay = MyMapView.GraphicsOverlays.FirstOrDefault();
+            GraphicsOverlay extentOverlay = MyMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
             if (extentOverlay == null) { return; }
@@ -232,8 +233,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
                 else
                 {
                     // If no error, show messages from the _generateGdbJob.
-                    var m = from msg in _generateGdbJob.Messages select msg.Message;
-                    message += ": " + string.Join<string>("\n", m);
+                    message += ": " + string.Join("\n", _generateGdbJob.Messages.Select(m => m.Message));
                 }
 
                 MessageBox.Show(message);

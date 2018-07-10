@@ -139,7 +139,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             _mySceneView.AnalysisOverlays.Add(myAnalysisOverlay);
 
             // Create a timer; this will enable animating the taxi.
-            var timer = new Timer(120);
+            Timer timer = new Timer(120);
             // Move the taxi every time the timer expires.
             timer.Elapsed += AnimationTimer_Elapsed;
             // Keep the timer running continuously.

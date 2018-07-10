@@ -58,7 +58,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             ImageSource streamImageSource = ImageSource.FromStream(() => new MemoryStream(imageData));
 
             // Create a new image to display the thumbnail
-            var image = new Image()
+            Image image = new Image()
             {
                 Source = streamImageSource,
                 Margin = new Thickness(10)

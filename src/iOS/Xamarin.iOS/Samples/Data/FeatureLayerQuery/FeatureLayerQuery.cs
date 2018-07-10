@@ -172,13 +172,13 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
                 }
                 else
                 {
-                    var alert = new UIAlertView("State Not Found!", "Add a valid state name.", (IUIAlertViewDelegate) null, "OK", null);
+                    UIAlertView alert = new UIAlertView("State Not Found!", "Add a valid state name.", (IUIAlertViewDelegate) null, "OK", null);
                     alert.Show();
                 }
             }
             catch (Exception ex)
             {
-                var alert = new UIAlertView("Sample error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null);
+                UIAlertView alert = new UIAlertView("Sample error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null);
                 alert.Show();
             }
         }

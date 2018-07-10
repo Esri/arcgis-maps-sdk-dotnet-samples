@@ -46,7 +46,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             Map myMap = new Map();
 
             // Create the uri for the tiled layer
-            var tiledLayerUri = new Uri(
+            Uri tiledLayerUri = new Uri(
                 "https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer");
 
             // Create a tiled layer using url
@@ -57,7 +57,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             myMap.OperationalLayers.Add(tiledLayer);
 
             // Create the uri for the ArcGISMapImage layer
-            var imageLayerUri = new Uri(
+            Uri imageLayerUri = new Uri(
                 "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer");
 
             // Create ArcGISMapImage layer using a url
@@ -72,7 +72,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             myMap.OperationalLayers.Add(imageLayer);
 
             // Create Uri for feature layer
-            var featureLayerUri = new Uri(
+            Uri featureLayerUri = new Uri(
                 "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0");
 
             // Create a feature layer using url
@@ -108,7 +108,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         {
             // State changed event is sent by a layer. In the list, find the layer which sends this event. 
             // If it exists then update the status
-            var model = _layerStatusModels.FirstOrDefault(l => l.LayerName == e.Layer.Name);
+            LayerStatusModel model = _layerStatusModels.FirstOrDefault(l => l.LayerName == e.Layer.Name);
             if (model != null)
                 model.LayerViewStatus = e.LayerViewState.Status.ToString();
         }

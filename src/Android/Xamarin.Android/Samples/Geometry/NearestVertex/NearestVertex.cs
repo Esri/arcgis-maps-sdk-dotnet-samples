@@ -140,7 +140,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
 
         private void CreateLayout()
         {
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create the result label
             _resultTextView = new TextView(this) { Text = "Tap to see the nearest vertex and point." };

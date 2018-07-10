@@ -123,7 +123,7 @@ namespace ArcGISRuntime.UWP.Samples.CreateFeatureCollectionLayer
 
         private async void CollectionLayer_Loaded(object sender, EventArgs e)
         {
-            var collectionLayer = sender as FeatureCollectionLayer;
+            FeatureCollectionLayer collectionLayer = sender as FeatureCollectionLayer;
              await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
              {
                  MyMapView.SetViewpointAsync(new Viewpoint(collectionLayer.FullExtent));
@@ -148,7 +148,7 @@ namespace ArcGISRuntime.UWP.Samples.CreateFeatureCollectionLayer
                     break;
                 case GeometryType.Polygon:
                     // Create a fill symbol
-                    var lineSym = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.DarkBlue, 2);
+                    SimpleLineSymbol lineSym = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.DarkBlue, 2);
                     sym = new SimpleFillSymbol(SimpleFillSymbolStyle.DiagonalCross, Color.Cyan, lineSym);
                     break;
                 default:

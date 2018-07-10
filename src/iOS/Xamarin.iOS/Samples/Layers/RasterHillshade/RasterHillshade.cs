@@ -128,7 +128,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             }
 
             // Create a view to show map item info entry controls over the map view.
-            var ovBounds = new CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
+            CGRect ovBounds = new CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
             _applyHillshadeRendererUi = new ApplyHillshadeRendererDialogOverlay(ovBounds, 0.9f, UIColor.White);
 
             // Handle the OnHillshadeInputsEntered event to get the new renderer defined by the user.

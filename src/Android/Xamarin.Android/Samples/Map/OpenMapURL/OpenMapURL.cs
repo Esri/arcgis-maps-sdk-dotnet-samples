@@ -67,14 +67,14 @@ namespace ArcGISRuntime.Samples.OpenMapURL
 
         private void OnMapsClicked(object sender, EventArgs e)
         {
-            var mapsButton = sender as Button;
+            Button mapsButton = (Button)sender;
 
             // Create menu to show map options
-            var mapsMenu = new PopupMenu(this, mapsButton);
+            PopupMenu mapsMenu = new PopupMenu(this, mapsButton);
             mapsMenu.MenuItemClick += OnMapsMenuItemClicked;
 
             // Create menu options
-            foreach (var title in titles)
+            foreach (string title in titles)
                 mapsMenu.Menu.Add(title);
 
             // Show menu in the view
@@ -84,10 +84,10 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         private void OnMapsMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
         {
             // Get title from the selected item
-            var selectedMapTitle = e.Item.TitleCondensedFormatted.ToString();
+            string selectedMapTitle = e.Item.TitleCondensedFormatted.ToString();
 
             // Get index that is used to get the selected url
-            var selectedIndex = titles.ToList().IndexOf(selectedMapTitle);
+            int selectedIndex = titles.ToList().IndexOf(selectedMapTitle);
 
             // Create a new Map instance with url of the webmap that selected
             _myMapView.Map = new Map(new Uri(itemURLs[selectedIndex]));
@@ -96,10 +96,10 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create button to show possible map options
-            var mapsButton = new Button(this);
+            Button mapsButton = new Button(this);
             mapsButton.Text = "Maps";
             mapsButton.Click += OnMapsClicked;
 

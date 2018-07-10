@@ -282,7 +282,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a TextView to show which layers are currently in the map
             TextView myTextViewLabel1 = new TextView(this) { Text = "Layers in the Map" };

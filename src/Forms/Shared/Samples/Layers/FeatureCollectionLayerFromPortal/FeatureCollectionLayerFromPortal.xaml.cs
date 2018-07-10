@@ -79,10 +79,10 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
         private async void OpenPortalFeatureCollectionClick(object sender, EventArgs e)
         {
             // Get the portal item Id from the user.
-            var collectionItemId = CollectionItemIdTextBox.Text.Trim();
+            string collectionItemId = CollectionItemIdTextBox.Text.Trim();
 
             // Make sure an Id was entered.
-            if (string.IsNullOrEmpty(collectionItemId))
+            if (String.IsNullOrEmpty(collectionItemId))
             {
                 await DisplayAlert("Feature Collection ID", "Please enter a portal item ID", "OK");
                 return;

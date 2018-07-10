@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -92,8 +93,8 @@ namespace ArcGISRuntime.Samples.FindAddress
         private void CreateLayout()
         {
             //initialize the layout
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
-            var searchBarLayout = new LinearLayout(this);
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout searchBarLayout = new LinearLayout(this);
             // Add the search bar
             _addressSearchBar = new EditText(this)
             {
@@ -140,7 +141,7 @@ namespace ArcGISRuntime.Samples.FindAddress
             // Provide the addresses; lambda updates the search with the selected item
             builder.SetTitle("Suggestions").SetItems(_addresses, (_sender, _e) =>
             {
-                var address = _addresses[_e.Which]; // get the selected address
+                string address = _addresses[_e.Which]; // get the selected address
                 _addressSearchBar.Text = address;
                 updateSearch();
             });
@@ -197,11 +198,11 @@ namespace ArcGISRuntime.Samples.FindAddress
         private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
             // Get current assembly that contains the image
-            var currentAssembly = Assembly.GetExecutingAssembly();
+            Assembly currentAssembly = Assembly.GetExecutingAssembly();
 
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
-            var resourceStream = currentAssembly.GetManifestResourceStream(
+            Stream resourceStream = currentAssembly.GetManifestResourceStream(
                 "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream

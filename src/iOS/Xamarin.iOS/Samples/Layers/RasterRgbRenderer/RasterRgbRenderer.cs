@@ -145,7 +145,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         private void SegmentButtonClicked(object sender, EventArgs e)
         {
             // Get the segmented button control that raised the event.
-            var buttonControl = sender as UISegmentedControl;
+            UISegmentedControl buttonControl = sender as UISegmentedControl;
 
             // Get the type of stretch inputs to show (title of the selected button).
             string stretchType = buttonControl.TitleAt(buttonControl.SelectedSegment);
@@ -165,7 +165,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             }
 
             // Create a view to show map item info entry controls over the map view
-            var ovBounds = new CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
+            CGRect ovBounds = new CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
             _updateRendererUi = new UpdateRendererDialogOverlay(ovBounds, 0.9f, UIColor.White, stretchType);
 
             // Handle the OnSearchMapsTextEntered event to get the info entered by the user
@@ -220,7 +220,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             Alpha = transparency;
 
             // Label to describe the type of input.
-            var descriptionLabel = new UILabel
+            UILabel descriptionLabel = new UILabel
             {
                 Text = "Stretch parameters (" + _stretchParamsType + ")",
                 TextAlignment = UITextAlignment.Center,

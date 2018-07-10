@@ -57,7 +57,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromQuery
             }
             catch (Exception ex)
             {
-                var alertBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage("Unable to create feature collection layer: " + ex.Message);
                 alertBuilder.Show();
@@ -91,7 +91,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromQuery
         private void CreateLayout()
         {
             // Create a new layout
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

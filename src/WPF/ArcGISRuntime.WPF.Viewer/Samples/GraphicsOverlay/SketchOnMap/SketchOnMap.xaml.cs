@@ -13,10 +13,12 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Drawing;
+using Point = System.Windows.Point;
 
 namespace ArcGISRuntime.WPF.Samples.SketchOnMap
 {
@@ -55,7 +57,7 @@ namespace ArcGISRuntime.WPF.Samples.SketchOnMap
             SketchModeComboBox.SelectedIndex = 0;
 
             // Set the sketch editor configuration to allow vertex editing, resizing, and moving
-            var config = MyMapView.SketchEditor.EditConfiguration;
+            SketchEditConfiguration config = MyMapView.SketchEditor.EditConfiguration;
             config.AllowVertexEditing = true;
             config.ResizeMode = SketchResizeMode.Uniform;
             config.AllowMove = true;
@@ -115,13 +117,13 @@ namespace ArcGISRuntime.WPF.Samples.SketchOnMap
         private async Task<Graphic> GetGraphicAsync()
         {
             // Wait for the user to click a location on the map
-            var mapPoint = (MapPoint)await MyMapView.SketchEditor.StartAsync(SketchCreationMode.Point, false);
+            Geometry mapPoint = await MyMapView.SketchEditor.StartAsync(SketchCreationMode.Point, false);
 
             // Convert the map point to a screen point
-            var screenCoordinate = MyMapView.LocationToScreen(mapPoint);
+            Point screenCoordinate = MyMapView.LocationToScreen((MapPoint)mapPoint);
 
             // Identify graphics in the graphics overlay using the point
-            var results = await MyMapView.IdentifyGraphicsOverlaysAsync(screenCoordinate, 2, false);
+            IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(screenCoordinate, 2, false);
 
             // If results were found, get the first graphic
             Graphic graphic = null;

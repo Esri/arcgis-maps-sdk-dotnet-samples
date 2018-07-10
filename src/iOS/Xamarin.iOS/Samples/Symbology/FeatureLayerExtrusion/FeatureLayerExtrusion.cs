@@ -54,7 +54,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             try
             {
                 // Define the URI for the service feature table (US state polygons).
-                var featureTableUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
+                Uri featureTableUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
 
                 // Create a new service feature table from the URI.
                 ServiceFeatureTable censusServiceFeatureTable = new ServiceFeatureTable(featureTableUri);

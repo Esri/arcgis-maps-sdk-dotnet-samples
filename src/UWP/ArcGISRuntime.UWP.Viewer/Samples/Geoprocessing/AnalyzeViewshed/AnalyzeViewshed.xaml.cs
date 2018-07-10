@@ -106,10 +106,10 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeViewshed
             // is a problem with the execution of the geoprocessing task an error message will be displayed
 
             // Create new geoprocessing task using the url defined in the member variables section
-            var myViewshedTask = await GeoprocessingTask.CreateAsync(new Uri(_viewshedUrl));
+            GeoprocessingTask myViewshedTask = await GeoprocessingTask.CreateAsync(new Uri(_viewshedUrl));
 
             // Create a new feature collection table based upon point geometries using the current map view spatial reference
-            var myInputFeatures = new FeatureCollectionTable(new List<Field>(), GeometryType.Point, MyMapView.SpatialReference);
+            FeatureCollectionTable myInputFeatures = new FeatureCollectionTable(new List<Field>(), GeometryType.Point, MyMapView.SpatialReference);
 
             // Create a new feature from the feature collection table. It will not have a coordinate location (x,y) yet
             Feature myInputFeature = myInputFeatures.CreateFeature();
@@ -131,7 +131,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeViewshed
             myViewshedParameters.Inputs.Add("Input_Observation_Point", new GeoprocessingFeatures(myInputFeatures));
 
             // Create the job that handles the communication between the application and the geoprocessing task
-            var myViewshedJob = myViewshedTask.CreateJob(myViewshedParameters);
+            GeoprocessingJob myViewshedJob = myViewshedTask.CreateJob(myViewshedParameters);
 
             try
             {
@@ -143,7 +143,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeViewshed
 
                 // Add all the results as a graphics to the map
                 IFeatureSet myViewshedAreas = myViewshedResultFeatures.Features;
-                foreach (var myFeature in myViewshedAreas)
+                foreach (Feature myFeature in myViewshedAreas)
                 {
                     _resultOverlay.Graphics.Add(new Graphic(myFeature.Geometry));
                 }
@@ -153,12 +153,12 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeViewshed
                 // Display an error message if there is a problem
                 if (myViewshedJob.Status == JobStatus.Failed && myViewshedJob.Error != null)
                 {
-                    var message = new MessageDialog("Executing geoprocessing failed. " + myViewshedJob.Error.Message, "Geoprocessing error");
+                    MessageDialog message = new MessageDialog("Executing geoprocessing failed. " + myViewshedJob.Error.Message, "Geoprocessing error");
                     await message.ShowAsync();
                 }
                 else
                 {
-                    var message = new MessageDialog("An error occurred. " + ex, "Sample error");
+                    MessageDialog message = new MessageDialog("An error occurred. " + ex, "Sample error");
                     await message.ShowAsync();
                 }
             }

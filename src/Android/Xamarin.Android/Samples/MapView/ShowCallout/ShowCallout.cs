@@ -60,7 +60,7 @@ namespace ArcGISRuntime.Samples.ShowCallout
 
         private void CreateLayout()
         {
-            var layout = new LinearLayout(this)
+            LinearLayout layout = new LinearLayout(this)
             {
                 Orientation = Orientation.Vertical
             };

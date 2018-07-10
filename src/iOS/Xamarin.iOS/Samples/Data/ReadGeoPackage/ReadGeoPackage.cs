@@ -174,7 +174,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         private void LayerSegmentedControl_ValueChanged(object sender, EventArgs e)
         {
             // Get the UISegmentedControl that raised the event.
-            var segmentedControl = sender as UISegmentedControl;
+            UISegmentedControl segmentedControl = sender as UISegmentedControl;
 
             switch (segmentedControl.SelectedSegment)
             {

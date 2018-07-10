@@ -71,7 +71,7 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
             myMap.InitialViewpoint = new Viewpoint(initialLocation, 500000);
 
             // Create URL to the used feature service.
-            var serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0");
+            Uri serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0");
 
             // Create feature table for the incident feature service.
             _incidentsFeatureTable = new ServiceFeatureTable(serviceUri)

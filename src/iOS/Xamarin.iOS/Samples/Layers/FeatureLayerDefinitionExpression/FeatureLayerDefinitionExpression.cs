@@ -120,7 +120,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
             _myMapView = new MapView();
 
             // Create a button to reset the renderer.
-            var resetButton = new UIBarButtonItem
+            UIBarButtonItem resetButton = new UIBarButtonItem
             {
                 Title = "Reset",
                 Style = UIBarButtonItemStyle.Plain
@@ -128,7 +128,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
             resetButton.Clicked += OnResetButtonClicked;
 
             // Create a button to apply new renderer.
-            var expressionButton = new UIBarButtonItem
+            UIBarButtonItem expressionButton = new UIBarButtonItem
             {
                 Title = "Apply Expression",
                 Style = UIBarButtonItemStyle.Plain

@@ -76,7 +76,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterHillshade
             MyMapView.Map = map;
 
             // Add slope type values to the combo box
-            foreach (var slope in Enum.GetValues(typeof(SlopeType)))
+            foreach (object slope in Enum.GetValues(typeof(SlopeType)))
             {
                 SlopeTypeCombo.Items.Add(slope);
             }

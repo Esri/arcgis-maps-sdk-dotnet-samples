@@ -64,7 +64,7 @@ namespace ArcGISRuntime.UWP.Samples.OAuth
         private void SetOAuthInfo()
         {
             // Register the server information with the AuthenticationManager.
-            var serverInfo = new ServerInfo
+            ServerInfo serverInfo = new ServerInfo
             {
                 ServerUri = new Uri(ServerUrl),
                 TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,

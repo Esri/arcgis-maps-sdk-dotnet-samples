@@ -24,6 +24,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Esri.ArcGISRuntime.ArcGISServices;
 
 namespace ArcGISRuntime.Samples.GenerateGeodatabase
 {
@@ -129,7 +130,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
                 // Add all graphics from the service to the map.
-                foreach (var layer in _gdbSyncTask.ServiceInfo.LayerInfos)
+                foreach (IdInfo layer in _gdbSyncTask.ServiceInfo.LayerInfos)
                 {
                     // Create the ServiceFeatureTable for this particular layer.
                     ServiceFeatureTable onlineTable = new ServiceFeatureTable(new Uri(_featureServiceUri + "/" + layer.Id));
@@ -178,7 +179,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             envelopeBldr.Expand(0.80);
 
             // Get the (only) graphics overlay in the map view.
-            var extentOverlay = myMapView.GraphicsOverlays.FirstOrDefault();
+            GraphicsOverlay extentOverlay = myMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
             if (extentOverlay == null) { return; }
@@ -281,8 +282,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 else
                 {
                     // If no error, show messages from the job.
-                    var m = from msg in job.Messages select msg.Message;
-                    message += ": " + string.Join<string>("\n", m);
+                    message += ": " + string.Join("\n", job.Messages.Select(m => m.Message));
                 }
 
                 // Show error message.
@@ -296,7 +296,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            var builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetMessage(message).SetTitle("Alert").Show();
         }
 

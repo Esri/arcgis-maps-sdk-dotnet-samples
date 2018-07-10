@@ -127,8 +127,7 @@ namespace ArcGISRuntime.Samples.FindRoute
             _routeGraphicsOverlay.Graphics.Add(routeGraphic);
 
             // Get a list of directions for the route and display it in the list box
-            var directions = from d in firstRoute.DirectionManeuvers select d.DirectionText;
-            DirectionsListBox.ItemsSource = directions;
+            DirectionsListBox.ItemsSource = firstRoute.DirectionManeuvers.Select(direction => direction.DirectionText);
         }
 
         private void ResetClick(object sender, EventArgs e)
@@ -138,7 +137,7 @@ namespace ArcGISRuntime.Samples.FindRoute
 
             // Remove the route graphic from the graphics overlay (only line graphic in the collection)
             int graphicsCount = _routeGraphicsOverlay.Graphics.Count;
-            for (var i = graphicsCount; i > 0; i--)
+            for (int i = graphicsCount; i > 0; i--)
             {
                 // Get this graphic and see if it has line geometry
                 Graphic g = _routeGraphicsOverlay.Graphics[i - 1];

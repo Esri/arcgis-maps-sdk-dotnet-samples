@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using System.Windows.Threading;
 
 namespace ArcGISRuntime.WPF.Samples.OAuth
 {
@@ -68,7 +69,7 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
         private void SetOAuthInfo()
         {
             // Register the server information with the AuthenticationManager, including the OAuth settings.
-            var serverInfo = new ServerInfo
+            ServerInfo serverInfo = new ServerInfo
             {
                 ServerUri = new Uri(ServerUrl),
                 TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,
@@ -155,12 +156,12 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
             // Call a function to show the login controls, make sure it runs on the UI thread.
-            var dispatcher = Application.Current.Dispatcher;
+            Dispatcher dispatcher = Application.Current.Dispatcher;
             if (dispatcher == null || dispatcher.CheckAccess())
                 AuthorizeOnUIThread(_authorizeUrl);
             else
             {
-                var authorizeOnUIAction = new Action((() => AuthorizeOnUIThread(_authorizeUrl)));
+                Action authorizeOnUIAction = () => AuthorizeOnUIThread(_authorizeUrl);
                 dispatcher.BeginInvoke(authorizeOnUIAction);
             }
 
@@ -172,7 +173,7 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
         private void AuthorizeOnUIThread(string authorizeUri)
         {
             // Create a WebBrowser control to display the authorize page.
-            var authBrowser = new WebBrowser();
+            WebBRowser authBrowser = new WebBrowser();
 
             // Handle the navigating event for the browser to check for a response sent to the redirect URL.
             authBrowser.Navigating += WebBrowserOnNavigating;
@@ -226,7 +227,7 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
         void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
         {
             // Check for a response to the callback url.
-            var webBrowser = sender as WebBrowser;
+            WebBrowser webBrowser = sender as WebBrowser;
             Uri uri = e.Uri;
 
             // If no browser, uri, or an empty url return.
@@ -254,7 +255,7 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
                 }
 
                 // Call a helper function to decode the response parameters (which includes the authorization key).
-                var authResponse = DecodeParameters(uri);
+                IDictionary<string,string> authResponse = DecodeParameters(uri);
 
                 // Set the result for the task completion source.
                 tcs.SetResult(authResponse);
@@ -265,7 +266,7 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
         private static IDictionary<string, string> DecodeParameters(Uri uri)
         {
             // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string.
-            var answer = string.Empty;
+            string answer = "";
 
             // Get the values from the URI fragment or query string.
             if (!string.IsNullOrEmpty(uri.Fragment))
@@ -281,11 +282,11 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
             }
 
             // Parse parameters into key / value pairs.
-            var keyValueDictionary = new Dictionary<string, string>();
-            var keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var kvString in keysAndValues)
+            Dictionary<string,string> keyValueDictionary = new Dictionary<string, string>();
+            string[] keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string kvString in keysAndValues)
             {
-                var pair = kvString.Split('=');
+                string[] pair = kvString.Split('=');
                 string key = pair[0];
                 string value = string.Empty;
                 if (key.Length > 1)

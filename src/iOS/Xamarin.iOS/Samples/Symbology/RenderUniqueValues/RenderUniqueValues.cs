@@ -67,7 +67,7 @@ namespace ArcGISRuntime.Samples.RenderUniqueValues
             Map myMap = new Map(Basemap.CreateTopographic());
 
             // Create URI pointing to the feature service.
-            var serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
+            Uri serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
 
             // Create service feature table.
             ServiceFeatureTable statesFeatureTable = new ServiceFeatureTable(serviceUri);

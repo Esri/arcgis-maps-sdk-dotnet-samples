@@ -88,7 +88,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             myMap.OperationalLayers.Add(tiledLayer);
 
             // Create the URL for the ArcGISMapImage layer.
-            var imageLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer");
+            Uri imageLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer");
 
             // Create ArcGISMapImage layer using a URL.
             ArcGISMapImageLayer imageLayer = new ArcGISMapImageLayer(imageLayerUri)
@@ -103,7 +103,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             myMap.OperationalLayers.Add(imageLayer);
 
             // Create Uri for feature layer.
-            var featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0");
+            Uri featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0");
 
             // Create a feature layer using URL.
             FeatureLayer myFeatureLayer = new FeatureLayer(featureLayerUri)
@@ -140,7 +140,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         {
             // State changed event is sent by a layer. In the list, find the layer which sends this event. 
             // If it exists then update the status.
-            var model = _layerStatusModels.FirstOrDefault(l => l.LayerName == e.Layer.Name);
+            LayerStatusModel model = _layerStatusModels.FirstOrDefault(l => l.LayerName == e.Layer.Name);
             if (model != null)
             {
                 model.LayerViewStatus = e.LayerViewState.Status.ToString();

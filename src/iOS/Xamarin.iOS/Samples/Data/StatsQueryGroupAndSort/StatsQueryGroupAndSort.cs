@@ -740,7 +740,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         public ChooseStatisticOverlay(CGRect frame, nfloat transparency, UIColor color, UIPickerView statPicker) : base(frame)
         {
             // Store the statistics picker.
-            var statisticPicker = statPicker;
+            UIPickerView statisticPicker = statPicker;
 
             // Create a semi-transparent overlay with the specified background color.
             BackgroundColor = color;

@@ -51,7 +51,7 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         private async void OnChangeBasemapButtonClicked(object sender, EventArgs e)
         {
             // Show sheet and get title from the selection
-            var selectedBasemap =
+            string selectedBasemap =
                 await DisplayActionSheet("Select basemap", "Cancel", null, _basemapOptions.Keys.ToArray());
 
             // Retrieve the basemap from the dictionary

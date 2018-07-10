@@ -54,7 +54,7 @@ namespace ArcGISRuntime.UWP.Samples.TokenSecuredChallenge
         private void Initialize()
         {
             // Create the public layer and provide a name.
-            var publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
+            ArcGISTiledLayer publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
             {
                 Name = _publicLayerName
             };
@@ -63,7 +63,7 @@ namespace ArcGISRuntime.UWP.Samples.TokenSecuredChallenge
             PublicLayerPanel.DataContext = publicLayer;
 
             // Create the secured layer and provide a name.
-            var tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
+            ArcGISMapImageLayer tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
             {
                 Name = _secureLayerName
             };
@@ -72,7 +72,7 @@ namespace ArcGISRuntime.UWP.Samples.TokenSecuredChallenge
             SecureLayerPanel.DataContext = tokenSecuredLayer;
 
             // Create a new map and add the layers.
-            var myMap = new Map();
+            Map myMap = new Map();
             myMap.OperationalLayers.Add(publicLayer);
             myMap.OperationalLayers.Add(tokenSecuredLayer);
 
@@ -115,7 +115,7 @@ namespace ArcGISRuntime.UWP.Samples.TokenSecuredChallenge
             {
                 // Create a new LoginInfo to store the entered username and password.
                 // Pass the CredentialRequestInfo object so the resource URI can be stored.
-                var loginInputInfo = new LoginInfo(info);
+                LoginInfo loginInputInfo = new LoginInfo(info);
 
                 // Set the login UI data context with the LoginInfo.
                 loginPanel.DataContext = loginInputInfo;
@@ -148,7 +148,7 @@ namespace ArcGISRuntime.UWP.Samples.TokenSecuredChallenge
             }
 
             // Get the login info from the task completion source.
-            var loginEntry = _loginTaskCompletionSource.Task.AsyncState as LoginInfo;
+            LoginInfo loginEntry = _loginTaskCompletionSource.Task.AsyncState as LoginInfo;
 
             try
             {
@@ -269,11 +269,7 @@ namespace ArcGISRuntime.UWP.Samples.TokenSecuredChallenge
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            var handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 

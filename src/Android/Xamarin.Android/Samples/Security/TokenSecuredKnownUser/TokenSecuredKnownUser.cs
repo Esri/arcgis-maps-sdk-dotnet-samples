@@ -59,7 +59,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a label for showing the load status for the public service.
             _publicLayerLabel = new TextView(this)
@@ -93,13 +93,13 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateKnownCredentials);
 
             // Create the public layer and provide a name.
-            var publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
+            ArcGISTiledLayer publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
             {
                 Name = _publicLayerName
             };
 
             // Create the secured layer and provide a name.
-            var tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
+            ArcGISMapImageLayer tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
             {
                 Name = _secureLayerName
             };
@@ -109,7 +109,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
             tokenSecuredLayer.LoadStatusChanged += LayerLoadStatusChanged;
 
             // Create a new map and add the layers.
-            var myMap = new Map();
+            Map myMap = new Map();
             myMap.OperationalLayers.Add(publicLayer);
             myMap.OperationalLayers.Add(tokenSecuredLayer);
 
@@ -121,7 +121,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
         private void LayerLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
             // Get the layer that triggered the event.
-            var layer = sender as Layer;
+            Layer layer = sender as Layer;
 
             // Get the label (TextView) for this layer.
             TextView labelToUpdate = null;
@@ -135,8 +135,8 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
             }
 
             // Create the text string and font color to describe the current load status.
-            var updateText = layer.Name;
-            var textColor = Color.Gray;
+            string updateText = layer.Name;
+            Color textColor = Color.Gray;
 
             switch (e.Status)
             {
@@ -196,7 +196,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
             catch (Exception ex)
             {
                 // Report error accessing a secured resource.
-                var alertBuilder = new AlertDialog.Builder(this.ApplicationContext);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this.ApplicationContext);
                 alertBuilder.SetTitle("Credential Error");
                 alertBuilder.SetMessage("Access to " + info.ServiceUri.AbsoluteUri + " denied. " + ex.Message);
                 alertBuilder.Show();

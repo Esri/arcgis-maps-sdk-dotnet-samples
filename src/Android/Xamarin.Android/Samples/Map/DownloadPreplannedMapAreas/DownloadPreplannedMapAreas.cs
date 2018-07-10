@@ -98,7 +98,7 @@ namespace ArcGISRuntime.Samples.DisplayMap
                 _preplannedMapAreas = await _offlineMapTask.GetPreplannedMapAreasAsync();
 
                 // Load each preplanned map area.
-                foreach (var area in _preplannedMapAreas)
+                foreach (PreplannedMapArea area in _preplannedMapAreas)
                 {
                     await area.LoadAsync();
                 }
@@ -133,7 +133,7 @@ namespace ArcGISRuntime.Samples.DisplayMap
             catch (Exception ex)
             {
                 // Something unexpected happened, show error message.
-                var builder = new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetMessage(ex.Message).SetTitle("An error occurred").Show();
             }
         }
@@ -146,12 +146,12 @@ namespace ArcGISRuntime.Samples.DisplayMap
             _progressIndicator.Show();
 
             // Get the path for the downloaded map area.
-            var path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
+            string path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
 
             // If the map area is already downloaded, open it and don't download it again.
             if (Directory.Exists(path))
             {
-                var localMapArea = await MobileMapPackage.OpenAsync(path);
+                MobileMapPackage localMapArea = await MobileMapPackage.OpenAsync(path);
                 try
                 {
                     // Load the map area.
@@ -183,7 +183,7 @@ namespace ArcGISRuntime.Samples.DisplayMap
                 // Handle possible errors and show them to the user.
                 if (results.HasErrors)
                 {
-                    var errorBuilder = new StringBuilder();
+                    StringBuilder errorBuilder = new StringBuilder();
 
                     // Add layer errors to the message.
                     foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
@@ -198,7 +198,7 @@ namespace ArcGISRuntime.Samples.DisplayMap
                     }
 
                     // Show the error message.
-                    var builder = new AlertDialog.Builder(this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.SetMessage(errorBuilder.ToString()).SetTitle("Warning!").Show();
                 }
 
@@ -208,7 +208,7 @@ namespace ArcGISRuntime.Samples.DisplayMap
             catch (Exception ex)
             {
                 // Report exception.
-                var builder = new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetMessage(ex.Message).SetTitle("Downloading map area failed.").Show();
             }
             finally
@@ -221,7 +221,7 @@ namespace ArcGISRuntime.Samples.DisplayMap
         private void OnJobProgressChanged(object sender, EventArgs e)
         {
             // Get the download job.
-            var downloadJob = sender as DownloadPreplannedOfflineMapJob;
+            DownloadPreplannedOfflineMapJob downloadJob = sender as DownloadPreplannedOfflineMapJob;
             if (downloadJob == null) return;
 
             // UI work needs to be done on the UI thread.
@@ -245,7 +245,7 @@ namespace ArcGISRuntime.Samples.DisplayMap
             catch (Exception ex)
             {
                 // No match found.
-                var builder = new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetMessage(ex.Message).SetTitle("Downloading map area failed.").Show();
             }
         }
@@ -280,7 +280,7 @@ namespace ArcGISRuntime.Samples.DisplayMap
             catch (Exception ex)
             {
                 // Report the error.
-                var builder = new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetMessage(ex.Message).SetTitle("Deleting map areas failed.").Show();
             }
             finally
@@ -353,10 +353,10 @@ namespace ArcGISRuntime.Samples.DisplayMap
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create the progress dialog.
-            var builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetView(new ProgressBar(this)
             {
                 Indeterminate = true

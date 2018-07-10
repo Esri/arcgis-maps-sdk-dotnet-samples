@@ -133,7 +133,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             _mySceneView.AnalysisOverlays.Add(myAnalysisOverlay);
 
             // Create a timer; this will enable animating the taxi
-            var timer = new Timer(60);
+            Timer timer = new Timer(60);
             // Move the taxi every time the timer expires
             timer.Elapsed += AnimationTimer_Elapsed;
             // Keep the timer running continuously
@@ -231,7 +231,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create the controls
             _myHeightSlider = new SeekBar(this) { Max = 100 };

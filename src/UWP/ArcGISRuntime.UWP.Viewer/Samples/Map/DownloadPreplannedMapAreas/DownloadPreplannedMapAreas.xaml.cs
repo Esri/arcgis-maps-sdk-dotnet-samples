@@ -97,7 +97,7 @@ namespace ArcGISRuntime.UWP.Samples.DownloadPreplannedMapAreas
             catch (Exception ex)
             {
                 // Something unexpected happened, show the error message.
-                var message = new MessageDialog(ex.Message, "An error occurred");
+                MessageDialog message = new MessageDialog(ex.Message, "An error occurred");
                 await message.ShowAsync();
             }
         }
@@ -168,7 +168,7 @@ namespace ArcGISRuntime.UWP.Samples.DownloadPreplannedMapAreas
                     }
 
                     // Show the message.
-                    var message = new MessageDialog(errorBuilder.ToString(), "Warning!");
+                    MessageDialog message = new MessageDialog(errorBuilder.ToString(), "Warning!");
                     await message.ShowAsync();
                 }
 
@@ -178,7 +178,7 @@ namespace ArcGISRuntime.UWP.Samples.DownloadPreplannedMapAreas
             catch (Exception ex)
             {
                 // Report exception.
-                var message = new MessageDialog(ex.Message, "Downloading map areas failed");
+                MessageDialog message = new MessageDialog(ex.Message, "Downloading map areas failed");
                 await message.ShowAsync();
             }
             finally
@@ -207,10 +207,10 @@ namespace ArcGISRuntime.UWP.Samples.DownloadPreplannedMapAreas
         private async void OnMenuDownloadMapAreaClicked(object sender, RoutedEventArgs e)
         {
             // Get the sending list item.
-            var element = sender as FrameworkElement;
+            FrameworkElement element = sender as FrameworkElement;
 
             // Get the corresponding map area.
-            var selectedMapArea = element?.DataContext as PreplannedMapArea;
+            PreplannedMapArea selectedMapArea = element?.DataContext as PreplannedMapArea;
 
             // Update the other list in the UI for consistency (important if user resizes window to be wider).
             PreplannedAreasList.SelectedItem = selectedMapArea;
@@ -264,7 +264,7 @@ namespace ArcGISRuntime.UWP.Samples.DownloadPreplannedMapAreas
             catch (Exception ex)
             {
                 // Report error accessing a resource.
-                var message = new MessageDialog(ex.Message, "Deleting map areas failed");
+                MessageDialog message = new MessageDialog(ex.Message, "Deleting map areas failed");
                 await message.ShowAsync();
             }
             finally

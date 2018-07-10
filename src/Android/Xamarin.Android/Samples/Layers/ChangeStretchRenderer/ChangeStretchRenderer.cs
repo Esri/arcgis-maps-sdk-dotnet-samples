@@ -78,7 +78,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             // ------------
 
             // Create a sub layout to organize the label and 1st parameter on a single horizontal line
-            var subLayout1 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            LinearLayout subLayout1 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Create label that displays the 1st parameter used by the stretch renderer
             _Label_Parameter1 = new TextView(this);
@@ -96,7 +96,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             // ------------
 
             // Create a sub layout to organize the label and 2nd parameter on a single horizontal line
-            var subLayout2 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            LinearLayout subLayout2 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Create label that displays the 2nd parameter used by the stretch renderer
             _Label_Parameter2 = new TextView(this);

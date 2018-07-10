@@ -15,6 +15,8 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
@@ -61,25 +63,19 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             {
                 // Create a string builder to hold all of the information from the geoprocessing 
                 // task to display in the UI 
-                var myStringBuilder = new System.Text.StringBuilder();
+                StringBuilder myStringBuilder = new StringBuilder();
 
                 // Loop through each Feature in the FeatureSet 
-                foreach (var version in versionsFeatureSet)
+                foreach (Feature version in versionsFeatureSet)
                 {
                     // Get the attributes (a dictionary of <key,value> pairs) from the Feature
-                    var myDictionary = version.Attributes;
+                    IDictionary<string,object> myDictionary = version.Attributes;
 
                     // Loop through each attribute (a <key,value> pair)
-                    foreach (var oneAttribute in myDictionary)
+                    foreach (KeyValuePair<string,object> attribute in myDictionary)
                     {
-                        // Get the key
-                        var myKey = oneAttribute.Key;
-
-                        // Get the value
-                        var myValue = oneAttribute.Value;
-
                         // Add the key and value strings to the string builder 
-                        myStringBuilder.AppendLine(myKey + ": " + myValue);
+                        myStringBuilder.AppendLine(attribute.Key + ": " + attribute.Value);
                     }
 
                     // Add a blank line after each Feature (the listing of geodatabase versions)
@@ -100,13 +96,13 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             IFeatureSet results = null;
 
             // Create new geoprocessing task 
-            var listVersionsTask = await GeoprocessingTask.CreateAsync(new Uri(ListVersionsUrl));
+            GeoprocessingTask listVersionsTask = await GeoprocessingTask.CreateAsync(new Uri(ListVersionsUrl));
 
             // Create default parameters that are passed to the geoprocessing task
             GeoprocessingParameters listVersionsParameters = await listVersionsTask.CreateDefaultParametersAsync();
 
             // Create job that handles the communication between the application and the geoprocessing task
-            var listVersionsJob = listVersionsTask.CreateJob(listVersionsParameters);
+            GeoprocessingJob listVersionsJob = listVersionsTask.CreateJob(listVersionsParameters);
             try
             {
                 // Execute analysis and wait for the results
@@ -123,14 +119,14 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
                 // Error handling if something goes wrong
                 if (listVersionsJob.Status == JobStatus.Failed && listVersionsJob.Error != null)
                 {
-                    var alertBuilder = new AlertDialog.Builder(this);
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                     alertBuilder.SetTitle("Geoprocessing error");
                     alertBuilder.SetMessage("Executing geoprocessing failed. " + listVersionsJob.Error.Message);
                     alertBuilder.Show();
                 }
                 else
                 {
-                    var alertBuilder = new AlertDialog.Builder(this);
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                     alertBuilder.SetTitle("Sample error");
                     alertBuilder.SetMessage("An error occurred. " + ex.ToString());
                     alertBuilder.Show();
@@ -165,10 +161,10 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Label for the user instructions
-            var textview_Label1 = new TextView(this);
+            TextView textview_Label1 = new TextView(this);
             textview_Label1.Text = "Current versions:";
             layout.AddView(textview_Label1);
 

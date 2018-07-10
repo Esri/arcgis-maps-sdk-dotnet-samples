@@ -79,7 +79,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         private async void OnViewpointsClicked(object sender, EventArgs e)
         {
             // Show sheet and get title from the selection
-            var selectedMapTitle =
+            string selectedMapTitle =
                 await DisplayActionSheet("Select viewpoint", "Cancel", null, titles);
 
             // If selected cancel do nothing
@@ -109,7 +109,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
                         new Viewpoint(MyMapView.Map.Basemap.BaseLayers.First().FullExtent));
                     
                     // Create a new Viewpoint using the specified geometry
-                    var viewpoint = new Viewpoint(EdinburghEnvelope);
+                    Viewpoint viewpoint = new Viewpoint(EdinburghEnvelope);
                     
                     // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
                     await MyMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));

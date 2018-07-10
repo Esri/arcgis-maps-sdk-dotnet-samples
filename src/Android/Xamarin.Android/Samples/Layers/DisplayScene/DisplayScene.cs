@@ -83,7 +83,7 @@ namespace ArcGISRuntime.Samples.DisplayScene
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the scene view to the layout
             layout.AddView(_mySceneView);

@@ -53,7 +53,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private void Initialize()
         {
             // Create a new map with a World Imagery base map
-            var myMap = new Map(Basemap.CreateImageryWithLabels());
+            Map myMap = new Map(Basemap.CreateImageryWithLabels());
 
             // Add the map to the MapView
             _myMapView.Map = myMap;
@@ -97,7 +97,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create button to show bookmarks
             _bookmarksButton = new Button(this);
@@ -117,7 +117,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private void OnBookmarksClicked(object sender, EventArgs e)
         {
             // Create menu to show bookmarks
-            var bookmarksMenu = new PopupMenu(this, _bookmarksButton);
+            PopupMenu bookmarksMenu = new PopupMenu(this, _bookmarksButton);
             bookmarksMenu.MenuItemClick += OnBookmarksMenuItemClicked;
 
             // Create a menu option for each of the map's bookmarks
@@ -136,7 +136,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private void OnBookmarksMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
         {
             // Get title from the selected item
-            var selectedBookmarkName = e.Item.TitleCondensedFormatted.ToString();
+            string selectedBookmarkName = e.Item.TitleCondensedFormatted.ToString();
 
             // If this is the "Add ..." choice, call a function to create a new bookmark
             if (selectedBookmarkName == "Add ...")
@@ -149,10 +149,10 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             BookmarkCollection myBookmarkCollection = _myMapView.Map.Bookmarks;
 
             // Loop through bookmarks
-            foreach (var myBookmark in myBookmarkCollection)
+            foreach (Bookmark myBookmark in myBookmarkCollection)
             {
                 // Get this bookmark name
-                var theBookmarkName = myBookmark.Name;
+                string theBookmarkName = myBookmark.Name;
 
                 // If this is the selected bookmark, use it to set the map's viewpoint
                 if (theBookmarkName == selectedBookmarkName)
@@ -193,7 +193,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             _bookmarkNameText.LayoutParameters = fillWidthParam;
             
             // Label for the text entry
-            var nameLabel = new TextView(this);
+            TextView nameLabel = new TextView(this);
             nameLabel.Text = "Name:";
 
             // Add the controls to the layout
@@ -205,7 +205,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             buttonLayout.Orientation = Orientation.Horizontal;
 
             // Button to cancel the new bookmark
-            var cancelButton = new Button(this)
+            Button cancelButton = new Button(this)
             {
                 Text = "Cancel",
                 LayoutParameters = fillWidthParam
@@ -213,7 +213,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             cancelButton.Click += (s, e) => _newBookmarkDialog.Dismiss();
 
             // Button to save the current viewpoint as a new bookmark
-            var okButton = new Button(this)
+            Button okButton = new Button(this)
             {
                 Text = "OK",
                 LayoutParameters = fillWidthParam
@@ -242,8 +242,8 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             if (_newBookmarkDialog != null)
             {
                 // See if the bookmark name conflicts with an existing name
-                var bookmarkName = _bookmarkNameText.Text.Trim();
-                var nameExists = false;
+                string bookmarkName = _bookmarkNameText.Text.Trim();
+                bool nameExists = false;
                 foreach (Bookmark bookmark in _myMapView.Map.Bookmarks)
                 {
                     // See if this bookmark exists (or conflicts with the "Add ..." menu choice)

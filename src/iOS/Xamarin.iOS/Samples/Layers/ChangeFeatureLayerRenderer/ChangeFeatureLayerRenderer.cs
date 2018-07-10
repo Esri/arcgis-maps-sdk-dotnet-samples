@@ -85,7 +85,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
             _myMapView.Map = map;
 
             // Create URI to the used feature service.
-            var serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/FeatureServer/0");
+            Uri serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/FeatureServer/0");
 
             // Initialize feature table using a URL to a feature service.
             ServiceFeatureTable featureTable = new ServiceFeatureTable(serviceUri);
@@ -130,7 +130,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
             _myMapView = new MapView();
 
             // Create a button to reset the renderer.
-            var resetButton = new UIBarButtonItem
+            UIBarButtonItem resetButton = new UIBarButtonItem
             {
                 Title = "Reset",
                 Style = UIBarButtonItemStyle.Plain
@@ -138,7 +138,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
             resetButton.Clicked += OnResetButtonClicked;
 
             // Create a button to apply new renderer.
-            var overrideButton = new UIBarButtonItem
+            UIBarButtonItem overrideButton = new UIBarButtonItem
             {
                 Title = "Override",
                 Style = UIBarButtonItemStyle.Plain

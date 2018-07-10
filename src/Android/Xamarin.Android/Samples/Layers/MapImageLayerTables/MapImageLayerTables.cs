@@ -97,7 +97,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
                 _commentFeatures = commentQueryResult.ToList();
 
                 // Show the comment text from the service request comments records in the list view control.
-                var comments = _commentFeatures.Select(c => c.Attributes["comments"]);
+                IEnumerable<object> comments = _commentFeatures.Select(c => c.Attributes["comments"]);
                 ArrayAdapter commentsAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, comments.ToArray());
                 _commentsListBox.Adapter = commentsAdapter;
 

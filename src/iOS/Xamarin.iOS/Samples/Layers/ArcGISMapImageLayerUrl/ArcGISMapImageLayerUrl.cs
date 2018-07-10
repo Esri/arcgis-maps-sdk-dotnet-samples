@@ -63,7 +63,7 @@ namespace ArcGISRuntime.Samples.ArcGISMapImageLayerUrl
             Map map = new Map();
 
             // Create URL to the map image layer.
-            var serviceUri = new Uri("https://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer");
+            Uri serviceUri = new Uri("https://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer");
 
             // Create new image layer from the URL.
             ArcGISMapImageLayer imageLayer = new ArcGISMapImageLayer(serviceUri);

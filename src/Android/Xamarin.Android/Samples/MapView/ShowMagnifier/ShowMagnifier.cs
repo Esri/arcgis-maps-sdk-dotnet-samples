@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Samples.ShowMagnifier
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create and add a help label
             TextView helpLabel = new TextView(this)

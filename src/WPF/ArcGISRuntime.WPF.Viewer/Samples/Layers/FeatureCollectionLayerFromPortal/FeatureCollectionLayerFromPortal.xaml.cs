@@ -76,7 +76,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureCollectionLayerFromPortal
         private void OpenPortalFeatureCollectionClick(object sender, RoutedEventArgs e)
         {
             // Get the portal item Id from the user.
-            var collectionItemId = CollectionItemIdTextBox.Text.Trim();
+            string collectionItemId = CollectionItemIdTextBox.Text.Trim();
 
             // Make sure an Id was entered.
             if (string.IsNullOrEmpty(collectionItemId))

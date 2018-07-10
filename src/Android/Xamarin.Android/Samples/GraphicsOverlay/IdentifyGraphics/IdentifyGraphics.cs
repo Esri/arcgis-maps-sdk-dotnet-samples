@@ -90,9 +90,9 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
 
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            var tolerance = 10d; // Use larger tolerance for touch
-            var maximumResults = 1; // Only return one graphic  
-            var onlyReturnPopups = false; // Don't only return popups
+            double tolerance = 10d; // Use larger tolerance for touch
+            int maximumResults = 1; // Only return one graphic  
+            bool onlyReturnPopups = false; // Don't only return popups
 
             // Use the following method to identify graphics in a specific graphics overlay
             IdentifyGraphicsOverlayResult identifyResults = await _myMapView.IdentifyGraphicsOverlayAsync(
@@ -108,7 +108,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
                 // Make sure that the UI changes are done in the UI thread
                 RunOnUiThread(() =>
                 {
-                    var alert = new AlertDialog.Builder(this);
+                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
                     alert.SetMessage("Tapped on graphic");
                     alert.Show();
                 });
@@ -118,7 +118,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

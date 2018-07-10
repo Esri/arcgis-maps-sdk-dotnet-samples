@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         private async void Initialize()
         {
             // Create a new ArcGISMapImageLayer instance and pass a URL to the service.
-            var mapImageLayer = new ArcGISMapImageLayer(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"));
+            ArcGISMapImageLayer mapImageLayer = new ArcGISMapImageLayer(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"));
 
             // Await the load call for the layer..
             await mapImageLayer.LoadAsync();
@@ -150,13 +150,13 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             // Create the cells in the table.
-            var cell = new UITableViewCell(UITableViewCellStyle.Default, CellId);
+            UITableViewCell cell = new UITableViewCell(UITableViewCellStyle.Default, CellId);
 
-            var sublayer = _sublayers[indexPath.Row] as ArcGISMapImageSublayer;
+            ArcGISMapImageSublayer sublayer = _sublayers[indexPath.Row] as ArcGISMapImageSublayer;
             cell.TextLabel.Text = sublayer.Name;
 
             // Create a UISwitch for controlling the layer visibility.
-            var visibilitySwitch = new UISwitch
+            UISwitch visibilitySwitch = new UISwitch
             {
                 Frame = new CGRect(cell.Bounds.Width - 60, 7, 50, cell.Bounds.Height),
                 Tag = indexPath.Row,
@@ -176,7 +176,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             var index = (sender as UISwitch).Tag;
 
             // Set the sublayer visibility according to the UISwitch setting.
-            var sublayer = _sublayers[(int) index] as ArcGISMapImageSublayer;
+            ArcGISMapImageSublayer sublayer = _sublayers[(int) index] as ArcGISMapImageSublayer;
             sublayer.IsVisible = (sender as UISwitch).On;
         }
 

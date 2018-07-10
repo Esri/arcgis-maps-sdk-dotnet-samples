@@ -61,14 +61,14 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         private async void OnStartClicked(object sender, EventArgs e)
         {
             // Show sheet and get title from the selection
-            var selectedMode =
+            string selectedMode =
                 await DisplayActionSheet("Select navigation mode", "Cancel", null, _navigationTypes);
 
             // If selected cancel do nothing
             if (selectedMode == "Cancel") return;
 
             // Get index that is used to get the selected url
-            var selectedIndex = _navigationTypes.ToList().IndexOf(selectedMode);
+            int selectedIndex = _navigationTypes.ToList().IndexOf(selectedMode);
 
             switch (selectedIndex)
             {

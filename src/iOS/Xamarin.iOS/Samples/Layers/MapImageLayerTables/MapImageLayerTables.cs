@@ -174,7 +174,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         private void CreateLayout()
         {
             // Create a UIStackView for laying out the map view and table view.
-            var stackView = new UIStackView(new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height))
+            UIStackView stackView = new UIStackView(new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height))
             {
                 Axis = UILayoutConstraintAxis.Vertical,
                 Alignment = UIStackViewAlignment.Fill,

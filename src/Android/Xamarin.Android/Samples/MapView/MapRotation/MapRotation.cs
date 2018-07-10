@@ -49,10 +49,10 @@ namespace ArcGISRuntime.Samples.MapRotation
 
         private void CreateLayout()
         {
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a slider (SeekBar) control for selecting an angle
-            var angleSlider = new SeekBar(this)
+            SeekBar angleSlider = new SeekBar(this)
             {
                 // Set a maximum slider value of 180 and a current value of 90 (minimum is always 0)
                 Max = 180,

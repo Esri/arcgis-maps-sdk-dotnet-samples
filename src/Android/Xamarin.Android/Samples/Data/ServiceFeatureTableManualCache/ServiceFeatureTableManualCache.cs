@@ -53,7 +53,7 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
             myMap.InitialViewpoint = new Viewpoint(initialLocation, 500000);
 
             // Create uri to the used feature service
-            var serviceUri = new Uri(
+            Uri serviceUri = new Uri(
                "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0");
 
             // Create feature table for the incident feature service
@@ -88,7 +88,7 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
             };
 
             // Create list of the fields that are returned from the service
-            var outputFields = new string[] { "*" };
+            string[] outputFields = { "*" };
 
             // Populate feature table with the data based on query
             await _incidentsFeatureTable.PopulateFromServiceAsync(queryParameters, true, outputFields);
@@ -97,7 +97,7 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

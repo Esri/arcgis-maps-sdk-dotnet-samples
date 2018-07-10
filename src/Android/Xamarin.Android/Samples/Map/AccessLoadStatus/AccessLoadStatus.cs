@@ -67,7 +67,7 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create control to show the maps' loading status
             _loadStatusTextView = new TextView(this);

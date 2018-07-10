@@ -108,7 +108,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         private void CreateLayout()
         {
             // Configure the UI.
-            var screenshotButton = new UIBarButtonItem
+            UIBarButtonItem screenshotButton = new UIBarButtonItem
             {
                 Title = "Screenshot",
                 Style = UIBarButtonItemStyle.Plain

@@ -81,7 +81,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             MyMapView.Map = map;
 
             // Add slope type values to the dictionary and picker
-            foreach (var slope in Enum.GetValues(typeof(SlopeType)))
+            foreach (object slope in Enum.GetValues(typeof(SlopeType)))
             {
                 _slopeTypeValues.Add(slope.ToString(), (SlopeType)slope);
                 SlopeTypePicker.Items.Add(slope.ToString());

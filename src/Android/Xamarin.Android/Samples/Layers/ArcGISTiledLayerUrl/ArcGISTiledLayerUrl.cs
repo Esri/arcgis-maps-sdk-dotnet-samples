@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.ArcGISTiledLayerUrl
             Map myMap = new Map();
 
             // Create uri to the tiled service
-            var serviceUri = new Uri(
+            Uri serviceUri = new Uri(
                "http://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer");
 
             // Create new tiled layer from the url
@@ -60,7 +60,7 @@ namespace ArcGISRuntime.Samples.ArcGISTiledLayerUrl
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

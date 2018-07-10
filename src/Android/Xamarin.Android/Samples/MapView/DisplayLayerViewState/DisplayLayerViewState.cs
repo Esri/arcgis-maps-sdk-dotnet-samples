@@ -50,7 +50,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             Map myMap = new Map();
 
             // Create the uri for the tiled layer
-            var tiledLayerUri = new Uri(
+            Uri tiledLayerUri = new Uri(
                 "http://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer");
 
             // Create a tiled layer using url
@@ -61,7 +61,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             myMap.OperationalLayers.Add(tiledLayer);
 
             // Create the uri for the ArcGISMapImage layer
-            var imageLayerUri = new Uri(
+            Uri imageLayerUri = new Uri(
                 "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer");
 
             // Create ArcGISMapImage layer using a url
@@ -76,7 +76,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             myMap.OperationalLayers.Add(imageLayer);
 
             // Create Uri for feature layer
-            var featureLayerUri = new Uri(
+            Uri featureLayerUri = new Uri(
                 "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0");
 
             // Create a feature layer using url
@@ -126,7 +126,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create the controls to show the various layers' loading status
             _TextViewTiledLayer = new TextView(this);

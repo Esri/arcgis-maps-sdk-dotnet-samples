@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Android.App;
+using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -170,7 +171,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
 
         private async void LoadThumbnail()
         {
-            var img = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(_metadata.Thumbnail);
+            Bitmap img = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(_metadata.Thumbnail);
             _thumbnailImageView.SetImageBitmap(img);
         }
     }

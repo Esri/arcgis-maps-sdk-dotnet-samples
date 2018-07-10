@@ -9,6 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using Esri.ArcGISRuntime.UI;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.TakeScreenshot

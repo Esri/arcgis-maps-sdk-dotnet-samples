@@ -15,6 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using CoreGraphics;
+using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;

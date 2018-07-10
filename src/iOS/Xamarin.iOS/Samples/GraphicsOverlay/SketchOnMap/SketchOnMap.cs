@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -125,7 +126,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private void CanExecuteChanged(object sender, EventArgs e)
         {
             // Enable or disable the corresponding command for the sketch editor.
-            ICommand command = sender as System.Windows.Input.ICommand;
+            ICommand command = sender as ICommand;
             if (command == _myMapView.SketchEditor.UndoCommand)
             {
                 _segmentButton.SetEnabled(command.CanExecute(null), 2);

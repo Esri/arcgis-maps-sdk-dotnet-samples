@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Tasks;
@@ -75,7 +76,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             {
                 // Create a string builder to hold all of the information from the geoprocessing
                 // task to display in the UI.
-                StringBuilder stringBuilder = new System.Text.StringBuilder();
+                StringBuilder stringBuilder = new StringBuilder();
 
                 // Loop through each Feature in the FeatureSet.
                 foreach (Feature version in versionsFeatureSet)

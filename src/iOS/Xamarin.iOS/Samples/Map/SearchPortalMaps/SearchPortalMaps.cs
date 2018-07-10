@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CoreGraphics;
+using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
@@ -325,11 +326,8 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
         private void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
-            // Get the current status.
-            LoadStatus status = e.Status;
-
             // Report errors if map failed to load.
-            if (status == Esri.ArcGISRuntime.LoadStatus.FailedToLoad)
+            if (e.Status == LoadStatus.FailedToLoad)
             {
                 Map map = sender as Map;
                 Exception err = map.LoadError;

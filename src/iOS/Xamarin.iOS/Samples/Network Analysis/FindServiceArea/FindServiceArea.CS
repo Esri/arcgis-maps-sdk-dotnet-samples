@@ -310,7 +310,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             _myMapView.GraphicsOverlays[0].Graphics.Clear();
         }
 
-        private void CreateErrorDialog(String message)
+        private void CreateErrorDialog(string message)
         {
             // Create Alert.
             var okAlertController = UIAlertController.Create("Error", message, UIAlertControllerStyle.Alert);

@@ -202,7 +202,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             _myMapView.GraphicsOverlays.Clear();
 
             // Return gracefully if the textbox is empty or the geocoder isn't ready
-            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
+            if (String.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
 
             // Create the geocode parameters
             GeocodeParameters parameters = new GeocodeParameters();
@@ -314,10 +314,10 @@ namespace ArcGISRuntime.Samples.FindPlace
             Graphic matchingGraphic = results.First().Graphics.First();
 
             // Get the title; manually added to the point's attributes in UpdateSearch
-            String title = matchingGraphic.Attributes["Match_Title"] as String;
+            string title = matchingGraphic.Attributes["Match_Title"] as String;
 
             // Get the address; manually added to the point's attributes in UpdateSearch
-            String address = matchingGraphic.Attributes["Match_Address"] as String;
+            string address = matchingGraphic.Attributes["Match_Address"] as String;
 
             // Define the callout
             CalloutDefinition calloutBody = new CalloutDefinition(title, address);

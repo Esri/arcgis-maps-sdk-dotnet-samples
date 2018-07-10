@@ -151,7 +151,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                     string[] tags = TagsTextBox.Text.Split(',');
 
                     // Make sure all required info was entered
-                    if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || tags.Length == 0)
+                    if (String.IsNullOrEmpty(title) || String.IsNullOrEmpty(description) || tags.Length == 0)
                     {
                         throw new Exception("Please enter a title, description, and some tags to describe the map.");
                     }
@@ -458,7 +458,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             Uri uri = e.Uri;
 
             // If no browser, uri, task completion source, or an empty url, return
-            if (webBrowser == null || uri == null || _tcs == null || string.IsNullOrEmpty(uri.AbsoluteUri))
+            if (webBrowser == null || uri == null || _tcs == null || String.IsNullOrEmpty(uri.AbsoluteUri))
                 return;
 
             // Check for redirect
@@ -493,13 +493,13 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             string answer = "";
 
             // Get the values from the URI fragment or query string
-            if (!string.IsNullOrEmpty(uri.Fragment))
+            if (!String.IsNullOrEmpty(uri.Fragment))
             {
                 answer = uri.Fragment.Substring(1);
             }
             else
             {
-                if (!string.IsNullOrEmpty(uri.Query))
+                if (!String.IsNullOrEmpty(uri.Query))
                 {
                     answer = uri.Query.Substring(1);
                 }

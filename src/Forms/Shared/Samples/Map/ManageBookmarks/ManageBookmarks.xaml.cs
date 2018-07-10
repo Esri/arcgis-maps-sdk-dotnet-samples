@@ -164,7 +164,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             string name = myEntryBookmarkName.Text;
 
             // Exit if the name is empty
-            if (string.IsNullOrEmpty(name))
+            if (String.IsNullOrEmpty(name))
                 return;
 
             // Check to see if there is a bookmark with same name

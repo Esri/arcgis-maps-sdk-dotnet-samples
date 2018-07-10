@@ -81,13 +81,13 @@ namespace ArcGISRuntime.Samples.FindAddress
         private async void updateSearch()
         {
             // Get the text in the search bar
-            String enteredText = MySearchBar.Text;
+            string enteredText = MySearchBar.Text;
 
             // Clear existing marker
             MyMapView.GraphicsOverlays.Clear();
 
             // Return gracefully if the textbox is empty or the geocoder isn't ready
-            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
+            if (String.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
 
             // Get suggestions based on the input text
             IReadOnlyList<SuggestResult> suggestions = await _geocoder.SuggestAsync(enteredText);
@@ -147,7 +147,7 @@ namespace ArcGISRuntime.Samples.FindAddress
         private async void SuggestionButtonTapped(object sender, System.EventArgs e)
         {
             // Display the list of suggestions; returns the selected option
-            String action = await DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
+            string action = await DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
             // Update the search
             MySearchBar.Text = action;
             updateSearch();
@@ -170,9 +170,9 @@ namespace ArcGISRuntime.Samples.FindAddress
             // Get the first result
             GeocodeResult address = addresses.First();
             // Use the city and region for the Callout Title
-            String calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
+            string calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
             // Use the metro area for the Callout Detail
-            String calloutDetail = address.Attributes["MetroArea"].ToString();
+            string calloutDetail = address.Attributes["MetroArea"].ToString();
 
             // Define the callout
             CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);

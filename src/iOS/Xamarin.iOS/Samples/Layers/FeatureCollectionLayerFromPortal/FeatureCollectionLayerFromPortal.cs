@@ -126,7 +126,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             string collectionItemId = _collectionItemIdTextBox.Text.Trim();
 
             // Make sure an Id was entered.
-            if (string.IsNullOrEmpty(collectionItemId))
+            if (String.IsNullOrEmpty(collectionItemId))
             {
                 UIAlertView alert = new UIAlertView("Feature Collection ID", "Please enter a portal item ID", (IUIAlertViewDelegate) null, "OK");
                 alert.Show();

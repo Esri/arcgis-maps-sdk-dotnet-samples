@@ -19,7 +19,7 @@ namespace ArcGISRuntime.UWP.Viewer.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string culture)
         {
-            if (value == null || string.IsNullOrEmpty(value.ToString()))
+            if (value == null || String.IsNullOrEmpty(value.ToString()))
                 return Visibility.Collapsed;
             return Visibility.Visible;
         }

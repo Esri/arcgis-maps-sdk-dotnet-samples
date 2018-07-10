@@ -137,7 +137,7 @@ namespace ArcGISRuntime.Samples.FindAddress
             _myMapView.GraphicsOverlays.Clear();
 
             // Return gracefully if the textbox is empty or the geocoder isn't ready.
-            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
+            if (String.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
             {
                 return;
             }

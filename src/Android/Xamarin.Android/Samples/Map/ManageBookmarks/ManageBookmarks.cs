@@ -273,7 +273,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
                 }
 
                 // If the name is an empty string or exists in the collection, warn the user and return
-                if (string.IsNullOrEmpty(bookmarkName) || nameExists)
+                if (String.IsNullOrEmpty(bookmarkName) || nameExists)
                 {
                     AlertDialog.Builder dlgBuilder = new AlertDialog.Builder(this);
                     dlgBuilder.SetTitle("Error");

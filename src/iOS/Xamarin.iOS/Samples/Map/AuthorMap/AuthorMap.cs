@@ -694,7 +694,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             string redirectUrl = _redirectUrlTextField.Text.Trim();
 
             // Make sure all required info was entered.
-            if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(redirectUrl))
+            if (String.IsNullOrEmpty(clientId) || String.IsNullOrEmpty(redirectUrl))
             {
                 new UIAlertView("Error", "Please enter a client ID and redirect URL for OAuth authentication.", (IUIAlertViewDelegate) null, "OK", null).Show();
                 return;
@@ -896,7 +896,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             string[] tags = _tagsTextField.Text.Split(',');
 
             // Make sure all required info was entered.
-            if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || tags.Length == 0)
+            if (String.IsNullOrEmpty(title) || String.IsNullOrEmpty(description) || tags.Length == 0)
             {
                 new UIAlertView("Error", "Please enter a title, description, and some tags to describe the map.", (IUIAlertViewDelegate) null, "OK", null).Show();
                 return;

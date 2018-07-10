@@ -94,7 +94,7 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
             };
 
             // If a client secret has been configured, set the authentication type to OAuthAuthorizationCode.
-            if (!string.IsNullOrEmpty(ClientSecret))
+            if (!String.IsNullOrEmpty(ClientSecret))
             {
                 // Use OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret).
                 serverInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode;
@@ -228,13 +228,13 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
             string answer = "";
 
             // Get the values from the URI fragment or query string.
-            if (!string.IsNullOrEmpty(uri.Fragment))
+            if (!String.IsNullOrEmpty(uri.Fragment))
             {
                 answer = uri.Fragment.Substring(1);
             }
             else
             {
-                if (!string.IsNullOrEmpty(uri.Query))
+                if (!String.IsNullOrEmpty(uri.Query))
                 {
                     answer = uri.Query.Substring(1);
                 }

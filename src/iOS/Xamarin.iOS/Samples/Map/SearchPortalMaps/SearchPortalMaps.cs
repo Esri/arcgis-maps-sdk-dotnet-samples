@@ -665,7 +665,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             string redirectUrl = _redirectUrlTextField.Text.Trim();
 
             // Make sure all required info was entered.
-            if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(redirectUrl))
+            if (String.IsNullOrEmpty(clientId) || String.IsNullOrEmpty(redirectUrl))
             {
                 UIAlertView alert = new UIAlertView("Error", "Please enter a client ID and redirect URL for OAuth authentication.", (IUIAlertViewDelegate) null, "OK", null);
                 alert.Show();

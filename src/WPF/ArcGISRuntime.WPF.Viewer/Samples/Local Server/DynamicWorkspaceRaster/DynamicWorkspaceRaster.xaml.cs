@@ -64,7 +64,7 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceRaster
         private async void StartLocalMapService(string filename, string path)
         {
             // Start a service from the blank MPK
-            String mapServiceUrl = GetMpkPath();
+            string mapServiceUrl = GetMpkPath();
 
             // Create the local map service
             _localMapService = new LocalMapService(mapServiceUrl);

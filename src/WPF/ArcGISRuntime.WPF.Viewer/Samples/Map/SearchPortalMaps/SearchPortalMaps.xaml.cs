@@ -381,7 +381,7 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
             Uri uri = e.Uri;
 
             // If no browser, uri, or an empty url, return
-            if (webBrowser == null || uri == null || string.IsNullOrEmpty(uri.AbsoluteUri))
+            if (webBrowser == null || uri == null || String.IsNullOrEmpty(uri.AbsoluteUri))
                 return;
 
             // Check for redirect
@@ -415,13 +415,13 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
             string answer = "";
 
             // Get the values from the URI fragment or query string
-            if (!string.IsNullOrEmpty(uri.Fragment))
+            if (!String.IsNullOrEmpty(uri.Fragment))
             {
                 answer = uri.Fragment.Substring(1);
             }
             else
             {
-                if (!string.IsNullOrEmpty(uri.Query))
+                if (!String.IsNullOrEmpty(uri.Query))
                 {
                     answer = uri.Query.Substring(1);
                 }

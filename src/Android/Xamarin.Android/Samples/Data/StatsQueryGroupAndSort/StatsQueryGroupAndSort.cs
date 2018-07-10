@@ -964,7 +964,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             string groupName = _groupNames[groupPosition];
 
             // If the group name is empty (maybe results weren't grouped), return "Results" for the group name
-            if (string.IsNullOrEmpty(groupName))
+            if (String.IsNullOrEmpty(groupName))
             {
                 groupName = "Results";
             }

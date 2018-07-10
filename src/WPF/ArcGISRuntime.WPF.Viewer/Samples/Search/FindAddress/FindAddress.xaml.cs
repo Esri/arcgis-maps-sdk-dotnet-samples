@@ -80,13 +80,13 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
         private async void UpdateSearch()
         {
             // Get the text in the search bar
-            String enteredText = SearchBox.Text;
+            string enteredText = SearchBox.Text;
 
             // Clear existing marker
             MyMapView.GraphicsOverlays.Clear();
 
             // Return gracefully if the textbox is empty or the geocoder isn't ready
-            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
+            if (String.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
 
             // Get suggestions based on the input text
             IReadOnlyList<SuggestResult> suggestions = await _geocoder.SuggestAsync(enteredText);
@@ -173,9 +173,9 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
             // Get the first result
             GeocodeResult address = addresses.First();
             // Use the city and region for the Callout Title
-            String calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
+            string calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
             // Use the metro area for the Callout Detail
-            String calloutDetail = address.Attributes["MetroArea"].ToString();
+            string calloutDetail = address.Attributes["MetroArea"].ToString();
 
             // Define the callout
             CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);

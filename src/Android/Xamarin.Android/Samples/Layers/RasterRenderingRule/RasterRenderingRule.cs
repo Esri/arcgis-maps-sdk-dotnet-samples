@@ -110,7 +110,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
             renderingRuleMenu.MenuItemClick += OnChangeRenderingRuleMenuItemClicked;
 
             // Create menu options
-            foreach (String renderingRuleName in _names)
+            foreach (string renderingRuleName in _names)
             {
                 renderingRuleMenu.Menu.Add(renderingRuleName);
             }
@@ -122,7 +122,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         private void OnChangeRenderingRuleMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
         {
             // Get the rendering rule from the selected item
-            String selectedRenderingRuleType = e.Item.TitleCondensedFormatted.ToString();
+            string selectedRenderingRuleType = e.Item.TitleCondensedFormatted.ToString();
 
             // Loop through each rendering rule info in the image service raster
             foreach (RenderingRuleInfo myRenderingRuleInfo in _myReadOnlyListRenderRuleInfos)

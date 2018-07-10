@@ -125,8 +125,8 @@ namespace ArcGISRuntime
             }
         }
 
-        public bool IsSearchOpen => !string.IsNullOrWhiteSpace(_query);
-        public bool IsCategoriesOpen => string.IsNullOrWhiteSpace(_query);
+        public bool IsSearchOpen => !String.IsNullOrWhiteSpace(_query);
+        public bool IsCategoriesOpen => String.IsNullOrWhiteSpace(_query);
 
         private bool SearchFunction(SampleInfo sample)
         {

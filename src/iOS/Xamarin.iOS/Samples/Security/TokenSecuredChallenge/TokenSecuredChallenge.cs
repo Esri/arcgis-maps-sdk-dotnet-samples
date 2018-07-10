@@ -398,8 +398,8 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             string password = _passwordTextField.Text.Trim();
 
             // Make sure the user entered all values.
-            if (string.IsNullOrEmpty(username) ||
-                string.IsNullOrEmpty(password))
+            if (String.IsNullOrEmpty(username) ||
+                String.IsNullOrEmpty(password))
             {
                 new UIAlertView("Login", "Please enter a username and password", (IUIAlertViewDelegate)null, "OK", null).Show();
                 return;

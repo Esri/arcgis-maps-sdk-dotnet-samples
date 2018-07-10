@@ -73,7 +73,7 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
             //}
 
             // Define the JSON string needed for the raster function
-            String theJSON_String =
+            string theJSON_String =
              @"{
                 ""raster_function_arguments"":
                 {

@@ -137,7 +137,7 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             MyMapView.GraphicsOverlays.Clear();
 
             // Return gracefully if the textbox is empty or the geocoder isn't ready.
-            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
+            if (String.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
             {
                 return;
             }
@@ -278,7 +278,7 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             bool poiOnly = false)
         {
             // Quit if string is null, empty, or whitespace.
-            if (string.IsNullOrWhiteSpace(searchText))
+            if (String.IsNullOrWhiteSpace(searchText))
             {
                 return null;
             }
@@ -299,7 +299,7 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             }
 
             // Set the location for the suggest parameters.
-            if (!string.IsNullOrWhiteSpace(location))
+            if (!String.IsNullOrWhiteSpace(location))
             {
                 // Get the MapPoint for the current search location.
                 MapPoint searchLocation = await GetSearchMapPoint(location);

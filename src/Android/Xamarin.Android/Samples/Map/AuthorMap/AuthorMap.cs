@@ -402,7 +402,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 Text = "Client ID:"
             };
             _clientIdText = new EditText(this);
-            if (!string.IsNullOrEmpty(AppClientId)) { _clientIdText.Text = AppClientId; }
+            if (!String.IsNullOrEmpty(AppClientId)) { _clientIdText.Text = AppClientId; }
             clientIdLayout.AddView(clientIdLabel);
             clientIdLayout.AddView(_clientIdText);
 
@@ -419,7 +419,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             {
                 Hint = "https://my.redirect/url"
             };
-            if (!string.IsNullOrEmpty(OAuthRedirectUrl)) { _redirectUrlText.Text = OAuthRedirectUrl; }
+            if (!String.IsNullOrEmpty(OAuthRedirectUrl)) { _redirectUrlText.Text = OAuthRedirectUrl; }
             redirectUrlLayout.AddView(redirectUrlLabel);
             redirectUrlLayout.AddView(_redirectUrlText);
 
@@ -611,13 +611,13 @@ namespace ArcGISRuntime.Samples.AuthorMap
             string answer = "";
 
             // Get the values from the URI fragment or query string
-            if (!string.IsNullOrEmpty(uri.Fragment))
+            if (!String.IsNullOrEmpty(uri.Fragment))
             {
                 answer = uri.Fragment.Substring(1);
             }
             else
             {
-                if (!string.IsNullOrEmpty(uri.Query))
+                if (!String.IsNullOrEmpty(uri.Query))
                 {
                     answer = uri.Query.Substring(1);
                 }
@@ -756,7 +756,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 string[] tags = _tagsTextbox.Text.Split(',');
 
                 // Make sure all required info was entered
-                if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || tags.Length == 0)
+                if (String.IsNullOrEmpty(title) || String.IsNullOrEmpty(description) || tags.Length == 0)
                 {
                     throw new Exception("Please enter a title, description, and some tags to describe the map.");
                 }

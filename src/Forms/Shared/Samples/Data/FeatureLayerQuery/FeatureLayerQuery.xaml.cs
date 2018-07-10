@@ -99,7 +99,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
                 QueryParameters queryParams = new QueryParameters();
 
                 // Trim whitespace on the state name to prevent broken queries
-                String formattedStateName = stateName.Trim().ToUpper();
+                string formattedStateName = stateName.Trim().ToUpper();
 
                 // Construct and assign the where clause that will be used to query the feature table
                 queryParams.WhereClause = "upper(STATE_NAME) LIKE '%" + formattedStateName + "%'";

@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using ArcGISRuntime.Samples.Shared.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -39,7 +40,7 @@ namespace ArcGISRuntime
 
             // Set the title. If the sample control didn't 
             // define the title, use the name from the sample metadata.
-            if (!string.IsNullOrWhiteSpace(sample.Title))
+            if (!String.IsNullOrWhiteSpace(sample.Title))
             {
                 Title = sample.Title;
             }
@@ -49,7 +50,7 @@ namespace ArcGISRuntime
             }
 
             // Only show the instructions heading if there are any instructions.
-            if (!string.IsNullOrWhiteSpace(sampleInfo.Instructions))
+            if (!String.IsNullOrWhiteSpace(sampleInfo.Instructions))
             {
                 InstructionLabel.IsVisible = true;
             }

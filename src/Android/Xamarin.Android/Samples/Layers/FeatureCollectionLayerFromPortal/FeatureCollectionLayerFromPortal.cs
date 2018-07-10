@@ -102,7 +102,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             string collectionItemId = _portalItemIdEditText.Text.Trim();
 
             // Make sure an Id was entered.
-            if (string.IsNullOrEmpty(collectionItemId))
+            if (String.IsNullOrEmpty(collectionItemId))
             {
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("Feature Collection ID");

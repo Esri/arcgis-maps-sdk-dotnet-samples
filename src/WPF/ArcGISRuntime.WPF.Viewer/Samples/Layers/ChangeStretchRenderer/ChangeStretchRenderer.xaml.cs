@@ -48,7 +48,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeStretchRenderer
             await myMap.LoadAsync();
 
             // Get the file name
-            String filepath = GetRasterPath();
+            string filepath = GetRasterPath();
 
             // Load the raster file
             Raster myRasterFile = new Raster(filepath);

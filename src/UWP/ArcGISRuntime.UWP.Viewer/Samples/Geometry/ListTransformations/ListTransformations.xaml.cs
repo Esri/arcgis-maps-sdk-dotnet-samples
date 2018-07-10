@@ -97,7 +97,7 @@ namespace ArcGISRuntime.UWP.Samples.ListTransformations
 
             // Get the path to the projection engine data (if it exists).
             string peFolderPath = GetProjectionDataPath();
-            if (!string.IsNullOrEmpty(peFolderPath))
+            if (!String.IsNullOrEmpty(peFolderPath))
             {
                 TransformationCatalog.ProjectionEngineDirectory = peFolderPath;
                 MessagesTextBox.Text = "Using projection data found at '" + peFolderPath + "'";

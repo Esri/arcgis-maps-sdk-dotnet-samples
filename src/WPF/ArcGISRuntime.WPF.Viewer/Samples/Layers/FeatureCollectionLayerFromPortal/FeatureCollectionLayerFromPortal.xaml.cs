@@ -81,7 +81,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureCollectionLayerFromPortal
             string collectionItemId = CollectionItemIdTextBox.Text.Trim();
 
             // Make sure an Id was entered.
-            if (string.IsNullOrEmpty(collectionItemId))
+            if (String.IsNullOrEmpty(collectionItemId))
             {
                 MessageBox.Show("Please enter a portal item ID", "Feature Collection ID");
                 return;

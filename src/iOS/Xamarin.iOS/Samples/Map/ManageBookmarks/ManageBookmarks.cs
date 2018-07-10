@@ -134,7 +134,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
                 string name = textInputAlertController.TextFields[0].Text;
 
                 // Exit if the name is empty.
-                if (string.IsNullOrEmpty(name))
+                if (String.IsNullOrEmpty(name))
                     return;
 
                 // Check to see if there is a bookmark with same name.

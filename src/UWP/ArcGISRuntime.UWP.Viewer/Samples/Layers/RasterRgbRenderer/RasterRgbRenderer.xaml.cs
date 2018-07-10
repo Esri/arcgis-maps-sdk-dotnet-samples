@@ -41,7 +41,7 @@ namespace ArcGISRuntime.UWP.Samples.RasterRgbRenderer
             Map map = new Map(Basemap.CreateStreets());
 
             // Get the file name for the local raster dataset.
-            String filepath = GetRasterPath();
+            string filepath = GetRasterPath();
 
             // Load the raster file
             Raster rasterFile = new Raster(filepath);

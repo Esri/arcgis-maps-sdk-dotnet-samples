@@ -264,7 +264,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 Text = "Client ID:"
             };
             _clientIdText = new EditText(this);
-            if (!string.IsNullOrEmpty(_appClientId)) { _clientIdText.Text = _appClientId; }
+            if (!String.IsNullOrEmpty(_appClientId)) { _clientIdText.Text = _appClientId; }
             clientIdLayout.AddView(clientIdLabel);
             clientIdLayout.AddView(_clientIdText);
 
@@ -281,7 +281,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             {
                 Hint = "https://my.redirect/url"
             };
-            if (!string.IsNullOrEmpty(_oAuthRedirectUrl)) { _redirectUrlText.Text = _oAuthRedirectUrl; }
+            if (!String.IsNullOrEmpty(_oAuthRedirectUrl)) { _redirectUrlText.Text = _oAuthRedirectUrl; }
             redirectUrlLayout.AddView(redirectUrlLabel);
             redirectUrlLayout.AddView(_redirectUrlText);
 
@@ -514,13 +514,13 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             string answer = "";
 
             // Get the values from the URI fragment or query string
-            if (!string.IsNullOrEmpty(uri.Fragment))
+            if (!String.IsNullOrEmpty(uri.Fragment))
             {
                 answer = uri.Fragment.Substring(1);
             }
             else
             {
-                if (!string.IsNullOrEmpty(uri.Query))
+                if (!String.IsNullOrEmpty(uri.Query))
                 {
                     answer = uri.Query.Substring(1);
                 }

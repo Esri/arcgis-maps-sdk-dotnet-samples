@@ -43,7 +43,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 string[] tags = MapTagsEntry.Text.Split(',');
 
                 // Make sure all required info was entered
-                if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || tags.Length == 0)
+                if (String.IsNullOrEmpty(title) || String.IsNullOrEmpty(description) || tags.Length == 0)
                 {
                     throw new Exception("Please enter a title, description, and some tags to describe the map.");
                 }

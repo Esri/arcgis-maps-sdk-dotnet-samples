@@ -97,7 +97,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             try
             {
                 // Don't attempt to save if the OAuth settings weren't provided
-                if(string.IsNullOrEmpty(AppClientId) || string.IsNullOrEmpty(OAuthRedirectUrl))
+                if(String.IsNullOrEmpty(AppClientId) || String.IsNullOrEmpty(OAuthRedirectUrl))
                 {
                     MessageDialog dialog = new MessageDialog("OAuth settings were not provided.", "Cannot Save");
                     await dialog.ShowAsync();
@@ -128,7 +128,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                     string tagText = TagsTextBox.Text;
 
                     // Make sure all required info was entered
-                    if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || string.IsNullOrEmpty(tagText))
+                    if (String.IsNullOrEmpty(title) || String.IsNullOrEmpty(description) || String.IsNullOrEmpty(tagText))
                     {
                         throw new Exception("Please enter a title, description, and some tags to describe the map.");
                     }

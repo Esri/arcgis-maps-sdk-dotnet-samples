@@ -245,6 +245,20 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             // along with the parameters specified, then a stretch renderer is created and applied to 
             // the raster layer.
 
+            // Convert the input text to doubles and return if they're invalid.
+            double input1;
+            double input2;
+            try
+            {
+                input1 = Convert.ToDouble(_inputParameter1.Text);
+                input2 = Convert.ToDouble(_inputParameter2.Text);
+            }
+            catch (Exception ex)
+            {
+                new UIAlertView("alert", ex.Message, (IUIAlertViewDelegate) null, "OK", null).Show();
+                return;
+            }
+
             // Create an IEnumerable from an empty list of doubles for the gamma values in the stretch render.
             IEnumerable<double> gammaValues = new List<double>();
 
@@ -264,10 +278,10 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     try
                     {
                         // Create an IEnumerable from a list of double min stretch value doubles.
-                        IEnumerable<double> minValues = new List<double> {Convert.ToDouble(_inputParameter1.Text)};
+                        IEnumerable<double> minValues = new List<double> {input1};
 
                         // Create an IEnumerable from a list of double max stretch value doubles.
-                        IEnumerable<double> maxValues = new List<double> {Convert.ToDouble(_inputParameter2.Text)};
+                        IEnumerable<double> maxValues = new List<double> {input2};
 
                         // Create a new MinMaxStretchParameters based on the user choice for min and max stretch values.
                         MinMaxStretchParameters minMaxStretchParameters = new MinMaxStretchParameters(minValues, maxValues);
@@ -291,8 +305,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     try
                     {
                         // Create a new PercentClipStretchParameters based on the user choice for min and max percent clip values.
-                        PercentClipStretchParameters percentClipStretchParameters = new PercentClipStretchParameters(
-                            Convert.ToDouble(_inputParameter1.Text), Convert.ToDouble(_inputParameter2.Text));
+                        PercentClipStretchParameters percentClipStretchParameters = new PercentClipStretchParameters(input1, input2);
 
                         // Create the percent clip renderer based on the user defined min/max percent clip values, empty gamma values, statistic estimates, and a predefined color ramp.
                         stretchRenderer = new StretchRenderer(percentClipStretchParameters, gammaValues, true, colorRamp);
@@ -313,7 +326,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     try
                     {
                         // Create a new StandardDeviationStretchParameters based on the user choice for standard deviation value.
-                        StandardDeviationStretchParameters standardDeviationStretchParameters = new StandardDeviationStretchParameters(Convert.ToDouble(_inputParameter1.Text));
+                        StandardDeviationStretchParameters standardDeviationStretchParameters = new StandardDeviationStretchParameters(input1);
                         // Create the standard deviation renderer based on the user defined standard deviation value, empty gamma values, statistic estimates, and a predefined color ramp.
                         stretchRenderer = new StretchRenderer(standardDeviationStretchParameters, gammaValues, true, colorRamp);
                     }

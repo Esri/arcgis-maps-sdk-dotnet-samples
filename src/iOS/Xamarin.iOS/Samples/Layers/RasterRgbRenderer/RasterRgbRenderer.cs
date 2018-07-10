@@ -144,7 +144,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         private void SegmentButtonClicked(object sender, EventArgs e)
         {
             // Get the segmented button control that raised the event.
-            UISegmentedControl buttonControl = sender as UISegmentedControl;
+            UISegmentedControl buttonControl = (UISegmentedControl)sender;
 
             // Get the type of stretch inputs to show (title of the selected button).
             string stretchType = buttonControl.TitleAt(buttonControl.SelectedSegment);
@@ -236,7 +236,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             UIButton cancelButton = new UIButton();
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
             cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
-            cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
+            cancelButton.TouchUpInside += (s, e) => { OnCanceled?.Invoke(this, null); };
 
             // Create inputs that are specific for the stretch type.
             switch (_stretchParamsType)
@@ -509,8 +509,8 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
                     // - Minimum and maximum RGB values.
                     case "Min Max RGB":
                         // Get the models that contains the min/max red, green, and blue picker choices.
-                        RgbValuePickerModel minRgbModel = _minRgbPicker.Model as RgbValuePickerModel;
-                        RgbValuePickerModel maxRgbModel = _maxRgbPicker.Model as RgbValuePickerModel;
+                        RgbValuePickerModel minRgbModel = (RgbValuePickerModel)_minRgbPicker.Model;
+                        RgbValuePickerModel maxRgbModel = (RgbValuePickerModel)_maxRgbPicker.Model;
 
                         // Read min/max RGB values that were chosen.
                         double[] minValues = {minRgbModel.SelectedRed, minRgbModel.SelectedGreen, minRgbModel.SelectedBlue};
@@ -532,7 +532,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
                     // Standard deviation factor.
                     case "Std Dev":
                         // Get the model that contains the standard deviation factor choices.
-                        StdDevFactorPickerModel factorModel = _stdDevPicker.Model as StdDevFactorPickerModel;
+                        StdDevFactorPickerModel factorModel = (StdDevFactorPickerModel)_stdDevPicker.Model;
 
                         // Get the selected factor.
                         double standardDevFactor = factorModel.SelectedFactor;

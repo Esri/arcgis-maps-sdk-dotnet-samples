@@ -152,7 +152,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             // Create the cells in the table.
             UITableViewCell cell = new UITableViewCell(UITableViewCellStyle.Default, CellId);
 
-            ArcGISMapImageSublayer sublayer = _sublayers[indexPath.Row] as ArcGISMapImageSublayer;
+            ArcGISMapImageSublayer sublayer = (ArcGISMapImageSublayer)_sublayers[indexPath.Row];
             cell.TextLabel.Text = sublayer.Name;
 
             // Create a UISwitch for controlling the layer visibility.
@@ -173,11 +173,11 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         private void VisibilitySwitch_ValueChanged(object sender, EventArgs e)
         {
             // Get the row containing the UISwitch that was changed.
-            var index = (sender as UISwitch).Tag;
+            var index = ((UISwitch)sender).Tag;
 
             // Set the sublayer visibility according to the UISwitch setting.
-            ArcGISMapImageSublayer sublayer = _sublayers[(int) index] as ArcGISMapImageSublayer;
-            sublayer.IsVisible = (sender as UISwitch).On;
+            ArcGISMapImageSublayer sublayer = (ArcGISMapImageSublayer)_sublayers[(int) index];
+            sublayer.IsVisible = ((UISwitch)sender).On;
         }
 
         public override nint RowsInSection(UITableView tableview, nint section)

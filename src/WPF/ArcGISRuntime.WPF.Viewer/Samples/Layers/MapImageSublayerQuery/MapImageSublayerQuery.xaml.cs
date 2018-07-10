@@ -76,15 +76,15 @@ namespace ArcGISRuntime.WPF.Samples.MapImageSublayerQuery
             }
 
             // Get the USA map image layer (the first and only operational layer in the map).
-            ArcGISMapImageLayer usaMapImageLayer = MyMapView.Map.OperationalLayers[0] as ArcGISMapImageLayer;
+            ArcGISMapImageLayer usaMapImageLayer = (ArcGISMapImageLayer)MyMapView.Map.OperationalLayers[0];
 
             // Use a utility method on the map image layer to load all the sublayers and tables.
             await usaMapImageLayer.LoadTablesAndLayersAsync();
 
             // Get the sublayers of interest (skip 'Highways' since it doesn't have the POP2000 field).
-            ArcGISMapImageSublayer citiesSublayer = usaMapImageLayer.Sublayers[0] as ArcGISMapImageSublayer;
-            ArcGISMapImageSublayer statesSublayer = usaMapImageLayer.Sublayers[2] as ArcGISMapImageSublayer;
-            ArcGISMapImageSublayer countiesSublayer = usaMapImageLayer.Sublayers[3] as ArcGISMapImageSublayer;
+            ArcGISMapImageSublayer citiesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[0];
+            ArcGISMapImageSublayer statesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[2];
+            ArcGISMapImageSublayer countiesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[3];
             
             // Get the service feature table for each of the sublayers.
             ServiceFeatureTable citiesTable = citiesSublayer.Table;

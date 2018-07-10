@@ -113,10 +113,10 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         private void _segmentControl_ValueChanged(object sender, EventArgs e)
         {
             // Get the index number of the user choice of render rule names.
-            nint selectedSegmentId = (sender as UISegmentedControl).SelectedSegment;
+            nint selectedSegmentId = ((UISegmentedControl)sender).SelectedSegment;
 
             // Get the rendering rule info name from the UISegmentedControl that was chosen by the user.
-            string selectedRuleName = (sender as UISegmentedControl).TitleAt(selectedSegmentId);
+            string selectedRuleName = ((UISegmentedControl)sender).TitleAt(selectedSegmentId);
 
             // Loop through each rendering rule info in the image service raster.
             foreach (RenderingRuleInfo renderingRuleInfo in _renderRuleInfos)

@@ -595,11 +595,11 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         private void GroupBySwitched(object sender, EventArgs e)
         {
             // Use the control's tag to get the row that was changed.
-            nint index = (sender as UISwitch).Tag;
+            nint index = ((UISwitch)sender).Tag;
 
             // Set or clear the group field according to the UISwitch setting.
             string key = _potentialGroupFields.ElementAt((int) index).Key;
-            _potentialGroupFields[key] = (sender as UISwitch).On;
+            _potentialGroupFields[key] = ((UISwitch)sender).On;
         }
 
         // Return the number of rows to display.
@@ -656,11 +656,11 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         private void OrderBySwitched(object sender, EventArgs e)
         {
             // Use the control's tag to get the row that was changed.
-            nint index = (sender as UISwitch).Tag;
+            nint index = ((UISwitch)sender).Tag;
 
             // Get the corresponding field and update its choice as a sort field.
             OrderFieldOption orderByOption = _potentialOrderByFields.ElementAt((int) index);
-            orderByOption.OrderWith = (sender as UISwitch).On;
+            orderByOption.OrderWith = ((UISwitch)sender).On;
         }
 
         // Return the number of rows to display.
@@ -770,7 +770,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             UIBarButtonItem addButton = new UIBarButtonItem("Add", UIBarButtonItemStyle.Done, (s, e) =>
             {
                 // Get the selected StatisticDefinition.
-                StatDefinitionModel statPickerModel = statisticPicker.Model as StatDefinitionModel;
+                StatDefinitionModel statPickerModel = (StatDefinitionModel)statisticPicker.Model;
                 StatisticDefinition newStatDefinition = statPickerModel.SelectedStatDefinition;
                 if (newStatDefinition != null)
                 {
@@ -780,7 +780,8 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             });
 
             // Done Button (dismiss the UI, don't use the selected statistic).
-            UIBarButtonItem doneButton = new UIBarButtonItem("Done", UIBarButtonItemStyle.Plain, (s, e) => { OnCanceled.Invoke(this, null); });
+            UIBarButtonItem doneButton = new UIBarButtonItem("Done", UIBarButtonItemStyle.Plain, 
+                (s, e) => { OnCanceled?.Invoke(this, null); });
 
             // Add the buttons to the toolbar.
             toolbar.SetItems(new[] {addButton, doneButton}, true);

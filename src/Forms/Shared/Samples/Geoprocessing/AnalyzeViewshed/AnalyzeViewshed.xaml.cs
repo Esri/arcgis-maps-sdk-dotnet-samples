@@ -83,7 +83,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             // Normalize the geometry if wrap-around is enabled
             //    This is necessary because of how wrapped-around map coordinates are handled by Runtime
             //    Without this step, the task may fail because wrapped-around coordinates are out of bounds.
-            if (MyMapView.IsWrapAroundEnabled) { geometry = GeometryEngine.NormalizeCentralMeridian(geometry) as MapPoint; }
+            if (MyMapView.IsWrapAroundEnabled) { geometry = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geometry); }
 
             // Execute the geoprocessing task using the user click location 
             await CalculateViewshed(geometry);
@@ -131,7 +131,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
                 GeoprocessingResult myAnalysisResult = await myViewshedJob.GetResultAsync();
 
                 // Get the results from the outputs
-                GeoprocessingFeatures myViewshedResultFeatures = myAnalysisResult.Outputs["Viewshed_Result"] as GeoprocessingFeatures;
+                GeoprocessingFeatures myViewshedResultFeatures = (GeoprocessingFeatures)myAnalysisResult.Outputs["Viewshed_Result"];
 
                 // Add all the results as a graphics to the map
                 IFeatureSet myViewshedAreas = myViewshedResultFeatures.Features;

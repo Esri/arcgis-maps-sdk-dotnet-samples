@@ -166,7 +166,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
 
         private void OnSketchClicked(object sender, EventArgs e)
         {
-            Button sketchButton = sender as Button;
+            Button sketchButton = (Button)sender;
 
             // Create a dictionary of enum names and values
             IEnumerable<int> enumValues = Enum.GetValues(typeof(SketchCreationMode)).Cast<int>();

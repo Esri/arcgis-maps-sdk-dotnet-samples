@@ -282,7 +282,10 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
             // Get the current list item being created. Return if the item is null.
             DatumTransformationListBoxItem transformationItem = item as DatumTransformationListBoxItem;
-            if(item == null) { return null; }
+            if (transformationItem == null)
+            {
+                return null;
+            }
 
             // Read the IsMissingProjectionEngineFiles property to select the available or unavailable data template.
             if (transformationItem.TransformationObject.IsMissingProjectionEngineFiles)

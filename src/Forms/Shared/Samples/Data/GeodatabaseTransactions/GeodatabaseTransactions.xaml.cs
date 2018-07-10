@@ -218,7 +218,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         private async void AddNewFeature(object sender, EventArgs args)
         {
             // See if it was the "Birds" or "Marine" button that was clicked
-            Button addFeatureButton = sender as Button;
+            Button addFeatureButton = (Button)sender;
 
             try
             {
@@ -234,7 +234,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 {
                     editTable = _birdTable;
                 }
-                else if (addFeatureButton == AddMarineButton)
+                else
                 {
                     editTable = _marineTable;
                 }

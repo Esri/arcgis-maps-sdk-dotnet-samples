@@ -190,7 +190,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Report errors if map failed to load
             if (e.Status == LoadStatus.FailedToLoad)
             {
-                Map map = sender as Map;
+                Map map = (Map)sender;
                 Exception err = map.LoadError;
                 if (err != null)
                 {

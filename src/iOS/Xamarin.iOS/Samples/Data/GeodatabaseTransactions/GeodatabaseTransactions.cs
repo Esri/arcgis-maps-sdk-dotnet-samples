@@ -402,7 +402,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 {
                     editTable = _birdTable;
                 }
-                else if (addFeatureButton == _addMarineButton)
+                else
                 {
                     editTable = _marineTable;
                 }

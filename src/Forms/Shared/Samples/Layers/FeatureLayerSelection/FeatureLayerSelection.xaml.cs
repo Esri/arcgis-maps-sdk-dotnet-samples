@@ -102,7 +102,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
                 // Normalize the geometry if wrap-around is enabled
                 //    This is necessary because of how wrapped-around map coordinates are handled by Runtime
                 //    Without this step, querying may fail because wrapped-around coordinates are out of bounds.
-                if (MyMapView.IsWrapAroundEnabled) { geometry = GeometryEngine.NormalizeCentralMeridian(geometry) as MapPoint; }
+                if (MyMapView.IsWrapAroundEnabled) { geometry = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geometry); }
 
                 // Define the envelope around the tap location for selecting features
                 Envelope selectionEnvelope = new Envelope(geometry.X - mapTolerance, geometry.Y - mapTolerance, geometry.X + mapTolerance,

@@ -41,7 +41,7 @@ namespace ArcGISRuntime.AndroidPageRenderer
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
             // Get the current Android Activity
-            var activity = Context as Activity;
+            Activity activity = (Activity)Context;
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(

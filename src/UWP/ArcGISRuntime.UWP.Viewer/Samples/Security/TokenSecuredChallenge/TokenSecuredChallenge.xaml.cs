@@ -148,7 +148,7 @@ namespace ArcGISRuntime.UWP.Samples.TokenSecuredChallenge
             }
 
             // Get the login info from the task completion source.
-            LoginInfo loginEntry = _loginTaskCompletionSource.Task.AsyncState as LoginInfo;
+            LoginInfo loginEntry = (LoginInfo)_loginTaskCompletionSource.Task.AsyncState;
 
             try
             {

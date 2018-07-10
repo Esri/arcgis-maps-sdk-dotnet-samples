@@ -123,7 +123,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             _selectedFeaturesOverlay.Graphics.Clear();
 
             // Get the map image layer that contains the service request sublayer and the service request comments table.
-            ArcGISMapImageLayer serviceRequestsMapImageLayer = _myMapView.Map.OperationalLayers[0] as ArcGISMapImageLayer;
+            ArcGISMapImageLayer serviceRequestsMapImageLayer = (ArcGISMapImageLayer)_myMapView.Map.OperationalLayers[0];
 
             // Get the (non-spatial) table that contains the service request comments.
             ServiceFeatureTable commentsTable = serviceRequestsMapImageLayer.Tables[0];

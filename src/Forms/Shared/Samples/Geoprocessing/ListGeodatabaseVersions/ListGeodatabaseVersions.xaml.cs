@@ -99,7 +99,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
                 GeoprocessingResult analysisResult = await listVersionsJob.GetResultAsync();
 
                 // Get results from the outputs
-                GeoprocessingFeatures listVersionsResults = analysisResult.Outputs["Versions"] as GeoprocessingFeatures;
+                GeoprocessingFeatures listVersionsResults = (GeoprocessingFeatures)analysisResult.Outputs["Versions"];
 
                 // Set results
                 results = listVersionsResults.Features;

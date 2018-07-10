@@ -171,7 +171,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                     Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
 
                     // Update the item thumbnail
-                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);
+                    ((PortalItem)myMap.Item).SetThumbnailWithImage(imageStream);
                     await myMap.SaveAsync();
 
                     // Report update was successful
@@ -289,7 +289,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             Envelope currentExtent = currentViewpoint.TargetGeometry as Envelope;
 
             // Project the current extent to geographic coordinates (longitude / latitude)
-            Envelope currentGeoExtent = GeometryEngine.Project(currentExtent, SpatialReferences.Wgs84) as Envelope;
+            Envelope currentGeoExtent = (Envelope)GeometryEngine.Project(currentExtent, SpatialReferences.Wgs84);
 
             // Fill the app text boxes with min / max longitude (x) and latitude (y) to four decimal places
             XMinTextBox.Text = currentGeoExtent.XMin.ToString("0.####");

@@ -380,7 +380,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         private void ParameterInputTypeSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             // See which parameter (stretch) type was selected.
-            string selectedStretchType = (e.View as TextView).Text;
+            string selectedStretchType = ((TextView)e.View).Text;
 
             // Hide all UI controls for the input parameters.
             _minMaxLayout.Visibility = Android.Views.ViewStates.Gone;

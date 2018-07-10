@@ -455,7 +455,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             if (selectedPosition >= 0)
             {
                 // Call a function in the custom list adapter that will remove the statistic definition at this position (and update the data in the list view)
-                (_statDefListView.Adapter as StatDefinitionListAdapter).RemoveStatisticDefinitionAt(selectedPosition);
+                ((StatDefinitionListAdapter)_statDefListView.Adapter).RemoveStatisticDefinitionAt(selectedPosition);
             }
         }
 
@@ -476,7 +476,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             StatisticDefinition statisticDefinition = new StatisticDefinition(fieldName, statType, alias);
 
             // Call a function in the custom list adapter that will add the new statistic definition (and update the data in the list view)
-            (_statDefListView.Adapter as StatDefinitionListAdapter).AddStatisticDefinition(statisticDefinition);
+            ((StatDefinitionListAdapter)_statDefListView.Adapter).AddStatisticDefinition(statisticDefinition);
         }
     }
 

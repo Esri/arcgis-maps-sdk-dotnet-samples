@@ -70,7 +70,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeViewpoint
         private async void OnButtonClick(object sender, RoutedEventArgs e)
         {
             // Get .Content from the selected item
-            Button myButton = sender as Button;
+            Button myButton = (Button)sender;
             string selectedMapTitle = myButton.Content.ToString();
 
             switch (selectedMapTitle)

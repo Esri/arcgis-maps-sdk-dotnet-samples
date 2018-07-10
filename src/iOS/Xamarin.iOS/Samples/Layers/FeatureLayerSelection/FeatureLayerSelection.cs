@@ -124,7 +124,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
             //    Without this step, querying may fail because wrapped-around coordinates are out of bounds.
             if (_myMapView.IsWrapAroundEnabled)
             {
-                geometry = GeometryEngine.NormalizeCentralMeridian(geometry) as MapPoint;
+                geometry = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geometry);
             }
 
             // Define the envelope around the tap location for selecting features.

@@ -99,7 +99,7 @@ namespace ArcGISRuntime.UWP.Samples.ManageBookmarks
         private void OnBookmarkChooserSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Get the selected bookmark and apply the view point to the map
-            Bookmark selectedBookmark = e.AddedItems[0] as Bookmark;
+            Bookmark selectedBookmark = (Bookmark)e.AddedItems[0];
             MyMapView.SetViewpoint(selectedBookmark.Viewpoint);
         }
 

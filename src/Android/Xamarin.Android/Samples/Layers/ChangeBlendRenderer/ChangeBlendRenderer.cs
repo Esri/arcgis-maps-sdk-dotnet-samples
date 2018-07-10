@@ -154,7 +154,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
         private void ColorRampsButton_Click(object sender, EventArgs e)
         {
             // Create a local variable for the ColorRamps button
-            Button myButton_ColorRamps = sender as Button;
+            Button myButton_ColorRamps = (Button)sender;
 
             // Create menu to show ColorRamp options
             PopupMenu myPopupMenu_ColorRamps = new PopupMenu(this, myButton_ColorRamps);
@@ -226,7 +226,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
         private void SlopeTypesButton_Click(object sender, EventArgs e)
         {
             // Create a local variable for the SlopeTypes button
-            Button myButton_SlopeTypes = sender as Button;
+            Button myButton_SlopeTypes = (Button)sender;
 
             // Create menu to show SlopeType options
             PopupMenu myPopupMenu_SlopeTypes = new PopupMenu(this, myButton_SlopeTypes);

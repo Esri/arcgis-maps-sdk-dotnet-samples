@@ -72,7 +72,7 @@ namespace ArcGISRuntime.UWP.Samples.GeoViewSync
         private void OnViewpointChanged(object sender, EventArgs e)
         {
             // Get the MapView or SceneView that sent the event
-            GeoView sendingView = sender as GeoView;
+            GeoView sendingView = (GeoView)sender;
 
             // Only take action if this geoview is the one that the user is navigating.
             // Viewpoint changed events are fired when SetViewpoint is called; This check prevents a feedback loop

@@ -135,7 +135,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void SegmentButtonClicked(object sender, EventArgs e)
         {
             // Get the segmented button control that raised the event.
-            UISegmentedControl buttonControl = sender as UISegmentedControl;
+            UISegmentedControl buttonControl = (UISegmentedControl)sender;
 
             switch (buttonControl.SelectedSegment)
             {
@@ -342,7 +342,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
 
                     // Update the item thumbnail.
-                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);
+                    ((PortalItem)myMap.Item).SetThumbnailWithImage(imageStream);
                     await myMap.SaveAsync();
 
                     // Report update was successful.
@@ -665,7 +665,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             UIButton cancelButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
             cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
-            cancelButton.TouchUpInside += (s, e) => OnCanceled.Invoke(this, null);
+            cancelButton.TouchUpInside += (s, e) => OnCanceled?.Invoke(this, null);
 
             // Add the controls.
             AddSubviews(description, clientIdLabel, _clientIdTextField, redirectLabel, _redirectUrlTextField, saveButton, cancelButton);
@@ -850,7 +850,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             UIButton cancelButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
             cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
-            cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
+            cancelButton.TouchUpInside += (s, e) => { OnCanceled?.Invoke(this, null); };
 
             // Add the controls.
             AddSubviews(description, _titleTextField, _descriptionTextField, _tagsTextField, saveButton, cancelButton);

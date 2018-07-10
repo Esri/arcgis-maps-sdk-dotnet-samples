@@ -57,7 +57,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeViewpoint
         private async void OnButtonClick(object sender, RoutedEventArgs e)
         {
             // Get content from the selected item
-            Button myButton = sender as Button;
+            Button myButton = (Button)sender;
 
             switch (myButton.Content.ToString())
             {

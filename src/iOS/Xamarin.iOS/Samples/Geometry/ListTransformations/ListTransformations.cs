@@ -145,7 +145,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         private void MyMap_Loaded(object sender, EventArgs e)
         {
             // Get the map's spatial reference.
-            SpatialReference mapSpatialReference = (sender as Map).SpatialReference;
+            SpatialReference mapSpatialReference = ((Map)sender).SpatialReference;
 
             // Run on the UI thread.
             InvokeOnMainThread(() =>

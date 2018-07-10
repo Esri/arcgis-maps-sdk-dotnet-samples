@@ -240,7 +240,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                         foreach (Feature feature in selectedFeatures)
                         {
                             // Get a reference to the correct feature table for the feature.
-                            GeodatabaseFeatureTable table = feature.FeatureTable as GeodatabaseFeatureTable;
+                            GeodatabaseFeatureTable table = (GeodatabaseFeatureTable)feature.FeatureTable;
 
                             // Ensure the geometry type of the table is point.
                             if (table.GeometryType != GeometryType.Point)
@@ -373,7 +373,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             generateGdbJob.ProgressChanged += (sender, e) =>
             {
                 // Get the job.
-                GenerateGeodatabaseJob job = sender as GenerateGeodatabaseJob;
+                GenerateGeodatabaseJob job = (GenerateGeodatabaseJob)sender;
 
                 // Update the progress bar.
                 UpdateProgressBar(job.Progress);

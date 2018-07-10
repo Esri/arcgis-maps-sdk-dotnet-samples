@@ -96,7 +96,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeSublayerVisibility
 
         private void OnSublayerToggled(object sender, RoutedEventArgs e)
         {
-            ToggleSwitch toggle = sender as ToggleSwitch;
+            ToggleSwitch toggle = (ToggleSwitch)sender;
 
             // Find the layer from the image layer
             ArcGISSublayer sublayer = _imageLayer.Sublayers.First(x => x.Name == toggle.Header.ToString());

@@ -103,7 +103,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         private void OnChangeRenderingRuleClicked(object sender, EventArgs e)
         {
             // Get the rendering rule button
-            Button renderingRuleButton = sender as Button;
+            Button renderingRuleButton = (Button)sender;
 
             // Create menu to show the rendering rule options
             PopupMenu renderingRuleMenu = new PopupMenu(this, renderingRuleButton);

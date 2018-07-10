@@ -123,7 +123,7 @@ namespace ArcGISRuntime.UWP.Samples.CreateFeatureCollectionLayer
 
         private async void CollectionLayer_Loaded(object sender, EventArgs e)
         {
-            FeatureCollectionLayer collectionLayer = sender as FeatureCollectionLayer;
+            FeatureCollectionLayer collectionLayer = (FeatureCollectionLayer)sender;
              await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
              {
                  MyMapView.SetViewpointAsync(new Viewpoint(collectionLayer.FullExtent));

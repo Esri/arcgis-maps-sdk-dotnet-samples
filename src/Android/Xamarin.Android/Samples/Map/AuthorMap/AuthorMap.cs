@@ -220,7 +220,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
 
                     // Update the item thumbnail
-                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);
+                    ((PortalItem)myMap.Item).SetThumbnailWithImage(imageStream);
                     await myMap.SaveAsync();
 
                     // Report update was successful
@@ -765,7 +765,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 OnSaveMapEventArgs mapSavedArgs = new OnSaveMapEventArgs(title, description, tags);
 
                 // Raise the OnSaveClicked event so the main activity can handle the event and save the map
-                OnSaveClicked(this, mapSavedArgs);
+                OnSaveClicked?.Invoke(this, mapSavedArgs);
 
                 // Close the dialog
                 Dismiss();

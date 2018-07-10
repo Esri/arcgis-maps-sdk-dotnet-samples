@@ -139,7 +139,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         private void LayerLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
             // Get the layer that triggered the event.
-            Layer layer = sender as Layer;
+            Layer layer = (Layer)sender;
 
             // Get the label for this layer.
             UILabel labelToUpdate = null;
@@ -237,7 +237,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             try
             {
                 // Get the associated CredentialRequestInfo (will need the URI of the service being accessed).
-                CredentialRequestInfo requestInfo = _loginTaskCompletionSource.Task.AsyncState as CredentialRequestInfo;
+                CredentialRequestInfo requestInfo = (CredentialRequestInfo)_loginTaskCompletionSource.Task.AsyncState;
 
                 // Create a token credential using the provided username and password.
                 TokenCredential userCredentials = await AuthenticationManager.Current.GenerateCredentialAsync
@@ -369,7 +369,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             UIButton cancelButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
             cancelButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
+            cancelButton.TouchUpInside += (s, e) => { OnCanceled?.Invoke(this, null); };
 
             // Add the controls.
             AddSubviews(titleTextBlock, urlTextBlock, _usernameTextField, _passwordTextField, loginButton, cancelButton);

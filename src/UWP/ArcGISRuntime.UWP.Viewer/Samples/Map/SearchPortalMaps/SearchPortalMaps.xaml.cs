@@ -16,6 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
+using Esri.ArcGISRuntime;
 
 namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
 {
@@ -113,13 +114,10 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
 
         private async void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
-            // Get the current status
-            LoadStatus status = e.Status;
-
             // Report errors if map failed to load
-            if (status == Esri.ArcGISRuntime.LoadStatus.FailedToLoad)
+            if (e.Status == LoadStatus.FailedToLoad)
             {
-                Map map = sender as Map;
+                Map map = (Map)sender;
                 Exception err = map.LoadError;
                 if (err != null)
                 {

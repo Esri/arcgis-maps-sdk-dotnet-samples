@@ -619,7 +619,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 OnSearchMapEventArgs mapSearchArgs = new OnSearchMapEventArgs(search);
 
                 // Raise the OnSaveClicked event so the main activity can handle the event and save the map
-                OnSearchClicked(this, mapSearchArgs);
+                OnSearchClicked?.Invoke(this, mapSearchArgs);
 
                 // Close the dialog
                 Dismiss();

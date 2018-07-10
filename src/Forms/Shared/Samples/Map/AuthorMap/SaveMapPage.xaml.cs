@@ -52,7 +52,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 SaveMapEventArgs mapSavedArgs = new SaveMapEventArgs(title, description, tags);
 
                 // Raise the OnSaveClicked event so the main activity can handle the event and save the map
-                OnSaveClicked(this, mapSavedArgs);
+                OnSaveClicked?.Invoke(this, mapSavedArgs);
 
                 // Close the dialog
                 Navigation.PopAsync();

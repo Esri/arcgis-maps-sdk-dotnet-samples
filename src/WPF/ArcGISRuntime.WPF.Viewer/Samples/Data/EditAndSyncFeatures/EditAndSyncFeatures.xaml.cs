@@ -154,7 +154,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
                 foreach (Feature feature in selectedFeatures)
                 {
                     // Get a reference to the correct feature table for the feature.
-                    GeodatabaseFeatureTable table = feature.FeatureTable as GeodatabaseFeatureTable;
+                    GeodatabaseFeatureTable table = (GeodatabaseFeatureTable)feature.FeatureTable;
 
                     // Ensure the geometry type of the table is point.
                     if (table.GeometryType != GeometryType.Point)

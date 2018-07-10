@@ -124,7 +124,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
             try
             {
                 // Get the associated CredentialRequestInfo (will need the URI of the service being accessed).
-                CredentialRequestInfo requestInfo = _loginTaskCompletionSrc.Task.AsyncState as CredentialRequestInfo;
+                CredentialRequestInfo requestInfo = (CredentialRequestInfo)_loginTaskCompletionSrc.Task.AsyncState;
 
                 // Create a token credential using the provided username and password.
                 TokenCredential userCredentials = await AuthenticationManager.Current.GenerateCredentialAsync

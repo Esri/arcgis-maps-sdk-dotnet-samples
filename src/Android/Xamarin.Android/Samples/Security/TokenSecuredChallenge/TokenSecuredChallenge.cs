@@ -126,7 +126,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         private void LayerLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
             // Get the layer that triggered the event.
-            Layer layer = sender as Layer;
+            Layer layer = (Layer)sender;
 
             // Get the label (TextView) for this layer.
             TextView labelToUpdate = null;
@@ -213,7 +213,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             try
             {
                 // Get the associated CredentialRequestInfo (will need the URI of the service being accessed).
-                CredentialRequestInfo requestInfo = _loginTaskCompletionSource.Task.AsyncState as CredentialRequestInfo;
+                CredentialRequestInfo requestInfo = (CredentialRequestInfo)_loginTaskCompletionSource.Task.AsyncState;
 
                 // Create a token credential using the provided username and password.
                 TokenCredential userCredentials = await AuthenticationManager.Current.GenerateCredentialAsync
@@ -318,7 +318,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
                 OnEnterCredentialsEventArgs credentialsEnteredArgs = new OnEnterCredentialsEventArgs(username, password);
 
                 // Raise the OnLoginClicked event so the main activity can handle the event and try to authenticate with the credentials.
-                OnLoginClicked(this, credentialsEnteredArgs);
+                OnLoginClicked?.Invoke(this, credentialsEnteredArgs);
 
                 // Close the dialog.
                 this.Dismiss();
@@ -337,7 +337,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         private void CancelButtonClick(object sender, EventArgs e)
         {
             // Raise an event to indicate that the login was canceled.
-            OnLoginCanceled(this, e);
+            OnLoginCanceled?.Invoke(this, e);
 
             // Close the dialog.
             this.Dismiss();

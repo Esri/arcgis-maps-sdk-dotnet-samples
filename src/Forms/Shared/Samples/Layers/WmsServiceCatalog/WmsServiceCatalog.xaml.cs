@@ -139,7 +139,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             }
 
             // Hold a reference to the selected item
-            LayerDisplayVM selectedItem = e.SelectedItem as LayerDisplayVM;
+            LayerDisplayVM selectedItem = (LayerDisplayVM)e.SelectedItem;
 
             // Update the selection
             selectedItem.IsEnabled = true;

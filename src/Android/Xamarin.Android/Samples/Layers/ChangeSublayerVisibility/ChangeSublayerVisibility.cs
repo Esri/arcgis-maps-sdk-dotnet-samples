@@ -70,7 +70,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             // If layer is already loaded, this returns directly
             await _imageLayer.LoadAsync();
 
-            Button sublayersButton = sender as Button;
+            Button sublayersButton = (Button)sender;
 
             // Create menu to change sublayer visibility
             PopupMenu sublayersMenu = new PopupMenu(this, sublayersButton);

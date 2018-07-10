@@ -164,7 +164,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             try
             {
                 // Get the segmented button control that raised the event.
-                UISegmentedControl buttonControl = sender as UISegmentedControl;
+                UISegmentedControl buttonControl = (UISegmentedControl)sender;
 
                 switch (buttonControl.SelectedSegment)
                 {
@@ -329,7 +329,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Report errors if map failed to load.
             if (e.Status == LoadStatus.FailedToLoad)
             {
-                Map map = sender as Map;
+                Map map = (Map)sender;
                 Exception err = map.LoadError;
                 if (err != null)
                 {
@@ -636,7 +636,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             UIButton cancelButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
             cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
-            cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
+            cancelButton.TouchUpInside += (s, e) => { OnCanceled?.Invoke(this, null); };
 
             // Add the controls.
             AddSubviews(description, clientIdLabel, _clientIdTextField, redirectLabel, _redirectUrlTextField, saveButton, cancelButton);
@@ -781,7 +781,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             UIButton cancelButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
             cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
-            cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
+            cancelButton.TouchUpInside += (s, e) => { OnCanceled?.Invoke(this, null); };
 
             // Add the controls.
             AddSubviews(description, _searchTextField, saveButton, cancelButton);

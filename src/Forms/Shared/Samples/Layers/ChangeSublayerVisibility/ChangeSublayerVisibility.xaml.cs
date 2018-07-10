@@ -107,7 +107,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
 
         private void OnCellOnOffChanged(object sender, ToggledEventArgs e)
         {
-            SwitchCell cell = sender as SwitchCell;
+            SwitchCell cell = (SwitchCell)sender;
            
             // Find the layer from the image layer
             ArcGISSublayer sublayer = _imageLayer.Sublayers.First(x => x.Name == cell.Text);

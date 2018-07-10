@@ -146,7 +146,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void ShowLayerList(object sender, EventArgs e)
         {
             // See which button was used to show the list and fill it accordingly
-            Button button = sender as Button;
+            Button button = (Button)sender;
             if (button.Text == "Basemap")
             {
                 // Show the basemap list
@@ -230,7 +230,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     Stream imageStream = await thumbnailImage.GetEncodedBufferAsync();
 
                     // Update the item thumbnail
-                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);
+                    ((PortalItem)myMap.Item).SetThumbnailWithImage(imageStream);
                     await myMap.SaveAsync();
 
                     // Report update was successful

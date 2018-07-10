@@ -126,7 +126,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private void CanExecuteChanged(object sender, EventArgs e)
         {
             // Enable or disable the corresponding command for the sketch editor.
-            ICommand command = sender as ICommand;
+            ICommand command = (ICommand)sender;
             if (command == _myMapView.SketchEditor.UndoCommand)
             {
                 _segmentButton.SetEnabled(command.CanExecute(null), 2);
@@ -144,7 +144,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private async void SegmentButtonClicked(object sender, EventArgs e)
         {
             // Get the segmented button control that raised the event.
-            UISegmentedControl buttonControl = sender as UISegmentedControl;
+            UISegmentedControl buttonControl = (UISegmentedControl)sender;
 
             // Execute the appropriate action for the control
             switch (buttonControl.SelectedSegment)

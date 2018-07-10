@@ -66,7 +66,7 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
 
         private void OnVectorLayersClicked(object sender, EventArgs e)
         {
-            Button button = sender as Button;
+            Button button = (Button)sender;
 
             // Create menu to show options
             PopupMenu menu = new PopupMenu(this, button);

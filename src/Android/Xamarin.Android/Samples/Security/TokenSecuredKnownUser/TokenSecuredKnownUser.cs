@@ -121,7 +121,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
         private void LayerLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
             // Get the layer that triggered the event.
-            Layer layer = sender as Layer;
+            Layer layer = (Layer)sender;
 
             // Get the label (TextView) for this layer.
             TextView labelToUpdate = null;

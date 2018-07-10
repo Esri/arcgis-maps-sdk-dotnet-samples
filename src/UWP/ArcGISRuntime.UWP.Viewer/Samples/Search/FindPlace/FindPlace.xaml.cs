@@ -16,6 +16,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -199,9 +200,6 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
 
             // Add the GraphicsOverlay to the MapView
             MyMapView.GraphicsOverlays.Add(resultOverlay);
-
-            // Create a viewpoint for the extent containing all graphics
-            Viewpoint viewExtent = new Viewpoint(resultOverlay.Extent);
 
             // Update the map viewpoint
             await MyMapView.SetViewpointGeometryAsync(resultOverlay.Extent, 50);

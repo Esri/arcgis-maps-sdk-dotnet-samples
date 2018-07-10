@@ -45,9 +45,6 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             // Get the path to the ENC Exchange Set
             string encPath = GetEncPath();
 
-            // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set
-            List<Envelope> dataSetExtents = new List<Envelope>();
-
             // Create the cell and layer
             EncLayer myEncLayer = new EncLayer(new EncCell(encPath));
 

@@ -22,6 +22,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using Esri.ArcGISRuntime.ArcGISServices;
 
 namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
 {

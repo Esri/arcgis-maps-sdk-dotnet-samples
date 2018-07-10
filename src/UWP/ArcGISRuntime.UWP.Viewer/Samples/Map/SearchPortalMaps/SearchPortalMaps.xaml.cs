@@ -269,10 +269,10 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
                 // User will be challenged for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;

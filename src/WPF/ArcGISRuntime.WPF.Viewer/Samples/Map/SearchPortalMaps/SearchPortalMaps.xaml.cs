@@ -236,10 +236,10 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;

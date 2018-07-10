@@ -81,7 +81,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
                 nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
                 nfloat toolbarHeight = 40;
                 nfloat margin = 5;
-                nfloat controlHeight = toolbarHeight - (2 * margin);
+                nfloat controlHeight = toolbarHeight - 2 * margin;
                 nfloat webviewHeight = 200;
 
                 // Reposition controls.
@@ -91,7 +91,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
                 _webView.Frame = new CGRect(0, View.Bounds.Height - webviewHeight, View.Bounds.Width, webviewHeight);
 
                 // Position the help label within the toolbar.
-                _helpLabel.Frame = new CGRect(margin, margin, _toolbar.Bounds.Width - (2 * margin), controlHeight);
+                _helpLabel.Frame = new CGRect(margin, margin, _toolbar.Bounds.Width - 2 * margin, controlHeight);
 
                 base.ViewDidLayoutSubviews();
             }

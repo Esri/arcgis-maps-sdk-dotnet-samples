@@ -115,7 +115,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
                 {
 
                     // Construct and assign the where clause that will be used to query the feature table
-                    WhereClause = "upper(STATE_NAME) LIKE '%" + (stateName.Trim().ToUpper()) + "%'"
+                    WhereClause = "upper(STATE_NAME) LIKE '%" + stateName.Trim().ToUpper() + "%'"
                 };
 
                 // Query the feature table

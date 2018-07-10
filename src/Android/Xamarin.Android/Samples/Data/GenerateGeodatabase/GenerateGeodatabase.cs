@@ -226,10 +226,10 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             _generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the progress changed event (to show progress bar).
-            _generateGdbJob.ProgressChanged += ((sender, e) =>
+            _generateGdbJob.ProgressChanged += (sender, e) =>
             {
                 UpdateProgressBar();
-            });
+            };
 
             // Show the progress bar.
             myProgressBar.Visibility = Android.Views.ViewStates.Visible;

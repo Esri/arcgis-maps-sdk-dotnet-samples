@@ -160,7 +160,7 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedGeoElement
 
             // Rotate to face the destination.
             double heading = (double)_tank.Attributes["HEADING"];
-            heading = heading + ((distance.Azimuth1 - heading) / 10);
+            heading = heading + (distance.Azimuth1 - heading) / 10;
             _tank.Attributes["HEADING"] = heading;
 
             // Clear the destination if the tank already arrived.

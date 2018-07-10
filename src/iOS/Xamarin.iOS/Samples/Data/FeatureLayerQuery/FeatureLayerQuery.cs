@@ -75,7 +75,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
                 _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
                 _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
                 _helpLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _queryTextView.Frame = new CGRect(margin, _helpLabel.Frame.Bottom + margin, colBreak - (2 * margin), controlHeight);
+                _queryTextView.Frame = new CGRect(margin, _helpLabel.Frame.Bottom + margin, colBreak - 2 * margin, controlHeight);
                 _queryButton.Frame = new CGRect(colBreak + margin, _queryTextView.Frame.Top, 100 - 2 * margin, controlHeight);
 
                 base.ViewDidLayoutSubviews();

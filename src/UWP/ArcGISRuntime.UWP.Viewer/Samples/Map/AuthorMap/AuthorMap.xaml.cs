@@ -371,10 +371,10 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                             info.GenerateTokenOptions
                     ) as OAuthTokenCredential;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;

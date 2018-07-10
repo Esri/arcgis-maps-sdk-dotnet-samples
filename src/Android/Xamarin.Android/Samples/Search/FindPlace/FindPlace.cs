@@ -52,7 +52,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         private ProgressBar _myProgressBar;
 
         // List of suggestions
-        private List<String> _suggestions = new List<string>();
+        private List<string> _suggestions = new List<string>();
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -314,10 +314,10 @@ namespace ArcGISRuntime.Samples.FindPlace
             Graphic matchingGraphic = results.First().Graphics.First();
 
             // Get the title; manually added to the point's attributes in UpdateSearch
-            string title = matchingGraphic.Attributes["Match_Title"] as String;
+            string title = matchingGraphic.Attributes["Match_Title"] as string;
 
             // Get the address; manually added to the point's attributes in UpdateSearch
-            string address = matchingGraphic.Attributes["Match_Address"] as String;
+            string address = matchingGraphic.Attributes["Match_Address"] as string;
 
             // Define the callout
             CalloutDefinition calloutBody = new CalloutDefinition(title, address);
@@ -334,13 +334,19 @@ namespace ArcGISRuntime.Samples.FindPlace
         /// <param name="poiOnly">If true, restricts suggestions to only Points of Interest (e.g. businesses, parks),
         /// rather than all matching results</param>
         /// <returns>List of suggestions as strings</returns>
-        private async Task<IEnumerable<String>> GetSuggestResults(string searchText, string location = "", bool poiOnly = false)
+        private async Task<List<string>> GetSuggestResults(string searchText, string location = "", bool poiOnly = false)
         {
             // Quit if string is null, empty, or whitespace
-            if (String.IsNullOrWhiteSpace(searchText)) { return null; }
+            if (String.IsNullOrWhiteSpace(searchText))
+            {
+                return new List<string>();
+            }
 
             // Quit if the geocoder isn't ready
-            if (_geocoder == null) { return null; }
+            if (_geocoder == null)
+            {
+                return new List<string>();
+            }
 
             // Create geocode parameters
             SuggestParameters parameters = new SuggestParameters();
@@ -364,11 +370,8 @@ namespace ArcGISRuntime.Samples.FindPlace
             // Get the updated results from the query so far
             IReadOnlyList<SuggestResult> results = await _geocoder.SuggestAsync(searchText, parameters);
 
-            // Convert the list into a list of strings (corresponding to the label property on each result)
-            IEnumerable<String> formattedResults = results.Select(result => result.Label);
-
             // Return the list
-            return formattedResults;
+            return results.Select(result => result.Label).ToList();
         }
 
         /// <summary>

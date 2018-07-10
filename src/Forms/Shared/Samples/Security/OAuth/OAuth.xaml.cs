@@ -162,17 +162,16 @@ namespace ArcGISRuntime.Samples.OAuth
             });
 #endif
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
-            Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(
+            OAuth2Authenticator authenticator = new OAuth2Authenticator(
                 clientId: AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
                 redirectUrl: callbackUri)
             {
-                ShowErrors = false
+                ShowErrors = false,
+                // Allow the user to cancel the OAuth attempt.
+                AllowCancel = true
             };
-
-            // Allow the user to cancel the OAuth attempt.
-            authenticator.AllowCancel = true;
 
             // Define a handler for the OAuth2Authenticator.Completed event.
             authenticator.Completed += (sender, authArgs) =>

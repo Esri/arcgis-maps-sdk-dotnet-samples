@@ -76,7 +76,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeStretchRenderer
             string myRendererTypeChoice = RendererTypes.SelectedValue.ToString();
 
             // Create an IEnumerable from an empty list of doubles for the gamma values in the stretch render
-            IEnumerable<double> myGammaValues = new List<double> { };
+            IEnumerable<double> myGammaValues = new List<double>();
 
             // Create a color ramp for the stretch renderer
             ColorRamp myColorRamp = ColorRamp.Create(PresetColorRampType.DemLight, 1000);

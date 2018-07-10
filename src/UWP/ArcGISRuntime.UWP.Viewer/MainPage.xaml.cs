@@ -156,7 +156,7 @@ namespace ArcGISRuntime.UWP.Viewer
             {
                 Title = sampleModel.SampleName,
                 PrimaryButtonText = "close",
-                SecondaryButtonText = "show",
+                SecondaryButtonText = "show"
             };
 
             dialog.SecondaryButtonClick += (s, args) =>

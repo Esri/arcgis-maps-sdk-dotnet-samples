@@ -271,9 +271,11 @@ namespace ArcGISRuntime.Samples.FindServiceArea
                     SimpleLineSymbol serviceOutline = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.DarkGray, 3.0f);
 
                     // Create a list of fill symbols for the polygons.
-                    List<SimpleFillSymbol> fillSymbols = new List<SimpleFillSymbol>();
-                    fillSymbols.Add(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Drawing.Color.FromArgb(70, 255, 0, 0), serviceOutline));
-                    fillSymbols.Add(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Drawing.Color.FromArgb(70, 255, 165, 0), serviceOutline));
+                    List<SimpleFillSymbol> fillSymbols = new List<SimpleFillSymbol>
+                    {
+                        new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Drawing.Color.FromArgb(70, 255, 0, 0), serviceOutline), 
+                        new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Drawing.Color.FromArgb(70, 255, 165, 0), serviceOutline)
+                    };
 
                     // Loop over every polygon in every facilities result.
                     for (int j = 0; j < polygons.Count; j++)

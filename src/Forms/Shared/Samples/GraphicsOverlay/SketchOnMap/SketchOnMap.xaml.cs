@@ -92,7 +92,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                         symbol = new SimpleFillSymbol()
                         {
                             Color = Colors.Red,
-                            Style = SimpleFillSymbolStyle.Solid,
+                            Style = SimpleFillSymbolStyle.Solid
                         };
                         break;
                     }

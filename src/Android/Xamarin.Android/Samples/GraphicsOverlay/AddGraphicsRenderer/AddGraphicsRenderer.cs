@@ -95,7 +95,7 @@ namespace ArcGISRuntime.Samples.AddGraphicsRenderer
             {
                 Color = System.Drawing.Color.Yellow,
                 Size = 30,
-                Style = SimpleMarkerSymbolStyle.Square,
+                Style = SimpleMarkerSymbolStyle.Square
             };
 
             // Create simple renderer with symbol

@@ -173,7 +173,7 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
         private void AuthorizeOnUIThread(string authorizeUri)
         {
             // Create a WebBrowser control to display the authorize page.
-            WebBRowser authBrowser = new WebBrowser();
+            WebBrowser authBrowser = new WebBrowser();
 
             // Handle the navigating event for the browser to check for a response sent to the redirect URL.
             authBrowser.Navigating += WebBrowserOnNavigating;
@@ -184,7 +184,7 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
                 Content = authBrowser,
                 Height = 420,
                 Width = 350,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
 
             // Set the app's window as the owner of the browser window (if main window closes, so will the browser).

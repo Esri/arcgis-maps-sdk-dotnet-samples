@@ -85,7 +85,7 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsRenderer
             {
                 Color = Color.Yellow,
                 Size = 30,
-                Style = SimpleMarkerSymbolStyle.Square,
+                Style = SimpleMarkerSymbolStyle.Square
             };
 
             // Create simple renderer with symbol

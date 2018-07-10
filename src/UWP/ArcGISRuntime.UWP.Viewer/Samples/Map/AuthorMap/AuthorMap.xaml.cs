@@ -41,8 +41,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         private string OAuthRedirectUrl = "https://developers.arcgis.com";
 
         // String array to store names of the available basemaps
-        private string[] _basemapNames = new string[]
-        {
+        private string[] _basemapNames = {
             "Light Gray",
             "Topographic",
             "Streets",

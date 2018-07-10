@@ -58,8 +58,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
             SpatialReferences.WebMercator);
 
         // String array to store titles for the viewpoints specified above.
-        private string[] titles = new string[]
-        {
+        private string[] titles = {
             "Geometry",
             "Center & Scale",
             "Animate"

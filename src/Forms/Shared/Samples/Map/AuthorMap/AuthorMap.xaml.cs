@@ -53,8 +53,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private string _oAuthRedirectUrl = "https://developers.arcgis.com";
 
         // String array to store basemap constructor types
-        private string[] _basemapTypes = new string[]
-        {
+        private string[] _basemapTypes = {
             "Topographic",
             "Streets",
             "Imagery",

@@ -22,16 +22,14 @@ namespace ArcGISRuntime.Samples.OpenMapURL
     public partial class OpenMapURL : ContentPage
     {
         // String array to hold urls to publicly available web maps
-        private string[] itemURLs = new string[]
-        {
+        private string[] itemURLs = {
             "https://www.arcgis.com/home/item.html?id=392451c381ad4109bf04f7bd442bc038",
             "https://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
             "https://www.arcgis.com/home/item.html?id=92ad152b9da94dee89b9e387dfe21acd"
         };
 
         // String array to store titles for the webmaps specified above. These titles are in the same order as the urls above
-        private string[] titles = new string[]
-        {
+        private string[] titles = {
             "Population Pressure",
             "USA Tapestry Segmentation",
             "Geology of United States"

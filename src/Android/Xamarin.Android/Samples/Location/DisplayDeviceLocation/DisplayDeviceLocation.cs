@@ -32,8 +32,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         private MapView _myMapView = new MapView();
 
         // String array to store the different device location options.
-        private string[] _navigationTypes = new string[]
-        {
+        private string[] _navigationTypes = {
             "On",
             "Re-Center",
             "Navigation",

@@ -276,7 +276,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         private async void StopEditTransaction(object sender, EventArgs e)
         {
             // Ask the user if they want to commit or rollback the transaction (or cancel to keep working in the transaction)
-            string choice = await DisplayActionSheet("Transaction", "Cancel", null, "Commit", "Rollback");
+            string choice = await ((Page)Parent).DisplayActionSheet("Transaction", "Cancel", null, "Commit", "Rollback");
 
             if (choice == "Commit")
             {

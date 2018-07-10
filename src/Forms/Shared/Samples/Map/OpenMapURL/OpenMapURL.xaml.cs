@@ -58,7 +58,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         {
             // Show sheet and get title from the selection
             string selectedMapTitle = 
-                await DisplayActionSheet("Select map", "Cancel",null, titles);
+                await ((Page)Parent).DisplayActionSheet("Select map", "Cancel",null, titles);
 
             // If selected cancel do nothing
             if (selectedMapTitle == "Cancel") return;

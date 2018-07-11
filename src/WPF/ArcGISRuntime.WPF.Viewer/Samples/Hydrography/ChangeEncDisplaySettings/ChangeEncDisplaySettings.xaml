@@ -20,7 +20,7 @@
                     <RadioButton x:Name="DayRadioButton"
                                  GroupName="ColorScheme"
                                  Content="Day"
-                                 IsChecked="True" />
+                                 IsChecked="True"/>
                     <RadioButton x:Name="DuskRadioButton"
                                  GroupName="ColorScheme"
                                  Content="Dusk" />
@@ -50,8 +50,6 @@
                                  GroupName="Point"
                                  Content="Simplified" />
                 </StackPanel>
-                <Button Content="Apply"
-                        Click="Button_Click" />
             </StackPanel>
         </Border>
     </Grid>

@@ -7,12 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace ArcGISRuntime.WPF.Samples.ChangeEncDisplaySettings
 {
@@ -78,6 +80,15 @@ namespace ArcGISRuntime.WPF.Samples.ChangeEncDisplaySettings
 
             // Subscribe to notifications about leaving so that settings can be re-set
             this.Unloaded += Sample_Unloaded;
+
+            // Enable changing the settings on user interaction
+            DayRadioButton.Checked += Setting_Checked;
+            NightRadioButton.Checked += Setting_Checked;
+            DuskRadioButton.Checked += Setting_Checked;
+            PlainAreaRadioButton.Checked += Setting_Checked;
+            SymbolizedAreaRadioButton.Checked += Setting_Checked;
+            PaperchartRadioButton.Checked += Setting_Checked;
+            SimplifiedRadioButton.Checked += Setting_Checked;
         }
 
         private void Sample_Unloaded(object sender, RoutedEventArgs e)
@@ -98,20 +109,20 @@ namespace ArcGISRuntime.WPF.Samples.ChangeEncDisplaySettings
             EncMarinerSettings globalMarinerSettings = globalDisplaySettings.MarinerSettings;
 
             // Apply color scheme
-            if ((bool)DayRadioButton.IsChecked) { globalMarinerSettings.ColorScheme = EncColorScheme.Day; }
-            else if ((bool)DuskRadioButton.IsChecked) { globalMarinerSettings.ColorScheme = EncColorScheme.Dusk; }
-            else if ((bool)NightRadioButton.IsChecked) { globalMarinerSettings.ColorScheme = EncColorScheme.Night; }
+            if (DayRadioButton.IsChecked == true) { globalMarinerSettings.ColorScheme = EncColorScheme.Day; }
+            else if (DuskRadioButton.IsChecked == true) { globalMarinerSettings.ColorScheme = EncColorScheme.Dusk; }
+            else if (NightRadioButton.IsChecked == true) { globalMarinerSettings.ColorScheme = EncColorScheme.Night; }
 
             // Apply area symbolization
-            if ((bool)PlainAreaRadioButton.IsChecked) { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain; }
+            if (PlainAreaRadioButton.IsChecked == true) { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain; }
             else { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Symbolized; }
 
             // Apply point symbolization
-            if ((bool)PaperchartRadioButton.IsChecked) { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart; }
+            if (PaperchartRadioButton.IsChecked == true) { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart; }
             else { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified; }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Setting_Checked(object sender, RoutedEventArgs e)
         {
             UpdateDisplaySettings();
         }

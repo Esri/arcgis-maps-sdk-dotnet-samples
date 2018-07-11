@@ -226,11 +226,9 @@ namespace ArcGISRuntime.Samples.ListTransformations
             }
 
             // Create an adapter for showing the spinner list.
-            TransformationsAdapter transformationsAdapter = new TransformationsAdapter(this, transformsList)
-            {
-                DefaultTransformation = defaultTransform
-            };
-
+            TransformationsAdapter transformationsAdapter = new TransformationsAdapter(this, transformsList);
+            transformationsAdapter.DefaultTransformation = defaultTransform;
+            
             // Apply the adapter to the spinner.
             _transformationsPicker.Adapter = transformationsAdapter;
         }

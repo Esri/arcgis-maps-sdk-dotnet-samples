@@ -48,12 +48,10 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create the mapview
-            _myMapView = new MapView(this)
-            {
+            _myMapView = new MapView(this);
 
-                // Add an imagery basemap
-                Map = new Map(Basemap.CreateImagery())
-            };
+            // Add an imagery basemap
+            _myMapView.Map = new Map(Basemap.CreateImagery());
 
             // Add the mapview to the layout
             layout.AddView(_myMapView);

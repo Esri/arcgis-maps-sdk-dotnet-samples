@@ -164,18 +164,14 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Label for the user instructions
-            TextView textview_Label1 = new TextView(this)
-            {
-                Text = "Current versions:"
-            };
+            TextView textview_Label1 = new TextView(this);
+            textview_Label1.Text = "Current versions:";
             layout.AddView(textview_Label1);
 
             // Add the progress bar to indicate the geoprocessing task is running; make invisible by default
-            _myProgressBar = new ProgressBar(this)
-            {
-                Indeterminate = true,
-                Visibility = ViewStates.Invisible
-            };
+            _myProgressBar = new ProgressBar(this);
+            _myProgressBar.Indeterminate = true;
+            _myProgressBar.Visibility = ViewStates.Invisible;
             layout.AddView(_myProgressBar);
 
             // Edit text for the start date (user can change if desired)

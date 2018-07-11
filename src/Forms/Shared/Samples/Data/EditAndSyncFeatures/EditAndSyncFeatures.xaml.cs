@@ -89,10 +89,8 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 2);
 
                 // Create a graphics overlay for the extent graphic and apply a renderer.
-                GraphicsOverlay extentOverlay = new GraphicsOverlay
-                {
-                    Renderer = new SimpleRenderer(lineSymbol)
-                };
+                GraphicsOverlay extentOverlay = new GraphicsOverlay();
+                extentOverlay.Renderer = new SimpleRenderer(lineSymbol);
 
                 // Add the graphics overlay to the map view.
                 myMapView.GraphicsOverlays.Add(extentOverlay);

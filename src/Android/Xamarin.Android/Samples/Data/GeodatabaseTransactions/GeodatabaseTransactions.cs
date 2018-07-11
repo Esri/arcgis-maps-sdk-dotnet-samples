@@ -413,16 +413,12 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
             // Create the layout
-            LinearLayout dialogLayout = new LinearLayout(this)
-            {
-                Orientation = Orientation.Vertical
-            };
+            LinearLayout dialogLayout = new LinearLayout(this);
+            dialogLayout.Orientation = Orientation.Vertical;
 
             // Create a button to commit edits
-            Button commitButton = new Button(this)
-            {
-                Text = "Commit"
-            };
+            Button commitButton = new Button(this);
+            commitButton.Text = "Commit";
 
             // Handle the click event for the Commit button
             commitButton.Click += (s, args) =>
@@ -439,10 +435,8 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             };
 
             // Create a button to rollback edits
-            Button rollbackButton = new Button(this)
-            {
-                Text = "Rollback"
-            };
+            Button rollbackButton = new Button(this);
+            rollbackButton.Text = "Rollback";
 
             // Handle the click event for the Rollback button
             rollbackButton.Click += (s, args) => 
@@ -459,10 +453,8 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             };
 
             // Create a button to cancel and return to the transaction
-            Button cancelButton = new Button(this)
-            {
-                Text = "Cancel"
-            };
+            Button cancelButton = new Button(this);
+            cancelButton.Text = "Cancel";
 
             // Handle the click event for the Cancel button
             rollbackButton.Click += (s, args) => _stopEditDialog.Dismiss();

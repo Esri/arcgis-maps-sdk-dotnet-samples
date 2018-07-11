@@ -212,17 +212,13 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             _buttonPanel = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Create button to show search UI
-            Button searchMapsButton = new Button(this)
-            {
-                Text = "Search Maps"
-            };
+            Button searchMapsButton = new Button(this);
+            searchMapsButton.Text = "Search Maps";
             searchMapsButton.Click += SearchMapsClicked;
 
             // Create another button to show maps from user's ArcGIS Online account
-            Button myMapsButton = new Button(this)
-            {
-                Text = "My Maps"
-            };
+            Button myMapsButton = new Button(this);
+            myMapsButton.Text = "My Maps";
             myMapsButton.Click += MyMapsClicked;
 
             // Add buttons to the horizontal layout panel
@@ -247,26 +243,21 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
             // Create the layout
-            LinearLayout dialogLayout = new LinearLayout(this)
-            {
-                Orientation = Orientation.Vertical
-            };
+            LinearLayout dialogLayout = new LinearLayout(this);
+            dialogLayout.Orientation = Orientation.Vertical;
 
             // Create a text box for entering the client id
-            LinearLayout clientIdLayout = new LinearLayout(this)
-            {
-                Orientation = Orientation.Horizontal
-            };
-            TextView clientIdLabel = new TextView(this)
-            {
-                Text = "Client ID:"
-            };
+            LinearLayout clientIdLayout = new LinearLayout(this);
+            clientIdLayout.Orientation = Orientation.Horizontal;
+            TextView clientIdLabel = new TextView(this);
+            clientIdLabel.Text = "Client ID:";
             _clientIdText = new EditText(this);
             if (!String.IsNullOrEmpty(_appClientId)) { _clientIdText.Text = _appClientId; }
             clientIdLayout.AddView(clientIdLabel);
             clientIdLayout.AddView(_clientIdText);
 
             // Create a text box for entering the redirect url
+<<<<<<< HEAD
             LinearLayout redirectUrlLayout = new LinearLayout(this)
             {
                 Orientation = Orientation.Horizontal
@@ -280,14 +271,21 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 Hint = "https://my.redirect/url"
             };
             if (!String.IsNullOrEmpty(_oAuthRedirectUrl)) { _redirectUrlText.Text = _oAuthRedirectUrl; }
+=======
+            LinearLayout redirectUrlLayout = new LinearLayout(this);
+            redirectUrlLayout.Orientation = Orientation.Horizontal;
+            TextView redirectUrlLabel = new TextView(this);
+            redirectUrlLabel.Text = "Redirect:";
+            _redirectUrlText = new EditText(this);
+            _redirectUrlText.Hint = "https://my.redirect/url";
+            if (!string.IsNullOrEmpty(_oAuthRedirectUrl)) { _redirectUrlText.Text = _oAuthRedirectUrl; }
+>>>>>>> parent of 14fbc904... Use object or collection initializer
             redirectUrlLayout.AddView(redirectUrlLabel);
             redirectUrlLayout.AddView(_redirectUrlText);
 
             // Create a button to dismiss the dialog (and proceed with updating the values)
-            Button okButton = new Button(this)
-            {
-                Text = "Save"
-            };
+            Button okButton = new Button(this);
+            okButton.Text = "Save";
 
             // Handle the click event for the OK button
             okButton.Click += OnCloseOAuthDialog;
@@ -356,18 +354,16 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             try
             {
                 // Create a challenge request for portal credentials (OAuth credential request for arcgis.com)
-                CredentialRequestInfo challengeRequest = new CredentialRequestInfo
+                CredentialRequestInfo challengeRequest = new CredentialRequestInfo();
+
+                // Use the OAuth implicit grant flow
+                challengeRequest.GenerateTokenOptions = new GenerateTokenOptions
                 {
-
-                    // Use the OAuth implicit grant flow
-                    GenerateTokenOptions = new GenerateTokenOptions
-                    {
-                        TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-                    },
-
-                    // Indicate the url (portal) to authenticate with (ArcGIS Online)
-                    ServiceUri = new Uri(ServerUrl)
+                    TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
                 };
+
+                // Indicate the url (portal) to authenticate with (ArcGIS Online)
+                challengeRequest.ServiceUri = new Uri(ServerUrl);
 
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
                 Credential cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
@@ -574,23 +570,17 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 base.OnCreateView(inflater, container, savedInstanceState);
 
                 // The container for the dialog is a vertical linear layout
-                dialogView = new LinearLayout(ctx)
-                {
-                    Orientation = Orientation.Vertical
-                };
+                dialogView = new LinearLayout(ctx);
+                dialogView.Orientation = Orientation.Vertical;
 
                 // Add a text box for entering web map search text
-                _mapSearchTextbox = new EditText(ctx)
-                {
-                    Hint = "Search text"
-                };
+                _mapSearchTextbox = new EditText(ctx);
+                _mapSearchTextbox.Hint = "Search text";
                 dialogView.AddView(_mapSearchTextbox);
 
                 // Add a button to complete search
-                Button searchMapsButton = new Button(ctx)
-                {
-                    Text = "Search"
-                };
+                Button searchMapsButton = new Button(ctx);
+                searchMapsButton.Text = "Search";
                 searchMapsButton.Click += SearchMapsButtonClick;
                 dialogView.AddView(searchMapsButton);
             }

@@ -61,15 +61,13 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
             ServiceFeatureTable featureTable = new ServiceFeatureTable(featureServiceUri);
 
             // Initialize a new feature layer based on the feature table
-            _featureLayer = new FeatureLayer(featureTable)
-            {
+            _featureLayer = new FeatureLayer(featureTable);
 
-                // Set the selection color for feature layer
-                SelectionColor = Colors.Cyan,
+            // Set the selection color for feature layer
+            _featureLayer.SelectionColor = Colors.Cyan;
 
-                // Set the selection width
-                SelectionWidth = 3
-            };
+            // Set the selection width
+            _featureLayer.SelectionWidth = 3;
 
             // Make sure that used feature layer is loaded before we hook into the tapped event
             // This prevents us trying to do selection on the layer that isn't initialized
@@ -109,12 +107,10 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
                     geometry.Y + mapTolerance, MyMapView.Map.SpatialReference);
 
                 // Define the query parameters for selecting features
-                QueryParameters queryParams = new QueryParameters
-                {
+                QueryParameters queryParams = new QueryParameters();
 
-                    // Set the geometry to selection envelope for selection by geometry
-                    Geometry = selectionEnvelope
-                };
+                // Set the geometry to selection envelope for selection by geometry
+                queryParams.Geometry = selectionEnvelope;
 
                 // Select the features based on query parameters defined above
                 await _featureLayer.SelectFeaturesAsync(queryParams, SelectionMode.New);

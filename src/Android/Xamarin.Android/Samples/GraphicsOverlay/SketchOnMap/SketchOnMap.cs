@@ -97,47 +97,35 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             LinearLayout buttonLayoutTwo = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Button to sketch a selected geometry type on the map view
-            Button sketchButton = new Button(this)
-            {
-                Text = "Sketch"
-            };
+            Button sketchButton = new Button(this);
+            sketchButton.Text = "Sketch";
             sketchButton.Click += OnSketchClicked;
 
             // Button to edit an existing graphic's geometry
-            _editButton = new Button(this)
-            {
-                Text = "Edit"
-            };
+            _editButton = new Button(this);
+            _editButton.Text = "Edit";
             _editButton.Click += OnEditClicked;
             _editButton.Enabled = false;
 
             // Buttons to Undo/Redo sketch and edit operations
-            _undoButton = new Button(this)
-            {
-                Text = "Undo"
-            };
+            _undoButton = new Button(this);
+            _undoButton.Text = "Undo";
             _undoButton.Click += OnUndoClicked;
             _undoButton.Enabled = false;
-            _redoButton = new Button(this)
-            {
-                Text = "Redo"
-            };
+            _redoButton = new Button(this);
+            _redoButton.Text = "Redo";
             _redoButton.Click += OnRedoClicked;
             _redoButton.Enabled = false;
 
             // Button to complete the sketch or edit
-            _doneButton = new Button(this)
-            {
-                Text = "Done"
-            };
+            _doneButton = new Button(this);
+            _doneButton.Text = "Done";
             _doneButton.Click += OnCompleteClicked;
             _doneButton.Enabled = false;
 
             // Button to clear all graphics and sketches
-            _clearButton = new Button(this)
-            {
-                Text = "Clear"
-            };
+            _clearButton = new Button(this);
+            _clearButton.Text = "Clear";
             _clearButton.Click += OnClearClicked;
             _clearButton.Enabled = false;
 

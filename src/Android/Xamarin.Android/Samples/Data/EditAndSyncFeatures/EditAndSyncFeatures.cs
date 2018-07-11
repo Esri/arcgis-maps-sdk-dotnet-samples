@@ -89,36 +89,28 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         private void CreateLayout()
         {
             // Create the layout.
-            LinearLayout layout = new LinearLayout(this)
-            {
-                Orientation = Orientation.Vertical
-            };
+            LinearLayout layout = new LinearLayout(this);
+            layout.Orientation = Orientation.Vertical;
 
             // Add the help label.
             myHelpLabel = new TextView(this) { Text = "1. Click 'Generate'" };
             layout.AddView(myHelpLabel);
 
             // Add the progress bar.
-            myProgressBar = new ProgressBar(this)
-            {
-                Visibility = Android.Views.ViewStates.Gone
-            };
+            myProgressBar = new ProgressBar(this);
+            myProgressBar.Visibility = Android.Views.ViewStates.Gone;
             layout.AddView(myProgressBar);
 
             // Add the generate button.
-            myGenerateButton = new Button(this)
-            {
-                Text = "Generate",
-                Enabled = false
-            };
+            myGenerateButton = new Button(this);
+            myGenerateButton.Text = "Generate";
+            myGenerateButton.Enabled = false;
             myGenerateButton.Click += GenerateButton_Clicked;
             layout.AddView(myGenerateButton);
 
             // Add the sync button.
-            mySyncButton = new Button(this)
-            {
-                Text = "Synchronize"
-            };
+            mySyncButton = new Button(this);
+            mySyncButton.Text = "Synchronize";
             mySyncButton.Click += SyncButton_Click;
             mySyncButton.Enabled = false;
             layout.AddView(mySyncButton);

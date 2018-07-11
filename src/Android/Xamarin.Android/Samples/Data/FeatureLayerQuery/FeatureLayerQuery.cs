@@ -71,12 +71,10 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             _featureTable = new ServiceFeatureTable(new Uri(_statesUrl));
 
             // Create feature layer using this feature table
-            _featureLayer = new FeatureLayer(_featureTable)
-            {
+            _featureLayer = new FeatureLayer(_featureTable);
 
-                // Set the Opacity of the Feature Layer
-                Opacity = 0.6
-            };
+            // Set the Opacity of the Feature Layer
+            _featureLayer.Opacity = 0.6;
 
             // Create a new renderer for the States Feature Layer.
             SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
@@ -111,12 +109,16 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             try
             {
                 // Create a query parameters that will be used to Query the feature table
-                QueryParameters queryParams = new QueryParameters
-                {
+                QueryParameters queryParams = new QueryParameters();
 
+<<<<<<< HEAD
                     // Construct and assign the where clause that will be used to query the feature table
                     WhereClause = "upper(STATE_NAME) LIKE '%" + stateName.Trim().ToUpper() + "%'"
                 };
+=======
+                // Construct and assign the where clause that will be used to query the feature table
+                queryParams.WhereClause = "upper(STATE_NAME) LIKE '%" + (stateName.Trim().ToUpper()) + "%'";
+>>>>>>> parent of 14fbc904... Use object or collection initializer
 
                 // Query the feature table
                 FeatureQueryResult queryResult = await _featureTable.QueryFeaturesAsync(queryParams);
@@ -170,10 +172,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             _queryTextBox.SetMaxLines(1);
 
             // Create Button that will start the Feature Query
-            Button queryButton = new Button(this)
-            {
-                Text = "Query"
-            };
+            Button queryButton = new Button(this);
+            queryButton.Text = "Query";
             queryButton.Click += OnQueryClicked;
 
             // Create and add a help label

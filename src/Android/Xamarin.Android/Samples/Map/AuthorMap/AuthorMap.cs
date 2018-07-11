@@ -106,38 +106,28 @@ namespace ArcGISRuntime.Samples.AuthorMap
             LinearLayout buttonLayout = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Create a progress bar (circle) to show when the app is working
-            _progressBar = new ProgressBar(this)
-            {
-                Indeterminate = true,
-                Visibility = ViewStates.Invisible
-            };
+            _progressBar = new ProgressBar(this);
+            _progressBar.Indeterminate = true;
+            _progressBar.Visibility = ViewStates.Invisible;
 
             // Create button to clear the map from the map view (start over)
-            Button newMapButton = new Button(this)
-            {
-                Text = "New"
-            };
+            Button newMapButton = new Button(this);
+            newMapButton.Text = "New";
             newMapButton.Click += OnNewMapClicked;
 
             // Create button to show available basemap
-            Button basemapButton = new Button(this)
-            {
-                Text = "Basemap"
-            };
+            Button basemapButton = new Button(this);
+            basemapButton.Text = "Basemap";
             basemapButton.Click += OnBasemapsClicked;
 
             // Create a button to show operational layers
-            Button layersButton = new Button(this)
-            {
-                Text = "Layers"
-            };
+            Button layersButton = new Button(this);
+            layersButton.Text = "Layers";
             layersButton.Click += OnLayersClicked;
 
             // Create a button to save the map
-            Button saveMapButton = new Button(this)
-            {
-                Text = "Save ..."
-            };
+            Button saveMapButton = new Button(this);
+            saveMapButton.Text = "Save ...";
             saveMapButton.Click += OnSaveMapClicked;
 
             // Add progress bar, new map, basemap, layers, and save buttons to the layout
@@ -246,18 +236,16 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private async Task SaveNewMapAsync(Map myMap, string title, string description, string[] tags, RuntimeImage img)
         {
             // Challenge the user for portal credentials (OAuth credential request for arcgis.com)
-            CredentialRequestInfo loginInfo = new CredentialRequestInfo
+            CredentialRequestInfo loginInfo = new CredentialRequestInfo();
+
+            // Use the OAuth implicit grant flow
+            loginInfo.GenerateTokenOptions = new GenerateTokenOptions
             {
-
-                // Use the OAuth implicit grant flow
-                GenerateTokenOptions = new GenerateTokenOptions
-                {
-                    TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-                },
-
-                // Indicate the url (portal) to authenticate with (ArcGIS Online)
-                ServiceUri = new Uri("https://www.arcgis.com/sharing/rest")
+                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
             };
+
+            // Indicate the url (portal) to authenticate with (ArcGIS Online)
+            loginInfo.ServiceUri = new Uri("https://www.arcgis.com/sharing/rest");
 
             try
             {
@@ -366,13 +354,11 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 Uri layerUri = new Uri(layerUrl);
 
                 // Create a new map image layer
-                layer = new ArcGISMapImageLayer(layerUri)
-                {
-                    Name = selectedLayerName,
+                layer = new ArcGISMapImageLayer(layerUri);
+                layer.Name = selectedLayerName;
 
-                    // Set it 50% opaque, and add it to the map
-                    Opacity = 0.5
-                };
+                // Set it 50% opaque, and add it to the map
+                layer.Opacity = 0.5;
                 _myMapView.Map.OperationalLayers.Add(layer);
             }
         }
@@ -387,26 +373,21 @@ namespace ArcGISRuntime.Samples.AuthorMap
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
             // Create the layout
-            LinearLayout dialogLayout = new LinearLayout(this)
-            {
-                Orientation = Orientation.Vertical
-            };
+            LinearLayout dialogLayout = new LinearLayout(this);
+            dialogLayout.Orientation = Orientation.Vertical;
 
             // Create a text box for entering the client id
-            LinearLayout clientIdLayout = new LinearLayout(this)
-            {
-                Orientation = Orientation.Horizontal
-            };
-            TextView clientIdLabel = new TextView(this)
-            {
-                Text = "Client ID:"
-            };
+            LinearLayout clientIdLayout = new LinearLayout(this);
+            clientIdLayout.Orientation = Orientation.Horizontal;
+            TextView clientIdLabel = new TextView(this);
+            clientIdLabel.Text = "Client ID:";
             _clientIdText = new EditText(this);
             if (!String.IsNullOrEmpty(AppClientId)) { _clientIdText.Text = AppClientId; }
             clientIdLayout.AddView(clientIdLabel);
             clientIdLayout.AddView(_clientIdText);
 
             // Create a text box for entering the redirect url
+<<<<<<< HEAD
             LinearLayout redirectUrlLayout = new LinearLayout(this)
             {
                 Orientation = Orientation.Horizontal
@@ -420,14 +401,21 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 Hint = "https://my.redirect/url"
             };
             if (!String.IsNullOrEmpty(OAuthRedirectUrl)) { _redirectUrlText.Text = OAuthRedirectUrl; }
+=======
+            LinearLayout redirectUrlLayout = new LinearLayout(this);
+            redirectUrlLayout.Orientation = Orientation.Horizontal;
+            TextView redirectUrlLabel = new TextView(this);
+            redirectUrlLabel.Text = "Redirect:";
+            _redirectUrlText = new EditText(this);
+            _redirectUrlText.Hint = "https://my.redirect/url";
+            if (!string.IsNullOrEmpty(OAuthRedirectUrl)) { _redirectUrlText.Text = OAuthRedirectUrl; }
+>>>>>>> parent of 14fbc904... Use object or collection initializer
             redirectUrlLayout.AddView(redirectUrlLabel);
             redirectUrlLayout.AddView(_redirectUrlText);
 
             // Create a button to dismiss the dialog (and proceed with updating the values)
-            Button okButton = new Button(this)
-            {
-                Text = "Save"
-            };
+            Button okButton = new Button(this);
+            okButton.Text = "Save";
 
             // Handle the click event for the OK button
             okButton.Click += OnCloseOAuthDialog;
@@ -680,38 +668,28 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 base.OnCreateView(inflater, container, savedInstanceState);
 
                 // The container for the dialog is a vertical linear layout
-                dialogView = new LinearLayout(ctx)
-                {
-                    Orientation = Orientation.Vertical
-                };
+                dialogView = new LinearLayout(ctx);
+                dialogView.Orientation = Orientation.Vertical;
                 dialogView.SetPadding(10,0,10,10);
 
                 // Add a text box for entering a title for the new web map
-                _mapTitleTextbox = new EditText(ctx)
-                {
-                    Hint = "Title"
-                };
+                _mapTitleTextbox = new EditText(ctx);
+                _mapTitleTextbox.Hint = "Title";
                 dialogView.AddView(_mapTitleTextbox);
 
                 // Add a text box for entering a description
-                _mapDescriptionTextbox = new EditText(ctx)
-                {
-                    Hint = "Description"
-                };
+                _mapDescriptionTextbox = new EditText(ctx);
+                _mapDescriptionTextbox.Hint = "Description";
                 dialogView.AddView(_mapDescriptionTextbox);
 
                 // Add a text box for entering tags (populate with some values so the user doesn't have to fill this in)
-                _tagsTextbox = new EditText(ctx)
-                {
-                    Text = "ArcGIS Runtime, Web Map"
-                };
+                _tagsTextbox = new EditText(ctx);
+                _tagsTextbox.Text = "ArcGIS Runtime, Web Map";
                 dialogView.AddView(_tagsTextbox);
 
                 // Add a button to save the map
-                Button saveMapButton = new Button(ctx)
-                {
-                    Text = "Save"
-                };
+                Button saveMapButton = new Button(ctx);
+                saveMapButton.Text = "Save";
                 saveMapButton.Click += SaveMapButtonClick;
                 dialogView.AddView(saveMapButton);
 

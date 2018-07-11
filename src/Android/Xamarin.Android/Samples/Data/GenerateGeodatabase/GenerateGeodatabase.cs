@@ -71,24 +71,18 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         private void CreateLayout()
         {
             // Create the layout.
-            LinearLayout layout = new LinearLayout(this)
-            {
-                Orientation = Orientation.Vertical
-            };
+            LinearLayout layout = new LinearLayout(this);
+            layout.Orientation = Orientation.Vertical;
 
             // Add the progress bar.
-            myProgressBar = new ProgressBar(this)
-            {
-                Visibility = Android.Views.ViewStates.Gone
-            };
+            myProgressBar = new ProgressBar(this);
+            myProgressBar.Visibility = Android.Views.ViewStates.Gone;
             layout.AddView(myProgressBar);
 
             // Add the generate button.
-            myGenerateButton = new Button(this)
-            {
-                Text = "Generate",
-                Enabled = false
-            };
+            myGenerateButton = new Button(this);
+            myGenerateButton.Text = "Generate";
+            myGenerateButton.Enabled = false;
             myGenerateButton.Click += GenerateButton_Clicked;
             layout.AddView(myGenerateButton);
 
@@ -123,10 +117,8 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
 
                 // Create graphics overlay for the extent graphic and apply a renderer.
-                GraphicsOverlay extentOverlay = new GraphicsOverlay
-                {
-                    Renderer = new SimpleRenderer(lineSymbol)
-                };
+                GraphicsOverlay extentOverlay = new GraphicsOverlay();
+                extentOverlay.Renderer = new SimpleRenderer(lineSymbol);
 
                 // Add graphics overlay to the map view.
                 myMapView.GraphicsOverlays.Add(extentOverlay);

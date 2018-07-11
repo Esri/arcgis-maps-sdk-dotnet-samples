@@ -138,17 +138,13 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create button to show possible navigation options
-            Button startButton = new Button(this)
-            {
-                Text = "Start"
-            };
+            Button startButton = new Button(this);
+            startButton.Text = "Start";
             startButton.Click += OnStartButtonClicked;
 
             // Create button to stop navigation
-            Button stopButton = new Button(this)
-            {
-                Text = "Stop"
-            };
+            Button stopButton = new Button(this);
+            stopButton.Text = "Stop";
             stopButton.Click += OnStopButtonClicked;
 
             // Add start button to the layout

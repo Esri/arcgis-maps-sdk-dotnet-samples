@@ -58,12 +58,10 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         private async void Initialize()
         {
             // Assign a new map to the MapView
-            _myMapView.Map = new Map
-            {
+            _myMapView.Map = new Map();
 
-                // Set the basemap to Streets
-                Basemap = Basemap.CreateStreets()
-            };
+            // Set the basemap to Streets
+            _myMapView.Map.Basemap = Basemap.CreateStreets();
 
             // Create a new image service raster from the Uri
             ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri);
@@ -137,12 +135,10 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
                     RenderingRule myRenderingRule = new RenderingRule(myRenderingRuleInfo);
 
                     // Create a new image service raster
-                    ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri)
-                    {
+                    ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri);
 
-                        // Set the image service raster's rendering rule to the rendering rule created earlier
-                        RenderingRule = myRenderingRule
-                    };
+                    // Set the image service raster's rendering rule to the rendering rule created earlier
+                    myImageServiceRaster.RenderingRule = myRenderingRule;
 
                     // Create a new raster layer from the image service raster
                     RasterLayer myRasterLayer = new RasterLayer(myImageServiceRaster);
@@ -159,10 +155,8 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create button to show possible rendering rule options
-            _renderingRulesButton = new Button(this)
-            {
-                Text = "Change Rendering Rule"
-            };
+            _renderingRulesButton = new Button(this);
+            _renderingRulesButton.Text = "Change Rendering Rule";
             _renderingRulesButton.Click += OnChangeRenderingRuleClicked;
 
             // Add rendering rule button to the layout

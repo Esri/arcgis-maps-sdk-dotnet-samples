@@ -125,6 +125,12 @@ namespace ArcGISRuntime.UWP.Viewer
 
             // Default to the index of the last .cs file.
             FileSelection.SelectedIndex = csIndex;
+
+            // Check if any source files were found.
+            if (FileSelection.Items.Count == 0)
+            {
+                SourceCodeBrowser.NavigateToString("Source files not found.");
+            }
         }
 
         private void SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -29,7 +29,6 @@ using UIKit;
 #if __ANDROID__
 using Android.App;
 using Xamarin.Auth;
-using System.IO;
 #endif
 
 namespace ArcGISRuntime.Samples.AuthorMap
@@ -90,19 +89,17 @@ namespace ArcGISRuntime.Samples.AuthorMap
             RedirectUrlEntry.Text = _oAuthRedirectUrl;
 
             // Change the style of the layer list view for Android and UWP
-            Device.OnPlatform(
-                Android: () =>
-                {
-                    // Black background on Android (transparent by default)
+            switch (Device.RuntimePlatform)
+            {
+                case Device.Android:
                     LayersList.BackgroundColor = Color.Black;
                     OAuthSettingsGrid.BackgroundColor = Color.Black;
-                },
-                WinPhone: () =>
-                {
-                    // Semi-transparent background on Windows with a small margin around the control
+                    break;
+                case Device.UWP:
                     LayersList.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
                     LayersList.Margin = new Thickness(50);
-                });
+                    break;
+            }
         }
 
         private void OAuthSettingsCancel(object sender, EventArgs e)
@@ -414,7 +411,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
 #if __ANDROID__
             // Get the current Android Activity
-            var activity = Xamarin.Forms.Forms.Context as Activity; 
+            Activity activity = (Activity)Android.App.Application.Context;
 #endif
 #if __IOS__
             // Get the current iOS ViewController

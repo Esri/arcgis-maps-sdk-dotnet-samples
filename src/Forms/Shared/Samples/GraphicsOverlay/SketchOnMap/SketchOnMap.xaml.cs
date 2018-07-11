@@ -68,10 +68,10 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             config.AllowMove = true;
 
             // Set a gray background color for Android
-            Device.OnPlatform(Android: () => 
+            if (Device.RuntimePlatform == Device.Android)
             {
                 DrawToolsGrid.BackgroundColor = Color.Gray;
-            });
+            }
 
             // Set the sketch editor as the page's data context
             BindingContext = MyMapView.SketchEditor;

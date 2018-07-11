@@ -29,8 +29,8 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
-        // Create Control to show the drawing status
-        ProgressDialog _activityIndicator;
+        // Waiting popup
+        private AlertDialog _progressDialog;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -74,11 +74,12 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
                 // Show the activity indicator if the map is drawing
                 if (e.Status == DrawStatus.InProgress)
                 {
-                    _activityIndicator.SetMessage("Drawing is in progress");
-                    _activityIndicator.Show();
+                    _progressDialog.Show();
                 }
                 else
-                    _activityIndicator.Hide();
+                {
+                    _progressDialog.Hide();
+                }
             });
         }
 
@@ -91,7 +92,14 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
             layout.AddView(_myMapView);
 
             // Create an activity indicator
-            _activityIndicator = new ProgressDialog(this);
+            // Show the waiting dialog.
+            var builder = new AlertDialog.Builder(this);
+            builder.SetView(new ProgressBar(this)
+            {
+                Indeterminate = true
+            });
+            builder.SetMessage("Drawing in progress.");
+            _progressDialog = builder.Create();
 
             // Show the layout in the app
             SetContentView(layout);

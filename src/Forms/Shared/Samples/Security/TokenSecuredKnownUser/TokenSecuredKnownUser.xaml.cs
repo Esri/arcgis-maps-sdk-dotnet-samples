@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredKnownUser
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Define a challenge handler method for the AuthenticationManager.
             // This method handles getting credentials when a secured resource is encountered.
@@ -101,7 +101,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredKnownUser
             catch (Exception ex)
             {
                 // Report error accessing a secured resource.
-                DisplayAlert("Credential Error", "Access to " + info.ServiceUri.AbsoluteUri + " denied. " + ex.Message, "OK");
+                await DisplayAlert("Credential Error", "Access to " + info.ServiceUri.AbsoluteUri + " denied. " + ex.Message, "OK");
             }
 
             // Return the credential.

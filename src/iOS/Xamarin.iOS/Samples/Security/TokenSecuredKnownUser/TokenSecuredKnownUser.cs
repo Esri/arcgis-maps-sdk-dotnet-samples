@@ -191,11 +191,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
                     string password = "user1";
 
                     // Create a credential for this resource.
-                    knownCredential = await AuthenticationManager.Current.GenerateCredentialAsync
-                    (info.ServiceUri,
-                        username,
-                        password,
-                        info.GenerateTokenOptions);
+                    knownCredential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri, username, password, info.GenerateTokenOptions);
                 }
                 else
                 {

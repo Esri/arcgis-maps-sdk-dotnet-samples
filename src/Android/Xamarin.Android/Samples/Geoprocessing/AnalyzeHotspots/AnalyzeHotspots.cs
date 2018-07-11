@@ -76,15 +76,27 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
 
         private async void OnRunAnalysisClicked(object sender, EventArgs e)
         {
+            // Get the 'from' and 'to' dates from the date edit text's for the geoprocessing analysis
+            DateTime myFromDate;
+            DateTime myToDate;
+
+            try
+            {
+                myFromDate = Convert.ToDateTime(_myEditText_StartDate.Text);
+                myToDate = Convert.ToDateTime(_myEditText_EndDate.Text);
+            }
+            catch (Exception exception)
+            {
+                // Show error message and quit
+                new AlertDialog.Builder(this).SetMessage(exception.Message).Show();
+                return;
+            }
+
             // Clear any existing results
             _myMapView.Map.OperationalLayers.Clear();
 
             // Show busy activity indication
             _myProgressBar.Visibility = ViewStates.Visible;
-
-            // Get the 'from' and 'to' dates from the date edit text's for the geoprocessing analysis
-            DateTime myFromDate = Convert.ToDateTime(_myEditText_StartDate.Text);
-            DateTime myToDate = Convert.ToDateTime(_myEditText_EndDate.Text);
 
             // The end date must be at least one day after the start date
             if (myToDate <= myFromDate.AddDays(1))

@@ -10,10 +10,11 @@
 using ArcGISRuntime.Samples.Managers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
-using System.Windows.Controls;
+using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.WPF.Viewer
+namespace ArcGISRuntime.UWP.Viewer
 {
     public partial class SourceCode
     {
@@ -30,9 +31,9 @@ namespace ArcGISRuntime.WPF.Viewer
             string folderPath = SampleManager.Current.SelectedSample.Path;
 
             // Filepaths for the css and js files used for syntax highlighting.
-            string cssPath = folderPath.Substring(0, folderPath.IndexOf("Samples")) + "Resources\\SyntaxHighlighting\\highlight.css";
-            string cssBackgroundPath = folderPath.Substring(0, folderPath.IndexOf("Samples")) + "Resources\\SyntaxHighlighting\\screen.css";
-            string jsPath = folderPath.Substring(0, folderPath.IndexOf("Samples")) + "Resources\\SyntaxHighlighting\\highlight.pack.js";
+            string cssPath = "ms-appx-web:///" + "Resources\\SyntaxHighlighting/highlight.css";
+            string cssBackgroundPath = "ms-appx-web:///" + "Resources\\SyntaxHighlighting/screen.css";
+            string jsPath = "ms-appx-web:///" + "Resources\\SyntaxHighlighting/highlight.pack.js";
 
             // Dictionary holds html strings for source code as values. Keys are strings of filepaths.
             _sourceFiles = new Dictionary<string, string>();
@@ -68,6 +69,7 @@ namespace ArcGISRuntime.WPF.Viewer
             // Add every .cs and .xaml file in the directory of the sample.
             foreach (string filepath in Directory.GetFiles(folderPath))
             {
+                Console.WriteLine(filepath);
                 try
                 {
                     if (filepath.EndsWith(".cs"))
@@ -117,7 +119,7 @@ namespace ArcGISRuntime.WPF.Viewer
                 catch (Exception e)
                 {
                     // Any files that failed to be read will have error messages printed to the console for debugging.
-                    Console.WriteLine(e.Message);
+                    Debug.WriteLine(e.Message);
                 }
             }
 
@@ -128,10 +130,10 @@ namespace ArcGISRuntime.WPF.Viewer
         private void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Check that there are Items in the combobox. Prevents error when switching between samples.
-            if (!FileSelection.Items.IsEmpty)
+            if (FileSelection.Items.Count != 0)
             {
                 // Set the web browser to display the source code of the selected file.
-                sourceCodeBrowser.NavigateToString(_sourceFiles[FileSelection.SelectedValue.ToString()]);
+                SourceCodeBrowser.NavigateToString(_sourceFiles[FileSelection.SelectedValue.ToString()]);
             }
         }
     }

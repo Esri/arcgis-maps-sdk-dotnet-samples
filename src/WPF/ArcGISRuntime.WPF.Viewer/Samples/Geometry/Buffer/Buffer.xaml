@@ -4,9 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView"/>
-        <Border Height="170" Width="310"
-                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30"
-                Background="WhiteSmoke" Opacity="0.9">
+        <Border Style="{StaticResource BorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>

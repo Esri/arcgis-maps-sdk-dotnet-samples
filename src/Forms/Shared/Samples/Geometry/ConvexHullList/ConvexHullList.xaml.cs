@@ -72,23 +72,19 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                 polygonsSimpleLineSymbol);
 
             // Create the graphic for polygon1 - comprised of a polygon shape and fill symbol.
-            _polygonGraphic1 = new Graphic(CreatePolygon1(), polygonsSimpleFillSymbol)
-            {
+            _polygonGraphic1 = new Graphic(CreatePolygon1(), polygonsSimpleFillSymbol);
 
-                // Set the Z index for the polygon1 graphic so that it appears above the convex hull graphic(s) added later.
-                ZIndex = 1
-            };
+            // Set the Z index for the polygon1 graphic so that it appears above the convex hull graphic(s) added later.
+            _polygonGraphic1.ZIndex = 1;
 
             // Add the polygon1 graphic to the graphics overlay collection.
             _graphicsOverlay.Graphics.Add(_polygonGraphic1);
 
             // Create the graphic for polygon2 - comprised of a polygon shape and fill symbol.
-            _polygonGraphic2 = new Graphic(CreatePolygon2(), polygonsSimpleFillSymbol)
-            {
+            _polygonGraphic2 = new Graphic(CreatePolygon2(), polygonsSimpleFillSymbol);
 
-                // Set the Z index for the polygon2 graphic so that it appears above the convex hull graphic(s) added later.
-                ZIndex = 1
-            };
+            // Set the Z index for the polygon2 graphic so that it appears above the convex hull graphic(s) added later.
+            _polygonGraphic2.ZIndex = 1;
 
             // Add the polygon2 graphic to the graphics overlay collection.
             _graphicsOverlay.Graphics.Add(_polygonGraphic2);
@@ -174,13 +170,11 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                         Color.Red, convexHullSimpleLineSymbol);
 
                     // Create the graphic for the convex hull(s) - comprised of a polygon shape and fill symbol.
-                    Graphic convexHullGraphic = new Graphic(oneGeometry, convexHullSimpleFillSymbol)
-                    {
+                    Graphic convexHullGraphic = new Graphic(oneGeometry, convexHullSimpleFillSymbol);
 
-                        // Set the Z index for the convex hull graphic(s) so that they appear below the initial input graphics
-                        // added earlier (polygon1 and polygon2).
-                        ZIndex = 0
-                    };
+                    // Set the Z index for the convex hull graphic(s) so that they appear below the initial input graphics
+                    // added earlier (polygon1 and polygon2).
+                    convexHullGraphic.ZIndex = 0;
 
                     // Add the convex hull graphic to the graphics overlay collection.
                     _graphicsOverlay.Graphics.Add(convexHullGraphic);

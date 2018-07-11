@@ -62,12 +62,10 @@ namespace ArcGISRuntime.Samples.DisplayScene
             Uri myUri = new Uri(myElevationImageService);
 
             // Create an ArcGIS tiled elevation 
-            ArcGISTiledElevationSource myArcGISTiledElevationSource = new ArcGISTiledElevationSource
-            {
+            ArcGISTiledElevationSource myArcGISTiledElevationSource = new ArcGISTiledElevationSource();
 
-                // Set the ArcGIS tiled elevation sources property to the Uri of the elevation image service
-                Source = myUri
-            };
+            // Set the ArcGIS tiled elevation sources property to the Uri of the elevation image service
+            myArcGISTiledElevationSource.Source = myUri;
 
             // Add the ArcGIS tiled elevation source to the surface's elevated sources collection
             mySurface.ElevationSources.Add(myArcGISTiledElevationSource);

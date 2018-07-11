@@ -58,10 +58,8 @@ namespace ArcGISRuntime.WPF.Samples.FeatureCollectionLayerFromPortal
                     FeatureCollection featCollection = new FeatureCollection(collectionItem);
 
                     // Create a layer to display the collection and add it to the map as an operational layer.
-                    FeatureCollectionLayer featCollectionLayer = new FeatureCollectionLayer(featCollection)
-                    {
-                        Name = collectionItem.Title
-                    };
+                    FeatureCollectionLayer featCollectionLayer = new FeatureCollectionLayer(featCollection);
+                    featCollectionLayer.Name = collectionItem.Title;
                     MyMapView.Map.OperationalLayers.Add(featCollectionLayer);
                 }
                 else

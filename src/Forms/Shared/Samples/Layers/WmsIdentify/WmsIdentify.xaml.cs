@@ -103,12 +103,10 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             Title = "WMS identify result";
 
             // Create the web browser control
-            WebView htmlView = new WebView
-            {
+            WebView htmlView = new WebView();
 
-                // Display the string content as an HTML document
-                Source = new HtmlWebViewSource() { Html = htmlContent }
-            };
+            // Display the string content as an HTML document
+            htmlView.Source = new HtmlWebViewSource() { Html = htmlContent };
 
             // Create and add a layout to the page
             Grid layout = new Grid();

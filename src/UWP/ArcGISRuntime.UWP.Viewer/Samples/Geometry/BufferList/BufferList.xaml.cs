@@ -82,14 +82,12 @@ namespace ArcGISRuntime.UWP.Samples.BufferList
                 SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Red, 10);
 
                 // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol. 
-                Graphic userTappedGraphic = new Graphic(e.Location, userTappedSimpleMarkerSymbol)
-                {
+                Graphic userTappedGraphic = new Graphic(e.Location, userTappedSimpleMarkerSymbol);
 
-                    // Specify a ZIndex value on the user input map point graphic to assist with the drawing order of mixed geometry types 
-                    // being added to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is 
-                    // drawn. Typically, Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2).
-                    ZIndex = 2
-                };
+                // Specify a ZIndex value on the user input map point graphic to assist with the drawing order of mixed geometry types 
+                // being added to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is 
+                // drawn. Typically, Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2).
+                userTappedGraphic.ZIndex = 2;
 
                 // Add the user tapped/clicked map point graphic to the graphic overlay.
                 _graphicsOverlay.Graphics.Add(userTappedGraphic);

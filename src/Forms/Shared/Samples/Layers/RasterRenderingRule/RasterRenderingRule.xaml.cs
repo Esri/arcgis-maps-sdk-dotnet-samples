@@ -47,12 +47,10 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         private async void Initialize()
         {
             // Assign a new map to the MapView
-            MyMapView.Map = new Map
-            {
+            MyMapView.Map = new Map();
 
-                // Set the basemap to Streets
-                Basemap = Basemap.CreateStreets()
-            };
+            // Set the basemap to Streets
+            MyMapView.Map.Basemap = Basemap.CreateStreets();
 
             // Create a new image service raster from the Uri
             ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri);
@@ -107,12 +105,10 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
                     RenderingRule myRenderingRule = new RenderingRule(myRenderingRuleInfo);
 
                     // Create a new image service raster
-                    ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri)
-                    {
+                    ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri);
 
-                        // Set the image service raster's rendering rule to the rendering rule created earlier
-                        RenderingRule = myRenderingRule
-                    };
+                    // Set the image service raster's rendering rule to the rendering rule created earlier
+                    myImageServiceRaster.RenderingRule = myRenderingRule;
 
                     // Create a new raster layer from the image service raster
                     RasterLayer myRasterLayer = new RasterLayer(myImageServiceRaster);

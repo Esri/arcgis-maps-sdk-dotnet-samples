@@ -379,18 +379,16 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private async Task SaveNewMapAsync(Map myMap, string title, string description, string[] tags, RuntimeImage img)
         {
             // Challenge the user for portal credentials (OAuth credential request for arcgis.com).
-            CredentialRequestInfo loginInfo = new CredentialRequestInfo
+            CredentialRequestInfo loginInfo = new CredentialRequestInfo();
+
+            // Use the OAuth implicit grant flow.
+            loginInfo.GenerateTokenOptions = new GenerateTokenOptions
             {
-
-                // Use the OAuth implicit grant flow.
-                GenerateTokenOptions = new GenerateTokenOptions
-                {
-                    TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-                },
-
-                // Indicate the URL (portal) to authenticate with (ArcGIS Online).
-                ServiceUri = new Uri("https://www.arcgis.com/sharing/rest")
+                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
             };
+
+            // Indicate the URL (portal) to authenticate with (ArcGIS Online).
+            loginInfo.ServiceUri = new Uri("https://www.arcgis.com/sharing/rest");
 
             try
             {

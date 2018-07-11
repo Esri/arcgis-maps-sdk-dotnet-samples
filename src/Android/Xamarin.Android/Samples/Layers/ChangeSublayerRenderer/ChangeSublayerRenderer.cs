@@ -124,17 +124,13 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a TextView for instructions.
-            TextView sampleInstructionsTextView = new TextView(this)
-            {
-                Text = "Click the 'Change Sublayer Renderer' button to apply a unique value renderer to the counties sub-layer."
-            };
+            TextView sampleInstructionsTextView = new TextView(this);
+            sampleInstructionsTextView.Text = "Click the 'Change Sublayer Renderer' button to apply a unique value renderer to the counties sub-layer.";
             layout.AddView(sampleInstructionsTextView);
 
             // Create button to change the sublayer renderer.
-            _changeSublayerRendererButton = new Button(this)
-            {
-                Text = "Change Sublayer Renderer"
-            };
+            _changeSublayerRendererButton = new Button(this);
+            _changeSublayerRendererButton.Text = "Change Sublayer Renderer";
             _changeSublayerRendererButton.Click += ChangeSublayerRendererButton_Click;
             layout.AddView(_changeSublayerRendererButton);
 

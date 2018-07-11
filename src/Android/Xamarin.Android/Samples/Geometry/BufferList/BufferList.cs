@@ -105,14 +105,12 @@ namespace ArcGISRuntime.Samples.BufferList
                 SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Red, 10);
 
                 // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol. 
-                Graphic userTappedGraphic = new Graphic(e.Location, userTappedSimpleMarkerSymbol)
-                {
+                Graphic userTappedGraphic = new Graphic(e.Location, userTappedSimpleMarkerSymbol);
 
-                    // Specify a ZIndex value on the user input map point graphic to assist with the drawing order of mixed geometry types 
-                    // being added to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is 
-                    // drawn. Typically, Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2).
-                    ZIndex = 2
-                };
+                // Specify a ZIndex value on the user input map point graphic to assist with the drawing order of mixed geometry types 
+                // being added to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is 
+                // drawn. Typically, Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2).
+                userTappedGraphic.ZIndex = 2;
 
                 // Add the user tapped/clicked map point graphic to the graphic overlay.
                 _graphicsOverlay.Graphics.Add(userTappedGraphic);
@@ -202,17 +200,13 @@ namespace ArcGISRuntime.Samples.BufferList
             LinearLayout subLayout1 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Create a TextView for instructions.
-            TextView bufferDistanceInstructionsTextView = new TextView(this)
-            {
-                Text = "Buffer distance (miles):"
-            };
+            TextView bufferDistanceInstructionsTextView = new TextView(this);
+            bufferDistanceInstructionsTextView.Text = "Buffer distance (miles):";
             subLayout1.AddView(bufferDistanceInstructionsTextView);
 
             // Create a EditText for the buffer value.
-            _bufferDistanceMilesEditText = new EditText(this)
-            {
-                Text = "10"
-            };
+            _bufferDistanceMilesEditText = new EditText(this);
+            _bufferDistanceMilesEditText.Text = "10";
             subLayout1.AddView(_bufferDistanceMilesEditText);
 
             layout.AddView(subLayout1);
@@ -221,26 +215,20 @@ namespace ArcGISRuntime.Samples.BufferList
             LinearLayout subLayout2 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Create a TextView for instructions.
-            TextView unionInstructionsTextView = new TextView(this)
-            {
-                Text = "Union the buffer(s):"
-            };
+            TextView unionInstructionsTextView = new TextView(this);
+            unionInstructionsTextView.Text = "Union the buffer(s):";
             subLayout2.AddView(unionInstructionsTextView);
 
             // Create a EditText for the buffer value.
-            _unionBufferSwitch = new Switch(this)
-            {
-                Checked = true
-            };
+            _unionBufferSwitch = new Switch(this);
+            _unionBufferSwitch.Checked = true;
             subLayout2.AddView(_unionBufferSwitch);
 
             layout.AddView(subLayout2);
 
             // Create button to create the unioned buffer.
-            _bufferButton = new Button(this)
-            {
-                Text = "Make buffer"
-            };
+            _bufferButton = new Button(this);
+            _bufferButton.Text = "Make buffer";
             _bufferButton.Click += OnMakeUnionBufferClicked;
             layout.AddView(_bufferButton);
 

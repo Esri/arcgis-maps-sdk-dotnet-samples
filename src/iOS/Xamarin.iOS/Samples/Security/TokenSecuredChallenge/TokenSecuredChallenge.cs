@@ -312,10 +312,8 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             nfloat controlY = centerY - totalHeight / 2;
 
             // Set a title.
-            UILabel titleTextBlock = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
-            {
-                Text = "Login to:"
-            };
+            UILabel titleTextBlock = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight));
+            titleTextBlock.Text = "Login to:";
 
             // Adjust the Y position for the next control.
             controlY = controlY + controlHeight + rowSpace;

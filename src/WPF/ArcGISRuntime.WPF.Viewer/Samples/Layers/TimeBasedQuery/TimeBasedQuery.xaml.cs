@@ -41,12 +41,10 @@ namespace ArcGISRuntime.WPF.Samples.TimeBasedQuery
             Map myMap = new Map(Basemap.CreateOceans());
 
             // Create feature table for the hurricane feature service
-            _myFeatureTable = new ServiceFeatureTable(_serviceUri)
-            {
+            _myFeatureTable = new ServiceFeatureTable(_serviceUri);
 
-                // Define the request mode
-                FeatureRequestMode = FeatureRequestMode.ManualCache
-            };
+            // Define the request mode
+            _myFeatureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
 
             // When feature table is loaded, populate data
             _myFeatureTable.LoadStatusChanged += OnLoadedPopulateData;

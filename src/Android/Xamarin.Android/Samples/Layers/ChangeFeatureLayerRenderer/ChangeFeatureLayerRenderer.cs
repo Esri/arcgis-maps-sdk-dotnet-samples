@@ -111,17 +111,13 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a button to reset the renderer
-            Button resetButton = new Button(this)
-            {
-                Text = "Reset"
-            };
+            Button resetButton = new Button(this);
+            resetButton.Text = "Reset";
             resetButton.Click += OnResetButtonClicked;
 
             // Create a button to apply new renderer
-            Button overrideButton = new Button(this)
-            {
-                Text = "Override"
-            };
+            Button overrideButton = new Button(this);
+            overrideButton.Text = "Override";
             overrideButton.Click += OnOverrideButtonClicked;
 
             // Add Reset Button to the layout

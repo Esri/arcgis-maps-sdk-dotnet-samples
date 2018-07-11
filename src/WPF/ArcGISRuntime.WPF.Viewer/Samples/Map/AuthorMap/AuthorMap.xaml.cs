@@ -234,10 +234,8 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                 Uri layerUri = new Uri(layerInfo.Value);
 
                 // Create a new map image layer, set it 50% opaque, and add it to the map
-                ArcGISMapImageLayer layer = new ArcGISMapImageLayer(layerUri)
-                {
-                    Opacity = 0.5
-                };
+                ArcGISMapImageLayer layer = new ArcGISMapImageLayer(layerUri);
+                layer.Opacity = 0.5;
                 myMap.OperationalLayers.Add(layer);
             }
         }
@@ -245,18 +243,16 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         private async Task SaveNewMapAsync(Map myMap, string title, string description, string[] tags, RuntimeImage thumb)
         {
             // Challenge the user for portal credentials (OAuth credential request for arcgis.com)
-            CredentialRequestInfo loginInfo = new CredentialRequestInfo
+            CredentialRequestInfo loginInfo = new CredentialRequestInfo();
+
+            // Use the OAuth implicit grant flow
+            loginInfo.GenerateTokenOptions = new GenerateTokenOptions
             {
-
-                // Use the OAuth implicit grant flow
-                GenerateTokenOptions = new GenerateTokenOptions
-                {
-                    TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-                },
-
-                // Indicate the url (portal) to authenticate with (ArcGIS Online)
-                ServiceUri = new Uri("http://www.arcgis.com/sharing/rest")
+                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
             };
+
+            // Indicate the url (portal) to authenticate with (ArcGIS Online)
+            loginInfo.ServiceUri = new Uri("http://www.arcgis.com/sharing/rest");
 
             try
             {

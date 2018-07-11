@@ -57,12 +57,10 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
                 RuntimeImage exportedImage = await _myMapView.ExportImageAsync();
 
                 // Create an image button (this will display the exported map view image).
-                ImageButton myImageButton = new ImageButton(this)
-                {
+                ImageButton myImageButton = new ImageButton(this);
 
-                    // Define the size of the image button to be 2/3 the size of the map view.
-                    LayoutParameters = new Android.Views.ViewGroup.LayoutParams((int)(_myMapView.Width * .667), (int)(_myMapView.Height * .667))
-                };
+                // Define the size of the image button to be 2/3 the size of the map view.
+                myImageButton.LayoutParameters = new Android.Views.ViewGroup.LayoutParams((int)(_myMapView.Width * .667), (int)(_myMapView.Height * .667));
 
                 // Set the source of the image button to be that of the exported map view image.
                 myImageButton.SetImageBitmap(await exportedImage.ToImageSourceAsync());
@@ -95,10 +93,8 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add a button to take a screen shot, with wired up event.
-            Button takeScreenshotButton = new Button(this)
-            {
-                Text = "Capture"
-            };
+            Button takeScreenshotButton = new Button(this);
+            takeScreenshotButton.Text = "Capture";
             takeScreenshotButton.Click += OnTakeScreenshotClicked;
             layout.AddView(takeScreenshotButton);
 

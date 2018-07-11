@@ -54,10 +54,8 @@ namespace ArcGISRuntime.WPF.Samples.FeatureCollectionLayerFromQuery
             ServiceFeatureTable featTable = new ServiceFeatureTable(new Uri(FeatureLayerUrl));
 
             // Create a query to get all features in the table
-            QueryParameters queryParams = new QueryParameters
-            {
-                WhereClause = "1=1"
-            };
+            QueryParameters queryParams = new QueryParameters();
+            queryParams.WhereClause = "1=1";
 
             // Query the table to get all features
             FeatureQueryResult featureResult = await featTable.QueryFeaturesAsync(queryParams);

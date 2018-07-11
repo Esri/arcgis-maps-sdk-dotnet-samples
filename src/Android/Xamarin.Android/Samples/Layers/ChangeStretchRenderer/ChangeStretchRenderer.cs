@@ -81,17 +81,13 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             LinearLayout subLayout1 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Create label that displays the 1st parameter used by the stretch renderer
-            _Label_Parameter1 = new TextView(this)
-            {
-                Text = "Minimum value (0 - 255):"
-            };
+            _Label_Parameter1 = new TextView(this);
+            _Label_Parameter1.Text = "Minimum value (0 - 255):";
             subLayout1.AddView(_Label_Parameter1);
 
             // Create text field for 1st parameter used by the stretch renderer that the user can modify 
-            _Input_Parameter1 = new EditText(this)
-            {
-                Text = "10"
-            };
+            _Input_Parameter1 = new EditText(this);
+            _Input_Parameter1.Text = "10";
             subLayout1.AddView(_Input_Parameter1);
 
             // Add the sub layout to the main layout
@@ -103,17 +99,13 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             LinearLayout subLayout2 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Create label that displays the 2nd parameter used by the stretch renderer
-            _Label_Parameter2 = new TextView(this)
-            {
-                Text = "Maximum value (0 - 255):"
-            };
+            _Label_Parameter2 = new TextView(this);
+            _Label_Parameter2.Text = "Maximum value (0 - 255):";
             subLayout2.AddView(_Label_Parameter2);
 
             // Create text field for 2nd parameter used by the stretch renderer that the user can modify 
-            _Input_Parameter2 = new EditText(this)
-            {
-                Text = "150"
-            };
+            _Input_Parameter2 = new EditText(this);
+            _Input_Parameter2.Text = "150";
             subLayout2.AddView(_Input_Parameter2);
 
             // Add the sub layout to the main layout
@@ -122,10 +114,8 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             // ------------
 
             // Create button to change stretch renderer of the raster
-            _UpdateRenderer = new Button(this)
-            {
-                Text = "Update Renderer"
-            };
+            _UpdateRenderer = new Button(this);
+            _UpdateRenderer.Text = "Update Renderer";
             // Hook to touch/click event of the button
             _UpdateRenderer.Click += OnUpdateRendererClicked;
             layout.AddView(_UpdateRenderer);

@@ -54,13 +54,11 @@ namespace ArcGISRuntime.UWP.Samples.ExportTiles
                 await myLayer.LoadAsync();
 
                 // Create the basemap with the layer.
-                Map myMap = new Map(new Basemap(myLayer))
-                {
+                Map myMap = new Map(new Basemap(myLayer));
 
-                    // Set the min and max scale - export task fails if the scale is too big or small.
-                    MaxScale = 5000000,
-                    MinScale = 10000000
-                };
+                // Set the min and max scale - export task fails if the scale is too big or small.
+                myMap.MaxScale = 5000000;
+                myMap.MinScale = 10000000;
 
                 // Assign the map to the mapview.
                 MyMapView.Map = myMap;
@@ -70,10 +68,8 @@ namespace ArcGISRuntime.UWP.Samples.ExportTiles
                 SimpleLineSymbol myExtentSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
 
                 // Create a graphics overlay for the extent graphic and apply a renderer.
-                GraphicsOverlay extentOverlay = new GraphicsOverlay
-                {
-                    Renderer = new SimpleRenderer(myExtentSymbol)
-                };
+                GraphicsOverlay extentOverlay = new GraphicsOverlay();
+                extentOverlay.Renderer = new SimpleRenderer(myExtentSymbol);
 
                 // Add the graphics overlay to the map view.
                 MyMapView.GraphicsOverlays.Add(extentOverlay);

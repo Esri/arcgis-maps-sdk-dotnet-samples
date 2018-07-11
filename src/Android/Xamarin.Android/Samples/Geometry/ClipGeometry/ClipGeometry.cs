@@ -225,17 +225,13 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a TextView for instructions.
-            TextView sampleInstructionsTextView = new TextView(this)
-            {
-                Text = "Click the 'Clip' button to clip the blue graphic with red envelopes."
-            };
+            TextView sampleInstructionsTextView = new TextView(this);
+            sampleInstructionsTextView.Text = "Click the 'Clip' button to clip the blue graphic with red envelopes.";
             layout.AddView(sampleInstructionsTextView);
 
             // Create button to clip the polygons.
-            _clipButton = new Button(this)
-            {
-                Text = "Clip"
-            };
+            _clipButton = new Button(this);
+            _clipButton.Text = "Clip";
             _clipButton.Click += ClipButton_Click;
             layout.AddView(_clipButton);
 

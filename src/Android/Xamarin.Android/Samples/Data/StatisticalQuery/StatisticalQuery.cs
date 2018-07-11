@@ -152,10 +152,8 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             statsArrayAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleListItem1);
 
             // Create a list view to display the results
-            ListView statsListView = new ListView(this)
-            {
-                Adapter = statsArrayAdapter
-            };
+            ListView statsListView = new ListView(this);
+            statsListView.Adapter = statsArrayAdapter;
 
             // Show the list view in a dialog
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -169,20 +167,14 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             _controlsLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create switches for controlling which features are included in the query
-            _onlyBigCitiesSwitch = new Switch(this)
-            {
-                Text = "Only cities over 5M"
-            };
-            _onlyInExtentSwitch = new Switch(this)
-            {
-                Text = "Only in current extent"
-            };
+            _onlyBigCitiesSwitch = new Switch(this);
+            _onlyBigCitiesSwitch.Text = "Only cities over 5M";
+            _onlyInExtentSwitch = new Switch(this);
+            _onlyInExtentSwitch.Text = "Only in current extent";
 
             // Create a Button to execute the statistical query
-            Button getStatsButton = new Button(this)
-            {
-                Text = "Get Statistics"
-            };
+            Button getStatsButton = new Button(this);
+            getStatsButton.Text = "Get Statistics";
             getStatsButton.Click += OnExecuteStatisticsQueryClicked;
 
             // Add the query controls to the layout

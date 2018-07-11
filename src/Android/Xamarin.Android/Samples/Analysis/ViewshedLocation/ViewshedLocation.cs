@@ -120,10 +120,8 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _viewpointSymbol = SimpleMarkerSceneSymbol.CreateSphere(System.Drawing.Color.Blue, 10, SceneSymbolAnchorPosition.Center);
 
             // Add the symbol to the viewpoint overlay.
-            _viewpointOverlay = new GraphicsOverlay
-            {
-                SceneProperties = new LayerSceneProperties(SurfacePlacement.Absolute)
-            };
+            _viewpointOverlay = new GraphicsOverlay();
+            _viewpointOverlay.SceneProperties = new LayerSceneProperties(SurfacePlacement.Absolute);
             _viewpointOverlay.Graphics.Add(new Graphic(initialLocation, _viewpointSymbol));
 
             // Add the analysis overlay to the SceneView.

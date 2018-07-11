@@ -57,12 +57,10 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
                 ServiceFeatureTable myServiceFeatureTable = new ServiceFeatureTable(myServiceFeatureTable_Uri);
 
                 // Create a new feature layer from the service feature table
-                FeatureLayer myFeatureLayer = new FeatureLayer(myServiceFeatureTable)
-                {
+                FeatureLayer myFeatureLayer = new FeatureLayer(myServiceFeatureTable);
 
-                    // Set the rendering mode of the feature layer to be dynamic (needed for extrusion to work)
-                    RenderingMode = FeatureRenderingMode.Dynamic
-                };
+                // Set the rendering mode of the feature layer to be dynamic (needed for extrusion to work)
+                myFeatureLayer.RenderingMode = FeatureRenderingMode.Dynamic;
 
                 // Create a new simple line symbol for the feature layer
                 SimpleLineSymbol mySimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
@@ -152,10 +150,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create Button
-            _button_ToggleExtrusionData = new Button(this)
-            {
-                Text = "Show population density"
-            };
+            _button_ToggleExtrusionData = new Button(this);
+            _button_ToggleExtrusionData.Text = "Show population density";
             _button_ToggleExtrusionData.Click += Button_ToggleExtrusionData_Clicked;
 
             // Add Button to the layout  

@@ -43,10 +43,8 @@ namespace ArcGISRuntime.UWP.Samples.FindServiceArea
         private void Initialize()
         {
             // Center the map on San Diego.
-            Map streetsMap = new Map(Basemap.CreateLightGrayCanvasVector())
-            {
-                InitialViewpoint = new Viewpoint(32.73, -117.14, 30000)
-            };
+            Map streetsMap = new Map(Basemap.CreateLightGrayCanvasVector());
+            streetsMap.InitialViewpoint = new Viewpoint(32.73, -117.14, 30000);
             MyMapView.Map = streetsMap;
 
             // Create graphics overlays for all of the elements of the map.

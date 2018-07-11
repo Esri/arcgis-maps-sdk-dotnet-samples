@@ -59,12 +59,10 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
             _featureTable = new ServiceFeatureTable(new Uri(_statesUrl));
 
             // Create feature layer using this feature table
-            _featureLayer = new FeatureLayer(_featureTable)
-            {
+            _featureLayer = new FeatureLayer(_featureTable);
 
-                // Set the Opacity of the Feature Layer
-                Opacity = 0.6
-            };
+            // Set the Opacity of the Feature Layer
+            _featureLayer.Opacity = 0.6;
 
             // Create a new renderer for the States Feature Layer.
             SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);

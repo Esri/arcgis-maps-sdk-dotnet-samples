@@ -66,7 +66,7 @@ namespace ArcGISRuntime.Samples.ShowMagnifier
                 _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
 
                 // Reposition the label within the toolbar.
-                _helpLabel.Frame = new CGRect(margin, margin, _toolbar.Bounds.Width - 2 * margin, controlHeight);
+                _helpLabel.Frame = new CGRect(margin, margin, _toolbar.Bounds.Width - (2 * margin), controlHeight);
 
                 base.ViewDidLayoutSubviews();
             }

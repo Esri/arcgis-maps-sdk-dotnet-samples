@@ -300,7 +300,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             nfloat buttonWidth = 60;
 
             // Get the total height and width of the control set (five rows of controls, four sets of space).
-            nfloat totalHeight = 5 * controlHeight + 4 * rowSpace;
+            nfloat totalHeight = (5 * controlHeight) + (4 * rowSpace);
             nfloat totalWidth = textViewWidth;
 
             // Find the center x and y of the view.
@@ -308,8 +308,8 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             nfloat centerY = Frame.Height / 2;
 
             // Find the start x and y for the control layout.
-            nfloat controlX = centerX - totalWidth / 2;
-            nfloat controlY = centerY - totalHeight / 2;
+            nfloat controlX = centerX - (totalWidth / 2);
+            nfloat controlY = centerY - (totalHeight / 2);
 
             // Set a title.
             UILabel titleTextBlock = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight));

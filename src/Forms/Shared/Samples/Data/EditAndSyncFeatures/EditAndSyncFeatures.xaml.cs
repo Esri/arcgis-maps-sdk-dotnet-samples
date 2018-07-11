@@ -287,14 +287,14 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             myProgressBar.IsVisible = true;
 
             // Handle the progress changed event with an inline (lambda) function to show the progress bar.
-            generateGdbJob.ProgressChanged += (sender, e) =>
+            generateGdbJob.ProgressChanged += ((sender, e) =>
             {
                 // Get the job.
                 GenerateGeodatabaseJob job = (GenerateGeodatabaseJob)sender;
 
                 // Update the progress bar.
                 UpdateProgressBar(job.Progress);
-            };
+            });
 
             // Start the job.
             generateGdbJob.Start();

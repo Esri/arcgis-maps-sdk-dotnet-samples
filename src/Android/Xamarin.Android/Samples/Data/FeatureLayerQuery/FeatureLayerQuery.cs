@@ -111,14 +111,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
                 // Create a query parameters that will be used to Query the feature table
                 QueryParameters queryParams = new QueryParameters();
 
-<<<<<<< HEAD
-                    // Construct and assign the where clause that will be used to query the feature table
-                    WhereClause = "upper(STATE_NAME) LIKE '%" + stateName.Trim().ToUpper() + "%'"
-                };
-=======
                 // Construct and assign the where clause that will be used to query the feature table
                 queryParams.WhereClause = "upper(STATE_NAME) LIKE '%" + (stateName.Trim().ToUpper()) + "%'";
->>>>>>> parent of 14fbc904... Use object or collection initializer
 
                 // Query the feature table
                 FeatureQueryResult queryResult = await _featureTable.QueryFeaturesAsync(queryParams);

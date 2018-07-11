@@ -17,14 +17,16 @@ namespace ArcGISRuntime.AndroidPageRenderer
         // Use a TaskCompletionSource to track the completion of the authorization
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 
+        private Context context;
 
         // ctor
         public SaveMapPageRenderer(Context context) : base(context)
         {
             // Set the OAuth authorization handler to this class (Implements IOAuthAuthorize interface)
             AuthenticationManager.Current.OAuthAuthorizeHandler = this;
+
+            this.context = context;
         }
-#pragma warning restore CS0618 // Type or member is obsolete
 
         #region IOAuthAuthorizationHandler implementation
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation
@@ -41,7 +43,7 @@ namespace ArcGISRuntime.AndroidPageRenderer
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
             // Get the current Android Activity
-            var activity = Context as Activity;
+            Activity activity = (Activity)context;
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(

@@ -1,53 +1,50 @@
-﻿<UserControl 
+﻿<UserControl
     x:Class="ArcGISRuntime.WPF.Samples.ChangeViewpoint.ChangeViewpoint"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013" 
-    mc:Ignorable="d" 
-    d:DesignHeight="300" d:DesignWidth="300">
+    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Margin" Value="5,5,0,0" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView">
             <esri:Map>
                 <esri:ArcGISTiledLayer x:Name="Basemap"
-                    Source="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>
+                                       Source="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
             </esri:Map>
         </esri:MapView>
         <Border Style="{StaticResource BorderStyle}">
-            <StackPanel>
-                <TextBlock Text="Select one of the buttons to run the related Viewpoint code"
-                           HorizontalAlignment="Center"
-                           Margin="0,0,0,2" 
-                           TextWrapping="Wrap" />
-                <WrapPanel HorizontalAlignment="Center">
-                    <Button Content="Geometry"
-		                HorizontalAlignment="Left"
-		                Margin="10,10,0,0"
-                        Padding="4"    
-		                VerticalAlignment="Top"
-		                Width="Auto"
-		                Click="OnButtonClick" 
-                        ToolTip="Sets Viewpoint to a predefined Polygon's extent"/>
-                    <Button Content="Center and Scale"
-		                HorizontalAlignment="Center"
-		                Margin="10,10,0,0"
-                        Padding="4"
-		                VerticalAlignment="Top"
-		                Width="Auto"
-		                Click="OnButtonClick"
-                        ToolTip="Sets Viewpoint a predefined point and scale"/>
-                    <Button Content="Animate"
-		                HorizontalAlignment="Right"
-		                Margin="10,10,0,0"
-                        Padding="4"
-		                VerticalAlignment="Top"
-		                Width="Auto"
-		                Click="OnButtonClick"
-                        ToolTip="Sets Viewpoint and animate repositioning of view"/>
-                </WrapPanel>
-            </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Use the buttons to set the viewpoint."
+                           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                           HorizontalAlignment="Center" TextWrapping="Wrap"
+                           FontWeight="SemiBold"/>
+                <Button Content="Geometry"
+                        Grid.Row="1" Grid.Column="0"
+                        Margin="0,5,0,0"
+                        ToolTip="Sets Viewpoint to a predefined Polygon's extent"
+                        Click="OnButtonClick" />
+                <Button Content="Center and scale"
+                        Grid.Row="1" Grid.Column="1"
+                        ToolTip="Sets Viewpoint a predefined point and scale"
+                        Click="OnButtonClick" />
+                <Button Content="Animate"
+                        Grid.Row="1" Grid.Column="2"
+                        ToolTip="Sets Viewpoint and animate repositioning of view"
+                        Click="OnButtonClick" />
+            </Grid>
         </Border>
     </Grid>
 </UserControl>
-

@@ -67,7 +67,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeViewpoint
                     await MyMapView.SetViewpointGeometryAsync(_redlandsEnvelope, 20);
                     break;
 
-                case "Center and Scale":
+                case "Center and scale":
 
                     // Set Viewpoint so that it is centered on the London coordinates defined above
                     await MyMapView.SetViewpointCenterAsync(_londonCoords);

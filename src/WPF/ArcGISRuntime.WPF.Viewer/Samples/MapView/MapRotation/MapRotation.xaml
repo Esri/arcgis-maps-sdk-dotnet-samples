@@ -31,6 +31,7 @@
                         ValueChanged="MySlider_ValueChanged" />
                 <TextBlock x:Name="MyLabel"
                            TextAlignment="Center" VerticalAlignment="Center"
+                           Text="0°"
                            Padding="0,2,0,0"
                            Grid.Row="1" Grid.Column="1" />
             </Grid>

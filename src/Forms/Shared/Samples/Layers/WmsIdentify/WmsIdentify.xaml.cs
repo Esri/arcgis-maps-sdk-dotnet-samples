@@ -20,7 +20,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         "Identify WMS features",
         "Layers",
         "This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.",
-        "Tap or click on a feature. A callout appears with the returned content for the WMS feature. Note: the service returns HTML regardless of whether there was an identify result. The sample uses a heuristic to hide empty results.")]
+        "Tap to identify a feature. Note: the service returns HTML regardless of whether there was an identify result. The sample uses a heuristic to not show empty results.")]
     public partial class WmsIdentify : ContentPage
     {
         // Create and hold the URL to the WMS service showing EPA water info

@@ -355,7 +355,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             string locationText = MyLocationBox.Text;
 
             // Convert the list into a usable format for the suggest box
-            List<string> results = (await GetSuggestResults(searchText, locationText, true)).ToList();
+            List<string> results = await GetSuggestResults(searchText, locationText, true);
 
             // Quit if there are no results
             if (!results.Any())

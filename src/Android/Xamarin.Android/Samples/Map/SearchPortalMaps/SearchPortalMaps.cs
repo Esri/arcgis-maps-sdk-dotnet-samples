@@ -257,29 +257,26 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             clientIdLayout.AddView(_clientIdText);
 
             // Create a text box for entering the redirect url
-<<<<<<< HEAD
             LinearLayout redirectUrlLayout = new LinearLayout(this)
             {
                 Orientation = Orientation.Horizontal
             };
+
             TextView redirectUrlLabel = new TextView(this)
             {
                 Text = "Redirect:"
             };
+
             _redirectUrlText = new EditText(this)
             {
                 Hint = "https://my.redirect/url"
             };
-            if (!String.IsNullOrEmpty(_oAuthRedirectUrl)) { _redirectUrlText.Text = _oAuthRedirectUrl; }
-=======
-            LinearLayout redirectUrlLayout = new LinearLayout(this);
-            redirectUrlLayout.Orientation = Orientation.Horizontal;
-            TextView redirectUrlLabel = new TextView(this);
-            redirectUrlLabel.Text = "Redirect:";
-            _redirectUrlText = new EditText(this);
-            _redirectUrlText.Hint = "https://my.redirect/url";
-            if (!string.IsNullOrEmpty(_oAuthRedirectUrl)) { _redirectUrlText.Text = _oAuthRedirectUrl; }
->>>>>>> parent of 14fbc904... Use object or collection initializer
+
+            if (!String.IsNullOrEmpty(_oAuthRedirectUrl))
+            {
+                _redirectUrlText.Text = _oAuthRedirectUrl;
+            }
+
             redirectUrlLayout.AddView(redirectUrlLabel);
             redirectUrlLayout.AddView(_redirectUrlText);
 

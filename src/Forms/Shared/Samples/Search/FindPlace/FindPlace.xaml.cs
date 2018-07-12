@@ -328,7 +328,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             string searchText = MyLocationBox.Text;
 
             // Get the results
-            List<String> results = (await GetSuggestResults(searchText)).ToList();
+            List<String> results = await GetSuggestResults(searchText);
 
             // Quit if there are no results
             if (!results.Any()) { return; }

@@ -4,10 +4,8 @@
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView"/>
-        <Border Background="White" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Center" VerticalAlignment="Top"
-                Margin="20" Width="240">
-            <Grid Margin="5">
+        <Border Style="{StaticResource BorderStyle}">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />

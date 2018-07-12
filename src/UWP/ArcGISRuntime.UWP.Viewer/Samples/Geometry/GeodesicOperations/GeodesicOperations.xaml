@@ -9,10 +9,7 @@
     d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <controls:MapView x:Name="MyMapView"/>
-        <Border
-            Background="White" BorderBrush="Black" BorderThickness="1"
-            HorizontalAlignment="Right" VerticalAlignment="Top"
-            Margin="30" Padding="20" Width="375">
+        <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock x:Name="ResultsLabel" 
                            Foreground="Red" TextAlignment="Center">Tap to set an end point.</TextBlock>

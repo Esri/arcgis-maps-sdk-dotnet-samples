@@ -11,7 +11,7 @@
     <Grid>
         <esriUI:MapView x:Name="MyMapView">
         </esriUI:MapView>
-        <Border Background="White" Margin="20" Padding="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="320">
+        <Border Style="{StaticResource BorderStyle}">
             <RelativePanel HorizontalAlignment="Stretch">
                 <Button Content="Reset Expression"
 		                HorizontalAlignment="Left"

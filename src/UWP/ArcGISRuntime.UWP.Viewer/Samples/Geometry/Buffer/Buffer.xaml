@@ -5,8 +5,7 @@
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView"/>
-        <Border HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30"
-                Background="WhiteSmoke" Opacity="0.8">
+        <Border Style="{StaticResource BorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>

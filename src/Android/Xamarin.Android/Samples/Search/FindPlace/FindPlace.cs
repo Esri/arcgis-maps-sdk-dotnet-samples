@@ -400,10 +400,10 @@ namespace ArcGISRuntime.Samples.FindPlace
             string locationText = _myLocationBox.Text;
 
             // Convert the list into a usable format for the suggest box
-            List<String> results = (await GetSuggestResults(searchText, locationText, true)).ToList();
+            List<String> results = await GetSuggestResults(searchText, locationText, true);
 
             // Quit if there are no results
-            if (results == null || !results.Any()) { return; }
+            if (!results.Any()) { return; }
 
             // Create an array adapter to provide autocomplete suggestions
             ArrayAdapter adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, results);
@@ -424,7 +424,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             string searchText = _myLocationBox.Text;
 
             // Get the results
-            List<string> results = (await GetSuggestResults(searchText)).ToList();
+            List<string> results = await GetSuggestResults(searchText);
 
             // Quit if there are no results
             if (!results.Any())

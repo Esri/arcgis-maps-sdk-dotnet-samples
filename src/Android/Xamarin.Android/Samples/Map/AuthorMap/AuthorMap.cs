@@ -411,15 +411,21 @@ namespace ArcGISRuntime.Samples.AuthorMap
             {
                 Orientation = Orientation.Horizontal
             };
+            
             TextView redirectUrlLabel = new TextView(this)
             {
                 Text = "Redirect:"
             };
+
             _redirectUrlText = new EditText(this)
             {
                 Hint = "https://my.redirect/url"
             };
-            if (!String.IsNullOrEmpty(OAuthRedirectUrl)) { _redirectUrlText.Text = OAuthRedirectUrl; }
+
+            if (!String.IsNullOrEmpty(OAuthRedirectUrl))
+            {
+                _redirectUrlText.Text = OAuthRedirectUrl;
+            }
             redirectUrlLayout.AddView(redirectUrlLabel);
             redirectUrlLayout.AddView(_redirectUrlText);
 

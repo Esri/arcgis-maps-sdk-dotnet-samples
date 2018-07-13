@@ -271,15 +271,22 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             {
                 Orientation = Orientation.Horizontal
             };
+            
             TextView redirectUrlLabel = new TextView(this)
             {
                 Text = "Redirect:"
             };
+            
             _redirectUrlText = new EditText(this)
             {
                 Hint = "https://my.redirect/url"
             };
-            if (!String.IsNullOrEmpty(_oAuthRedirectUrl)) { _redirectUrlText.Text = _oAuthRedirectUrl; }
+
+            if (!String.IsNullOrEmpty(_oAuthRedirectUrl))
+            {
+                _redirectUrlText.Text = _oAuthRedirectUrl;
+            }
+
             redirectUrlLayout.AddView(redirectUrlLabel);
             redirectUrlLayout.AddView(_redirectUrlText);
 

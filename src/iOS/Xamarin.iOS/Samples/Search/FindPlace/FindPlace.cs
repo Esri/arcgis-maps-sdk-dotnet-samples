@@ -459,20 +459,19 @@ namespace ArcGISRuntime.Samples.FindPlace
             string searchText = _locationBox.Text;
 
             // Get the results.
-            IEnumerable<string> results = await GetSuggestResultsAsync(searchText);
-            List<string> resultList = results?.ToList();
+            List<string> results = await GetSuggestResultsAsync(searchText);
 
             // Quit if there are no results.
-            if (resultList == null || !resultList.Any())
+            if (!results.Any())
             {
                 return;
             }
 
             // Add a 'current location' option to the list.
-            resultList.Insert(0, "Current location");
+            results.Insert(0, "Current location");
 
             // Update the list of options.
-            _mySuggestionSource.TableItems = resultList;
+            _mySuggestionSource.TableItems = results;
 
             // Force the view to refresh.
             _suggestionView.ReloadData();

@@ -351,7 +351,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             string searchText = LocationEntry.Text;
 
             // Get the results
-            List<string> results = (await GetSuggestResults(searchText)).ToList();
+            List<string> results = await GetSuggestResults(searchText);
 
             // Quit if there are no results
             if (!results.Any())

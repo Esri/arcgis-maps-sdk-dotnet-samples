@@ -110,7 +110,6 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerSelection
                 // Define the query parameters for selecting features
                 QueryParameters queryParams = new QueryParameters
                 {
-
                     // Set the geometry to selection envelope for selection by geometry
                     Geometry = selectionEnvelope
                 };

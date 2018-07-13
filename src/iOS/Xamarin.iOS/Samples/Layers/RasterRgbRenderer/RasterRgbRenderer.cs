@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using System.Linq;
 using ArcGISRuntime.Samples.Managers;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
@@ -145,7 +144,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         private void SegmentButtonClicked(object sender, EventArgs e)
         {
             // Get the segmented button control that raised the event.
-            var buttonControl = sender as UISegmentedControl;
+            UISegmentedControl buttonControl = (UISegmentedControl)sender;
 
             // Get the type of stretch inputs to show (title of the selected button).
             string stretchType = buttonControl.TitleAt(buttonControl.SelectedSegment);
@@ -165,7 +164,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             }
 
             // Create a view to show map item info entry controls over the map view
-            var ovBounds = new CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
+            CGRect ovBounds = new CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
             _updateRendererUi = new UpdateRendererDialogOverlay(ovBounds, 0.9f, UIColor.White, stretchType);
 
             // Handle the OnSearchMapsTextEntered event to get the info entered by the user
@@ -220,7 +219,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             Alpha = transparency;
 
             // Label to describe the type of input.
-            var descriptionLabel = new UILabel
+            UILabel descriptionLabel = new UILabel
             {
                 Text = "Stretch parameters (" + _stretchParamsType + ")",
                 TextAlignment = UITextAlignment.Center,
@@ -237,7 +236,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             UIButton cancelButton = new UIButton();
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
             cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
-            cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
+            cancelButton.TouchUpInside += (s, e) => { OnCanceled?.Invoke(this, null); };
 
             // Create inputs that are specific for the stretch type.
             switch (_stretchParamsType)
@@ -510,8 +509,8 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
                     // - Minimum and maximum RGB values.
                     case "Min Max RGB":
                         // Get the models that contains the min/max red, green, and blue picker choices.
-                        RgbValuePickerModel minRgbModel = _minRgbPicker.Model as RgbValuePickerModel;
-                        RgbValuePickerModel maxRgbModel = _maxRgbPicker.Model as RgbValuePickerModel;
+                        RgbValuePickerModel minRgbModel = (RgbValuePickerModel)_minRgbPicker.Model;
+                        RgbValuePickerModel maxRgbModel = (RgbValuePickerModel)_maxRgbPicker.Model;
 
                         // Read min/max RGB values that were chosen.
                         double[] minValues = {minRgbModel.SelectedRed, minRgbModel.SelectedGreen, minRgbModel.SelectedBlue};
@@ -533,7 +532,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
                     // Standard deviation factor.
                     case "Std Dev":
                         // Get the model that contains the standard deviation factor choices.
-                        StdDevFactorPickerModel factorModel = _stdDevPicker.Model as StdDevFactorPickerModel;
+                        StdDevFactorPickerModel factorModel = (StdDevFactorPickerModel)_stdDevPicker.Model;
 
                         // Get the selected factor.
                         double standardDevFactor = factorModel.SelectedFactor;

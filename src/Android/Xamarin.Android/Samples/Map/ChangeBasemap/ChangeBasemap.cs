@@ -69,10 +69,10 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         private void OnBasemapsClicked(object sender, EventArgs e)
         {
             // Get a reference to the button
-            var mapsButton = sender as Button;
+            Button mapsButton = (Button)sender;
 
             // Create menu to show map options
-            var mapsMenu = new PopupMenu(this, mapsButton);
+            PopupMenu mapsMenu = new PopupMenu(this, mapsButton);
             mapsMenu.MenuItemClick += OnBasemapsMenuItemClicked;
 
             // Create menu options
@@ -88,7 +88,7 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         private void OnBasemapsMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
         {
             // Get title from the selected item
-            var selectedBasemap = e.Item.TitleCondensedFormatted.ToString();
+            string selectedBasemap = e.Item.TitleCondensedFormatted.ToString();
 
             // Retrieve the basemap from the dictionary
             _myMapView.Map.Basemap = _basemapOptions[selectedBasemap];
@@ -97,10 +97,10 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create button to show map options
-            var mapsButton = new Button(this);
+            Button mapsButton = new Button(this);
             mapsButton.Text = "Basemaps";
             mapsButton.Click += OnBasemapsClicked;
 

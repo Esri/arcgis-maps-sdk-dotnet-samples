@@ -15,7 +15,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Collections.Generic;
 using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.RasterHillshade
@@ -46,9 +45,6 @@ namespace ArcGISRuntime.Samples.RasterHillshade
 
         // Store a reference to the layer
         private RasterLayer _rasterLayer;
-
-        // Store a dictionary of slope types
-        private Dictionary<string, SlopeType> _slopeTypeValues = new Dictionary<string, SlopeType>();
 
         // Store a selected slope type
         private SlopeType _slopeType = SlopeType.PercentRise;
@@ -237,12 +233,6 @@ namespace ArcGISRuntime.Samples.RasterHillshade
 
             // Add the map to the map view
             _myMapView.Map = map;
-
-            // Add slope type values to the dictionary and picker
-            foreach (var slope in Enum.GetValues(typeof(SlopeType)))
-            {
-                _slopeTypeValues.Add(slope.ToString(), (SlopeType)slope);
-            }
         }
 
         private void ApplyHillshadeButton_Click(object sender, EventArgs e)

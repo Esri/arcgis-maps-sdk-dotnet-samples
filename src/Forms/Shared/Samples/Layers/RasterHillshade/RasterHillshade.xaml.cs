@@ -37,10 +37,10 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         private const int PixelBitDepth = 8;
 
         // Store a reference to the layer
-        RasterLayer _rasterLayer;
+        private RasterLayer _rasterLayer;
 
         // Store a dictionary of slope types
-        Dictionary<string, SlopeType> _slopeTypeValues = new Dictionary<string, SlopeType>();
+        private Dictionary<string, SlopeType> _slopeTypeValues = new Dictionary<string, SlopeType>();
 
         public RasterHillshade()
         {
@@ -81,7 +81,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             MyMapView.Map = map;
 
             // Add slope type values to the dictionary and picker
-            foreach (var slope in Enum.GetValues(typeof(SlopeType)))
+            foreach (object slope in Enum.GetValues(typeof(SlopeType)))
             {
                 _slopeTypeValues.Add(slope.ToString(), (SlopeType)slope);
                 SlopeTypePicker.Items.Add(slope.ToString());

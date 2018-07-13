@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Esri.ArcGISRuntime;
 using Xamarin.Forms;
 
 
@@ -108,13 +109,12 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         {
             // Get web map portal items from a keyword search
             IEnumerable<PortalItem> mapItems = null;
-            ArcGISPortal portal;
 
             // Connect to the portal (anonymously)
-            portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
+            ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
 
             // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
-            var queryExpression = string.Format("tags:\"{0}\" access:public type: (\"web map\" NOT \"web mapping application\")", searchText);
+            string queryExpression = $"tags:\"{searchText}\" access:public type: (\"web map\" NOT \"web mapping application\")";
             
             // Create a query parameters object with the expression and a limit of 10 results
             PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
@@ -141,28 +141,24 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
         private async void GetMyMaps(object sender, EventArgs e)
         {
-            // Get web map portal items in the current user's folder or from a keyword search
-            IEnumerable<PortalItem> mapItems = null;
-            ArcGISPortal portal;
-
             // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
-            var loggedIn = await EnsureLoggedInAsync();
+            bool loggedIn = await EnsureLoggedInAsync();
             if (!loggedIn) { return; }
 
             // Connect to the portal (will connect using the provided credentials)
-            portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
+            ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
 
             // Get the user's content (items in the root folder and a collection of sub-folders)
             PortalUserContent myContent = await portal.User.GetContentAsync();
 
             // Get the web map items in the root folder
-            mapItems = from item in myContent.Items where item.Type == PortalItemType.WebMap select item;
+            IEnumerable<PortalItem> mapItems = from item in myContent.Items where item.Type == PortalItemType.WebMap select item;
 
             // Loop through all sub-folders and get web map items, add them to the mapItems collection
             foreach (PortalFolder folder in myContent.Folders)
             {
                 IEnumerable<PortalItem> folderItems = await portal.User.GetContentAsync(folder.FolderId);
-                mapItems.Concat(from item in folderItems where item.Type == PortalItemType.WebMap select item);
+                mapItems = mapItems.Concat(from item in folderItems where item.Type == PortalItemType.WebMap select item);
             }
 
             // Show the list of web maps
@@ -191,14 +187,11 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
         private void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
-            // Get the current status
-            var status = e.Status;
-
             // Report errors if map failed to load
-            if (status == Esri.ArcGISRuntime.LoadStatus.FailedToLoad)
+            if (e.Status == LoadStatus.FailedToLoad)
             {
-                var map = sender as Map;
-                var err = map.LoadError;
+                Map map = (Map)sender;
+                Exception err = map.LoadError;
                 if (err != null)
                 {
                     DisplayAlert(err.Message, "Map Load Error", "OK");
@@ -225,7 +218,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 challengeRequest.ServiceUri = new Uri(ArcGISOnlineUrl);
 
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                var cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
+                Credential cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
                 loggedIn = cred != null;
             }
             catch (OperationCanceledException)

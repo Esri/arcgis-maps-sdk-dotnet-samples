@@ -52,24 +52,24 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         private void Initialize()
         {
             // Create a scene with elevation.
-            var sceneSurface = new Surface();
+            Surface sceneSurface = new Surface();
             sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_worldElevationService));
-            var myScene = new Scene(Basemap.CreateImagery())
+            Scene myScene = new Scene(Basemap.CreateImagery())
             {
                 BaseSurface = sceneSurface
             };
 
             // Create and add a building layer.
-            var buildingsLayer = new ArcGISSceneLayer(_buildingService);
+            ArcGISSceneLayer buildingsLayer = new ArcGISSceneLayer(_buildingService);
             myScene.OperationalLayers.Add(buildingsLayer);
 
             // Create and add an analysis overlay.
-            var measureAnalysisOverlay = new AnalysisOverlay();
+            AnalysisOverlay measureAnalysisOverlay = new AnalysisOverlay();
             _mySceneView.AnalysisOverlays.Add(measureAnalysisOverlay);
 
             // Create an initial distance measurement and show it.
-            var start = new MapPoint(-4.494677, 48.384472, 24.772694, SpatialReferences.Wgs84);
-            var end = new MapPoint(-4.495646, 48.384377, 58.501115, SpatialReferences.Wgs84);
+            MapPoint start = new MapPoint(-4.494677, 48.384472, 24.772694, SpatialReferences.Wgs84);
+            MapPoint end = new MapPoint(-4.495646, 48.384377, 58.501115, SpatialReferences.Wgs84);
             _distanceMeasurement = new LocationDistanceMeasurement(start, end);
             measureAnalysisOverlay.Analyses.Add(_distanceMeasurement);
             _mySceneView.SetViewpointCamera(new Camera(start, 200, 45, 45, 0));

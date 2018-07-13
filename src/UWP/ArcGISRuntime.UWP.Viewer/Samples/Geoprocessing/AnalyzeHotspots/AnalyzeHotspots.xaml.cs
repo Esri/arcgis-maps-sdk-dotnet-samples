@@ -54,11 +54,11 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
             MyMapView.Map = myMap;
 
             // Set the initial start date for the DatePicker defined in xaml
-            var myFromDate = new DateTimeOffset(new DateTime(1998, 1, 1));
+            DateTimeOffset myFromDate = new DateTimeOffset(new DateTime(1998, 1, 1));
             FromDate.Date = myFromDate;
 
             // Set the initial end date for the DatePicker defined in xaml
-            var myToDate = new DateTimeOffset(new DateTime(1998, 1, 31));
+            DateTimeOffset myToDate = new DateTimeOffset(new DateTime(1998, 1, 31));
             ToDate.Date = myToDate;
         }
 
@@ -81,14 +81,14 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
             ShowBusyOverlay();
 
             // Get the 'from' and 'to' dates from the date pickers for the geoprocessing analysis
-            var myFromDate = FromDate.Date;
-            var myToDate = ToDate.Date;
+            DateTimeOffset myFromDate = FromDate.Date;
+            DateTimeOffset myToDate = ToDate.Date;
 
             // The end date must be at least one day after the start date
             if (myToDate <= myFromDate.AddDays(1))
             {
                 // Show error message
-                var message = new MessageDialog("Please select valid time range. There has to be at least one day in between To and From dates.", 
+                MessageDialog message = new MessageDialog("Please select valid time range. There has to be at least one day in between To and From dates.", 
                     "Invalid date range");
                 await message.ShowAsync();
 
@@ -101,9 +101,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
             GeoprocessingParameters myHotspotParameters = new GeoprocessingParameters(GeoprocessingExecutionType.AsynchronousSubmit);
 
             // Construct the date query
-            var myQueryString = string.Format("(\"DATE\" > date '{0} 00:00:00' AND \"DATE\" < date '{1} 00:00:00')",
-                myFromDate.ToString("yyyy-MM-dd"),
-                myToDate.ToString("yyyy-MM-dd"));
+            string myQueryString = $"(\"DATE\" > date '{myFromDate:yyyy-MM-dd} 00:00:00' AND \"DATE\" < date '{myToDate:yyyy-MM-dd} 00:00:00')";
 
             // Add the query that contains the date range used in the analysis
             myHotspotParameters.Inputs.Add("Query", new GeoprocessingString(myQueryString));
@@ -134,12 +132,12 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
                 // Display error messages if the geoprocessing task fails
                 if (_hotspotJob.Status == JobStatus.Failed && _hotspotJob.Error != null)
                 {
-                    var message = new MessageDialog("Executing geoprocessing failed. " + _hotspotJob.Error.Message, "Geoprocessing error");
+                    MessageDialog message = new MessageDialog("Executing geoprocessing failed. " + _hotspotJob.Error.Message, "Geoprocessing error");
                     await message.ShowAsync();
                 }
                 else
                 {
-                    var message = new MessageDialog("An error occurred. " + ex.ToString(), "Sample error");
+                    MessageDialog message = new MessageDialog("An error occurred. " + ex.ToString(), "Sample error");
                     await message.ShowAsync();
                 }
             }

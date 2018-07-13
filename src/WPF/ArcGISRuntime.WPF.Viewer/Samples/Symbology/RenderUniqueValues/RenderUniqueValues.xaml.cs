@@ -36,7 +36,7 @@ namespace ArcGISRuntime.WPF.Samples.RenderUniqueValues
             Map myMap = new Map(Basemap.CreateTopographic());
 
             // Create URL to the census feature service.
-            var serviceUri = new Uri(
+            Uri serviceUri = new Uri(
                 "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
 
             // Create service feature table.
@@ -72,7 +72,7 @@ namespace ArcGISRuntime.WPF.Samples.RenderUniqueValues
                 new UniqueValue("West South Central", "West South Central Region", westSouthCentralFillSymbol, "West South Central"));
 
             // Set the default region fill symbol for regions not explicitly defined in the renderer.
-            var defaultFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Cross, Color.Gray, null);
+            SimpleFillSymbol defaultFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Cross, Color.Gray, null);
             regionRenderer.DefaultSymbol = defaultFillSymbol;
             regionRenderer.DefaultLabel = "Other";
 

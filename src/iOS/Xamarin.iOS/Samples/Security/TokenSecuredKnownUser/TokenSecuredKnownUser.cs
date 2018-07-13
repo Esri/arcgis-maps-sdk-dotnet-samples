@@ -36,11 +36,11 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
         private string _secureLayerName = "USA - Secure";
 
         // Store the map view displayed in the app.
-        MapView _myMapView;
+        private MapView _myMapView;
 
         // Labels to show layer load status.
-        UILabel _publicLayerLabel;
-        UILabel _secureLayerLabel;
+        private UILabel _publicLayerLabel;
+        private UILabel _secureLayerLabel;
 
         public TokenSecuredKnownUser()
         {
@@ -102,13 +102,13 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateKnownCredentials);
 
             // Create the public layer and provide a name.
-            var publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
+            ArcGISTiledLayer publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
             {
                 Name = _publicLayerName
             };
 
             // Create the secured layer and provide a name.
-            var tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
+            ArcGISMapImageLayer tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
             {
                 Name = _secureLayerName
             };
@@ -118,7 +118,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
             tokenSecuredLayer.LoadStatusChanged += LayerLoadStatusChanged;
 
             // Create a new map and add the layers.
-            var myMap = new Map();
+            Map myMap = new Map();
             myMap.OperationalLayers.Add(publicLayer);
             myMap.OperationalLayers.Add(tokenSecuredLayer);
 
@@ -130,7 +130,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
         private void LayerLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
             // Get the layer that triggered the event.
-            var layer = sender as Layer;
+            Layer layer = (Layer)sender;
 
             // Get the label for this layer.
             UILabel labelToUpdate = null;
@@ -144,8 +144,8 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
             }
 
             // Create the text string and font color to describe the current load status.
-            var updateText = layer.Name;
-            var textColor = UIColor.Gray;
+            string updateText = layer.Name;
+            UIColor textColor = UIColor.Gray;
 
             switch (e.Status)
             {

@@ -126,7 +126,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
 
             // Display results in a list in a dialog
-            var statsList = statQueryResult.FirstOrDefault().Statistics.ToList();
+            List<KeyValuePair<string,object>> statsList = statQueryResult.First().Statistics.ToList();
             ShowStatsList(statsList);
         }
 
@@ -134,10 +134,10 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         {
             // Create a list of statistics results (field names and values) to show in the list
             IList<string> statInfoList = new List<string>();
-            foreach (var kvp in stats)
+            foreach (KeyValuePair<string,object> kvp in stats)
             {
                 // If the value is null, display "--"
-                var displayString = "--";
+                string displayString = "--";
 
                 if (kvp.Value != null)
                 {
@@ -148,11 +148,11 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             }
 
             // Create an array adapter for the stats list
-            var statsArrayAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, statInfoList);
+            ArrayAdapter<string> statsArrayAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, statInfoList);
             statsArrayAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleListItem1);
 
             // Create a list view to display the results
-            var statsListView = new ListView(this);
+            ListView statsListView = new ListView(this);
             statsListView.Adapter = statsArrayAdapter;
 
             // Show the list view in a dialog
@@ -173,7 +173,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             _onlyInExtentSwitch.Text = "Only in current extent";
 
             // Create a Button to execute the statistical query
-            var getStatsButton = new Button(this);
+            Button getStatsButton = new Button(this);
             getStatsButton.Text = "Get Statistics";
             getStatsButton.Click += OnExecuteStatisticsQueryClicked;
 

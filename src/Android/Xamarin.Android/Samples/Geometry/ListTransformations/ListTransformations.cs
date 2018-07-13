@@ -101,7 +101,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
             // Get the path to the projection engine data (if it exists).
             string peFolderPath = GetProjectionDataPath();
-            if (!string.IsNullOrEmpty(peFolderPath))
+            if (!String.IsNullOrEmpty(peFolderPath))
             {
                 TransformationCatalog.ProjectionEngineDirectory = peFolderPath;
                 _messagesTextView.Text = "Using projection data found at '" + peFolderPath + "'";
@@ -115,7 +115,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         private void MyMap_Loaded(object sender, EventArgs e)
         {
             // Get the map's spatial reference.
-            SpatialReference mapSpatialReference = (sender as Map).SpatialReference;
+            SpatialReference mapSpatialReference = ((Map)sender).SpatialReference;
 
             // Run on the UI thread.
             RunOnUiThread(() =>
@@ -236,7 +236,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         private void TransformationsPicker_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             // Get the selected transform from the spinner. Return if none is selected.
-            TransformationsAdapter adapter = _transformationsPicker.Adapter as TransformationsAdapter;            
+            TransformationsAdapter adapter = (TransformationsAdapter)_transformationsPicker.Adapter;            
             DatumTransformation selectedTransform = adapter[e.Position];
             if (selectedTransform == null) { return; }
 

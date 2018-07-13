@@ -14,7 +14,7 @@
                IsVisible="False"
                HorizontalOptions="Center"  VerticalOptions="Start"
                Margin="30"
-               OutlineColor="DarkGray"
+               BorderColor="DarkGray"
                BackgroundColor="LightGray"
                WidthRequest="300">
             <ScrollView>

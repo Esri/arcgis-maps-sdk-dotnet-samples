@@ -92,7 +92,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
             // Normalize the geometry if wrap-around is enabled
             //    This is necessary because of how wrapped-around map coordinates are handled by Runtime
             //    Without this step, the task may fail because wrapped-around coordinates are out of bounds.
-            if (MyMapView.IsWrapAroundEnabled) { geometry = GeometryEngine.NormalizeCentralMeridian(geometry) as MapPoint; }
+            if (MyMapView.IsWrapAroundEnabled) { geometry = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geometry); }
 
             // Execute the geoprocessing task using the user click location
             await CalculateViewshed(geometry);
@@ -105,10 +105,10 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
             // is a problem with the execution of the geoprocessing task an error message will be displayed
 
             // Create new geoprocessing task using the url defined in the member variables section
-            var myViewshedTask = await GeoprocessingTask.CreateAsync(new Uri(_viewshedUrl));
+            GeoprocessingTask myViewshedTask = await GeoprocessingTask.CreateAsync(new Uri(_viewshedUrl));
 
             // Create a new feature collection table based upon point geometries using the current map view spatial reference
-            var myInputFeatures = new FeatureCollectionTable(new List<Field>(), GeometryType.Point, MyMapView.SpatialReference);
+            FeatureCollectionTable myInputFeatures = new FeatureCollectionTable(new List<Field>(), GeometryType.Point, MyMapView.SpatialReference);
 
             // Create a new feature from the feature collection table. It will not have a coordinate location (x,y) yet
             Feature myInputFeature = myInputFeatures.CreateFeature();
@@ -130,7 +130,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
             myViewshedParameters.Inputs.Add("Input_Observation_Point", new GeoprocessingFeatures(myInputFeatures));
 
             // Create the job that handles the communication between the application and the geoprocessing task
-            var myViewshedJob = myViewshedTask.CreateJob(myViewshedParameters);
+            GeoprocessingJob myViewshedJob = myViewshedTask.CreateJob(myViewshedParameters);
 
             try
             {
@@ -138,11 +138,11 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
                 GeoprocessingResult myAnalysisResult = await myViewshedJob.GetResultAsync();
 
                 // Get the results from the outputs
-                GeoprocessingFeatures myViewshedResultFeatures = myAnalysisResult.Outputs["Viewshed_Result"] as GeoprocessingFeatures;
+                GeoprocessingFeatures myViewshedResultFeatures = (GeoprocessingFeatures)myAnalysisResult.Outputs["Viewshed_Result"];
 
                 // Add all the results as a graphics to the map
                 IFeatureSet myViewshedAreas = myViewshedResultFeatures.Features;
-                foreach (var myFeature in myViewshedAreas)
+                foreach (Feature myFeature in myViewshedAreas)
                 {
                     _resultOverlay.Graphics.Add(new Graphic(myFeature.Geometry));
                 }

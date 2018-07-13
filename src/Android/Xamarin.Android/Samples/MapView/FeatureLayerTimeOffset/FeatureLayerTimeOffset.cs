@@ -95,7 +95,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create the UI controls
             _redLabel = new TextView(this) { Text = "Red hurricanes offset 10 days" };
@@ -163,7 +163,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
             _myMapView.TimeExtent = new TimeExtent(newStart, newEnd);
 
             // Update the label
-            _timeLabel.Text = String.Format("{0} - {1}", newStart.ToString("d"), newEnd.ToString("d"));
+            _timeLabel.Text = $"{newStart:d} - {newEnd:d}";
         }
     }
 }

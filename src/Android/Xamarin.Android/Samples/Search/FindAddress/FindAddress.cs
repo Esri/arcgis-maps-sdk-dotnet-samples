@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -92,8 +93,8 @@ namespace ArcGISRuntime.Samples.FindAddress
         private void CreateLayout()
         {
             //initialize the layout
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
-            var searchBarLayout = new LinearLayout(this);
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout searchBarLayout = new LinearLayout(this);
             // Add the search bar
             _addressSearchBar = new EditText(this)
             {
@@ -140,7 +141,7 @@ namespace ArcGISRuntime.Samples.FindAddress
             // Provide the addresses; lambda updates the search with the selected item
             builder.SetTitle("Suggestions").SetItems(_addresses, (_sender, _e) =>
             {
-                var address = _addresses[_e.Which]; // get the selected address
+                string address = _addresses[_e.Which]; // get the selected address
                 _addressSearchBar.Text = address;
                 updateSearch();
             });
@@ -157,13 +158,13 @@ namespace ArcGISRuntime.Samples.FindAddress
         private async void updateSearch()
         {
             // Get the text in the search bar
-            String enteredText = _addressSearchBar.Text;
+            string enteredText = _addressSearchBar.Text;
 
             // Clear existing marker
             _myMapView.GraphicsOverlays.Clear();
 
             // Return gracefully if the textbox is empty or the geocoder isn't ready
-            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
+            if (String.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
 
             // Get suggestions based on the input text
             IReadOnlyList<SuggestResult> suggestions = await _geocoder.SuggestAsync(enteredText);
@@ -197,11 +198,11 @@ namespace ArcGISRuntime.Samples.FindAddress
         private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
             // Get current assembly that contains the image
-            var currentAssembly = Assembly.GetExecutingAssembly();
+            Assembly currentAssembly = Assembly.GetExecutingAssembly();
 
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
-            var resourceStream = currentAssembly.GetManifestResourceStream(
+            Stream resourceStream = currentAssembly.GetManifestResourceStream(
                 "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream
@@ -232,9 +233,9 @@ namespace ArcGISRuntime.Samples.FindAddress
             // Get the first result
             GeocodeResult address = addresses.First();
             // Use the city and region for the Callout Title
-            String calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
+            string calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
             // Use the metro area for the Callout Detail
-            String calloutDetail = address.Attributes["MetroArea"].ToString();
+            string calloutDetail = address.Attributes["MetroArea"].ToString();
 
             // Define the callout
             CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);

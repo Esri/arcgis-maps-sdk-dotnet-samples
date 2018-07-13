@@ -41,8 +41,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         private string OAuthRedirectUrl = "https://developers.arcgis.com";
 
         // String array to store names of the available basemaps
-        private string[] _basemapNames = new string[]
-        {
+        private string[] _basemapNames = {
             "Light Gray",
             "Topographic",
             "Streets",
@@ -98,9 +97,9 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             try
             {
                 // Don't attempt to save if the OAuth settings weren't provided
-                if(string.IsNullOrEmpty(AppClientId) || string.IsNullOrEmpty(OAuthRedirectUrl))
+                if(String.IsNullOrEmpty(AppClientId) || String.IsNullOrEmpty(OAuthRedirectUrl))
                 {
-                    var dialog = new MessageDialog("OAuth settings were not provided.", "Cannot Save");
+                    MessageDialog dialog = new MessageDialog("OAuth settings were not provided.", "Cannot Save");
                     await dialog.ShowAsync();
 
                     SaveMapFlyout.Hide();
@@ -112,7 +111,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                 SaveProgressBar.Visibility = Visibility.Visible;
 
                 // Get the current map
-                var myMap = MyMapView.Map;
+                Map myMap = MyMapView.Map;
 
                 // Apply the current extent as the map's initial extent
                 myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
@@ -124,12 +123,12 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                 if (myMap.Item == null)
                 {
                     // Get information for the new portal item
-                    var title = TitleTextBox.Text;
-                    var description = DescriptionTextBox.Text;
-                    var tagText = TagsTextBox.Text;
+                    string title = TitleTextBox.Text;
+                    string description = DescriptionTextBox.Text;
+                    string tagText = TagsTextBox.Text;
 
                     // Make sure all required info was entered
-                    if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || string.IsNullOrEmpty(tagText))
+                    if (String.IsNullOrEmpty(title) || String.IsNullOrEmpty(description) || String.IsNullOrEmpty(tagText))
                     {
                         throw new Exception("Please enter a title, description, and some tags to describe the map.");
                     }
@@ -138,7 +137,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                     await SaveNewMapAsync(MyMapView.Map, title, description, tagText.Split(','), thumbnailImg);
 
                     // Report a successful save
-                    var messageDialog = new MessageDialog("Saved '" + title + "' to ArcGIS Online!", "Map Saved");
+                    MessageDialog messageDialog = new MessageDialog("Saved '" + title + "' to ArcGIS Online!", "Map Saved");
                     await messageDialog.ShowAsync();
                 }
                 else
@@ -150,18 +149,18 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                     Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
 
                     // Update the item thumbnail
-                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);                    
+                    ((PortalItem)myMap.Item).SetThumbnailWithImage(imageStream);                    
                     await myMap.SaveAsync();
 
                     // Report update was successful
-                    var messageDialog = new MessageDialog("Saved changes to '" + myMap.Item.Title + "'", "Updates Saved");
+                    MessageDialog messageDialog = new MessageDialog("Saved changes to '" + myMap.Item.Title + "'", "Updates Saved");
                     await messageDialog.ShowAsync();
                 }
             }
             catch (Exception ex)
             {
                 // Report error message
-                var messageDialog = new MessageDialog("Error saving map to ArcGIS Online: " + ex.Message);
+                MessageDialog messageDialog = new MessageDialog("Error saving map to ArcGIS Online: " + ex.Message);
                 await messageDialog.ShowAsync();
             }
             finally
@@ -225,11 +224,11 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             myMap.OperationalLayers.Clear();
 
             // Loop through the selected items in the operational layers list box
-            foreach (var item in LayerListView.SelectedItems)
+            foreach (KeyValuePair<string,string> item in LayerListView.SelectedItems)
             {
                 // Get the service uri for each selected item 
-                var layerInfo = (KeyValuePair<string, string>)item;
-                var layerUri = new Uri(layerInfo.Value);
+                KeyValuePair<string,string> layerInfo = item;
+                Uri layerUri = new Uri(layerInfo.Value);
 
                 // Create a new map image layer, set it 50% opaque, and add it to the map
                 ArcGISMapImageLayer layer = new ArcGISMapImageLayer(layerUri);
@@ -283,7 +282,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             Envelope currentExtent = currentViewpoint.TargetGeometry as Envelope;
 
             // Project the current extent to geographic coordinates (longitude / latitude)
-            Envelope currentGeoExtent = GeometryEngine.Project(currentExtent, SpatialReferences.Wgs84) as Envelope;
+            Envelope currentGeoExtent = (Envelope)GeometryEngine.Project(currentExtent, SpatialReferences.Wgs84);
 
             // Fill the app text boxes with min / max longitude (x) and latitude (y) to four decimal places
             XMinTextBox.Text = currentGeoExtent.XMin.ToString("0.####");
@@ -313,7 +312,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             else
             {
                 // User canceled, warn that won't be able to save
-                var messageDlg = new MessageDialog("No OAuth settings entered, you will not be able to save your map.");
+                MessageDialog messageDlg = new MessageDialog("No OAuth settings entered, you will not be able to save your map.");
                 await messageDlg.ShowAsync();
 
                 AppClientId = string.Empty;
@@ -368,10 +367,10 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                             info.GenerateTokenOptions
                     ) as OAuthTokenCredential;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;

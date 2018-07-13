@@ -61,7 +61,7 @@ namespace ArcGISRuntime.WPF.Samples.ArcGISVectorTiledLayerUrl
         private void OnVectorLayersChooserSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Get the user's selection
-            var selectedVectorLayer = e.AddedItems[0].ToString();
+            string selectedVectorLayer = e.AddedItems[0].ToString();
 
             // Get the URL from the dictionary
             Uri vectorTiledLayerUrl = _layerUrls[selectedVectorLayer];

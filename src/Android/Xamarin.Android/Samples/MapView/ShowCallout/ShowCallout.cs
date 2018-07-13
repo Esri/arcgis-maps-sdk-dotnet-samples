@@ -60,7 +60,7 @@ namespace ArcGISRuntime.Samples.ShowCallout
 
         private void CreateLayout()
         {
-            var layout = new LinearLayout(this)
+            LinearLayout layout = new LinearLayout(this)
             {
                 Orientation = Orientation.Vertical
             };
@@ -91,7 +91,7 @@ namespace ArcGISRuntime.Samples.ShowCallout
             MapPoint projectedLocation = (MapPoint)myGeometry;
 
             // Format the display callout string based upon the projected map point (example: "Lat: 100.123, Long: 100.234")
-            string mapLocationDescription = string.Format("Lat: {0:F3} Long:{1:F3}", projectedLocation.Y, projectedLocation.X);
+            string mapLocationDescription = $"Lat: {projectedLocation.Y:F3} Long:{projectedLocation.X:F3}";
 
             // Create a new callout definition using the formatted string
             CalloutDefinition myCalloutDefinition = new CalloutDefinition("Location:", mapLocationDescription);

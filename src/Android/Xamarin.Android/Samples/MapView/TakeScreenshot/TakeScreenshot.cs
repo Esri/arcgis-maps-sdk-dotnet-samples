@@ -80,7 +80,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             catch (Exception ex)
             {
                 // Display any errors to the user if capturing the map view image did not work.
-                var alertBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("ExportImageAsync error");
                 alertBuilder.SetMessage("Capturing image failed. " + ex.Message);
                 alertBuilder.Show();

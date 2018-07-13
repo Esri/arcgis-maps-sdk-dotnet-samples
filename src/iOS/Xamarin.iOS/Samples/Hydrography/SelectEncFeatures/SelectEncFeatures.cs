@@ -132,7 +132,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             IdentifyLayerResult firstResult = encResultsWithFeatures.First();
 
             // Get the layer associated with this set of results.
-            EncLayer containingLayer = firstResult.LayerContent as EncLayer;
+            EncLayer containingLayer = (EncLayer)firstResult.LayerContent;
 
             // Get the first identified ENC feature.
             EncFeature smallestFeature = (EncFeature) firstResult.GeoElements.OrderBy(f => GeometryEngine.Area(f.Geometry)).First();

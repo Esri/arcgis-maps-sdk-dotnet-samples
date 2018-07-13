@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -89,7 +90,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             _myMapView.GraphicsOverlays.Add(_sketchOverlay);
 
             // Set the sketch editor configuration to allow vertex editing, resizing, and moving.
-            var config = _myMapView.SketchEditor.EditConfiguration;
+            SketchEditConfiguration config = _myMapView.SketchEditor.EditConfiguration;
             config.AllowVertexEditing = true;
             config.ResizeMode = SketchResizeMode.Uniform;
             config.AllowMove = true;
@@ -125,7 +126,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private void CanExecuteChanged(object sender, EventArgs e)
         {
             // Enable or disable the corresponding command for the sketch editor.
-            var command = sender as System.Windows.Input.ICommand;
+            ICommand command = (ICommand)sender;
             if (command == _myMapView.SketchEditor.UndoCommand)
             {
                 _segmentButton.SetEnabled(command.CanExecute(null), 2);
@@ -143,7 +144,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private async void SegmentButtonClicked(object sender, EventArgs e)
         {
             // Get the segmented button control that raised the event.
-            var buttonControl = sender as UISegmentedControl;
+            UISegmentedControl buttonControl = (UISegmentedControl)sender;
 
             // Execute the appropriate action for the control
             switch (buttonControl.SelectedSegment)
@@ -244,7 +245,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private async Task<Graphic> GetGraphicAsync()
         {
             // Wait for the user to click a location on the map.
-            var mapPoint = (MapPoint) await _myMapView.SketchEditor.StartAsync(SketchCreationMode.Point, false);
+            MapPoint mapPoint = (MapPoint) await _myMapView.SketchEditor.StartAsync(SketchCreationMode.Point, false);
 
             // Convert the map point to a screen point.
             var screenCoordinate = _myMapView.LocationToScreen(mapPoint);

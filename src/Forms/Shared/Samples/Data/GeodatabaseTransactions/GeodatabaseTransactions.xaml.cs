@@ -63,14 +63,14 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             };
             
             // Create a new map with the oceans basemap and add it to the map view
-            var map = new Map(Basemap.CreateOceans());
+            Map map = new Map(Basemap.CreateOceans());
             MyMapView.Map = map;
         }
 
         private async Task GetLocalGeodatabase()
         {
             // Get the path to the local geodatabase for this platform (temp directory, for example)
-            var localGeodatabasePath = GetGdbPath();
+            string localGeodatabasePath = GetGdbPath();
 
             try
             {
@@ -85,11 +85,11 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 else
                 {
                     // Create a new GeodatabaseSyncTask with the uri of the feature server to pull from
-                    var uri = new Uri(SyncServiceUrl);
-                    var gdbTask = await GeodatabaseSyncTask.CreateAsync(uri);
+                    Uri uri = new Uri(SyncServiceUrl);
+                    GeodatabaseSyncTask gdbTask = await GeodatabaseSyncTask.CreateAsync(uri);
 
                     // Create parameters for the task: layers and extent to include, out spatial reference, and sync model
-                    var gdbParams = await gdbTask.CreateDefaultGenerateGeodatabaseParametersAsync(_extent);
+                    GenerateGeodatabaseParameters gdbParams = await gdbTask.CreateDefaultGenerateGeodatabaseParametersAsync(_extent);
                     gdbParams.OutSpatialReference = MyMapView.SpatialReference;
                     gdbParams.SyncModel = SyncModel.Layer;
                     gdbParams.LayerOptions.Clear();
@@ -161,7 +161,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 }
 
                 // Create a new feature layer to show the table in the map
-                var layer = new FeatureLayer(table);
+                FeatureLayer layer = new FeatureLayer(table);
                 Device.BeginInvokeOnMainThread(() => MyMapView.Map.OperationalLayers.Add(layer));
             }
 
@@ -218,7 +218,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         private async void AddNewFeature(object sender, EventArgs args)
         {
             // See if it was the "Birds" or "Marine" button that was clicked
-            Button addFeatureButton = sender as Button;
+            Button addFeatureButton = (Button)sender;
 
             try
             {
@@ -234,7 +234,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 {
                     editTable = _birdTable;
                 }
-                else if (addFeatureButton == AddMarineButton)
+                else
                 {
                     editTable = _marineTable;
                 }
@@ -337,10 +337,10 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             try
             {
                 // Create a sync task with the URL of the feature service to sync
-                var syncTask = await GeodatabaseSyncTask.CreateAsync(new Uri(SyncServiceUrl));
+                GeodatabaseSyncTask syncTask = await GeodatabaseSyncTask.CreateAsync(new Uri(SyncServiceUrl));
 
                 // Create sync parameters
-                var taskParameters = await syncTask.CreateDefaultSyncGeodatabaseParametersAsync(_localGeodatabase);
+                SyncGeodatabaseParameters taskParameters = await syncTask.CreateDefaultSyncGeodatabaseParametersAsync(_localGeodatabase);
 
                 // Create a synchronize geodatabase job, pass in the parameters and the geodatabase
                 SyncGeodatabaseJob job = syncTask.SyncGeodatabase(taskParameters, _localGeodatabase);
@@ -367,7 +367,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 };
 
                 // Await the completion of the job
-                var result = await job.GetResultAsync();
+                await job.GetResultAsync();
             }
             catch (Exception ex)
             {

@@ -54,8 +54,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             _portalItemIdEditText.Text = FeatureCollectionItemId;
 
             // Create a new map with the oceans basemap and add it to the map view.
-            var map = new Map(Basemap.CreateOceans());
-            _myMapView.Map = map;
+            _myMapView.Map = new Map(Basemap.CreateOceans());
         }
 
         private async void OpenFeaturesFromArcGISOnline(string itemId)
@@ -63,24 +62,24 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             try
             {
                 // Open a portal item containing a feature collection.
-                var portal = await ArcGISPortal.CreateAsync();
-                var collectionItem = await PortalItem.CreateAsync(portal, itemId);
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync();
+                PortalItem collectionItem = await PortalItem.CreateAsync(portal, itemId);
 
                 // Verify that the item is a feature collection.
                 if (collectionItem.Type == PortalItemType.FeatureCollection)
                 {
                     // Create a new FeatureCollection from the item.
-                    var featureCollection = new FeatureCollection(collectionItem);
+                    FeatureCollection featureCollection = new FeatureCollection(collectionItem);
 
                     // Create a layer to display the collection and add it to the map as an operational layer.
-                    var featureCollectionLayer = new FeatureCollectionLayer(featureCollection);
+                    FeatureCollectionLayer featureCollectionLayer = new FeatureCollectionLayer(featureCollection);
                     featureCollectionLayer.Name = collectionItem.Title;
 
                     _myMapView.Map.OperationalLayers.Add(featureCollectionLayer);
                 }
                 else
                 {
-                    var alertBuilder = new AlertDialog.Builder(this);
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                     alertBuilder.SetTitle("Feature Collection");
                     alertBuilder.SetMessage("Portal item with ID '" + itemId + "' is not a feature collection.");
                     alertBuilder.Show();
@@ -88,7 +87,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             }
             catch (Exception ex)
             {
-                var alertBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage("Unable to open item with ID '" + itemId + "': " + ex.Message);
                 alertBuilder.Show();
@@ -98,12 +97,12 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
         private void OpenPortalFeatureCollectionClick(object sender, EventArgs e)
         {
             // Get the portal item Id from the user.
-            var collectionItemId = _portalItemIdEditText.Text.Trim();
+            string collectionItemId = _portalItemIdEditText.Text.Trim();
 
             // Make sure an Id was entered.
-            if (string.IsNullOrEmpty(collectionItemId))
+            if (String.IsNullOrEmpty(collectionItemId))
             {
-                var alertBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("Feature Collection ID");
                 alertBuilder.SetMessage("Please enter a portal item ID");
                 alertBuilder.Show();
@@ -117,10 +116,10 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
         private void CreateLayout()
         {
             // Create a new layout.
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a button to load features from a portal item, add it to the layout.
-            var loadFeaturesButton = new Button(this) { Text = "Load features" };
+            Button loadFeaturesButton = new Button(this) { Text = "Load features" };
             loadFeaturesButton.Click += OpenPortalFeatureCollectionClick;
             layout.AddView(loadFeaturesButton);
 

@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using System.Collections.Generic;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
@@ -91,7 +92,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
             // Get the path to the projection engine data (if it exists).
             string peFolderPath = GetProjectionDataPath();
-            if (!string.IsNullOrEmpty(peFolderPath))
+            if (!String.IsNullOrEmpty(peFolderPath))
             {
                 TransformationCatalog.ProjectionEngineDirectory = peFolderPath;
                 MessagesTextBox.Text = "Using projection data found at '" + peFolderPath + "'";
@@ -281,7 +282,10 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
             // Get the current list item being created. Return if the item is null.
             DatumTransformationListBoxItem transformationItem = item as DatumTransformationListBoxItem;
-            if(item == null) { return null; }
+            if (transformationItem == null)
+            {
+                return null;
+            }
 
             // Read the IsMissingProjectionEngineFiles property to select the available or unavailable data template.
             if (transformationItem.TransformationObject.IsMissingProjectionEngineFiles)

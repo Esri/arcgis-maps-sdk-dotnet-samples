@@ -220,11 +220,8 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             // Create the service area task and parameters based on the Uri.
             ServiceAreaTask serviceAreaTask = await ServiceAreaTask.CreateAsync(_serviceAreaUri);
 
-            // An object that defines parameters for solving a service area task.
-            ServiceAreaParameters serviceAreaParameters;
-
             // Store the default parameters for the service area in an object.
-            serviceAreaParameters = await serviceAreaTask.CreateDefaultParametersAsync();
+            ServiceAreaParameters serviceAreaParameters = await serviceAreaTask.CreateDefaultParametersAsync();
 
             // Add impedance cutoffs for facilities (drive time minutes).
             serviceAreaParameters.DefaultImpedanceCutoffs.Add(2.0);
@@ -269,9 +266,11 @@ namespace ArcGISRuntime.Samples.FindServiceArea
                     SimpleLineSymbol serviceOutline = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.DarkGray, 3.0f);
 
                     // Create a list of fill symbols for the polygons.
-                    List<SimpleFillSymbol> fillSymbols = new List<SimpleFillSymbol>();
-                    fillSymbols.Add(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Drawing.Color.FromArgb(70, 255, 0, 0), serviceOutline));
-                    fillSymbols.Add(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Drawing.Color.FromArgb(70, 255, 165, 0), serviceOutline));
+                    List<SimpleFillSymbol> fillSymbols = new List<SimpleFillSymbol>
+                    {
+                        new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Drawing.Color.FromArgb(70, 255, 0, 0), serviceOutline), 
+                        new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Drawing.Color.FromArgb(70, 255, 165, 0), serviceOutline)
+                    };
 
                     // Loop over every polygon in every facilities result.
                     for (int j = 0; j < polygons.Count; j++)
@@ -306,7 +305,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             _myMapView.GraphicsOverlays[0].Graphics.Clear();
         }
 
-        private void CreateErrorDialog(String message)
+        private void CreateErrorDialog(string message)
         {
             // Create Alert.
             var okAlertController = UIAlertController.Create("Error", message, UIAlertControllerStyle.Alert);

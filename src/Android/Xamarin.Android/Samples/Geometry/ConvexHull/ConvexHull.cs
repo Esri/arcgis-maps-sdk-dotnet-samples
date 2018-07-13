@@ -150,7 +150,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
             catch (System.Exception ex)
             {
                 // Display an error message if there is a problem generating convex hull operation.
-                var alertBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("There was a problem generating the convex hull.");
                 alertBuilder.SetMessage(ex.ToString());
                 alertBuilder.Show();

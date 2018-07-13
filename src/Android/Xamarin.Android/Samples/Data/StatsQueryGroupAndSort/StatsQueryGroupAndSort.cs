@@ -145,7 +145,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 
                 // Get the current list of group fields and create/update the sort field choices
                 // (only fields selected for grouping can be used to order results)
-                IEnumerable<KeyValuePair<string, bool>> currentGroupFields = _groupByFields.Where(field => field.Value == true);
+                List<KeyValuePair<string, bool>> currentGroupFields = _groupByFields.Where(field => field.Value == true).ToList();
 
                 // Loop through the group fields
                 foreach (KeyValuePair<string, bool> groupField in currentGroupFields)
@@ -205,7 +205,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         private async void ExecuteStatisticsQuery(object sender, EventArgs e)
         {
             // Verify that there is at least one statistic definition
-            if (_statisticDefinitions.Count() == 0)
+            if (!_statisticDefinitions.Any())
             {
                 // Warn the user to define a statistic to query
                 ShowMessage("Please define at least one statistic for the query.", "Statistical Query");
@@ -429,7 +429,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             if (selectedPosition >= 0)
             {
                 // Call a function in the custom list adapter that will remove the statistic definition at this position (and update the data in the list view)
-                (_statDefListView.Adapter as StatDefinitionListAdapter).RemoveStatisticDefinitionAt(selectedPosition);
+                ((StatDefinitionListAdapter)_statDefListView.Adapter).RemoveStatisticDefinitionAt(selectedPosition);
             }
         }
 
@@ -450,7 +450,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             StatisticDefinition statisticDefinition = new StatisticDefinition(fieldName, statType, alias);
 
             // Call a function in the custom list adapter that will add the new statistic definition (and update the data in the list view)
-            (_statDefListView.Adapter as StatDefinitionListAdapter).AddStatisticDefinition(statisticDefinition);
+            ((StatDefinitionListAdapter)_statDefListView.Adapter).AddStatisticDefinition(statisticDefinition);
         }
     }
 
@@ -930,7 +930,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             string groupName = _groupNames[groupPosition];
 
             // If the group name is empty (maybe results weren't grouped), return "Results" for the group name
-            if (string.IsNullOrEmpty(groupName))
+            if (String.IsNullOrEmpty(groupName))
             {
                 groupName = "Results";
             }

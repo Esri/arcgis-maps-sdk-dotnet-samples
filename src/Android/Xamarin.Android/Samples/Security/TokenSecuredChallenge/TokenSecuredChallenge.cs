@@ -17,6 +17,7 @@ using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Threading.Tasks;
+using Android.Content;
 
 namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
 {
@@ -38,7 +39,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         private string _secureLayerName = "USA - Secure";
 
         // Use a TaskCompletionSource to store the result of a login task.
-        TaskCompletionSource<Credential> _loginTaskCompletionSource;
+        private TaskCompletionSource<Credential> _loginTaskCompletionSource;
 
         // Store the map view displayed in the app.
         private MapView _myMapView = new MapView();
@@ -63,7 +64,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a label for showing the load status for the public service.
             _publicLayerLabel = new TextView(this)
@@ -97,13 +98,13 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
 
             // Create the public layer and provide a name.
-            var publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
+            ArcGISTiledLayer publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
             {
                 Name = _publicLayerName
             };
 
             // Create the secured layer and provide a name.
-            var tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
+            ArcGISMapImageLayer tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
             {
                 Name = _secureLayerName
             };
@@ -113,7 +114,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             tokenSecuredLayer.LoadStatusChanged += LayerLoadStatusChanged;
 
             // Create a new map and add the layers.
-            var myMap = new Map();
+            Map myMap = new Map();
             myMap.OperationalLayers.Add(publicLayer);
             myMap.OperationalLayers.Add(tokenSecuredLayer);
 
@@ -125,7 +126,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         private void LayerLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
             // Get the layer that triggered the event.
-            var layer = sender as Layer;
+            Layer layer = (Layer)sender;
 
             // Get the label (TextView) for this layer.
             TextView labelToUpdate = null;
@@ -139,8 +140,8 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             }
 
             // Create the text string and font color to describe the current load status.
-            var updateText = layer.Name;
-            var textColor = Color.Gray;
+            string updateText = layer.Name;
+            Color textColor = Color.Gray;
 
             switch (e.Status)
             {
@@ -212,7 +213,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             try
             {
                 // Get the associated CredentialRequestInfo (will need the URI of the service being accessed).
-                CredentialRequestInfo requestInfo = _loginTaskCompletionSource.Task.AsyncState as CredentialRequestInfo;
+                CredentialRequestInfo requestInfo = (CredentialRequestInfo)_loginTaskCompletionSource.Task.AsyncState;
 
                 // Create a token credential using the provided username and password.
                 TokenCredential userCredentials = await AuthenticationManager.Current.GenerateCredentialAsync
@@ -253,7 +254,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
-            var ctx = this.Activity.ApplicationContext;
+            Context ctx = this.Activity.ApplicationContext;
 
             // The container for the dialog is a vertical linear layout.
             LinearLayout dialogView = new LinearLayout(ctx) { Orientation = Orientation.Vertical };
@@ -304,20 +305,20 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             try
             {
                 // Get information for the login.
-                var username = _usernameTextbox.Text;
-                var password = _passwordTextbox.Text;
+                string username = _usernameTextbox.Text;
+                string password = _passwordTextbox.Text;
 
                 // Make sure all required info was entered.
-                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password))
                 {
                     throw new Exception("Please enter a username and password.");
                 }
 
                 // Create a new OnEnterCredentialsEventArgs object to store the information entered by the user.
-                var credentialsEnteredArgs = new OnEnterCredentialsEventArgs(username, password);
+                OnEnterCredentialsEventArgs credentialsEnteredArgs = new OnEnterCredentialsEventArgs(username, password);
 
                 // Raise the OnLoginClicked event so the main activity can handle the event and try to authenticate with the credentials.
-                OnLoginClicked(this, credentialsEnteredArgs);
+                OnLoginClicked?.Invoke(this, credentialsEnteredArgs);
 
                 // Close the dialog.
                 this.Dismiss();
@@ -325,7 +326,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             catch (Exception ex)
             {
                 // Show the exception message (dialog will stay open so user can try again).
-                var alertBuilder = new AlertDialog.Builder(this.Activity);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this.Activity);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();
@@ -336,7 +337,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         private void CancelButtonClick(object sender, EventArgs e)
         {
             // Raise an event to indicate that the login was canceled.
-            OnLoginCanceled(this, e);
+            OnLoginCanceled?.Invoke(this, e);
 
             // Close the dialog.
             this.Dismiss();

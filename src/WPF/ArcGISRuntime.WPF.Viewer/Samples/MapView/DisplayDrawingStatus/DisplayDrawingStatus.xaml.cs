@@ -10,7 +10,6 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Windows.Threading;
 
@@ -40,7 +39,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDrawingStatus
             Map myMap = new Map(BasemapType.Topographic, 34.056, -117.196, 4);
 
             // Create uri to the used feature service
-            var serviceUri = new Uri(
+            Uri serviceUri = new Uri(
                 "http://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0");
 
             // Initialize a new feature layer

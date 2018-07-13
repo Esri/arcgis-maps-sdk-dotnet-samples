@@ -75,7 +75,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         private async void OnExecuteStatisticsQueryClicked(object sender, EventArgs e)
         {
             // Verify that there is at least one statistic definition
-            if (_statDefinitions.Count() == 0)
+            if (!_statDefinitions.Any())
             {
                 await DisplayAlert("Please define at least one statistic for the query.", "Statistical Query","OK");
                 return;
@@ -131,7 +131,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         private void GroupFieldCheckChanged(object sender, EventArgs e)
         {
             // Get the check box that raised the event (group field)
-            Switch groupFieldCheckBox = (sender as Switch);
+            Switch groupFieldCheckBox = (Switch)sender;
 
             // Get the field name
             string fieldName = groupFieldCheckBox.BindingContext.ToString();

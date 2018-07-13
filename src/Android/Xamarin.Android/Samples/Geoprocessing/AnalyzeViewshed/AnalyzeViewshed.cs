@@ -94,7 +94,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             // Normalize the geometry if wrap-around is enabled
             //    This is necessary because of how wrapped-around map coordinates are handled by Runtime
             //    Without this step, the task may fail because wrapped-around coordinates are out of bounds.
-            if (_myMapView.IsWrapAroundEnabled) { geometry = GeometryEngine.NormalizeCentralMeridian(geometry) as MapPoint; }
+            if (_myMapView.IsWrapAroundEnabled) { geometry = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geometry); }
 
             // Execute the geoprocessing task using the user click location
             await CalculateViewshed(geometry);
@@ -107,10 +107,10 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             // is a problem with the execution of the geoprocessing task an error message will be displayed
 
             // Create new geoprocessing task using the url defined in the member variables section
-            var myViewshedTask = await GeoprocessingTask.CreateAsync(new Uri(_viewshedUrl));
+            GeoprocessingTask myViewshedTask = await GeoprocessingTask.CreateAsync(new Uri(_viewshedUrl));
 
             // Create a new feature collection table based upon point geometries using the current map view spatial reference
-            var myInputFeatures = new FeatureCollectionTable(new List<Field>(), GeometryType.Point, _myMapView.SpatialReference);
+            FeatureCollectionTable myInputFeatures = new FeatureCollectionTable(new List<Field>(), GeometryType.Point, _myMapView.SpatialReference);
 
             // Create a new feature from the feature collection table. It will not have a coordinate location (x,y) yet
             Feature myInputFeature = myInputFeatures.CreateFeature();
@@ -132,7 +132,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             myViewshedParameters.Inputs.Add("Input_Observation_Point", new GeoprocessingFeatures(myInputFeatures));
 
             // Create the job that handles the communication between the application and the geoprocessing task
-            var myViewshedJob = myViewshedTask.CreateJob(myViewshedParameters);
+            GeoprocessingJob myViewshedJob = myViewshedTask.CreateJob(myViewshedParameters);
 
             try
             {
@@ -140,11 +140,11 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
                 GeoprocessingResult myAnalysisResult = await myViewshedJob.GetResultAsync();
 
                 // Get the results from the outputs
-                GeoprocessingFeatures myViewshedResultFeatures = myAnalysisResult.Outputs["Viewshed_Result"] as GeoprocessingFeatures;
+                GeoprocessingFeatures myViewshedResultFeatures = (GeoprocessingFeatures)myAnalysisResult.Outputs["Viewshed_Result"];
 
                 // Add all the results as a graphics to the map
                 IFeatureSet myViewshedAreas = myViewshedResultFeatures.Features;
-                foreach (var myFeature in myViewshedAreas)
+                foreach (Feature myFeature in myViewshedAreas)
                 {
                     _resultOverlay.Graphics.Add(new Graphic(myFeature.Geometry));
                 }
@@ -154,14 +154,14 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
                 // Display an error message if there is a problem
                 if (myViewshedJob.Status == JobStatus.Failed && myViewshedJob.Error != null)
                 {
-                    var alertBuilder = new AlertDialog.Builder(this);
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                     alertBuilder.SetTitle("Geoprocessing error");
                     alertBuilder.SetMessage("Executing geoprocessing failed. " + myViewshedJob.Error.Message);
                     alertBuilder.Show();
                 }
                 else
                 {
-                    var alertBuilder = new AlertDialog.Builder(this);
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                     alertBuilder.SetTitle("Sample error");
                     alertBuilder.SetMessage("An error occurred. " + ex);
                     alertBuilder.Show();
@@ -237,10 +237,10 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Label for the user instructions
-            var textview_Label1 = new TextView(this);
+            TextView textview_Label1 = new TextView(this);
             textview_Label1.Text = "Click a location on the map to perform the viewshed analysis.";
             layout.AddView(textview_Label1);
 

@@ -104,7 +104,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         private async Task QueryStateFeature(string stateName)
         {
             // Create dialog to display alert information
-            var alert = new AlertDialog.Builder(this);
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
             try
             {
@@ -156,7 +156,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create new Text box that will take the query parameter
             _queryTextBox = new EditText(this)
@@ -166,7 +166,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             _queryTextBox.SetMaxLines(1);
 
             // Create Button that will start the Feature Query
-            var queryButton = new Button(this);
+            Button queryButton = new Button(this);
             queryButton.Text = "Query";
             queryButton.Click += OnQueryClicked;
 

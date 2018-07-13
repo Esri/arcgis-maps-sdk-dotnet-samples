@@ -195,6 +195,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
                 if (record == null || record.Statistics.Count == 0)
                 {
                     ShowMessage("No result", "No results were returned.");
+                    return;
                 }
 
                 // Display results.

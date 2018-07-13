@@ -105,7 +105,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             layout.AddView(_Label_SlopeTypes);
 
             // Create button to choose a specific SlopeType
-            var slopeTypesButton = new Button(this);
+            Button slopeTypesButton = new Button(this);
             slopeTypesButton.Text = "SlopeTypes";
             slopeTypesButton.Click += SlopeTypesButton_Click;
             layout.AddView(slopeTypesButton);
@@ -116,7 +116,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             layout.AddView(_Label_ColorRamps);
 
             // Create button to choose a specific ColorRamp
-            var colorRampsButton = new Button(this);
+            Button colorRampsButton = new Button(this);
             colorRampsButton.Text = "Color Ramps";
             colorRampsButton.Click += ColorRampsButton_Click;
             layout.AddView(colorRampsButton);
@@ -140,7 +140,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
         private void ColorRampsButton_Click(object sender, EventArgs e)
         {
             // Create a local variable for the ColorRamps button
-            Button myButton_ColorRamps = sender as Button;
+            Button myButton_ColorRamps = (Button)sender;
 
             // Create menu to show ColorRamp options
             PopupMenu myPopupMenu_ColorRamps = new PopupMenu(this, myButton_ColorRamps);
@@ -212,7 +212,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
         private void SlopeTypesButton_Click(object sender, EventArgs e)
         {
             // Create a local variable for the SlopeTypes button
-            Button myButton_SlopeTypes = sender as Button;
+            Button myButton_SlopeTypes = (Button)sender;
 
             // Create menu to show SlopeType options
             PopupMenu myPopupMenu_SlopeTypes = new PopupMenu(this, myButton_SlopeTypes);

@@ -84,7 +84,7 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
             _graphicsOverlay.Graphics.Add(_polygonGraphic);
 
             // Create the point collection that defines the polyline
-            var polylinePoints = new PointCollection(SpatialReferences.WebMercator)
+            PointCollection polylinePoints = new PointCollection(SpatialReferences.WebMercator)
             {
                 new MapPoint(-4354240.726880, -609939.795721),
                 new MapPoint(-3427489.245210, 2139422.933233),
@@ -203,7 +203,7 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             _resultTextView = new TextView(this);
 

@@ -38,21 +38,21 @@ namespace ArcGISRuntime.Samples.AuthorMap
             try
             {
                 // Get information for the new portal item
-                var title =  MapTitleEntry.Text;
-                var description = MapDescriptionEntry.Text;
-                var tags = MapTagsEntry.Text.Split(',');
+                string title =  MapTitleEntry.Text;
+                string description = MapDescriptionEntry.Text;
+                string[] tags = MapTagsEntry.Text.Split(',');
 
                 // Make sure all required info was entered
-                if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || tags.Length == 0)
+                if (String.IsNullOrEmpty(title) || String.IsNullOrEmpty(description) || tags.Length == 0)
                 {
                     throw new Exception("Please enter a title, description, and some tags to describe the map.");
                 }
 
                 // Create a new OnSaveMapEventArgs object to store the information entered by the user
-                var mapSavedArgs = new SaveMapEventArgs(title, description, tags);
+                SaveMapEventArgs mapSavedArgs = new SaveMapEventArgs(title, description, tags);
 
                 // Raise the OnSaveClicked event so the main activity can handle the event and save the map
-                OnSaveClicked(this, mapSavedArgs);
+                OnSaveClicked?.Invoke(this, mapSavedArgs);
 
                 // Close the dialog
                 Navigation.PopAsync();

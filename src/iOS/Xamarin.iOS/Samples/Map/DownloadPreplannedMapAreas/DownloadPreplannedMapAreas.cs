@@ -102,7 +102,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
                 _preplannedMapAreas = await _offlineMapTask.GetPreplannedMapAreasAsync();
 
                 // Load each preplanned map area.
-                foreach (var area in _preplannedMapAreas)
+                foreach (PreplannedMapArea area in _preplannedMapAreas)
                 {
                     await area.LoadAsync();
                 }
@@ -170,7 +170,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             // If the area is already downloaded, open it and don't download it again.
             if (Directory.Exists(path))
             {
-                var localMapArea = await MobileMapPackage.OpenAsync(path);
+                MobileMapPackage localMapArea = await MobileMapPackage.OpenAsync(path);
                 try
                 {
                     // Load the map.
@@ -203,7 +203,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
                 // Handle possible errors and show them to the user.
                 if (results.HasErrors)
                 {
-                    var errorBuilder = new StringBuilder();
+                    StringBuilder errorBuilder = new StringBuilder();
 
                     // Add layer errors to the message.
                     foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
@@ -243,7 +243,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
         private void OnJobProgressChanged(object sender, EventArgs e)
         {
             // Get the download job.
-            var downloadJob = sender as DownloadPreplannedOfflineMapJob;
+            DownloadPreplannedOfflineMapJob downloadJob = sender as DownloadPreplannedOfflineMapJob;
             if (downloadJob == null) return;
 
             // UI work needs to be done on the UI thread.
@@ -461,7 +461,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMapAreas
             nfloat centerY = Frame.Height / 2;
 
             // Create the spinner and show it.
-            var activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
+            UIActivityIndicatorView activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
 
             // Update the spinner's frame
             activityIndicator.Frame = new CGRect(centerX - activityIndicator.Frame.Width / 2,

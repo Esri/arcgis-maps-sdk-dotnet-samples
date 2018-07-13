@@ -19,6 +19,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -51,7 +52,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         private ProgressBar _myProgressBar;
 
         // List of suggestions
-        private List<String> _suggestions = new List<string>();
+        private List<string> _suggestions = new List<string>();
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -107,7 +108,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         private void CreateLayout()
         {
             // Vertical stack layout
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Search bar
             _mySearchBox = new AutoCompleteTextView(this) { Text = "Coffee" };
@@ -127,7 +128,7 @@ namespace ArcGISRuntime.Samples.FindPlace
                 ViewGroup.LayoutParams.MatchParent,
                 1.0f
             );
-            var searchButtonLayout = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            LinearLayout searchButtonLayout = new LinearLayout(this) { Orientation = Orientation.Horizontal };
             _mySearchButton = new Button(this) { Text = "Search All", LayoutParameters = param};
             _mySearchRestrictedButton = new Button(this) { Text = "Search View", LayoutParameters = param };
 
@@ -174,7 +175,7 @@ namespace ArcGISRuntime.Samples.FindPlace
                 IReadOnlyList<GeocodeResult> locations = await _geocoder.GeocodeAsync(locationText);
 
                 // return if there are no results
-                if (locations.Count() < 1) { return null; }
+                if (!locations.Any()) { return null; }
 
                 // Get the first result
                 GeocodeResult result = locations.First();
@@ -201,7 +202,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             _myMapView.GraphicsOverlays.Clear();
 
             // Return gracefully if the textbox is empty or the geocoder isn't ready
-            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
+            if (String.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
 
             // Create the geocode parameters
             GeocodeParameters parameters = new GeocodeParameters();
@@ -255,7 +256,7 @@ namespace ArcGISRuntime.Samples.FindPlace
                 IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(location.DisplayLocation);
 
                 // Add the first suitable address if possible
-                if (addresses.Count() > 0)
+                if (addresses.Any())
                 {
                     point.Attributes["Match_Address"] = addresses.First().Label;
                 }
@@ -280,11 +281,11 @@ namespace ArcGISRuntime.Samples.FindPlace
         private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
             // Get current assembly that contains the image
-            var currentAssembly = Assembly.GetExecutingAssembly();
+            Assembly currentAssembly = Assembly.GetExecutingAssembly();
 
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
-            var resourceStream = currentAssembly.GetManifestResourceStream(
+            Stream resourceStream = currentAssembly.GetManifestResourceStream(
                 "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream
@@ -313,10 +314,10 @@ namespace ArcGISRuntime.Samples.FindPlace
             Graphic matchingGraphic = results.First().Graphics.First();
 
             // Get the title; manually added to the point's attributes in UpdateSearch
-            String title = matchingGraphic.Attributes["Match_Title"] as String;
+            string title = matchingGraphic.Attributes["Match_Title"] as string;
 
             // Get the address; manually added to the point's attributes in UpdateSearch
-            String address = matchingGraphic.Attributes["Match_Address"] as String;
+            string address = matchingGraphic.Attributes["Match_Address"] as string;
 
             // Define the callout
             CalloutDefinition calloutBody = new CalloutDefinition(title, address);
@@ -333,13 +334,19 @@ namespace ArcGISRuntime.Samples.FindPlace
         /// <param name="poiOnly">If true, restricts suggestions to only Points of Interest (e.g. businesses, parks),
         /// rather than all matching results</param>
         /// <returns>List of suggestions as strings</returns>
-        private async Task<IEnumerable<String>> GetSuggestResults(string searchText, string location = "", bool poiOnly = false)
+        private async Task<List<string>> GetSuggestResults(string searchText, string location = "", bool poiOnly = false)
         {
             // Quit if string is null, empty, or whitespace
-            if (String.IsNullOrWhiteSpace(searchText)) { return null; }
+            if (String.IsNullOrWhiteSpace(searchText))
+            {
+                return new List<string>();
+            }
 
             // Quit if the geocoder isn't ready
-            if (_geocoder == null) { return null; }
+            if (_geocoder == null)
+            {
+                return new List<string>();
+            }
 
             // Create geocode parameters
             SuggestParameters parameters = new SuggestParameters();
@@ -363,11 +370,8 @@ namespace ArcGISRuntime.Samples.FindPlace
             // Get the updated results from the query so far
             IReadOnlyList<SuggestResult> results = await _geocoder.SuggestAsync(searchText, parameters);
 
-            // Convert the list into a list of strings (corresponding to the label property on each result)
-            IEnumerable<String> formattedResults = results.Select(result => result.Label);
-
             // Return the list
-            return formattedResults;
+            return results.Select(result => result.Label).ToList();
         }
 
         /// <summary>
@@ -377,7 +381,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user
-            var builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetMessage(message).SetTitle("Alert").Show();
         }
 
@@ -396,10 +400,10 @@ namespace ArcGISRuntime.Samples.FindPlace
             string locationText = _myLocationBox.Text;
 
             // Convert the list into a usable format for the suggest box
-            List<String> results = (await GetSuggestResults(searchText, locationText, true)).ToList();
+            List<String> results = await GetSuggestResults(searchText, locationText, true);
 
             // Quit if there are no results
-            if (results == null || !results.Any()) { return; }
+            if (!results.Any()) { return; }
 
             // Create an array adapter to provide autocomplete suggestions
             ArrayAdapter adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, results);
@@ -420,19 +424,19 @@ namespace ArcGISRuntime.Samples.FindPlace
             string searchText = _myLocationBox.Text;
 
             // Get the results
-            IEnumerable<String> results = await GetSuggestResults(searchText);
+            List<string> results = await GetSuggestResults(searchText);
 
             // Quit if there are no results
-            if (results == null || results.Count() == 0) { return; }
-
-            // Get a modifiable list from the results
-            List<String> mutableResults = results.ToList();
+            if (!results.Any())
+            {
+                return;
+            }
 
             // Add a 'current location' option to the list
-            mutableResults.Insert(0, "Current Location");
+            results.Insert(0, "Current Location");
 
             // Create an array adapter to provide autocomplete suggestions
-            ArrayAdapter adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, mutableResults);
+            ArrayAdapter adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, results);
 
             // Apply the adapter
             _myLocationBox.Adapter = adapter;

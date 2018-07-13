@@ -63,7 +63,7 @@ namespace ArcGISRuntime.Samples.ArcGISTiledLayerUrl
             Map map = new Map();
 
             // Create URI to the tiled service.
-            var serviceUri = new Uri("https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer");
+            Uri serviceUri = new Uri("https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer");
 
             // Create new tiled layer from the URL.
             ArcGISTiledLayer imageLayer = new ArcGISTiledLayer(serviceUri);

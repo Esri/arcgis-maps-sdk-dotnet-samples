@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Tasks;
@@ -75,22 +76,16 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             {
                 // Create a string builder to hold all of the information from the geoprocessing
                 // task to display in the UI.
-                var stringBuilder = new System.Text.StringBuilder();
+                StringBuilder stringBuilder = new StringBuilder();
 
                 // Loop through each Feature in the FeatureSet.
-                foreach (var version in versionsFeatureSet)
+                foreach (Feature version in versionsFeatureSet)
                 {
                     // Loop through each attribute (a <key,value> pair).
-                    foreach (KeyValuePair<string, object> oneAttribute in version.Attributes)
+                    foreach (KeyValuePair<string, object> attribute in version.Attributes)
                     {
-                        // Get the key.
-                        string key = oneAttribute.Key;
-
-                        // Get the value.
-                        var value = oneAttribute.Value;
-
                         // Add the key and value strings to the string builder.
-                        stringBuilder.AppendLine(key + ": " + value);
+                        stringBuilder.AppendLine(attribute.Key + ": " + attribute.Value);
                     }
 
                     // Add a blank line after each Feature (the listing of geodatabase versions).
@@ -111,20 +106,20 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             IFeatureSet results = null;
 
             // Create new geoprocessing task.
-            var listVersionsTask = await GeoprocessingTask.CreateAsync(_listVersionsUrl);
+            GeoprocessingTask listVersionsTask = await GeoprocessingTask.CreateAsync(_listVersionsUrl);
 
             // Create default parameters that are passed to the geoprocessing task.
             GeoprocessingParameters listVersionsParameters = await listVersionsTask.CreateDefaultParametersAsync();
 
             // Create job that handles the communication between the application and the geoprocessing task.
-            var listVersionsJob = listVersionsTask.CreateJob(listVersionsParameters);
+            GeoprocessingJob listVersionsJob = listVersionsTask.CreateJob(listVersionsParameters);
             try
             {
                 // Execute analysis and wait for the results.
                 GeoprocessingResult analysisResult = await listVersionsJob.GetResultAsync();
 
                 // Get results from the outputs.
-                GeoprocessingFeatures listVersionsResults = analysisResult.Outputs["Versions"] as GeoprocessingFeatures;
+                GeoprocessingFeatures listVersionsResults = (GeoprocessingFeatures)analysisResult.Outputs["Versions"];
 
                 // Set results.
                 results = listVersionsResults.Features;

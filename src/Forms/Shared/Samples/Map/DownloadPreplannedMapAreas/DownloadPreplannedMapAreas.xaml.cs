@@ -71,7 +71,7 @@ namespace ArcGISRuntime.Samples.DownloadPreplannedMapAreas
                 IReadOnlyList<PreplannedMapArea> preplannedAreas = await _offlineMapTask.GetPreplannedMapAreasAsync();
 
                 // Load each preplanned map area.
-                foreach (var area in preplannedAreas)
+                foreach (PreplannedMapArea area in preplannedAreas)
                 {
                     await area.LoadAsync();
                 }
@@ -98,12 +98,12 @@ namespace ArcGISRuntime.Samples.DownloadPreplannedMapAreas
             MyMapView.IsVisible = true;
 
             // Get the path for the downloaded map area.
-            var path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
+            string path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
 
             // If the area is already downloaded, open it and don't download it again.
             if (Directory.Exists(path))
             {
-                var localMapArea = await MobileMapPackage.OpenAsync(path);
+                MobileMapPackage localMapArea = await MobileMapPackage.OpenAsync(path);
                 try
                 {
                     // Load the map.
@@ -136,7 +136,7 @@ namespace ArcGISRuntime.Samples.DownloadPreplannedMapAreas
                 // Handle possible errors and show them to the user.
                 if (results.HasErrors)
                 {
-                    var errorBuilder = new StringBuilder();
+                    StringBuilder errorBuilder = new StringBuilder();
 
                     // Add layer errors to the message.
                     foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
@@ -173,7 +173,7 @@ namespace ArcGISRuntime.Samples.DownloadPreplannedMapAreas
         private void OnJobProgressChanged(object sender, EventArgs e)
         {
             // Get the download job.
-            var downloadJob = sender as DownloadPreplannedOfflineMapJob;
+            DownloadPreplannedOfflineMapJob downloadJob = sender as DownloadPreplannedOfflineMapJob;
             if (downloadJob == null) return;
 
             // UI work needs to be done on the UI thread.
@@ -191,7 +191,7 @@ namespace ArcGISRuntime.Samples.DownloadPreplannedMapAreas
             if (PreplannedAreasList.SelectedItem == null) { return; }
 
             // Download and show the map.
-            var selectedMapArea = PreplannedAreasList.SelectedItem as PreplannedMapArea;
+            PreplannedMapArea selectedMapArea = PreplannedAreasList.SelectedItem as PreplannedMapArea;
             await DownloadMapAreaAsync(selectedMapArea);
         }
 
@@ -305,7 +305,7 @@ namespace ArcGISRuntime.Samples.DownloadPreplannedMapAreas
         // Returns the platform-specific folder for storing offline data.
         private string GetDataFolder()
         {
-            var appDataFolder =
+            string appDataFolder =
 #if NETFX_CORE
                 Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 #elif __ANDROID__ || __IOS__

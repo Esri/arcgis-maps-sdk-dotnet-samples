@@ -89,8 +89,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerExtrusion
             catch (Exception ex)
             {
                 // Something went wrong, display the error
-                var message = new MessageDialog(ex.ToString(), "Error");
-                await message.ShowAsync();
+                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
             }
 
         }

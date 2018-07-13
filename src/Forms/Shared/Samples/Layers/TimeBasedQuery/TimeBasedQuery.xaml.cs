@@ -79,7 +79,7 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
             queryParameters.TimeExtent = myExtent;
 
             // Create list of the fields that are returned from the service
-            var outputFields = new string[] { "*" };
+            string[] outputFields = { "*" };
 
             // Populate feature table with the data based on query
             await _myFeatureTable.PopulateFromServiceAsync(queryParameters, true, outputFields);

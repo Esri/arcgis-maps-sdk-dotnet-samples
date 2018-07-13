@@ -90,7 +90,7 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
             queryParameters.TimeExtent = myExtent;
 
             // Create list of the fields that are returned from the service
-            var outputFields = new string[] { "*" };
+            string[] outputFields = { "*" };
 
             // Populate feature table with the data based on query
             await _myFeatureTable.PopulateFromServiceAsync(queryParameters, true, outputFields);
@@ -99,7 +99,7 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

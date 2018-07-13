@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Esri.ArcGISRuntime;
 using Xamarin.Auth;
 
 namespace ArcGISRuntime.Samples.SearchPortalMaps
@@ -98,14 +99,13 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         {
             // Get web map portal items in the current user's folder
             IEnumerable<PortalItem> mapItems = null;
-            ArcGISPortal portal;
 
             // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
-            var loggedIn = await EnsureLoggedInAsync();
+            bool loggedIn = await EnsureLoggedInAsync();
             if (!loggedIn) { return; }
 
             // Connect to the portal (will connect using the provided credentials)
-            portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
+            ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
 
             // Get the user's content (items in the root folder and a collection of sub-folders)
             PortalUserContent myContent = await portal.User.GetContentAsync();
@@ -117,7 +117,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             foreach (PortalFolder folder in myContent.Folders)
             {
                 IEnumerable<PortalItem> folderItems = await portal.User.GetContentAsync(folder.FolderId);
-                mapItems.Concat(from item in folderItems where item.Type == PortalItemType.WebMap select item);
+                mapItems = mapItems.Concat(from item in folderItems where item.Type == PortalItemType.WebMap select item);
             }
 
             // Show the map results
@@ -128,13 +128,12 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         {
             // Get web map portal items from a keyword search
             IEnumerable<PortalItem> mapItems = null;
-            ArcGISPortal portal;
 
             // Connect to the portal (anonymously)
-            portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
+            ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
 
             // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
-            var queryExpression = string.Format("tags:\"{0}\" access:public type: (\"web map\" NOT \"web mapping application\")", e.SearchText);
+            string queryExpression = $"tags:\"{e.SearchText}\" access:public type: (\"web map\" NOT \"web mapping application\")";
             
             // Create a query parameters object with the expression and a limit of 10 results
             PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
@@ -152,12 +151,12 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private void ShowMapList(IEnumerable<PortalItem> webmapItems)
         {
             // Create menu to show map results
-            var mapsMenu = new PopupMenu(this, _buttonPanel);
+            PopupMenu mapsMenu = new PopupMenu(this, _buttonPanel);
             mapsMenu.MenuItemClick += OnMapsMenuItemClicked;
 
             // Create a dictionary of web maps and show the titles in the menu
             _webMapUris = new Dictionary<string, Uri>();
-            foreach (var item in webmapItems)
+            foreach (PortalItem item in webmapItems)
             {
                 if (!_webMapUris.ContainsKey(item.Title)){
                     _webMapUris.Add(item.Title, item.Url);
@@ -172,8 +171,8 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private void OnMapsMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
         {
             // Get the selected web map item URI from the dictionary
-            var mapTitle = e.Item.TitleCondensedFormatted.ToString();
-            var selectedMapUri = _webMapUris[mapTitle];
+            string mapTitle = e.Item.TitleCondensedFormatted.ToString();
+            Uri selectedMapUri = _webMapUris[mapTitle];
 
             if (selectedMapUri == null) { return; }
 
@@ -189,17 +188,14 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
         private void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
-            // Get the current status
-            var status = e.Status;
-
             // Report errors if map failed to load
-            if (status == Esri.ArcGISRuntime.LoadStatus.FailedToLoad)
+            if (e.Status == LoadStatus.FailedToLoad)
             {
-                var map = sender as Map;
-                var err = map.LoadError;
+                Map map = (Map)sender;
+                Exception err = map.LoadError;
                 if (err != null)
                 {
-                    var alertBuilder = new AlertDialog.Builder(this);
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                     alertBuilder.SetTitle("Map Load Error");
                     alertBuilder.SetMessage(err.Message);
                     alertBuilder.Show();
@@ -210,18 +206,18 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var mainLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout mainLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a layout for app buttons
             _buttonPanel = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Create button to show search UI
-            var searchMapsButton = new Button(this);
+            Button searchMapsButton = new Button(this);
             searchMapsButton.Text = "Search Maps";
             searchMapsButton.Click += SearchMapsClicked;
 
             // Create another button to show maps from user's ArcGIS Online account
-            var myMapsButton = new Button(this);
+            Button myMapsButton = new Button(this);
             myMapsButton.Text = "My Maps";
             myMapsButton.Click += MyMapsClicked;
 
@@ -253,21 +249,34 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Create a text box for entering the client id
             LinearLayout clientIdLayout = new LinearLayout(this);
             clientIdLayout.Orientation = Orientation.Horizontal;
-            var clientIdLabel = new TextView(this);
+            TextView clientIdLabel = new TextView(this);
             clientIdLabel.Text = "Client ID:";
             _clientIdText = new EditText(this);
-            if (!string.IsNullOrEmpty(_appClientId)) { _clientIdText.Text = _appClientId; }
+            if (!String.IsNullOrEmpty(_appClientId)) { _clientIdText.Text = _appClientId; }
             clientIdLayout.AddView(clientIdLabel);
             clientIdLayout.AddView(_clientIdText);
 
             // Create a text box for entering the redirect url
-            LinearLayout redirectUrlLayout = new LinearLayout(this);
-            redirectUrlLayout.Orientation = Orientation.Horizontal;
-            var redirectUrlLabel = new TextView(this);
-            redirectUrlLabel.Text = "Redirect:";
-            _redirectUrlText = new EditText(this);
-            _redirectUrlText.Hint = "https://my.redirect/url";
-            if (!string.IsNullOrEmpty(_oAuthRedirectUrl)) { _redirectUrlText.Text = _oAuthRedirectUrl; }
+            LinearLayout redirectUrlLayout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Horizontal
+            };
+
+            TextView redirectUrlLabel = new TextView(this)
+            {
+                Text = "Redirect:"
+            };
+
+            _redirectUrlText = new EditText(this)
+            {
+                Hint = "https://my.redirect/url"
+            };
+
+            if (!String.IsNullOrEmpty(_oAuthRedirectUrl))
+            {
+                _redirectUrlText.Text = _oAuthRedirectUrl;
+            }
+
             redirectUrlLayout.AddView(redirectUrlLabel);
             redirectUrlLayout.AddView(_redirectUrlText);
 
@@ -354,7 +363,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 challengeRequest.ServiceUri = new Uri(ServerUrl);
 
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                var cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
+                Credential cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
                 loggedIn = cred != null;
             }
             catch (System.OperationCanceledException)
@@ -365,7 +374,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             catch (Exception ex)
             {
                 // Login failure
-                var alertBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("Login Error");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();
@@ -483,7 +492,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             };
 
             // Present the OAuth UI (Activity) so the user can enter user name and password
-            var intent = authenticator.GetUI(this);
+            Android.Content.Intent intent = authenticator.GetUI(this);
             StartActivityForResult(intent, 99);
 
             // Return completion source task so the caller can await completion
@@ -493,27 +502,27 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private static IDictionary<string, string> DecodeParameters(Uri uri)
         {
             // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string
-            var answer = string.Empty;
+            string answer = "";
 
             // Get the values from the URI fragment or query string
-            if (!string.IsNullOrEmpty(uri.Fragment))
+            if (!String.IsNullOrEmpty(uri.Fragment))
             {
                 answer = uri.Fragment.Substring(1);
             }
             else
             {
-                if (!string.IsNullOrEmpty(uri.Query))
+                if (!String.IsNullOrEmpty(uri.Query))
                 {
                     answer = uri.Query.Substring(1);
                 }
             }
 
             // Parse parameters into key / value pairs
-            var keyValueDictionary = new Dictionary<string, string>();
-            var keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var kvString in keysAndValues)
+            Dictionary<string,string> keyValueDictionary = new Dictionary<string, string>();
+            string[] keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string kvString in keysAndValues)
             {
-                var pair = kvString.Split('=');
+                string[] pair = kvString.Split('=');
                 string key = pair[0];
                 string value = string.Empty;
                 if (key.Length > 1)
@@ -575,7 +584,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             catch (Exception ex)
             {
                 // Show the exception message 
-                var alertBuilder = new AlertDialog.Builder(Activity);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(Activity);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();
@@ -591,13 +600,13 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             try
             {
                 // Get information for the new portal item
-                var search = _mapSearchTextbox.Text;
+                string search = _mapSearchTextbox.Text;
 
                 // Create a new OnSaveMapEventArgs object to store the information entered by the user
-                var mapSearchArgs = new OnSearchMapEventArgs(search);
+                OnSearchMapEventArgs mapSearchArgs = new OnSearchMapEventArgs(search);
 
                 // Raise the OnSaveClicked event so the main activity can handle the event and save the map
-                OnSearchClicked(this, mapSearchArgs);
+                OnSearchClicked?.Invoke(this, mapSearchArgs);
 
                 // Close the dialog
                 Dismiss();
@@ -605,7 +614,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             catch (Exception ex)
             {
                 // Show the exception message (dialog will stay open so user can try again)
-                var alertBuilder = new AlertDialog.Builder(Activity);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(Activity);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();

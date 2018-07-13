@@ -36,7 +36,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerExtrusion
             try
             {
                 // Define the Uri for the service feature table (US state polygons)
-                var serviceFeatureTableUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
+                Uri serviceFeatureTableUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
 
                 // Create a new service feature table from the Uri
                 ServiceFeatureTable myServiceFeatureTable = new ServiceFeatureTable(serviceFeatureTableUri);

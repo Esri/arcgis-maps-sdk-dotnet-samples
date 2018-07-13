@@ -33,10 +33,10 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
         private string _secureLayerName = "USA - Secure";
 
         // A TaskCompletionSource to store the result of a login task.
-        TaskCompletionSource<Credential> _loginTaskCompletionSrc;
+        private TaskCompletionSource<Credential> _loginTaskCompletionSrc;
 
         // Page for the user to enter login information.
-        LoginPage _loginPage;
+        private LoginPage _loginPage;
 
         public TokenSecuredChallenge()
         {
@@ -53,13 +53,13 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
 
             // Create the public layer and provide a name.
-            var publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
+            ArcGISTiledLayer publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
             {
                 Name = _publicLayerName
             };
 
             // Create the secured layer and provide a name.
-            var tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
+            ArcGISMapImageLayer tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
             {
                 Name = _secureLayerName
             };
@@ -69,7 +69,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
             SecureLayerStatusPanel.BindingContext = tokenSecuredLayer;
 
             // Create a new map and add the layers.
-            var myMap = new Map();
+            Map myMap = new Map();
             myMap.OperationalLayers.Add(publicLayer);
             myMap.OperationalLayers.Add(tokenSecuredLayer);
 
@@ -124,7 +124,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
             try
             {
                 // Get the associated CredentialRequestInfo (will need the URI of the service being accessed).
-                CredentialRequestInfo requestInfo = _loginTaskCompletionSrc.Task.AsyncState as CredentialRequestInfo;
+                CredentialRequestInfo requestInfo = (CredentialRequestInfo)_loginTaskCompletionSrc.Task.AsyncState;
 
                 // Create a token credential using the provided username and password.
                 TokenCredential userCredentials = await AuthenticationManager.Current.GenerateCredentialAsync

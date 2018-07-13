@@ -10,12 +10,9 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
-using System;
-using System.IO;
 using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.RasterLayerFile
@@ -72,7 +69,7 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
             await myMap.LoadAsync();
 
             // Get the file name
-            String filepath = GetRasterPath();
+            string filepath = GetRasterPath();
 
             // Load the raster file
             Raster myRasterFile = new Raster(filepath);

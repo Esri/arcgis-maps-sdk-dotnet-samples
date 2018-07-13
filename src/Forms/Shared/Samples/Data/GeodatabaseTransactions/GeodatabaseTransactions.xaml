@@ -73,7 +73,7 @@
             <Label x:Name="MessageTextBlock"
                    Grid.Row="3" Grid.ColumnSpan="4"
                    Text="Generating local geodatabase ..." 
-                   TextColor="Blue" FontSize="Micro"
+                   FontSize="Micro"
                    VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
                    Margin="5"
                    LineBreakMode="CharacterWrap">

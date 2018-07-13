@@ -49,7 +49,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerDefinitionExpression
             MyMapView.Map = myMap;
 
             // Create the uri for the feature service
-            var featureServiceUri = new Uri(
+            Uri featureServiceUri = new Uri(
                 "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0");
 
             // Initialize feature table using a url to feature server url

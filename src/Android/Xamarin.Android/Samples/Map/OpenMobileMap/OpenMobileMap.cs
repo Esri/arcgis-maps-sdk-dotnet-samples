@@ -12,7 +12,6 @@ using Android.OS;
 using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
-using System.IO;
 using System.Linq;
 using ArcGISRuntime.Samples.Managers;
 
@@ -68,7 +67,7 @@ namespace ArcGISRuntime.Samples.OpenMobileMap
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add a map view to the layout
             _myMapView = new MapView(this);

@@ -42,7 +42,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterRgbRenderer
             Map map = new Map(Basemap.CreateStreets());
 
             // Get the file name for the local raster dataset.
-            String filepath = GetRasterPath();
+            string filepath = GetRasterPath();
 
             // Load the raster file
             Raster rasterFile = new Raster(filepath);
@@ -75,7 +75,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterRgbRenderer
             StretchTypeComboBox.SelectedIndex = 0;
 
             // Create a range of values from 0-255.
-            IEnumerable<int> minMaxValues = Enumerable.Range(0, 256);
+            List<int> minMaxValues = Enumerable.Range(0, 256).ToList();
 
             // Fill the min and max red combo boxes with the range and set default values.
             MinRedComboBox.ItemsSource = minMaxValues;

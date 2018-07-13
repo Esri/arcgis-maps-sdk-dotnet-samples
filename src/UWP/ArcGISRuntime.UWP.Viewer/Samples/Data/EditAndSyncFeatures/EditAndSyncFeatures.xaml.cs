@@ -157,7 +157,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
                     foreach (Feature feature in selectedFeatures)
                     {
                         // Get a reference to the correct feature table for the feature.
-                        GeodatabaseFeatureTable table = feature.FeatureTable as GeodatabaseFeatureTable;
+                        GeodatabaseFeatureTable table = (GeodatabaseFeatureTable)feature.FeatureTable;
 
                         // Ensure the geometry type of the table is point.
                         if (table.GeometryType != GeometryType.Point)
@@ -244,7 +244,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             envelopeBldr.Expand(0.80);
 
             // Get the (only) graphics overlay in the map view.
-            var extentOverlay = MyMapView.GraphicsOverlays.FirstOrDefault();
+            GraphicsOverlay extentOverlay = MyMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
             if (extentOverlay == null) { return; }

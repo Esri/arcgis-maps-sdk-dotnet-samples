@@ -14,8 +14,6 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
-using System.IO;
-using System.Threading.Tasks;
 using System.Timers;
 using System.Drawing;
 
@@ -185,7 +183,7 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
         private async void Geoline_TargetVisibilityChanged(object sender, EventArgs e)
         {
             // This is needed because Runtime delivers notifications from a different thread that doesn't have access to UI controls
-            await Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)(UpdateUiAndSelection));
+            await Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)UpdateUiAndSelection);
         }
 
         private void UpdateUiAndSelection()

@@ -8,8 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using System.Globalization;
-using System.Windows;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
@@ -19,7 +17,7 @@ namespace ArcGISRuntime.UWP.Viewer.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string culture)
         {
-            if (value == null || string.IsNullOrEmpty(value.ToString()))
+            if (value == null || String.IsNullOrEmpty(value.ToString()))
                 return Visibility.Collapsed;
             return Visibility.Visible;
         }

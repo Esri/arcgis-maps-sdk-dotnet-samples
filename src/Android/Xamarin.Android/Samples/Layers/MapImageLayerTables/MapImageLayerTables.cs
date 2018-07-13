@@ -20,7 +20,6 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.Samples.MapImageLayerTables
 {
@@ -40,7 +39,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         private GraphicsOverlay _selectedFeaturesOverlay;
 
         // A list view to show all service request comments.
-        ListView _commentsListBox;
+        private ListView _commentsListBox;
 
         // A list to hold service request comments.
         private List<Feature> _commentFeatures = new List<Feature>();
@@ -97,7 +96,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
                 _commentFeatures = commentQueryResult.ToList();
 
                 // Show the comment text from the service request comments records in the list view control.
-                var comments = _commentFeatures.Select(c => c.Attributes["comments"]);
+                IEnumerable<object> comments = _commentFeatures.Select(c => c.Attributes["comments"]);
                 ArrayAdapter commentsAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, comments.ToArray());
                 _commentsListBox.Adapter = commentsAdapter;
 
@@ -140,7 +139,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             if (selectedComment == null) { return; }
 
             // Get the map image layer that contains the service request sublayer and the service request comments table.
-            ArcGISMapImageLayer serviceRequestsMapImageLayer = _myMapView.Map.OperationalLayers[0] as ArcGISMapImageLayer;
+            ArcGISMapImageLayer serviceRequestsMapImageLayer = (ArcGISMapImageLayer)_myMapView.Map.OperationalLayers[0];
 
             // Get the (non-spatial) table that contains the service request comments.
             ServiceFeatureTable commentsTable = serviceRequestsMapImageLayer.Tables[0];

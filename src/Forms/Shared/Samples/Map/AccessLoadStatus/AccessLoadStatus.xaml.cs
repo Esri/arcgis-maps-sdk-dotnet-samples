@@ -48,9 +48,7 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
             Device.BeginInvokeOnMainThread(() =>
             {
                 // Update the load status information
-                loadStatusLabel.Text = string.Format(
-                        "Map's load status : {0}",
-                        e.Status.ToString());
+                loadStatusLabel.Text = $"Map's load status : {e.Status}";
             });
         }
     }

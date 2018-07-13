@@ -33,13 +33,13 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         private MapView _myMapView = new MapView();
 
         // Progress bar to show when the geoprocessing task is working
-        ProgressBar _myProgressBar;
+        private ProgressBar _myProgressBar;
 
         // Edit text to define the start date for the date range
-        EditText _myEditText_StartDate;
+        private EditText _myEditText_StartDate;
 
         // Edit text to define the end date for the date range
-        EditText _myEditText_EndDate;
+        private EditText _myEditText_EndDate;
 
         // Url for the geoprocessing service
         private const string _hotspotUrl =
@@ -90,7 +90,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             if (myToDate <= myFromDate.AddDays(1))
             {
                 // Show error message
-                var alertBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("Invalid date range");
                 alertBuilder.SetMessage("Please select valid time range.There has to be at least one day in between To and From dates.");
                 alertBuilder.Show();
@@ -104,9 +104,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             GeoprocessingParameters myHotspotParameters = new GeoprocessingParameters(GeoprocessingExecutionType.AsynchronousSubmit);
 
             // Construct the date query
-            var myQueryString = string.Format("(\"DATE\" > date '{0} 00:00:00' AND \"DATE\" < date '{1} 00:00:00')",
-                myFromDate.ToString("yyyy-MM-dd"),
-                myToDate.ToString("yyyy-MM-dd"));
+            string myQueryString = $"(\"DATE\" > date '{myFromDate:yyyy-MM-dd} 00:00:00' AND \"DATE\" < date '{myToDate:yyyy-MM-dd} 00:00:00')";
 
             // Add the query that contains the date range used in the analysis
             myHotspotParameters.Inputs.Add("Query", new GeoprocessingString(myQueryString));
@@ -137,14 +135,14 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
                 // Display error messages if the geoprocessing task fails
                 if (_hotspotJob.Status == JobStatus.Failed && _hotspotJob.Error != null)
                 {
-                    var alertBuilder = new AlertDialog.Builder(this);
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                     alertBuilder.SetTitle("Geoprocessing error");
                     alertBuilder.SetMessage("Executing geoprocessing failed. " + _hotspotJob.Error.Message);
                     alertBuilder.Show();
                 }
                 else
                 {
-                    var alertBuilder = new AlertDialog.Builder(this);
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                     alertBuilder.SetTitle("Sample error");
                     alertBuilder.SetMessage("An error occurred. " + ex.ToString());
                     alertBuilder.Show();
@@ -160,13 +158,13 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a horizontal sub layout for the start date
-            var subLayout1 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            LinearLayout subLayout1 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Label for the start date
-            var textview_Label1 = new TextView(this);
+            TextView textview_Label1 = new TextView(this);
             textview_Label1.Text = "Start Date:";
             subLayout1.AddView(textview_Label1);
 
@@ -179,10 +177,10 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             layout.AddView(subLayout1);
 
             // Create a horizontal sub layout for the end date
-            var subLayout2 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            LinearLayout subLayout2 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Label for the end date
-            var textview_Label2 = new TextView(this);
+            TextView textview_Label2 = new TextView(this);
             textview_Label2.Text = "End Date:";
             subLayout2.AddView(textview_Label2);
 
@@ -195,7 +193,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             layout.AddView(subLayout2);
 
             // Add a button to the run the hot spot analysis; wire up the click event as well 
-            var mapsButton = new Button(this);
+            Button mapsButton = new Button(this);
             mapsButton.Text = "Run Analysis";
             mapsButton.Click += OnRunAnalysisClicked;
             layout.AddView(mapsButton);

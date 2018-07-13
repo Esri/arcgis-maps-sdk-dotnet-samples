@@ -46,7 +46,7 @@ namespace ArcGISRuntime.WPF.Samples.MapImageSublayerQuery
             myMap.InitialViewpoint = new Viewpoint(initialLocation, 6000000);
 
             // Create the URI to the USA map service.
-            var usaServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer");
+            Uri usaServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer");
 
             // Create a new ArcGISMapImageLayer that uses the service URI.
             ArcGISMapImageLayer usaMapImageLayer = new ArcGISMapImageLayer(usaServiceUri);
@@ -76,15 +76,15 @@ namespace ArcGISRuntime.WPF.Samples.MapImageSublayerQuery
             }
 
             // Get the USA map image layer (the first and only operational layer in the map).
-            ArcGISMapImageLayer usaMapImageLayer = MyMapView.Map.OperationalLayers[0] as ArcGISMapImageLayer;
+            ArcGISMapImageLayer usaMapImageLayer = (ArcGISMapImageLayer)MyMapView.Map.OperationalLayers[0];
 
             // Use a utility method on the map image layer to load all the sublayers and tables.
             await usaMapImageLayer.LoadTablesAndLayersAsync();
 
             // Get the sublayers of interest (skip 'Highways' since it doesn't have the POP2000 field).
-            ArcGISMapImageSublayer citiesSublayer = usaMapImageLayer.Sublayers[0] as ArcGISMapImageSublayer;
-            ArcGISMapImageSublayer statesSublayer = usaMapImageLayer.Sublayers[2] as ArcGISMapImageSublayer;
-            ArcGISMapImageSublayer countiesSublayer = usaMapImageLayer.Sublayers[3] as ArcGISMapImageSublayer;
+            ArcGISMapImageSublayer citiesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[0];
+            ArcGISMapImageSublayer statesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[2];
+            ArcGISMapImageSublayer countiesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[3];
             
             // Get the service feature table for each of the sublayers.
             ServiceFeatureTable citiesTable = citiesSublayer.Table;

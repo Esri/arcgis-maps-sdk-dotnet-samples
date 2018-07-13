@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Android.App;
+using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -113,8 +114,8 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
     // A custom DialogFragment class to show shapefile metadata
     public class MetadataDialogFragment : DialogFragment
     {
-        ShapefileInfo _metadata;
-        ImageView _thumbnailImageView;
+        private ShapefileInfo _metadata;
+        private ImageView _thumbnailImageView;
 
         public MetadataDialogFragment(ShapefileInfo metadata)
         {
@@ -170,7 +171,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
 
         private async void LoadThumbnail()
         {
-            var img = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(_metadata.Thumbnail);
+            Bitmap img = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(_metadata.Thumbnail);
             _thumbnailImageView.SetImageBitmap(img);
         }
     }

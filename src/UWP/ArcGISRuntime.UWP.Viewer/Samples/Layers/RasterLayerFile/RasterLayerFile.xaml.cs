@@ -10,7 +10,6 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using System;
 
 namespace ArcGISRuntime.UWP.Samples.RasterLayerFile
 {
@@ -39,7 +38,7 @@ namespace ArcGISRuntime.UWP.Samples.RasterLayerFile
             await myMap.LoadAsync();
 
             // Get the file name
-            String filepath = GetRasterPath();
+            string filepath = GetRasterPath();
 
             // Load the raster file
             Raster myRasterFile = new Raster(filepath);

@@ -39,7 +39,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             Map myMap = new Map();
 
             // Create uri to the map image layer
-            var serviceUri = new Uri(
+            Uri serviceUri = new Uri(
                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer");
 
             // Create new image layer from the url
@@ -63,13 +63,13 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
 
             // Create layout for sublayers page
             // Create root layout
-            var layout = new StackLayout();
+            StackLayout layout = new StackLayout();
 
             // Create list for layers
-            var sublayersTableView = new TableView();
+            TableView sublayersTableView = new TableView();
 
             // Create section for basemaps sublayers
-            var sublayersSection = new TableSection(_imageLayer.Name);
+            TableSection sublayersSection = new TableSection(_imageLayer.Name);
 
             // Create cells for each of the sublayers
             foreach (ArcGISSublayer sublayer in _imageLayer.Sublayers)
@@ -95,7 +95,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             layout.Children.Add(sublayersTableView);
 
             // Create internal page for the navigation page
-            var sublayersPage = new ContentPage()
+            ContentPage sublayersPage = new ContentPage()
             {
                 Content = layout,
                 Title = "Sublayers"
@@ -107,7 +107,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
 
         private void OnCellOnOffChanged(object sender, ToggledEventArgs e)
         {
-            var cell = sender as SwitchCell;
+            SwitchCell cell = (SwitchCell)sender;
            
             // Find the layer from the image layer
             ArcGISSublayer sublayer = _imageLayer.Sublayers.First(x => x.Name == cell.Text);

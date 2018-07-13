@@ -113,7 +113,7 @@ namespace ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort
         private void GroupFieldCheckChanged(object sender, RoutedEventArgs e)
         {
             // Get the check box that raised the event (group field)
-            CheckBox groupFieldCheckBox = (sender as CheckBox);
+            CheckBox groupFieldCheckBox = (CheckBox)sender;
 
             // The check box is tagged with the field name, read that info
             string fieldName = groupFieldCheckBox.Tag.ToString();

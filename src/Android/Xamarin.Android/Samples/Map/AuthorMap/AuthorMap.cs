@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Android.Content;
 using Xamarin.Auth;
 
 namespace ArcGISRuntime.Samples.AuthorMap
@@ -37,7 +38,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private MapView _myMapView = new MapView();
 
         // Progress bar to show when the app is working
-        ProgressBar _progressBar;
+        private ProgressBar _progressBar;
 
         // Use a TaskCompletionSource to track the completion of the authorization
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
@@ -48,8 +49,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private EditText _redirectUrlText;
 
         // String array to store basemap constructor types
-        private string[] _basemapTypes = new string[]
-        {
+        private string[] _basemapTypes = {
             "Topographic",
             "Streets",
             "Imagery",
@@ -103,7 +103,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void CreateLayout()
         {
             // Create a horizontal layout for the buttons at the top
-            var buttonLayout = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            LinearLayout buttonLayout = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Create a progress bar (circle) to show when the app is working
             _progressBar = new ProgressBar(this);
@@ -111,22 +111,22 @@ namespace ArcGISRuntime.Samples.AuthorMap
             _progressBar.Visibility = ViewStates.Invisible;
 
             // Create button to clear the map from the map view (start over)
-            var newMapButton = new Button(this);
+            Button newMapButton = new Button(this);
             newMapButton.Text = "New";
             newMapButton.Click += OnNewMapClicked;
 
             // Create button to show available basemap
-            var basemapButton = new Button(this);
+            Button basemapButton = new Button(this);
             basemapButton.Text = "Basemap";
             basemapButton.Click += OnBasemapsClicked;
 
             // Create a button to show operational layers
-            var layersButton = new Button(this);
+            Button layersButton = new Button(this);
             layersButton.Text = "Layers";
             layersButton.Click += OnLayersClicked;
 
             // Create a button to save the map
-            var saveMapButton = new Button(this);
+            Button saveMapButton = new Button(this);
             saveMapButton.Text = "Save ...";
             saveMapButton.Click += OnSaveMapClicked;
 
@@ -138,7 +138,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             buttonLayout.AddView(_progressBar);
 
             // Create a new vertical layout for the app (buttons followed by map view)
-            var mainLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout mainLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the button layout
             mainLayout.AddView(buttonLayout);
@@ -169,10 +169,10 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         private async void SaveMapAsync(object sender, OnSaveMapEventArgs e)
         {
-            var alertBuilder = new AlertDialog.Builder(this);
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
 
             // Get the current map
-            var myMap = _myMapView.Map;
+            Map myMap = _myMapView.Map;
 
             try
             {
@@ -180,9 +180,9 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 _progressBar.Visibility = ViewStates.Visible;
 
                 // Get information entered by the user for the new portal item properties
-                var title = e.MapTitle;
-                var description = e.MapDescription;
-                var tags = e.Tags;
+                string title = e.MapTitle;
+                string description = e.MapDescription;
+                string[] tags = e.Tags;
 
                 // Apply the current extent as the map's initial extent
                 myMap.InitialViewpoint = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
@@ -210,7 +210,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
 
                     // Update the item thumbnail
-                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);
+                    ((PortalItem)myMap.Item).SetThumbnailWithImage(imageStream);
                     await myMap.SaveAsync();
 
                     // Report update was successful
@@ -271,14 +271,14 @@ namespace ArcGISRuntime.Samples.AuthorMap
         #region Basemap Button
         private void OnBasemapsClicked(object sender, EventArgs e)
         {
-            var mapsButton = sender as Button;
+            Button mapsButton = (Button)sender;
 
             // Create a menu to show basemaps
-            var mapsMenu = new PopupMenu(mapsButton.Context, mapsButton);
+            PopupMenu mapsMenu = new PopupMenu(mapsButton.Context, mapsButton);
             mapsMenu.MenuItemClick += OnBasemapsMenuItemClicked;
             
             // Create a menu option for each basemap type
-            foreach (var basemapType in _basemapTypes)
+            foreach (string basemapType in _basemapTypes)
             {
                 mapsMenu.Menu.Add(basemapType);
             }
@@ -290,7 +290,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void OnBasemapsMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
         {
             // Get the title of the selected item
-            var selectedBasemapType = e.Item.TitleCondensedFormatted.ToString();
+            string selectedBasemapType = e.Item.TitleCondensedFormatted.ToString();
 
             // Apply the chosen basemap
             switch (selectedBasemapType)
@@ -318,16 +318,16 @@ namespace ArcGISRuntime.Samples.AuthorMap
         #region Layers Button
         private void OnLayersClicked(object sender, EventArgs e)
         {
-            var layerButton = sender as Button;
+            Button layerButton = (Button)sender;
 
             // Create menu to show layers
-            var layerMenu = new PopupMenu(layerButton.Context, layerButton);
+            PopupMenu layerMenu = new PopupMenu(layerButton.Context, layerButton);
             layerMenu.MenuItemClick += OnLayerMenuItemClicked;
 
             // Create menu options
-            foreach (var layerInfo in _operationalLayerUrls)
+            foreach (string layerInfo in _operationalLayerUrls.Keys)
             {
-                layerMenu.Menu.Add(layerInfo.Key);
+                layerMenu.Menu.Add(layerInfo);
             }
 
             // Show menu in the view
@@ -337,7 +337,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void OnLayerMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
         {
             // Get the title of the selected item
-            var selectedLayerName = e.Item.TitleCondensedFormatted.ToString();
+            string selectedLayerName = e.Item.TitleCondensedFormatted.ToString();
 
             // See if the layer already exists
             ArcGISMapImageLayer layer = _myMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name == selectedLayerName) as ArcGISMapImageLayer;
@@ -350,8 +350,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
             else
             {
                 // Get the URL for this layer
-                var layerUrl = _operationalLayerUrls[selectedLayerName];
-                var layerUri = new Uri(layerUrl);
+                string layerUrl = _operationalLayerUrls[selectedLayerName];
+                Uri layerUri = new Uri(layerUrl);
 
                 // Create a new map image layer
                 layer = new ArcGISMapImageLayer(layerUri);
@@ -379,21 +379,33 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Create a text box for entering the client id
             LinearLayout clientIdLayout = new LinearLayout(this);
             clientIdLayout.Orientation = Orientation.Horizontal;
-            var clientIdLabel = new TextView(this);
+            TextView clientIdLabel = new TextView(this);
             clientIdLabel.Text = "Client ID:";
             _clientIdText = new EditText(this);
-            if (!string.IsNullOrEmpty(AppClientId)) { _clientIdText.Text = AppClientId; }
+            if (!String.IsNullOrEmpty(AppClientId)) { _clientIdText.Text = AppClientId; }
             clientIdLayout.AddView(clientIdLabel);
             clientIdLayout.AddView(_clientIdText);
 
             // Create a text box for entering the redirect url
-            LinearLayout redirectUrlLayout = new LinearLayout(this);
-            redirectUrlLayout.Orientation = Orientation.Horizontal;
-            var redirectUrlLabel = new TextView(this);
-            redirectUrlLabel.Text = "Redirect:";
-            _redirectUrlText = new EditText(this);
-            _redirectUrlText.Hint = "https://my.redirect/url";
-            if (!string.IsNullOrEmpty(OAuthRedirectUrl)) { _redirectUrlText.Text = OAuthRedirectUrl; }
+            LinearLayout redirectUrlLayout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Horizontal
+            };
+
+            TextView redirectUrlLabel = new TextView(this)
+            {
+                Text = "Redirect:"
+            };
+
+            _redirectUrlText = new EditText(this)
+            {
+                Hint = "https://my.redirect/url"
+            };
+
+            if (!String.IsNullOrEmpty(OAuthRedirectUrl))
+            {
+                _redirectUrlText.Text = OAuthRedirectUrl;
+            }
             redirectUrlLayout.AddView(redirectUrlLabel);
             redirectUrlLayout.AddView(_redirectUrlText);
 
@@ -570,7 +582,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             };
 
             // Present the OAuth UI (Activity) so the user can enter user name and password
-            var intent = authenticator.GetUI(this);
+            Intent intent = authenticator.GetUI(this);
             StartActivityForResult(intent, 99);
 
             // Return completion source task so the caller can await completion
@@ -580,27 +592,27 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private static IDictionary<string, string> DecodeParameters(Uri uri)
         {
             // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string
-            var answer = string.Empty;
+            string answer = "";
 
             // Get the values from the URI fragment or query string
-            if (!string.IsNullOrEmpty(uri.Fragment))
+            if (!String.IsNullOrEmpty(uri.Fragment))
             {
                 answer = uri.Fragment.Substring(1);
             }
             else
             {
-                if (!string.IsNullOrEmpty(uri.Query))
+                if (!String.IsNullOrEmpty(uri.Query))
                 {
                     answer = uri.Query.Substring(1);
                 }
             }
 
             // Parse parameters into key / value pairs
-            var keyValueDictionary = new Dictionary<string, string>();
-            var keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var kvString in keysAndValues)
+            Dictionary<string,string> keyValueDictionary = new Dictionary<string, string>();
+            string[] keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string kvString in keysAndValues)
             {
-                var pair = kvString.Split('=');
+                string[] pair = kvString.Split('=');
                 string key = pair[0];
                 string value = string.Empty;
                 if (key.Length > 1)
@@ -697,7 +709,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             catch (Exception ex)
             {
                 // Show the exception message 
-                var alertBuilder = new AlertDialog.Builder(Activity);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(Activity);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();
@@ -713,21 +725,21 @@ namespace ArcGISRuntime.Samples.AuthorMap
             try
             {
                 // Get information for the new portal item
-                var title = _mapTitleTextbox.Text;
-                var description = _mapDescriptionTextbox.Text;
-                var tags = _tagsTextbox.Text.Split(',');
+                string title = _mapTitleTextbox.Text;
+                string description = _mapDescriptionTextbox.Text;
+                string[] tags = _tagsTextbox.Text.Split(',');
 
                 // Make sure all required info was entered
-                if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || tags.Length == 0)
+                if (String.IsNullOrEmpty(title) || String.IsNullOrEmpty(description) || tags.Length == 0)
                 {
                     throw new Exception("Please enter a title, description, and some tags to describe the map.");
                 }
 
                 // Create a new OnSaveMapEventArgs object to store the information entered by the user
-                var mapSavedArgs = new OnSaveMapEventArgs(title, description, tags);
+                OnSaveMapEventArgs mapSavedArgs = new OnSaveMapEventArgs(title, description, tags);
 
                 // Raise the OnSaveClicked event so the main activity can handle the event and save the map
-                OnSaveClicked(this, mapSavedArgs);
+                OnSaveClicked?.Invoke(this, mapSavedArgs);
 
                 // Close the dialog
                 Dismiss();
@@ -735,7 +747,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             catch (Exception ex)
             {
                 // Show the exception message (dialog will stay open so user can try again)
-                var alertBuilder = new AlertDialog.Builder(Activity);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(Activity);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();

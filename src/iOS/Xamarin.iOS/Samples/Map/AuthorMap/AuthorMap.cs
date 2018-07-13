@@ -119,7 +119,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void CreateLayout()
         {
             // Create an activity indicator.
-            var centerRect = new CGRect(View.Bounds.Width / 2, View.Bounds.Height / 2, 40, 40);
+            CGRect centerRect = new CGRect(View.Bounds.Width / 2, View.Bounds.Height / 2, 40, 40);
             _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
             {
                 Frame = centerRect
@@ -135,7 +135,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void SegmentButtonClicked(object sender, EventArgs e)
         {
             // Get the segmented button control that raised the event.
-            var buttonControl = sender as UISegmentedControl;
+            UISegmentedControl buttonControl = (UISegmentedControl)sender;
 
             switch (buttonControl.SelectedSegment)
             {
@@ -226,7 +226,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             {
                 // Get the URL for this layer.
                 string layerUrl = _operationalLayerUrls[layerName];
-                var layerUri = new Uri(layerUrl);
+                Uri layerUri = new Uri(layerUrl);
 
                 // Create a new map image layer.
                 layer = new ArcGISMapImageLayer(layerUri)
@@ -250,7 +250,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
             // Create a view to show entry controls over the map view.
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            var ovBounds = new CGRect(5, topMargin + 5, View.Bounds.Width - 10, View.Bounds.Height - topMargin - 50);
+            CGRect ovBounds = new CGRect(5, topMargin + 5, View.Bounds.Width - 10, View.Bounds.Height - topMargin - 50);
             _oauthInfoUi = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, _appClientId, _oAuthRedirectUrl);
 
             // Handle the OnOAuthPropsInfoEntered event to get the info entered by the user.
@@ -286,7 +286,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
             // Create a view to show map item info entry controls over the map view.
             nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            var ovBounds = new CGRect(5, topMargin + 5, View.Bounds.Width - 10, View.Bounds.Height - topMargin - 45);
+            CGRect ovBounds = new CGRect(5, topMargin + 5, View.Bounds.Width - 10, View.Bounds.Height - topMargin - 45);
             _mapInfoUi = new SaveMapDialogOverlay(ovBounds, 0.75f, UIColor.White, (PortalItem) _myMapView.Map.Item);
 
             // Handle the OnMapInfoEntered event to get the info entered by the user.
@@ -304,7 +304,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private async void MapItemInfoEntered(object sender, MapSavedEventArgs e)
         {
             // Get the current map.
-            var myMap = _myMapView.Map;
+            Map myMap = _myMapView.Map;
 
             try
             {
@@ -342,7 +342,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
 
                     // Update the item thumbnail.
-                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);
+                    ((PortalItem)myMap.Item).SetThumbnailWithImage(imageStream);
                     await myMap.SaveAsync();
 
                     // Report update was successful.
@@ -585,7 +585,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             nfloat controlY = 10;
 
             // Label for inputs.
-            var description = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
+            UILabel description = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = "OAuth Settings",
                 TextColor = TintColor
@@ -595,7 +595,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             controlY = controlY + controlHeight + rowSpace;
 
             // Client ID text input and label.
-            var clientIdLabel = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
+            UILabel clientIdLabel = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = "Client ID"
             };
@@ -623,7 +623,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             controlY = controlY + controlHeight + rowSpace;
 
             // Redirect URL text input and label.
-            var redirectLabel = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
+            UILabel redirectLabel = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = "Redirect URL"
             };
@@ -663,7 +663,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             UIButton cancelButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
             cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
-            cancelButton.TouchUpInside += (s, e) => OnCanceled.Invoke(this, null);
+            cancelButton.TouchUpInside += (s, e) => OnCanceled?.Invoke(this, null);
 
             // Add the controls.
             AddSubviews(description, clientIdLabel, _clientIdTextField, redirectLabel, _redirectUrlTextField, saveButton, cancelButton);
@@ -692,7 +692,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             string redirectUrl = _redirectUrlTextField.Text.Trim();
 
             // Make sure all required info was entered.
-            if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(redirectUrl))
+            if (String.IsNullOrEmpty(clientId) || String.IsNullOrEmpty(redirectUrl))
             {
                 new UIAlertView("Error", "Please enter a client ID and redirect URL for OAuth authentication.", (IUIAlertViewDelegate) null, "OK", null).Show();
                 return;
@@ -702,7 +702,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             if (OnOAuthPropsInfoEntered != null)
             {
                 // Create a new OAuthPropsSavedEventArgs to contain the user's values.
-                var oauthSaveEventArgs = new OAuthPropsSavedEventArgs(clientId, redirectUrl);
+                OAuthPropsSavedEventArgs oauthSaveEventArgs = new OAuthPropsSavedEventArgs(clientId, redirectUrl);
 
                 // Raise the event.
                 OnOAuthPropsInfoEntered(sender, oauthSaveEventArgs);
@@ -741,7 +741,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         public SaveMapDialogOverlay(CGRect frame, nfloat transparency, UIColor color, PortalItem mapItem) : base(frame)
         {
             // Store any existing portal item (for "update" versus "save", e.g.).
-            var portalItem = mapItem;
+            PortalItem portalItem = mapItem;
 
             // Create a semi-transparent overlay with the specified background color.
             BackgroundColor = color;
@@ -767,7 +767,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             nfloat controlY = centerY - totalHeight / 2;
 
             // Label for inputs.
-            var description = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
+            UILabel description = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = "Portal item info",
                 TextColor = UIColor.Black
@@ -848,7 +848,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             UIButton cancelButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
             cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
-            cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
+            cancelButton.TouchUpInside += (s, e) => { OnCanceled?.Invoke(this, null); };
 
             // Add the controls.
             AddSubviews(description, _titleTextField, _descriptionTextField, _tagsTextField, saveButton, cancelButton);
@@ -894,7 +894,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             string[] tags = _tagsTextField.Text.Split(',');
 
             // Make sure all required info was entered.
-            if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || tags.Length == 0)
+            if (String.IsNullOrEmpty(title) || String.IsNullOrEmpty(description) || tags.Length == 0)
             {
                 new UIAlertView("Error", "Please enter a title, description, and some tags to describe the map.", (IUIAlertViewDelegate) null, "OK", null).Show();
                 return;
@@ -904,7 +904,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             if (OnMapInfoEntered != null)
             {
                 // Create a new MapSavedEventArgs to contain the user's values.
-                var mapSaveEventArgs = new MapSavedEventArgs(title, description, tags);
+                MapSavedEventArgs mapSaveEventArgs = new MapSavedEventArgs(title, description, tags);
 
                 // Raise the event.
                 OnMapInfoEntered(sender, mapSaveEventArgs);

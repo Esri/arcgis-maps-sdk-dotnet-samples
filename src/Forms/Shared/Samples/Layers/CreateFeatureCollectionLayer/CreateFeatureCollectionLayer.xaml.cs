@@ -142,7 +142,7 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
                     break;
                 case GeometryType.Polygon:
                     // Create a fill symbol
-                    var lineSym = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.DarkBlue, 2);
+                    SimpleLineSymbol lineSym = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.DarkBlue, 2);
                     sym = new SimpleFillSymbol(SimpleFillSymbolStyle.DiagonalCross, Colors.Cyan, lineSym);
                     break;
                 default:

@@ -52,7 +52,7 @@ namespace ArcGISRuntime.UWP.Samples.RasterHillshade
             Map map = new Map(Basemap.CreateStreets());
 
             // Get the file name for the local raster dataset
-            String filepath = GetRasterPath();
+            string filepath = GetRasterPath();
 
             // Load the raster file
             Raster rasterFile = new Raster(filepath);
@@ -77,7 +77,7 @@ namespace ArcGISRuntime.UWP.Samples.RasterHillshade
             MyMapView.Map = map;
 
             // Add slope type values to the combo box
-            foreach (var slope in Enum.GetValues(typeof(SlopeType)))
+            foreach (object slope in Enum.GetValues(typeof(SlopeType)))
             {
                 SlopeTypeCombo.Items.Add(slope);
             }

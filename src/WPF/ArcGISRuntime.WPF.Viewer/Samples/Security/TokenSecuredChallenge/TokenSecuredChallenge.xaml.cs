@@ -91,7 +91,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
             }
 
             // Get the login info from the task completion source.
-            LoginInfo loginEntry = _loginTaskCompletionSource.Task.AsyncState as LoginInfo;
+            LoginInfo loginEntry = (LoginInfo)_loginTaskCompletionSource.Task.AsyncState;
 
             try
             {
@@ -212,7 +212,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            var handler = PropertyChanged;
+            PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
             {
                 handler(this, new PropertyChangedEventArgs(propertyName));

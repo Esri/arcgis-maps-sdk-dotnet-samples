@@ -123,7 +123,7 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
                     string featureDisplayname = resultFeature.Attributes[displayFieldName].ToString();
 
                     // Create a formatted result string
-                    string formattedResult = String.Format("{0} - {1}", tableName, featureDisplayname);
+                    string formattedResult = $"{tableName} - {featureDisplayname}";
 
                     // Add the result to the list
                     queryResultsForUi.Add(formattedResult);
@@ -140,7 +140,7 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create the listview for displaying results
             _myDisplayList = new ListView(this);

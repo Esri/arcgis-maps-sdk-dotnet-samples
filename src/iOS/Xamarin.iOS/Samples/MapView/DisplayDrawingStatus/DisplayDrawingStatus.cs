@@ -73,7 +73,7 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
             Map myMap = new Map(BasemapType.Topographic, 34.056, -117.196, 4);
 
             // URL to the feature service.
-            var serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0");
+            Uri serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0");
 
             // Initialize a new feature layer.
             ServiceFeatureTable myFeatureTable = new ServiceFeatureTable(serviceUri);

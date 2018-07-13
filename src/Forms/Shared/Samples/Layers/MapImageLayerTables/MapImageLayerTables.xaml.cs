@@ -17,7 +17,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.MapImageLayerTables
@@ -107,7 +106,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             if (selectedComment == null) { return; }
 
             // Get the map image layer that contains the service request sublayer and the service request comments table.
-            ArcGISMapImageLayer serviceRequestsMapImageLayer = MyMapView.Map.OperationalLayers[0] as ArcGISMapImageLayer;
+            ArcGISMapImageLayer serviceRequestsMapImageLayer = (ArcGISMapImageLayer)MyMapView.Map.OperationalLayers[0];
 
             // Get the (non-spatial) table that contains the service request comments.
             ServiceFeatureTable commentsTable = serviceRequestsMapImageLayer.Tables[0];

@@ -217,7 +217,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     foreach (Feature feature in selectedFeatures)
                     {
                         // Get a reference to the correct feature table for the feature.
-                        GeodatabaseFeatureTable table = feature.FeatureTable as GeodatabaseFeatureTable;
+                        GeodatabaseFeatureTable table = (GeodatabaseFeatureTable)feature.FeatureTable;
 
                         // Ensure the geometry type of the table is point.
                         if (table.GeometryType != GeometryType.Point)
@@ -304,7 +304,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             envelopeBldr.Expand(0.80);
 
             // Get the (only) graphics overlay in the map view.
-            var extentOverlay = myMapView.GraphicsOverlays.FirstOrDefault();
+            GraphicsOverlay extentOverlay = myMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
             if (extentOverlay == null) { return; }
@@ -349,7 +349,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             generateGdbJob.ProgressChanged += ((sender, e) =>
             {
                 // Get the job.
-                GenerateGeodatabaseJob job = sender as GenerateGeodatabaseJob;
+                GenerateGeodatabaseJob job = (GenerateGeodatabaseJob)sender;
 
                 // Update the progress bar.
                 UpdateProgressBar(job.Progress);
@@ -520,7 +520,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            var builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetMessage(message).SetTitle("Alert").Show();
         }
 

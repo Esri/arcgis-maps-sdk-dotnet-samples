@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using System;
 using Colors = System.Drawing.Color;
+using System.Collections.Generic;
 
 namespace ArcGISRuntime.Samples.SketchOnMap
 {
@@ -53,8 +54,8 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             MyMapView.Map = myMap;
 
             // Fill the combo box with choices for the sketch modes (shapes)
-            var sketchModes = System.Enum.GetValues(typeof(SketchCreationMode));
-            foreach(var mode in sketchModes)
+            Array sketchModes = System.Enum.GetValues(typeof(SketchCreationMode));
+            foreach(object mode in sketchModes)
             {
                 SketchModePicker.Items.Add(mode.ToString());
             }
@@ -62,7 +63,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             SketchModePicker.SelectedIndex = 0;
 
             // Set the sketch editor configuration to allow vertex editing, resizing, and moving
-            var config = MyMapView.SketchEditor.EditConfiguration;
+            SketchEditConfiguration config = MyMapView.SketchEditor.EditConfiguration;
             config.AllowVertexEditing = true;
             config.ResizeMode = SketchResizeMode.Uniform;
             config.AllowMove = true;
@@ -91,7 +92,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                         symbol = new SimpleFillSymbol()
                         {
                             Color = Colors.Red,
-                            Style = SimpleFillSymbolStyle.Solid,
+                            Style = SimpleFillSymbolStyle.Solid
                         };
                         break;
                     }
@@ -128,13 +129,13 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private async Task<Graphic> GetGraphicAsync()
         {
             // Wait for the user to click a location on the map
-            var mapPoint = (MapPoint)await MyMapView.SketchEditor.StartAsync(SketchCreationMode.Point, false);
+            MapPoint mapPoint = (MapPoint)await MyMapView.SketchEditor.StartAsync(SketchCreationMode.Point, false);
 
             // Convert the map point to a screen point
             var screenCoordinate = MyMapView.LocationToScreen(mapPoint);
 
             // Identify graphics in the graphics overlay using the point
-            var results = await MyMapView.IdentifyGraphicsOverlaysAsync(screenCoordinate, 2, false);
+            IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(screenCoordinate, 2, false);
 
             // If results were found, get the first graphic
             Graphic graphic = null;

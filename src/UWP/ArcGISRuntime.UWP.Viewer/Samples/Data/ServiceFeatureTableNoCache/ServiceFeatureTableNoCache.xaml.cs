@@ -41,7 +41,7 @@ namespace ArcGISRuntime.UWP.Samples.ServiceFeatureTableNoCache
             myMap.InitialViewpoint = new Viewpoint(initialLocation);
 
             // Create uri to the used feature service
-            var serviceUri = new Uri(
+            Uri serviceUri = new Uri(
                "http://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/FeatureServer/0");
 
             // Create feature table for the pools feature service

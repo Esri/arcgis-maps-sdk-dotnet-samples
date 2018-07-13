@@ -16,6 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
+using Esri.ArcGISRuntime;
 
 namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
 {
@@ -76,7 +77,7 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
             else
             {
                 // User canceled, warn that won't be able to save
-                var messageDlg = new MessageDialog("No OAuth settings entered, you will not be able to browse maps from your ArcGIS Online account.");
+                MessageDialog messageDlg = new MessageDialog("No OAuth settings entered, you will not be able to browse maps from your ArcGIS Online account.");
                 await messageDlg.ShowAsync();
 
                 AppClientId = string.Empty;
@@ -90,11 +91,11 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
             if (e.AddedItems != null && e.AddedItems.Count > 0)
             {
                 // Make sure a portal item is selected
-                var selectedMap = e.AddedItems[0] as PortalItem;
+                PortalItem selectedMap = e.AddedItems[0] as PortalItem;
                 if (selectedMap == null) { return; }
 
                 // Create a new map and display it
-                var webMap = new Map(selectedMap);
+                Map webMap = new Map(selectedMap);
 
                 // Handle change in the load status (to report load errors)
                 webMap.LoadStatusChanged += WebMapLoadStatusChanged;
@@ -107,23 +108,20 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
             MyMapsFlyout.Hide();
 
             // Unselect the map item
-            var list = sender as ListView;
+            ListView list = sender as ListView;
             list.SelectedItem = null;
         }
 
         private async void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
-            // Get the current status
-            var status = e.Status;
-
             // Report errors if map failed to load
-            if (status == Esri.ArcGISRuntime.LoadStatus.FailedToLoad)
+            if (e.Status == LoadStatus.FailedToLoad)
             {
-                var map = sender as Map;
-                var err = map.LoadError;
+                Map map = (Map)sender;
+                Exception err = map.LoadError;
                 if (err != null)
                 {
-                    var dialog = new MessageDialog(err.Message, "Map Load Error");
+                    MessageDialog dialog = new MessageDialog(err.Message, "Map Load Error");
                     await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
                     {
                         await dialog.ShowAsync();
@@ -137,17 +135,16 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
         {
             // Get web map portal items in the current user's folder or from a keyword search
             IEnumerable<PortalItem> mapItems = null;
-            ArcGISPortal portal;
 
             // If the list has already been populated, return
             if (MyMapsList.ItemsSource != null) { return; }
 
             // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
-            var loggedIn = await EnsureLoggedInAsync();
+            bool loggedIn = await EnsureLoggedInAsync();
             if(!loggedIn) { return; }
             
             // Connect to the portal (will connect using the provided credentials)
-            portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
+            ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
 
             // Get the user's content (items in the root folder and a collection of sub-folders)
             PortalUserContent myContent = await portal.User.GetContentAsync();
@@ -159,7 +156,7 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
             foreach (PortalFolder folder in myContent.Folders)
             {
                 IEnumerable<PortalItem> folderItems = await portal.User.GetContentAsync(folder.FolderId);
-                mapItems.Concat(from item in folderItems where item.Type == PortalItemType.WebMap select item);
+                mapItems = mapItems.Concat(from item in folderItems where item.Type == PortalItemType.WebMap select item);
             }
             
             // Show the web maps in the list box
@@ -173,13 +170,13 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
         {
             // Get web map portal items in the current user's folder or from a keyword search
             IEnumerable<PortalItem> mapItems = null;
-            ArcGISPortal portal;
 
             // Connect to the portal (anonymously)
-            portal = await ArcGISPortal.CreateAsync();
+            ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 
             // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
-            var queryExpression = string.Format("tags:\"{0}\" access:public type: (\"web map\" NOT \"web mapping application\")", SearchText.Text);
+            string queryExpression = $"tags:\"{SearchText.Text}\" access:public type: (\"web map\" NOT \"web mapping application\")";
+
             // Create a query parameters object with the expression and a limit of 10 results
             PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
 
@@ -210,7 +207,7 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
                 challengeRequest.ServiceUri = new Uri(ArcGISOnlineUrl);
 
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                var cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
+                Credential cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
                 loggedIn = cred != null;
             }
             catch (OperationCanceledException)
@@ -264,10 +261,10 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
                 // User will be challenged for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;

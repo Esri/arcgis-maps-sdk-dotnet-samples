@@ -147,11 +147,8 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
             // Create the service area task and parameters based on the Uri.
             ServiceAreaTask serviceAreaTask = await ServiceAreaTask.CreateAsync(_serviceAreaUri);
 
-            // An object that defines parameters for solving a service area task.
-            ServiceAreaParameters serviceAreaParameters;
-
             // Store the default parameters for the service area in an object.
-            serviceAreaParameters = await serviceAreaTask.CreateDefaultParametersAsync();
+            ServiceAreaParameters serviceAreaParameters = await serviceAreaTask.CreateDefaultParametersAsync();
 
             // Add impedance cutoffs for facilities (drive time minutes).
             serviceAreaParameters.DefaultImpedanceCutoffs.Add(2.0);

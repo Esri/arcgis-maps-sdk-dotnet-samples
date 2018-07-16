@@ -18,7 +18,7 @@
                 <TextBlock Grid.Row="0"
                            Text="Adjust the sliders to see the resulting generalized or densified polyline."
                            TextWrapping="Wrap"
-                           Foreground="Red" />
+                           FontWeight="SemiBold" />
                 <TextBlock Grid.Row="1"
                            Text="Max. Deviation (Generalize)" FontWeight="Bold" />
                 <Slider x:Name="DeviationSlider"
@@ -32,7 +32,8 @@
                 <TextBlock x:Name="ResultLabel" Grid.Row="5"
                            Text="Adjust a slider to start"
                            TextWrapping="Wrap"
-                           Foreground="Red" />
+                           FontWeight="SemiBold"
+                           Foreground="RoyalBlue" />
             </Grid>
         </Border>
     </Grid>

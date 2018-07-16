@@ -54,7 +54,7 @@ namespace ArcGISRuntime.UWP.Samples.ManageBookmarks
                 Viewpoint = myViewpoint1
             };
             MyMapView.Map.Bookmarks.Add(myBookmark1);
-            bookmarkChooser.Items.Add(myBookmark1);
+            BookmarkChooser.Items.Add(myBookmark1);
 
             // Bookmark-2
             Viewpoint myViewpoint2 = new Viewpoint(-39.299987, 174.060858, 600000);
@@ -64,7 +64,7 @@ namespace ArcGISRuntime.UWP.Samples.ManageBookmarks
                 Viewpoint = myViewpoint2
             };
             MyMapView.Map.Bookmarks.Add(myBookmark2);
-            bookmarkChooser.Items.Add(myBookmark2);
+            BookmarkChooser.Items.Add(myBookmark2);
 
             // Bookmark-3
             Viewpoint myViewpoint3 = new Viewpoint(-33.867886, -63.985, 40000);
@@ -74,7 +74,7 @@ namespace ArcGISRuntime.UWP.Samples.ManageBookmarks
                 Viewpoint = myViewpoint3
             };
             MyMapView.Map.Bookmarks.Add(myBookmark3);
-            bookmarkChooser.Items.Add(myBookmark3);
+            BookmarkChooser.Items.Add(myBookmark3);
 
             // Bookmark-4
             Viewpoint myViewpoint4 = new Viewpoint(44.525049, -110.83819, 6000);
@@ -84,10 +84,10 @@ namespace ArcGISRuntime.UWP.Samples.ManageBookmarks
                 Viewpoint = myViewpoint4
             };
             MyMapView.Map.Bookmarks.Add(myBookmark4);
-            bookmarkChooser.Items.Add(myBookmark4);
+            BookmarkChooser.Items.Add(myBookmark4);
 
             // Set the initial combo box selection to the lat bookmark added
-            bookmarkChooser.SelectedItem = MyMapView.Map.Bookmarks.Last();
+            BookmarkChooser.SelectedItem = MyMapView.Map.Bookmarks.Last();
 
             // Zoom to the last bookmark
             myMap.InitialViewpoint = myMap.Bookmarks.Last().Viewpoint;
@@ -145,10 +145,10 @@ namespace ArcGISRuntime.UWP.Samples.ManageBookmarks
             MyMapView.Map.Bookmarks.Add(myBookmark);
 
             // Add the bookmark to the list of choices in the combo box
-            bookmarkChooser.Items.Insert(bookmarkChooser.Items.Count, myBookmark);
+            BookmarkChooser.Items.Insert(BookmarkChooser.Items.Count, myBookmark);
 
             // Set the newly added bookmark to be the one selected in the combo box
-            bookmarkChooser.SelectedItem = myBookmark;
+            BookmarkChooser.SelectedItem = myBookmark;
 
             // Hide the controls to add a bookmark
             BorderAddBookmark.Visibility = Visibility.Collapsed;

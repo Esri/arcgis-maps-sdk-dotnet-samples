@@ -124,6 +124,12 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedLocation
 
         private void MySceneViewOnGeoViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
         {
+            if (geoViewInputEventArgs.Location == null)
+            {
+                // User clicked on the sky - don't update the location with invalid value.
+                return;
+            }
+
             // Update the viewshed location.
             _viewshed.Location = geoViewInputEventArgs.Location;
 

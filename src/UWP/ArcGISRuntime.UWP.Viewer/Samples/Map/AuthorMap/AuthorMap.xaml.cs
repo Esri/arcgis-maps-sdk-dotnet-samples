@@ -34,14 +34,14 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         private string ServerUrl = "https://www.arcgis.com/sharing/rest";
 
         // TODO: Add Client ID for an app registered with the server
-        private string AppClientId = "2Gh53JRzkPtOENQq";
+        private string _appClientId = "2Gh53JRzkPtOENQq";
 
         // TODO: Add URL for redirecting after a successful authorization
         //       Note - this must be a URL configured as a valid Redirect URI with your app
-        private string OAuthRedirectUrl = "https://developers.arcgis.com";
+        private string _oAuthRedirectUrl = "https://developers.arcgis.com";
 
         // String array to store names of the available basemaps
-        private string[] _basemapNames = {
+        private readonly string[] _basemapNames = {
             "Light Gray",
             "Topographic",
             "Streets",
@@ -50,7 +50,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         };
 
         // Dictionary of operational layer names and URLs
-        private Dictionary<string, string> _operationalLayerUrls = new Dictionary<string, string>
+        private readonly Dictionary<string, string> _operationalLayerUrls = new Dictionary<string, string>
         {
             {"World Elevations", "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer"},
             {"World Cities", "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/" },
@@ -61,17 +61,19 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         {
             InitializeComponent();
 
-            // When the map view loads, show a dialog for entering OAuth settings
-            MyMapView.Loaded += (s,e) => ShowOAuthSettingsDialog();
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }
 
         private void Initialize()
         {
-            BasemapListView.ItemsSource = _basemapNames;
-            LayerListView.ItemsSource = _operationalLayerUrls;
+            // Update the UI with basemaps and layers
+            BasemapListBox.ItemsSource = _basemapNames;
+            OperationalLayerListBox.ItemsSource = _operationalLayerUrls;
+
+            // Show the OAuth settings in the page
+            ClientIdTextBox.Text = _appClientId;
+            RedirectUrlTextBox.Text = _oAuthRedirectUrl;
 
             // Show a plain gray map in the map view
             MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
@@ -81,11 +83,6 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         }
 
         #region UI event handlers
-        private void BasemapItemClick(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
         private void LayerSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Call a function to add operational layers to the map
@@ -97,13 +94,10 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             try
             {
                 // Don't attempt to save if the OAuth settings weren't provided
-                if(String.IsNullOrEmpty(AppClientId) || String.IsNullOrEmpty(OAuthRedirectUrl))
+                if(String.IsNullOrEmpty(_appClientId) || String.IsNullOrEmpty(_oAuthRedirectUrl))
                 {
                     MessageDialog dialog = new MessageDialog("OAuth settings were not provided.", "Cannot Save");
                     await dialog.ShowAsync();
-
-                    SaveMapFlyout.Hide();
-
                     return;
                 }
 
@@ -176,10 +170,10 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
 
             // Reset the basemap selection in the UI
-            BasemapListView.SelectedIndex = 0;
+            BasemapListBox.SelectedIndex = 0;
 
             // Reset the layer selection in the UI;
-            LayerListView.SelectedIndex = -1;
+            OperationalLayerListBox.SelectedIndex = -1;
 
             // Reset the extent labels
             UpdateViewExtentLabels();
@@ -224,7 +218,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             myMap.OperationalLayers.Clear();
 
             // Loop through the selected items in the operational layers list box
-            foreach (KeyValuePair<string,string> item in LayerListView.SelectedItems)
+            foreach (KeyValuePair<string,string> item in OperationalLayerListBox.SelectedItems)
             {
                 // Get the service uri for each selected item 
                 KeyValuePair<string,string> layerInfo = item;
@@ -296,32 +290,19 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         }
 
         #region OAuth helpers
-        private async void ShowOAuthSettingsDialog()
+
+        private void SaveOAuthSettingsClicked(object sender, RoutedEventArgs e)
         {
-            // Show default settings for client ID and redirect URL
-            ClientIdTextBox.Text = AppClientId;
-            RedirectUrlTextBox.Text = OAuthRedirectUrl;
+            // Settings were provided, update the configuration settings for OAuth authorization
+            _appClientId = ClientIdTextBox.Text.Trim();
+            _oAuthRedirectUrl = RedirectUrlTextBox.Text.Trim();
 
-            // Display inputs for a client ID and redirect URL to use for OAuth authentication
-            ContentDialogResult result = await OAuthSettingsDialog.ShowAsync();
-            if (result == ContentDialogResult.Primary)
-            {
-                // Settings were provided, update the configuration settings for OAuth authorization
-                AppClientId = ClientIdTextBox.Text.Trim();
-                OAuthRedirectUrl = RedirectUrlTextBox.Text.Trim();
+            // Update authentication manager with the OAuth settings
+            UpdateAuthenticationManager();
 
-                // Update authentication manager with the OAuth settings
-                UpdateAuthenticationManager();
-            }
-            else
-            {
-                // User canceled, warn that won't be able to save
-                MessageDialog messageDlg = new MessageDialog("No OAuth settings entered, you will not be able to save your map.");
-                await messageDlg.ShowAsync();
-
-                AppClientId = string.Empty;
-                OAuthRedirectUrl = string.Empty;
-            }
+            // Update the UI
+            SaveMapGrid.Visibility = Visibility.Visible;
+            OAuthSettingsGrid.Visibility = Visibility.Collapsed;
         }
 
         private void UpdateAuthenticationManager()
@@ -332,8 +313,8 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                 ServerUri = new Uri(ServerUrl),
                 OAuthClientInfo = new OAuthClientInfo
                 {
-                    ClientId = AppClientId,
-                    RedirectUri = new Uri(OAuthRedirectUrl)
+                    ClientId = _appClientId,
+                    RedirectUri = new Uri(_oAuthRedirectUrl)
                 },
                 // Specify OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
                 // Otherwise, use OAuthImplicit

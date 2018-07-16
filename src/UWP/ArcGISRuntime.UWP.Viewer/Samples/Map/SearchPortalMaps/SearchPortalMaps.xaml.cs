@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Esri.ArcGISRuntime;
 
@@ -27,166 +28,138 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
         "1. When the sample starts, you will be presented with a dialog for entering OAuth settings. If you need to create your own settings, sign in with your developer account and use the [ArcGIS for Developers dashboard](https://developers.arcgis.com/dashboard) to create an Application to store these settings.\n2. Enter values for the following OAuth settings.\n\t1. **Client ID**: a unique alphanumeric string identifier for your application\n\t2. **Redirect URL**: a URL to which a successful OAuth login response will be sent\n3. If you do not enter OAuth settings, you will be able to search public web maps on ArcGIS Online. Browsing the web map items in your ArcGIS Online account will be disabled, however.")]
     public partial class SearchPortalMaps
     {
-        // OAuth configuration and default values ...
+        // Variables for OAuth with default values ...
         // URL of the server to authenticate with (ArcGIS Online)
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
 
         // Client ID for the app registered with the server (Portal Maps)
-        private string AppClientId = "2Gh53JRzkPtOENQq";
+        private string _appClientId = "2Gh53JRzkPtOENQq";
 
         // Redirect URL after a successful authorization (configured for the Portal Maps application)
-        private string OAuthRedirectUrl = "https://developers.arcgis.com";
+        private string _oAuthRedirectUrl = "https://developers.arcgis.com";
 
+        // Constructor for sample class
         public SearchPortalMaps()
         {
             InitializeComponent();
 
-            // Show the default map
-            DisplayDefaultMap();
+            // Show the OAuth settings in the page
+            ClientIdTextBox.Text = _appClientId;
+            RedirectUrlTextBox.Text = _oAuthRedirectUrl;
 
-            // When the map view loads, show a dialog for entering OAuth settings
-            MyMapView.Loaded += (s, e) => ShowOAuthSettingsDialog();
+            // Display a default map
+            DisplayDefaultMap();
         }
 
         private void DisplayDefaultMap()
         {
-            // Create a new light gray canvas Map
+            // Create a new Map instance
             Map myMap = new Map(Basemap.CreateLightGrayCanvas());
 
-            // Assign Map to the MapView
+            // Provide Map to the MapView
             MyMapView.Map = myMap;
         }
 
-        private async void ShowOAuthSettingsDialog()
+        private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            // Show default settings for client ID and redirect URL
-            ClientIdTextBox.Text = AppClientId;
-            RedirectUrlTextBox.Text = OAuthRedirectUrl;
+            // Get web map portal items in the current user's folder or from a keyword search
+            IEnumerable<PortalItem> mapItems = null;
+            ArcGISPortal portal;
 
-            // Display inputs for a client ID and redirect URL to use for OAuth authentication
-            ContentDialogResult result = await OAuthSettingsDialog.ShowAsync();
-            if (result == ContentDialogResult.Primary)
+            // See if the user wants to search public web map items
+            if (SearchPublicMaps.IsChecked == true)
             {
-                // Settings were provided, update the configuration settings for OAuth authorization
-                AppClientId = ClientIdTextBox.Text.Trim();
-                OAuthRedirectUrl = RedirectUrlTextBox.Text.Trim();
+                // Connect to the portal (anonymously)
+                portal = await ArcGISPortal.CreateAsync();
 
-                // Update authentication manager with the OAuth settings
-                UpdateAuthenticationManager();
+                // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
+                string queryExpression = string.Format("tags:\"{0}\" access:public type: (\"web map\" NOT \"web mapping application\")", SearchText.Text);
+
+                // Create a query parameters object with the expression and a limit of 10 results
+                PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
+
+                // Search the portal using the query parameters and await the results
+                PortalQueryResultSet<PortalItem> findResult = await portal.FindItemsAsync(queryParams);
+
+                // Get the items from the query results
+                mapItems = findResult.Results;
             }
             else
             {
-                // User canceled, warn that won't be able to save
-                MessageDialog messageDlg = new MessageDialog("No OAuth settings entered, you will not be able to browse maps from your ArcGIS Online account.");
-                await messageDlg.ShowAsync();
-
-                AppClientId = string.Empty;
-                OAuthRedirectUrl = string.Empty;
-            }
-        }
-
-        private void OnMapSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // When a web map is selected, update the map in the map view
-            if (e.AddedItems != null && e.AddedItems.Count > 0)
-            {
-                // Make sure a portal item is selected
-                PortalItem selectedMap = e.AddedItems[0] as PortalItem;
-                if (selectedMap == null) { return; }
-
-                // Create a new map and display it
-                Map webMap = new Map(selectedMap);
-
-                // Handle change in the load status (to report load errors)
-                webMap.LoadStatusChanged += WebMapLoadStatusChanged;
-
-                MyMapView.Map = webMap;
-            }
-
-            // Hide the flyouts
-            SearchMapsFlyout.Hide();
-            MyMapsFlyout.Hide();
-
-            // Unselect the map item
-            ListView list = sender as ListView;
-            list.SelectedItem = null;
-        }
-
-        private async void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
-        {
-            // Report errors if map failed to load
-            if (e.Status == LoadStatus.FailedToLoad)
-            {
-                Map map = (Map)sender;
-                Exception err = map.LoadError;
-                if (err != null)
+                // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
+                bool loggedIn = await EnsureLoggedInAsync();
+                if (!loggedIn)
                 {
-                    MessageDialog dialog = new MessageDialog(err.Message, "Map Load Error");
-                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-                    {
-                        await dialog.ShowAsync();
-                    });
-                    
+                    return;
+                }
+
+                // Connect to the portal (will connect using the provided credentials)
+                portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
+
+                // Get the user's content (items in the root folder and a collection of sub-folders)
+                PortalUserContent myContent = await portal.User.GetContentAsync();
+
+                // Get the web map items in the root folder
+                mapItems = from item in myContent.Items where item.Type == PortalItemType.WebMap select item;
+
+                // Loop through all sub-folders and get web map items, add them to the mapItems collection
+                foreach (PortalFolder folder in myContent.Folders)
+                {
+                    IEnumerable<PortalItem> folderItems = await portal.User.GetContentAsync(folder.FolderId);
+                    mapItems = mapItems.Concat(from item in folderItems where item.Type == PortalItemType.WebMap select item);
                 }
             }
+
+            // Show the web map portal items in the list box
+            MapListBox.ItemsSource = mapItems;
         }
 
-        private async void MyMapsClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void LoadMapButtonClick(object sender, RoutedEventArgs e)
         {
-            // Get web map portal items in the current user's folder or from a keyword search
-            IEnumerable<PortalItem> mapItems = null;
-
-            // If the list has already been populated, return
-            if (MyMapsList.ItemsSource != null) { return; }
-
-            // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
-            bool loggedIn = await EnsureLoggedInAsync();
-            if(!loggedIn) { return; }
-            
-            // Connect to the portal (will connect using the provided credentials)
-            ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
-
-            // Get the user's content (items in the root folder and a collection of sub-folders)
-            PortalUserContent myContent = await portal.User.GetContentAsync();
-            
-            // Get the web map items in the root folder
-            mapItems = from item in myContent.Items where item.Type == PortalItemType.WebMap select item;
-
-            // Loop through all sub-folders and get web map items, add them to the mapItems collection
-            foreach (PortalFolder folder in myContent.Folders)
+            // Get the selected web map item in the list box
+            PortalItem selectedMap = MapListBox.SelectedItem as PortalItem;
+            if (selectedMap == null)
             {
-                IEnumerable<PortalItem> folderItems = await portal.User.GetContentAsync(folder.FolderId);
-                mapItems = mapItems.Concat(from item in folderItems where item.Type == PortalItemType.WebMap select item);
+                return;
             }
-            
-            // Show the web maps in the list box
-            MyMapsList.ItemsSource = mapItems;
 
-            // Make sure the flyout is shown
-            MyMapsFlyout.ShowAt(sender as Windows.UI.Xaml.FrameworkElement);
+            // Create a new map, pass the web map portal item to the constructor
+            Map webMap = new Map(selectedMap);
+
+            // Handle change in the load status (to report load errors)
+            webMap.LoadStatusChanged += WebMapLoadStatusChanged;
+
+            // Show the web map in the map view
+            MyMapView.Map = webMap;
         }
 
-        private async void SearchMapsClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void WebMapLoadStatusChanged(object sender, LoadStatusEventArgs e)
         {
-            // Get web map portal items in the current user's folder or from a keyword search
-            IEnumerable<PortalItem> mapItems = null;
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+            {
+                // Report errors if map failed to load
+                if (e.Status == LoadStatus.FailedToLoad)
+                {
+                    Map map = (Map) sender;
+                    Exception err = map.LoadError;
+                    if (err != null)
+                    {
+                        await new MessageDialog(err.Message, "Map load error").ShowAsync();
+                    }
+                }
+            });
+        }
 
-            // Connect to the portal (anonymously)
-            ArcGISPortal portal = await ArcGISPortal.CreateAsync();
+        private void RadioButtonUnchecked(object sender, RoutedEventArgs e)
+        {
+            // When the search/user radio buttons are unchecked, clear the list box
+            MapListBox.ItemsSource = null;
 
-            // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
-            string queryExpression = $"tags:\"{SearchText.Text}\" access:public type: (\"web map\" NOT \"web mapping application\")";
-
-            // Create a query parameters object with the expression and a limit of 10 results
-            PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
-
-            // Search the portal using the query parameters and await the results
-            PortalQueryResultSet<PortalItem> findResult = await portal.FindItemsAsync(queryParams);
-            // Get the items from the query results
-            mapItems = findResult.Results;
-
-            // Show the search result items in the list
-            SearchMapsList.ItemsSource = mapItems;
+            // Set the map to the default (if necessary)
+            if (MyMapView.Map.Item != null)
+            {
+                DisplayDefaultMap();
+            }
         }
 
         private async Task<bool> EnsureLoggedInAsync()
@@ -197,7 +170,6 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
                 // Create a challenge request for portal credentials (OAuth credential request for arcgis.com)
                 CredentialRequestInfo challengeRequest = new CredentialRequestInfo
                 {
-
                     // Use the OAuth implicit grant flow
                     GenerateTokenOptions = new GenerateTokenOptions
                     {
@@ -222,14 +194,41 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
             }
 
             return loggedIn;
-        }        
+        }
+
+        private void SaveOAuthSettingsClicked(object sender, RoutedEventArgs e)
+        {
+            // Settings were provided, update the configuration settings for OAuth authorization
+            _appClientId = ClientIdTextBox.Text.Trim();
+            _oAuthRedirectUrl = RedirectUrlTextBox.Text.Trim();
+
+            // Update authentication manager with the OAuth settings
+            UpdateAuthenticationManager();
+
+            // Hide the OAuth input, show the search UI
+            OAuthSettingsGrid.Visibility = Visibility.Collapsed;
+            SearchUI.Visibility = Visibility.Visible;
+        }
+
+        private async void CancelOAuthSettingsClicked(object sender, RoutedEventArgs e)
+        {
+            // Warn that browsing user's ArcGIS Online maps won't be available without OAuth settings
+            string warning = "Without OAuth settings, you will not be able to browse maps from your ArcGIS Online account.";
+            await new MessageDialog(warning, "No OAuth settings").ShowAsync();
+
+            // Disable browsing maps from your ArcGIS Online account
+            BrowseMyMaps.IsEnabled = false;
+
+            // Hide the OAuth input, show the search UI
+            OAuthSettingsGrid.Visibility = Visibility.Collapsed;
+            SearchUI.Visibility = Visibility.Visible;
+        }
 
         private void UpdateAuthenticationManager()
         {
             // Define the server information for ArcGIS Online
             ServerInfo portalServerInfo = new ServerInfo
             {
-
                 // ArcGIS Online URI
                 ServerUri = new Uri(ArcGISOnlineUrl),
 
@@ -240,8 +239,8 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
             // Define the OAuth information
             OAuthClientInfo oAuthInfo = new OAuthClientInfo
             {
-                ClientId = AppClientId,
-                RedirectUri = new Uri(OAuthRedirectUrl)
+                ClientId = _appClientId,
+                RedirectUri = new Uri(_oAuthRedirectUrl)
             };
             portalServerInfo.OAuthClientInfo = oAuthInfo;
 
@@ -253,7 +252,7 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
 
             // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
             thisAuthenticationManager.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
-        }        
+        }
 
         // ChallengeHandler function that will be called whenever access to a secured resource is attempted
         public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)

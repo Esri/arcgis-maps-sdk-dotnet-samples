@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
@@ -110,10 +111,17 @@ namespace ArcGISRuntime.UWP.Samples.ChangeEncDisplaySettings
             else { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified; }
         }
 
-        private void Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void Setting_Checked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             // Apply display settings
-            UpdateDisplaySettings();
+            try
+            {
+                UpdateDisplaySettings();
+            }
+            catch (NullReferenceException)
+            {
+                // The sample wasn't ready
+            }
         }
     }
 }

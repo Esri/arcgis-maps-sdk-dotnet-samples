@@ -18,39 +18,42 @@
             <StackPanel>
                 <TextBlock Text="Color scheme" />
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton x:Name="DayRadioButton" 
-                                 GroupName="ColorScheme" 
-                                 Content="Day" 
-                                 IsChecked="True" />
-                    <RadioButton x:Name="DuskRadioButton" 
-                                 GroupName="ColorScheme" 
-                                 Content="Dusk" />
+                    <RadioButton x:Name="DayRadioButton"
+                                 GroupName="ColorScheme"
+                                 Content="Day"
+                                 IsChecked="True"
+                                 Checked="Setting_Checked" />
+                    <RadioButton x:Name="DuskRadioButton"
+                                 GroupName="ColorScheme"
+                                 Content="Dusk"
+                                 Checked="Setting_Checked" />
                     <RadioButton x:Name="NightRadioButton"
                                  GroupName="ColorScheme"
-                                 Content="Night"/>
+                                 Content="Night"
+                                 Checked="Setting_Checked" />
                 </StackPanel>
                 <TextBlock Text="Area symbolization type" />
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton x:Name="PlainAreaRadioButton" 
+                    <RadioButton x:Name="PlainAreaRadioButton"
                                  GroupName="Area"
                                  Content="Plain"
-                                 IsChecked="True" />
+                                 IsChecked="True"
+                                 Checked="Setting_Checked" />
                     <RadioButton GroupName="Area"
-                                 Content="Symbolized"/>
+                                 Content="Symbolized"
+                                 Checked="Setting_Checked" />
                 </StackPanel>
                 <TextBlock Text="Point symbolization type" />
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton x:Name="PaperPointRadioButton" 
-                                 GroupName="Point" 
-                                 Content="Paper Chart" 
-                                 IsChecked="True" />
-                    <RadioButton GroupName="Point" 
-                                 Content="Simplified"/>
+                    <RadioButton x:Name="PaperPointRadioButton"
+                                 GroupName="Point"
+                                 Content="Paper Chart"
+                                 IsChecked="True"
+                                 Checked="Setting_Checked" />
+                    <RadioButton GroupName="Point"
+                                 Content="Simplified"
+                                 Checked="Setting_Checked" />
                 </StackPanel>
-                <Button Content="Apply" 
-                        HorizontalAlignment="Stretch"
-                        Margin="5,5,5,5"
-                        Click="Button_Click" />
             </StackPanel>
         </Border>
     </Grid>

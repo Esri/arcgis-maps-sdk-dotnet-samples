@@ -74,8 +74,10 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                 DrawToolsGrid.BackgroundColor = Color.Gray;
             }
 
-            // Set the sketch editor as the page's data context
-            BindingContext = MyMapView.SketchEditor;
+            // Hack to get around linker being too aggressive - this should be done with binding.
+            UndoButton.Command = MyMapView.SketchEditor.UndoCommand;
+            RedoButton.Command = MyMapView.SketchEditor.RedoCommand;
+            CompleteButton.Command = MyMapView.SketchEditor.CompleteCommand;
         }
 
         #region Graphic and symbol helpers
@@ -176,7 +178,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                await DisplayAlert("Error", "Error drawing graphic shape: " + ex.Message, "OK");
+                await ((Page)Parent).DisplayAlert("Error", "Error drawing graphic shape: " + ex.Message, "OK");
             }
         }
 
@@ -220,7 +222,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                await DisplayAlert("Error", "Error editing shape: " + ex.Message,"OK");
+                await ((Page)Parent).DisplayAlert("Error", "Error editing shape: " + ex.Message,"OK");
             }
         }
 

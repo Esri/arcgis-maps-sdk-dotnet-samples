@@ -89,8 +89,10 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 2);
 
                 // Create a graphics overlay for the extent graphic and apply a renderer.
-                GraphicsOverlay extentOverlay = new GraphicsOverlay();
-                extentOverlay.Renderer = new SimpleRenderer(lineSymbol);
+                GraphicsOverlay extentOverlay = new GraphicsOverlay
+                {
+                    Renderer = new SimpleRenderer(lineSymbol)
+                };
 
                 // Add the graphics overlay to the map view.
                 myMapView.GraphicsOverlays.Add(extentOverlay);
@@ -128,7 +130,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -216,7 +218,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -287,14 +289,14 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             myProgressBar.IsVisible = true;
 
             // Handle the progress changed event with an inline (lambda) function to show the progress bar.
-            generateGdbJob.ProgressChanged += ((sender, e) =>
+            generateGdbJob.ProgressChanged += (sender, e) =>
             {
                 // Get the job.
                 GenerateGeodatabaseJob job = (GenerateGeodatabaseJob)sender;
 
                 // Update the progress bar.
                 UpdateProgressBar(job.Progress);
-            });
+            };
 
             // Start the job.
             generateGdbJob.Start();
@@ -355,7 +357,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 }
 
                 // Show the message.
-                DisplayAlert("Error", message, "OK");
+                ((Page)Parent).DisplayAlert("Error", message, "OK");
             }
         }
 
@@ -420,7 +422,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             // Tell the user about job completion.
             if (job.Status == JobStatus.Succeeded)
             {
-                DisplayAlert("Alert", "Geodatabase synchronization succeeded.", "OK");
+                ((Page)Parent).DisplayAlert("Alert", "Geodatabase synchronization succeeded.", "OK");
             }
             // See if the job failed.
             else if (job.Status == JobStatus.Failed)
@@ -444,7 +446,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 }
 
                 // Show the message.
-                DisplayAlert("Error", message, "OK");
+               ((Page)Parent).DisplayAlert("Error", message, "OK");
             }
         }
 
@@ -460,7 +462,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -490,7 +492,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Alert", ex.ToString(), "OK");
+                await ((Page)Parent).DisplayAlert("Alert", ex.ToString(), "OK");
             }
         }
     }

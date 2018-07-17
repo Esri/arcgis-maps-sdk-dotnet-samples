@@ -79,7 +79,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
                 _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
                 _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _segmentButton.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - (2 * margin), controlHeight);
+                _segmentButton.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
 
                 if (_searchMapsUi != null)
                 {
@@ -384,16 +384,18 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             try
             {
                 // Create a challenge request for portal credentials (OAuth credential request for arcgis.com).
-                CredentialRequestInfo challengeRequest = new CredentialRequestInfo();
-
-                // Use the OAuth implicit grant flow.
-                challengeRequest.GenerateTokenOptions = new GenerateTokenOptions
+                CredentialRequestInfo challengeRequest = new CredentialRequestInfo
                 {
-                    TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-                };
 
-                // Indicate the URL (portal) to authenticate with (ArcGIS Online).
-                challengeRequest.ServiceUri = new Uri(ServerUrl);
+                    // Use the OAuth implicit grant flow.
+                    GenerateTokenOptions = new GenerateTokenOptions
+                    {
+                        TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                    },
+
+                    // Indicate the URL (portal) to authenticate with (ArcGIS Online).
+                    ServiceUri = new Uri(ServerUrl)
+                };
 
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler.
                 Credential cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);

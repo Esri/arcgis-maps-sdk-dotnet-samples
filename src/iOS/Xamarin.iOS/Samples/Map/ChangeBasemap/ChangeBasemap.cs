@@ -109,7 +109,7 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
                 nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
                 nfloat margin = 5;
                 nfloat controlHeight = 30;
-                nfloat toolbarHeight = controlHeight + (2 * margin);
+                nfloat toolbarHeight = controlHeight + 2 * margin;
 
                 // Reposition the views.
                 _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);

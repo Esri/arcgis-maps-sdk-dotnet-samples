@@ -100,7 +100,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
             {
                 // Make sure that the UI changes are done in the UI thread
                 Device.BeginInvokeOnMainThread(async () => {
-                    await DisplayAlert("", "Tapped on graphic", "OK");
+                    await ((Page)Parent).DisplayAlert("", "Tapped on graphic", "OK");
                 });
             }
         }

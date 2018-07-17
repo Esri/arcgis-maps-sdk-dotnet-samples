@@ -76,15 +76,27 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
 
         private async void OnRunAnalysisClicked(object sender, EventArgs e)
         {
+            // Get the 'from' and 'to' dates from the date edit text's for the geoprocessing analysis
+            DateTime myFromDate;
+            DateTime myToDate;
+
+            try
+            {
+                myFromDate = Convert.ToDateTime(_myEditText_StartDate.Text);
+                myToDate = Convert.ToDateTime(_myEditText_EndDate.Text);
+            }
+            catch (Exception exception)
+            {
+                // Show error message and quit
+                new AlertDialog.Builder(this).SetMessage(exception.Message).Show();
+                return;
+            }
+
             // Clear any existing results
             _myMapView.Map.OperationalLayers.Clear();
 
             // Show busy activity indication
             _myProgressBar.Visibility = ViewStates.Visible;
-
-            // Get the 'from' and 'to' dates from the date edit text's for the geoprocessing analysis
-            DateTime myFromDate = Convert.ToDateTime(_myEditText_StartDate.Text);
-            DateTime myToDate = Convert.ToDateTime(_myEditText_EndDate.Text);
 
             // The end date must be at least one day after the start date
             if (myToDate <= myFromDate.AddDays(1))
@@ -164,13 +176,17 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             LinearLayout subLayout1 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Label for the start date
-            TextView textview_Label1 = new TextView(this);
-            textview_Label1.Text = "Start Date:";
+            TextView textview_Label1 = new TextView(this)
+            {
+                Text = "Start Date:"
+            };
             subLayout1.AddView(textview_Label1);
 
             // Edit text for the start date (user can change if desired)
-            _myEditText_StartDate = new EditText(this);
-            _myEditText_StartDate.Text = "1/01/98";
+            _myEditText_StartDate = new EditText(this)
+            {
+                Text = "1/01/98"
+            };
             subLayout1.AddView(_myEditText_StartDate);
 
             // Add the start date information to the general layout
@@ -180,28 +196,36 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             LinearLayout subLayout2 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Label for the end date
-            TextView textview_Label2 = new TextView(this);
-            textview_Label2.Text = "End Date:";
+            TextView textview_Label2 = new TextView(this)
+            {
+                Text = "End Date:"
+            };
             subLayout2.AddView(textview_Label2);
 
             // Edit text for the end date (user can change if desired)
-            _myEditText_EndDate = new EditText(this);
-            _myEditText_EndDate.Text = "1/31/98";
+            _myEditText_EndDate = new EditText(this)
+            {
+                Text = "1/31/98"
+            };
             subLayout2.AddView(_myEditText_EndDate);
 
             // Add the start date information to the general layout
             layout.AddView(subLayout2);
 
             // Add a button to the run the hot spot analysis; wire up the click event as well 
-            Button mapsButton = new Button(this);
-            mapsButton.Text = "Run Analysis";
+            Button mapsButton = new Button(this)
+            {
+                Text = "Run Analysis"
+            };
             mapsButton.Click += OnRunAnalysisClicked;
             layout.AddView(mapsButton);
-           
+
             // Add the progress bar to indicate the geoprocessing task is running; make invisible by default
-            _myProgressBar = new ProgressBar(this);
-            _myProgressBar.Indeterminate = true;
-            _myProgressBar.Visibility = ViewStates.Invisible;
+            _myProgressBar = new ProgressBar(this)
+            {
+                Indeterminate = true,
+                Visibility = ViewStates.Invisible
+            };
             layout.AddView(_myProgressBar);
 
             // Add the map view to the layout

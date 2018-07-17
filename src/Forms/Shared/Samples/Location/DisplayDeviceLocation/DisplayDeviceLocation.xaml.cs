@@ -60,7 +60,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         {
             // Show sheet and get title from the selection
             string selectedMode =
-                await DisplayActionSheet("Select navigation mode", "Cancel", null, _navigationTypes);
+                await ((Page)Parent).DisplayActionSheet("Select navigation mode", "Cancel", null, _navigationTypes);
 
             // If selected cancel do nothing
             if (selectedMode == "Cancel") return;

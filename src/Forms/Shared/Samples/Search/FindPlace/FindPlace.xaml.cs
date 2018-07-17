@@ -313,7 +313,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user
-            DisplayAlert("Alert", message, "OK");
+            ((Page)Parent).DisplayAlert("Alert", message, "OK");
         }
 
         /// <summary>

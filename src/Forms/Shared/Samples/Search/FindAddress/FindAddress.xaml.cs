@@ -147,7 +147,7 @@ namespace ArcGISRuntime.Samples.FindAddress
         private async void SuggestionButtonTapped(object sender, System.EventArgs e)
         {
             // Display the list of suggestions; returns the selected option
-            string action = await DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
+            string action = await ((Page)this.Parent).DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
             // Update the search
             MySearchBar.Text = action;
             updateSearch();

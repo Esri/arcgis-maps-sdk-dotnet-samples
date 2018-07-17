@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         "Identify WMS features",
         "Layers",
         "This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.",
-        "Tap to identify a features. Note that due to the nature of the WMS service implementation, an empty result is shown when there is no result; an application might inspect the HTML to determine if the HTML actually contains a feature.")]
+        "Tap to identify a feature. Note: the service returns HTML regardless of whether there was an identify result. See the Forms implementation for an example heuristic for identifying empty results.")]
     public class WmsIdentify : UIViewController
     {
         // Create and hold references to the UI controls.
@@ -81,7 +81,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
                 nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
                 nfloat toolbarHeight = 40;
                 nfloat margin = 5;
-                nfloat controlHeight = toolbarHeight - (2 * margin);
+                nfloat controlHeight = toolbarHeight - 2 * margin;
                 nfloat webviewHeight = 200;
 
                 // Reposition controls.
@@ -91,7 +91,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
                 _webView.Frame = new CGRect(0, View.Bounds.Height - webviewHeight, View.Bounds.Width, webviewHeight);
 
                 // Position the help label within the toolbar.
-                _helpLabel.Frame = new CGRect(margin, margin, _toolbar.Bounds.Width - (2 * margin), controlHeight);
+                _helpLabel.Frame = new CGRect(margin, margin, _toolbar.Bounds.Width - 2 * margin, controlHeight);
 
                 base.ViewDidLayoutSubviews();
             }

@@ -83,7 +83,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
                 // Reposition the views
                 _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
                 _myDisplayList.Frame = new CGRect(0, topMargin, View.Bounds.Width, listHeight);
-                _myHelpLabel.Frame = new CGRect(margin, _myDisplayList.Frame.Bottom + margin, View.Bounds.Width - (2 * margin), controlHeight);
+                _myHelpLabel.Frame = new CGRect(margin, _myDisplayList.Frame.Bottom + margin, View.Bounds.Width - 2 * margin, controlHeight);
                 _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
                 _myMapView.ViewInsets = new UIEdgeInsets(_toolbar.Frame.Bottom, 0, 0, 0);
 

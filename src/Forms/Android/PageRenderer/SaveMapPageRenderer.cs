@@ -50,10 +50,12 @@ namespace ArcGISRuntime.AndroidPageRenderer
                 clientId: AuthorMap.AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
+                redirectUrl: callbackUri)
+            {
 
-            // Allow the user to cancel the OAuth attempt
-            authenticator.AllowCancel = true;
+                // Allow the user to cancel the OAuth attempt
+                AllowCancel = true
+            };
 
             // Define a handler for the OAuth2Authenticator.Completed event
             authenticator.Completed += (sender, authArgs) =>

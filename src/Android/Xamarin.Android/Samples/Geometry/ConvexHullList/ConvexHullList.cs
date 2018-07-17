@@ -88,19 +88,23 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                 polygonsSimpleLineSymbol);
 
             // Create the graphic for polygon1 - comprised of a polygon shape and fill symbol.
-            _polygonGraphic1 = new Graphic(CreatePolygon1(), polygonsSimpleFillSymbol);
+            _polygonGraphic1 = new Graphic(CreatePolygon1(), polygonsSimpleFillSymbol)
+            {
 
-            // Set the Z index for the polygon1 graphic so that it appears above the convex hull graphic(s) added later.
-            _polygonGraphic1.ZIndex = 1;
+                // Set the Z index for the polygon1 graphic so that it appears above the convex hull graphic(s) added later.
+                ZIndex = 1
+            };
 
             // Add the polygon1 graphic to the graphics overlay collection.
             _graphicsOverlay.Graphics.Add(_polygonGraphic1);
 
             // Create the graphic for polygon2 - comprised of a polygon shape and fill symbol.
-            _polygonGraphic2 = new Graphic(CreatePolygon2(), polygonsSimpleFillSymbol);
+            _polygonGraphic2 = new Graphic(CreatePolygon2(), polygonsSimpleFillSymbol)
+            {
 
-            // Set the Z index for the polygon2 graphic so that it appears above the convex hull graphic(s) added later.
-            _polygonGraphic2.ZIndex = 1;
+                // Set the Z index for the polygon2 graphic so that it appears above the convex hull graphic(s) added later.
+                ZIndex = 1
+            };
 
             // Add the polygon2 graphic to the graphics overlay collection.
             _graphicsOverlay.Graphics.Add(_polygonGraphic2);
@@ -186,11 +190,13 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                         System.Drawing.Color.Red, convexHullSimpleLineSymbol);
 
                     // Create the graphic for the convex hull(s) - comprised of a polygon shape and fill symbol.
-                    Graphic convexHullGraphic = new Graphic(oneGeometry, convexHullSimpleFillSymbol);
+                    Graphic convexHullGraphic = new Graphic(oneGeometry, convexHullSimpleFillSymbol)
+                    {
 
-                    // Set the Z index for the convex hull graphic(s) so that they appear below the initial input graphics
-                    // added earlier (polygon1 and polygon2).
-                    convexHullGraphic.ZIndex = 0;
+                        // Set the Z index for the convex hull graphic(s) so that they appear below the initial input graphics
+                        // added earlier (polygon1 and polygon2).
+                        ZIndex = 0
+                    };
 
                     // Add the convex hull graphic to the graphics overlay collection.
                     _graphicsOverlay.Graphics.Add(convexHullGraphic);
@@ -228,36 +234,46 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a TextView for the sample instructions.
-            TextView sampleInstructionsTextView = new TextView(this);
-            sampleInstructionsTextView.Text = "Click the 'ConvexHull' button to create convex hull(s) from the polygon graphics. If the 'Union' checkbox " +
+            TextView sampleInstructionsTextView = new TextView(this)
+            {
+                Text = "Click the 'ConvexHull' button to create convex hull(s) from the polygon graphics. If the 'Union' checkbox " +
                 "is checked, the resulting output will be one polygon being the convex hull for the two input polygons. If the 'Union' checkbox is un-checked, " +
-                "the resulting output will have two convex hull polygons - one for each of the two input polygons.";
+                "the resulting output will have two convex hull polygons - one for each of the two input polygons."
+            };
             layout.AddView(sampleInstructionsTextView);
 
             // Create a horizontal sub layout for the text view and switch controls.
             LinearLayout subLayout2 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Create a TextView for the union label.
-            TextView unionInstructionsTextView = new TextView(this);
-            unionInstructionsTextView.Text = "Union:";
+            TextView unionInstructionsTextView = new TextView(this)
+            {
+                Text = "Union:"
+            };
             subLayout2.AddView(unionInstructionsTextView);
 
             // Create a Switch for the union option.
-            _convexHullListSwitch = new Switch(this);
-            _convexHullListSwitch.Checked = true;
+            _convexHullListSwitch = new Switch(this)
+            {
+                Checked = true
+            };
             subLayout2.AddView(_convexHullListSwitch);
 
             layout.AddView(subLayout2);
 
             // Create button to create the convex hull(s).
-            _convexHullListButton = new Button(this);
-            _convexHullListButton.Text = "Convex Hull";
+            _convexHullListButton = new Button(this)
+            {
+                Text = "Convex Hull"
+            };
             _convexHullListButton.Click += OnMakeUnionBufferClicked;
             layout.AddView(_convexHullListButton);
 
             // Create button to reset the convex hull(s).
-            _resetButton = new Button(this);
-            _resetButton.Text = "Reset";
+            _resetButton = new Button(this)
+            {
+                Text = "Reset"
+            };
             _resetButton.Click += OnResetClicked;
             layout.AddView(_resetButton);
 

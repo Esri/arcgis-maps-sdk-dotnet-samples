@@ -124,7 +124,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             SeekBar azimuthSlider = new SeekBar(this)
             {
                 // Set the slider width and height
-                LayoutParameters = new ViewGroup.LayoutParams(350, 35),
+                LayoutParameters = new ViewGroup.LayoutParams(350, 60),
 
                 // Set a maximum slider value of 360 (minimum is 0)
                 Max = 360
@@ -140,7 +140,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             SeekBar altitudeSlider = new SeekBar(this)
             {
                 // Set the slider width and height
-                LayoutParameters = new ViewGroup.LayoutParams(350, 35),
+                LayoutParameters = new ViewGroup.LayoutParams(350, 60),
 
                 // Set a maximum slider value of 90 (minimum is 0)
                 Max = 90

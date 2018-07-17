@@ -100,8 +100,10 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create button to show map options
-            Button mapsButton = new Button(this);
-            mapsButton.Text = "Basemaps";
+            Button mapsButton = new Button(this)
+            {
+                Text = "Basemaps"
+            };
             mapsButton.Click += OnBasemapsClicked;
 
             // Add maps button to the layout

@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
 using System.Collections.Generic;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.UWP.Samples.ChangeStretchRenderer
@@ -70,8 +71,22 @@ namespace ArcGISRuntime.UWP.Samples.ChangeStretchRenderer
 
         }
 
-        private void OnUpdateRendererClicked(object sender, RoutedEventArgs e)
+        private async void OnUpdateRendererClicked(object sender, RoutedEventArgs e)
         {
+            // Convert the text to doubles and return if they're invalid.
+            double input1;
+            double input2;
+            try
+            {
+                input1 = Convert.ToDouble(FirstParameterInput.Text);
+                input2 = Convert.ToDouble(SecondParameterInput.Text);
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.Message).ShowAsync();
+                return;
+            }
+
             // Get the user choice for the raster stretch render
             string myRendererTypeChoice = RendererTypes.SelectedValue.ToString();
 
@@ -92,10 +107,10 @@ namespace ArcGISRuntime.UWP.Samples.ChangeStretchRenderer
                     // TODO: Add you own logic to ensure that accurate min/max stretch values are used
 
                     // Create an IEnumerable from a list of double min stretch value doubles
-                    IEnumerable<double> myMinValues = new List<double> { Convert.ToDouble(FirstParameterInput.Text) };
+                    IEnumerable<double> myMinValues = new List<double> { input1 };
 
                     // Create an IEnumerable from a list of double max stretch value doubles
-                    IEnumerable<double> myMaxValues = new List<double> { Convert.ToDouble(SecondParameterInput.Text) };
+                    IEnumerable<double> myMaxValues = new List<double> { input2 };
 
                     // Create a new MinMaxStretchParameters based on the user choice for min and max stretch values
                     MinMaxStretchParameters myMinMaxStretchParameters = new MinMaxStretchParameters(myMinValues, myMaxValues);
@@ -111,7 +126,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeStretchRenderer
                     // TODO: Add you own logic to ensure that accurate min/max percent clip values are used
 
                     // Create a new PercentClipStretchParameters based on the user choice for min and max percent clip values
-                    PercentClipStretchParameters myPercentClipStretchParameters = new PercentClipStretchParameters(Convert.ToDouble(FirstParameterInput.Text), Convert.ToDouble(SecondParameterInput.Text));
+                    PercentClipStretchParameters myPercentClipStretchParameters = new PercentClipStretchParameters(input1, input2);
 
                     // Create the percent clip renderer based on the user defined min/max percent clip values, empty gamma values, statistic estimates, and a predefined color ramp 
                     myStretchRenderer = new StretchRenderer(myPercentClipStretchParameters, myGammaValues, true, myColorRamp);
@@ -124,7 +139,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeStretchRenderer
                     // TODO: Add you own logic to ensure that an accurate standard deviation value is used
 
                     // Create a new StandardDeviationStretchParameters based on the user choice for standard deviation value
-                    StandardDeviationStretchParameters myStandardDeviationStretchParameters = new StandardDeviationStretchParameters(Convert.ToDouble(FirstParameterInput.Text));
+                    StandardDeviationStretchParameters myStandardDeviationStretchParameters = new StandardDeviationStretchParameters(input1);
 
                     // Create the standard deviation renderer based on the user defined standard deviation value, empty gamma values, statistic estimates, and a predefined color ramp 
                     myStretchRenderer = new StretchRenderer(myStandardDeviationStretchParameters, myGammaValues, true, myColorRamp);

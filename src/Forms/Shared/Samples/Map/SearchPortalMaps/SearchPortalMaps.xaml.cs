@@ -194,7 +194,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 Exception err = map.LoadError;
                 if (err != null)
                 {
-                    DisplayAlert(err.Message, "Map Load Error", "OK");
+                    ((Page)Parent).DisplayAlert(err.Message, "Map Load Error", "OK");
                 }
             }
         }
@@ -206,16 +206,18 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             try
             {
                 // Create a challenge request for portal credentials (OAuth credential request for arcgis.com)
-                CredentialRequestInfo challengeRequest = new CredentialRequestInfo();
-
-                // Use the OAuth implicit grant flow
-                challengeRequest.GenerateTokenOptions = new GenerateTokenOptions
+                CredentialRequestInfo challengeRequest = new CredentialRequestInfo
                 {
-                    TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-                };
 
-                // Indicate the url (portal) to authenticate with (ArcGIS Online)
-                challengeRequest.ServiceUri = new Uri(ArcGISOnlineUrl);
+                    // Use the OAuth implicit grant flow
+                    GenerateTokenOptions = new GenerateTokenOptions
+                    {
+                        TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                    },
+
+                    // Indicate the url (portal) to authenticate with (ArcGIS Online)
+                    ServiceUri = new Uri(ArcGISOnlineUrl)
+                };
 
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
                 Credential cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
@@ -229,7 +231,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             catch (Exception ex)
             {
                 // Login failure
-                await DisplayAlert("Login Error", ex.Message, "OK");
+                await ((Page)Parent).DisplayAlert("Login Error", ex.Message, "OK");
             }
 
             return loggedIn;
@@ -251,11 +253,13 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private void UpdateAuthenticationManager()
         {
             // Define the server information for ArcGIS Online
-            ServerInfo portalServerInfo = new ServerInfo();
-            // ArcGIS Online URI
-            portalServerInfo.ServerUri = new Uri(ArcGISOnlineUrl);
-            // Type of token authentication to use
-            portalServerInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit;
+            ServerInfo portalServerInfo = new ServerInfo
+            {
+                // ArcGIS Online URI
+                ServerUri = new Uri(ArcGISOnlineUrl),
+                // Type of token authentication to use
+                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+            };
 
             // Define the OAuth information
             OAuthClientInfo oAuthInfo = new OAuthClientInfo

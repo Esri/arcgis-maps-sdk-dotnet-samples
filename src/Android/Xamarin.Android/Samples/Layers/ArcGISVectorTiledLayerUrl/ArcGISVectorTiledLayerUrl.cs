@@ -101,8 +101,10 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create button to show options
-            Button button = new Button(this);
-            button.Text = "Select layer";
+            Button button = new Button(this)
+            {
+                Text = "Select layer"
+            };
             button.Click += OnVectorLayersClicked;
 
             // Add button to the layout

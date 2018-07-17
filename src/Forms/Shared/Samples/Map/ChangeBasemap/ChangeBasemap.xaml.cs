@@ -52,7 +52,7 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         {
             // Show sheet and get title from the selection
             string selectedBasemap =
-                await DisplayActionSheet("Select basemap", "Cancel", null, _basemapOptions.Keys.ToArray());
+                await ((Page)Parent).DisplayActionSheet("Select basemap", "Cancel", null, _basemapOptions.Keys.ToArray());
 
             // Retrieve the basemap from the dictionary
             MyMapView.Map.Basemap = _basemapOptions[selectedBasemap];

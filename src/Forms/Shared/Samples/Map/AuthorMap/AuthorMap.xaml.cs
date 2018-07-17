@@ -219,7 +219,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     await myMap.SaveAsAsync(agsOnline, null, title, description, tags, thumbnailImage);
 
                     // Report a successful save
-                    await DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
+                    await ((Page)Parent).DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
                 }
                 else
                 {
@@ -234,13 +234,13 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     await myMap.SaveAsync();
 
                     // Report update was successful
-                    await DisplayAlert("Updates Saved", "Saved changes to '" + myMap.Item.Title + "'", "OK");
+                    await ((Page)Parent).DisplayAlert("Updates Saved", "Saved changes to '" + myMap.Item.Title + "'", "OK");
                 }
             }
             catch (Exception ex)
             {
                 // Show the exception message
-                await DisplayAlert("Unable to save map", ex.Message, "OK");
+                await ((Page)Parent).DisplayAlert("Unable to save map", ex.Message, "OK");
             }
             finally
             {
@@ -253,16 +253,18 @@ namespace ArcGISRuntime.Samples.AuthorMap
         {
             // Challenge the user for portal credentials (OAuth credential request for arcgis.com)
             Credential cred = null;
-            CredentialRequestInfo loginInfo = new CredentialRequestInfo();
-
-            // Use the OAuth implicit grant flow
-            loginInfo.GenerateTokenOptions = new GenerateTokenOptions
+            CredentialRequestInfo loginInfo = new CredentialRequestInfo
             {
-                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-            };
 
-            // Indicate the url (portal) to authenticate with (ArcGIS Online)
-            loginInfo.ServiceUri = new Uri(ArcGISOnlineUrl);
+                // Use the OAuth implicit grant flow
+                GenerateTokenOptions = new GenerateTokenOptions
+                {
+                    TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                },
+
+                // Indicate the url (portal) to authenticate with (ArcGIS Online)
+                ServiceUri = new Uri(ArcGISOnlineUrl)
+            };
 
             try
             {
@@ -327,11 +329,9 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
             Uri layerUri = new Uri(url);
 
-            // Create a new map image layer
+            // Create and add a new map image layer
             layer = new ArcGISMapImageLayer(layerUri);
             layer.Name = layerName;
-
-            // Set it 50% opaque, and add it to the map
             layer.Opacity = 0.5;
             MyMapView.Map.OperationalLayers.Add(layer);
         }
@@ -340,11 +340,13 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void UpdateAuthenticationManager()
         {
             // Define the server information for ArcGIS Online
-            ServerInfo portalServerInfo = new ServerInfo();
-            // ArcGIS Online URI
-            portalServerInfo.ServerUri = new Uri(ArcGISOnlineUrl);
-            // Type of token authentication to use
-            portalServerInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit;
+            ServerInfo portalServerInfo = new ServerInfo
+            {
+                // ArcGIS Online URI
+                ServerUri = new Uri(ArcGISOnlineUrl),
+                // Type of token authentication to use
+                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+            };
 
             // Define the OAuth information
             OAuthClientInfo oAuthInfo = new OAuthClientInfo

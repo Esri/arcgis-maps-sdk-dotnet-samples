@@ -67,30 +67,38 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
 
             // Bookmark-1
             Viewpoint myViewpoint1 = new Viewpoint(27.3805833, 33.6321389, 6000);
-            Bookmark myBookmark1 = new Bookmark();
-            myBookmark1.Name = "Mysterious Desert Pattern";
-            myBookmark1.Viewpoint = myViewpoint1;
+            Bookmark myBookmark1 = new Bookmark
+            {
+                Name = "Mysterious Desert Pattern",
+                Viewpoint = myViewpoint1
+            };
             _myMapView.Map.Bookmarks.Add(myBookmark1);
 
             // Bookmark-2
             Viewpoint myViewpoint2 = new Viewpoint(-39.299987, 174.060858, 600000);
-            Bookmark myBookmark2 = new Bookmark();
-            myBookmark2.Name = "Dormant Volcano";
-            myBookmark2.Viewpoint = myViewpoint2;
+            Bookmark myBookmark2 = new Bookmark
+            {
+                Name = "Dormant Volcano",
+                Viewpoint = myViewpoint2
+            };
             _myMapView.Map.Bookmarks.Add(myBookmark2);
 
             // Bookmark-3
             Viewpoint myViewpoint3 = new Viewpoint(-33.867886, -63.985, 40000);
-            Bookmark myBookmark3 = new Bookmark();
-            myBookmark3.Name = "Guitar-Shaped Forest";
-            myBookmark3.Viewpoint = myViewpoint3;
+            Bookmark myBookmark3 = new Bookmark
+            {
+                Name = "Guitar-Shaped Forest",
+                Viewpoint = myViewpoint3
+            };
             _myMapView.Map.Bookmarks.Add(myBookmark3);
 
             // Bookmark-4
             Viewpoint myViewpoint4 = new Viewpoint(44.525049, -110.83819, 6000);
-            Bookmark myBookmark4 = new Bookmark();
-            myBookmark4.Name = "Grand Prismatic Spring";
-            myBookmark4.Viewpoint = myViewpoint4;
+            Bookmark myBookmark4 = new Bookmark
+            {
+                Name = "Grand Prismatic Spring",
+                Viewpoint = myViewpoint4
+            };
             _myMapView.Map.Bookmarks.Add(myBookmark4);
         }
 
@@ -100,8 +108,10 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create button to show bookmarks
-            _bookmarksButton = new Button(this);
-            _bookmarksButton.Text = "Bookmarks";
+            _bookmarksButton = new Button(this)
+            {
+                Text = "Bookmarks"
+            };
             _bookmarksButton.Click += OnBookmarksClicked;
 
             // Add bookmarks button to the layout
@@ -173,12 +183,16 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
             // Create the layout
-            LinearLayout dialogLayout = new LinearLayout(this);
-            dialogLayout.Orientation = Orientation.Vertical;
+            LinearLayout dialogLayout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Vertical
+            };
 
             // Create a layout for the text entry
-            LinearLayout nameTextLayout = new LinearLayout(this);
-            nameTextLayout.Orientation = Orientation.Horizontal;
+            LinearLayout nameTextLayout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Horizontal
+            };
             nameTextLayout.SetPadding(10,0,10,0);
 
             // EditText control for entering the bookmark name
@@ -191,18 +205,22 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
                 1.0f
             );
             _bookmarkNameText.LayoutParameters = fillWidthParam;
-            
+
             // Label for the text entry
-            TextView nameLabel = new TextView(this);
-            nameLabel.Text = "Name:";
+            TextView nameLabel = new TextView(this)
+            {
+                Text = "Name:"
+            };
 
             // Add the controls to the layout
             nameTextLayout.AddView(nameLabel);
             nameTextLayout.AddView(_bookmarkNameText);
 
             // Create a layout for the dialog buttons (OK and Cancel)
-            LinearLayout buttonLayout = new LinearLayout(this);
-            buttonLayout.Orientation = Orientation.Horizontal;
+            LinearLayout buttonLayout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Horizontal
+            };
 
             // Button to cancel the new bookmark
             Button cancelButton = new Button(this)

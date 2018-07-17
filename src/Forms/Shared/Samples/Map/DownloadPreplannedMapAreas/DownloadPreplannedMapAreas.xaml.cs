@@ -85,7 +85,7 @@ namespace ArcGISRuntime.Samples.DownloadPreplannedMapAreas
             catch (Exception ex)
             {
                 // Something unexpected happened, show the error message.
-                await DisplayAlert("An error occurred", ex.Message, "OK");
+                await ((Page)Parent).DisplayAlert("An error occurred", ex.Message, "OK");
             }
         }
 
@@ -151,7 +151,7 @@ namespace ArcGISRuntime.Samples.DownloadPreplannedMapAreas
                     }
 
                     // Show the message.
-                    await DisplayAlert("Warning!", errorBuilder.ToString(), "OK");
+                    await ((Page)Parent).DisplayAlert("Warning!", errorBuilder.ToString(), "OK");
                 }
 
                 // Show the Map in the MapView.
@@ -160,7 +160,7 @@ namespace ArcGISRuntime.Samples.DownloadPreplannedMapAreas
             catch (Exception ex)
             {
                 // Report the exception.
-                await DisplayAlert("Downloading map area failed.", ex.Message, "OK");
+                await ((Page)Parent).DisplayAlert("Downloading map area failed.", ex.Message, "OK");
             }
             finally
             {
@@ -238,7 +238,7 @@ namespace ArcGISRuntime.Samples.DownloadPreplannedMapAreas
             catch (Exception ex)
             {
                 // Report error accessing a resource.
-                await DisplayAlert("Deleting map areas failed", ex.Message, "OK");
+                await ((Page)Parent).DisplayAlert("Deleting map areas failed", ex.Message, "OK");
             }
             finally
             {

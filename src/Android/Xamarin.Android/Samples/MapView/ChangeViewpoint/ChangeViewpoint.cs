@@ -148,8 +148,10 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create button to show possible map options
-            Button mapsButton = new Button(this);
-            mapsButton.Text = "Viewpoints";
+            Button mapsButton = new Button(this)
+            {
+                Text = "Viewpoints"
+            };
             mapsButton.Click += OnMapsClicked;
 
             // Add maps button to the layout

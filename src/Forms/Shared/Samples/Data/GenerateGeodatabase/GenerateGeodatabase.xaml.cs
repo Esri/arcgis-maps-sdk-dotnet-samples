@@ -116,7 +116,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -181,10 +181,10 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             _generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the progress changed event (to show progress bar).
-            _generateGdbJob.ProgressChanged += ((sender, e) =>
+            _generateGdbJob.ProgressChanged += (sender, e) =>
             {
                 UpdateProgressBar();
-            });
+            };
 
             // Show the progress bar.
             myProgressBar.IsVisible = true;
@@ -223,7 +223,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 await _gdbSyncTask.UnregisterGeodatabaseAsync(resultGdb);
 
                 // Tell the user that the geodatabase was unregistered.
-                await DisplayAlert("Alert", "Since no edits will be made, the local geodatabase has been unregistered per best practice.", "OK");
+                await ((Page)Parent).DisplayAlert("Alert", "Since no edits will be made, the local geodatabase has been unregistered per best practice.", "OK");
 
                 // Re-enable generate button.
                 myGenerateButton.IsEnabled = true;
@@ -246,7 +246,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                     message += ": " + String.Join("\n", job.Messages.Select(m => m.Message));
                 }
 
-                await DisplayAlert("Alert", message, "OK");
+                await ((Page)Parent).DisplayAlert("Alert", message, "OK");
             }
         }
 
@@ -262,7 +262,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 

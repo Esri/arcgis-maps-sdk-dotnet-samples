@@ -240,9 +240,11 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             controlY = controlY + 30;
 
             // Adjust the Y position for the next control.
-            _slopeTypePicker = new UISegmentedControl(Enum.GetNames(typeof(SlopeType)));
-            _slopeTypePicker.ApportionsSegmentWidthsByContent = true;
-            _slopeTypePicker.Frame = new CGRect(5, controlY, Bounds.Width - 10, 30);
+            _slopeTypePicker = new UISegmentedControl(Enum.GetNames(typeof(SlopeType)))
+            {
+                ApportionsSegmentWidthsByContent = true,
+                Frame = new CGRect(5, controlY, Bounds.Width - 10, 30)
+            };
             controlY += 35;
 
             // Create a label for the altitude input.

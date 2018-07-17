@@ -286,11 +286,11 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             GenerateGeodatabaseJob generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the progress changed event with an inline (lambda) function to show the progress bar.
-            generateGdbJob.ProgressChanged += ((sender, e) =>
+            generateGdbJob.ProgressChanged += (sender, e) =>
             {
                 // Update the progress bar.
                 UpdateProgressBar(generateGdbJob.Progress);
-            });
+            };
 
             // Show the progress bar.
             MyProgressBar.Visibility = Visibility.Visible;

@@ -97,8 +97,10 @@ namespace ArcGISRuntime.Samples.OpenMapURL
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create button to show possible map options
-            Button mapsButton = new Button(this);
-            mapsButton.Text = "Maps";
+            Button mapsButton = new Button(this)
+            {
+                Text = "Maps"
+            };
             mapsButton.Click += OnMapsClicked;
 
             // Add maps button to the layout

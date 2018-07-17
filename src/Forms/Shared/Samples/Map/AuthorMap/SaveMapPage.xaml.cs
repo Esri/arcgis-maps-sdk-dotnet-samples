@@ -60,7 +60,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             catch (Exception ex)
             {
                 // Show the exception message (dialog will stay open so user can try again)
-               ((Page)Parent).DisplayAlert("Error", ex.Message, "OK");
+                ((Page)Parent).DisplayAlert("Error", ex.Message, "OK");
             }
         }
 

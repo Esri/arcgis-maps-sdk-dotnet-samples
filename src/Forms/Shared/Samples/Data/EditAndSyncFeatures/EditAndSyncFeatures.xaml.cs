@@ -357,7 +357,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 }
 
                 // Show the message.
-               ((Page)Parent).DisplayAlert("Error", message, "OK");
+                ((Page)Parent).DisplayAlert("Error", message, "OK");
             }
         }
 
@@ -422,7 +422,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             // Tell the user about job completion.
             if (job.Status == JobStatus.Succeeded)
             {
-               ((Page)Parent).DisplayAlert("Alert", "Geodatabase synchronization succeeded.", "OK");
+                ((Page)Parent).DisplayAlert("Alert", "Geodatabase synchronization succeeded.", "OK");
             }
             // See if the job failed.
             else if (job.Status == JobStatus.Failed)

@@ -35,7 +35,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
             // Make sure the user entered all values.
             if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password))
             {
-                DisplayAlert("Login", "Please enter a username and password", "OK");
+                ((Page)Parent).DisplayAlert("Login", "Please enter a username and password", "OK");
                 return;
             }
 

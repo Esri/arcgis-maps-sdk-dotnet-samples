@@ -235,7 +235,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             string selectedFieldName = GroupFieldsListBox.SelectedItem.ToString();
             if (!_groupByFields.Contains(selectedFieldName))
             {
-                DisplayAlert("Only fields used for grouping can be used to order results.", "Query", "OK");
+                ((Page)Parent).DisplayAlert("Only fields used for grouping can be used to order results.", "Query", "OK");
                 return;
             }
 

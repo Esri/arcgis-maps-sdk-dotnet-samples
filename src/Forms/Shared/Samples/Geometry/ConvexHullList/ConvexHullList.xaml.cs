@@ -192,7 +192,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             catch (Exception ex)
             {
                 // Display an error message if there is a problem generating convex hull operation.
-                DisplayAlert("Geometry Engine Failed", "Error creating convex hull: " + ex.Message, "OK");
+                ((Page)Parent).DisplayAlert("Geometry Engine Failed", "Error creating convex hull: " + ex.Message, "OK");
             }
         }
 

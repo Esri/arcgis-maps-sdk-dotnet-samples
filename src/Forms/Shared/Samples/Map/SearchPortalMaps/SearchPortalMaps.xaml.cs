@@ -194,7 +194,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 Exception err = map.LoadError;
                 if (err != null)
                 {
-                    DisplayAlert(err.Message, "Map Load Error", "OK");
+                    ((Page)Parent).DisplayAlert(err.Message, "Map Load Error", "OK");
                 }
             }
         }

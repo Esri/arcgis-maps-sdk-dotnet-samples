@@ -47,7 +47,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromQuery
             }
             catch (Exception ex)
             {
-                DisplayAlert("Error", "Unable to create feature collection layer: " + ex.Message, "OK");
+                ((Page)Parent).DisplayAlert("Error", "Unable to create feature collection layer: " + ex.Message, "OK");
             }
         }
 

@@ -16,17 +16,13 @@
                              Margin="0,0,0,10" Visibility="Visible" />
                 <ListView x:Name="MyResultsView"
                           MaxHeight="300"
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          SelectionMode="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding}" TextWrapping="Wrap" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="AllowFocusOnInteraction" Value="false"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
                 </ListView>
             </StackPanel>
         </Border>

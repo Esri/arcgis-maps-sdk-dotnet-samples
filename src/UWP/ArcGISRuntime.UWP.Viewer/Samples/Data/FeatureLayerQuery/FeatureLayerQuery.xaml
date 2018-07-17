@@ -7,8 +7,9 @@
         <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock Text="Enter a state name and press 'Enter' to search."
+                <TextBlock Text="Enter a state name and press 🔎 to search."
                            TextAlignment="Center" FontWeight="SemiBold"
+                           IsColorFontEnabled="False"
                            Margin="0,0,0,5" />
                 <AutoSuggestBox Text="New York"
                                 QueryIcon="Find"

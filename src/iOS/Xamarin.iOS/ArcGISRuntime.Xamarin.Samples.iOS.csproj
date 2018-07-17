@@ -434,6 +434,7 @@
     <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.cs" />
     <Compile Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.cs" />
     <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.cs" />
+    <Compile Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.cs" />
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.cs" />
     <Compile Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.cs" />
     <Compile Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.cs" />
@@ -512,6 +513,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.jpg" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

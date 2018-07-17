@@ -319,6 +319,7 @@
     <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.cs" />
     <Compile Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.cs" />
     <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.cs" />
+    <Compile Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.cs" />
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.cs" />
     <Compile Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.cs" />
     <Compile Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.cs" />

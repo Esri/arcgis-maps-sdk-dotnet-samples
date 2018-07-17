@@ -16,6 +16,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Drawing;
+using Android.Views;
 
 namespace ArcGISRuntime.Samples.FeatureLayerSelection
 {
@@ -131,6 +132,13 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
         {
             // Create a new vertical layout for the app
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+
+            // Create and add a help label
+            TextView helpLabel = new TextView(this)
+            {
+                Text = "Tap to select features."
+            };
+            layout.AddView(helpLabel);
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

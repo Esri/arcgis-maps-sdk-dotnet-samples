@@ -1277,7 +1277,7 @@
   <ItemGroup />
   <!-- Imports -->
   <!-- Source Code Viewer Copies -->
-  <Import Project="UWP.targets" />
+  <Import Project="SourceViewer.targets" />
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

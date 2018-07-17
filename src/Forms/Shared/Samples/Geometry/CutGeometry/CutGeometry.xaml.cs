@@ -12,7 +12,8 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
-using System.Drawing;
+using Xamarin.Forms;
+using Color = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.CutGeometry
 {
@@ -115,7 +116,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
             catch (Exception ex)
             {
                 // Display an error message if there is a problem generating cut operation.
-                DisplayAlert("Geometry Engine Failed", "Error performing cut: " + ex.Message, "OK");
+               ((Page)Parent).DisplayAlert("Geometry Engine Failed", "Error performing cut: " + ex.Message, "OK");
             }
         }
 

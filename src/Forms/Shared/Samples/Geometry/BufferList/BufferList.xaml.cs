@@ -102,7 +102,7 @@ namespace ArcGISRuntime.Samples.BufferList
             catch (Exception ex)
             {
                 // Display an error message.
-                DisplayAlert("Error", "Error creating list of map points for buffer: " + ex.Message, "OK");
+               ((Page)Parent).DisplayAlert("Error", "Error creating list of map points for buffer: " + ex.Message, "OK");
             }
         }
 
@@ -153,7 +153,7 @@ namespace ArcGISRuntime.Samples.BufferList
             catch (Exception ex)
             {
                 // Display an error message if there is a problem generating the buffer polygon.
-                DisplayAlert("Geometry Engine Failed", "Error creating list of map points for buffer: " + ex.Message, "OK");
+               ((Page)Parent).DisplayAlert("Geometry Engine Failed", "Error creating list of map points for buffer: " + ex.Message, "OK");
             }
         }
 

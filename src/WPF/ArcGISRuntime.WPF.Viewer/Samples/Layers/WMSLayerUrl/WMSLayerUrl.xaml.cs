@@ -42,8 +42,7 @@ namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
             {
 
                 // Set the initial viewpoint
-                InitialViewpoint = new Viewpoint(
-                new MapPoint(25.450, -4.59, new SpatialReference(4326)), 1000000)
+                InitialViewpoint = new Viewpoint(new MapPoint(25.450, -4.59, SpatialReferences.Wgs84), 1000000)
             };
 
             // Add the map to the mapview

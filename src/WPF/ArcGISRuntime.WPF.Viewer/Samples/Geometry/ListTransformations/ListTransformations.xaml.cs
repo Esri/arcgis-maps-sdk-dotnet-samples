@@ -142,7 +142,7 @@ namespace ArcGISRuntime.WPF.Samples.ListTransformations
             {
                 DatumTransformationListBoxItem item = new DatumTransformationListBoxItem(transform)
                 {
-                    IsDefault = transform.Name == defaultTransform.Name
+                    IsDefault = (transform.Name == defaultTransform.Name)
                 };
                 transformationItems.Add(item);
             }

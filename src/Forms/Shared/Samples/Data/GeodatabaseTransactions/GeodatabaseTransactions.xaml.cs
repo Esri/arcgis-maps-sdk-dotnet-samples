@@ -132,7 +132,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 // Show a message for the exception encountered
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert("Generate Geodatabase","Unable to create offline database: " + ex.Message,"OK");
+                   ((Page)Parent).DisplayAlert("Generate Geodatabase","Unable to create offline database: " + ex.Message,"OK");
                 });
             }
         }
@@ -316,7 +316,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             // Warn the user if disabling transactions while a transaction is active
             if (!mustHaveTransaction && _localGeodatabase.IsInTransaction)
             {
-                DisplayAlert("Stop editing to end the current transaction.", "Current Transaction", "OK");
+               ((Page)Parent).DisplayAlert("Stop editing to end the current transaction.", "Current Transaction", "OK");
                 RequireTransactionCheckBox.IsToggled = true;
                 return;
             }

@@ -329,14 +329,10 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
             Uri layerUri = new Uri(url);
 
-            // Create a new map image layer
-            layer = new ArcGISMapImageLayer(layerUri)
-            {
-                Name = layerName,
-
-                // Set it 50% opaque, and add it to the map
-                Opacity = 0.5
-            };
+            // Create and add a new map image layer
+            layer = new ArcGISMapImageLayer(layerUri);
+            layer.Name = layerName;
+            layer.Opacity = 0.5;
             MyMapView.Map.OperationalLayers.Add(layer);
         }
 

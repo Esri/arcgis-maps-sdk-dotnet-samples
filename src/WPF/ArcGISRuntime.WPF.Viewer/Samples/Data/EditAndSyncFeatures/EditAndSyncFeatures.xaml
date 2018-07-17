@@ -8,7 +8,7 @@
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock x:Name="MyHelpLabel"
-                           Text="1. Click 'Generate Geodatabase'"
+                           Text="1. Click 'Generate geodatabase'"
                            TextAlignment="Center" FontWeight="SemiBold" />
                 <Button x:Name="MyGenerateButton"
                         Content="Generate geodatabase"

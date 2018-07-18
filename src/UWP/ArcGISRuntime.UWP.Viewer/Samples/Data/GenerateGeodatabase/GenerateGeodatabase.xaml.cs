@@ -284,7 +284,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 // Update the progress bar value.
-                GenerateProgressBar.Value = _generateGdbJob.Progress / 1.0;
+                GenerateProgressBar.Value = _generateGdbJob.Progress;
             });
         }
     }

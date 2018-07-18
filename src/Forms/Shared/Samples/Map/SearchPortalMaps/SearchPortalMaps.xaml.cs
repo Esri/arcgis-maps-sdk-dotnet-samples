@@ -108,7 +108,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private async void SearchPublicMaps(string searchText)
         {
             // Get web map portal items from a keyword search
-            IEnumerable<PortalItem> mapItems = null;
+            IEnumerable<PortalItem> mapItems;
 
             // Connect to the portal (anonymously)
             ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));

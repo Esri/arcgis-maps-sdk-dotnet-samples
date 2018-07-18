@@ -300,7 +300,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             nfloat buttonWidth = 60;
 
             // Get the total height and width of the control set (five rows of controls, four sets of space).
-            nfloat totalHeight = 5 * controlHeight + 4 * rowSpace;
+            nfloat totalHeight = (5 * controlHeight) + (4 * rowSpace);
             nfloat totalWidth = textViewWidth;
 
             // Find the center x and y of the view.

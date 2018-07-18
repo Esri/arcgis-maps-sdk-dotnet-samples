@@ -21,7 +21,7 @@
             <StackPanel>
                 <TextBlock FontSize="14" FontWeight="Bold"
                            Margin="4"
-                           Text="Map sayers (with status)" />
+                           Text="Map layers (with status)" />
                 <ListView x:Name="listLayerStatus"
                           Padding="6"
                           ItemsSource="{Binding ElementName=MyMapView, Path=Map.AllLayers}">

@@ -21,82 +21,82 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
         "Geometry",
         "This sample demonstrates how to use the Geometry engine to calculate a geodesic path between two points and measure its distance.",
         "Tap on the map to set the end point of a path from New York City. The geodesic path and geodesic distance will be displayed.")]
-public partial class GeodesicOperations : ContentPage
-{
-    // Hold references to the graphics.
-    private Graphic _startLocationGraphic;
-    private Graphic _endLocationGraphic;
-    private Graphic _pathGraphic;
-
-    public GeodesicOperations()
+    public partial class GeodesicOperations : ContentPage
     {
-        InitializeComponent();
+        // Hold references to the graphics.
+        private Graphic _startLocationGraphic;
+        private Graphic _endLocationGraphic;
+        private Graphic _pathGraphic;
 
-        // Setup the control references and execute initialization.
-        Initialize();
-    }
-
-    private void Initialize()
-    {
-        MyMapView.Map = new Map(Basemap.CreateImagery());
-
-        // Create the graphics overlay and add it to the map view.
-        GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
-        MyMapView.GraphicsOverlays.Add(graphicsOverlay);
-
-        // Add a graphic at JFK to serve as the origin.
-        MapPoint start = new MapPoint(-73.7781, 40.6413, SpatialReferences.Wgs84);
-        SimpleMarkerSymbol startMarker = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Blue, 10);
-        _startLocationGraphic = new Graphic(start, startMarker);
-
-        // Create the graphic for the destination.
-        _endLocationGraphic = new Graphic
+        public GeodesicOperations()
         {
-            Symbol = startMarker
-        };
+            InitializeComponent();
 
-        // Create the graphic for the path.
-        _pathGraphic = new Graphic
+            // Setup the control references and execute initialization.
+            Initialize();
+        }
+
+        private void Initialize()
         {
-            Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Colors.Blue, 5)
-        };
+            MyMapView.Map = new Map(Basemap.CreateImagery());
 
-        // Add the graphics to the overlay.
-        graphicsOverlay.Graphics.Add(_startLocationGraphic);
-        graphicsOverlay.Graphics.Add(_endLocationGraphic);
-        graphicsOverlay.Graphics.Add(_pathGraphic);
+            // Create the graphics overlay and add it to the map view.
+            GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
+            MyMapView.GraphicsOverlays.Add(graphicsOverlay);
 
-        // Update end location when the user taps.
-        MyMapView.GeoViewTapped += MyMapViewOnGeoViewTapped;
-    }
+            // Add a graphic at JFK to serve as the origin.
+            MapPoint start = new MapPoint(-73.7781, 40.6413, SpatialReferences.Wgs84);
+            SimpleMarkerSymbol startMarker = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Blue, 10);
+            _startLocationGraphic = new Graphic(start, startMarker);
 
-    private void MyMapViewOnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs geoViewInputEventArgs)
-    {
-        // Get the tapped point, projected to WGS84.
-        MapPoint destination = (MapPoint)GeometryEngine.Project(geoViewInputEventArgs.Location, SpatialReferences.Wgs84);
+            // Create the graphic for the destination.
+            _endLocationGraphic = new Graphic
+            {
+                Symbol = startMarker
+            };
 
-        // Update the destination graphic.
-        _endLocationGraphic.Geometry = destination;
+            // Create the graphic for the path.
+            _pathGraphic = new Graphic
+            {
+                Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Colors.Blue, 5)
+            };
 
-        // Get the points that define the route polyline.
-        PointCollection polylinePoints = new PointCollection(SpatialReferences.Wgs84)
+            // Add the graphics to the overlay.
+            graphicsOverlay.Graphics.Add(_startLocationGraphic);
+            graphicsOverlay.Graphics.Add(_endLocationGraphic);
+            graphicsOverlay.Graphics.Add(_pathGraphic);
+
+            // Update end location when the user taps.
+            MyMapView.GeoViewTapped += MyMapViewOnGeoViewTapped;
+        }
+
+        private void MyMapViewOnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs geoViewInputEventArgs)
         {
-            (MapPoint)_startLocationGraphic.Geometry,
-            destination
-        };
+            // Get the tapped point, projected to WGS84.
+            MapPoint destination = (MapPoint) GeometryEngine.Project(geoViewInputEventArgs.Location, SpatialReferences.Wgs84);
 
-        // Create the polyline for the two points.
-        Polyline routeLine = new Polyline(polylinePoints);
+            // Update the destination graphic.
+            _endLocationGraphic.Geometry = destination;
 
-        // Densify the polyline to show the geodesic curve.
-        Geometry pathGeometry = GeometryEngine.DensifyGeodetic(routeLine, 1, LinearUnits.Kilometers, GeodeticCurveType.Geodesic);
+            // Get the points that define the route polyline.
+            PointCollection polylinePoints = new PointCollection(SpatialReferences.Wgs84)
+            {
+                (MapPoint) _startLocationGraphic.Geometry,
+                destination
+            };
 
-        // Apply the curved line to the path graphic.
-        _pathGraphic.Geometry = pathGeometry;
+            // Create the polyline for the two points.
+            Polyline routeLine = new Polyline(polylinePoints);
 
-        // Calculate and show the distance.
-        double distance = GeometryEngine.LengthGeodetic(pathGeometry, LinearUnits.Kilometers, GeodeticCurveType.Geodesic);
-        ResultsLabel.Text = $"{(int)distance} kilometers";
+            // Densify the polyline to show the geodesic curve.
+            Geometry pathGeometry = GeometryEngine.DensifyGeodetic(routeLine, 1, LinearUnits.Kilometers, GeodeticCurveType.Geodesic);
+
+            // Apply the curved line to the path graphic.
+            _pathGraphic.Geometry = pathGeometry;
+
+            // Calculate and show the distance.
+            double distance = GeometryEngine.LengthGeodetic(pathGeometry, LinearUnits.Kilometers, GeodeticCurveType.Geodesic);
+            ResultsLabel.Text = $"{(int) distance} kilometers";
+        }
     }
-}
 }

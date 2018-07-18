@@ -6,15 +6,15 @@
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-        <StackPanel>
-            <TextBlock Text="Tap to identify features."
-                       TextAlignment="Center"
-                       FontWeight="SemiBold" />
-                       <WebView x:Name="ResultWebView" 
-                                Height="100"
-                                Visibility="Collapsed" />
+            <StackPanel>
+                <TextBlock Text="Tap to identify features."
+                           TextAlignment="Center"
+                           FontWeight="SemiBold" />
+                <WebView x:Name="ResultWebView"
+                         Height="100"
+                         Visibility="Collapsed" />
             </StackPanel>
-            
+
         </Border>
     </Grid>
 </UserControl>

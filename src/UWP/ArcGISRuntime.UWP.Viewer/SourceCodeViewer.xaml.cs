@@ -32,7 +32,6 @@ namespace ArcGISRuntime.UWP.Viewer
 
             // Filepaths for the css and js files used for syntax highlighting.
             string cssPath = "ms-appx-web:///" + "Resources\\SyntaxHighlighting/highlight.css";
-            string cssBackgroundPath = "ms-appx-web:///" + "Resources\\SyntaxHighlighting/screen.css";
             string jsPath = "ms-appx-web:///" + "Resources\\SyntaxHighlighting/highlight.pack.js";
 
             // Dictionary holds html strings for source code as values. Keys are strings of filepaths.
@@ -47,7 +46,6 @@ namespace ArcGISRuntime.UWP.Viewer
                 "<head>" +
                 "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">" +
                 "<link rel=\"stylesheet\" href=\"" + cssPath + "\">" +
-                "<link rel=\"stylesheet\" href=\"" + cssBackgroundPath + "\">" +
                 "<script type=\"text/javascript\" src=\"" + jsPath + "\"></script>" +
                 "<script>hljs.initHighlightingOnLoad();</script>" +
                 "</head>" +

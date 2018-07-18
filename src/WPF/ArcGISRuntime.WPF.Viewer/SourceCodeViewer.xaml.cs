@@ -31,7 +31,6 @@ namespace ArcGISRuntime.WPF.Viewer
 
             // Filepaths for the css and js files used for syntax highlighting.
             string cssPath = folderPath.Substring(0, folderPath.IndexOf("Samples")) + "Resources\\SyntaxHighlighting\\highlight.css";
-            string cssBackgroundPath = folderPath.Substring(0, folderPath.IndexOf("Samples")) + "Resources\\SyntaxHighlighting\\screen.css";
             string jsPath = folderPath.Substring(0, folderPath.IndexOf("Samples")) + "Resources\\SyntaxHighlighting\\highlight.pack.js";
 
             // Dictionary holds html strings for source code as values. Keys are strings of filepaths.
@@ -46,7 +45,6 @@ namespace ArcGISRuntime.WPF.Viewer
                 "<head>" +
                 "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">" +
                 "<link rel=\"stylesheet\" href=\"" + cssPath + "\">" +
-                "<link rel=\"stylesheet\" href=\"" + cssBackgroundPath + "\">" +
                 "<script type=\"text/javascript\" src=\"" + jsPath + "\"></script>" +
                 "<script>hljs.initHighlightingOnLoad();</script>" +
                 "</head>" +
@@ -129,7 +127,6 @@ namespace ArcGISRuntime.WPF.Viewer
             {
                 sourceCodeBrowser.NavigateToString("Source files not found.");
             }
-
         }
 
         private void SelectionChanged(object sender, SelectionChangedEventArgs e)

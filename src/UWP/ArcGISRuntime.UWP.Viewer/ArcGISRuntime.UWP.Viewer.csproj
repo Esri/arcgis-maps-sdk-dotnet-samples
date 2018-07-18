@@ -111,8 +111,6 @@
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
   </ItemGroup>
-
-  
   <!-- Screenshots -->
   <ItemGroup>
     <Content Include="Resources\SyntaxHighlighting\highlight.css">

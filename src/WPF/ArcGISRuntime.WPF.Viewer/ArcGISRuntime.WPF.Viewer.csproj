@@ -106,539 +106,405 @@
   <ItemGroup>
     <Compile Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml.cs">
       <DependentUpon>DistanceMeasurement.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml.cs">
       <DependentUpon>LineOfSightGeoElement.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml.cs">
       <DependentUpon>LineOfSightLocation.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml.cs">
       <DependentUpon>QueryFeatureCountAndExtent.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml.cs">
       <DependentUpon>ViewshedCamera.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml.cs">
       <DependentUpon>ViewshedGeoElement.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.xaml.cs">
       <DependentUpon>ViewshedLocation.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml.cs">
       <DependentUpon>EditAndSyncFeatures.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.xaml.cs">
       <DependentUpon>FeatureLayerGeodatabase.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.xaml.cs">
       <DependentUpon>FeatureLayerGeoPackage.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml.cs">
       <DependentUpon>FeatureLayerQuery.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.xaml.cs">
       <DependentUpon>FeatureLayerShapefile.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml.cs">
       <DependentUpon>GenerateGeodatabase.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.xaml.cs">
       <DependentUpon>GeodatabaseTransactions.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml.cs">
       <DependentUpon>ListRelatedFeatures.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.xaml.cs">
       <DependentUpon>RasterLayerGeoPackage.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.xaml.cs">
       <DependentUpon>ReadGeoPackage.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml.cs">
       <DependentUpon>ReadShapefileMetadata.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml.cs">
       <DependentUpon>ServiceFeatureTableCache.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml.cs">
       <DependentUpon>ServiceFeatureTableManualCache.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml.cs">
       <DependentUpon>ServiceFeatureTableNoCache.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Data\StatisticalQuery\StatisticalQuery.xaml.cs">
       <DependentUpon>StatisticalQuery.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.xaml.cs">
       <DependentUpon>StatsQueryGroupAndSort.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
       <DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Geometry\DensifyAndGeneralize\DensifyAndGeneralize.xaml.cs">
       <DependentUpon>DensifyAndGeneralize.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Geometry\BufferList\BufferList.xaml.cs">
       <DependentUpon>BufferList.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Geometry\Buffer\Buffer.xaml.cs">
       <DependentUpon>Buffer.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Geometry\ClipGeometry\ClipGeometry.xaml.cs">
       <DependentUpon>ClipGeometry.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Geometry\ConvexHullList\ConvexHullList.xaml.cs">
       <DependentUpon>ConvexHullList.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Geometry\ConvexHull\ConvexHull.xaml.cs">
       <DependentUpon>ConvexHull.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Geometry\CutGeometry\CutGeometry.xaml.cs">
       <DependentUpon>CutGeometry.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Geometry\GeodesicOperations\GeodesicOperations.xaml.cs">
       <DependentUpon>GeodesicOperations.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Geometry\NearestVertex\NearestVertex.xaml.cs">
       <DependentUpon>NearestVertex.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Geometry\CreateGeometries\CreateGeometries.xaml.cs">
       <DependentUpon>CreateGeometries.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Geometry\ListTransformations\ListTransformations.xaml.cs">
       <DependentUpon>ListTransformations.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Geometry\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
       <DependentUpon>ProjectWithSpecificTransformation.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Geometry\SpatialRelationships\SpatialRelationships.xaml.cs">
       <DependentUpon>SpatialRelationships.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml.cs">
       <DependentUpon>FormatCoordinates.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml.cs">
       <DependentUpon>AnalyzeHotspots.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.xaml.cs">
       <DependentUpon>AnalyzeViewshed.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml.cs">
       <DependentUpon>ListGeodatabaseVersions.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.xaml.cs">
       <DependentUpon>AddGraphicsRenderer.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml.cs">
       <DependentUpon>AddGraphicsWithSymbols.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml.cs">
       <DependentUpon>Animate3DGraphic.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.xaml.cs">
       <DependentUpon>IdentifyGraphics.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.xaml.cs">
       <DependentUpon>SketchOnMap.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml.cs">
       <DependentUpon>SurfacePlacements.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml.cs">
       <DependentUpon>AddEncExchangeSet.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml.cs">
       <DependentUpon>ChangeEncDisplaySettings.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml.cs">
       <DependentUpon>SelectEncFeatures.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml.cs">
       <DependentUpon>ArcGISMapImageLayerUrl.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.xaml.cs">
       <DependentUpon>ArcGISTiledLayerUrl.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.xaml.cs">
       <DependentUpon>ArcGISVectorTiledLayerUrl.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.xaml.cs">
       <DependentUpon>ChangeBlendRenderer.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.xaml.cs">
       <DependentUpon>ChangeFeatureLayerRenderer.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml.cs">
       <DependentUpon>ChangeStretchRenderer.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.xaml.cs">
       <DependentUpon>ChangeSublayerRenderer.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.xaml.cs">
       <DependentUpon>ChangeSublayerVisibility.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.xaml.cs">
       <DependentUpon>CreateFeatureCollectionLayer.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\DisplayScene\DisplayScene.xaml.cs">
       <DependentUpon>DisplayScene.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\ExportTiles\ExportTiles.xaml.cs">
       <DependentUpon>ExportTiles.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.xaml.cs">
       <DependentUpon>FeatureCollectionLayerFromPortal.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.xaml.cs">
       <DependentUpon>FeatureCollectionLayerFromQuery.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml.cs">
       <DependentUpon>FeatureLayerDefinitionExpression.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.xaml.cs">
       <DependentUpon>FeatureLayerDictionaryRenderer.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.xaml.cs">
       <DependentUpon>FeatureLayerRenderingModeMap.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml.cs">
       <DependentUpon>FeatureLayerRenderingModeScene.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.xaml.cs">
       <DependentUpon>FeatureLayerSelection.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml.cs">
       <DependentUpon>FeatureLayerUrl.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.xaml.cs">
       <DependentUpon>MapImageLayerTables.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml.cs">
       <DependentUpon>MapImageSublayerQuery.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
       <DependentUpon>RasterHillshade.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml.cs">
       <DependentUpon>RasterLayerFile.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.xaml.cs">
       <DependentUpon>RasterLayerImageServiceRaster.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml.cs">
       <DependentUpon>RasterLayerRasterFunction.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.xaml.cs">
       <DependentUpon>RasterRenderingRule.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml.cs">
       <DependentUpon>RasterRgbRenderer.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.xaml.cs">
       <DependentUpon>SceneLayerSelection.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml.cs">
       <DependentUpon>SceneLayerUrl.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.xaml.cs">
       <DependentUpon>StyleWmsLayer.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.xaml.cs">
       <DependentUpon>ShowLabelsOnLayer.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml.cs">
       <DependentUpon>TimeBasedQuery.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.xaml.cs">
       <DependentUpon>LoadWebTiledLayer.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml.cs">
       <DependentUpon>WmsIdentify.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.xaml.cs">
       <DependentUpon>WmsLayerUrl.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.xaml.cs">
       <DependentUpon>WmsServiceCatalog.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.xaml.cs">
       <DependentUpon>WMTSLayer.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Local Server\DynamicWorkspaceRaster\DynamicWorkspaceRaster.xaml.cs">
       <DependentUpon>DynamicWorkspaceRaster.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Local Server\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.xaml.cs">
       <DependentUpon>DynamicWorkspaceShapefile.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Local Server\LocalServerFeatureLayer\LocalServerFeatureLayer.xaml.cs">
       <DependentUpon>LocalServerFeatureLayer.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Local Server\LocalServerGeoprocessing\LocalServerGeoprocessing.xaml.cs">
       <DependentUpon>LocalServerGeoprocessing.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Local Server\LocalServerMapImageLayer\LocalServerMapImageLayer.xaml.cs">
       <DependentUpon>LocalServerMapImageLayer.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Local Server\LocalServerServices\LocalServerServices.xaml.cs">
       <DependentUpon>LocalServerServices.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
       <DependentUpon>DisplayDeviceLocation.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\MapView\DisplayGrid\DisplayGrid.xaml.cs">
       <DependentUpon>DisplayGrid.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml.cs">
       <DependentUpon>ChangeTimeExtent.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.xaml.cs">
       <DependentUpon>ChangeViewpoint.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.xaml.cs">
       <DependentUpon>DisplayDrawingStatus.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.xaml.cs">
       <DependentUpon>DisplayLayerViewState.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.xaml.cs">
       <DependentUpon>FeatureLayerTimeOffset.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml.cs">
       <DependentUpon>GeoViewSync.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\MapView\MapRotation\MapRotation.xaml.cs">
       <DependentUpon>MapRotation.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\MapView\ShowCallout\ShowCallout.xaml.cs">
       <DependentUpon>ShowCallout.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.xaml.cs">
       <DependentUpon>ShowMagnifier.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\MapView\TakeScreenshot\TakeScreenshot.xaml.cs">
       <DependentUpon>TakeScreenshot.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.xaml.cs">
       <DependentUpon>AccessLoadStatus.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Map\AuthorMap\AuthorMap.xaml.cs">
       <DependentUpon>AuthorMap.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemap.xaml.cs">
       <DependentUpon>ChangeBasemap.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Map\DisplayMap\DisplayMap.xaml.cs">
       <DependentUpon>DisplayMap.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.xaml.cs">
       <DependentUpon>DownloadPreplannedMapAreas.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml.cs">
       <DependentUpon>ManageBookmarks.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.xaml.cs">
       <DependentUpon>OpenMapURL.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMap.xaml.cs">
       <DependentUpon>OpenMobileMap.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Map\OpenScene\OpenScene.xaml.cs">
       <DependentUpon>OpenScene.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.xaml.cs">
       <DependentUpon>SearchPortalMaps.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.xaml.cs">
       <DependentUpon>SetInitialMapArea.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.xaml.cs">
       <DependentUpon>SetInitialMapLocation.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml.cs">
       <DependentUpon>SetMapSpatialReference.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml.cs">
       <DependentUpon>SetMinMaxScale.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml.cs">
       <DependentUpon>ClosestFacilityStatic.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml.cs">
       <DependentUpon>ClosestFacility.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Network Analysis\FindRoute\FindRoute.xaml.cs">
       <DependentUpon>FindRoute.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml.cs">
       <DependentUpon>FindServiceArea.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Search\FindAddress\FindAddress.xaml.cs">
       <DependentUpon>FindAddress.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Search\FindPlace\FindPlace.xaml.cs">
       <DependentUpon>FindPlace.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Security\OAuth\OAuth.xaml.cs">
       <DependentUpon>OAuth.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.xaml.cs">
       <DependentUpon>TokenSecuredChallenge.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.xaml.cs">
       <DependentUpon>TokenSecuredKnownUser.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml.cs">
       <DependentUpon>FeatureLayerExtrusion.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml.cs">
       <DependentUpon>RenderPictureMarkers.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml.cs">
       <DependentUpon>RenderSimpleMarkers.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml.cs">
       <DependentUpon>RenderUniqueValues.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.xaml.cs">
       <DependentUpon>SimpleRenderers.xaml</DependentUpon>
-      
     </Compile>
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml.cs">
       <DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon>
-      
     </Compile>
   </ItemGroup>
   <!-- Sample XAML -->
@@ -646,685 +512,546 @@
     <Page Include="Samples\Map\OpenScene\OpenScene.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml">
       <SubType>Designer</SubType>
-      
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Data\StatisticalQuery\StatisticalQuery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Geometry\DensifyAndGeneralize\DensifyAndGeneralize.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Geometry\BufferList\BufferList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Geometry\Buffer\Buffer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Geometry\ClipGeometry\ClipGeometry.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Geometry\ConvexHullList\ConvexHullList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Geometry\ConvexHull\ConvexHull.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Geometry\CutGeometry\CutGeometry.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Geometry\GeodesicOperations\GeodesicOperations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Geometry\NearestVertex\NearestVertex.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Geometry\CreateGeometries\CreateGeometries.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Geometry\ListTransformations\ListTransformations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Geometry\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Geometry\SpatialRelationships\SpatialRelationships.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\ArcGISVectorTiledLayerUrl\ArcGISVectorTiledLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\DisplayScene\DisplayScene.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\ExportTiles\ExportTiles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\WMSLayerUrl\WmsLayerUrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Layers\WMTSLayer\WMTSLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Local Server\DynamicWorkspaceRaster\DynamicWorkspaceRaster.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Local Server\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Local Server\LocalServerFeatureLayer\LocalServerFeatureLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Local Server\LocalServerGeoprocessing\LocalServerGeoprocessing.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Local Server\LocalServerMapImageLayer\LocalServerMapImageLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Local Server\LocalServerServices\LocalServerServices.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\MapView\DisplayGrid\DisplayGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\MapView\MapRotation\MapRotation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\MapView\ShowCallout\ShowCallout.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\MapView\ShowMagnifier\ShowMagnifier.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\MapView\TakeScreenshot\TakeScreenshot.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Map\AuthorMap\AuthorMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Map\ChangeBasemap\ChangeBasemap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Map\DisplayMap\DisplayMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Map\OpenMapURL\OpenMapURL.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Map\OpenMobileMap\OpenMobileMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Network Analysis\FindRoute\FindRoute.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Search\FindAddress\FindAddress.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Search\FindPlace\FindPlace.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Security\OAuth\OAuth.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
     <Page Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      
     </Page>
-    
   </ItemGroup>
-
   <!-- Screenshots -->
   <ItemGroup>
     <Content Include="Resources\SyntaxHighlighting\highlight.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\SyntaxHighlighting\highlight.pack.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\SyntaxHighlighting\screen.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg">

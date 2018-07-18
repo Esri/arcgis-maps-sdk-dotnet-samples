@@ -54,7 +54,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
             MyMapView.Map = myMap;
 
             // Create uri to the used feature service
-            var serviceUri = new Uri(
+            Uri serviceUri = new Uri(
                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/FeatureServer/0");
 
             // Initialize feature table using a url to feature server url

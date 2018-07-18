@@ -204,14 +204,13 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             };
 
             // Create a new map with the oceans basemap and add it to the map view
-            var map = new Map(Basemap.CreateOceans());
-            _mapView.Map = map;
+            _mapView.Map = new Map(Basemap.CreateOceans());
         }
 
         private async Task GetLocalGeodatabase()
         {
             // Get the path to the local geodatabase for this platform (temp directory, for example)
-            var localGeodatabasePath = GetGdbPath();
+            string localGeodatabasePath = GetGdbPath();
 
             try
             {
@@ -226,11 +225,10 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 else
                 {
                     // Create a new GeodatabaseSyncTask with the uri of the feature server to pull from
-                    var uri = new Uri(SyncServiceUrl);
-                    var gdbTask = await GeodatabaseSyncTask.CreateAsync(uri);
+                    GeodatabaseSyncTask gdbTask = await GeodatabaseSyncTask.CreateAsync(new Uri(SyncServiceUrl));
 
                     // Create parameters for the task: layers and extent to include, out spatial reference, and sync model
-                    var gdbParams = await gdbTask.CreateDefaultGenerateGeodatabaseParametersAsync(_extent);
+                    GenerateGeodatabaseParameters gdbParams = await gdbTask.CreateDefaultGenerateGeodatabaseParametersAsync(_extent);
                     gdbParams.OutSpatialReference = _mapView.SpatialReference;
                     gdbParams.SyncModel = SyncModel.Layer;
                     gdbParams.LayerOptions.Clear();
@@ -305,7 +303,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 }
 
                 // Create a new feature layer to show the table in the map
-                var layer = new FeatureLayer(table);
+                FeatureLayer layer = new FeatureLayer(table);
                 RunOnUiThread(() => _mapView.Map.OperationalLayers.Add(layer));
             }
 
@@ -354,7 +352,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         private async void AddNewFeature(object sender, EventArgs args)
         {
             // See if it was the "Birds" or "Marine" button that was clicked
-            Button addFeatureButton = sender as Button;
+            Button addFeatureButton = (Button)sender;
 
             try
             {
@@ -370,7 +368,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 {
                     editTable = _birdTable;
                 }
-                else if (addFeatureButton == _addMarineButton)
+                else
                 {
                     editTable = _marineTable;
                 }
@@ -415,12 +413,16 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
             // Create the layout
-            LinearLayout dialogLayout = new LinearLayout(this);
-            dialogLayout.Orientation = Orientation.Vertical;
+            LinearLayout dialogLayout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Vertical
+            };
 
             // Create a button to commit edits
-            Button commitButton = new Button(this);
-            commitButton.Text = "Commit";
+            Button commitButton = new Button(this)
+            {
+                Text = "Commit"
+            };
 
             // Handle the click event for the Commit button
             commitButton.Click += (s, args) =>
@@ -437,8 +439,10 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             };
 
             // Create a button to rollback edits
-            Button rollbackButton = new Button(this);
-            rollbackButton.Text = "Rollback";
+            Button rollbackButton = new Button(this)
+            {
+                Text = "Rollback"
+            };
 
             // Handle the click event for the Rollback button
             rollbackButton.Click += (s, args) => 
@@ -455,8 +459,10 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             };
 
             // Create a button to cancel and return to the transaction
-            Button cancelButton = new Button(this);
-            cancelButton.Text = "Cancel";
+            Button cancelButton = new Button(this)
+            {
+                Text = "Cancel"
+            };
 
             // Handle the click event for the Cancel button
             rollbackButton.Click += (s, args) => _stopEditDialog.Dismiss();
@@ -505,10 +511,10 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             try
             {
                 // Create a sync task with the URL of the feature service to sync
-                var syncTask = await GeodatabaseSyncTask.CreateAsync(new Uri(SyncServiceUrl));
+                GeodatabaseSyncTask syncTask = await GeodatabaseSyncTask.CreateAsync(new Uri(SyncServiceUrl));
 
                 // Create sync parameters
-                var taskParameters = await syncTask.CreateDefaultSyncGeodatabaseParametersAsync(_localGeodatabase);
+                SyncGeodatabaseParameters taskParameters = await syncTask.CreateDefaultSyncGeodatabaseParametersAsync(_localGeodatabase);
 
                 // Create a synchronize geodatabase job, pass in the parameters and the geodatabase
                 SyncGeodatabaseJob job = syncTask.SyncGeodatabase(taskParameters, _localGeodatabase);
@@ -543,7 +549,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 };
 
                 // Await the completion of the job
-                var result = await job.GetResultAsync();
+                 await job.GetResultAsync();
             }
             catch (Exception ex)
             {
@@ -560,7 +566,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         private void ShowStatusMessage(string title, string message)
         {
             // Display the message to the user
-            var builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetMessage(message).SetTitle(title).Show();
         }
 

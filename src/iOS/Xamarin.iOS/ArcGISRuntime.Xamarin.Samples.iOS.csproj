@@ -33,6 +33,7 @@
     <LangVersion>6</LangVersion>
     <MtouchI18n />
     <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignProvision />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -70,6 +71,7 @@
     <IpaIncludeArtwork>False</IpaIncludeArtwork>
     <DeviceSpecificBuild>False</DeviceSpecificBuild>
     <LangVersion>6</LangVersion>
+    <CodesignProvision />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -128,6 +130,9 @@
     <MtouchArch>i386, x86_64</MtouchArch>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
+    <AppExtensionDebugBundleId />
+  </PropertyGroup>
   <!-- References -->
   <ItemGroup>
     <Reference Include="MonoTouch.Dialog-1" />
@@ -162,34 +167,46 @@
     <ImageAsset Include="Resources\Images.xcassets\LaunchImages.launchimage\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-120.png">
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_29.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-152.png">
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_40.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-167.png">
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_58-1.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-180.png">
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_58.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-29.png">
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_76.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-40.png">
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_80-1.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-58.png">
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_80.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-76.png">
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_87.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-80.png">
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_120-1.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\sdk-87.png">
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_120.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_152.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_167.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_180.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_1024.png">
       <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
@@ -197,6 +214,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <BundleResource Include="Resources\Default-568h%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImages.launchimage\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
     <None Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.jpg" />
     <None Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
   </ItemGroup>

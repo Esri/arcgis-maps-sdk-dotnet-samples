@@ -55,7 +55,6 @@ namespace ArcGISRuntime.Samples.OAuth
             InitializeComponent();
 
             Title = "OAuth authentication";
-            Esri.ArcGISRuntime.Xamarin.Forms.MapView mv;
             // Call a function to initialize the app and request a web map (with secured layers) to display.
             Initialize();
         }
@@ -81,7 +80,7 @@ namespace ArcGISRuntime.Samples.OAuth
         private void SetOAuthInfo()
         {
             // Register the server information with the AuthenticationManager.
-            var serverInfo = new ServerInfo
+            ServerInfo serverInfo = new ServerInfo
             {
                 ServerUri = new Uri(ServerUrl),
                 TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,
@@ -93,7 +92,7 @@ namespace ArcGISRuntime.Samples.OAuth
             };
 
             // If a client secret has been configured, set the authentication type to OAuthAuthorizationCode.
-            if (!string.IsNullOrEmpty(ClientSecret))
+            if (!String.IsNullOrEmpty(ClientSecret))
             {
                 // Use OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret).
                 serverInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode;
@@ -152,7 +151,7 @@ namespace ArcGISRuntime.Samples.OAuth
 
 #if __ANDROID__
             // Get the current Android Activity
-            var activity = Xamarin.Forms.Forms.Context as Activity; 
+            Activity activity = (Activity)Android.App.Application.Context;
 #endif
 #if __IOS__
             // Get the current iOS ViewController.
@@ -163,17 +162,16 @@ namespace ArcGISRuntime.Samples.OAuth
             });
 #endif
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
-            Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(
+            OAuth2Authenticator authenticator = new OAuth2Authenticator(
                 clientId: AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
                 redirectUrl: callbackUri)
             {
-                ShowErrors = false
+                ShowErrors = false,
+                // Allow the user to cancel the OAuth attempt.
+                AllowCancel = true
             };
-
-            // Allow the user to cancel the OAuth attempt.
-            authenticator.AllowCancel = true;
 
             // Define a handler for the OAuth2Authenticator.Completed event.
             authenticator.Completed += (sender, authArgs) =>

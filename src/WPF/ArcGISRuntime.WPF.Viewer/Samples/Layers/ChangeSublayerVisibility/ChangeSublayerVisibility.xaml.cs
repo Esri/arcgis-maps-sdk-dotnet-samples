@@ -33,7 +33,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeSublayerVisibility
             Map myMap = new Map();
 
             // Create uri to the map image layer
-            var serviceUri = new Uri(
+            Uri serviceUri = new Uri(
                "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer");
 
             // Create new image layer from the url

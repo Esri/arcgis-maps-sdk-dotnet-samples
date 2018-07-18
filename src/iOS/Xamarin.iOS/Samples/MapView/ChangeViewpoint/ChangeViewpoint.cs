@@ -129,7 +129,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
                     await _myMapView.SetViewpointAsync(new Viewpoint(_myMapView.Map.Basemap.BaseLayers.First().FullExtent));
 
                     // Create a new Viewpoint using the specified geometry.
-                    var viewpoint = new Viewpoint(_edinburghEnvelope);
+                    Viewpoint viewpoint = new Viewpoint(_edinburghEnvelope);
 
                     // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds.
                     await _myMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));

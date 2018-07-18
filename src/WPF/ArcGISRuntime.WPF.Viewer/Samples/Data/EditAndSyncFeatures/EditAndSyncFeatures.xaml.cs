@@ -154,7 +154,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
                 foreach (Feature feature in selectedFeatures)
                 {
                     // Get a reference to the correct feature table for the feature.
-                    GeodatabaseFeatureTable table = feature.FeatureTable as GeodatabaseFeatureTable;
+                    GeodatabaseFeatureTable table = (GeodatabaseFeatureTable)feature.FeatureTable;
 
                     // Ensure the geometry type of the table is point.
                     if (table.GeometryType != GeometryType.Point)
@@ -236,7 +236,7 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
             envelopeBldr.Expand(0.80);
 
             // Get the (only) graphics overlay in the map view.
-            var extentOverlay = MyMapView.GraphicsOverlays.FirstOrDefault();
+            GraphicsOverlay extentOverlay = MyMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
             if (extentOverlay == null) { return; }
@@ -275,11 +275,11 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
             GenerateGeodatabaseJob generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the progress changed event with an inline (lambda) function to show the progress bar.
-            generateGdbJob.ProgressChanged += ((sender, e) =>
+            generateGdbJob.ProgressChanged += (sender, e) =>
             {
                 // Update the progress bar.
                 UpdateProgressBar(generateGdbJob.Progress);
-            });
+            };
 
             // Show the progress bar.
             MyProgressBar.Visibility = Visibility.Visible;

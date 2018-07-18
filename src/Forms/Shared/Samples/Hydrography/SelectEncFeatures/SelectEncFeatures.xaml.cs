@@ -45,9 +45,6 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             // Get the path to the ENC Exchange Set
             string encPath = GetEncPath();
 
-            // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set
-            List<Envelope> dataSetExtents = new List<Envelope>();
-
             // Create the cell and layer
             EncLayer myEncLayer = new EncLayer(new EncCell(encPath));
 
@@ -101,7 +98,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             IdentifyLayerResult firstResult = encResultsWithFeatures.First();
 
             // Get the layer associated with this set of results
-            EncLayer containingLayer = firstResult.LayerContent as EncLayer;
+            EncLayer containingLayer = (EncLayer)firstResult.LayerContent;
 
             // Select the smallest (area) feature in the layer.
             EncFeature smallestFeature = (EncFeature)firstResult.GeoElements.OrderBy(f => GeometryEngine.Area(f.Geometry)).First();

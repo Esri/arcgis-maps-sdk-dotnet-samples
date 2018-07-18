@@ -1,89 +1,112 @@
 {
-  "images": [
+  "images" : [
     {
-      "scale": "2x",
-      "size": "29x29",
-      "idiom": "iphone",
-      "filename": "sdk-58.png"
+      "idiom" : "iphone",
+      "size" : "20x20",
+      "scale" : "2x"
     },
     {
-      "scale": "3x",
-      "size": "29x29",
-      "idiom": "iphone",
-      "filename": "sdk-87.png"
+      "idiom" : "iphone",
+      "size" : "20x20",
+      "scale" : "3x"
     },
     {
-      "scale": "2x",
-      "size": "40x40",
-      "idiom": "iphone",
-      "filename": "sdk-80.png"
+      "size" : "29x29",
+      "idiom" : "iphone",
+      "filename" : "iOS_58.png",
+      "scale" : "2x"
     },
     {
-      "scale": "3x",
-      "size": "40x40",
-      "idiom": "iphone",
-      "filename": "sdk-120.png"
+      "size" : "29x29",
+      "idiom" : "iphone",
+      "filename" : "iOS_87.png",
+      "scale" : "3x"
     },
     {
-      "scale": "2x",
-      "size": "60x60",
-      "idiom": "iphone",
-      "filename": "sdk-120.png"
+      "size" : "40x40",
+      "idiom" : "iphone",
+      "filename" : "iOS_80.png",
+      "scale" : "2x"
     },
     {
-      "scale": "3x",
-      "size": "60x60",
-      "idiom": "iphone",
-      "filename": "sdk-180.png"
+      "size" : "40x40",
+      "idiom" : "iphone",
+      "filename" : "iOS_120-1.png",
+      "scale" : "3x"
     },
     {
-      "scale": "1x",
-      "size": "29x29",
-      "idiom": "ipad",
-      "filename": "sdk-29.png"
+      "size" : "60x60",
+      "idiom" : "iphone",
+      "filename" : "iOS_120.png",
+      "scale" : "2x"
     },
     {
-      "scale": "2x",
-      "size": "29x29",
-      "idiom": "ipad",
-      "filename": "sdk-58.png"
+      "size" : "60x60",
+      "idiom" : "iphone",
+      "filename" : "iOS_180.png",
+      "scale" : "3x"
     },
     {
-      "scale": "1x",
-      "size": "40x40",
-      "idiom": "ipad",
-      "filename": "sdk-40.png"
+      "idiom" : "ipad",
+      "size" : "20x20",
+      "scale" : "1x"
     },
     {
-      "scale": "2x",
-      "size": "40x40",
-      "idiom": "ipad",
-      "filename": "sdk-80.png"
+      "idiom" : "ipad",
+      "size" : "20x20",
+      "scale" : "2x"
     },
     {
-      "scale": "1x",
-      "size": "76x76",
-      "idiom": "ipad",
-      "filename": "sdk-76.png"
+      "size" : "29x29",
+      "idiom" : "ipad",
+      "filename" : "iOS_29.png",
+      "scale" : "1x"
     },
     {
-      "scale": "2x",
-      "size": "76x76",
-      "idiom": "ipad",
-      "filename": "sdk-152.png"
+      "size" : "29x29",
+      "idiom" : "ipad",
+      "filename" : "iOS_58-1.png",
+      "scale" : "2x"
     },
     {
-      "scale": "2x",
-      "size": "83.5x83.5",
-      "idiom": "ipad",
-      "filename": "sdk-167.png"
+      "size" : "40x40",
+      "idiom" : "ipad",
+      "filename" : "iOS_40.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "40x40",
+      "idiom" : "ipad",
+      "filename" : "iOS_80-1.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "76x76",
+      "idiom" : "ipad",
+      "filename" : "iOS_76.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "76x76",
+      "idiom" : "ipad",
+      "filename" : "iOS_152.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "83.5x83.5",
+      "idiom" : "ipad",
+      "filename" : "iOS_167.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "1024x1024",
+      "idiom" : "ios-marketing",
+      "filename" : "iOS_1024.png",
+      "scale" : "1x"
     }
   ],
-  "properties": {
-    "pre-rendered": false
-  },
-  "info": {
-    "version": 1,
-    "author": ""
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
   }
 }

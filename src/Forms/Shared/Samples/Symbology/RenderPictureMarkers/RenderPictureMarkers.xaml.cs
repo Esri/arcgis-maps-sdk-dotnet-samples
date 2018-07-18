@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -64,7 +65,7 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
         private void CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
         {
             // Create uri to the used image
-            var symbolUri = new Uri(
+            Uri symbolUri = new Uri(
                 "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae");
 
             // Create new symbol using asynchronous factory method from uri.
@@ -97,7 +98,7 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
 
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
-            var resourceStream = currentAssembly.GetManifestResourceStream(
+            Stream resourceStream = currentAssembly.GetManifestResourceStream(
                 "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream

@@ -59,7 +59,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
             // Configure the UI options.
             _gridTypeSpinner.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, new[] { "LatLong", "MGRS", "UTM", "USNG" });
-            var colorItemsSource = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, new[] { "Red", "Green", "Blue", "White", "Purple" });
+            ArrayAdapter<string> colorItemsSource = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, new[] { "Red", "Green", "Blue", "White", "Purple" });
             _gridColorSpinner.Adapter = colorItemsSource;
             _labelColorSpinner.Adapter = colorItemsSource;
             _labelPositionSpinner.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, Enum.GetNames(typeof(GridLabelPosition)));

@@ -59,20 +59,22 @@ namespace ArcGISRuntime.UWP.Samples.FeatureCollectionLayerFromPortal
                     FeatureCollection featureCollection = new FeatureCollection(collectionItem);
 
                     // Create a layer to display the collection and add it to the map as an operational layer.
-                    FeatureCollectionLayer featureCollectionLayer = new FeatureCollectionLayer(featureCollection);
-                    featureCollectionLayer.Name = collectionItem.Title;
+                    FeatureCollectionLayer featureCollectionLayer = new FeatureCollectionLayer(featureCollection)
+                    {
+                        Name = collectionItem.Title
+                    };
 
                     MyMapView.Map.OperationalLayers.Add(featureCollectionLayer);
                 }
                 else
                 {
-                    var messageDlg = new MessageDialog("Portal item with ID '" + itemId + "' is not a feature collection.", "Feature Collection");
+                    MessageDialog messageDlg = new MessageDialog("Portal item with ID '" + itemId + "' is not a feature collection.", "Feature Collection");
                     await messageDlg.ShowAsync();
                 }
             }
             catch (Exception ex)
             {
-                var messageDlg = new MessageDialog("Unable to open item with ID '" + itemId + "': " + ex.Message, "Error");
+                MessageDialog messageDlg = new MessageDialog("Unable to open item with ID '" + itemId + "': " + ex.Message, "Error");
                 await messageDlg.ShowAsync();
             }
         }
@@ -80,12 +82,12 @@ namespace ArcGISRuntime.UWP.Samples.FeatureCollectionLayerFromPortal
         private async void Open_Click(object sender, RoutedEventArgs e)
         {
             // Get the portal item Id from the user.
-            var collectionItemId = CollectionItemIdTextBox.Text.Trim();
+            string collectionItemId = CollectionItemIdTextBox.Text.Trim();
 
             // Make sure an Id was entered.
-            if (string.IsNullOrEmpty(collectionItemId))
+            if (String.IsNullOrEmpty(collectionItemId))
             {
-                var messageDlg = new MessageDialog("Please enter a portal item ID", "Feature Collection ID");
+                MessageDialog messageDlg = new MessageDialog("Please enter a portal item ID", "Feature Collection ID");
                 await messageDlg.ShowAsync();
                 return;
             }

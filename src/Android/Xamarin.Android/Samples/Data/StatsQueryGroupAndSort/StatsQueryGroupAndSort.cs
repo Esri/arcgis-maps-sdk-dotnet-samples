@@ -69,23 +69,31 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             _controlsLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Button for launching the UI to view or define statistics definitions for the query
-            Button showStatDefinitionsButton = new Button(this);
-            showStatDefinitionsButton.Text = "Statistic Definitions";
+            Button showStatDefinitionsButton = new Button(this)
+            {
+                Text = "Statistic Definitions"
+            };
             showStatDefinitionsButton.Click += ShowStatDefinitions;
 
             // Button to choose fields with which to group results
-            Button showGroupFieldsButton = new Button(this);
-            showGroupFieldsButton.Text = "Group Fields";
+            Button showGroupFieldsButton = new Button(this)
+            {
+                Text = "Group Fields"
+            };
             showGroupFieldsButton.Click += ShowGroupFields;
 
             // Button to choose fields with which to sort results (must be one of the 'group by' fields)
-            Button showOrderByFieldsButton = new Button(this);
-            showOrderByFieldsButton.Text = "Order By Fields";
+            Button showOrderByFieldsButton = new Button(this)
+            {
+                Text = "Order By Fields"
+            };
             showOrderByFieldsButton.Click += ShowOrderByFields;
 
             // Create a Button to execute the statistical query
-            Button getStatsButton = new Button(this);
-            getStatsButton.Text = "Execute Query";
+            Button getStatsButton = new Button(this)
+            {
+                Text = "Execute Query"
+            };
             getStatsButton.Click += ExecuteStatisticsQuery;
 
             // Define additional space (margin) between the execute button and the others
@@ -145,7 +153,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 
                 // Get the current list of group fields and create/update the sort field choices
                 // (only fields selected for grouping can be used to order results)
-                IEnumerable<KeyValuePair<string, bool>> currentGroupFields = _groupByFields.Where(field => field.Value == true);
+                List<KeyValuePair<string, bool>> currentGroupFields = _groupByFields.Where(field => field.Value == true).ToList();
 
                 // Loop through the group fields
                 foreach (KeyValuePair<string, bool> groupField in currentGroupFields)
@@ -205,7 +213,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         private async void ExecuteStatisticsQuery(object sender, EventArgs e)
         {
             // Verify that there is at least one statistic definition
-            if (_statisticDefinitions.Count() == 0)
+            if (!_statisticDefinitions.Any())
             {
                 // Warn the user to define a statistic to query
                 ShowMessage("Please define at least one statistic for the query.", "Statistical Query");
@@ -320,8 +328,10 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             base.OnCreateView(inflater, container, savedInstanceState);
 
             // The container for the dialog is a vertical linear layout
-            dialogView = new LinearLayout(ctx);
-            dialogView.Orientation = Orientation.Vertical;
+            dialogView = new LinearLayout(ctx)
+            {
+                Orientation = Orientation.Vertical
+            };
 
             // Spinner for choosing a field to get statistics for
             _fieldSpinner = new Spinner(ctx);
@@ -338,13 +348,17 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             _fieldSpinner.Adapter = fieldsAdapter;
 
             // Create a horizontal layout to display the field spinner (with a label)
-            LinearLayout fieldView = new LinearLayout(ctx);
-            fieldView.Orientation = Orientation.Horizontal;
+            LinearLayout fieldView = new LinearLayout(ctx)
+            {
+                Orientation = Orientation.Horizontal
+            };
 
             // Create a label for the spinner
-            TextView fieldLabel = new TextView(ctx);
-            fieldLabel.Text = "Field:";
-            fieldLabel.LabelFor = _fieldSpinner.Id;
+            TextView fieldLabel = new TextView(ctx)
+            {
+                Text = "Field:",
+                LabelFor = _fieldSpinner.Id
+            };
 
             // Add field controls to the horizontal layout
             fieldView.AddView(fieldLabel);
@@ -371,13 +385,17 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             _statSpinner.Adapter = statTypeAdapter;
 
             // Create a horizontal layout to display the statistic type spinner (with a label)
-            LinearLayout statTypeView = new LinearLayout(ctx);
-            statTypeView.Orientation = Orientation.Horizontal;
+            LinearLayout statTypeView = new LinearLayout(ctx)
+            {
+                Orientation = Orientation.Horizontal
+            };
 
             // Create the label for the statistic type list
-            TextView typeLabel = new TextView(ctx);
-            typeLabel.Text = "Type:";
-            typeLabel.LabelFor = _statSpinner.Id;
+            TextView typeLabel = new TextView(ctx)
+            {
+                Text = "Type:",
+                LabelFor = _statSpinner.Id
+            };
 
             // Add statistic type controls to the horizontal layout
             statTypeView.AddView(typeLabel);
@@ -388,18 +406,24 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             dialogView.AddView(statTypeView);
 
             // Create a button to add a new statistic definition (selected field and statistic type)
-            Button addStatDefButton = new Button(ctx);
-            addStatDefButton.Text = "Add";
+            Button addStatDefButton = new Button(ctx)
+            {
+                Text = "Add"
+            };
             addStatDefButton.Click += AddStatisticDefinition;
 
             // Create a button to remove the selected statistic definition
-            Button removeStatDefButton = new Button(ctx);
-            removeStatDefButton.Text = "Remove";
+            Button removeStatDefButton = new Button(ctx)
+            {
+                Text = "Remove"
+            };
             removeStatDefButton.Click += RemoveStatisticDefinition;
 
             // Create a horizontal layout to contain the add and remove buttons
-            LinearLayout buttonView = new LinearLayout(ctx);
-            buttonView.Orientation = Orientation.Horizontal;
+            LinearLayout buttonView = new LinearLayout(ctx)
+            {
+                Orientation = Orientation.Horizontal
+            };
             buttonView.AddView(addStatDefButton);
             buttonView.AddView(removeStatDefButton);
 
@@ -408,11 +432,13 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 
             // Create a list view and an instance of a custom list adapter to show the statistic definitions
             StatDefinitionListAdapter listAdapter = new StatDefinitionListAdapter(Activity, _statisticDefinitions);
-            _statDefListView = new ListView(ctx);
-            _statDefListView.Adapter = listAdapter;
+            _statDefListView = new ListView(ctx)
+            {
+                Adapter = listAdapter,
 
-            // Only allow one choice in the statistic definitions list ('remove' button will work on the selected row)
-            _statDefListView.ChoiceMode = ChoiceMode.Single;
+                // Only allow one choice in the statistic definitions list ('remove' button will work on the selected row)
+                ChoiceMode = ChoiceMode.Single
+            };
 
             // Add the statistic definitions list to the dialog
             dialogView.AddView(_statDefListView);
@@ -429,7 +455,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             if (selectedPosition >= 0)
             {
                 // Call a function in the custom list adapter that will remove the statistic definition at this position (and update the data in the list view)
-                (_statDefListView.Adapter as StatDefinitionListAdapter).RemoveStatisticDefinitionAt(selectedPosition);
+                ((StatDefinitionListAdapter)_statDefListView.Adapter).RemoveStatisticDefinitionAt(selectedPosition);
             }
         }
 
@@ -450,7 +476,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             StatisticDefinition statisticDefinition = new StatisticDefinition(fieldName, statType, alias);
 
             // Call a function in the custom list adapter that will add the new statistic definition (and update the data in the list view)
-            (_statDefListView.Adapter as StatDefinitionListAdapter).AddStatisticDefinition(statisticDefinition);
+            ((StatDefinitionListAdapter)_statDefListView.Adapter).AddStatisticDefinition(statisticDefinition);
         }
     }
 
@@ -604,16 +630,20 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             base.OnCreateView(inflater, container, savedInstanceState);
 
             // The container for the dialog is a vertical linear layout
-            dialogView = new LinearLayout(ctx);
-            dialogView.Orientation = Orientation.Vertical;
+            dialogView = new LinearLayout(ctx)
+            {
+                Orientation = Orientation.Vertical
+            };
 
             // Create an instance of a custom list adapter to show the available group fields
             GroupFieldListAdapter listAdapter = new GroupFieldListAdapter(this.Activity, _potentialGroupByFields);
 
             // Create a new list view that uses the adapter and allows for multiple row selection
-            _groupFieldsListView = new ListView(ctx);
-            _groupFieldsListView.Adapter = listAdapter;
-            _groupFieldsListView.ChoiceMode = ChoiceMode.Multiple;
+            _groupFieldsListView = new ListView(ctx)
+            {
+                Adapter = listAdapter,
+                ChoiceMode = ChoiceMode.Multiple
+            };
 
             // Loop through all the available fields
             for (int i = 0; i < _potentialGroupByFields.Count; i++)
@@ -755,18 +785,22 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             base.OnCreateView(inflater, container, savedInstanceState);
 
             // The container for the dialog is a vertical linear layout
-            dialogView = new LinearLayout(ctx);
-            dialogView.Orientation = Orientation.Vertical;
+            dialogView = new LinearLayout(ctx)
+            {
+                Orientation = Orientation.Vertical
+            };
 
             // Create an instance of a custom list adapter for showing the order fields
             OrderFieldListAdapter listAdapter = new OrderFieldListAdapter(this.Activity, _potentialOrderByFields);
 
             // Create a new list view that uses the adapter
-            _orderFieldsListView = new ListView(ctx);
-            _orderFieldsListView.Adapter = listAdapter;
+            _orderFieldsListView = new ListView(ctx)
+            {
+                Adapter = listAdapter,
 
-            // Allow the user to select multiple fields in the list view
-            _orderFieldsListView.ChoiceMode = ChoiceMode.Multiple;
+                // Allow the user to select multiple fields in the list view
+                ChoiceMode = ChoiceMode.Multiple
+            };
 
             // Loop through all order fields in the list
             for (int i = 0; i < _potentialOrderByFields.Count; i++)
@@ -930,7 +964,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             string groupName = _groupNames[groupPosition];
 
             // If the group name is empty (maybe results weren't grouped), return "Results" for the group name
-            if (string.IsNullOrEmpty(groupName))
+            if (String.IsNullOrEmpty(groupName))
             {
                 groupName = "Results";
             }

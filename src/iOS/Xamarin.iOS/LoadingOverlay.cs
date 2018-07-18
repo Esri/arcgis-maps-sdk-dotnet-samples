@@ -27,7 +27,7 @@ namespace ArcGISRuntime
             nfloat centerX = Frame.Width / 2;
             nfloat centerY = Frame.Height / 2;
 
-            var activitySpinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
+            UIActivityIndicatorView activitySpinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
             activitySpinner.Frame = new CGRect(
                 centerX - activitySpinner.Frame.Width / 2,
                 centerY - activitySpinner.Frame.Height - 20,
@@ -37,7 +37,7 @@ namespace ArcGISRuntime
             AddSubview(activitySpinner);
             activitySpinner.StartAnimating();
 
-            var loadingLabel = new UILabel(new CGRect(
+            UILabel loadingLabel = new UILabel(new CGRect(
                 centerX - (Frame.Width - 20) / 2,
                 centerY + 20,
                 Frame.Width - 20,

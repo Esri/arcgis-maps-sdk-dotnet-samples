@@ -109,10 +109,13 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             MyMapView.Map.OperationalLayers.Clear();
 
             // Get a list of selected LayerInfos
-            IEnumerable<WmsLayerInfo> selectedLayers = displayList.Where(vm => vm.IsEnabled).Select(vm => vm.Info);
+            List<WmsLayerInfo> selectedLayers = displayList.Where(vm => vm.IsEnabled).Select(vm => vm.Info).ToList();
 
             // Return if no layers selected
-            if (selectedLayers.Count() < 1) { return; }
+            if (!selectedLayers.Any())
+            {
+                return;
+            }
 
             // Create a new WmsLayer from the selected layers
             WmsLayer myLayer = new WmsLayer(selectedLayers);
@@ -139,7 +142,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             }
 
             // Hold a reference to the selected item
-            LayerDisplayVM selectedItem = e.SelectedItem as LayerDisplayVM;
+            LayerDisplayVM selectedItem = (LayerDisplayVM)e.SelectedItem;
 
             // Update the selection
             selectedItem.IsEnabled = true;
@@ -163,12 +166,12 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         /// <summary>
         /// True if the layer is selected for display
         /// </summary>
-        public Boolean IsEnabled { get; set; }
+        public bool IsEnabled { get; set; }
 
         /// <summary>
         /// Title property to facilitate binding
         /// </summary>
-        public String Title { get { return Info.Title; } }
+        public string Title { get { return Info.Title; } }
 
         public LayerDisplayVM(WmsLayerInfo info)
         {

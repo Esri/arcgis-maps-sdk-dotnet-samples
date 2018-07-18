@@ -132,7 +132,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
             catch (System.Exception ex)
             {
                 // Display an error message if there is a problem generating cut operation.
-                var alertBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("There was a problem cutting the geometry.");
                 alertBuilder.SetMessage(ex.ToString());
                 alertBuilder.Show();
@@ -212,13 +212,17 @@ namespace ArcGISRuntime.Samples.CutGeometry
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a TextView for instructions.
-            TextView sampleInstructionsTextView = new TextView(this);
-            sampleInstructionsTextView.Text = "Click the 'Cut' button to cut the polygon with the polyline and see the resulting parts.";
+            TextView sampleInstructionsTextView = new TextView(this)
+            {
+                Text = "Click the 'Cut' button to cut the polygon with the polyline and see the resulting parts."
+            };
             layout.AddView(sampleInstructionsTextView);
 
             // Create button to cut the polygons.
-            _cutButton = new Button(this);
-            _cutButton.Text = "Cut";
+            _cutButton = new Button(this)
+            {
+                Text = "Cut"
+            };
             _cutButton.Click += CutButton_Click;
             layout.AddView(_cutButton);
 

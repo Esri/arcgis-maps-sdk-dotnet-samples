@@ -7,13 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
-using System.Collections.Generic;
 using System.Drawing;
 using Windows.UI.Popups;
 
@@ -83,9 +83,9 @@ namespace ArcGISRuntime.UWP.Samples.IdentifyGraphics
 
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            var tolerance = 10d; // Use larger tolerance for touch
-            var maximumResults = 1; // Only return one graphic  
-            var onlyReturnPopups = false; // Don't return only popups
+            double tolerance = 10d; // Use larger tolerance for touch
+            int maximumResults = 1; // Only return one graphic  
+            bool onlyReturnPopups = false; // Don't return only popups
 
             // Use the following method to identify graphics in a specific graphics overlay
             IdentifyGraphicsOverlayResult identifyResults = await MyMapView.IdentifyGraphicsOverlayAsync(
@@ -99,7 +99,7 @@ namespace ArcGISRuntime.UWP.Samples.IdentifyGraphics
             if (identifyResults.Graphics.Count > 0)
             { 
                 //  Display to the user the identify worked.
-                var message = new MessageDialog("Tapped on graphic", "").ShowAsync();
+                await new MessageDialog("Tapped on graphic", "").ShowAsync();
             }
         }
     }

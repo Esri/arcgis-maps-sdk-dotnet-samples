@@ -150,7 +150,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
             catch (System.Exception ex)
             {
                 // Display an error message if there is a problem generating convex hull operation.
-                var alertBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("There was a problem generating the convex hull.");
                 alertBuilder.SetMessage(ex.ToString());
                 alertBuilder.Show();
@@ -173,20 +173,26 @@ namespace ArcGISRuntime.Samples.ConvexHull
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a TextView for instructions.
-            TextView sampleInstructionsTextView = new TextView(this);
-            sampleInstructionsTextView.Text = "Tap on the map in several places, then click the 'Convex Hull' button.";
+            TextView sampleInstructionsTextView = new TextView(this)
+            {
+                Text = "Tap on the map in several places, then click the 'Convex Hull' button."
+            };
             layout.AddView(sampleInstructionsTextView);
 
             // Create a Button to create the convex hull.
-            _convexHullButton = new Button(this);
-            _convexHullButton.Text = "Convex Hull";
+            _convexHullButton = new Button(this)
+            {
+                Text = "Convex Hull"
+            };
             _convexHullButton.Click += ConvexHullButton_Click;
             _convexHullButton.Enabled = false;
             layout.AddView(_convexHullButton);
 
             // Create a Button to reset the convex hull.
-            _resetButton = new Button(this);
-            _resetButton.Text = "Reset";
+            _resetButton = new Button(this)
+            {
+                Text = "Reset"
+            };
             _resetButton.Click += ResetButton_Click;
             layout.AddView(_resetButton);
 

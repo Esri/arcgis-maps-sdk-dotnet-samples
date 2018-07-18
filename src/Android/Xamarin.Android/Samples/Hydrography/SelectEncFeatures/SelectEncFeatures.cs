@@ -72,7 +72,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
             layout.AddView(_myMapView);
@@ -115,7 +115,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             IdentifyLayerResult firstResult = encResultsWithFeatures.First();
 
             // Get the layer associated with this set of results
-            EncLayer containingLayer = firstResult.LayerContent as EncLayer;
+            EncLayer containingLayer = (EncLayer)firstResult.LayerContent;
 
             // Select the smallest (area) feature in the layer.
             EncFeature smallestFeature = (EncFeature)firstResult.GeoElements.OrderBy(f => GeometryEngine.Area(f.Geometry)).First();

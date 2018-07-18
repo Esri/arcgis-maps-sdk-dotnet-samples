@@ -12,14 +12,12 @@ using Android.OS;
 using Android.Webkit;
 using Android.Widget;
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using Android.Graphics;
-using Android.Graphics.Drawables;
 using Android.Views;
 
 namespace ArcGISRuntime.Samples.WmsIdentify
@@ -29,7 +27,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         "Identify WMS features",
         "Layers",
         "This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.",
-        "Tap or click on a feature. A callout appears with the returned content for the WMS feature. Note that due to the nature of the WMS service implementation, an empty result is shown when there is no result; an application might inspect the HTML to determine if the HTML actually contains a feature.")]
+        "Tap to identify a feature. Note: the service returns HTML regardless of whether there was an identify result. See the Forms implementation for an example heuristic for identifying empty results.")]
     public class WmsIdentify : Activity
     {
         // Create and hold reference to the used MapView

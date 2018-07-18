@@ -54,10 +54,12 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
             Map myMap = new Map(Basemap.CreateOceans());
 
             // Create feature table for the hurricane feature service
-            _myFeatureTable = new ServiceFeatureTable(_serviceUri);
+            _myFeatureTable = new ServiceFeatureTable(_serviceUri)
+            {
 
-            // Define the request mode
-            _myFeatureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
+                // Define the request mode
+                FeatureRequestMode = FeatureRequestMode.ManualCache
+            };
 
             // When feature table is loaded, populate data
             _myFeatureTable.LoadStatusChanged += OnLoadedPopulateData;
@@ -90,7 +92,7 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
             queryParameters.TimeExtent = myExtent;
 
             // Create list of the fields that are returned from the service
-            var outputFields = new string[] { "*" };
+            string[] outputFields = { "*" };
 
             // Populate feature table with the data based on query
             await _myFeatureTable.PopulateFromServiceAsync(queryParameters, true, outputFields);
@@ -99,7 +101,7 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

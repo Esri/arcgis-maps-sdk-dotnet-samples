@@ -48,7 +48,7 @@ namespace ArcGISRuntime.UWP.Samples.TokenSecuredKnownUser
         private void Initialize()
         {
             // Create the public layer and provide a name.
-            var publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
+            ArcGISTiledLayer publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
             {
                 Name = _publicLayerName
             };
@@ -57,7 +57,7 @@ namespace ArcGISRuntime.UWP.Samples.TokenSecuredKnownUser
             PublicLayerPanel.DataContext = publicLayer;
 
             // Create the secured layer and provide a name.
-            var tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
+            ArcGISMapImageLayer tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
             {
                 Name = _secureLayerName
             };
@@ -66,7 +66,7 @@ namespace ArcGISRuntime.UWP.Samples.TokenSecuredKnownUser
             SecureLayerPanel.DataContext = tokenSecuredLayer;
 
             // Create a new map and add the layers.
-            var myMap = new Map();
+            Map myMap = new Map();
             myMap.OperationalLayers.Add(publicLayer);
             myMap.OperationalLayers.Add(tokenSecuredLayer);
 
@@ -104,8 +104,7 @@ namespace ArcGISRuntime.UWP.Samples.TokenSecuredKnownUser
             catch (Exception ex)
             {
                 // Report error accessing a secured resource.
-                var messageDlg = new MessageDialog("Access to " + info.ServiceUri.AbsoluteUri + " denied. " + ex.Message, "Credential Error");
-                messageDlg.ShowAsync();
+                await new MessageDialog("Access to " + info.ServiceUri.AbsoluteUri + " denied. " + ex.Message, "Credential Error").ShowAsync();
             }
 
             // Return the credential.

@@ -10,9 +10,7 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.FeatureLayerGeoPackage
 {

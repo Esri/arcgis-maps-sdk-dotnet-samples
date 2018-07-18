@@ -121,7 +121,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
             MyMapView.TimeExtent = new TimeExtent(newStart, newEnd);
 
             // Update the label
-            lblCurrentDate.Text = String.Format("{0} - {1}", newStart.ToString("d"), newEnd.ToString("d"));
+            lblCurrentDate.Text = $"{newStart:d} - {newEnd:d}";
         }
     }
 }

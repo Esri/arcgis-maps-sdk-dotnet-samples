@@ -51,16 +51,18 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             try
             {
                 // Define the Uri for the service feature table (US state polygons)
-                var myServiceFeatureTable_Uri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
+                Uri myServiceFeatureTable_Uri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
 
                 // Create a new service feature table from the Uri
                 ServiceFeatureTable myServiceFeatureTable = new ServiceFeatureTable(myServiceFeatureTable_Uri);
 
                 // Create a new feature layer from the service feature table
-                FeatureLayer myFeatureLayer = new FeatureLayer(myServiceFeatureTable);
+                FeatureLayer myFeatureLayer = new FeatureLayer(myServiceFeatureTable)
+                {
 
-                // Set the rendering mode of the feature layer to be dynamic (needed for extrusion to work)
-                myFeatureLayer.RenderingMode = FeatureRenderingMode.Dynamic;
+                    // Set the rendering mode of the feature layer to be dynamic (needed for extrusion to work)
+                    RenderingMode = FeatureRenderingMode.Dynamic
+                };
 
                 // Create a new simple line symbol for the feature layer
                 SimpleLineSymbol mySimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
@@ -104,7 +106,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             catch (Exception ex)
             {
                 // Something went wrong, display the error
-                var alert = new AlertDialog.Builder(this);
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.SetTitle("Error");
                 alert.SetMessage(ex.Message);
                 alert.Show();
@@ -147,11 +149,13 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create Button
-            _button_ToggleExtrusionData = new Button(this);
-            _button_ToggleExtrusionData.Text = "Show population density";
+            _button_ToggleExtrusionData = new Button(this)
+            {
+                Text = "Show population density"
+            };
             _button_ToggleExtrusionData.Click += Button_ToggleExtrusionData_Clicked;
 
             // Add Button to the layout  

@@ -78,16 +78,20 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             // ------------
 
             // Create a sub layout to organize the label and 1st parameter on a single horizontal line
-            var subLayout1 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            LinearLayout subLayout1 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Create label that displays the 1st parameter used by the stretch renderer
-            _Label_Parameter1 = new TextView(this);
-            _Label_Parameter1.Text = "Minimum value (0 - 255):";
+            _Label_Parameter1 = new TextView(this)
+            {
+                Text = "Minimum value (0 - 255):"
+            };
             subLayout1.AddView(_Label_Parameter1);
 
             // Create text field for 1st parameter used by the stretch renderer that the user can modify 
-            _Input_Parameter1 = new EditText(this);
-            _Input_Parameter1.Text = "10";
+            _Input_Parameter1 = new EditText(this)
+            {
+                Text = "10"
+            };
             subLayout1.AddView(_Input_Parameter1);
 
             // Add the sub layout to the main layout
@@ -96,16 +100,20 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             // ------------
 
             // Create a sub layout to organize the label and 2nd parameter on a single horizontal line
-            var subLayout2 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            LinearLayout subLayout2 = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Create label that displays the 2nd parameter used by the stretch renderer
-            _Label_Parameter2 = new TextView(this);
-            _Label_Parameter2.Text = "Maximum value (0 - 255):";
+            _Label_Parameter2 = new TextView(this)
+            {
+                Text = "Maximum value (0 - 255):"
+            };
             subLayout2.AddView(_Label_Parameter2);
 
             // Create text field for 2nd parameter used by the stretch renderer that the user can modify 
-            _Input_Parameter2 = new EditText(this);
-            _Input_Parameter2.Text = "150";
+            _Input_Parameter2 = new EditText(this)
+            {
+                Text = "150"
+            };
             subLayout2.AddView(_Input_Parameter2);
 
             // Add the sub layout to the main layout
@@ -114,8 +122,10 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             // ------------
 
             // Create button to change stretch renderer of the raster
-            _UpdateRenderer = new Button(this);
-            _UpdateRenderer.Text = "Update Renderer";
+            _UpdateRenderer = new Button(this)
+            {
+                Text = "Update Renderer"
+            };
             // Hook to touch/click event of the button
             _UpdateRenderer.Click += OnUpdateRendererClicked;
             layout.AddView(_UpdateRenderer);
@@ -173,6 +183,21 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             // along with the parameters specified, then a stretch renderer is created and applied to 
             // the raster layer
 
+            // Convert the input text to doubles and return if they're invalid.
+            double input1;
+            double input2;
+            try
+            {
+                input1 = Convert.ToDouble(_Input_Parameter1.Text);
+                input2 = Convert.ToDouble(_Input_Parameter2.Text);
+            }
+            catch (Exception ex)
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.SetMessage(ex.Message).SetTitle("Alert").Show();
+                return;
+            }
+
             // Get the user choice for the raster stretch render
             string myRendererTypeChoice;
 
@@ -207,10 +232,10 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     // TODO: Add you own logic to ensure that accurate min/max stretch values are used
 
                     // Create an IEnumerable from a list of double min stretch value doubles
-                    IEnumerable<double> myMinValues = new List<double> { Convert.ToDouble(_Input_Parameter1.Text) };
+                    IEnumerable<double> myMinValues = new List<double> { input1 };
 
                     // Create an IEnumerable from a list of double max stretch value doubles
-                    IEnumerable<double> myMaxValues = new List<double> { Convert.ToDouble(_Input_Parameter2.Text) };
+                    IEnumerable<double> myMaxValues = new List<double> { input2 };
 
                     // Create a new MinMaxStretchParameters based on the user choice for min and max stretch values
                     MinMaxStretchParameters myMinMaxStretchParameters = new MinMaxStretchParameters(myMinValues, myMaxValues);
@@ -226,7 +251,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     // TODO: Add you own logic to ensure that accurate min/max percent clip values are used
 
                     // Create a new PercentClipStretchParameters based on the user choice for min and max percent clip values
-                    PercentClipStretchParameters myPercentClipStretchParameters = new PercentClipStretchParameters(Convert.ToDouble(_Input_Parameter1.Text), Convert.ToDouble(_Input_Parameter2.Text));
+                    PercentClipStretchParameters myPercentClipStretchParameters = new PercentClipStretchParameters(input1, input2);
 
                     // Create the percent clip renderer based on the user defined min/max percent clip values, empty gamma values, statistic estimates, and a predefined color ramp 
                     myStretchRenderer = new StretchRenderer(myPercentClipStretchParameters, myGammaValues, true, myColorRamp);
@@ -239,7 +264,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     // TODO: Add you own logic to ensure that an accurate standard deviation value is used
 
                     // Create a new StandardDeviationStretchParameters based on the user choice for standard deviation value
-                    StandardDeviationStretchParameters myStandardDeviationStretchParameters = new StandardDeviationStretchParameters(Convert.ToDouble(_Input_Parameter1.Text));
+                    StandardDeviationStretchParameters myStandardDeviationStretchParameters = new StandardDeviationStretchParameters(input1);
 
                     // Create the standard deviation renderer based on the user defined standard deviation value, empty gamma values, statistic estimates, and a predefined color ramp 
                     myStretchRenderer = new StretchRenderer(myStandardDeviationStretchParameters, myGammaValues, true, myColorRamp);

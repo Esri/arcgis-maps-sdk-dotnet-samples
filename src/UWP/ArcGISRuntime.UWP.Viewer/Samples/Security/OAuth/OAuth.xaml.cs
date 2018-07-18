@@ -64,7 +64,7 @@ namespace ArcGISRuntime.UWP.Samples.OAuth
         private void SetOAuthInfo()
         {
             // Register the server information with the AuthenticationManager.
-            var serverInfo = new ServerInfo
+            ServerInfo serverInfo = new ServerInfo
             {
                 ServerUri = new Uri(ServerUrl),
                 TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,
@@ -76,7 +76,7 @@ namespace ArcGISRuntime.UWP.Samples.OAuth
             };
 
             // If a client secret has been configured, set the authentication type to OAuthAuthorizationCode.
-            if (!string.IsNullOrEmpty(ClientSecret))
+            if (!String.IsNullOrEmpty(ClientSecret))
             {
                 // Use OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret).
                 serverInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode;

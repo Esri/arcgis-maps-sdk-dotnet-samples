@@ -18,7 +18,7 @@ namespace ArcGISRuntime.WPF.Viewer.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null || string.IsNullOrEmpty(value.ToString()))
+            if (value == null || String.IsNullOrEmpty(value.ToString()))
             {
                 return Visibility.Collapsed;
             }

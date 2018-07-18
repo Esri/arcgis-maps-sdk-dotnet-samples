@@ -24,6 +24,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Esri.ArcGISRuntime.ArcGISServices;
 
 namespace ArcGISRuntime.Samples.GenerateGeodatabase
 {
@@ -70,18 +71,24 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         private void CreateLayout()
         {
             // Create the layout.
-            LinearLayout layout = new LinearLayout(this);
-            layout.Orientation = Orientation.Vertical;
+            LinearLayout layout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Vertical
+            };
 
             // Add the progress bar.
-            myProgressBar = new ProgressBar(this);
-            myProgressBar.Visibility = Android.Views.ViewStates.Gone;
+            myProgressBar = new ProgressBar(this)
+            {
+                Visibility = Android.Views.ViewStates.Gone
+            };
             layout.AddView(myProgressBar);
 
             // Add the generate button.
-            myGenerateButton = new Button(this);
-            myGenerateButton.Text = "Generate";
-            myGenerateButton.Enabled = false;
+            myGenerateButton = new Button(this)
+            {
+                Text = "Generate",
+                Enabled = false
+            };
             myGenerateButton.Click += GenerateButton_Clicked;
             layout.AddView(myGenerateButton);
 
@@ -116,8 +123,10 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
 
                 // Create graphics overlay for the extent graphic and apply a renderer.
-                GraphicsOverlay extentOverlay = new GraphicsOverlay();
-                extentOverlay.Renderer = new SimpleRenderer(lineSymbol);
+                GraphicsOverlay extentOverlay = new GraphicsOverlay
+                {
+                    Renderer = new SimpleRenderer(lineSymbol)
+                };
 
                 // Add graphics overlay to the map view.
                 myMapView.GraphicsOverlays.Add(extentOverlay);
@@ -129,7 +138,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
                 // Add all graphics from the service to the map.
-                foreach (var layer in _gdbSyncTask.ServiceInfo.LayerInfos)
+                foreach (IdInfo layer in _gdbSyncTask.ServiceInfo.LayerInfos)
                 {
                     // Create the ServiceFeatureTable for this particular layer.
                     ServiceFeatureTable onlineTable = new ServiceFeatureTable(new Uri(_featureServiceUri + "/" + layer.Id));
@@ -178,7 +187,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             envelopeBldr.Expand(0.80);
 
             // Get the (only) graphics overlay in the map view.
-            var extentOverlay = myMapView.GraphicsOverlays.FirstOrDefault();
+            GraphicsOverlay extentOverlay = myMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
             if (extentOverlay == null) { return; }
@@ -217,10 +226,10 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             _generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the progress changed event (to show progress bar).
-            _generateGdbJob.ProgressChanged += ((sender, e) =>
+            _generateGdbJob.ProgressChanged += (sender, e) =>
             {
                 UpdateProgressBar();
-            });
+            };
 
             // Show the progress bar.
             myProgressBar.Visibility = Android.Views.ViewStates.Visible;
@@ -281,8 +290,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 else
                 {
                     // If no error, show messages from the job.
-                    var m = from msg in job.Messages select msg.Message;
-                    message += ": " + string.Join<string>("\n", m);
+                    message += ": " + string.Join("\n", job.Messages.Select(m => m.Message));
                 }
 
                 // Show error message.
@@ -296,7 +304,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            var builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetMessage(message).SetTitle("Alert").Show();
         }
 

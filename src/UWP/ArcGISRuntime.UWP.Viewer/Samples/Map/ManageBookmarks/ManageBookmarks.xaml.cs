@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Mapping;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -47,33 +48,41 @@ namespace ArcGISRuntime.UWP.Samples.ManageBookmarks
 
             // Bookmark-1
             Viewpoint myViewpoint1 = new Viewpoint(27.3805833, 33.6321389, 6000);
-            Bookmark myBookmark1 = new Bookmark();
-            myBookmark1.Name = "Mysterious Desert Pattern";
-            myBookmark1.Viewpoint = myViewpoint1;
+            Bookmark myBookmark1 = new Bookmark
+            {
+                Name = "Mysterious Desert Pattern",
+                Viewpoint = myViewpoint1
+            };
             MyMapView.Map.Bookmarks.Add(myBookmark1);
             bookmarkChooser.Items.Add(myBookmark1);
 
             // Bookmark-2
             Viewpoint myViewpoint2 = new Viewpoint(-39.299987, 174.060858, 600000);
-            Bookmark myBookmark2 = new Bookmark();
-            myBookmark2.Name = "Dormant Volcano";
-            myBookmark2.Viewpoint = myViewpoint2;
+            Bookmark myBookmark2 = new Bookmark
+            {
+                Name = "Dormant Volcano",
+                Viewpoint = myViewpoint2
+            };
             MyMapView.Map.Bookmarks.Add(myBookmark2);
             bookmarkChooser.Items.Add(myBookmark2);
 
             // Bookmark-3
             Viewpoint myViewpoint3 = new Viewpoint(-33.867886, -63.985, 40000);
-            Bookmark myBookmark3 = new Bookmark();
-            myBookmark3.Name = "Guitar-Shaped Forest";
-            myBookmark3.Viewpoint = myViewpoint3;
+            Bookmark myBookmark3 = new Bookmark
+            {
+                Name = "Guitar-Shaped Forest",
+                Viewpoint = myViewpoint3
+            };
             MyMapView.Map.Bookmarks.Add(myBookmark3);
             bookmarkChooser.Items.Add(myBookmark3);
 
             // Bookmark-4
             Viewpoint myViewpoint4 = new Viewpoint(44.525049, -110.83819, 6000);
-            Bookmark myBookmark4 = new Bookmark();
-            myBookmark4.Name = "Grand Prismatic Spring";
-            myBookmark4.Viewpoint = myViewpoint4;
+            Bookmark myBookmark4 = new Bookmark
+            {
+                Name = "Grand Prismatic Spring",
+                Viewpoint = myViewpoint4
+            };
             MyMapView.Map.Bookmarks.Add(myBookmark4);
             bookmarkChooser.Items.Add(myBookmark4);
 
@@ -90,7 +99,7 @@ namespace ArcGISRuntime.UWP.Samples.ManageBookmarks
         private void OnBookmarkChooserSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Get the selected bookmark and apply the view point to the map
-            Bookmark selectedBookmark = e.AddedItems[0] as Bookmark;
+            Bookmark selectedBookmark = (Bookmark)e.AddedItems[0];
             MyMapView.SetViewpoint(selectedBookmark.Viewpoint);
         }
 
@@ -112,10 +121,10 @@ namespace ArcGISRuntime.UWP.Samples.ManageBookmarks
         private void ButtonAddDone_Click(object sender, RoutedEventArgs e)
         {
             // Get the name from the text field
-            var name = TextBoxBookmarkName.Text;
+            string name = TextBoxBookmarkName.Text;
 
             // Exit if the name is empty
-            if (string.IsNullOrEmpty(name))
+            if (String.IsNullOrEmpty(name))
                 return;
 
             // Check to see if there is a bookmark with same name
@@ -124,11 +133,13 @@ namespace ArcGISRuntime.UWP.Samples.ManageBookmarks
                 return;
 
             // Create a new bookmark
-            Bookmark myBookmark = new Bookmark();
-            myBookmark.Name = name;
+            Bookmark myBookmark = new Bookmark
+            {
+                Name = name,
 
-            // Get the current viewpoint from map and assign it to bookmark
-            myBookmark.Viewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+                // Get the current viewpoint from map and assign it to bookmark
+                Viewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)
+            };
 
             // Add the bookmark to bookmark collection of the map
             MyMapView.Map.Bookmarks.Add(myBookmark);

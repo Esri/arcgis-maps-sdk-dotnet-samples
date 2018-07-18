@@ -71,10 +71,12 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             _featureTable = new ServiceFeatureTable(new Uri(_statesUrl));
 
             // Create feature layer using this feature table
-            _featureLayer = new FeatureLayer(_featureTable);
+            _featureLayer = new FeatureLayer(_featureTable)
+            {
 
-            // Set the Opacity of the Feature Layer
-            _featureLayer.Opacity = 0.6;
+                // Set the Opacity of the Feature Layer
+                Opacity = 0.6
+            };
 
             // Create a new renderer for the States Feature Layer.
             SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
@@ -104,15 +106,17 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         private async Task QueryStateFeature(string stateName)
         {
             // Create dialog to display alert information
-            var alert = new AlertDialog.Builder(this);
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
             try
             {
                 // Create a query parameters that will be used to Query the feature table
-                QueryParameters queryParams = new QueryParameters();
+                QueryParameters queryParams = new QueryParameters
+                {
 
-                // Construct and assign the where clause that will be used to query the feature table
-                queryParams.WhereClause = "upper(STATE_NAME) LIKE '%" + (stateName.Trim().ToUpper()) + "%'";
+                    // Construct and assign the where clause that will be used to query the feature table
+                    WhereClause = "upper(STATE_NAME) LIKE '%" + stateName.Trim().ToUpper() + "%'"
+                };
 
                 // Query the feature table
                 FeatureQueryResult queryResult = await _featureTable.QueryFeaturesAsync(queryParams);
@@ -156,7 +160,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create new Text box that will take the query parameter
             _queryTextBox = new EditText(this)
@@ -166,8 +170,10 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             _queryTextBox.SetMaxLines(1);
 
             // Create Button that will start the Feature Query
-            var queryButton = new Button(this);
-            queryButton.Text = "Query";
+            Button queryButton = new Button(this)
+            {
+                Text = "Query"
+            };
             queryButton.Click += OnQueryClicked;
 
             // Create and add a help label

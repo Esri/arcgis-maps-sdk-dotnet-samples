@@ -29,14 +29,13 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
         private void LoginButtonClicked(object sender, EventArgs e)
         {
             // Get the values entered in the text fields.
-            var username = UsernameEntry.Text;
-            var password = PasswordEntry.Text;
+            string username = UsernameEntry.Text;
+            string password = PasswordEntry.Text;
 
             // Make sure the user entered all values.
-            if (string.IsNullOrEmpty(username) ||
-                string.IsNullOrEmpty(password))
+            if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password))
             {
-                DisplayAlert("Login", "Please enter a username and password", "OK");
+                ((Page)Parent).DisplayAlert("Login", "Please enter a username and password", "OK");
                 return;
             }
 
@@ -44,7 +43,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
             if (OnLoginInfoEntered != null)
             {
                 // Create a new LoginEventArgs to contain the user's values.
-                var loginEventArgs = new LoginEventArgs(username.Trim(), password.Trim());
+                LoginEventArgs loginEventArgs = new LoginEventArgs(username.Trim(), password.Trim());
 
                 // Raise the event.
                 OnLoginInfoEntered(sender, loginEventArgs);

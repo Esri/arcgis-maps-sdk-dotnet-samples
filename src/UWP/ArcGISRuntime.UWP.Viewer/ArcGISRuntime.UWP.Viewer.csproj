@@ -1259,7 +1259,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="ArcGISRuntime.UWP.Viewer_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">

@@ -11,7 +11,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Drawing;
 
@@ -59,8 +58,8 @@ namespace ArcGISRuntime.UWP.Samples.AddGraphicsRenderer
             MapPoint centerPoint = extent.GetCenter();
 
             // Create values inside the visible extent for creating graphic
-            var extentWidth = extent.Width / 5;
-            var extentHeight = extent.Height / 10;
+            double extentWidth = extent.Width / 5;
+            double extentHeight = extent.Height / 10;
 
             // Create point collection
             PointCollection points = new PointCollection(SpatialReferences.WebMercator)
@@ -75,7 +74,7 @@ namespace ArcGISRuntime.UWP.Samples.AddGraphicsRenderer
             GraphicsOverlay overlay = new GraphicsOverlay();
 
             // Add points to the graphics overlay
-            foreach (var point in points)
+            foreach (MapPoint point in points)
             {
                 // Create new graphic and add it to the overlay
                 overlay.Graphics.Add(new Graphic(point));
@@ -86,7 +85,7 @@ namespace ArcGISRuntime.UWP.Samples.AddGraphicsRenderer
             {
                 Color = Color.Yellow,
                 Size = 30,
-                Style = SimpleMarkerSymbolStyle.Square,
+                Style = SimpleMarkerSymbolStyle.Square
             };
 
             // Create simple renderer with symbol

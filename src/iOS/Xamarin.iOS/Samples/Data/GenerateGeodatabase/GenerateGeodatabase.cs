@@ -15,6 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using CoreGraphics;
+using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -145,7 +146,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
                 // Add all graphics from the service to the map.
-                foreach (var layer in _gdbSyncTask.ServiceInfo.LayerInfos)
+                foreach (IdInfo layer in _gdbSyncTask.ServiceInfo.LayerInfos)
                 {
                     // Create the ServiceFeatureTable for this particular layer.
                     ServiceFeatureTable onlineTable = new ServiceFeatureTable(new Uri(_featureServiceUri + "/" + layer.Id));
@@ -191,7 +192,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             envelopeBldr.Expand(0.70);
 
             // Get the (only) graphics overlay in the map view.
-            var extentOverlay = _myMapView.GraphicsOverlays.FirstOrDefault();
+            GraphicsOverlay extentOverlay = _myMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
             if (extentOverlay == null)

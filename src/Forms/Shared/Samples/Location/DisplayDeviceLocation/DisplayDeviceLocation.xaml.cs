@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using System;
@@ -24,8 +23,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
     public partial class DisplayDeviceLocation : ContentPage
     {
         // String array to store the different device location options.
-        private string[] _navigationTypes = new string[]
-        {
+        private string[] _navigationTypes = {
             "On",
             "Re-Center",
             "Navigation",
@@ -61,14 +59,14 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         private async void OnStartClicked(object sender, EventArgs e)
         {
             // Show sheet and get title from the selection
-            var selectedMode =
-                await DisplayActionSheet("Select navigation mode", "Cancel", null, _navigationTypes);
+            string selectedMode =
+                await ((Page)Parent).DisplayActionSheet("Select navigation mode", "Cancel", null, _navigationTypes);
 
             // If selected cancel do nothing
             if (selectedMode == "Cancel") return;
 
             // Get index that is used to get the selected url
-            var selectedIndex = _navigationTypes.ToList().IndexOf(selectedMode);
+            int selectedIndex = _navigationTypes.ToList().IndexOf(selectedMode);
 
             switch (selectedIndex)
             {

@@ -148,6 +148,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+    <Content Include="Info.png" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -182,7 +183,7 @@
       <Version>6.0.8</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.0.0.561731</Version>
+      <Version>3.1.0.637273</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

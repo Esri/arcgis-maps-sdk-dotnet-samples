@@ -133,7 +133,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         private void OperationModel_ValueChanged(object sender, EventArgs e)
         {
             // Get the data model that contains the spatial operation choices.
-            PickerDataModel operationsModel = _operationPicker.Model as PickerDataModel;
+            PickerDataModel operationsModel = (PickerDataModel)_operationPicker.Model;
 
             // If an operation hasn't been selected, return.
             if (operationsModel.SelectedItem == "")

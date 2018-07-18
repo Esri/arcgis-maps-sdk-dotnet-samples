@@ -123,7 +123,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             _selectedFeaturesOverlay.Graphics.Clear();
 
             // Get the map image layer that contains the service request sublayer and the service request comments table.
-            ArcGISMapImageLayer serviceRequestsMapImageLayer = _myMapView.Map.OperationalLayers[0] as ArcGISMapImageLayer;
+            ArcGISMapImageLayer serviceRequestsMapImageLayer = (ArcGISMapImageLayer)_myMapView.Map.OperationalLayers[0];
 
             // Get the (non-spatial) table that contains the service request comments.
             ServiceFeatureTable commentsTable = serviceRequestsMapImageLayer.Tables[0];
@@ -174,7 +174,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         private void CreateLayout()
         {
             // Create a UIStackView for laying out the map view and table view.
-            var stackView = new UIStackView(new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height))
+            UIStackView stackView = new UIStackView(new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height))
             {
                 Axis = UILayoutConstraintAxis.Vertical,
                 Alignment = UIStackViewAlignment.Fill,

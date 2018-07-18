@@ -951,7 +951,6 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.jpg" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_star_blue.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Info.png" />
     <Folder Include="$(MSBuildThisFileDirectory)Assets\" />
   </ItemGroup>
   <ItemGroup>

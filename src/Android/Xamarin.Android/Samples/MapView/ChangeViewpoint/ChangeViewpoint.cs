@@ -58,8 +58,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
             SpatialReferences.WebMercator);
 
         // String array to store titles for the viewpoints specified above.
-        private string[] titles = new string[]
-        {
+        private string[] titles = {
             "Geometry",
             "Center & Scale",
             "Animate"
@@ -87,15 +86,17 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
 
         private void OnMapsClicked(object sender, EventArgs e)
         {
-            var viewpointsButton = sender as Button;
+            Button viewpointsButton = (Button)sender;
 
             // Create menu to show viewpoint options
-            var mapsMenu = new PopupMenu(this, viewpointsButton);
+            PopupMenu mapsMenu = new PopupMenu(this, viewpointsButton);
             mapsMenu.MenuItemClick += OnViewpointMenuItemClicked;
 
             // Create menu options
-            foreach (var title in titles)
+            foreach (string title in titles)
+            {
                 mapsMenu.Menu.Add(title);
+            }
 
             // Show menu in the view
             mapsMenu.Show();
@@ -104,7 +105,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         private async void OnViewpointMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
         {
             // Get title from the selected item
-            var selectedMapTitle = e.Item.TitleCondensedFormatted.ToString();
+            string selectedMapTitle = e.Item.TitleCondensedFormatted.ToString();
 
             switch (selectedMapTitle)
             {
@@ -130,7 +131,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
                         new Viewpoint(_myMapView.Map.Basemap.BaseLayers.First().FullExtent));
                     
                     // Create a new Viewpoint using the specified geometry
-                    var viewpoint = new Viewpoint(EdinburghEnvelope);
+                    Viewpoint viewpoint = new Viewpoint(EdinburghEnvelope);
                     
                     // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
                     await _myMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));
@@ -144,11 +145,13 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create button to show possible map options
-            var mapsButton = new Button(this);
-            mapsButton.Text = "Viewpoints";
+            Button mapsButton = new Button(this)
+            {
+                Text = "Viewpoints"
+            };
             mapsButton.Click += OnMapsClicked;
 
             // Add maps button to the layout

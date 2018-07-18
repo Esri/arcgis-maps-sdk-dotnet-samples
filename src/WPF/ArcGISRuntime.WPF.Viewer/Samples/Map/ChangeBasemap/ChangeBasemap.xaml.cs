@@ -60,7 +60,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeBasemap
         private void OnBasemapChooserSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Get the title of the selected basemap
-            var selectedBasemapTtile = e.AddedItems[0].ToString();
+            string selectedBasemapTtile = e.AddedItems[0].ToString();
 
             // Retrieve the basemap from the dictionary
             MyMapView.Map.Basemap = _basemapOptions[selectedBasemapTtile];

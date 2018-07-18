@@ -13,7 +13,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
-using System.Collections.Generic;
 using System.Windows;
 using System.Drawing;
 
@@ -83,9 +82,9 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyGraphics
 
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            var tolerance = 10d; // Use larger tolerance for touch
-            var maximumResults = 1; // Only return one graphic  
-            var onlyReturnPopups = false; // Return more than popups
+            double tolerance = 10d; // Use larger tolerance for touch
+            int maximumResults = 1; // Only return one graphic  
+            bool onlyReturnPopups = false; // Return more than popups
 
             // Use the following method to identify graphics in a specific graphics overlay
            IdentifyGraphicsOverlayResult identifyResults = await MyMapView.IdentifyGraphicsOverlayAsync(

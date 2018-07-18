@@ -75,7 +75,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
                 _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
                 _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
                 _helpLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _queryTextView.Frame = new CGRect(margin, _helpLabel.Frame.Bottom + margin, colBreak - (2 * margin), controlHeight);
+                _queryTextView.Frame = new CGRect(margin, _helpLabel.Frame.Bottom + margin, colBreak - 2 * margin, controlHeight);
                 _queryButton.Frame = new CGRect(colBreak + margin, _queryTextView.Frame.Top, 100 - 2 * margin, controlHeight);
 
                 base.ViewDidLayoutSubviews();
@@ -172,13 +172,13 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
                 }
                 else
                 {
-                    var alert = new UIAlertView("State Not Found!", "Add a valid state name.", (IUIAlertViewDelegate) null, "OK", null);
+                    UIAlertView alert = new UIAlertView("State Not Found!", "Add a valid state name.", (IUIAlertViewDelegate) null, "OK", null);
                     alert.Show();
                 }
             }
             catch (Exception ex)
             {
-                var alert = new UIAlertView("Sample error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null);
+                UIAlertView alert = new UIAlertView("Sample error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null);
                 alert.Show();
             }
         }
@@ -205,7 +205,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             _queryButton = new UIButton()
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
-                Layer = {CornerRadius = 5},
+                Layer = {CornerRadius = 5}
             };
             _queryButton.SetTitle("Query", UIControlState.Normal);
             _queryButton.SetTitleColor(View.TintColor, UIControlState.Normal);

@@ -10,10 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using ArcGISRuntime.Samples.Managers;
-using System;
 using Xamarin.Forms;
-using System.IO;
-using Esri.ArcGISRuntime.Geometry;
 
 namespace ArcGISRuntime.Samples.RasterLayerFile
 {
@@ -42,7 +39,7 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
             await myMap.LoadAsync();
 
             // Get the file name
-            String filepath = GetRasterPath();
+            string filepath = GetRasterPath();
 
             // Load the raster file
             Raster myRasterFile = new Raster(filepath);

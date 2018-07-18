@@ -109,7 +109,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
 
             // Display results in the list box
-            StatResultsList.ItemsSource = statQueryResult.FirstOrDefault().Statistics.ToList();
+            StatResultsList.ItemsSource = statQueryResult.First().Statistics.ToList();
             ResultsGrid.IsVisible = true;
         }
 

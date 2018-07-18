@@ -14,8 +14,6 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
-using System.IO;
-using System.Threading.Tasks;
 using System.Timers;
 using System.Drawing;
 
@@ -72,9 +70,11 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
         private async void Initialize()
         {
             // Create scene
-            Scene myScene = new Scene(Basemap.CreateImageryWithLabels());
-            // Set initial viewpoint
-            myScene.InitialViewpoint = new Viewpoint(_observerPoint, 1000000);
+            Scene myScene = new Scene(Basemap.CreateImageryWithLabels())
+            {
+                // Set initial viewpoint
+                InitialViewpoint = new Viewpoint(_observerPoint, 1000000)
+            };
             // Create the elevation source
             ElevationSource myElevationSource = new ArcGISTiledElevationSource(_elevationUri);
             // Add the elevation source to the scene
@@ -108,9 +108,11 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
 
             // Create GeoElement Line of sight analysis (taxi to building)
             // Create the analysis
-            _geoLine = new GeoElementLineOfSight(_observerGraphic, _taxiGraphic);
-            // Apply an offset to the target. This helps avoid some false negatives
-            _geoLine.TargetOffsetZ = 2;
+            _geoLine = new GeoElementLineOfSight(_observerGraphic, _taxiGraphic)
+            {
+                // Apply an offset to the target. This helps avoid some false negatives
+                TargetOffsetZ = 2
+            };
             // Create the analysis overlay
             AnalysisOverlay myAnalysisOverlay = new AnalysisOverlay();
             // Add the analysis to the overlay
@@ -185,7 +187,7 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
         private async void Geoline_TargetVisibilityChanged(object sender, EventArgs e)
         {
             // This is needed because Runtime delivers notifications from a different thread that doesn't have access to UI controls
-            await Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)(UpdateUiAndSelection));
+            await Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)UpdateUiAndSelection);
         }
 
         private void UpdateUiAndSelection()

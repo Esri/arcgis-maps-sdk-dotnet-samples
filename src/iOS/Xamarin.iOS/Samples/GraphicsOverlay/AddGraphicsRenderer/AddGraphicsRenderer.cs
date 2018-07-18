@@ -102,7 +102,7 @@ namespace ArcGISRuntime.Samples.AddGraphicsRenderer
             GraphicsOverlay overlay = new GraphicsOverlay();
 
             // Add points to the graphics overlay.
-            foreach (var point in points)
+            foreach (MapPoint point in points)
             {
                 // Create new graphic and add it to the overlay.
                 overlay.Graphics.Add(new Graphic(point));

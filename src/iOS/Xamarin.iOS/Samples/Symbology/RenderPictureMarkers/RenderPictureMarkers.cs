@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using CoreGraphics;
@@ -91,7 +92,7 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
         private void CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
         {
             // Create URL to the image.
-            var symbolUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae");
+            Uri symbolUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae");
 
             // Create new symbol using asynchronous factory method from URL.
             PictureMarkerSymbol campsiteSymbol = new PictureMarkerSymbol(symbolUri)
@@ -114,11 +115,11 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
         private async Task CreatePictureMarkerSymbolFromResources(GraphicsOverlay overlay)
         {
             // Get current assembly that contains the image.
-            var currentAssembly = Assembly.GetExecutingAssembly();
+            Assembly currentAssembly = Assembly.GetExecutingAssembly();
 
             // Get image as a stream from the resources.
             // Picture is defined as EmbeddedResource and DoNotCopy.
-            var resourceStream = currentAssembly.GetManifestResourceStream(
+            Stream resourceStream = currentAssembly.GetManifestResourceStream(
                 "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream.

@@ -68,7 +68,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerUrl
             myMap.InitialViewpoint = new Viewpoint(initialLocation, 300000);
 
             // Create URI to the used feature service.
-            var serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/9");
+            Uri serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/9");
 
             // Create new FeatureLayer by URL.
             FeatureLayer geologyLayer = new FeatureLayer(serviceUri);

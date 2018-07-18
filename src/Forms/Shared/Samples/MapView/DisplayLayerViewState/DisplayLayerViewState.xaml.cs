@@ -7,10 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,38 +44,44 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             Map myMap = new Map();
 
             // Create the uri for the tiled layer
-            var tiledLayerUri = new Uri(
+            Uri tiledLayerUri = new Uri(
                 "https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer");
 
             // Create a tiled layer using url
-            ArcGISTiledLayer tiledLayer = new ArcGISTiledLayer(tiledLayerUri);
-            tiledLayer.Name = "Tiled Layer";
+            ArcGISTiledLayer tiledLayer = new ArcGISTiledLayer(tiledLayerUri)
+            {
+                Name = "Tiled Layer"
+            };
 
             // Add the tiled layer to map
             myMap.OperationalLayers.Add(tiledLayer);
 
             // Create the uri for the ArcGISMapImage layer
-            var imageLayerUri = new Uri(
+            Uri imageLayerUri = new Uri(
                 "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer");
 
             // Create ArcGISMapImage layer using a url
-            ArcGISMapImageLayer imageLayer = new ArcGISMapImageLayer(imageLayerUri);
-            imageLayer.Name = "Image Layer";
+            ArcGISMapImageLayer imageLayer = new ArcGISMapImageLayer(imageLayerUri)
+            {
+                Name = "Image Layer",
 
-            // Set the visible scale range for the image layer
-            imageLayer.MinScale = 40000000;
-            imageLayer.MaxScale = 2000000;
+                // Set the visible scale range for the image layer
+                MinScale = 40000000,
+                MaxScale = 2000000
+            };
 
             // Add the image layer to map
             myMap.OperationalLayers.Add(imageLayer);
 
             // Create Uri for feature layer
-            var featureLayerUri = new Uri(
+            Uri featureLayerUri = new Uri(
                 "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0");
 
             // Create a feature layer using url
-            FeatureLayer myFeatureLayer = new FeatureLayer(featureLayerUri);
-            myFeatureLayer.Name = "Feature Layer";
+            FeatureLayer myFeatureLayer = new FeatureLayer(featureLayerUri)
+            {
+                Name = "Feature Layer"
+            };
 
             // Add the feature layer to map
             myMap.OperationalLayers.Add(myFeatureLayer);
@@ -108,7 +112,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         {
             // State changed event is sent by a layer. In the list, find the layer which sends this event. 
             // If it exists then update the status
-            var model = _layerStatusModels.FirstOrDefault(l => l.LayerName == e.Layer.Name);
+            LayerStatusModel model = _layerStatusModels.FirstOrDefault(l => l.LayerName == e.Layer.Name);
             if (model != null)
                 model.LayerViewStatus = e.LayerViewState.Status.ToString();
         }

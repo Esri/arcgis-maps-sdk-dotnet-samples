@@ -58,8 +58,10 @@ namespace ArcGISRuntime.WPF.Samples.FeatureCollectionLayerFromPortal
                     FeatureCollection featCollection = new FeatureCollection(collectionItem);
 
                     // Create a layer to display the collection and add it to the map as an operational layer.
-                    FeatureCollectionLayer featCollectionLayer = new FeatureCollectionLayer(featCollection);
-                    featCollectionLayer.Name = collectionItem.Title;
+                    FeatureCollectionLayer featCollectionLayer = new FeatureCollectionLayer(featCollection)
+                    {
+                        Name = collectionItem.Title
+                    };
                     MyMapView.Map.OperationalLayers.Add(featCollectionLayer);
                 }
                 else
@@ -76,10 +78,10 @@ namespace ArcGISRuntime.WPF.Samples.FeatureCollectionLayerFromPortal
         private void OpenPortalFeatureCollectionClick(object sender, RoutedEventArgs e)
         {
             // Get the portal item Id from the user.
-            var collectionItemId = CollectionItemIdTextBox.Text.Trim();
+            string collectionItemId = CollectionItemIdTextBox.Text.Trim();
 
             // Make sure an Id was entered.
-            if (string.IsNullOrEmpty(collectionItemId))
+            if (String.IsNullOrEmpty(collectionItemId))
             {
                 MessageBox.Show("Please enter a portal item ID", "Feature Collection ID");
                 return;

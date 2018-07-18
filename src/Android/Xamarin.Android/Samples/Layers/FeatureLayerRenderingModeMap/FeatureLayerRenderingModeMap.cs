@@ -9,7 +9,6 @@
 
 using Android.App;
 using Android.OS;
-using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;

@@ -62,7 +62,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
             _myMapView.Map = myMap;
 
             // Create uri to the used feature service
-            var serviceUri = new Uri(
+            Uri serviceUri = new Uri(
                "http://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/FeatureServer/0");
 
             // Initialize feature table using a url to feature server url
@@ -108,16 +108,20 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a button to reset the renderer
-            var resetButton = new Button(this);
-            resetButton.Text = "Reset";
+            Button resetButton = new Button(this)
+            {
+                Text = "Reset"
+            };
             resetButton.Click += OnResetButtonClicked;
 
             // Create a button to apply new renderer
-            var overrideButton = new Button(this);
-            overrideButton.Text = "Override";
+            Button overrideButton = new Button(this)
+            {
+                Text = "Override"
+            };
             overrideButton.Click += OnOverrideButtonClicked;
 
             // Add Reset Button to the layout

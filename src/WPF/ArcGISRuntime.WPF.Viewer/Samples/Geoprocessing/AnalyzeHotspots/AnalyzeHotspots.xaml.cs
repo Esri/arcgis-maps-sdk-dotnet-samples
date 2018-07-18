@@ -62,8 +62,8 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
             ShowBusyOverlay();
 
             // Get the 'from' and 'to' dates from the date pickers for the geoprocessing analysis
-            var myFromDate = FromDate.SelectedDate.Value;
-            var myToDate = ToDate.SelectedDate.Value;
+            DateTime myFromDate = FromDate.SelectedDate.Value;
+            DateTime myToDate = ToDate.SelectedDate.Value;
 
 
             // The end date must be at least one day after the start date

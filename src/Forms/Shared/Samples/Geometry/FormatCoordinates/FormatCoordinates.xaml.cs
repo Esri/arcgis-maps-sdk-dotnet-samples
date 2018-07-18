@@ -169,7 +169,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             catch (Exception ex)
             {
                 // The coordinate is malformed, warn and return
-                DisplayAlert("Invalid Format", ex.Message, "OK");
+                ((Page)Parent).DisplayAlert("Invalid Format", ex.Message, "OK");
                 return;
             }
 

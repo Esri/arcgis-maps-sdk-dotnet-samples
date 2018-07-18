@@ -67,7 +67,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
         private async void Initialize()
         {
             // Create new Map with basemap.
-            var map = new Map(Basemap.CreateTopographic());
+            Map map = new Map(Basemap.CreateTopographic());
 
             // Create envelope to be used as a target extent for map's initial viewpoint.
             Envelope envelope = new Envelope(-1131596.019761, 3893114.069099, 3926705.982140, 7977912.461790, SpatialReferences.WebMercator);
@@ -82,7 +82,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
             Uri featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0");
 
             // Initialize feature table using a URL to feature server URL.
-            var featureTable = new ServiceFeatureTable(featureServiceUri);
+            ServiceFeatureTable featureTable = new ServiceFeatureTable(featureServiceUri);
 
             // Initialize a new feature layer based on the feature table.
             _featureLayer = new FeatureLayer(featureTable)
@@ -124,15 +124,15 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
             //    Without this step, querying may fail because wrapped-around coordinates are out of bounds.
             if (_myMapView.IsWrapAroundEnabled)
             {
-                geometry = GeometryEngine.NormalizeCentralMeridian(geometry) as MapPoint;
+                geometry = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geometry);
             }
 
             // Define the envelope around the tap location for selecting features.
-            var selectionEnvelope = new Envelope(geometry.X - mapTolerance, geometry.Y - mapTolerance, geometry.X + mapTolerance,
+            Envelope selectionEnvelope = new Envelope(geometry.X - mapTolerance, geometry.Y - mapTolerance, geometry.X + mapTolerance,
                 geometry.Y + mapTolerance, _myMapView.Map.SpatialReference);
 
             // Define the query parameters for selecting features.
-            var queryParams = new QueryParameters
+            QueryParameters queryParams = new QueryParameters
             {
                 // Set the geometry to selection envelope for selection by geometry.
                 Geometry = selectionEnvelope

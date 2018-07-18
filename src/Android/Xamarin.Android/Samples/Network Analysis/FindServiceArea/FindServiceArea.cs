@@ -98,8 +98,10 @@ namespace ArcGISRuntime.Samples.FindServiceArea
         private void Initialize()
         {
             // Center the map on San Diego.
-            Map streetsMap = new Map(Basemap.CreateLightGrayCanvasVector());
-            streetsMap.InitialViewpoint = new Viewpoint(32.73, -117.14, 30000);
+            Map streetsMap = new Map(Basemap.CreateLightGrayCanvasVector())
+            {
+                InitialViewpoint = new Viewpoint(32.73, -117.14, 30000)
+            };
             _myMapView.Map = streetsMap;
 
             // Create graphics overlays for all of the elements of the map.
@@ -215,11 +217,8 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             // Create the service area task and parameters based on the Uri.
             ServiceAreaTask serviceAreaTask = await ServiceAreaTask.CreateAsync(_serviceAreaUri);
 
-            // An object that defines parameters for solving a service area task.
-            ServiceAreaParameters serviceAreaParameters;
-
             // Store the default parameters for the service area in an object.
-            serviceAreaParameters = await serviceAreaTask.CreateDefaultParametersAsync();
+            ServiceAreaParameters serviceAreaParameters = await serviceAreaTask.CreateDefaultParametersAsync();
 
             // Add impedance cutoffs for facilities (drive time minutes).
             serviceAreaParameters.DefaultImpedanceCutoffs.Add(2.0);

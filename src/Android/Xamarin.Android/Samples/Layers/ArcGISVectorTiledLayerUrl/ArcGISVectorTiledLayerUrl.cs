@@ -66,10 +66,10 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
 
         private void OnVectorLayersClicked(object sender, EventArgs e)
         {
-            var button = sender as Button;
+            Button button = (Button)sender;
 
             // Create menu to show options
-            var menu = new PopupMenu(this, button);
+            PopupMenu menu = new PopupMenu(this, button);
             menu.MenuItemClick += OnVectorLayersMenuItemClicked;
 
             // Create menu options
@@ -98,11 +98,13 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create button to show options
-            var button = new Button(this);
-            button.Text = "Select layer";
+            Button button = new Button(this)
+            {
+                Text = "Select layer"
+            };
             button.Click += OnVectorLayersClicked;
 
             // Add button to the layout

@@ -50,7 +50,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerUrl
             myMap.InitialViewpoint = new Viewpoint(initialLocation, 300000);
 
             // Create uri to the used feature service
-            var serviceUri = new Uri(
+            Uri serviceUri = new Uri(
                 "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/9");
 
             // Create new FeatureLayer from service uri and
@@ -66,7 +66,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerUrl
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

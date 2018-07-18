@@ -64,7 +64,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private async void categories_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var context = (e.NewValue as TreeViewItem);
+            var context = e.NewValue as TreeViewItem;
             if (context == null) {return;}
             var sample = context.DataContext as SampleInfo;
             var category = context.DataContext as SearchableTreeNode;

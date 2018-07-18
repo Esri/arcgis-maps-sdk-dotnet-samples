@@ -134,7 +134,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
                 string name = textInputAlertController.TextFields[0].Text;
 
                 // Exit if the name is empty.
-                if (string.IsNullOrEmpty(name))
+                if (String.IsNullOrEmpty(name))
                     return;
 
                 // Check to see if there is a bookmark with same name.
@@ -180,11 +180,11 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private void CreateLayout()
         {
             // Create a bookmark button to show existing bookmarks.
-            var showBookmarksButton = new UIBarButtonItem {Title = "Bookmarks", Style = UIBarButtonItemStyle.Plain};
+            UIBarButtonItem showBookmarksButton = new UIBarButtonItem {Title = "Bookmarks", Style = UIBarButtonItemStyle.Plain};
             showBookmarksButton.Clicked += OnShowBookmarksButtonClicked;
 
             // Create a button to add new bookmark.
-            var addBookmarkButton = new UIBarButtonItem(UIBarButtonSystemItem.Add);
+            UIBarButtonItem addBookmarkButton = new UIBarButtonItem(UIBarButtonSystemItem.Add);
             addBookmarkButton.Clicked += OnAddBookmarksButtonClicked;
 
             // Add the buttons to the toolbar.

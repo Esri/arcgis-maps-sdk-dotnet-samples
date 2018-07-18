@@ -42,15 +42,15 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         // the layer itself (RasterLayer or FeatureLayer) - object
         // NOTE: According to MSDN, a HybridDictionary is useful for cases where the number 
         // of elements in a dictionary is unknown
-        HybridDictionary _myHybridDictionary_Layers = new HybridDictionary();
+        private HybridDictionary _myHybridDictionary_Layers = new HybridDictionary();
 
         // Member ObservableCollection to hold the human-readable string name of the 
         // layers - used as the ListView_LayersNotInTheMap.ItemsSource 
-        ObservableCollection<string> _myObservableCollection_LayerNamesNotInTheMap = new ObservableCollection<string>();
+        private ObservableCollection<string> _myObservableCollection_LayerNamesNotInTheMap = new ObservableCollection<string>();
 
         // Member ObservableCollection to hold the human-readable string name of the 
         // layers - used as the ListView_LayersInTheMap.ItemsSource 
-        ObservableCollection<string> _myObservableCollection_LayerNamesInTheMap = new ObservableCollection<string>();
+        private ObservableCollection<string> _myObservableCollection_LayerNamesInTheMap = new ObservableCollection<string>();
 
         private async void Initialize()
         {
@@ -70,10 +70,12 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             foreach (GeoPackageRaster oneGeoPackageRaster in myReadOnlyListOfGeoPackageRasters)
             {
                 // Create a RasterLayer from the GeoPackageRaster
-                RasterLayer myRasterLayer = new RasterLayer(oneGeoPackageRaster);
+                RasterLayer myRasterLayer = new RasterLayer(oneGeoPackageRaster)
+                {
 
-                // Set the opacity on the RasterLayer to partially visible 
-                myRasterLayer.Opacity = 0.55;
+                    // Set the opacity on the RasterLayer to partially visible 
+                    Opacity = 0.55
+                };
 
                 // Load the RasterLayer - that way we can get to it's properties
                 await myRasterLayer.LoadAsync();

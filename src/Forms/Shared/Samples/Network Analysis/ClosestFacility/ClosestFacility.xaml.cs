@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.ClosestFacility
 {
@@ -162,11 +163,11 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             {
                 if (exception.Message.Equals("Unable to complete operation."))
                 {
-                    await DisplayAlert("Error", "Incident not within San Diego area!", "OK");
+                    await ((Page)Parent).DisplayAlert("Error", "Incident not within San Diego area!", "OK");
                 }
                 else
                 {
-                    await DisplayAlert("Error", "An ArcGIS web exception occurred. \n" + exception.Message, "OK");
+                    await ((Page)Parent).DisplayAlert("Error", "An ArcGIS web exception occurred. \n" + exception.Message, "OK");
                 }
             }
         }

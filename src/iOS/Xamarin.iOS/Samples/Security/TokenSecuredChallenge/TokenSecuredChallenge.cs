@@ -36,17 +36,17 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         private string _secureLayerName = "USA - Secure";
 
         // Use a TaskCompletionSource to store the result of a login task.
-        TaskCompletionSource<Credential> _loginTaskCompletionSource;
+        private TaskCompletionSource<Credential> _loginTaskCompletionSource;
 
         // Store the map view displayed in the app.
-        MapView _myMapView;
+        private MapView _myMapView;
 
         // Labels to show layer load status.
-        UILabel _publicLayerLabel;
-        UILabel _secureLayerLabel;
+        private UILabel _publicLayerLabel;
+        private UILabel _secureLayerLabel;
 
         // View containing login controls to display over the map view.
-        LoginOverlay _loginUI;
+        private LoginOverlay _loginUI;
 
         public TokenSecuredChallenge()
         {
@@ -111,13 +111,13 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
 
             // Create the public layer and provide a name.
-            var publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
+            ArcGISTiledLayer publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
             {
                 Name = _publicLayerName
             };
 
             // Create the secured layer and provide a name.
-            var tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
+            ArcGISMapImageLayer tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
             {
                 Name = _secureLayerName
             };
@@ -127,7 +127,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             tokenSecuredLayer.LoadStatusChanged += LayerLoadStatusChanged;
 
             // Create a new map and add the layers.
-            var myMap = new Map();
+            Map myMap = new Map();
             myMap.OperationalLayers.Add(publicLayer);
             myMap.OperationalLayers.Add(tokenSecuredLayer);
 
@@ -139,7 +139,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         private void LayerLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
             // Get the layer that triggered the event.
-            var layer = sender as Layer;
+            Layer layer = (Layer)sender;
 
             // Get the label for this layer.
             UILabel labelToUpdate = null;
@@ -153,8 +153,8 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             }
 
             // Create the text string and font color to describe the current load status.
-            var updateText = layer.Name;
-            var textColor = UIColor.Gray;
+            string updateText = layer.Name;
+            UIColor textColor = UIColor.Gray;
 
             switch (e.Status)
             {
@@ -205,11 +205,11 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         private void ShowLoginUI()
         {
             // Get the URL for the service being requested.
-            var info = _loginTaskCompletionSource.Task.AsyncState as CredentialRequestInfo;
-            var serviceUrl = info.ServiceUri.GetLeftPart(UriPartial.Path);
+            CredentialRequestInfo info = (CredentialRequestInfo)_loginTaskCompletionSource.Task.AsyncState;
+            string serviceUrl = info.ServiceUri.GetLeftPart(UriPartial.Path);
 
             // Create a view to show login controls over the map view.
-            var ovBounds = new CoreGraphics.CGRect(0, 80, _myMapView.Bounds.Width, _myMapView.Bounds.Height - 80);
+            CGRect ovBounds = new CGRect(0, 80, _myMapView.Bounds.Width, _myMapView.Bounds.Height - 80);
             _loginUI = new LoginOverlay(ovBounds, 0.85f, UIColor.DarkGray, serviceUrl);
 
             // Handle the login event to get the login entered by the user.
@@ -237,7 +237,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             try
             {
                 // Get the associated CredentialRequestInfo (will need the URI of the service being accessed).
-                CredentialRequestInfo requestInfo = _loginTaskCompletionSource.Task.AsyncState as CredentialRequestInfo;
+                CredentialRequestInfo requestInfo = (CredentialRequestInfo)_loginTaskCompletionSource.Task.AsyncState;
 
                 // Create a token credential using the provided username and password.
                 TokenCredential userCredentials = await AuthenticationManager.Current.GenerateCredentialAsync
@@ -308,18 +308,20 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             nfloat centerY = Frame.Height / 2;
 
             // Find the start x and y for the control layout.
-            nfloat controlX = centerX - (totalWidth / 2);
-            nfloat controlY = centerY - (totalHeight / 2);
+            nfloat controlX = centerX - totalWidth / 2;
+            nfloat controlY = centerY - totalHeight / 2;
 
             // Set a title.
-            var titleTextBlock = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight));
-            titleTextBlock.Text = "Login to:";
+            UILabel titleTextBlock = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
+            {
+                Text = "Login to:"
+            };
 
             // Adjust the Y position for the next control.
             controlY = controlY + controlHeight + rowSpace;
 
             // Service URL for which the user is logging in.
-            var urlTextBlock = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
+            UILabel urlTextBlock = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
             {
                 Text = url,
                 TextColor = UIColor.Blue,
@@ -367,7 +369,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             UIButton cancelButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
             cancelButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
+            cancelButton.TouchUpInside += (s, e) => { OnCanceled?.Invoke(this, null); };
 
             // Add the controls.
             AddSubviews(titleTextBlock, urlTextBlock, _usernameTextField, _passwordTextField, loginButton, cancelButton);
@@ -392,14 +394,14 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         private void LoginButtonClick(object sender, EventArgs e)
         {
             // Get the values entered in the text fields.
-            var username = _usernameTextField.Text.Trim();
-            var password = _passwordTextField.Text.Trim();
+            string username = _usernameTextField.Text.Trim();
+            string password = _passwordTextField.Text.Trim();
 
             // Make sure the user entered all values.
-            if (string.IsNullOrEmpty(username) ||
-                string.IsNullOrEmpty(password))
+            if (String.IsNullOrEmpty(username) ||
+                String.IsNullOrEmpty(password))
             {
-                new UIAlertView("Login", "Please enter a username and password", null, "OK", null).Show();
+                new UIAlertView("Login", "Please enter a username and password", (IUIAlertViewDelegate)null, "OK", null).Show();
                 return;
             }
 
@@ -407,7 +409,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             if (OnLoginInfoEntered != null)
             {
                 // Create a new LoginEventArgs to contain the user's values.
-                var loginEventArgs = new LoginEventArgs(username, password);
+                LoginEventArgs loginEventArgs = new LoginEventArgs(username, password);
 
                 // Raise the event.
                 OnLoginInfoEntered(sender, loginEventArgs);

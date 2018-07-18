@@ -38,14 +38,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
-    <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidSupportedAbis>armeabi;armeabi-v7a;x86</AndroidSupportedAbis>
     <Debugger>Xamarin</Debugger>
     <LangVersion>6</LangVersion>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
-    <AotAssemblies>false</AotAssemblies>
-    <EnableLLVM>false</EnableLLVM>
-    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -64,14 +61,11 @@
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
-    <Reference Include="System.Collections" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Runtime" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -83,9 +77,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Misc Resources -->
-    <Content Include="Properties\AndroidManifest.xml">
+    <None Include="Properties\AndroidManifest.xml">
       <SubType>Designer</SubType>
-    </Content>
+    </None>
     <AndroidResource Include="Resources\Drawable\Icon.png" />
     <AndroidResource Include="Resources\drawable-hdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-mdpi\Icon.png" />
@@ -114,8 +108,11 @@
     <PackageReference Include="PCLCrypto">
       <Version>2.0.147</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.CustomTabs">
+      <Version>25.4.0.2</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.0.0.561731</Version>
+      <Version>3.1.0.637273</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Auth">
       <Version>1.5.0.3</Version>

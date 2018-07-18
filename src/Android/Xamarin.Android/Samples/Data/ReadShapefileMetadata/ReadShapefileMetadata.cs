@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Android.App;
+using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -85,10 +86,12 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         {
             // Create a new vertical layout for the app
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
-            
+
             // Add a button to show the metadata
-            Button showMetadataButton = new Button(this);
-            showMetadataButton.Text = "Metadata";
+            Button showMetadataButton = new Button(this)
+            {
+                Text = "Metadata"
+            };
             showMetadataButton.Click += ShowMetadataDialog;
             layout.AddView(showMetadataButton);
 
@@ -113,8 +116,8 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
     // A custom DialogFragment class to show shapefile metadata
     public class MetadataDialogFragment : DialogFragment
     {
-        ShapefileInfo _metadata;
-        ImageView _thumbnailImageView;
+        private ShapefileInfo _metadata;
+        private ImageView _thumbnailImageView;
 
         public MetadataDialogFragment(ShapefileInfo metadata)
         {
@@ -132,16 +135,20 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             Android.Content.Context ctx = Activity.ApplicationContext;
 
             // Set a dialog title
-            Dialog.SetTitle(_metadata.Credits);            
+            Dialog.SetTitle(_metadata.Credits);
 
             // The container for the dialog is a vertical linear layout
-            dialogView = new LinearLayout(ctx);
-            dialogView.Orientation = Orientation.Vertical;
+            dialogView = new LinearLayout(ctx)
+            {
+                Orientation = Orientation.Vertical
+            };
             dialogView.SetPadding(20, 20, 20, 20);
-            
+
             // Add a text box for showing metadata summary
-            TextView summaryTextView = new TextView(ctx);
-            summaryTextView.Text = _metadata.Summary;
+            TextView summaryTextView = new TextView(ctx)
+            {
+                Text = _metadata.Summary
+            };
             dialogView.AddView(summaryTextView);
 
             // Add an image to show the thumbnail
@@ -154,13 +161,17 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             LoadThumbnail();
 
             // Add a text box for showing metadata tags
-            TextView tagsTextView = new TextView(ctx);
-            tagsTextView.Text = string.Join(",", _metadata.Tags);
+            TextView tagsTextView = new TextView(ctx)
+            {
+                Text = string.Join(",", _metadata.Tags)
+            };
             dialogView.AddView(tagsTextView);
 
             // Add a button to close the dialog
-            Button dismissButton = new Button(ctx);
-            dismissButton.Text = "OK";
+            Button dismissButton = new Button(ctx)
+            {
+                Text = "OK"
+            };
             dismissButton.Click += (s,e)=> Dismiss();
             dialogView.AddView(dismissButton);
 
@@ -170,7 +181,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
 
         private async void LoadThumbnail()
         {
-            var img = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(_metadata.Thumbnail);
+            Bitmap img = await Esri.ArcGISRuntime.UI.RuntimeImageExtensions.ToImageSourceAsync(_metadata.Thumbnail);
             _thumbnailImageView.SetImageBitmap(img);
         }
     }

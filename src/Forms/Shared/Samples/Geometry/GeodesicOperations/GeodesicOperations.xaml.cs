@@ -73,7 +73,7 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
         private void MyMapViewOnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs geoViewInputEventArgs)
         {
             // Get the tapped point, projected to WGS84.
-            MapPoint destination = (MapPoint)GeometryEngine.Project(geoViewInputEventArgs.Location, SpatialReferences.Wgs84);
+            MapPoint destination = (MapPoint) GeometryEngine.Project(geoViewInputEventArgs.Location, SpatialReferences.Wgs84);
 
             // Update the destination graphic.
             _endLocationGraphic.Geometry = destination;
@@ -81,7 +81,7 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
             // Get the points that define the route polyline.
             PointCollection polylinePoints = new PointCollection(SpatialReferences.Wgs84)
             {
-                (MapPoint)_startLocationGraphic.Geometry,
+                (MapPoint) _startLocationGraphic.Geometry,
                 destination
             };
 
@@ -96,7 +96,7 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
 
             // Calculate and show the distance.
             double distance = GeometryEngine.LengthGeodetic(pathGeometry, LinearUnits.Kilometers, GeodeticCurveType.Geodesic);
-            ResultsLabel.Text = $"{(int)distance} kilometers";
+            ResultsLabel.Text = $"{(int) distance} kilometers";
         }
     }
 }

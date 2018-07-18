@@ -16,7 +16,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.Xamarin.Forms;
 using System.IO;
 
 
@@ -29,7 +28,6 @@ using UIKit;
 #if __ANDROID__
 using Android.App;
 using Xamarin.Auth;
-using System.IO;
 #endif
 
 namespace ArcGISRuntime.Samples.AuthorMap
@@ -54,8 +52,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private string _oAuthRedirectUrl = "https://developers.arcgis.com";
 
         // String array to store basemap constructor types
-        private string[] _basemapTypes = new string[]
-        {
+        private string[] _basemapTypes = {
             "Topographic",
             "Streets",
             "Imagery",
@@ -90,19 +87,17 @@ namespace ArcGISRuntime.Samples.AuthorMap
             RedirectUrlEntry.Text = _oAuthRedirectUrl;
 
             // Change the style of the layer list view for Android and UWP
-            Device.OnPlatform(
-                Android: () =>
-                {
-                    // Black background on Android (transparent by default)
+            switch (Device.RuntimePlatform)
+            {
+                case Device.Android:
                     LayersList.BackgroundColor = Color.Black;
                     OAuthSettingsGrid.BackgroundColor = Color.Black;
-                },
-                WinPhone: () =>
-                {
-                    // Semi-transparent background on Windows with a small margin around the control
+                    break;
+                case Device.UWP:
                     LayersList.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
                     LayersList.Margin = new Thickness(50);
-                });
+                    break;
+            }
         }
 
         private void OAuthSettingsCancel(object sender, EventArgs e)
@@ -127,13 +122,13 @@ namespace ArcGISRuntime.Samples.AuthorMap
             if (e.Item == null) { return; }
 
             // Handle the event when a layer item is selected (tapped) in the layer list
-            var selectedItem = e.Item.ToString();
+            string selectedItem = e.Item.ToString();
 
             // See if this is one of the layers in the operational layers list 
             if (_operationalLayerUrls.ContainsKey(selectedItem))
             {
                 // Get the service URL from the operational layers dictionary
-                var value = _operationalLayerUrls[selectedItem];
+                string value = _operationalLayerUrls[selectedItem];
 
                 // Call a function to add the chosen operational layer
                 AddLayer(selectedItem, value);
@@ -151,7 +146,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void ShowLayerList(object sender, EventArgs e)
         {
             // See which button was used to show the list and fill it accordingly
-            var button = sender as Button;
+            Button button = (Button)sender;
             if (button.Text == "Basemap")
             {
                 // Show the basemap list
@@ -170,10 +165,10 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private async void ShowSaveMapUI(object sender, EventArgs e)
         {
             // Create a SaveMapPage page for getting user input for the new web map item
-            var mapInputForm = new SaveMapPage();
+            SaveMapPage mapInputForm = new SaveMapPage();
 
             // If an existing map, show the UI for updating the item
-            var mapItem = MyMapView.Map.Item;
+            Item mapItem = MyMapView.Map.Item;
             if (mapItem != null)
             {
                 mapInputForm.ShowForUpdate(mapItem.Title,mapItem.Description, mapItem.Tags.ToArray());
@@ -192,7 +187,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private async void SaveMapAsync(object sender, SaveMapEventArgs e)
         {
             // Get the current map
-            var myMap = MyMapView.Map;
+            Map myMap = MyMapView.Map;
 
             try
             {
@@ -200,13 +195,13 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 SaveMapProgressBar.IsVisible = true;
 
                 // Make sure the user is logged in to ArcGIS Online
-                var cred = await EnsureLoggedInAsync();
+                Credential cred = await EnsureLoggedInAsync();
                 AuthenticationManager.Current.AddCredential(cred);
 
                 // Get information entered by the user for the new portal item properties
-                var title = e.MapTitle;
-                var description = e.MapDescription;
-                var tags = e.Tags;
+                string title = e.MapTitle;
+                string description = e.MapDescription;
+                string[] tags = e.Tags;
 
                 // Apply the current extent as the map's initial extent
                 myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
@@ -224,7 +219,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     await myMap.SaveAsAsync(agsOnline, null, title, description, tags, thumbnailImage);
 
                     // Report a successful save
-                    await DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
+                    await ((Page)Parent).DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
                 }
                 else
                 {
@@ -235,17 +230,17 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     Stream imageStream = await thumbnailImage.GetEncodedBufferAsync();
 
                     // Update the item thumbnail
-                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);
+                    ((PortalItem)myMap.Item).SetThumbnailWithImage(imageStream);
                     await myMap.SaveAsync();
 
                     // Report update was successful
-                    await DisplayAlert("Updates Saved", "Saved changes to '" + myMap.Item.Title + "'", "OK");
+                    await ((Page)Parent).DisplayAlert("Updates Saved", "Saved changes to '" + myMap.Item.Title + "'", "OK");
                 }
             }
             catch (Exception ex)
             {
                 // Show the exception message
-                await DisplayAlert("Unable to save map", ex.Message, "OK");
+                await ((Page)Parent).DisplayAlert("Unable to save map", ex.Message, "OK");
             }
             finally
             {
@@ -258,16 +253,18 @@ namespace ArcGISRuntime.Samples.AuthorMap
         {
             // Challenge the user for portal credentials (OAuth credential request for arcgis.com)
             Credential cred = null;
-            CredentialRequestInfo loginInfo = new CredentialRequestInfo();
-
-            // Use the OAuth implicit grant flow
-            loginInfo.GenerateTokenOptions = new GenerateTokenOptions
+            CredentialRequestInfo loginInfo = new CredentialRequestInfo
             {
-                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-            };
 
-            // Indicate the url (portal) to authenticate with (ArcGIS Online)
-            loginInfo.ServiceUri = new Uri(ArcGISOnlineUrl);
+                // Use the OAuth implicit grant flow
+                GenerateTokenOptions = new GenerateTokenOptions
+                {
+                    TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                },
+
+                // Indicate the url (portal) to authenticate with (ArcGIS Online)
+                ServiceUri = new Uri(ArcGISOnlineUrl)
+            };
 
             try
             {
@@ -292,7 +289,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void CreateNewMap()
         {
             // Create new Map with a light gray canvas basemap
-            var myMap = new Map(Basemap.CreateLightGrayCanvas());
+            Map myMap = new Map(Basemap.CreateLightGrayCanvas());
 
             // Add the Map to the MapView
             MyMapView.Map = myMap;
@@ -330,13 +327,11 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // See if the layer already exists
             ArcGISMapImageLayer layer = MyMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name == layerName) as ArcGISMapImageLayer;
 
-            var layerUri = new Uri(url);
+            Uri layerUri = new Uri(url);
 
-            // Create a new map image layer
+            // Create and add a new map image layer
             layer = new ArcGISMapImageLayer(layerUri);
             layer.Name = layerName;
-
-            // Set it 50% opaque, and add it to the map
             layer.Opacity = 0.5;
             MyMapView.Map.OperationalLayers.Add(layer);
         }
@@ -345,11 +340,13 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void UpdateAuthenticationManager()
         {
             // Define the server information for ArcGIS Online
-            ServerInfo portalServerInfo = new ServerInfo();
-            // ArcGIS Online URI
-            portalServerInfo.ServerUri = new Uri(ArcGISOnlineUrl);
-            // Type of token authentication to use
-            portalServerInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit;
+            ServerInfo portalServerInfo = new ServerInfo
+            {
+                // ArcGIS Online URI
+                ServerUri = new Uri(ArcGISOnlineUrl),
+                // Type of token authentication to use
+                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+            };
 
             // Define the OAuth information
             OAuthClientInfo oAuthInfo = new OAuthClientInfo
@@ -414,7 +411,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
 #if __ANDROID__
             // Get the current Android Activity
-            var activity = Xamarin.Forms.Forms.Context as Activity; 
+            Activity activity = (Activity)Android.App.Application.Context;
 #endif
 #if __IOS__
             // Get the current iOS ViewController

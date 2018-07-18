@@ -128,7 +128,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             }
 
             // Create a view to show map item info entry controls over the map view.
-            var ovBounds = new CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
+            CGRect ovBounds = new CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
             _applyHillshadeRendererUi = new ApplyHillshadeRendererDialogOverlay(ovBounds, 0.9f, UIColor.White);
 
             // Handle the OnHillshadeInputsEntered event to get the new renderer defined by the user.
@@ -240,9 +240,11 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             controlY = controlY + 30;
 
             // Adjust the Y position for the next control.
-            _slopeTypePicker = new UISegmentedControl(Enum.GetNames(typeof(SlopeType)));
-            _slopeTypePicker.ApportionsSegmentWidthsByContent = true;
-            _slopeTypePicker.Frame = new CGRect(5, controlY, Bounds.Width - 10, 30);
+            _slopeTypePicker = new UISegmentedControl(Enum.GetNames(typeof(SlopeType)))
+            {
+                ApportionsSegmentWidthsByContent = true,
+                Frame = new CGRect(5, controlY, Bounds.Width - 10, 30)
+            };
             controlY += 35;
 
             // Create a label for the altitude input.

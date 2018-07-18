@@ -40,20 +40,20 @@ namespace ArcGISRuntime.Samples.TokenSecuredKnownUser
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Define a challenge handler method for the AuthenticationManager.
             // This method handles getting credentials when a secured resource is encountered.
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateKnownCredentials);
 
             // Create the public layer and provide a name.
-            var publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
+            ArcGISTiledLayer publicLayer = new ArcGISTiledLayer(new Uri(_publicMapServiceUrl))
             {
                 Name = _publicLayerName
             };
 
             // Create the secured layer and provide a name.
-            var tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
+            ArcGISMapImageLayer tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(_secureMapServiceUrl))
             {
                 Name = _secureLayerName
             };
@@ -63,7 +63,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredKnownUser
             SecureLayerStatusPanel.BindingContext = tokenSecuredLayer;
 
             // Create a new map and add the layers.
-            var myMap = new Map();
+            Map myMap = new Map();
             myMap.OperationalLayers.Add(publicLayer);
             myMap.OperationalLayers.Add(tokenSecuredLayer);
 
@@ -101,7 +101,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredKnownUser
             catch (Exception ex)
             {
                 // Report error accessing a secured resource.
-                DisplayAlert("Credential Error", "Access to " + info.ServiceUri.AbsoluteUri + " denied. " + ex.Message, "OK");
+                await ((Page)Parent).DisplayAlert("Credential Error", "Access to " + info.ServiceUri.AbsoluteUri + " denied. " + ex.Message, "OK");
             }
 
             // Return the credential.

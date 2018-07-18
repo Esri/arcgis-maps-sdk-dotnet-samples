@@ -15,8 +15,8 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.MapImageLayerTables
@@ -42,48 +42,57 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             Initialize();
         }
 
-        private async Task Initialize()
+        private async void Initialize()
         {
-            // Create a new Map with a streets basemap.
-            Map myMap = new Map(Basemap.CreateStreets());
-
-            // Create the URI to the Service Requests map service.
-            Uri serviceRequestUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/ServiceRequest/MapServer");
-
-            // Create a new ArcGISMapImageLayer that uses the service URI.
-            ArcGISMapImageLayer serviceRequestsMapImageLayer = new ArcGISMapImageLayer(serviceRequestUri);
-
-            // Load all sublayers and tables contained by the map image layer.
-            await serviceRequestsMapImageLayer.LoadTablesAndLayersAsync();
-
-            // Set the initial map extent to the extent of all service request features.
-            Envelope requestsExtent = serviceRequestsMapImageLayer.FullExtent;
-            myMap.InitialViewpoint = new Viewpoint(requestsExtent);
-
-            // Add the layer to the map.
-            myMap.OperationalLayers.Add(serviceRequestsMapImageLayer);
-
-            // Get the service request comments table from the map image layer.
-            ServiceFeatureTable commentsTable = serviceRequestsMapImageLayer.Tables[0];
-
-            // Create query parameters to get all non-null service request comment records (features) from the table.
-            QueryParameters queryToGetNonNullComments = new QueryParameters
+            try
             {
-                WhereClause = "requestid <> '' AND comments <> ''"
-            };
+                // Create a new Map with a streets basemap.
+                Map myMap = new Map(Basemap.CreateStreets());
 
-            // Query the comments table to get the non-null records.
-            FeatureQueryResult commentQueryResult = await commentsTable.QueryFeaturesAsync(queryToGetNonNullComments, QueryFeatureFields.LoadAll);
+                // Create the URI to the Service Requests map service.
+                Uri serviceRequestUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/ServiceRequest/MapServer");
 
-            // Show the records from the service request comments table in the list view control.
-            CommentsListBox.ItemsSource = commentQueryResult.ToList();
+                // Create a new ArcGISMapImageLayer that uses the service URI.
+                ArcGISMapImageLayer serviceRequestsMapImageLayer = new ArcGISMapImageLayer(serviceRequestUri);
 
-            // Create a graphics overlay to show selected features and add it to the map view.
-            _selectedFeaturesOverlay = new GraphicsOverlay();
-            MyMapView.GraphicsOverlays.Add(_selectedFeaturesOverlay);
+                // Load all sublayers and tables contained by the map image layer.
+                await serviceRequestsMapImageLayer.LoadTablesAndLayersAsync();
 
-            // Assign the map to the MapView.
-            MyMapView.Map = myMap;
+                // Set the initial map extent to the extent of all service request features.
+                Envelope requestsExtent = serviceRequestsMapImageLayer.FullExtent;
+                myMap.InitialViewpoint = new Viewpoint(requestsExtent);
+
+                // Add the layer to the map.
+                myMap.OperationalLayers.Add(serviceRequestsMapImageLayer);
+
+                // Get the service request comments table from the map image layer.
+                ServiceFeatureTable commentsTable = serviceRequestsMapImageLayer.Tables[0];
+
+                // Create query parameters to get all non-null service request comment records (features) from the table.
+                QueryParameters queryToGetNonNullComments = new QueryParameters
+                {
+                    WhereClause = "requestid <> '' AND comments <> ''"
+                };
+
+                // Query the comments table to get the non-null records.
+                FeatureQueryResult commentQueryResult = await commentsTable.QueryFeaturesAsync(queryToGetNonNullComments, QueryFeatureFields.LoadAll);
+
+                // Show the records from the service request comments table in the list view control.
+                CommentsListBox.ItemsSource = commentQueryResult.ToList();
+
+                // Create a graphics overlay to show selected features and add it to the map view.
+                _selectedFeaturesOverlay = new GraphicsOverlay();
+                MyMapView.GraphicsOverlays.Add(_selectedFeaturesOverlay);
+
+                // Assign the map to the MapView.
+                MyMapView.Map = myMap;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+
+            ;
         }
 
         // Handle a new selected comment record in the table view.
@@ -97,7 +106,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             if (selectedComment == null) { return; }
 
             // Get the map image layer that contains the service request sublayer and the service request comments table.
-            ArcGISMapImageLayer serviceRequestsMapImageLayer = MyMapView.Map.OperationalLayers[0] as ArcGISMapImageLayer;
+            ArcGISMapImageLayer serviceRequestsMapImageLayer = (ArcGISMapImageLayer)MyMapView.Map.OperationalLayers[0];
 
             // Get the (non-spatial) table that contains the service request comments.
             ServiceFeatureTable commentsTable = serviceRequestsMapImageLayer.Tables[0];

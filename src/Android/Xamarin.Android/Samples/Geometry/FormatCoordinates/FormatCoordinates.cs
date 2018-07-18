@@ -111,7 +111,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             {
                 // The coordinate is malformed, warn and return
                 // Display the message to the user
-                var builder = new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetMessage(ex.Message).SetTitle("Invalid Format").Show();
                 return;
             }
@@ -191,7 +191,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Help Label
             TextView helpLabel = new TextView(this) { Text = "Edit the coordinates or tap the map to see conversions.\n\n" };

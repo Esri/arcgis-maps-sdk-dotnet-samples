@@ -69,18 +69,18 @@ namespace ArcGISRuntime.Samples.FindRoute
         private void CreateLayout()
         {
             // Create a new layout for the entire page
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a new layout for the toolbar (buttons)
-            var toolbar = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            LinearLayout toolbar = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
             // Create a button to solve the route and add it to the toolbar
-            var solveRouteButton = new Button(this) { Text = "Solve Route" };
+            Button solveRouteButton = new Button(this) { Text = "Solve Route" };
             solveRouteButton.Click += SolveRouteClick;
             toolbar.AddView(solveRouteButton);
 
             // Create a button to reset the route display, add it to the toolbar
-            var resetButton = new Button(this) { Text = "Reset" };
+            Button resetButton = new Button(this) { Text = "Reset" };
             resetButton.Click += ResetClick;
             toolbar.AddView(resetButton);
 
@@ -175,7 +175,7 @@ namespace ArcGISRuntime.Samples.FindRoute
             RouteResult solveRouteResult = await solveRouteTask.SolveRouteAsync(routeParams);
 
             // Get the first (should be only) route from the result
-            Route firstRoute = solveRouteResult.Routes.FirstOrDefault();
+            Route firstRoute = solveRouteResult.Routes.First();
 
             // Get the route geometry (polyline)
             Polyline routePolyline = firstRoute.RouteGeometry;
@@ -191,8 +191,7 @@ namespace ArcGISRuntime.Samples.FindRoute
             _routeGraphicsOverlay.Graphics.Add(routeGraphic);
 
             // Get a list of directions for the route and display it in the list box
-            var directions = from d in firstRoute.DirectionManeuvers select d.DirectionText;
-            CreateDirectionsDialog(directions);
+            CreateDirectionsDialog(firstRoute.DirectionManeuvers.Select(d => d.DirectionText));
             _showHideDirectionsButton.Enabled = true;
         }
 
@@ -200,7 +199,7 @@ namespace ArcGISRuntime.Samples.FindRoute
         {
             // Remove the route graphic from the graphics overlay (only line graphic in the collection)
             int graphicsCount = _routeGraphicsOverlay.Graphics.Count;
-            for (var i = graphicsCount; i > 0; i--)
+            for (int i = graphicsCount; i > 0; i--)
             {
                 // Get this graphic and see if it has line geometry
                 Graphic g = _routeGraphicsOverlay.Graphics[i - 1];
@@ -230,12 +229,14 @@ namespace ArcGISRuntime.Samples.FindRoute
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
             // Create the layout
-            LinearLayout dialogLayout = new LinearLayout(this);
-            dialogLayout.Orientation = Orientation.Vertical;
+            LinearLayout dialogLayout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Vertical
+            };
 
             // Create a list box for showing the route directions
-            var directionsList = new ListView(this);
-            var directionsAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, directions.ToArray());
+            ListView directionsList = new ListView(this);
+            ArrayAdapter<string> directionsAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, directions.ToArray());
             directionsList.Adapter = directionsAdapter;
             dialogLayout.AddView(directionsList);
 

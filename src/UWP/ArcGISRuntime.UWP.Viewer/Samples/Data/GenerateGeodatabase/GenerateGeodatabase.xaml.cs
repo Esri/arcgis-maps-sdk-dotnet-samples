@@ -22,6 +22,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using Esri.ArcGISRuntime.ArcGISServices;
 
 namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
 {
@@ -91,7 +92,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
                 _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
                 // Add all layers from the service to the map.
-                foreach (var layer in _gdbSyncTask.ServiceInfo.LayerInfos)
+                foreach (IdInfo layer in _gdbSyncTask.ServiceInfo.LayerInfos)
                 {
                     // Create the ServiceFeatureTable for this particular layer.
                     ServiceFeatureTable onlineTable = new ServiceFeatureTable(new Uri(_featureServiceUri + "/" + layer.Id));
@@ -140,7 +141,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             envelopeBldr.Expand(0.80);
 
             // Get the (only) graphics overlay in the map view.
-            var extentOverlay = MyMapView.GraphicsOverlays.FirstOrDefault();
+            GraphicsOverlay extentOverlay = MyMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
             if (extentOverlay == null) { return; }
@@ -179,10 +180,10 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             _generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the progress changed event (to show progress bar).
-            _generateGdbJob.ProgressChanged += ((sender, e) =>
+            _generateGdbJob.ProgressChanged += (sender, e) =>
             {
                 UpdateProgressBar();
-            });
+            };
 
             // Show the progress bar.
             MyProgressBar.Visibility = Visibility.Visible;
@@ -241,8 +242,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
                 else
                 {
                     // If no error, show messages from the job.
-                    var m = from msg in _generateGdbJob.Messages select msg.Message;
-                    message += ": " + string.Join<string>("\n", m);
+                    message += ": " + string.Join("\n", _generateGdbJob.Messages.Select(m => m.Message));
                 }
 
                 ShowStatusMessage(message);

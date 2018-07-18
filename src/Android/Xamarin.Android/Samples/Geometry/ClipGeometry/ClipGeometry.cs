@@ -212,7 +212,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             catch (System.Exception ex)
             {
                 // Display an error message if there is a problem generating clip operation.
-                var alertBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("There was a problem clipping the geometery.");
                 alertBuilder.SetMessage(ex.ToString());
                 alertBuilder.Show();
@@ -225,13 +225,17 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a TextView for instructions.
-            TextView sampleInstructionsTextView = new TextView(this);
-            sampleInstructionsTextView.Text = "Click the 'Clip' button to clip the blue graphic with red envelopes.";
+            TextView sampleInstructionsTextView = new TextView(this)
+            {
+                Text = "Click the 'Clip' button to clip the blue graphic with red envelopes."
+            };
             layout.AddView(sampleInstructionsTextView);
 
             // Create button to clip the polygons.
-            _clipButton = new Button(this);
-            _clipButton.Text = "Clip";
+            _clipButton = new Button(this)
+            {
+                Text = "Clip"
+            };
             _clipButton.Click += ClipButton_Click;
             layout.AddView(_clipButton);
 

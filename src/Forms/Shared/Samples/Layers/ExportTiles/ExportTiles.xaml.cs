@@ -65,11 +65,13 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 await myLayer.LoadAsync();
 
                 // Create the basemap with the layer.
-                _basemap = new Map(new Basemap(myLayer));
+                _basemap = new Map(new Basemap(myLayer))
+                {
 
-                // Set the min and max scale - export task fails if the scale is too big or small.
-                _basemap.MaxScale = 5000000;
-                _basemap.MinScale = 10000000;
+                    // Set the min and max scale - export task fails if the scale is too big or small.
+                    MaxScale = 5000000,
+                    MinScale = 10000000
+                };
 
                 // Assign the map to the mapview.
                 MyMapView.Map = _basemap;
@@ -101,7 +103,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -191,7 +193,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -249,7 +251,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
             else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
             {
                 // Notify the user.
-                await DisplayAlert("Error", "Job Failed", "OK");
+                await ((Page)Parent).DisplayAlert("Error", "Job Failed", "OK");
 
                 // Change the export button text.
                 MyExportPreviewButton.Text = "Export Tiles";
@@ -322,7 +324,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
     }

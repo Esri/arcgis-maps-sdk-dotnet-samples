@@ -84,7 +84,7 @@ namespace ArcGISRuntime.UWP.Samples.Buffer
             ShowBufferSwatches(planarBufferColor, geodesicBufferColor);
         }
 
-        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
             try
             {
@@ -121,8 +121,7 @@ namespace ArcGISRuntime.UWP.Samples.Buffer
             catch (System.Exception ex)
             {
                 // Display an error message if there is a problem generating the buffers.
-                MessageDialog dialog = new MessageDialog(ex.Message, "Error creating buffers");
-                dialog.ShowAsync();
+                await new MessageDialog(ex.Message, "Error creating buffers").ShowAsync();
             }
         }
 

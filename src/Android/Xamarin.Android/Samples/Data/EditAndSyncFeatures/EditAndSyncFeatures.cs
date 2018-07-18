@@ -89,28 +89,36 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         private void CreateLayout()
         {
             // Create the layout.
-            LinearLayout layout = new LinearLayout(this);
-            layout.Orientation = Orientation.Vertical;
+            LinearLayout layout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Vertical
+            };
 
             // Add the help label.
             myHelpLabel = new TextView(this) { Text = "1. Click 'Generate'" };
             layout.AddView(myHelpLabel);
 
             // Add the progress bar.
-            myProgressBar = new ProgressBar(this);
-            myProgressBar.Visibility = Android.Views.ViewStates.Gone;
+            myProgressBar = new ProgressBar(this)
+            {
+                Visibility = Android.Views.ViewStates.Gone
+            };
             layout.AddView(myProgressBar);
 
             // Add the generate button.
-            myGenerateButton = new Button(this);
-            myGenerateButton.Text = "Generate";
-            myGenerateButton.Enabled = false;
+            myGenerateButton = new Button(this)
+            {
+                Text = "Generate",
+                Enabled = false
+            };
             myGenerateButton.Click += GenerateButton_Clicked;
             layout.AddView(myGenerateButton);
 
             // Add the sync button.
-            mySyncButton = new Button(this);
-            mySyncButton.Text = "Synchronize";
+            mySyncButton = new Button(this)
+            {
+                Text = "Synchronize"
+            };
             mySyncButton.Click += SyncButton_Click;
             mySyncButton.Enabled = false;
             layout.AddView(mySyncButton);
@@ -217,7 +225,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     foreach (Feature feature in selectedFeatures)
                     {
                         // Get a reference to the correct feature table for the feature.
-                        GeodatabaseFeatureTable table = feature.FeatureTable as GeodatabaseFeatureTable;
+                        GeodatabaseFeatureTable table = (GeodatabaseFeatureTable)feature.FeatureTable;
 
                         // Ensure the geometry type of the table is point.
                         if (table.GeometryType != GeometryType.Point)
@@ -304,7 +312,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             envelopeBldr.Expand(0.80);
 
             // Get the (only) graphics overlay in the map view.
-            var extentOverlay = myMapView.GraphicsOverlays.FirstOrDefault();
+            GraphicsOverlay extentOverlay = myMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
             if (extentOverlay == null) { return; }
@@ -346,14 +354,14 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             GenerateGeodatabaseJob generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the progress changed event with an inline (lambda) function to show the progress bar.
-            generateGdbJob.ProgressChanged += ((sender, e) =>
+            generateGdbJob.ProgressChanged += (sender, e) =>
             {
                 // Get the job.
-                GenerateGeodatabaseJob job = sender as GenerateGeodatabaseJob;
+                GenerateGeodatabaseJob job = (GenerateGeodatabaseJob)sender;
 
                 // Update the progress bar.
                 UpdateProgressBar(job.Progress);
-            });
+            };
 
             // Show the progress bar.
             myProgressBar.Visibility = Android.Views.ViewStates.Visible;
@@ -520,7 +528,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            var builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetMessage(message).SetTitle("Alert").Show();
         }
 

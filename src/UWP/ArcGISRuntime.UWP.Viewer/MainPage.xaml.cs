@@ -147,7 +147,7 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private async void OnInfoClicked(object sender, RoutedEventArgs e)
         {
-            var sampleModel = (sender as Button)?.DataContext as SampleInfo;
+            var sampleModel = ((Button)sender)?.DataContext as SampleInfo;
             if (sampleModel == null)
                 return;
 
@@ -156,7 +156,7 @@ namespace ArcGISRuntime.UWP.Viewer
             {
                 Title = sampleModel.SampleName,
                 PrimaryButtonText = "close",
-                SecondaryButtonText = "show",
+                SecondaryButtonText = "show"
             };
 
             dialog.SecondaryButtonClick += (s, args) =>

@@ -48,10 +48,12 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
         private void Initialize()
         {
             // Create new Scene
-            Scene myScene = new Scene();
+            Scene myScene = new Scene
+            {
 
-            // Set Scene's base map property
-            myScene.Basemap = Basemap.CreateImagery();
+                // Set Scene's base map property
+                Basemap = Basemap.CreateImagery()
+            };
 
             // Create and add an elevation source for the Scene
             ArcGISTiledElevationSource elevationSrc = new ArcGISTiledElevationSource(_elevationSourceUrl);
@@ -76,7 +78,7 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the scene view to the layout
             layout.AddView(_mySceneView);

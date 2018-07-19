@@ -9,8 +9,8 @@
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock x:Name="ClipInstructionsLabel" 
-                           Text="Click the 'Clip' button to clip the blue graphic with red envelopes."
-                           TextWrapping="Wrap"
+                           Text="Click 'Clip' to clip the blue graphic with red envelopes."
+                           TextWrapping="Wrap" FontWeight="SemiBold"
                            Margin="0,0,0,10"/>
                 <Button x:Name="ClipButton" 
                     Content="Clip"

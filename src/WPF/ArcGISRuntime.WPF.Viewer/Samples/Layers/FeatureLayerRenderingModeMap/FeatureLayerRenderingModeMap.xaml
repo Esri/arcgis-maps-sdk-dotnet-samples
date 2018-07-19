@@ -14,15 +14,15 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Label Content="Static Mode:"
+        <Label Content="Static mode:"
                Grid.Row="0" Grid.ColumnSpan="2"
                Foreground="Blue" FontWeight="SemiBold" />
         <esri:MapView x:Name="MyStaticMapView"
                         Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
-        <Label Content="Dynamic Mode:"
+        <Label Content="Dynamic mode:"
                Grid.Row="2" Grid.Column="0"
                Foreground="Blue" FontWeight="SemiBold" />
-        <Button Content="Animated Zoom"
+        <Button Content="Animated zoom"
                 Grid.Row="2" Grid.Column="1"
                 Click="OnZoomClick" />
         <esri:MapView x:Name="MyDynamicMapView"

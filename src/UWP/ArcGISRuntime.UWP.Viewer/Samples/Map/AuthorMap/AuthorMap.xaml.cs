@@ -67,16 +67,17 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
 
         private void Initialize()
         {
+            // Create the map
+            MyMapView.Map = new Map();
+
             // Update the UI with basemaps and layers
             BasemapListBox.ItemsSource = _basemapNames;
+            BasemapListBox.SelectedIndex = 0;
             OperationalLayerListBox.ItemsSource = _operationalLayerUrls;
 
             // Show the OAuth settings in the page
             ClientIdTextBox.Text = _appClientId;
             RedirectUrlTextBox.Text = _oAuthRedirectUrl;
-
-            // Show a plain gray map in the map view
-            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
             
             // Update the extent labels whenever the view point (extent) changes
             MyMapView.ViewpointChanged += (s, evt) => UpdateViewExtentLabels();

@@ -18,17 +18,17 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <TextBlock Text="Static Mode:" 
+        <TextBlock Text="Static mode:" 
                    Grid.Row="0" Grid.ColumnSpan="2"
                    FontWeight="SemiBold" VerticalAlignment="Center"
                    Foreground="RoyalBlue"/>
         <esriUI:SceneView x:Name="MyStaticSceneView" 
                           Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
-        <TextBlock Text="Dynamic Mode:" 
+        <TextBlock Text="Dynamic mode:" 
                    Grid.Row="2" Grid.Column="0"
                    FontWeight="SemiBold" VerticalAlignment="Center"
                    Foreground="RoyalBlue"/>
-        <Button Content="Animated Zoom" 
+        <Button Content="Animated zoom" 
                 Grid.Row="2" Grid.Column="1"
                 HorizontalAlignment="Stretch"
                 Click="Button_Click"  />

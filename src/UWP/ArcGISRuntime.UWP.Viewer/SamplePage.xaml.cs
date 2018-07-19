@@ -32,7 +32,9 @@ namespace ArcGISRuntime.UWP.Viewer
             SampleContainer.Content = SampleManager.Current.SampleToControl(SampleManager.Current.SelectedSample);
 
             // Default to the live sample view.
-            LiveSample.IsChecked = true; 
+            LiveSample.IsChecked = true;
+
+            SourceCodeContainer.LoadSourceCode();
         }
        
         private static async void HideStatusBar()
@@ -46,16 +48,29 @@ namespace ArcGISRuntime.UWP.Viewer
         {
             // Make sure that only one is selected.
             Description.IsChecked = false;
+            SourceButton.IsChecked = false;
             DescriptionContainer.Visibility = Visibility.Collapsed;
             SampleContainer.Visibility = Visibility.Visible;
+            SourceCodeContainer.Visibility = Visibility.Collapsed;
         }
 
         private void Description_Checked(object sender, RoutedEventArgs e)
         {
             // Make sure that only one is selected.
             LiveSample.IsChecked = false;
+            SourceButton.IsChecked = false;
             DescriptionContainer.Visibility = Visibility.Visible;
             SampleContainer.Visibility = Visibility.Collapsed;
+            SourceCodeContainer.Visibility = Visibility.Collapsed;
+        }
+        private void SourceCode_Checked(object sender, RoutedEventArgs e)
+        {
+            // Make sure that only one is selected.
+            Description.IsChecked = false;
+            LiveSample.IsChecked = false;
+            DescriptionContainer.Visibility = Visibility.Collapsed;
+            SampleContainer.Visibility = Visibility.Collapsed;
+            SourceCodeContainer.Visibility = Visibility.Visible;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -65,5 +80,7 @@ namespace ArcGISRuntime.UWP.Viewer
             // Prevent user from going back
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
         }
+
+
     }
 }

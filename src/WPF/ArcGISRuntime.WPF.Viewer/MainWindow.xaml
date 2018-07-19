@@ -101,12 +101,17 @@
                                      GroupName="DetailsTabs" Background="Transparent"
                                      BorderBrush="{StaticResource PrimaryBackgroundColor}" FontSize="24"
                                      Style="{DynamicResource SampleHeaderToggleButtonStyle}" />
+                        <RadioButton Margin="5,5,0,0" Content="Source code" Click="SourceCode_Click"
+                                     GroupName="DetailsTabs" Background="Transparent"
+                                     BorderBrush="{StaticResource PrimaryBackgroundColor}" FontSize="24"
+                                     Style="{DynamicResource SampleHeaderToggleButtonStyle}" />
                     </StackPanel>
                 </Grid>
                 <!-- Details area -->
                 <Grid Background="{StaticResource PrimaryBackgroundColor}" Grid.Row="1">
                     <ContentControl x:Name="SampleContainer" Margin="0" />
                     <local:Description x:Name="DescriptionContainer" Visibility="Collapsed" Margin="0" />
+                    <local:SourceCode x:Name="SourceCodeContainer" Visibility="Collapsed" Margin="0" />
                 </Grid>
             </Grid>
         </Grid>

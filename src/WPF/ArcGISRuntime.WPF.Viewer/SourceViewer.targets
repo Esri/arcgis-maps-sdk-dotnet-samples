@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Link resource files, to include them in the output directory and application manifest. -->
+
+  <!-- Sample Code Viewer .cs Files -->
+  <ItemGroup>
+    <Content Include="Samples\**\*.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <!-- Sample Code Viewer .xaml Files -->
+  <ItemGroup>
+    <None Include="Samples\**\*.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

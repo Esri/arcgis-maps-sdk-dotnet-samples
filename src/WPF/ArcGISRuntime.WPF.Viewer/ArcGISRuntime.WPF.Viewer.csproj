@@ -1515,6 +1515,22 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+  <!-- Source Code Viewer -->
+  <ItemGroup>
+    <Content Include="Resources\SyntaxHighlighting\highlight.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\SyntaxHighlighting\highlight.pack.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="SourceCodeViewer.xaml.cs">
+      <DependentUpon>SourceCodeViewer.xaml</DependentUpon>
+    </Compile>
+    <Page Include="SourceCodeViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
   <ItemGroup />
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
@@ -1530,4 +1546,5 @@
   </Target>
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.1\build\net452\Esri.ArcGISRuntime.LocalServices.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.1\build\net452\Esri.ArcGISRuntime.LocalServices.targets')" />
+  <Import Project="SourceViewer.targets" />
 </Project>

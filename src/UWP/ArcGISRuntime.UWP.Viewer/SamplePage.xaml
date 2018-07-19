@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:ArcGISRuntime.UWP.Viewer.Converters"
+    xmlns:local="using:ArcGISRuntime.UWP.Viewer"
     RequestedTheme="Light"
     mc:Ignorable="d">
     <Page.Resources>
@@ -142,6 +143,7 @@
                         <Setter Target="CommandBar.Visibility" Value="Visible"/>
                         <Setter Target="Description.Visibility" Value="Collapsed"/>
                         <Setter Target="LiveSample.Visibility" Value="Collapsed"/>
+                        <Setter Target="SourceButton.Visibility" Value="Collapsed"/>
                         <Setter Target="SampleTitle.Margin" Value="12,0,0,0"/>
                         <Setter Target="DescriptionText.(RelativePanel.Below)" Value="ThumbnailImage"></Setter>
                         <Setter Target="DescriptionText.(RelativePanel.RightOf)" Value=""></Setter>
@@ -212,6 +214,15 @@
                 Checked="Description_Checked"
                 x:Name="Description"
                 Content="Description" 
+                RelativePanel.LeftOf="SourceButton" 
+                RelativePanel.AlignBottomWithPanel="True"
+                Margin="0,0,24,0" 
+                Style="{StaticResource TabToggleButtonStyle}">
+            </ToggleButton>
+            <ToggleButton 
+                Checked="SourceCode_Checked"
+                x:Name="SourceButton"
+                Content="Source code" 
                 RelativePanel.AlignRightWithPanel="True" 
                 RelativePanel.AlignBottomWithPanel="True"
                 Margin="0,0,48,0" 
@@ -225,6 +236,7 @@
                 <CommandBar.SecondaryCommands>
                     <AppBarToggleButton Label="Live Sample" IsChecked="{Binding ElementName=LiveSample, Path=IsChecked,Mode=TwoWay}" Foreground="{StaticResource PrimaryColor}"></AppBarToggleButton>
                     <AppBarToggleButton Label="Description" IsChecked="{Binding ElementName=Description, Path=IsChecked,Mode=TwoWay}" Foreground="{StaticResource PrimaryColor}"></AppBarToggleButton>
+                    <AppBarToggleButton Label="SourceCode" IsChecked="{Binding ElementName=SourceButton, Path=IsChecked,Mode=TwoWay}" Foreground="{StaticResource PrimaryColor}"></AppBarToggleButton>
                 </CommandBar.SecondaryCommands>
             </CommandBar>
         </RelativePanel>
@@ -253,6 +265,7 @@
                     </RelativePanel>
                 </ScrollViewer>
             </ContentControl>
+            <local:SourceCode x:Name="SourceCodeContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
         </Grid>
     </Grid>
 </Page>

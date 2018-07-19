@@ -105,6 +105,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
                 // Show the sample
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
+                SourceCodeContainer.LoadSourceCode();
             }
             catch (Exception exception)
             {
@@ -147,6 +148,7 @@ namespace ArcGISRuntime.Samples.Desktop
             SampleContainer.Visibility = Visibility.Visible;
             DescriptionContainer.Visibility = Visibility.Collapsed;
             CategoriesRegion.Visibility = Visibility.Collapsed;
+            SourceCodeContainer.Visibility = Visibility.Collapsed;
         }
 
         private void Description_Click(object sender, RoutedEventArgs e)
@@ -154,6 +156,14 @@ namespace ArcGISRuntime.Samples.Desktop
             SampleContainer.Visibility = Visibility.Collapsed;
             DescriptionContainer.Visibility = Visibility.Visible;
             CategoriesRegion.Visibility = Visibility.Collapsed;
+            SourceCodeContainer.Visibility = Visibility.Collapsed;
+        }
+        private void SourceCode_Click(object sender, RoutedEventArgs e)
+        {
+            SampleContainer.Visibility = Visibility.Collapsed;
+            DescriptionContainer.Visibility = Visibility.Collapsed;
+            CategoriesRegion.Visibility = Visibility.Collapsed;
+            SourceCodeContainer.Visibility = Visibility.Visible;
         }
 
         private async void SearchFilterBox_OnTextChanged(object sender, TextChangedEventArgs e)

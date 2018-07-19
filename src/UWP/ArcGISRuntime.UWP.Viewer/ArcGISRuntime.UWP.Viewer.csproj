@@ -1255,6 +1255,22 @@
       <Version>6.0.8</Version>
     </PackageReference>
   </ItemGroup>
+  <!-- Source Code Viewer -->
+  <ItemGroup>
+    <Content Include="Resources\SyntaxHighlighting\highlight.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\SyntaxHighlighting\highlight.pack.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="SourceCodeViewer.xaml.cs">
+      <DependentUpon>SourceCodeViewer.xaml</DependentUpon>
+    </Compile>
+    <Page Include="SourceCodeViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
   <ItemGroup />
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
@@ -1262,4 +1278,5 @@
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <Import Project="SourceViewer.targets" />
 </Project>

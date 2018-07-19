@@ -14,6 +14,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.SceneLayerSelection
@@ -27,8 +28,16 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
         "Scene, Identify")]
     public class SceneLayerSelection : UIViewController
     {
-        // A scene view control to display a scene layer and basemap.
+        // Create and hold references to the UI controls.
         private SceneView _mySceneView = new SceneView();
+        private UIToolbar _helpToolbar = new UIToolbar();
+        private UILabel _helpLabel = new UILabel
+        {
+            Text = "Tap to select buildings.",
+            TextAlignment = UITextAlignment.Center,
+            AdjustsFontSizeToFitWidth = true,
+            Lines = 1
+        };
 
         public SceneLayerSelection()
         {
@@ -70,6 +79,9 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
 
             // Set the viewpoint with the camera.
             _mySceneView.SetViewpointCameraAsync(brestCamera);
+
+            // Listen for taps.
+            _mySceneView.GeoViewTapped += SceneViewTapped;
         }
 
         private async void SceneViewTapped(object sender, GeoViewInputEventArgs e)
@@ -101,16 +113,31 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the SceneView.
-            _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat toolbarHeight = controlHeight + 2 * margin;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition controls.
+                _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
+                _helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
+                _helpLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void CreateLayout()
         {
             // Add SceneView to the page.
-            View.AddSubviews(_mySceneView);
+            View.AddSubviews(_mySceneView, _helpToolbar, _helpLabel);
         }
     }
 }

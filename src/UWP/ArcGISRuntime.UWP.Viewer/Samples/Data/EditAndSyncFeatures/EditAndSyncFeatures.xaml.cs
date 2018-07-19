@@ -124,7 +124,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             UpdateMapExtent();
 
             // Enable the generate button now that the sample is ready.
-            MyGenerateButton.IsEnabled = true;
+            GenerateButton.IsEnabled = true;
         }
 
         private async void GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
@@ -183,7 +183,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
                     _readyForEdits = EditState.Ready;
 
                     // Enable the sync button.
-                    MySyncButton.IsEnabled = true;
+                    SyncButton.IsEnabled = true;
 
                     // Update the help label.
                     MyHelpLabel.Text = "4. Click 'Sync' or edit more features";
@@ -293,7 +293,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             };
 
             // Show the progress bar.
-            MyProgressBar.Visibility = Visibility.Visible;
+            GenerateSyncProgressBar.Visibility = Visibility.Visible;
 
             // Start the job.
             generateGdbJob.Start();
@@ -302,7 +302,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             _resultGdb = await generateGdbJob.GetResultAsync();
 
             // Hide the progress bar.
-            MyProgressBar.Visibility = Visibility.Collapsed;
+            GenerateSyncProgressBar.Visibility = Visibility.Collapsed;
 
             // Do the rest of the work.
             HandleGenerationStatusChange(generateGdbJob);
@@ -365,7 +365,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             if (_readyForEdits != EditState.Ready) { return; }
 
             // Disable the sync button.
-            MySyncButton.IsEnabled = false;
+            SyncButton.IsEnabled = false;
 
             // Create parameters for the sync task.
             SyncGeodatabaseParameters parameters = new SyncGeodatabaseParameters()
@@ -398,7 +398,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             };
 
             // Show the progress bar.
-            MyProgressBar.Visibility = Visibility.Visible;
+            GenerateSyncProgressBar.Visibility = Visibility.Visible;
 
             // Start the sync.
             job.Start();
@@ -407,13 +407,13 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             await job.GetResultAsync();
 
             // Hide the progress bar.
-            MyProgressBar.Visibility = Visibility.Collapsed;
+            GenerateSyncProgressBar.Visibility = Visibility.Collapsed;
 
             // Do the remainder of the work.
             HandleSyncCompleted(job);
 
             // Re-enable the sync button.
-            MySyncButton.IsEnabled = true;
+            SyncButton.IsEnabled = true;
         }
 
         private void HandleSyncCompleted(SyncGeodatabaseJob job)
@@ -463,7 +463,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             try
             {
                 // Disable the generate button.
-                MyGenerateButton.IsEnabled = false;
+                GenerateButton.IsEnabled = false;
 
                 // Call the geodatabase generation method.
                 await StartGeodatabaseGeneration();
@@ -489,7 +489,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 // Update the progress bar value.
-                MyProgressBar.Value = progress;
+                GenerateSyncProgressBar.Value = progress;
             });
         }
 

@@ -68,6 +68,9 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
 
             // Set the viewpoint with the camera.
             _mySceneView.SetViewpointCameraAsync(brestCamera);
+
+            // Listen for taps.
+            _mySceneView.GeoViewTapped += SceneViewTapped;
         }
 
         private async void SceneViewTapped(object sender, GeoViewInputEventArgs e)
@@ -101,6 +104,13 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
         {
             // Create a new vertical layout for the app.
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+
+            // Create and add a help label.
+            TextView helpLabel = new TextView(this)
+            {
+                Text = "Tap to select buildings."
+            };
+            layout.AddView(helpLabel);
 
             // Add the scene view to the layout.
             layout.AddView(_mySceneView);

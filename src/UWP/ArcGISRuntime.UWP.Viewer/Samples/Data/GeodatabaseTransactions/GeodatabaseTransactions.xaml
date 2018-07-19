@@ -1,66 +1,74 @@
-﻿<UserControl 
+﻿<UserControl
     x:Class="ArcGISRuntime.UWP.Samples.GeodatabaseTransactions.GeodatabaseTransactions"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <esriUI:MapView x:Name="MyMapView"/>
-        <Border Width="465" Height="150" 
-                HorizontalAlignment="Center" VerticalAlignment="Top"
-                Margin="0,30" 
-                CornerRadius="10" BorderBrush="DarkGray" BorderThickness="2"
-                Background="LightGray" Opacity="1.0">
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+
             <StackPanel Orientation="Vertical">
-                <StackPanel x:Name="EditToolsPanel" 
-                            Orientation="Horizontal"
-                            Margin="5,10,0,0">
-                    <Button x:Name="StartEditingButton" 
-                            Content="Start Editing"
+                <Grid Margin="5,10,0,5"
+                      ColumnSpacing="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="StartEditingButton"
+                            Grid.Column="0"
+                            Content="Start editing"
                             IsEnabled="False"
-                            Width="100" Height="35"
-                            Margin="2,0"
-                            Click="BeginTransaction"/>
-                    <Button x:Name="AddBirdButton" 
-                            Content="Add Bird"
-                            IsEnabled="False"
-                            Width="80" Height="35"
-                            Margin="2,0"
-                            Click="AddNewFeature"/>
-                    <Button x:Name="AddMarineButton" 
-                            Content="Add Marine"
-                            IsEnabled="False"
-                            Width="100" Height="35"
-                            Margin="2,0"
-                            Click="AddNewFeature"/>
+                            Click="BeginTransaction" />
                     <Button x:Name="StopEditingButton"
-                            Content="Stop Editing" 
+                            Grid.Column="1"
+                            Content="Stop editing"
                             IsEnabled="False"
-                            Width="100" Height="35"
-                            Margin="2,0"
-                            Click="StopEditTransaction"/>
+                            Click="StopEditTransaction" />
                     <Button x:Name="SyncEditsButton"
-                            Content="Sync" 
+                            Grid.Column="2"
+                            Content="Sync"
                             IsEnabled="True"
-                            Width="50" Height="35"
-                            Margin="2,0"
-                            Click="SynchronizeEdits"/>
-                </StackPanel>
+                            Click="SynchronizeEdits" />
+                </Grid>
+                <Grid Margin="5,0,0,0"
+                      ColumnSpacing="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="AddBirdButton"
+                            Grid.Column="0"
+                            Content="Add bird"
+                            IsEnabled="False"
+                            Click="AddNewFeature" />
+                    <Button x:Name="AddMarineButton"
+                            Grid.Column="1"
+                            Content="Add marine"
+                            IsEnabled="False"
+                            Click="AddNewFeature" />
+                </Grid>
                 <CheckBox x:Name="RequireTransactionCheckBox"
                           Content="Require a transaction for edits"
                           Margin="8,3"
                           IsChecked="True"
-                          Click="RequireTransactionChanged"/>
+                          Click="RequireTransactionChanged" />
                 <TextBlock x:Name="MessageTextBlock"
-                           Text="Generating local geodatabase ..." 
-                           Foreground="Blue"
+                           Text="Generating local geodatabase ..."
+                           Foreground="RoyalBlue"
                            Height="40"
                            Margin="5"
-                           TextWrapping="Wrap"/>
-                <ProgressBar x:Name="LoadingProgressBar" 
+                           TextWrapping="Wrap" />
+                <ProgressBar x:Name="LoadingProgressBar"
                              Height="10"
                              Margin="3"
                              IsIndeterminate="True"
-                             Opacity="0.5"/>
+                             Opacity="0.5" />
             </StackPanel>
         </Border>
     </Grid>

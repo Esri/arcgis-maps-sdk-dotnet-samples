@@ -4,14 +4,15 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
              x:Class="ArcGISRuntime.Samples.SceneLayerSelection.SceneLayerSelection">
     <Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+        <Label Text="Tap to select buildings."
+               Grid.Row="0"
+                   HorizontalTextAlignment="Center" />
         <esriUI:SceneView x:Name="MySceneView"
+                          Grid.Row="1"
                           GeoViewTapped="SceneViewTapped"/>
-        <Frame HorizontalOptions="Center" VerticalOptions="Start"
-               Margin="20" 
-               BackgroundColor="LightGray">
-            <Label Text="Click a building to select it"
-                   FontSize="18" TextColor="Red"
-                   HeightRequest="35" Margin="10,0"/>
-        </Frame>
     </Grid>
 </ContentPage>

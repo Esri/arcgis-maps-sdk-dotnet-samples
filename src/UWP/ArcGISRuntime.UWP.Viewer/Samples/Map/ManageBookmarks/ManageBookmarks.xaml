@@ -1,62 +1,72 @@
-﻿<UserControl 
+﻿<UserControl
     x:Class="ArcGISRuntime.UWP.Samples.ManageBookmarks.ManageBookmarks"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:esri="using:Esri.ArcGISRuntime"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls" 
-    mc:Ignorable="d" 
-    d:DesignHeight="300" d:DesignWidth="300">
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-
-        <Border 
-        Background="White" BorderBrush="Black" BorderThickness="1"
-        HorizontalAlignment="Right" VerticalAlignment="Top"
-        Margin="30" Padding="20" Width="400">
-            <StackPanel Orientation="Horizontal">
+        <Border Style="{StaticResource BorderStyle}"
+                Width="425">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Tap 'Add' to create a new bookmark for the current extent."
+                           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                           Margin="5"
+                           TextWrapping="Wrap" FontWeight="SemiBold" />
                 <TextBlock Text="Bookmarks:"
-                        VerticalAlignment="Center"
-                        Margin="5,0"/>
-                <ComboBox x:Name="bookmarkChooser" 
-                        DisplayMemberPath="Name" 
-                        Width="200"
-                        SelectionChanged="OnBookmarkChooserSelectionChanged" />
-                <Button x:Name="ButtonAddBookmark"  
-                    Margin="5,0" Padding="5"
-                    Content="Add ..." 
-                    Click="ButtonAddBookmark_Click"/>
-            </StackPanel>
-        </Border>
-        
-        <Border x:Name="BorderAddBookmark"
-        Background="AntiqueWhite" BorderBrush="Black" BorderThickness="1"
-        HorizontalAlignment="Right" VerticalAlignment="Top"
-        Margin="0,105,30,0" Padding="10" 
-        Width="400" Height="110">
-            <StackPanel>
-                <StackPanel Orientation="Horizontal">
+                           Grid.Row="1" Grid.Column="0"
+                           VerticalAlignment="Center" FontWeight="SemiBold"
+                           Margin="5" />
+                <ComboBox x:Name="BookmarkChooser"
+                          Grid.Row="1" Grid.Column="1"
+                          DisplayMemberPath="Name"
+                          HorizontalAlignment="Stretch"
+                          Margin="5,0,5,0"
+                          SelectionChanged="OnBookmarkChooserSelectionChanged" />
+                <Button x:Name="ButtonAddBookmark"
+                        Grid.Row="1" Grid.Column="2"
+                        Content="Add" HorizontalAlignment="Stretch"
+                        Click="ButtonAddBookmark_Click" />
+                <Grid x:Name="BorderAddBookmark"
+                      Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                      Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
                     <TextBlock Text="Bookmark Name:"
-                        Margin="0,0,7,0"/>
-                    <TextBox x:Name="TextBoxBookmarkName" Text="" Width="200" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Right">
-                    <Button x:Name="ButtonAddDone" 
-                    Content="OK" 
-                    Margin="0,10,10,0" Padding="5"
-                    Width="50"
-                    Click="ButtonAddDone_Click"/>
-                    <Button x:Name="ButtonCancel" 
-                    Content="Cancel" 
-                    Width="60"
-                    Margin="0,10,10,0" Padding="5"
-                    Click="ButtonCancel_Click"/>
-                </StackPanel>
-            </StackPanel>
+                               Margin="5"
+                               FontWeight="SemiBold" VerticalAlignment="Center"
+                               Grid.Row="0" Grid.Column="0" />
+                    <TextBox x:Name="TextBoxBookmarkName"
+                             Margin="5"
+                             Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" />
+                    <Button Content="OK"
+                            Grid.Row="1" Grid.Column="1"
+                            Margin="5,0,2.5,0"
+                            HorizontalAlignment="Stretch"
+                            Click="ButtonAddDone_Click" />
+                    <Button Content="Cancel"
+                            Grid.Row="1" Grid.Column="2"
+                            Margin="2.5,0,5,0"
+                            HorizontalAlignment="Stretch"
+                            Click="ButtonCancel_Click" />
+                </Grid>
+            </Grid>
         </Border>
-        
     </Grid>
 </UserControl>
-

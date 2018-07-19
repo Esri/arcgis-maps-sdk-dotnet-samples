@@ -62,7 +62,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerRenderingModeScene
                 InitialViewpoint = new Viewpoint(_zoomedOutPoint, _zoomedOutCamera)
             };
 
-            foreach (string identifier in new[] {"8", "9", "0"})
+            foreach (string identifier in new[] {"0", "9", "8"})
             {
                 // Create the table.
                 ServiceFeatureTable serviceTable = new ServiceFeatureTable(new Uri(_featureService + identifier));

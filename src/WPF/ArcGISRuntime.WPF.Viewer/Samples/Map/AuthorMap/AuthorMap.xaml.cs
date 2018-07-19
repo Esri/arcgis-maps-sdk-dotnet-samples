@@ -227,10 +227,10 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             myMap.OperationalLayers.Clear();
 
             // Loop through the selected items in the operational layers list box
-            foreach (KeyValuePair<string,string> item in OperationalLayerListBox.SelectedItems)
+            foreach (KeyValuePair<string, string> item in OperationalLayerListBox.SelectedItems)
             {
                 // Get the service uri for each selected item 
-                KeyValuePair<string,string> layerInfo = item;
+                KeyValuePair<string, string> layerInfo = item;
                 Uri layerUri = new Uri(layerInfo.Value);
 
                 // Create a new map image layer, set it 50% opaque, and add it to the map

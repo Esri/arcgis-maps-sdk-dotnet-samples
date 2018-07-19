@@ -4,9 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border BorderBrush="Black" BorderThickness="1" Background="White"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="30" Padding="20" Width="375">
+        <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock Text="Tap a graphic to see its relationship with the others."
                            FontWeight="SemiBold" TextWrapping="Wrap" TextAlignment="Center" />

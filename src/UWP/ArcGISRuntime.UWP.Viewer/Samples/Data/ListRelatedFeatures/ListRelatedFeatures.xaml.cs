@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
+using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.UWP.Samples.ListRelatedFeatures
 {
@@ -42,84 +43,100 @@ namespace ArcGISRuntime.UWP.Samples.ListRelatedFeatures
 
         private async void Initialize()
         {
-            // Create the portal item from the URL to the webmap
+            // Create the portal item from the URL to the webmap.
             PortalItem alaskaPortalItem = await PortalItem.CreateAsync(_mapUri);
 
-            // Create the map from the portal item
+            // Create the map from the portal item.
             Map myMap = new Map(alaskaPortalItem);
 
-            // Add the map to the mapview
+            // Add the map to the mapview.
             MyMapView.Map = myMap;
 
-            // Wait for the map to load
+            // Wait for the map to load.
             await myMap.LoadAsync();
 
-            // Get the feature layer from the map
-            _myFeatureLayer = (FeatureLayer)myMap.OperationalLayers.First();
+            // Get the feature layer from the map.
+            _myFeatureLayer = (FeatureLayer) myMap.OperationalLayers.First();
 
-            // Make the selection color yellow and the width thick
+            // Wait for the layer to load.
+            await _myFeatureLayer.LoadAsync();
+
+            // Make the selection color yellow and the width thick.
             _myFeatureLayer.SelectionColor = Color.Yellow;
             _myFeatureLayer.SelectionWidth = 5;
 
-            // Listen for GeoViewTapped events
+            // Listen for GeoViewTapped events.
             MyMapView.GeoViewTapped += MyMapViewOnGeoViewTapped;
+
+            // Hide the loading indicator.
+            LoadingProgress.Visibility = Visibility.Collapsed;
         }
 
         private async void MyMapViewOnGeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // Clear any existing feature selection and results list
+            // Clear any existing feature selection and results list.
             _myFeatureLayer.ClearSelection();
             MyResultsView.ItemsSource = null;
 
-            // Identify the tapped feature
+            // Identify the tapped feature.
             IdentifyLayerResult results = await MyMapView.IdentifyLayerAsync(_myFeatureLayer, e.Position, 10, false);
 
-            // Return if there are no results
-            if (results.GeoElements.Count < 1) { return; }
+            // Return if there are no results.
+            if (results.GeoElements.Count < 1)
+            {
+                return;
+            }
 
-            // Get the first result
-            ArcGISFeature myFeature = (ArcGISFeature)results.GeoElements.First();
+            // Show the loading indicator (this can take a while).
+            LoadingProgress.Visibility = Visibility.Visible;
 
-            // Select the feature
+            // Get the first result.
+            ArcGISFeature myFeature = (ArcGISFeature) results.GeoElements.First();
+
+            // Select the feature.
             _myFeatureLayer.SelectFeature(myFeature);
 
-            // Get the feature table for the feature
-            ArcGISFeatureTable myFeatureTable = (ArcGISFeatureTable)myFeature.FeatureTable;
+            // Get the feature table for the feature.
+            ArcGISFeatureTable myFeatureTable = (ArcGISFeatureTable) myFeature.FeatureTable;
 
-            // Query related features
-            IReadOnlyList<RelatedFeatureQueryResult> relatedFeaturesResult = await myFeatureTable.QueryRelatedFeaturesAsync(myFeature);
+            // Query related features.
+            IReadOnlyList<RelatedFeatureQueryResult> relatedFeaturesResult =
+                await myFeatureTable.QueryRelatedFeaturesAsync(myFeature);
 
-            // Create a list to hold the formatted results of the query
-            List<String> queryResultsForUi = new List<string>();
+            // Create a list to hold the formatted results of the query.
+            List<string> queryResultsForUi = new List<string>();
 
-            // For each query result
+            // For each query result.
             foreach (RelatedFeatureQueryResult result in relatedFeaturesResult)
             {
-                // And then for each feature in the result
+                // And then for each feature in the result.
                 foreach (Feature resultFeature in result)
                 {
-                    // Get a reference to the feature's table
-                    ArcGISFeatureTable relatedTable = (ArcGISFeatureTable)resultFeature.FeatureTable;
+                    // Get a reference to the feature's table.
+                    ArcGISFeatureTable relatedTable = (ArcGISFeatureTable) resultFeature.FeatureTable;
 
-                    // Get the display field name - this is the name of the field that is intended for display
+                    // Get the display field name - this is the name of the field that is intended for display.
                     string displayFieldName = relatedTable.LayerInfo.DisplayFieldName;
 
-                    // Get the name of the feature's table
+                    // Get the name of the feature's table.
                     string tableName = relatedTable.TableName;
 
-                    // Get the display name for the feature
+                    // Get the display name for the feature.
                     string featureDisplayname = resultFeature.Attributes[displayFieldName].ToString();
 
-                    // Create a formatted result string
-                    string formattedResult = String.Format("{0} - {1}", tableName, featureDisplayname);
+                    // Create a formatted result string.
+                    string formattedResult = $"{tableName} - {featureDisplayname}";
 
-                    // Add the result to the list
+                    // Add the result to the list.
                     queryResultsForUi.Add(formattedResult);
                 }
             }
 
-            // Update the UI with the result list
+            // Update the UI with the result list.
             MyResultsView.ItemsSource = queryResultsForUi;
+
+            // Hide the loading indicator.
+            LoadingProgress.Visibility = Visibility.Collapsed;
         }
     }
 }

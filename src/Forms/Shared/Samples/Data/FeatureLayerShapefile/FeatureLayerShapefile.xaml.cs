@@ -51,7 +51,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
             MyMapView.Map.OperationalLayers.Add(newFeatureLayer);
 
             // Zoom the map to the extent of the shapefile
-            await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
+            await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent, 50);
         }
 
         private static string GetShapefilePath()

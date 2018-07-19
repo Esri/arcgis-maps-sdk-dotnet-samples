@@ -5,23 +5,23 @@
     xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Background="White" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="30" Padding="20" Width="375">
+        <Border Style="{StaticResource BorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0"
-                       Content="Select a comment from the list to see the related service request:"/>
+                <TextBlock Text="Select a comment from the list to see the related service request:"
+                           Grid.Row="0"
+                           TextWrapping="Wrap" Margin="0,0,0,5" FontWeight="SemiBold" />
                 <ListBox x:Name="CommentsListBox"
                          Grid.Row="1"
                          MaxHeight="140"
-                         SelectionMode="Single" SelectionChanged="CommentsListBox_SelectionChanged">
+                         SelectionMode="Single"
+                         SelectionChanged="CommentsListBox_SelectionChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding  Attributes[comments]}"/>
+                            <TextBlock Text="{Binding  Attributes[comments]}" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

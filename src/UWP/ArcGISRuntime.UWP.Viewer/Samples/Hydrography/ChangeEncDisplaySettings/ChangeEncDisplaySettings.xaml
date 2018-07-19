@@ -21,38 +21,33 @@
                     <RadioButton x:Name="DayRadioButton"
                                  GroupName="ColorScheme"
                                  Content="Day"
-                                 IsChecked="True"
-                                 Checked="Setting_Checked" />
+                                 IsChecked="True" />
                     <RadioButton x:Name="DuskRadioButton"
                                  GroupName="ColorScheme"
-                                 Content="Dusk"
-                                 Checked="Setting_Checked" />
+                                 Content="Dusk" />
                     <RadioButton x:Name="NightRadioButton"
                                  GroupName="ColorScheme"
-                                 Content="Night"
-                                 Checked="Setting_Checked" />
+                                 Content="Night" />
                 </StackPanel>
                 <TextBlock Text="Area symbolization type" />
                 <StackPanel Orientation="Horizontal">
                     <RadioButton x:Name="PlainAreaRadioButton"
                                  GroupName="Area"
                                  Content="Plain"
-                                 IsChecked="True"
-                                 Checked="Setting_Checked" />
-                    <RadioButton GroupName="Area"
-                                 Content="Symbolized"
-                                 Checked="Setting_Checked" />
+                                 IsChecked="True" />
+                    <RadioButton x:Name="SymbolizedAreaRadioButton"
+                                 GroupName="Area"
+                                 Content="Symbolized" />
                 </StackPanel>
                 <TextBlock Text="Point symbolization type" />
                 <StackPanel Orientation="Horizontal">
                     <RadioButton x:Name="PaperPointRadioButton"
                                  GroupName="Point"
                                  Content="Paper Chart"
-                                 IsChecked="True"
-                                 Checked="Setting_Checked" />
-                    <RadioButton GroupName="Point"
-                                 Content="Simplified"
-                                 Checked="Setting_Checked" />
+                                 IsChecked="True" />
+                    <RadioButton x:Name="SimplifiedRadioButton"
+                                 GroupName="Point"
+                                 Content="Simplified" />
                 </StackPanel>
             </StackPanel>
         </Border>

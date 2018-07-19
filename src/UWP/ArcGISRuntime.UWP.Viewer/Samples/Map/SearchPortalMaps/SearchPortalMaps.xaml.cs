@@ -16,7 +16,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Esri.ArcGISRuntime;
 
 namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps

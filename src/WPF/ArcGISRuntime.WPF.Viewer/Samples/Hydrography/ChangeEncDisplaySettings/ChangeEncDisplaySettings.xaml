@@ -20,7 +20,7 @@
                     <RadioButton x:Name="DayRadioButton"
                                  GroupName="ColorScheme"
                                  Content="Day"
-                                 IsChecked="True"/>
+                                 IsChecked="True" />
                     <RadioButton x:Name="DuskRadioButton"
                                  GroupName="ColorScheme"
                                  Content="Dusk" />

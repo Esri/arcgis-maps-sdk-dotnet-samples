@@ -37,9 +37,16 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerRenderingModeMap
 
         private void Initialize()
         {
-            // Create the maps.
-            MyStaticMapView.Map = new Map();
-            MyDynamicMapView.Map = new Map();
+            // Set the initial viewpoint on the maps.
+            MyStaticMapView.Map = new Map
+            {
+                InitialViewpoint = _zoomOutPoint
+            };
+
+            MyDynamicMapView.Map = new Map
+            {
+                InitialViewpoint = _zoomOutPoint
+            };
 
             // Create service feature table using a point, polyline, and polygon service.
             ServiceFeatureTable pointServiceFeatureTable = new ServiceFeatureTable(new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/0"));

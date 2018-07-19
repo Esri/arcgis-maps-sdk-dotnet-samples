@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
@@ -78,6 +77,15 @@ namespace ArcGISRuntime.UWP.Samples.ChangeEncDisplaySettings
 
             // Subscribe to notifications about leaving so that settings can be re-set
             this.Unloaded += SampleUnloaded;
+
+            // Enable the setting change UI.
+            DayRadioButton.Checked += Setting_Checked;
+            DuskRadioButton.Checked += Setting_Checked;
+            NightRadioButton.Checked += Setting_Checked;
+            PaperPointRadioButton.Checked += Setting_Checked;
+            SymbolizedAreaRadioButton.Checked += Setting_Checked;
+            PlainAreaRadioButton.Checked += Setting_Checked;
+            SimplifiedRadioButton.Checked += Setting_Checked;
         }
 
         private void SampleUnloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -114,14 +122,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeEncDisplaySettings
         private void Setting_Checked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             // Apply display settings
-            try
-            {
-                UpdateDisplaySettings();
-            }
-            catch (NullReferenceException)
-            {
-                // The sample wasn't ready
-            }
+            UpdateDisplaySettings();
         }
     }
 }

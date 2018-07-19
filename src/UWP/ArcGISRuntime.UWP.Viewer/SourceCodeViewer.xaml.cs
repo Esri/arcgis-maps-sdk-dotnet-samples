@@ -44,7 +44,6 @@ namespace ArcGISRuntime.UWP.Viewer
             string htmlStart =
                 "<html>" +
                 "<head>" +
-                "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">" +
                 "<link rel=\"stylesheet\" href=\"" + cssPath + "\">" +
                 "<script type=\"text/javascript\" src=\"" + jsPath + "\"></script>" +
                 "<script>hljs.initHighlightingOnLoad();</script>" +

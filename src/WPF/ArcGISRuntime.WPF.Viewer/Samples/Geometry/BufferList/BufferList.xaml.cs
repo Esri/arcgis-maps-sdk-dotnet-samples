@@ -105,7 +105,7 @@ namespace ArcGISRuntime.WPF.Samples.BufferList
             try
             {
                 // Get the boolean value whether to create a single unioned buffer (true) or independent buffer around each map point (false).
-                bool unionBufferBool = UnionCheckBox.IsChecked == true;
+                bool unionBufferBool = (UnionCheckBox.IsChecked == true);
 
                 // Create an IEnumerable that contains buffered polygon(s) from the GeometryEngine Buffer operation based on a list of map 
                 // points and list of buffered distances. The input distances used in the Buffer operation are in meters; this matches the 

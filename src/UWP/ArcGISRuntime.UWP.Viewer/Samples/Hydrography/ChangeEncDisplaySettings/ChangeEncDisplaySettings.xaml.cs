@@ -77,6 +77,15 @@ namespace ArcGISRuntime.UWP.Samples.ChangeEncDisplaySettings
 
             // Subscribe to notifications about leaving so that settings can be re-set
             this.Unloaded += SampleUnloaded;
+
+            // Enable the setting change UI.
+            DayRadioButton.Checked += Setting_Checked;
+            DuskRadioButton.Checked += Setting_Checked;
+            NightRadioButton.Checked += Setting_Checked;
+            PaperPointRadioButton.Checked += Setting_Checked;
+            SymbolizedAreaRadioButton.Checked += Setting_Checked;
+            PlainAreaRadioButton.Checked += Setting_Checked;
+            SimplifiedRadioButton.Checked += Setting_Checked;
         }
 
         private void SampleUnloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -110,7 +119,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeEncDisplaySettings
             else { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified; }
         }
 
-        private void Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void Setting_Checked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             // Apply display settings
             UpdateDisplaySettings();

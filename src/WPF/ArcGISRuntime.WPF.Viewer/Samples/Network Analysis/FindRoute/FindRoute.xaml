@@ -5,9 +5,7 @@
              xmlns:networkAnalysis="clr-namespace:Esri.ArcGISRuntime.Tasks.NetworkAnalysis;assembly=Esri.ArcGISRuntime">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Background="WhiteSmoke" Opacity=".85" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Left" VerticalAlignment="Top"
-                Margin="30" Padding="20" Width="375">
+        <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock Text="Route directions:"
                            Margin="0,0,0,2"

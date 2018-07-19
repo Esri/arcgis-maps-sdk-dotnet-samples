@@ -45,9 +45,6 @@ namespace ArcGISRuntime.UWP.Samples.ShowLabelsOnLayer
             // Create a feature layer from the service feature table.
             FeatureLayer highwaysFeatureLayer = new FeatureLayer(highwaysServiceFeatureTable);
 
-            // Add the US highways feature layer to the operations layers collection of the map.
-            sampleMap.OperationalLayers.Add(highwaysFeatureLayer);
-
             // Load the US highways feature layer - this way we can obtain it's extent.
             await highwaysFeatureLayer.LoadAsync();
 
@@ -101,6 +98,9 @@ namespace ArcGISRuntime.UWP.Samples.ShowLabelsOnLayer
 
             // Enable the visibility of labels to be seen.
             highwaysFeatureLayer.LabelsEnabled = true;
+
+            // Add the US highways feature layer to the operations layers collection of the map.
+            sampleMap.OperationalLayers.Add(highwaysFeatureLayer);
         }
 
     }

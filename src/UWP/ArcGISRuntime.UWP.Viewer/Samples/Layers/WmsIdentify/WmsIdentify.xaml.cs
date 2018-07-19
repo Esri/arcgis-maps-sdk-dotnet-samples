@@ -8,13 +8,12 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.UWP.Samples.WmsIdentify
 {
@@ -22,7 +21,7 @@ namespace ArcGISRuntime.UWP.Samples.WmsIdentify
         "Identify WMS features",
         "Layers",
         "This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.",
-        "Tap or click on a feature. A callout appears with the returned content for the WMS feature. Note: the service returns HTML regardless of whether there was an identify result. The sample uses a heuristic to hide empty results.")]
+        "Tap a feature to identify. Note: the service returns HTML regardless of whether there was an identify result. The sample uses a heuristic to hide empty results.")]
     public partial class WmsIdentify
     {
         // Create and hold the URL to the WMS service showing EPA water info.
@@ -66,8 +65,8 @@ namespace ArcGISRuntime.UWP.Samples.WmsIdentify
 
         private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
-            // Clear any existing callout.
-            MyMapView.DismissCallout();
+            // Clear any existing result.
+            ResultWebView.Visibility = Visibility.Collapsed;
 
             // Perform the identify operation.
             IdentifyLayerResult myIdentifyResult = await MyMapView.IdentifyLayerAsync(_wmsLayer, e.Position, 20, false);
@@ -92,24 +91,9 @@ namespace ArcGISRuntime.UWP.Samples.WmsIdentify
                 return;
             }
 
-            // Show a callout with the HTML content
-            ShowHtmlCallout(htmlContent, e.Location);
-        }
-
-        private void ShowHtmlCallout(string htmlContent, MapPoint position)
-        {
-            // Create the web browser control.
-            WebView htmlView = new WebView
-            {
-                Height = 100,
-                Width = 200
-            };
-
-            // Display the string content as an HTML document.
-            htmlView.NavigateToString(htmlContent);
-
-            // Create the callout with the browser.
-            MyMapView.ShowCalloutAt(position, htmlView);
+            // Show the result.
+            ResultWebView.NavigateToString(htmlContent);
+            ResultWebView.Visibility = Visibility.Visible;
         }
     }
 }

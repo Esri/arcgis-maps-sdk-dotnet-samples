@@ -4,9 +4,7 @@
              xmlns:esri1="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esri1:MapView x:Name="MyMapView" />
-        <Border Background="WhiteSmoke" Opacity=".85" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Left" VerticalAlignment="Top"
-                Margin="30" Padding="20" Width="300">
+        <Border Style="{StaticResource BorderStyle}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -22,21 +20,21 @@
                 <Button Name="PlaceFacilityButton"
                         Grid.Row="0" Grid.Column="0"
                         Margin="5,5,5,5"
-                        Content="Place Facility"
+                        Content="Place facility"
                         Click="PlaceFacilityButton_Click"
                         HorizontalAlignment="Stretch"
                         Width="Auto"/>
                 <Button Name="DrawBarrierButton"
                         Grid.Row="0" Grid.Column="1"
                         Margin="5,5,5,5"
-                        Content="Draw Barrier"
+                        Content="Draw barrier"
                         Click="DrawBarrierButton_Click"
                         HorizontalAlignment="Stretch"/>
                 <Button Name="ShowServiceAreasButton"
                         Grid.Row="3"
                         Grid.ColumnSpan="2"
                         Margin="5,5,5,5"
-                        Content="Show Service Areas"
+                        Content="Show service areas"
                         Click="ShowServiceAreasButton_Click"
                         HorizontalAlignment="Stretch"/>
                 <Button Name="ResetButton"

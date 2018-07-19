@@ -66,7 +66,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeodatabase
             _myMapView.Map.OperationalLayers.Add(trailheadsFeatureLayer);
 
             // Zoom the map to the extent of the feature layer.
-            await _myMapView.SetViewpointGeometryAsync(trailheadsFeatureLayer.FullExtent);
+            await _myMapView.SetViewpointGeometryAsync(trailheadsFeatureLayer.FullExtent, 50);
         }
 
         private static string GetMobileGeodatabasePath()

@@ -111,7 +111,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
                 UpdateMapExtent();
 
                 // Enable the generate button now that the sample is ready.
-                MyGenerateButton.IsEnabled = true;
+                GenerateButton.IsEnabled = true;
             }
             catch (Exception ex)
             {
@@ -186,7 +186,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             };
 
             // Show the progress bar.
-            MyProgressBar.Visibility = Visibility.Visible;
+            GenerateProgressBar.Visibility = Visibility.Visible;
 
             // Start the job.
             _generateGdbJob.Start();
@@ -195,7 +195,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             Geodatabase resultGdb = await _generateGdbJob.GetResultAsync();
 
             // Hide the progress bar.
-            MyProgressBar.Visibility = Visibility.Collapsed;
+            GenerateProgressBar.Visibility = Visibility.Collapsed;
 
             // Do the rest of the work.
             await HandleGenerationCompleted(resultGdb);
@@ -225,7 +225,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
                 ShowStatusMessage("Since no edits will be made, the local geodatabase has been unregistered per best practice.");
 
                 // Re-enable the generate button.
-                MyGenerateButton.IsEnabled = true;
+                GenerateButton.IsEnabled = true;
             }
 
             // See if the job failed.
@@ -260,7 +260,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             // Disable the generate button.
             try
             {
-                MyGenerateButton.IsEnabled = false;
+                GenerateButton.IsEnabled = false;
 
                 // Call the geodatabase generation method.
                 await StartGeodatabaseGeneration();
@@ -284,7 +284,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateGeodatabase
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 // Update the progress bar value.
-                MyProgressBar.Value = _generateGdbJob.Progress / 1.0;
+                GenerateProgressBar.Value = _generateGdbJob.Progress;
             });
         }
     }

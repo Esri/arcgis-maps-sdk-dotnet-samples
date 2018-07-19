@@ -5,9 +5,7 @@
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-        <Border BorderBrush="Black" BorderThickness="1" Background="White"
-                VerticalAlignment="Top" HorizontalAlignment="Right"
-                Margin="30" Padding="20" Width="300">
+        <Border Style="{StaticResource BorderStyle}">
             <TextBlock x:Name="LoadStatusTextBlock"
                        Text="Map's load status : "
                        TextAlignment="Center" FontWeight="SemiBold" />

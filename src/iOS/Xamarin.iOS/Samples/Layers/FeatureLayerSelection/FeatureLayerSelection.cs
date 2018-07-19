@@ -9,6 +9,7 @@
 
 using System;
 using System.Drawing;
+using CoreGraphics;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -27,8 +28,16 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
         "")]
     public class FeatureLayerSelection : UIViewController
     {
-        // Create and hold a reference to the MapView.
+        // Create and hold references to the UI controls.
         private MapView _myMapView;
+        private UIToolbar _helpToolbar = new UIToolbar();
+        private UILabel _helpLabel = new UILabel
+        {
+            Text = "Tap to select features.",
+            TextAlignment = UITextAlignment.Center,
+            AdjustsFontSizeToFitWidth = true,
+            Lines = 1
+        };
 
         // Hold reference to the feature layer.
         private FeatureLayer _featureLayer;
@@ -51,10 +60,15 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
             try
             {
                 nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat toolbarHeight = controlHeight + 2 * margin;
 
                 // Reposition controls.
-                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
+                _helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
+                _helpLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight);
 
                 base.ViewDidLayoutSubviews();
             }
@@ -148,7 +162,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
             _myMapView = new MapView();
 
             // Add MapView to the page.
-            View.AddSubviews(_myMapView);
+            View.AddSubviews(_myMapView, _helpToolbar, _helpLabel);
         }
     }
 }

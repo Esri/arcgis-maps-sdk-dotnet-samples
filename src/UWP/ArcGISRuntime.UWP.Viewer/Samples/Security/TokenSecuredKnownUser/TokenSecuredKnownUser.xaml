@@ -10,19 +10,17 @@
         <esriUI:MapView x:Name="MyMapView"/>
 
         <!-- Layer listing with status -->
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" 
-                Margin="30" 
-                MaxWidth="500"
-				HorizontalAlignment="Right" VerticalAlignment="Top">
+        <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock FontSize="14" FontWeight="Bold"
                            Margin="4" 
-                           Text="Map Layers (with status)" />
-                <StackPanel x:Name="PublicLayerPanel" Orientation="Vertical" Margin="10,5">
+                           Text="Map Layers (with status)"
+                           TextAlignment="Center"/>
+                <StackPanel x:Name="PublicLayerPanel" Orientation="Horizontal" Margin="10,5">
                     <TextBlock Text="{Binding Name}"/>
                     <TextBlock Text="{Binding LoadStatus}" Foreground="{Binding LoadStatus, Converter={StaticResource StatusToColor}}" Margin="10,0"/>
                 </StackPanel>
-                <StackPanel x:Name="SecureLayerPanel" Orientation="Vertical" Margin="10,5">
+                <StackPanel x:Name="SecureLayerPanel" Orientation="Horizontal" Margin="10,5">
                     <TextBlock Text="{Binding Name}"/>
                     <TextBlock Text="{Binding LoadStatus}" Foreground="{Binding LoadStatus, Converter={StaticResource StatusToColor}}" Margin="10,0"/>
                 </StackPanel>

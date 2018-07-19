@@ -64,7 +64,7 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             // Get web map portal items in the current user's folder or from a keyword search
-            IEnumerable<PortalItem> mapItems = null;
+            IEnumerable<PortalItem> mapItems;
             ArcGISPortal portal;
 
             // See if the user wants to search public web map items

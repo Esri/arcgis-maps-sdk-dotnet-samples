@@ -8,9 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Background="White" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="30" Padding="20" Width="300">
+        <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock Text="Select a rendering rule."
                            Margin="0,0,0,5"

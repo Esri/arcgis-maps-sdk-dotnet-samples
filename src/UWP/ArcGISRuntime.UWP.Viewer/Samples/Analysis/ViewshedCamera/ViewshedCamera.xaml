@@ -5,9 +5,7 @@
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:SceneView x:Name="MySceneView" />
-        <Border BorderBrush="Black" BorderThickness="1" Background="White"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="30" Padding="20" Width="375">
+        <Border Style="{StaticResource BorderStyle}">
             <Button Content="Viewshed from here"
                     HorizontalAlignment="Stretch"
                     Click="UpdateObserverWithCamera" />

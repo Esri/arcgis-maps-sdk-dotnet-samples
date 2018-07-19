@@ -16,10 +16,7 @@
         </esri:MapView>
 
         <!-- Layer listing with status -->
-        <Border Background="White" BorderBrush="Black" BorderThickness="2" 
-                Margin="30" 
-                MaxWidth="500"
-				HorizontalAlignment="Right" VerticalAlignment="Top">
+        <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock FontSize="14" FontWeight="Bold"
                            Margin="4" 

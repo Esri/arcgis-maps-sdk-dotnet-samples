@@ -26,36 +26,36 @@ namespace ArcGISRuntime.WPF.Samples.RenderUniqueValues
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Initialize the sample.
             Initialize();
         }
 
         private void Initialize()
         {
-            // Create new Map with basemap
+            // Create new Map with basemap.
             Map myMap = new Map(Basemap.CreateTopographic());
 
-            // Create uri to the used feature service
-            var serviceUri = new Uri(
+            // Create URL to the census feature service.
+            Uri serviceUri = new Uri(
                 "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
 
-            // Create service feature table
+            // Create service feature table.
             ServiceFeatureTable statesFeatureTable = new ServiceFeatureTable(serviceUri);
 
-            // Create a new feature layer using the service feature table
+            // Create a new feature layer using the service feature table.
             FeatureLayer statesLayer = new FeatureLayer(statesFeatureTable);
 
-            // Create a new unique value renderer
+            // Create a new unique value renderer.
             UniqueValueRenderer regionRenderer = new UniqueValueRenderer();
 
-            // Add the "SUB_REGION" field to the renderer
+            // Add the "SUB_REGION" field to the renderer.
             regionRenderer.FieldNames.Add("SUB_REGION");
 
-            // Define a line symbol to use for the region fill symbols
+            // Define a line symbol to use for the region fill symbols.
             SimpleLineSymbol stateOutlineSymbol = new SimpleLineSymbol(
                 SimpleLineSymbolStyle.Solid, Color.White, 0.7);
 
-            // Define distinct fill symbols for a few regions (use the same outline symbol)
+            // Define distinct fill symbols for a few regions (use the same outline symbol).
             SimpleFillSymbol pacificFillSymbol = new SimpleFillSymbol(
                 SimpleFillSymbolStyle.Solid, Color.Blue, stateOutlineSymbol);
             SimpleFillSymbol mountainFillSymbol = new SimpleFillSymbol(
@@ -63,7 +63,7 @@ namespace ArcGISRuntime.WPF.Samples.RenderUniqueValues
             SimpleFillSymbol westSouthCentralFillSymbol = new SimpleFillSymbol(
                 SimpleFillSymbolStyle.Solid, Color.SandyBrown, stateOutlineSymbol);
 
-            // Add values to the renderer: define the label, description, symbol, and attribute value for each
+            // Add values to the renderer: define the label, description, symbol, and attribute value for each.
             regionRenderer.UniqueValues.Add(
                 new UniqueValue("Pacific", "Pacific Region", pacificFillSymbol, "Pacific"));
             regionRenderer.UniqueValues.Add(
@@ -71,19 +71,18 @@ namespace ArcGISRuntime.WPF.Samples.RenderUniqueValues
             regionRenderer.UniqueValues.Add(
                 new UniqueValue("West South Central", "West South Central Region", westSouthCentralFillSymbol, "West South Central"));
 
-            // Set the default region fill symbol (transparent with no outline) for regions not explicitly defined in the renderer
-            var defaultFillSymbol = new SimpleFillSymbol(
-                SimpleFillSymbolStyle.Null, Color.Transparent, null);
+            // Set the default region fill symbol for regions not explicitly defined in the renderer.
+            SimpleFillSymbol defaultFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Cross, Color.Gray, null);
             regionRenderer.DefaultSymbol = defaultFillSymbol;
             regionRenderer.DefaultLabel = "Other";
 
-            // Apply the unique value renderer to the states layer
+            // Apply the unique value renderer to the states layer.
             statesLayer.Renderer = regionRenderer;
 
-            // Add created layer to the map
+            // Add created layer to the map.
             myMap.OperationalLayers.Add(statesLayer);
 
-            // Assign the map to the MapView
+            // Assign the map to the MapView.
             MyMapView.Map = myMap;
         }
     }

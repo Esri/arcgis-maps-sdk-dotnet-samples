@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
         "Network Analysis",
         "Demonstrates how to solve a Closest Facility Task to find the closest route between a facility (hospital) and a incident (black cross).",
         "Tap to find the route to the nearest hospital.")]
-    public partial class ClosestFacility : Activity
+    public class ClosestFacility : Activity
     {
         // Map view that will be used.
         private MapView _myMapView = new MapView();
@@ -154,8 +154,8 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             // Clear any prior incident and routes from the graphics.
             _incidentGraphicsOverlay.Graphics.Clear();
 
-            // Create a MapPoint where the user clicked.
-            _incidentPoint = _myMapView.ScreenToLocation(e.Position);
+            // Get the tapped point.
+            _incidentPoint = e.Location;
 
             // Populate the facility parameters than solve using the task.
             PopulateParametersAndSolveRouteAsync();

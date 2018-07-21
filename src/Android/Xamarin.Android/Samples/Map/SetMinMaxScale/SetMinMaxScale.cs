@@ -41,13 +41,15 @@ namespace ArcGISRuntime.Samples.SetMinMaxScale
         private void Initialize()
         {
             // Create new Map with Streets basemap 
-            Map myMap = new Map(Basemap.CreateStreets());
+            Map myMap = new Map(Basemap.CreateStreets())
+            {
 
-            // Set the scale at which this layer can be viewed
-            // MinScale defines how far 'out' you can zoom where
-            // MaxScale defines how far 'in' you can zoom.
-            myMap.MinScale = 8000;
-            myMap.MaxScale = 2000;
+                // Set the scale at which this layer can be viewed
+                // MinScale defines how far 'out' you can zoom where
+                // MaxScale defines how far 'in' you can zoom.
+                MinScale = 8000,
+                MaxScale = 2000
+            };
 
             // Create central point where map is centered
             MapPoint centralPoint = new MapPoint(-355453, 7548720, SpatialReferences.WebMercator);
@@ -66,7 +68,7 @@ namespace ArcGISRuntime.Samples.SetMinMaxScale
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

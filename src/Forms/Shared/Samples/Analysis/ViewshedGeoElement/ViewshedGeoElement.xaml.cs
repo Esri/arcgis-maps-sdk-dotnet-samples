@@ -16,7 +16,6 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.ViewshedGeoElement
@@ -157,7 +156,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
 
             // Rotate to face the destination.
             double heading = (double)_tank.Attributes["HEADING"];
-            heading = heading + ((distance.Azimuth1 - heading) / 10);
+            heading = heading + (distance.Azimuth1 - heading) / 10;
             _tank.Attributes["HEADING"] = heading;
 
             // Clear the destination if the tank already arrived.

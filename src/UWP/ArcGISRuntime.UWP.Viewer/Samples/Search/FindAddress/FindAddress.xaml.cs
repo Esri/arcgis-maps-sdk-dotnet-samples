@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -84,7 +85,7 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
             MyMapView.GraphicsOverlays.Clear();
 
             // Return gracefully if the textbox is empty or the geocoder isn't ready.
-            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
+            if (String.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
             {
                 return;
             }
@@ -127,11 +128,11 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
         private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
             // Get current assembly that contains the image.
-            var currentAssembly = GetType().GetTypeInfo().Assembly;
+            Assembly currentAssembly = GetType().GetTypeInfo().Assembly;
 
             // Get image as a stream from the resources.
             // Picture is defined as EmbeddedResource and DoNotCopy.
-            var resourceStream = currentAssembly.GetManifestResourceStream(
+            Stream resourceStream = currentAssembly.GetManifestResourceStream(
                 "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream.
@@ -170,14 +171,11 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
             // Use the metro area for the Callout Detail.
             string calloutDetail = address.Attributes["MetroArea"].ToString();
 
-            // Use the MapView to convert from the on-screen location to the on-map location.
-            MapPoint point = MyMapView.ScreenToLocation(e.Position);
-
             // Define the callout.
             CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);
 
             // Show the callout on the map at the tapped location.
-            MyMapView.ShowCalloutAt(point, calloutBody);
+            MyMapView.ShowCalloutAt(e.Location, calloutBody);
         }
 
         private void Search_Submitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)

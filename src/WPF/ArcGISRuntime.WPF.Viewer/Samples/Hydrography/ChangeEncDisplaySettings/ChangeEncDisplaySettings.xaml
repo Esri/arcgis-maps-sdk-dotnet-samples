@@ -12,10 +12,7 @@
     </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border
-            Background="White" BorderBrush="Black" BorderThickness="1"
-            HorizontalAlignment="Right" VerticalAlignment="Top"
-            Margin="30" Padding="20" Width="275">
+        <Border Style="{StaticResource BorderStyle}" Width="225">
             <StackPanel>
                 <TextBlock Text="Color scheme"
                            FontWeight="Bold" />
@@ -53,8 +50,6 @@
                                  GroupName="Point"
                                  Content="Simplified" />
                 </StackPanel>
-                <Button Content="Apply"
-                        Click="Button_Click" />
             </StackPanel>
         </Border>
     </Grid>

@@ -58,7 +58,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
             _myMapView.Map.OperationalLayers.Add(newFeatureLayer);
 
             // Zoom the map to the extent of the shapefile
-            await _myMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
+            await _myMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent, 50);
         }
 
         private static string GetShapefilePath()
@@ -69,7 +69,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add a map view to the layout
             _myMapView = new MapView(this);

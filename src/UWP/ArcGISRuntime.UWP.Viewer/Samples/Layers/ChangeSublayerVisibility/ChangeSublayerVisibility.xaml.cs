@@ -38,7 +38,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeSublayerVisibility
             Map myMap = new Map();
 
             // Create uri to the map image layer
-            var serviceUri = new Uri(
+            Uri serviceUri = new Uri(
                "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer");
 
             // Create new image layer from the url
@@ -60,20 +60,20 @@ namespace ArcGISRuntime.UWP.Samples.ChangeSublayerVisibility
             // If layer is already loaded, this returns directly
             await _imageLayer.LoadAsync();
 
-            var dialog = new ContentDialog()
+            ContentDialog dialog = new ContentDialog()
             {
                 Title = "Sublayers",
                 FullSizeDesired = true
             };
 
             // Create list for layers
-            var sublayersListView = new ListView();
+            ListView sublayersListView = new ListView();
 
             // Create cells for each of the sublayers
             foreach (ArcGISSublayer sublayer in _imageLayer.Sublayers)
             {
                 // Using a toggle that provides on/off functionality
-                var toggle = new ToggleSwitch()
+                ToggleSwitch toggle = new ToggleSwitch()
                 {
                     Header = sublayer.Name,
                     IsOn = sublayer.IsVisible,
@@ -96,7 +96,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeSublayerVisibility
 
         private void OnSublayerToggled(object sender, RoutedEventArgs e)
         {
-            var toggle = sender as ToggleSwitch;
+            ToggleSwitch toggle = (ToggleSwitch)sender;
 
             // Find the layer from the image layer
             ArcGISSublayer sublayer = _imageLayer.Sublayers.First(x => x.Name == toggle.Header.ToString());

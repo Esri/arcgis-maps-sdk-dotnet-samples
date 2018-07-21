@@ -7,6 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Drawing;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -25,8 +28,8 @@ namespace ArcGISRuntime.Samples.SimpleRenderers
         "")]
     public class SimpleRenderers : UIViewController
     {
-        // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        // Create and hold a reference to the used MapView.
+        private readonly MapView _myMapView = new MapView();
 
         public SimpleRenderers()
         {
@@ -39,20 +42,30 @@ namespace ArcGISRuntime.Samples.SimpleRenderers
 
             // Create the UI, setup the control references and execute initialization.
             CreateLayout();
-            InitializeAsync();
+            Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
-        private async void InitializeAsync()
+        private async void Initialize()
         {
-            // Create new map with basemap layer.
+            // Create new map with labeled imagery basemap.
             Map myMap = new Map(Basemap.CreateImageryWithLabels());
 
             // Create several map points using the WGS84 coordinates (latitude and longitude).
@@ -62,12 +75,6 @@ namespace ArcGISRuntime.Samples.SimpleRenderers
 
             // Use the two points farthest apart to create an envelope.
             Envelope initialEnvelope = new Envelope(oldFaithfulPoint, plumeGeyserPoint);
-
-            // Set the map initial viewpoint.
-            myMap.InitialViewpoint = new Viewpoint(initialEnvelope);
-
-            // Add the map to the map view.
-            _myMapView.Map = myMap;
 
             // Create a graphics overlay.
             GraphicsOverlay myGraphicOverlay = new GraphicsOverlay();
@@ -83,24 +90,24 @@ namespace ArcGISRuntime.Samples.SimpleRenderers
             myGraphicOverlay.Graphics.Add(plumeGeyserGraphic);
 
             // Create a simple marker symbol - red, cross, size 12.
-            SimpleMarkerSymbol mySymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.Red, 12);
+            SimpleMarkerSymbol mySymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, Color.Red, 12);
 
-            // Create a simple renderer based on the simple marker symbol.
-            SimpleRenderer myRenderer = new SimpleRenderer(mySymbol);
-
-            // Apply the renderer to the graphics overlay (all graphics use the same symbol).
-            myGraphicOverlay.Renderer = myRenderer;
+            // Create a simple renderer based on the marker symbol. It will be applied to all graphics in the overlay.
+            myGraphicOverlay.Renderer = new SimpleRenderer(mySymbol);
 
             // Add the graphics overlay to the map view.
             _myMapView.GraphicsOverlays.Add(myGraphicOverlay);
 
+            // Add the map to the map view.
+            _myMapView.Map = myMap;
+
             // Set the viewpoint to the envelope with padding.
-            await _myMapView.SetViewpointGeometryAsync(initialEnvelope, 75);
+            await _myMapView.SetViewpointGeometryAsync(initialEnvelope, 50);
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add the mapview to the view.
             View.AddSubviews(_myMapView);
         }
     }

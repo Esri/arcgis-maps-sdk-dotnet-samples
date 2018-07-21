@@ -7,11 +7,11 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.FeatureLayerUrl
@@ -24,11 +24,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerUrl
         "")]
     public class FeatureLayerUrl : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Create and hold a reference to the MapView.
+        private readonly MapView _myMapView = new MapView();
 
         public FeatureLayerUrl()
         {
@@ -39,46 +36,53 @@ namespace ArcGISRuntime.Samples.FeatureLayerUrl
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
         {
-            // Create new Map with basemap
+            // Create new Map with basemap.
             Map myMap = new Map(Basemap.CreateTerrainWithLabels());
 
-            // Create and set initial map location
-            MapPoint initialLocation = new MapPoint(
-                -13176752, 4090404, SpatialReferences.WebMercator);
+            // Create and set initial map location.
+            MapPoint initialLocation = new MapPoint(-13176752, 4090404, SpatialReferences.WebMercator);
             myMap.InitialViewpoint = new Viewpoint(initialLocation, 300000);
 
-            // Create uri to the used feature service
-            var serviceUri = new Uri(
-                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/9");
+            // Create URI to the used feature service.
+            Uri serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/9");
 
-            // Create new FeatureLayer from service uri and
+            // Create new FeatureLayer by URL.
             FeatureLayer geologyLayer = new FeatureLayer(serviceUri);
 
-            // Add created layer to the map
+            // Add layer to the map.
             myMap.OperationalLayers.Add(geologyLayer);
 
-            // Assign the map to the MapView
+            // Show the map.
             _myMapView.Map = myMap;
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
     }

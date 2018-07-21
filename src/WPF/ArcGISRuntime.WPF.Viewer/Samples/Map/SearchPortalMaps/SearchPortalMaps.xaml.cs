@@ -17,6 +17,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using System.Windows.Threading;
+using Esri.ArcGISRuntime;
 
 namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
 {
@@ -62,7 +64,7 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             // Get web map portal items in the current user's folder or from a keyword search
-            IEnumerable<PortalItem> mapItems = null;
+            IEnumerable<PortalItem> mapItems;
             ArcGISPortal portal;
 
             // See if the user wants to search public web map items
@@ -72,7 +74,7 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
                 portal = await ArcGISPortal.CreateAsync();
 
                 // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
-                var queryExpression = string.Format("tags:\"{0}\" access:public type: (\"web map\" NOT \"web mapping application\")", SearchText.Text);
+                string queryExpression = string.Format("tags:\"{0}\" access:public type: (\"web map\" NOT \"web mapping application\")", SearchText.Text);
                 
                 // Create a query parameters object with the expression and a limit of 10 results
                 PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
@@ -86,7 +88,7 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
             else
             {
                 // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
-                var loggedIn = await EnsureLoggedInAsync();
+                bool loggedIn = await EnsureLoggedInAsync();
                 if (!loggedIn) { return; }
 
                 // Connect to the portal (will connect using the provided credentials)
@@ -102,7 +104,7 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
                 foreach (PortalFolder folder in myContent.Folders)
                 {
                     IEnumerable<PortalItem> folderItems = await portal.User.GetContentAsync(folder.FolderId);
-                    mapItems.Concat(from item in folderItems where item.Type == PortalItemType.WebMap select item);
+                    mapItems = mapItems.Concat(from item in folderItems where item.Type == PortalItemType.WebMap select item);
                 }
             }
 
@@ -128,14 +130,11 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
 
         private void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
-            // Get the current status
-            var status = e.Status;
-
             // Report errors if map failed to load
-            if(status == Esri.ArcGISRuntime.LoadStatus.FailedToLoad)
+            if(e.Status == LoadStatus.FailedToLoad)
             {
-                var map = sender as Map;
-                var err = map.LoadError;
+                Map map = (Map)sender;
+                Exception err = map.LoadError;
                 if(err != null)
                 {
                     MessageBox.Show(err.Message, "Map Load Error");
@@ -162,19 +161,21 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
             try
             {
                 // Create a challenge request for portal credentials (OAuth credential request for arcgis.com)
-                CredentialRequestInfo challengeRequest = new CredentialRequestInfo();
-
-                // Use the OAuth implicit grant flow
-                challengeRequest.GenerateTokenOptions = new GenerateTokenOptions
+                CredentialRequestInfo challengeRequest = new CredentialRequestInfo
                 {
-                    TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+
+                    // Use the OAuth implicit grant flow
+                    GenerateTokenOptions = new GenerateTokenOptions
+                    {
+                        TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                    },
+
+                    // Indicate the url (portal) to authenticate with (ArcGIS Online)
+                    ServiceUri = new Uri(ArcGISOnlineUrl)
                 };
 
-                // Indicate the url (portal) to authenticate with (ArcGIS Online)
-                challengeRequest.ServiceUri = new Uri(ArcGISOnlineUrl);
-
                 // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                var cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
+                Credential cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
                 loggedIn = cred != null;
             }
             catch (OperationCanceledException)
@@ -194,13 +195,15 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
         private void UpdateAuthenticationManager()
         {
             // Define the server information for ArcGIS Online
-            ServerInfo portalServerInfo = new ServerInfo();
+            ServerInfo portalServerInfo = new ServerInfo
+            {
 
-            // ArcGIS Online URI
-            portalServerInfo.ServerUri = new Uri(ArcGISOnlineUrl);
+                // ArcGIS Online URI
+                ServerUri = new Uri(ArcGISOnlineUrl),
 
-            // Type of token authentication to use
-            portalServerInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit;
+                // Type of token authentication to use
+                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+            };
 
             // Define the OAuth information
             OAuthClientInfo oAuthInfo = new OAuthClientInfo
@@ -233,10 +236,10 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -259,8 +262,8 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
         private void CancelOAuthSettingsClicked(object sender, RoutedEventArgs e)
         {
             // Warn that browsing user's ArcGIS Online maps won't be available without OAuth settings
-            var warning = "Without OAuth settings, you will not be able to browse maps from your ArcGIS Online account.";
-            var noAuth = MessageBox.Show(warning, "No OAuth Settings", MessageBoxButton.OKCancel) == MessageBoxResult.OK;
+            string warning = "Without OAuth settings, you will not be able to browse maps from your ArcGIS Online account.";
+            bool noAuth = MessageBox.Show(warning, "No OAuth Settings", MessageBoxButton.OKCancel) == MessageBoxResult.OK;
 
             if (noAuth)
             {
@@ -302,14 +305,14 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
             _callbackUrl = callbackUri.AbsoluteUri;
 
             // Call a function to show the login controls, make sure it runs on the UI thread for this app
-            var dispatcher = Application.Current.Dispatcher;
+            Dispatcher dispatcher = Application.Current.Dispatcher;
             if (dispatcher == null || dispatcher.CheckAccess())
             {
                 AuthorizeOnUIThread(_authorizeUrl);
             }
             else
             {
-                var authorizeOnUIAction = new Action((() => AuthorizeOnUIThread(_authorizeUrl)));
+                Action authorizeOnUIAction = () => AuthorizeOnUIThread(_authorizeUrl);
                 dispatcher.BeginInvoke(authorizeOnUIAction);
             }
 
@@ -321,7 +324,7 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
         private void AuthorizeOnUIThread(string authorizeUri)
         {
             // Create a WebBrowser control to display the authorize page
-            var webBrowser = new WebBrowser();
+            WebBrowser webBrowser = new WebBrowser();
 
             // Handle the navigation event for the browser to check for a response to the redirect URL
             webBrowser.Navigating += WebBrowserOnNavigating;
@@ -350,7 +353,7 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
         }
 
         // Handle the browser window closing
-        void OnWindowClosed(object sender, EventArgs e)
+        private void OnWindowClosed(object sender, EventArgs e)
         {
             // If the browser window closes, return the focus to the main window
             if (_window != null && _window.Owner != null)
@@ -369,16 +372,16 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
         }
 
         // Handle browser navigation (content changing)
-        void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
+        private void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
         {
             // Check for a response to the callback url
             const string portalApprovalMarker = "/oauth2/approval";
-            var webBrowser = sender as WebBrowser;
+            WebBrowser webBrowser = sender as WebBrowser;
 
             Uri uri = e.Uri;
 
             // If no browser, uri, or an empty url, return
-            if (webBrowser == null || uri == null || string.IsNullOrEmpty(uri.AbsoluteUri))
+            if (webBrowser == null || uri == null || String.IsNullOrEmpty(uri.AbsoluteUri))
                 return;
 
             // Check for redirect
@@ -394,7 +397,7 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
                 e.Cancel = true;
 
                 // Call a helper function to decode the response parameters
-                var authResponse = DecodeParameters(uri);
+                IDictionary<string,string> authResponse = DecodeParameters(uri);
 
                 // Set the result for the task completion source
                 _tcs.SetResult(authResponse);
@@ -409,27 +412,27 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
         private static IDictionary<string, string> DecodeParameters(Uri uri)
         {
             // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string
-            var answer = string.Empty;
+            string answer = "";
 
             // Get the values from the URI fragment or query string
-            if (!string.IsNullOrEmpty(uri.Fragment))
+            if (!String.IsNullOrEmpty(uri.Fragment))
             {
                 answer = uri.Fragment.Substring(1);
             }
             else
             {
-                if (!string.IsNullOrEmpty(uri.Query))
+                if (!String.IsNullOrEmpty(uri.Query))
                 {
                     answer = uri.Query.Substring(1);
                 }
             }
 
             // Parse parameters into key / value pairs
-            var keyValueDictionary = new Dictionary<string, string>();
-            var keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var kvString in keysAndValues)
+            Dictionary<string,string> keyValueDictionary = new Dictionary<string, string>();
+            string[] keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string kvString in keysAndValues)
             {
-                var pair = kvString.Split('=');
+                string[] pair = kvString.Split('=');
                 string key = pair[0];
                 string value = string.Empty;
                 if (key.Length > 1)

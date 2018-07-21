@@ -7,6 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -14,7 +16,6 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.MapImageSublayerQuery
@@ -28,20 +29,15 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         "Query", "Sublayer", "MapServer", "Table")]
     public class MapImageSublayerQuery : UIViewController
     {
-        // MapView control for displaying the map.
-        private MapView _myMapView = new MapView();
-       
+        // Hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
+        private UILabel _populationLabel;
+        private UIButton _queryButton;
+        private UITextField _populationValueInput;
+        private readonly UIToolbar _toolbar = new UIToolbar();
+
         // Graphics overlay for showing selected features.
         private GraphicsOverlay _selectedFeaturesOverlay;
-
-        // Label that describes the query input ("[POP2000] > ").
-        private UILabel _populationLabel;
-
-        // Button to execute the query in the current map extent with the provided population value.
-        private UIButton _queryButton;
-
-        // A text input for the population value to query with.
-        private UITextField _populationValueInput;
 
         public MapImageSublayerQuery()
         {
@@ -52,25 +48,33 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         {
             base.ViewDidLoad();
 
-            // Create the UI and initialize the map.
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Calculate the offset from the top.
-            var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat margin = 5;
+                nfloat controlHeight = 30;
+                nfloat toolbarHeight = controlHeight * 2 + margin * 3;
 
-            // Set the frame for the population entry controls.
-            _populationLabel.Frame = new CoreGraphics.CGRect(10, topMargin + 10, 150, 30);
-            _populationValueInput.Frame = new CoreGraphics.CGRect(170, topMargin + 10, View.Bounds.Width - 10, 30);
-            _queryButton.Frame = new CoreGraphics.CGRect(100, topMargin + 45, View.Bounds.Width - 200, 30);
+                // Reposition the controls.
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
+                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
+                _populationLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
+                _populationValueInput.Frame = new CGRect(View.Bounds.Width / 2 + margin, topMargin + margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
+                _queryButton.Frame = new CGRect(margin, topMargin + controlHeight + 2 * margin, View.Bounds.Width - 2 * margin, controlHeight);
 
-            // Setup the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, topMargin + 75, View.Bounds.Width, View.Bounds.Height-(topMargin + 75));
-
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
@@ -117,15 +121,15 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
             }
 
             // Get the USA map image layer (the first and only operational layer in the map).
-            ArcGISMapImageLayer usaMapImageLayer = _myMapView.Map.OperationalLayers[0] as ArcGISMapImageLayer;
+            ArcGISMapImageLayer usaMapImageLayer = (ArcGISMapImageLayer)_myMapView.Map.OperationalLayers[0];
 
             // Use a utility method on the map image layer to load all the sublayers and tables.
             await usaMapImageLayer.LoadTablesAndLayersAsync();
 
             // Get the sublayers of interest (skip 'Highways' since it doesn't have the POP2000 field).
-            ArcGISMapImageSublayer citiesSublayer = usaMapImageLayer.Sublayers[0] as ArcGISMapImageSublayer;
-            ArcGISMapImageSublayer statesSublayer = usaMapImageLayer.Sublayers[2] as ArcGISMapImageSublayer;
-            ArcGISMapImageSublayer countiesSublayer = usaMapImageLayer.Sublayers[3] as ArcGISMapImageSublayer;
+            ArcGISMapImageSublayer citiesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[0];
+            ArcGISMapImageSublayer statesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[2];
+            ArcGISMapImageSublayer countiesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[3];
 
             // Get the service feature table for each of the sublayers.
             ServiceFeatureTable citiesTable = citiesSublayer.Table;
@@ -177,27 +181,28 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         private void CreateLayout()
         {
             // Create the population query controls: a label, a text input, and a button to execute the query.
-            _populationLabel = new UILabel { Text = "[POP2000] > ", BackgroundColor = UIColor.White };
-            _populationValueInput = new UITextField { 
+            _populationLabel = new UILabel {Text = "[POP2000] > ", TextAlignment = UITextAlignment.Right};
+            _populationValueInput = new UITextField
+            {
                 Text = "1800000",
-                BackgroundColor = UIColor.White,
-                TextColor = UIColor.Blue 
+                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
+                BorderStyle = UITextBorderStyle.RoundedRect
+            };
+            _populationValueInput.ShouldReturn += textField =>
+            {
+                textField.ResignFirstResponder();
+                return true;
             };
 
             _queryButton = new UIButton(UIButtonType.Plain);
             _queryButton.SetTitle("Query", UIControlState.Normal);
-            _queryButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _queryButton.BackgroundColor = UIColor.White;
+            _queryButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Wire the event handler for the query button click.
             _queryButton.TouchUpInside += QuerySublayers_Click;
 
             // Add the query controls and map view to the app layout.
-            View.AddSubview(_populationLabel);
-            View.AddSubview(_populationValueInput);
-            View.AddSubview(_queryButton);
-            View.AddSubview(_myMapView);
-            View.BackgroundColor = UIColor.White;
+            View.AddSubviews(_myMapView, _toolbar, _populationLabel, _populationValueInput, _queryButton);
         }
     }
 }

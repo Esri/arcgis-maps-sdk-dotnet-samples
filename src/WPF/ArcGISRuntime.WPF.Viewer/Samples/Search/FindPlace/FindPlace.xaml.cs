@@ -16,6 +16,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -136,7 +137,7 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             MyMapView.GraphicsOverlays.Clear();
 
             // Return gracefully if the textbox is empty or the geocoder isn't ready.
-            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
+            if (String.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
             {
                 return;
             }
@@ -215,11 +216,11 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
             // Get current assembly that contains the image.
-            var currentAssembly = Assembly.GetExecutingAssembly();
+            Assembly currentAssembly = Assembly.GetExecutingAssembly();
 
             // Get image as a stream from the resources.
             // Picture is defined as EmbeddedResource and DoNotCopy.
-            var resourceStream = currentAssembly.GetManifestResourceStream(
+            Stream resourceStream = currentAssembly.GetManifestResourceStream(
                 "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream.
@@ -273,19 +274,19 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         /// <param name="poiOnly">If true, restricts suggestions to only Points of Interest (e.g. businesses, parks),
         /// rather than all matching results.</param>
         /// <returns>List of suggestions as strings.</returns>
-        private async Task<IEnumerable<string>> GetSuggestResults(string searchText, string location = "",
+        private async Task<List<string>> GetSuggestResults(string searchText, string location = "",
             bool poiOnly = false)
         {
             // Quit if string is null, empty, or whitespace.
-            if (string.IsNullOrWhiteSpace(searchText))
+            if (String.IsNullOrWhiteSpace(searchText))
             {
-                return null;
+                return new List<string>();
             }
 
             // Quit if the geocoder isn't ready.
             if (_geocoder == null)
             {
-                return null;
+                return new List<string>();
             }
 
             // Create geocode parameters.
@@ -298,7 +299,7 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             }
 
             // Set the location for the suggest parameters.
-            if (!string.IsNullOrWhiteSpace(location))
+            if (!String.IsNullOrWhiteSpace(location))
             {
                 // Get the MapPoint for the current search location.
                 MapPoint searchLocation = await GetSearchMapPoint(location);
@@ -314,7 +315,7 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             IReadOnlyList<SuggestResult> results = await _geocoder.SuggestAsync(searchText, parameters);
 
             // Convert the list into a list of strings (corresponding to the label property on each result) and return.
-            return results.Select(result => result.Label);
+            return results.Select(result => result.Label).ToList();
         }
 
         /// <summary>
@@ -342,10 +343,10 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             string locationText = MyLocationBox.Text;
 
             // Convert the list into a usable format for the suggest box.
-            IEnumerable<string> results = await GetSuggestResults(searchText, locationText, true);
+            List<string> results = await GetSuggestResults(searchText, locationText, true);
 
             // Quit if there are no results.
-            if (results == null || !results.Any())
+            if (!results.Any())
             {
                 return;
             }
@@ -376,22 +377,19 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             string searchText = MyLocationBox.Text;
 
             // Get the results.
-            IEnumerable<string> results = await GetSuggestResults(searchText);
+            List<string> results = await GetSuggestResults(searchText);
 
             // Quit if there are no results.
-            if (results == null || !results.Any())
+            if (!results.Any())
             {
                 return;
             }
 
-            // Get a modifiable list from the results.
-            List<string> mutableResults = results.ToList();
-
             // Add a 'current location' option to the list.
-            mutableResults.Insert(0, "Current Location");
+            results.Insert(0, "Current Location");
 
             // Update the list of options.
-            MyLocationBox.ItemsSource = mutableResults;
+            MyLocationBox.ItemsSource = results;
         }
 
         /// <summary>

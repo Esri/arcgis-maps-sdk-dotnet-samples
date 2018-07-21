@@ -37,12 +37,12 @@ namespace ArcGISRuntime.WPF.Viewer
                 // Create the category item.
                 var categoryItem = new TreeViewItem
                 {
-                    Header = (category).Name,
+                    Header = category.Name,
                     DataContext = category
                 };
 
                 // Add items for each sample.
-                foreach (SampleInfo sampleInfo in (category).Items)
+                foreach (SampleInfo sampleInfo in category.Items)
                 {
                     categoryItem.Items.Add(new TreeViewItem { Header = sampleInfo.SampleName, DataContext = sampleInfo });
                 }

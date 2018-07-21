@@ -90,6 +90,12 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
 
         private void SceneViewTapped(object sender, GeoViewInputEventArgs e)
         {
+            // Ignore if tapped out of bounds (e.g. the sky).
+            if (e.Location == null)
+            {
+                return;
+            }
+
             // When the view is tapped, define the observer or target location with the tap point as appropriate
             if (_observerLocation == null)
             {
@@ -115,7 +121,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the scene view to the layout
             layout.AddView(_mySceneView);

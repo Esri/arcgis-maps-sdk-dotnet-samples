@@ -10,12 +10,9 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
-using System;
-using System.IO;
 using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.RasterLayerFile
@@ -51,10 +48,12 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create the mapview
-            _myMapView = new MapView(this);
+            _myMapView = new MapView(this)
+            {
 
-            // Add an imagery basemap
-            _myMapView.Map = new Map(Basemap.CreateImagery());
+                // Add an imagery basemap
+                Map = new Map(Basemap.CreateImagery())
+            };
 
             // Add the mapview to the layout
             layout.AddView(_myMapView);
@@ -72,7 +71,7 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
             await myMap.LoadAsync();
 
             // Get the file name
-            String filepath = GetRasterPath();
+            string filepath = GetRasterPath();
 
             // Load the raster file
             Raster myRasterFile = new Raster(filepath);

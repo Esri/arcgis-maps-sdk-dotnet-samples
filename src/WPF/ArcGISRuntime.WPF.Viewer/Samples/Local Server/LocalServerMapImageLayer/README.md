@@ -1,4 +1,4 @@
-# Local Server Map Image Layer
+# Local Server map image layer
 
 This sample demonstrates how to display a Map Image Layer from a local map service
 

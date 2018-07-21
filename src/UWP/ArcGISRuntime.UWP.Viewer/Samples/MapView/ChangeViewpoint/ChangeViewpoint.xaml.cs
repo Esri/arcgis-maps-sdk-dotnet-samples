@@ -20,7 +20,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeViewpoint
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Change viewpoint",
         "MapView",
-        "This sample demonstrates different ways in which you can change the viewpoint or visible area of the map.",
+        "This sample demonstrates different ways in which you can change the viewpoint of the MapView.",
         "Click any of the available buttons to change the current viewpoint")]
     public partial class ChangeViewpoint
     {
@@ -70,8 +70,8 @@ namespace ArcGISRuntime.UWP.Samples.ChangeViewpoint
         private async void OnButtonClick(object sender, RoutedEventArgs e)
         {
             // Get .Content from the selected item
-            Button myButton = sender as Button;
-            var selectedMapTitle = myButton.Content.ToString();
+            Button myButton = (Button)sender;
+            string selectedMapTitle = myButton.Content.ToString();
 
             switch (selectedMapTitle)
             {
@@ -97,7 +97,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeViewpoint
                         new Viewpoint(MyMapView.Map.Basemap.BaseLayers.First().FullExtent));
 
                     // Create a new Viewpoint using the specified geometry
-                    var viewpoint = new Viewpoint(_edinburghEnvelope);
+                    Viewpoint viewpoint = new Viewpoint(_edinburghEnvelope);
 
                     // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
                     await MyMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));

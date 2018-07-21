@@ -46,7 +46,7 @@ namespace ArcGISRuntime.Samples.RenderUniqueValues
             Map myMap = new Map(Basemap.CreateTopographic());
 
             // Create uri to the used feature service
-            var serviceUri = new Uri(
+            Uri serviceUri = new Uri(
                 "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
 
             // Create service feature table
@@ -83,7 +83,7 @@ namespace ArcGISRuntime.Samples.RenderUniqueValues
 
             // Set the default region fill symbol (transparent with no outline) for regions not explicitly defined in the renderer
             SimpleFillSymbol defaultFillSymbol = new SimpleFillSymbol(
-                SimpleFillSymbolStyle.Null, System.Drawing.Color.Transparent, null);
+                SimpleFillSymbolStyle.Cross, System.Drawing.Color.Gray, null);
             regionRenderer.DefaultSymbol = defaultFillSymbol;
             regionRenderer.DefaultLabel = "Other";
 
@@ -100,7 +100,7 @@ namespace ArcGISRuntime.Samples.RenderUniqueValues
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

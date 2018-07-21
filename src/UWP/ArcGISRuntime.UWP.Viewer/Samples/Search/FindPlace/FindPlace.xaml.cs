@@ -16,6 +16,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -131,7 +132,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             MyMapView.GraphicsOverlays.Clear();
 
             // Return gracefully if the textbox is empty or the geocoder isn't ready
-            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
+            if (String.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
 
             // Create the geocode parameters
             GeocodeParameters parameters = new GeocodeParameters();
@@ -200,9 +201,6 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             // Add the GraphicsOverlay to the MapView
             MyMapView.GraphicsOverlays.Add(resultOverlay);
 
-            // Create a viewpoint for the extent containing all graphics
-            Viewpoint viewExtent = new Viewpoint(resultOverlay.Extent);
-
             // Update the map viewpoint
             await MyMapView.SetViewpointGeometryAsync(resultOverlay.Extent, 50);
         }
@@ -213,11 +211,11 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
         private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
             // Get current assembly that contains the image
-            var currentAssembly = GetType().GetTypeInfo().Assembly;
+            Assembly currentAssembly = GetType().GetTypeInfo().Assembly;
 
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
-            var resourceStream = currentAssembly.GetManifestResourceStream(
+            Stream resourceStream = currentAssembly.GetManifestResourceStream(
                 "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream
@@ -246,10 +244,10 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             Graphic matchingGraphic = results.First().Graphics.First();
 
             // Get the title; manually added to the point's attributes in UpdateSearch
-            String title = matchingGraphic.Attributes["Match_Title"] as String;
+            string title = matchingGraphic.Attributes["Match_Title"] as String;
 
             // Get the address; manually added to the point's attributes in UpdateSearch
-            String address = matchingGraphic.Attributes["Match_Address"] as String;
+            string address = matchingGraphic.Attributes["Match_Address"] as String;
 
             // Define the callout
             CalloutDefinition calloutBody = new CalloutDefinition(title, address);
@@ -266,13 +264,19 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
         /// <param name="poiOnly">If true, restricts suggestions to only Points of Interest (e.g. businesses, parks),
         /// rather than all matching results</param>
         /// <returns>List of suggestions as strings</returns>
-        private async Task<IEnumerable<String>> GetSuggestResults(string searchText, string location = "", bool poiOnly = false)
+        private async Task<List<string>> GetSuggestResults(string searchText, string location = "", bool poiOnly = false)
         {
             // Quit if string is null, empty, or whitespace
-            if (String.IsNullOrWhiteSpace(searchText)) { return null; }
+            if (String.IsNullOrWhiteSpace(searchText))
+            {
+                return new List<string>();
+            }
 
             // Quit if the geocoder isn't ready
-            if (_geocoder == null) { return null; }
+            if (_geocoder == null)
+            {
+                return new List<string>();
+            }
 
             // Create geocode parameters
             SuggestParameters parameters = new SuggestParameters();
@@ -296,11 +300,8 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             // Get the updated results from the query so far
             IReadOnlyList<SuggestResult> results = await _geocoder.SuggestAsync(searchText, parameters);
 
-            // Convert the list into a list of strings (corresponding to the label property on each result)
-            IEnumerable<String> formattedResults = results.Select(result => result.Label);
-
             // Return the list
-            return formattedResults;
+            return results.Select(result => result.Label).ToList();
         }
 
         /// <summary>
@@ -329,10 +330,10 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             string locationText = LocationEntry.Text;
 
             // Convert the list into a usable format for the suggest box
-            IEnumerable<String> results = await GetSuggestResults(searchText, locationText, true);
+            List<string> results = await GetSuggestResults(searchText, locationText, true);
 
             // Quit if there are no results
-            if (results == null || !results.Any()) { return; }
+            if (!results.Any()) { return; }
 
             // Update the list of options
             SearchEntry.ItemsSource = results;
@@ -350,19 +351,19 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             string searchText = LocationEntry.Text;
 
             // Get the results
-            IEnumerable<string> results = await GetSuggestResults(searchText);
+            List<string> results = await GetSuggestResults(searchText);
 
             // Quit if there are no results
-            if (results == null || !results.Any()) { return; }
-
-            // Get a modifiable list from the results
-            List<string> mutableResults = results.ToList();
+            if (!results.Any())
+            {
+                return;
+            }
 
             // Add a 'current location' option to the list
-            mutableResults.Insert(0, "Current Location");
+            results.Insert(0, "Current Location");
 
             // Update the list of options
-            LocationEntry.ItemsSource = mutableResults;
+            LocationEntry.ItemsSource = results;
         }
 
         /// <summary>

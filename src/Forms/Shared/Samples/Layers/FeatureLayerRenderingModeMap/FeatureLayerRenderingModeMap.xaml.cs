@@ -18,21 +18,21 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature Layer Rendering Mode (Map)",
+        "Feature layer rendering mode (Map)",
         "Layers",
         "This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.",
         "")]
     public partial class FeatureLayerRenderingModeMap : ContentPage
     {
         // Viewpoint locations for map view to zoom in and out to.
-        Viewpoint _zoomOutPoint = new Viewpoint(new MapPoint(-118.37, 34.46, SpatialReferences.Wgs84), 650000, 0);
-        Viewpoint _zoomInPoint = new Viewpoint(new MapPoint(-118.45, 34.395, SpatialReferences.Wgs84), 50000, 90);
+        private Viewpoint _zoomOutPoint = new Viewpoint(new MapPoint(-118.37, 34.46, SpatialReferences.Wgs84), 650000, 0);
+        private Viewpoint _zoomInPoint = new Viewpoint(new MapPoint(-118.45, 34.395, SpatialReferences.Wgs84), 50000, 90);
 
         public FeatureLayerRenderingModeMap()
         {
             InitializeComponent();
 
-            Title = "Feature Layer Rendering Mode (Map)";
+            Title = "Feature layer rendering mode (Map)";
 
             // Setup the control references and execute initialization 
             Initialize();

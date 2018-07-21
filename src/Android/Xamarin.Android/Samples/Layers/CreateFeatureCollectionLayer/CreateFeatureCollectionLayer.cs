@@ -57,7 +57,7 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
             }
             catch (Exception ex)
             {
-                var alertBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage("Unable to create feature collection layer: " + ex.Message);
                 alertBuilder.Show();
@@ -151,7 +151,7 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
                     break;
                 case GeometryType.Polygon:
                     // Create a fill symbol
-                    var lineSym = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.DarkBlue, 2);
+                    SimpleLineSymbol lineSym = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.DarkBlue, 2);
                     sym = new SimpleFillSymbol(SimpleFillSymbolStyle.DiagonalCross, Color.Cyan, lineSym);
                     break;
                 default:
@@ -165,7 +165,7 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
         private void CreateLayout()
         {
             // Create a new layout
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

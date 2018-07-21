@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using Android.App;
-using Android.Graphics;
 using Android.OS;
 using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
@@ -57,7 +56,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create the list view
             _myDisplayList = new ListView(this);
@@ -147,10 +146,13 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             _myMapView.Map.OperationalLayers.Clear();
 
             // Get a list of selected LayerInfos
-            IEnumerable<WmsLayerInfo> selectedLayers = displayList.Where(vm => vm.IsEnabled).Select(vm => vm.Info);
+            List<WmsLayerInfo> selectedLayers = displayList.Where(vm => vm.IsEnabled).Select(vm => vm.Info).ToList();
 
             // Return if list is empty
-            if (selectedLayers.Count() < 1) { return; }
+            if (!selectedLayers.Any())
+            {
+                return;
+            }
 
             // Create a new WmsLayer from the selected layers
             WmsLayer myLayer = new WmsLayer(selectedLayers);
@@ -199,12 +201,12 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         /// <summary>
         /// True if the layer is selected for display
         /// </summary>
-        public Boolean IsEnabled { get; set; }
+        public bool IsEnabled { get; set; }
 
         /// <summary>
         /// Title property to facilitate binding
         /// </summary>
-        public String Title { get { return Info.Title; } }
+        public string Title { get { return Info.Title; } }
 
         public LayerDisplayVM(WmsLayerInfo info)
         {

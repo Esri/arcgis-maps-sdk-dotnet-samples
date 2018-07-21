@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
     [Activity]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Line of Sight (GeoElement)",
+        "Line of sight (GeoElement)",
         "Analysis",
         "This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.",
         "Use the slider to adjust the height of the observer.",
@@ -76,7 +76,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         {
             base.OnCreate(bundle);
 
-            Title = "Line of Sight (GeoElement)";
+            Title = "Line of sight (GeoElement)";
 
             // Create the UI, setup the control references and execute initialization
             CreateLayout();
@@ -86,9 +86,11 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         private async void Initialize()
         {
             // Create scene
-            Scene myScene = new Scene(Basemap.CreateImageryWithLabels());
+            Scene myScene = new Scene(Basemap.CreateImageryWithLabels())
+            {
+                InitialViewpoint = new Viewpoint(_observerPoint, 1000000)
+            };
             // Set initial viewpoint
-            myScene.InitialViewpoint = new Viewpoint(_observerPoint, 1000000);
             // Create the elevation source
             ElevationSource myElevationSource = new ArcGISTiledElevationSource(_elevationUri);
             // Add the elevation source to the scene
@@ -122,9 +124,11 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
 
             // Create GeoElement Line of sight analysis (taxi to building)
             // Create the analysis
-            _geoLine = new GeoElementLineOfSight(_observerGraphic, _taxiGraphic);
+            _geoLine = new GeoElementLineOfSight(_observerGraphic, _taxiGraphic)
+            {
+                TargetOffsetZ = 2
+            };
             // Apply an offset to the target. This helps avoid some false negatives
-            _geoLine.TargetOffsetZ = 2;
             // Create the analysis overlay
             AnalysisOverlay myAnalysisOverlay = new AnalysisOverlay();
             // Add the analysis to the overlay
@@ -133,7 +137,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             _mySceneView.AnalysisOverlays.Add(myAnalysisOverlay);
 
             // Create a timer; this will enable animating the taxi
-            var timer = new Timer(60);
+            Timer timer = new Timer(60);
             // Move the taxi every time the timer expires
             timer.Elapsed += AnimationTimer_Elapsed;
             // Keep the timer running continuously
@@ -231,7 +235,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create the controls
             _myHeightSlider = new SeekBar(this) { Max = 100 };

@@ -100,7 +100,7 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create the button
             _myRendererButton = new Button(this) { Enabled = false, Text = "Change renderer" };

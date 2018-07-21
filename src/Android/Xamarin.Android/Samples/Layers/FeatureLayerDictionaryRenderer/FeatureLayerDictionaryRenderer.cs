@@ -15,7 +15,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI.Controls;
-using System.IO;
 using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
@@ -26,7 +25,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
         "Feature layer dictionary renderer",
         "Layers",
         "Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.",
-        "")]
+        "",
+        "Military", "Symbology", "Military symbology")]
     public class FeatureLayerDictionaryRenderer : Activity
     {
         // Create and hold reference to the used MapView
@@ -46,7 +46,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

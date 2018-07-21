@@ -5,15 +5,12 @@
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:SceneView x:Name="MySceneView" />
-        <Border
-            Background="White" BorderBrush="Black" BorderThickness="1"
-            HorizontalAlignment="Right" VerticalAlignment="Top"
-            Margin="30" Padding="20" Width="375">
+        <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <Button x:Name="ToggleButton"
                         Click="Button_ToggleExtrusionData_Click"
                         HorizontalAlignment="Stretch"
-                        Content="Population density" />
+                        Content="Show population density" />
             </StackPanel>
         </Border>
     </Grid>

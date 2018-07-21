@@ -88,7 +88,7 @@
                 <TextBlock Text="Roll:"
                            Style="{StaticResource LabelStyle}" />
                 <TextBlock x:Name="RollTextBlock"
-                           Margin="0,5"
+                           Margin="5"
                            FontWeight="Normal" />
             </StackPanel>
         </Border>

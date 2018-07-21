@@ -9,7 +9,6 @@
 
 using Android.App;
 using Android.OS;
-using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
@@ -60,20 +59,20 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
             RunOnUiThread(() =>
             {
                 // Update the load status information
-                _loadStatusTextView.Text = string.Format(
-                    "Map's load status : {0}", 
-                    e.Status.ToString());
+                _loadStatusTextView.Text = $"Map's load status : {e.Status}";
             });
         }
 
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create control to show the maps' loading status
-            _loadStatusTextView = new TextView(this);
-            _loadStatusTextView.TextSize = 20;
+            _loadStatusTextView = new TextView(this)
+            {
+                TextSize = 20
+            };
             layout.AddView(_loadStatusTextView);
 
 

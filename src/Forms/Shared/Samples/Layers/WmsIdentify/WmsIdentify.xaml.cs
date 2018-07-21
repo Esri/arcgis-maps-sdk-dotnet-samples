@@ -20,7 +20,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         "Identify WMS features",
         "Layers",
         "This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.",
-        "Tap or click on a feature. A callout appears with the returned content for the WMS feature. Note that due to the nature of the WMS service implementation, an empty callout is shown when there is no result; an application might inspect the HTML to determine if the HTML actually contains a feature.")]
+        "Tap to identify a feature. Note: the service returns HTML regardless of whether there was an identify result. The sample uses a heuristic to not show empty results.")]
     public partial class WmsIdentify : ContentPage
     {
         // Create and hold the URL to the WMS service showing EPA water info
@@ -83,8 +83,13 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             // Retrieve the WmsFeature's HTML content
             string htmlContent = identifiedFeature.Attributes["HTML"].ToString();
 
-            // Note that the service returns a boilerplate HTML result if there is no feature found;
-            //    here might be a good place to check for that and filter out spurious results
+            // Note that the service returns a boilerplate HTML result if there is no feature found.
+            // This test should work for most arcGIS-based WMS services, but results may vary.
+            if (!htmlContent.Contains("OBJECTID"))
+            {
+                // Return without showing the result
+                return;
+            }
 
             // Show a page with the HTML content
             await Navigation.PushAsync(new WmsIdentifyResultDisplayPage(htmlContent));
@@ -95,13 +100,15 @@ namespace ArcGISRuntime.Samples.WmsIdentify
     {
         public WmsIdentifyResultDisplayPage(string htmlContent)
         {
-            Title = "WMS Identify Result";
+            Title = "WMS identify result";
 
             // Create the web browser control
-            WebView htmlView = new WebView();
+            WebView htmlView = new WebView
+            {
 
-            // Display the string content as an HTML document
-            htmlView.Source = new HtmlWebViewSource() { Html = htmlContent };
+                // Display the string content as an HTML document
+                Source = new HtmlWebViewSource() { Html = htmlContent }
+            };
 
             // Create and add a layout to the page
             Grid layout = new Grid();

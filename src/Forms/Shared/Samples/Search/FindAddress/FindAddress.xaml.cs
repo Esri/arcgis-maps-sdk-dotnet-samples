@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -80,13 +81,13 @@ namespace ArcGISRuntime.Samples.FindAddress
         private async void updateSearch()
         {
             // Get the text in the search bar
-            String enteredText = MySearchBar.Text;
+            string enteredText = MySearchBar.Text;
 
             // Clear existing marker
             MyMapView.GraphicsOverlays.Clear();
 
             // Return gracefully if the textbox is empty or the geocoder isn't ready
-            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
+            if (String.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
 
             // Get suggestions based on the input text
             IReadOnlyList<SuggestResult> suggestions = await _geocoder.SuggestAsync(enteredText);
@@ -121,15 +122,15 @@ namespace ArcGISRuntime.Samples.FindAddress
         {
 #if WINDOWS_UWP
             // Get current assembly that contains the image
-            var currentAssembly = GetType().GetTypeInfo().Assembly;
+            Assembly currentAssembly = GetType().GetTypeInfo().Assembly;
 #else
             // Get current assembly that contains the image
-            var currentAssembly = Assembly.GetExecutingAssembly();
+            Assembly currentAssembly = Assembly.GetExecutingAssembly();
 #endif
 
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
-            var resourceStream = currentAssembly.GetManifestResourceStream(
+            Stream resourceStream = currentAssembly.GetManifestResourceStream(
                 "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream
@@ -146,7 +147,7 @@ namespace ArcGISRuntime.Samples.FindAddress
         private async void SuggestionButtonTapped(object sender, System.EventArgs e)
         {
             // Display the list of suggestions; returns the selected option
-            String action = await DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
+            string action = await ((Page)this.Parent).DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
             // Update the search
             MySearchBar.Text = action;
             updateSearch();
@@ -169,18 +170,15 @@ namespace ArcGISRuntime.Samples.FindAddress
             // Get the first result
             GeocodeResult address = addresses.First();
             // Use the city and region for the Callout Title
-            String calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
+            string calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
             // Use the metro area for the Callout Detail
-            String calloutDetail = address.Attributes["MetroArea"].ToString();
-
-            // Use the MapView to convert from the on-screen location to the on-map location
-            MapPoint point = MyMapView.ScreenToLocation(e.Position);
+            string calloutDetail = address.Attributes["MetroArea"].ToString();
 
             // Define the callout
             CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);
 
             // Show the callout on the map at the tapped location
-            MyMapView.ShowCalloutAt(point, calloutBody);
+            MyMapView.ShowCalloutAt(e.Location, calloutBody);
         }
     }
 }

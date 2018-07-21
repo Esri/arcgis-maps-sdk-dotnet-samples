@@ -11,8 +11,11 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
+using Windows.UI.Xaml.Controls;
 using Esri.ArcGISRuntime.Geometry;
 using Colors = System.Drawing.Color;
+using Grid = Esri.ArcGISRuntime.UI.Grid;
+using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 
 namespace ArcGISRuntime.UWP.Samples.DisplayGrid
 {
@@ -37,13 +40,13 @@ namespace ArcGISRuntime.UWP.Samples.DisplayGrid
 
             // Configure the UI options.
             gridTypeCombo.ItemsSource = new[] { "LatLong", "MGRS", "UTM", "USNG" };
-            var colorItemsSource = new[] { "Red", "Green", "Blue", "White", "Purple" };
+            string[] colorItemsSource = { "Red", "Green", "Blue", "White", "Purple" };
             gridColorCombo.ItemsSource = colorItemsSource;
             labelColorCombo.ItemsSource = colorItemsSource;
             haloColorCombo.ItemsSource = colorItemsSource;
             labelPositionCombo.ItemsSource = Enum.GetNames(typeof(GridLabelPosition));
             labelFormatCombo.ItemsSource = Enum.GetNames(typeof(LatitudeLongitudeGridLabelFormat));
-            foreach (var combo in new[] { gridTypeCombo, gridColorCombo, labelColorCombo, labelPositionCombo, labelFormatCombo })
+            foreach (ComboBox combo in new[] { gridTypeCombo, gridColorCombo, labelColorCombo, labelPositionCombo, labelFormatCombo })
             {
                 combo.SelectedIndex = 0;
             }

@@ -32,7 +32,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private AlertDialog _newBookmarkDialog = null;
 
         // Button to show available bookmarks (in a menu)
-        Button _bookmarksButton;
+        private Button _bookmarksButton;
 
         // Text input for the name of a new bookmark
         private EditText _bookmarkNameText;
@@ -53,7 +53,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private void Initialize()
         {
             // Create a new map with a World Imagery base map
-            var myMap = new Map(Basemap.CreateImageryWithLabels());
+            Map myMap = new Map(Basemap.CreateImageryWithLabels());
 
             // Add the map to the MapView
             _myMapView.Map = myMap;
@@ -67,41 +67,51 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
 
             // Bookmark-1
             Viewpoint myViewpoint1 = new Viewpoint(27.3805833, 33.6321389, 6000);
-            Bookmark myBookmark1 = new Bookmark();
-            myBookmark1.Name = "Mysterious Desert Pattern";
-            myBookmark1.Viewpoint = myViewpoint1;
+            Bookmark myBookmark1 = new Bookmark
+            {
+                Name = "Mysterious Desert Pattern",
+                Viewpoint = myViewpoint1
+            };
             _myMapView.Map.Bookmarks.Add(myBookmark1);
 
             // Bookmark-2
             Viewpoint myViewpoint2 = new Viewpoint(-39.299987, 174.060858, 600000);
-            Bookmark myBookmark2 = new Bookmark();
-            myBookmark2.Name = "Dormant Volcano";
-            myBookmark2.Viewpoint = myViewpoint2;
+            Bookmark myBookmark2 = new Bookmark
+            {
+                Name = "Dormant Volcano",
+                Viewpoint = myViewpoint2
+            };
             _myMapView.Map.Bookmarks.Add(myBookmark2);
 
             // Bookmark-3
             Viewpoint myViewpoint3 = new Viewpoint(-33.867886, -63.985, 40000);
-            Bookmark myBookmark3 = new Bookmark();
-            myBookmark3.Name = "Guitar-Shaped Forest";
-            myBookmark3.Viewpoint = myViewpoint3;
+            Bookmark myBookmark3 = new Bookmark
+            {
+                Name = "Guitar-Shaped Forest",
+                Viewpoint = myViewpoint3
+            };
             _myMapView.Map.Bookmarks.Add(myBookmark3);
 
             // Bookmark-4
             Viewpoint myViewpoint4 = new Viewpoint(44.525049, -110.83819, 6000);
-            Bookmark myBookmark4 = new Bookmark();
-            myBookmark4.Name = "Grand Prismatic Spring";
-            myBookmark4.Viewpoint = myViewpoint4;
+            Bookmark myBookmark4 = new Bookmark
+            {
+                Name = "Grand Prismatic Spring",
+                Viewpoint = myViewpoint4
+            };
             _myMapView.Map.Bookmarks.Add(myBookmark4);
         }
 
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create button to show bookmarks
-            _bookmarksButton = new Button(this);
-            _bookmarksButton.Text = "Bookmarks";
+            _bookmarksButton = new Button(this)
+            {
+                Text = "Bookmarks"
+            };
             _bookmarksButton.Click += OnBookmarksClicked;
 
             // Add bookmarks button to the layout
@@ -117,7 +127,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private void OnBookmarksClicked(object sender, EventArgs e)
         {
             // Create menu to show bookmarks
-            var bookmarksMenu = new PopupMenu(this, _bookmarksButton);
+            PopupMenu bookmarksMenu = new PopupMenu(this, _bookmarksButton);
             bookmarksMenu.MenuItemClick += OnBookmarksMenuItemClicked;
 
             // Create a menu option for each of the map's bookmarks
@@ -136,7 +146,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private void OnBookmarksMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
         {
             // Get title from the selected item
-            var selectedBookmarkName = e.Item.TitleCondensedFormatted.ToString();
+            string selectedBookmarkName = e.Item.TitleCondensedFormatted.ToString();
 
             // If this is the "Add ..." choice, call a function to create a new bookmark
             if (selectedBookmarkName == "Add ...")
@@ -149,10 +159,10 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             BookmarkCollection myBookmarkCollection = _myMapView.Map.Bookmarks;
 
             // Loop through bookmarks
-            foreach (var myBookmark in myBookmarkCollection)
+            foreach (Bookmark myBookmark in myBookmarkCollection)
             {
                 // Get this bookmark name
-                var theBookmarkName = myBookmark.Name;
+                string theBookmarkName = myBookmark.Name;
 
                 // If this is the selected bookmark, use it to set the map's viewpoint
                 if (theBookmarkName == selectedBookmarkName)
@@ -173,12 +183,16 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
             // Create the layout
-            LinearLayout dialogLayout = new LinearLayout(this);
-            dialogLayout.Orientation = Orientation.Vertical;
+            LinearLayout dialogLayout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Vertical
+            };
 
             // Create a layout for the text entry
-            LinearLayout nameTextLayout = new LinearLayout(this);
-            nameTextLayout.Orientation = Orientation.Horizontal;
+            LinearLayout nameTextLayout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Horizontal
+            };
             nameTextLayout.SetPadding(10,0,10,0);
 
             // EditText control for entering the bookmark name
@@ -191,21 +205,25 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
                 1.0f
             );
             _bookmarkNameText.LayoutParameters = fillWidthParam;
-            
+
             // Label for the text entry
-            var nameLabel = new TextView(this);
-            nameLabel.Text = "Name:";
+            TextView nameLabel = new TextView(this)
+            {
+                Text = "Name:"
+            };
 
             // Add the controls to the layout
             nameTextLayout.AddView(nameLabel);
             nameTextLayout.AddView(_bookmarkNameText);
 
             // Create a layout for the dialog buttons (OK and Cancel)
-            LinearLayout buttonLayout = new LinearLayout(this);
-            buttonLayout.Orientation = Orientation.Horizontal;
+            LinearLayout buttonLayout = new LinearLayout(this)
+            {
+                Orientation = Orientation.Horizontal
+            };
 
             // Button to cancel the new bookmark
-            var cancelButton = new Button(this)
+            Button cancelButton = new Button(this)
             {
                 Text = "Cancel",
                 LayoutParameters = fillWidthParam
@@ -213,7 +231,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             cancelButton.Click += (s, e) => _newBookmarkDialog.Dismiss();
 
             // Button to save the current viewpoint as a new bookmark
-            var okButton = new Button(this)
+            Button okButton = new Button(this)
             {
                 Text = "OK",
                 LayoutParameters = fillWidthParam
@@ -242,8 +260,8 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             if (_newBookmarkDialog != null)
             {
                 // See if the bookmark name conflicts with an existing name
-                var bookmarkName = _bookmarkNameText.Text.Trim();
-                var nameExists = false;
+                string bookmarkName = _bookmarkNameText.Text.Trim();
+                bool nameExists = false;
                 foreach (Bookmark bookmark in _myMapView.Map.Bookmarks)
                 {
                     // See if this bookmark exists (or conflicts with the "Add ..." menu choice)
@@ -255,7 +273,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
                 }
 
                 // If the name is an empty string or exists in the collection, warn the user and return
-                if (string.IsNullOrEmpty(bookmarkName) || nameExists)
+                if (String.IsNullOrEmpty(bookmarkName) || nameExists)
                 {
                     AlertDialog.Builder dlgBuilder = new AlertDialog.Builder(this);
                     dlgBuilder.SetTitle("Error");

@@ -36,7 +36,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateTopographic());
@@ -63,12 +63,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
 
             //Add the feature layer to the map
             myMap.OperationalLayers.Add(_featureLayer);
-
-            // TODO: https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/96
-            if (Device.OS == TargetPlatform.iOS || Device.OS == TargetPlatform.Other)
-            {
-                await _featureLayer.RetryLoadAsync();
-            }
         }
 
         private void OnApplyExpressionClicked(object sender, EventArgs e)

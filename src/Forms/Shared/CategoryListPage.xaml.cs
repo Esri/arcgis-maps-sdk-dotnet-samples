@@ -11,7 +11,6 @@ using System;
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -125,8 +124,8 @@ namespace ArcGISRuntime
             }
         }
 
-        public bool IsSearchOpen => !string.IsNullOrWhiteSpace(_query);
-        public bool IsCategoriesOpen => string.IsNullOrWhiteSpace(_query);
+        public bool IsSearchOpen => !String.IsNullOrWhiteSpace(_query);
+        public bool IsCategoriesOpen => String.IsNullOrWhiteSpace(_query);
 
         private bool SearchFunction(SampleInfo sample)
         {

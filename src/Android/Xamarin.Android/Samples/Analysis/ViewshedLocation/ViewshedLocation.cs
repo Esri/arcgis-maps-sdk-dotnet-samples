@@ -120,8 +120,10 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _viewpointSymbol = SimpleMarkerSceneSymbol.CreateSphere(System.Drawing.Color.Blue, 10, SceneSymbolAnchorPosition.Center);
 
             // Add the symbol to the viewpoint overlay.
-            _viewpointOverlay = new GraphicsOverlay();
-            _viewpointOverlay.SceneProperties = new LayerSceneProperties(SurfacePlacement.Absolute);
+            _viewpointOverlay = new GraphicsOverlay
+            {
+                SceneProperties = new LayerSceneProperties(SurfacePlacement.Absolute)
+            };
             _viewpointOverlay.Graphics.Add(new Graphic(initialLocation, _viewpointSymbol));
 
             // Add the analysis overlay to the SceneView.
@@ -140,6 +142,11 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
 
         private void MySceneViewOnGeoViewTapped(object sender, GeoViewInputEventArgs viewInputEventArgs)
         {
+            if (viewInputEventArgs.Location == null)
+            {
+                // User clicked on the sky - don't update the location with invalid value.
+                return;
+            }
             // Update the viewshed location.
             _viewshed.Location = viewInputEventArgs.Location;
 
@@ -176,7 +183,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Heading
             TextView headingLabel = new TextView(this) { Text = "Heading:" };

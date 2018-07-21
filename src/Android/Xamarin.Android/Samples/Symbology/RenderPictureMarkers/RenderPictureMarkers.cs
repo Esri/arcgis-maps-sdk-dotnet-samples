@@ -16,6 +16,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -72,7 +73,7 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
         private static void CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
         {
             // Create uri to the used image
-            var symbolUri = new Uri(
+            Uri symbolUri = new Uri(
                 "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae");
 
             // Create new symbol using asynchronous factory method from uri.
@@ -95,11 +96,11 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
         private async Task CreatePictureMarkerSymbolFromResources(GraphicsOverlay overlay)
         {
             // Get current assembly that contains the image
-            var currentAssembly = Assembly.GetExecutingAssembly();
+            Assembly currentAssembly = Assembly.GetExecutingAssembly();
 
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
-            var resourceStream = currentAssembly.GetManifestResourceStream(
+            Stream resourceStream = currentAssembly.GetManifestResourceStream(
                 "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream
@@ -120,7 +121,7 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

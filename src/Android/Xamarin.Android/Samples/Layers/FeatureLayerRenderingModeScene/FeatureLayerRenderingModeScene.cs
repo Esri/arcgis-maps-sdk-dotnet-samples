@@ -15,7 +15,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Collections.Generic;
 
 namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 {
@@ -29,12 +28,12 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
     public class FeatureLayerRenderingModeScene : Activity
     {
         // Create the scene views
-        private SceneView _myStaticScene = new SceneView();
-        private SceneView _myDynamicScene = new SceneView();
+        private SceneView _myStaticSceneView = new SceneView();
+        private SceneView _myDynamicSceneView = new SceneView();
 
         // Points for demonstrating zoom
-        private MapPoint _zoomedOutPoint = new MapPoint(-118.37, 34.46, SpatialReferences.Wgs84);
-        private MapPoint _zoomedInPoint = new MapPoint(-118.45, 34.395, SpatialReferences.Wgs84);
+        private readonly MapPoint _zoomedOutPoint = new MapPoint(-118.37, 34.46, SpatialReferences.Wgs84);
+        private readonly MapPoint _zoomedInPoint = new MapPoint(-118.45, 34.395, SpatialReferences.Wgs84);
 
         // Viewpoints for each zoom level
         private Camera _zoomedOutCamera;
@@ -59,46 +58,43 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 
         private void Initialize()
         {
-            // Initialize the cameras (viewpoints) with two points
+            // Initialize the cameras (viewpoints) with two points.
             _zoomedOutCamera = new Camera(_zoomedOutPoint, 42000, 0, 0, 0);
             _zoomedInCamera = new Camera(_zoomedInPoint, 2500, 90, 75, 0);
 
-            // Create the scene for displaying the feature layer in static mode
-            Scene staticScene = new Scene(); // Basemap omitted to make it easier to distinguish the rendering modes
-
-            // Create the scene for displaying the feature layer in dynamic mode
-            Scene dynamicScene = new Scene();
-
-            // Create the service feature tables
-            ServiceFeatureTable faultTable = new ServiceFeatureTable(new Uri(_featureService + "0"));
-            ServiceFeatureTable contactTable = new ServiceFeatureTable(new Uri(_featureService + "8"));
-            ServiceFeatureTable outcropTable = new ServiceFeatureTable(new Uri(_featureService + "9"));
-
-            // Create the feature layers
-            List<FeatureLayer> layers = new List<FeatureLayer>()
+            // Create the scene for displaying the feature layer in static mode.
+            Scene staticScene = new Scene
             {
-                new FeatureLayer(outcropTable),
-                new FeatureLayer(contactTable),
-                new FeatureLayer(faultTable)
+                InitialViewpoint = new Viewpoint(_zoomedOutPoint, _zoomedOutCamera)
             };
 
-            foreach (FeatureLayer layer in layers)
+            // Create the scene for displaying the feature layer in dynamic mode.
+            Scene dynamicScene = new Scene
             {
-                layer.RenderingMode = FeatureRenderingMode.Static;
-                staticScene.OperationalLayers.Add(layer);
+                InitialViewpoint = new Viewpoint(_zoomedOutPoint, _zoomedOutCamera)
+            };
 
-                FeatureLayer dynamicLayer = (FeatureLayer)layer.Clone();
+            foreach (string identifier in new[] {"8", "9", "0"})
+            {
+                // Create the table.
+                ServiceFeatureTable serviceTable = new ServiceFeatureTable(new Uri(_featureService + identifier));
+
+                // Create and add the static layer.
+                FeatureLayer staticLayer = new FeatureLayer(serviceTable)
+                {
+                    RenderingMode = FeatureRenderingMode.Static
+                };
+                staticScene.OperationalLayers.Add(staticLayer);
+
+                // Create and add the dynamic layer.
+                FeatureLayer dynamicLayer = (FeatureLayer)staticLayer.Clone();
                 dynamicLayer.RenderingMode = FeatureRenderingMode.Dynamic;
                 dynamicScene.OperationalLayers.Add(dynamicLayer);
             }
 
-            // Add the scenes to the scene views
-            _myStaticScene.Scene = staticScene;
-            _myDynamicScene.Scene = dynamicScene;
-
-            // Set the initial viewpoints for the scenes
-            _myStaticScene.SetViewpointCamera(_zoomedOutCamera);
-            _myDynamicScene.SetViewpointCamera(_zoomedOutCamera);
+            // Add the scenes to the scene views.
+            _myStaticSceneView.Scene = staticScene;
+            _myDynamicSceneView.Scene = dynamicScene;
         }
 
         private void CreateLayout()
@@ -106,9 +102,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
             // Show the layout in the app
             SetContentView(Resource.Layout.FeatureLayerRenderingModeScene);
 
-            // Get the mapviews and sceneviews
-            _myStaticScene = FindViewById<SceneView>(Resource.Id.flrms_staticSceneView);
-            _myDynamicScene = FindViewById<SceneView>(Resource.Id.flrms_dynamicSceneView);
+            // Get the views
+            _myStaticSceneView = FindViewById<SceneView>(Resource.Id.flrms_staticSceneView);
+            _myDynamicSceneView = FindViewById<SceneView>(Resource.Id.flrms_dynamicSceneView);
 
             // Get the button
             Button zoomButton = FindViewById<Button>(Resource.Id.flrms_zoomButton);
@@ -123,13 +119,13 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
             // Zoom out if zoomed
             if (_zoomed)
             {
-                _myStaticScene.SetViewpointCameraAsync(_zoomedOutCamera, new TimeSpan(0, 0, 5));
-                _myDynamicScene.SetViewpointCameraAsync(_zoomedOutCamera, new TimeSpan(0, 0, 5));
+                _myStaticSceneView.SetViewpointCameraAsync(_zoomedOutCamera, new TimeSpan(0, 0, 5));
+                _myDynamicSceneView.SetViewpointCameraAsync(_zoomedOutCamera, new TimeSpan(0, 0, 5));
             }
             else // Zoom in otherwise
             {
-                _myStaticScene.SetViewpointCameraAsync(_zoomedInCamera, new TimeSpan(0, 0, 5));
-                _myDynamicScene.SetViewpointCameraAsync(_zoomedInCamera, new TimeSpan(0, 0, 5));
+                _myStaticSceneView.SetViewpointCameraAsync(_zoomedInCamera, new TimeSpan(0, 0, 5));
+                _myDynamicSceneView.SetViewpointCameraAsync(_zoomedInCamera, new TimeSpan(0, 0, 5));
             }
 
             // Toggle zoom state

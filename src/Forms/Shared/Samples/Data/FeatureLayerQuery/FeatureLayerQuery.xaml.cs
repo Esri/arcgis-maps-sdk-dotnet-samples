@@ -59,10 +59,12 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             _featureTable = new ServiceFeatureTable(new Uri(_statesUrl));
 
             // Create feature layer using this feature table
-            _featureLayer = new FeatureLayer(_featureTable);
+            _featureLayer = new FeatureLayer(_featureTable)
+            {
 
-            // Set the Opacity of the Feature Layer
-            _featureLayer.Opacity = 0.6;
+                // Set the Opacity of the Feature Layer
+                Opacity = 0.6
+            };
 
             // Create a new renderer for the States Feature Layer.
             SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Black, 1);
@@ -97,7 +99,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
                 QueryParameters queryParams = new QueryParameters();
 
                 // Trim whitespace on the state name to prevent broken queries
-                String formattedStateName = stateName.Trim().ToUpper();
+                string formattedStateName = stateName.Trim().ToUpper();
 
                 // Construct and assign the where clause that will be used to query the feature table
                 queryParams.WhereClause = "upper(STATE_NAME) LIKE '%" + formattedStateName + "%'";
@@ -128,12 +130,12 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
                 }
                 else
                 {
-                    await DisplayAlert("State Not Found!", "Add a valid state name.", "OK");
+                    await ((Page)Parent).DisplayAlert("State Not Found!", "Add a valid state name.", "OK");
                 }
             }
             catch (Exception)
             {
-                await DisplayAlert("Sample error", "An error occurred", "OK");
+                await ((Page)Parent).DisplayAlert("Sample error", "An error occurred", "OK");
             }
         }
     }

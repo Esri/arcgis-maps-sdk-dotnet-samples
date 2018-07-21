@@ -352,7 +352,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             Map myMap = new Map(Basemap.CreateStreets());
 
             // Get the file name for the local raster dataset.
-            String filepath = GetRasterPath();
+            string filepath = GetRasterPath();
 
             // Load the raster file
             Raster rasterFile = new Raster(filepath);
@@ -380,7 +380,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         private void ParameterInputTypeSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             // See which parameter (stretch) type was selected.
-            string selectedStretchType = (e.View as TextView).Text;
+            string selectedStretchType = ((TextView)e.View).Text;
 
             // Hide all UI controls for the input parameters.
             _minMaxLayout.Visibility = Android.Views.ViewStates.Gone;

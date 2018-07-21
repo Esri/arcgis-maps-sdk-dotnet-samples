@@ -50,11 +50,11 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
 
         // Member ObservableCollection to hold the human-readable string name of the 
         // layers - used as the ListView_LayersNotInTheMap.ItemsSource 
-        ObservableCollection<string> _myObservableCollection_LayerNamesNotInTheMap = new ObservableCollection<string>();
+        private ObservableCollection<string> _myObservableCollection_LayerNamesNotInTheMap = new ObservableCollection<string>();
 
         // Member ObservableCollection to hold the human-readable string name of the 
         // layers - used as the ListView_LayersInTheMap.ItemsSource 
-        ObservableCollection<string> _myObservableCollection_LayerNamesInTheMap = new ObservableCollection<string>();
+        private ObservableCollection<string> _myObservableCollection_LayerNamesInTheMap = new ObservableCollection<string>();
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -87,10 +87,12 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             foreach (GeoPackageRaster oneGeoPackageRaster in myReadOnlyListOfGeoPackageRasters)
             {
                 // Create a RasterLayer from the GeoPackageRaster
-                RasterLayer myRasterLayer = new RasterLayer(oneGeoPackageRaster);
+                RasterLayer myRasterLayer = new RasterLayer(oneGeoPackageRaster)
+                {
 
-                // Set the opacity on the RasterLayer to partially visible 
-                myRasterLayer.Opacity = 0.55;
+                    // Set the opacity on the RasterLayer to partially visible 
+                    Opacity = 0.55
+                };
 
                 // Load the RasterLayer - that way we can get to it's properties
                 await myRasterLayer.LoadAsync();
@@ -282,7 +284,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a TextView to show which layers are currently in the map
             TextView myTextViewLabel1 = new TextView(this) { Text = "Layers in the Map" };

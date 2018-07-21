@@ -39,16 +39,18 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             try
             {
                 // Define the Uri for the service feature table (US state polygons)
-                var myServiceFeatureTable_Uri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
+                Uri myServiceFeatureTable_Uri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
 
                 // Create a new service feature table from the Uri
                 ServiceFeatureTable myServiceFeatureTable = new ServiceFeatureTable(myServiceFeatureTable_Uri);
 
                 // Create a new feature layer from the service feature table
-                FeatureLayer myFeatureLayer = new FeatureLayer(myServiceFeatureTable);
+                FeatureLayer myFeatureLayer = new FeatureLayer(myServiceFeatureTable)
+                {
 
-                // Set the rendering mode of the feature layer to be dynamic (needed for extrusion to work)
-                myFeatureLayer.RenderingMode = FeatureRenderingMode.Dynamic;
+                    // Set the rendering mode of the feature layer to be dynamic (needed for extrusion to work)
+                    RenderingMode = FeatureRenderingMode.Dynamic
+                };
 
                 // Create a new simple line symbol for the feature layer
                 SimpleLineSymbol mySimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Black, 1);
@@ -93,7 +95,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             {
                 // Something went wrong, display the error
                 //MessageBox.Show(ex.ToString());
-                await DisplayAlert("Error",ex.ToString(), "OK");
+                await ((Page)Parent).DisplayAlert("Error",ex.ToString(), "OK");
             }
         }
 
@@ -109,21 +111,21 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             RendererSceneProperties myRendererSceneProperties = myRenderer.SceneProperties;
 
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text
-            if (Button_ToggleExtrusionData.Text == "Population Density")
+            if (ToggleExtrusionDataButton.Text == "Show population density")
             {
                 // An offset of 100000 is added to ensure that polygons for large areas (like Alaska)
                 // with low populations will be extruded above the curvature of the Earth.
                 myRendererSceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000 + 100000";
-                Button_ToggleExtrusionData.Text = "Total Population";
+                ToggleExtrusionDataButton.Text = "Show total population";
             }
-            else if (Button_ToggleExtrusionData.Text == "Total Population")
+            else if (ToggleExtrusionDataButton.Text == "Show total population")
             {
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
-                Button_ToggleExtrusionData.Text = "Population Density";
+                ToggleExtrusionDataButton.Text = "Show population density";
             }
         }
 
-        private void Button_ToggleExtrusionData_Click(object sender, EventArgs e)
+        private void ToggleExtrusionData_Click(object sender, EventArgs e)
         {
             // Call the function to change the feature layer's renderer scene properties extrusion expression
             ChangeExtrusionExpression();

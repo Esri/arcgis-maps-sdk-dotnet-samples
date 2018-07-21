@@ -36,7 +36,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterLayerRasterFunction
             Map myMap = new Map(Basemap.CreateStreets());
 
             // Create a Uri to the image service raster
-            var myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NLCDLandCover2001/ImageServer");
+            Uri myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NLCDLandCover2001/ImageServer");
 
             // Create new image service raster from the Uri
             ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(myUri);
@@ -62,7 +62,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterLayerRasterFunction
             //}
 
             // Define the JSON string needed for the raster function
-            String theJSON_String = 
+            string theJSON_String = 
              @"{
                 ""raster_function_arguments"":
                 {

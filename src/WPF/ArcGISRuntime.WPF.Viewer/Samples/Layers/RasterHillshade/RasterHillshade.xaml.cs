@@ -35,7 +35,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterHillshade
         private const int PixelBitDepth = 8;
 
         // Store a reference to the layer
-        RasterLayer _rasterLayer; 
+        private RasterLayer _rasterLayer; 
         
         public RasterHillshade()
         {
@@ -51,7 +51,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterHillshade
             Map map = new Map(Basemap.CreateStreets());
 
             // Get the file name for the local raster dataset
-            String filepath = GetRasterPath();
+            string filepath = GetRasterPath();
 
             // Load the raster file
             Raster rasterFile = new Raster(filepath);
@@ -76,7 +76,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterHillshade
             MyMapView.Map = map;
 
             // Add slope type values to the combo box
-            foreach (var slope in Enum.GetValues(typeof(SlopeType)))
+            foreach (object slope in Enum.GetValues(typeof(SlopeType)))
             {
                 SlopeTypeCombo.Items.Add(slope);
             }

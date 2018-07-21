@@ -19,7 +19,7 @@ namespace ArcGISRuntime.Samples.LoadWebTiledLayer
 {
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Web TiledLayer",
+        "Web tiled layer",
         "Layers",
         "This sample demonstrates how to load a web tiled layer from a non-ArcGIS service, including how to include proper attribution.",
         "")]
@@ -29,7 +29,7 @@ namespace ArcGISRuntime.Samples.LoadWebTiledLayer
         private readonly MapView _myMapView = new MapView();
 
         // Templated URL to the tile service
-        private readonly string _templateUri = "http://{subDomain}.tile.stamen.com/terrain/{level}/{col}/{row}.png";
+        private readonly string _templateUri = "http://{subDomain}.tile.stamen.com/watercolor/{level}/{col}/{row}.jpg";
 
         // List of subdomains for use when constructing the web tiled layer
         private readonly List<string> _tiledLayerSubdomains = new List<string> { "a", "b", "c", "d" };
@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.LoadWebTiledLayer
         {
             base.OnCreate(bundle);
 
-            Title = "Web TiledLayer";
+            Title = "Web tiled layer";
 
             // Create the UI, setup the control references and execute initialization
             CreateLayout();
@@ -75,7 +75,7 @@ namespace ArcGISRuntime.Samples.LoadWebTiledLayer
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

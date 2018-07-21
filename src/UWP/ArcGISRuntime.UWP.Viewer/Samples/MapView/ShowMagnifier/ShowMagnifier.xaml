@@ -1,23 +1,14 @@
-﻿<UserControl 
+﻿<UserControl
     x:Class="ArcGISRuntime.UWP.Samples.ShowMagnifier.ShowMagnifier"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI"
-    xmlns:esriControls="using:Esri.ArcGISRuntime.UI.Controls"
-    mc:Ignorable="d" 
-    d:DesignHeight="300" d:DesignWidth="300">
+    xmlns:esriControls="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
-
-      <esriControls:MapView x:Name="MyMapView">
-          <esriControls:MapView.InteractionOptions>
-              <esriUI:MapViewInteractionOptions/>                  
-          </esriControls:MapView.InteractionOptions>
-      </esriControls:MapView>
-
+        <esriControls:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <TextBlock Text="Tap and hold to show the magnifier. Note: This only works on touchscreen devices."
+                       TextAlignment="Left" TextWrapping="Wrap"
+                       FontWeight="SemiBold" />
+        </Border>
     </Grid>
 </UserControl>
-
-
-

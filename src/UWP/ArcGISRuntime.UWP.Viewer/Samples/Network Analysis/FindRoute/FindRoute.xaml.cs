@@ -110,7 +110,7 @@ namespace ArcGISRuntime.UWP.Samples.FindRoute
             RouteResult solveRouteResult = await solveRouteTask.SolveRouteAsync(routeParams);
 
             // Get the first (should be only) route from the result
-            Route firstRoute = solveRouteResult.Routes.FirstOrDefault();
+            Route firstRoute = solveRouteResult.Routes.First();
 
             // Get the route geometry (polyline)
             Polyline routePolyline = firstRoute.RouteGeometry;
@@ -134,7 +134,7 @@ namespace ArcGISRuntime.UWP.Samples.FindRoute
 
             // Remove the route graphic from the graphics overlay (only line graphic in the collection)
             int graphicsCount = _routeGraphicsOverlay.Graphics.Count;
-            for (var i = graphicsCount; i > 0; i--)
+            for (int i = graphicsCount; i > 0; i--)
             {
                 // Get this graphic and see if it has line geometry
                 Graphic g = _routeGraphicsOverlay.Graphics[i - 1];

@@ -7,10 +7,10 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ArcGISMapImageLayerUrl
@@ -23,11 +23,8 @@ namespace ArcGISRuntime.Samples.ArcGISMapImageLayerUrl
         "")]
     public class ArcGISMapImageLayerUrl : UIViewController
     {
-        // Constant holding offset where the MapView control should start
-        private const int yPageOffset = 60;
-
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Create and hold a reference to the MapView.
+        private readonly MapView _myMapView = new MapView();
 
         public ArcGISMapImageLayerUrl()
         {
@@ -38,41 +35,49 @@ namespace ArcGISRuntime.Samples.ArcGISMapImageLayerUrl
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization 
             CreateLayout();
             Initialize();
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
 
-            base.ViewDidLayoutSubviews();
+                // Reposition controls.
+                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
+
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private void Initialize()
         {
-            // Create new Map
-            Map myMap = new Map();
+            // Create new Map.
+            Map map = new Map();
 
-            // Create uri to the map image layer
-            var serviceUri = new Uri(
-               "https://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer");
+            // Create URL to the map image layer.
+            Uri serviceUri = new Uri("https://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer");
 
-            // Create new image layer from the url
+            // Create new image layer from the URL.
             ArcGISMapImageLayer imageLayer = new ArcGISMapImageLayer(serviceUri);
 
-            // Add created layer to the basemaps collection
-            myMap.Basemap.BaseLayers.Add(imageLayer);
+            // Add created layer to the basemaps collection.
+            map.Basemap.BaseLayers.Add(imageLayer);
 
-            // Assign the map to the MapView
-            _myMapView.Map = myMap;
+            // Assign the map to the MapView.
+            _myMapView.Map = map;
         }
 
         private void CreateLayout()
         {
-            // Add MapView to the page
+            // Add MapView to the page.
             View.AddSubviews(_myMapView);
         }
     }

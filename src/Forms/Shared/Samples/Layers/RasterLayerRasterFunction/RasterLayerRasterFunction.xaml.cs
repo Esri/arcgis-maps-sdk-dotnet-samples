@@ -39,7 +39,7 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
             Map myMap = new Map(Basemap.CreateStreets());
 
             // Create a Uri to the image service raster (NOTE: iOS applications require the use of Uri's to be https:// and not http://)
-            var myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NLCDLandCover2001/ImageServer");
+            Uri myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NLCDLandCover2001/ImageServer");
 
             // Create new image service raster from the Uri
             ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(myUri);
@@ -65,7 +65,7 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
             //}
 
             // Define the JSON string needed for the raster function
-            String theJSON_String =
+            string theJSON_String =
              @"{
                 ""raster_function_arguments"":
                 {

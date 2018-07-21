@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Esri.ArcGISRuntime.ArcGISServices;
 using Xamarin.Forms;
 using Colors = System.Drawing.Color;
 
@@ -92,7 +93,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
                 // Add all graphics from the service to the map.
-                foreach (var layer in _gdbSyncTask.ServiceInfo.LayerInfos)
+                foreach (IdInfo layer in _gdbSyncTask.ServiceInfo.LayerInfos)
                 {
                     // Create the ServiceFeatureTable for this particular layer.
                     ServiceFeatureTable onlineTable = new ServiceFeatureTable(new Uri(_featureServiceUri + "/" + layer.Id));
@@ -115,7 +116,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -141,7 +142,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             envelopeBldr.Expand(0.80);
 
             // Get the (only) graphics overlay in the map view.
-            var extentOverlay = myMapView.GraphicsOverlays.FirstOrDefault();
+            GraphicsOverlay extentOverlay = myMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
             if (extentOverlay == null) { return; }
@@ -180,10 +181,10 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             _generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the progress changed event (to show progress bar).
-            _generateGdbJob.ProgressChanged += ((sender, e) =>
+            _generateGdbJob.ProgressChanged += (sender, e) =>
             {
                 UpdateProgressBar();
-            });
+            };
 
             // Show the progress bar.
             myProgressBar.IsVisible = true;
@@ -222,7 +223,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 await _gdbSyncTask.UnregisterGeodatabaseAsync(resultGdb);
 
                 // Tell the user that the geodatabase was unregistered.
-                await DisplayAlert("Alert", "Since no edits will be made, the local geodatabase has been unregistered per best practice.", "OK");
+                await ((Page)Parent).DisplayAlert("Alert", "Since no edits will be made, the local geodatabase has been unregistered per best practice.", "OK");
 
                 // Re-enable generate button.
                 myGenerateButton.IsEnabled = true;
@@ -242,11 +243,10 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 else
                 {
                     // If no error, show messages from the job.
-                    var m = from msg in job.Messages select msg.Message;
-                    message += ": " + string.Join<string>("\n", m);
+                    message += ": " + String.Join("\n", job.Messages.Select(m => m.Message));
                 }
 
-                await DisplayAlert("Alert", message, "OK");
+                await ((Page)Parent).DisplayAlert("Alert", message, "OK");
             }
         }
 
@@ -262,7 +262,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 

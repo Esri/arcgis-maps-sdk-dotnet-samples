@@ -128,11 +128,13 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create Button
-            _uriButton = new Button(this);
-            _uriButton.Text = "WMTSLayer via Uri";
+            _uriButton = new Button(this)
+            {
+                Text = "WMTSLayer via Uri"
+            };
             _uriButton.Click += UriButton_Clicked;
             _uriButton.Enabled = false;
 
@@ -140,8 +142,10 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             layout.AddView(_uriButton);
 
             // Create Button
-            _infoButton = new Button(this);
-            _infoButton.Text = "WMTSLayer via WmtsLayerInfo";
+            _infoButton = new Button(this)
+            {
+                Text = "WMTSLayer via WmtsLayerInfo"
+            };
             _infoButton.Click += InfoButton_Clicked;
 
             // Add Button to the layout

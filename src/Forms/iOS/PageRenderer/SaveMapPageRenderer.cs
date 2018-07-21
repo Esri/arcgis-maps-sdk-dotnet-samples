@@ -1,4 +1,4 @@
-﻿using ArcGISRuntime.Samples.AuthorEditSaveMap;
+﻿using ArcGISRuntime.Samples.AuthorMap;
 using ArcGISRuntime.iOSPageRenderer;
 using Esri.ArcGISRuntime.Security;
 using System;
@@ -38,7 +38,7 @@ namespace ArcGISRuntime.iOSPageRenderer
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             var authenticator = new OAuth2Authenticator(
-                clientId: Samples.AuthorEditSaveMap.AuthorEditSaveMap.AppClientId,
+                clientId: Samples.AuthorMap.AuthorMap.AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
                 redirectUrl: callbackUri)

@@ -48,7 +48,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             Map myMap = new Map();
 
             // Create uri to the map image layer
-            var serviceUri = new Uri(
+            Uri serviceUri = new Uri(
                "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer");
 
             // Create new image layer from the url
@@ -70,10 +70,10 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             // If layer is already loaded, this returns directly
             await _imageLayer.LoadAsync();
 
-            var sublayersButton = sender as Button;
+            Button sublayersButton = (Button)sender;
 
             // Create menu to change sublayer visibility
-            var sublayersMenu = new PopupMenu(this, sublayersButton);
+            PopupMenu sublayersMenu = new PopupMenu(this, sublayersButton);
             sublayersMenu.MenuItemClick += OnSublayersMenuItemClicked;
 
             // Create menu options
@@ -83,7 +83,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             // Set values to the menu items
             for (int i = 0; i < sublayersMenu.Menu.Size(); i++)
             {
-                var menuItem = sublayersMenu.Menu.GetItem(i);
+                IMenuItem menuItem = sublayersMenu.Menu.GetItem(i);
 
                 // Set menu item to contain checkbox
                 menuItem.SetCheckable(true);
@@ -102,21 +102,23 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             e.Item.SetChecked(!e.Item.IsChecked);
 
             // Get title from the selected item
-            var selectedSublayerTitle = e.Item.TitleCondensedFormatted.ToString();
+            string selectedSublayerTitle = e.Item.TitleCondensedFormatted.ToString();
 
             // Get index that is used to get the selected url
-            var sublayer = _imageLayer.Sublayers.First(x => x.Name == selectedSublayerTitle);
+            ArcGISSublayer sublayer = _imageLayer.Sublayers.First(x => x.Name == selectedSublayerTitle);
             sublayer.IsVisible = e.Item.IsChecked;
         }
 
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create button to show possible map options
-            var mapsButton = new Button(this);
-            mapsButton.Text = "Sublayers";
+            Button mapsButton = new Button(this)
+            {
+                Text = "Sublayers"
+            };
             mapsButton.Click += OnSublayersClicked;
 
             // Add maps button to the layout

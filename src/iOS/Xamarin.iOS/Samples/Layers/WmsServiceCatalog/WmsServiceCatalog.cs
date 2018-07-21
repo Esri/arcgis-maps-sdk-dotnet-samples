@@ -7,89 +7,18 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.WmsServiceCatalog
 {
-    /// <summary>
-    /// Class defines how a UITableView renders its contents.
-    /// This implements the list of WMS sublayers
-    /// </summary>
-    public class LayerListSource : UITableViewSource
-    {
-        // List of strings; these will be the suggestions
-        public List<LayerDisplayVM> _viewModelList = new List<LayerDisplayVM>();
-
-        // Used when re-using cells to ensure that a cell of the right type is used
-        private string CellId = "TableCell";
-
-        // Hold a reference to the owning view controller; this will be the active instance of WmsServiceCatalog 
-        public WmsServiceCatalog Owner { get; set; }
-
-        public LayerListSource(List<LayerDisplayVM> items, WmsServiceCatalog owner)
-        {
-            // Set the items
-            if (items != null)
-            {
-                _viewModelList = items;
-            }
-
-            // Set the owner
-            Owner = owner;
-        }
-
-        /// <summary>
-        /// This method gets a table view cell for the suggestion at the specified index
-        /// </summary>
-        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
-        {
-            // Try to get a re-usable cell (this is for performance)
-            UITableViewCell cell = tableView.DequeueReusableCell(CellId);
-
-            // If there are no cells, create a new one
-            if (cell == null)
-            {
-                cell = new UITableViewCell(UITableViewCellStyle.Default, CellId);
-            }
-
-            // Get the specific item to display
-            LayerDisplayVM item = _viewModelList[indexPath.Row];
-
-            // Set the text on the cell
-            cell.TextLabel.Text = item.Title;
-
-            // Return the cell
-            return cell;
-        }
-
-        /// <summary>
-        /// This method allows the UITableView to know how many rows to render
-        /// </summary>
-        public override nint RowsInSection(UITableView tableview, nint section)
-        {
-            return _viewModelList.Count;
-        }
-
-        /// <summary>
-        /// Method called when a row is selected; notifies the primary view
-        /// </summary>
-        public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
-        {
-            // Deselect the row
-            tableView.DeselectRow(indexPath, true);
-
-            // Accept the suggestion
-            Owner.LayerSelectionChanged(indexPath.Row);
-        }
-    }
-
     [Register("WmsServiceCatalog")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "WMS service catalog",
@@ -98,20 +27,29 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         "")]
     public class WmsServiceCatalog : UIViewController
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Create and hold references to the UI controls.
+        private readonly MapView _myMapView = new MapView();
 
-        // Hold the URL to the WMS service providing the US NOAA National Weather Service forecast weather chart
-        private Uri wmsUrl = new Uri("https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+        private readonly UIToolbar _toolbar = new UIToolbar();
 
-        // Hold a source for the UITableView that shows the available WMS layers
+        private readonly UILabel _myHelpLabel = new UILabel
+        {
+            Text = "Select a layer from the list above.",
+            TextAlignment = UITextAlignment.Center,
+            AdjustsFontSizeToFitWidth = true
+        };
+
+        private readonly UITableView _myDisplayList = new UITableView
+        {
+            RowHeight = 30,
+            BackgroundColor = UIColor.FromWhiteAlpha(0, 0)
+        };
+
+        // Hold the URL to the WMS service providing the US NOAA National Weather Service forecast weather chart.
+        private readonly Uri _wmsUrl = new Uri("https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+
+        // Hold a source for the UITableView that shows the available WMS layers.
         private LayerListSource _layerListSource;
-
-        // Create the view for the layer list display
-        private UITableView _myDisplayList = new UITableView();
-
-        // Create and hold the help label
-        private UILabel _myHelpLabel = new UILabel();
 
         public WmsServiceCatalog()
         {
@@ -122,172 +60,251 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references
             CreateLayout();
-
-            // Initialize the map
             Initialize();
         }
 
         private void CreateLayout()
         {
-            // Set the help label text and color
-            _myHelpLabel.Text = "Select a layer from above list.";
-            _myHelpLabel.TextColor = UIColor.Red;
-
-            // Add the MapView to the view
-            View.AddSubviews(_myMapView, _myDisplayList, _myHelpLabel);
+            // Add the controls to the view.
+            View.AddSubviews(_myMapView, _toolbar, _myDisplayList, _myHelpLabel);
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            // Variable holding the top bound (for code clarity)
-            nfloat pageOffset = NavigationController.TopLayoutGuide.Length;
+            try
+            {
+                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                nfloat listHeight = 150;
+                nfloat controlHeight = 30;
+                nfloat margin = 5;
+                nfloat toolbarHeight = listHeight + controlHeight + margin * 2;
 
-            // Set up the visual frame for the layer display list
-            _myDisplayList.Frame = new CoreGraphics.CGRect(0, pageOffset, View.Bounds.Width, 150);
+                // Reposition the views
+                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
+                _myDisplayList.Frame = new CGRect(0, topMargin, View.Bounds.Width, listHeight);
+                _myHelpLabel.Frame = new CGRect(margin, _myDisplayList.Frame.Bottom + margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
+                _myMapView.ViewInsets = new UIEdgeInsets(_toolbar.Frame.Bottom, 0, 0, 0);
 
-            // Set up the visual frame for the help label
-            _myHelpLabel.Frame = new CoreGraphics.CGRect(10, pageOffset + 150, View.Bounds.Width - 20, 60);
-
-            // Set up the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            base.ViewDidLayoutSubviews();
+                base.ViewDidLayoutSubviews();
+            }
+            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
+            catch (NullReferenceException)
+            {
+            }
         }
 
         private async void Initialize()
         {
-            // Apply an imagery basemap to the map
+            // Show dark gray canvas basemap.
             _myMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
 
-            // Create the WMS Service
-            WmsService service = new WmsService(wmsUrl);
+            // Create the WMS Service.
+            WmsService service = new WmsService(_wmsUrl);
 
-            // Load the WMS Service
+            // Load the WMS Service.
             await service.LoadAsync();
 
-            // Get the service info (metadata) from the service
+            // Get the service info (metadata) from the service.
             WmsServiceInfo info = service.ServiceInfo;
 
-            // Get the list of layer infos
+            // Get the list of layer infos.
             IReadOnlyList<WmsLayerInfo> topLevelLayers = info.LayerInfos;
 
-            // Recursively build up a list of all the layers in the service and get their IDs as a flat list
+            // Recursively build up a list of all the layers in the service and get their IDs as a flat list.
             List<WmsLayerInfo> expandedList = new List<WmsLayerInfo>();
             BuildLayerInfoList(topLevelLayers, expandedList);
 
-            List<LayerDisplayVM> displayList = new List<LayerDisplayVM>();
+            List<LayerDisplayVm> displayList = new List<LayerDisplayVm>();
 
-            // Build the ViewModel from the expanded list of layer infos
+            // Build the ViewModel from the expanded list of layer infos.
             foreach (WmsLayerInfo layerInfo in expandedList)
             {
-                // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of the ArcGIS Runtime
-                displayList.Add(new LayerDisplayVM(layerInfo));
+                // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of the ArcGIS Runtime.
+                displayList.Add(new LayerDisplayVm(layerInfo));
             }
 
-            // Construct the layer list source
+            // Construct the layer list source.
             _layerListSource = new LayerListSource(displayList, this);
 
-            // Set the source for the table view (layer list)
+            // Set the source for the table view (layer list).
             _myDisplayList.Source = _layerListSource;
 
-            // Force an update of the list display
+            // Force an update of the list display.
             _myDisplayList.ReloadData();
         }
 
         /// <summary>
-        /// Recursively builds a list of WmsLayerInfo metadata starting from a collection of root WmsLayerInfo
+        /// Recursively builds a list of WmsLayerInfo metadata starting from a collection of root WmsLayerInfo.
         /// </summary>
         /// <remarks>
         /// For simplicity, this sample doesn't show the layer hierarchy (tree), instead collapsing it to a list.
         /// A tree view would be more appropriate, but would complicate the sample greatly.
         /// </remarks>
-        /// <param name="info">Collection of starting WmsLayerInfo object</param>
-        /// <param name="result">Result list to build</param>
+        /// <param name="info">Collection of starting WmsLayerInfo object.</param>.
+        /// <param name="result">Result list to build.</param>
         private void BuildLayerInfoList(IReadOnlyList<WmsLayerInfo> info, List<WmsLayerInfo> result)
         {
-            // Return if there are no more layers to explore
-            if (info.Count < 1) { return; }
+            // Return if there are no more layers to explore.
+            if (info.Count < 1)
+            {
+                return;
+            }
 
-            // Add each layer and each layer's children
+            // Add each layer and each layer's children.
             foreach (WmsLayerInfo layer in info)
             {
-                // Add the layer
+                // Add the layer.
                 result.Add(layer);
 
-                // Recursively add children
+                // Recursively add children.
                 BuildLayerInfoList(layer.LayerInfos, result);
             }
         }
 
         /// <summary>
-        /// Updates the map with the latest layer selection
+        /// Updates the map with the latest layer selection.
         /// </summary>
-        private async void UpdateMapDisplay(List<LayerDisplayVM> displayList)
+        private async void UpdateMapDisplay(List<LayerDisplayVm> displayList)
         {
-            // Remove all existing layers
+            // Remove all existing layers.
             _myMapView.Map.OperationalLayers.Clear();
 
-            // Get a list of selected LayerInfos
+            // Get a list of selected LayerInfos.
             IEnumerable<WmsLayerInfo> selectedLayers = displayList.Where(vm => vm.IsEnabled).Select(vm => vm.Info);
 
-            // Create a new WmsLayer from the selected layers
+            // Create a new WmsLayer from the selected layers.
             WmsLayer myLayer = new WmsLayer(selectedLayers);
 
-            // Wait for the layer to load
+            // Wait for the layer to load.
             await myLayer.LoadAsync();
 
-            // Zoom to the extent of the layer
+            // Zoom to the extent of the layer.
             await _myMapView.SetViewpointAsync(new Viewpoint(myLayer.FullExtent));
 
-            // Add the layer to the map
+            // Add the layer to the map.
             _myMapView.Map.OperationalLayers.Add(myLayer);
         }
 
         /// <summary>
-        /// Takes action once a new layer selection is made
+        /// Takes action once a new layer selection is made.
         /// </summary>
         public void LayerSelectionChanged(int selectedIndex)
         {
-            // Clear existing selection
-            foreach (LayerDisplayVM item in _layerListSource._viewModelList)
+            // Clear existing selection.
+            foreach (LayerDisplayVm item in _layerListSource.ViewModelList)
             {
                 item.IsEnabled = false;
             }
 
-            // Update the selection
-            _layerListSource._viewModelList[selectedIndex].IsEnabled = true;
+            // Update the selection.
+            _layerListSource.ViewModelList[selectedIndex].IsEnabled = true;
 
-            // Update the map
-            UpdateMapDisplay(_layerListSource._viewModelList);
+            // Update the map.
+            UpdateMapDisplay(_layerListSource.ViewModelList);
         }
     }
 
     /// <summary>
     /// This is a ViewModel class for maintaining the state of a layer selection.
-    /// Typically, this would go in a separate file, but it is included here for clarity
+    /// Typically, this would go in a separate file, but it is included here for clarity.
     /// </summary>
-    public class LayerDisplayVM
+    public class LayerDisplayVm
     {
         /// <summary>
-        /// Metadata for the individual selected layer
+        /// Metadata for the individual selected layer.
         /// </summary>
-        public WmsLayerInfo Info { get; set; }
+        public WmsLayerInfo Info { get; }
 
         /// <summary>
-        /// True if the layer is selected for display
+        /// True if the layer is selected for display.
         /// </summary>
-        public Boolean IsEnabled { get; set; }
+        public bool IsEnabled { get; set; }
 
         /// <summary>
-        /// Title property to facilitate binding
+        /// Title property to facilitate binding.
         /// </summary>
-        public String Title { get { return Info.Title; } }
+        public string Title => Info.Title;
 
-        public LayerDisplayVM(WmsLayerInfo info)
+        public LayerDisplayVm(WmsLayerInfo info)
         {
             Info = info;
+        }
+    }
+
+    /// <summary>
+    /// Class defines how a UITableView renders its contents.
+    /// This implements the list of WMS sublayers.
+    /// </summary>
+    public class LayerListSource : UITableViewSource
+    {
+        public readonly List<LayerDisplayVm> ViewModelList = new List<LayerDisplayVm>();
+
+        // Used when re-using cells to ensure that a cell of the right type is used
+        private const string CellId = "TableCell";
+
+        // Hold a reference to the owning view controller; this will be the active instance of WmsServiceCatalog.
+        private WmsServiceCatalog Owner { get; }
+
+        public LayerListSource(List<LayerDisplayVm> items, WmsServiceCatalog owner)
+        {
+            // Set the items.
+            if (items != null)
+            {
+                ViewModelList = items;
+            }
+
+            // Set the owner.
+            Owner = owner;
+        }
+
+        /// <summary>
+        /// This method gets a table view cell for the suggestion at the specified index.
+        /// </summary>
+        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
+        {
+            // Try to get a re-usable cell (this is for performance).
+            UITableViewCell cell = tableView.DequeueReusableCell(CellId);
+
+            // If there are no cells, create a new one.
+            if (cell == null)
+            {
+                cell = new UITableViewCell(UITableViewCellStyle.Default, CellId)
+                {
+                    BackgroundColor = UIColor.FromWhiteAlpha(0, 0f)
+                };
+                cell.TextLabel.TextColor = Owner.View.TintColor;
+            }
+
+            // Get the specific item to display.
+            LayerDisplayVm item = ViewModelList[indexPath.Row];
+
+            // Set the text on the cell.
+            cell.TextLabel.Text = item.Title;
+
+            // Return the cell.
+            return cell;
+        }
+
+        /// <summary>
+        /// This method allows the UITableView to know how many rows to render.
+        /// </summary>
+        public override nint RowsInSection(UITableView tableview, nint section)
+        {
+            return ViewModelList.Count;
+        }
+
+        /// <summary>
+        /// Method called when a row is selected; notifies the primary view.
+        /// </summary>
+        public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
+        {
+            // Deselect the row.
+            tableView.DeselectRow(indexPath, true);
+
+            // Select the layer.
+            Owner.LayerSelectionChanged(indexPath.Row);
         }
     }
 }

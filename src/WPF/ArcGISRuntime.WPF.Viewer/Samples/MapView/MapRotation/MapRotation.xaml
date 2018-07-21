@@ -9,9 +9,7 @@
     d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border BorderBrush="Black" BorderThickness="1" Background="White"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="30" Padding="20" Width="375">
+        <Border Style="{StaticResource BorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -33,6 +31,7 @@
                         ValueChanged="MySlider_ValueChanged" />
                 <TextBlock x:Name="MyLabel"
                            TextAlignment="Center" VerticalAlignment="Center"
+                           Text="0°"
                            Padding="0,2,0,0"
                            Grid.Row="1" Grid.Column="1" />
             </Grid>

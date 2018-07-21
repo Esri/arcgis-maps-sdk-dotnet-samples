@@ -66,7 +66,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeodatabase
             _myMapView.Map.OperationalLayers.Add(trailheadsFeatureLayer);
 
             // Zoom the map to the extent of the feature layer.
-            await _myMapView.SetViewpointGeometryAsync(trailheadsFeatureLayer.FullExtent);
+            await _myMapView.SetViewpointGeometryAsync(trailheadsFeatureLayer.FullExtent, 50);
         }
 
         private static string GetMobileGeodatabasePath()
@@ -79,7 +79,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeodatabase
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add a map view to the layout.
             _myMapView = new MapView(this);

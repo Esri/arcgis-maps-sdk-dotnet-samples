@@ -81,6 +81,12 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightLocation
 
         private void SceneViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
+            // Ignore if tapped out of bounds (e.g. the sky).
+            if (e.Location == null)
+            {
+                return;
+            }
+
             // When the view is tapped, define the observer or target location with the tap point as appropriate
             if (_observerLocation == null)
             {

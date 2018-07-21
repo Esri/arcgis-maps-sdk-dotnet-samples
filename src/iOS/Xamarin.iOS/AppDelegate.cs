@@ -20,11 +20,7 @@ namespace ArcGISRuntime
     {
         // class-level declarations
 
-        public override UIWindow Window
-        {
-            get;
-            set;
-        }
+        public override UIWindow Window { get; set; }
 
         // This method is invoked when the application is about to move from active to inactive state.
         // OpenGL applications should use this method to pause.

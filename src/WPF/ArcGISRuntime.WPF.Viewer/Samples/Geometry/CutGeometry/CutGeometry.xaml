@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.CutGeometry.CutGeometry"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock x:Name="CutInstructionsLabel"
+                           Text="Click 'Cut' to cut the polygon with the polyline."
+                           TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiBold"
+                           Margin="0,0,0,5" />
+                <Button x:Name="CutButton"
+                        Content="Cut"
+                        Click="CutButton_Click" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

@@ -47,20 +47,21 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBasemap
 
         private void Initialize()
         {
-            // Create new Map with basemap
-            Map myMap = new Map(_basemapOptions.Values.First());
+            // Create new Map
+            Map myMap = new Map();
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;
 
-            // Set titles as a items source
-            basemapChooser.ItemsSource = _basemapOptions.Keys;
+            // Set titles as an items source and choose the first item
+            BasemapChooser.ItemsSource = _basemapOptions.Keys;
+            BasemapChooser.SelectedIndex = 0;
         }
 
         private void OnBasemapListSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Get the title of the selected basemap
-            var selectedBasemapTtile = e.AddedItems[0].ToString();
+            string selectedBasemapTtile = e.AddedItems[0].ToString();
 
             // Retrieve the basemap from the dictionary
             MyMapView.Map.Basemap = _basemapOptions[selectedBasemapTtile];

@@ -2,7 +2,11 @@
 
 ## Analysis
 
-* [Line of Sight (GeoElement)](Shared/Samples/Analysis/LineOfSightGeoElement)
+* [Distance measurement analysis](Shared/Samples/Analysis/DistanceMeasurement)
+
+This sample demonstrates measuring 3D distances between two points in a scene. The distance measurement analysis allows you to add the same measuring experience found in ArcGIS Pro, City Engine, and the ArcGIS API for JavaScript to your app. You can set the unit system of measurement (metric or imperial) and have the units automatically switch to one appropriate for the current scale. The rendering is handled internally so they do not interfere with other analyses like viewsheds.
+
+* [Line of sight (GeoElement)](Shared/Samples/Analysis/LineOfSightGeoElement)
 
 This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.
 
@@ -31,6 +35,10 @@ This sample demonstrates how to create a `LocationViewshed` to display interacti
 * [Edit and sync features](Shared/Samples/Data/EditAndSyncFeatures)
 
 This sample demonstrates how to synchronize offline edits with a feature service.
+
+* [Feature layer (geodatabase)](Shared/Samples/Data/FeatureLayerGeodatabase)
+
+This sample demonstrates how to consume an Esri .geodatabase file (aka. mobile geodatabase) by using a FeatureLayer and a GeodatabaseFeatureTable.
 
 * [Feature layer (GeoPackage)](Shared/Samples/Data/FeatureLayerGeoPackage)
 
@@ -94,41 +102,64 @@ This sample demonstrates how to apply a custom renderer to a shapefile displayed
 
 ## Geometry
 
+* [Buffer](Shared/Samples/Geometry/Buffer)
+
+This sample demonstrates how to use `GeometryEngine.Buffer` to create polygons from a map location and linear distance (radius). For each input location, the sample creates two buffer polygons (using the same distance) and displays them on the map using different symbols. One polygon is calculated using the `planar` (flat) coordinate space of the map's spatial reference. The other is created using a `geodesic` technique that considers the curved shape of the Earth's surface (which is generally a more accurate representation). Distortion in the map increases as you move away from the standard parallels of the spatial reference's projection. This map is in Web Mercator so areas near the equator are the most accurate. As you move the buffer location north or south from that line, you'll see a greater difference in the polygon size and shape. Planar operations are generally faster, but performance improvement may only be noticeable for large operations (buffering a great number or complex geometry).
+Creating buffers is a core concept in GIS proximity analysis, allowing you to visualize and locate geographic features contained within a polygon. For example, suppose you wanted to visualize areas of your city where alcohol sales are prohibited because they are within 500 meters of a school. The first step in this proximity analysis would be to generate 500 meter buffer polygons around all schools in the city. Any such businesses you find inside one of the resulting polygons are violating the law. If you are using planar buffers, make sure that the input locations and distance are suited to the spatial reference you're using. Remember that you can also create your buffers using geodesic and then project them to the spatial reference you need for display or analysis. For more information about using buffer analysis, see [How buffer analysis works](https://pro.arcgis.com/en/pro-app/tool-reference/analysis/how-buffer-analysis-works.htm) in the ArcGIS Pro documentation.
+
+* [Buffer list](Shared/Samples/Geometry/BufferList)
+
+This sample demonstrates how to use the GeometryEngine.Buffer to generate one or more polygon from a series of input geometries and matching series of buffer distances. The option to union all the resulting buffer(s) is provided.
+
+* [Clip geometry](Shared/Samples/Geometry/ClipGeometry)
+
+This sample demonstrates how to clip a geometry with an envelope using the GeometryEngine
+
+* [Convex hull](Shared/Samples/Geometry/ConvexHull)
+
+This sample demonstrates how to use the GeometryEngine.ConvexHull operation to generate a polygon that encloses a series of user-tapped map points.
+
+* [Convex hull list](Shared/Samples/Geometry/ConvexHullList)
+
+This sample demonstrates how to use the GeometryEngine.ConvexHull to generate convex hull polygon(s) from multiple input geometries.
+
+* [Create geometries](Shared/Samples/Geometry/CreateGeometries)
+
+This sample demonstrates simple ways to create different types of Geometry. The geometries are added as Graphics to a GraphicsOverlay and displayed in a MapView. An Envelope is used to set the Viewpoint of the MapView.
+
+* [Cut geometry](Shared/Samples/Geometry/CutGeometry)
+
+This sample demonstrates how to cut a geometry with a polyline using the GeometryEngine.
+
+* [Densify and generalize](Shared/Samples/Geometry/DensifyAndGeneralize)
+
+This sample demonstrates how to densify or generalize a polyline geometry. In this example, points representing a ship's location are shown at irregular intervals. You can densify the polyline to interpolate points along the line at regular intervals. Generalizing the polyline can also simplify the geometry while preserving its general shape.
+
 * [Format coordinates](Shared/Samples/Geometry/FormatCoordinates)
 
 This sample demonstrates how to convert between `MapPoint` and string representations of a point using various coordinate systems.
 
-## GeometryEngine
-
-* [Buffer](Shared/Samples/GeometryEngine/Buffer)
-
-This sample demonstrates how to use the GeometryEngine.Buffer to generate a polygon from an input geometry with a buffer distance.
-
-* [Buffer list](Shared/Samples/GeometryEngine/BufferList)
-
-This sample demonstrates how to use the GeometryEngine.Buffer to generate one or more polygon from a series of input geometries and matching series of buffer distances. The option to union all the resulting buffer(s) is provided.
-
-* [Create geometries](Shared/Samples/GeometryEngine/CreateGeometries)
-
-This sample demonstrates simple ways to create different types of Geometry. The geometries are added as Graphics to a GraphicsOverlay and displayed in a MapView. An Envelope is used to set the Viewpoint of the MapView.
-
-* [Geodesic operations](Shared/Samples/GeometryEngine/GeodesicOperations)
+* [Geodesic operations](Shared/Samples/Geometry/GeodesicOperations)
 
 This sample demonstrates how to use the Geometry engine to calculate a geodesic path between two points and measure its distance.
 
-* [List transformations by suitability](Shared/Samples/GeometryEngine/ListTransformations)
+* [List transformations by suitability](Shared/Samples/Geometry/ListTransformations)
 
 This sample demonstrates how to use the TransformationCatalog to get a list of available DatumTransformations that can be used to project a Geometry between two different SpatialReferences, and how to use one of the transformations to perform the GeometryEngine.project operation. The TransformationCatalog is also used to set the location of files upon which grid-based transformations depend, and to find the default transformation used for the two SpatialReferences.
 
-* [Nearest vertex](Shared/Samples/GeometryEngine/NearestVertex)
+* [Nearest vertex](Shared/Samples/Geometry/NearestVertex)
 
 This sample demonstrates how to use the Geometry engine find the nearest vertex and nearest coordinate of a polygon to a point. The distance for each is shown.
 
-* [Project with specific transformation](Shared/Samples/GeometryEngine/ProjectWithSpecificTransformation)
+* [Project with specific transformation](Shared/Samples/Geometry/ProjectWithSpecificTransformation)
 
 This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
 
-* [Spatial relationships](Shared/Samples/GeometryEngine/SpatialRelationships)
+* [Spatial operations](Shared/Samples/Geometry/SpatialOperations)
+
+Demonstrates how to use the GeometryEngine to perform geometry operations between overlapping polygons in a GraphicsOverlay.
+
+* [Spatial relationships](Shared/Samples/Geometry/SpatialRelationships)
 
 This sample demonstrates how to use the GeometryEngine to evaluate the spatial relationships (for example, polygon a contains line b) between geometries.
 
@@ -156,7 +187,7 @@ This sample demonstrates how you add graphics and set a renderer on a graphic ov
 
 This sample demonstrates how to add various types of graphics to a `GraphicsOverlay`.
 
-* [Animate 3D Graphic](Shared/Samples/GraphicsOverlay/Animate3DGraphic)
+* [Animate 3D graphic](Shared/Samples/GraphicsOverlay/Animate3DGraphic)
 
 This sample demonstrates how to animate a graphic's position and follow it using a camera controller.
 
@@ -220,6 +251,10 @@ This sample demonstrates how to use blend renderer on a raster layer. You can ge
 
 This sample demonstrates how to change renderer for a feature layer. It also shows how to reset the renderer back to the default.
 
+* [Change sublayer renderer](Shared/Samples/Layers/ChangeSublayerRenderer)
+
+This sample demonstrates how to change the sub-layer renderer of an ArcGIS map image layer. A unique value renderer is applied to see different population ranges in the counties sub-layer data.
+
 * [Change sublayer visibility](Shared/Samples/Layers/ChangeSublayerVisibility)
 
 This sample demonstrates how to show or hide sublayers of a map image layer.
@@ -256,7 +291,7 @@ This sample demonstrates how to apply definition expression to a feature layer f
 
 Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.
 
-* [Feature Layer Rendering Mode (Map)](Shared/Samples/Layers/FeatureLayerRenderingModeMap)
+* [Feature layer rendering mode (Map)](Shared/Samples/Layers/FeatureLayerRenderingModeMap)
 
 This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.
 
@@ -271,6 +306,14 @@ This sample demonstrates how to select features in a feature layer by tapping a 
 * [Identify WMS features](Shared/Samples/Layers/WmsIdentify)
 
 This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.
+
+* [Query a map image sublayer](Shared/Samples/Layers/MapImageSublayerQuery)
+
+This sample demonstrates how to execute an attribute and spatial query on the sublayers of an ArcGIS map image layer. Sublayers of an ArcGISMapImageLayer may expose a ServiceFeatureTable through a Table property.This allows you to perform the same queries available when working with a table from a FeatureLayer: attribute query, spatial query, statistics query, query for related features, and so on.
+
+* [Query map image layer tables](Shared/Samples/Layers/MapImageLayerTables)
+
+This sample demonstrates how to get a non-spatial table from an ArcGIS map image layer. It shows how to query such a table, as well as how to find related features in another table. The non-spatial tables contained by a map service may contain additional information about sublayer features. Such information can be accessed by traversing table relationships defined in the service.
 
 * [Raster hillshade renderer](Shared/Samples/Layers/RasterHillshade)
 
@@ -288,15 +331,23 @@ This sample demonstrates how to create an `ImageServiceRaster`, fetch the `Rende
 
 This sample demonstrates how to use an RGB renderer on a raster layer. An RGB renderer is used to adjust the color bands of a multi-spectral image.
 
+* [Show labels on layer](Shared/Samples/Layers/ShowLabelsOnLayer)
+
+This sample demonstrates how to show labels on a feature layer
+
 * [Stretch renderer](Shared/Samples/Layers/ChangeStretchRenderer)
 
 This sample demonstrates how to use stretch renderer on a raster layer.
+
+* [Style WMS layers](Shared/Samples/Layers/StyleWmsLayer)
+
+This sample demonstrates how to select from the available styles on WMS sublayers. 
 
 * [Time-based query](Shared/Samples/Layers/TimeBasedQuery)
 
 This sample demonstrates how to apply a time-based parameter to a feature layer query.
 
-* [Web TiledLayer](Shared/Samples/Layers/Web_TiledLayer)
+* [Web tiled layer](Shared/Samples/Layers/LoadWebTiledLayer)
 
 This sample demonstrates how to load a web tiled layer from a non-ArcGIS service, including how to include proper attribution.
 
@@ -352,6 +403,10 @@ This sample demonstrates how to open an existing map from a portal. The sample o
 
 This sample demonstrates how to open a mobile map from a map package.
 
+* [Open scene (Portal item)](Shared/Samples/Map/OpenScene)
+
+This sample demonstrates how to open a scene from a Portal item. Just like Web Maps are the ArcGIS format for maps, Web Scenes are the ArcGIS format for scenes. These scenes can be stored in ArcGIS Online or Portal.
+
 * [Search a portal for maps](Shared/Samples/Map/SearchPortalMaps)
 
 This sample demonstrates searching a portal for web maps and loading them in the map view. You can search ArcGIS Online public web maps using tag values or browse the web maps in your account. OAuth is used to authenticate with ArcGIS Online to access items in your account.
@@ -380,7 +435,11 @@ This sample demonstrates how to filter data in layers by applying a time extent 
 
 * [Change viewpoint](Shared/Samples/MapView/ChangeViewpoint)
 
-This sample demonstrates different ways in which you can change the viewpoint or visible area of the map.
+This sample demonstrates different ways in which you can change the viewpoint of the MapView.
+
+* [Display a grid](Shared/Samples/MapView/DisplayGrid)
+
+This sample demonstrates how to display and work with coordinate grid systems such as Latitude/Longitude, MGRS, UTM and USNG on a map view. This includes toggling labels visibility, changing the color of the grid lines, and changing the color of the grid labels.
 
 * [Display drawing status](Shared/Samples/MapView/DisplayDrawingStatus)
 
@@ -416,9 +475,21 @@ This sample demonstrates how you can take screenshot of a map. Click 'capture' b
 
 ## Network Analysis
 
+* [Closest facility (interactive)](Shared/Samples/Network%20Analysis/ClosestFacility)
+
+Demonstrates how to solve a Closest Facility Task to find the closest route between a facility (hospital) and a incident (black cross).
+
+* [Closest facility (static)](Shared/Samples/Network%20Analysis/ClosestFacilityStatic)
+
+Demonstrates how to solve a Closest Facility Task to find the closest route between facilities and incidents.
+
 * [Find a route](Shared/Samples/Network%20Analysis/FindRoute)
 
 This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.
+
+* [Find service area (interactive)](Shared/Samples/Network%20Analysis/FindServiceArea)
+
+Demonstrates how to find services areas around a point using the ServiceAreaTask. A service area shows locations that can be reached from a facility based off a certain impedance [travel time in this case]. Service areas for a two and five minute travel time are used. Barriers can also be added which can effect the service area by not letting traffic through and adding to the time to get to locations.
 
 ## Search
 

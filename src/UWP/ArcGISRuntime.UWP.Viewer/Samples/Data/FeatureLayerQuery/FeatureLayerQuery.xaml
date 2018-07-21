@@ -5,12 +5,11 @@
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-        <Border BorderBrush="Black" BorderThickness="1" Background="White"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="30" Padding="20" Width="375">
+        <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock Text="Enter a state name and press 'Enter' to search."
+                <TextBlock Text="Enter a state name and press 🔎 to search."
                            TextAlignment="Center" FontWeight="SemiBold"
+                           IsColorFontEnabled="False"
                            Margin="0,0,0,5" />
                 <AutoSuggestBox Text="New York"
                                 QueryIcon="Find"

@@ -90,8 +90,10 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _viewpointSymbol = SimpleMarkerSceneSymbol.CreateSphere(Colors.Blue, 10, SceneSymbolAnchorPosition.Center);
 
             // Add the symbol to the viewpoint overlay.
-            _viewpointOverlay = new GraphicsOverlay();
-            _viewpointOverlay.SceneProperties = new LayerSceneProperties(SurfacePlacement.Absolute);
+            _viewpointOverlay = new GraphicsOverlay
+            {
+                SceneProperties = new LayerSceneProperties(SurfacePlacement.Absolute)
+            };
             _viewpointOverlay.Graphics.Add(new Graphic(initialLocation, _viewpointSymbol));
 
             // Apply the camera to the scene view.
@@ -119,6 +121,12 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
 
         private void MySceneViewOnGeoViewTapped(object sender, GeoViewInputEventArgs viewInputEventArgs)
         {
+            if (viewInputEventArgs.Location == null)
+            {
+                // User clicked on the sky - don't update the location with invalid value.
+                return;
+            }
+
             // Update the viewshed location.
             _viewshed.Location = viewInputEventArgs.Location;
 

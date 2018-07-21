@@ -1,10 +1,11 @@
 using Android.App;
-using ArcGISRuntime.Samples.AuthorEditSaveMap;
+using ArcGISRuntime.Samples.AuthorMap;
 using ArcGISRuntime.AndroidPageRenderer;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Android.Content;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -15,12 +16,16 @@ namespace ArcGISRuntime.AndroidPageRenderer
     {
         // Use a TaskCompletionSource to track the completion of the authorization
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
-        
+
+        private Context context;
+
         // ctor
-        public SaveMapPageRenderer()
+        public SaveMapPageRenderer(Context context) : base(context)
         {
             // Set the OAuth authorization handler to this class (Implements IOAuthAuthorize interface)
             AuthenticationManager.Current.OAuthAuthorizeHandler = this;
+
+            this.context = context;
         }
 
         #region IOAuthAuthorizationHandler implementation
@@ -38,17 +43,19 @@ namespace ArcGISRuntime.AndroidPageRenderer
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
             // Get the current Android Activity
-            var activity = Context as Activity;
+            Activity activity = (Activity)context;
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(
-                clientId: Samples.AuthorEditSaveMap.AuthorEditSaveMap.AppClientId,
+                clientId: AuthorMap.AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri);
+                redirectUrl: callbackUri)
+            {
 
-            // Allow the user to cancel the OAuth attempt
-            authenticator.AllowCancel = true;
+                // Allow the user to cancel the OAuth attempt
+                AllowCancel = true
+            };
 
             // Define a handler for the OAuth2Authenticator.Completed event
             authenticator.Completed += (sender, authArgs) =>

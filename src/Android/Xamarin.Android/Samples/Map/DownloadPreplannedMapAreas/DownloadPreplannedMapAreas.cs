@@ -52,7 +52,7 @@ namespace ArcGISRuntime.Samples.DisplayMap
         private Button _downloadButton;
 
         private Button _deleteButton;
-        private ProgressDialog _downloadDeleteProgressDialog;
+        private AlertDialog _progressIndicator;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -70,11 +70,10 @@ namespace ArcGISRuntime.Samples.DisplayMap
             try
             {
                 // Show a loading indicator.
-                ProgressDialog progressIndicator = new ProgressDialog(this);
-                progressIndicator.SetTitle("Loading");
-                progressIndicator.SetMessage("Loading the available map areas.");
-                progressIndicator.SetCancelable(false);
-                progressIndicator.Show();
+                _progressIndicator.SetTitle("Loading");
+                _progressIndicator.SetMessage("Loading the available map areas.");
+                _progressIndicator.SetCancelable(false);
+                _progressIndicator.Show();
 
                 // Get the offline data folder.
                 _offlineDataFolder = Path.Combine(GetDataFolder(),
@@ -99,7 +98,7 @@ namespace ArcGISRuntime.Samples.DisplayMap
                 _preplannedMapAreas = await _offlineMapTask.GetPreplannedMapAreasAsync();
 
                 // Load each preplanned map area.
-                foreach (var area in _preplannedMapAreas)
+                foreach (PreplannedMapArea area in _preplannedMapAreas)
                 {
                     await area.LoadAsync();
                 }
@@ -129,12 +128,12 @@ namespace ArcGISRuntime.Samples.DisplayMap
                     };
 
                 // Remove loading indicators from the UI.
-                progressIndicator.Dismiss();
+                _progressIndicator.Dismiss();
             }
             catch (Exception ex)
             {
                 // Something unexpected happened, show error message.
-                var builder = new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetMessage(ex.Message).SetTitle("An error occurred").Show();
             }
         }
@@ -142,25 +141,24 @@ namespace ArcGISRuntime.Samples.DisplayMap
         private async Task DownloadMapAreaAsync(PreplannedMapArea mapArea)
         {
             // Set up UI for download.
-            _downloadDeleteProgressDialog.Progress = 0;
-            _downloadDeleteProgressDialog.SetMessage("Downloading map area...");
-            _downloadDeleteProgressDialog.SetTitle("Downloading");
-            _downloadDeleteProgressDialog.Show();
+            _progressIndicator.SetMessage("Downloading map area...");
+            _progressIndicator.SetTitle("Downloading");
+            _progressIndicator.Show();
 
             // Get the path for the downloaded map area.
-            var path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
+            string path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
 
             // If the map area is already downloaded, open it and don't download it again.
             if (Directory.Exists(path))
             {
-                var localMapArea = await MobileMapPackage.OpenAsync(path);
+                MobileMapPackage localMapArea = await MobileMapPackage.OpenAsync(path);
                 try
                 {
                     // Load the map area.
                     _myMapView.Map = localMapArea.Maps.First();
 
                     // Update the UI.
-                    _downloadDeleteProgressDialog.Dismiss();
+                    _progressIndicator.Dismiss();
 
                     // Return without downloading the item again.
                     return;
@@ -185,7 +183,7 @@ namespace ArcGISRuntime.Samples.DisplayMap
                 // Handle possible errors and show them to the user.
                 if (results.HasErrors)
                 {
-                    var errorBuilder = new StringBuilder();
+                    StringBuilder errorBuilder = new StringBuilder();
 
                     // Add layer errors to the message.
                     foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
@@ -200,7 +198,7 @@ namespace ArcGISRuntime.Samples.DisplayMap
                     }
 
                     // Show the error message.
-                    var builder = new AlertDialog.Builder(this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.SetMessage(errorBuilder.ToString()).SetTitle("Warning!").Show();
                 }
 
@@ -210,28 +208,27 @@ namespace ArcGISRuntime.Samples.DisplayMap
             catch (Exception ex)
             {
                 // Report exception.
-                var builder = new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetMessage(ex.Message).SetTitle("Downloading map area failed.").Show();
             }
             finally
             {
                 // Clear the loading UI.
-                _downloadDeleteProgressDialog.Dismiss();
+                _progressIndicator.Dismiss();
             }
         }
 
         private void OnJobProgressChanged(object sender, EventArgs e)
         {
             // Get the download job.
-            var downloadJob = sender as DownloadPreplannedOfflineMapJob;
+            DownloadPreplannedOfflineMapJob downloadJob = sender as DownloadPreplannedOfflineMapJob;
             if (downloadJob == null) return;
 
             // UI work needs to be done on the UI thread.
             RunOnUiThread(() =>
             {
                 // Update the UI with the load progress.
-                _downloadDeleteProgressDialog.Progress = downloadJob.Progress;
-                _downloadDeleteProgressDialog.SetMessage($"Downloading map area... ({downloadJob.Progress}%)");
+                _progressIndicator.SetMessage($"Downloading map area... ({downloadJob.Progress}%)");
             });
         }
 
@@ -248,7 +245,7 @@ namespace ArcGISRuntime.Samples.DisplayMap
             catch (Exception ex)
             {
                 // No match found.
-                var builder = new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetMessage(ex.Message).SetTitle("Downloading map area failed.").Show();
             }
         }
@@ -256,9 +253,9 @@ namespace ArcGISRuntime.Samples.DisplayMap
         private async void OnDeleteAllMapAreasClicked(object sender, EventArgs e)
         {
             // Show the deletion UI.
-            _downloadDeleteProgressDialog.SetMessage("Deleting downloaded map areas...");
-            _downloadDeleteProgressDialog.SetTitle("Deleting");
-            _downloadDeleteProgressDialog.Show();
+            _progressIndicator.SetMessage("Deleting downloaded map areas...");
+            _progressIndicator.SetTitle("Deleting");
+            _progressIndicator.Show();
 
             try
             {
@@ -283,13 +280,13 @@ namespace ArcGISRuntime.Samples.DisplayMap
             catch (Exception ex)
             {
                 // Report the error.
-                var builder = new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetMessage(ex.Message).SetTitle("Deleting map areas failed.").Show();
             }
             finally
             {
                 // Reset the UI.
-                _downloadDeleteProgressDialog.Dismiss();
+                _progressIndicator.Dismiss();
             }
         }
 
@@ -356,10 +353,15 @@ namespace ArcGISRuntime.Samples.DisplayMap
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create the progress dialog.
-            _downloadDeleteProgressDialog = new ProgressDialog(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetView(new ProgressBar(this)
+            {
+                Indeterminate = true
+            });
+            _progressIndicator = builder.Create();
 
             // Create the download button. Note: click handler is set up in Initialize.
             _downloadButton = new Button(this) { Text = "Download Area" };

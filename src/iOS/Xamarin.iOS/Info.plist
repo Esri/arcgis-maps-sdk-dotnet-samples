@@ -38,7 +38,12 @@
 	<key>XSAppIconAssets</key>
 	<string>Resources/Images.xcassets/AppIcons.appiconset</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array/>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
 	<key>UIPrerenderedIcon</key>
 	<false/>
 	<key>UIMainStoryboardFile~ipad</key>
@@ -149,5 +154,16 @@
 	</dict>
 	<key>CFBundleName</key>
 	<string>ArcGIS Runtime SDK for .NET</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>my-ags-app</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

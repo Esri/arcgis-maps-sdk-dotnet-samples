@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using System.Windows.Threading;
 
 namespace ArcGISRuntime.WPF.Samples.AuthorMap
 {
@@ -133,7 +134,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                 SaveProgressBar.Visibility = Visibility.Visible;
 
                 // Get the current map
-                var myMap = MyMapView.Map;
+                Map myMap = MyMapView.Map;
 
                 // Apply the current extent as the map's initial extent
                 myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
@@ -145,12 +146,12 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                 if (myMap.Item == null)
                 {
                     // Get information for the new portal item
-                    var title = TitleTextBox.Text;
-                    var description = DescriptionTextBox.Text;
-                    var tags = TagsTextBox.Text.Split(',');
+                    string title = TitleTextBox.Text;
+                    string description = DescriptionTextBox.Text;
+                    string[] tags = TagsTextBox.Text.Split(',');
 
                     // Make sure all required info was entered
-                    if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || tags.Length == 0)
+                    if (String.IsNullOrEmpty(title) || String.IsNullOrEmpty(description) || tags.Length == 0)
                     {
                         throw new Exception("Please enter a title, description, and some tags to describe the map.");
                     }
@@ -170,7 +171,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                     Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
 
                     // Update the item thumbnail
-                    (myMap.Item as PortalItem).SetThumbnailWithImage(imageStream);
+                    ((PortalItem)myMap.Item).SetThumbnailWithImage(imageStream);
                     await myMap.SaveAsync();
 
                     // Report update was successful
@@ -193,7 +194,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         private void ApplyBasemap(string basemapName)
         {
             // Set the basemap for the map according to the user's choice in the list box
-            var myMap = MyMapView.Map;
+            Map myMap = MyMapView.Map;
             switch (basemapName)
             {
                 case "Light Gray":
@@ -222,19 +223,21 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         private void AddOperationalLayers()
         {
             // Clear all operational layers from the map
-            var myMap = MyMapView.Map;
+            Map myMap = MyMapView.Map;
             myMap.OperationalLayers.Clear();
 
             // Loop through the selected items in the operational layers list box
-            foreach (var item in OperationalLayerListBox.SelectedItems)
+            foreach (KeyValuePair<string, string> item in OperationalLayerListBox.SelectedItems)
             {
                 // Get the service uri for each selected item 
-                var layerInfo = (KeyValuePair<string, string>)item;
-                var layerUri = new Uri(layerInfo.Value);
+                KeyValuePair<string, string> layerInfo = item;
+                Uri layerUri = new Uri(layerInfo.Value);
 
                 // Create a new map image layer, set it 50% opaque, and add it to the map
-                ArcGISMapImageLayer layer = new ArcGISMapImageLayer(layerUri);
-                layer.Opacity = 0.5;
+                ArcGISMapImageLayer layer = new ArcGISMapImageLayer(layerUri)
+                {
+                    Opacity = 0.5
+                };
                 myMap.OperationalLayers.Add(layer);
             }
         }
@@ -242,16 +245,18 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         private async Task SaveNewMapAsync(Map myMap, string title, string description, string[] tags, RuntimeImage thumb)
         {
             // Challenge the user for portal credentials (OAuth credential request for arcgis.com)
-            CredentialRequestInfo loginInfo = new CredentialRequestInfo();
-
-            // Use the OAuth implicit grant flow
-            loginInfo.GenerateTokenOptions = new GenerateTokenOptions
+            CredentialRequestInfo loginInfo = new CredentialRequestInfo
             {
-                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-            };
 
-            // Indicate the url (portal) to authenticate with (ArcGIS Online)
-            loginInfo.ServiceUri = new Uri("http://www.arcgis.com/sharing/rest");
+                // Use the OAuth implicit grant flow
+                GenerateTokenOptions = new GenerateTokenOptions
+                {
+                    TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                },
+
+                // Indicate the url (portal) to authenticate with (ArcGIS Online)
+                ServiceUri = new Uri("http://www.arcgis.com/sharing/rest")
+            };
 
             try
             {
@@ -284,7 +289,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             Envelope currentExtent = currentViewpoint.TargetGeometry as Envelope;
 
             // Project the current extent to geographic coordinates (longitude / latitude)
-            Envelope currentGeoExtent = GeometryEngine.Project(currentExtent, SpatialReferences.Wgs84) as Envelope;
+            Envelope currentGeoExtent = (Envelope)GeometryEngine.Project(currentExtent, SpatialReferences.Wgs84);
 
             // Fill the app text boxes with min / max longitude (x) and latitude (y) to four decimal places
             XMinTextBox.Text = currentGeoExtent.XMin.ToString("0.####");
@@ -334,10 +339,10 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Exception will be reported in calling function
-                throw (ex);
+                throw;
             }
 
             return credential;
@@ -378,12 +383,12 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             _tcs = new TaskCompletionSource<IDictionary<string, string>>();
 
             // Call a function to show the login controls, make sure it runs on the UI thread for this app
-            var dispatcher = Application.Current.Dispatcher;
+            Dispatcher dispatcher = Application.Current.Dispatcher;
             if (dispatcher == null || dispatcher.CheckAccess())
                 AuthorizeOnUIThread(_authorizeUrl);
             else
             {
-                var authorizeOnUIAction = new Action(() => AuthorizeOnUIThread(_authorizeUrl));
+                Action authorizeOnUIAction = () => AuthorizeOnUIThread(_authorizeUrl);
                 dispatcher.BeginInvoke(authorizeOnUIAction);
             }
 
@@ -395,7 +400,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         private void AuthorizeOnUIThread(string authorizeUri)
         {
             // Create a WebBrowser control to display the authorize page
-            var webBrowser = new WebBrowser();
+            WebBrowser webBrowser = new WebBrowser();
 
             // Handle the navigation event for the browser to check for a response to the redirect URL
             webBrowser.Navigating += WebBrowserOnNavigating;
@@ -424,7 +429,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         }
 
         // Handle the browser window closing
-        void OnWindowClosed(object sender, EventArgs e)
+        private void OnWindowClosed(object sender, EventArgs e)
         {
             // If the browser window closes, return the focus to the main window
             if (_window != null && _window.Owner != null)
@@ -445,15 +450,15 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         }
 
         // Handle browser navigation (content changing)
-        void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
+        private void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
         {
             // Check for a response to the callback url
             const string portalApprovalMarker = "/oauth2/approval";
-            var webBrowser = sender as WebBrowser;
+            WebBrowser webBrowser = sender as WebBrowser;
             Uri uri = e.Uri;
 
             // If no browser, uri, task completion source, or an empty url, return
-            if (webBrowser == null || uri == null || _tcs == null || string.IsNullOrEmpty(uri.AbsoluteUri))
+            if (webBrowser == null || uri == null || _tcs == null || String.IsNullOrEmpty(uri.AbsoluteUri))
                 return;
 
             // Check for redirect
@@ -467,7 +472,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                 //    -decode the parameters (returned as fragments or query)
                 //    -return these parameters as result of the Task
                 e.Cancel = true;
-                var tcs = _tcs;
+                TaskCompletionSource<IDictionary<string, string>> tcs = _tcs;
                 _tcs = null;
                 if (_window != null)
                 {
@@ -475,7 +480,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                 }
 
                 // Call a helper function to decode the response parameters
-                var authResponse = DecodeParameters(uri);
+                IDictionary<string,string> authResponse = DecodeParameters(uri);
 
                 // Set the result for the task completion source
                 tcs.SetResult(authResponse);
@@ -485,29 +490,29 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         private static IDictionary<string, string> DecodeParameters(Uri uri)
         {
             // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string
-            var answer = string.Empty;
+            string answer = "";
 
             // Get the values from the URI fragment or query string
-            if (!string.IsNullOrEmpty(uri.Fragment))
+            if (!String.IsNullOrEmpty(uri.Fragment))
             {
                 answer = uri.Fragment.Substring(1);
             }
             else
             {
-                if (!string.IsNullOrEmpty(uri.Query))
+                if (!String.IsNullOrEmpty(uri.Query))
                 {
                     answer = uri.Query.Substring(1);
                 }
             }
 
             // Parse parameters into key / value pairs
-            var keyValueDictionary = new Dictionary<string, string>();
-            var keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var kvString in keysAndValues)
+            Dictionary<string,string> keyValueDictionary = new Dictionary<string, string>();
+            string[] keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string kvString in keysAndValues)
             {
-                var pair = kvString.Split('=');
+                string[] pair = kvString.Split('=');
                 string key = pair[0];
-                string value = string.Empty;
+                string value = "";
                 if (key.Length > 1)
                 {
                     value = Uri.UnescapeDataString(pair[1]);

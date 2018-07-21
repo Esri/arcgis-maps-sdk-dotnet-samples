@@ -10,10 +10,7 @@
     </UserControl.Resources>
     <Grid>
         <esri:SceneView x:Name="MySceneView" />
-        <Border
-            Background="White" BorderBrush="Black" BorderThickness="1"
-            HorizontalAlignment="Right" VerticalAlignment="Top"
-            Margin="30" Padding="20" Width="375">
+        <Border Style="{StaticResource BorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />

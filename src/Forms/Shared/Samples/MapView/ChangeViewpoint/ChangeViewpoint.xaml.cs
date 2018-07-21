@@ -19,7 +19,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Change viewpoint",
         "MapView",
-        "This sample demonstrates different ways in which you can change the viewpoint or visible area of the map.",
+        "This sample demonstrates different ways in which you can change the viewpoint of the MapView.",
         "")]
     public partial class ChangeViewpoint : ContentPage
     {
@@ -50,8 +50,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
             SpatialReferences.WebMercator);
 
         // String array to store titles for the viewpoints specified above.
-        private string[] titles = new string[]
-        {
+        private string[] titles = {
             "Geometry",
             "Center & Scale",
             "Animate"
@@ -79,8 +78,8 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         private async void OnViewpointsClicked(object sender, EventArgs e)
         {
             // Show sheet and get title from the selection
-            var selectedMapTitle =
-                await DisplayActionSheet("Select viewpoint", "Cancel", null, titles);
+            string selectedMapTitle =
+                await ((Page)Parent).DisplayActionSheet("Select viewpoint", "Cancel", null, titles);
 
             // If selected cancel do nothing
             if (selectedMapTitle == "Cancel") return;
@@ -109,7 +108,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
                         new Viewpoint(MyMapView.Map.Basemap.BaseLayers.First().FullExtent));
                     
                     // Create a new Viewpoint using the specified geometry
-                    var viewpoint = new Viewpoint(EdinburghEnvelope);
+                    Viewpoint viewpoint = new Viewpoint(EdinburghEnvelope);
                     
                     // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
                     await MyMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));

@@ -94,8 +94,10 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a button to update the viewshed using the current camera
-            Button updateViewshedButton = new Button(this);
-            updateViewshedButton.Text = "Viewshed from here";
+            Button updateViewshedButton = new Button(this)
+            {
+                Text = "Viewshed from here"
+            };
             updateViewshedButton.Click += UpdateObserverWithCamera;
 
             // Add the button and scene view to the layout

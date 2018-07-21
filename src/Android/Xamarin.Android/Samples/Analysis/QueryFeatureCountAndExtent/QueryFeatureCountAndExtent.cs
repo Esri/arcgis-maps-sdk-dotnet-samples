@@ -15,7 +15,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using Android.Content;
 using Android.Views;
 using Android.Views.InputMethods;
 
@@ -144,7 +143,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create the entry
             _myStateEntry = new EditText(this) { Hint = "State abbreviation (e.g. NY)" };

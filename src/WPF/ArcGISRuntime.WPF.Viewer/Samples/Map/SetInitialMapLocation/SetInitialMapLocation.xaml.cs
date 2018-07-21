@@ -23,7 +23,7 @@ namespace ArcGISRuntime.WPF.Samples.SetInitialMapLocation
             InitializeComponent();
 
             //initialize map with `imagery with labels` basemap and an initial location
-            var myMap = new Map(BasemapType.ImageryWithLabels, -33.867886, -63.985, 15);
+            Map myMap = new Map(BasemapType.ImageryWithLabels, -33.867886, -63.985, 15);
             //assign the map to the map view
             MyMapView.Map = myMap;
         }

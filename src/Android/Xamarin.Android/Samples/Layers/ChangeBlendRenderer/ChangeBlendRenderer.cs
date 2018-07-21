@@ -82,8 +82,10 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create label that displays Altitude
-            _Label_Altitude = new TextView(this);
-            _Label_Altitude.Text = "Altitude";
+            _Label_Altitude = new TextView(this)
+            {
+                Text = "Altitude"
+            };
             layout.AddView(_Label_Altitude);
 
             // Create a slider (SeekBar) that the user can modify the Altitude
@@ -91,40 +93,52 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             layout.AddView(_Slider_Altitude);
 
             // Create label that displays Azimuth
-            _Label_Azimuth = new TextView(this);
-            _Label_Azimuth.Text = "Azimuth";
+            _Label_Azimuth = new TextView(this)
+            {
+                Text = "Azimuth"
+            };
             layout.AddView(_Label_Azimuth);
 
             // Create a slider (SeekBar) that the user can modify the Azimuth
             _Slider_Azimuth = new SeekBar(this);
             layout.AddView(_Slider_Azimuth);
-                
+
             // Create label that displays the SlopeType - set the default label to "Degree"
-            _Label_SlopeTypes = new TextView(this);
-            _Label_SlopeTypes.Text = _mySlopeTypeChoice;
+            _Label_SlopeTypes = new TextView(this)
+            {
+                Text = _mySlopeTypeChoice
+            };
             layout.AddView(_Label_SlopeTypes);
 
             // Create button to choose a specific SlopeType
-            var slopeTypesButton = new Button(this);
-            slopeTypesButton.Text = "SlopeTypes";
+            Button slopeTypesButton = new Button(this)
+            {
+                Text = "SlopeTypes"
+            };
             slopeTypesButton.Click += SlopeTypesButton_Click;
             layout.AddView(slopeTypesButton);
 
             // Create label that displays the ColorRamp  - set the default label to "Elevation"
-            _Label_ColorRamps = new TextView(this);
-            _Label_ColorRamps.Text = _myColorRampChoice;
+            _Label_ColorRamps = new TextView(this)
+            {
+                Text = _myColorRampChoice
+            };
             layout.AddView(_Label_ColorRamps);
 
             // Create button to choose a specific ColorRamp
-            var colorRampsButton = new Button(this);
-            colorRampsButton.Text = "Color Ramps";
+            Button colorRampsButton = new Button(this)
+            {
+                Text = "Color Ramps"
+            };
             colorRampsButton.Click += ColorRampsButton_Click;
             layout.AddView(colorRampsButton);
 
             // Create button to change stretch renderer of the raster, wire-up the touch/click 
             // event handler for the button
-            _Button_UpdateRenderer = new Button(this);
-            _Button_UpdateRenderer.Text = "Update Renderer";
+            _Button_UpdateRenderer = new Button(this)
+            {
+                Text = "Update Renderer"
+            };
             _Button_UpdateRenderer.Click += OnUpdateRendererClicked;
             layout.AddView(_Button_UpdateRenderer);
             _Button_UpdateRenderer.Enabled = false;
@@ -140,7 +154,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
         private void ColorRampsButton_Click(object sender, EventArgs e)
         {
             // Create a local variable for the ColorRamps button
-            Button myButton_ColorRamps = sender as Button;
+            Button myButton_ColorRamps = (Button)sender;
 
             // Create menu to show ColorRamp options
             PopupMenu myPopupMenu_ColorRamps = new PopupMenu(this, myButton_ColorRamps);
@@ -212,7 +226,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
         private void SlopeTypesButton_Click(object sender, EventArgs e)
         {
             // Create a local variable for the SlopeTypes button
-            Button myButton_SlopeTypes = sender as Button;
+            Button myButton_SlopeTypes = (Button)sender;
 
             // Create menu to show SlopeType options
             PopupMenu myPopupMenu_SlopeTypes = new PopupMenu(this, myButton_SlopeTypes);

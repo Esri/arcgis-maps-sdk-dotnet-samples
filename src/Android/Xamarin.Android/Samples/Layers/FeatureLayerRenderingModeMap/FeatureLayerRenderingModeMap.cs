@@ -9,7 +9,6 @@
 
 using Android.App;
 using Android.OS;
-using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -24,7 +23,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
     [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("FeatureLayerRenderingModeMapLayout.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature Layer Rendering Mode (Map)",
+        "Feature layer rendering mode (Map)",
         "Layers",
         "This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.",
         "")]
@@ -42,7 +41,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
         {
             base.OnCreate(bundle);
 
-            Title = "Feature Layer Rendering Mode (Map)";
+            Title = "Feature layer rendering mode (Map)";
 
             // Create the UI, setup the control references and execute initialization
             CreateLayout();

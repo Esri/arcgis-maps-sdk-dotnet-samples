@@ -14,14 +14,13 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Colors = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.LineOfSightGeoElement
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Line of Sight (GeoElement)",
+        "Line of sight (GeoElement)",
         "Analysis",
         "This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.",
         "Use the slider to adjust the height of the observer.",
@@ -64,7 +63,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         {
             InitializeComponent();
 
-            Title = "Line of Sight (GeoElement)";
+            Title = "Line of sight (GeoElement)";
 
             // Create the UI, setup the control references and execute initialization
             Initialize();
@@ -73,9 +72,11 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         private async void Initialize()
         {
             // Create scene
-            Scene myScene = new Scene(Basemap.CreateImageryWithLabels());
-            // Set initial viewpoint
-            myScene.InitialViewpoint = new Viewpoint(_observerPoint, 1000000);
+            Scene myScene = new Scene(Basemap.CreateImageryWithLabels())
+            {
+                // Set initial viewpoint
+                InitialViewpoint = new Viewpoint(_observerPoint, 1000000)
+            };
             // Create the elevation source
             ElevationSource myElevationSource = new ArcGISTiledElevationSource(_elevationUri);
             // Add the elevation source to the scene
@@ -109,9 +110,11 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
 
             // Create GeoElement Line of sight analysis (taxi to building)
             // Create the analysis
-            _geoLine = new GeoElementLineOfSight(_observerGraphic, _taxiGraphic);
-            // Apply an offset to the target. This helps avoid some false negatives
-            _geoLine.TargetOffsetZ = 2;
+            _geoLine = new GeoElementLineOfSight(_observerGraphic, _taxiGraphic)
+            {
+                // Apply an offset to the target. This helps avoid some false negatives
+                TargetOffsetZ = 2
+            };
             // Create the analysis overlay
             AnalysisOverlay myAnalysisOverlay = new AnalysisOverlay();
             // Add the analysis to the overlay

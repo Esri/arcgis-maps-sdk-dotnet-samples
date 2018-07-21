@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.ArcGISMapImageLayerUrl
             Map myMap = new Map();
 
             // Create uri to the map image layer
-            var serviceUri = new Uri(
+            Uri serviceUri = new Uri(
                "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer");
 
             // Create new image layer from the url
@@ -60,7 +60,7 @@ namespace ArcGISRuntime.Samples.ArcGISMapImageLayerUrl
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

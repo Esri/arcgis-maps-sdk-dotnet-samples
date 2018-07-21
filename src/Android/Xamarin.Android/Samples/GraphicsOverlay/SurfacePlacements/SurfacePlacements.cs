@@ -44,10 +44,12 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
         private void Initialize()
         {
             // Create new Scene
-            Scene myScene = new Scene();
+            Scene myScene = new Scene
+            {
 
-            // Set Scene's base map property
-            myScene.Basemap = Basemap.CreateImagery();
+                // Set Scene's base map property
+                Basemap = Basemap.CreateImagery()
+            };
 
             // Create a camera with coordinates showing layer data
             Camera camera = new Camera(53.04, -4.04, 1300, 0, 90.0, 0);
@@ -114,7 +116,7 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the scene view to the layout
             layout.AddView(_mySceneView);

@@ -200,4 +200,15 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
+
+    <Style x:Key="BorderStyle" TargetType="Border">
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Margin" Value="30" />
+        <Setter Property="Padding" Value="20" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Width" Value="375" />
+    </Style>
 </ResourceDictionary>

@@ -7,11 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System.IO;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Data;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.FeatureLayerShapefile
 {
@@ -50,7 +48,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerShapefile
             MyMapView.Map.OperationalLayers.Add(newFeatureLayer);
 
             // Zoom the map to the extent of the shapefile
-            await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
+            await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent, 50);
         }
 
         private static string GetShapefilePath()

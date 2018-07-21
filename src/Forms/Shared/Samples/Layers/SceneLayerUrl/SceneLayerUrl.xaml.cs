@@ -40,10 +40,12 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
         private void Initialize()
         {
             // Create new Scene
-            Scene myScene = new Scene();
+            Scene myScene = new Scene
+            {
 
-            // Set Scene's base map property
-            myScene.Basemap = Basemap.CreateImagery();
+                // Set Scene's base map property
+                Basemap = Basemap.CreateImagery()
+            };
 
             // Create and add an elevation source for the Scene
             ArcGISTiledElevationSource elevationSrc = new ArcGISTiledElevationSource(_elevationSourceUrl);

@@ -99,7 +99,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add controls for display settings
             layout.AddView(new TextView(this) { Text = "Color Scheme:" });

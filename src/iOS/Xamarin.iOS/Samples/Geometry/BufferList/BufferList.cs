@@ -68,13 +68,14 @@ namespace ArcGISRuntime.Samples.BufferList
         {
             try
             {
+                // Calculate values used to layout the UI controls.
                 nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
                 nfloat controlHeight = 30;
                 nfloat margin = 5;
                 nfloat helpToolbarHeight = controlHeight * 3 + margin * 2;
                 nfloat controlToolbarHeight = 2 * controlHeight + 3 * margin;
 
-                // Reposition the controls.
+                // Position the UI controls.
                 _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
                 _myMapView.ViewInsets = new UIEdgeInsets(topMargin + helpToolbarHeight, 0, controlToolbarHeight, 0);
                 _helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, helpToolbarHeight);
@@ -83,8 +84,8 @@ namespace ArcGISRuntime.Samples.BufferList
                 _bufferDistanceInstructionLabel.Frame = new CGRect(margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, 175, controlHeight);
                 _bufferDistanceEntry.Frame = new CGRect(_bufferDistanceInstructionLabel.Frame.Right + margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, 50, controlHeight);
                 _unionBufferSwitch.Frame = new CGRect(View.Bounds.Width - 75 + margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, 75 - 2 * margin, controlHeight);
-                _bufferButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - (6 * margin), controlHeight);
-                _clearButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - (2 * margin), controlHeight);
+                _bufferButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2, controlHeight);
+                _clearButton.Frame = new CGRect(View.Bounds.Width / 2 + (2 * margin), View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 3, controlHeight);
 
                 base.ViewDidLayoutSubviews();
             }
@@ -99,7 +100,8 @@ namespace ArcGISRuntime.Samples.BufferList
             // Create a UITextView for the overall sample instructions.
             _sampleInstructionsLabel = new UILabel
             {
-                Text = "Tap on the map to add points. Each point will use the buffer distance entered when it was created. The envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.",
+                Text = "Tap on the map to add points. Each point will use the buffer distance entered when it was created. Use the switch to union the output buffers into a single polygon. " +
+                       "The envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.",
                 Lines = 4,
                 AdjustsFontSizeToFitWidth = true
             };

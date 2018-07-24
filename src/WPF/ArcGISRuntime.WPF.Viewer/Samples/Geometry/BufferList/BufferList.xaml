@@ -9,10 +9,7 @@
                 <TextBlock x:Name="BufferInstructionsLabel"
                            TextWrapping="Wrap"
                            Margin="0,0,0,10">
-                    Tap on the map in several locations to add points. You can specify the buffer distance (in miles).
-                    Click  'Create buffer(s)'. If 'Union the buffer(s)' is checked, the resulting
-                    output buffer will be one polygon (possibly multi-part). If 'Union the buffer(s)' is unchecked,
-                    there will be one buffer per input point.
+                    Tap on the map to add points. Each point will use the buffer distance entered when it was created. The envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.
                 </TextBlock>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Distance (miles):"

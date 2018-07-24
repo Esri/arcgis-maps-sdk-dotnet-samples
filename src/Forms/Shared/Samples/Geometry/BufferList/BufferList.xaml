@@ -2,41 +2,53 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:local="clr-namespace:ArcGISRuntime.Samples.BufferList"
              x:Class="ArcGISRuntime.Samples.BufferList.BufferList">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-
-        <Label x:Name="BufferInstructionsLabel"
-               Grid.Row="0"
-               FontSize="Small"
-               Text="Tap on the map in several locations to create center map-points to generate buffer(s). You can optionally change the buffer distance (in miles) by adjusting the value in the entry before each tap on the map. Then click on the 'Create Buffer(s)' button. If the 'Union the buffer(s)' switch is 'on' the resulting output buffer will be one polygon (possibly multi-part). If the 'Union the buffer(s)' switch is 'off' the resulting output will have one buffer polygon per input map point.">
-        </Label>
-        <StackLayout 
-            Grid.Row="1" 
-            Orientation="Horizontal">
-            <Label Text="Buffer distance (miles):" />
-            <Entry x:Name="BufferDistanceMilesEntry" 
-                   Text="10" />
-        </StackLayout>
-        <StackLayout 
-            Grid.Row="2" 
-            Orientation="Horizontal">
-            <Label Text="Union the buffer(s):" />
-            <Switch x:Name="UnionSwitch"
-                    IsToggled="True" />
-        </StackLayout>
-        <Button x:Name="BufferButton"
-                Grid.Row="3"
-                Text="Create Buffer(s)"
-                Clicked="BufferButton_Clicked"/>
+        <Grid Grid.Row="0"
+              HorizontalOptions="Center"
+              WidthRequest="320"
+              Margin="10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Label x:Name="BufferInstructionsLabel"
+                   Grid.Row="0"
+                   FontSize="Small"
+                   Text="Tap on the map to add points. Each point will use the buffer distance entered when it was created. The envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.">
+            </Label>
+            <StackLayout Grid.Row="1"
+                         Orientation="Horizontal">
+                <Label Text="Buffer distance (miles):"
+                       VerticalOptions="Center"/>
+                <Entry x:Name="BufferDistanceMilesEntry" 
+                       Text="10" />
+            </StackLayout>
+            <StackLayout Grid.Row="2"
+                         Orientation="Horizontal">
+                <Label Text="Union the buffer(s):"
+                       VerticalOptions="Center"/>
+                <Switch x:Name="UnionSwitch"
+                        IsToggled="True" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         Grid.Row="3">
+                <Button x:Name="BufferButton"
+                        Text="Create Buffer(s)"
+                        Clicked="BufferButton_Click"/>
+                <Button x:Name="ClearButton"
+                        Text="Clear"
+                        Margin="20,0,0,0"
+                        Clicked="ClearButton_Click" />
+            </StackLayout>
+        </Grid>
         <esriUI:MapView x:Name="MyMapView" 
-                        Grid.Row="4"/>
+                        Grid.Row="1"/>
     </Grid>
 </ContentPage>

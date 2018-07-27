@@ -34,15 +34,9 @@ namespace ArcGISRuntime.Samples.BufferList
         private MapView _myMapView = new MapView();
         private EditText _bufferDistanceMilesEditText;
         private Switch _unionBufferSwitch;
-        //private Button _bufferButton;
-        //private Button _clearButton;
 
-        // A spatial reference that's suitable for creating planar buffers in north central Texas (State Plane).
-        private SpatialReference _statePlaneNorthCentralTexas = new SpatialReference(32038);
-
-        // An envelope that represents the valid area of use for the spatial reference.
-        // This information is available at https://developers.arcgis.com/net/latest/wpf/guide/pdf/projected_coordinate_systems_rt100_3_0.pdf
-        private Envelope _spatialReferenceArea = new Envelope(-103.070, 31.720, -94.000, 34.580, SpatialReferences.Wgs84);
+        // A polygon that defines the valid area of the spatial reference used.
+        private Polygon _spatialReferenceArea;
 
         // A Random object to create RGB color values.
         private Random _random = new Random();
@@ -141,11 +135,31 @@ namespace ArcGISRuntime.Samples.BufferList
 
         private void Initialize()
         {
-            // Create a map with a topographic basemap.
-            Map bufferMap = new Map(Basemap.CreateTopographic());
+            // Create a spatial reference that's suitable for creating planar buffers in north central Texas (State Plane).
+            SpatialReference statePlaneNorthCentralTexas = new SpatialReference(32038);
 
-            // Use a new EnvelopeBuilder to expand the spatial reference envelope 120%.
-            EnvelopeBuilder envBuilder = new EnvelopeBuilder(_spatialReferenceArea);
+            // Define a polygon that represents the valid area of use for the spatial reference.
+            // This information is available at https://developers.arcgis.com/net/latest/wpf/guide/pdf/projected_coordinate_systems_rt100_3_0.pdf
+            List<MapPoint> spatialReferenceExtentCoords = new List<MapPoint>
+            {
+                new MapPoint(-103.070, 31.720, SpatialReferences.Wgs84),
+                new MapPoint(-103.070, 34.580, SpatialReferences.Wgs84),
+                new MapPoint(-94.000, 34.580, SpatialReferences.Wgs84),
+                new MapPoint(-94.00, 31.720, SpatialReferences.Wgs84)
+            };
+            _spatialReferenceArea = new Polygon(spatialReferenceExtentCoords);
+            _spatialReferenceArea = GeometryEngine.Project(_spatialReferenceArea, statePlaneNorthCentralTexas) as Polygon;
+
+            // Create a map that uses the North Central Texas state plane spatial reference.
+            Map bufferMap = new Map(statePlaneNorthCentralTexas);
+
+            // Add some base layers (counties, cities, and highways).
+            Uri usaLayerSource = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer");
+            ArcGISMapImageLayer usaLayer = new ArcGISMapImageLayer(usaLayerSource);
+            bufferMap.Basemap.BaseLayers.Add(usaLayer);
+
+            // Use a new EnvelopeBuilder to expand the spatial reference extent 120%.
+            EnvelopeBuilder envBuilder = new EnvelopeBuilder(_spatialReferenceArea.Extent);
             envBuilder.Expand(1.2);
 
             // Set the map's initial extent to the expanded envelope.
@@ -154,7 +168,7 @@ namespace ArcGISRuntime.Samples.BufferList
 
             // Assign the map to the MapView.
             _myMapView.Map = bufferMap;
-
+           
             // Create a graphics overlay to show the buffer polygon graphics.
             GraphicsOverlay bufferGraphicsOverlay = new GraphicsOverlay
             {
@@ -164,8 +178,7 @@ namespace ArcGISRuntime.Samples.BufferList
 
             // Create a graphic to show the spatial reference's valid extent (envelope) with a dashed red line.
             SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Red, 5);
-            SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Drawing.Color.Transparent, lineSymbol);
-            Graphic spatialReferenceExtentGraphic = new Graphic(_spatialReferenceArea, fillSymbol);
+            Graphic spatialReferenceExtentGraphic = new Graphic(_spatialReferenceArea, lineSymbol);
 
             // Add the graphic to a new overlay.
             GraphicsOverlay spatialReferenceGraphicsOverlay = new GraphicsOverlay();
@@ -183,11 +196,11 @@ namespace ArcGISRuntime.Samples.BufferList
         {
             try
             {
-                // Get the input map point (in the map's coordinate system, Web Mercator).
+                // Get the input map point (in the map's coordinate system, State Plane for North Central Texas).
                 MapPoint tapMapPoint = e.Location;
 
-                // Call a function to check if the point falls inside the valid extent for the spatial reference.
-                bool withinValidExent = CheckMapPoint(tapMapPoint);
+                // Check if the point coordinates are within the spatial reference envelope.
+                bool withinValidExent = GeometryEngine.Contains(_spatialReferenceArea, tapMapPoint);
 
                 // If the input point is not within the valid extent for the spatial reference, warn the user and return.
                 if (!withinValidExent)
@@ -201,9 +214,6 @@ namespace ArcGISRuntime.Samples.BufferList
                     return;
                 }
 
-                // Project the point to an appropriate spatial reference for the area of interest (North Central Texas State Plane).
-                MapPoint projectedMapPoint = GeometryEngine.Project(tapMapPoint, _statePlaneNorthCentralTexas) as MapPoint;
-
                 // Get the buffer radius (in miles) from the text box.
                 double bufferDistanceMiles = System.Convert.ToDouble(_bufferDistanceMilesEditText.Text);
 
@@ -214,7 +224,7 @@ namespace ArcGISRuntime.Samples.BufferList
                 SimpleMarkerSymbol tapSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Red, 10);
 
                 // Create a new graphic to show the tap location. 
-                Graphic tapGraphic = new Graphic(projectedMapPoint, tapSymbol)
+                Graphic tapGraphic = new Graphic(tapMapPoint, tapSymbol)
                 {
                     // Specify a z-index value on the point graphic to make sure it draws on top of the buffer polygons.
                     ZIndex = 2
@@ -234,15 +244,6 @@ namespace ArcGISRuntime.Samples.BufferList
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();
             }
-        }
-
-        private bool CheckMapPoint(MapPoint inPoint)
-        {
-            // Project the input point to geographic coordinates to get latitude and longitude.
-            MapPoint geographicPoint = GeometryEngine.Project(inPoint, SpatialReferences.Wgs84) as MapPoint;
-
-            // Check if the point coordinates are within the spatial reference envelope.
-            return GeometryEngine.Contains(_spatialReferenceArea, geographicPoint);
         }
 
         private void BufferButton_Click(object sender, EventArgs e)

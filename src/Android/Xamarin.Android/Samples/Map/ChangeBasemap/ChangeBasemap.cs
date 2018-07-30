@@ -102,7 +102,7 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
             // Create button to show map options
             Button mapsButton = new Button(this)
             {
-                Text = "Basemaps"
+                Text = "Choose basemap"
             };
             mapsButton.Click += OnBasemapsClicked;
 

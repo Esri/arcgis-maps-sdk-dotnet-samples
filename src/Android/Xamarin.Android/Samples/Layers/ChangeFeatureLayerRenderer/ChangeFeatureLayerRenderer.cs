@@ -1,10 +1,10 @@
-// Copyright 2016 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
@@ -34,13 +34,17 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
         // Create and hold reference to the feature layer
         private FeatureLayer _featureLayer;
 
+        private Button _overrideButton;
+
+        private Button _resetButton;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
             Title = "Change feature layer renderer";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             CreateLayout();
             Initialize();
         }
@@ -97,12 +101,20 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
 
             // Assign the new renderer to the feature layer
             _featureLayer.Renderer = renderer;
+
+            // Enable the reset button.
+            _overrideButton.Enabled = false;
+            _resetButton.Enabled = true;
         }
 
         private void OnResetButtonClicked(object sender, EventArgs e)
         {
             // Reset the renderer to default
             _featureLayer.ResetRenderer();
+
+            // Re-enable the override button.
+            _overrideButton.Enabled = true;
+            _resetButton.Enabled = false;
         }
 
         private void CreateLayout()
@@ -110,25 +122,26 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
             // Create a new vertical layout for the app
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-            // Create a button to reset the renderer
-            Button resetButton = new Button(this)
-            {
-                Text = "Reset"
-            };
-            resetButton.Click += OnResetButtonClicked;
-
             // Create a button to apply new renderer
-            Button overrideButton = new Button(this)
+            _overrideButton = new Button(this)
             {
                 Text = "Override"
             };
-            overrideButton.Click += OnOverrideButtonClicked;
+            _overrideButton.Click += OnOverrideButtonClicked;
 
-            // Add Reset Button to the layout
-            layout.AddView(resetButton);
+            // Create a button to reset the renderer
+            _resetButton = new Button(this)
+            {
+                Text = "Reset",
+                Enabled = false
+            };
+            _resetButton.Click += OnResetButtonClicked;
 
             // Add Override Button to the layout
-            layout.AddView(overrideButton);
+            layout.AddView(_overrideButton);
+
+            // Add Reset Button to the layout
+            layout.AddView(_resetButton);
 
             // Add the map view to the layout
             layout.AddView(_myMapView);

@@ -9,6 +9,7 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -156,11 +157,18 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
             // Create a horizontal layout for the query controls.
             LinearLayout populationInputLayout = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
+            // Create parameters for the button.
+            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MatchParent,
+                ViewGroup.LayoutParams.MatchParent,
+                1.0f
+            );
+
             // Create the population query controls: a label, a text input, and a button to execute the query.
             TextView populationLabel = new TextView(this) { Text = "[POP2000] > " };            
             _populationValueInput = new EditText(this) { Text = "1800000" };
             _populationValueInput.SetMinimumWidth(200);
-            Button queryButton = new Button(this) { Text = "Query" };
+            Button queryButton = new Button(this) { Text = "Query", LayoutParameters = param };
 
             // Create some space.
             Space space = new Space(this);

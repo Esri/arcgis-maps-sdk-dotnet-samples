@@ -1,10 +1,10 @@
-// Copyright 2017 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
@@ -45,6 +45,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
 
         // Buttons for interacting with the SketchEditor
         private Button _editButton;
+
         private Button _undoButton;
         private Button _redoButton;
         private Button _doneButton;
@@ -56,7 +57,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
 
             Title = "Sketch on map";
 
-            // Create the UI 
+            // Create the UI
             CreateLayout();
 
             // Initialize controls, set up event handlers, etc.
@@ -96,17 +97,26 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             LinearLayout buttonLayoutOne = new LinearLayout(this) { Orientation = Orientation.Horizontal };
             LinearLayout buttonLayoutTwo = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
+            // Parameters for all of the buttons. Used to set buttons height and width.
+            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MatchParent,
+                ViewGroup.LayoutParams.MatchParent,
+                1.0f
+            );
+
             // Button to sketch a selected geometry type on the map view
             Button sketchButton = new Button(this)
             {
-                Text = "Sketch"
+                Text = "Sketch",
+                LayoutParameters = param
             };
             sketchButton.Click += OnSketchClicked;
 
             // Button to edit an existing graphic's geometry
             _editButton = new Button(this)
             {
-                Text = "Edit"
+                Text = "Edit",
+                LayoutParameters = param
             };
             _editButton.Click += OnEditClicked;
             _editButton.Enabled = false;
@@ -114,13 +124,15 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             // Buttons to Undo/Redo sketch and edit operations
             _undoButton = new Button(this)
             {
-                Text = "Undo"
+                Text = "Undo",
+                LayoutParameters = param
             };
             _undoButton.Click += OnUndoClicked;
             _undoButton.Enabled = false;
             _redoButton = new Button(this)
             {
-                Text = "Redo"
+                Text = "Redo",
+                LayoutParameters = param
             };
             _redoButton.Click += OnRedoClicked;
             _redoButton.Enabled = false;
@@ -128,7 +140,8 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             // Button to complete the sketch or edit
             _doneButton = new Button(this)
             {
-                Text = "Done"
+                Text = "Done",
+                LayoutParameters = param
             };
             _doneButton.Click += OnCompleteClicked;
             _doneButton.Enabled = false;
@@ -136,7 +149,8 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             // Button to clear all graphics and sketches
             _clearButton = new Button(this)
             {
-                Text = "Clear"
+                Text = "Clear",
+                LayoutParameters = param
             };
             _clearButton.Click += OnClearClicked;
             _clearButton.Enabled = false;
@@ -309,6 +323,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         }
 
         #region Graphic and symbol helpers
+
         private Graphic CreateGraphic(Geometry geometry)
         {
             // Create a graphic to display the specified geometry
@@ -341,7 +356,6 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                 case GeometryType.Point:
                 case GeometryType.Multipoint:
                     {
-
                         symbol = new SimpleMarkerSymbol()
                         {
                             Color = Color.Red,
@@ -378,7 +392,8 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             // Return the graphic (or null if none were found)
             return graphic;
         }
-        #endregion
+
+        #endregion Graphic and symbol helpers
 
         private async void SketchGeometry(string sketchModeName)
         {

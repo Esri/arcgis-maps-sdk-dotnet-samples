@@ -1,10 +1,10 @@
-// Copyright 2016 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
@@ -13,6 +13,8 @@ using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
@@ -34,6 +36,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         // Coordinates for London
         private MapPoint LondonCoords = new MapPoint(
             -13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
+
         private double LondonScale = 8762.7156655228955;
 
         // Coordinates for Redlands
@@ -70,7 +73,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
 
             Title = "Change viewpoint";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             CreateLayout();
             Initialize();
         }
@@ -79,6 +82,12 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         {
             // Create new Map with basemap and initial location
             Map myMap = new Map(Basemap.CreateTopographic());
+
+            // Add graphics to show where viewpoint is changing to.
+            _myMapView.GraphicsOverlays.Add(new GraphicsOverlay());
+            _myMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(RedlandsEnvelope, new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Blue, 2.0)));
+            _myMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(LondonCoords, new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.Orange, 12.0)));
+            _myMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(EdinburghEnvelope, new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2.0)));
 
             // Assign the map to the MapView
             _myMapView.Map = myMap;
@@ -110,29 +119,29 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
             switch (selectedMapTitle)
             {
                 case "Geometry":
-   
+
                     // Set Viewpoint using Redlands envelope defined above and a padding of 20
                     await _myMapView.SetViewpointGeometryAsync(RedlandsEnvelope, 20);
                     break;
 
                 case "Center & Scale":
-                
+
                     // Set Viewpoint so that it is centered on the London coordinates defined above
                     await _myMapView.SetViewpointCenterAsync(LondonCoords);
-                    
-                    // Set the Viewpoint scale to match the specified scale 
+
+                    // Set the Viewpoint scale to match the specified scale
                     await _myMapView.SetViewpointScaleAsync(LondonScale);
                     break;
 
                 case "Animate":
-                
+
                     // Navigate to full extent of the first baselayer before animating to specified geometry
                     await _myMapView.SetViewpointAsync(
                         new Viewpoint(_myMapView.Map.Basemap.BaseLayers.First().FullExtent));
-                    
+
                     // Create a new Viewpoint using the specified geometry
                     Viewpoint viewpoint = new Viewpoint(EdinburghEnvelope);
-                    
+
                     // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
                     await _myMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));
                     break;
@@ -150,8 +159,9 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
             // Create button to show possible map options
             Button mapsButton = new Button(this)
             {
-                Text = "Viewpoints"
+                Text = "Change viewpoint"
             };
+
             mapsButton.Click += OnMapsClicked;
 
             // Add maps button to the layout

@@ -288,6 +288,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
 
             // Create the alert dialog.
             _alert = new AlertDialog.Builder(this).Create();
+            _alert.SetCanceledOnTouchOutside(false);
             _alert.Show();
             _alert.Cancel();
 

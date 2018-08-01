@@ -46,10 +46,10 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
 
         // Client ID for the app registered with the server (Portal Maps)
-        public static string AppClientId = "2Gh53JRzkPtOENQq";
+        public static string AppClientId = "lgAdHkYZYlwwfAhC";
 
         // Redirect URL after a successful authorization (configured for the Portal Maps application)
-        private string _oAuthRedirectUrl = "https://developers.arcgis.com";
+        private string _oAuthRedirectUrl = "my-ags-app://auth";
 
         // String array to store basemap constructor types
         private string[] _basemapTypes = {

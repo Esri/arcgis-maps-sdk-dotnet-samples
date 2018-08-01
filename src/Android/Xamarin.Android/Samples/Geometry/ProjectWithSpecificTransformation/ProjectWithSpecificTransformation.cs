@@ -73,6 +73,7 @@ namespace ArcGISRuntime.Samples.ProjectWithSpecificTransformation
         {
             // Create a new vertical layout for the app
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            layout.SetPadding(10, 10, 10, 10);
 
             // Create the labels
             _beforeLabel = new TextView(this);

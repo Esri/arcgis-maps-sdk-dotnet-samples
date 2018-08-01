@@ -86,12 +86,24 @@ namespace ArcGISRuntime.Samples.ProjectWithSpecificTransformation
             };
             TextView afterLabelTitle = new TextView(this)
             {
-                Text = "Geometry to NAD_1983_HARN_StatePlane_New_York_Central_FIPS_3102 after WGS_1984_To_MSK_1942:"
+                Text = "\nGeometry to NAD_1983_HARN_StatePlane_New_York_Central_FIPS_3102 after WGS_1984_To_MSK_1942:"
             };
             TextView nonSpecificLabelTitle = new TextView(this)
             {
-                Text = "Geometry to NAD_1983_HARN_StatePlane_New_York_Central_FIPS_3102 after (without specific transform):"
+                Text = "\nGeometry to NAD_1983_HARN_StatePlane_New_York_Central_FIPS_3102 after (without specific transform):"
             };
+
+            // Set layout background color.
+            layout.SetBackgroundColor(Android.Graphics.Color.White);
+
+            // Set the text color for all of the labels.
+            beforeLabelTitle.SetTextColor(Android.Graphics.Color.Black);
+            afterLabelTitle.SetTextColor(Android.Graphics.Color.Black);
+            nonSpecificLabelTitle.SetTextColor(Android.Graphics.Color.Black);
+
+            _beforeLabel.SetTextColor(Android.Graphics.Color.Black);
+            _afterLabel.SetTextColor(Android.Graphics.Color.Black);
+            _nonSpecificLabel.SetTextColor(Android.Graphics.Color.Black);
 
             // Add all labels to the layout
             layout.AddView(beforeLabelTitle);

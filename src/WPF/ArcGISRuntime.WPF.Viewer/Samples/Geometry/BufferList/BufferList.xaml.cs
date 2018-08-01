@@ -56,7 +56,7 @@ namespace ArcGISRuntime.WPF.Samples.BufferList
                 new MapPoint(-94.00, 31.720, SpatialReferences.Wgs84)
             };
             _spatialReferenceArea = new Polygon(spatialReferenceExtentCoords);
-            _spatialReferenceArea = GeometryEngine.Project(_spatialReferenceArea, statePlaneNorthCentralTexas) as Polygon;
+            _spatialReferenceArea = (Polygon)GeometryEngine.Project(_spatialReferenceArea, statePlaneNorthCentralTexas);
 
             // Create a map that uses the North Central Texas state plane spatial reference.
             Map bufferMap = new Map(statePlaneNorthCentralTexas);
@@ -85,7 +85,7 @@ namespace ArcGISRuntime.WPF.Samples.BufferList
             };
 
             // Create a graphic to show the spatial reference's valid extent (envelope) with a dashed red line.
-            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Red, 5);
+            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.Red, 5);
             Graphic spatialReferenceExtentGraphic = new Graphic(_spatialReferenceArea, lineSymbol);
 
             // Add the graphic to a new overlay.
@@ -118,13 +118,13 @@ namespace ArcGISRuntime.WPF.Samples.BufferList
                 }
 
                 // Get the buffer radius (in miles) from the text box.
-                double bufferDistanceMiles = System.Convert.ToDouble(BufferDistanceMilesTextBox.Text);
+                double bufferDistanceMiles = Convert.ToDouble(BufferDistanceMilesTextBox.Text);
 
                 // Use a helper method to get the buffer distance in feet (unit that's used by the spatial reference).
                 double bufferDistanceFeet = LinearUnits.Miles.ConvertTo(LinearUnits.Feet, bufferDistanceMiles);
 
                 // Create a simple marker symbol (red circle) to display where the user tapped/clicked on the map. 
-                SimpleMarkerSymbol tapSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Red, 10);
+                SimpleMarkerSymbol tapSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Red, 10);
 
                 // Create a new graphic to show the tap location. 
                 Graphic tapGraphic = new Graphic(tapMapPoint, tapSymbol)
@@ -139,7 +139,7 @@ namespace ArcGISRuntime.WPF.Samples.BufferList
                 // Add the tap point graphic to the buffer graphics overlay.
                 MyMapView.GraphicsOverlays["buffers"].Graphics.Add(tapGraphic);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 // Display an error message.
                 MessageBox.Show(ex.Message, "Error creating buffer point");
@@ -180,14 +180,14 @@ namespace ArcGISRuntime.WPF.Samples.BufferList
                 IEnumerable<Geometry> bufferPolygons = GeometryEngine.Buffer(bufferMapPoints, bufferDistances, areBuffersUnioned);
 
                 // Create the outline for the buffered polygons.
-                SimpleLineSymbol bufferPolygonOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.DarkBlue, 3);
+                SimpleLineSymbol bufferPolygonOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.DarkBlue, 3);
 
                 // Loop through all the geometries in the buffer results. There will be one buffered polygon if
                 // the result geometries were unioned. Otherwise, there will be one buffer per input geometry.
                 foreach (Geometry poly in bufferPolygons)
                 {
                     // Create a random color to use for buffer polygon fill.
-                    System.Drawing.Color bufferPolygonColor = GetRandomColor();
+                    Color bufferPolygonColor = GetRandomColor();
 
                     // Create simple fill symbol for the buffered polygon using the fill color and outline.
                     SimpleFillSymbol bufferPolygonFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, bufferPolygonColor, bufferPolygonOutlineSymbol);

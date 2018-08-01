@@ -73,8 +73,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             _myMapView.Map = myMap;
 
             // Zoom into Portland, Oregon.
-            await _myMapView.SetViewpointCenterAsync(new MapPoint(-122.66, 45.52, SpatialReferences.Wgs84));
-            await _myMapView.SetViewpointScaleAsync(1000000);
+            await _myMapView.SetViewpointCenterAsync(new MapPoint(-122.66, 45.52, SpatialReferences.Wgs84), 1000000);
         }
 
         private async void OnRunAnalysisClicked(object sender, EventArgs e)

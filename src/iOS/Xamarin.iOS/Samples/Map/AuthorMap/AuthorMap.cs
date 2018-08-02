@@ -61,12 +61,12 @@ namespace ArcGISRuntime.Samples.AuthorMap
         // URL of the server to authenticate with.
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
 
-        // TODO: Add Client ID for an app registered with the server.
-        private string _appClientId = "2Gh53JRzkPtOENQq";
+        // TODO: Add Client ID for an app registered with the server
+        private string _appClientId = "lgAdHkYZYlwwfAhC";
 
-        // TODO: Add URL for redirecting after a successful authorization.
-        //       Note - this must be a URL configured as a valid Redirect URI with your app.
-        private string _oAuthRedirectUrl = "https://developers.arcgis.com";
+        // TODO: Add URL for redirecting after a successful authorization
+        //       Note - this must be a URL configured as a valid Redirect URI with your app
+        private string _oAuthRedirectUrl = "my-ags-app://auth";
 
         // URL used by the server for authorization.
         private const string AuthorizeUrl = "https://www.arcgis.com/sharing/oauth2/authorize";

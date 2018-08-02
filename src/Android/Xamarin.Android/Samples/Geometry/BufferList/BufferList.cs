@@ -239,7 +239,7 @@ namespace ArcGISRuntime.Samples.BufferList
             // Create button to create the unioned buffer.
             _bufferButton = new Button(this)
             {
-                Text = "Make buffer"
+                Text = "Make buffer(s)"
             };
             _bufferButton.Click += OnMakeUnionBufferClicked;
             layout.AddView(_bufferButton);

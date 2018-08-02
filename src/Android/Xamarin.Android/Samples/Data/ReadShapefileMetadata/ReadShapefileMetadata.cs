@@ -90,7 +90,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             // Add a button to show the metadata
             Button showMetadataButton = new Button(this)
             {
-                Text = "Metadata"
+                Text = "Show Metadata"
             };
             showMetadataButton.Click += ShowMetadataDialog;
             layout.AddView(showMetadataButton);

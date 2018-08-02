@@ -74,6 +74,13 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             // Create a new vertical layout for the app
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
+            // Create a TextView for instructions.
+            TextView sampleInstructionsTextView = new TextView(this)
+            {
+                Text = "Tap on the map to select an ENC feature."
+            };
+            layout.AddView(sampleInstructionsTextView);
+
             // Add the map view to the layout
             layout.AddView(_myMapView);
 

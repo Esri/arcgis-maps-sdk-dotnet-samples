@@ -75,6 +75,13 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             // Create a new layout for the entire page
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
+            // Create a TextView for instructions.
+            TextView sampleInstructionsTextView = new TextView(this)
+            {
+                Text = "Tap to find the route to the nearest hospital to your incident."
+            };
+            layout.AddView(sampleInstructionsTextView);
+
             // Add the map view to the layout
             layout.AddView(_myMapView);
 

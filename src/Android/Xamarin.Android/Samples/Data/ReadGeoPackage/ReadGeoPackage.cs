@@ -7,23 +7,23 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System.Linq;
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
-using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using ArcGISRuntime.Samples.Managers;
+using System.Collections.Specialized;
+using System.Linq;
 
 namespace ArcGISRuntime.Samples.ReadGeoPackage
 {
     [Activity]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Read a GeoPackage",
         "Data",
@@ -31,7 +31,6 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         "Click on the layer name in the 'Layers Not in the Map' ListView to add it to the map. Conversely to remove a layer from the map click on a layer name in the 'Layers in the Map' ListView. NOTE: The GeoPackage will be downloaded from an ArcGIS Online portal automatically.")]
     public class ReadGeoPackage : Activity
     {
-
         // Member MapView UI control used in the sample
         private MapView _myMapView;
 
@@ -41,19 +40,19 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         // Hold a reference to the ListView for layer names that are currently Not displayed in the map
         private ListView _myListView_LayersNotInTheMap;
 
-        // Member HybridDictionary to hold the multiple key/object pairs that represent: 
+        // Member HybridDictionary to hold the multiple key/object pairs that represent:
         // human-readable string name of a layer - key
         // the layer itself (RasterLayer or FeatureLayer) - object
-        // NOTE: According to MSDN, a HybridDictionary is useful for cases where the number 
+        // NOTE: According to MSDN, a HybridDictionary is useful for cases where the number
         // of elements in a dictionary is unknown
         private HybridDictionary _myHybridDictionary_Layers = new HybridDictionary();
 
-        // Member ObservableCollection to hold the human-readable string name of the 
-        // layers - used as the ListView_LayersNotInTheMap.ItemsSource 
+        // Member ObservableCollection to hold the human-readable string name of the
+        // layers - used as the ListView_LayersNotInTheMap.ItemsSource
         private ObservableCollection<string> _myObservableCollection_LayerNamesNotInTheMap = new ObservableCollection<string>();
 
-        // Member ObservableCollection to hold the human-readable string name of the 
-        // layers - used as the ListView_LayersInTheMap.ItemsSource 
+        // Member ObservableCollection to hold the human-readable string name of the
+        // layers - used as the ListView_LayersInTheMap.ItemsSource
         private ObservableCollection<string> _myObservableCollection_LayerNamesInTheMap = new ObservableCollection<string>();
 
         protected override void OnCreate(Bundle bundle)
@@ -68,7 +67,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             // Set up the initial rendering of the sample
             Initialize();
         }
-        
+
         private async void Initialize()
         {
             // Create a new map centered on Aurora Colorado
@@ -89,8 +88,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
                 // Create a RasterLayer from the GeoPackageRaster
                 RasterLayer myRasterLayer = new RasterLayer(oneGeoPackageRaster)
                 {
-
-                    // Set the opacity on the RasterLayer to partially visible 
+                    // Set the opacity on the RasterLayer to partially visible
                     Opacity = 0.55
                 };
 
@@ -114,14 +112,14 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
                     myRasterLayerName = oneGeoPackageRaster.Path.Split('/').Last();
                 }
 
-                // Append the 'type of layer' to the myRasterLayerName string to display in the 
+                // Append the 'type of layer' to the myRasterLayerName string to display in the
                 // ListBox and as the key for the HybridDictonary
                 myRasterLayerName = myRasterLayerName + " - RasterLayer";
 
                 // Add the name of the RasterLayer and the RasterLayer itself into the HybridDictionary
                 _myHybridDictionary_Layers.Add(myRasterLayerName, myRasterLayer);
 
-                // Add the name of the RasterLayer to _myObservableCollection_LayerNamesNotInTheMap 
+                // Add the name of the RasterLayer to _myObservableCollection_LayerNamesNotInTheMap
                 // which displays the human-readable layer names used by the _myListView_LayersNotInTheMap
                 _myObservableCollection_LayerNamesNotInTheMap.Add(myRasterLayerName);
             }
@@ -138,18 +136,18 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
                 // Load the FeatureLayer - that way we can get to it's properties
                 await myFeatureLayer.LoadAsync();
 
-                // Create a string variable to hold the human-readable name of the FeatureLayer for 
-                // display in the ListBox and the HybridDictonary 
+                // Create a string variable to hold the human-readable name of the FeatureLayer for
+                // display in the ListBox and the HybridDictonary
                 string myFeatureLayerName = myFeatureLayer.Name;
 
-                // Append the 'type of layer' to the myFeatureLayerName string to display in the 
+                // Append the 'type of layer' to the myFeatureLayerName string to display in the
                 // ListBox and as the key for the HybridDictonary
                 myFeatureLayerName = myFeatureLayerName + " - FeatureLayer";
 
                 // Add the name of the FeatureLayer and the FeatureLayer itself into the HybridDictionary
                 _myHybridDictionary_Layers.Add(myFeatureLayerName, myFeatureLayer);
 
-                // Add the name of the RasterLayer to _myObservableCollection_LayerNamesNotInTheMap 
+                // Add the name of the RasterLayer to _myObservableCollection_LayerNamesNotInTheMap
                 // which displays the human-readable layer names used by the _myListView_LayersNotInTheMap
                 _myObservableCollection_LayerNamesNotInTheMap.Add(myFeatureLayerName);
             }
@@ -169,7 +167,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         {
             // This function executes when the user clicks on the human-readable name of a layer in the ListView
             // It finds the actual layer in the HybridDictionary based upon the user selection and add it to the map
-            // Then the human-readable layer name is removed from the _myListView_LayersNotInTheMap and added to the 
+            // Then the human-readable layer name is removed from the _myListView_LayersNotInTheMap and added to the
             // _myListView_LayersInTheMap
 
             // Get the TextView from the AdapterView.ItemClickEventArgs
@@ -181,7 +179,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             // Ensure we have a valid selection
             if (myLayerSelection != null)
             {
-                // Get the human-readable name of the layer 
+                // Get the human-readable name of the layer
                 string myLayerName = myLayerSelection;
 
                 // Get the layer from the HybridDictionary (it could be either a RasterLayer
@@ -227,7 +225,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         {
             // This function executes when the user clicks on the human-readable name of a layer in the ListView
             // It finds the actual layer in the HybridDictionary based upon the user selection and removes it from the map
-            // Then the human-readable layer name is added to the _myListView_LayersNotInTheMap and removed from to the 
+            // Then the human-readable layer name is added to the _myListView_LayersNotInTheMap and removed from to the
             // _myListView_LayersInTheMap
 
             // Get the TextView from the AdapterView.ItemClickEventArgs
@@ -239,7 +237,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             // Ensure we have a valid selection
             if (myLayerSelection != null)
             {
-                // Get the human-readable name of the layer 
+                // Get the human-readable name of the layer
                 string myLayerName = myLayerSelection;
 
                 // Get the layer from the HybridDictionary (it could be either a RasterLayer
@@ -287,7 +285,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create a TextView to show which layers are currently in the map
-            TextView myTextViewLabel1 = new TextView(this) { Text = "Layers in the Map" };
+            TextView myTextViewLabel1 = new TextView(this) { Text = "Layers in map", TextSize = 25 };
             layout.AddView(myTextViewLabel1);
 
             // Create a ListView to show which layers are currently in the map - also
@@ -297,7 +295,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             layout.AddView(_myListView_LayersInTheMap);
 
             // Create a TextView to show which layers are currently Not in the map
-            TextView myTextViewLabel2 = new TextView(this) { Text = "Layers Not in the Map" };
+            TextView myTextViewLabel2 = new TextView(this) { Text = "Layers not in map", TextSize = 25 };
             layout.AddView(myTextViewLabel2);
 
             // Create a ListView to show which layers are currently in Not the map - also

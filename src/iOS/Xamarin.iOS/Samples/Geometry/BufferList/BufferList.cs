@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -24,12 +25,12 @@ namespace ArcGISRuntime.Samples.BufferList
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Buffer list",
         "Geometry",
-        "This sample demonstrates how to use the GeometryEngine.Buffer to generate one or more polygon from a series of input geometries and matching series of buffer distances. The option to union all the resulting buffer(s) is provided.",
-        "Tap on the map in several locations to create center map-points to generate buffer(s). You can optionally change the buffer distance(in miles) by adjusting the value in the text field before each tap on the map. Then click on the 'Create Buffer(s)' button. If the 'Union the buffer(s)' switch is 'on' the resulting output buffer will be one polygon(possibly multi - part). If the 'Union the buffer(s)' switch is 'off' the resulting output will have one buffer polygon per input map point.",
-        "")]
+        "This sample demonstrates how to use a planar (Euclidean) buffer operation by calling `GeometryEngine.Buffer` to generate one or more polygons from a collection of input geometries and a corresponding collection of buffer distances. The result polygons can be returned as individual geometries or unioned into a single polygon output.",
+        "Tap on the map to add points. Each point will use the buffer distance entered when it was created. The envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.",
+        "GeometryEngine, Geometry, Buffer, SpatialReference")]
     public class BufferList : UIViewController
     {
-        // Create and hold references to the UI controls.
+        // Controls needed for the app UI.
         private readonly MapView _myMapView = new MapView();
         private readonly UIToolbar _helpToolbar = new UIToolbar();
         private readonly UIToolbar _controlsToolbar = new UIToolbar();
@@ -38,15 +39,13 @@ namespace ArcGISRuntime.Samples.BufferList
         private UITextField _bufferDistanceEntry;
         private UISwitch _unionBufferSwitch;
         private UIButton _bufferButton;
+        private UIButton _clearButton;
 
-        // Graphics overlay to display buffer-related graphics.
-        private GraphicsOverlay _graphicsOverlay;
+        // A polygon that defines the valid area of the spatial reference used.
+        private Polygon _spatialReferenceArea;
 
-        // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.Buffer operation.
-        private readonly List<Geometry> _bufferPointsList = new List<Geometry>();
-
-        // List of buffer distance values (in meters) that will be used by the GeometryEngine.Buffer operation.
-        private readonly List<double> _bufferDistancesList = new List<double>();
+        // A Random object to create RGB color values.
+        private Random _random = new Random();
 
         public BufferList()
         {
@@ -65,13 +64,14 @@ namespace ArcGISRuntime.Samples.BufferList
         {
             try
             {
+                // Calculate values used to layout the UI controls.
                 nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
                 nfloat controlHeight = 30;
                 nfloat margin = 5;
                 nfloat helpToolbarHeight = controlHeight * 3 + margin * 2;
                 nfloat controlToolbarHeight = 2 * controlHeight + 3 * margin;
 
-                // Reposition the controls.
+                // Position the UI controls.
                 _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
                 _myMapView.ViewInsets = new UIEdgeInsets(topMargin + helpToolbarHeight, 0, controlToolbarHeight, 0);
                 _helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, helpToolbarHeight);
@@ -80,131 +80,14 @@ namespace ArcGISRuntime.Samples.BufferList
                 _bufferDistanceInstructionLabel.Frame = new CGRect(margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, 175, controlHeight);
                 _bufferDistanceEntry.Frame = new CGRect(_bufferDistanceInstructionLabel.Frame.Right + margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, 50, controlHeight);
                 _unionBufferSwitch.Frame = new CGRect(View.Bounds.Width - 75 + margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, 75 - 2 * margin, controlHeight);
-                _bufferButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _bufferButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2, controlHeight);
+                _clearButton.Frame = new CGRect(View.Bounds.Width / 2 + (2 * margin), View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 3, controlHeight);
 
                 base.ViewDidLayoutSubviews();
             }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
             catch (NullReferenceException)
             {
-            }
-        }
-
-        private void Initialize()
-        {
-            // Create a map with a topographic basemap.
-            Map theMap = new Map(Basemap.CreateTopographic());
-
-            // Create an envelope that covers the Dallas/Fort Worth area.
-            Geometry startingEnvelope = new Envelope(-10863035.97, 3838021.34, -10744801.344, 3887145.299, SpatialReferences.WebMercator);
-
-            // Set the map's initial extent to the envelope.
-            theMap.InitialViewpoint = new Viewpoint(startingEnvelope);
-
-            // Assign the map to the MapView.
-            _myMapView.Map = theMap;
-
-            // Create a graphics overlay to show the buffered related graphics.
-            _graphicsOverlay = new GraphicsOverlay();
-
-            // Add the created graphics overlay to the MapView.
-            _myMapView.GraphicsOverlays.Add(_graphicsOverlay);
-
-            // Wire up the MapView's GeoViewTapped event handler.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
-        }
-
-        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
-        {
-            try
-            {
-                // Get the buffer size (in miles) from the text field.
-                double bufferDistanceInMiles = Convert.ToDouble(_bufferDistanceEntry.Text);
-
-                // Create a variable to be the buffer size in meters. There are 1609.34 meters in one mile.
-                double bufferDistanceInMeters = bufferDistanceInMiles * 1609.34;
-
-                // Add the map point to the list that will be used by the GeometryEngine.Buffer operation.
-                _bufferPointsList.Add(e.Location);
-
-                // Add the buffer distance to the list that will be used by the GeometryEngine.Buffer operation.
-                _bufferDistancesList.Add(bufferDistanceInMeters);
-
-                // Create a simple marker symbol to display where the user tapped/clicked on the map. The marker symbol will be a 
-                // solid, red circle.
-                SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Red, 10);
-
-                // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol. 
-                Graphic userTappedGraphic = new Graphic(e.Location, userTappedSimpleMarkerSymbol)
-                {
-                    // Specify a ZIndex value on the user input map point graphic to assist with the drawing order of mixed geometry types 
-                    // being added to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is 
-                    // drawn. Typically, Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2)
-                    ZIndex = 2
-                };
-
-                // Add the user tapped/clicked map point graphic to the graphic overlay.
-                _graphicsOverlay.Graphics.Add(userTappedGraphic);
-            }
-            catch (Exception ex)
-            {
-                // Display an error message if there is a problem generating the buffer polygon.
-                UIAlertController alertController = UIAlertController.Create("Geometry Engine Failed!", ex.Message, UIAlertControllerStyle.Alert);
-                alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-                PresentViewController(alertController, true, null);
-            }
-        }
-
-        private void BufferButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Get the boolean value whether to create a single unioned buffer (true) or independent buffer around each map point (false).
-                bool unionBufferBool = _unionBufferSwitch.On;
-
-                // Create an IEnumerable that contains buffered polygon(s) from the GeometryEngine Buffer operation based on a list of map 
-                // points and list of buffered distances. The input distances used in the Buffer operation are in meters; this matches the 
-                // backdrop basemap units which are also meters. If the unionResult parameter is true create a single unioned buffer, else
-                // independent buffers will be created around each map point.
-                IEnumerable<Geometry> theIEnumerableOfGeometryBuffer = GeometryEngine.Buffer(_bufferPointsList, _bufferDistancesList, unionBufferBool);
-
-                // Create the outline (a simple line symbol) for the buffered polygon. It will be a solid, thick, green line.
-                SimpleLineSymbol bufferPolygonSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Green, 5);
-
-                // Create the color that will be used for the fill of the buffered polygon. It will be a semi-transparent, yellow color.
-                System.Drawing.Color bufferPolygonFillColor = System.Drawing.Color.FromArgb(155, 255, 255, 0);
-
-                // Create simple fill symbol for the buffered polygon. It will be solid, semi-transparent, yellow fill with a solid, 
-                // thick, green outline.
-                SimpleFillSymbol bufferPolygonSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, bufferPolygonFillColor, bufferPolygonSimpleLineSymbol);
-
-                // Loop through all the geometries in the IEnumerable from the GeometryEngine Buffer operation. There should only be one buffered 
-                // polygon returned from the IEnumerable collection if the bool unionResult parameter was set to true in the GeometryEngine.Buffer 
-                // operation. If the bool unionResult parameter was set to false there will be one buffer per input geometry.
-                foreach (Geometry oneGeometry in theIEnumerableOfGeometryBuffer)
-                {
-                    // Create a new graphic for the buffered polygon using the defined simple fill symbol.
-                    Graphic bufferPolygonGraphic = new Graphic(oneGeometry, bufferPolygonSimpleFillSymbol)
-                    {
-                        // Specify a ZIndex value on the buffered polygon graphic to assist with the drawing order of mixed geometry types being added
-                        // to a single GraphicCollection. The lower the ZIndex value, the lower in the visual stack the graphic is drawn. Typically, 
-                        // Polygons would have the lowest ZIndex value (ex: 0), then Polylines (ex: 1), and finally MapPoints (ex: 2).
-                        ZIndex = 0
-                    };
-
-                    // Add the buffered polygon graphic to the graphic overlay.
-                    // NOTE: While you can control the positional placement of a graphic within the GraphicCollection of a GraphicsOverlay, 
-                    // it does not impact the drawing order in the GUI. If you have mixed geometries (i.e. Polygon, Polyline, MapPoint) within
-                    // a single GraphicsCollection, the way to control the drawing order is to specify the Graphic.ZIndex. 
-                    _graphicsOverlay.Graphics.Insert(0, bufferPolygonGraphic);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Display an error message if there is a problem generating the buffer polygon.
-                UIAlertController alertController = UIAlertController.Create("Geometry Engine Failed!", ex.Message, UIAlertControllerStyle.Alert);
-                alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-                PresentViewController(alertController, true, null);
+                // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
             }
         }
 
@@ -213,8 +96,8 @@ namespace ArcGISRuntime.Samples.BufferList
             // Create a UITextView for the overall sample instructions.
             _sampleInstructionsLabel = new UILabel
             {
-                Text = "Tap on the map to create several points. You can specify the buffer distance for each point. " +
-                       "Tap 'Create buffer(s)'. If the switch is 'on' the resulting output buffer will be unioned (one polygon). Otherwise, the result will have one buffer per point.",
+                Text = "Tap on the map to add points. Each point will use the buffer distance entered when it was created. Use the switch to union the output buffers into a single polygon. " +
+                       "The envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.",
                 Lines = 4,
                 AdjustsFontSizeToFitWidth = true
             };
@@ -235,7 +118,7 @@ namespace ArcGISRuntime.Samples.BufferList
                 BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
                 BorderStyle = UITextBorderStyle.RoundedRect
             };
-            // - Allow pressing 'return' to dismiss the keyboard.
+            // Allow pressing 'return' to dismiss the keyboard.
             _bufferDistanceEntry.ShouldReturn += textField =>
             {
                 textField.ResignFirstResponder();
@@ -253,11 +136,226 @@ namespace ArcGISRuntime.Samples.BufferList
             _bufferButton = new UIButton();
             _bufferButton.SetTitle("Create buffer(s)", UIControlState.Normal);
             _bufferButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            // - Hook to touch event to do querying.
             _bufferButton.TouchUpInside += BufferButton_Click;
 
+            // Create a button to clear all graphics (tap points and buffer polygons).
+            _clearButton = new UIButton();
+            _clearButton.SetTitle("Clear", UIControlState.Normal);
+            _clearButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _clearButton.TouchUpInside += ClearButton_Click;
+
             // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _sampleInstructionsLabel, _bufferDistanceInstructionLabel, _bufferDistanceEntry, _unionBufferSwitch, _bufferButton);
+            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _sampleInstructionsLabel, _bufferDistanceInstructionLabel, _bufferDistanceEntry, _unionBufferSwitch, _bufferButton, _clearButton);
+        }
+
+        private void Initialize()
+        {
+            // Create a spatial reference that's suitable for creating planar buffers in north central Texas (State Plane).
+            SpatialReference statePlaneNorthCentralTexas = new SpatialReference(32038);
+
+            // Define a polygon that represents the valid area of use for the spatial reference.
+            // This information is available at https://developers.arcgis.com/net/latest/wpf/guide/pdf/projected_coordinate_systems_rt100_3_0.pdf
+            List<MapPoint> spatialReferenceExtentCoords = new List<MapPoint>
+            {
+                new MapPoint(-103.070, 31.720, SpatialReferences.Wgs84),
+                new MapPoint(-103.070, 34.580, SpatialReferences.Wgs84),
+                new MapPoint(-94.000, 34.580, SpatialReferences.Wgs84),
+                new MapPoint(-94.00, 31.720, SpatialReferences.Wgs84)
+            };
+            _spatialReferenceArea = new Polygon(spatialReferenceExtentCoords);
+            _spatialReferenceArea = GeometryEngine.Project(_spatialReferenceArea, statePlaneNorthCentralTexas) as Polygon;
+
+            // Create a map that uses the North Central Texas state plane spatial reference.
+            Map bufferMap = new Map(statePlaneNorthCentralTexas);
+
+            // Add some base layers (counties, cities, and highways).
+            Uri usaLayerSource = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer");
+            ArcGISMapImageLayer usaLayer = new ArcGISMapImageLayer(usaLayerSource);
+            bufferMap.Basemap.BaseLayers.Add(usaLayer);
+
+            // Use a new EnvelopeBuilder to expand the spatial reference extent 120%.
+            EnvelopeBuilder envBuilder = new EnvelopeBuilder(_spatialReferenceArea.Extent);
+            envBuilder.Expand(1.2);
+
+            // Set the map's initial extent to the expanded envelope.
+            Envelope startingEnvelope = envBuilder.ToGeometry();
+            bufferMap.InitialViewpoint = new Viewpoint(startingEnvelope);
+
+            // Assign the map to the MapView.
+            _myMapView.Map = bufferMap;
+
+            // Create a graphics overlay to show the buffer polygon graphics.
+            GraphicsOverlay bufferGraphicsOverlay = new GraphicsOverlay
+            {
+                // Give the overlay an ID so it can be found later.
+                Id = "buffers"
+            };
+
+            // Create a graphic to show the spatial reference's valid extent (envelope) with a dashed red line.
+            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.Red, 5);
+            Graphic spatialReferenceExtentGraphic = new Graphic(_spatialReferenceArea, lineSymbol);
+
+            // Add the graphic to a new overlay.
+            GraphicsOverlay spatialReferenceGraphicsOverlay = new GraphicsOverlay();
+            spatialReferenceGraphicsOverlay.Graphics.Add(spatialReferenceExtentGraphic);
+
+            // Add the graphics overlays to the MapView.
+            _myMapView.GraphicsOverlays.Add(bufferGraphicsOverlay);
+            _myMapView.GraphicsOverlays.Add(spatialReferenceGraphicsOverlay);
+
+            // Wire up the MapView's GeoViewTapped event handler.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+        }
+
+        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            try
+            {
+                // Get the input map point (in the map's coordinate system, State Plane for North Central Texas).
+                MapPoint tapMapPoint = e.Location;
+
+                // Check if the point coordinates are within the spatial reference envelope.
+                bool withinValidExent = GeometryEngine.Contains(_spatialReferenceArea, tapMapPoint);
+
+                // If the input point is not within the valid extent for the spatial reference, warn the user and return.
+                if (!withinValidExent)
+                {
+                    // Display a message to warn the user.
+                    UIAlertController alertController = UIAlertController.Create("Out of bounds", "Location is not valid to buffer using the defined spatial reference.", UIAlertControllerStyle.Alert);
+                    alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+                    PresentViewController(alertController, true, null);
+
+                    return;
+                }
+
+                // Get the buffer radius (in miles) from the text box.
+                double bufferDistanceMiles = Convert.ToDouble(_bufferDistanceEntry.Text);
+
+                // Use a helper method to get the buffer distance in feet (unit that's used by the spatial reference).
+                double bufferDistanceFeet = LinearUnits.Miles.ConvertTo(LinearUnits.Feet, bufferDistanceMiles);
+
+                // Create a simple marker symbol (red circle) to display where the user tapped/clicked on the map. 
+                SimpleMarkerSymbol tapSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Red, 10);
+
+                // Create a new graphic to show the tap location. 
+                Graphic tapGraphic = new Graphic(tapMapPoint, tapSymbol)
+                {
+                    // Specify a z-index value on the point graphic to make sure it draws on top of the buffer polygons.
+                    ZIndex = 2
+                };
+
+                // Store the specified buffer distance as an attribute with the graphic.
+                tapGraphic.Attributes["distance"] = bufferDistanceFeet;
+
+                // Add the tap point graphic to the buffer graphics overlay.
+                _myMapView.GraphicsOverlays["buffers"].Graphics.Add(tapGraphic);
+            }
+            catch (Exception ex)
+            {
+                // Display an error message.
+                UIAlertController alertController = UIAlertController.Create("Error creating buffer point", ex.Message, UIAlertControllerStyle.Alert);
+                alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+                PresentViewController(alertController, true, null);
+            }
+        }
+
+        private void BufferButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Call a function to delete any existing buffer polygons so they can be recreated.
+                ClearBufferPolygons();
+
+                // Check if the user wants to create a single unioned buffer or independent buffers around each map point.
+                bool areBuffersUnioned = _unionBufferSwitch.On;
+
+                // Iterate all point graphics and create a list of map points and buffer distances for each.
+                List<MapPoint> bufferMapPoints = new List<MapPoint>();
+                List<double> bufferDistances = new List<double>();
+                foreach (Graphic bufferGraphic in _myMapView.GraphicsOverlays["buffers"].Graphics)
+                {
+                    // Only use point graphics.
+                    if (bufferGraphic.Geometry.GeometryType == GeometryType.Point)
+                    {
+                        // Get the geometry (map point) from the graphic.
+                        MapPoint bufferLocation = bufferGraphic.Geometry as MapPoint;
+
+                        // Read the "distance" attribute to get the buffer distance entered when the point was tapped.
+                        double bufferDistanceFeet = (double)bufferGraphic.Attributes["distance"];
+
+                        // Add the point and the corresponding distance to the lists.
+                        bufferMapPoints.Add(bufferLocation);
+                        bufferDistances.Add(bufferDistanceFeet);
+                    }
+                }
+
+                // Call GeometryEngine.Buffer with a list of map points and a list of buffered distances.
+                IEnumerable<Geometry> bufferPolygons = GeometryEngine.Buffer(bufferMapPoints, bufferDistances, areBuffersUnioned);
+
+                // Create the outline for the buffered polygons.
+                SimpleLineSymbol bufferPolygonOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.DarkBlue, 3);
+
+                // Loop through all the geometries in the buffer results. There will be one buffered polygon if
+                // the result geometries were unioned. Otherwise, there will be one buffer per input geometry.
+                foreach (Geometry poly in bufferPolygons)
+                {
+                    // Create a random color to use for buffer polygon fill.
+                    Color bufferPolygonColor = GetRandomColor();
+
+                    // Create simple fill symbol for the buffered polygon using the fill color and outline.
+                    SimpleFillSymbol bufferPolygonFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, bufferPolygonColor, bufferPolygonOutlineSymbol);
+
+                    // Create a new graphic for the buffered polygon using the fill symbol.
+                    Graphic bufferPolygonGraphic = new Graphic(poly, bufferPolygonFillSymbol)
+                    {
+                        // Specify a z-index of 0 to ensure the polygons draw below the tap points.
+                        ZIndex = 0
+                    };
+
+                    // Add the buffered polygon graphic to the graphics overlay.                    
+                    _myMapView.GraphicsOverlays[0].Graphics.Add(bufferPolygonGraphic);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Display an error message if there is a problem generating the buffers.
+                UIAlertController alertController = UIAlertController.Create("Unable to create buffer polygons", ex.Message, UIAlertControllerStyle.Alert);
+                alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+                PresentViewController(alertController, true, null);
+            }
+        }
+
+        private Color GetRandomColor()
+        {
+            // Get a byte array with three random values.
+            var colorBytes = new byte[3];
+            _random.NextBytes(colorBytes);
+
+            // Use the random bytes to define red, green, and blue values for a new color.
+            return Color.FromArgb(155, colorBytes[0], colorBytes[1], colorBytes[2]);
+        }
+
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            // Clear all graphics (tap points and buffer polygons).
+            _myMapView.GraphicsOverlays["buffers"].Graphics.Clear();
+        }
+
+        private void ClearBufferPolygons()
+        {
+            // Get the collection of graphics in the graphics overlay (points and buffer polygons).
+            GraphicCollection bufferGraphics = _myMapView.GraphicsOverlays["buffers"].Graphics;
+
+            // Loop (backwards) through all graphics.
+            for (int i = bufferGraphics.Count - 1; i >= 0; i--)
+            {
+                // If the graphic is a polygon, remove it from the overlay.
+                Graphic thisGraphic = bufferGraphics[i];
+                if (thisGraphic.Geometry.GeometryType == GeometryType.Polygon)
+                {
+                    bufferGraphics.RemoveAt(i);
+                }
+            }
         }
     }
 }

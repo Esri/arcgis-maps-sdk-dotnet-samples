@@ -66,14 +66,14 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         // Variables for OAuth-related values ...
         // URL of the server to authenticate with
-        private string ServerUrl = "https://www.arcgis.com/sharing/rest";
+        private string _serverUrl = "https://www.arcgis.com/sharing/rest";
 
         // TODO: Add Client ID for an app registered with the server
-        private string AppClientId = "2Gh53JRzkPtOENQq";
+        private string _appClientId = "lgAdHkYZYlwwfAhC";
 
         // TODO: Add URL for redirecting after a successful authorization
         //       Note - this must be a URL configured as a valid Redirect URI with your app
-        private string OAuthRedirectUrl = "https://developers.arcgis.com";
+        private string _oAuthRedirectUrl = "my-ags-app://auth";
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -402,7 +402,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 Text = "Client ID:"
             };
             _clientIdText = new EditText(this);
-            if (!String.IsNullOrEmpty(AppClientId)) { _clientIdText.Text = AppClientId; }
+            if (!String.IsNullOrEmpty(_appClientId)) { _clientIdText.Text = _appClientId; }
             clientIdLayout.AddView(clientIdLabel);
             clientIdLayout.AddView(_clientIdText);
 
@@ -422,9 +422,9 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 Hint = "https://my.redirect/url"
             };
 
-            if (!String.IsNullOrEmpty(OAuthRedirectUrl))
+            if (!String.IsNullOrEmpty(_oAuthRedirectUrl))
             {
-                _redirectUrlText.Text = OAuthRedirectUrl;
+                _redirectUrlText.Text = _oAuthRedirectUrl;
             }
             redirectUrlLayout.AddView(redirectUrlLabel);
             redirectUrlLayout.AddView(_redirectUrlText);
@@ -455,8 +455,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
             if (_configOAuthDialog != null)
             {
                 // Get title and description text
-                AppClientId = _clientIdText.Text;
-                OAuthRedirectUrl = _redirectUrlText.Text;
+                _appClientId = _clientIdText.Text;
+                _oAuthRedirectUrl = _redirectUrlText.Text;
 
                 // Dismiss the dialog
                 _configOAuthDialog.Dismiss();
@@ -471,11 +471,11 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Register the server information with the AuthenticationManager
             ServerInfo portalServerInfo = new ServerInfo
             {
-                ServerUri = new Uri(ServerUrl),
+                ServerUri = new Uri(_serverUrl),
                 OAuthClientInfo = new OAuthClientInfo
                 {
-                    ClientId = AppClientId,
-                    RedirectUri = new Uri(OAuthRedirectUrl)
+                    ClientId = _appClientId,
+                    RedirectUri = new Uri(_oAuthRedirectUrl)
                 },
                 // Specify OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
                 // Otherwise, use OAuthImplicit
@@ -540,7 +540,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             Xamarin.Auth.OAuth2Authenticator authenticator = new OAuth2Authenticator(
-                clientId: AppClientId,
+                clientId: _appClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
                 redirectUrl: callbackUri)

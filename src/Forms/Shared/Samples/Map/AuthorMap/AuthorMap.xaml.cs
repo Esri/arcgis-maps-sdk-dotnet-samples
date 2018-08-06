@@ -178,8 +178,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
             mapInputForm.OnSaveClicked += SaveMapAsync;
 
             // Navigate to the SaveMapPage UI
-            // Note: in each platform's project, there is a custom PageRenderer class called SaveMapPage that provides
-            //       platform-specific logic to challenge the user for OAuth credentials for ArcGIS Online when the page launches
             await Navigation.PushAsync(mapInputForm);
         }
 
@@ -413,10 +411,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Get the current Android Activity
             Activity activity = (Activity)Android.App.Application.Context;
 #endif
-#if __IOS__
-            // Get the current iOS ViewController
-            var viewController = Xamarin.Forms.Platform.iOS.Platform.GetRenderer(this).ViewController;
-#endif
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(
                 clientId: AppClientId,
@@ -437,7 +431,11 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 {
 #if __IOS__
                     // Dismiss the OAuth UI when complete
-                    viewController.DismissViewController(true, null);
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        var viewController = UIApplication.SharedApplication.KeyWindow.RootViewController;
+                        viewController.DismissViewController(true, null);
+                    });
 #endif
 
                     // Check if the user is authenticated
@@ -504,6 +502,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password
             Device.BeginInvokeOnMainThread(() =>
             {
+                var viewController = UIApplication.SharedApplication.KeyWindow.RootViewController;
                 viewController.PresentViewController(authenticator.GetUI(), true, null);
             });
 #endif

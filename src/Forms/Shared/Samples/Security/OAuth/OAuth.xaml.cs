@@ -151,7 +151,7 @@ namespace ArcGISRuntime.Samples.OAuth
 
 #if __ANDROID__
             // Get the current Android Activity
-            Activity activity = (Activity)Android.App.Application.Context;
+            Activity activity = (Activity)Forms.Context;
 #endif
 #if __IOS__
             // Get the current iOS ViewController.

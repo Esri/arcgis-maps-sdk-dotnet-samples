@@ -70,7 +70,7 @@ namespace ArcGISRuntime.Samples.OAuth
             // Get a web map portal item using its ID.
             // If the item contains layers not shared publicly, the user will be challenged for credentials at this point.
             PortalItem portalItem = await PortalItem.CreateAsync(arcgisPortal, WebMapId);
-
+            
             // Create a new map with the portal item and display it in the map view.
             // If authentication failed, only the public layers will be displayed.
             Map myMap = new Map(portalItem);
@@ -150,8 +150,8 @@ namespace ArcGISRuntime.Samples.OAuth
 #if __ANDROID__ || __IOS__
 
 #if __ANDROID__
-            // Get the current Android Activity
-            Activity activity = (Activity)Forms.Context;
+            // Get the current Android Activity.
+            Activity activity = (Activity)ArcGISRuntime.Droid.MainActivity.Instance;
 #endif
 #if __IOS__
             // Get the current iOS ViewController.

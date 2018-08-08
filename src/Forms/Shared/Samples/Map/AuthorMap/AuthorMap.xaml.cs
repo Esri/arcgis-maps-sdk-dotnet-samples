@@ -409,7 +409,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
 #if __ANDROID__
             // Get the current Android Activity
-            Activity activity = (Activity)Android.App.Application.Context;
+            Activity activity = (Activity)ArcGISRuntime.Droid.MainActivity.Instance;
 #endif
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(

@@ -176,7 +176,6 @@
     <!-- Sample Manager Code -->
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="PageRenderer\SaveMapPageRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

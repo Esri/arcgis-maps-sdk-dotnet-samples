@@ -45,8 +45,11 @@ namespace ArcGISRuntime
             // Create a new search controller
             SearchController = new UISearchController(searchResultsController) {SearchResultsUpdater = searchUpdater};
 
-            // Display the search controller
-            TableView.TableHeaderView = SearchController.SearchBar;
+            // Show the search bar in the navigation/header area
+            NavigationItem.SearchController = SearchController;
+            // Show search bar by default
+            NavigationItem.HidesSearchBarWhenScrolling = false;
+
             DefinesPresentationContext = true;
         }
 

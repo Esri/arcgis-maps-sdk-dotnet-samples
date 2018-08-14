@@ -34,12 +34,6 @@ namespace ArcGISRuntime
             _sampleItems = SampleManager.Current.AllSamples.ToList();
         }
 
-        public override void ViewDidLayoutSubviews()
-        {
-            // Magic number is the row height for the view controller
-            TableView.ContentInset = new UIEdgeInsets(44, 0, 0, 0);
-        }
-
         public void Search(string searchText)
         {
             _visibleSamples = _sampleItems.Where(c => SampleManager.Current.SampleSearchFunc(c, searchText)).ToList();
@@ -58,12 +52,7 @@ namespace ArcGISRuntime
 
         public override string TitleForHeader(UITableView tableView, nint section)
         {
-            return "Search Results";
-        }
-
-        public override string TitleForFooter(UITableView tableView, nint section)
-        {
-            return $"Found {_visibleSamples.Count} matches";
+            return $"Search results ({_visibleSamples.Count})";
         }
 
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)

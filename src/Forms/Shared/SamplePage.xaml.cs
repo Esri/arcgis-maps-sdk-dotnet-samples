@@ -50,12 +50,14 @@ namespace ArcGISRuntime
             {
                 Title = sampleInfo.SampleName;
             }
+            
+            // Set up the description page.
             try
             {
                 string folderPath = sampleInfo.Path;
                 string baseUrl = "";
                 string readmePath = "";
-                string basePath = ""; 
+                string basePath = "";
 #if WINDOWS_UWP
                 baseUrl = "ms-appx-web:///";
                 basePath = $"{baseUrl}{folderPath.Substring(folderPath.LastIndexOf("Samples"))}";
@@ -64,13 +66,17 @@ namespace ArcGISRuntime
                 baseUrl = "file:///android_asset";
                 basePath = baseUrl + folderPath;
                 readmePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + folderPath, "readme.md");
+#elif __IOS__
+                baseUrl = Foundation.NSBundle.MainBundle.BundlePath;
+                basePath = folderPath;
+                readmePath = System.IO.Path.Combine(folderPath, "readme.md");
 #endif
-                string cssPath = $"{baseUrl}/Resources/github-markdown.css";
+                string cssPath = $"{baseUrl}/github-markdown.css";
                 
                 string readmeContent = System.IO.File.ReadAllText(readmePath);
                 readmeContent = markdownRenderer.Parse(readmeContent);
 
-                // Fix paths for images
+                // Fix paths for images.
                 readmeContent = readmeContent.Replace("src=\"", $"src=\"{basePath}/");
 
                 string htmlString = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" /></head><body class=\"markdown-body\">{readmeContent}</body>";

@@ -50,9 +50,6 @@ namespace ArcGISRuntime.Droid
                     // Only readmes need to be copied for now.
                     if (!combinedPath.EndsWith(".md")) { continue; }
 
-                    // Re-case readme files for consistency.
-                    string newName = asset.Replace("README", "readme").Replace("Readme", "readme");
-
                     // Copy the file.
                     using (var source = Application.Context.Assets.Open(combinedPath))
                     {
@@ -62,7 +59,7 @@ namespace ArcGISRuntime.Droid
                             System.IO.Directory.CreateDirectory(combinedTargetDirPath);
                         }
 
-                        using (var dest = System.IO.File.Create(System.IO.Path.Combine(combinedTargetDirPath, newName)))
+                        using (var dest = System.IO.File.Create(System.IO.Path.Combine(combinedTargetDirPath, asset)))
                         {
                             source.CopyTo(dest);
                         }

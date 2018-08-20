@@ -150,7 +150,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="Info.png" />
     <Content Include="Properties\Default.rd.xml" />
-    <Content Include="Resources\github-markdown.css">
+    <Content Include="github-markdown.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -192,6 +192,9 @@
       <Version>3.1.0.697729</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
@@ -199,5 +202,5 @@
   <Import Project="..\Shared\Forms.projitems" Label="Shared" />
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <Import Project="Readme.targets" />
+  <Import Project="readme.targets" />
 </Project>

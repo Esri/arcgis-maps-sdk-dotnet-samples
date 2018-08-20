@@ -1285,5 +1285,5 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Import Project="SourceViewer.targets" />
-  <Import Project="Readme.targets" />
+  <Import Project="readme.targets" />
 </Project>

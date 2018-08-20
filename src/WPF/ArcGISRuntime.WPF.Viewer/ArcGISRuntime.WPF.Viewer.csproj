@@ -1553,5 +1553,5 @@
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.1\build\net452\Esri.ArcGISRuntime.LocalServices.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.1\build\net452\Esri.ArcGISRuntime.LocalServices.targets')" />
   <Import Project="SourceViewer.targets" />
-  <Import Project="Readme.targets" />
+  <Import Project="readme.targets" />
 </Project>

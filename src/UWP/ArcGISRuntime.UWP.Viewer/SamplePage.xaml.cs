@@ -19,6 +19,7 @@ namespace ArcGISRuntime.UWP.Viewer
 {
     public sealed partial class SamplePage
     {
+        MarkedNet.Marked markdownRenderer = new MarkedNet.Marked();
         public SamplePage()
         {
             InitializeComponent();
@@ -34,6 +35,15 @@ namespace ArcGISRuntime.UWP.Viewer
             // Default to the live sample view.
             LiveSample.IsChecked = true;
 
+            string folderPath = SampleManager.Current.SelectedSample.Path;
+            string cssPath = "ms-appx-web:///Resources\\github-markdown.css";
+            string basePath = $"ms-appx-web:///{folderPath.Substring(folderPath.LastIndexOf("Samples"))}";
+            string readmePath = System.IO.Path.Combine(folderPath, "Readme.md");
+            string readmeContent = System.IO.File.ReadAllText(readmePath);
+            readmeContent = markdownRenderer.Parse(readmeContent);
+            readmeContent = readmeContent.Replace("src=\"", $"src=\"{basePath}\\");
+            string htmlString = "<!doctype html><head><link rel=\"stylesheet\" href=\"" + cssPath + "\" /></head><body class=\"markdown-body\">" + readmeContent + "</body>";
+            DescriptionView.NavigateToString(htmlString);
             SourceCodeContainer.LoadSourceCode();
         }
        
@@ -80,7 +90,5 @@ namespace ArcGISRuntime.UWP.Viewer
             // Prevent user from going back
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
         }
-
-
     }
 }

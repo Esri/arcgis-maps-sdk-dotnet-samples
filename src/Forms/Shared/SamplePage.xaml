@@ -22,18 +22,10 @@
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=.05,Property=Height}"
                Padding="0"
                IsVisible="False"
+               CornerRadius="0"
                >
-            <Frame CornerRadius="10" BackgroundColor="White">
-                <ScrollView>
-                    <StackLayout>
-                        <Label Text="{Binding SampleName}" FontSize="Large" TextColor="Black" />
-                        <Label Text="Description:" FontSize="Medium" TextColor="#007AC2" />
-                        <Label Text="{Binding Description}" TextColor="Black" />
-                        <Label Text="Instructions:" FontSize="Medium" TextColor="#007AC2"  IsVisible="False" x:Name="InstructionLabel"/>
-                        <Label Text="{Binding Instructions}" TextColor="Black" />
-                    </StackLayout>
-                </ScrollView>
-            </Frame>
+            <WebView x:Name="DescriptionView"/>
+            
         </Frame>
     </RelativeLayout>
 </ContentPage>

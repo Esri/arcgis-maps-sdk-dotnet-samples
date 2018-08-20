@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Link resource files, to include them in the output directory and application manifest. -->
+
+  <!-- Readmes -->
+  <ItemGroup>
+    <AndroidAsset Include="..\Shared\Samples\**\**\*.*">
+      <Link>Samples\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+  </ItemGroup>
+</Project>

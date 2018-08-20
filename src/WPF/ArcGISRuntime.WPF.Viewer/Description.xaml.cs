@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -8,13 +8,13 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Shared.Models;
-using System;
 
 namespace ArcGISRuntime.WPF.Viewer
 {
     public partial class Description
     {
-        MarkedNet.Marked markdownRenderer = new MarkedNet.Marked();
+        private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
+
         public Description()
         {
             InitializeComponent();
@@ -28,7 +28,7 @@ namespace ArcGISRuntime.WPF.Viewer
             string readmePath = System.IO.Path.Combine(folderPath, "Readme.md");
             string readmeContent = System.IO.File.ReadAllText(readmePath);
             string cssPath = folderPath.Substring(0, folderPath.LastIndexOf("Samples")) + "Resources\\github-markdown.css";
-            readmeContent = markdownRenderer.Parse(readmeContent);
+            readmeContent = _markdownRenderer.Parse(readmeContent);
 
             string htmlString = "<!doctype html><head><base href=\"" + readmePath + "\"><link rel=\"stylesheet\" href=\"" + cssPath + "\" /></head><body class=\"markdown-body\">" + readmeContent + "</body>";
             DescriptionView.NavigateToString(htmlString);

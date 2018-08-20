@@ -22,10 +22,8 @@
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=.05,Property=Height}"
                Padding="0"
                IsVisible="False"
-               CornerRadius="0"
-               >
+               CornerRadius="0">
             <WebView x:Name="DescriptionView"/>
-            
         </Frame>
     </RelativeLayout>
 </ContentPage>

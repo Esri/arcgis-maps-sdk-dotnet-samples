@@ -19,7 +19,8 @@ namespace ArcGISRuntime.UWP.Viewer
 {
     public sealed partial class SamplePage
     {
-        MarkedNet.Marked markdownRenderer = new MarkedNet.Marked();
+        private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
+
         public SamplePage()
         {
             InitializeComponent();
@@ -40,13 +41,13 @@ namespace ArcGISRuntime.UWP.Viewer
             string basePath = $"ms-appx-web:///{folderPath.Substring(folderPath.LastIndexOf("Samples"))}";
             string readmePath = System.IO.Path.Combine(folderPath, "Readme.md");
             string readmeContent = System.IO.File.ReadAllText(readmePath);
-            readmeContent = markdownRenderer.Parse(readmeContent);
+            readmeContent = _markdownRenderer.Parse(readmeContent);
             readmeContent = readmeContent.Replace("src=\"", $"src=\"{basePath}\\");
             string htmlString = "<!doctype html><head><link rel=\"stylesheet\" href=\"" + cssPath + "\" /></head><body class=\"markdown-body\">" + readmeContent + "</body>";
             DescriptionView.NavigateToString(htmlString);
             SourceCodeContainer.LoadSourceCode();
         }
-       
+
         private static async void HideStatusBar()
         {
             // Check if the phone contract is available (mobile) and hide status bar if it is there.
@@ -73,6 +74,7 @@ namespace ArcGISRuntime.UWP.Viewer
             SampleContainer.Visibility = Visibility.Collapsed;
             SourceCodeContainer.Visibility = Visibility.Collapsed;
         }
+
         private void SourceCode_Checked(object sender, RoutedEventArgs e)
         {
             // Make sure that only one is selected.

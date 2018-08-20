@@ -11,21 +11,18 @@ using System;
 using ArcGISRuntime.Samples.Shared.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.IO;
 
 namespace ArcGISRuntime
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SamplePage
     {
-        MarkedNet.Marked markdownRenderer = new MarkedNet.Marked();
+        private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
+
         public SamplePage()
         {
             InitializeComponent();
-            ToolbarItems[0].Clicked += (o, e) =>
-            {
-                SampleDetailPage.IsVisible = !SampleDetailPage.IsVisible;
-            };
+            ToolbarItems[0].Clicked += (o, e) => { SampleDetailPage.IsVisible = !SampleDetailPage.IsVisible; };
         }
 
         public SamplePage(ContentPage sample, SampleInfo sampleInfo) : this()
@@ -50,7 +47,7 @@ namespace ArcGISRuntime
             {
                 Title = sampleInfo.SampleName;
             }
-            
+
             // Set up the description page.
             try
             {
@@ -72,9 +69,9 @@ namespace ArcGISRuntime
                 readmePath = System.IO.Path.Combine(folderPath, "readme.md");
 #endif
                 string cssPath = $"{baseUrl}/github-markdown.css";
-                
+
                 string readmeContent = System.IO.File.ReadAllText(readmePath);
-                readmeContent = markdownRenderer.Parse(readmeContent);
+                readmeContent = _markdownRenderer.Parse(readmeContent);
 
                 // Fix paths for images.
                 readmeContent = readmeContent.Replace("src=\"", $"src=\"{basePath}/");

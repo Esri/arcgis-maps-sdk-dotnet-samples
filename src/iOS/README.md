@@ -109,7 +109,7 @@ Creating buffers is a core concept in GIS proximity analysis, allowing you to vi
 
 * [Buffer list](Xamarin.iOS/Samples/Geometry/BufferList)
 
-This sample demonstrates how to use the GeometryEngine.Buffer to generate one or more polygon from a series of input geometries and matching series of buffer distances. The option to union all the resulting buffer(s) is provided.
+This sample demonstrates how to use a planar (Euclidean) buffer operation by calling `GeometryEngine.Buffer` to generate one or more polygons from a collection of input geometries and a corresponding collection of buffer distances. The result polygons can be returned as individual geometries or unioned into a single polygon output.
 
 * [Clip geometry](Xamarin.iOS/Samples/Geometry/ClipGeometry)
 
@@ -331,6 +331,10 @@ This sample demonstrates how to create an `ImageServiceRaster`, fetch the `Rende
 
 This sample demonstrates how to use an RGB renderer on a raster layer. An RGB renderer is used to adjust the color bands of a multi-spectral image.
 
+* [Scene layer selection](Xamarin.iOS/Samples/Layers/SceneLayerSelection)
+
+This sample demonstrates how to identify geoelements in a scene layer.
+
 * [Show labels on layer](Xamarin.iOS/Samples/Layers/ShowLabelsOnLayer)
 
 This sample demonstrates how to show labels on a feature layer
@@ -501,6 +505,20 @@ This sample demonstrates how you can use the LocatorTask API to geocode an addre
 
 This sample demonstrates how to use geocode functionality to search for points of interest, around a location or within an extent.
 
+## Security
+
+* [ArcGIS token challenge](Xamarin.iOS/Samples/Security/TokenSecuredChallenge)
+
+This sample demonstrates how to authenticate with ArcGIS Server using ArcGIS Tokens to access a secure service. Accessing secured services requires a login that's been defined on the server.
+
+* [ArcGIS token with a known user](Xamarin.iOS/Samples/Security/TokenSecuredKnownUser)
+
+This sample demonstrates how to authenticate with ArcGIS Server using ArcGIS Tokens to access a secure service. Accessing secured services requires a login that's been defined on the server.
+
+* [Authenticate with OAuth](Xamarin.iOS/Samples/Security/OAuth)
+
+This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access a secure web map (or the secured layers it contains). Accessing secured items requires a login on the portal (an ArcGIS Online account, for example).
+
 ## Symbology
 
 * [Distance composite symbol](Xamarin.iOS/Samples/Symbology/UseDistanceCompositeSym)
@@ -526,10 +544,4 @@ This sample demonstrates how to create a simple renderer and add it to a graphic
 * [Unique value renderer](Xamarin.iOS/Samples/Symbology/RenderUniqueValues)
 
 This sample demonstrate how to use a unique value renderer to style different features in a feature layer with different symbols. Features do not have a symbol property for you to set, renderers should be used to define the symbol for features in feature layers. The unique value renderer allows for separate symbols to be used for features that have specific attribute values in a defined field.
-
-## Tutorial
-
-* [Author, edit, and save a map](Xamarin.iOS/Samples/Tutorial/AuthorEditSaveMap)
-
-This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). It is also the solution to the [Author, edit, and save maps to your portal tutorial](https://developers.arcgis.com/net/latest/ios/guide/author-edit-and-save-maps-to-your-portal.htm). Saving a map to arcgis.com requires an ArcGIS Online login.
 

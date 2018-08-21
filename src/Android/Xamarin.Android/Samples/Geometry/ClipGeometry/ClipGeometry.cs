@@ -227,7 +227,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             // Create a TextView for instructions.
             TextView sampleInstructionsTextView = new TextView(this)
             {
-                Text = "Click the 'Clip' button to clip the blue graphic with red envelopes."
+                Text = "Tap 'Clip' to clip the blue graphic with red envelopes."
             };
             layout.AddView(sampleInstructionsTextView);
 

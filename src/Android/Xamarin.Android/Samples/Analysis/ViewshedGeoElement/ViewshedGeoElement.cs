@@ -199,9 +199,11 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
             // Create and add a help label.
             TextView helpLabel = new TextView(this)
             {
-                Text = "Tap to set a destination for the vehicle."
+                Text = "Tap to set a destination for the vehicle.",
+                Gravity = Android.Views.GravityFlags.Center
             };
             layout.AddView(helpLabel);
+            layout.SetPadding(0,10,0,0);
 
             // Add the map view to the layout.
             layout.AddView(_mySceneView);

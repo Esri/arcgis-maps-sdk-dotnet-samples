@@ -29,36 +29,32 @@ namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
     public class RasterLayerGeoPackage : UIViewController
     {
         // Create and hold a reference to the MapView.
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         public RasterLayerGeoPackage()
         {
             Title = "Raster layer (GeoPackage)";
         }
 
+        public override void LoadView()
+        {
+            base.LoadView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubviews(_myMapView);
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            CreateLayout();
+
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition controls.
-                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private async void Initialize()
@@ -90,12 +86,6 @@ namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
 
             // Add the image as a raster layer to the map (with default symbology).
             _myMapView.Map.OperationalLayers.Add(newLayer);
-        }
-
-        private void CreateLayout()
-        {
-            // Add MapView to the page.
-            View.AddSubview(_myMapView);
         }
     }
 }

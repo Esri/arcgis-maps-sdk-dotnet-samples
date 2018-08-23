@@ -29,29 +29,31 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
     public class SceneLayerSelection : UIViewController
     {
         // Create and hold references to the UI controls.
-        private SceneView _mySceneView = new SceneView();
-        private UIToolbar _helpToolbar = new UIToolbar();
-        private UILabel _helpLabel = new UILabel
-        {
-            Text = "Tap to select buildings.",
-            TextAlignment = UITextAlignment.Center,
-            AdjustsFontSizeToFitWidth = true,
-            Lines = 1
-        };
+        private SceneView _mySceneView;
 
         public SceneLayerSelection()
         {
             Title = "Scene layer selection";
         }
 
+        public override void LoadView()
+        {
+            base.LoadView();
+
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubviews(_mySceneView);
+
+            _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            // Add the scene view control to the UI.
-            CreateLayout();
-
-            // Create the scene and display it in the scene view.
             Initialize();
         }
 
@@ -109,35 +111,6 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
                     sceneLayer.SelectFeature((Feature)geoElement);
                 }
             }
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
-
-                // Reposition controls.
-                _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
-                _helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
-                _helpLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
-        }
-
-        private void CreateLayout()
-        {
-            // Add SceneView to the page.
-            View.AddSubviews(_mySceneView, _helpToolbar, _helpLabel);
         }
     }
 }

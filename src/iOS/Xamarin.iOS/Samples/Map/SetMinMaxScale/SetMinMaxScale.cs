@@ -26,38 +26,32 @@ namespace ArcGISRuntime.Samples.SetMinMaxScale
     public class SetMinMaxScale : UIViewController
     {
         // Create and hold reference to the MapView.
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         public SetMinMaxScale()
         {
             Title = "Set min & max scale";
         }
 
+        public override void LoadView()
+        {
+            base.LoadView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubviews(_myMapView);
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization.
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition the control.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
@@ -83,12 +77,6 @@ namespace ArcGISRuntime.Samples.SetMinMaxScale
 
             // Set map to mapview.
             _myMapView.Map = myMap;
-        }
-
-        private void CreateLayout()
-        {
-            // Add MapView to the page.
-            View.AddSubviews(_myMapView);
         }
     }
 }

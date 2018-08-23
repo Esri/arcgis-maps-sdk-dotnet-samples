@@ -30,7 +30,7 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
     public class OAuth : UIViewController, IOAuthAuthorizeHandler
     {
         // Create a MapView to display in the app.
-        private MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         // Use a TaskCompletionSource to track the completion of the authorization.
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
@@ -58,26 +58,26 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
             Title = "OAuth authorization";
         }
 
+        public override void LoadView()
+        {
+            base.LoadView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubviews(_myMapView);
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            // Create the layout.
-            CreateLayout();
-
-            // Initialize the app.
+            // Create the UI, setup the control references and execute initialization.
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            base.ViewDidLayoutSubviews();
-
-            // Define an offset from the top of the page (to account for the iOS status bar).
-            int yPageOffset = 60;
-
-            // Define the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset);
         }
 
         private async void Initialize()
@@ -128,13 +128,6 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
 
             // Set the OAuthAuthorizeHandler component (this class).
             AuthenticationManager.Current.OAuthAuthorizeHandler = this;
-        }
-
-        private void CreateLayout()
-        {
-            // Create a new MapView control and add it to the main view.
-            _myMapView = new MapView();
-            View.AddSubviews(_myMapView);
         }
 
         #region OAuth helpers

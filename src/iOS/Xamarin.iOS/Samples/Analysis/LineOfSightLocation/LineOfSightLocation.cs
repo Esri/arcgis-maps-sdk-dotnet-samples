@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
     public class LineOfSightLocation : UIViewController
     {
         // Create and hold a reference to the SceneView.
-        private readonly SceneView _mySceneView = new SceneView();
+        private SceneView _mySceneView;
 
         // URL for an image service to use as an elevation source.
         private const string ElevationSourceUrl = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
@@ -49,30 +49,25 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
             Title = "Line of sight location";
         }
 
+        public override void LoadView()
+        {
+            base.LoadView();
+
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubviews(_mySceneView);
+
+            _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition controls.
-                _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
@@ -103,15 +98,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
             AnalysisOverlay lineOfSightOverlay = new AnalysisOverlay();
             lineOfSightOverlay.Analyses.Add(_lineOfSightAnalysis);
             _mySceneView.AnalysisOverlays.Add(lineOfSightOverlay);
-        }
-
-        private void CreateLayout()
-        {
-            // Wire up tapped event for the scene view.
             _mySceneView.GeoViewTapped += SceneViewTapped;
-
-            // Add SceneView to the page.
-            View.AddSubviews(_mySceneView);
         }
 
         private void SceneViewTapped(object sender, GeoViewInputEventArgs e)

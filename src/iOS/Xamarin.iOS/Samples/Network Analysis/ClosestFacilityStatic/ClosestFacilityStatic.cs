@@ -33,10 +33,9 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
     public class ClosestFacilityStatic : UIViewController
     {
         // Create and hold references to the views.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private readonly UIButton _solveRoutesButton = new UIButton(UIButtonType.Plain);
-        private readonly UIButton _resetButton = new UIButton(UIButtonType.Plain);
+        private MapView _myMapView;
+        private UIBarButtonItem _solveRoutesButton;
+        private UIBarButtonItem _resetButton;
 
         // Used to display route between incident and facility to mapview.
         private List<SimpleLineSymbol> _routeSymbols;
@@ -75,20 +74,43 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             base.ViewDidLoad();
 
             Initialize();
-            CreateLayout();
         }
 
-        private void CreateLayout()
+        public override void LoadView()
         {
+            base.LoadView();
+
+            _myMapView = new MapView();
+            View.AddSubviews(_myMapView);
+
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+
             // Configure the UI controls.
-            _solveRoutesButton.SetTitle("Solve routes", UIControlState.Normal);
-            _solveRoutesButton.TouchUpInside += SolveRoutesButton_Click;
+            _solveRoutesButton = new UIBarButtonItem("Solve routes", UIBarButtonItemStyle.Plain, SolveRoutesButton_Click);
+            _solveRoutesButton.Enabled = false;
+            _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ResetButton_Click);
+            _resetButton.Enabled = false;
 
-            _resetButton.SetTitle("Reset", UIControlState.Normal);
-            _resetButton.TouchUpInside += ResetButton_Click;
+            NavigationController.ToolbarHidden = false;
+            ToolbarItems = new[] { 
+                _solveRoutesButton,
+                // Put a space between the buttons
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _resetButton
+            };
+        }
 
-            // Add the controls to the view.
-            View.AddSubviews(_myMapView, _toolbar, _solveRoutesButton, _resetButton);
+        public override void ViewWillDisappear(bool animated)
+        {
+            base.ViewWillDisappear(animated);
+
+            // This is needed to hide the toolbar. Because NavigationController presents it, 
+            // it won't automatically disappear when leaving the sample.
+            NavigationController.ToolbarHidden = true;
         }
 
         private async void Initialize()
@@ -159,7 +181,6 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
 
                 // Enable the solve button.
                 _solveRoutesButton.Enabled = true;
-                _solveRoutesButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
             }
             catch (Exception exception)
             {
@@ -217,11 +238,9 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
 
                 // Disable the solve button.
                 _solveRoutesButton.Enabled = false;
-                _solveRoutesButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
 
                 // Enable the reset button.
                 _resetButton.Enabled = true;
-                _resetButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
 
             }
             catch (Esri.ArcGISRuntime.Http.ArcGISWebException exception)
@@ -237,31 +256,9 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
 
             // Reset the buttons.
             _solveRoutesButton.Enabled = true;
-            _solveRoutesButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
             _resetButton.Enabled = false;
-            _resetButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
         }
 
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat toolbarHeight = 40;
-
-                // Reposition the views.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-                _solveRoutesButton.Frame = new CGRect(10, _toolbar.Frame.Top + 10, View.Bounds.Width/2, 20);
-                _resetButton.Frame = new CGRect((View.Bounds.Width-20)/2, _toolbar.Frame.Top + 10, View.Bounds.Width/2, 20);
-
-                base.ViewDidLayoutSubviews();
-            }
-            catch (NullReferenceException)
-            {
-            }
-        }
         private void CreateErrorDialog(string message)
         {
             // Create Alert.

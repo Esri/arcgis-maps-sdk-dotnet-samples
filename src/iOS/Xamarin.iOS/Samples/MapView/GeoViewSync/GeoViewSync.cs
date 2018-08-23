@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -26,24 +25,27 @@ namespace ArcGISRuntime.Samples.GeoViewSync
     public class GeoViewSync : UIViewController
     {
         // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly SceneView _mySceneView = new SceneView();
+        private MapView _myMapView;
+        private SceneView _mySceneView;
+        private UIStackView _stackView;
 
         public GeoViewSync()
         {
             Title = "GeoView viewpoint synchronization";
         }
 
-        private void Initialize()
+        public override void ViewDidLoad()
         {
+            base.ViewDidLoad();
+
             // Initialize the MapView and SceneView with basemaps.
             _myMapView.Map = new Map(Basemap.CreateImageryWithLabels());
             _mySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
 
             // Disable 'flick' gesture - this is the most straightforward way to prevent the 'flick'
             //     animation on one view from competing with user interaction on the other.
-            _mySceneView.InteractionOptions = new SceneViewInteractionOptions {IsFlickEnabled = false};
-            _myMapView.InteractionOptions = new MapViewInteractionOptions {IsFlickEnabled = false};
+            _mySceneView.InteractionOptions = new SceneViewInteractionOptions { IsFlickEnabled = false };
+            _myMapView.InteractionOptions = new MapViewInteractionOptions { IsFlickEnabled = false };
 
             // Subscribe to viewpoint change events for both views - event raised on click+drag.
             _myMapView.ViewpointChanged += OnViewpointChanged;
@@ -57,7 +59,7 @@ namespace ArcGISRuntime.Samples.GeoViewSync
         private void OnNavigationComplete(object sender, EventArgs eventArgs)
         {
             // Get a reference to the MapView or SceneView that raised the event.
-            GeoView sendingView = (GeoView) sender;
+            GeoView sendingView = (GeoView)sender;
 
             // Get a reference to the other view.
             GeoView otherView;
@@ -77,7 +79,7 @@ namespace ArcGISRuntime.Samples.GeoViewSync
         private void OnViewpointChanged(object sender, EventArgs e)
         {
             // Get the MapView or SceneView that sent the event.
-            GeoView sendingView = (GeoView) sender;
+            GeoView sendingView = (GeoView)sender;
 
             // Only take action if this GeoView is the one that the user is navigating.
             // Viewpoint changed events are fired when SetViewpoint is called; This check prevents a feedback loop.
@@ -103,36 +105,45 @@ namespace ArcGISRuntime.Samples.GeoViewSync
             }
         }
 
-        private void CreateLayout()
+        public override void LoadView()
         {
-            // Add GeoViews to the page.
-            View.AddSubviews(_myMapView, _mySceneView);
-        }
+            base.LoadView();
 
-        public override void ViewDidLoad()
-        {
-            CreateLayout();
-            Initialize();
-
-            base.ViewDidLoad();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
+            _myMapView = new MapView();
+            _mySceneView = new SceneView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _stackView = new UIStackView(new UIView[] { _myMapView, _mySceneView });
+            _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
             {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition the views.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height / 2);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-                _mySceneView.Frame = new CGRect(0, View.Bounds.Height / 2, View.Bounds.Width, View.Bounds.Height / 2);
-
-                base.ViewDidLayoutSubviews();
+                _stackView.Axis = UILayoutConstraintAxis.Horizontal;
             }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            else
             {
+                _stackView.Axis = UILayoutConstraintAxis.Vertical;
+            }
+            _stackView.Distribution = UIStackViewDistribution.FillEqually;
+
+            View.AddSubviews(_stackView);
+            NSLayoutConstraint.ActivateConstraints(new NSLayoutConstraint[] {
+                _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
+        }
+
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            base.TraitCollectionDidChange(previousTraitCollection);
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                _stackView.Axis = UILayoutConstraintAxis.Horizontal;
+            }
+            else
+            {
+                _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
         }
     }

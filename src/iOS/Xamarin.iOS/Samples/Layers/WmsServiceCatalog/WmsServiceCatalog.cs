@@ -109,24 +109,16 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             // Get the service info (metadata) from the service.
             WmsServiceInfo info = service.ServiceInfo;
 
+            List<LayerDisplayVM> viewModelList = new List<LayerDisplayVM>();
+
             // Get the list of layer infos.
-            IReadOnlyList<WmsLayerInfo> topLevelLayers = info.LayerInfos;
-
-            // Recursively build up a list of all the layers in the service and get their IDs as a flat list.
-            List<WmsLayerInfo> expandedList = new List<WmsLayerInfo>();
-            BuildLayerInfoList(topLevelLayers, expandedList);
-
-            List<LayerDisplayVm> displayList = new List<LayerDisplayVm>();
-
-            // Build the ViewModel from the expanded list of layer infos.
-            foreach (WmsLayerInfo layerInfo in expandedList)
+            foreach (var layerInfo in info.LayerInfos)
             {
-                // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of the ArcGIS Runtime.
-                displayList.Add(new LayerDisplayVm(layerInfo));
+                LayerDisplayVM.BuildLayerInfoList(new LayerDisplayVM(layerInfo, null), viewModelList);
             }
 
             // Construct the layer list source.
-            _layerListSource = new LayerListSource(displayList, this);
+            _layerListSource = new LayerListSource(viewModelList, this);
 
             // Set the source for the table view (layer list).
             _myDisplayList.Source = _layerListSource;
@@ -136,37 +128,9 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         }
 
         /// <summary>
-        /// Recursively builds a list of WmsLayerInfo metadata starting from a collection of root WmsLayerInfo.
-        /// </summary>
-        /// <remarks>
-        /// For simplicity, this sample doesn't show the layer hierarchy (tree), instead collapsing it to a list.
-        /// A tree view would be more appropriate, but would complicate the sample greatly.
-        /// </remarks>
-        /// <param name="info">Collection of starting WmsLayerInfo object.</param>.
-        /// <param name="result">Result list to build.</param>
-        private void BuildLayerInfoList(IReadOnlyList<WmsLayerInfo> info, List<WmsLayerInfo> result)
-        {
-            // Return if there are no more layers to explore.
-            if (info.Count < 1)
-            {
-                return;
-            }
-
-            // Add each layer and each layer's children.
-            foreach (WmsLayerInfo layer in info)
-            {
-                // Add the layer.
-                result.Add(layer);
-
-                // Recursively add children.
-                BuildLayerInfoList(layer.LayerInfos, result);
-            }
-        }
-
-        /// <summary>
         /// Updates the map with the latest layer selection.
         /// </summary>
-        private async void UpdateMapDisplay(List<LayerDisplayVm> displayList)
+        private async void UpdateMapDisplay(List<LayerDisplayVM> displayList)
         {
             // Remove all existing layers.
             _myMapView.Map.OperationalLayers.Clear();
@@ -193,13 +157,13 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         public void LayerSelectionChanged(int selectedIndex)
         {
             // Clear existing selection.
-            foreach (LayerDisplayVm item in _layerListSource.ViewModelList)
+            foreach (LayerDisplayVM item in _layerListSource.ViewModelList)
             {
-                item.IsEnabled = false;
+                item.Select(false);
             }
 
             // Update the selection.
-            _layerListSource.ViewModelList[selectedIndex].IsEnabled = true;
+            _layerListSource.ViewModelList[selectedIndex].Select();
 
             // Update the map.
             UpdateMapDisplay(_layerListSource.ViewModelList);
@@ -210,26 +174,75 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
     /// This is a ViewModel class for maintaining the state of a layer selection.
     /// Typically, this would go in a separate file, but it is included here for clarity.
     /// </summary>
-    public class LayerDisplayVm
+    public class LayerDisplayVM
     {
-        /// <summary>
-        /// Metadata for the individual selected layer.
-        /// </summary>
         public WmsLayerInfo Info { get; }
 
-        /// <summary>
-        /// True if the layer is selected for display.
-        /// </summary>
-        public bool IsEnabled { get; set; }
+        // True if layer is selected for display.
+        public bool IsEnabled { get; private set; }
 
-        /// <summary>
-        /// Title property to facilitate binding.
-        /// </summary>
-        public string Title => Info.Title;
+        // Keeps track of how much indentation should be added (to simulate a tree view in a list).
+        private int NestLevel
+        {
+            get
+            {
+                if (Parent == null)
+                {
+                    return 0;
+                }
 
-        public LayerDisplayVm(WmsLayerInfo info)
+                return Parent.NestLevel + 1;
+            }
+        }
+
+        private List<LayerDisplayVM> Children { get; set; }
+
+        private LayerDisplayVM Parent { get; }
+
+        public LayerDisplayVM(WmsLayerInfo info, LayerDisplayVM parent)
         {
             Info = info;
+            Parent = parent;
+        }
+
+        // Select this layer and all child layers.
+        public void Select(bool isSelected = true)
+        {
+            IsEnabled = isSelected;
+            if (Children == null)
+            {
+                return;
+            }
+
+            foreach (var child in Children)
+            {
+                child.Select(isSelected);
+            }
+        }
+
+        // Name with formatting to simulate treeview.
+        public string Name => $"{new String(' ', NestLevel * 8)} {Info.Title}";
+
+        public static void BuildLayerInfoList(LayerDisplayVM root, IList<LayerDisplayVM> result)
+        {
+            // Add the root node to the result list.
+            result.Add(root);
+
+            // Initialize the child collection for the root.
+            root.Children = new List<LayerDisplayVM>();
+
+            // Recursively add sublayers.
+            foreach (WmsLayerInfo layer in root.Info.LayerInfos)
+            {
+                // Create the view model for the sublayer.
+                LayerDisplayVM layerVM = new LayerDisplayVM(layer, root);
+
+                // Add the sublayer to the root's sublayer collection.
+                root.Children.Add(layerVM);
+
+                // Recursively add children.
+                BuildLayerInfoList(layerVM, result);
+            }
         }
     }
 
@@ -239,7 +252,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
     /// </summary>
     public class LayerListSource : UITableViewSource
     {
-        public readonly List<LayerDisplayVm> ViewModelList = new List<LayerDisplayVm>();
+        public readonly List<LayerDisplayVM> ViewModelList = new List<LayerDisplayVM>();
 
         // Used when re-using cells to ensure that a cell of the right type is used
         private const string CellId = "TableCell";
@@ -247,7 +260,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         // Hold a reference to the owning view controller; this will be the active instance of WmsServiceCatalog.
         private WmsServiceCatalog Owner { get; }
 
-        public LayerListSource(List<LayerDisplayVm> items, WmsServiceCatalog owner)
+        public LayerListSource(List<LayerDisplayVM> items, WmsServiceCatalog owner)
         {
             // Set the items.
             if (items != null)
@@ -278,10 +291,10 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             }
 
             // Get the specific item to display.
-            LayerDisplayVm item = ViewModelList[indexPath.Row];
+            LayerDisplayVM item = ViewModelList[indexPath.Row];
 
             // Set the text on the cell.
-            cell.TextLabel.Text = item.Title;
+            cell.TextLabel.Text = item.Name;
 
             // Return the cell.
             return cell;

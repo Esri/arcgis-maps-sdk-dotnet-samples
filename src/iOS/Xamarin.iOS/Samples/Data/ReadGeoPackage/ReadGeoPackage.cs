@@ -31,10 +31,9 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         "Select a layer name in the 'Layers Not in the Map' UISegmentedControl to add it to the map. Conversely to remove a layer from the map select a layer name in the 'Layers in the Map' UISegmentedControl. NOTE: The GeoPackage will be downloaded from an ArcGIS Online portal automatically.")]
     public class ReadGeoPackage : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UISegmentedControl _layerSegmentedControl = new UISegmentedControl();
-        private readonly UIToolbar _toolbar = new UIToolbar();
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UISegmentedControl _layerSegmentedControl;
 
         // Dictionary associates names with layers.
         private readonly Dictionary<string, Layer> _nameToLayerDictionary = new Dictionary<string, Layer>();
@@ -50,35 +49,43 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             Title = "Read a GeoPackage";
         }
 
+        public override void LoadView()
+        {
+            base.LoadView();
+
+            // Create the views.
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _layerSegmentedControl = new UISegmentedControl("Remove layers", "Add layers")
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                TintColor = UIColor.White,
+                Enabled = false,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            // Clean up borders of segmented control - avoid corner pixels.
+            _layerSegmentedControl.ClipsToBounds = true;
+            _layerSegmentedControl.Layer.CornerRadius = 5;
+            _layerSegmentedControl.ValueChanged += LayerSegmentedControl_ValueChanged;
+
+            // Add the views.
+            View.AddSubviews(_myMapView, _layerSegmentedControl);
+
+            // Apply constraints.
+            _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+
+            _layerSegmentedControl.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor).Active = true;
+            _layerSegmentedControl.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor).Active = true;
+            _layerSegmentedControl.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
-
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _layerSegmentedControl.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private async void Initialize()
@@ -156,19 +163,9 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
                 // which displays the human-readable layer names used by the UISegmentedControl.
                 _layersNotInMap.Add(featureLayerName);
             }
-        }
 
-        private void CreateLayout()
-        {
-            // Configure UISegmentedControl.
-            _layerSegmentedControl.InsertSegment("Layers in map", 0, false);
-            _layerSegmentedControl.InsertSegment("Layers not in map", 1, false);
-
-            // Handle the "click" for each segment (new segment is selected).
-            _layerSegmentedControl.ValueChanged += LayerSegmentedControl_ValueChanged;
-
-            // Add the MapView and UISegmentedControl to the page.
-            View.AddSubviews(_myMapView, _toolbar, _layerSegmentedControl);
+            // Enable the UI.
+            _layerSegmentedControl.Enabled = true;
         }
 
         private void LayerSegmentedControl_ValueChanged(object sender, EventArgs e)

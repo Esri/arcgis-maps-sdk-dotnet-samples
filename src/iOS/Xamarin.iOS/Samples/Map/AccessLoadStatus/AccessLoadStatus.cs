@@ -54,29 +54,30 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
 
             // Create the MapView.
             _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Create the label.
             _loadStatusLabel = new UILabel()
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
                 TextColor = UIColor.White,
-                TextAlignment = UITextAlignment.Center
+                TextAlignment = UITextAlignment.Center,
+                TranslatesAutoresizingMaskIntoConstraints = false
             };
 
             // Add the views to the layout.
             View.AddSubviews(_myMapView, _loadStatusLabel);
 
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            // Set up constraints.
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
             _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
             _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
 
-            _loadStatusLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             _loadStatusLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _loadStatusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
             _loadStatusLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _loadStatusLabel.HeightAnchor.ConstraintEqualTo(30).Active = true;
+            _loadStatusLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
         }
 
         public override void ViewDidLayoutSubviews()

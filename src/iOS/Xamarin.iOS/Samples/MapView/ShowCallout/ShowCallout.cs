@@ -27,16 +27,8 @@ namespace ArcGISRuntime.Samples.ShowCallout
     public class ShowCallout : UIViewController
     {
         // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-
-        private readonly UILabel _helpLabel = new UILabel
-        {
-            Text = "Tap to show a callout.",
-            AdjustsFontSizeToFitWidth = true,
-            TextAlignment = UITextAlignment.Center,
-            Lines = 1
-        };
+        private MapView _myMapView;
+        private UILabel _helpLabel;
 
         public ShowCallout()
         {
@@ -49,40 +41,39 @@ namespace ArcGISRuntime.Samples.ShowCallout
 
             // Show a streets basemap.
             _myMapView.Map = new Map(Basemap.CreateStreets());
+        }
+
+        public override void LoadView()
+        {
+            base.LoadView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Respond to taps on the map.
             _myMapView.GeoViewTapped += MapView_GeoViewTapped;
 
-            // Add the controls to the view.
-            View.AddSubviews(_myMapView, _toolbar);
-
-            // Add the help label to the toolbar.
-            _toolbar.AddSubview(_helpLabel);
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
+            _helpLabel = new UILabel
             {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat toolbarHeight = 40;
-                nfloat margin = 5;
+                Text = "Tap to show a callout.",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            View.AddSubviews(_myMapView, _helpLabel);
 
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
-                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
 
-                // Reposition the label within the toolbar.
-                _helpLabel.Frame = new CGRect(margin, margin, _toolbar.Bounds.Width - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
+            _helpLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _helpLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
         }
 
         private void MapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)

@@ -28,11 +28,9 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         "The sample provides a drop down on the top, where you can select a geometry operation. When you choose a geometry operation, the application performs this operation between the overlapping polygons and applies the result to the geometries.")]
     public class SpatialOperations : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIStackView _operationToolsView = new UIStackView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private UIPickerView _operationPicker;
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UISegmentedControl _operationChoiceButton;
 
         // GraphicsOverlay to hold the polygon graphics.
         private GraphicsOverlay _polygonsOverlay;
@@ -49,33 +47,43 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             Title = "Spatial operations";
         }
 
+        public override void LoadView()
+        {
+            base.LoadView();
+
+            // Create the views.
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _operationChoiceButton = new UISegmentedControl("Difference", "Intersection", "Symm. diff.", "Union")
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                TintColor = UIColor.White,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            // Clean up borders of segmented control - avoid corner pixels.
+            _operationChoiceButton.ClipsToBounds = true;
+            _operationChoiceButton.Layer.CornerRadius = 5;
+
+            _operationChoiceButton.ValueChanged += _operationChoiceButton_ValueChanged;;
+
+            // Add the views.
+            View.AddSubviews(_myMapView, _operationChoiceButton);
+
+            // Apply constraints.
+            _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+
+            _operationChoiceButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor).Active = true;
+            _operationChoiceButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor).Active = true;
+            _operationChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat operationsToolsHeight = View.Bounds.Height * 0.33f;
-
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-                _operationToolsView.Frame = new CGRect(5, topMargin + 5, View.Bounds.Width - 10, operationsToolsHeight - 10);
-                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, operationsToolsHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
@@ -87,60 +95,8 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             CreatePolygonsOverlay();
         }
 
-        private void CreateLayout()
+        void _operationChoiceButton_ValueChanged(object sender, EventArgs e)
         {
-            // Lay out the spatial operations UI vertically.
-            _operationToolsView.Axis = UILayoutConstraintAxis.Vertical;
-
-            // Create a label to prompt for a spatial operation.
-            UILabel operationLabel = new UILabel(new CGRect(5, 0, View.Bounds.Width, 30))
-            {
-                Text = "Choose a spatial operation:",
-                TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Blue
-            };
-
-            // Create a picker model with spatial operation choices.
-            List<string> operationsList = new List<string> {"", "Difference", "Intersection", "Symmetric difference", "Union"};
-            PickerDataModel operationModel = new PickerDataModel(operationsList);
-
-            // Handle the selection change for spatial operations.
-            operationModel.ValueChanged += OperationModel_ValueChanged;
-
-            // Create a picker to show the spatial operations.
-            _operationPicker = new UIPickerView(new CGRect(20, 25, View.Bounds.Width - 20, 100))
-            {
-                Model = operationModel
-            };
-
-            // Create a button to reset the operation result.
-            UIButton resetButton = new UIButton(UIButtonType.Plain)
-            {
-                Frame = new CGRect(20, 110, View.Bounds.Width - 20, 30)
-            };
-            resetButton.SetTitle("Reset operation", UIControlState.Normal);
-            resetButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            resetButton.TouchUpInside += ResetButton_TouchUpInside;
-
-            // Add the controls to the tools UI (stack view).
-            _operationToolsView.AddSubviews(operationLabel, _operationPicker, resetButton);
-
-            // Add the map view and tools sub-views to the view.
-            View.AddSubviews(_myMapView, _toolbar, _operationToolsView);
-        }
-
-        // Handle selection events in the spatial operations picker.
-        private void OperationModel_ValueChanged(object sender, EventArgs e)
-        {
-            // Get the data model that contains the spatial operation choices.
-            PickerDataModel operationsModel = (PickerDataModel)_operationPicker.Model;
-
-            // If an operation hasn't been selected, return.
-            if (operationsModel.SelectedItem == "")
-            {
-                return;
-            }
-
             // Remove any currently displayed result.
             _polygonsOverlay.Graphics.Remove(_resultGraphic);
 
@@ -152,19 +108,19 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             Geometry resultPolygon = null;
 
             // Run the selected spatial operation on the polygon graphics and get the result geometry.
-            switch (operationsModel.SelectedItem)
+            switch (_operationChoiceButton.SelectedSegment)
             {
-                case "Union":
-                    resultPolygon = GeometryEngine.Union(polygonOne, polygonTwo);
-                    break;
-                case "Difference":
+                case 0:
                     resultPolygon = GeometryEngine.Difference(polygonOne, polygonTwo);
                     break;
-                case "Symmetric difference":
+                case 1:
+                    resultPolygon = GeometryEngine.Intersection(polygonOne, polygonTwo);
+                    break;
+                case 2:
                     resultPolygon = GeometryEngine.SymmetricDifference(polygonOne, polygonTwo);
                     break;
-                case "Intersection":
-                    resultPolygon = GeometryEngine.Intersection(polygonOne, polygonTwo);
+                case 3:
+                    resultPolygon = GeometryEngine.Union(polygonOne, polygonTwo);
                     break;
             }
 
@@ -177,15 +133,6 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             // Create the result polygon graphic and add it to the graphics overlay.
             _resultGraphic = new Graphic(resultPolygon, resultSymbol);
             _polygonsOverlay.Graphics.Add(_resultGraphic);
-        }
-
-        private void ResetButton_TouchUpInside(object sender, EventArgs e)
-        {
-            // Remove any currently displayed result.
-            _polygonsOverlay.Graphics.Remove(_resultGraphic);
-
-            // Clear the selected spatial operation.
-            _operationPicker.Select(0, 0, true);
         }
 
         private void CreatePolygonsOverlay()
@@ -244,51 +191,6 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             // Add the polygons to the graphics overlay.
             _polygonsOverlay.Graphics.Add(_graphicOne);
             _polygonsOverlay.Graphics.Add(_graphicTwo);
-        }
-    }
-
-    // Class that defines a UIPickerViewModel to display spatial operation choices.
-    public class PickerDataModel : UIPickerViewModel
-    {
-        // Raise an event when the selected operation changes.
-        public event EventHandler<EventArgs> ValueChanged;
-
-        // Store the spatial operation choices in a list.
-        private List<string> Items { get; }
-
-        // Expose the currently selected operation as a property.
-        private int _selectedIndex = 0;
-        public string SelectedItem => Items[_selectedIndex];
-
-        // In the constructor, take the list of items (spatial operations) to display.
-        public PickerDataModel(List<string> items)
-        {
-            Items = items;
-        }
-
-        // Number of rows to display in the picker (items in the list).
-        public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
-        {
-            return Items.Count;
-        }
-
-        // Text to display in the picker (spatial operation in each row).
-        public override string GetTitle(UIPickerView pickerView, nint row, nint component)
-        {
-            return Items[(int) row];
-        }
-
-        // Number of columns to show in the picker.
-        public override nint GetComponentCount(UIPickerView pickerView)
-        {
-            return 1;
-        }
-
-        // Raise the ValueChanged event when a new value is selected.
-        public override void Selected(UIPickerView pickerView, nint row, nint component)
-        {
-            _selectedIndex = (int) row;
-            ValueChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

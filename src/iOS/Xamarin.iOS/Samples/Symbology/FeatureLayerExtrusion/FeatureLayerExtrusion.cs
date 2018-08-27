@@ -43,23 +43,24 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
 
             // Create the views.
             _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
             _extrusionFieldButton = new UISegmentedControl("Population density", "Total population")
             {
                 TintColor = UIColor.White,
-                SelectedSegment = 0
+                SelectedSegment = 0,
+                TranslatesAutoresizingMaskIntoConstraints = false
             };
             _extrusionFieldButton.ValueChanged += ToggleExtrusionButton_Clicked;
 
             // Add the views.
             View.AddSubviews(_mySceneView, _extrusionFieldButton);
 
-            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+            // Apply constraints.
             _mySceneView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
             _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
             _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
 
-            _extrusionFieldButton.TranslatesAutoresizingMaskIntoConstraints = false;
             _extrusionFieldButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor).Active = true;
             _extrusionFieldButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor).Active = true;
             _extrusionFieldButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;

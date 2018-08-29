@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -53,7 +52,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             _constructorChoiceButton.ClipsToBounds = true;
             _constructorChoiceButton.Layer.CornerRadius = 5;
 
-            _constructorChoiceButton.ValueChanged += _constructorChoiceButton_ValueChanged;; ;
+            _constructorChoiceButton.ValueChanged += _constructorChoiceButton_ValueChanged;
 
             // Add the views.
             View.AddSubviews(_myMapView, _constructorChoiceButton);
@@ -79,7 +78,8 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         private async void _constructorChoiceButton_ValueChanged(object sender, EventArgs e)
         {
             //Load the WMTS layer using service info or URL.
-            switch(_constructorChoiceButton.SelectedSegment) {
+            switch (_constructorChoiceButton.SelectedSegment)
+            {
                 case 0:
                     await LoadWMTSLayerAsync(true);
                     break;

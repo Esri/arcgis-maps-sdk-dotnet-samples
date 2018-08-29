@@ -44,8 +44,8 @@ namespace ArcGISRuntime.Samples.GeoViewSync
 
             // Disable 'flick' gesture - this is the most straightforward way to prevent the 'flick'
             //     animation on one view from competing with user interaction on the other.
-            _mySceneView.InteractionOptions = new SceneViewInteractionOptions { IsFlickEnabled = false };
-            _myMapView.InteractionOptions = new MapViewInteractionOptions { IsFlickEnabled = false };
+            _mySceneView.InteractionOptions = new SceneViewInteractionOptions {IsFlickEnabled = false};
+            _myMapView.InteractionOptions = new MapViewInteractionOptions {IsFlickEnabled = false};
 
             // Subscribe to viewpoint change events for both views - event raised on click+drag.
             _myMapView.ViewpointChanged += OnViewpointChanged;
@@ -59,7 +59,7 @@ namespace ArcGISRuntime.Samples.GeoViewSync
         private void OnNavigationComplete(object sender, EventArgs eventArgs)
         {
             // Get a reference to the MapView or SceneView that raised the event.
-            GeoView sendingView = (GeoView)sender;
+            GeoView sendingView = (GeoView) sender;
 
             // Get a reference to the other view.
             GeoView otherView;
@@ -79,7 +79,7 @@ namespace ArcGISRuntime.Samples.GeoViewSync
         private void OnViewpointChanged(object sender, EventArgs e)
         {
             // Get the MapView or SceneView that sent the event.
-            GeoView sendingView = (GeoView)sender;
+            GeoView sendingView = (GeoView) sender;
 
             // Only take action if this GeoView is the one that the user is navigating.
             // Viewpoint changed events are fired when SetViewpoint is called; This check prevents a feedback loop.
@@ -113,8 +113,10 @@ namespace ArcGISRuntime.Samples.GeoViewSync
             _mySceneView = new SceneView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
-            _stackView = new UIStackView(new UIView[] { _myMapView, _mySceneView });
+            _stackView = new UIStackView(new UIView[] {_myMapView, _mySceneView});
             _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            // Relayout on rotation.
             if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
             {
                 _stackView.Axis = UILayoutConstraintAxis.Horizontal;
@@ -123,10 +125,12 @@ namespace ArcGISRuntime.Samples.GeoViewSync
             {
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
+
             _stackView.Distribution = UIStackViewDistribution.FillEqually;
 
             View.AddSubviews(_stackView);
-            NSLayoutConstraint.ActivateConstraints(new NSLayoutConstraint[] {
+            NSLayoutConstraint.ActivateConstraints(new NSLayoutConstraint[]
+            {
                 _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
                 _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),

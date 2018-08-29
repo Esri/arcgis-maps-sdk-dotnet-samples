@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArcGISRuntime.Samples.Managers;
@@ -82,7 +81,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             Initialize();
 
             base.ViewDidLoad();
-        } 
+        }
 
         private void ClearAllSelections()
         {
@@ -121,7 +120,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             IdentifyLayerResult firstResult = encResultsWithFeatures.First();
 
             // Get the layer associated with this set of results.
-            EncLayer containingLayer = (EncLayer)firstResult.LayerContent;
+            EncLayer containingLayer = (EncLayer) firstResult.LayerContent;
 
             // Get the first identified ENC feature.
             EncFeature smallestFeature = (EncFeature) firstResult.GeoElements.OrderBy(f => GeometryEngine.Area(f.Geometry)).First();

@@ -9,7 +9,6 @@
 
 using System;
 using System.Drawing;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -29,6 +28,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         "")]
     public class FeatureLayerExtrusion : UIViewController
     {
+        // Hold references to UI controls.
         private SceneView _mySceneView;
         private UISegmentedControl _extrusionFieldButton;
 
@@ -138,7 +138,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         private void ToggleExtrusionButton_Clicked(object sender, EventArgs e)
         {
             // Get the first layer from the scene view's operation layers, it should be a feature layer.
-            FeatureLayer censusFeatureLayer = (FeatureLayer)_mySceneView.Scene.OperationalLayers[0];
+            FeatureLayer censusFeatureLayer = (FeatureLayer) _mySceneView.Scene.OperationalLayers[0];
 
             // Get the renderer from the feature layer.
             Renderer censusRenderer = censusFeatureLayer.Renderer;

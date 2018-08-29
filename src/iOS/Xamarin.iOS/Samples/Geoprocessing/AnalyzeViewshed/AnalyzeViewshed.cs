@@ -99,7 +99,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             //    Without this step, the task may fail because wrapped-around coordinates are out of bounds.
             if (_myMapView.IsWrapAroundEnabled)
             {
-                geometry = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geometry);
+                geometry = (MapPoint) GeometryEngine.NormalizeCentralMeridian(geometry);
             }
 
             // Execute the geoprocessing task using the user click location.
@@ -145,7 +145,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
                 GeoprocessingResult analysisResult = await viewshedJob.GetResultAsync();
 
                 // Get the results from the outputs.
-                GeoprocessingFeatures viewshedResultFeatures = (GeoprocessingFeatures)analysisResult.Outputs["Viewshed_Result"];
+                GeoprocessingFeatures viewshedResultFeatures = (GeoprocessingFeatures) analysisResult.Outputs["Viewshed_Result"];
 
                 // Add all the results as a graphics to the map.
                 foreach (Feature feature in viewshedResultFeatures.Features)

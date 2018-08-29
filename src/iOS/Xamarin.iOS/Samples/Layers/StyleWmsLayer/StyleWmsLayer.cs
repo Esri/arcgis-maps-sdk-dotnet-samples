@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
@@ -51,6 +50,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             // Create the views.
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
             _styleChoiceButton = new UISegmentedControl("First style", "Second style")
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
@@ -58,6 +58,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
                 Enabled = false,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
+
             // Clean up borders of segmented control - avoid corner pixels.
             _styleChoiceButton.ClipsToBounds = true;
             _styleChoiceButton.Layer.CornerRadius = 5;
@@ -119,15 +120,18 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
 
         private void _styleChoiceButton_ValueChanged(object sender, EventArgs e)
         {
-            int styleSelection = (int)_styleChoiceButton.SelectedSegment;
+            int styleSelection = (int) _styleChoiceButton.SelectedSegment;
 
-            try {
+            try
+            {
                 // Get the available styles from the first sublayer.
                 IReadOnlyList<string> styles = _mnWmsLayer.Sublayers[0].SublayerInfo.Styles;
 
                 // Apply the second style to the first sublayer.
                 _mnWmsLayer.Sublayers[0].CurrentStyle = styles[styleSelection];
-            } catch (Exception ex){
+            }
+            catch (Exception ex)
+            {
                 UIAlertController alert = UIAlertController.Create("Error", ex.Message, UIAlertControllerStyle.Alert);
                 alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alert, true, null);

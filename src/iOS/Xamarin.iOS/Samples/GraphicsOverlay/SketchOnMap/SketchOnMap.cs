@@ -13,7 +13,6 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -55,17 +54,18 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             // Create the views.
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
             _segmentButton = new UISegmentedControl("Sketch", "Edit", "Undo", "Redo", "Done", "Clear")
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
                 TintColor = UIColor.White,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
+            _segmentButton.ValueChanged += SegmentButtonClicked;
+
             // Clean up borders of segmented control - avoid corner pixels.
             _segmentButton.ClipsToBounds = true;
             _segmentButton.Layer.CornerRadius = 5;
-
-            _segmentButton.ValueChanged += SegmentButtonClicked;
 
             // Add the views.
             View.AddSubviews(_myMapView, _segmentButton);
@@ -121,7 +121,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private void CanExecuteChanged(object sender, EventArgs e)
         {
             // Enable or disable the corresponding command for the sketch editor.
-            ICommand command = (ICommand)sender;
+            ICommand command = (ICommand) sender;
             if (command == _myMapView.SketchEditor.UndoCommand)
             {
                 _segmentButton.SetEnabled(command.CanExecute(null), 2);
@@ -139,7 +139,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private async void SegmentButtonClicked(object sender, EventArgs e)
         {
             // Get the segmented button control that raised the event.
-            UISegmentedControl buttonControl = (UISegmentedControl)sender;
+            UISegmentedControl buttonControl = (UISegmentedControl) sender;
 
             // Execute the appropriate action for the control
             switch (buttonControl.SelectedSegment)

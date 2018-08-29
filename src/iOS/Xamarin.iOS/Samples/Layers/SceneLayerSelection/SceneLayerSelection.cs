@@ -14,7 +14,6 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.SceneLayerSelection
@@ -89,7 +88,7 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
         private async void SceneViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Get the scene layer from the scene (first and only operational layer).
-            ArcGISSceneLayer sceneLayer = (ArcGISSceneLayer)_mySceneView.Scene.OperationalLayers.First();
+            ArcGISSceneLayer sceneLayer = (ArcGISSceneLayer) _mySceneView.Scene.OperationalLayers.First();
 
             // Clear any existing selection.
             sceneLayer.ClearSelection();
@@ -108,7 +107,7 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
                 if (geoElement != null)
                 {
                     // Select the feature to highlight it in the scene view.
-                    sceneLayer.SelectFeature((Feature)geoElement);
+                    sceneLayer.SelectFeature((Feature) geoElement);
                 }
             }
         }

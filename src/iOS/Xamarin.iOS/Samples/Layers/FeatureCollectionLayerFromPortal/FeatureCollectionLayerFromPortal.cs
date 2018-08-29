@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
@@ -85,13 +84,13 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
                 }
                 else
                 {
-                    UIAlertView alert = new UIAlertView("Feature Collection", "Portal item with ID '" + FeatureCollectionItemId + "' is not a feature collection.", (IUIAlertViewDelegate)null, "OK");
+                    UIAlertView alert = new UIAlertView("Feature Collection", "Portal item with ID '" + FeatureCollectionItemId + "' is not a feature collection.", (IUIAlertViewDelegate) null, "OK");
                     alert.Show();
                 }
             }
             catch (Exception ex)
             {
-                UIAlertView alert = new UIAlertView("Error", "Unable to open item with ID '" + FeatureCollectionItemId + "': " + ex.Message, (IUIAlertViewDelegate)null, "OK");
+                UIAlertView alert = new UIAlertView("Error", "Unable to open item with ID '" + FeatureCollectionItemId + "': " + ex.Message, (IUIAlertViewDelegate) null, "OK");
                 alert.Show();
             }
         }

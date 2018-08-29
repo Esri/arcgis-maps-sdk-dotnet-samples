@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using CoreGraphics;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -54,7 +53,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
             _timeExtentsButton.ClipsToBounds = true;
             _timeExtentsButton.Layer.CornerRadius = 5;
 
-            _timeExtentsButton.ValueChanged += _timeExtentsButton_ValueChanged;;
+            _timeExtentsButton.ValueChanged += _timeExtentsButton_ValueChanged;
 
             // Add the views.
             View.AddSubviews(_myMapView, _timeExtentsButton);
@@ -96,7 +95,8 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
             DateTime start;
             DateTime end;
 
-            switch (_timeExtentsButton.SelectedSegment){
+            switch (_timeExtentsButton.SelectedSegment)
+            {
                 case 0:
                     // Hard-coded values: January 1st, 2000 - December 31st, 2000.
                     start = new DateTime(2000, 1, 1);

@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -96,7 +95,8 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             _resetButton.Enabled = false;
 
             NavigationController.ToolbarHidden = false;
-            ToolbarItems = new[] { 
+            ToolbarItems = new[]
+            {
                 _solveRoutesButton,
                 // Put a space between the buttons
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
@@ -206,13 +206,13 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             FeatureQueryResult facilityResult = await _facilityTable.QueryFeaturesAsync(queryParams);
 
             // Add all of the query results to facilities as new Facility objects.
-            facilities.AddRange(facilityResult.ToList().Select(feature => new Facility((MapPoint)feature.Geometry)));
+            facilities.AddRange(facilityResult.ToList().Select(feature => new Facility((MapPoint) feature.Geometry)));
 
             // Query all features in the incident table.
             FeatureQueryResult incidentResult = await _incidentTable.QueryFeaturesAsync(queryParams);
 
             // Add all of the query results to facilities as new Incident objects.
-            incidents.AddRange(incidentResult.ToList().Select(feature => new Incident((MapPoint)feature.Geometry)));
+            incidents.AddRange(incidentResult.ToList().Select(feature => new Incident((MapPoint) feature.Geometry)));
 
             // Set facilities and incident in parameters.
             ClosestFacilityParameters closestFacilityParameters = await _task.CreateDefaultParametersAsync();
@@ -241,7 +241,6 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
 
                 // Enable the reset button.
                 _resetButton.Enabled = true;
-
             }
             catch (Esri.ArcGISRuntime.Http.ArcGISWebException exception)
             {

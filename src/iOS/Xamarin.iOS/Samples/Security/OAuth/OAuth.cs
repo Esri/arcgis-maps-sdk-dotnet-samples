@@ -21,11 +21,11 @@ using Xamarin.Auth;
 namespace ArcGISRuntimeXamarin.Samples.OAuth
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-           "Authenticate with OAuth",
-           "Security",
-           "This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access a secure web map (or the secured layers it contains). Accessing secured items requires a login on the portal (an ArcGIS Online account, for example).",
-           "1. When you run the sample, the app will load a web map that contains premium content.\n2. You will be challenged for an ArcGIS Online login to view that layer (world traffic).\n3. Enter your ArcGIS Online user name and password.\n4. If you authenticate successfully, the traffic layer will display, otherwise the map will contain only the public basemap layer.\n5. You can alter the code to supply OAuth configuration settings specific to your app.",
-           "Authentication, Security, OAuth")]
+        "Authenticate with OAuth",
+        "Security",
+        "This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access a secure web map (or the secured layers it contains). Accessing secured items requires a login on the portal (an ArcGIS Online account, for example).",
+        "1. When you run the sample, the app will load a web map that contains premium content.\n2. You will be challenged for an ArcGIS Online login to view that layer (world traffic).\n3. Enter your ArcGIS Online user name and password.\n4. If you authenticate successfully, the traffic layer will display, otherwise the map will contain only the public basemap layer.\n5. You can alter the code to supply OAuth configuration settings specific to your app.",
+        "Authentication, Security, OAuth")]
     [Register("OAuth")]
     public class OAuth : UIViewController, IOAuthAuthorizeHandler
     {
@@ -38,12 +38,16 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
         // Constants for OAuth-related values.
         // - The URL of the portal to authenticate with
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
+
         // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
         private const string AppClientId = @"lgAdHkYZYlwwfAhC";
+
         // - An optional client secret for the app (only needed for the OAuthAuthorizationCode authorization type).
         private const string ClientSecret = "";
+
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
         private const string OAuthRedirectUrl = @"my-ags-app://auth";
+
         // NOTE: to use a custom URL scheme like the one above, you need to add it to CFBundleURLSchemes in info.plist.
         // For example -
         //  <key>CFBundleURLSchemes</key>
@@ -131,6 +135,7 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
         }
 
         #region OAuth helpers
+
         // ChallengeHandler function that will be called whenever access to a secured resource is attempted.
         public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
@@ -141,7 +146,10 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials.
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (TaskCanceledException) { return credential; }
+            catch (TaskCanceledException)
+            {
+                return credential;
+            }
             catch (Exception)
             {
                 // Exception will be reported in calling function.
@@ -171,7 +179,6 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
                 authorizeUrl: authorizeUri,
                 redirectUrl: new Uri(OAuthRedirectUrl))
             {
-
                 // Allow the user to cancel the OAuth attempt.
                 AllowCancel = true
             };
@@ -217,14 +224,12 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
             };
 
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password.
-            InvokeOnMainThread(() =>
-            {
-                this.PresentViewController(auth.GetUI(), true, null);
-            });
+            InvokeOnMainThread(() => { this.PresentViewController(auth.GetUI(), true, null); });
 
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;
         }
+
         #endregion
     }
 }

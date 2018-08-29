@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -60,11 +59,12 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
                 TintColor = UIColor.White,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
+
             // Clean up borders of segmented control - avoid corner pixels.
             _operationChoiceButton.ClipsToBounds = true;
             _operationChoiceButton.Layer.CornerRadius = 5;
 
-            _operationChoiceButton.ValueChanged += _operationChoiceButton_ValueChanged;;
+            _operationChoiceButton.ValueChanged += _operationChoiceButton_ValueChanged;
 
             // Add the views.
             View.AddSubviews(_myMapView, _operationChoiceButton);

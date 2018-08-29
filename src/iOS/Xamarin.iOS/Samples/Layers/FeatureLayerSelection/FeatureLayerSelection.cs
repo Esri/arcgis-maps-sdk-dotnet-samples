@@ -9,7 +9,6 @@
 
 using System;
 using System.Drawing;
-using CoreGraphics;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -120,7 +119,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
             //    Without this step, querying may fail because wrapped-around coordinates are out of bounds.
             if (_myMapView.IsWrapAroundEnabled)
             {
-                geometry = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geometry);
+                geometry = (MapPoint) GeometryEngine.NormalizeCentralMeridian(geometry);
             }
 
             // Define the envelope around the tap location for selecting features.

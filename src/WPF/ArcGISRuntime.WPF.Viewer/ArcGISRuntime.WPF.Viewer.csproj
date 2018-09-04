@@ -55,6 +55,9 @@
     <Reference Include="Esri.ArcGISRuntime.LocalServices, Version=100.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0.1\lib\net461\Esri.ArcGISRuntime.LocalServices.dll</HintPath>
     </Reference>
+    <Reference Include="MarkedNet, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\MarkedNet.2.1.2\lib\net451\MarkedNet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -1051,6 +1054,9 @@
   </ItemGroup>
   <!-- Screenshots -->
   <ItemGroup>
+    <Content Include="Resources\github-markdown.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1544,6 +1550,7 @@
     <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0.1\build\net461\Esri.ArcGISRuntime.LocalServices.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0.1\build\net461\Esri.ArcGISRuntime.LocalServices.targets'))" />
   </Target>
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" />
-  <Import Project="SourceViewer.targets" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0.1\build\net461\Esri.ArcGISRuntime.LocalServices.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0.1\build\net461\Esri.ArcGISRuntime.LocalServices.targets')" />
+  <Import Project="SourceViewer.targets" />
+  <Import Project="readme.targets" />
 </Project>

@@ -17,13 +17,12 @@ namespace ArcGISRuntime
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SamplePage
     {
+        private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
+
         public SamplePage()
         {
             InitializeComponent();
-            ToolbarItems[0].Clicked += (o, e) =>
-            {
-                SampleDetailPage.IsVisible = !SampleDetailPage.IsVisible;
-            };
+            ToolbarItems[0].Clicked += (o, e) => { SampleDetailPage.IsVisible = !SampleDetailPage.IsVisible; };
         }
 
         public SamplePage(ContentPage sample, SampleInfo sampleInfo) : this()
@@ -49,10 +48,44 @@ namespace ArcGISRuntime
                 Title = sampleInfo.SampleName;
             }
 
-            // Only show the instructions heading if there are any instructions.
-            if (!String.IsNullOrWhiteSpace(sampleInfo.Instructions))
+            // Set up the description page.
+            try
             {
-                InstructionLabel.IsVisible = true;
+                string folderPath = sampleInfo.Path;
+                string baseUrl = "";
+                string readmePath = "";
+                string basePath = "";
+#if WINDOWS_UWP
+                baseUrl = "ms-appx-web:///";
+                basePath = $"{baseUrl}{folderPath.Substring(folderPath.LastIndexOf("Samples"))}";
+                readmePath = System.IO.Path.Combine(folderPath, "readme.md");
+#elif XAMARIN_ANDROID
+                baseUrl = "file:///android_asset";
+                basePath = baseUrl + folderPath;
+                readmePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + folderPath, "readme.md");
+#elif __IOS__
+                baseUrl = Foundation.NSBundle.MainBundle.BundlePath;
+                basePath = folderPath;
+                readmePath = System.IO.Path.Combine(folderPath, "readme.md");
+#endif
+                string cssPath = $"{baseUrl}/github-markdown.css";
+
+                string readmeContent = System.IO.File.ReadAllText(readmePath);
+                readmeContent = _markdownRenderer.Parse(readmeContent);
+
+                // Fix paths for images.
+                readmeContent = readmeContent.Replace("src=\"", $"src=\"{basePath}/");
+
+                string htmlString = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" /></head><body class=\"markdown-body\">{readmeContent}</body>";
+                DescriptionView.Source = new HtmlWebViewSource()
+                {
+                    Html = htmlString,
+                    BaseUrl = basePath
+                };
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
             }
         }
     }

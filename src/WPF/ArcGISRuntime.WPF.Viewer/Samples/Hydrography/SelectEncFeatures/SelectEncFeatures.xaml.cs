@@ -43,16 +43,16 @@ namespace ArcGISRuntime.WPF.Samples.SelectEncFeatures
             string encPath = GetEncPath();
 
             // Create the cell and layer.
-            EncLayer myEncLayer = new EncLayer(new EncCell(encPath));
+            EncLayer encLayer = new EncLayer(new EncCell(encPath));
 
             // Add the layer to the map.
-            MyMapView.Map.OperationalLayers.Add(myEncLayer);
+            MyMapView.Map.OperationalLayers.Add(encLayer);
 
             // Wait for the layer to load.
-            await myEncLayer.LoadAsync();
+            await encLayer.LoadAsync();
 
             // Set the viewpoint.
-            MyMapView.SetViewpoint(new Viewpoint(myEncLayer.FullExtent));
+            await MyMapView.SetViewpointAsync(new Viewpoint(encLayer.FullExtent));
 
             // Subscribe to tap events (in order to use them to identify and select features).
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;

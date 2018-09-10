@@ -119,6 +119,13 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
             // Create a new vertical layout for the app
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
+            // Create a TextView for instructions.
+            TextView sampleInstructionsTextView = new TextView(this)
+            {
+                Text = "Tap on the graphic to identify it."
+            };
+            layout.AddView(sampleInstructionsTextView);
+
             // Add the map view to the layout
             layout.AddView(_myMapView);
 

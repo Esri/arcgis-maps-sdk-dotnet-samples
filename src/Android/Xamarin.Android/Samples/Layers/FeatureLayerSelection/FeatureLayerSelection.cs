@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
@@ -16,7 +16,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Drawing;
-using Android.Views;
 
 namespace ArcGISRuntime.Samples.FeatureLayerSelection
 {
@@ -40,7 +39,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
 
             Title = "Feature layer selection";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             CreateLayout();
             Initialize();
         }
@@ -51,9 +50,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
             Map myMap = new Map(Basemap.CreateTopographic());
 
             // Create envelope to be used as a target extent for map's initial viewpoint
-            Envelope myEnvelope = new Envelope(
-                -1131596.019761, 3893114.069099, 3926705.982140, 7977912.461790,
-                SpatialReferences.WebMercator);
+            Envelope myEnvelope = new Envelope(-128, 50, -62, 18, SpatialReferences.Wgs84);
 
             // Set the initial viewpoint for map
             myMap.InitialViewpoint = new Viewpoint(myEnvelope);
@@ -71,7 +68,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
             // Initialize a new feature layer based on the feature table
             _featureLayer = new FeatureLayer(featureTable)
             {
-
                 // Set the selection color for feature layer
                 SelectionColor = Color.Cyan,
 
@@ -97,7 +93,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Define the selection tolerance
-            double tolerance = 5;
+            double tolerance = 15;
 
             // Convert the tolerance to map units
             double mapTolerance = tolerance * _myMapView.UnitsPerPixel;

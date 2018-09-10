@@ -20,6 +20,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Android.Views;
 
 namespace ArcGISRuntime.Samples.GeodatabaseTransactions
 {
@@ -84,10 +85,18 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
 
         private void CreateLayout()
         {
+            // Layout params for making buttons fill page width
+            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MatchParent,
+                ViewGroup.LayoutParams.MatchParent,
+                1.0f
+            );
+
             // Button to start an edit transaction
             _startEditingButton = new Button(this)
             {
-                Text = "Start"
+                Text = "Start",
+                LayoutParameters = param
             };
             _startEditingButton.Click += BeginTransaction;
 
@@ -95,7 +104,8 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             _stopEditingButton = new Button(this)
             {
                 Text = "Stop",
-                Enabled = false
+                Enabled = false,
+                LayoutParameters = param
             };
             _stopEditingButton.Click += StopEditTransaction;
 
@@ -103,7 +113,8 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             _syncEditsButton = new Button(this)
             {
                 Text = "Sync",
-                Enabled = false
+                Enabled = false,
+                LayoutParameters = param
             };
             _syncEditsButton.Click += SynchronizeEdits;
 
@@ -111,7 +122,8 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             _addBirdButton = new Button(this)
             {
                 Text = "Add Bird",
-                Enabled = false
+                Enabled = false,
+                LayoutParameters = param
             };
             _addBirdButton.Click += AddNewFeature;
 
@@ -119,7 +131,8 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             _addMarineButton = new Button(this)
             {
                 Text = "Add Marine",
-                Enabled = false
+                Enabled = false,
+                LayoutParameters = param
             };
             _addMarineButton.Click += AddNewFeature;
 

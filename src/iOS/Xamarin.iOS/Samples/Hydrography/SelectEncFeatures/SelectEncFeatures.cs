@@ -65,7 +65,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             await encLayer.LoadAsync();
 
             // Set the viewpoint.
-            _myMapView.SetViewpoint(new Viewpoint(encLayer.FullExtent));
+            await _myMapView.SetViewpointAsync(new Viewpoint(encLayer.FullExtent));
 
             // Subscribe to tap events (in order to use them to identify and select features).
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;

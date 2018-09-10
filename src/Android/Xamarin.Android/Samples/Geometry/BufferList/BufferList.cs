@@ -110,7 +110,7 @@ namespace ArcGISRuntime.Samples.BufferList
             // Create the button to create the buffers.
             Button bufferButton = new Button(this)
             {
-                Text = "Buffer points"
+                Text = "Make buffers"
             };
             bufferButton.Click += BufferButton_Click;
             subLayout3.AddView(bufferButton);
@@ -328,6 +328,7 @@ namespace ArcGISRuntime.Samples.BufferList
             // Clear all graphics (tap points and buffer polygons).
             _myMapView.GraphicsOverlays["buffers"].Graphics.Clear();
         }
+
 
         private void ClearBufferPolygons()
         {

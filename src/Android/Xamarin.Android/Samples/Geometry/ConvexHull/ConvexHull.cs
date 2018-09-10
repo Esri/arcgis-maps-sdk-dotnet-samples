@@ -175,14 +175,14 @@ namespace ArcGISRuntime.Samples.ConvexHull
             // Create a TextView for instructions.
             TextView sampleInstructionsTextView = new TextView(this)
             {
-                Text = "Tap on the map in several places, then click the 'Convex Hull' button."
+                Text = "Tap on the map to create three or more points, then tap the 'Make Convex Hull' button."
             };
             layout.AddView(sampleInstructionsTextView);
 
             // Create a Button to create the convex hull.
             _convexHullButton = new Button(this)
             {
-                Text = "Convex Hull"
+                Text = "Make Convex Hull"
             };
             _convexHullButton.Click += ConvexHullButton_Click;
             _convexHullButton.Enabled = false;

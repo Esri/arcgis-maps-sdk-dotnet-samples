@@ -5,25 +5,15 @@
     android:layout_height="match_parent">
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Adjust the sliders to see the resulting generalized or densified polyline."
-                android:textColor="#ff0000"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp" />
-        </TableRow>
+        android:layout_height="match_parent"
+        android:stretchColumns="*">
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="Max. Deviation (Generalize)"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp" />
@@ -33,8 +23,8 @@
             android:layout_height="match_parent">
             <SeekBar
                 android:id="@+id/densifyAndGeneralize_deviationSlider"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:max="250"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp" />
@@ -44,8 +34,8 @@
             android:layout_height="match_parent">
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="Max. Segment length (Densify)"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp" />
@@ -55,8 +45,8 @@
             android:layout_height="match_parent">
             <SeekBar
                 android:id="@+id/densifyAndGeneralize_segmentLengthSlider"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:max="400"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp" />
@@ -72,12 +62,12 @@
                 android:layout_weight="1" />
         </TableRow>
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
             <TextView
                 android:id="@+id/densifyAndGeneralize_ResultLabel"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Adjust a slider to start"
                 android:textAlignment="center"
                 android:textColor="#ff0000"

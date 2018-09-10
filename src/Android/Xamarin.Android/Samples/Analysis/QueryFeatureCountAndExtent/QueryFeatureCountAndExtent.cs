@@ -77,11 +77,11 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             // Wait for the feature layer to load
             await myFeatureLayer.LoadAsync();
 
-            // Set the map initial extent to the extent of the feature layer
-            myMap.InitialViewpoint = new Viewpoint(myFeatureLayer.FullExtent);
-
             // Add the map to the MapView
             _myMapView.Map = myMap;
+
+            // Set the map initial extent to the extent of the feature layer
+            await _myMapView.SetViewpointGeometryAsync(myFeatureLayer.FullExtent, 50);
         }
 
         private async void BtnZoomToFeatures_Click(object sender, EventArgs e)

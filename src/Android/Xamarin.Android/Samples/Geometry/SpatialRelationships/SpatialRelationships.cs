@@ -9,6 +9,7 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -34,6 +35,7 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
 
         // References to the graphics and graphics overlay
         private GraphicsOverlay _graphicsOverlay;
+
         private Graphic _polygonGraphic;
         private Graphic _polylineGraphic;
         private Graphic _pointGraphic;
@@ -113,7 +115,7 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
             _myMapView.GeoViewTapped += myMapView_GeoViewTapped;
 
             // Set the viewpoint to center on the point
-            _myMapView.SetViewpointCenterAsync(pointGeometry, 200000000);
+            _myMapView.SetViewpointGeometryAsync(GeometryEngine.Union(polygonGeometry, polylineGeometry), 50);
         }
 
         private async void myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -143,7 +145,7 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
 
         private string GetOutputText(Geometry selectedGeometry)
         {
-            string output = "";
+            string output = $"Selected: {selectedGeometry.GeometryType}\n";
 
             // Get the relationships
             List<SpatialRelationship> polygonRelationships = GetSpatialRelationships(selectedGeometry, _polygonGraphic.Geometry);
@@ -153,32 +155,32 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
             // Add the point relationships to the output
             if (selectedGeometry.GeometryType != GeometryType.Point)
             {
-                output += "Point:\n";
+                output += "\tRelationship(s) with Point:\n";
                 foreach (SpatialRelationship relationship in pointRelationships)
                 {
-                    output += $"\t{relationship}\n";
+                    output += $"\t\t{relationship}\n";
                 }
             }
             // Add the polygon relationships to the output
             if (selectedGeometry.GeometryType != GeometryType.Polygon)
             {
-                output += "Polygon:\n";
+                output += "\tRelationship(s) with Polygon:\n";
                 foreach (SpatialRelationship relationship in polygonRelationships)
                 {
-                    output += $"\t{relationship}\n";
+                    output += $"\t\t{relationship}\n";
                 }
             }
             // Add the polyline relationships to the output
             if (selectedGeometry.GeometryType != GeometryType.Polyline)
             {
-                output += "Polyline:\n";
+                output += "\tRelationship(s) with Polyline:\n";
                 foreach (SpatialRelationship relationship in polylineRelationships)
                 {
-                    output += $"\t{relationship}\n";
+                    output += $"\t\t{relationship}\n";
                 }
             }
 
-            return output;
+            return output.TrimEnd('\n');
         }
 
         /// <summary>
@@ -205,12 +207,20 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
             // Create a new vertical layout for the app
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-            _resultTextView = new TextView(this);
+            // Create a help label for the sample.
+            TextView helpLabel = new TextView(this) { Gravity = GravityFlags.Center };
+            helpLabel.Text = "Tap a graphic to select it. The display will update to show the relationships with the other graphics.";
 
+            // Create a Textview for the results.
+            _resultTextView = new TextView(this);
+            _resultTextView.SetMinHeight(350);
+
+            //Add the labels to the layout.
+            layout.AddView(helpLabel);
             layout.AddView(_resultTextView);
             layout.AddView(_myMapView);
 
-            // Show the layout in the app
+            // Show the layout in the app.
             SetContentView(layout);
         }
     }

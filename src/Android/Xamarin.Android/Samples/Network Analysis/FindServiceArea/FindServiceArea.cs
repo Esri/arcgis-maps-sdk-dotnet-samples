@@ -9,6 +9,7 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -62,36 +63,46 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             // Create a new layout for the entire page.
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-            // Create a new layout for the toolbar (buttons).
-            GridLayout toolbar = new GridLayout(this) { RowCount = 2, ColumnCount = 2, AlignmentMode = GridAlign.Margins };
+            // Add layouts for the buttons.
+            LinearLayout topRow = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            LinearLayout bottomRow = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+
+            // Make a layout parameter for the buttons.
+            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MatchParent,
+                ViewGroup.LayoutParams.MatchParent,
+                1.0f
+            );
 
             // Create a button to reset the route display, add it to the toolbar.
-            _facilityButton = new Button(this) { Text = "Place Facility" };
+            _facilityButton = new Button(this) { Text = "Place Facility", LayoutParameters = param };
             _facilityButton.Click += PlaceFacilityButtonClick;
-            toolbar.AddView(_facilityButton);
+            topRow.AddView(_facilityButton);
 
             // Create a button to reset the route display, add it to the toolbar.
-            _barrierButton = new Button(this) { Text = "Draw Barrier" };
+            _barrierButton = new Button(this) { Text = "Draw Barrier", LayoutParameters = param };
+            //_barrierButton.SetWidth(toolbar.Width);
             _barrierButton.Click += DrawBarrierButtonClick;
-            toolbar.AddView(_barrierButton);
+            topRow.AddView(_barrierButton);
 
             // Create a button to reset the route display, add it to the toolbar.
-            _serviceAreasButton = new Button(this) { Text = "Show Service Areas" };
+            _serviceAreasButton = new Button(this) { Text = "Show Service Areas", LayoutParameters = param };
             _serviceAreasButton.Click += ShowServiceAreasButtonClick;
-            toolbar.AddView(_serviceAreasButton);
+            bottomRow.AddView(_serviceAreasButton);
 
             // Create a button to reset the route display, add it to the toolbar.
-            _resetButton = new Button(this) { Text = "Reset" };
+            _resetButton = new Button(this) { Text = "Reset", LayoutParameters = param };
             _resetButton.Click += ResetClick;
-            toolbar.AddView(_resetButton);
+            bottomRow.AddView(_resetButton);
 
-            // Add the toolbar to the layout
-            layout.AddView(toolbar);
+            // Add rows of buttons to the layout.
+            layout.AddView(topRow);
+            layout.AddView(bottomRow);
 
-            // Add the map view to the layout
+            // Add the map view to the layout.
             layout.AddView(_myMapView);
 
-            // Show the layout in the app
+            // Show the layout in the app.
             SetContentView(layout);
         }
 

@@ -54,9 +54,12 @@ namespace ArcGISRuntime
 
             public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
             {
-                var cell = new UITableViewCell();
+                var cell = tableView.DequeueReusableCell("sample") ?? new UITableViewCell(UITableViewCellStyle.Subtitle, "sample");
                 SampleInfo item = _data[indexPath.Row];
                 cell.TextLabel.Text = item.SampleName;
+                cell.DetailTextLabel.Text = item.Description;
+                cell.DetailTextLabel.TextColor = UIColor.Gray;
+                cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
                 return cell;
             }
 

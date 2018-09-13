@@ -57,10 +57,13 @@ namespace ArcGISRuntime
 
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            UITableViewCell searchCell = tableView.DequeueReusableCell("SearchCell") ?? new UITableViewCell(UITableViewCellStyle.Default, "SearchCell");
-
-            searchCell.TextLabel.Text = _visibleSamples[indexPath.Row].SampleName;
-            return searchCell;
+            var cell = tableView.DequeueReusableCell("sample") ?? new UITableViewCell(UITableViewCellStyle.Subtitle, "sample");
+            SampleInfo item = _visibleSamples[indexPath.Row];
+            cell.TextLabel.Text = item.SampleName;
+            cell.DetailTextLabel.Text = item.Description;
+            cell.DetailTextLabel.TextColor = UIColor.Gray;
+            cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
+            return cell;
         }
 
         public override async void RowSelected(UITableView tableView, NSIndexPath indexPath)

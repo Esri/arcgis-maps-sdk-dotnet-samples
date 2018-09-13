@@ -6,6 +6,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5278F66E-D41F-45D2-8327-25EA13A11618}</ProjectGuid>
+	<ArcGISLocalServerIgnoreMissingComponent>true</ArcGISLocalServerIgnoreMissingComponent>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ArcGISRuntime</RootNamespace>

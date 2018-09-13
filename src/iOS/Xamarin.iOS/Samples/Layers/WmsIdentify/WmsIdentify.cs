@@ -28,17 +28,10 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         "Tap to identify a feature. Note: the service returns HTML regardless of whether there was an identify result. See the Forms implementation for an example heuristic for identifying empty results.")]
     public class WmsIdentify : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private readonly UILabel _helpLabel = new UILabel
-        {
-            Text = "Tap to identify features",
-            TextAlignment = UITextAlignment.Center,
-            AdjustsFontSizeToFitWidth = true,
-            Lines = 1
-        };
+        // Hold references to the UI controls.
+        private MapView _myMapView;
         private WKWebView _webView;
+        private UIStackView _stackView;
 
         // Create and hold the URL to the WMS service showing EPA water info.
         private readonly Uri _wmsUrl = new Uri("https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
@@ -54,50 +47,44 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             Title = "Identify WMS features";
         }
 
-        private void CreateLayout()
-        {
-            // Create the webview for showing the identify result.
-            _webView = new WKWebView(new CGRect(), new WKWebViewConfiguration());
-
-            // Add the controls to the view.
-            View.AddSubviews(_myMapView, _webView, _toolbar);
-
-            // Add the help label to the toolbar.
-            _toolbar.AddSubview(_helpLabel);
-        }
-
         public override void ViewDidLoad()
         {
-            CreateLayout();
             Initialize();
 
             base.ViewDidLoad();
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void LoadView()
         {
-            try
+            base.LoadView();
+            _webView = new WKWebView(new CGRect(), new WKWebViewConfiguration());
+            _myMapView = new MapView();
+            _stackView = new UIStackView(new UIView[] { _myMapView, _webView })
             {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat toolbarHeight = 40;
-                nfloat margin = 5;
-                nfloat controlHeight = toolbarHeight - 2 * margin;
-                nfloat webviewHeight = 200;
+                Alignment = UIStackViewAlignment.Fill,
+                Distribution = UIStackViewDistribution.FillEqually,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            View.AddSubview(_stackView);
 
-                // Reposition controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - webviewHeight);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
-                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
-                _webView.Frame = new CGRect(0, View.Bounds.Height - webviewHeight, View.Bounds.Width, webviewHeight);
+            _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+        }
 
-                // Position the help label within the toolbar.
-                _helpLabel.Frame = new CGRect(margin, margin, _toolbar.Bounds.Width - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            base.TraitCollectionDidChange(previousTraitCollection);
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                // Landscape
+                _stackView.Axis = UILayoutConstraintAxis.Horizontal;
             }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            else 
             {
+                // Portrait
+                _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
         }
 

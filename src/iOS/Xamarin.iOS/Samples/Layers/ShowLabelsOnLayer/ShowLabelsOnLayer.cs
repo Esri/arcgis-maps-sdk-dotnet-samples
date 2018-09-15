@@ -21,7 +21,7 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Show labels on layer",
         "Layers",
-        "This sample demonstrates how to show labels on a feature layer",
+        "Show labels on a feature layer using a JSON label definition.",
         "The labeling of the names on the US Highways layer is accomplished by supplying a JSON string to the FeatureLayer's LabelDefinition. The JSON is based on the new ArcGIS web map specification.",
         "")]
     public class ShowLabelsOnLayer : UIViewController
@@ -69,43 +69,67 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
         private async void Initialize()
         {
             // Create a map with a light gray canvas basemap.
-            Map sampleMap = new Map(Basemap.CreateLightGrayCanvas())
-            {
-                InitialViewpoint = new Viewpoint(new MapPoint(-100.175709, 39.221225, SpatialReferences.Wgs84), 20000000)
-            };
+            Map sampleMap = new Map(Basemap.CreateLightGrayCanvas());
 
             // Assign the map to the MapView.
             _myMapView.Map = sampleMap;
 
-            // Define the URL string for the US highways feature layer.
-            string highwaysUrlString = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/1";
+            // Define the URL string for the feature layer.
+            string layerUrl = "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Congressional_Districts_analysis/FeatureServer/0";
 
-            // Create a service feature table from the URL to the US highways feature service.
-            ServiceFeatureTable highwaysServiceFeatureTable = new ServiceFeatureTable(new Uri(highwaysUrlString));
+            // Create a service feature table from the URL.
+            ServiceFeatureTable featureTable = new ServiceFeatureTable(new System.Uri(layerUrl));
 
             // Create a feature layer from the service feature table.
-            FeatureLayer highwaysFeatureLayer = new FeatureLayer(highwaysServiceFeatureTable);
+            FeatureLayer districtFeatureLabel = new FeatureLayer(featureTable);
 
-            // Add the US highways feature layer to the operations layers collection of the map.
-            sampleMap.OperationalLayers.Add(highwaysFeatureLayer);
+            // Add the feature layer to the operations layers collection of the map.
+            sampleMap.OperationalLayers.Add(districtFeatureLabel);
 
-            // Load the US highways feature layer - this way we can obtain it's extent.
-            await highwaysFeatureLayer.LoadAsync();
+            // Load the feature layer - this way we can obtain it's extent.
+            await districtFeatureLabel.LoadAsync();
 
-            // Help regarding the JSON syntax for defining the LabelDefinition.FromJson syntax can be found here:
+            // Zoom the map view to the extent of the feature layer.
+            await _myMapView.SetViewpointCenterAsync(new MapPoint(-10846309.950860, 4683272.219411, SpatialReferences.WebMercator), 20000000);
+
+            // Help regarding the Json syntax for defining the LabelDefinition.FromJson syntax can be found here:
             // https://developers.arcgis.com/web-map-specification/objects/labelingInfo/
             // This particular JSON string will have the following characteristics:
-            // (1) The 'labelExpressionInfo' defines that the label text displayed comes from the field 'rte_num1' in the 
-            //     feature service and will be prefaced with an "I -". Example: "I - 10", "I - 15", "I - 95", etc.
-            // (2) The 'labelPlacement' will be placed above and along the highway polyline segment.
-            // (3) The 'where' clause restricts the labels to be displayed that has valid (non-empty) data. Empty data
-            //     for this service has a single blank space in the 'rte_num1' field.
-            // (4) The 'symbol' for the labeled text will be blue with a yellow halo.
-            string theJsonString =
+            string redLabelJson =
+             @"{
+                    ""labelExpressionInfo"":{""expression"":""$feature.NAME + ' (' + left($feature.PARTY,1) + ')\\nDistrict' + $feature.CDFIPS""},
+                    ""labelPlacement"":""esriServerPolygonPlacementAlwaysHorizontal"",
+                    ""where"":""PARTY = 'Republican'"",
+                    ""symbol"":
+                        { 
+                            ""angle"":0,
+                            ""backgroundColor"":[0,0,0,0],
+                            ""borderLineColor"":[0,0,0,0],
+                            ""borderLineSize"":0,
+                            ""color"":[255,0,0,255],
+                            ""font"":
+                                {
+                                    ""decoration"":""none"",
+                                    ""size"":10,
+                                    ""style"":""normal"",
+                                    ""weight"":""normal""
+                                },
+                            ""haloColor"":[255,255,255,255],
+                            ""haloSize"":2,
+                            ""horizontalAlignment"":""center"",
+                            ""kerning"":false,
+                            ""type"":""esriTS"",
+                            ""verticalAlignment"":""middle"",
+                            ""xoffset"":0,
+                            ""yoffset"":0
+                        }
+               }";
+
+            string blueLabelJson =
                 @"{
-                    ""labelExpressionInfo"":{""expression"":""'I - ' + $feature.rte_num1""},
-                    ""labelPlacement"":""esriServerLinePlacementAboveAlong"",
-                    ""where"":""rte_num1 <> ' '"",
+                    ""labelExpressionInfo"":{""expression"":""$feature.NAME + ' (' + left($feature.PARTY,1) + ')\\nDistrict' + $feature.CDFIPS""},
+                    ""labelPlacement"":""esriServerPolygonPlacementAlwaysHorizontal"",
+                    ""where"":""PARTY = 'Democrat'"",
                     ""symbol"":
                         { 
                             ""angle"":0,
@@ -116,12 +140,12 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
                             ""font"":
                                 {
                                     ""decoration"":""none"",
-                                    ""size"":15,
+                                    ""size"":10,
                                     ""style"":""normal"",
                                     ""weight"":""normal""
                                 },
-                            ""haloColor"":[255,255,0,255],
-                            ""haloSize"":1.5,
+                            ""haloColor"":[255,255,255,255],
+                            ""haloSize"":2,
                             ""horizontalAlignment"":""center"",
                             ""kerning"":false,
                             ""type"":""esriTS"",
@@ -132,13 +156,15 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
                }";
 
             // Create a label definition from the JSON string. 
-            LabelDefinition highwaysLabelDefinition = LabelDefinition.FromJson(theJsonString);
+            LabelDefinition redLabelDefinition = LabelDefinition.FromJson(redLabelJson);
+            LabelDefinition blueLabelDefinition = LabelDefinition.FromJson(blueLabelJson);
 
             // Add the label definition to the feature layer's label definition collection.
-            highwaysFeatureLayer.LabelDefinitions.Add(highwaysLabelDefinition);
+            districtFeatureLabel.LabelDefinitions.Add(redLabelDefinition);
+            districtFeatureLabel.LabelDefinitions.Add(blueLabelDefinition);
 
             // Enable the visibility of labels to be seen.
-            highwaysFeatureLayer.LabelsEnabled = true;
+            districtFeatureLabel.LabelsEnabled = true;
         }
     }
 }

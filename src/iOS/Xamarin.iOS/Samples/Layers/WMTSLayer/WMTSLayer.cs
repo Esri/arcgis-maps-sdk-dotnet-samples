@@ -37,8 +37,6 @@ namespace ArcGISRuntime.Samples.WMTSLayer
 
         public override void LoadView()
         {
-            base.LoadView();
-
             // Create the views.
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -55,6 +53,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             _constructorChoiceButton.ValueChanged += _constructorChoiceButton_ValueChanged;
 
             // Add the views.
+            View = new UIView();
             View.AddSubviews(_myMapView, _constructorChoiceButton);
 
             // Apply constraints.

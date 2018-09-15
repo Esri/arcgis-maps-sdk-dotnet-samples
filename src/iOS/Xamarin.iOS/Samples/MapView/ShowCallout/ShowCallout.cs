@@ -43,8 +43,6 @@ namespace ArcGISRuntime.Samples.ShowCallout
 
         public override void LoadView()
         {
-            base.LoadView();
-
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
@@ -61,6 +59,8 @@ namespace ArcGISRuntime.Samples.ShowCallout
                 Lines = 1,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
+
+            View = new UIView();
             View.AddSubviews(_myMapView, _helpLabel);
 
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;

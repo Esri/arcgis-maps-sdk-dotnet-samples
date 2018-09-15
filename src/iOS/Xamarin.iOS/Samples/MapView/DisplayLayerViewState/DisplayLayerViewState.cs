@@ -127,8 +127,6 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
 
         public override void LoadView()
         {
-            base.LoadView();
-
             _myMapView = new MapView();
             _tableView = new UITableView();
             _tableView.RowHeight = 40;
@@ -136,6 +134,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
             _tableView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            View = new UIView();
             View.AddSubviews(_myMapView, _tableView);
         }
 

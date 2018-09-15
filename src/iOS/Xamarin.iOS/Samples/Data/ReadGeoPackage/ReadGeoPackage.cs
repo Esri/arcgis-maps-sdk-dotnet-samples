@@ -50,8 +50,6 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
 
         public override void LoadView()
         {
-            base.LoadView();
-
             // Create the views.
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -68,6 +66,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             _layerSegmentedControl.ValueChanged += LayerSegmentedControl_ValueChanged;
 
             // Add the views.
+            View = new UIView();
             View.AddSubviews(_myMapView, _layerSegmentedControl);
 
             // Apply constraints.

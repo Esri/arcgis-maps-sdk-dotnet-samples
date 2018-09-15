@@ -236,8 +236,6 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
         public override void LoadView()
         {
-            base.LoadView();
-
             _myMapView = new MapView();
             _resultTextView = new UITextView
             {
@@ -251,6 +249,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             _stackView.Distribution = UIStackViewDistribution.FillEqually;
             _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            View = new UIView();
             View.AddSubview(_stackView);
 
             _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;

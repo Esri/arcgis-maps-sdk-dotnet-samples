@@ -39,11 +39,10 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
 
         public override void LoadView()
         {
-            base.LoadView();
-
             // Create the views.
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+
             _extrusionFieldButton = new UISegmentedControl("Population density", "Total population")
             {
                 TintColor = UIColor.White,
@@ -53,6 +52,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             _extrusionFieldButton.ValueChanged += ToggleExtrusionButton_Clicked;
 
             // Add the views.
+            View = new UIView();
             View.AddSubviews(_mySceneView, _extrusionFieldButton);
 
             // Apply constraints.

@@ -48,8 +48,6 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
 
         public override void LoadView()
         {
-            base.LoadView();
-
             // Create the views.
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -67,6 +65,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             _operationChoiceButton.ValueChanged += _operationChoiceButton_ValueChanged;
 
             // Add the views.
+            View = new UIView();
             View.AddSubviews(_myMapView, _operationChoiceButton);
 
             // Apply constraints.

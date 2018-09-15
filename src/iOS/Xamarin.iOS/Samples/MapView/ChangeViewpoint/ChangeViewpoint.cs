@@ -63,8 +63,6 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
 
         public override void LoadView()
         {
-            base.LoadView();
-
             // Create the views.
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -81,6 +79,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
             _viewpointsButton.ValueChanged += ViewpointButton_ValueChanged;
 
             // Add the views.
+            View = new UIView();
             View.AddSubviews(_myMapView, _viewpointsButton);
 
             // Apply constraints.

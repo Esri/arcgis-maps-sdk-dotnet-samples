@@ -45,8 +45,6 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
 
         public override void LoadView()
         {
-            base.LoadView();
-
             // Create the views.
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -66,6 +64,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             _styleChoiceButton.ValueChanged += _styleChoiceButton_ValueChanged;
 
             // Add the views.
+            View = new UIView();
             View.AddSubviews(_myMapView, _styleChoiceButton);
 
             // Apply constraints.

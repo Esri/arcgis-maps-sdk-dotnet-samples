@@ -56,8 +56,6 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
 
         public override void LoadView()
         {
-            base.LoadView();
-
             // Create a label to show the load status of the public layer.
             _publicLayerLabel = new UILabel()
             {
@@ -83,6 +81,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            View = new UIView();
             View.AddSubviews(_myMapView, _publicLayerLabel, _secureLayerLabel);
 
             NSLayoutConstraint.ActivateConstraints(new NSLayoutConstraint[]

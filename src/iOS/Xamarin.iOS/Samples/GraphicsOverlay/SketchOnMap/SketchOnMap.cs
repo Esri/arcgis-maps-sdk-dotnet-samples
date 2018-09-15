@@ -49,8 +49,6 @@ namespace ArcGISRuntime.Samples.SketchOnMap
 
         public override void LoadView()
         {
-            base.LoadView();
-
             // Create the views.
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -68,6 +66,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             _segmentButton.Layer.CornerRadius = 5;
 
             // Add the views.
+            View = new UIView();
             View.AddSubviews(_myMapView, _segmentButton);
 
             // Apply constraints.

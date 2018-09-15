@@ -35,10 +35,10 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
 
         public override void LoadView()
         {
-            base.LoadView();
-
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View = new UIView();
             View.AddSubviews(_myMapView);
 
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;

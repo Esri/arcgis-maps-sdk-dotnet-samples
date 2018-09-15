@@ -77,12 +77,12 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
 
         public override void LoadView()
         {
-            base.LoadView();
-
             _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View = new UIView();
             View.AddSubviews(_myMapView);
 
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
             _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;

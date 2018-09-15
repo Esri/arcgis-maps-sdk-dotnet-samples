@@ -39,10 +39,10 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
 
         public override void LoadView()
         {
-            base.LoadView();
-
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View = new UIView();
             View.AddSubviews(_mySceneView);
 
             _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;

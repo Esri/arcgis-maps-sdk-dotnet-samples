@@ -56,7 +56,6 @@ namespace ArcGISRuntime.Samples.WmsIdentify
 
         public override void LoadView()
         {
-            base.LoadView();
             _webView = new WKWebView(new CGRect(), new WKWebViewConfiguration());
             _myMapView = new MapView();
             _stackView = new UIStackView(new UIView[] { _myMapView, _webView })
@@ -65,6 +64,8 @@ namespace ArcGISRuntime.Samples.WmsIdentify
                 Distribution = UIStackViewDistribution.FillEqually,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
+
+            View = new UIView();
             View.AddSubview(_stackView);
 
             _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;

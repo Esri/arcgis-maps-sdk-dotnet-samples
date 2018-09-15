@@ -48,8 +48,6 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
 
         public override void LoadView()
         {
-            base.LoadView();
-
             // Create the MapView.
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -64,6 +62,7 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
             };
 
             // Add the views to the layout.
+            View = new UIView();
             View.AddSubviews(_myMapView, _loadStatusLabel);
 
             // Set up constraints.

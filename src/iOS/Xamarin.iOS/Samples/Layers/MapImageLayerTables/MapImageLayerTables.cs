@@ -169,8 +169,6 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
 
         public override void LoadView()
         {
-            base.LoadView();
-
             // Create a UIStackView for laying out the map view and table view.
             _stackView = new UIStackView()
             {
@@ -189,6 +187,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             _stackView.AddArrangedSubview(_tableView);
 
             // Add the stack view to the page.
+            View = new UIView();
             View.AddSubviews(_stackView);
 
             _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;

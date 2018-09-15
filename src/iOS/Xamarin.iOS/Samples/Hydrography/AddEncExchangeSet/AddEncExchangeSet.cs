@@ -37,11 +37,11 @@ namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
 
         public override void LoadView()
         {
-            base.LoadView();
-
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubviews(_myMapView);
+
+            View = new UIView();
+            View.AddSubview(_myMapView);
 
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;

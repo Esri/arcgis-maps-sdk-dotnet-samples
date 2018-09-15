@@ -43,8 +43,6 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
 
         public override void LoadView()
         {
-            base.LoadView();
-
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
@@ -53,6 +51,8 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
                 BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
+
+            View = new UIView();
             View.AddSubviews(_myMapView, _activityIndicator);
 
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;

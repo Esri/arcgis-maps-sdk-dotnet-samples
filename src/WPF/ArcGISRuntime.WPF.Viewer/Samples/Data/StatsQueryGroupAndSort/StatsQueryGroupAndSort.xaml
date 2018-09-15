@@ -25,7 +25,7 @@
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6"
-                   Text="In the statistics window, add and remove statistics (for example, average number of children under 5 per state) to calculate. Then, select from fields to group by (for example, subregion) and sort by. Tap 'Get statistics' to see the results."
+                   Text="In the statistics window, add and remove statistics (for example, average incidence of diabetes per state) to calculate. Then, select from fields to group by (for example, subregion) and sort by. Tap 'Get statistics' to see the results."
                    Foreground="Red" TextAlignment="Left" TextWrapping="Wrap" Margin="0,5,0,5" />
         <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="4"
                 BorderBrush="Black" BorderThickness="2" />

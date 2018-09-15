@@ -8,7 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using Esri.ArcGISRuntime.ArcGISServices;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -21,7 +21,7 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "ArcGIS raster layer (service)",
         "Layers",
-        "This sample demonstrates how to show a raster layer on a map based on an image service layer.",
+        "Add a raster layer from an image service to a map.",
         "")]
     public class RasterLayerImageServiceRaster : UIViewController
     {
@@ -64,17 +64,14 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
             // Create new map with the dark gray canvas basemap.
             Map myMap = new Map(Basemap.CreateDarkGrayCanvasVector());
 
-            // Create a URI to the image service raster.
-            Uri uri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NLCDLandCover2001/ImageServer");
+            // Create a Uri to the image service raster.
+            Uri uri = new Uri("https://gis.ngdc.noaa.gov/arcgis/rest/services/bag_hillshades/ImageServer");
 
-            // Create new image service raster from the URI.
+            // Create new image service raster from the Uri.
             ImageServiceRaster imageServiceRaster = new ImageServiceRaster(uri);
 
             // Load the image service raster.
             await imageServiceRaster.LoadAsync();
-
-            // Get the service information (aka. metadata) about the image service raster.
-            ArcGISImageServiceInfo arcGISImageServiceInfo = imageServiceRaster.ServiceInfo;
 
             // Create a new raster layer from the image service raster.
             RasterLayer rasterLayer = new RasterLayer(imageServiceRaster);
@@ -85,8 +82,8 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
             // Assign the map to the map view.
             _myMapView.Map = myMap;
 
-            // Zoom the map to the extent of the image service raster (which also the extent of the raster layer).
-            await _myMapView.SetViewpointGeometryAsync(arcGISImageServiceInfo.FullExtent);
+            // zoom in to the San Francisco Bay.
+            await _myMapView.SetViewpointCenterAsync(new MapPoint(-13643095.660131, 4550009.846004, SpatialReferences.WebMercator), 100000);
         }
 
         private void CreateLayout()

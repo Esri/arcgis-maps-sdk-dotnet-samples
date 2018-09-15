@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer selection",
         "Layers",
-        "This sample demonstrates how to select features in a feature layer by tapping a MapView.",
+        "Select features by tapping a MapView.",
         "")]
     public class FeatureLayerSelection : UIViewController
     {
@@ -81,41 +81,40 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
         private async void Initialize()
         {
             // Create new Map with basemap.
-            Map map = new Map(Basemap.CreateTopographic());
+            Map myMap = new Map(Basemap.CreateLightGrayCanvas());
 
             // Create envelope to be used as a target extent for map's initial viewpoint.
-            Envelope envelope = new Envelope(-1131596.019761, 3893114.069099, 3926705.982140, 7977912.461790, SpatialReferences.WebMercator);
+            Envelope myEnvelope = new Envelope(-6603299.491810, 1679677.742046, 9002253.947487, 8691318.054732, SpatialReferences.WebMercator);
 
             // Set the initial viewpoint for map.
-            map.InitialViewpoint = new Viewpoint(envelope);
+            myMap.InitialViewpoint = new Viewpoint(myEnvelope);
 
             // Provide used Map to the MapView.
-            _myMapView.Map = map;
+            _myMapView.Map = myMap;
 
-            // Create URI for the feature service.
-            Uri featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0");
+            // Create Uri for the feature service.
+            Uri featureServiceUri = new Uri(
+                "https://services1.arcgis.com/4yjifSiIG17X0gW4/arcgis/rest/services/GDP_per_capita_1960_2016/FeatureServer/0");
 
-            // Initialize feature table using a URL to feature server URL.
+            // Initialize feature table using a URL to feature server.
             ServiceFeatureTable featureTable = new ServiceFeatureTable(featureServiceUri);
 
             // Initialize a new feature layer based on the feature table.
             _featureLayer = new FeatureLayer(featureTable)
             {
-                // Set the selection color for feature layer.
                 SelectionColor = Color.Cyan,
-                // Set the selection width.
                 SelectionWidth = 3
             };
 
-            // Make sure that used feature layer is loaded before we hook into the tapped event.
-            // This prevents attempting to select on the layer that isn't initialized.
+            // Make sure that used feature layer is loaded before hooking into the tapped event
+            // This prevents trying to do selection on the layer that isn't initialized.
             await _featureLayer.LoadAsync();
 
             // Check for the load status. If the layer is loaded then add it to map.
             if (_featureLayer.LoadStatus == LoadStatus.Loaded)
             {
                 // Add the feature layer to the map.
-                map.OperationalLayers.Add(_featureLayer);
+                myMap.OperationalLayers.Add(_featureLayer);
 
                 // Add tap event handler for mapview.
                 _myMapView.GeoViewTapped += OnMapViewTapped;
@@ -125,7 +124,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Define the selection tolerance.
-            double tolerance = 25;
+            double tolerance = 15;
 
             // Convert the tolerance to map units.
             double mapTolerance = tolerance * _myMapView.UnitsPerPixel;

@@ -21,12 +21,12 @@ namespace ArcGISRuntime.Samples.OpenScene
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Open scene (Portal item)",
         "Map",
-        "This sample demonstrates how to open a scene from a Portal item. Just like Web Maps are the ArcGIS format for maps, Web Scenes are the ArcGIS format for scenes. These scenes can be stored in ArcGIS Online or Portal.",
+        "Open a scene from a Portal item. Just like Web Maps are the ArcGIS format for maps, Web Scenes are the ArcGIS format for scenes. These scenes can be stored in ArcGIS Online or Portal.",
         "The sample will load the scene automatically.")]
     public class OpenScene : UIViewController
     {
         // Hold the ID of the portal item, which is a web scene.
-        private const string ItemId = "a13c3c3540144967bc933cb5e498b8e4";
+        private const string ItemId = "c6f90b19164c4283884361005faea852";
 
         // Create the scene view.
         private readonly SceneView _mySceneView = new SceneView();

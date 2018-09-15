@@ -31,13 +31,20 @@ namespace ArcGISRuntime
         {
             base.ViewDidLoad();
 
-            Title = "Samples";
+            Title = _category.Name;
+            NavigationController.NavigationBar.PrefersLargeTitles = true;
 
             List<object> listSampleItems = _category.Items;
 
             TableView.Source = new SamplesDataSource(this, listSampleItems);
 
             TableView.ReloadData();
+        }
+
+        public override void ViewWillDisappear(bool animated)
+        {
+            base.ViewWillDisappear(animated);
+            NavigationController.NavigationBar.PrefersLargeTitles = false;
         }
 
         private class SamplesDataSource : UITableViewSource

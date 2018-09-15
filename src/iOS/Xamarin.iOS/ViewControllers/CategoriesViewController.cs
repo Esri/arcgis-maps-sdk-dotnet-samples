@@ -38,6 +38,7 @@ namespace ArcGISRuntime
             {
                 ForegroundColor = UIColor.White
             };
+            NavigationController.NavigationBar.LargeTitleTextAttributes = NavigationController.NavigationBar.TitleTextAttributes;
 
             SampleManager.Current.Initialize();
             List<SearchableTreeNode> data = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();

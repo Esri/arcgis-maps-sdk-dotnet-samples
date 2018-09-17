@@ -2,7 +2,7 @@
 
 This sample demonstrates how to connect to a WMS service and list available layers and sublayers. Layers are shown in a hierarchy. Selecting a group layer will recursively select all sublayers for display. 
 
-![](WmsServiceCatalog.jpg)
+<img src="WmsServiceCatalog.jpg" width="350"/>
 
 ## How to use the sample
 - Open the sample. A hierarchical list of layers and sublayers will appear. 

@@ -12,7 +12,9 @@ using Esri.ArcGISRuntime.Ogc;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
@@ -102,7 +104,7 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
     /// This is a ViewModel class for maintaining the state of a layer selection.
     /// Typically, this would go in a separate file, but it is included here for clarity.
     /// </summary>
-    public class LayerDisplayVM
+    public class LayerDisplayVM : INotifyPropertyChanged
     {
         private bool _isEnabled;
 
@@ -138,6 +140,7 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
             {
                 child.Select(isSelected);
             }
+            OnPropertyChanged("IsEnabled");
         }
 
         // Override ToString to enhance display formatting.
@@ -166,6 +169,14 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
                 // Recursively add children.
                 BuildLayerInfoList(layerVM, result);
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -119,7 +119,7 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
         public WmsLayerInfo Info { get; }
 
         // True if layer is selected for display.
-        public bool IsEnabled { get; private set; }
+        public bool IsEnabled { get; set; }
 
         // Keeps track of how much indentation should be added (to simulate a tree view in a list).
         private int NestLevel

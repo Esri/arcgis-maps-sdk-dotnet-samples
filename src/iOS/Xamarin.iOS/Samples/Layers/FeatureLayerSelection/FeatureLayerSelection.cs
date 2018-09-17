@@ -9,7 +9,6 @@
 
 using System;
 using System.Drawing;
-using CoreGraphics;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -30,14 +29,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
     {
         // Create and hold references to the UI controls.
         private MapView _myMapView;
-        private UIToolbar _helpToolbar = new UIToolbar();
-        private UILabel _helpLabel = new UILabel
-        {
-            Text = "Tap to select features.",
-            TextAlignment = UITextAlignment.Center,
-            AdjustsFontSizeToFitWidth = true,
-            Lines = 1
-        };
 
         // Hold reference to the feature layer.
         private FeatureLayer _featureLayer;
@@ -47,35 +38,25 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
             Title = "Feature layer Selection";
         }
 
+        public override void LoadView()
+        {
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View = new UIView();
+            View.AddSubviews(_myMapView);
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
-
-                // Reposition controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
-                _helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
-                _helpLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private async void Initialize()
@@ -138,7 +119,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
             //    Without this step, querying may fail because wrapped-around coordinates are out of bounds.
             if (_myMapView.IsWrapAroundEnabled)
             {
-                geometry = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geometry);
+                geometry = (MapPoint) GeometryEngine.NormalizeCentralMeridian(geometry);
             }
 
             // Define the envelope around the tap location for selecting features.
@@ -154,15 +135,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
 
             // Select the features based on query parameters defined above.
             await _featureLayer.SelectFeaturesAsync(queryParams, SelectionMode.New);
-        }
-
-        private void CreateLayout()
-        {
-            // Create a MapView.
-            _myMapView = new MapView();
-
-            // Add MapView to the page.
-            View.AddSubviews(_myMapView, _helpToolbar, _helpLabel);
         }
     }
 }

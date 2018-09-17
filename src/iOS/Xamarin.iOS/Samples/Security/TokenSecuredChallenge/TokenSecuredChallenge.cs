@@ -85,16 +85,14 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             _publicLayerLabel = new UILabel()
             {
                 TextColor = UIColor.Gray,
-                Text = _publicLayerName,
-                Font = _publicLayerLabel.Font.WithSize(12)
+                Text = _publicLayerName
             };
 
             // Create a label to show the load status of the secured layer.
             _secureLayerLabel = new UILabel()
             {
                 TextColor = UIColor.Gray,
-                Text = _secureLayerName,
-                Font = _secureLayerLabel.Font.WithSize(12)
+                Text = _secureLayerName
             };
             
             // Create the map view control.

@@ -28,14 +28,9 @@ namespace ArcGISRuntime.Samples.NearestVertex
         "Tap on the map. The nearest point/coordinate and nearest vertex in the polygon will be shown.")]
     public class NearestVertex : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-
-        private readonly UITextView _distanceLabel = new UITextView
-        {
-            Text = "Tap to see the nearest vertex and point.",
-            TextAlignment = UITextAlignment.Center
-        };
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UILabel _distanceLabel;
 
         // Hold references to the graphics overlay and the polygon graphic.
         private GraphicsOverlay _graphicsOverlay;
@@ -134,38 +129,39 @@ namespace ArcGISRuntime.Samples.NearestVertex
             _distanceLabel.Text = $"Vertex dist: {distanceVertex} km, Point dist: {distanceCoordinate} km";
         }
 
-        private void CreateLayout()
-        {
-            // Add the views.
-            View.AddSubviews(_myMapView, _distanceLabel);
-        }
-
         public override void ViewDidLoad()
         {
-            CreateLayout();
             Initialize();
 
             base.ViewDidLoad();
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void LoadView()
         {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat labelHeight = 30;
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, labelHeight, 0);
-                _distanceLabel.Frame = new CGRect(0, View.Bounds.Height - 30, View.Bounds.Width, 30);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            _distanceLabel = new UILabel
             {
-            }
+                Text = "Tap to see the nearest vertex and point.",
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .8f),
+                TextColor = UIColor.White,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            View = new UIView();
+            View.AddSubviews(_myMapView, _distanceLabel);
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+
+            _distanceLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _distanceLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _distanceLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _distanceLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
         }
     }
 }

@@ -31,14 +31,13 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         "Query", "Sublayer", "MapServer", "Related Tables")]
     public class MapImageLayerTables : UIViewController
     {
-        // MapView control for displaying the map.
+        // Hold references to UI controls.
         private MapView _myMapView;
+        private UITableView _tableView;
+        private UIStackView _stackView;
 
         // A graphics overlay for showing selected features.
         private GraphicsOverlay _selectedFeaturesOverlay;
-
-        // A table view to show comment records.
-        private UITableView _tableView;
 
         // A list of all service request comment records (non-spatial features).
         private List<ArcGISFeature> _serviceRequestComments = new List<ArcGISFeature>();
@@ -51,9 +50,6 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            // Create the UI and initialize the map and table view.
-            CreateLayout();
             Initialize();
         }
 
@@ -171,29 +167,49 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             await _myMapView.SetViewpointCenterAsync(serviceRequestPoint, 150000);
         }
 
-        private void CreateLayout()
+        public override void LoadView()
         {
             // Create a UIStackView for laying out the map view and table view.
-            UIStackView stackView = new UIStackView(new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height))
+            _stackView = new UIStackView()
             {
                 Axis = UILayoutConstraintAxis.Vertical,
                 Alignment = UIStackViewAlignment.Fill,
-                Distribution = UIStackViewDistribution.FillProportionally,
-                BackgroundColor = UIColor.Gray
+                Distribution = UIStackViewDistribution.FillEqually,
+                TranslatesAutoresizingMaskIntoConstraints = false
             };
 
             // Create the map view and add it to the stack view.
             _myMapView = new MapView();
-            stackView.AddArrangedSubview(_myMapView);
+            _stackView.AddArrangedSubview(_myMapView);
 
             // Create a table view for displaying records from the comments table.
             _tableView = new UITableView();
-
-            // Add the table view to the stack view.
-            stackView.AddArrangedSubview(_tableView);
+            _stackView.AddArrangedSubview(_tableView);
 
             // Add the stack view to the page.
-            View.AddSubviews(stackView);
+            View = new UIView();
+            View.AddSubviews(_stackView);
+
+            _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+        }
+
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            base.TraitCollectionDidChange(previousTraitCollection);
+
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                // Update layout for landscape.
+                _stackView.Axis = UILayoutConstraintAxis.Horizontal;
+            } 
+            else 
+            {
+                // Update layout for portrait.
+                _stackView.Axis = UILayoutConstraintAxis.Vertical;
+            }
         }
     }
 

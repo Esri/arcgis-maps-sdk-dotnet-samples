@@ -30,9 +30,10 @@ namespace ArcGISRuntime.Samples.ListTransformations
         "Tap a graphic to select it. The display will update to show the relationships with the other graphics.")]
     public class SpatialRelationships : UIViewController
     {
-        // Create and hold references to UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UITextView _resultTextView = new UITextView {TextColor = UIColor.Red};
+        // Hold references to UI controls.
+        private MapView _myMapView;
+        private UITextView _resultTextView;
+        private UIStackView _stackView;
 
         // References to the graphics and graphics overlay.
         private GraphicsOverlay _graphicsOverlay;
@@ -230,34 +231,46 @@ namespace ArcGISRuntime.Samples.ListTransformations
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            CreateLayout();
             Initialize();
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void LoadView()
         {
-            try
+            _myMapView = new MapView();
+            _resultTextView = new UITextView
             {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+                TextColor = UIColor.Black,
+                Text = "Tap a shape to see its relationship with the others.",
+                Editable = false,
+                ScrollEnabled = false
+            };
 
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height * 2 / 3);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-                _resultTextView.Frame = new CGRect(0, View.Bounds.Height * 2 / 3, View.Bounds.Width, View.Bounds.Height / 3);
+            _stackView = new UIStackView(new UIView[] { _myMapView, _resultTextView });
+            _stackView.Distribution = UIStackViewDistribution.FillEqually;
+            _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
+            View = new UIView();
+            View.AddSubview(_stackView);
+
+            _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
         }
 
-        private void CreateLayout()
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
         {
-            View.BackgroundColor = UIColor.White;
-            View.AddSubviews(_myMapView, _resultTextView);
+            base.TraitCollectionDidChange(previousTraitCollection);
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                // Landscape
+                _stackView.Axis = UILayoutConstraintAxis.Horizontal;
+            }
+            else
+            {
+                // Portrait
+                _stackView.Axis = UILayoutConstraintAxis.Vertical;
+            }
         }
     }
 }

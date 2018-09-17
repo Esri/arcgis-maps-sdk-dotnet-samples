@@ -229,6 +229,7 @@
   <!-- Storyboards -->
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
+    <InterfaceDefinition Include="LaunchScreen.storyboard" />
   </ItemGroup>
   <!-- Screenshots -->
   <ItemGroup>

@@ -61,25 +61,25 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             Title = "Closest facility";
         }
 
+        public override void LoadView()
+        {
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View = new UIView();
+            View.AddSubviews(_myMapView);
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            // Create a new MapView control and provide its location coordinates on the frame
-            _myMapView = new MapView();
-
-            // Add the bar button items to an array of UIBarButtonItems
-            View.AddSubviews(_myMapView);
-
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
@@ -150,7 +150,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             }
         }
 
-        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Clear any prior incident and routes from the graphics.
             _incidentGraphicsOverlay.Graphics.Clear();

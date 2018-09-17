@@ -3,12 +3,13 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -156,16 +157,23 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
             // Create a horizontal layout for the query controls.
             LinearLayout populationInputLayout = new LinearLayout(this) { Orientation = Orientation.Horizontal };
 
+            // Create parameters for the button.
+            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MatchParent,
+                ViewGroup.LayoutParams.MatchParent,
+                1.0f
+            );
+
             // Create the population query controls: a label, a text input, and a button to execute the query.
-            TextView populationLabel = new TextView(this) { Text = "[POP2000] > " };            
+            TextView populationLabel = new TextView(this) { Text = "[POP2000] > " };
             _populationValueInput = new EditText(this) { Text = "1800000" };
             _populationValueInput.SetMinimumWidth(200);
-            Button queryButton = new Button(this) { Text = "Query" };
+            Button queryButton = new Button(this) { Text = "Query", LayoutParameters = param };
 
             // Create some space.
             Space space = new Space(this);
             space.SetMinimumWidth(50);
-            
+
             // Add the controls to the horizontal layout.
             populationInputLayout.AddView(space);
             populationInputLayout.AddView(populationLabel);
@@ -176,9 +184,9 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
             queryButton.Click += QuerySublayers_Click;
 
             // Add the query controls and map view to the app layout.
-            layout.AddView(populationInputLayout); 
+            layout.AddView(populationInputLayout);
             layout.AddView(_myMapView);
-         
+
             // Show the layout in the app.
             SetContentView(layout);
         }

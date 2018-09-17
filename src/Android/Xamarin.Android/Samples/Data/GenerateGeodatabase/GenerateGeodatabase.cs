@@ -55,8 +55,9 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         // Generate Button.
         private Button myGenerateButton;
 
-        // Progress bar.
-        private ProgressBar myProgressBar;
+        // Progress indicator.
+        private AlertDialog alertDialog;
+        private ProgressBar progressIndicator;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -76,13 +77,6 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 Orientation = Orientation.Vertical
             };
 
-            // Add the progress bar.
-            myProgressBar = new ProgressBar(this)
-            {
-                Visibility = Android.Views.ViewStates.Gone
-            };
-            layout.AddView(myProgressBar);
-
             // Add the generate button.
             myGenerateButton = new Button(this)
             {
@@ -98,6 +92,12 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
 
             // Add the layout to the view.
             SetContentView(layout);
+
+            // Create the progress dialog display.
+            progressIndicator = new ProgressBar(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this).SetView(progressIndicator);
+            builder.SetMessage("Generating geodatabase");
+            alertDialog = builder.Create();
         }
 
         private async void Initialize()
@@ -232,7 +232,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             };
 
             // Show the progress bar.
-            myProgressBar.Visibility = Android.Views.ViewStates.Visible;
+            alertDialog.Show();
 
             // Start the job.
             _generateGdbJob.Start();
@@ -241,7 +241,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             Geodatabase resultGdb = await _generateGdbJob.GetResultAsync();
 
             // Hide the progress bar.
-            myProgressBar.Visibility = Android.Views.ViewStates.Gone;
+            alertDialog.Dismiss();
 
             // Do the rest of the work.
             await HandleGenerationCompleted(_generateGdbJob, resultGdb);
@@ -337,7 +337,8 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             RunOnUiThread(() =>
             {
                 // Update the progress bar value.
-                myProgressBar.Progress = _generateGdbJob.Progress;
+                progressIndicator.Progress = _generateGdbJob.Progress;
+                alertDialog.SetMessage($"Generating geodatabase ({_generateGdbJob.Progress}%)");
             });
         }
     }

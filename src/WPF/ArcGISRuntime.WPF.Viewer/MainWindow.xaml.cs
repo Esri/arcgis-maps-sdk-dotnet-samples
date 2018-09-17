@@ -87,7 +87,7 @@ namespace ArcGISRuntime.Samples.Desktop
             if (selectedSample == null) return;
 
             SampleManager.Current.SelectedSample = selectedSample;
-            DescriptionContainer.DataContext = selectedSample;
+            DescriptionContainer.SetSample(selectedSample);
 
             // Call a function to clear any existing credentials from AuthenticationManager
             ClearCredentials();

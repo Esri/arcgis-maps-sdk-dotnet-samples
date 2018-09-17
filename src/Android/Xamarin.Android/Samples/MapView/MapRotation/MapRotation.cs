@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
@@ -41,7 +41,7 @@ namespace ArcGISRuntime.Samples.MapRotation
 
         private void Initialize()
         {
-            // Create a new Map instance with the basemap  
+            // Create a new Map instance with the basemap
             Basemap myBasemap = Basemap.CreateStreets();
 
             _myMapView.Map = new Map(myBasemap);
@@ -59,8 +59,8 @@ namespace ArcGISRuntime.Samples.MapRotation
                 Progress = 0
             };
 
-            // When the slider value (Progress) changes, rotate the map   
-            angleSlider.ProgressChanged += (s, e) => 
+            // When the slider value (Progress) changes, rotate the map
+            angleSlider.ProgressChanged += (s, e) =>
             {
                 if (e.FromUser)
                 {
@@ -68,7 +68,7 @@ namespace ArcGISRuntime.Samples.MapRotation
                     _myMapView.SetViewpointRotationAsync(e.Progress);
 
                     // Display the MapView's rotation.
-                    _mapRotationLabel.Text = $"{angleSlider.Progress:0}%";
+                    _mapRotationLabel.Text = $"{angleSlider.Progress:0}°";
                 }
             };
 
@@ -77,7 +77,7 @@ namespace ArcGISRuntime.Samples.MapRotation
             {
                 Orientation = Orientation.Horizontal
             };
-            sliderLayout.SetPadding(10,10,10,10);
+            sliderLayout.SetPadding(10, 10, 10, 10);
             angleSlider.LayoutParameters = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MatchParent,
                 ViewGroup.LayoutParams.MatchParent,
@@ -88,6 +88,9 @@ namespace ArcGISRuntime.Samples.MapRotation
             _mapRotationLabel.SetMinWidth(150);
             sliderLayout.AddView(angleSlider);
             sliderLayout.AddView(_mapRotationLabel);
+
+            // Display the MapView's initial rotation value.
+            _mapRotationLabel.Text = $"{angleSlider.Progress:0}°";
 
             // Add the controls to the view
             layout.AddView(sliderLayout);

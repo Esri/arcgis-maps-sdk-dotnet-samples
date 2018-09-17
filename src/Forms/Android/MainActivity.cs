@@ -24,8 +24,49 @@ namespace ArcGISRuntime.Droid
 
             Instance = this;
 
+            // Copy files from the asset folder onto the filesystem to support browsing of sample code and readmes.
+            SyncAssets("Samples", System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData));
+
             Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
+        }
+
+        public static void SyncAssets(string assetFolder, string targetDir)
+        {
+            string[] assets = Application.Context.Assets.List(assetFolder);
+
+            foreach (string asset in assets)
+            {
+                string combinedPath = System.IO.Path.Combine(assetFolder, asset);
+                string[] subAssets = Application.Context.Assets.List(combinedPath);
+
+                // Recur on folders.
+                if (subAssets.Length > 0)
+                {
+                    SyncAssets(combinedPath, targetDir);
+                }
+                else
+                {
+                    // Only readmes need to be copied for now.
+                    if (!combinedPath.EndsWith(".md")) { continue; }
+
+                    // Copy the file.
+                    using (var source = Application.Context.Assets.Open(combinedPath))
+                    {
+                        string combinedTargetDirPath = System.IO.Path.Combine(targetDir, assetFolder);
+                        if (!System.IO.Directory.Exists(combinedTargetDirPath))
+                        {
+                            System.IO.Directory.CreateDirectory(combinedTargetDirPath);
+                        }
+
+                        using (var dest = System.IO.File.Create(System.IO.Path.Combine(combinedTargetDirPath, asset)))
+                        {
+                            source.CopyTo(dest);
+                        }
+                    }
+                }
+
+            }
         }
     }
 }

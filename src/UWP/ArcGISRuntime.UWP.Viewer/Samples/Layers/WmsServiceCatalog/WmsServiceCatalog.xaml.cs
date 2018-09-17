@@ -23,11 +23,13 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
         "")]
     public partial class WmsServiceCatalog
     {
-        // Hold the URL to the WMS service providing the US NOAA National Weather Service forecast weather chart
-        private Uri wmsUrl = new Uri("https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+        // Hold the URL to the WMS service providing the US NOAA National Weather Service forecast weather chart.
+        private readonly Uri _wmsUrl = new Uri(
+            "https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
-        // Hold a list of LayerDisplayVM; this is the ViewModel
+        // Hold a list of LayerDisplayVM; this is the ViewModel.
         private ObservableCollection<LayerDisplayVM> _viewModelList = new ObservableCollection<LayerDisplayVM>();
+
         public WmsServiceCatalog()
         {
             InitializeComponent();
@@ -37,59 +39,29 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
 
         private async void Initialize()
         {
-            // Apply an imagery basemap to the map
+            // Apply an imagery basemap to the map.
             MyMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
 
-            // Create the WMS Service
-            WmsService service = new WmsService(wmsUrl);
+            // Create the WMS Service.
+            WmsService service = new WmsService(_wmsUrl);
 
-            // Load the WMS Service
+            // Load the WMS Service.
             await service.LoadAsync();
 
-            // Get the service info (metadata) from the service
+            // Get the service info (metadata) from the service.
             WmsServiceInfo info = service.ServiceInfo;
 
-            // Get the list of layer infos
-            IReadOnlyList<WmsLayerInfo> topLevelLayers = info.LayerInfos;
-
-            // Recursively build up a list of all the layers in the service and get their IDs as a flat list
-            List<WmsLayerInfo> expandedList = new List<WmsLayerInfo>();
-            BuildLayerInfoList(topLevelLayers, expandedList);
-
-            // Build the ViewModel from the expanded list of layer infos
-            foreach (WmsLayerInfo layerInfo in expandedList)
+            // Get the list of layer infos.
+            foreach (var layerInfo in info.LayerInfos)
             {
-                // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of the ArcGIS Runtime
-                _viewModelList.Add(new LayerDisplayVM(layerInfo));
+                LayerDisplayVM.BuildLayerInfoList(new LayerDisplayVM(layerInfo, null), _viewModelList);
             }
 
-            MyDisplayList.ItemsSource = _viewModelList;
-
-            // Update the map display based on the viewModel
+            // Update the map display based on the viewModel.
             UpdateMapDisplay(_viewModelList);
-        }
 
-        /// <summary>
-        /// Recursively builds a list of WmsLayerInfo metadata starting from a collection of root WmsLayerInfo
-        /// </summary>
-        /// For simplicity, this sample doesn't show the layer hierarchy (tree), instead collapsing it to a list.
-        /// A tree view would be more appropriate, but would complicate the sample greatly.
-        /// <param name="info">Collection of starting WmsLayerInfo object</param>
-        /// <param name="result">Result list to build</param>
-        private void BuildLayerInfoList(IReadOnlyList<WmsLayerInfo> info, List<WmsLayerInfo> result)
-        {
-            // Return if there are no more layers to explore
-            if (info.Count < 1) { return; }
-
-            // Add each layer and each layer's children
-            foreach (WmsLayerInfo layer in info)
-            {
-                // Add the layer
-                result.Add(layer);
-
-                // Recursively add children
-                BuildLayerInfoList(layer.LayerInfos, result);
-            }
+            // Update the list of layers.
+            MyDisplayList.ItemsSource = _viewModelList;
         }
 
         /// <summary>
@@ -97,70 +69,123 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
         /// </summary>
         private void UpdateMapDisplay(ObservableCollection<LayerDisplayVM> displayList)
         {
-            // Remove all existing layers
+            // Remove all existing layers.
             MyMapView.Map.OperationalLayers.Clear();
 
-            // Get a list of selected LayerInfos
+            // Get a list of selected LayerInfos.
             List<WmsLayerInfo> selectedLayers = displayList.Where(vm => vm.IsEnabled).Select(vm => vm.Info).ToList();
 
-            // Return if no layers selected
+            // Return if no layers selected.
             if (!selectedLayers.Any())
             {
                 return;
             }
 
-            // Create a new WmsLayer from the selected layers
+            // Create a new WmsLayer from the selected layers.
             WmsLayer myLayer = new WmsLayer(selectedLayers);
 
-            // Add the layer to the map
+            // Add the layer to the map.
             MyMapView.Map.OperationalLayers.Add(myLayer);
         }
 
         /// <summary>
-        /// Takes action once a new layer selection is made
+        /// Takes action once a new layer selection is made.
         /// </summary>
         private void MyDisplayList_SelectionChanged_1(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
-            // Update items
-            foreach (LayerDisplayVM item in e.AddedItems)
-            {
-                item.IsEnabled = true;
-            }
-
+            // Deselect removed layers.
             foreach (LayerDisplayVM item in e.RemovedItems)
             {
-                item.IsEnabled = false;
+                item.Select(false);
             }
 
-            // Update the map
+            // Select added layers.
+            foreach (LayerDisplayVM item in e.AddedItems)
+            {
+                item.Select();
+            }
+
+            // Update the map.
             UpdateMapDisplay(_viewModelList);
         }
     }
 
     /// <summary>
     /// This is a ViewModel class for maintaining the state of a layer selection.
-    /// Typically, this would go in a separate file, but it is included here for clarity
+    /// Typically, this would go in a separate file, but it is included here for clarity.
     /// </summary>
     public class LayerDisplayVM
     {
-        /// <summary>
-        /// Metadata for the individual selected layer
-        /// </summary>
-        public WmsLayerInfo Info { get; set; }
+        public WmsLayerInfo Info { get; }
 
-        /// <summary>
-        /// True if the layer is selected for display
-        /// </summary>
-        public Boolean IsEnabled { get; set; }
+        // True if layer is selected for display.
+        public bool IsEnabled { get; set; }
 
-        public LayerDisplayVM(WmsLayerInfo info)
+        // Keeps track of how much indentation should be added (to simulate a tree view in a list).
+        private int NestLevel
         {
-            Info = info;
+            get
+            {
+                if (Parent == null)
+                {
+                    return 0;
+                }
+
+                return Parent.NestLevel + 1;
+            }
         }
 
+        private List<LayerDisplayVM> Children { get; set; }
+
+        private LayerDisplayVM Parent { get; }
+
+        public LayerDisplayVM(WmsLayerInfo info, LayerDisplayVM parent)
+        {
+            Info = info;
+            Parent = parent;
+        }
+
+        // Select this layer and all child layers.
+        public void Select(bool isSelected = true)
+        {
+            IsEnabled = isSelected;
+            if (Children == null)
+            {
+                return;
+            }
+
+            foreach (var child in Children)
+            {
+                child.Select(isSelected);
+            }
+        }
+
+        // Override ToString to enhance display formatting.
         public override string ToString()
         {
-            return Info.Title;
+            return new String('\t', NestLevel) + Info.Title;
+        }
+
+        public static void BuildLayerInfoList(LayerDisplayVM root, IList<LayerDisplayVM> result)
+        {
+            // Add the root node to the result list.
+            result.Add(root);
+
+            // Initialize the child collection for the root.
+            root.Children = new List<LayerDisplayVM>();
+
+            // Recursively add sublayers.
+            foreach (WmsLayerInfo layer in root.Info.LayerInfos)
+            {
+                // Create the view model for the sublayer.
+                LayerDisplayVM layerVM = new LayerDisplayVM(layer, root);
+
+                // Add the sublayer to the root's sublayer collection.
+                root.Children.Add(layerVM);
+
+                // Recursively add children.
+                BuildLayerInfoList(layerVM, result);
+            }
         }
     }
 }

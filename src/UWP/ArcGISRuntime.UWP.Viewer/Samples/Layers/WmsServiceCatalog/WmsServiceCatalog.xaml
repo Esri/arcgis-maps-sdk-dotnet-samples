@@ -10,11 +10,11 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <TextBlock Text="Select a WMS layer from the list for display:" Grid.Row="0" />
-                <ListBox x:Name="MyDisplayList" SelectionMode="Multiple" SelectionChanged="MyDisplayList_SelectionChanged_1" Grid.Row="1" />
-                <TextBlock Foreground="Red" Text="Note: above list does not show layer hierarchy" Grid.Row="2" />
+                <!-- This is a workaround until a proper TreeView is a available for all supported UWP platforms. -->
+                <ListBox x:Name="MyDisplayList" SelectionMode="Single"
+                         SelectionChanged="MyDisplayList_SelectionChanged_1" Grid.Row="1" />
             </Grid>
         </Border>
     </Grid>

@@ -107,6 +107,8 @@ namespace ArcGISRuntime.Samples.GeoViewSync
 
         public override void LoadView()
         {
+            View = new UIView();
+
             _myMapView = new MapView();
             _mySceneView = new SceneView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -126,7 +128,6 @@ namespace ArcGISRuntime.Samples.GeoViewSync
 
             _stackView.Distribution = UIStackViewDistribution.FillEqually;
 
-            View = new UIView();
             View.AddSubviews(_stackView);
 
             NSLayoutConstraint.ActivateConstraints(new NSLayoutConstraint[]

@@ -21,18 +21,19 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "WMS layer (URL)",
         "Layers",
-        "This sample demonstrates how to add a layer from a WMS service to a map.",
+        "Add a layer from a WMS service to a map.",
         "")]
     public class WMSLayerUrl : UIViewController
     {
         // Create and hold a reference to the MapView.
         private MapView _myMapView;
 
-        // Hold the URL to the WMS service showing the geology of Africa.
-        private readonly Uri _wmsUrl = new Uri("https://certmapper.cr.usgs.gov/arcgis/services/geology/africa/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+        // Hold the URL to the WMS service showing U.S. weather radar.
+        private readonly Uri _wmsUrl = new Uri(
+            "https://nowcoast.noaa.gov/arcgis/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Hold a list of uniquely-identifying WMS layer names to display.
-        private readonly List<string> _wmsLayerNames = new List<string> {"0"};
+        private readonly List<string> _wmsLayerNames = new List<string> { "1" };
 
         public WMSLayerUrl()
         {
@@ -62,13 +63,15 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
 
         private void Initialize()
         {
-            // Apply an imagery basemap to the map and set the viewpoint to a zoomed-in part of Africa.
-            Map myMap = new Map(Basemap.CreateImagery())
+            // Create a map with basemap and initial viewpoint.
+            Map myMap = new Map(Basemap.CreateLightGrayCanvas())
             {
-                InitialViewpoint = new Viewpoint(new MapPoint(25.450, -4.59, SpatialReferences.Wgs84), 1000000)
+                // Set the initial viewpoint.
+                InitialViewpoint = new Viewpoint(
+                    new Envelope(-19195297.778679, 512343.939994, -3620418.579987, 8658913.035426, 0.0, 0.0, SpatialReferences.WebMercator))
             };
 
-            // Show the map.
+            // Add the map to the mapview.
             _myMapView.Map = myMap;
 
             // Create a new WMS layer displaying the specified layers from the service.

@@ -60,9 +60,8 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
             // Get the feature layer from the map
             _myFeatureLayer = (FeatureLayer)myMap.OperationalLayers.First();
 
-            // Make the selection color yellow and the width thick
-            _myFeatureLayer.SelectionColor = Colors.Yellow;
-            _myFeatureLayer.SelectionWidth = 5;
+            // Make the selection color yellow.
+            MyMapView.SelectionProperties.Color = Colors.Yellow;
 
             // Listen for GeoViewTapped events
             MyMapView.GeoViewTapped += MyMapViewOnGeoViewTapped;

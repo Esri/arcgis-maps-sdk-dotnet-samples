@@ -44,14 +44,14 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
             // Configure the basemap
             MyMapView.Map = new Map(Basemap.CreateTopographic());
 
-            // Create the graphics overlay and set the selection color
-            _graphicsOverlay = new GraphicsOverlay()
-            {
-                SelectionColor = Colors.Yellow
-            };
+            // Create the graphics overlay
+            _graphicsOverlay = new GraphicsOverlay();
 
             // Add the overlay to the MapView
             MyMapView.GraphicsOverlays.Add(_graphicsOverlay);
+
+            // Update the selection color
+            MyMapView.SelectionProperties.Color = Color.Yellow;
 
             // Create the point collection that defines the polygon
             PointCollection polygonPoints = new PointCollection(SpatialReferences.WebMercator)

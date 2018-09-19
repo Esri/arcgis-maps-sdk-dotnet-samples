@@ -22,7 +22,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Query feature count and extent",
         "Analysis",
-        "This sample demonstrates how to query a feature table, in this case returning a count, for features that are within the visible extent or that meet specified criteria.",
+        "Zoom to features matching a query and count features in the visible extent.",
         "Use the button to zoom to the extent of the state specified (by abbreviation) in the textbox or use the button to count the features in the current extent.")]
     public class QueryFeatureCountAndExtent : UIViewController
     {
@@ -36,7 +36,8 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
         private UILabel _helpLabel;
 
         // URL to the feature service.
-        private readonly Uri _usaCitiesSource = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
+        private readonly Uri _medicareHospitalSpendLayer =
+            new Uri("https://services1.arcgis.com/4yjifSiIG17X0gW4/arcgis/rest/services/Medicare_Hospital_Spending_per_Patient/FeatureServer/0");
 
         // Feature table to query.
         private ServiceFeatureTable _featureTable;
@@ -48,32 +49,32 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
 
         private async void Initialize()
         {
-            // Create the map with a vector street basemap.
-            Map map = new Map(Basemap.CreateStreetsVector());
+            // Create the map with a basemap.
+            Map myMap = new Map(Basemap.CreateDarkGrayCanvasVector());
 
             // Create the feature table from the service URL.
-            _featureTable = new ServiceFeatureTable(_usaCitiesSource);
+            _featureTable = new ServiceFeatureTable(_medicareHospitalSpendLayer);
 
             // Create the feature layer from the table.
-            FeatureLayer featureLayer = new FeatureLayer(_featureTable);
+            FeatureLayer myFeatureLayer = new FeatureLayer(_featureTable);
 
             // Add the feature layer to the map.
-            map.OperationalLayers.Add(featureLayer);
+            myMap.OperationalLayers.Add(myFeatureLayer);
 
             // Wait for the feature layer to load.
-            await featureLayer.LoadAsync();
+            await myFeatureLayer.LoadAsync();
 
             // Set the map initial extent to the extent of the feature layer.
-            map.InitialViewpoint = new Viewpoint(featureLayer.FullExtent);
+            myMap.InitialViewpoint = new Viewpoint(myFeatureLayer.FullExtent);
 
             // Add the map to the MapView.
-            _myMapView.Map = map;
+            _myMapView.Map = myMap;
         }
 
         private async void BtnZoomToFeatures_Click(object sender, EventArgs e)
         {
             // Create the query parameters.
-            QueryParameters queryStates = new QueryParameters {WhereClause = $"upper(ST) LIKE '%{_stateEntry.Text.ToUpper()}%'"};
+            QueryParameters queryStates = new QueryParameters {WhereClause = $"upper(State) LIKE '%{_stateEntry.Text.ToUpper()}%'"};
 
             // Get the extent from the query.
             Envelope resultExtent = await _featureTable.QueryExtentAsync(queryStates);
@@ -96,11 +97,13 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
 
         private async void BtnCountFeatures_Click(object sender, EventArgs e)
         {
+            // Get the current visible extent.
+            Geometry currentExtent = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry;
+
             // Create the query parameters.
             QueryParameters queryCityCount = new QueryParameters
             {
-                // Get the current view extent and use that as a query parameters.
-                Geometry = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry,
+                Geometry = currentExtent,
                 // Specify the interpretation of the Geometry query parameters.
                 SpatialRelationship = SpatialRelationship.Intersects
             };

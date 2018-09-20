@@ -23,15 +23,15 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedGeoElement
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Viewshed (GeoElement)",
         "Analysis",
-        "This sample demonstrates how to display a live viewshed analysis for a moving GeoElement. The analysis is offset vertically so that the viewpoint is from the top of the GeoElement (in this case, a model of a tank).",
+        "Display a live viewshed analysis for a moving GeoElement.",
         "Tap on the scene to see the tank move to that point.",
         "Featured")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("07d62a792ab6496d9b772a24efea45d0")]
     public partial class ViewshedGeoElement
     {
         // URLs to the scene layer with buildings and the elevation source
-        private readonly Uri _elevationUri = new Uri("https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
-        private readonly Uri _buildingsUri = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
+        private readonly Uri _elevationUri = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+        private readonly Uri _buildingsUri = new Uri("https://tiles.arcgis.com/tiles/nSZVuSZjHpEZZbRo/arcgis/rest/services/BAG_3D_Drenthe/SceneServer");
 
         // Graphic and overlay for showing the tank
         private readonly GraphicsOverlay _tankOverlay = new GraphicsOverlay();
@@ -47,8 +47,6 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedGeoElement
         public ViewshedGeoElement()
         {
             InitializeComponent();
-
-            // Create the UI, setup the control references and execute initialization.
             Initialize();
         }
 
@@ -88,7 +86,7 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedGeoElement
             //       This ensures that the tank is on the ground rather than partially under it.
             tankSymbol.AnchorPosition = SceneSymbolAnchorPosition.Bottom;
             // - Create the graphic.
-            _tank = new Graphic(new MapPoint(-4.506390, 48.385624, SpatialReferences.Wgs84), tankSymbol);
+            _tank = new Graphic(new MapPoint(6.559562, 52.993608, SpatialReferences.Wgs84), tankSymbol);
             // - Update the heading.
             _tank.Attributes["HEADING"] = 0.0;
             // - Add the graphic to the overlay.

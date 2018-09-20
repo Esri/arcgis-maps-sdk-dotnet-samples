@@ -18,16 +18,14 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Scene layer selection",
         "Layers",
-        "This sample demonstrates how to identify geoelements in a scene layer.",
+        "Identify GeoElements in a scene layer.",
         "Tap/Click on a building in the scene layer to identify it.",
-        "Scene, Identify")]
+        "")]
     public partial class SceneLayerSelection
     {
         public SceneLayerSelection()
         {
             InitializeComponent();
-
-            // Create the scene and display it in the scene view.
             Initialize();
         }
 
@@ -42,8 +40,8 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
             elevationSurface.ElevationSources.Add(new ArcGISTiledElevationSource(elevationService));
             scene.BaseSurface = elevationSurface;
 
-            // Add a scene layer of buildings in Brest, France.
-            Uri buildingsService = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
+            // Add a scene layer.
+            Uri buildingsService = new Uri("https://tiles.arcgis.com/tiles/nSZVuSZjHpEZZbRo/arcgis/rest/services/Amsterdam_3D/SceneServer");
             ArcGISSceneLayer buildingsLayer = new ArcGISSceneLayer(buildingsService);
             scene.OperationalLayers.Add(buildingsLayer);
 
@@ -51,7 +49,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
             MySceneView.Scene = scene;
 
             // Create a camera targeting the buildings in Brest.
-            Camera brestCamera = new Camera(48.378, -4.494, 200, 345, 65, 0);
+            Camera brestCamera = new Camera(52.356672, 4.890745, 200, 345, 65, 0);
 
             // Set the viewpoint with the camera.
             MySceneView.SetViewpointCameraAsync(brestCamera);
@@ -60,7 +58,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
         private async void SceneViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
             // Get the scene layer from the scene (first and only operational layer).
-            ArcGISSceneLayer sceneLayer = (ArcGISSceneLayer)MySceneView.Scene.OperationalLayers.First();
+            ArcGISSceneLayer sceneLayer = (ArcGISSceneLayer) MySceneView.Scene.OperationalLayers.First();
 
             // Clear any existing selection.
             sceneLayer.ClearSelection();
@@ -79,7 +77,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
                 if (geoElement != null)
                 {
                     // Select the feature to highlight it in the scene view.
-                    sceneLayer.SelectFeature((Feature)geoElement);
+                    sceneLayer.SelectFeature((Feature) geoElement);
                 }
             }
         }

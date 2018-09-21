@@ -31,7 +31,7 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedGeoElement
     {
         // URLs to the scene layer with buildings and the elevation source
         private readonly Uri _elevationUri = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
-        private readonly Uri _buildingsUri = new Uri("https://tiles.arcgis.com/tiles/nSZVuSZjHpEZZbRo/arcgis/rest/services/BAG_3D_Drenthe/SceneServer");
+        private readonly Uri _buildingsUri = new Uri("https://services2.arcgis.com/cFEFS0EWrhfDeVw9/arcgis/rest/services/STM____FR_Lyon__Textured_buildings/SceneServer");
 
         // Graphic and overlay for showing the tank
         private readonly GraphicsOverlay _tankOverlay = new GraphicsOverlay();
@@ -64,7 +64,9 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedGeoElement
             MySceneView.Scene.BaseSurface = baseSurface;
 
             // Add buildings.
-            MySceneView.Scene.OperationalLayers.Add(new ArcGISSceneLayer(_buildingsUri));
+            ArcGISSceneLayer sceneLayer = new ArcGISSceneLayer(_buildingsUri);
+            MySceneView.Scene.OperationalLayers.Add(sceneLayer);
+            await sceneLayer.LoadAsync();
 
             // Configure the graphics overlay for the tank and add the overlay to the SceneView.
             _tankOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
@@ -86,7 +88,7 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedGeoElement
             //       This ensures that the tank is on the ground rather than partially under it.
             tankSymbol.AnchorPosition = SceneSymbolAnchorPosition.Bottom;
             // - Create the graphic.
-            _tank = new Graphic(new MapPoint(6.559562, 52.993608, SpatialReferences.Wgs84), tankSymbol);
+            _tank = new Graphic(new MapPoint( 4.847969, 45.746452, SpatialReferences.Wgs84), tankSymbol);
             // - Update the heading.
             _tank.Attributes["HEADING"] = 0.0;
             // - Add the graphic to the overlay.

@@ -964,4 +964,7 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\SceneLayerSelection\SceneLayerSelection.jpg" />
+  </ItemGroup>
 </Project>

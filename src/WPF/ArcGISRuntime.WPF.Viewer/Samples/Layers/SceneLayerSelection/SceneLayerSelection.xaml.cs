@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Esri.ArcGISRuntime.Geometry;
 
 namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
 {
@@ -29,7 +30,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create a new Scene with an imagery basemap.
             Scene scene = new Scene(Basemap.CreateImagery());
@@ -41,18 +42,20 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
             scene.BaseSurface = elevationSurface;
 
             // Add a scene layer.
-            Uri buildingsService = new Uri("https://tiles.arcgis.com/tiles/nSZVuSZjHpEZZbRo/arcgis/rest/services/Amsterdam_3D/SceneServer");
+            Uri buildingsService = new Uri("http://scenesampleserverdev.arcgis.com/arcgis/rest/services/Hosted/buildings_Indianapolis/SceneServer");
             ArcGISSceneLayer buildingsLayer = new ArcGISSceneLayer(buildingsService);
             scene.OperationalLayers.Add(buildingsLayer);
 
             // Assign the Scene to the SceneView.
             MySceneView.Scene = scene;
 
-            // Create a camera targeting the buildings in Brest.
-            Camera brestCamera = new Camera(52.356672, 4.890745, 200, 345, 65, 0);
+            // Create a camera with an interesting view.
+            await buildingsLayer.LoadAsync();
+            MapPoint center = (MapPoint)GeometryEngine.Project(buildingsLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
+            Camera viewCamera = new Camera(center.Y, center.X, 600, 120, 60, 0);
 
             // Set the viewpoint with the camera.
-            MySceneView.SetViewpointCameraAsync(brestCamera);
+            await MySceneView.SetViewpointCameraAsync(viewCamera);
         }
 
         private async void SceneViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)

@@ -1,4 +1,4 @@
-# ArcGIS Scene layer (URL)
+# Scene layer (URL)
 Display an ArcGIS scene layer from a URL.
 
 ![](SceneLayerUrl.jpg)
@@ -15,7 +15,7 @@ Pan and zoom to explore the scene.
 
 ## About the data
 
-This sample shows a [Geneva buildings scene layer](https://www.arcgis.com/home/item.html?id=033ecf268ae34489ac9aa1e88cd70860) from ArcGIS Online.
+This sample shows a [Philadelphia building layer](https://www.arcgis.com/home/item.html?id=edb35a635df244afa33bc056319d7e82) from ArcGIS Online.
 
 ## Relevant API
 * `Scene`
@@ -23,4 +23,4 @@ This sample shows a [Geneva buildings scene layer](https://www.arcgis.com/home/i
 * `SceneView`
 
 ## Tags
-Buildings, multipatch, scene, model, 3D
+Buildings, scene, model, 3D

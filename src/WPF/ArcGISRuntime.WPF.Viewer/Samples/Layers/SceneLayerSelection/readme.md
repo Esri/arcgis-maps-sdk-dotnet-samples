@@ -15,7 +15,7 @@ Click on a building in the scene layer to select it. Deselect buildings by click
 
 ## About the data
 
-This sample shows an [Amsterdam buildings scene layer](https://www.arcgis.com/home/item.html?id=db5028160b5c481986fc71681c195d5b) from ArcGIS Online.
+This sample shows an [Indianapolis building layer](https://www.arcgis.com/home/item.html?id=d5271294f1e04ac9acc5b36feaab7859) from ArcGIS Online.
 
 ## Relevant API
 * `Scene`
@@ -23,4 +23,4 @@ This sample shows an [Amsterdam buildings scene layer](https://www.arcgis.com/ho
 * `SceneView`
 
 ## Tags
-Search and Query, Buildings, multipatch, scene, model, 3D
+Search and Query, Buildings, scene, model, 3D

@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
@@ -20,10 +21,12 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerUrl
     public partial class SceneLayerUrl
     {
         // URL for a service to use as an elevation source.
-        private Uri _elevationSourceUrl = new Uri(@"http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+        private readonly Uri _elevationSourceUrl = new Uri(
+            "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
         // URL for the scene layer.
-        private Uri _serviceUri = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Geneva/SceneServer");
+        private readonly Uri _serviceUri = new Uri(
+            "http://scenesampleserverdev.arcgis.com/arcgis/rest/services/Hosted/Buildings_Philadelphia/SceneServer");
 
         public SceneLayerUrl()
         {
@@ -31,7 +34,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerUrl
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create new Scene.
             Scene myScene = new Scene {Basemap = Basemap.CreateImagery()};
@@ -46,14 +49,20 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerUrl
             // Add created layer to the operational layers collection.
             myScene.OperationalLayers.Add(sceneLayer);
 
+            // Load the layer.
+            await sceneLayer.LoadAsync();
+
+            // Get the center of the scene layer.
+            MapPoint center = (MapPoint)GeometryEngine.Project(sceneLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
+
             // Create a camera with coordinates showing layer data.
-            Camera camera = new Camera(46.20, 6.148611, 200, 345, 65, 0);
+            Camera camera = new Camera(center.Y, center.X, 225, 240, 80, 0);
 
             // Assign the Scene to the SceneView.
             MySceneView.Scene = myScene;
 
             // Set view point of scene view using camera.
-            MySceneView.SetViewpointCameraAsync(camera);
+            await MySceneView.SetViewpointCameraAsync(camera);
         }
     }
 }

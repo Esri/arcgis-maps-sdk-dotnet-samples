@@ -228,7 +228,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     Stream imageStream = await thumbnailImage.GetEncodedBufferAsync();
 
                     // Update the item thumbnail
-                    ((PortalItem)myMap.Item).SetThumbnailWithImage(imageStream);
+                    ((PortalItem)myMap.Item).SetThumbnail(imageStream);
                     await myMap.SaveAsync();
 
                     // Report update was successful

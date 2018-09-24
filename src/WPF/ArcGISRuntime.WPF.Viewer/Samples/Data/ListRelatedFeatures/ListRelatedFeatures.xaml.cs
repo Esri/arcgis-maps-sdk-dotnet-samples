@@ -61,9 +61,8 @@ namespace ArcGISRuntime.WPF.Samples.ListRelatedFeatures
             // Wait for the layer to load.
             await _myFeatureLayer.LoadAsync();
 
-            // Make the selection color yellow and the width thick.
-            _myFeatureLayer.SelectionColor = Color.Yellow;
-            _myFeatureLayer.SelectionWidth = 5;
+            // Make the selection color yellow.
+            MyMapView.SelectionProperties.Color = Color.Yellow;
 
             // Listen for GeoViewTapped events.
             MyMapView.GeoViewTapped += MyMapViewOnGeoViewTapped;

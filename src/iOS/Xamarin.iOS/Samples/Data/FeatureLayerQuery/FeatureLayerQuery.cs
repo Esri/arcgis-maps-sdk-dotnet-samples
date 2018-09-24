@@ -108,8 +108,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             // Create a new renderer for the States Feature Layer.
             SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
             SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Transparent, lineSymbol);
-            _featureLayer.SelectionColor = Color.Cyan;
-            _featureLayer.SelectionWidth = 4.0;
 
             // Set States feature layer renderer.
             _featureLayer.Renderer = new SimpleRenderer(fillSymbol);
@@ -119,6 +117,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
 
             // Assign the map to the MapView.
             _myMapView.Map = map;
+
+            // Set the selection color.
+            _myMapView.SelectionProperties.Color = Color.Cyan;
         }
 
         private async void OnQueryClicked(object sender, EventArgs e)

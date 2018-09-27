@@ -10,6 +10,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="$(MSBuildThisFileDirectory)Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
+	<None Include="$(MSBuildThisFileDirectory)Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.jpg" />
+	<None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.jpg" />
+	<None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKml\DisplayKml.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
@@ -138,6 +142,22 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ListKmlContents\ListKmlContents.xaml.cs">
+		<DependentUpon>ListKmlContents.xaml</DependentUpon>
+		<SubType>Code</SubType>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.xaml.cs">
+		<DependentUpon>IdentifyKmlFeatures.xaml</DependentUpon>
+		<SubType>Code</SubType>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.xaml.cs">
+		<DependentUpon>DisplayKmlNetworkLinks.xaml</DependentUpon>
+		<SubType>Code</SubType>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKml\DisplayKml.xaml.cs">
+		<DependentUpon>DisplayKml.xaml</DependentUpon>
+		<SubType>Code</SubType>
+	</Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml.cs">
       <DependentUpon>DistanceMeasurement.xaml</DependentUpon>
     </Compile>
@@ -535,6 +555,18 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ListKmlContents\ListKmlContents.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
+	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
+	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
+	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKml\DisplayKml.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

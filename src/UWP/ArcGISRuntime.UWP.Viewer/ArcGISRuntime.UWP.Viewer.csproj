@@ -113,10 +113,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<Content Include="Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
-	<Content Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.jpg" />
-	<Content Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.jpg" />
-	<Content Include="Samples\Layers\DisplayKml\DisplayKml.jpg" />
+    <Content Include="Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
+    <Content Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.jpg" />
+    <Content Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.jpg" />
+    <Content Include="Samples\Layers\DisplayKml\DisplayKml.jpg" />
     <Content Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
     <Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
@@ -290,18 +290,18 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Layers\ListKmlContents\ListKmlContents.xaml.cs">
-		<DependentUpon>ListKmlContents.xaml</DependentUpon>
-	</Compile>
-	<Compile Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.xaml.cs">
-		<DependentUpon>IdentifyKmlFeatures.xaml</DependentUpon>
-	</Compile>
-	<Compile Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.xaml.cs">
-		<DependentUpon>DisplayKmlNetworkLinks.xaml</DependentUpon>
-	</Compile>
-	<Compile Include="Samples\Layers\DisplayKml\DisplayKml.xaml.cs">
-		<DependentUpon>DisplayKml.xaml</DependentUpon>
-	</Compile>
+    <Compile Include="Samples\Layers\ListKmlContents\ListKmlContents.xaml.cs">
+      <DependentUpon>ListKmlContents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.xaml.cs">
+      <DependentUpon>IdentifyKmlFeatures.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.xaml.cs">
+      <DependentUpon>DisplayKmlNetworkLinks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayKml\DisplayKml.xaml.cs">
+      <DependentUpon>DisplayKml.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml.cs">
       <DependentUpon>DistanceMeasurement.xaml</DependentUpon>
     </Compile>
@@ -689,22 +689,22 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<Page Include="Samples\Layers\ListKmlContents\ListKmlContents.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
-	<Page Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
-	<Page Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
-	<Page Include="Samples\Layers\DisplayKml\DisplayKml.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
+    <Page Include="Samples\Layers\ListKmlContents\ListKmlContents.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\DisplayKml\DisplayKml.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1278,10 +1278,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.3.0</Version>
+      <Version>100.4.0-daily2192</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.UWP">
-      <Version>100.3.0</Version>
+      <Version>100.4.0-daily2192</Version>
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.2</Version>

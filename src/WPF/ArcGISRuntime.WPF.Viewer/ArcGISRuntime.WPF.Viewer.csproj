@@ -48,13 +48,13 @@
   <!-- References -->
   <ItemGroup>
     <Reference Include="Esri.ArcGISRuntime, Version=100.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0\lib\net461\Esri.ArcGISRuntime.dll</HintPath>
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0-daily2192\lib\net461\Esri.ArcGISRuntime.dll</HintPath>
     </Reference>
     <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\lib\net461\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\lib\net461\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
     </Reference>
-    <Reference Include="Esri.ArcGISRuntime.LocalServices, Version=100.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0.1\lib\net461\Esri.ArcGISRuntime.LocalServices.dll</HintPath>
+    <Reference Include="Esri.ArcGISRuntime.LocalServices, Version=100.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.4.0-daily2192\lib\net461\Esri.ArcGISRuntime.LocalServices.dll</HintPath>
     </Reference>
     <Reference Include="MarkedNet, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\MarkedNet.2.1.2\lib\net451\MarkedNet.dll</HintPath>
@@ -81,7 +81,9 @@
   <!-- Resources -->
   <ItemGroup>
     <None Include="ArcGISLocalServer_100.3.AGSDeployment" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Readme.md" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-128.png" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-16.png" />
@@ -107,18 +109,18 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Layers\ListKmlContents\ListKmlContents.xaml.cs">
-		<DependentUpon>ListKmlContents.xaml</DependentUpon>
-	</Compile>
-	<Compile Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.xaml.cs">
-		<DependentUpon>IdentifyKmlFeatures.xaml</DependentUpon>
-	</Compile>
-	<Compile Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.xaml.cs">
-		<DependentUpon>DisplayKmlNetworkLinks.xaml</DependentUpon>
-	</Compile>
-	<Compile Include="Samples\Layers\DisplayKml\DisplayKml.xaml.cs">
-		<DependentUpon>DisplayKml.xaml</DependentUpon>
-	</Compile>
+    <Compile Include="Samples\Layers\ListKmlContents\ListKmlContents.xaml.cs">
+      <DependentUpon>ListKmlContents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.xaml.cs">
+      <DependentUpon>IdentifyKmlFeatures.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.xaml.cs">
+      <DependentUpon>DisplayKmlNetworkLinks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayKml\DisplayKml.xaml.cs">
+      <DependentUpon>DisplayKml.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml.cs">
       <DependentUpon>DistanceMeasurement.xaml</DependentUpon>
     </Compile>
@@ -524,22 +526,22 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<Page Include="Samples\Layers\ListKmlContents\ListKmlContents.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
-	<Page Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
-	<Page Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
-	<Page Include="Samples\Layers\DisplayKml\DisplayKml.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
+    <Page Include="Samples\Layers\ListKmlContents\ListKmlContents.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\DisplayKml\DisplayKml.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Map\OpenScene\OpenScene.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1083,18 +1085,18 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<Content Include="Samples\Layers\ListKmlContents\ListKmlContents.jpg">
-		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Content>
-	<Content Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.jpg">
-		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Content>
-	<Content Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.jpg">
-		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Content>
-	<Content Include="Samples\Layers\DisplayKml\DisplayKml.jpg">
-		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Content>
+    <Content Include="Samples\Layers\ListKmlContents\ListKmlContents.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayKml\DisplayKml.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\github-markdown.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1581,17 +1583,17 @@
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="SourceViewer.targets" />
+  <Import Project="readme.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0.1\build\net461\Esri.ArcGISRuntime.LocalServices.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0.1\build\net461\Esri.ArcGISRuntime.LocalServices.targets'))" />
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0\build\net461\Esri.ArcGISRuntime.WPF.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0\build\net461\Esri.ArcGISRuntime.WPF.targets'))" />
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.WPF.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.WPF.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.Hydrography.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.LocalServices.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.LocalServices.targets'))" />
   </Target>
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0.1\build\net461\Esri.ArcGISRuntime.LocalServices.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0.1\build\net461\Esri.ArcGISRuntime.LocalServices.targets')" />
-  <Import Project="SourceViewer.targets" />
-  <Import Project="readme.targets" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0\build\net461\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0\build\net461\Esri.ArcGISRuntime.WPF.targets')" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.WPF.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.LocalServices.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.LocalServices.targets')" />
 </Project>

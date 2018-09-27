@@ -8,8 +8,8 @@
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>Forms</Import_RootNamespace>
   </PropertyGroup>
-  <!-- Screenshots -->
   <ItemGroup>
+    <!-- Screenshots -->
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
@@ -136,8 +136,8 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
   </ItemGroup>
-  <!-- Sample Code -->
   <ItemGroup>
+    <!-- Sample Code -->
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml.cs">
       <DependentUpon>DistanceMeasurement.xaml</DependentUpon>
     </Compile>
@@ -533,8 +533,8 @@
       <DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
-  <!-- Sample XAML -->
   <ItemGroup>
+    <!-- Sample XAML -->
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

@@ -105,8 +105,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
   </ItemGroup>
-  <!-- Sample Code -->
   <ItemGroup>
+    <!-- Sample Code -->
     <Compile Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml.cs">
       <DependentUpon>DistanceMeasurement.xaml</DependentUpon>
     </Compile>
@@ -510,8 +510,8 @@
       <DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
-  <!-- Sample XAML -->
   <ItemGroup>
+    <!-- Sample XAML -->
     <Page Include="Samples\Map\OpenScene\OpenScene.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1053,8 +1053,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <!-- Screenshots -->
   <ItemGroup>
+    <!-- Screenshots -->
     <Content Include="Resources\github-markdown.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

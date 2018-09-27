@@ -7,7 +7,11 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
+using ArcGISRuntime.Samples.Managers;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Portal;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.DisplayKml
@@ -17,8 +21,12 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
         "Layers",
         "Display a KML file from URL, a local file, or a portal item.",
         "")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("324e4742820e46cfbe5029ff2c32cb1f")]
     public partial class DisplayKml : ContentPage
     {
+        private readonly Envelope _usEnvelope = new Envelope(-144.619561355187, 18.0328662832097, -66.0903762761083, 67.6390975806745, SpatialReferences.Wgs84);
+        private readonly string[] _sources = {"URL", "Local file", "Portal item"};
+
         public DisplayKml()
         {
             Title = "Display KML";
@@ -28,11 +36,48 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
 
         private void Initialize()
         {
-            // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateImagery());
+            // Set up the basemap.
+            MySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
 
-            // Assign the map to the MapView.
-            MyMapView.Map = myMap;
+            // Update the UI.
+            LayerPicker.IsEnabled = true;
+            LayerPicker.ItemsSource = _sources;
+            LayerPicker.SelectedIndexChanged += LayerPicker_SelectionChanged;
+            LayerPicker.SelectedIndex = 0;
+        }
+
+        private async void LayerPicker_SelectionChanged(object sender, EventArgs e)
+        {
+            // Clear existing layers.
+            MySceneView.Scene.OperationalLayers.Clear();
+
+            // Get the name of the selected layer.
+            string name = _sources[LayerPicker.SelectedIndex];
+
+            // Create the layer using the chosen constructor.
+            KmlLayer layer;
+            switch (name)
+            {
+                case "URL":
+                default:
+                    layer = new KmlLayer(new Uri("https://www.wpc.ncep.noaa.gov/kml/noaa_chart/WPC_Day1_SigWx.kml"));
+                    break;
+                case "Local file":
+                    string filePath = DataManager.GetDataFolder("324e4742820e46cfbe5029ff2c32cb1f", "US_State_Capitals.kml");
+                    layer = new KmlLayer(new Uri(filePath));
+                    break;
+                case "Portal item":
+                    ArcGISPortal portal = await ArcGISPortal.CreateAsync();
+                    PortalItem item = await PortalItem.CreateAsync(portal, "9fe0b1bfdcd64c83bd77ea0452c76253");
+                    layer = new KmlLayer(item);
+                    break;
+            }
+
+            // Add the selected layer to the map.
+            MySceneView.Scene.OperationalLayers.Add(layer);
+
+            // Zoom to the extent of the United States.
+            await MySceneView.SetViewpointAsync(new Viewpoint(_usEnvelope));
         }
     }
 }

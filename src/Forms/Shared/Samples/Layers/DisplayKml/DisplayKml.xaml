@@ -5,6 +5,13 @@
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
              x:Class="ArcGISRuntimeXamarin.Samples.DisplayKml.DisplayKml">
   <Grid>
-    <esriUI:MapView x:Name="MyMapView"/>
+      <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+      <Label Grid.Row="0"  Text="Choose a KML data source." />
+      <Picker Grid.Row="1" x:Name="LayerPicker" />
+        <esriUI:SceneView Grid.Row="2" x:Name="MySceneView"/>
   </Grid>
 </ContentPage>

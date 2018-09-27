@@ -7,7 +7,10 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Ogc;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.DisplayKmlNetworkLinks
@@ -26,13 +29,37 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlNetworkLinks
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
-            // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateImagery());
+            // Set up the basemap.
+            MySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
 
-            // Assign the map to the MapView.
-            MyMapView.Map = myMap;
+            // Create the dataset.
+            KmlDataset dataset = new KmlDataset(new Uri("https://www.arcgis.com/sharing/rest/content/items/600748d4464442288f6db8a4ba27dc95/data"));
+
+            // Listen for network link control messages.
+            // These should be shown to the user.
+            dataset.NetworkLinkControlMessage += Dataset_NetworkLinkControlMessage;
+
+            // Create the layer from the dataset.
+            KmlLayer fileLayer = new KmlLayer(dataset);
+
+            // Add the layer to the map.
+            MySceneView.Scene.OperationalLayers.Add(fileLayer);
+
+            // Zoom in to center the map on Germany.
+            await MySceneView.SetViewpointAsync(new Viewpoint(new MapPoint(8.150526, 50.472421, SpatialReferences.Wgs84), 2000000000));
+        }
+
+        private void Dataset_NetworkLinkControlMessage(object sender, KmlNetworkLinkControlMessageEventArgs e)
+        {
+            // Due to the nature of the threading implementation,
+            //     the dispatcher needs to be used to interact with the UI.
+            // The dispatcher takes an Action, provided here as a lambda function.
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await ((Page)Parent).DisplayAlert("KML layer message", e.Message, "OK");
+            });
         }
     }
 }

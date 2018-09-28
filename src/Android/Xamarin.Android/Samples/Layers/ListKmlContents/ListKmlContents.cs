@@ -14,7 +14,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Android.App;
 using Android.OS;
+using Android.Util;
 using Android.Widget;
+using ArcGISRuntime;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -33,7 +35,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
     public class ListKmlContents : Activity
     {
         // Hold references to UI controls.
-        private readonly SceneView _mySceneView = new SceneView();
+        private SceneView _mySceneView;
         private ListView _myDisplayList;
 
         // Hold a list of LayerDisplayVM; this is the ViewModel.
@@ -83,10 +85,10 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
             _myDisplayList.Adapter = adapter;
 
             // Subscribe to selection change notifications
-            _myDisplayList.ItemSelected += MyDisplayList_ItemSelected;
+            _myDisplayList.ItemClick += MyDisplayList_ItemClick;
         }
 
-        private void MyDisplayList_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        private void MyDisplayList_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             // Get the KML node.
             LayerDisplayVM selectedItem = _viewModelList[e.Position];
@@ -94,24 +96,15 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
             NavigateToNode(selectedItem.Node);
         }
 
+
         private void CreateLayout()
         {
-            // Create a new vertical layout for the app
-            LinearLayout layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
-
-            // Create the list view
-            _myDisplayList = new ListView(this);
-
-            // Create two help labels
-            TextView promptLabel = new TextView(this) {Text = "Select a layer"};
-
-            // Add the views to the layout
-            layout.AddView(promptLabel);
-            layout.AddView(_myDisplayList);
-            layout.AddView(_mySceneView);
-
             // Show the layout in the app
-            SetContentView(layout);
+            SetContentView(Resource.Layout.ListKmlContents);
+
+            // Get the views
+            _myDisplayList = FindViewById<ListView>(Resource.Id.ListKmlContents_ContentList);
+            _mySceneView = FindViewById<SceneView>(Resource.Id.ListKmlContents_MySceneView);
         }
 
         #region viewpoint_conversion

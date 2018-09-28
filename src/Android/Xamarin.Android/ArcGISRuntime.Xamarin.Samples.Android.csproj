@@ -435,6 +435,12 @@
     <None Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.jpg" />
     <None Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ListKmlContents.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

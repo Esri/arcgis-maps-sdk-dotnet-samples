@@ -55,7 +55,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
 
             await dataset.LoadAsync();
 
-            // Build the ViewModel from the expanded list of layer infos
+            // Build the ViewModel from the expanded list of layer infos.
             foreach (KmlNode node in dataset.RootNodes)
             {
                 // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of ArcGIS Runtime.
@@ -284,7 +284,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
         }
 
         public string Name => new string(' ', NestLevel * 3) + Node.Name + " - " + Node.GetType().Name;
-        
+
         public static void BuildLayerInfoList(LayerDisplayVM root, IList<LayerDisplayVM> result)
         {
             // Add the root node to the result list.
@@ -314,13 +314,13 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
             foreach (KmlNode node in children)
             {
                 // Create the view model for the sublayer.
-                LayerDisplayVM layerVM = new LayerDisplayVM(node, root);
+                LayerDisplayVM layerVm = new LayerDisplayVM(node, root);
 
                 // Add the sublayer to the root's sublayer collection.
-                root.Children.Add(layerVM);
+                root.Children.Add(layerVm);
 
                 // Recursively add children.
-                BuildLayerInfoList(layerVM, result);
+                BuildLayerInfoList(layerVm, result);
             }
         }
     }

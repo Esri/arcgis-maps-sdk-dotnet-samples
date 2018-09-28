@@ -147,7 +147,7 @@ namespace ArcGISRuntime.WPF.Samples.ListKmlContents
             }
         }
 
-// Asynchronously adjust the given viewpoint, taking into consideration elevation and KML altitude mode.
+        // Asynchronously adjust the given viewpoint, taking into consideration elevation and KML altitude mode.
         private async Task<Viewpoint> GetAltitudeAdjustedViewpointAsync(KmlNode node, Viewpoint baseViewpoint)
         {
             // Get the altitude mode; assume clamp-to-ground if not specified.
@@ -277,9 +277,6 @@ namespace ArcGISRuntime.WPF.Samples.ListKmlContents
 
         public static void BuildLayerInfoList(LayerDisplayVM root, IList<LayerDisplayVM> result)
         {
-            // Add the root node to the result list.
-            //result.Add(root);
-
             // Make the node visible.
             root.Node.IsVisible = true;
 
@@ -304,13 +301,13 @@ namespace ArcGISRuntime.WPF.Samples.ListKmlContents
             foreach (KmlNode node in children)
             {
                 // Create the view model for the sublayer.
-                LayerDisplayVM layerVM = new LayerDisplayVM(node, root);
+                LayerDisplayVM layerVm = new LayerDisplayVM(node, root);
 
                 // Add the sublayer to the root's sublayer collection.
-                root.Children.Add(layerVM);
+                root.Children.Add(layerVm);
 
                 // Recursively add children.
-                BuildLayerInfoList(layerVM, result);
+                BuildLayerInfoList(layerVm, result);
             }
         }
     }

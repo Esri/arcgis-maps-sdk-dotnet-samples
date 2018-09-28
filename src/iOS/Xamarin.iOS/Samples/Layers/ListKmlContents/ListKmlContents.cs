@@ -7,16 +7,15 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
@@ -38,7 +37,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
 
         // Hold a list of LayerDisplayVM; this is the ViewModel.
         private readonly List<LayerDisplayVM> _viewModelList = new List<LayerDisplayVM>();
-        
+
         public ListKmlContents()
         {
             Title = "List KML contents";
@@ -109,7 +108,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
 
             View.AddSubviews(_stackView);
 
-            NSLayoutConstraint.ActivateConstraints(new NSLayoutConstraint[]
+            NSLayoutConstraint.ActivateConstraints(new []
             {
                 _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
@@ -331,9 +330,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
     public class LayerDisplayVM
     {
         public KmlNode Node { get; }
-
-        private List<LayerDisplayVM> Children { get; set; }
-
+        
         private LayerDisplayVM Parent { get; set; }
 
         private int NestLevel
@@ -356,7 +353,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
         }
 
         public string Name => new string(' ', NestLevel * 3) + Node.Name + " - " + Node.GetType().Name;
-        
+
         public static void BuildLayerInfoList(LayerDisplayVM root, IList<LayerDisplayVM> result)
         {
             // Add the root node to the result list.
@@ -364,9 +361,6 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
 
             // Make the node visible.
             root.Node.IsVisible = true;
-
-            // Initialize the child collection for the root.
-            root.Children = new List<LayerDisplayVM>();
 
             // Recursively add children. KmlContainers and KmlNetworkLinks can both have children.
             var containerNode = root.Node as KmlContainer;
@@ -386,13 +380,10 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
             foreach (KmlNode node in children)
             {
                 // Create the view model for the sublayer.
-                LayerDisplayVM layerVM = new LayerDisplayVM(node, root);
-
-                // Add the sublayer to the root's sublayer collection.
-                root.Children.Add(layerVM);
+                LayerDisplayVM layerVm = new LayerDisplayVM(node, root);
 
                 // Recursively add children.
-                BuildLayerInfoList(layerVM, result);
+                BuildLayerInfoList(layerVm, result);
             }
         }
     }
@@ -403,7 +394,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
     /// </summary>
     public class LayerListSource : UITableViewSource
     {
-        public readonly List<LayerDisplayVM> ViewModelList = new List<LayerDisplayVM>();
+        private readonly List<LayerDisplayVM> ViewModelList = new List<LayerDisplayVM>();
 
         // Used when re-using cells to ensure that a cell of the right type is used
         private const string CellId = "KmlContentCell";
@@ -470,5 +461,5 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
             // Select the content.
             Owner.ContentSelectionChanged(indexPath.Row);
         }
-}
+    }
 }

@@ -7,14 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
 using Android.App;
 using Android.OS;
-using Android.Util;
 using Android.Widget;
 using ArcGISRuntime;
 using ArcGISRuntime.Samples.Managers;
@@ -22,6 +16,11 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI.Controls;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
 {
@@ -290,9 +289,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
     public class LayerDisplayVM
     {
         public KmlNode Node { get; }
-
-        private List<LayerDisplayVM> Children { get; set; }
-
+        
         private LayerDisplayVM Parent { get; set; }
 
         private int NestLevel
@@ -315,7 +312,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
         }
 
         public string Name => new string(' ', NestLevel * 3) + Node.Name + " - " + Node.GetType().Name;
-        
+
         public static void BuildLayerInfoList(LayerDisplayVM root, IList<LayerDisplayVM> result)
         {
             // Add the root node to the result list.
@@ -323,9 +320,6 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
 
             // Make the node visible.
             root.Node.IsVisible = true;
-
-            // Initialize the child collection for the root.
-            root.Children = new List<LayerDisplayVM>();
 
             // Recursively add children. KmlContainers and KmlNetworkLinks can both have children.
             var containerNode = root.Node as KmlContainer;
@@ -346,9 +340,6 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
             {
                 // Create the view model for the sublayer.
                 LayerDisplayVM layerVM = new LayerDisplayVM(node, root);
-
-                // Add the sublayer to the root's sublayer collection.
-                root.Children.Add(layerVM);
 
                 // Recursively add children.
                 BuildLayerInfoList(layerVM, result);

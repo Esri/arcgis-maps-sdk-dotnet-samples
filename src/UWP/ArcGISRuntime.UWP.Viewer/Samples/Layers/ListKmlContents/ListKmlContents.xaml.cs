@@ -7,17 +7,15 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using ArcGISRuntime.Samples.Managers;
-using Esri.ArcGISRuntime.Geometry;
 
 namespace ArcGISRuntime.UWP.Samples.ListKmlContents
 {
@@ -149,7 +147,7 @@ namespace ArcGISRuntime.UWP.Samples.ListKmlContents
             }
         }
 
-// Asynchronously adjust the given viewpoint, taking into consideration elevation and KML altitude mode.
+        // Asynchronously adjust the given viewpoint, taking into consideration elevation and KML altitude mode.
         private async Task<Viewpoint> GetAltitudeAdjustedViewpointAsync(KmlNode node, Viewpoint baseViewpoint)
         {
             // Get the altitude mode; assume clamp-to-ground if not specified.
@@ -259,7 +257,7 @@ namespace ArcGISRuntime.UWP.Samples.ListKmlContents
 
     public class LayerDisplayVM
     {
-        public KmlNode Node { get; set; }
+        public KmlNode Node { get; }
 
         private List<LayerDisplayVM> Children { get; set; }
 

@@ -50,12 +50,14 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
             // Create the views.
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+
             _dataChoiceButton = new UISegmentedControl(_sources)
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
                 TintColor = UIColor.White,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
+
             // Clean up borders of segmented control - avoid corner pixels.
             _dataChoiceButton.ClipsToBounds = true;
             _dataChoiceButton.Layer.CornerRadius = 5;

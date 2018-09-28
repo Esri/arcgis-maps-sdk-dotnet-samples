@@ -58,7 +58,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlNetworkLinks
             // The dispatcher takes an Action, provided here as a lambda function.
             Device.BeginInvokeOnMainThread(async () =>
             {
-                await ((Page)Parent).DisplayAlert("KML layer message", e.Message, "OK");
+                await ((Page) Parent).DisplayAlert("KML layer message", e.Message, "OK");
             });
         }
     }

@@ -41,7 +41,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
             base.OnCreate(bundle);
 
             Title = "Display KML";
-            
+
             CreateLayout();
             Initialize();
         }
@@ -55,7 +55,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
-            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
 
             // Create button to show data choices
             _dataChoiceButton = new Button(this)

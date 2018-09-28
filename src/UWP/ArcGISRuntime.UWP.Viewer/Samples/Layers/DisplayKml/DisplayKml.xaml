@@ -7,12 +7,12 @@
         <esriUI:SceneView x:Name="MySceneView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="Choose a KML data source." 
-                HorizontalTextAlignment="Center"
-                       FontWeight="SemiBold" />
+                <TextBlock Text="Choose a KML data source."
+                           HorizontalTextAlignment="Center"
+                           FontWeight="SemiBold" />
                 <ComboBox x:Name="LayerPicker"
                           HorizontalAlignment="Stretch"
-                          IsEnabled="False"  />
+                          IsEnabled="False" />
             </StackPanel>
         </Border>
     </Grid>

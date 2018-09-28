@@ -25,6 +25,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayKml
     public partial class DisplayKml
     {
         private readonly Envelope _usEnvelope = new Envelope(-144.619561355187, 18.0328662832097, -66.0903762761083, 67.6390975806745, SpatialReferences.Wgs84);
+
         public DisplayKml()
         {
             InitializeComponent();
@@ -38,7 +39,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayKml
 
             // Update the UI.
             LayerPicker.IsEnabled = true;
-            LayerPicker.ItemsSource = new [] {"URL", "Local file", "Portal item"};
+            LayerPicker.ItemsSource = new[] {"URL", "Local file", "Portal item"};
             LayerPicker.SelectionChanged += LayerPicker_SelectionChanged;
             LayerPicker.SelectedIndex = 0;
         }

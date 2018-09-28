@@ -1,4 +1,4 @@
-// Copyright 2017 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -25,6 +25,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayKml
     public partial class DisplayKml
     {
         private readonly Envelope _usEnvelope = new Envelope(-144.619561355187, 18.0328662832097, -66.0903762761083, 67.6390975806745, SpatialReferences.Wgs84);
+
         public DisplayKml()
         {
             InitializeComponent();
@@ -38,7 +39,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayKml
 
             // Update the UI.
             LayerPicker.IsEnabled = true;
-            LayerPicker.ItemsSource = new [] {"URL", "Local file", "Portal item"};
+            LayerPicker.ItemsSource = new[] {"URL", "Local file", "Portal item"};
             LayerPicker.SelectionChanged += LayerPicker_SelectionChanged;
             LayerPicker.SelectedIndex = 0;
         }

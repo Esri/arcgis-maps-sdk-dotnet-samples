@@ -61,7 +61,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
             _dataChoiceButton.Layer.CornerRadius = 5;
 
             _dataChoiceButton.ValueChanged += DataChoiceButtonOnValueChanged;
-            _dataChoiceButton.SelectedSegment = 0;
 
             // Add the views.
             View = new UIView();

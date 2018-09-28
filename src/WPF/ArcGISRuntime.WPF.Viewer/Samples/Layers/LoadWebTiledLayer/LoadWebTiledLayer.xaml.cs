@@ -20,7 +20,7 @@ namespace ArcGISRuntime.WPF.Samples.LoadWebTiledLayer
     public partial class LoadWebTiledLayer
     {
         // Templated URL to the tile service
-        private readonly string _templateUri = "http://{subDomain}.tile.stamen.com/watercolor/{level}/{col}/{row}.png";
+        private readonly string _templateUri = "https://stamen-tiles.a.ssl.fastly.net/watercolor/{level}/{col}/{row}.jpg";
 
         // List of subdomains for use when constructing the web tiled layer
         private readonly List<string> _tiledLayerSubdomains = new List<string> { "a", "b", "c", "d" };

@@ -232,6 +232,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.xaml.cs">
       <DependentUpon>DownloadPreplannedMapAreas.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\GenerateOfflineMap\GenerateOfflineMap.xaml.cs">
+      <DependentUpon>GenerateOfflineMap.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\OpenScene\OpenScene.xaml.cs">
       <DependentUpon>OpenScene.xaml</DependentUpon>
     </Compile>
@@ -610,6 +613,9 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\GenerateOfflineMap\GenerateOfflineMap.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenScene\OpenScene.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -970,5 +976,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Samples\Map\GenerateOfflineMap\GenerateOfflineMap.jpg" />
   </ItemGroup>
 </Project>

@@ -21,47 +21,57 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "WMS layer (URL)",
         "Layers",
-        "This sample demonstrates how to add a layer from a WMS service to a map.",
+        "Add a layer from a WMS service to a map.",
         "")]
     public class WMSLayerUrl : UIViewController
     {
         // Create and hold a reference to the MapView.
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
-        // Hold the URL to the WMS service showing the geology of Africa.
-        private readonly Uri _wmsUrl = new Uri("https://certmapper.cr.usgs.gov/arcgis/services/geology/africa/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+        // Hold the URL to the WMS service showing U.S. weather radar.
+        private readonly Uri _wmsUrl = new Uri(
+            "https://nowcoast.noaa.gov/arcgis/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Hold a list of uniquely-identifying WMS layer names to display.
-        private readonly List<string> _wmsLayerNames = new List<string> {"0"};
+        private readonly List<string> _wmsLayerNames = new List<string> { "1" };
 
         public WMSLayerUrl()
         {
             Title = "WMS layer (URL)";
         }
 
+        public override void LoadView()
+        {
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View = new UIView();
+            View.AddSubviews(_myMapView);
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            CreateLayout();
             Initialize();
-        }
-
-        private void CreateLayout()
-        {
-            // Add the mapview to the view.
-            View.AddSubviews(_myMapView);
         }
 
         private void Initialize()
         {
-            // Apply an imagery basemap to the map and set the viewpoint to a zoomed-in part of Africa.
-            Map myMap = new Map(Basemap.CreateImagery())
+            // Create a map with basemap and initial viewpoint.
+            Map myMap = new Map(Basemap.CreateLightGrayCanvas())
             {
-                InitialViewpoint = new Viewpoint(new MapPoint(25.450, -4.59, SpatialReferences.Wgs84), 1000000)
+                // Set the initial viewpoint.
+                InitialViewpoint = new Viewpoint(
+                    new Envelope(-19195297.778679, 512343.939994, -3620418.579987, 8658913.035426, 0.0, 0.0, SpatialReferences.WebMercator))
             };
 
-            // Show the map.
+            // Add the map to the mapview.
             _myMapView.Map = myMap;
 
             // Create a new WMS layer displaying the specified layers from the service.
@@ -69,24 +79,6 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
 
             // Add the layer to the map.
             myMap.OperationalLayers.Add(myWmsLayer);
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition controls.
-                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
     }
 }

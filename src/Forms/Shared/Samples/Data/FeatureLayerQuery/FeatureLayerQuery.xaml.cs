@@ -23,7 +23,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer query",
         "Data",
-        "This sample demonstrates how to query a feature layer via feature table.",
+        "Query a feature layer via a feature table.",
         "The sample provides a search bar on the top, where you can input the name of a US State. When you hit search the app performs a query on the feature table and based on the result either highlights the state geometry or provides an error.")]
     public partial class FeatureLayerQuery : ContentPage
     {
@@ -62,7 +62,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             _featureLayer = new FeatureLayer(_featureTable)
             {
                 // Set the Opacity of the Feature Layer
-                Opacity = 0.6
+                Opacity = 0.6,
+                // Work around service setting
+                MaxScale = 10
             };
 
             // Create a new renderer for the States Feature Layer.

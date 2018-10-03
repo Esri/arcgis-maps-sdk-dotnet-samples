@@ -26,10 +26,9 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         "")]
     public class ChangeViewpoint : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private readonly MapView _myMapView = new MapView();
-        private readonly UISegmentedControl _viewpointsButton = new UISegmentedControl(new string[] {"Geometry", "Center & Scale", "Animate"});
+        // Hold references to the UI controls.
+        private MapView _myMapView = new MapView();
+        private UISegmentedControl _viewpointsButton;
 
         // Coordinates for London.
         private readonly MapPoint _londonCoords = new MapPoint(-13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
@@ -62,51 +61,49 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
             Title = "Change viewpoint";
         }
 
+        public override void LoadView()
+        {
+            // Create the views.
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _viewpointsButton = new UISegmentedControl("Geometry", "Center & Scale", "Animate")
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                TintColor = UIColor.White,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            // Clean up borders of segmented control - avoid corner pixels.
+            _viewpointsButton.ClipsToBounds = true;
+            _viewpointsButton.Layer.CornerRadius = 5;
+
+            _viewpointsButton.ValueChanged += ViewpointButton_ValueChanged;
+
+            // Add the views.
+            View = new UIView();
+            View.AddSubviews(_myMapView, _viewpointsButton);
+
+            // Apply constraints.
+            _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+
+            _viewpointsButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor).Active = true;
+            _viewpointsButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor).Active = true;
+            _viewpointsButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization.
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat controlHeight = 30;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
-
-                // Reposition the views.
-                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _viewpointsButton.Frame = new CoreGraphics.CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
         {
             // Show a topographic basemap.
             _myMapView.Map = new Map(Basemap.CreateTopographic());
-        }
-
-        private void CreateLayout()
-        {
-            // Handle button taps.
-            _viewpointsButton.ValueChanged += ViewpointButton_ValueChanged;
-
-            // Add the controls to the view.
-            View.AddSubviews(_myMapView, _toolbar, _viewpointsButton);
         }
 
         private async void ViewpointButton_ValueChanged(object sender, EventArgs e)

@@ -32,7 +32,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
     public class AnalyzeViewshed : UIViewController
     {
         // Create and hold a reference to the MapView.
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         // URL for the geoprocessing service.
         private const string ViewshedServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/ESRI_Elevation_World/GPServer/Viewshed";
@@ -48,30 +48,25 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             Title = "Viewshed (Geoprocessing)";
         }
 
+        public override void LoadView()
+        {
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View = new UIView();
+            View.AddSubviews(_myMapView);
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition controls.
-                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
@@ -104,7 +99,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             //    Without this step, the task may fail because wrapped-around coordinates are out of bounds.
             if (_myMapView.IsWrapAroundEnabled)
             {
-                geometry = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geometry);
+                geometry = (MapPoint) GeometryEngine.NormalizeCentralMeridian(geometry);
             }
 
             // Execute the geoprocessing task using the user click location.
@@ -150,7 +145,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
                 GeoprocessingResult analysisResult = await viewshedJob.GetResultAsync();
 
                 // Get the results from the outputs.
-                GeoprocessingFeatures viewshedResultFeatures = (GeoprocessingFeatures)analysisResult.Outputs["Viewshed_Result"];
+                GeoprocessingFeatures viewshedResultFeatures = (GeoprocessingFeatures) analysisResult.Outputs["Viewshed_Result"];
 
                 // Add all the results as a graphics to the map.
                 foreach (Feature feature in viewshedResultFeatures.Features)
@@ -217,12 +212,6 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             // Add the created overlays to the MapView.
             _myMapView.GraphicsOverlays.Add(_inputOverlay);
             _myMapView.GraphicsOverlays.Add(_resultOverlay);
-        }
-
-        private void CreateLayout()
-        {
-            // Add MapView to the page.
-            View.AddSubviews(_myMapView);
         }
     }
 }

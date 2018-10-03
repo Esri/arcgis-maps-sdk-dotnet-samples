@@ -21,11 +21,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer selection",
         "Layers",
-        "This sample demonstrates how to select features in a feature layer by tapping a MapView.",
+        "Select features by tapping a MapView.",
         "")]
     public partial class FeatureLayerSelection : ContentPage
     {
-        //Create and hold reference to the feature layer
+        // Hold reference to the feature layer.
         private FeatureLayer _featureLayer;
 
         public FeatureLayerSelection()
@@ -33,84 +33,84 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
             InitializeComponent ();
 
             Title = "Feature layer selection";
-            // Create the UI, setup the control references and execute initialization 
             Initialize();
         }
 
         private async void Initialize()
         {
-            // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateTopographic());
+            // Create new Map with basemap.
+            Map myMap = new Map(Basemap.CreateLightGrayCanvas());
 
-            // Create envelope to be used as a target extent for map's initial viewpoint
-            Envelope myEnvelope = new Envelope(
-                -1131596.019761, 3893114.069099, 3926705.982140, 7977912.461790, 
-                SpatialReferences.WebMercator);
+            // Create envelope to be used as a target extent for map's initial viewpoint.
+            Envelope myEnvelope = new Envelope(-6603299.491810, 1679677.742046, 9002253.947487, 8691318.054732, SpatialReferences.WebMercator);
 
-            // Set the initial viewpoint for map
+            // Set the initial viewpoint for map.
             myMap.InitialViewpoint = new Viewpoint(myEnvelope);
 
-            // Provide used Map to the MapView
+            // Provide used Map to the MapView.
             MyMapView.Map = myMap;
 
-            // Update the selection color
+            // Update the selection color.
             MyMapView.SelectionProperties.Color = Color.Cyan;
 
-            // Create Uri for the feature service
+            // Create Uri for the feature service.
             Uri featureServiceUri = new Uri(
-                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0");
+                "https://services1.arcgis.com/4yjifSiIG17X0gW4/arcgis/rest/services/GDP_per_capita_1960_2016/FeatureServer/0");
 
-            // Initialize feature table using a url to feature server url
+            // Initialize feature table using a URL to feature server.
             ServiceFeatureTable featureTable = new ServiceFeatureTable(featureServiceUri);
 
-            // Initialize a new feature layer based on the feature table
+            // Initialize a new feature layer based on the feature table.
             _featureLayer = new FeatureLayer(featureTable);
 
-            // Make sure that used feature layer is loaded before we hook into the tapped event
-            // This prevents us trying to do selection on the layer that isn't initialized
+            // Make sure that used feature layer is loaded before hooking into the tapped event
+            // This prevents trying to do selection on the layer that isn't initialized.
             await _featureLayer.LoadAsync();
 
-            // Check for the load status. If the layer is loaded then add it to map
+            // Check for the load status. If the layer is loaded then add it to map.
             if (_featureLayer.LoadStatus == LoadStatus.Loaded)
             {
-                // Add the feature layer to the map
+                // Add the feature layer to the map.
                 myMap.OperationalLayers.Add(_featureLayer);
 
-                // Add tap event handler for mapview
+                // Add tap event handler for mapview.
                 MyMapView.GeoViewTapped += OnMapViewTapped;
-            }           
+            }
         }
 
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
             try
             {
-                // Define the selection tolerance
+                // Define the selection tolerance.
                 double tolerance = 15;
 
-                // Convert the tolerance to map units
+                // Convert the tolerance to map units.
                 double mapTolerance = tolerance * MyMapView.UnitsPerPixel;
 
-                // Get the tapped point
+                // Get the tapped point.
                 MapPoint geometry = e.Location;
 
-                // Normalize the geometry if wrap-around is enabled
-                //    This is necessary because of how wrapped-around map coordinates are handled by Runtime
+                // Normalize the geometry if wrap-around is enabled.
+                //    This is necessary because of how wrapped-around map coordinates are handled by Runtime.
                 //    Without this step, querying may fail because wrapped-around coordinates are out of bounds.
-                if (MyMapView.IsWrapAroundEnabled) { geometry = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geometry); }
+                if (MyMapView.IsWrapAroundEnabled)
+                {
+                    geometry = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geometry);
+                }
 
-                // Define the envelope around the tap location for selecting features
+                // Define the envelope around the tap location for selecting features.
                 Envelope selectionEnvelope = new Envelope(geometry.X - mapTolerance, geometry.Y - mapTolerance, geometry.X + mapTolerance,
                     geometry.Y + mapTolerance, MyMapView.Map.SpatialReference);
 
-                // Define the query parameters for selecting features
+                // Define the query parameters for selecting features.
                 QueryParameters queryParams = new QueryParameters
                 {
-                    // Set the geometry to selection envelope for selection by geometry
+                    // Set the geometry to selection envelope for selection by geometry.
                     Geometry = selectionEnvelope
                 };
 
-                // Select the features based on query parameters defined above
+                // Select the features based on query parameters defined above.
                 await _featureLayer.SelectFeaturesAsync(queryParams, SelectionMode.New);
             }
             catch (Exception ex)

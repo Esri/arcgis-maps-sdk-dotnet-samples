@@ -28,12 +28,12 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer query",
         "Data",
-        "This sample demonstrates how to query a feature layer via feature table.",
+        "Query a feature layer via a feature table.",
         "The sample provides a search bar on the top, where you can input the name of a US State. When you hit search the app performs a query on the feature table and based on the result either highlights the state geometry or provides an error.")]
     public class FeatureLayerQuery : Activity
     {
         // Create reference to service of US States
-        private string _statesUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2";
+        private string _statesUrl = "https://services.arcgis.com/jIL9msH9OI208GCb/arcgis/rest/services/USA_Daytime_Population_2016/FeatureServer/0";
 
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
@@ -73,9 +73,10 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             // Create feature layer using this feature table
             _featureLayer = new FeatureLayer(_featureTable)
             {
-
                 // Set the Opacity of the Feature Layer
-                Opacity = 0.6
+                Opacity = 0.6,
+                // Work around service setting
+                MaxScale = 10
             };
 
             // Create a new renderer for the States Feature Layer.

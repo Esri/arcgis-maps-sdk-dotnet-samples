@@ -31,13 +31,20 @@ namespace ArcGISRuntime
         {
             base.ViewDidLoad();
 
-            Title = "Samples";
+            Title = _category.Name;
+            NavigationController.NavigationBar.PrefersLargeTitles = true;
 
             List<object> listSampleItems = _category.Items;
 
             TableView.Source = new SamplesDataSource(this, listSampleItems);
 
             TableView.ReloadData();
+        }
+
+        public override void ViewWillDisappear(bool animated)
+        {
+            base.ViewWillDisappear(animated);
+            NavigationController.NavigationBar.PrefersLargeTitles = false;
         }
 
         private class SamplesDataSource : UITableViewSource
@@ -54,9 +61,12 @@ namespace ArcGISRuntime
 
             public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
             {
-                var cell = new UITableViewCell();
+                var cell = tableView.DequeueReusableCell("sample") ?? new UITableViewCell(UITableViewCellStyle.Subtitle, "sample");
                 SampleInfo item = _data[indexPath.Row];
                 cell.TextLabel.Text = item.SampleName;
+                cell.DetailTextLabel.Text = item.Description;
+                cell.DetailTextLabel.TextColor = UIColor.Gray;
+                cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
                 return cell;
             }
 

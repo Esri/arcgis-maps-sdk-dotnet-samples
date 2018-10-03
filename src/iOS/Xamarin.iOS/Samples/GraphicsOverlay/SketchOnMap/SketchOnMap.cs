@@ -13,7 +13,6 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -34,8 +33,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
     public class SketchOnMap : UIViewController
     {
         // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
+        private MapView _myMapView;
         private UISegmentedControl _segmentButton;
 
         // Dictionary associates SketchCreationMode names with values.
@@ -49,35 +47,43 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             Title = "Sketch on map";
         }
 
+        public override void LoadView()
+        {
+            // Create the views.
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _segmentButton = new UISegmentedControl("Sketch", "Edit", "Undo", "Redo", "Done", "Clear")
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                TintColor = UIColor.White,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            _segmentButton.ValueChanged += SegmentButtonClicked;
+
+            // Clean up borders of segmented control - avoid corner pixels.
+            _segmentButton.ClipsToBounds = true;
+            _segmentButton.Layer.CornerRadius = 5;
+
+            // Add the views.
+            View = new UIView();
+            View.AddSubviews(_myMapView, _segmentButton);
+
+            // Apply constraints.
+            _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+
+            _segmentButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor).Active = true;
+            _segmentButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor).Active = true;
+            _segmentButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
             Initialize();
-            CreateLayout();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
-
-                // Reposition the views.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _segmentButton.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
@@ -104,18 +110,6 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             _sketchOverlay.Graphics.CollectionChanged += GraphicsChanged;
         }
 
-        private void CreateLayout()
-        {
-            // Add a segmented button control.
-            _segmentButton = new UISegmentedControl("Sketch", "Edit", "Undo", "Redo", "Done", "Clear");
-
-            // Handle the "click" for each segment (new segment is selected).
-            _segmentButton.ValueChanged += SegmentButtonClicked;
-
-            // Add the MapView and UIButton to the page.
-            View.AddSubviews(_myMapView, _toolbar, _segmentButton);
-        }
-
         private void GraphicsChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             // Enable or disable the clear and edit buttons depending on whether or not graphics exist.
@@ -126,7 +120,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private void CanExecuteChanged(object sender, EventArgs e)
         {
             // Enable or disable the corresponding command for the sketch editor.
-            ICommand command = (ICommand)sender;
+            ICommand command = (ICommand) sender;
             if (command == _myMapView.SketchEditor.UndoCommand)
             {
                 _segmentButton.SetEnabled(command.CanExecute(null), 2);
@@ -144,7 +138,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private async void SegmentButtonClicked(object sender, EventArgs e)
         {
             // Get the segmented button control that raised the event.
-            UISegmentedControl buttonControl = (UISegmentedControl)sender;
+            UISegmentedControl buttonControl = (UISegmentedControl) sender;
 
             // Execute the appropriate action for the control
             switch (buttonControl.SelectedSegment)

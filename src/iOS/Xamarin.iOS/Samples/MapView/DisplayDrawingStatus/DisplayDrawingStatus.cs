@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
@@ -26,13 +25,9 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
         "")]
     public class DisplayDrawingStatus : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-
-        private readonly UIActivityIndicatorView _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
-        {
-            BackgroundColor = UIColor.FromWhiteAlpha(.2f, .9f)
-        };
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UIActivityIndicatorView _activityIndicator;
 
         public DisplayDrawingStatus()
         {
@@ -43,28 +38,32 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization.
-            CreateLayout();
             Initialize();
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void LoadView()
         {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-                // Reposition the views.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-                _activityIndicator.Frame = new CGRect(0, topMargin, View.Bounds.Width, 40);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
             {
-            }
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            View = new UIView();
+            View.AddSubviews(_myMapView, _activityIndicator);
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+
+            _activityIndicator.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _activityIndicator.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _activityIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _activityIndicator.HeightAnchor.ConstraintEqualTo(40).Active = true;
         }
 
         private async void Initialize()
@@ -110,12 +109,6 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
                     _activityIndicator.Hidden = true;
                 }
             });
-        }
-
-        private void CreateLayout()
-        {
-            // Add the controls to the view.
-            View.AddSubviews(_myMapView, _activityIndicator);
         }
     }
 }

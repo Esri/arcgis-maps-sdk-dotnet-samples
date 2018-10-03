@@ -8,7 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using Esri.ArcGISRuntime.ArcGISServices;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -21,42 +21,37 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "ArcGIS raster layer (service)",
         "Layers",
-        "This sample demonstrates how to show a raster layer on a map based on an image service layer.",
+        "Add a raster layer from an image service to a map.",
         "")]
     public class RasterLayerImageServiceRaster : UIViewController
     {
         // Create and hold a reference to the MapView.
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         public RasterLayerImageServiceRaster()
         {
             Title = "ArcGIS raster layer (service)";
         }
 
+        public override void LoadView()
+        {
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View = new UIView();
+            View.AddSubviews(_myMapView);
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition controls.
-                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private async void Initialize()
@@ -64,17 +59,14 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
             // Create new map with the dark gray canvas basemap.
             Map myMap = new Map(Basemap.CreateDarkGrayCanvasVector());
 
-            // Create a URI to the image service raster.
-            Uri uri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NLCDLandCover2001/ImageServer");
+            // Create a Uri to the image service raster.
+            Uri uri = new Uri("https://gis.ngdc.noaa.gov/arcgis/rest/services/bag_hillshades/ImageServer");
 
-            // Create new image service raster from the URI.
+            // Create new image service raster from the Uri.
             ImageServiceRaster imageServiceRaster = new ImageServiceRaster(uri);
 
             // Load the image service raster.
             await imageServiceRaster.LoadAsync();
-
-            // Get the service information (aka. metadata) about the image service raster.
-            ArcGISImageServiceInfo arcGISImageServiceInfo = imageServiceRaster.ServiceInfo;
 
             // Create a new raster layer from the image service raster.
             RasterLayer rasterLayer = new RasterLayer(imageServiceRaster);
@@ -85,14 +77,8 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
             // Assign the map to the map view.
             _myMapView.Map = myMap;
 
-            // Zoom the map to the extent of the image service raster (which also the extent of the raster layer).
-            await _myMapView.SetViewpointGeometryAsync(arcGISImageServiceInfo.FullExtent);
-        }
-
-        private void CreateLayout()
-        {
-            // Add MapView to the page.
-            View.AddSubviews(_myMapView);
+            // zoom in to the San Francisco Bay.
+            await _myMapView.SetViewpointCenterAsync(new MapPoint(-13643095.660131, 4550009.846004, SpatialReferences.WebMercator), 100000);
         }
     }
 }

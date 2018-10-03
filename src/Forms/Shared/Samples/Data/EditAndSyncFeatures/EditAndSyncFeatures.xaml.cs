@@ -186,7 +186,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     mySyncButton.IsEnabled = true;
 
                     // Update the help label.
-                    MyHelpLabel.Text = "4. Click 'Synchronize' or edit more features";
+                    MyHelpLabel.Text = "4. Click 'Synchronize' or keep editing";
                 }
                 // Otherwise, start an edit.
                 else

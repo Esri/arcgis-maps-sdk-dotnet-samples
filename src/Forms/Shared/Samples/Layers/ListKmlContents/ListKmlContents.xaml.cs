@@ -43,7 +43,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
             MySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
             MySceneView.Scene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer")));
 
-            // Get the URL to the data
+            // Get the URL to the data.
             Uri kmlUrl = new Uri(DataManager.GetDataFolder("da301cb122874d5497f8a8f6c81eb36e", "esri_test_data.kmz"));
 
             // Create the KML dataset and layer.

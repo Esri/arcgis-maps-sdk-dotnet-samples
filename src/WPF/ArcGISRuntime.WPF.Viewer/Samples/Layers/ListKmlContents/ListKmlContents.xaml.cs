@@ -42,7 +42,7 @@ namespace ArcGISRuntime.WPF.Samples.ListKmlContents
             MySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
             MySceneView.Scene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer")));
 
-            // Get the URL to the data
+            // Get the URL to the data.
             Uri kmlUrl = new Uri(DataManager.GetDataFolder("da301cb122874d5497f8a8f6c81eb36e", "esri_test_data.kmz"));
 
             // Create the KML dataset and layer.
@@ -54,7 +54,7 @@ namespace ArcGISRuntime.WPF.Samples.ListKmlContents
 
             await dataset.LoadAsync();
 
-            // Build the ViewModel from the expanded list of layer infos
+            // Build the ViewModel from the expanded list of layer infos.
             foreach (KmlNode node in dataset.RootNodes)
             {
                 // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of ArcGIS Runtime.

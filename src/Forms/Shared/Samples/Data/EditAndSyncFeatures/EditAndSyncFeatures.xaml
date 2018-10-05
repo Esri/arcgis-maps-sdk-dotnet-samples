@@ -12,7 +12,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Label x:Name="MyHelpLabel" Grid.Row="0" Text="1. Click 'generate'" TextColor="Red" />
+        <Label x:Name="MyHelpLabel" Grid.Row="0" Text="1. Click 'generate'" TextColor="Red" LineBreakMode="TailTruncation" />
         <Button Text="Generate" Grid.Row="1" Clicked="GenerateButton_Clicked" x:Name="myGenerateButton" IsEnabled="False" />
         <Button Text="Synchronize" Grid.Row="2" Clicked="SyncButton_Click" IsEnabled="False" x:Name="mySyncButton" />
         <ProgressBar IsVisible="False" Grid.Row="3" x:Name="myProgressBar" MinimumHeightRequest="10" />

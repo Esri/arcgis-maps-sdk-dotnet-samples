@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -27,11 +26,25 @@ namespace ArcGISRuntime.Samples.RenderUniqueValues
     public class RenderUniqueValues : UIViewController
     {
         // Create and hold a reference to the used MapView.
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         public RenderUniqueValues()
         {
             Title = "Render unique values";
+        }
+
+        public override void LoadView()
+        {
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View = new UIView();
+            View.AddSubviews(_myMapView);
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
         }
 
         public override void ViewDidLoad()
@@ -39,26 +52,7 @@ namespace ArcGISRuntime.Samples.RenderUniqueValues
             base.ViewDidLoad();
 
             // Create the UI, setup the control references and execute initialization.
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
@@ -116,12 +110,6 @@ namespace ArcGISRuntime.Samples.RenderUniqueValues
 
             // Feature table initialization.
             statesFeatureTable.RetryLoadAsync();
-        }
-
-        private void CreateLayout()
-        {
-            // Add MapView to the page.
-            View.AddSubviews(_myMapView);
         }
     }
 }

@@ -48,13 +48,13 @@
   <!-- References -->
   <ItemGroup>
     <Reference Include="Esri.ArcGISRuntime, Version=100.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0-daily2192\lib\net461\Esri.ArcGISRuntime.dll</HintPath>
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0\lib\net461\Esri.ArcGISRuntime.dll</HintPath>
     </Reference>
     <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\lib\net461\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\lib\net461\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
     </Reference>
     <Reference Include="Esri.ArcGISRuntime.LocalServices, Version=100.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.4.0-daily2192\lib\net461\Esri.ArcGISRuntime.LocalServices.dll</HintPath>
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.4.0\lib\net461\Esri.ArcGISRuntime.LocalServices.dll</HintPath>
     </Reference>
     <Reference Include="MarkedNet, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\MarkedNet.2.1.2\lib\net451\MarkedNet.dll</HintPath>
@@ -447,9 +447,6 @@
     </Compile>
     <Compile Include="Samples\Map\DisplayMap\DisplayMap.xaml.cs">
       <DependentUpon>DisplayMap.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.xaml.cs">
-      <DependentUpon>DownloadPreplannedMapAreas.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml.cs">
       <DependentUpon>ManageBookmarks.xaml</DependentUpon>
@@ -986,10 +983,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1427,9 +1420,6 @@
     <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1589,11 +1579,11 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.WPF.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.WPF.targets'))" />
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.Hydrography.targets'))" />
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.LocalServices.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.LocalServices.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0\build\net461\Esri.ArcGISRuntime.WPF.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0\build\net461\Esri.ArcGISRuntime.WPF.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.4.0\build\net461\Esri.ArcGISRuntime.LocalServices.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.4.0\build\net461\Esri.ArcGISRuntime.LocalServices.targets'))" />
   </Target>
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.WPF.targets')" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.LocalServices.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.4.0-daily2192\build\net461\Esri.ArcGISRuntime.LocalServices.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0\build\net461\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0\build\net461\Esri.ArcGISRuntime.WPF.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.4.0\build\net461\Esri.ArcGISRuntime.LocalServices.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.4.0\build\net461\Esri.ArcGISRuntime.LocalServices.targets')" />
 </Project>

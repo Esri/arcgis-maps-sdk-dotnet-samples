@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
@@ -19,54 +20,51 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "ArcGIS scene layer (URL)",
         "Layers",
-        "This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.",
+        "Display an ArcGIS Scene layer from a service.",
         "")]
     public class SceneLayerUrl : UIViewController
     {
-        // Create and hold a reference to the SceneView.
-        private readonly SceneView _mySceneView = new SceneView();
+        // Hold a reference to the SceneView.
+        private SceneView _mySceneView;
 
         // URL for a service to use as an elevation source.
-        private readonly Uri _elevationSourceUrl = new Uri("https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
+        private readonly Uri _elevationSourceUrl = new Uri(
+            "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
         // URL for the scene layer.
-        private readonly Uri _serviceUri = new Uri("https://scene.arcgis.com/arcgis/rest/services/Hosted/Buildings_Brest/SceneServer/0");
+        private readonly Uri _serviceUri = new Uri(
+            "http://scenesampleserverdev.arcgis.com/arcgis/rest/services/Hosted/Buildings_Philadelphia/SceneServer");
 
         public SceneLayerUrl()
         {
             Title = "ArcGIS scene layer (URL)";
         }
 
+        public override void LoadView()
+        {
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View = new UIView();
+            View.AddSubviews(_mySceneView);
+
+            _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            CreateLayout();
             Initialize();
         }
 
-        public override void ViewDidLayoutSubviews()
+        private async void Initialize()
         {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition controls.
-                _mySceneView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
-        }
-
-        private void Initialize()
-        {
-            // Create new Scene with basemap.
-            Scene myScene = new Scene(Basemap.CreateImagery());
+            // Create new Scene.
+            Scene myScene = new Scene {Basemap = Basemap.CreateImagery()};
 
             // Create and add an elevation source for the Scene.
             ArcGISTiledElevationSource elevationSrc = new ArcGISTiledElevationSource(_elevationSourceUrl);
@@ -78,20 +76,20 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
             // Add created layer to the operational layers collection.
             myScene.OperationalLayers.Add(sceneLayer);
 
+            // Load the layer.
+            await sceneLayer.LoadAsync();
+
+            // Get the center of the scene layer.
+            MapPoint center = (MapPoint)GeometryEngine.Project(sceneLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
+
             // Create a camera with coordinates showing layer data.
-            Camera camera = new Camera(48.378, -4.494, 200, 345, 65, 0);
+            Camera camera = new Camera(center.Y, center.X, 225, 240, 80, 0);
 
             // Assign the Scene to the SceneView.
             _mySceneView.Scene = myScene;
 
             // Set view point of scene view using camera.
-            _mySceneView.SetViewpointCameraAsync(camera);
-        }
-
-        private void CreateLayout()
-        {
-            // Add SceneView to the page.
-            View.AddSubviews(_mySceneView);
+            await _mySceneView.SetViewpointCameraAsync(camera);
         }
     }
 }

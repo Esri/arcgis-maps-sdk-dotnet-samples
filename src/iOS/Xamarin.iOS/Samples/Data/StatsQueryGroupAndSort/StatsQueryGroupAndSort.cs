@@ -22,7 +22,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Group and sort statistics",
         "Data",
-        "This sample demonstrates how to query a feature table to get statistics for a specified field and to group and sort the results.",
+        "Query a feature table to get grouped, sorted statistics.",
         "")]
     public class StatsQueryGroupAndSort : UIViewController
     {
@@ -35,7 +35,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         private UIButton _getStatsButton;
 
         // URI for the US states map service.
-        private readonly Uri _usStatesServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
+        private readonly Uri _usStatesServiceUri = new Uri("https://services.arcgis.com/jIL9msH9OI208GCb/arcgis/rest/services/Counties_Obesity_Inactivity_Diabetes_2013/FeatureServer/0");
 
         // US states feature table.
         private FeatureTable _usStatesTable;
@@ -266,6 +266,9 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
                     statQueryParams.OrderByFields.Add(orderBy.OrderInfo);
                 }
             }
+
+            // Ignore counties with missing data
+            statQueryParams.WhereClause = "\"State\" IS NOT NULL";
 
             // Execute the statistical query with these parameters and await the results.
             try

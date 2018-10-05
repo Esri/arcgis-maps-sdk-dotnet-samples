@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
 
@@ -50,49 +51,52 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            // Call a function to create the user interface.
-            CreateLayout();
-
-            // Call a function to initialize the app.
             Initialize();
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void LoadView()
         {
-            base.ViewDidLayoutSubviews();
-
-            // Setup the visual frame for the MapView and status labels.
-            CGRect mapViewFrame = new CGRect(0, 120, View.Bounds.Width, View.Bounds.Height - 120);
-            CGRect label1Frame = new CGRect(10, 70, View.Bounds.Width - 10, 20);
-            CGRect label2Frame = new CGRect(10, 95, View.Bounds.Width - 10, 20);
-
-            // Apply the layout frames.
-            _myMapView.Frame = mapViewFrame;
-            _publicLayerLabel.Frame = label1Frame;
-            _secureLayerLabel.Frame = label2Frame;
-        }
-
-        private void CreateLayout()
-        {
+            // Create a label to show the load status of the public layer.
             _publicLayerLabel = new UILabel()
             {
-                TextColor = UIColor.Gray,
-                Text = _publicLayerName
+                TextColor = UIColor.White,
+                BackgroundColor = UIColor.Gray,
+                Text = _publicLayerName,
+                TextAlignment = UITextAlignment.Center,
+                TranslatesAutoresizingMaskIntoConstraints = false
             };
+            _publicLayerLabel.Layer.CornerRadius = 8;
 
             // Create a label to show the load status of the secured layer.
             _secureLayerLabel = new UILabel()
             {
-                TextColor = UIColor.Gray,
-                Text = _secureLayerName
+                TextColor = UIColor.White,
+                BackgroundColor = UIColor.Gray,
+                Text = _secureLayerName,
+                TextAlignment = UITextAlignment.Center,
+                TranslatesAutoresizingMaskIntoConstraints = false
             };
+            _secureLayerLabel.Layer.CornerRadius = 8;
 
-            // Create the map view control.
             _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            // Add the map view and button to the page.
-            View.AddSubviews(_publicLayerLabel, _secureLayerLabel, _myMapView);
+            View = new UIView();
+            View.AddSubviews(_myMapView, _publicLayerLabel, _secureLayerLabel);
+
+            NSLayoutConstraint.ActivateConstraints(new NSLayoutConstraint[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _publicLayerLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8),
+                _publicLayerLabel.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 8),
+                _publicLayerLabel.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
+                _secureLayerLabel.TopAnchor.ConstraintEqualTo(_publicLayerLabel.BottomAnchor, 8),
+                _secureLayerLabel.LeadingAnchor.ConstraintEqualTo(_publicLayerLabel.LeadingAnchor),
+                _secureLayerLabel.TrailingAnchor.ConstraintEqualTo(_publicLayerLabel.TrailingAnchor)
+            });
         }
 
         private void Initialize()
@@ -145,25 +149,25 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
 
             // Create the text string and font color to describe the current load status.
             string updateText = layer.Name;
-            UIColor textColor = UIColor.Gray;
+            UIColor statusColor = UIColor.Gray;
 
             switch (e.Status)
             {
                 case Esri.ArcGISRuntime.LoadStatus.FailedToLoad:
                     updateText = layer.Name + " (Load failed)";
-                    textColor = UIColor.Red;
+                    statusColor = UIColor.FromRGB(0xde, 0x29, 0x00); // red
                     break;
                 case Esri.ArcGISRuntime.LoadStatus.Loaded:
                     updateText = layer.Name + " (Loaded)";
-                    textColor = UIColor.Green;
+                    statusColor = UIColor.FromRGB(0x35, 0xac, 0x46);
                     break;
                 case Esri.ArcGISRuntime.LoadStatus.Loading:
                     updateText = layer.Name + " (Loading ...)";
-                    textColor = UIColor.Gray;
+                    statusColor = UIColor.Gray;
                     break;
                 case Esri.ArcGISRuntime.LoadStatus.NotLoaded:
                     updateText = layer.Name + " (Not loaded)";
-                    textColor = UIColor.LightGray;
+                    statusColor = UIColor.LightGray;
                     break;
             }
 
@@ -171,7 +175,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredKnownUser
             this.BeginInvokeOnMainThread(() =>
             {
                 labelToUpdate.Text = updateText;
-                labelToUpdate.TextColor = textColor;
+                labelToUpdate.BackgroundColor = statusColor;
             });
         }
 

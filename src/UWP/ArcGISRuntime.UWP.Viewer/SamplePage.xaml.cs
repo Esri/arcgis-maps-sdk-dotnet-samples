@@ -42,7 +42,7 @@ namespace ArcGISRuntime.UWP.Viewer
             string readmePath = System.IO.Path.Combine(folderPath, "Readme.md");
             string readmeContent = System.IO.File.ReadAllText(readmePath);
             readmeContent = _markdownRenderer.Parse(readmeContent);
-            readmeContent = readmeContent.Replace("src=\"", $"src=\"{basePath}\\");
+            readmeContent = readmeContent.Replace("src='", "src=\"").Replace(".jpg'", ".jpg\"").Replace("src=\"", $"src=\"{basePath}\\");
             string htmlString = "<!doctype html><head><link rel=\"stylesheet\" href=\"" + cssPath + "\" /></head><body class=\"markdown-body\">" + readmeContent + "</body>";
             DescriptionView.NavigateToString(htmlString);
             SourceCodeContainer.LoadSourceCode();

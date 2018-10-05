@@ -34,7 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
     <MandroidI18n />
@@ -50,16 +50,19 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <LangVersion>6</LangVersion>
+    <AndroidSupportedAbis />
+    <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <!-- References -->
   <ItemGroup>
     <Reference Include="Esri.ArcGISRuntime, Version=100.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.4.0-daily2192\lib\MonoAndroid10\Esri.ArcGISRuntime.dll</HintPath>
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.4.0\lib\MonoAndroid10\Esri.ArcGISRuntime.dll</HintPath>
     </Reference>
     <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\lib\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\lib\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
     </Reference>
     <Reference Include="Java.Interop" />
     <Reference Include="Mono.Android" />
@@ -208,7 +211,6 @@
     <None Include="Samples\Map\AuthorMap\AuthorMap.jpg" />
     <None Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
     <None Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
-    <None Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
     <None Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
     <None Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
     <None Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
@@ -340,7 +342,6 @@
     <Compile Include="Samples\Map\AuthorMap\AuthorMap.cs" />
     <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemap.cs" />
     <Compile Include="Samples\Map\DisplayMap\DisplayMap.cs" />
-    <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.cs" />
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.cs" />
     <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.cs" />
     <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMap.cs" />
@@ -444,13 +445,13 @@
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.4.0-daily2192\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.4.0-daily2192\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.4.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.4.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.4.0-daily2192\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.4.0-daily2192\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets'))" />
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.4.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.4.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets'))" />
   </Target>
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets')" />
 </Project>

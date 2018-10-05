@@ -48,7 +48,6 @@
                      WidthRequest="340" HeightRequest="140"
                       HasUnevenRows="True"
                       ItemTemplate="{StaticResource TransformTemplateSelector}"
-                     ItemsSource="{Binding Path=SuitableTransformationsList}"
                      ItemSelected="TransformationsListBox_ItemSelected"/>
             <Label x:Name="MessagesTextBox"
                        Grid.Row="3"

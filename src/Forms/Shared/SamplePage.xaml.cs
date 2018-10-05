@@ -74,7 +74,7 @@ namespace ArcGISRuntime
                 readmeContent = _markdownRenderer.Parse(readmeContent);
 
                 // Fix paths for images.
-                readmeContent = readmeContent.Replace("src=\"", $"src=\"{basePath}/");
+                readmeContent = readmeContent.Replace("src='", "src=\"").Replace(".jpg'", ".jpg\"").Replace("src=\"", $"src=\"{basePath}/");
 
                 string htmlString = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" /></head><body class=\"markdown-body\">{readmeContent}</body>";
                 DescriptionView.Source = new HtmlWebViewSource()

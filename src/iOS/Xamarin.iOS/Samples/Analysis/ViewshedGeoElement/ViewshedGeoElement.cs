@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
 using ArcGISRuntime.Samples.Managers;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -29,26 +28,17 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Viewshed (GeoElement)",
         "Analysis",
-        "This sample demonstrates how to display a live viewshed analysis for a moving GeoElement. The analysis is offset vertically so that the viewpoint is from the top of the GeoElement (in this case, a model of a tank).",
+        "Display a live viewshed analysis for a moving GeoElement.",
         "Tap on the scene to see the tank move to that point.",
         "Featured")]
     public class ViewshedGeoElement : UIViewController
     {
         // Create and hold references to the UI controls.
-        private readonly SceneView _mySceneView = new SceneView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-
-        private readonly UILabel _helpLabel = new UILabel
-        {
-            Text = "Tap to set a destination for the vehicle.",
-            AdjustsFontSizeToFitWidth = true,
-            TextAlignment = UITextAlignment.Center,
-            Lines = 1
-        };
+        private SceneView _mySceneView;
 
         // URLs to the scene layer with buildings and the elevation source
-        private readonly Uri _elevationUri = new Uri("https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
-        private readonly Uri _buildingsUri = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
+        private readonly Uri _elevationUri = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+        private readonly Uri _buildingsUri = new Uri("https://services2.arcgis.com/cFEFS0EWrhfDeVw9/arcgis/rest/services/STM____FR_Lyon__Textured_buildings/SceneServer");
 
         // Graphic and overlay for showing the tank
         private readonly GraphicsOverlay _tankOverlay = new GraphicsOverlay();
@@ -79,7 +69,9 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
             };
 
             // Add buildings.
-            _mySceneView.Scene.OperationalLayers.Add(new ArcGISSceneLayer(_buildingsUri));
+            ArcGISSceneLayer sceneLayer = new ArcGISSceneLayer(_buildingsUri);
+            _mySceneView.Scene.OperationalLayers.Add(sceneLayer);
+            await sceneLayer.LoadAsync();
 
             // Configure the graphics overlay for the tank and add the overlay to the SceneView.
             _tankOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
@@ -102,7 +94,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
             //     This ensures that the tank is on the ground rather than partially under it.
             tankSymbol.AnchorPosition = SceneSymbolAnchorPosition.Bottom;
             // - Create the graphic.
-            _tank = new Graphic(new MapPoint(-4.506390, 48.385624, SpatialReferences.Wgs84), tankSymbol);
+            _tank = new Graphic(new MapPoint( 4.847969, 45.746452, SpatialReferences.Wgs84), tankSymbol);
             // - Update the heading.
             _tank.Attributes["HEADING"] = 0.0;
             // - Add the graphic to the overlay.
@@ -178,46 +170,25 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
             }
         }
 
-        private void CreateLayout()
+        public override void LoadView()
         {
-            // Add controls to the view.
-            View.AddSubviews(_mySceneView, _toolbar);
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            // Add help label to the toolbar.
-            _toolbar.AddSubview(_helpLabel);
+            View = new UIView();
+            View.AddSubviews(_mySceneView);
+
+            _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
         }
 
         public override void ViewDidLoad()
         {
-            CreateLayout();
-            Initialize();
-
             base.ViewDidLoad();
-        }
 
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat toolbarHeight = 40;
-                nfloat margin = 5;
-
-                // Reposition the controls.
-                _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
-                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
-
-                // Reposition the label within the toolbar.
-                _helpLabel.Frame = new CGRect(margin, margin, _toolbar.Bounds.Width - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
+            Initialize();
         }
     }
 }

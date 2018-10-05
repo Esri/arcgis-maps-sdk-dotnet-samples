@@ -122,13 +122,6 @@
 				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
-			<key>tile.stamen.com</key>
-			<dict>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-			</dict>
 			<key>usgs.gov</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
@@ -172,5 +165,7 @@
 			</array>
 		</dict>
 	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
 </dict>
 </plist>

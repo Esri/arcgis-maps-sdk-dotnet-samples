@@ -16,7 +16,6 @@
     <AndroidApplication>true</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <NuGetPackageImportStamp>
@@ -56,11 +55,11 @@
   </PropertyGroup>
   <!-- References -->
   <ItemGroup>
-    <Reference Include="Esri.ArcGISRuntime, Version=100.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.3.0\lib\MonoAndroid10\Esri.ArcGISRuntime.dll</HintPath>
+    <Reference Include="Esri.ArcGISRuntime, Version=100.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.4.0-daily2192\lib\MonoAndroid10\Esri.ArcGISRuntime.dll</HintPath>
     </Reference>
-    <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\lib\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
+    <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\lib\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
     </Reference>
     <Reference Include="Java.Interop" />
     <Reference Include="Mono.Android" />
@@ -110,8 +109,12 @@
       <HintPath>..\..\..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <!-- Screenshots -->
   <ItemGroup>
+    <!-- Screenshots -->
+    <None Include="Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
+    <None Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.jpg" />
+    <None Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.jpg" />
+    <None Include="Samples\Layers\DisplayKml\DisplayKml.jpg" />
     <None Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.jpg" />
     <None Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
     <None Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
@@ -238,8 +241,12 @@
     <None Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg" />
     <None Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
   </ItemGroup>
-  <!-- Sample Code -->
   <ItemGroup>
+    <!-- Sample Code -->
+    <Compile Include="Samples\Layers\ListKmlContents\ListKmlContents.cs" />
+    <Compile Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.cs" />
+    <Compile Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.cs" />
+    <Compile Include="Samples\Layers\DisplayKml\DisplayKml.cs" />
     <Compile Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.cs" />
     <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.cs" />
     <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.cs" />
@@ -428,16 +435,22 @@
     <None Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.jpg" />
     <None Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ListKmlContents.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.4.0-daily2192\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.4.0-daily2192\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets'))" />
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.4.0-daily2192\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Xamarin.Android.100.4.0-daily2192\build\MonoAndroid10\Esri.ArcGISRuntime.Xamarin.Android.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets'))" />
   </Target>
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0-daily2192\build\MonoAndroid10\Esri.ArcGISRuntime.Hydrography.targets')" />
 </Project>

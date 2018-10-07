@@ -237,6 +237,7 @@
     <None Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
     <None Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg" />
     <None Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
+    <None Include="Samples\Map\GenerateOfflineMap\GenerateOfflineMap.jpg" />
   </ItemGroup>
   <!-- Sample Code -->
   <ItemGroup>
@@ -369,6 +370,7 @@
     <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.cs" />
     <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.cs" />
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
+    <Compile Include="Samples\Map\GenerateOfflineMap\GenerateOfflineMap.cs" />
   </ItemGroup>
   <!-- Sample Manager Code -->
   <ItemGroup>

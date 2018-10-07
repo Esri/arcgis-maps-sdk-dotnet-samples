@@ -86,8 +86,10 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
             // Set the viewpoint
             await MyMapView.SetViewpointAsync(new Viewpoint(fullExtent));
 
-            // Subscribe to notifications about leaving so that settings can be re-set
-            this.Disappearing += SampleUnloaded;
+            // Subscribe to notifications about leaving so that settings can be reset.
+            // This looks different because of sample viewer plumbing.
+            // Replace `((ArcGISRuntime.SamplePage)this.Parent)` with `this` in your app.
+            ((ArcGISRuntime.SamplePage)this.Parent).Disappearing += SampleUnloaded;
         }
 
         private void SampleUnloaded(object sender, EventArgs e)

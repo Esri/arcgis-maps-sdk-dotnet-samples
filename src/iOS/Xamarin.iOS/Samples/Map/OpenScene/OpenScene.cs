@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -21,44 +20,40 @@ namespace ArcGISRuntime.Samples.OpenScene
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Open scene (Portal item)",
         "Map",
-        "This sample demonstrates how to open a scene from a Portal item. Just like Web Maps are the ArcGIS format for maps, Web Scenes are the ArcGIS format for scenes. These scenes can be stored in ArcGIS Online or Portal.",
+        "Open a scene from a Portal item. Just like Web Maps are the ArcGIS format for maps, Web Scenes are the ArcGIS format for scenes. These scenes can be stored in ArcGIS Online or Portal.",
         "The sample will load the scene automatically.")]
     public class OpenScene : UIViewController
     {
         // Hold the ID of the portal item, which is a web scene.
-        private const string ItemId = "a13c3c3540144967bc933cb5e498b8e4";
+        private const string ItemId = "c6f90b19164c4283884361005faea852";
 
         // Create the scene view.
-        private readonly SceneView _mySceneView = new SceneView();
+        private SceneView _mySceneView;
 
         public OpenScene()
         {
             Title = "Open scene (Portal item)";
         }
 
+        public override void LoadView()
+        {
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View = new UIView();
+            View.AddSubviews(_mySceneView);
+
+            _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            CreateLayout();
+
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition the view.
-                _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private async void Initialize()
@@ -78,11 +73,6 @@ namespace ArcGISRuntime.Samples.OpenScene
             {
                 System.Diagnostics.Debug.WriteLine(e.ToString());
             }
-        }
-
-        private void CreateLayout()
-        {
-            View.AddSubviews(_mySceneView);
         }
     }
 }

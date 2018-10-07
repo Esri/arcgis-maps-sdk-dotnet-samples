@@ -14,7 +14,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CoreGraphics;
+using Esri.ArcGISRuntime.Geometry;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.SceneLayerSelection
@@ -23,39 +23,41 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Scene layer selection",
         "Layers",
-        "This sample demonstrates how to identify geoelements in a scene layer.",
+        "Identify GeoElements in a scene layer.",
         "Tap/Click on a building in the scene layer to identify it.",
-        "Scene, Identify")]
+        "")]
     public class SceneLayerSelection : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private SceneView _mySceneView = new SceneView();
-        private UIToolbar _helpToolbar = new UIToolbar();
-        private UILabel _helpLabel = new UILabel
-        {
-            Text = "Tap to select buildings.",
-            TextAlignment = UITextAlignment.Center,
-            AdjustsFontSizeToFitWidth = true,
-            Lines = 1
-        };
+        // Hold a reference to the UI control.
+        private SceneView _mySceneView;
 
         public SceneLayerSelection()
         {
             Title = "Scene layer selection";
         }
 
+        public override void LoadView()
+        {
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View = new UIView();
+            View.AddSubviews(_mySceneView);
+
+            _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            // Add the scene view control to the UI.
-            CreateLayout();
-
-            // Create the scene and display it in the scene view.
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create a new Scene with an imagery basemap.
             Scene scene = new Scene(Basemap.CreateImagery());
@@ -66,19 +68,21 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
             elevationSurface.ElevationSources.Add(new ArcGISTiledElevationSource(elevationService));
             scene.BaseSurface = elevationSurface;
 
-            // Add a scene layer of buildings in Brest, France.
-            Uri buildingsService = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
+            // Add a scene layer.
+            Uri buildingsService = new Uri("http://scenesampleserverdev.arcgis.com/arcgis/rest/services/Hosted/buildings_Indianapolis/SceneServer");
             ArcGISSceneLayer buildingsLayer = new ArcGISSceneLayer(buildingsService);
             scene.OperationalLayers.Add(buildingsLayer);
 
             // Assign the Scene to the SceneView.
             _mySceneView.Scene = scene;
 
-            // Create a camera targeting the buildings in Brest.
-            Camera brestCamera = new Camera(48.378, -4.494, 200, 345, 65, 0);
+            // Create a camera with an interesting view.
+            await buildingsLayer.LoadAsync();
+            MapPoint center = (MapPoint)GeometryEngine.Project(buildingsLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
+            Camera viewCamera = new Camera(center.Y, center.X, 600, 120, 60, 0);
 
             // Set the viewpoint with the camera.
-            _mySceneView.SetViewpointCameraAsync(brestCamera);
+            await _mySceneView.SetViewpointCameraAsync(viewCamera);
 
             // Listen for taps.
             _mySceneView.GeoViewTapped += SceneViewTapped;
@@ -87,7 +91,7 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
         private async void SceneViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Get the scene layer from the scene (first and only operational layer).
-            ArcGISSceneLayer sceneLayer = (ArcGISSceneLayer)_mySceneView.Scene.OperationalLayers.First();
+            ArcGISSceneLayer sceneLayer = (ArcGISSceneLayer) _mySceneView.Scene.OperationalLayers.First();
 
             // Clear any existing selection.
             sceneLayer.ClearSelection();
@@ -106,38 +110,9 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
                 if (geoElement != null)
                 {
                     // Select the feature to highlight it in the scene view.
-                    sceneLayer.SelectFeature((Feature)geoElement);
+                    sceneLayer.SelectFeature((Feature) geoElement);
                 }
             }
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
-
-                // Reposition controls.
-                _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
-                _helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
-                _helpLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
-        }
-
-        private void CreateLayout()
-        {
-            // Add SceneView to the page.
-            View.AddSubviews(_mySceneView, _helpToolbar, _helpLabel);
         }
     }
 }

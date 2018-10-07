@@ -9,7 +9,6 @@
 
 using System;
 using System.Drawing;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -29,22 +28,47 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         "")]
     public class FeatureLayerExtrusion : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly SceneView _mySceneView = new SceneView();
-        private readonly UIButton _toggleExtrusionButton = new UIButton();
-        private readonly UIToolbar _toolbar = new UIToolbar();
+        // Hold references to UI controls.
+        private SceneView _mySceneView;
+        private UISegmentedControl _extrusionFieldButton;
 
         public FeatureLayerExtrusion()
         {
             Title = "Feature layer extrusion";
         }
 
+        public override void LoadView()
+        {
+            // Create the views.
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _extrusionFieldButton = new UISegmentedControl("Population density", "Total population")
+            {
+                TintColor = UIColor.White,
+                SelectedSegment = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            _extrusionFieldButton.ValueChanged += ToggleExtrusionButton_Clicked;
+
+            // Add the views.
+            View = new UIView();
+            View.AddSubviews(_mySceneView, _extrusionFieldButton);
+
+            // Apply constraints.
+            _mySceneView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
+            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+
+            _extrusionFieldButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor).Active = true;
+            _extrusionFieldButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor).Active = true;
+            _extrusionFieldButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            // Create the UI, setup the control references.
-            CreateLayout();
 
             Initialize();
         }
@@ -111,7 +135,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             }
         }
 
-        private void ChangeExtrusionExpression()
+        private void ToggleExtrusionButton_Clicked(object sender, EventArgs e)
         {
             // Get the first layer from the scene view's operation layers, it should be a feature layer.
             FeatureLayer censusFeatureLayer = (FeatureLayer) _mySceneView.Scene.OperationalLayers[0];
@@ -123,60 +147,16 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             RendererSceneProperties sceneProperties = censusRenderer.SceneProperties;
 
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text.
-            if (_toggleExtrusionButton.Title(UIControlState.Normal) == "Show population density")
+            if (_extrusionFieldButton.SelectedSegment == 0)
             {
                 // An offset of 100000 is added to ensure that polygons for large areas (like Alaska)
                 // with low populations will be extruded above the curvature of the Earth.
                 sceneProperties.ExtrusionExpression = "[POP07_SQMI] * 5000 + 100000";
-                _toggleExtrusionButton.SetTitle("Show total population", UIControlState.Normal);
             }
-            else if (_toggleExtrusionButton.Title(UIControlState.Normal) == "Show total population")
+            else
             {
                 sceneProperties.ExtrusionExpression = "[POP2007] / 10";
-                _toggleExtrusionButton.SetTitle("Show population density", UIControlState.Normal);
             }
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat controlHeight = 30;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
-
-                // Reposition the views.
-                _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - controlHeight - 2 * margin, View.Bounds.Width, controlHeight + 2 * margin);
-                _toggleExtrusionButton.Frame = new CGRect(margin, _toolbar.Frame.Top + 5, View.Bounds.Width - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
-        }
-
-        private void ToggleExtrusionButton_Clicked(object sender, EventArgs e)
-        {
-            // Call the function to change the feature layer's renderer scene properties extrusion expression.
-            ChangeExtrusionExpression();
-        }
-
-        private void CreateLayout()
-        {
-            // Configure the button.
-            _toggleExtrusionButton.SetTitle("Show population density", UIControlState.Normal);
-            _toggleExtrusionButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-
-            // Handle button touches.
-            _toggleExtrusionButton.TouchUpInside += ToggleExtrusionButton_Clicked;
-
-            // Add controls to the view.
-            View.AddSubviews(_mySceneView, _toolbar, _toggleExtrusionButton);
         }
     }
 }

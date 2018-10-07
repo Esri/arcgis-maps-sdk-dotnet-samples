@@ -96,6 +96,9 @@ namespace ArcGISRuntime.Samples.WMTSLayer
 
                 // Assign the map to the MapView.
                 MyMapView.Map = myMap;
+
+                // Zoom to appropriate level for iOS.
+                await MyMapView.SetViewpointScaleAsync(300000000);
             }
             catch (Exception ex)
             {

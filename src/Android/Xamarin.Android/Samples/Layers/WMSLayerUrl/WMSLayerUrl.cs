@@ -22,18 +22,19 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "WMS layer (URL)",
         "Layers",
-        "This sample demonstrates how to add a layer from a WMS service to a map.",
+        "Add a layer from a WMS service to a map.",
         "")]
     public class WMSLayerUrl : Activity
     {
         // Create and hold reference to the used MapView
         private MapView _myMapView = new MapView();
 
-        // Hold the URL to the WMS service showing the geology of Africa
-        private Uri wmsUrl = new Uri("https://certmapper.cr.usgs.gov/arcgis/services/geology/africa/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+        // Hold the URL to the WMS service showing U.S. weather radar.
+        private readonly Uri _wmsUrl = new Uri(
+            "https://nowcoast.noaa.gov/arcgis/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
-        // Hold a list of uniquely-identifying WMS layer names to display
-        private List<String> wmsLayerNames = new List<string> { "0" };
+        // Hold a list of uniquely-identifying WMS layer names to display.
+        private readonly List<string> _wmsLayerNames = new List<string> { "1" };
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -41,42 +42,39 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
 
             Title = "WMS layer (URL)";
 
-            // Create the UI, setup the control references
             CreateLayout();
-
-            // Initialize the map
             Initialize();
         }
 
         private void CreateLayout()
         {
-            // Create a new vertical layout for the app
+            // Create a new vertical layout for the app.
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-            // Add the map view to the layout
+            // Add the map view to the layout.
             layout.AddView(_myMapView);
 
-            // Show the layout in the app
+            // Show the layout in the app.
             SetContentView(layout);
         }
 
         private void Initialize()
         {
-            // Apply an imagery basemap to the map
-            Map myMap = new Map(Basemap.CreateImagery())
+            // Create a map with basemap and initial viewpoint.
+            Map myMap = new Map(Basemap.CreateLightGrayCanvas())
             {
-
-                // Set the initial viewpoint
-                InitialViewpoint = new Viewpoint(new MapPoint(25.450, -4.59, SpatialReferences.Wgs84), 1000000)
+                // Set the initial viewpoint.
+                InitialViewpoint = new Viewpoint(
+                    new Envelope(-19195297.778679, 512343.939994, -3620418.579987, 8658913.035426, 0.0, 0.0, SpatialReferences.WebMercator))
             };
 
-            // Add the map to the mapview
+            // Add the map to the mapview.
             _myMapView.Map = myMap;
 
-            // Create a new WMS layer displaying the specified layers from the service
-            WmsLayer myWmsLayer = new WmsLayer(wmsUrl, wmsLayerNames);
+            // Create a new WMS layer displaying the specified layers from the service.
+            WmsLayer myWmsLayer = new WmsLayer(_wmsUrl, _wmsLayerNames);
 
-            // Add the layer to the map
+            // Add the layer to the map.
             myMap.OperationalLayers.Add(myWmsLayer);
         }
     }

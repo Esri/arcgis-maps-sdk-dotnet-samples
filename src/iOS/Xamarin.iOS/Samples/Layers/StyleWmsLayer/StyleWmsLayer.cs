@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
@@ -26,28 +25,9 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
         "Click to select from one of the two preset styles.")]
     public class StyleWmsLayer : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _buttonContainer = new UIToolbar();
-
-        private readonly UIButton _firstStyleButton = new UIButton
-        {
-            Enabled = false,
-            HorizontalAlignment = UIControlContentHorizontalAlignment.Center
-        };
-
-        private readonly UIButton _secondStyleButton = new UIButton
-        {
-            Enabled = false,
-            HorizontalAlignment = UIControlContentHorizontalAlignment.Center
-        };
-
-        private readonly UILabel _helpLabel = new UILabel
-        {
-            Text = "Choose a style:",
-            TextAlignment = UITextAlignment.Center,
-            TextColor = UIColor.Black
-        };
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UISegmentedControl _styleChoiceButton;
 
         // Hold the URL to the service, which has satellite imagery covering the state of Minnesota.
         private readonly Uri _wmsUrl = new Uri("http://geoint.lmic.state.mn.us/cgi-bin/wms?VERSION=1.3.0&SERVICE=WMS&REQUEST=GetCapabilities");
@@ -63,36 +43,48 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             Title = "Style WMS layers";
         }
 
+        public override void LoadView()
+        {
+            // Create the views.
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _styleChoiceButton = new UISegmentedControl("First style", "Second style")
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                TintColor = UIColor.White,
+                Enabled = false,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            // Clean up borders of segmented control - avoid corner pixels.
+            _styleChoiceButton.ClipsToBounds = true;
+            _styleChoiceButton.Layer.CornerRadius = 5;
+
+            _styleChoiceButton.ValueChanged += _styleChoiceButton_ValueChanged;
+
+            // Add the views.
+            View = new UIView();
+            View.AddSubviews(_myMapView, _styleChoiceButton);
+
+            // Apply constraints.
+            _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+
+            _styleChoiceButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor).Active = true;
+            _styleChoiceButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor).Active = true;
+            _styleChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            // Create the UI, setup the control references.
-            CreateLayout();
-
-            // Initialize the map.
-            InitializeAsync();
+            Initialize();
         }
 
-        private void CreateLayout()
-        {
-            // Add the mapview to the view.
-            View.AddSubviews(_myMapView, _buttonContainer, _firstStyleButton, _secondStyleButton, _helpLabel);
-
-            // Update the button text.
-            _firstStyleButton.SetTitle("Style 1", UIControlState.Normal);
-            _secondStyleButton.SetTitle("Style 2", UIControlState.Normal);
-
-            // Update the colors.
-            _firstStyleButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _secondStyleButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-
-            // Subscribe to the button click events.
-            _firstStyleButton.TouchUpInside += FirstStyleButton_Clicked;
-            _secondStyleButton.TouchUpInside += SecondStyleButton_Clicked;
-        }
-
-        private async void InitializeAsync()
+        private async void Initialize()
         {
             try
             {
@@ -115,9 +107,8 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
                 // Add the map to the view.
                 _myMapView.Map = myMap;
 
-                // Enable the buttons.
-                _firstStyleButton.Enabled = true;
-                _secondStyleButton.Enabled = true;
+                // Enable the UI.
+                _styleChoiceButton.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -126,46 +117,23 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             }
         }
 
-        private void FirstStyleButton_Clicked(object sender, EventArgs e)
+        private void _styleChoiceButton_ValueChanged(object sender, EventArgs e)
         {
-            // Get the available styles from the first sublayer.
-            IReadOnlyList<string> styles = _mnWmsLayer.Sublayers[0].SublayerInfo.Styles;
+            int styleSelection = (int) _styleChoiceButton.SelectedSegment;
 
-            // Apply the first style to the first sublayer.
-            _mnWmsLayer.Sublayers[0].CurrentStyle = styles[0];
-        }
-
-        private void SecondStyleButton_Clicked(object sender, EventArgs e)
-        {
-            // Get the available styles from the first sublayer.
-            IReadOnlyList<string> styles = _mnWmsLayer.Sublayers[0].SublayerInfo.Styles;
-
-            // Apply the second style to the first sublayer.
-            _mnWmsLayer.Sublayers[0].CurrentStyle = styles[1];
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
             try
             {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat toolbarHeight = controlHeight * 2 + margin * 3;
+                // Get the available styles from the first sublayer.
+                IReadOnlyList<string> styles = _mnWmsLayer.Sublayers[0].SublayerInfo.Styles;
 
-                // Reposition the views.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _buttonContainer.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _helpLabel.Frame = new CGRect(margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _firstStyleButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - margin, controlHeight);
-                _secondStyleButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
+                // Apply the second style to the first sublayer.
+                _mnWmsLayer.Sublayers[0].CurrentStyle = styles[styleSelection];
             }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            catch (Exception ex)
             {
+                UIAlertController alert = UIAlertController.Create("Error", ex.Message, UIAlertControllerStyle.Alert);
+                alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+                PresentViewController(alert, true, null);
             }
         }
     }

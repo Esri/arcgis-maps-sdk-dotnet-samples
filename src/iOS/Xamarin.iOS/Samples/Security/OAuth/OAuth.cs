@@ -21,16 +21,16 @@ using Xamarin.Auth;
 namespace ArcGISRuntimeXamarin.Samples.OAuth
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-           "Authenticate with OAuth",
-           "Security",
-           "This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access a secure web map (or the secured layers it contains). Accessing secured items requires a login on the portal (an ArcGIS Online account, for example).",
-           "1. When you run the sample, the app will load a web map that contains premium content.\n2. You will be challenged for an ArcGIS Online login to view that layer (world traffic).\n3. Enter your ArcGIS Online user name and password.\n4. If you authenticate successfully, the traffic layer will display, otherwise the map will contain only the public basemap layer.\n5. You can alter the code to supply OAuth configuration settings specific to your app.",
-           "Authentication, Security, OAuth")]
+        "Authenticate with OAuth",
+        "Security",
+        "This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access a secure web map (or the secured layers it contains). Accessing secured items requires a login on the portal (an ArcGIS Online account, for example).",
+        "1. When you run the sample, the app will load a web map that contains premium content.\n2. You will be challenged for an ArcGIS Online login to view that layer (world traffic).\n3. Enter your ArcGIS Online user name and password.\n4. If you authenticate successfully, the traffic layer will display, otherwise the map will contain only the public basemap layer.\n5. You can alter the code to supply OAuth configuration settings specific to your app.",
+        "Authentication, Security, OAuth")]
     [Register("OAuth")]
     public class OAuth : UIViewController, IOAuthAuthorizeHandler
     {
         // Create a MapView to display in the app.
-        private MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         // Use a TaskCompletionSource to track the completion of the authorization.
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
@@ -38,12 +38,16 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
         // Constants for OAuth-related values.
         // - The URL of the portal to authenticate with
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
+
         // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
         private const string AppClientId = @"lgAdHkYZYlwwfAhC";
+
         // - An optional client secret for the app (only needed for the OAuthAuthorizationCode authorization type).
         private const string ClientSecret = "";
+
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
         private const string OAuthRedirectUrl = @"my-ags-app://auth";
+
         // NOTE: to use a custom URL scheme like the one above, you need to add it to CFBundleURLSchemes in info.plist.
         // For example -
         //  <key>CFBundleURLSchemes</key>
@@ -58,26 +62,26 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
             Title = "OAuth authorization";
         }
 
+        public override void LoadView()
+        {
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View = new UIView();
+            View.AddSubviews(_myMapView);
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
-            // Create the layout.
-            CreateLayout();
-
-            // Initialize the app.
+            // Create the UI, setup the control references and execute initialization.
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            base.ViewDidLayoutSubviews();
-
-            // Define an offset from the top of the page (to account for the iOS status bar).
-            int yPageOffset = 60;
-
-            // Define the visual frame for the MapView.
-            _myMapView.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, View.Bounds.Height - yPageOffset);
         }
 
         private async void Initialize()
@@ -130,14 +134,8 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
             AuthenticationManager.Current.OAuthAuthorizeHandler = this;
         }
 
-        private void CreateLayout()
-        {
-            // Create a new MapView control and add it to the main view.
-            _myMapView = new MapView();
-            View.AddSubviews(_myMapView);
-        }
-
         #region OAuth helpers
+
         // ChallengeHandler function that will be called whenever access to a secured resource is attempted.
         public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
@@ -148,7 +146,10 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials.
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (TaskCanceledException) { return credential; }
+            catch (TaskCanceledException)
+            {
+                return credential;
+            }
             catch (Exception)
             {
                 // Exception will be reported in calling function.
@@ -178,7 +179,6 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
                 authorizeUrl: authorizeUri,
                 redirectUrl: new Uri(OAuthRedirectUrl))
             {
-
                 // Allow the user to cancel the OAuth attempt.
                 AllowCancel = true
             };
@@ -224,14 +224,12 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
             };
 
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password.
-            InvokeOnMainThread(() =>
-            {
-                this.PresentViewController(auth.GetUI(), true, null);
-            });
+            InvokeOnMainThread(() => { this.PresentViewController(auth.GetUI(), true, null); });
 
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;
         }
+
         #endregion
     }
 }

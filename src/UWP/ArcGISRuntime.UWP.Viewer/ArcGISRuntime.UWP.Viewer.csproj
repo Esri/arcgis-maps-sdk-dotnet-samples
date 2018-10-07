@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <!-- Build Configurations -->
@@ -111,11 +111,12 @@
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
   </ItemGroup>
-  <!-- Screenshots -->
   <ItemGroup>
-    <Content Include="Resources\github-markdown.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <!-- Screenshots -->
+    <Content Include="Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
+    <Content Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.jpg" />
+    <Content Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.jpg" />
+    <Content Include="Samples\Layers\DisplayKml\DisplayKml.jpg" />
     <Content Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
     <Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
@@ -208,7 +209,6 @@
     <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg" />
     <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
     <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
-    <Content Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.jpg" />
     <Content Include="Samples\Map\GenerateOfflineMap\GenerateOfflineMap.jpg" />
     <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
     <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
@@ -246,8 +246,8 @@
     <Content Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg" />
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
   </ItemGroup>
-  <!-- Misc Resources -->
   <ItemGroup>
+    <!-- Misc Resources -->
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\banner-background-blue.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
@@ -288,8 +288,20 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
   </ItemGroup>
-  <!-- Sample Code -->
   <ItemGroup>
+    <!-- Sample Code -->
+    <Compile Include="Samples\Layers\ListKmlContents\ListKmlContents.xaml.cs">
+      <DependentUpon>ListKmlContents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.xaml.cs">
+      <DependentUpon>IdentifyKmlFeatures.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.xaml.cs">
+      <DependentUpon>DisplayKmlNetworkLinks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayKml\DisplayKml.xaml.cs">
+      <DependentUpon>DisplayKml.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml.cs">
       <DependentUpon>DistanceMeasurement.xaml</DependentUpon>
     </Compile>
@@ -599,9 +611,6 @@
     <Compile Include="Samples\Map\DisplayMap\DisplayMap.xaml.cs">
       <DependentUpon>DisplayMap.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.xaml.cs">
-      <DependentUpon>DownloadPreplannedMapAreas.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Map\GenerateOfflineMap\GenerateOfflineMap.xaml.cs">
       <DependentUpon>GenerateOfflineMap.xaml</DependentUpon>
     </Compile>
@@ -678,8 +687,24 @@
       <DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
-  <!-- Sample Layouts -->
   <ItemGroup>
+    <!-- Sample XAML -->
+    <Page Include="Samples\Layers\ListKmlContents\ListKmlContents.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\DisplayKml\DisplayKml.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1092,10 +1117,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\DownloadPreplannedMapAreas\DownloadPreplannedMapAreas.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\Map\GenerateOfflineMap\GenerateOfflineMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1271,6 +1292,9 @@
   </ItemGroup>
   <!-- Source Code Viewer -->
   <ItemGroup>
+    <Content Include="Resources\github-markdown.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\SyntaxHighlighting\highlight.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -26,16 +25,19 @@ namespace ArcGISRuntime.Samples.GeoViewSync
     public class GeoViewSync : UIViewController
     {
         // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly SceneView _mySceneView = new SceneView();
+        private MapView _myMapView;
+        private SceneView _mySceneView;
+        private UIStackView _stackView;
 
         public GeoViewSync()
         {
             Title = "GeoView viewpoint synchronization";
         }
 
-        private void Initialize()
+        public override void ViewDidLoad()
         {
+            base.ViewDidLoad();
+
             // Initialize the MapView and SceneView with basemaps.
             _myMapView.Map = new Map(Basemap.CreateImageryWithLabels());
             _mySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
@@ -103,36 +105,50 @@ namespace ArcGISRuntime.Samples.GeoViewSync
             }
         }
 
-        private void CreateLayout()
+        public override void LoadView()
         {
-            // Add GeoViews to the page.
-            View.AddSubviews(_myMapView, _mySceneView);
-        }
+            View = new UIView();
 
-        public override void ViewDidLoad()
-        {
-            CreateLayout();
-            Initialize();
+            _myMapView = new MapView();
+            _mySceneView = new SceneView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _stackView = new UIStackView(new UIView[] {_myMapView, _mySceneView});
+            _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            base.ViewDidLoad();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
+            // Relayout on rotation.
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
             {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition the views.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height / 2);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-                _mySceneView.Frame = new CGRect(0, View.Bounds.Height / 2, View.Bounds.Width, View.Bounds.Height / 2);
-
-                base.ViewDidLayoutSubviews();
+                _stackView.Axis = UILayoutConstraintAxis.Horizontal;
             }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            else
             {
+                _stackView.Axis = UILayoutConstraintAxis.Vertical;
+            }
+
+            _stackView.Distribution = UIStackViewDistribution.FillEqually;
+
+            View.AddSubviews(_stackView);
+
+            NSLayoutConstraint.ActivateConstraints(new NSLayoutConstraint[]
+            {
+                _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
+        }
+
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            base.TraitCollectionDidChange(previousTraitCollection);
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                _stackView.Axis = UILayoutConstraintAxis.Horizontal;
+            }
+            else
+            {
+                _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
         }
     }

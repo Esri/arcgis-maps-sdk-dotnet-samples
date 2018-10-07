@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Viewshed (GeoElement)",
         "Analysis",
-        "This sample demonstrates how to display a live viewshed analysis for a moving GeoElement. The analysis is offset vertically so that the viewpoint is from the top of the GeoElement (in this case, a model of a tank).",
+        "Display a live viewshed analysis for a moving GeoElement.",
         "Tap on the scene to see the tank move to that point.",
         "Featured")]
     public class ViewshedGeoElement : Activity
@@ -39,8 +39,8 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
         private readonly SceneView _mySceneView = new SceneView();
 
         // URLs to the scene layer with buildings and the elevation source
-        private readonly Uri _elevationUri = new Uri("https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
-        private readonly Uri _buildingsUri = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
+        private readonly Uri _elevationUri = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+        private readonly Uri _buildingsUri = new Uri("https://services2.arcgis.com/cFEFS0EWrhfDeVw9/arcgis/rest/services/STM____FR_Lyon__Textured_buildings/SceneServer");
 
         // Graphic and overlay for showing the tank
         private readonly GraphicsOverlay _tankOverlay = new GraphicsOverlay();
@@ -78,7 +78,9 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
             _mySceneView.Scene.BaseSurface = baseSurface;
 
             // Add buildings.
-            _mySceneView.Scene.OperationalLayers.Add(new ArcGISSceneLayer(_buildingsUri));
+            ArcGISSceneLayer sceneLayer = new ArcGISSceneLayer(_buildingsUri);
+            _mySceneView.Scene.OperationalLayers.Add(sceneLayer);
+            await sceneLayer.LoadAsync();
 
             // Configure the graphics overlay for the tank and add the overlay to the SceneView.
             _tankOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
@@ -100,7 +102,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
             //       This ensures that the tank is on the ground rather than partially under it.
             tankSymbol.AnchorPosition = SceneSymbolAnchorPosition.Bottom;
             // - Create the graphic.
-            _tank = new Graphic(new MapPoint(-4.506390, 48.385624, SpatialReferences.Wgs84), tankSymbol);
+            _tank = new Graphic(new MapPoint( 4.847969, 45.746452, SpatialReferences.Wgs84), tankSymbol);
             // - Update the heading.
             _tank.Attributes["HEADING"] = 0.0;
             // - Add the graphic to the overlay.

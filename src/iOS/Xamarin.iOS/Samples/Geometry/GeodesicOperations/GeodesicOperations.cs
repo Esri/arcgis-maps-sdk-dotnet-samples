@@ -27,14 +27,9 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
         "Tap on the map to set the end point of a path from New York City. The geodesic path and geodesic distance will be displayed.")]
     public class GeodesicOperations : UIViewController
     {
-        // Create and hold references to UI controls.
-        private readonly MapView _myMapView = new MapView();
-
-        private readonly UITextView _distanceLabel = new UITextView
-        {
-            Text = "Tap to set an end point.",
-            TextAlignment = UITextAlignment.Center
-        };
+        // Hold references to UI controls.
+        private MapView _myMapView;
+        private UILabel _distanceLabel;
 
         // Hold references to the graphics.
         private Graphic _startLocationGraphic;
@@ -110,41 +105,39 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
             _distanceLabel.Text = $"{(int) distance} kilometers";
         }
 
-        private void CreateLayout()
-        {
-            // Add the views.
-            View.AddSubviews(_myMapView, _distanceLabel);
-
-            // Make sure the map attribution isn't covered by the distance label.
-            _myMapView.ViewInsets = new UIEdgeInsets(0, 0, 30, 0);
-        }
-
         public override void ViewDidLoad()
         {
-            CreateLayout();
             Initialize();
 
             base.ViewDidLoad();
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void LoadView()
         {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat frameHeight = 30;
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, frameHeight, 0);
-                _distanceLabel.Frame = new CGRect(0, View.Bounds.Height - frameHeight, View.Bounds.Width, frameHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            _distanceLabel = new UILabel
             {
-            }
+                Text = "Tap to set an end point.",
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .8f),
+                TextColor = UIColor.White,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            View = new UIView();
+            View.AddSubviews(_myMapView, _distanceLabel);
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+
+            _distanceLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _distanceLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _distanceLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _distanceLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
         }
     }
 }

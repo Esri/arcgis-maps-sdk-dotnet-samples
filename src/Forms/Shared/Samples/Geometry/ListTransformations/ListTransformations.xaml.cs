@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -39,29 +40,13 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
         // Property to expose the list of datum transformations for binding to the list box.
         private IReadOnlyList<DatumTransformationListBoxItem> _datumTransformations;
-        public IReadOnlyList<DatumTransformationListBoxItem> SuitableTransformationsList
-        {
-            get
-            {
-                return _datumTransformations;
-            }
-            set
-            {
-                _datumTransformations = value;
-                OnPropertyChanged("SuitableTransformationsList");
-            }
-        }
+        public ObservableCollection<DatumTransformationListBoxItem> SuitableTransformationsList { get; } = new ObservableCollection<DatumTransformationListBoxItem>();
 
         public ListTransformations()
         {
             InitializeComponent();
 
             Title = "List transformations";
-
-            // Bind the view to this page.
-            BindingContext = this;
-
-            // Create a new map, add a point graphic, and fill the datum transformations list.
             Initialize();
         }
 
@@ -106,6 +91,9 @@ namespace ArcGISRuntime.Samples.ListTransformations
             InSpatialRefTextBox.Text = "In WKID = " + _originalPoint.SpatialReference.Wkid;
             OutSpatialRefTextBox.Text = "Out WKID = " + myMap.SpatialReference.Wkid;
 
+            // Set up the UI.
+            TransformationsListBox.ItemsSource = SuitableTransformationsList;
+
             // Create a list of transformations to fill the UI list box.
             GetSuitableTransformations(_originalPoint.SpatialReference, myMap.SpatialReference, UseExtentSwitch.IsToggled);
         }
@@ -128,7 +116,9 @@ namespace ArcGISRuntime.Samples.ListTransformations
             // Get the default transformation for the specified input and output spatial reference.
             DatumTransformation defaultTransform = TransformationCatalog.GetTransformation(inSpatialRef, outSpatialRef);
 
-            List<DatumTransformationListBoxItem> transformationItems = new List<DatumTransformationListBoxItem>();
+            // Reset list.
+            SuitableTransformationsList.Clear();
+
             // Wrap the transformations in a class that includes a boolean to indicate if it's the default transformation.
             foreach (DatumTransformation transform in transformations)
             {
@@ -136,11 +126,8 @@ namespace ArcGISRuntime.Samples.ListTransformations
                 {
                     IsDefault = (transform.Name == defaultTransform.Name)
                 };
-                transformationItems.Add(item);
+                SuitableTransformationsList.Add(item);
             }
-
-            // Set the transformation list property that the list box binds to.
-            SuitableTransformationsList = transformationItems;
         }
 
         private void TransformationsListBox_ItemSelected(object sender, SelectedItemChangedEventArgs e)

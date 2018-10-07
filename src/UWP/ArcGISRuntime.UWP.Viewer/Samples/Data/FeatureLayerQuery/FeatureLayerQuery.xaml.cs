@@ -24,12 +24,12 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer query",
         "Data",
-        "This sample demonstrates how to return features from a feature layer using an attribute query on the underlying feature table.",
+        "Query a feature layer via a feature table.",
         "The sample provides a panel with two controls: a text box where you can input the name of a US State, and a button that executes an attribute query using that value. A successful query will select (highlight) the state and zoom the map to its extent.")]
     public partial class FeatureLayerQuery
     {
         // Create reference to service of US States
-        private string _statesUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2";
+        private string _statesUrl = "https://services.arcgis.com/jIL9msH9OI208GCb/arcgis/rest/services/USA_Daytime_Population_2016/FeatureServer/0";
 
         // Create globally available feature table for easy referencing
         private ServiceFeatureTable _featureTable;
@@ -61,9 +61,10 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
             // Create feature layer using this feature table
             _featureLayer = new FeatureLayer(_featureTable)
             {
-
                 // Set the Opacity of the Feature Layer
-                Opacity = 0.6
+                Opacity = 0.6,
+                // Work around service setting
+                MaxScale = 10
             };
 
             // Create a new renderer for the States Feature Layer.

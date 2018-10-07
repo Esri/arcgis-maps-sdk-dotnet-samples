@@ -19,11 +19,11 @@
                 HorizontalTextAlignment="Center" />
         <Button x:Name="FirstStyleButton"
                 Grid.Row="1" Grid.Column="0"
-                Text="Style 1"
+                Text="Default"
                 Clicked="FirstStyleButton_Clicked" />
         <Button x:Name="SecondStyleButton"
                 Grid.Row="1" Grid.Column="1"
-                Text="Style 2"
+                Text="Contrast stretch"
                 Clicked="SecondStyleButton_Clicked" />
         <esriUI:MapView x:Name="MyMapView"
                         Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />

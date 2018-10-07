@@ -30,10 +30,10 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
         private UISegmentedControl _styleChoiceButton;
 
         // Hold the URL to the service, which has satellite imagery covering the state of Minnesota.
-        private readonly Uri _wmsUrl = new Uri("http://geoint.lmic.state.mn.us/cgi-bin/wms?VERSION=1.3.0&SERVICE=WMS&REQUEST=GetCapabilities");
+        private readonly Uri _wmsUrl = new Uri("https://imageserver.gisdata.mn.gov/cgi-bin/mncomp?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities");
 
         // Hold a list of uniquely-identifying WMS layer names to display.
-        private readonly List<string> _wmsLayerNames = new List<string> {"fsa2017"};
+        private readonly List<string> _wmsLayerNames = new List<string> {"mncomp"};
 
         // Hold a reference to the layer to enable re-styling.
         private WmsLayer _mnWmsLayer;
@@ -49,7 +49,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _styleChoiceButton = new UISegmentedControl("First style", "Second style")
+            _styleChoiceButton = new UISegmentedControl("Default", "Contrast stretch")
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
                 TintColor = UIColor.White,

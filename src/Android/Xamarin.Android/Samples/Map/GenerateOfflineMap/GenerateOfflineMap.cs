@@ -58,7 +58,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            Title = "Generate geodatabase";
+            Title = "Generate an offline map";
 
             // Create the UI, setup the control references and execute initialization.
             CreateLayout();

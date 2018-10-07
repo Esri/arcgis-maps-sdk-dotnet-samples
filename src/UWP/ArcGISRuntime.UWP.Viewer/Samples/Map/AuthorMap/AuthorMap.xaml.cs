@@ -52,9 +52,9 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         // Dictionary of operational layer names and URLs
         private readonly Dictionary<string, string> _operationalLayerUrls = new Dictionary<string, string>
         {
-            {"World Elevations", "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer"},
-            {"World Cities", "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/" },
-            {"US Census Data", "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Census/MapServer"}
+            {"World Elevations", "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer"},
+            {"World Cities", "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/" },
+            {"US Census Data", "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer"}
         };
 
         public AuthorMap()
@@ -247,7 +247,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                 },
 
                 // Indicate the url (portal) to authenticate with (ArcGIS Online)
-                ServiceUri = new Uri("http://www.arcgis.com/sharing/rest")
+                ServiceUri = new Uri("https://www.arcgis.com/sharing/rest")
             };
 
             try

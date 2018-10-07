@@ -27,8 +27,8 @@ namespace ArcGISRuntime.UWP.Samples.TokenSecuredKnownUser
     public partial class TokenSecuredKnownUser
     {
         // Public and secured map service URLs.
-        private string _publicMapServiceUrl = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer";
-        private string _secureMapServiceUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer";
+        private string _publicMapServiceUrl = "https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer";
+        private string _secureMapServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer";
 
         // Public and secured layer names.
         private string _publicLayerName = "World Street Map - Public";

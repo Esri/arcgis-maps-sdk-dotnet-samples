@@ -34,7 +34,7 @@ namespace ArcGISRuntime.WPF.Samples.ArcGISMapImageLayerUrl
 
             // Create uri to the map image layer
             Uri serviceUri = new Uri(
-               "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer");
+               "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer");
 
             // Create new image layer from the url
             ArcGISMapImageLayer imageLayer = new ArcGISMapImageLayer(serviceUri);

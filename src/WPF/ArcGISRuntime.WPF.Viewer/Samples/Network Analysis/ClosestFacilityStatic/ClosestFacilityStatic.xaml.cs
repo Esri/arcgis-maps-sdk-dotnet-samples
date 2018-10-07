@@ -52,7 +52,7 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
         private Uri _incidentUri = new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/ArcGIS/rest/services/San_Diego_Incidents/FeatureServer/0");
 
         // Uri for the closest facility service.
-        private Uri _closestFacilityUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ClosestFacility");
+        private Uri _closestFacilityUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ClosestFacility");
 
         public ClosestFacilityStatic()
         {
@@ -76,14 +76,14 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
                 _task = await ClosestFacilityTask.CreateAsync(_closestFacilityUri);
 
                 // Create a symbol for displaying facilities.
-                PictureMarkerSymbol facilitySymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/FireStation.png"))
+                PictureMarkerSymbol facilitySymbol = new PictureMarkerSymbol(new Uri("https://static.arcgis.com/images/Symbols/SafetyHealth/FireStation.png"))
                 {
                     Height = 30,
                     Width = 30
                 };
 
                 // Incident symbol.
-                PictureMarkerSymbol incidentSymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/esriCrimeMarker_56_Gradient.png"))
+                PictureMarkerSymbol incidentSymbol = new PictureMarkerSymbol(new Uri("https://static.arcgis.com/images/Symbols/SafetyHealth/esriCrimeMarker_56_Gradient.png"))
                 {
                     Height = 30,
                     Width = 30

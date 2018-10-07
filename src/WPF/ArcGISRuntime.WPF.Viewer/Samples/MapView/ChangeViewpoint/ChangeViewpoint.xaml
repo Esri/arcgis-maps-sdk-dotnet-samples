@@ -13,7 +13,7 @@
         <esri:MapView x:Name="MyMapView">
             <esri:Map>
                 <esri:ArcGISTiledLayer x:Name="Basemap"
-                                       Source="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+                                       Source="https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
             </esri:Map>
         </esri:MapView>
         <Border Style="{StaticResource BorderStyle}">

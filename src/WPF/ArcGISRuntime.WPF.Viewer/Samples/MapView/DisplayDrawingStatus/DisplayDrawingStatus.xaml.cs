@@ -40,7 +40,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDrawingStatus
 
             // Create uri to the used feature service
             Uri serviceUri = new Uri(
-                "http://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0");
+                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0");
 
             // Initialize a new feature layer
             ServiceFeatureTable myFeatureTable = new ServiceFeatureTable(serviceUri);

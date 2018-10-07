@@ -7,11 +7,11 @@
             <esri:Map>
                 <!-- This layer is public and does not require credentials -->
                 <esri:ArcGISTiledLayer Name="World Street Map - Public"
-                                       Source="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+                                       Source="https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
                 <!-- This layer is secured with ArcGIS tokens and requires a login -->
                 <!--username: user1 | password: user1-->
                 <esri:ArcGISMapImageLayer Name="USA - Secure"
-                                          Source="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer" />
+                                          Source="https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer" />
             </esri:Map>
         </esri:MapView>
 

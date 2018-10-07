@@ -31,9 +31,9 @@ namespace ArcGISRuntime.Samples.OpenMapURL
 
         // String array to hold urls to publicly available web maps
         private string[] itemURLs = {
-            "http://www.arcgis.com/home/item.html?id=392451c381ad4109bf04f7bd442bc038",
-            "http://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
-            "http://www.arcgis.com/home/item.html?id=92ad152b9da94dee89b9e387dfe21acd"
+            "https://www.arcgis.com/home/item.html?id=392451c381ad4109bf04f7bd442bc038",
+            "https://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
+            "https://www.arcgis.com/home/item.html?id=92ad152b9da94dee89b9e387dfe21acd"
         };
 
         // String array to store titles for the webmaps specified above. These titles are in the same order as the urls above

@@ -65,7 +65,7 @@ namespace ArcGISRuntime.WPF.Samples.WMTSLayer
                 WmtsLayer myWmtsLayer;
 
                 // Define the Uri to the WMTS service.
-                Uri wmtsUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/WMTS");
+                Uri wmtsUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/WMTS");
 
                 if (uriMode)
                 {

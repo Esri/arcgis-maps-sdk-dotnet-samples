@@ -36,7 +36,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayLayerViewState
 
             // Create the uri for the tiled layer
             Uri tiledLayerUri = new Uri(
-                "http://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer");
+                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer");
 
             // Create a tiled layer using url
             ArcGISTiledLayer tiledLayer = new ArcGISTiledLayer(tiledLayerUri)
@@ -49,7 +49,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayLayerViewState
 
             // Create the uri for the ArcGISMapImage layer
             Uri imageLayerUri = new Uri(
-                "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer");
+                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer");
 
             // Create ArcGISMapImage layer using a url
             ArcGISMapImageLayer imageLayer = new ArcGISMapImageLayer(imageLayerUri)
@@ -66,7 +66,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayLayerViewState
 
             // Create Uri for feature layer
             Uri featureLayerUri = new Uri(
-                "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0");
+                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0");
 
             // Create a feature layer using url
             FeatureLayer myFeatureLayer = new FeatureLayer(featureLayerUri)

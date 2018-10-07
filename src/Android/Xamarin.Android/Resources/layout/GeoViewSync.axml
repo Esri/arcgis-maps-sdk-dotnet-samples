@@ -3,12 +3,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <Esri.ArcGISRuntime.UI.MapView
+    <Esri.ArcGISRuntime.UI.Controls.MapView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:id="@+id/GeoViewSync_MyMapView" />
-    <Esri.ArcGISRuntime.UI.SceneView
+    <Esri.ArcGISRuntime.UI.Controls.SceneView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"

@@ -52,7 +52,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlNetworkLinks
             _mySceneView.Scene.OperationalLayers.Add(fileLayer);
 
             // Zoom in to center the map on Germany.
-            await _mySceneView.SetViewpointAsync(new Viewpoint(new MapPoint(8.150526, 50.472421, SpatialReferences.Wgs84), 2000000000));
+            await _mySceneView.SetViewpointAsync(new Viewpoint(new MapPoint(8.150526, 50.472421, SpatialReferences.Wgs84), 20000000));
         }
 
         private void Dataset_NetworkLinkControlMessage(object sender, KmlNetworkLinkControlMessageEventArgs e)

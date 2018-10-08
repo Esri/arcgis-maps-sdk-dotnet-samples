@@ -53,7 +53,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeFeatureLayerRenderer
 
             // Create uri to the used feature service
             Uri serviceUri = new Uri(
-               "http://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/FeatureServer/0");
+               "https://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/FeatureServer/0");
 
             // Initialize feature table using a url to feature server url
             ServiceFeatureTable featureTable = new ServiceFeatureTable(serviceUri);

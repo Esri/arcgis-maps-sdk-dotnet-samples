@@ -49,7 +49,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
 
             // Create uri to the map image layer
             Uri serviceUri = new Uri(
-               "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer");
+               "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer");
 
             // Create new image layer from the url
             _imageLayer = new ArcGISMapImageLayer(serviceUri)

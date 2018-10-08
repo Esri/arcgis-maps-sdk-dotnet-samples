@@ -68,7 +68,7 @@ namespace ArcGISRuntime.UWP.Samples.ClosestFacility
             MyMapView.Map = map;
 
             // Create a ClosestFacilityTask using the San Diego Uri.
-            _task = ClosestFacilityTask.CreateAsync(new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ClosestFacility")).Result;
+            _task = ClosestFacilityTask.CreateAsync(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ClosestFacility")).Result;
 
             // List of facilities to be placed around San Diego area.
             _facilities = new List<Facility> {
@@ -86,7 +86,7 @@ namespace ArcGISRuntime.UWP.Samples.ClosestFacility
             MyMapView.SetViewpointGeometryAsync(fullExtent, 50);
 
             // Create a symbol for displaying facilities.
-            _facilitySymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/Hospital.png"))
+            _facilitySymbol = new PictureMarkerSymbol(new Uri("https://static.arcgis.com/images/Symbols/SafetyHealth/Hospital.png"))
             {
                 Height = 30,
                 Width = 30

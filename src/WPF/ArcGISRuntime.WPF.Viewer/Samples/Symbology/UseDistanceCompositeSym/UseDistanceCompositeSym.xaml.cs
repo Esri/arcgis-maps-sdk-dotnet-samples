@@ -25,7 +25,7 @@ namespace ArcGISRuntime.WPF.Samples.UseDistanceCompositeSym
     public partial class UseDistanceCompositeSym
     {
         // URL for an image service to use as an elevation source
-        private string _elevationSourceUrl = @"http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
+        private string _elevationSourceUrl = @"https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
         public UseDistanceCompositeSym()
         {

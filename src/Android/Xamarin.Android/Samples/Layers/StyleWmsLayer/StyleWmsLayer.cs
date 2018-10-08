@@ -27,10 +27,10 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
     public class StyleWmsLayer : Activity
     {
         // Hold the URL to the service, which has satellite imagery covering the state of Minnesota.
-        private Uri _wmsUrl = new Uri("http://geoint.lmic.state.mn.us/cgi-bin/wms?VERSION=1.3.0&SERVICE=WMS&REQUEST=GetCapabilities");
+        private Uri _wmsUrl = new Uri("https://imageserver.gisdata.mn.gov/cgi-bin/mncomp?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities");
 
         // Hold a list of uniquely-identifying WMS layer names to display.
-        private List<String> _wmsLayerNames = new List<string> { "fsa2017" };
+        private List<String> _wmsLayerNames = new List<string> { "mncomp" };
 
         // Hold a reference to the layer to enable re-styling.
         private WmsLayer _mnWmsLayer;
@@ -66,12 +66,12 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             };
             _firstStyleButton = new Button(this)
             {
-                Text = "Style 1",
+                Text = "Default",
                 Enabled = false
             };
             _secondStyleButton = new Button(this)
             {
-                Text = "Style 2",
+                Text = "Contrast stretch",
                 Enabled = false
             };
 

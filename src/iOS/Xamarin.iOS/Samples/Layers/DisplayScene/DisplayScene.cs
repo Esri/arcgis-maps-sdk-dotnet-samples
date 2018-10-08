@@ -64,7 +64,7 @@ namespace ArcGISRuntime.Samples.DisplayScene
             Surface surface = new Surface();
 
             // Define the string that points to the elevation image service.
-            string elevationImageService = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
+            string elevationImageService = "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
             // Create an ArcGIS tiled elevation.
             ArcGISTiledElevationSource myArcGISTiledElevationSource = new ArcGISTiledElevationSource

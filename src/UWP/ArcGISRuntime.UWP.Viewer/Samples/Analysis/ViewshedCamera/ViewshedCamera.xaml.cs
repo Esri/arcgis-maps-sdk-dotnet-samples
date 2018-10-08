@@ -22,10 +22,10 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedCamera
     public sealed partial class ViewshedCamera
     {
         // URL for a scene service of buildings in Brest, France
-        private string _buildingsServiceUrl = @"http://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0";
+        private string _buildingsServiceUrl = @"https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0";
 
         // URL for an image service to use as an elevation source
-        private string _elevationSourceUrl = @"http://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer";
+        private string _elevationSourceUrl = @"https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer";
 
         // Location viewshed analysis to show visible and obstructed areas from the camera
         private LocationViewshed _viewshedForCamera;

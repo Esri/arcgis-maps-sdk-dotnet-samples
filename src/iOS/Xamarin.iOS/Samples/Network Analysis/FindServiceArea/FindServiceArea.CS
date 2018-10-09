@@ -31,15 +31,13 @@ namespace ArcGISRuntime.Samples.FindServiceArea
         "ArcGISMap, GraphicsOverlay, MapView, PolylineBarrier, ServiceAreaFacility, ServiceAreaParameters, ServiceAreaPolygon, ServiceAreaResult, ServiceAreaTask, SketchEditor")]
     public class FindServiceArea : UIViewController
     {
+        // Hold references to UI controls.
         private MapView _myMapView;
-
-        private UIToolbar _toolbar = new UIToolbar();
-
-        // Create buttons for the UI.
-        private UIButton _addFacilitiesButton = new UIButton(UIButtonType.Plain);
-        private UIButton _addBarrierButton = new UIButton(UIButtonType.Plain);
-        private UIButton _showServiceAreasButton = new UIButton(UIButtonType.Plain);
-        private UIButton _resetButton = new UIButton(UIButtonType.Plain);
+        private UIToolbar _toolbar;
+        private UIBarButtonItem _addButton;
+        private UIBarButtonItem _resetButton;
+        private UIBarButtonItem _showButton;
+        private UIBarButtonItem _doneButton;
 
         // Uri for the service area around San Diego.
         private Uri _serviceAreaUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ServiceArea");
@@ -53,48 +51,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
         {
             base.ViewDidLoad();
 
-            // Create a new MapView control and provide its location coordinates on the frame
-            _myMapView = new MapView();
-
-            // Add all of the buttons and link their click methods.
-            _addFacilitiesButton.SetTitle("Facilities", UIControlState.Normal);
-            _addFacilitiesButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _addFacilitiesButton.TouchUpInside += PlaceFacilites_Click;
-
-            _addBarrierButton.SetTitle("Barrier", UIControlState.Normal);
-            _addBarrierButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _addBarrierButton.TouchUpInside += DrawBarrier_Click;
-
-            _showServiceAreasButton.SetTitle("Service areas", UIControlState.Normal);
-            _showServiceAreasButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _showServiceAreasButton.TouchUpInside += ShowServiceAreas_Click;
-
-            _resetButton.SetTitle("Reset", UIControlState.Normal);
-            _resetButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-            _resetButton.TouchUpInside += Reset_Click;
-
-            // Add the bar button items to an array of UIBarButtonItems
-            View.AddSubviews(_myMapView, _toolbar, _addFacilitiesButton, _addBarrierButton, _showServiceAreasButton, _resetButton);
-
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            int yPageOffset = 60;
-
-            // Setup the visual frame for the MapView
-            _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-
-            // Setup the visual frame for the Toolbar
-            _toolbar.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width, 80);
-
-            _addFacilitiesButton.Frame = new CoreGraphics.CGRect(0, yPageOffset, View.Bounds.Width / 2, 40);
-            _addBarrierButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2, yPageOffset, View.Bounds.Width / 2, 40);
-            _showServiceAreasButton.Frame = new CoreGraphics.CGRect(0, yPageOffset + 40, View.Bounds.Width / 2, 40);
-            _resetButton.Frame = new CoreGraphics.CGRect(View.Bounds.Width / 2, yPageOffset + 40, View.Bounds.Width / 2, 40);
-
-            base.ViewDidLayoutSubviews();
         }
 
         private void Initialize()
@@ -121,17 +78,67 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             };
         }
 
-        private async void PlaceFacilites_Click(object sender, EventArgs e)
+        public override void LoadView()
         {
-            // Disable the button so the user recognizes that they are placing a facility.
-            _addFacilitiesButton.Enabled = false;
-            _addFacilitiesButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+            View = new UIView();
+            View.BackgroundColor = UIColor.White;
 
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_myMapView);
+
+            _toolbar = new UIToolbar();
+            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_toolbar);
+
+            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, AddClick);
+            _doneButton = new UIBarButtonItem(UIBarButtonSystemItem.Done, DoneClick);
+            _showButton = new UIBarButtonItem("Solve", UIBarButtonItemStyle.Plain, ShowServiceAreas_Click);
+            _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, Reset_Click);
+            _toolbar.Items = getToolbarItems;
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
+
+            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+        }
+
+        private UIBarButtonItem[] getToolbarItems => 
+            new[] {_addButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),_showButton,_resetButton };
+
+
+        private void AddClick(Object sender, EventArgs e)
+        {
+            // Decide what to add
+            UIAlertController prompt = UIAlertController.Create("Add facilities & barriers", "Tap to add facilities. Tap to build a polyline representing barriers. Press 'Done' to finish.", UIAlertControllerStyle.ActionSheet);
+            prompt.AddAction(UIAlertAction.Create("Add a facility", UIAlertActionStyle.Default, DrawFacilities));
+            prompt.AddAction(UIAlertAction.Create("Add a barrier", UIAlertActionStyle.Default, DrawBarrier_Click));
+            PresentViewController(prompt, true, null);
+
+            // Swap toolbar
+            _toolbar.Items = new[] { _doneButton };
+        }
+
+        private void DoneClick(Object sender, EventArgs e)
+        {
+            // Finish editing
+            _myMapView.SketchEditor.CompleteCommand.Execute(null);
+
+            // Swap toolbar
+            _toolbar.Items = getToolbarItems;
+        }
+
+        private async void DrawFacilities(UIAlertAction action)
+        {
             try
             {
                 // Let the user tap on the map view using the point sketch mode.
                 SketchCreationMode creationMode = SketchCreationMode.Point;
-                Geometry geometry = await _myMapView.SketchEditor.StartAsync(creationMode, false);
+                Geometry geometry = await _myMapView.SketchEditor.StartAsync(creationMode, true);
 
                 // Symbology for a facility.
                 PictureMarkerSymbol facilitySymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/Hospital.png"))
@@ -158,17 +165,12 @@ namespace ArcGISRuntime.Samples.FindServiceArea
                 // Report exceptions.
                 CreateErrorDialog("Error drawing facility:\n" + ex.Message);
             }
-
-            // Enable the button when the user is done.
-            _addFacilitiesButton.Enabled = true;
-            _addFacilitiesButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
         }
 
-        private async void DrawBarrier_Click(object sender, EventArgs e)
+
+        private async void DrawBarrier_Click(UIAlertAction action)
         {
             // Disable the button so the user recognizes that they are drawing a barrier.
-            _addBarrierButton.Enabled = false;
-            _addBarrierButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
             try
             {
                 // Let the user draw on the map view using the polyline sketch mode.
@@ -196,10 +198,6 @@ namespace ArcGISRuntime.Samples.FindServiceArea
                 // Report exceptions.
                 CreateErrorDialog("Error drawing barrier:\n" + ex.Message);
             }
-
-            // Enable the button when the user is done.
-            _addBarrierButton.Enabled = true;
-            _addBarrierButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
         }
 
         private async void ShowServiceAreas_Click(object sender, EventArgs e)

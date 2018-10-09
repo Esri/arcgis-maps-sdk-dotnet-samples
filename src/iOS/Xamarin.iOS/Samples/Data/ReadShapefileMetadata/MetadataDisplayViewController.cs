@@ -49,8 +49,8 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             {
                 _stackLayout.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _stackLayout.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
-                _stackLayout.LeftAnchor.ConstraintEqualTo(View.LeftAnchor, 8),
-                _stackLayout.RightAnchor.ConstraintEqualTo(View.RightAnchor, -8)
+                _stackLayout.LeftAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeftAnchor, 8),
+                _stackLayout.RightAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.RightAnchor, -8)
             });
 
             loadImage();

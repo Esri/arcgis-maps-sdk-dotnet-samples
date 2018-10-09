@@ -25,37 +25,14 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
         "")]
     public class FeatureLayerTimeOffset : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIStackView _stackView = new UIStackView();
-        private readonly UIToolbar _topToolbar = new UIToolbar();
-        private readonly UIToolbar _bottomToolbar = new UIToolbar();
-
-        private readonly UILabel _redLabel = new UILabel
-        {
-            Text = "Red hurricanes offset 10 days",
-            TextColor = UIColor.Red,
-            TextAlignment = UITextAlignment.Center
-        };
-
-        private readonly UILabel _blueLabel = new UILabel
-        {
-            Text = "Blue hurricanes not offset",
-            TextColor = UIColor.Blue,
-            TextAlignment = UITextAlignment.Center
-        };
-
-        private readonly UILabel _timeLabel = new UILabel
-        {
-            TextColor = UIColor.Black,
-            TextAlignment = UITextAlignment.Center
-        };
-
-        private readonly UISlider _timeSlider = new UISlider
-        {
-            MinValue = 0,
-            MaxValue = 1
-        };
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UIToolbar _topToolbar;
+        private UIToolbar _bottomToolbar;
+        private UILabel _redLabel;
+        private UILabel _blueLabel;
+        private UILabel _timeLabel;
+        private UISlider _timeSlider;
 
         // Hold the feature layer URI.
         private readonly Uri _featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0");
@@ -71,35 +48,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topHeight = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat sliderMargin = 50;
-
-                // Reposition the views.
-                _topToolbar.Frame = new CoreGraphics.CGRect(0, topHeight, View.Bounds.Width, controlHeight * 2 + margin * 3);
-                _bottomToolbar.Frame = new CoreGraphics.CGRect(0, View.Bounds.Height - 2 * controlHeight - 3 * margin, View.Bounds.Width, 2 * controlHeight + 3 * margin);
-                _redLabel.Frame = new CoreGraphics.CGRect(margin, topHeight + margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _blueLabel.Frame = new CoreGraphics.CGRect(margin, topHeight + 2 * margin + controlHeight, View.Bounds.Width - 2 * margin, controlHeight);
-                _timeLabel.Frame = new CoreGraphics.CGRect(margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _timeSlider.Frame = new CoreGraphics.CGRect(sliderMargin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 2 * sliderMargin, controlHeight);
-                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topHeight + _topToolbar.Frame.Height, 0, _bottomToolbar.Frame.Height, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private async void Initialize()
@@ -141,21 +90,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
 
             // Update the time extent set on the map.
             UpdateTimeExtent();
-        }
 
-        private void CreateLayout()
-        {
-            // Add the views to the top UIStackView.
-            _stackView.AddArrangedSubview(_redLabel);
-            _stackView.AddArrangedSubview(_blueLabel);
-            _stackView.AddArrangedSubview(_timeLabel);
-            _stackView.AddArrangedSubview(_timeSlider);
-
-            // Subscribe to slider value change notifications.
+            // Listen for slider changes.
             _timeSlider.ValueChanged += TimeSlider_ValueChanged;
-
-            // Add MapView to the page.
-            View.AddSubviews(_myMapView, _topToolbar, _bottomToolbar, _redLabel, _blueLabel, _timeLabel, _timeSlider);
         }
 
         private void TimeSlider_ValueChanged(object sender, EventArgs e)
@@ -203,7 +140,116 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
             _myMapView.TimeExtent = new TimeExtent(newStart, newEnd);
 
             // Update the label.
-            _timeLabel.Text = $"{newStart:d} - {newEnd:d}";
+            _timeLabel.Text = $"{newStart:MMM d} - {newEnd:MMM d}";
+        }
+
+        public override void LoadView()
+        {
+            View = new UIView();
+            View.BackgroundColor = UIColor.White;
+
+            _topToolbar = new UIToolbar();
+            _topToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_topToolbar);
+
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_myMapView);
+
+            _bottomToolbar = new UIToolbar();
+            _bottomToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_bottomToolbar);
+
+            UIStackView legendView = new UIStackView();
+            legendView.TranslatesAutoresizingMaskIntoConstraints = false;
+            legendView.Axis = UILayoutConstraintAxis.Horizontal;
+            legendView.Spacing = 8;
+            _topToolbar.AddSubview(legendView);
+
+            UIView redIcon = new UIView();
+            redIcon.TranslatesAutoresizingMaskIntoConstraints = false;
+            redIcon.BackgroundColor = UIColor.Red;
+            redIcon.WidthAnchor.ConstraintEqualTo(16).Active = true;
+            redIcon.HeightAnchor.ConstraintEqualTo(16).Active = true;
+            redIcon.ClipsToBounds = true;
+            redIcon.Layer.CornerRadius = 8;
+
+            UIView blueIcon = new UIView();
+            blueIcon.BackgroundColor = UIColor.Blue;
+            blueIcon.TranslatesAutoresizingMaskIntoConstraints = false;
+            blueIcon.WidthAnchor.ConstraintEqualTo(16).Active = true;
+            blueIcon.HeightAnchor.ConstraintEqualTo(16).Active = true;
+            blueIcon.ClipsToBounds = true;
+            blueIcon.Layer.CornerRadius = 8;
+
+            legendView.LeftAnchor.ConstraintEqualTo(_topToolbar.SafeAreaLayoutGuide.LeftAnchor, 8).Active = true;
+            legendView.RightAnchor.ConstraintEqualTo(_topToolbar.SafeAreaLayoutGuide.RightAnchor, -8).Active = true;
+            legendView.TopAnchor.ConstraintEqualTo(_topToolbar.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
+            legendView.BottomAnchor.ConstraintEqualTo(_topToolbar.SafeAreaLayoutGuide.BottomAnchor, -8).Active = true;
+
+            _redLabel = new UILabel
+            {
+                Text = "Offset 10 days",
+                TextColor = UIColor.Red,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            _blueLabel = new UILabel
+            {
+                Text = "No offset",
+                TextColor = UIColor.Blue,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            UIView spacer = new UIView();
+            spacer.TranslatesAutoresizingMaskIntoConstraints = false;
+            spacer.SetContentCompressionResistancePriority((float)UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
+
+            legendView.AddArrangedSubview(redIcon);
+            legendView.AddArrangedSubview(_redLabel);
+            legendView.AddArrangedSubview(spacer);
+            legendView.AddArrangedSubview(blueIcon);
+            legendView.AddArrangedSubview(_blueLabel);
+
+            redIcon.CenterYAnchor.ConstraintEqualTo(blueIcon.CenterYAnchor).Active = true;
+            blueIcon.CenterYAnchor.ConstraintEqualTo(_topToolbar.CenterYAnchor).Active = true;
+
+            _timeLabel = new UILabel
+            {
+                TextColor = UIColor.Black,
+                TextAlignment = UITextAlignment.Center,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            _timeLabel.WidthAnchor.ConstraintEqualTo(150).Active = true;
+
+            _timeSlider = new UISlider
+            {
+                MinValue = 0,
+                MaxValue = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            _timeSlider.WidthAnchor.ConstraintEqualTo(600).Active = true;
+
+            _bottomToolbar.Items = new[] {
+                new UIBarButtonItem(_timeLabel),
+                new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace) { Width = 0},
+                new UIBarButtonItem(_timeSlider)
+            };
+
+            _topToolbar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _topToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _topToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.TopAnchor.ConstraintEqualTo(_topToolbar.BottomAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(_bottomToolbar.TopAnchor).Active = true;
+
+            _bottomToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _bottomToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _bottomToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+
         }
     }
 }

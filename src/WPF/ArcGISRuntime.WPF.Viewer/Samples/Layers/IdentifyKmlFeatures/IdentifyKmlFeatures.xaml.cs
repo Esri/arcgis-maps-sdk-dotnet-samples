@@ -53,7 +53,7 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyKmlFeatures
             MyMapView.Map.OperationalLayers.Add(_forecastLayer);
 
             // Zoom to the extent of the United States.
-            await MyMapView.SetViewpointGeometryAsync(new Viewpoint(_usEnvelope));
+            await MyMapView.SetViewpointAsync(new Viewpoint(_usEnvelope));
 
             // Listen for taps to identify features.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;

@@ -204,7 +204,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
 
             UIView spacer = new UIView();
             spacer.TranslatesAutoresizingMaskIntoConstraints = false;
-            spacer.SetContentCompressionResistancePriority((float)UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
+            spacer.SetContentCompressionResistancePriority((float) UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
 
             legendView.AddArrangedSubview(redIcon);
             legendView.AddArrangedSubview(_redLabel);
@@ -231,9 +231,10 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
             };
             _timeSlider.WidthAnchor.ConstraintEqualTo(600).Active = true;
 
-            _bottomToolbar.Items = new[] {
+            _bottomToolbar.Items = new[]
+            {
                 new UIBarButtonItem(_timeLabel),
-                new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace) { Width = 0},
+                new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace) {Width = 0},
                 new UIBarButtonItem(_timeSlider)
             };
 
@@ -249,7 +250,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
             _bottomToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _bottomToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
             _bottomToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-
         }
     }
 }

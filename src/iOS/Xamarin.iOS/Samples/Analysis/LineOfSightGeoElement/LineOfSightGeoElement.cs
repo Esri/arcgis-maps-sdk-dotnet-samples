@@ -10,7 +10,6 @@
 using System;
 using System.Timers;
 using ArcGISRuntime.Samples.Managers;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -262,7 +261,6 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
                 TextAlignment = UITextAlignment.Center,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
-            _statusLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             View.AddSubview(_statusLabel);
 
             _mySlider = new UISlider();
@@ -270,7 +268,8 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             UIBarButtonItem sliderWrapper = new UIBarButtonItem(_mySlider);
             sliderWrapper.Width = 300;
 
-            _sliderToolbar.Items = new[] {
+            _sliderToolbar.Items = new[]
+            {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 sliderWrapper,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)

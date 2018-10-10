@@ -58,23 +58,27 @@ namespace ArcGISRuntime.Samples.MapRotation
             View.AddSubview(_myMapView);
 
             _rotationSlider = new UISlider
-             {
-                 MinValue = 0,
-                 MaxValue = 360,
+            {
+                MinValue = 0,
+                MaxValue = 360,
                 TranslatesAutoresizingMaskIntoConstraints = false
-             };
+            };
 
-            _rotationLabel = new UILabel();
-            _rotationLabel.Text = "0°";
-            _rotationLabel.TextAlignment = UITextAlignment.Center;
-            _rotationLabel.TranslatesAutoresizingMaskIntoConstraints = false;
-                         
-            _toolbar = new UIToolbar();
-            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            _toolbar.Items = new[] {
-                new UIBarButtonItem(_rotationLabel),
-                new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace) { Width = 0 },
-                new UIBarButtonItem(_rotationSlider)
+            _rotationLabel = new UILabel
+            {
+                Text = "0°",
+                TextAlignment = UITextAlignment.Center,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            _toolbar = new UIToolbar
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                Items = new[] {
+                    new UIBarButtonItem(_rotationLabel),
+                    new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace) {Width = 0},
+                    new UIBarButtonItem(_rotationSlider)
+                }
             };
             View.AddSubview(_toolbar);
 

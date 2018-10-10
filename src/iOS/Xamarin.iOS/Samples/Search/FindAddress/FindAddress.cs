@@ -13,7 +13,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -67,40 +66,6 @@ namespace ArcGISRuntime.Samples.FindAddress
             Initialize();
         }
 
-        public override void LoadView()
-        {
-            View = new UIView();
-
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_myMapView);
-
-            _addressSearchBar = new UISearchBar();
-            _addressSearchBar.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_addressSearchBar);
-
-            _addressSearchBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _addressSearchBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _addressSearchBar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-            _myMapView.TopAnchor.ConstraintEqualTo(_addressSearchBar.BottomAnchor).Active = true;
-
-            // Enable search.
-            _addressSearchBar.SearchButtonClicked += AddressSearchBar_Clicked;
-
-            // Configure the search bar to support popover address suggestion.
-            _addressSearchBar.ShowsSearchResultsButton = true;
-            _addressSearchBar.ListButtonClicked += AddressSearch_ListButtonClicked;
-
-            // Disable user interaction until the geocoder is ready.
-            _addressSearchBar.UserInteractionEnabled = false;
-
-            // Enable tap-for-info pattern on results.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
-        }
 
         private async void Initialize()
         {
@@ -248,6 +213,41 @@ namespace ArcGISRuntime.Samples.FindAddress
             {
                 System.Diagnostics.Debug.WriteLine(ex);
             }
+        }
+
+        public override void LoadView()
+        {
+            View = new UIView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_myMapView);
+
+            _addressSearchBar = new UISearchBar();
+            _addressSearchBar.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_addressSearchBar);
+
+            _addressSearchBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _addressSearchBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _addressSearchBar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _myMapView.TopAnchor.ConstraintEqualTo(_addressSearchBar.BottomAnchor).Active = true;
+
+            // Enable search.
+            _addressSearchBar.SearchButtonClicked += AddressSearchBar_Clicked;
+
+            // Configure the search bar to support popover address suggestion.
+            _addressSearchBar.ShowsSearchResultsButton = true;
+            _addressSearchBar.ListButtonClicked += AddressSearch_ListButtonClicked;
+
+            // Disable user interaction until the geocoder is ready.
+            _addressSearchBar.UserInteractionEnabled = false;
+
+            // Enable tap-for-info pattern on results.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
     }
 }

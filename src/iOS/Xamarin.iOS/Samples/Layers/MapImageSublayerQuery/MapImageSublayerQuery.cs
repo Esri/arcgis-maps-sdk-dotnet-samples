@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -73,7 +72,8 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
 
             UIBarButtonItem queryButton = new UIBarButtonItem("Query", UIBarButtonItemStyle.Plain, QuerySublayers_Click);
 
-            _toolbar.Items = new[] {
+            _toolbar.Items = new[]
+            {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 queryButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
@@ -114,7 +114,11 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
 
             // Prompt the user for a query.
             UIAlertController prompt = UIAlertController.Create("Enter query", "Query for places with population(2000) > ", UIAlertControllerStyle.Alert);
-            prompt.AddTextField((UITextField obj) => { _queryEntry = obj; obj.Text = "181000"; });
+            prompt.AddTextField((obj) =>
+            {
+                _queryEntry = obj;
+                obj.Text = "181000";
+            });
             prompt.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, submitQuery));
             PresentViewController(prompt, true, null);
         }
@@ -133,15 +137,15 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
             }
 
             // Get the USA map image layer (the first and only operational layer in the map).
-            ArcGISMapImageLayer usaMapImageLayer = (ArcGISMapImageLayer)_myMapView.Map.OperationalLayers[0];
+            ArcGISMapImageLayer usaMapImageLayer = (ArcGISMapImageLayer) _myMapView.Map.OperationalLayers[0];
 
             // Use a utility method on the map image layer to load all the sublayers and tables.
             await usaMapImageLayer.LoadTablesAndLayersAsync();
 
             // Get the sublayers of interest (skip 'Highways' since it doesn't have the POP2000 field).
-            ArcGISMapImageSublayer citiesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[0];
-            ArcGISMapImageSublayer statesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[2];
-            ArcGISMapImageSublayer countiesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[3];
+            ArcGISMapImageSublayer citiesSublayer = (ArcGISMapImageSublayer) usaMapImageLayer.Sublayers[0];
+            ArcGISMapImageSublayer statesSublayer = (ArcGISMapImageSublayer) usaMapImageLayer.Sublayers[2];
+            ArcGISMapImageSublayer countiesSublayer = (ArcGISMapImageSublayer) usaMapImageLayer.Sublayers[3];
 
             // Get the service feature table for each of the sublayers.
             ServiceFeatureTable citiesTable = citiesSublayer.Table;
@@ -151,7 +155,7 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
             // Create the query parameters that will find features in the current extent with a population greater than the value entered.
             QueryParameters populationQuery = new QueryParameters
             {
-                WhereClause = "POP2000 > " + populationNumber.ToString(),
+                WhereClause = "POP2000 > " + populationNumber,
                 Geometry = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry
             };
 

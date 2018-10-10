@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
         private UIBarButtonItem _doneButton;
 
         // Uri for the service area around San Diego.
-        private Uri _serviceAreaUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ServiceArea");
+        private readonly Uri _serviceAreaUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ServiceArea");
 
         public FindServiceArea()
         {
@@ -78,39 +78,6 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             };
         }
 
-        public override void LoadView()
-        {
-            View = new UIView();
-            View.BackgroundColor = UIColor.White;
-
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_myMapView);
-
-            _toolbar = new UIToolbar();
-            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_toolbar);
-
-            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, AddClick);
-            _doneButton = new UIBarButtonItem(UIBarButtonSystemItem.Done, DoneClick);
-            _showButton = new UIBarButtonItem("Solve", UIBarButtonItemStyle.Plain, ShowServiceAreas_Click);
-            _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, Reset_Click);
-            _toolbar.Items = getToolbarItems;
-
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
-
-            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-        }
-
-        private UIBarButtonItem[] getToolbarItems => 
-            new[] {_addButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),_showButton,_resetButton };
-
-
         private void AddClick(Object sender, EventArgs e)
         {
             // Decide what to add
@@ -120,7 +87,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             PresentViewController(prompt, true, null);
 
             // Swap toolbar
-            _toolbar.Items = new[] { _doneButton };
+            _toolbar.Items = new[] {_doneButton};
         }
 
         private void DoneClick(Object sender, EventArgs e)
@@ -148,7 +115,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
                 };
 
                 // Create a graphic for the facility.
-                Graphic facilityGraphic = new Graphic(geometry, new Dictionary<string, object>() { { "Type", "Facility" } }, facilitySymbol)
+                Graphic facilityGraphic = new Graphic(geometry, new Dictionary<string, object>() {{"Type", "Facility"}}, facilitySymbol)
                 {
                     ZIndex = 2
                 };
@@ -181,7 +148,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
                 SimpleLineSymbol barrierSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Black, 5.0f);
 
                 // Create the graphic to be used for barriers.
-                Graphic barrierGraphic = new Graphic(geometry, new Dictionary<string, object>() { { "Type", "Barrier" } }, barrierSymbol)
+                Graphic barrierGraphic = new Graphic(geometry, new Dictionary<string, object>() {{"Type", "Barrier"}}, barrierSymbol)
                 {
                     ZIndex = 1
                 };
@@ -207,8 +174,8 @@ namespace ArcGISRuntime.Samples.FindServiceArea
 
             // Get a list of the facilities from the graphics overlay.
             List<ServiceAreaFacility> serviceAreaFacilities = (from g in allGraphics
-                                                               where (string)g.Attributes["Type"] == "Facility"
-                                                               select new ServiceAreaFacility((MapPoint)g.Geometry)).ToList();
+                where (string) g.Attributes["Type"] == "Facility"
+                select new ServiceAreaFacility((MapPoint) g.Geometry)).ToList();
 
             // Check that there is at least 1 facility to find a service area for.
             if (!serviceAreaFacilities.Any())
@@ -232,8 +199,8 @@ namespace ArcGISRuntime.Samples.FindServiceArea
 
             // Get a list of the barriers from the graphics overlay.
             List<PolylineBarrier> polylineBarriers = (from g in allGraphics
-                                                      where (string)g.Attributes["Type"] == "Barrier"
-                                                      select new PolylineBarrier((Polyline)g.Geometry)).ToList();
+                where (string) g.Attributes["Type"] == "Barrier"
+                select new PolylineBarrier((Polyline) g.Geometry)).ToList();
 
             // Add the barriers to the service area parameters.
             serviceAreaParameters.SetPolylineBarriers(polylineBarriers);
@@ -245,7 +212,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             foreach (Graphic g in allGraphics.ToList())
             {
                 // Check if the graphic g is a service area.
-                if ((string)g.Attributes["Type"] == "ServiceArea")
+                if ((string) g.Attributes["Type"] == "ServiceArea")
                 {
                     allGraphics.Remove(g);
                 }
@@ -268,7 +235,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
                     // Create a list of fill symbols for the polygons.
                     List<SimpleFillSymbol> fillSymbols = new List<SimpleFillSymbol>
                     {
-                        new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Drawing.Color.FromArgb(70, 255, 0, 0), serviceOutline), 
+                        new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Drawing.Color.FromArgb(70, 255, 0, 0), serviceOutline),
                         new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Drawing.Color.FromArgb(70, 255, 165, 0), serviceOutline)
                     };
 
@@ -276,7 +243,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
                     for (int j = 0; j < polygons.Count; j++)
                     {
                         // Create the graphic for the service areas, alternating between fill symbols.
-                        Graphic serviceGraphic = new Graphic(polygons[j].Geometry, new Dictionary<string, object>() { { "Type", "ServiceArea" } }, fillSymbols[j % 2])
+                        Graphic serviceGraphic = new Graphic(polygons[j].Geometry, new Dictionary<string, object>() {{"Type", "ServiceArea"}}, fillSymbols[j % 2])
                         {
                             ZIndex = 0
                         };
@@ -288,7 +255,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             }
             catch (Esri.ArcGISRuntime.Http.ArcGISWebException exception)
             {
-                if (exception.Message.ToString().Equals("Unable to complete operation."))
+                if (exception.Message.Equals("Unable to complete operation."))
                 {
                     CreateErrorDialog("Facility not within San Diego area!");
                 }
@@ -304,6 +271,39 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             // Clear all of the graphics.
             _myMapView.GraphicsOverlays[0].Graphics.Clear();
         }
+
+        public override void LoadView()
+        {
+            View = new UIView();
+            View.BackgroundColor = UIColor.White;
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_myMapView);
+
+            _toolbar = new UIToolbar();
+            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_toolbar);
+
+            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, AddClick);
+            _doneButton = new UIBarButtonItem(UIBarButtonSystemItem.Done, DoneClick);
+            _showButton = new UIBarButtonItem("Solve", UIBarButtonItemStyle.Plain, ShowServiceAreas_Click);
+            _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, Reset_Click);
+            _toolbar.Items = getToolbarItems;
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
+
+            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+        }
+
+        private UIBarButtonItem[] getToolbarItems =>
+            new[] {_addButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), _showButton, _resetButton};
+
 
         private void CreateErrorDialog(string message)
         {

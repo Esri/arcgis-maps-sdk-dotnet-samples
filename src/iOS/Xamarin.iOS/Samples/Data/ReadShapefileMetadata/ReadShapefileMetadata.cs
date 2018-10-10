@@ -48,35 +48,6 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             Initialize();
         }
 
-        public override void LoadView()
-        {
-            View = new UIView();
-            View.BackgroundColor = UIColor.White;
-
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_myMapView);
-
-            _toolbar = new UIToolbar();
-            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_toolbar);
-
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-
-            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-
-            _showMetadataButton = new UIBarButtonItem("See metadata", UIBarButtonItemStyle.Plain, OnMetadataButtonTouch);
-            _toolbar.Items = new UIBarButtonItem[] { 
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _showMetadataButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)};
-        }
-
         private async void Initialize()
         {
             // Create a new map to display in the map view with a streets basemap.
@@ -108,6 +79,37 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         {
             NavigationController.PushViewController(
                 new MetadataDisplayViewController(_shapefileMetadata), true);
+        }
+
+        public override void LoadView()
+        {
+            View = new UIView();
+            View.BackgroundColor = UIColor.White;
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_myMapView);
+
+            _toolbar = new UIToolbar();
+            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_toolbar);
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+
+            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+
+            _showMetadataButton = new UIBarButtonItem("See metadata", UIBarButtonItemStyle.Plain, OnMetadataButtonTouch);
+            _toolbar.Items = new []
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _showMetadataButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
         }
     }
 }

@@ -9,10 +9,8 @@
 
 using System;
 using ArcGISRuntime.Samples.Managers;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
@@ -29,10 +27,10 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         "Featured")]
     public class ReadShapefileMetadata : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private UIButton _showMetadataButton;
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UIBarButtonItem _showMetadataButton;
+        private UIToolbar _toolbar;
 
         // Store the shapefile metadata.
         private ShapefileInfo _shapefileMetadata;
@@ -47,31 +45,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         {
             base.ViewDidLoad();
 
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
-
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _showMetadataButton.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private async void Initialize()
@@ -101,129 +75,41 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             _myMapView.Map = streetMap;
         }
 
-        private void CreateLayout()
-        {
-            // Add a button at the bottom to show metadata dialog.
-            _showMetadataButton = new UIButton();
-
-            // Create button to show metadata.
-            _showMetadataButton.SetTitle("Metadata", UIControlState.Normal);
-            _showMetadataButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _showMetadataButton.TouchUpInside += OnMetadataButtonTouch;
-
-            // Add MapView to the page.
-            View.AddSubviews(_myMapView, _toolbar, _showMetadataButton);
-        }
-
         private void OnMetadataButtonTouch(object sender, EventArgs e)
         {
-            // Create a dialog to show metadata values that covers the entire view.
-            CGRect ovBounds = new CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
-            ShapefileMetadataDialog metadataDialog = new ShapefileMetadataDialog(ovBounds, 0.05f, UIColor.White, _shapefileMetadata);
-
-            // Add the dialog (will show on top of the map view).
-            View.Add(metadataDialog);
-
-            // Action to decrease the view transparency (will be 100% opaque).
-            Action makeOpaqueAction = () => metadataDialog.Alpha = 1.0f;
-
-            // Animate opacity to 100% in one second.
-            UIView.Animate(1.00, makeOpaqueAction, null);
-        }
-    }
-
-    // View to display shapefile metadata info.
-    public class ShapefileMetadataDialog : UIView
-    {
-        // ImageView to display the shapefile thumbnail.
-        private readonly UIImageView _shapefileThumbnailImage;
-
-        public ShapefileMetadataDialog(CGRect frame, nfloat opacity, UIColor color, ShapefileInfo metadata) : base(frame)
-        {
-            // Create a semi-transparent overlay with the specified background color.
-            BackgroundColor = color;
-            Alpha = opacity;
-
-            // Variables for space between controls and for control width (height will vary).
-            nfloat rowSpace = 5;
-            nfloat controlWidth = Frame.Width - 20;
-
-            // Find the center x and y of the view.
-            nfloat centerX = Frame.Width / 2;
-
-            // Find the start x and y for the control layout.
-            nfloat controlX = centerX - controlWidth / 2;
-            nfloat controlY = 20;
-
-            // Label for credits metadata.
-            UILabel creditsLabel = new UILabel(new CGRect(controlX, controlY, controlWidth, 20))
-            {
-                Text = metadata.Credits,
-                TextColor = UIColor.Black
-            };
-
-            // Adjust the Y position for the next control.
-            controlY = controlY + 20 + rowSpace;
-
-            // Label for the summary metadata.
-            UILabel summaryLabel = new UILabel(new CGRect(controlX, controlY, controlWidth, 120))
-            {
-                LineBreakMode = UILineBreakMode.WordWrap,
-                Lines = 0,
-                Text = metadata.Summary
-            };
-
-            // Adjust the Y position for the next control.
-            controlY = controlY + 120 + rowSpace;
-
-            // ImageView for metadata thumbnail.
-            _shapefileThumbnailImage = new UIImageView(new CGRect(centerX - 80, controlY, 160, 160));
-            LoadThumbnail(metadata);
-
-            // Adjust the Y position for the next control.
-            controlY = controlY + 160 + rowSpace;
-
-            // Metadata tags.
-            UILabel tagsLabel = new UILabel(new CGRect(controlX, controlY, controlWidth, 100))
-            {
-                LineBreakMode = UILineBreakMode.WordWrap,
-                Lines = 0,
-                Text = string.Join(",", metadata.Tags)
-            };
-
-            // Adjust the Y position for the next control.
-            controlY = controlY + 100 + rowSpace;
-
-            // Button to hide the dialog.
-            UIButton hideButton = new UIButton(new CGRect(controlX, controlY, controlWidth, 20));
-            hideButton.SetTitle("OK", UIControlState.Normal);
-            hideButton.SetTitleColor(TintColor, UIControlState.Normal);
-            hideButton.TouchUpInside += (s, e) => { Hide(); };
-
-            // Add the controls.
-            AddSubviews(creditsLabel, summaryLabel, _shapefileThumbnailImage, tagsLabel, hideButton);
+            NavigationController.PushViewController(
+                new MetadataDisplayViewController(_shapefileMetadata), true);
         }
 
-        private async void LoadThumbnail(ShapefileInfo metadata)
+        public override void LoadView()
         {
-            // Show the image in the UI.
-            _shapefileThumbnailImage.Image = await metadata.Thumbnail.ToImageSourceAsync();
-        }
+            View = new UIView();
+            View.BackgroundColor = UIColor.White;
 
-        // Animate increasing transparency to completely hide the view, then remove it.
-        private void Hide()
-        {
-            // Action to make the view transparent.
-            Action makeTransparentAction = () => Alpha = 0;
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_myMapView);
 
-            // Action to remove the view.
-            Action removeViewAction = RemoveFromSuperview;
+            _toolbar = new UIToolbar();
+            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_toolbar);
 
-            // Time to complete the animation (seconds).
-            double secondsToComplete = 0.75;
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
 
-            // Animate transparency to zero, then remove the view.
-            Animate(secondsToComplete, makeTransparentAction, removeViewAction);
+            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+
+            _showMetadataButton = new UIBarButtonItem("See metadata", UIBarButtonItemStyle.Plain, OnMetadataButtonTouch);
+            _toolbar.Items = new []
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _showMetadataButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
         }
     }
 }

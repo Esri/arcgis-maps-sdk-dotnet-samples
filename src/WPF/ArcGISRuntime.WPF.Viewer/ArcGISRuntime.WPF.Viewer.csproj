@@ -493,6 +493,12 @@
     <Compile Include="Samples\Search\FindPlace\FindPlace.xaml.cs">
       <DependentUpon>FindPlace.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.xaml.cs">
+      <DependentUpon>IntegratedWindowsAuth.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Security\IntegratedWindowsAuth\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Security\OAuth\OAuth.xaml.cs">
       <DependentUpon>OAuth.xaml</DependentUpon>
     </Compile>
@@ -1035,6 +1041,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Security\IntegratedWindowsAuth\LoginWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Security\OAuth\OAuth.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1463,6 +1477,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Search\FindPlace\FindPlace.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Security\OAuth\OAuth.jpg">

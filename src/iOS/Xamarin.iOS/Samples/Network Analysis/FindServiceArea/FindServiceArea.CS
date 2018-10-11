@@ -78,24 +78,36 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             };
         }
 
-        private void AddClick(Object sender, EventArgs e)
+        private void AddClick(object sender, EventArgs e)
         {
-            // Decide what to add
+            // Decide what to add.
             UIAlertController prompt = UIAlertController.Create("Add facilities & barriers", "Tap to add facilities. Tap to build a polyline representing barriers. Press 'Done' to finish.", UIAlertControllerStyle.ActionSheet);
             prompt.AddAction(UIAlertAction.Create("Add a facility", UIAlertActionStyle.Default, DrawFacilities));
             prompt.AddAction(UIAlertAction.Create("Add a barrier", UIAlertActionStyle.Default, DrawBarrier_Click));
+            
+            // Needed to prevent crash on iPad.
+            UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
+            if (ppc != null)
+            {
+                ppc.SourceView = View;
+                ppc.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+            }
+
             PresentViewController(prompt, true, null);
 
-            // Swap toolbar
+            // Swap toolbar.
             _toolbar.Items = new[] {_doneButton};
         }
 
-        private void DoneClick(Object sender, EventArgs e)
+        private void DoneClick(object sender, EventArgs e)
         {
-            // Finish editing
-            _myMapView.SketchEditor.CompleteCommand.Execute(null);
-
-            // Swap toolbar
+            // Finish editing.
+            if (_myMapView.SketchEditor.CompleteCommand.CanExecute(sender))
+            {
+                _myMapView.SketchEditor.CompleteCommand.Execute(sender);
+            }
+            
+            // Swap toolbar.
             _toolbar.Items = getToolbarItems;
         }
 

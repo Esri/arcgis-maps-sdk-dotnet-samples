@@ -29,9 +29,6 @@ namespace ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth
            "Authentication, Security, Windows")]
     public partial class IntegratedWindowsAuth
     {
-        // A URL for an IWA-secured portal containing web maps ("https://my.portal.com/gis", for example).
-        private string _securedPortalUrl;
-
         // The ArcGIS Online URL for searching public web maps.
         private string _publicPortalUrl = "http://www.arcgis.com";
 
@@ -139,21 +136,22 @@ namespace ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth
         {
             try
             {
+                // Get the string entered for the secure portal URL.
+                string securedPortalUrl = SecurePortalUrlTextBox.Text.Trim();
+                
                 // Make sure a portal URL has been entered in the text box.
-                if (string.IsNullOrEmpty(SecurePortalUrlTextBox.Text.Trim()))
+                if (string.IsNullOrEmpty(securedPortalUrl))
                 {
                     MessageBox.Show("Please enter the URL of the secured portal.", "Missing URL");
                     return;
                 }
 
-                // Store the secure portal URL.
-                _securedPortalUrl = SecurePortalUrlTextBox.Text.Trim();
 
                 // Check if the current Window credentials should be used or require an explicit login.
                 bool requireLogin = RequireLoginCheckBox.IsChecked == true;
 
                 // Create an instance of the IWA-secured portal, the user may be challenged for access.
-                _iwaSecuredPortal = await ArcGISPortal.CreateAsync(new Uri(_securedPortalUrl), requireLogin);
+                _iwaSecuredPortal = await ArcGISPortal.CreateAsync(new Uri(securedPortalUrl), requireLogin);
 
                 // Call a function to search the portal.
                 SearchPortal(_iwaSecuredPortal);

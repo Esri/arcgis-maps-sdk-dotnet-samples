@@ -235,6 +235,7 @@
     <Content Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.jpg" />
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <Content Include="Samples\Search\FindPlace\FindPlace.jpg" />
+    <Content Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.jpg" />
     <Content Include="Samples\Security\OAuth\OAuth.jpg" />
     <Content Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.jpg" />
     <Content Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.jpg" />
@@ -654,6 +655,9 @@
     </Compile>
     <Compile Include="Samples\Search\FindPlace\FindPlace.xaml.cs">
       <DependentUpon>FindPlace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.xaml.cs">
+      <DependentUpon>IntegratedWindowsAuth.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Security\OAuth\OAuth.xaml.cs">
       <DependentUpon>OAuth.xaml</DependentUpon>
@@ -1170,6 +1174,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Search\FindPlace\FindPlace.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

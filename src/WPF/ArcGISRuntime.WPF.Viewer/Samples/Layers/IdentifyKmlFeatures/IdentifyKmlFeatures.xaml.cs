@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -27,6 +28,9 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyKmlFeatures
     {
         // Hold a reference to the KML layer for use in identify operations.
         private KmlLayer _forecastLayer;
+
+        // Initial view envelope.
+        private readonly Envelope _usEnvelope = new Envelope(-144.619561355187, 18.0328662832097, -66.0903762761083, 67.6390975806745, SpatialReferences.Wgs84);
 
         public IdentifyKmlFeatures()
         {
@@ -48,9 +52,8 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyKmlFeatures
             // Add the layer to the map.
             MyMapView.Map.OperationalLayers.Add(_forecastLayer);
 
-            // Zoom to the extent of the layer.
-            await _forecastLayer.LoadAsync();
-            await MyMapView.SetViewpointGeometryAsync(dataset.RootNodes[0].Extent, 10);
+            // Zoom to the extent of the United States.
+            await MyMapView.SetViewpointAsync(new Viewpoint(_usEnvelope));
 
             // Listen for taps to identify features.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
@@ -62,7 +65,7 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyKmlFeatures
             MyMapView.DismissCallout();
 
             // Perform identify on the KML layer and get the results.
-            IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_forecastLayer, e.Position, 15, false);
+            IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_forecastLayer, e.Position, 2, false);
 
             // Return if there are no results that are KML placemarks.
             if (!identifyResult.GeoElements.OfType<KmlGeoElement>().Any())

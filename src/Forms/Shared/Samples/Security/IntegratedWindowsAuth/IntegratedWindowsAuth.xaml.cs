@@ -290,6 +290,13 @@ namespace ArcGISRuntime.Samples.IntegratedWindowsAuth
         // AuthenticationManager.ChallengeHandler function that prompts the user for login information to create a credential
         private async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
+            // Ignore challenges for OAuth (might come from secured layers in public web maps, for example).
+            if(info.AuthenticationType != AuthenticationType.NetworkCredential)
+            {
+                Console.WriteLine("Authentication for " + info.ServiceUri.Host + " skipped.");
+                return null;
+            }
+
             // Return if authentication is already in process
             if (_loginTaskCompletionSrc != null && !_loginTaskCompletionSrc.Task.IsCanceled) { return null; }
 

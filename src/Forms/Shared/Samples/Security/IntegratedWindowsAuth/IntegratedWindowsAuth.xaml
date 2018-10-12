@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage x:Class="ArcGISRuntime.Samples.IntegratedWindowsAuth.IntegratedWindowsAuth"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -41,9 +41,11 @@
                 Grid.Row="1"
                 IsEnabled="False"
                 Clicked="AddMapItemClick"/>
-        <Label x:Name="MessagesTextBlock"
-                Grid.Row="2"
-                HeightRequest="40"/>
+        <ScrollView Grid.Row="2">
+            <Label x:Name="MessagesTextBlock"
+                   FontSize="Small"
+                   HeightRequest="40"/>
+        </ScrollView>
         <Grid x:Name="MyMapGrid"
               Grid.Row="3">
             <esriUI:MapView x:Name="MyMapView"/>

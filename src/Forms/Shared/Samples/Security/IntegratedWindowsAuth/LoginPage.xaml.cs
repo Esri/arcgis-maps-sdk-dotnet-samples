@@ -2,7 +2,7 @@
 
 using Xamarin.Forms;
 
-namespace XamarinForms.IWA
+namespace ArcGISRuntime.Samples.IntegratedWindowsAuth
 {
 	public partial class LoginPage : ContentPage
 	{

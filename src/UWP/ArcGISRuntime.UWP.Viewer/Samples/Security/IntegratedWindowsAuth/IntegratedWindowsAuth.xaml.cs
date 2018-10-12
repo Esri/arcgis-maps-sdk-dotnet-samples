@@ -49,6 +49,9 @@ namespace ArcGISRuntime.UWP.Samples.IntegratedWindowsAuth
         public IntegratedWindowsAuth()
         {
             InitializeComponent();
+
+            // Show the light gray canvas basemap.
+            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvasVector());
         }
 
         // Search the public portal for web maps and display the results in a list.

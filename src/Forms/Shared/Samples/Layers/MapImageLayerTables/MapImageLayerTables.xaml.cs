@@ -130,9 +130,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             ArcGISFeature serviceRequestFeature = result.FirstOrDefault() as ArcGISFeature;
             if (serviceRequestFeature == null)
             {
-                Page currentPage = (App.Current.MainPage as NavigationPage).CurrentPage;
-                await currentPage.DisplayAlert("No Feature", "Related feature not found.", "OK");
-
+                await ((Page)Parent).DisplayAlert("No Feature", "Related feature not found.", "OK");
                 return;
             }
 

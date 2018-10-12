@@ -89,7 +89,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
             // Subscribe to notifications about leaving so that settings can be reset.
             // This looks different because of sample viewer plumbing.
             // Replace `((ArcGISRuntime.SamplePage)this.Parent)` with `this` in your app.
-            ((ArcGISRuntime.SamplePage)this.Parent).Disappearing += SampleUnloaded;
+            ((Page)this.Parent).Disappearing += SampleUnloaded;
         }
 
         private void SampleUnloaded(object sender, EventArgs e)

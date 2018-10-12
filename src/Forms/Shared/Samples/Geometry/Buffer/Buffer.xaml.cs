@@ -84,7 +84,7 @@ namespace ArcGISRuntime.Samples.Buffer
             ShowBufferSwatches(planarBufferColor, geodesicBufferColor);
         }
 
-        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             try
             {
@@ -121,8 +121,7 @@ namespace ArcGISRuntime.Samples.Buffer
             catch (System.Exception ex)
             {
                 // Display an error message if there is a problem generating the buffers.
-                Page currentPage = (App.Current.MainPage as NavigationPage).CurrentPage;
-                currentPage.DisplayAlert(ex.Message, "Error creating buffers", "OK");
+                await ((Page)Parent).DisplayAlert("Error creating buffers", ex.Message, "OK");
             }
         }
 

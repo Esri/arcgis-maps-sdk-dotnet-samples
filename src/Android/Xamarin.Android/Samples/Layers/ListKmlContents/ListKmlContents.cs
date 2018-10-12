@@ -31,6 +31,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
         "List the contents of a KML file.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("da301cb122874d5497f8a8f6c81eb36e")]
+    [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayoutAttribute("ListKmlContents.axml")]
     public class ListKmlContents : Activity
     {
         // Hold references to UI controls.

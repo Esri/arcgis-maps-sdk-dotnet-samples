@@ -190,7 +190,7 @@ namespace ArcGISRuntime.Samples.IntegratedWindowsAuth
                 var items = await currentPortal.FindItemsAsync(new PortalQueryParameters("type:(\"web map\" NOT \"web mapping application\")"));
 
                 // Build a list of items from the results that shows the map name and stores the item ID (with the Tag property).
-                var resultItems = from r in items.Results select new KeyValuePair<string, PortalItem>(r.Title, r); // ListBoxItem { Tag = r.ItemId, Content = r.Title };
+                var resultItems = from r in items.Results select new KeyValuePair<string, PortalItem>(r.Title, r); 
 
                 // Add the items to a dictionary.
                 _webMapPortalItems = new Dictionary<string, PortalItem>();

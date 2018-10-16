@@ -4,7 +4,7 @@ This sample illustrates the use of Windows credentials to access services hosted
 When accessing an item secured with IWA from a WPF app, default credentials (the current user's login) are sent to the portal. 
 Platforms such as Android, iOS, and Universal Windows Platform (UWP) require credentials to be entered explicitly.
 
-<image src="IntegratedWindowsAuth.jpg"/>     
+<img src="IntegratedWindowsAuth.jpg"/>    
 
      
 More information about IWA can be found at the links below:
@@ -23,6 +23,10 @@ More information about IWA can be found at the links below:
 5. Select a web map in the list to display it in the map view.
 
 ### Important
-To successfully run the sample on Android, you need to use the `Managed` http handler. 
+To successfully run the sample on **Android**, you need to use the `Managed` http handler. 
 To make sure the project is using the correct handler, go to `Project > Properties > Android Options`.
 Click `Advanced`, then select `Managed` from the `HttpClient implementation` drop down.
+
+You must add the "Private Networks" capability to use Integrated Windows Authentication (IWA)
+in your **Universal Windows Platform** project. Add this capability by checking "Private Networks (Client and Server)"
+in your project's Package.appxmanifest file.

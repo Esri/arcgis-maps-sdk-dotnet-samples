@@ -225,6 +225,7 @@
     </ImageAsset>
     <None Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.jpg" />
     <None Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
+    <None Include="Samples\Security\IntegratedWindowsAuth\readme.md" />
   </ItemGroup>
   <!-- Storyboards -->
   <ItemGroup>
@@ -496,6 +497,7 @@
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Data\ReadShapefileMetadata\MetadataDisplayViewController.cs" />
     <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\DateSelectionViewController.cs" />
+    <Compile Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.cs" />
   </ItemGroup>
   <!-- Miscellaneous Configuration -->
   <ItemGroup>

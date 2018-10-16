@@ -495,6 +495,7 @@
     <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.cs" />
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Data\ReadShapefileMetadata\MetadataDisplayViewController.cs" />
+    <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\DateSelectionViewController.cs" />
   </ItemGroup>
   <!-- Miscellaneous Configuration -->
   <ItemGroup>

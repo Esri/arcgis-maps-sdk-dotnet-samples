@@ -20,6 +20,7 @@ using UIKit;
 namespace ArcGISRuntime.Samples.AnalyzeHotspots
 {
     [Register("AnalyzeHotspots")]
+    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("DateSelectionViewController")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Analyze hotspots",
         "Geoprocessing",
@@ -27,14 +28,12 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         "To run the hotspot analysis, select a data range and click on the 'Run analysis' button. Note the larger the date range, the longer it may take for the task to run and send back the results.")]
     public class AnalyzeHotspots : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private UILabel _startDateLabel;
-        private UITextField _startDateTextField;
-        private UILabel _endDateLabel;
-        private UITextField _endDateTextField;
-        private UIButton _runAnalysisButton;
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UIToolbar _toolbar;
+        private UIBarButtonItem _configureButton;
+        private UIBarButtonItem _startButton;
+        private DateSelectionViewController _selectionView;
         private UIActivityIndicatorView _progressBar;
 
         // URL for the geoprocessing service.
@@ -55,37 +54,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         {
             base.ViewDidLoad();
 
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat controlHeight = 30;
-                nfloat columnSplit = 100;
-                nfloat topStart = topMargin;
-
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _toolbar.Frame = new CGRect(0, topStart, View.Bounds.Width, controlHeight * 3 + margin * 4);
-                _startDateLabel.Frame = new CGRect(margin, topStart + margin, columnSplit - 2 * margin, controlHeight);
-                _startDateTextField.Frame = new CGRect(columnSplit + margin, topStart + margin, View.Bounds.Width - columnSplit - 2 * margin, controlHeight);
-                _endDateLabel.Frame = new CGRect(margin, topStart + controlHeight + 2 * margin, columnSplit - 2 * margin, controlHeight);
-                _endDateTextField.Frame = new CGRect(columnSplit + margin, topStart + controlHeight + 2 * margin, View.Bounds.Width - columnSplit - 2 * margin, controlHeight);
-                _runAnalysisButton.Frame = new CGRect(margin, topStart + 2 * controlHeight + 3 * margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + _toolbar.Frame.Height, 0, 0, 0);
-                _progressBar.Frame = new CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private async void Initialize()
@@ -106,25 +75,8 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             _progressBar.StartAnimating();
 
             // Get the 'from' and 'to' dates from the date pickers for the geoprocessing analysis.
-            DateTime fromDate;
-            DateTime toDate;
-            try
-            {
-                fromDate = Convert.ToDateTime(_startDateTextField.Text);
-                toDate = Convert.ToDateTime(_endDateTextField.Text);
-            }
-            catch (Exception)
-            {
-                // Handle badly formatted dates.
-                UIAlertController alert = UIAlertController.Create("Invalid date", "Please enter a valid date", UIAlertControllerStyle.Alert);
-                alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-                PresentViewController(alert, true, null);
-
-                // Stop the progress bar from animating (which also hides it as well).
-                _progressBar.StopAnimating();
-
-                return;
-            }
+            DateTime fromDate = (DateTime)_selectionView.StartPicker.Date;
+            DateTime toDate = (DateTime)_selectionView.EndPicker.Date;
 
             // The end date must be at least one day after the start date.
             if (toDate <= fromDate.AddDays(1))
@@ -196,73 +148,53 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             }
         }
 
-        private void CreateLayout()
+        private void ShowConfiguration(object sender, EventArgs e)
         {
-            // Create label for the start date.
-            _startDateLabel = new UILabel
-            {
-                Text = "Start date:",
-                AdjustsFontSizeToFitWidth = true,
-                TextAlignment = UITextAlignment.Right
-            };
+            NavigationController.PushViewController(_selectionView, true);
+        }
 
-            // Create text field for the initial start date "1/1/98" for the analysis.
-            _startDateTextField = new UITextField
-            {
-                Text = "1/01/98",
-                AdjustsFontSizeToFitWidth = true,
-                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
-                BorderStyle = UITextBorderStyle.RoundedRect
-            };
+        public override void LoadView()
+        {
+            View = new UIView();
+            View.BackgroundColor = UIColor.White;
 
-            // Allow pressing 'return' to dismiss the keyboard.
-            _startDateTextField.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
+            _selectionView = new DateSelectionViewController();
 
-            // Create label for the end date.
-            _endDateLabel = new UILabel
-            {
-                Text = "End date:",
-                AdjustsFontSizeToFitWidth = true,
-                TextAlignment = UITextAlignment.Right
-            };
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_myMapView);
 
-            // Create text field for the initial end date "1/31/98" for the analysis.
-            _endDateTextField = new UITextField
-            {
-                Text = "1/31/98",
-                AdjustsFontSizeToFitWidth = true,
-                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
-                BorderStyle = UITextBorderStyle.RoundedRect
-            };
+            _configureButton = new UIBarButtonItem("Configure", UIBarButtonItemStyle.Plain, ShowConfiguration);
+            _startButton = new UIBarButtonItem("Run analysis", UIBarButtonItemStyle.Plain, OnRunAnalysisClicked);
+            UIBarButtonItem spacer = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
 
-            // Allow pressing 'return' to dismiss the keyboard.
-            _endDateTextField.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
-
-            // Create button to invoke the geoprocessing request.
-            _runAnalysisButton = new UIButton();
-            _runAnalysisButton.SetTitle("Run analysis", UIControlState.Normal);
-            _runAnalysisButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-
-            // Hook to touch event to do geoprocessing request.
-            _runAnalysisButton.TouchUpInside += OnRunAnalysisClicked;
+            _toolbar = new UIToolbar();
+            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            _toolbar.Items = new[] { _configureButton, spacer, _startButton };
+            View.AddSubview(_toolbar);
 
             // Hide the activity indicator (progress bar) when stopped.
             _progressBar = new UIActivityIndicatorView
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(0, .5f),
-                HidesWhenStopped = true
+                HidesWhenStopped = true,
+                TranslatesAutoresizingMaskIntoConstraints = false
             };
+            View.AddSubview(_progressBar);
 
-            // Add all of the UI controls to the page.
-            View.AddSubviews(_myMapView, _toolbar, _startDateLabel, _startDateTextField, _endDateLabel, _endDateTextField, _runAnalysisButton, _progressBar);
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+
+            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+
+            _progressBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _progressBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _progressBar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _progressBar.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
         }
     }
 }

@@ -169,7 +169,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _viewshed.Pitch = _pitchSlider.Progress;
             _viewshed.HorizontalAngle = _horizontalAngleSlider.Progress;
             _viewshed.VerticalAngle = _verticalAngleSlider.Progress;
-            _viewshed.MinDistance = _minimumDistanceSlider.Progress;
+            _viewshed.MinDistance = _minimumDistanceSlider.Progress + 5;
             _viewshed.MaxDistance = _maximumDistanceSlider.Progress;
 
             // Update visibility of the viewshed analysis.
@@ -211,7 +211,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
 
             // Minimum Distance
             TextView minimumDistanceLabel = new TextView(this) { Text = "Minimum Distance:" };
-            _minimumDistanceSlider = new SeekBar(this) { Min = 5, Max = 8999 };
+            _minimumDistanceSlider = new SeekBar(this) { Max = 8994 };
             layout.AddView(minimumDistanceLabel);
             layout.AddView(_minimumDistanceSlider);
             layout.SetHorizontalGravity(GravityFlags.FillHorizontal);

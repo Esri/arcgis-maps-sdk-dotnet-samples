@@ -18,89 +18,90 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Query feature count and extent",
         "Analysis",
-        "This sample demonstrates how to query a feature table, in this case returning a count, for features that are within the visible extent or that meet specified criteria.",
+        "Zoom to features matching a query and count features in the visible extent.",
         "Use the button to zoom to the extent of the state specified (by abbreviation) in the textbox or use the button to count the features in the current extent.")]
     public partial class QueryFeatureCountAndExtent : ContentPage
     {
-        // URL to the feature service
-        private readonly Uri _usaCitiesSource = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
+        // URL to the feature service.
+        private readonly Uri _medicareHospitalSpendLayer =
+            new Uri("https://services1.arcgis.com/4yjifSiIG17X0gW4/arcgis/rest/services/Medicare_Hospital_Spending_per_Patient/FeatureServer/0");
 
-        // Feature table to query
-        private ServiceFeatureTable _myFeatureTable;
+        // Feature table to query.
+        private ServiceFeatureTable _featureTable;
 
         public QueryFeatureCountAndExtent()
         {
             InitializeComponent();
 
             Title = "Query feature count and extent";
-
-            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
         private async void Initialize()
         {
-            // Create the map with a vector street basemap
-            Map myMap = new Map(Basemap.CreateStreetsVector());
+            // Create the map with a basemap.
+            Map myMap = new Map(Basemap.CreateDarkGrayCanvasVector());
 
-            // Create the feature table from the service URL
-            _myFeatureTable = new ServiceFeatureTable(_usaCitiesSource);
+            // Create the feature table from the service URL.
+            _featureTable = new ServiceFeatureTable(_medicareHospitalSpendLayer);
 
-            // Create the feature layer from the table
-            FeatureLayer myFeatureLayer = new FeatureLayer(_myFeatureTable);
+            // Create the feature layer from the table.
+            FeatureLayer myFeatureLayer = new FeatureLayer(_featureTable);
 
-            // Add the feature layer to the map
+            // Add the feature layer to the map.
             myMap.OperationalLayers.Add(myFeatureLayer);
 
-            // Wait for the feature layer to load
+            // Wait for the feature layer to load.
             await myFeatureLayer.LoadAsync();
 
-            // Set the map initial extent to the extent of the feature layer
+            // Set the map initial extent to the extent of the feature layer.
             myMap.InitialViewpoint = new Viewpoint(myFeatureLayer.FullExtent);
 
-            // Add the map to the MapView
+            // Add the map to the MapView.
             MyMapView.Map = myMap;
         }
 
         private async void BtnZoomToFeatures_Click(object sender, EventArgs e)
         {
-            // Create the query parameters
-            QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(ST) LIKE '%{txtStateEntry.Text.ToUpper()}%'" };
+            // Create the query parameters.
+            QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(State) LIKE '%{txtStateEntry.Text.ToUpper()}%'" };
 
-            // Get the extent from the query
-            Envelope resultExtent = await _myFeatureTable.QueryExtentAsync(queryStates);
+            // Get the extent from the query.
+            Envelope resultExtent = await _featureTable.QueryExtentAsync(queryStates);
 
-            // Return if there is no result (might happen if query is invalid)
+            // Return if there is no result (might happen if query is invalid).
             if (resultExtent?.SpatialReference == null)
             {
                 return;
             }
 
-            // Create a viewpoint from the extent
+            // Create a viewpoint from the extent.
             Viewpoint resultViewpoint = new Viewpoint(resultExtent);
 
-            // Zoom to the viewpoint
+            // Zoom to the viewpoint.
             await MyMapView.SetViewpointAsync(resultViewpoint);
 
-            // Update the UI
+            // Update the UI.
             txtResults.Text = $"Zoomed to features in {txtStateEntry.Text}";
         }
 
         private async void BtnCountFeatures_Click(object sender, EventArgs e)
         {
-            // Create the query parameters
+            // Get the current visible extent.
+            Geometry currentExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry;
+
+            // Create the query parameters.
             QueryParameters queryCityCount = new QueryParameters
             {
-                // Get the current view extent and use that as a query parameters
-                Geometry = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry,
-                // Specify the interpretation of the Geometry query parameters
+                Geometry = currentExtent,
+                // Specify the interpretation of the Geometry query parameters.
                 SpatialRelationship = SpatialRelationship.Intersects
             };
 
-            // Get the count of matching features
-            long count = await _myFeatureTable.QueryFeatureCountAsync(queryCityCount);
+            // Get the count of matching features.
+            long count = await _featureTable.QueryFeatureCountAsync(queryCityCount);
 
-            // Update the UI
+            // Update the UI.
             txtResults.Text = $"{count} features in extent";
         }
     }

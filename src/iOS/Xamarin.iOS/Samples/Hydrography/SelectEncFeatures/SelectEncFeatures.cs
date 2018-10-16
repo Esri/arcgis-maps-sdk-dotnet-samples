@@ -41,7 +41,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
         private async void Initialize()
         {
             // Initialize the map with an oceans basemap.
-            MyMapView.Map = new Map(Basemap.CreateOceans());
+            _myMapView.Map = new Map(Basemap.CreateOceans());
 
             // Get the path to the ENC Exchange Set.
             string encPath = DataManager.GetDataFolder("9d2987a825c646468b3ce7512fb76e2d", "ExchangeSetwithoutUpdates", "ENC_ROOT", "CATALOG.031");
@@ -63,7 +63,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
                 EncLayer myEncLayer = new EncLayer(new EncCell(myEncDataset));
 
                 // Add the layer to the map.
-                MyMapView.Map.OperationalLayers.Add(myEncLayer);
+                _myMapView.Map.OperationalLayers.Add(myEncLayer);
 
                 // Wait for the layer to load.
                 await myEncLayer.LoadAsync();
@@ -76,7 +76,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             Envelope fullExtent = GeometryEngine.CombineExtents(dataSetExtents);
 
             // Set the viewpoint
-            MyMapView.SetViewpoint(new Viewpoint(fullExtent));
+            _myMapView.SetViewpoint(new Viewpoint(fullExtent));
 
             // Subscribe to tap events (in order to use them to identify and select features).
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;

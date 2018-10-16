@@ -275,9 +275,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.xaml.cs">
       <DependentUpon>TokenSecuredChallenge.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.xaml.cs">
-      <DependentUpon>TokenSecuredKnownUser.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml.cs">
       <DependentUpon>FeatureLayerExtrusion.xaml</DependentUpon>
     </Compile>
@@ -984,7 +981,6 @@
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Samples\Security\OAuth\OAuth.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.jpg" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <Folder Include="$(MSBuildThisFileDirectory)Assets\" />
   </ItemGroup>
@@ -998,10 +994,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

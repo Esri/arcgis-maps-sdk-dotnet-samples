@@ -23,7 +23,7 @@ namespace ArcGISRuntime.WPF.Samples.SelectEncFeatures
         "Hydrography",
         "This sample demonstrates how to select an ENC feature.",
         "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("a490098c60f64d3bbac10ad131cc62c7")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
     public partial class SelectEncFeatures
     {
         public SelectEncFeatures()
@@ -40,19 +40,39 @@ namespace ArcGISRuntime.WPF.Samples.SelectEncFeatures
             MyMapView.Map = new Map(Basemap.CreateOceans());
 
             // Get the path to the ENC Exchange Set
-            string encPath = GetEncPath();
+            string encPath = DataManager.GetDataFolder("9d2987a825c646468b3ce7512fb76e2d", "ExchangeSetwithoutUpdates", "ENC_ROOT", "CATALOG.031");
 
-            // Create the cell and layer.
-            EncLayer encLayer = new EncLayer(new EncCell(encPath));
+            // Create the Exchange Set
+            // Note: this constructor takes an array of paths because so that update sets can be loaded alongside base data
+            EncExchangeSet myEncExchangeSet = new EncExchangeSet(encPath);
 
-            // Add the layer to the map.
-            MyMapView.Map.OperationalLayers.Add(encLayer);
+            // Wait for the exchange set to load
+            await myEncExchangeSet.LoadAsync();
 
-            // Wait for the layer to load.
-            await encLayer.LoadAsync();
+            // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set
+            List<Envelope> dataSetExtents = new List<Envelope>();
 
-            // Set the viewpoint.
-            await MyMapView.SetViewpointAsync(new Viewpoint(encLayer.FullExtent));
+            // Add each data set as a layer
+            foreach (EncDataset myEncDataset in myEncExchangeSet.Datasets)
+            {
+                // Create the cell and layer
+                EncLayer myEncLayer = new EncLayer(new EncCell(myEncDataset));
+
+                // Add the layer to the map
+                MyMapView.Map.OperationalLayers.Add(myEncLayer);
+
+                // Wait for the layer to load
+                await myEncLayer.LoadAsync();
+
+                // Add the extent to the list of extents
+                dataSetExtents.Add(myEncLayer.FullExtent);
+            }
+
+            // Use the geometry engine to compute the full extent of the ENC Exchange Set
+            Envelope fullExtent = GeometryEngine.CombineExtents(dataSetExtents);
+
+            // Set the viewpoint
+            MyMapView.SetViewpoint(new Viewpoint(fullExtent));
 
             // Subscribe to tap events (in order to use them to identify and select features).
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
@@ -105,11 +125,6 @@ namespace ArcGISRuntime.WPF.Samples.SelectEncFeatures
 
             // Show the callout.
             MyMapView.ShowCalloutAt(e.Location, definition);
-        }
-
-        private static string GetEncPath()
-        {
-            return DataManager.GetDataFolder("a490098c60f64d3bbac10ad131cc62c7", "GB5X01NW.000");
         }
     }
 }

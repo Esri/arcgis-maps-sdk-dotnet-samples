@@ -29,7 +29,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-           "Integrated Windows Authorization",
+           "Integrated Windows Authentication",
            "Security",
            "This sample demonstrates how to use a Windows login to authenticate with a portal that is secured with IWA.",
            "1. Enter the URL to your IWA-secured portal.\n2. Click the button to search for web maps on the secure portal.\n3. You will be prompted for a user name, password, and domain to authenticate with the portal.\n4. If you authenticate successfully, search results will display.",
@@ -65,7 +65,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
         {
             base.OnCreate(savedInstanceState);
 
-            Title = "Integrated Windows Auth";
+            Title = "Integrated Windows Authentication";
 
             // Call a function to create the user interface.
             CreateLayout();

@@ -238,7 +238,6 @@
     <Content Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.jpg" />
     <Content Include="Samples\Security\OAuth\OAuth.jpg" />
     <Content Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.jpg" />
-    <Content Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.jpg" />
     <Content Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
     <Content Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
     <Content Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
@@ -664,9 +663,6 @@
     </Compile>
     <Compile Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.xaml.cs">
       <DependentUpon>TokenSecuredChallenge.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.xaml.cs">
-      <DependentUpon>TokenSecuredKnownUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml.cs">
       <DependentUpon>FeatureLayerExtrusion.xaml</DependentUpon>
@@ -1186,10 +1182,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

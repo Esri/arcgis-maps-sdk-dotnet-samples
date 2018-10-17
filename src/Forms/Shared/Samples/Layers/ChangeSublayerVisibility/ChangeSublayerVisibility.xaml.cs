@@ -102,7 +102,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             };
                         
             // Navigate to the sublayers page
-            await Navigation.PushModalAsync(sublayersPage);
+            await Navigation.PushAsync(sublayersPage);
         }
 
         private void OnCellOnOffChanged(object sender, ToggledEventArgs e)

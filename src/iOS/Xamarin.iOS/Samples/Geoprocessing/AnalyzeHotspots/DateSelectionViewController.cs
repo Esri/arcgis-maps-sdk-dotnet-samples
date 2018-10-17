@@ -49,6 +49,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             stackView.AddArrangedSubview(startLabel);
 
             StartPicker.TranslatesAutoresizingMaskIntoConstraints = false;
+            StartPicker.Mode = UIDatePickerMode.Date;
             stackView.AddArrangedSubview(StartPicker);
 
             UILabel endLabel = new UILabel();
@@ -57,6 +58,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             stackView.AddArrangedSubview(endLabel);
 
             EndPicker.TranslatesAutoresizingMaskIntoConstraints = false;
+            EndPicker.Mode = UIDatePickerMode.Date;
             stackView.AddArrangedSubview(EndPicker);
 
             // Spacing.

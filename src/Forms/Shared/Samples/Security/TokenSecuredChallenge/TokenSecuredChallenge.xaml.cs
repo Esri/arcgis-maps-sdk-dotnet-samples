@@ -22,11 +22,13 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
            "This sample demonstrates how to authenticate with ArcGIS Server using ArcGIS Tokens to access a secure service. Accessing secured services requires a login that's been defined on the server.",
            "1. When you run the sample, the app will load a map that contains a layer from a secured service.\n2. You will be challenged for a user name and password to view that layer.\n3. Enter the correct user name (user1) and password (user1).\n4. If you authenticate successfully, the secured layer will display, otherwise the map will contain only the public layers.",
            "Authentication, Security, ArcGIS Token")]
+    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("LoginPage.xaml.cs")]
+    [ArcGISRuntime.Samples.Shared.Attributes.XamlFiles("LoginPage.xaml")]
     public partial class TokenSecuredChallenge : ContentPage
     {
         // Public and secured map service URLs.
-        private string _publicMapServiceUrl = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer";
-        private string _secureMapServiceUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer";
+        private string _publicMapServiceUrl = "https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer";
+        private string _secureMapServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer";
 
         // Public and secured layer names.
         private string _publicLayerName = "World Street Map - Public";

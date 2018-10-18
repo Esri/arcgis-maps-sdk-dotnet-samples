@@ -25,7 +25,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
     {
         // URL for the geoprocessing service
         private const string _hotspotUrl = 
-            "http://sampleserver6.arcgisonline.com/arcgis/rest/services/911CallsHotspot/GPServer/911%20Calls%20Hotspot";
+            "https://sampleserver6.arcgisonline.com/arcgis/rest/services/911CallsHotspot/GPServer/911%20Calls%20Hotspot";
 
         // The geoprocessing task for hot spot analysis 
         private GeoprocessingTask _hotspotTask;

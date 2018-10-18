@@ -25,7 +25,7 @@ namespace ArcGISRuntime.UWP.Samples.StatisticalQuery
     public partial class StatisticalQuery
     {
         // URI for the world cities map service layer
-        private Uri _worldCitiesServiceUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0");
+        private Uri _worldCitiesServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0");
 
         // World cities feature table
         private FeatureTable _worldCitiesTable;

@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace ArcGISRuntime.WPF.Samples.SpatialRelationships
@@ -43,11 +44,8 @@ namespace ArcGISRuntime.WPF.Samples.SpatialRelationships
             // Configure the basemap
             MyMapView.Map = new Map(Basemap.CreateTopographic());
 
-            // Create the graphics overlay and set the selection color
-            _graphicsOverlay = new GraphicsOverlay()
-            {
-                SelectionColor = System.Drawing.Color.Yellow
-            };
+            // Create the graphics overlay
+            _graphicsOverlay = new GraphicsOverlay();
 
             // Add the overlay to the MapView
             MyMapView.GraphicsOverlays.Add(_graphicsOverlay);
@@ -98,6 +96,9 @@ namespace ArcGISRuntime.WPF.Samples.SpatialRelationships
             // Create the point graphic and add it to the graphics overlay
             _pointGraphic = new Graphic(pointGeometry, locationMarker);
             _graphicsOverlay.Graphics.Add(_pointGraphic);
+
+            // Update the selection color.
+            MyMapView.SelectionProperties.Color = Color.Yellow;
 
             // Listen for taps; the spatial relationships will be updated in the handler
             MyMapView.GeoViewTapped += MapViewTapped;

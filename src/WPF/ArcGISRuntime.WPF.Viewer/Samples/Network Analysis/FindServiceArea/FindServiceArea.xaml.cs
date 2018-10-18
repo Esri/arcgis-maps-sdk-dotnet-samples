@@ -72,7 +72,7 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
                 Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, false);
 
                 // Symbology for a facility.
-                PictureMarkerSymbol facilitySymbol = new PictureMarkerSymbol(new Uri("http://static.arcgis.com/images/Symbols/SafetyHealth/Hospital.png"))
+                PictureMarkerSymbol facilitySymbol = new PictureMarkerSymbol(new Uri("https://static.arcgis.com/images/Symbols/SafetyHealth/Hospital.png"))
                 {
                     Height = 30,
                     Width = 30

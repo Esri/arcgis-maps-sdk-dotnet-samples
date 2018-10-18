@@ -7,8 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
@@ -24,16 +22,11 @@ namespace ArcGISRuntime.Samples.MapRotation
         "")]
     public class MapRotation : UIViewController
     {
-        // Create and hold references to UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private readonly UILabel _rotationLabel = new UILabel();
-
-        private readonly UISlider _rotationSlider = new UISlider
-        {
-            MinValue = 0,
-            MaxValue = 360
-        };
+        // Hold references to UI controls.
+        private MapView _myMapView;
+        private UIToolbar _toolbar;
+        private UILabel _rotationLabel;
+        private UISlider _rotationSlider;
 
         public MapRotation()
         {
@@ -44,17 +37,8 @@ namespace ArcGISRuntime.Samples.MapRotation
         {
             base.ViewDidLoad();
 
-            CreateLayout();
-        }
-
-        private void CreateLayout()
-        {
             // Show a streets basemap.
             _myMapView.Map = new Map(Basemap.CreateStreets());
-
-            // Create the label to display the MapView rotation value.
-            _rotationLabel.Text = $"{_myMapView.MapRotation:0}°";
-            _rotationLabel.TextAlignment = UITextAlignment.Center;
 
             // Configure the slider.
             _rotationSlider.ValueChanged += (s, e) =>
@@ -62,35 +46,52 @@ namespace ArcGISRuntime.Samples.MapRotation
                 _myMapView.SetViewpointRotationAsync(_rotationSlider.Value);
                 _rotationLabel.Text = $"{_rotationSlider.Value:0}°";
             };
-
-            // Add the controls to the view.
-            View.AddSubviews(_myMapView, _toolbar, _rotationLabel, _rotationSlider);
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void LoadView()
         {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat controlHeight = 30;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
-                nfloat labelWidth = 50;
-                nfloat sliderMargin = 50;
+            View = new UIView();
+            View.BackgroundColor = UIColor.White;
 
-                // Reposition the views.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _rotationSlider.Frame = new CGRect(sliderMargin, _toolbar.Frame.Top + margin, View.Bounds.Width - labelWidth - margin - sliderMargin, controlHeight);
-                _rotationLabel.Frame = new CGRect(View.Bounds.Width - labelWidth - 2 * margin, _toolbar.Frame.Top + margin, labelWidth, controlHeight);
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_myMapView);
 
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            _rotationSlider = new UISlider
             {
-            }
+                MinValue = 0,
+                MaxValue = 360,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            _rotationLabel = new UILabel
+            {
+                Text = "0°",
+                TextAlignment = UITextAlignment.Center,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            _toolbar = new UIToolbar
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                Items = new[] {
+                    new UIBarButtonItem(_rotationLabel),
+                    new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace) {Width = 0},
+                    new UIBarButtonItem(_rotationSlider)
+                }
+            };
+            View.AddSubview(_toolbar);
+
+            _rotationLabel.WidthAnchor.ConstraintEqualTo(64).Active = true;
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
+
+            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
         }
     }
 }

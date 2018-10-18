@@ -45,7 +45,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeSublayerRenderer
 
             // Create an ArcGIS map image layer based on the Uri to that points to an ArcGIS Server map service that contains four Census sub-layers.
             // NOTE: sub-layer[0] = Census Block Points, sub-layer[1] = Census Block Group, sub-layer[3] = Counties, sub-layer[3] = States. 
-            _arcGISMapImageLayer = new ArcGISMapImageLayer(new System.Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer"));
+            _arcGISMapImageLayer = new ArcGISMapImageLayer(new System.Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer"));
 
             // Add the ArcGIS map image layer to the map's operation layers collection.
             newMap.OperationalLayers.Add(_arcGISMapImageLayer);

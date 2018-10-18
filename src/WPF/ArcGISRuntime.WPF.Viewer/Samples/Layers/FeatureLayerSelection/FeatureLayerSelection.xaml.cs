@@ -48,6 +48,9 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerSelection
             // Provide used Map to the MapView.
             MyMapView.Map = myMap;
 
+            // Set the selection color.
+            MyMapView.SelectionProperties.Color = Color.Cyan;
+
             // Create Uri for the feature service.
             Uri featureServiceUri = new Uri(
                 "https://services1.arcgis.com/4yjifSiIG17X0gW4/arcgis/rest/services/GDP_per_capita_1960_2016/FeatureServer/0");
@@ -56,11 +59,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerSelection
             ServiceFeatureTable featureTable = new ServiceFeatureTable(featureServiceUri);
 
             // Initialize a new feature layer based on the feature table.
-            _featureLayer = new FeatureLayer(featureTable)
-            {
-                SelectionColor = Color.Cyan,
-                SelectionWidth = 3
-            };
+            _featureLayer = new FeatureLayer(featureTable);
 
             // Make sure that used feature layer is loaded before hooking into the tapped event
             // This prevents trying to do selection on the layer that isn't initialized.

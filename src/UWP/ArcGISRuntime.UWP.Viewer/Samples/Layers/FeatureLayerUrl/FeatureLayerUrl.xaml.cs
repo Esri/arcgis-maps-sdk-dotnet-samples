@@ -40,7 +40,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerUrl
 
             // Create uri to the used feature service
             Uri serviceUri = new Uri(
-                "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/9");
+                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/9");
 
             // Create new FeatureLayer from service uri and
             FeatureLayer geologyLayer = new FeatureLayer(serviceUri);

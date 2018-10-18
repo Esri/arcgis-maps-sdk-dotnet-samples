@@ -54,7 +54,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         private MapView _insetMapView;
 
         // URL to the elevation service - provides terrain elevation
-        private readonly Uri _elevationServiceUrl = new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+        private readonly Uri _elevationServiceUrl = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
         // Graphic for highlighting the route in the inset map
         private Graphic _routeGraphic;

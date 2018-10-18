@@ -22,13 +22,13 @@
                 <Button x:Name="FirstStyleButton"
                         Grid.Row="1" Grid.Column="0"
                         Margin="0,5,2.5,0"
-                        Content="Style 1"
+                        Content="Default"
                         IsEnabled="False"
                         Click="FirstStyleButton_Clicked" />
                 <Button x:Name="SecondStyleButton"
                         Grid.Row="1" Grid.Column="1"
                         Margin="2.5,5,0,0"
-                        Content="Style 2"
+                        Content="Contrast stretch"
                         IsEnabled="False"
                         Click="SecondStyleButton_Clicked" />
             </Grid>

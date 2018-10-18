@@ -18,6 +18,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace ArcGISRuntime.Samples.SpatialRelationships
@@ -55,14 +56,14 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
             // Configure the basemap
             _myMapView.Map = new Map(Basemap.CreateTopographic());
 
-            // Create the graphics overlay and set the selection color
-            _graphicsOverlay = new GraphicsOverlay()
-            {
-                SelectionColor = System.Drawing.Color.Yellow
-            };
+            // Create the graphics overlay
+            _graphicsOverlay = new GraphicsOverlay();
 
             // Add the overlay to the MapView
             _myMapView.GraphicsOverlays.Add(_graphicsOverlay);
+
+            // Update the selection color
+            _myMapView.SelectionProperties.Color = Color.Yellow;
 
             // Create the point collection that defines the polygon
             PointCollection polygonPoints = new PointCollection(SpatialReferences.WebMercator)

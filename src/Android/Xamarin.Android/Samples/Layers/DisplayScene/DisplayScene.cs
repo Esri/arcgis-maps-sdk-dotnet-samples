@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Samples.DisplayScene
             Surface mySurface = new Surface();
 
             // Define the string that points to the elevation image service
-            string myElevationImageService = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
+            string myElevationImageService = "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
             // Create a Uri from the elevation image service string
             Uri myUri = new Uri(myElevationImageService);

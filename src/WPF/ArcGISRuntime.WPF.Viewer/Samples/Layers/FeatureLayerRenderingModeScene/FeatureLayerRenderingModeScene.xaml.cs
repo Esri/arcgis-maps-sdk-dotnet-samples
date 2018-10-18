@@ -31,7 +31,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerRenderingModeScene
         private Camera _zoomedInCamera;
 
         // URI for the feature service.
-        private string _featureService = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/";
+        private string _featureService = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/";
 
         // Hold the current zoom state.
         private bool _zoomed;

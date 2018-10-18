@@ -10,7 +10,6 @@
 using System;
 using System.Timers;
 using ArcGISRuntime.Samples.Managers;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -32,21 +31,14 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         "Featured")]
     public class LineOfSightGeoElement : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly SceneView _mySceneView = new SceneView();
-        private readonly UIToolbar _labelToolbar = new UIToolbar();
-        private readonly UIToolbar _sliderToolbar = new UIToolbar();
-        private readonly UISlider _mySlider = new UISlider();
-
-        private readonly UILabel _myStatusLabel = new UILabel
-        {
-            Text = "Status: ",
-            TextAlignment = UITextAlignment.Center,
-            AdjustsFontSizeToFitWidth = true
-        };
+        // Hold references to the UI controls.
+        private SceneView _mySceneView;
+        private UIToolbar _sliderToolbar;
+        private UISlider _mySlider;
+        private UILabel _statusLabel;
 
         // URL of the elevation service - provides elevation component of the scene.
-        private readonly Uri _elevationUri = new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+        private readonly Uri _elevationUri = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
         // URL of the building service - provides building models.
         private readonly Uri _buildingsUri = new Uri("https://tiles.arcgis.com/tiles/z2tnIkrLQ2BRzr6P/arcgis/rest/services/New_York_LoD2_3D_Buildings/SceneServer/layers/0");
@@ -209,18 +201,18 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             switch (_geoLine.TargetVisibility)
             {
                 case LineOfSightTargetVisibility.Obstructed:
-                    _myStatusLabel.Text = "Status: Obstructed";
+                    _statusLabel.Text = "Status: Obstructed";
                     _taxiGraphic.IsSelected = false;
                     break;
 
                 case LineOfSightTargetVisibility.Visible:
-                    _myStatusLabel.Text = "Status: Visible";
+                    _statusLabel.Text = "Status: Visible";
                     _taxiGraphic.IsSelected = true;
                     break;
 
                 default:
                 case LineOfSightTargetVisibility.Unknown:
-                    _myStatusLabel.Text = "Status: Unknown";
+                    _statusLabel.Text = "Status: Unknown";
                     _taxiGraphic.IsSelected = false;
                     break;
             }
@@ -228,8 +220,6 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
 
         private void MyHeightSlider_ValueChanged(object sender, EventArgs e)
         {
-            // Update the height of the observer based on the slider value.
-
             // Constrain the min and max to 20 and 150 units.
             double minHeight = 20;
             double maxHeight = 150;
@@ -244,48 +234,63 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             _observerGraphic.Geometry = new MapPoint(oldPoint.X, oldPoint.Y, (maxHeight - minHeight) * value + minHeight);
         }
 
-        private void CreateLayout()
-        {
-            // Add views to the page
-            View.AddSubviews(_mySceneView, _labelToolbar, _sliderToolbar, _mySlider, _myStatusLabel);
-
-            // Subscribe to slider events
-            _mySlider.ValueChanged += MyHeightSlider_ValueChanged;
-        }
-
         public override void ViewDidLoad()
         {
-            CreateLayout();
             Initialize();
 
             base.ViewDidLoad();
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void LoadView()
         {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat controlHeight = 30;
-                nfloat toolbarHeight = 40;
-                nfloat controlWidth = View.Bounds.Width - 2 * margin;
-                nfloat sliderMargin = 50;
+            View = new UIView();
+            View.BackgroundColor = UIColor.White;
 
-                // Reposition the controls.
-                _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _labelToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
-                _sliderToolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _myStatusLabel.Frame = new CGRect(margin, topMargin + margin, controlWidth, controlHeight);
-                _mySlider.Frame = new CGRect(sliderMargin, _sliderToolbar.Frame.Top + margin, View.Bounds.Width - 2 * sliderMargin, controlHeight);
-                _mySceneView.ViewInsets = new UIEdgeInsets(_labelToolbar.Frame.Bottom, 0, _sliderToolbar.Frame.Height, 0);
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_mySceneView);
 
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            _sliderToolbar = new UIToolbar();
+            _sliderToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_sliderToolbar);
+
+            _statusLabel = new UILabel()
             {
-            }
+                BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
+                TextColor = UIColor.White,
+                TextAlignment = UITextAlignment.Center,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            View.AddSubview(_statusLabel);
+
+            _mySlider = new UISlider();
+            _mySlider.TranslatesAutoresizingMaskIntoConstraints = false;
+            UIBarButtonItem sliderWrapper = new UIBarButtonItem(_mySlider);
+            sliderWrapper.Width = 300;
+
+            _sliderToolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                sliderWrapper,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+
+            _sliderToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            _sliderToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _sliderToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+
+            _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _mySceneView.BottomAnchor.ConstraintEqualTo(_sliderToolbar.TopAnchor).Active = true;
+
+            _statusLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _statusLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _statusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _statusLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
+
+            // Subscribe to slider events.
+            _mySlider.ValueChanged += MyHeightSlider_ValueChanged;
         }
     }
 }

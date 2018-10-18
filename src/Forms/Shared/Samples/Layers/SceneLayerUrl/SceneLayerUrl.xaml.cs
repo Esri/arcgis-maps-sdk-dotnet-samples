@@ -23,11 +23,11 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
     {
         // URL for a service to use as an elevation source.
         private readonly Uri _elevationSourceUrl = new Uri(
-            "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+            "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
         // URL for the scene layer.
         private readonly Uri _serviceUri = new Uri(
-            "http://scenesampleserverdev.arcgis.com/arcgis/rest/services/Hosted/Buildings_Philadelphia/SceneServer");
+            "https://scenesampleserverdev.arcgis.com/arcgis/rest/services/Hosted/Buildings_Philadelphia/SceneServer");
 
         public SceneLayerUrl()
         {

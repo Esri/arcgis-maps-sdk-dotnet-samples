@@ -70,11 +70,12 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
             // Create a new renderer for the States Feature Layer.
             SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
             SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Transparent, lineSymbol);
-            _featureLayer.SelectionColor = Color.Cyan;
-            _featureLayer.SelectionWidth = 4.0;
 
             // Set States feature layer renderer
             _featureLayer.Renderer = new SimpleRenderer(fillSymbol);
+
+            // Set the selection color
+            MyMapView.SelectionProperties.Color = Color.Cyan;
 
             // Add feature layer to the map
             myMap.OperationalLayers.Add(_featureLayer);

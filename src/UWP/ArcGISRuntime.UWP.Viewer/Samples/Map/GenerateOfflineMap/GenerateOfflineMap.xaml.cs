@@ -87,6 +87,27 @@ namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
 
                 // Hide the map loading progress indicator.
                 loadingIndicator.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+
+                // When the map view unloads, try to clean up existing output data folders.
+                MyMapView.Unloaded += (s, e) =>
+                {
+                    // Find output mobile map folders in the temp directory.
+                    string[] outputFolders = Directory.GetDirectories(Environment.ExpandEnvironmentVariables("%TEMP%"), "NaperilleWaterNetwork*");
+
+                    // Loop through the folder names and delete them.
+                    foreach (var dir in outputFolders)
+                    {
+                        try
+                        {
+                            // Delete the folder.
+                            Directory.Delete(dir, true);
+                        }
+                        catch (Exception)
+                        {
+                            // Ignore exceptions (files might be locked, for example).
+                        }
+                    }
+                };
             }
             catch (Exception ex)
             {
@@ -97,13 +118,13 @@ namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
 
         private async void TakeMapOfflineButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            // Create a path for the output mobile map.
+            // Create a new folder for the output mobile map.
             var packagePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), @"NaperilleWaterNetwork");
-
-            // Replace any existing output from the job.
-            if (Directory.Exists(packagePath))
+            var num = 1;
+            while (Directory.Exists(packagePath))
             {
-                Directory.Delete(packagePath, true);
+                packagePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), @"NaperilleWaterNetwork" + num.ToString());
+                num++;
             }
 
             // Create the output directory.

@@ -110,14 +110,31 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
 
         private async void TakeMapOfflineButton_Click(object sender, EventArgs e)
         {
-            // Create a path for the output mobile map.
+            // Clean up any previous outputs in the temp directory.
             var tempPath = $"{Path.GetTempPath()}";
-            var packagePath = Path.Combine(tempPath, @"NaperilleWaterNetwork");
+            string[] outputFolders = Directory.GetDirectories(tempPath, "NaperilleWaterNetwork*");
 
-            // Replace any existing output from the job.
-            if (Directory.Exists(packagePath))
+            // Loop through the folder names and delete them.
+            foreach (var dir in outputFolders)
             {
-                Directory.Delete(packagePath, true);
+                try
+                {
+                    // Delete the folder.
+                    Directory.Delete(dir, true);
+                }
+                catch (Exception)
+                {
+                    // Ignore exceptions (files might be locked, for example).
+                }
+            }
+
+            // Create a new folder for the output mobile map.
+            var packagePath = Path.Combine(tempPath, @"NaperilleWaterNetwork");
+            var num = 1;
+            while (Directory.Exists(packagePath))
+            {
+                packagePath = Path.Combine(tempPath, @"NaperilleWaterNetwork" + num.ToString());
+                num++;
             }
 
             // Create the output directory.

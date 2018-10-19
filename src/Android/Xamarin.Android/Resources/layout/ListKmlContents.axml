@@ -18,7 +18,7 @@
 		android:layout_weight="1" 
 		android:layout_width="fill_parent" 
 		android:layout_height="0dp">
-	<Esri.ArcGISRuntime.UI.SceneView
+	<Esri.ArcGISRuntime.UI.Controls.SceneView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentBottom="true"

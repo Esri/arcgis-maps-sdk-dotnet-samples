@@ -33,12 +33,12 @@ namespace ArcGISRuntime.UWP.Samples.FindRoute
         private GraphicsOverlay _routeGraphicsOverlay;
 
         // URI for the San Diego route service
-        private Uri _sanDiegoRouteServiceUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
+        private Uri _sanDiegoRouteServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
 
         // URIs for picture marker images
-        private Uri _checkedFlagIconUri = new Uri("http://static.arcgis.com/images/Symbols/Transportation/CheckeredFlag.png");
+        private Uri _checkedFlagIconUri = new Uri("https://static.arcgis.com/images/Symbols/Transportation/CheckeredFlag.png");
 
-        private Uri _carIconUri = new Uri("http://static.arcgis.com/images/Symbols/Transportation/CarRedFront.png");
+        private Uri _carIconUri = new Uri("https://static.arcgis.com/images/Symbols/Transportation/CarRedFront.png");
 
         public FindRoute()
         {

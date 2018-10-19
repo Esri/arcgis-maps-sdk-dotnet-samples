@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
         private SceneView _mySceneView = new SceneView();
 
         // URL for an image service to use as an elevation source
-        private string _elevationSourceUrl = @"http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
+        private string _elevationSourceUrl = @"https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
         protected override void OnCreate(Bundle bundle)
         {

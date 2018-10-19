@@ -32,7 +32,7 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
     public partial class Animate3DGraphic
     {
         // URL to the elevation service - provides terrain elevation
-        private readonly Uri _elevationServiceUrl = new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+        private readonly Uri _elevationServiceUrl = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
         // Graphic for highlighting the route in the inset map
         private Graphic _routeGraphic;

@@ -65,26 +65,8 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             MyActivityIndicator.IsVisible = true;
             MyActivityIndicator.IsRunning = true;
 
-            // Get the 'from' and 'to' dates from the date pickers for the geoprocessing analysis
-            DateTime myFromDate;
-            DateTime myToDate;
-            try
-            {
-                myFromDate = Convert.ToDateTime(StartDate.Text);
-                myToDate = Convert.ToDateTime(EndDate.Text);
-            } catch (Exception)
-            {
-                // Handle badly formatted dates
-                await ((Page)Parent).DisplayAlert("Invalid date", "Please enter a valid date", "OK");
-
-                // Remove the busy activity indication
-                MyActivityIndicator.IsRunning = false;
-                MyActivityIndicator.IsVisible = false;
-                return;
-            }
-
             // The end date must be at least one day after the start date
-            if (myToDate <= myFromDate.AddDays(1))
+            if (EndDate.Date <= StartDate.Date.AddDays(1))
             {
                 // Show error message
                 await ((Page)Parent).DisplayAlert("Invalid date range", "Please select valid time range. There has to be at least one day in between To and From dates.", "OK");
@@ -99,7 +81,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             GeoprocessingParameters myHotspotParameters = new GeoprocessingParameters(GeoprocessingExecutionType.AsynchronousSubmit);
 
             // Construct the date query
-            string myQueryString = $"(\"DATE\" > date '{myFromDate:yyyy-MM-dd} 00:00:00' AND \"DATE\" < date '{myToDate:yyyy-MM-dd} 00:00:00')";
+            string myQueryString = $"(\"DATE\" > date '{StartDate.Date:yyyy-MM-dd} 00:00:00' AND \"DATE\" < date '{EndDate.Date:yyyy-MM-dd} 00:00:00')";
 
             // Add the query that contains the date range used in the analysis
             myHotspotParameters.Inputs.Add("Query", new GeoprocessingString(myQueryString));

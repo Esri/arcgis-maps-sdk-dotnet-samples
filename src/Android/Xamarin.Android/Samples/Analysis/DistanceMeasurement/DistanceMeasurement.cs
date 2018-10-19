@@ -40,10 +40,10 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         // URLs to various services used to provide an interesting scene for the sample.
         private readonly Uri _buildingService =
             new Uri(
-                "http://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
+                "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
 
         private readonly Uri _worldElevationService =
-            new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+            new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
         // Reference to the measurement used.
         private LocationDistanceMeasurement _distanceMeasurement;

@@ -236,9 +236,9 @@
     <Content Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.jpg" />
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <Content Include="Samples\Search\FindPlace\FindPlace.jpg" />
+    <Content Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.jpg" />
     <Content Include="Samples\Security\OAuth\OAuth.jpg" />
     <Content Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.jpg" />
-    <Content Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.jpg" />
     <Content Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
     <Content Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg" />
     <Content Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg" />
@@ -659,14 +659,14 @@
     <Compile Include="Samples\Search\FindPlace\FindPlace.xaml.cs">
       <DependentUpon>FindPlace.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.xaml.cs">
+      <DependentUpon>IntegratedWindowsAuth.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Security\OAuth\OAuth.xaml.cs">
       <DependentUpon>OAuth.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.xaml.cs">
       <DependentUpon>TokenSecuredChallenge.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.xaml.cs">
-      <DependentUpon>TokenSecuredKnownUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml.cs">
       <DependentUpon>FeatureLayerExtrusion.xaml</DependentUpon>
@@ -1181,15 +1181,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Security\OAuth\OAuth.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

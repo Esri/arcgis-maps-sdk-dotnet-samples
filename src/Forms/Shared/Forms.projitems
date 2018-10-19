@@ -10,10 +10,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="$(MSBuildThisFileDirectory)Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
-	<None Include="$(MSBuildThisFileDirectory)Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.jpg" />
-	<None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.jpg" />
-	<None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKml\DisplayKml.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKml\DisplayKml.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
@@ -141,22 +141,22 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ListKmlContents\ListKmlContents.xaml.cs">
-		<DependentUpon>ListKmlContents.xaml</DependentUpon>
-		<SubType>Code</SubType>
-	</Compile>
-	<Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.xaml.cs">
-		<DependentUpon>IdentifyKmlFeatures.xaml</DependentUpon>
-		<SubType>Code</SubType>
-	</Compile>
-	<Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.xaml.cs">
-		<DependentUpon>DisplayKmlNetworkLinks.xaml</DependentUpon>
-		<SubType>Code</SubType>
-	</Compile>
-	<Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKml\DisplayKml.xaml.cs">
-		<DependentUpon>DisplayKml.xaml</DependentUpon>
-		<SubType>Code</SubType>
-	</Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ListKmlContents\ListKmlContents.xaml.cs">
+      <DependentUpon>ListKmlContents.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.xaml.cs">
+      <DependentUpon>IdentifyKmlFeatures.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.xaml.cs">
+      <DependentUpon>DisplayKmlNetworkLinks.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKml\DisplayKml.xaml.cs">
+      <DependentUpon>DisplayKml.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml.cs">
       <DependentUpon>DistanceMeasurement.xaml</DependentUpon>
     </Compile>
@@ -263,6 +263,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml.cs">
       <DependentUpon>FindServiceArea.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Security\IntegratedWindowsAuth\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.xaml.cs">
+      <DependentUpon>IntegratedWindowsAuth.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Security\OAuth\OAuth.xaml.cs">
       <DependentUpon>OAuth.xaml</DependentUpon>
     </Compile>
@@ -271,9 +277,6 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.xaml.cs">
       <DependentUpon>TokenSecuredChallenge.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.xaml.cs">
-      <DependentUpon>TokenSecuredKnownUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml.cs">
       <DependentUpon>FeatureLayerExtrusion.xaml</DependentUpon>
@@ -554,18 +557,18 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ListKmlContents\ListKmlContents.xaml">
-		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	</EmbeddedResource>
-	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.xaml">
-		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	</EmbeddedResource>
-	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.xaml">
-		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	</EmbeddedResource>
-	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKml\DisplayKml.xaml">
-		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	</EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ListKmlContents\ListKmlContents.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKml\DisplayKml.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -645,6 +648,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml">
@@ -980,7 +987,6 @@
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Samples\Security\OAuth\OAuth.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.jpg" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <Folder Include="$(MSBuildThisFileDirectory)Assets\" />
   </ItemGroup>
@@ -997,15 +1003,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Security\TokenSecuredKnownUser\TokenSecuredKnownUser.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\GenerateOfflineMap\GenerateOfflineMap.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\SceneLayerSelection\SceneLayerSelection.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Security\IntegratedWindowsAuth\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/Animate3DGraphicLayout">
-    <Esri.ArcGISRuntime.UI.SceneView
+    <Esri.ArcGISRuntime.UI.Controls.SceneView
         android:id="@+id/PrimarySceneView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -51,7 +51,7 @@
                 style="@android:style/Widget.Material.Button.Borderless.Colored" />
         </TableRow>
     </TableLayout>
-    <Esri.ArcGISRuntime.UI.MapView
+    <Esri.ArcGISRuntime.UI.Controls.MapView
         android:id="@+id/insetMap"
         android:layout_width="120dp"
         android:layout_height="120dp"

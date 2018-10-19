@@ -49,7 +49,7 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
 
             // Create ElevationSource from elevation data Uri
             ArcGISTiledElevationSource elevationSource = new ArcGISTiledElevationSource(
-                new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
+                new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
 
             // Add elevationSource to BaseSurface's ElevationSources
             MySceneView.Scene.BaseSurface.ElevationSources.Add(elevationSource);

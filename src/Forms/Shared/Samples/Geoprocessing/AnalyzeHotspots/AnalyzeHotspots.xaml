@@ -11,12 +11,12 @@
     </Grid.RowDefinitions>
     <StackLayout Orientation="Vertical">
       <StackLayout Orientation="Horizontal">
-        <Label Margin="10,0,0,0">Start Date:</Label>
-        <Entry Text="1/01/98" x:Name="StartDate"/>
+        <Label Margin="10,0,0,0" HorizontalOptions="Start">Start Date:</Label>
+        <DatePicker Date="1/01/98" x:Name="StartDate" HorizontalOptions="FillAndExpand"/>
       </StackLayout>
       <StackLayout Orientation="Horizontal">
-      <Label Margin="10,0,0,0">EndDate:</Label>
-        <Entry Text="1/31/98" x:Name="EndDate"/>
+        <Label Margin="10,0,0,0" HorizontalOptions="Start">EndDate:</Label>
+        <DatePicker Date="1/31/98" x:Name="EndDate" HorizontalOptions="FillAndExpand"/>
       </StackLayout>
       <Button Text="Run Analysis" Clicked="OnRunAnalysisClicked"/>       
     </StackLayout>

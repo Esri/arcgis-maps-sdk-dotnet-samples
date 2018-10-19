@@ -64,7 +64,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
             MyMapView.DismissCallout();
 
             // Perform identify on the KML layer and get the results.
-            IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_forecastLayer, e.Position, 15, false);
+            IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_forecastLayer, e.Position, 2, false);
 
             // Return if there are no results that are KML placemarks.
             if (!identifyResult.GeoElements.OfType<KmlGeoElement>().Any())

@@ -88,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
-            <Esri.ArcGISRuntime.UI.SceneView
+            <Esri.ArcGISRuntime.UI.Controls.SceneView
                 android:id="@+id/distanceMeasurement_sceneView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

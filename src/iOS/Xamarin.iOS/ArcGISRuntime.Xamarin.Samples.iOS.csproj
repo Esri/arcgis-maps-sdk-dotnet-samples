@@ -460,6 +460,7 @@
     <Compile Include="Samples\Map\AuthorMap\AuthorMap.cs" />
     <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemap.cs" />
     <Compile Include="Samples\Map\DisplayMap\DisplayMap.cs" />
+    <Compile Include="Samples\Map\GenerateOfflineMap\GenerateOfflineMap.cs" />
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.cs" />
     <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.cs" />
     <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMap.cs" />
@@ -528,8 +529,9 @@
     <None Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.jpg" />
   </ItemGroup>
   <!-- Imports -->
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Samples\Map\GenerateOfflineMap\" />
+    <None Include="Samples\Map\GenerateOfflineMap\GenerateOfflineMap.jpg" />
   </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

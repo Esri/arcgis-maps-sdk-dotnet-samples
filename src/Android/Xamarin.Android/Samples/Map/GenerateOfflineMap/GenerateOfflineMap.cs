@@ -148,11 +148,11 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         private async void TakeMapOfflineButton_Click(object sender, EventArgs e)
         {
             // Create a path for the output mobile map.
-            var tempPath = $"{Path.GetTempPath()}";
+            string tempPath = $"{Path.GetTempPath()}";
             string[] outputFolders = Directory.GetDirectories(tempPath, "NaperilleWaterNetwork*");
 
             // Loop through the folder names and delete them.
-            foreach (var dir in outputFolders)
+            foreach (string dir in outputFolders)
             {
                 try
                 {
@@ -166,8 +166,8 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             }
 
             // Create a new folder for the output mobile map.
-            var packagePath = Path.Combine(tempPath, @"NaperilleWaterNetwork");
-            var num = 1;
+            string packagePath = Path.Combine(tempPath, @"NaperilleWaterNetwork");
+            int num = 1;
             while (Directory.Exists(packagePath))
             {
                 packagePath = Path.Combine(tempPath, @"NaperilleWaterNetwork" + num.ToString());
@@ -209,7 +209,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
                 if (results.LayerErrors.Any())
                 {
                     // Build a string to show all layer errors.
-                    var errorBuilder = new System.Text.StringBuilder();
+                    System.Text.StringBuilder errorBuilder = new System.Text.StringBuilder();
                     foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
                     {
                         errorBuilder.AppendLine(string.Format("{0} : {1}", layerError.Key.Id, layerError.Value.Message));
@@ -260,7 +260,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         private void OfflineMapJob_ProgressChanged(object sender, EventArgs e)
         {
             // Get the job.
-            var job = sender as GenerateOfflineMapJob;
+            GenerateOfflineMapJob job = sender as GenerateOfflineMapJob;
 
             // Dispatch to the UI thread.
             RunOnUiThread(() =>
@@ -415,7 +415,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             };
 
             // Present the OAuth UI so the user can enter user name and password.
-            var intent = authenticator.GetUI(activity);
+            Android.Content.Intent intent = authenticator.GetUI(activity);
             activity.StartActivityForResult(intent, 99);
 
             // Return completion source task so the caller can await completion.

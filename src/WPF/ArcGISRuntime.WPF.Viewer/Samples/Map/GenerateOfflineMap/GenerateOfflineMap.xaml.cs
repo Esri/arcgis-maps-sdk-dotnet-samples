@@ -98,7 +98,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
                     string[] outputFolders = Directory.GetDirectories(Environment.ExpandEnvironmentVariables("%TEMP%"), "NaperilleWaterNetwork*");
                     
                     // Loop through the folder names and delete them.
-                    foreach (var dir in outputFolders)
+                    foreach (string dir in outputFolders)
                     {
                         try
                         {
@@ -121,8 +121,8 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
         private async void TakeMapOfflineButton_Click(object sender, RoutedEventArgs e)
         {
             // Create a new folder for the output mobile map.
-            var packagePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), @"NaperilleWaterNetwork");
-            var num = 1;
+            string packagePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), @"NaperilleWaterNetwork");
+            int num = 1;
             while (Directory.Exists(packagePath))
             {
                 packagePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), @"NaperilleWaterNetwork" + num.ToString());
@@ -163,14 +163,14 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
                 if (results.LayerErrors.Any())
                 {
                     // Build a string to show all layer errors.
-                    var errorBuilder = new System.Text.StringBuilder();
+                    System.Text.StringBuilder errorBuilder = new System.Text.StringBuilder();
                     foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
                     {
                         errorBuilder.AppendLine(string.Format("{0} : {1}", layerError.Key.Id, layerError.Value.Message));
                     }
 
                     // Show layer errors.
-                    var errorText = errorBuilder.ToString();
+                    string errorText = errorBuilder.ToString();
                     MessageBox.Show(errorText, "Layer errors");
                 }
 
@@ -210,7 +210,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
         private void OfflineMapJob_ProgressChanged(object sender, EventArgs e)
         {
             // Get the job.
-            var job = sender as GenerateOfflineMapJob;
+            GenerateOfflineMapJob job = sender as GenerateOfflineMapJob;
 
             // Dispatch to the UI thread.
             Dispatcher.Invoke(() =>

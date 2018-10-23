@@ -15,10 +15,10 @@ Pan and zoom to explore the scene.
 
 ## About the data
 
-This sample shows a [Philadelphia building layer](https://www.arcgis.com/home/item.html?id=edb35a635df244afa33bc056319d7e82) from ArcGIS Online.
+This sample shows a [Portland building layer](https://www.arcgis.com/home/item.html?id=2b721b9e7bef45e2b7ff78a398a33acc) from ArcGIS Online.
 
 ## Relevant API
-* `Scene`
+* `ArcGISScene`
 * `ArcGISSceneLayer`
 * `SceneView`
 

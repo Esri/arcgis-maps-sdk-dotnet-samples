@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
     {
         // URLs to the scene layer with buildings and the elevation source
         private readonly Uri _elevationUri = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
-        private readonly Uri _buildingsUri = new Uri("https://services2.arcgis.com/cFEFS0EWrhfDeVw9/arcgis/rest/services/STM____FR_Lyon__Textured_buildings/SceneServer");
+        private readonly Uri _buildingsUri = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Building_Johannesburg/SceneServer");
 
         // Graphic and overlay for showing the tank
         private readonly GraphicsOverlay _tankOverlay = new GraphicsOverlay();
@@ -92,7 +92,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
             //     This ensures that the tank is on the ground rather than partially under it.
             tankSymbol.AnchorPosition = SceneSymbolAnchorPosition.Bottom;
             // - Create the graphic.
-            _tank = new Graphic(new MapPoint( 4.847969, 45.746452, SpatialReferences.Wgs84), tankSymbol);
+            _tank = new Graphic(new MapPoint(28.047199, -26.189105, SpatialReferences.Wgs84), tankSymbol);
             // - Update the heading.
             _tank.Attributes["HEADING"] = 0.0;
             // - Add the graphic to the overlay.

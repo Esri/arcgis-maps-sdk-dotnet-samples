@@ -34,7 +34,7 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
 
         // URL for the scene layer.
         private readonly Uri _serviceUri = new Uri(
-            "https://scenesampleserverdev.arcgis.com/arcgis/rest/services/Hosted/Buildings_Philadelphia/SceneServer");
+            "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Portland/SceneServer");
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -68,7 +68,7 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
             MapPoint center = (MapPoint)GeometryEngine.Project(sceneLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
 
             // Create a camera with coordinates showing layer data.
-            Camera camera = new Camera(center.Y, center.X, 225, 240, 80, 0);
+            Camera camera = new Camera(center.Y, center.X, 225, 220, 80, 0);
 
             // Assign the Scene to the SceneView.
             _mySceneView.Scene = myScene;

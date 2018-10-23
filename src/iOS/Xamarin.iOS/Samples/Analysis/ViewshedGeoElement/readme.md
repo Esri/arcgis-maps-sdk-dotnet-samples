@@ -15,7 +15,7 @@ Tap to set a destination for the vehicle. The vehicle will 'drive' towards the t
 
 ## About the data
 
-This sample shows a [Lyon, France building layer](https://www.arcgis.com/home/item.html?id=2342ab7928834076a1240fb93c60e978) from ArcGIS Online. The vehicle is a [tank](http://www.arcgis.com/home/item.html?id=07d62a792ab6496d9b772a24efea45d0).
+This sample shows a [Johannesburg building layer](https://www.arcgis.com/home/item.html?id=eb4dab9e61b24fe2919a0e6f7905321e) from ArcGIS Online. The vehicle is a [tank](http://www.arcgis.com/home/item.html?id=07d62a792ab6496d9b772a24efea45d0).
 
 ## Relevant API
 * `ModelSceneSymbol`

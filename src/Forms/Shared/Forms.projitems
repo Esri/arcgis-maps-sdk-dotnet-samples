@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -247,6 +247,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml.cs">
       <DependentUpon>ChangeTimeExtent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\GenerateOfflineMap\GenerateOfflineMap.xaml.cs">
+      <DependentUpon>GenerateOfflineMap.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\OpenScene\OpenScene.xaml.cs">
       <DependentUpon>OpenScene.xaml</DependentUpon>
@@ -638,6 +641,9 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\GenerateOfflineMap\GenerateOfflineMap.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenScene\OpenScene.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -997,6 +1003,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Samples\Map\GenerateOfflineMap\GenerateOfflineMap.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\SceneLayerSelection\SceneLayerSelection.jpg" />

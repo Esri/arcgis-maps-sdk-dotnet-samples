@@ -18,7 +18,7 @@ Pan and zoom to explore the scene.
 This sample shows a [Portland building layer](https://www.arcgis.com/home/item.html?id=2b721b9e7bef45e2b7ff78a398a33acc) from ArcGIS Online.
 
 ## Relevant API
-* `ArcGISScene`
+* `Scene`
 * `ArcGISSceneLayer`
 * `SceneView`
 

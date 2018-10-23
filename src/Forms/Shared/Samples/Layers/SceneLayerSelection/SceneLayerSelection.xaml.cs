@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
             scene.BaseSurface = elevationSurface;
 
             // Add a scene layer.
-            Uri buildingsService = new Uri("https://scenesampleserverdev.arcgis.com/arcgis/rest/services/Hosted/buildings_Indianapolis/SceneServer");
+            Uri buildingsService = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Berlin/SceneServer");
             ArcGISSceneLayer buildingsLayer = new ArcGISSceneLayer(buildingsService);
             scene.OperationalLayers.Add(buildingsLayer);
 

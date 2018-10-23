@@ -112,7 +112,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         {
             // Clean up any previous outputs in the temp directory.
             string tempPath = $"{Path.GetTempPath()}";
-            string[] outputFolders = Directory.GetDirectories(tempPath, "NaperilleWaterNetwork*");
+            string[] outputFolders = Directory.GetDirectories(tempPath, "NapervilleWaterNetwork*");
 
             // Loop through the folder names and delete them.
             foreach (string dir in outputFolders)
@@ -129,11 +129,11 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             }
 
             // Create a new folder for the output mobile map.
-            string packagePath = Path.Combine(tempPath, @"NaperilleWaterNetwork");
+            string packagePath = Path.Combine(tempPath, @"NapervilleWaterNetwork");
             int num = 1;
             while (Directory.Exists(packagePath))
             {
-                packagePath = Path.Combine(tempPath, @"NaperilleWaterNetwork" + num.ToString());
+                packagePath = Path.Combine(tempPath, @"NapervilleWaterNetwork" + num.ToString());
                 num++;
             }
 

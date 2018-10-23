@@ -92,7 +92,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
                 MyMapView.Unloaded += (s, e) =>
                 {
                     // Find output mobile map folders in the temp directory.
-                    string[] outputFolders = Directory.GetDirectories(Environment.ExpandEnvironmentVariables("%TEMP%"), "NaperilleWaterNetwork*");
+                    string[] outputFolders = Directory.GetDirectories(Environment.ExpandEnvironmentVariables("%TEMP%"), "NapervilleWaterNetwork*");
 
                     // Loop through the folder names and delete them.
                     foreach (string dir in outputFolders)
@@ -119,11 +119,11 @@ namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
         private async void TakeMapOfflineButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             // Create a new folder for the output mobile map.
-            string packagePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), @"NaperilleWaterNetwork");
+            string packagePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), @"NapervilleWaterNetwork");
             int num = 1;
             while (Directory.Exists(packagePath))
             {
-                packagePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), @"NaperilleWaterNetwork" + num.ToString());
+                packagePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), @"NapervilleWaterNetwork" + num.ToString());
                 num++;
             }
 

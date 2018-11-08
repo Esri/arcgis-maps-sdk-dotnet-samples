@@ -119,8 +119,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             }
             catch (Exception ex)
             {
-                // Any exceptions in the async void method must be caught, otherwise they will result in a crash.
-                System.Diagnostics.Debug.WriteLine(ex.ToString());
+                new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("Error").Show();
             }
         }
 

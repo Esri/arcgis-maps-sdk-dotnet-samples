@@ -7,6 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Windows;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
@@ -34,9 +36,6 @@ namespace ArcGISRuntime.WPF.Samples.RasterLayerFile
             // Add an imagery basemap
             Map myMap = new Map(Basemap.CreateImagery());
 
-            // Wait for the map to load
-            await myMap.LoadAsync();
-
             // Get the file name
             string filepath = GetRasterPath();
 
@@ -49,14 +48,21 @@ namespace ArcGISRuntime.WPF.Samples.RasterLayerFile
             // Add the layer to the map
             myMap.OperationalLayers.Add(myRasterLayer);
 
-            // Wait for the layer to load
-            await myRasterLayer.LoadAsync();
-
-            // Set the viewpoint
-            myMap.InitialViewpoint = new Viewpoint(myRasterLayer.FullExtent);
-
             // Add map to the mapview
             MyMapView.Map = myMap;
+
+            try
+            {
+                // Wait for the layer to load
+                await myRasterLayer.LoadAsync();
+
+                // Set the viewpoint
+                MyMapView.SetViewpoint(new Viewpoint(myRasterLayer.FullExtent));
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error");
+            }
         }
 
         private static string GetRasterPath()

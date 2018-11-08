@@ -61,34 +61,41 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             // Load the raster file
             Raster rasterFile = new Raster(filepath);
 
-            // Create and load a new raster layer to show the image
-            _rasterLayer = new RasterLayer(rasterFile);
-            await _rasterLayer.LoadAsync();
-
-            // Enable the apply renderer button when the layer loads.
-            ApplyHillshadeButton.IsEnabled = true;
-
-            // Create a viewpoint with the raster's full extent
-            Viewpoint fullRasterExtent = new Viewpoint(_rasterLayer.FullExtent);
-
-            // Set the initial viewpoint for the map
-            map.InitialViewpoint = fullRasterExtent;
-
-            // Add the layer to the map
-            map.OperationalLayers.Add(_rasterLayer);
-
-            // Add the map to the map view
-            MyMapView.Map = map;
-
-            // Add slope type values to the dictionary and picker
-            foreach (object slope in Enum.GetValues(typeof(SlopeType)))
+            try
             {
-                _slopeTypeValues.Add(slope.ToString(), (SlopeType)slope);
-                SlopeTypePicker.Items.Add(slope.ToString());
-            }
+                // Create and load a new raster layer to show the image
+                _rasterLayer = new RasterLayer(rasterFile);
+                await _rasterLayer.LoadAsync();
 
-            // Select the "Scaled" slope type enum
-            SlopeTypePicker.SelectedIndex = 2;
+                // Enable the apply renderer button when the layer loads.
+                ApplyHillshadeButton.IsEnabled = true;
+
+                // Create a viewpoint with the raster's full extent
+                Viewpoint fullRasterExtent = new Viewpoint(_rasterLayer.FullExtent);
+
+                // Set the initial viewpoint for the map
+                map.InitialViewpoint = fullRasterExtent;
+
+                // Add the layer to the map
+                map.OperationalLayers.Add(_rasterLayer);
+
+                // Add the map to the map view
+                MyMapView.Map = map;
+
+                // Add slope type values to the dictionary and picker
+                foreach (object slope in Enum.GetValues(typeof(SlopeType)))
+                {
+                    _slopeTypeValues.Add(slope.ToString(), (SlopeType)slope);
+                    SlopeTypePicker.Items.Add(slope.ToString());
+                }
+
+                // Select the "Scaled" slope type enum
+                SlopeTypePicker.SelectedIndex = 2;
+            }
+            catch (Exception e)
+            {
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+            }
         }
 
         private void ApplyHillshadeButton_Click(object sender, EventArgs e)

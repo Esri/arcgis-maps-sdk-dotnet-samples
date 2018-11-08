@@ -218,21 +218,28 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             // Load the raster file
             Raster rasterFile = new Raster(filepath);
 
-            // Create and load a new raster layer to show the image
-            _rasterLayer = new RasterLayer(rasterFile);
-            await _rasterLayer.LoadAsync();
+            try
+            {
+                // Create and load a new raster layer to show the image
+                _rasterLayer = new RasterLayer(rasterFile);
+                await _rasterLayer.LoadAsync();
 
-            // Create a viewpoint with the raster's full extent
-            Viewpoint fullRasterExtent = new Viewpoint(_rasterLayer.FullExtent);
+                // Create a viewpoint with the raster's full extent
+                Viewpoint fullRasterExtent = new Viewpoint(_rasterLayer.FullExtent);
 
-            // Set the initial viewpoint for the map
-            map.InitialViewpoint = fullRasterExtent;
+                // Set the initial viewpoint for the map
+                map.InitialViewpoint = fullRasterExtent;
 
-            // Add the layer to the map
-            map.OperationalLayers.Add(_rasterLayer);
+                // Add the layer to the map
+                map.OperationalLayers.Add(_rasterLayer);
 
-            // Add the map to the map view
-            _myMapView.Map = map;
+                // Add the map to the map view
+                _myMapView.Map = map;
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private void ApplyHillshadeButton_Click(object sender, EventArgs e)

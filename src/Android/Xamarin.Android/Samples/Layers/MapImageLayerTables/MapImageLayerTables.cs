@@ -19,6 +19,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace ArcGISRuntime.Samples.MapImageLayerTables
@@ -110,7 +111,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine(e);
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
             }
         }
 
@@ -154,40 +155,47 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
                 ReturnGeometry = true
             };
 
-            // Query the comments table to get the related service request feature for the selected comment.
-            IReadOnlyList<RelatedFeatureQueryResult> relatedRequestsResult = await commentsTable.QueryRelatedFeaturesAsync(selectedComment, relatedQueryParams);
-
-            // Get the first result. 
-            RelatedFeatureQueryResult result = relatedRequestsResult.FirstOrDefault();
-
-            // Get the first feature from the result. If it's null, warn the user and return.
-            ArcGISFeature serviceRequestFeature = result.FirstOrDefault() as ArcGISFeature;
-            if (serviceRequestFeature == null)
+            try
             {
-                // Report to the user that a related feature was not found, then return.
-                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-                AlertDialog alert = alertBuilder.Create();
-                alert.SetMessage("Related feature not found.");
-                alert.Show();
+                // Query the comments table to get the related service request feature for the selected comment.
+                IReadOnlyList<RelatedFeatureQueryResult> relatedRequestsResult = await commentsTable.QueryRelatedFeaturesAsync(selectedComment, relatedQueryParams);
 
-                return;
+                // Get the first result. 
+                RelatedFeatureQueryResult result = relatedRequestsResult.FirstOrDefault();
+
+                // Get the first feature from the result. If it's null, warn the user and return.
+                ArcGISFeature serviceRequestFeature = result.FirstOrDefault() as ArcGISFeature;
+                if (serviceRequestFeature == null)
+                {
+                    // Report to the user that a related feature was not found, then return.
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+                    AlertDialog alert = alertBuilder.Create();
+                    alert.SetMessage("Related feature not found.");
+                    alert.Show();
+
+                    return;
+                }
+
+                // Load the related service request feature (so its geometry is available).
+                await serviceRequestFeature.LoadAsync();
+
+                // Get the service request geometry (point).
+                MapPoint serviceRequestPoint = serviceRequestFeature.Geometry as MapPoint;
+
+                // Create a cyan marker symbol to display the related feature.
+                Symbol selectedRequestSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Cyan, 14);
+
+                // Create a graphic using the service request point and marker symbol.
+                Graphic requestGraphic = new Graphic(serviceRequestPoint, selectedRequestSymbol);
+
+                // Add the graphic to the graphics overlay and zoom the map view to its extent.
+                _selectedFeaturesOverlay.Graphics.Add(requestGraphic);
+                await _myMapView.SetViewpointCenterAsync(serviceRequestPoint, 150000);
             }
-
-            // Load the related service request feature (so its geometry is available).
-            await serviceRequestFeature.LoadAsync();
-
-            // Get the service request geometry (point).
-            MapPoint serviceRequestPoint = serviceRequestFeature.Geometry as MapPoint;
-
-            // Create a cyan marker symbol to display the related feature.
-            Symbol selectedRequestSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Cyan, 14);
-
-            // Create a graphic using the service request point and marker symbol.
-            Graphic requestGraphic = new Graphic(serviceRequestPoint, selectedRequestSymbol);
-
-            // Add the graphic to the graphics overlay and zoom the map view to its extent.
-            _selectedFeaturesOverlay.Graphics.Add(requestGraphic);
-            await _myMapView.SetViewpointCenterAsync(serviceRequestPoint, 150000);
+            catch (Exception ex)
+            {
+                new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("Error").Show();
+            }
         }
     }
 }

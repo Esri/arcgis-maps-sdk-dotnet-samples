@@ -97,55 +97,69 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
         private async void MyMapsClicked(object sender, EventArgs e)
         {
-            // Get web map portal items in the current user's folder
-            IEnumerable<PortalItem> mapItems = null;
-
-            // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
-            bool loggedIn = await EnsureLoggedInAsync();
-            if (!loggedIn) { return; }
-
-            // Connect to the portal (will connect using the provided credentials)
-            ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
-
-            // Get the user's content (items in the root folder and a collection of sub-folders)
-            PortalUserContent myContent = await portal.User.GetContentAsync();
-
-            // Get the web map items in the root folder
-            mapItems = from item in myContent.Items where item.Type == PortalItemType.WebMap select item;
-
-            // Loop through all sub-folders and get web map items, add them to the mapItems collection
-            foreach (PortalFolder folder in myContent.Folders)
+            try
             {
-                IEnumerable<PortalItem> folderItems = await portal.User.GetContentAsync(folder.FolderId);
-                mapItems = mapItems.Concat(from item in folderItems where item.Type == PortalItemType.WebMap select item);
-            }
+                // Get web map portal items in the current user's folder
+                IEnumerable<PortalItem> mapItems = null;
 
-            // Show the map results
-            ShowMapList(mapItems);
+                // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
+                bool loggedIn = await EnsureLoggedInAsync();
+                if (!loggedIn) { return; }
+
+                // Connect to the portal (will connect using the provided credentials)
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
+
+                // Get the user's content (items in the root folder and a collection of sub-folders)
+                PortalUserContent myContent = await portal.User.GetContentAsync();
+
+                // Get the web map items in the root folder
+                mapItems = from item in myContent.Items where item.Type == PortalItemType.WebMap select item;
+
+                // Loop through all sub-folders and get web map items, add them to the mapItems collection
+                foreach (PortalFolder folder in myContent.Folders)
+                {
+                    IEnumerable<PortalItem> folderItems = await portal.User.GetContentAsync(folder.FolderId);
+                    mapItems = mapItems.Concat(from item in folderItems where item.Type == PortalItemType.WebMap select item);
+                }
+
+                // Show the map results
+                ShowMapList(mapItems);
+            }
+            catch (Exception ex)
+            {
+                new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private async void OnSearchMapsClicked(object sender, OnSearchMapEventArgs e)
         {
-            // Get web map portal items from a keyword search
-            IEnumerable<PortalItem> mapItems = null;
+            try
+            {
+                // Get web map portal items from a keyword search
+                IEnumerable<PortalItem> mapItems = null;
 
-            // Connect to the portal (anonymously)
-            ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
+                // Connect to the portal (anonymously)
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
 
-            // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
-            string queryExpression = $"tags:\"{e.SearchText}\" access:public type: (\"web map\" NOT \"web mapping application\")";
+                // Create a query expression that will get public items of type 'web map' with the keyword(s) in the items tags
+                string queryExpression = $"tags:\"{e.SearchText}\" access:public type: (\"web map\" NOT \"web mapping application\")";
             
-            // Create a query parameters object with the expression and a limit of 10 results
-            PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
+                // Create a query parameters object with the expression and a limit of 10 results
+                PortalQueryParameters queryParams = new PortalQueryParameters(queryExpression, 10);
 
-            // Search the portal using the query parameters and await the results
-            PortalQueryResultSet<PortalItem> findResult = await portal.FindItemsAsync(queryParams);
+                // Search the portal using the query parameters and await the results
+                PortalQueryResultSet<PortalItem> findResult = await portal.FindItemsAsync(queryParams);
             
-            // Get the items from the query results
-            mapItems = findResult.Results;
+                // Get the items from the query results
+                mapItems = findResult.Results;
 
-            // Show the map results
-            ShowMapList(mapItems);
+                // Show the map results
+                ShowMapList(mapItems);
+            }
+            catch (Exception ex)
+            {
+                new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private void ShowMapList(IEnumerable<PortalItem> webmapItems)

@@ -16,6 +16,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Android;
 
 namespace ArcGISRuntime.Samples.WmsServiceCatalog
 {
@@ -80,29 +81,36 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             // Create the WMS Service
             WmsService service = new WmsService(_wmsUrl);
 
-            // Load the WMS Service
-            await service.LoadAsync();
-
-            // Get the service info (metadata) from the service.
-            WmsServiceInfo info = service.ServiceInfo;
-
-            // Get the list of layer infos.
-            foreach (var layerInfo in info.LayerInfos)
+            try
             {
-                LayerDisplayVM.BuildLayerInfoList(new LayerDisplayVM(layerInfo, null), _viewModelList);
+                // Load the WMS Service
+                await service.LoadAsync();
+
+                // Get the service info (metadata) from the service.
+                WmsServiceInfo info = service.ServiceInfo;
+
+                // Get the list of layer infos.
+                foreach (var layerInfo in info.LayerInfos)
+                {
+                    LayerDisplayVM.BuildLayerInfoList(new LayerDisplayVM(layerInfo, null), _viewModelList);
+                }
+
+                // Create an array adapter for the layer display
+                ArrayAdapter adapter = new ArrayAdapter(this, Resource.Layout.SimpleSpinnerItem, _viewModelList);
+
+                // Apply the adapter
+                _myDisplayList.Adapter = adapter;
+
+                // Subscribe to selection change notifications
+                _myDisplayList.ItemClick += _myDisplayList_ItemClick;
+
+                // Update the map display based on the viewModel
+                UpdateMapDisplay(_viewModelList);
             }
-
-            // Create an array adapter for the layer display
-            ArrayAdapter adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, _viewModelList);
-
-            // Apply the adapter
-            _myDisplayList.Adapter = adapter;
-
-            // Subscribe to selection change notifications
-            _myDisplayList.ItemClick += _myDisplayList_ItemClick;
-
-            // Update the map display based on the viewModel
-            UpdateMapDisplay(_viewModelList);
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         /// <summary>
@@ -125,14 +133,21 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             // Create a new WmsLayer from the selected layers
             WmsLayer myLayer = new WmsLayer(selectedLayers);
 
-            // Load the layer
-            await myLayer.LoadAsync();
+            try
+            {
+                // Load the layer
+                await myLayer.LoadAsync();
 
-            // Zoom to the extent of the layer
-            _myMapView.SetViewpoint(new Viewpoint(myLayer.FullExtent));
+                // Zoom to the extent of the layer
+                _myMapView.SetViewpoint(new Viewpoint(myLayer.FullExtent));
 
-            // Add the layer to the map
-            _myMapView.Map.OperationalLayers.Add(myLayer);
+                // Add the layer to the map
+                _myMapView.Map.OperationalLayers.Add(myLayer);
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         /// <summary>

@@ -89,7 +89,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             SetContentView(layout);
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Hook up the DrawStatusChanged event.
             _myMapView.DrawStatusChanged += OnDrawStatusChanged;
@@ -99,7 +99,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             _myMapView.Map = map;
 
             // Create a ClosestFacilityTask using the San Diego Uri.
-            _task = ClosestFacilityTask.CreateAsync(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ClosestFacility")).Result;
+            _task = await ClosestFacilityTask.CreateAsync(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ClosestFacility"));
 
             // List of facilities to be placed around San Diego area.
             _facilities = new List<Facility> {
@@ -114,7 +114,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
 
             // Center the map on the San Diego facilities.
             Envelope fullExtent = GeometryEngine.CombineExtents(_facilities.Select(facility => facility.Geometry));
-            _myMapView.SetViewpointGeometryAsync(fullExtent, 50);
+            await _myMapView.SetViewpointGeometryAsync(fullExtent, 50);
 
             // Create a symbol for displaying facilities.
             _facilitySymbol = new PictureMarkerSymbol(new Uri("https://static.arcgis.com/images/Symbols/SafetyHealth/Hospital.png"))
@@ -170,13 +170,13 @@ namespace ArcGISRuntime.Samples.ClosestFacility
 
         private async void PopulateParametersAndSolveRouteAsync()
         {
-            // Set facilities and incident in parameters.
-            ClosestFacilityParameters closestFacilityParameters = await _task.CreateDefaultParametersAsync();
-            closestFacilityParameters.SetFacilities(_facilities);
-            closestFacilityParameters.SetIncidents(new List<Incident> { new Incident(_incidentPoint) });
-
             try
             {
+                // Set facilities and incident in parameters.
+                ClosestFacilityParameters closestFacilityParameters = await _task.CreateDefaultParametersAsync();
+                closestFacilityParameters.SetFacilities(_facilities);
+                closestFacilityParameters.SetIncidents(new List<Incident> { new Incident(_incidentPoint) });
+
                 // Use the task to solve for the closest facility.
                 ClosestFacilityResult result = await _task.SolveClosestFacilityAsync(closestFacilityParameters);
 

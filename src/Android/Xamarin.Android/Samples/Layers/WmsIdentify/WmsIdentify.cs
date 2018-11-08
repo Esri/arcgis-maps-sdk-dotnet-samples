@@ -69,17 +69,24 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             // Create a new WMS layer displaying the specified layers from the service
             _wmsLayer = new WmsLayer(_wmsUrl, _wmsLayerNames);
 
-            // Load the layer
-            await _wmsLayer.LoadAsync();
+            try
+            {
+                // Load the layer
+                await _wmsLayer.LoadAsync();
 
-            // Add the layer to the map
-            _myMapView.Map.OperationalLayers.Add(_wmsLayer);
+                // Add the layer to the map
+                _myMapView.Map.OperationalLayers.Add(_wmsLayer);
 
-            // Zoom to the layer's extent
-            _myMapView.SetViewpoint(new Viewpoint(_wmsLayer.FullExtent));
+                // Zoom to the layer's extent
+                _myMapView.SetViewpoint(new Viewpoint(_wmsLayer.FullExtent));
 
-            // Subscribe to tap events - starting point for feature identification
-            _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
+                // Subscribe to tap events - starting point for feature identification
+                _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private void CreateLayout()
@@ -126,26 +133,33 @@ namespace ArcGISRuntime.Samples.WmsIdentify
 
         private async void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // Perform the identify operation
-            IdentifyLayerResult myIdentifyResult = await _myMapView.IdentifyLayerAsync(_wmsLayer, e.Position, 20, false);
-
-            // Return if there's nothing to show
-            if (myIdentifyResult.GeoElements.Count < 1)
+            try
             {
-                return;
+                // Perform the identify operation
+                IdentifyLayerResult myIdentifyResult = await _myMapView.IdentifyLayerAsync(_wmsLayer, e.Position, 20, false);
+
+                // Return if there's nothing to show
+                if (myIdentifyResult.GeoElements.Count < 1)
+                {
+                    return;
+                }
+
+                // Retrieve the identified feature, which is always a WmsFeature for WMS layers
+                WmsFeature identifiedFeature = (WmsFeature)myIdentifyResult.GeoElements[0];
+
+                // Retrieve the WmsFeature's HTML content
+                string htmlContent = identifiedFeature.Attributes["HTML"].ToString();
+
+                // Note that the service returns a boilerplate HTML result if there is no feature found.
+                //    This would be a good place to check if the result looks like it includes feature detail. 
+
+                // Display the string content as an HTML document. 
+                ShowResult(htmlContent);
             }
-
-            // Retrieve the identified feature, which is always a WmsFeature for WMS layers
-            WmsFeature identifiedFeature = (WmsFeature)myIdentifyResult.GeoElements[0];
-
-            // Retrieve the WmsFeature's HTML content
-            string htmlContent = identifiedFeature.Attributes["HTML"].ToString();
-
-            // Note that the service returns a boilerplate HTML result if there is no feature found.
-            //    This would be a good place to check if the result looks like it includes feature detail. 
-
-            // Display the string content as an HTML document. 
-            ShowResult(htmlContent);
+            catch (Exception ex)
+            {
+                new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private void ShowResult(string htmlContent)

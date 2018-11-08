@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Ogc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.UWP.Samples.WmsIdentify
@@ -50,17 +51,24 @@ namespace ArcGISRuntime.UWP.Samples.WmsIdentify
             // Create a new WMS layer displaying the specified layers from the service.
             _wmsLayer = new WmsLayer(_wmsUrl, _wmsLayerNames);
 
-            // Load the layer.
-            await _wmsLayer.LoadAsync();
+            try
+            {
+                // Load the layer.
+                await _wmsLayer.LoadAsync();
 
-            // Add the layer to the map.
-            MyMapView.Map.OperationalLayers.Add(_wmsLayer);
+                // Add the layer to the map.
+                MyMapView.Map.OperationalLayers.Add(_wmsLayer);
 
-            // Zoom to the layer's extent.
-            MyMapView.SetViewpoint(new Viewpoint(_wmsLayer.FullExtent));
+                // Zoom to the layer's extent.
+                MyMapView.SetViewpoint(new Viewpoint(_wmsLayer.FullExtent));
 
-            // Subscribe to tap events - starting point for feature identification.
-            MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+                // Subscribe to tap events - starting point for feature identification.
+                MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+            }
         }
 
         private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
@@ -68,32 +76,39 @@ namespace ArcGISRuntime.UWP.Samples.WmsIdentify
             // Clear any existing result.
             ResultWebView.Visibility = Visibility.Collapsed;
 
-            // Perform the identify operation.
-            IdentifyLayerResult myIdentifyResult = await MyMapView.IdentifyLayerAsync(_wmsLayer, e.Position, 20, false);
-
-            // Return if there's nothing to show.
-            if (!myIdentifyResult.GeoElements.Any())
+            try
             {
-                return;
+                // Perform the identify operation.
+                IdentifyLayerResult myIdentifyResult = await MyMapView.IdentifyLayerAsync(_wmsLayer, e.Position, 20, false);
+
+                // Return if there's nothing to show.
+                if (!myIdentifyResult.GeoElements.Any())
+                {
+                    return;
+                }
+
+                // Retrieve the identified feature, which is always a WmsFeature for WMS layers.
+                WmsFeature identifiedFeature = (WmsFeature) myIdentifyResult.GeoElements[0];
+
+                // Retrieve the WmsFeature's HTML content.
+                string htmlContent = identifiedFeature.Attributes["HTML"].ToString();
+
+                // Note that the service returns a boilerplate HTML result if there is no feature found.
+                // This test should work for most arcGIS-based WMS services, but results may vary.
+                if (!htmlContent.Contains("OBJECTID"))
+                {
+                    // Return without showing the callout.
+                    return;
+                }
+
+                // Show the result.
+                ResultWebView.NavigateToString(htmlContent);
+                ResultWebView.Visibility = Visibility.Visible;
             }
-
-            // Retrieve the identified feature, which is always a WmsFeature for WMS layers.
-            WmsFeature identifiedFeature = (WmsFeature) myIdentifyResult.GeoElements[0];
-
-            // Retrieve the WmsFeature's HTML content.
-            string htmlContent = identifiedFeature.Attributes["HTML"].ToString();
-
-            // Note that the service returns a boilerplate HTML result if there is no feature found.
-            // This test should work for most arcGIS-based WMS services, but results may vary.
-            if (!htmlContent.Contains("OBJECTID"))
+            catch (Exception ex)
             {
-                // Return without showing the callout.
-                return;
+                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
             }
-
-            // Show the result.
-            ResultWebView.NavigateToString(htmlContent);
-            ResultWebView.Visibility = Visibility.Visible;
         }
     }
 }

@@ -84,8 +84,15 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceRaster
             // Subscribe to notifications about service status changes
             _localMapService.StatusChanged += _localMapService_StatusChanged;
 
-            // Start the map service
-            await _localMapService.StartAsync();
+            try
+            {
+                // Start the map service
+                await _localMapService.StartAsync();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error");
+            }
         }
 
         private async void _localMapService_StatusChanged(object sender, StatusChangedEventArgs e)
@@ -108,14 +115,21 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceRaster
                 }
             };
 
-            // Load the layer
-            await imageryLayer.LoadAsync();
+            try
+            {
+                // Load the layer
+                await imageryLayer.LoadAsync();
 
-            // Clear any existing layers
-            MyMapView.Map.OperationalLayers.Clear();
+                // Clear any existing layers
+                MyMapView.Map.OperationalLayers.Clear();
 
-            // Add the image layer to the map
-            MyMapView.Map.OperationalLayers.Add(imageryLayer);
+                // Add the image layer to the map
+                MyMapView.Map.OperationalLayers.Add(imageryLayer);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+            }
         }
 
         private static string GetMpkPath()

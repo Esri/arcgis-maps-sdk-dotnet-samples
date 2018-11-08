@@ -77,45 +77,52 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
 
         private async void OnViewpointsClicked(object sender, EventArgs e)
         {
-            // Show sheet and get title from the selection
-            string selectedMapTitle =
-                await ((Page)Parent).DisplayActionSheet("Select viewpoint", "Cancel", null, titles);
-
-            // If selected cancel do nothing
-            if (selectedMapTitle == "Cancel") return;
-
-            switch (selectedMapTitle)
+            try
             {
-                case "Geometry":
+                // Show sheet and get title from the selection
+                string selectedMapTitle =
+                    await ((Page)Parent).DisplayActionSheet("Select viewpoint", "Cancel", null, titles);
+
+                // If selected cancel do nothing
+                if (selectedMapTitle == "Cancel") return;
+
+                switch (selectedMapTitle)
+                {
+                    case "Geometry":
    
-                    // Set Viewpoint using Redlands envelope defined above and a padding of 20
-                    await MyMapView.SetViewpointGeometryAsync(RedlandsEnvelope, 20);
-                    break;
+                        // Set Viewpoint using Redlands envelope defined above and a padding of 20
+                        await MyMapView.SetViewpointGeometryAsync(RedlandsEnvelope, 20);
+                        break;
 
-                case "Center & Scale":
+                    case "Center & Scale":
                     
-                    // Set Viewpoint so that it is centered on the London coordinates defined above
-                    await MyMapView.SetViewpointCenterAsync(LondonCoords);
+                        // Set Viewpoint so that it is centered on the London coordinates defined above
+                        await MyMapView.SetViewpointCenterAsync(LondonCoords);
                     
-                    // Set the Viewpoint scale to match the specified scale 
-                    await MyMapView.SetViewpointScaleAsync(LondonScale);
-                    break;
+                        // Set the Viewpoint scale to match the specified scale 
+                        await MyMapView.SetViewpointScaleAsync(LondonScale);
+                        break;
 
-                case "Animate":
+                    case "Animate":
                     
-                    // Navigate to full extent of the first baselayer before animating to specified geometry
-                    await MyMapView.SetViewpointAsync(
-                        new Viewpoint(MyMapView.Map.Basemap.BaseLayers.First().FullExtent));
+                        // Navigate to full extent of the first baselayer before animating to specified geometry
+                        await MyMapView.SetViewpointAsync(
+                            new Viewpoint(MyMapView.Map.Basemap.BaseLayers.First().FullExtent));
                     
-                    // Create a new Viewpoint using the specified geometry
-                    Viewpoint viewpoint = new Viewpoint(EdinburghEnvelope);
+                        // Create a new Viewpoint using the specified geometry
+                        Viewpoint viewpoint = new Viewpoint(EdinburghEnvelope);
                     
-                    // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
-                    await MyMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));
-                    break;
+                        // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
+                        await MyMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
     }

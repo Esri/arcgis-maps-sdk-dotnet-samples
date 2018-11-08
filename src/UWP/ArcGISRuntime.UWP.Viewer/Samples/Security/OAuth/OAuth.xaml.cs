@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace ArcGISRuntime.UWP.Samples.OAuth
 {
@@ -45,20 +46,27 @@ namespace ArcGISRuntime.UWP.Samples.OAuth
 
         private async void Initialize()
         {
-            // Set up the AuthenticationManager to use OAuth for secure ArcGIS Online requests.
-            SetOAuthInfo();
+            try
+            {
+                // Set up the AuthenticationManager to use OAuth for secure ArcGIS Online requests.
+                SetOAuthInfo();
 
-            // Connect to the portal (ArcGIS Online, for example).
-            ArcGISPortal arcgisPortal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
+                // Connect to the portal (ArcGIS Online, for example).
+                ArcGISPortal arcgisPortal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
 
-            // Get a web map portal item using its ID.
-            // If the item contains layers not shared publicly, the user will be challenged for credentials at this point.
-            PortalItem portalItem = await PortalItem.CreateAsync(arcgisPortal, WebMapId);
+                // Get a web map portal item using its ID.
+                // If the item contains layers not shared publicly, the user will be challenged for credentials at this point.
+                PortalItem portalItem = await PortalItem.CreateAsync(arcgisPortal, WebMapId);
 
-            // Get a web map portal item using its ID.
-            // If the item contains layers not shared publicly, the user will be challenged for credentials at this point.
-            Map myMap = new Map(portalItem);
-            MyMapView.Map = myMap;
+                // Get a web map portal item using its ID.
+                // If the item contains layers not shared publicly, the user will be challenged for credentials at this point.
+                Map myMap = new Map(portalItem);
+                MyMapView.Map = myMap;
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+            }
         }
 
         private void SetOAuthInfo()

@@ -75,38 +75,45 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
             // Create a new image service raster from the Uri.
             ImageServiceRaster imageServiceRaster = new ImageServiceRaster(_myUri);
 
-            // Load the image service raster.
-            await imageServiceRaster.LoadAsync();
-
-            // Get the ArcGIS image service info (metadata) from the image service raster.
-            ArcGISImageServiceInfo arcGISImageServiceInfo = imageServiceRaster.ServiceInfo;
-
-            // Get the full extent envelope of the image service raster (the Charlotte, NC area).
-            Envelope myEnvelope = arcGISImageServiceInfo.FullExtent;
-
-            // Define a new view point from the full extent envelope.
-            Viewpoint viewPoint = new Viewpoint(myEnvelope);
-
-            // Zoom to the area of the full extent envelope of the image service raster.
-            await _myMapView.SetViewpointAsync(viewPoint);
-
-            // Get the rendering rule info (i.e. definitions of how the image should be drawn) info from the image service raster.
-            _renderRuleInfos = arcGISImageServiceInfo.RenderingRuleInfos;
-
-            // Define an index counter to be used by the UISegmentedControl.
-            int counter = 0;
-
-            // Loop through each rendering rule info.
-            foreach (RenderingRuleInfo renderingRuleInfo in _renderRuleInfos)
+            try
             {
-                // Get the name of the rendering rule info.
-                string renderingRuleName = renderingRuleInfo.Name;
+                // Load the image service raster.
+                await imageServiceRaster.LoadAsync();
 
-                // Add the rendering rule info name to the UISegmentedControl.
-                _rulePicker.InsertSegment(renderingRuleName, counter, false);
+                // Get the ArcGIS image service info (metadata) from the image service raster.
+                ArcGISImageServiceInfo arcGISImageServiceInfo = imageServiceRaster.ServiceInfo;
 
-                // Increment the counter for adding segments into the UISegmentedControl.
-                counter++;
+                // Get the full extent envelope of the image service raster (the Charlotte, NC area).
+                Envelope myEnvelope = arcGISImageServiceInfo.FullExtent;
+
+                // Define a new view point from the full extent envelope.
+                Viewpoint viewPoint = new Viewpoint(myEnvelope);
+
+                // Zoom to the area of the full extent envelope of the image service raster.
+                await _myMapView.SetViewpointAsync(viewPoint);
+
+                // Get the rendering rule info (i.e. definitions of how the image should be drawn) info from the image service raster.
+                _renderRuleInfos = arcGISImageServiceInfo.RenderingRuleInfos;
+
+                // Define an index counter to be used by the UISegmentedControl.
+                int counter = 0;
+
+                // Loop through each rendering rule info.
+                foreach (RenderingRuleInfo renderingRuleInfo in _renderRuleInfos)
+                {
+                    // Get the name of the rendering rule info.
+                    string renderingRuleName = renderingRuleInfo.Name;
+
+                    // Add the rendering rule info name to the UISegmentedControl.
+                    _rulePicker.InsertSegment(renderingRuleName, counter, false);
+
+                    // Increment the counter for adding segments into the UISegmentedControl.
+                    counter++;
+                }
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
         }
 

@@ -11,6 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
@@ -50,56 +51,63 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             // Create a new raster layer to show the image.
             _rasterLayer = new RasterLayer(rasterFile);
 
-            // Once the layer has loaded, enable the button to change the renderer.
-            await _rasterLayer.LoadAsync();
-            ApplyRgbRendererButton.IsEnabled = true;
+            try
+            {
+                // Once the layer has loaded, enable the button to change the renderer.
+                await _rasterLayer.LoadAsync();
+                ApplyRgbRendererButton.IsEnabled = true;
 
-            // Create a viewpoint with the raster's full extent.
-            Viewpoint fullRasterExtent = new Viewpoint(_rasterLayer.FullExtent);
+                // Create a viewpoint with the raster's full extent.
+                Viewpoint fullRasterExtent = new Viewpoint(_rasterLayer.FullExtent);
 
-            // Set the initial viewpoint for the map.
-            map.InitialViewpoint = fullRasterExtent;
+                // Set the initial viewpoint for the map.
+                map.InitialViewpoint = fullRasterExtent;
 
-            // Add the layer to the map.
-            map.OperationalLayers.Add(_rasterLayer);
+                // Add the layer to the map.
+                map.OperationalLayers.Add(_rasterLayer);
 
-            // Add the map to the map view.
-            MyMapView.Map = map;
+                // Add the map to the map view.
+                MyMapView.Map = map;
 
-            // Add available stretch types to the combo box.
-            StretchTypeComboBox.Items.Add("Min Max");
-            StretchTypeComboBox.Items.Add("Percent Clip");
-            StretchTypeComboBox.Items.Add("Standard Deviation");
+                // Add available stretch types to the combo box.
+                StretchTypeComboBox.Items.Add("Min Max");
+                StretchTypeComboBox.Items.Add("Percent Clip");
+                StretchTypeComboBox.Items.Add("Standard Deviation");
 
-            // Select "Min Max" as the stretch type.
-            StretchTypeComboBox.SelectedIndex = 0;
+                // Select "Min Max" as the stretch type.
+                StretchTypeComboBox.SelectedIndex = 0;
 
-            // Create a range of values from 0-255.
-            System.Collections.IList minMaxValues = Enumerable.Range(0, 256).ToList();
+                // Create a range of values from 0-255.
+                IList minMaxValues = Enumerable.Range(0, 256).ToList();
 
-            // Fill the min and max red combo boxes with the range and set default values.
-            MinRedComboBox.ItemsSource = minMaxValues;
-            MinRedComboBox.SelectedItem = 0;
-            MaxRedComboBox.ItemsSource = minMaxValues;
-            MaxRedComboBox.SelectedItem = 255;
+                // Fill the min and max red combo boxes with the range and set default values.
+                MinRedComboBox.ItemsSource = minMaxValues;
+                MinRedComboBox.SelectedItem = 0;
+                MaxRedComboBox.ItemsSource = minMaxValues;
+                MaxRedComboBox.SelectedItem = 255;
 
-            // Fill the min and max green combo boxes with the range and set default values.
-            MinGreenComboBox.ItemsSource = minMaxValues;
-            MinGreenComboBox.SelectedItem = 0;
-            MaxGreenComboBox.ItemsSource = minMaxValues;
-            MaxGreenComboBox.SelectedItem = 255;
+                // Fill the min and max green combo boxes with the range and set default values.
+                MinGreenComboBox.ItemsSource = minMaxValues;
+                MinGreenComboBox.SelectedItem = 0;
+                MaxGreenComboBox.ItemsSource = minMaxValues;
+                MaxGreenComboBox.SelectedItem = 255;
 
-            // Fill the min and max blue combo boxes with the range and set default values.
-            MinBlueComboBox.ItemsSource = minMaxValues;
-            MinBlueComboBox.SelectedItem = 0;
-            MaxBlueComboBox.ItemsSource = minMaxValues;
-            MaxBlueComboBox.SelectedItem = 255;
+                // Fill the min and max blue combo boxes with the range and set default values.
+                MinBlueComboBox.ItemsSource = minMaxValues;
+                MinBlueComboBox.SelectedItem = 0;
+                MaxBlueComboBox.ItemsSource = minMaxValues;
+                MaxBlueComboBox.SelectedItem = 255;
 
-            // Fill the standard deviation factor combo box and set a default value.
-            IEnumerable<int> wholeStdDevs = Enumerable.Range(1, 10);
-            List<double> halfStdDevs = wholeStdDevs.Select(i => (double)i / 2).ToList();
-            StdDeviationFactorComboBox.ItemsSource = halfStdDevs;
-            StdDeviationFactorComboBox.SelectedItem = 2.0;
+                // Fill the standard deviation factor combo box and set a default value.
+                IEnumerable<int> wholeStdDevs = Enumerable.Range(1, 10);
+                List<double> halfStdDevs = wholeStdDevs.Select(i => (double)i / 2).ToList();
+                StdDeviationFactorComboBox.ItemsSource = halfStdDevs;
+                StdDeviationFactorComboBox.SelectedItem = 2.0;
+            }
+            catch (Exception e)
+            {
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+            }
         }
 
         private void ApplyRgbRendererButton_Clicked(object sender, EventArgs e)

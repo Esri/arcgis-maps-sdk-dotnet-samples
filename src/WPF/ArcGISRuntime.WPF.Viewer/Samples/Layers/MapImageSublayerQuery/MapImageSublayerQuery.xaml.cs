@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
+using System.Drawing;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.MapImageSublayerQuery
@@ -78,58 +79,65 @@ namespace ArcGISRuntime.WPF.Samples.MapImageSublayerQuery
             // Get the USA map image layer (the first and only operational layer in the map).
             ArcGISMapImageLayer usaMapImageLayer = (ArcGISMapImageLayer)MyMapView.Map.OperationalLayers[0];
 
-            // Use a utility method on the map image layer to load all the sublayers and tables.
-            await usaMapImageLayer.LoadTablesAndLayersAsync();
-
-            // Get the sublayers of interest (skip 'Highways' since it doesn't have the POP2000 field).
-            ArcGISMapImageSublayer citiesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[0];
-            ArcGISMapImageSublayer statesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[2];
-            ArcGISMapImageSublayer countiesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[3];
-            
-            // Get the service feature table for each of the sublayers.
-            ServiceFeatureTable citiesTable = citiesSublayer.Table;
-            ServiceFeatureTable statesTable = statesSublayer.Table;
-            ServiceFeatureTable countiesTable = countiesSublayer.Table;
-            
-            // Create the query parameters that will find features in the current extent with a population greater than the value entered.
-            QueryParameters populationQuery = new QueryParameters
+            try
             {
-                WhereClause = "POP2000 > " + PopulationTextBox.Text,
-                Geometry = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry
-            };
+                // Use a utility method on the map image layer to load all the sublayers and tables.
+                await usaMapImageLayer.LoadTablesAndLayersAsync();
+
+                // Get the sublayers of interest (skip 'Highways' since it doesn't have the POP2000 field).
+                ArcGISMapImageSublayer citiesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[0];
+                ArcGISMapImageSublayer statesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[2];
+                ArcGISMapImageSublayer countiesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[3];
             
-            // Query each of the sublayers with the query parameters.
-            FeatureQueryResult citiesQueryResult = await citiesTable.QueryFeaturesAsync(populationQuery);
-            FeatureQueryResult statesQueryResult = await statesTable.QueryFeaturesAsync(populationQuery);
-            FeatureQueryResult countiesQueryResult = await countiesTable.QueryFeaturesAsync(populationQuery);
+                // Get the service feature table for each of the sublayers.
+                ServiceFeatureTable citiesTable = citiesSublayer.Table;
+                ServiceFeatureTable statesTable = statesSublayer.Table;
+                ServiceFeatureTable countiesTable = countiesSublayer.Table;
+            
+                // Create the query parameters that will find features in the current extent with a population greater than the value entered.
+                QueryParameters populationQuery = new QueryParameters
+                {
+                    WhereClause = "POP2000 > " + PopulationTextBox.Text,
+                    Geometry = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry
+                };
+            
+                // Query each of the sublayers with the query parameters.
+                FeatureQueryResult citiesQueryResult = await citiesTable.QueryFeaturesAsync(populationQuery);
+                FeatureQueryResult statesQueryResult = await statesTable.QueryFeaturesAsync(populationQuery);
+                FeatureQueryResult countiesQueryResult = await countiesTable.QueryFeaturesAsync(populationQuery);
 
-            // Display the selected cities in the graphics overlay.
-            SimpleMarkerSymbol citySymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Red, 16);
-            foreach(Feature city in citiesQueryResult)
-            {
-                Graphic cityGraphic = new Graphic(city.Geometry, citySymbol);
+                // Display the selected cities in the graphics overlay.
+                SimpleMarkerSymbol citySymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Red, 16);
+                foreach(Feature city in citiesQueryResult)
+                {
+                    Graphic cityGraphic = new Graphic(city.Geometry, citySymbol);
 
-                _selectedFeaturesOverlay.Graphics.Add(cityGraphic);                
+                    _selectedFeaturesOverlay.Graphics.Add(cityGraphic);                
+                }
+
+                // Display the selected counties in the graphics overlay.
+                SimpleLineSymbol countyLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.Cyan, 2);
+                SimpleFillSymbol countySymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.DiagonalCross, Color.Cyan, countyLineSymbol);
+                foreach (Feature county in countiesQueryResult)
+                {
+                    Graphic countyGraphic = new Graphic(county.Geometry, countySymbol);
+
+                    _selectedFeaturesOverlay.Graphics.Add(countyGraphic);
+                }
+
+                // Display the selected states in the graphics overlay.
+                SimpleLineSymbol stateLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.DarkCyan, 6);
+                SimpleFillSymbol stateSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Null, Color.Cyan, stateLineSymbol);
+                foreach (Feature state in statesQueryResult)
+                {
+                    Graphic stateGraphic = new Graphic(state.Geometry, stateSymbol);
+
+                    _selectedFeaturesOverlay.Graphics.Add(stateGraphic);
+                }
             }
-
-            // Display the selected counties in the graphics overlay.
-            SimpleLineSymbol countyLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Cyan, 2);
-            SimpleFillSymbol countySymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.DiagonalCross, System.Drawing.Color.Cyan, countyLineSymbol);
-            foreach (Feature county in countiesQueryResult)
+            catch (Exception ex)
             {
-                Graphic countyGraphic = new Graphic(county.Geometry, countySymbol);
-
-                _selectedFeaturesOverlay.Graphics.Add(countyGraphic);
-            }
-
-            // Display the selected states in the graphics overlay.
-            SimpleLineSymbol stateLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.DarkCyan, 6);
-            SimpleFillSymbol stateSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Null, System.Drawing.Color.Cyan, stateLineSymbol);
-            foreach (Feature state in statesQueryResult)
-            {
-                Graphic stateGraphic = new Graphic(state.Geometry, stateSymbol);
-
-                _selectedFeaturesOverlay.Graphics.Add(stateGraphic);
+                MessageBox.Show(ex.ToString(), "Error");
             }
         }
     }

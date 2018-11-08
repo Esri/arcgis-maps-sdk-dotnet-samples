@@ -82,17 +82,24 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
             // Apply the Map to the MapView.
             _myMapView.Map = myMap;
 
-            // Ensure the no offset layer is loaded.
-            await noOffsetLayer.LoadAsync();
+            try
+            {
+                // Ensure the no offset layer is loaded.
+                await noOffsetLayer.LoadAsync();
 
-            // Store a reference to the original time extent.
-            _originalExtent = noOffsetLayer.FullTimeExtent;
+                // Store a reference to the original time extent.
+                _originalExtent = noOffsetLayer.FullTimeExtent;
 
-            // Update the time extent set on the map.
-            UpdateTimeExtent();
+                // Update the time extent set on the map.
+                UpdateTimeExtent();
 
-            // Listen for slider changes.
-            _timeSlider.ValueChanged += TimeSlider_ValueChanged;
+                // Listen for slider changes.
+                _timeSlider.ValueChanged += TimeSlider_ValueChanged;
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         private void TimeSlider_ValueChanged(object sender, EventArgs e)

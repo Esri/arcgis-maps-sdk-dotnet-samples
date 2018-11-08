@@ -7,6 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using Windows.UI.Popups;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Windows.UI.Xaml;
@@ -40,14 +42,21 @@ namespace ArcGISRuntime.UWP.Samples.TakeScreenshot
 
         private async void OnTakeScreenshotButtonClicked(object sender, RoutedEventArgs e)
         {
-            // Export the image from mapview and assign it to the imageview.
-            ImageSource exportedImage = await (await MyMapView.ExportImageAsync()).ToImageSourceAsync();
+            try
+            {
+                // Export the image from mapview and assign it to the imageview.
+                ImageSource exportedImage = await (await MyMapView.ExportImageAsync()).ToImageSourceAsync();
 
-            // Set the screenshot view to the new exported image.
-            ScreenshotView.Source = exportedImage;
+                // Set the screenshot view to the new exported image.
+                ScreenshotView.Source = exportedImage;
 
-            // Make the screenshot view visible in the UI.
-            ScreenshotView.Visibility = Visibility.Visible;
+                // Make the screenshot view visible in the UI.
+                ScreenshotView.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+            }
         }
     }
 }

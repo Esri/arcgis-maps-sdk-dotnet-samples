@@ -9,6 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.IO;
 using Esri.ArcGISRuntime.UI;
 using Xamarin.Forms;
 
@@ -51,46 +52,53 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             // Show the activity indicator while the image is being created
             CreatingImageIndicator.IsVisible = true;
 
-            // Export the image from mapview and assign it to the imageview
-            RuntimeImage exportedImage = await MyMapView.ExportImageAsync();
-
-            // Create layout for sublayers page
-            // Create root layout
-            StackLayout layout = new StackLayout();
-
-            Button closeButton = new Button
+            try
             {
-                Text = "Close"
-            };
-            closeButton.Clicked += CloseButton_Clicked;
+                // Export the image from mapview and assign it to the imageview
+                RuntimeImage exportedImage = await MyMapView.ExportImageAsync();
 
-            // Create image bitmap by getting stream from the exported image
-            var buffer = await exportedImage.GetEncodedBufferAsync();
-            byte[] data = new byte[buffer.Length];
-            buffer.Read(data, 0, data.Length);
-            var bitmap = ImageSource.FromStream(() => new System.IO.MemoryStream(data));
-            Image image = new Image()
+                // Create layout for sublayers page
+                // Create root layout
+                StackLayout layout = new StackLayout();
+
+                Button closeButton = new Button
+                {
+                    Text = "Close"
+                };
+                closeButton.Clicked += CloseButton_Clicked;
+
+                // Create image bitmap by getting stream from the exported image
+                var buffer = await exportedImage.GetEncodedBufferAsync();
+                byte[] data = new byte[buffer.Length];
+                buffer.Read(data, 0, data.Length);
+                var bitmap = ImageSource.FromStream(() => new MemoryStream(data));
+                Image image = new Image()
+                {
+                    Source = bitmap,
+                    Margin = new Thickness(10)
+                };
+
+                // Add elements into the layout
+                layout.Children.Add(closeButton);
+                layout.Children.Add(image);
+
+                // Create internal page for the navigation page
+                ContentPage screenshotPage = new ContentPage()
+                {
+                    Content = layout,
+                    Title = "Screenshot"
+                };
+
+                // Hide the activity indicator
+                CreatingImageIndicator.IsVisible = false;
+
+                // Navigate to the sublayers page
+                await Navigation.PushAsync(screenshotPage);
+            }
+            catch (Exception ex)
             {
-                Source = bitmap,
-                Margin = new Thickness(10)
-            };
-
-            // Add elements into the layout
-            layout.Children.Add(closeButton);
-            layout.Children.Add(image);
-
-            // Create internal page for the navigation page
-            ContentPage screenshotPage = new ContentPage()
-            {
-                Content = layout,
-                Title = "Screenshot"
-            };
-
-            // Hide the activity indicator
-            CreatingImageIndicator.IsVisible = false;
-
-            // Navigate to the sublayers page
-            await Navigation.PushAsync(screenshotPage);
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+            }
         }
 
         private async void CloseButton_Clicked(object sender, EventArgs e)

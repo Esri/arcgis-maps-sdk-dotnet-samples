@@ -57,52 +57,60 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
 
         private async void OnSublayersClicked(object sender, EventArgs e)
         {
-            // Make sure that layer and it's sublayers are loaded
-            // If layer is already loaded, this returns directly
-            await _imageLayer.LoadAsync();
-
-            // Create layout for sublayers page
-            // Create root layout
-            StackLayout layout = new StackLayout();
-
-            // Create list for layers
-            TableView sublayersTableView = new TableView();
-
-            // Create section for basemaps sublayers
-            TableSection sublayersSection = new TableSection(_imageLayer.Name);
-
-            // Create cells for each of the sublayers
-            foreach (ArcGISSublayer sublayer in _imageLayer.Sublayers)
+            try
             {
-                // Using switch cells that provides on/off functionality
-                SwitchCell cell = new SwitchCell()
+                // Make sure that layer and it's sublayers are loaded
+                // If layer is already loaded, this returns directly
+                await _imageLayer.LoadAsync();
+
+                // Create layout for sublayers page
+                // Create root layout
+                StackLayout layout = new StackLayout();
+
+                // Create list for layers
+                TableView sublayersTableView = new TableView();
+
+                // Create section for basemaps sublayers
+                TableSection sublayersSection = new TableSection(_imageLayer.Name);
+
+                // Create cells for each of the sublayers
+                foreach (ArcGISSublayer sublayer in _imageLayer.Sublayers)
                 {
-                    Text = sublayer.Name,
-                    On = sublayer.IsVisible
-                };
+                    // Using switch cells that provides on/off functionality
+                    SwitchCell cell = new SwitchCell()
+                    {
+                        Text = sublayer.Name,
+                        On = sublayer.IsVisible
+                    };
 
-                // Hook into the On/Off changed event
-                cell.OnChanged += OnCellOnOffChanged;
+                    // Hook into the On/Off changed event
+                    cell.OnChanged += OnCellOnOffChanged;
                 
-                // Add cell into the table view
-                sublayersSection.Add(cell);
-            }
+                    // Add cell into the table view
+                    sublayersSection.Add(cell);
+                }
 
-            // Add section to the table view
-            sublayersTableView.Root.Add(sublayersSection);
+                // Add section to the table view
+                sublayersTableView.Root.Add(sublayersSection);
 
-            // Add table to the root layout
-            layout.Children.Add(sublayersTableView);
+                // Add table to the root layout
+                layout.Children.Add(sublayersTableView);
 
-            // Create internal page for the navigation page
-            ContentPage sublayersPage = new ContentPage()
-            {
-                Content = layout,
-                Title = "Sublayers"
-            };
+                // Create internal page for the navigation page
+                ContentPage sublayersPage = new ContentPage()
+                {
+                    Content = layout,
+                    Title = "Sublayers"
+                };
                         
-            // Navigate to the sublayers page
-            await Navigation.PushAsync(sublayersPage);
+                // Navigate to the sublayers page
+                await Navigation.PushAsync(sublayersPage);
+            }
+            catch (Exception ex)
+            {
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+
+            }
         }
 
         private void OnCellOnOffChanged(object sender, ToggledEventArgs e)

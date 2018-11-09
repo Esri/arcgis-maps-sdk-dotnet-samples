@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Linq;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -56,42 +57,49 @@ namespace ArcGISRuntime.UWP.Samples.ChangeSublayerVisibility
 
         private async void OnSublayersButtonClicked(object sender, RoutedEventArgs e)
         {
-            // Make sure that layer and it's sublayers are loaded
-            // If layer is already loaded, this returns directly
-            await _imageLayer.LoadAsync();
-
-            ContentDialog dialog = new ContentDialog()
+            try
             {
-                Title = "Sublayers",
-                FullSizeDesired = true
-            };
+                // Make sure that layer and it's sublayers are loaded
+                // If layer is already loaded, this returns directly
+                await _imageLayer.LoadAsync();
 
-            // Create list for layers
-            ListView sublayersListView = new ListView();
-
-            // Create cells for each of the sublayers
-            foreach (ArcGISSublayer sublayer in _imageLayer.Sublayers)
-            {
-                // Using a toggle that provides on/off functionality
-                ToggleSwitch toggle = new ToggleSwitch()
+                ContentDialog dialog = new ContentDialog()
                 {
-                    Header = sublayer.Name,
-                    IsOn = sublayer.IsVisible,
-                    Margin = new Thickness(5)
+                    Title = "Sublayers",
+                    FullSizeDesired = true
                 };
 
-                // Hook into the On/Off changed event
-                toggle.Toggled += OnSublayerToggled;
+                // Create list for layers
+                ListView sublayersListView = new ListView();
+
+                // Create cells for each of the sublayers
+                foreach (ArcGISSublayer sublayer in _imageLayer.Sublayers)
+                {
+                    // Using a toggle that provides on/off functionality
+                    ToggleSwitch toggle = new ToggleSwitch()
+                    {
+                        Header = sublayer.Name,
+                        IsOn = sublayer.IsVisible,
+                        Margin = new Thickness(5)
+                    };
+
+                    // Hook into the On/Off changed event
+                    toggle.Toggled += OnSublayerToggled;
                      
-                // Add cell into the table view
-                sublayersListView.Items.Add(toggle);
+                    // Add cell into the table view
+                    sublayersListView.Items.Add(toggle);
+                }
+
+                // Set listview to the dialog
+                dialog.Content = sublayersListView;
+
+                // Show dialog as a full screen overlay. 
+                await dialog.ShowAsync();
             }
-
-            // Set listview to the dialog
-            dialog.Content = sublayersListView;
-
-            // Show dialog as a full screen overlay. 
-            await dialog.ShowAsync();
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+            }
         }
 
         private void OnSublayerToggled(object sender, RoutedEventArgs e)

@@ -62,8 +62,15 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             // Create and show a map with a topographic basemap.
             _myMapView.Map = new Map(Basemap.CreateTopographic());
 
-            // Create a new geoprocessing task.
-            _hotspotTask = await GeoprocessingTask.CreateAsync(new Uri(HotspotUrl));
+            try
+            {
+                // Create a new geoprocessing task.
+                _hotspotTask = await GeoprocessingTask.CreateAsync(new Uri(HotspotUrl));
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         private async void OnRunAnalysisClicked(object sender, EventArgs e)

@@ -94,7 +94,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             }
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Create and show a new map using the WebMercator spatial reference.
             _myMapView.Map = new Map(SpatialReferences.WebMercator)
@@ -180,7 +180,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             Geometry visibleExtent = GetExtentOfGraphicsOverlay(_inputGeometriesGraphicsOverlay, 1.3, SpatialReferences.WebMercator);
 
             // Set the initial visual extent of the map view to the extent of the graphics overlay.
-            await _myMapView.SetViewpointGeometryAsync(visibleExtent);
+            _myMapView.SetViewpoint(new Viewpoint(visibleExtent));
         }
 
         private Geometry GetExtentOfGraphicsOverlay(GraphicsOverlay inputGraphicsOverlay, double expansionFactor, SpatialReference spatialReferenceType)

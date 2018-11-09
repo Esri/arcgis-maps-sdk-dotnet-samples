@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using Android.App;
 using Android.OS;
 using Android.Widget;
@@ -48,17 +49,24 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
             // Get the path to the downloaded shapefile
             string filepath = GetShapefilePath();
 
-            // Open the shapefile
-            ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
+            try
+            {
+                // Open the shapefile
+                ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
 
-            // Create a feature layer to display the shapefile
-            FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
+                // Create a feature layer to display the shapefile
+                FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
 
-            // Add the feature layer to the map
-            _myMapView.Map.OperationalLayers.Add(newFeatureLayer);
+                // Add the feature layer to the map
+                _myMapView.Map.OperationalLayers.Add(newFeatureLayer);
 
-            // Zoom the map to the extent of the shapefile
-            await _myMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent, 50);
+                // Zoom the map to the extent of the shapefile
+                await _myMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent, 50);
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private static string GetShapefilePath()

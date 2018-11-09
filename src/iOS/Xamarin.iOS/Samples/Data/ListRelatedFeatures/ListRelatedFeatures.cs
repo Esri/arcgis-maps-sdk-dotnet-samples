@@ -50,26 +50,33 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
 
         private async void Initialize()
         {
-            // Create the portal item from the URL to the webmap.
-            PortalItem alaskaPortalItem = await PortalItem.CreateAsync(_mapUri);
+            try
+            {
+                // Create the portal item from the URL to the webmap.
+                PortalItem alaskaPortalItem = await PortalItem.CreateAsync(_mapUri);
 
-            // Create the map from the portal item.
-            Map myMap = new Map(alaskaPortalItem);
+                // Create the map from the portal item.
+                Map myMap = new Map(alaskaPortalItem);
 
-            // Add the map to the mapview.
-            _myMapView.Map = myMap;
+                // Add the map to the mapview.
+                _myMapView.Map = myMap;
 
-            // Wait for the map to load.
-            await myMap.LoadAsync();
+                // Wait for the map to load.
+                await myMap.LoadAsync();
 
-            // Get the feature layer from the map.
-            _myFeatureLayer = (FeatureLayer) myMap.OperationalLayers.First();
+                // Get the feature layer from the map.
+                _myFeatureLayer = (FeatureLayer) myMap.OperationalLayers.First();
 
-            // Update the selection color.
-            _myMapView.SelectionProperties.Color = Color.Yellow;
+                // Update the selection color.
+                _myMapView.SelectionProperties.Color = Color.Yellow;
 
-            // Listen for GeoViewTapped events.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+                // Listen for GeoViewTapped events.
+                _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -79,64 +86,71 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
             _myDisplayList.Source = null;
             _myDisplayList.ReloadData();
 
-            // Identify the tapped feature.
-            IdentifyLayerResult results = await _myMapView.IdentifyLayerAsync(_myFeatureLayer, e.Position, 10, false);
-
-            // Return if there are no results.
-            if (results.GeoElements.Count < 1)
+            try
             {
-                return;
-            }
+                // Identify the tapped feature.
+                IdentifyLayerResult results = await _myMapView.IdentifyLayerAsync(_myFeatureLayer, e.Position, 10, false);
 
-            // Get the first result.
-            ArcGISFeature myFeature = (ArcGISFeature) results.GeoElements.First();
-
-            // Select the feature.
-            _myFeatureLayer.SelectFeature(myFeature);
-
-            // Get the feature table for the feature.
-            ArcGISFeatureTable myFeatureTable = (ArcGISFeatureTable) myFeature.FeatureTable;
-
-            // Query related features.
-            IReadOnlyList<RelatedFeatureQueryResult> relatedFeaturesResult = await myFeatureTable.QueryRelatedFeaturesAsync(myFeature);
-
-            // Create a list to hold the formatted results of the query.
-            List<string> queryResultsForUi = new List<string>();
-
-            // For each query result.
-            foreach (RelatedFeatureQueryResult result in relatedFeaturesResult)
-            {
-                // And then for each feature in the result.
-                foreach (Feature resultFeature in result)
+                // Return if there are no results.
+                if (results.GeoElements.Count < 1)
                 {
-                    // Get a reference to the feature's table.
-                    ArcGISFeatureTable relatedTable = (ArcGISFeatureTable) resultFeature.FeatureTable;
-
-                    // Get the display field name - this is the name of the field that is intended for display.
-                    string displayFieldName = relatedTable.LayerInfo.DisplayFieldName;
-
-                    // Get the name of the feature's table.
-                    string tableName = relatedTable.TableName;
-
-                    // Get the display name for the feature.
-                    string featureDisplayname = resultFeature.Attributes[displayFieldName].ToString();
-
-                    // Create a formatted result string.
-                    string formattedResult = $"{tableName} - {featureDisplayname}";
-
-                    // Add the result to the list.
-                    queryResultsForUi.Add(formattedResult);
+                    return;
                 }
+
+                // Get the first result.
+                ArcGISFeature myFeature = (ArcGISFeature) results.GeoElements.First();
+
+                // Select the feature.
+                _myFeatureLayer.SelectFeature(myFeature);
+
+                // Get the feature table for the feature.
+                ArcGISFeatureTable myFeatureTable = (ArcGISFeatureTable) myFeature.FeatureTable;
+
+                // Query related features.
+                IReadOnlyList<RelatedFeatureQueryResult> relatedFeaturesResult = await myFeatureTable.QueryRelatedFeaturesAsync(myFeature);
+
+                // Create a list to hold the formatted results of the query.
+                List<string> queryResultsForUi = new List<string>();
+
+                // For each query result.
+                foreach (RelatedFeatureQueryResult result in relatedFeaturesResult)
+                {
+                    // And then for each feature in the result.
+                    foreach (Feature resultFeature in result)
+                    {
+                        // Get a reference to the feature's table.
+                        ArcGISFeatureTable relatedTable = (ArcGISFeatureTable) resultFeature.FeatureTable;
+
+                        // Get the display field name - this is the name of the field that is intended for display.
+                        string displayFieldName = relatedTable.LayerInfo.DisplayFieldName;
+
+                        // Get the name of the feature's table.
+                        string tableName = relatedTable.TableName;
+
+                        // Get the display name for the feature.
+                        string featureDisplayname = resultFeature.Attributes[displayFieldName].ToString();
+
+                        // Create a formatted result string.
+                        string formattedResult = $"{tableName} - {featureDisplayname}";
+
+                        // Add the result to the list.
+                        queryResultsForUi.Add(formattedResult);
+                    }
+                }
+
+                // Create the source for the display list.
+                _layerListSource = new LayerListSource(queryResultsForUi);
+
+                // Assign the source to the display view.
+                _myDisplayList.Source = _layerListSource;
+
+                // Force the table view to refresh its data.
+                _myDisplayList.ReloadData();
             }
-
-            // Create the source for the display list.
-            _layerListSource = new LayerListSource(queryResultsForUi);
-
-            // Assign the source to the display view.
-            _myDisplayList.Source = _layerListSource;
-
-            // Force the table view to refresh its data.
-            _myDisplayList.ReloadData();
+            catch (Exception ex)
+            {
+                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         private void CreateLayout()

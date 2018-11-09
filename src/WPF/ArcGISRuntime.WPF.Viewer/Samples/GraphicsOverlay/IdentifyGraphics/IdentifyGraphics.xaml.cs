@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -86,19 +87,26 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyGraphics
             int maximumResults = 1; // Only return one graphic  
             bool onlyReturnPopups = false; // Return more than popups
 
-            // Use the following method to identify graphics in a specific graphics overlay
-           IdentifyGraphicsOverlayResult identifyResults = await MyMapView.IdentifyGraphicsOverlayAsync(
-                _polygonOverlay,
-                e.Position,
-                tolerance, 
-                onlyReturnPopups, 
-                maximumResults);
-
-            // Check if we got results
-            if (identifyResults.Graphics.Count > 0)
+            try
             {
-                //  Display to the user the identify worked.
-                MessageBox.Show("Tapped on graphic", "");
+                // Use the following method to identify graphics in a specific graphics overlay
+                IdentifyGraphicsOverlayResult identifyResults = await MyMapView.IdentifyGraphicsOverlayAsync(
+                    _polygonOverlay,
+                    e.Position,
+                    tolerance,
+                    onlyReturnPopups,
+                    maximumResults);
+
+                // Check if we got results
+                if (identifyResults.Graphics.Count > 0)
+                {
+                    //  Display to the user the identify worked.
+                    MessageBox.Show("Tapped on graphic", "");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
             }
         }
     }

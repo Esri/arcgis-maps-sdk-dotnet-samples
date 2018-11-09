@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="b13e56ac-7531-429d-baf2-003653d989c1" Publisher="CN=antt0000" Version="1.0.0.0" />
+  <Identity Name="b13e56ac-7531-429d-baf2-003653d989c2" Publisher="CN=antt0000" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="b13e56ac-7531-429d-baf2-003653d989c1" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>ArcGISRuntime.UWP.Viewer</DisplayName>

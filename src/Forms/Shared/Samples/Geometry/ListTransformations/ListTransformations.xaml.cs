@@ -50,7 +50,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Create the map.
             Map myMap = new Map(Basemap.CreateImageryWithLabels());
@@ -62,8 +62,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             Viewpoint initialViewpoint = new Viewpoint(_originalPoint, 5000);
             myMap.InitialViewpoint = initialViewpoint;
 
-            // Load the map and add the map to the map view.
-            await myMap.LoadAsync();
+            // Add the map to the map view.
             MyMapView.Map = myMap;
 
             // Create a graphics overlay to hold the original and projected points.

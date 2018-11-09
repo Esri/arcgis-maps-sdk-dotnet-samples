@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Esri.ArcGISRuntime.Data;
@@ -110,10 +111,19 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
         private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             // Identify the tapped graphics
-            IdentifyGraphicsOverlayResult result = await MyMapView.IdentifyGraphicsOverlayAsync(_graphicsOverlay, e.Position, 1, false);
+            IdentifyGraphicsOverlayResult result = null;
+
+            try
+            {
+                result = await MyMapView.IdentifyGraphicsOverlayAsync(_graphicsOverlay, e.Position, 1, false);
+            }
+            catch (Exception ex)
+            {
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+            }
 
             // Return if there are no results
-            if (result.Graphics.Count < 1)
+            if (result == null || result.Graphics.Count < 1)
             {
                 return;
             }

@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -69,7 +70,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
             MapPoint centerGeometry = new MapPoint(-13549402.587055, 4397264.96879385, SpatialReference.Create(3857));
 
             // Set the map's viewpoint to highlight the desired content.
-            await _myMapView.SetViewpointAsync(new Viewpoint(centerGeometry, 201555));
+            _myMapView.SetViewpoint(new Viewpoint(centerGeometry, 201555));
 
             // Get the path to the geodatabase.
             string geodbFilePath = DataManager.GetDataFolder("e0d41b4b409a49a5a7ba11939d8535dc", "militaryoverlay.geodatabase");
@@ -80,27 +81,34 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
             // Get the path to the symbol dictionary.
             string symbolFilepath = DataManager.GetDataFolder("e34835bf5ec5430da7cf16bb8c0b075c", "mil2525d.stylx");
 
-            // Load the symbol dictionary from local storage.
-            //     Note that the type of the symbol definition must be explicitly provided along with the file name.
-            DictionarySymbolStyle symbolStyle = await DictionarySymbolStyle.OpenAsync("mil2525d", symbolFilepath);
-
-            // Add geodatabase features to the map, using the defined symbology.
-            foreach (GeodatabaseFeatureTable table in baseGeodatabase.GeodatabaseFeatureTables)
+            try
             {
-                // Load the table.
-                await table.LoadAsync();
+                // Load the symbol dictionary from local storage.
+                //     Note that the type of the symbol definition must be explicitly provided along with the file name.
+                DictionarySymbolStyle symbolStyle = await DictionarySymbolStyle.OpenAsync("mil2525d", symbolFilepath);
 
-                // Create the feature layer from the table.
-                FeatureLayer layer = new FeatureLayer(table);
+                // Add geodatabase features to the map, using the defined symbology.
+                foreach (GeodatabaseFeatureTable table in baseGeodatabase.GeodatabaseFeatureTables)
+                {
+                    // Load the table.
+                    await table.LoadAsync();
 
-                // Load the layer.
-                await layer.LoadAsync();
+                    // Create the feature layer from the table.
+                    FeatureLayer layer = new FeatureLayer(table);
 
-                // Create and use a Dictionary Renderer using the DictionarySymbolStyle.
-                layer.Renderer = new DictionaryRenderer(symbolStyle);
+                    // Load the layer.
+                    await layer.LoadAsync();
 
-                // Add the layer to the map.
-                map.OperationalLayers.Add(layer);
+                    // Create and use a Dictionary Renderer using the DictionarySymbolStyle.
+                    layer.Renderer = new DictionaryRenderer(symbolStyle);
+
+                    // Add the layer to the map.
+                    map.OperationalLayers.Add(layer);
+                }
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
         }
     }

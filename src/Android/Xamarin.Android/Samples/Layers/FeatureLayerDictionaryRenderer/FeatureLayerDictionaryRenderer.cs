@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using Android.App;
 using Android.OS;
 using Android.Widget;
@@ -67,7 +68,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
             MapPoint centerGeometry = new MapPoint(-13549402.587055, 4397264.96879385, SpatialReference.Create(3857));
 
             // Set the map's viewpoint to highlight the desired content
-            await _myMapView.SetViewpointAsync(new Viewpoint(centerGeometry, 201555));
+            _myMapView.SetViewpoint(new Viewpoint(centerGeometry, 201555));
 
             // Get the path to the geodatabase
             string geodbFilePath = GetGeodatabasePath();
@@ -78,30 +79,37 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
             // Get the path to the symbol dictionary
             string symbolFilepath = GetStyleDictionaryPath();
 
-            // Load the symbol dictionary from local storage
-            //     Note that the type of the symbol definition must be explicitly provided along with the file name
-            DictionarySymbolStyle symbolStyle = await DictionarySymbolStyle.OpenAsync("mil2525d", symbolFilepath);
-
-            // Add geodatabase features to the map, using the defined symbology
-            foreach (FeatureTable table in baseGeodatabase.GeodatabaseFeatureTables)
+            try
             {
-                // Load the table
-                await table.LoadAsync();
+                // Load the symbol dictionary from local storage
+                //     Note that the type of the symbol definition must be explicitly provided along with the file name
+                DictionarySymbolStyle symbolStyle = await DictionarySymbolStyle.OpenAsync("mil2525d", symbolFilepath);
 
-                // Create the feature layer from the table
-                FeatureLayer myLayer = new FeatureLayer(table);
+                // Add geodatabase features to the map, using the defined symbology
+                foreach (FeatureTable table in baseGeodatabase.GeodatabaseFeatureTables)
+                {
+                    // Load the table
+                    await table.LoadAsync();
 
-                // Load the layer
-                await myLayer.LoadAsync();
+                    // Create the feature layer from the table
+                    FeatureLayer myLayer = new FeatureLayer(table);
 
-                // Create a Dictionary Renderer using the DictionarySymbolStyle
-                DictionaryRenderer dictRenderer = new DictionaryRenderer(symbolStyle);
+                    // Load the layer
+                    await myLayer.LoadAsync();
 
-                // Apply the dictionary renderer to the layer
-                myLayer.Renderer = dictRenderer;
+                    // Create a Dictionary Renderer using the DictionarySymbolStyle
+                    DictionaryRenderer dictRenderer = new DictionaryRenderer(symbolStyle);
 
-                // Add the layer to the map
-                myMap.OperationalLayers.Add(myLayer);
+                    // Apply the dictionary renderer to the layer
+                    myLayer.Renderer = dictRenderer;
+
+                    // Add the layer to the map
+                    myMap.OperationalLayers.Add(myLayer);
+                }
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
             }
         }
 

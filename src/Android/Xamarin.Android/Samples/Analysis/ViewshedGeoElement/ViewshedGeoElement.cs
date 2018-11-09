@@ -80,7 +80,6 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
             // Add buildings.
             ArcGISSceneLayer sceneLayer = new ArcGISSceneLayer(_buildingsUri);
             _mySceneView.Scene.OperationalLayers.Add(sceneLayer);
-            await sceneLayer.LoadAsync();
 
             // Configure the graphics overlay for the tank and add the overlay to the SceneView.
             _tankOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
@@ -92,65 +91,72 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
             renderer3D.SceneProperties.HeadingExpression = "[HEADING]";
             _tankOverlay.Renderer = renderer3D;
 
-            // Create the tank graphic - get the model path.
-            string modelPath = GetModelPath();
-            // - Create the symbol and make it 10x larger (to be the right size relative to the scene).
-            ModelSceneSymbol tankSymbol = await ModelSceneSymbol.CreateAsync(new Uri(modelPath), 10);
-            // - Adjust the position.
-            tankSymbol.Heading = 90;
-            // - The tank will be positioned relative to the scene surface by its bottom
-            //       This ensures that the tank is on the ground rather than partially under it.
-            tankSymbol.AnchorPosition = SceneSymbolAnchorPosition.Bottom;
-            // - Create the graphic.
-            _tank = new Graphic(new MapPoint(28.047199, -26.189105, SpatialReferences.Wgs84), tankSymbol);
-            // - Update the heading.
-            _tank.Attributes["HEADING"] = 0.0;
-            // - Add the graphic to the overlay.
-            _tankOverlay.Graphics.Add(_tank);
-
-            // Create a viewshed for the tank.
-            GeoElementViewshed geoViewshed = new GeoElementViewshed(
-                geoElement: _tank,
-                horizontalAngle: 90.0,
-                verticalAngle: 40.0,
-                minDistance: 0.1,
-                maxDistance: 250.0,
-                headingOffset: 0.0,
-                pitchOffset: 0.0)
+            try
             {
-                // Offset viewshed observer location to top of tank.
-                OffsetZ = 3.0
-            };
+                // Create the tank graphic - get the model path.
+                string modelPath = GetModelPath();
+                // - Create the symbol and make it 10x larger (to be the right size relative to the scene).
+                ModelSceneSymbol tankSymbol = await ModelSceneSymbol.CreateAsync(new Uri(modelPath), 10);
+                // - Adjust the position.
+                tankSymbol.Heading = 90;
+                // - The tank will be positioned relative to the scene surface by its bottom
+                //       This ensures that the tank is on the ground rather than partially under it.
+                tankSymbol.AnchorPosition = SceneSymbolAnchorPosition.Bottom;
+                // - Create the graphic.
+                _tank = new Graphic(new MapPoint(28.047199, -26.189105, SpatialReferences.Wgs84), tankSymbol);
+                // - Update the heading.
+                _tank.Attributes["HEADING"] = 0.0;
+                // - Add the graphic to the overlay.
+                _tankOverlay.Graphics.Add(_tank);
 
-            // Create the analysis overlay and add to the scene.
-            AnalysisOverlay overlay = new AnalysisOverlay();
-            overlay.Analyses.Add(geoViewshed);
-            _mySceneView.AnalysisOverlays.Add(overlay);
+                // Create a viewshed for the tank.
+                GeoElementViewshed geoViewshed = new GeoElementViewshed(
+                    geoElement: _tank,
+                    horizontalAngle: 90.0,
+                    verticalAngle: 40.0,
+                    minDistance: 0.1,
+                    maxDistance: 250.0,
+                    headingOffset: 0.0,
+                    pitchOffset: 0.0)
+                {
+                    // Offset viewshed observer location to top of tank.
+                    OffsetZ = 3.0
+                };
 
-            // Create a camera controller to orbit the tank.
-            OrbitGeoElementCameraController cameraController = new OrbitGeoElementCameraController(_tank, 200.0)
+                // Create the analysis overlay and add to the scene.
+                AnalysisOverlay overlay = new AnalysisOverlay();
+                overlay.Analyses.Add(geoViewshed);
+                _mySceneView.AnalysisOverlays.Add(overlay);
+
+                // Create a camera controller to orbit the tank.
+                OrbitGeoElementCameraController cameraController = new OrbitGeoElementCameraController(_tank, 200.0)
+                {
+                    CameraPitchOffset = 45.0
+                };
+                // - Apply the camera controller to the SceneView.
+                _mySceneView.CameraController = cameraController;
+
+                // Create a timer; this will enable animating the tank.
+                Timer animationTimer = new Timer(60)
+                {
+                    Enabled = true,
+                    AutoReset = true
+                };
+                // - Move the tank every time the timer expires.
+                animationTimer.Elapsed += (o, e) =>
+                {
+                    AnimateTank();
+                };
+                // - Start the timer.
+                animationTimer.Start();
+
+                // Allow the user to click to define a new destination.
+                _mySceneView.GeoViewTapped += (sender, args) => { _tankEndPoint = args.Location; };
+            }
+            catch (Exception e)
             {
-                CameraPitchOffset = 45.0
-            };
-            // - Apply the camera controller to the SceneView.
-            _mySceneView.CameraController = cameraController;
-
-            // Create a timer; this will enable animating the tank.
-            Timer animationTimer = new Timer(60)
-            {
-                Enabled = true,
-                AutoReset = true
-            };
-            // - Move the tank every time the timer expires.
-            animationTimer.Elapsed += (o, e) =>
-            {
-                AnimateTank();
-            };
-            // - Start the timer.
-            animationTimer.Start();
-
-            // Allow the user to click to define a new destination.
-            _mySceneView.GeoViewTapped += (sender, args) => { _tankEndPoint = args.Location; };
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private void AnimateTank()

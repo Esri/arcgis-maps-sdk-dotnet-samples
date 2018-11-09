@@ -7,6 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Windows;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Data;
@@ -38,23 +40,30 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerGeodatabase
             // Get the path to the downloaded mobile geodatabase (.geodatabase file).
             string mobileGeodatabaseFilePath = GetMobileGeodatabasePath();
 
-            // Open the mobile geodatabase.
-            Geodatabase mobileGeodatabase = await Geodatabase.OpenAsync(mobileGeodatabaseFilePath);
+            try
+            {
+                // Open the mobile geodatabase.
+                Geodatabase mobileGeodatabase = await Geodatabase.OpenAsync(mobileGeodatabaseFilePath);
 
-            // Get the 'Trailheads' geodatabase feature table from the mobile geodatabase.
-            GeodatabaseFeatureTable trailheadsGeodatabaseFeatureTable = mobileGeodatabase.GeodatabaseFeatureTable("Trailheads");
+                // Get the 'Trailheads' geodatabase feature table from the mobile geodatabase.
+                GeodatabaseFeatureTable trailheadsGeodatabaseFeatureTable = mobileGeodatabase.GeodatabaseFeatureTable("Trailheads");
 
-            // Asynchronously load the 'Trailheads' geodatabase feature table.
-            await trailheadsGeodatabaseFeatureTable.LoadAsync();
+                // Asynchronously load the 'Trailheads' geodatabase feature table.
+                await trailheadsGeodatabaseFeatureTable.LoadAsync();
 
-            // Create a feature layer based on the geodatabase feature table.
-            FeatureLayer trailheadsFeatureLayer = new FeatureLayer(trailheadsGeodatabaseFeatureTable);
+                // Create a feature layer based on the geodatabase feature table.
+                FeatureLayer trailheadsFeatureLayer = new FeatureLayer(trailheadsGeodatabaseFeatureTable);
 
-            // Add the feature layer to the operations layers collection of the map.
-            MyMapView.Map.OperationalLayers.Add(trailheadsFeatureLayer);
+                // Add the feature layer to the operations layers collection of the map.
+                MyMapView.Map.OperationalLayers.Add(trailheadsFeatureLayer);
 
-            // Zoom the map to the extent of the feature layer.
-            await MyMapView.SetViewpointGeometryAsync(trailheadsFeatureLayer.FullExtent, 50);
+                // Zoom the map to the extent of the feature layer.
+                await MyMapView.SetViewpointGeometryAsync(trailheadsFeatureLayer.FullExtent, 50);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error");
+            }
         }
 
         private static string GetMobileGeodatabasePath()

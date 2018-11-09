@@ -45,7 +45,7 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Create the map with topographic basemap
             Map myMap = new Map(Basemap.CreateTopographic());
@@ -64,9 +64,6 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
 
             // Create a layer from the feature table
             _shapefileFeatureLayer = new FeatureLayer(myFeatureTable);
-
-            // Wait for the layer to load
-            await _shapefileFeatureLayer.LoadAsync();
 
             // Add the layer to the map
             myMap.OperationalLayers.Add(_shapefileFeatureLayer);

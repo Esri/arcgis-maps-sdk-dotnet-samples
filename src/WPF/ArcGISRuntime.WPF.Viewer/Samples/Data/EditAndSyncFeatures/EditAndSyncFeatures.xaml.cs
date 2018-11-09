@@ -23,6 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Esri.ArcGISRuntime;
 
 namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
 {
@@ -97,120 +98,134 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
             // Set up an event handler for when the viewpoint (extent) changes.
             MyMapView.ViewpointChanged += MapViewExtentChanged;
 
-            // Create a task for generating a geodatabase (GeodatabaseSyncTask).
-            _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
-
-            // Add all graphics from the service to the map.
-            foreach (IdInfo layer in _gdbSyncTask.ServiceInfo.LayerInfos)
+            try
             {
-                // Get the URL for this particular layer.
-                Uri onlineTableUri = new Uri(_featureServiceUri + "/" + layer.Id);
+                // Create a task for generating a geodatabase (GeodatabaseSyncTask).
+                _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
-                // Create the ServiceFeatureTable.
-                ServiceFeatureTable onlineTable = new ServiceFeatureTable(onlineTableUri);
-
-                // Wait for the table to load.
-                await onlineTable.LoadAsync();
-
-                // Add the layer to the map's operational layers if load succeeds.
-                if (onlineTable.LoadStatus == Esri.ArcGISRuntime.LoadStatus.Loaded)
+                // Add all graphics from the service to the map.
+                foreach (IdInfo layer in _gdbSyncTask.ServiceInfo.LayerInfos)
                 {
-                    myMap.OperationalLayers.Add(new FeatureLayer(onlineTable));
+                    // Get the URL for this particular layer.
+                    Uri onlineTableUri = new Uri(_featureServiceUri + "/" + layer.Id);
+
+                    // Create the ServiceFeatureTable.
+                    ServiceFeatureTable onlineTable = new ServiceFeatureTable(onlineTableUri);
+
+                    // Wait for the table to load.
+                    await onlineTable.LoadAsync();
+
+                    // Add the layer to the map's operational layers if load succeeds.
+                    if (onlineTable.LoadStatus == LoadStatus.Loaded)
+                    {
+                        myMap.OperationalLayers.Add(new FeatureLayer(onlineTable));
+                    }
                 }
+
+                // Update the graphic - needed in case the user decides not to interact before pressing the button.
+                UpdateMapExtent();
+
+                // Enable the generate button.
+                MyGenerateButton.IsEnabled = true;
             }
-
-            // Update the graphic - needed in case the user decides not to interact before pressing the button.
-            UpdateMapExtent();
-
-            // Enable the generate button.
-            MyGenerateButton.IsEnabled = true;
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error");
+            }
         }
 
         private async void GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
-            // Disregard if not ready for edits.
-            if (_readyForEdits == EditState.NotReady) { return; }
-
-            // If an edit is in process, finish it.
-            if (_readyForEdits == EditState.Editing)
+            try
             {
-                // Hold a list of any selected features.
-                List<Feature> selectedFeatures = new List<Feature>();
+                // Disregard if not ready for edits.
+                if (_readyForEdits == EditState.NotReady) { return; }
 
-                // Get all selected features then clear selection.
-                foreach (FeatureLayer layer in MyMapView.Map.OperationalLayers)
+                // If an edit is in process, finish it.
+                if (_readyForEdits == EditState.Editing)
                 {
-                    // Get the selected features.
-                    FeatureQueryResult layerFeatures = await layer.GetSelectedFeaturesAsync();
+                    // Hold a list of any selected features.
+                    List<Feature> selectedFeatures = new List<Feature>();
 
-                    // FeatureQueryResult implements IEnumerable, so it can be treated as a collection of features.
-                    selectedFeatures.AddRange(layerFeatures);
+                    // Get all selected features then clear selection.
+                    foreach (FeatureLayer layer in MyMapView.Map.OperationalLayers)
+                    {
+                        // Get the selected features.
+                        FeatureQueryResult layerFeatures = await layer.GetSelectedFeaturesAsync();
 
-                    // Clear the selection.
-                    layer.ClearSelection();
+                        // FeatureQueryResult implements IEnumerable, so it can be treated as a collection of features.
+                        selectedFeatures.AddRange(layerFeatures);
+
+                        // Clear the selection.
+                        layer.ClearSelection();
+                    }
+
+                    // Update all selected features' geometry.
+                    foreach (Feature feature in selectedFeatures)
+                    {
+                        // Get a reference to the correct feature table for the feature.
+                        GeodatabaseFeatureTable table = (GeodatabaseFeatureTable)feature.FeatureTable;
+
+                        // Ensure the geometry type of the table is point.
+                        if (table.GeometryType != GeometryType.Point)
+                        {
+                            continue;
+                        }
+
+                        // Set the new geometry.
+                        feature.Geometry = e.Location;
+
+                        try
+                        {
+                            // Update the feature in the table.
+                            await table.UpdateFeatureAsync(feature);
+                        }
+                        catch (ArcGISException)
+                        {
+                            MessageBox.Show("Feature must be within extent of geodatabase.");
+                        }
+                    }
+
+                    // Update the edit state.
+                    _readyForEdits = EditState.Ready;
+
+                    // Enable the sync button.
+                    MySyncButton.IsEnabled = true;
+
+                    // Update the help label.
+                    MyHelpLabel.Text = "4. Click 'Sync Geodatabase' or edit more features";
                 }
-
-                // Update all selected features' geometry.
-                foreach (Feature feature in selectedFeatures)
+                // Otherwise, start an edit.
+                else
                 {
-                    // Get a reference to the correct feature table for the feature.
-                    GeodatabaseFeatureTable table = (GeodatabaseFeatureTable)feature.FeatureTable;
+                    // Define a tolerance for use with identifying the feature.
+                    double tolerance = 15 * MyMapView.UnitsPerPixel;
 
-                    // Ensure the geometry type of the table is point.
-                    if (table.GeometryType != GeometryType.Point)
+                    // Define the selection envelope.
+                    Envelope selectionEnvelope = new Envelope(e.Location.X - tolerance, e.Location.Y - tolerance, e.Location.X + tolerance, e.Location.Y + tolerance);
+
+                    // Define query parameters for feature selection.
+                    QueryParameters query = new QueryParameters()
                     {
-                        continue;
+                        Geometry = selectionEnvelope
+                    };
+
+                    // Select the feature in all applicable tables.
+                    foreach (FeatureLayer layer in MyMapView.Map.OperationalLayers)
+                    {
+                        await layer.SelectFeaturesAsync(query, SelectionMode.New);
                     }
 
-                    // Set the new geometry.
-                    feature.Geometry = e.Location;
+                    // Set the edit state.
+                    _readyForEdits = EditState.Editing;
 
-                    try
-                    {
-                        // Update the feature in the table.
-                        await table.UpdateFeatureAsync(feature);
-                    }
-                    catch (Esri.ArcGISRuntime.ArcGISException)
-                    {
-                        MessageBox.Show("Feature must be within extent of geodatabase.");
-                    }
+                    // Update the help label.
+                    MyHelpLabel.Text = "3. Tap on the map to move the point";
                 }
-
-                // Update the edit state.
-                _readyForEdits = EditState.Ready;
-
-                // Enable the sync button.
-                MySyncButton.IsEnabled = true;
-
-                // Update the help label.
-                MyHelpLabel.Text = "4. Click 'Sync Geodatabase' or edit more features";
             }
-            // Otherwise, start an edit.
-            else
+            catch (Exception ex)
             {
-                // Define a tolerance for use with identifying the feature.
-                double tolerance = 15 * MyMapView.UnitsPerPixel;
-
-                // Define the selection envelope.
-                Envelope selectionEnvelope = new Envelope(e.Location.X - tolerance, e.Location.Y - tolerance, e.Location.X + tolerance, e.Location.Y + tolerance);
-
-                // Define query parameters for feature selection.
-                QueryParameters query = new QueryParameters()
-                {
-                    Geometry = selectionEnvelope
-                };
-
-                // Select the feature in all applicable tables.
-                foreach (FeatureLayer layer in MyMapView.Map.OperationalLayers)
-                {
-                    await layer.SelectFeaturesAsync(query, SelectionMode.New);
-                }
-
-                // Set the edit state.
-                _readyForEdits = EditState.Editing;
-
-                // Update the help label.
-                MyHelpLabel.Text = "3. Tap on the map to move the point";
+                MessageBox.Show(ex.ToString(), "Error");
             }
         }
 

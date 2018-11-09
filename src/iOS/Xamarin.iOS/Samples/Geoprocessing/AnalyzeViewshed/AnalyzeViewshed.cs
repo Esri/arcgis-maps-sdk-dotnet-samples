@@ -102,8 +102,15 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
                 geometry = (MapPoint) GeometryEngine.NormalizeCentralMeridian(geometry);
             }
 
-            // Execute the geoprocessing task using the user click location.
-            await CalculateViewshed(geometry);
+            try
+            {
+                // Execute the geoprocessing task using the user click location.
+                await CalculateViewshed(geometry);
+            }
+            catch (Exception ex)
+            {
+                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         private async Task CalculateViewshed(MapPoint location)

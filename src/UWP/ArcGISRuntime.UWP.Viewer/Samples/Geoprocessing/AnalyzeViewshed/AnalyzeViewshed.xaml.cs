@@ -95,8 +95,15 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeViewshed
             //    Without this step, the task may fail because wrapped-around coordinates are out of bounds.
             if (MyMapView.IsWrapAroundEnabled) { geometry = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geometry); }
 
-            // Execute the geoprocessing task using the user click location
-            await CalculateViewshed(geometry);
+            try
+            {
+                // Execute the geoprocessing task using the user click location
+                await CalculateViewshed(geometry);
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+            }
         }
 
         private async Task CalculateViewshed(MapPoint location)

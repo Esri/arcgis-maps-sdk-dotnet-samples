@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.LoadWebTiledLayer
                                                "Data by <a href=\"http://openstreetmap.org/\">OpenStreetMap</a>," +
                                                "under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.";
 
-        protected override async void OnCreate(Bundle bundle)
+        protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
@@ -48,16 +48,13 @@ namespace ArcGISRuntime.Samples.LoadWebTiledLayer
 
             // Create the UI, setup the control references and execute initialization
             CreateLayout();
-            await Initialize();
+            Initialize();
         }
 
-        private async Task Initialize()
+        private void Initialize()
         {
             // Create the layer from the URL and the subdomain list
             WebTiledLayer myBaseLayer = new WebTiledLayer(_templateUri, _tiledLayerSubdomains);
-
-            // Wait for the layer to load
-            await myBaseLayer.LoadAsync();
 
             // Create a basemap from the layer
             Basemap layerBasemap = new Basemap(myBaseLayer);

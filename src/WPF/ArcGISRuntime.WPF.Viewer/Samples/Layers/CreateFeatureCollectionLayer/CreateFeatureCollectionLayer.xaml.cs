@@ -36,19 +36,12 @@ namespace ArcGISRuntime.WPF.Samples.CreateFeatureCollectionLayer
 
         private void Initialize()
         {
-            try
-            {
-                // Create a new map with the oceans basemap and add it to the map view
-                Map myMap = new Map(Basemap.CreateOceans());
-                MyMapView.Map = myMap;
+            // Create a new map with the oceans basemap and add it to the map view
+            Map myMap = new Map(Basemap.CreateOceans());
+            MyMapView.Map = myMap;
 
-                // Call a function that will create a new feature collection layer and zoom to it
-                CreateNewFeatureCollection();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Unable to create feature collection layer: " + ex.Message, "Error");
-            }
+            // Call a function that will create a new feature collection layer and zoom to it
+            CreateNewFeatureCollection();
         }
 
         private async void CreateNewFeatureCollection()
@@ -99,25 +92,32 @@ namespace ArcGISRuntime.WPF.Samples.CreateFeatureCollectionLayer
             Polygon poly = new Polygon(new MapPoint[] { point1, point3, point4 });
             polyFeature.Geometry = poly;
 
-            // Add the new features to the appropriate feature collection table 
-            await pointsTable.AddFeatureAsync(pointFeature);
-            await linesTable.AddFeatureAsync(lineFeature);
-            await polysTable.AddFeatureAsync(polyFeature);
+            try
+            {
+                // Add the new features to the appropriate feature collection table 
+                await pointsTable.AddFeatureAsync(pointFeature);
+                await linesTable.AddFeatureAsync(lineFeature);
+                await polysTable.AddFeatureAsync(polyFeature);
 
-            // Create a feature collection and add the feature collection tables
-            FeatureCollection featuresCollection = new FeatureCollection();
-            featuresCollection.Tables.Add(pointsTable);
-            featuresCollection.Tables.Add(linesTable);
-            featuresCollection.Tables.Add(polysTable);
+                // Create a feature collection and add the feature collection tables
+                FeatureCollection featuresCollection = new FeatureCollection();
+                featuresCollection.Tables.Add(pointsTable);
+                featuresCollection.Tables.Add(linesTable);
+                featuresCollection.Tables.Add(polysTable);
 
-            // Create a FeatureCollectionLayer 
-            FeatureCollectionLayer collectionLayer = new FeatureCollectionLayer(featuresCollection);
+                // Create a FeatureCollectionLayer 
+                FeatureCollectionLayer collectionLayer = new FeatureCollectionLayer(featuresCollection);
 
-            // When the layer loads, zoom the map view to the extent of the feature collection
-            collectionLayer.Loaded += (s, e) => Dispatcher.Invoke(() => { MyMapView.SetViewpointAsync(new Viewpoint(collectionLayer.FullExtent)); });
+                // When the layer loads, zoom the map view to the extent of the feature collection
+                collectionLayer.Loaded += (s, e) => Dispatcher.Invoke(() => { MyMapView.SetViewpoint(new Viewpoint(collectionLayer.FullExtent)); });
 
-            // Add the layer to the Map's Operational Layers collection
-            MyMapView.Map.OperationalLayers.Add(collectionLayer);
+                // Add the layer to the Map's Operational Layers collection
+                MyMapView.Map.OperationalLayers.Add(collectionLayer);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error");
+            }
         }
 
         private Renderer CreateRenderer(GeometryType rendererType)

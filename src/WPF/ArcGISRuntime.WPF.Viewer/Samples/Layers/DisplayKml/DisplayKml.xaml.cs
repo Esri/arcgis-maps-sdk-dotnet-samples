@@ -9,6 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Windows;
 using System.Windows.Controls;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
@@ -52,30 +53,37 @@ namespace ArcGISRuntime.WPF.Samples.DisplayKml
             // Get the name of the selected layer.
             string name = e.AddedItems[0].ToString();
 
-            // Create the layer using the chosen constructor.
-            KmlLayer layer;
-            switch (name)
+            try
             {
-                case "URL":
-                default:
-                    layer = new KmlLayer(new Uri("https://www.wpc.ncep.noaa.gov/kml/noaa_chart/WPC_Day1_SigWx.kml"));
-                    break;
-                case "Local file":
-                    string filePath = DataManager.GetDataFolder("324e4742820e46cfbe5029ff2c32cb1f", "US_State_Capitals.kml");
-                    layer = new KmlLayer(new Uri(filePath));
-                    break;
-                case "Portal item":
-                    ArcGISPortal portal = await ArcGISPortal.CreateAsync();
-                    PortalItem item = await PortalItem.CreateAsync(portal, "9fe0b1bfdcd64c83bd77ea0452c76253");
-                    layer = new KmlLayer(item);
-                    break;
+                // Create the layer using the chosen constructor.
+                KmlLayer layer;
+                switch (name)
+                {
+                    case "URL":
+                    default:
+                        layer = new KmlLayer(new Uri("https://www.wpc.ncep.noaa.gov/kml/noaa_chart/WPC_Day1_SigWx.kml"));
+                        break;
+                    case "Local file":
+                        string filePath = DataManager.GetDataFolder("324e4742820e46cfbe5029ff2c32cb1f", "US_State_Capitals.kml");
+                        layer = new KmlLayer(new Uri(filePath));
+                        break;
+                    case "Portal item":
+                        ArcGISPortal portal = await ArcGISPortal.CreateAsync();
+                        PortalItem item = await PortalItem.CreateAsync(portal, "9fe0b1bfdcd64c83bd77ea0452c76253");
+                        layer = new KmlLayer(item);
+                        break;
+                }
+
+                // Add the selected layer to the map.
+                MySceneView.Scene.OperationalLayers.Add(layer);
+
+                // Zoom to the extent of the United States.
+                await MySceneView.SetViewpointAsync(new Viewpoint(_usEnvelope));
             }
-
-            // Add the selected layer to the map.
-            MySceneView.Scene.OperationalLayers.Add(layer);
-
-            // Zoom to the extent of the United States.
-            await MySceneView.SetViewpointAsync(new Viewpoint(_usEnvelope));
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+            }
         }
     }
 }

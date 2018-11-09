@@ -45,7 +45,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
             Title = "Identify KML features";
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Set up the basemap.
             _myMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
@@ -60,7 +60,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
             _myMapView.Map.OperationalLayers.Add(_forecastLayer);
 
             // Zoom to the extent of the United States.
-            await _myMapView.SetViewpointAsync(new Viewpoint(_usEnvelope));
+            _myMapView.SetViewpoint(new Viewpoint(_usEnvelope));
 
             // Listen for taps to identify features.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
@@ -71,20 +71,27 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
             // Clear any existing popups.
             _myMapView.DismissCallout();
 
-            // Perform identify on the KML layer and get the results.
-            IdentifyLayerResult identifyResult = await _myMapView.IdentifyLayerAsync(_forecastLayer, e.Position, 2, false);
-
-            // Return if there are no results that are KML placemarks.
-            if (!identifyResult.GeoElements.OfType<KmlGeoElement>().Any())
+            try
             {
-                return;
+                // Perform identify on the KML layer and get the results.
+                IdentifyLayerResult identifyResult = await _myMapView.IdentifyLayerAsync(_forecastLayer, e.Position, 2, false);
+
+                // Return if there are no results that are KML placemarks.
+                if (!identifyResult.GeoElements.OfType<KmlGeoElement>().Any())
+                {
+                    return;
+                }
+
+                // Get the first identified feature that is a KML placemark
+                KmlNode firstIdentifiedPlacemark = identifyResult.GeoElements.OfType<KmlGeoElement>().First().KmlNode;
+
+                // Show a preview with the HTML content.
+                _webView.LoadHtmlString(new NSString(firstIdentifiedPlacemark.BalloonContent), new NSUrl(""));
             }
-
-            // Get the first identified feature that is a KML placemark
-            KmlNode firstIdentifiedPlacemark = identifyResult.GeoElements.OfType<KmlGeoElement>().First().KmlNode;
-
-            // Show a preview with the HTML content.
-            _webView.LoadHtmlString(new NSString(firstIdentifiedPlacemark.BalloonContent), new NSUrl(""));
+            catch (Exception ex)
+            {
+                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         public override void LoadView()

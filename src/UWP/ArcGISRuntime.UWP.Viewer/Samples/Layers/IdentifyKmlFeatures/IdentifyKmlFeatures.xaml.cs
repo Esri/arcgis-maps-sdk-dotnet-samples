@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.IdentifyKmlFeatures
@@ -37,7 +38,7 @@ namespace ArcGISRuntime.UWP.Samples.IdentifyKmlFeatures
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Set up the basemap.
             MyMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
@@ -52,7 +53,7 @@ namespace ArcGISRuntime.UWP.Samples.IdentifyKmlFeatures
             MyMapView.Map.OperationalLayers.Add(_forecastLayer);
 
             // Zoom to the extent of the United States.
-            await MyMapView.SetViewpointAsync(new Viewpoint(_usEnvelope));
+            MyMapView.SetViewpoint(new Viewpoint(_usEnvelope));
 
             // Listen for taps to identify features.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
@@ -62,28 +63,35 @@ namespace ArcGISRuntime.UWP.Samples.IdentifyKmlFeatures
             // Clear any existing popups.
             MyMapView.DismissCallout();
 
-            // Perform identify on the KML layer and get the results.
-            IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_forecastLayer, e.Position, 2, false);
-
-            // Return if there are no results that are KML placemarks.
-            if (!identifyResult.GeoElements.OfType<KmlGeoElement>().Any())
+            try
             {
-                return;
+                // Perform identify on the KML layer and get the results.
+                IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_forecastLayer, e.Position, 2, false);
+
+                // Return if there are no results that are KML placemarks.
+                if (!identifyResult.GeoElements.OfType<KmlGeoElement>().Any())
+                {
+                    return;
+                }
+
+                // Get the first identified feature that is a KML placemark
+                KmlNode firstIdentifiedPlacemark = identifyResult.GeoElements.OfType<KmlGeoElement>().First().KmlNode;
+
+                // Create a browser to show the feature popup HTML.
+                WebView browser = new WebView
+                {
+                    Width = 400,
+                    Height = 100
+                };
+                browser.NavigateToString(firstIdentifiedPlacemark.BalloonContent);
+
+                // Create and show the callout.
+                MyMapView.ShowCalloutAt(e.Location, browser);
             }
-
-            // Get the first identified feature that is a KML placemark
-            KmlNode firstIdentifiedPlacemark = identifyResult.GeoElements.OfType<KmlGeoElement>().First().KmlNode;
-
-            // Create a browser to show the feature popup HTML.
-            WebView browser = new WebView
+            catch (Exception ex)
             {
-                Width = 400,
-                Height = 100
-            };
-            browser.NavigateToString(firstIdentifiedPlacemark.BalloonContent);
-
-            // Create and show the callout.
-            MyMapView.ShowCalloutAt(e.Location, browser);
+                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+            }
         }
     }
 }

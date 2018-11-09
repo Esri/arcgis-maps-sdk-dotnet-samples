@@ -61,18 +61,25 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerSelection
             // Initialize a new feature layer based on the feature table.
             _featureLayer = new FeatureLayer(featureTable);
 
-            // Make sure that used feature layer is loaded before hooking into the tapped event
-            // This prevents trying to do selection on the layer that isn't initialized.
-            await _featureLayer.LoadAsync();
-
-            // Check for the load status. If the layer is loaded then add it to map.
-            if (_featureLayer.LoadStatus == LoadStatus.Loaded)
+            try
             {
-                // Add the feature layer to the map.
-                myMap.OperationalLayers.Add(_featureLayer);
+                // Make sure that used feature layer is loaded before hooking into the tapped event
+                // This prevents trying to do selection on the layer that isn't initialized.
+                await _featureLayer.LoadAsync();
 
-                // Add tap event handler for mapview.
-                MyMapView.GeoViewTapped += OnMapViewTapped;
+                // Check for the load status. If the layer is loaded then add it to map.
+                if (_featureLayer.LoadStatus == LoadStatus.Loaded)
+                {
+                    // Add the feature layer to the map.
+                    myMap.OperationalLayers.Add(_featureLayer);
+
+                    // Add tap event handler for mapview.
+                    MyMapView.GeoViewTapped += OnMapViewTapped;
+                }
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog(e.ToString(), "Error").ShowAsync();
             }
         }
 
@@ -113,7 +120,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerSelection
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "An error occurred").ShowAsync();
+                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
             }
         }
     }

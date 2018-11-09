@@ -86,53 +86,67 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
             // Initialize a new feature layer based on the feature table.
             _featureLayer = new FeatureLayer(featureTable);
 
-            // Make sure that used feature layer is loaded before hooking into the tapped event
-            // This prevents trying to do selection on the layer that isn't initialized.
-            await _featureLayer.LoadAsync();
-
-            // Check for the load status. If the layer is loaded then add it to map.
-            if (_featureLayer.LoadStatus == LoadStatus.Loaded)
+            try
             {
-                // Add the feature layer to the map.
-                myMap.OperationalLayers.Add(_featureLayer);
+                // Make sure that used feature layer is loaded before hooking into the tapped event
+                // This prevents trying to do selection on the layer that isn't initialized.
+                await _featureLayer.LoadAsync();
 
-                // Add tap event handler for mapview.
-                _myMapView.GeoViewTapped += OnMapViewTapped;
+                // Check for the load status. If the layer is loaded then add it to map.
+                if (_featureLayer.LoadStatus == LoadStatus.Loaded)
+                {
+                    // Add the feature layer to the map.
+                    myMap.OperationalLayers.Add(_featureLayer);
+
+                    // Add tap event handler for mapview.
+                    _myMapView.GeoViewTapped += OnMapViewTapped;
+                }
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
         }
 
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // Define the selection tolerance.
-            double tolerance = 15;
-
-            // Convert the tolerance to map units.
-            double mapTolerance = tolerance * _myMapView.UnitsPerPixel;
-
-            // Get the tapped point.
-            MapPoint geometry = e.Location;
-
-            // Normalize the geometry if wrap-around is enabled.
-            //    This is necessary because of how wrapped-around map coordinates are handled by Runtime.
-            //    Without this step, querying may fail because wrapped-around coordinates are out of bounds.
-            if (_myMapView.IsWrapAroundEnabled)
+            try
             {
-                geometry = (MapPoint) GeometryEngine.NormalizeCentralMeridian(geometry);
+                // Define the selection tolerance.
+                double tolerance = 15;
+
+                // Convert the tolerance to map units.
+                double mapTolerance = tolerance * _myMapView.UnitsPerPixel;
+
+                // Get the tapped point.
+                MapPoint geometry = e.Location;
+
+                // Normalize the geometry if wrap-around is enabled.
+                //    This is necessary because of how wrapped-around map coordinates are handled by Runtime.
+                //    Without this step, querying may fail because wrapped-around coordinates are out of bounds.
+                if (_myMapView.IsWrapAroundEnabled)
+                {
+                    geometry = (MapPoint) GeometryEngine.NormalizeCentralMeridian(geometry);
+                }
+
+                // Define the envelope around the tap location for selecting features.
+                Envelope selectionEnvelope = new Envelope(geometry.X - mapTolerance, geometry.Y - mapTolerance, geometry.X + mapTolerance,
+                    geometry.Y + mapTolerance, _myMapView.Map.SpatialReference);
+
+                // Define the query parameters for selecting features.
+                QueryParameters queryParams = new QueryParameters
+                {
+                    // Set the geometry to selection envelope for selection by geometry.
+                    Geometry = selectionEnvelope
+                };
+
+                // Select the features based on query parameters defined above.
+                await _featureLayer.SelectFeaturesAsync(queryParams, SelectionMode.New);
             }
-
-            // Define the envelope around the tap location for selecting features.
-            Envelope selectionEnvelope = new Envelope(geometry.X - mapTolerance, geometry.Y - mapTolerance, geometry.X + mapTolerance,
-                geometry.Y + mapTolerance, _myMapView.Map.SpatialReference);
-
-            // Define the query parameters for selecting features.
-            QueryParameters queryParams = new QueryParameters
+            catch (Exception ex)
             {
-                // Set the geometry to selection envelope for selection by geometry.
-                Geometry = selectionEnvelope
-            };
-
-            // Select the features based on query parameters defined above.
-            await _featureLayer.SelectFeaturesAsync(queryParams, SelectionMode.New);
+                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
     }
 }

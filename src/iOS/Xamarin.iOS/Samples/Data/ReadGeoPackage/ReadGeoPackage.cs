@@ -94,76 +94,83 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             // Get the full path to the GeoPackage on the device.
             string geoPackagePath = DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");
 
-            // Open the GeoPackage.
-            GeoPackage geoPackage = await GeoPackage.OpenAsync(geoPackagePath);
-
-            // Loop through each GeoPackageRaster.
-            foreach (GeoPackageRaster oneGeoPackageRaster in geoPackage.GeoPackageRasters)
+            try
             {
-                // Create a RasterLayer from the GeoPackageRaster.
-                RasterLayer rasterLayer = new RasterLayer(oneGeoPackageRaster)
+                // Open the GeoPackage.
+                GeoPackage geoPackage = await GeoPackage.OpenAsync(geoPackagePath);
+
+                // Loop through each GeoPackageRaster.
+                foreach (GeoPackageRaster oneGeoPackageRaster in geoPackage.GeoPackageRasters)
                 {
-                    // Set the opacity on the RasterLayer to partially visible.
-                    Opacity = 0.55
-                };
+                    // Create a RasterLayer from the GeoPackageRaster.
+                    RasterLayer rasterLayer = new RasterLayer(oneGeoPackageRaster)
+                    {
+                        // Set the opacity on the RasterLayer to partially visible.
+                        Opacity = 0.55
+                    };
 
-                // Load the RasterLayer - that way we can get to its properties.
-                await rasterLayer.LoadAsync();
+                    // Load the RasterLayer - that way we can get to its properties.
+                    await rasterLayer.LoadAsync();
 
-                // Create a string variable to hold the human-readable name of the RasterLayer for display.
-                string rasterLayerName = "";
+                    // Create a string variable to hold the human-readable name of the RasterLayer for display.
+                    string rasterLayerName = "";
 
-                if (rasterLayer.Name != "")
-                {
-                    // We have a good human-readable name for the RasterLayer that came from the RasterLayer.Name property.
-                    rasterLayerName = rasterLayer.Name;
+                    if (rasterLayer.Name != "")
+                    {
+                        // We have a good human-readable name for the RasterLayer that came from the RasterLayer.Name property.
+                        rasterLayerName = rasterLayer.Name;
+                    }
+                    else if (oneGeoPackageRaster.Path.Split('/').Last() != "")
+                    {
+                        // We did not get a good human-readable name from the RasterLayer from the .Name
+                        // property, get the good human-readable name from the GeoPackageRaster.Path instead.
+                        rasterLayerName = oneGeoPackageRaster.Path.Split('/').Last();
+                    }
+
+                    // Append the 'type of layer' to the raster layer name string to display in the 
+                    // ListBox and as the key for the dictionary.
+                    rasterLayerName = $"{rasterLayerName} - RasterLayer";
+
+                    // Add the name of the RasterLayer and the RasterLayer itself into the dictionary.
+                    _nameToLayerDictionary[rasterLayerName] = rasterLayer;
+
+                    // Add the name of the RasterLayer to the layers not in the map collection
+                    // which displays the human-readable layer names used by the UISegmentedControl.
+                    _layersNotInMap.Add(rasterLayerName);
                 }
-                else if (oneGeoPackageRaster.Path.Split('/').Last() != "")
+
+                // Loop through each GeoPackageFeatureTable from the GeoPackage.
+                foreach (GeoPackageFeatureTable oneGeoPackageFeatureTable in geoPackage.GeoPackageFeatureTables)
                 {
-                    // We did not get a good human-readable name from the RasterLayer from the .Name
-                    // property, get the good human-readable name from the GeoPackageRaster.Path instead.
-                    rasterLayerName = oneGeoPackageRaster.Path.Split('/').Last();
+                    // Create a FeatureLayer from the GeoPackageFeatureLayer.
+                    FeatureLayer featureLayer = new FeatureLayer(oneGeoPackageFeatureTable);
+
+                    // Load the FeatureLayer - that way we can get to its properties.
+                    await featureLayer.LoadAsync();
+
+                    // Create a string variable to hold the human-readable name of the FeatureLayer for 
+                    // display in the UISegmentedControl and the dictionary.
+                    string featureLayerName = featureLayer.Name;
+
+                    // Append the 'type of layer' to the feature layer name string to display in the 
+                    // ListBox and as the key for the dictionary.
+                    featureLayerName = $"{featureLayerName} - FeatureLayer";
+
+                    // Add the name of the FeatureLayer and the FeatureLayer itself into the dictionary.
+                    _nameToLayerDictionary[featureLayerName] = featureLayer;
+
+                    // Add the name of the RasterLayer to the collection of layers not in the map.
+                    // which displays the human-readable layer names used by the UISegmentedControl.
+                    _layersNotInMap.Add(featureLayerName);
                 }
 
-                // Append the 'type of layer' to the raster layer name string to display in the 
-                // ListBox and as the key for the dictionary.
-                rasterLayerName = $"{rasterLayerName} - RasterLayer";
-
-                // Add the name of the RasterLayer and the RasterLayer itself into the dictionary.
-                _nameToLayerDictionary[rasterLayerName] = rasterLayer;
-
-                // Add the name of the RasterLayer to the layers not in the map collection
-                // which displays the human-readable layer names used by the UISegmentedControl.
-                _layersNotInMap.Add(rasterLayerName);
+                // Enable the UI.
+                _layerSegmentedControl.Enabled = true;
             }
-
-            // Loop through each GeoPackageFeatureTable from the GeoPackage.
-            foreach (GeoPackageFeatureTable oneGeoPackageFeatureTable in geoPackage.GeoPackageFeatureTables)
+            catch (Exception e)
             {
-                // Create a FeatureLayer from the GeoPackageFeatureLayer.
-                FeatureLayer featureLayer = new FeatureLayer(oneGeoPackageFeatureTable);
-
-                // Load the FeatureLayer - that way we can get to its properties.
-                await featureLayer.LoadAsync();
-
-                // Create a string variable to hold the human-readable name of the FeatureLayer for 
-                // display in the UISegmentedControl and the dictionary.
-                string featureLayerName = featureLayer.Name;
-
-                // Append the 'type of layer' to the feature layer name string to display in the 
-                // ListBox and as the key for the dictionary.
-                featureLayerName = $"{featureLayerName} - FeatureLayer";
-
-                // Add the name of the FeatureLayer and the FeatureLayer itself into the dictionary.
-                _nameToLayerDictionary[featureLayerName] = featureLayer;
-
-                // Add the name of the RasterLayer to the collection of layers not in the map.
-                // which displays the human-readable layer names used by the UISegmentedControl.
-                _layersNotInMap.Add(featureLayerName);
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
-
-            // Enable the UI.
-            _layerSegmentedControl.Enabled = true;
         }
 
         private void LayerSegmentedControl_ValueChanged(object sender, EventArgs e)

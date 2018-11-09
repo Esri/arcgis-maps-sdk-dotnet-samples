@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using Android.App;
 using Android.OS;
 using Android.Widget;
@@ -19,6 +20,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using Android;
 
 namespace ArcGISRuntime.Samples.ReadGeoPackage
 {
@@ -76,91 +78,98 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             // Get the full path to the GeoPackage on the device
             string myGeoPackagePath = GetGeoPackagePath();
 
-            // Open the GeoPackage
-            GeoPackage myGeoPackage = await GeoPackage.OpenAsync(myGeoPackagePath);
-
-            // Get the read only list of GeoPackageRasters from the GeoPackage
-            IReadOnlyList<GeoPackageRaster> myReadOnlyListOfGeoPackageRasters = myGeoPackage.GeoPackageRasters;
-
-            // Loop through each GeoPackageRaster
-            foreach (GeoPackageRaster oneGeoPackageRaster in myReadOnlyListOfGeoPackageRasters)
+            try
             {
-                // Create a RasterLayer from the GeoPackageRaster
-                RasterLayer myRasterLayer = new RasterLayer(oneGeoPackageRaster)
+                // Open the GeoPackage
+                GeoPackage myGeoPackage = await GeoPackage.OpenAsync(myGeoPackagePath);
+
+                // Get the read only list of GeoPackageRasters from the GeoPackage
+                IReadOnlyList<GeoPackageRaster> myReadOnlyListOfGeoPackageRasters = myGeoPackage.GeoPackageRasters;
+
+                // Loop through each GeoPackageRaster
+                foreach (GeoPackageRaster oneGeoPackageRaster in myReadOnlyListOfGeoPackageRasters)
                 {
-                    // Set the opacity on the RasterLayer to partially visible
-                    Opacity = 0.55
-                };
+                    // Create a RasterLayer from the GeoPackageRaster
+                    RasterLayer myRasterLayer = new RasterLayer(oneGeoPackageRaster)
+                    {
+                        // Set the opacity on the RasterLayer to partially visible
+                        Opacity = 0.55
+                    };
 
-                // Load the RasterLayer - that way we can get to it's properties
-                await myRasterLayer.LoadAsync();
+                    // Load the RasterLayer - that way we can get to it's properties
+                    await myRasterLayer.LoadAsync();
 
-                // Create a string variable to hold the human-readable name of the RasterLayer for display
-                // in the ListBox and the HybridDictonary - it will initially be an empty string
-                string myRasterLayerName = "";
+                    // Create a string variable to hold the human-readable name of the RasterLayer for display
+                    // in the ListBox and the HybridDictonary - it will initially be an empty string
+                    string myRasterLayerName = "";
 
-                if (myRasterLayer.Name != "")
-                {
-                    // We have a good human-readable name for the RasterLayer that came from
-                    // the RasterLayer.Name property
-                    myRasterLayerName = myRasterLayer.Name;
+                    if (myRasterLayer.Name != "")
+                    {
+                        // We have a good human-readable name for the RasterLayer that came from
+                        // the RasterLayer.Name property
+                        myRasterLayerName = myRasterLayer.Name;
+                    }
+                    else if (oneGeoPackageRaster.Path.Split('/').Last() != "")
+                    {
+                        // We did not get a good human-readable name from the RasterLayer from the .Name
+                        // property, get the good human-readable name from the GeoPackageRaster.Path instead
+                        myRasterLayerName = oneGeoPackageRaster.Path.Split('/').Last();
+                    }
+
+                    // Append the 'type of layer' to the myRasterLayerName string to display in the
+                    // ListBox and as the key for the HybridDictonary
+                    myRasterLayerName = myRasterLayerName + " - RasterLayer";
+
+                    // Add the name of the RasterLayer and the RasterLayer itself into the HybridDictionary
+                    _myHybridDictionary_Layers.Add(myRasterLayerName, myRasterLayer);
+
+                    // Add the name of the RasterLayer to _myObservableCollection_LayerNamesNotInTheMap
+                    // which displays the human-readable layer names used by the _myListView_LayersNotInTheMap
+                    _myObservableCollection_LayerNamesNotInTheMap.Add(myRasterLayerName);
                 }
-                else if (oneGeoPackageRaster.Path.Split('/').Last() != "")
+
+                // Get the read only list of GeoPackageFeatureTabless from the GeoPackage
+                IReadOnlyList<GeoPackageFeatureTable> myReadOnlyListOfGeoPackageFeatureTables = myGeoPackage.GeoPackageFeatureTables;
+
+                // Loop through each GeoPackageFeatureTable
+                foreach (GeoPackageFeatureTable oneGeoPackageFeatureTable in myReadOnlyListOfGeoPackageFeatureTables)
                 {
-                    // We did not get a good human-readable name from the RasterLayer from the .Name
-                    // property, get the good human-readable name from the GeoPackageRaster.Path instead
-                    myRasterLayerName = oneGeoPackageRaster.Path.Split('/').Last();
+                    // Create a FeatureLayer from the GeoPackageFeatureLayer
+                    FeatureLayer myFeatureLayer = new FeatureLayer(oneGeoPackageFeatureTable);
+
+                    // Load the FeatureLayer - that way we can get to it's properties
+                    await myFeatureLayer.LoadAsync();
+
+                    // Create a string variable to hold the human-readable name of the FeatureLayer for
+                    // display in the ListBox and the HybridDictonary
+                    string myFeatureLayerName = myFeatureLayer.Name;
+
+                    // Append the 'type of layer' to the myFeatureLayerName string to display in the
+                    // ListBox and as the key for the HybridDictonary
+                    myFeatureLayerName = myFeatureLayerName + " - FeatureLayer";
+
+                    // Add the name of the FeatureLayer and the FeatureLayer itself into the HybridDictionary
+                    _myHybridDictionary_Layers.Add(myFeatureLayerName, myFeatureLayer);
+
+                    // Add the name of the RasterLayer to _myObservableCollection_LayerNamesNotInTheMap
+                    // which displays the human-readable layer names used by the _myListView_LayersNotInTheMap
+                    _myObservableCollection_LayerNamesNotInTheMap.Add(myFeatureLayerName);
                 }
 
-                // Append the 'type of layer' to the myRasterLayerName string to display in the
-                // ListBox and as the key for the HybridDictonary
-                myRasterLayerName = myRasterLayerName + " - RasterLayer";
+                // Create a simple string array of the human-readable layer names from the ObservableCollection
+                string[] myStringArray_LayerNamesNotInTheMap = _myObservableCollection_LayerNamesNotInTheMap.ToArray();
 
-                // Add the name of the RasterLayer and the RasterLayer itself into the HybridDictionary
-                _myHybridDictionary_Layers.Add(myRasterLayerName, myRasterLayer);
+                // Create an ArrayAdapter from the simple string array
+                ArrayAdapter myArrayAdapter_LayerNamesNotInTheMap = new ArrayAdapter<string>(this, Resource.Layout.SimpleListItem1, myStringArray_LayerNamesNotInTheMap);
 
-                // Add the name of the RasterLayer to _myObservableCollection_LayerNamesNotInTheMap
-                // which displays the human-readable layer names used by the _myListView_LayersNotInTheMap
-                _myObservableCollection_LayerNamesNotInTheMap.Add(myRasterLayerName);
+                // Set the _myListView_LayersNotInTheMap.Adapter to the myArrayAdapter_LayerNamesNotInTheMap
+                // This allows the human-readable layer names to be displayed a ListView
+                _myListView_LayersNotInTheMap.Adapter = myArrayAdapter_LayerNamesNotInTheMap;
             }
-
-            // Get the read only list of GeoPackageFeatureTabless from the GeoPackage
-            IReadOnlyList<GeoPackageFeatureTable> myReadOnlyListOfGeoPackageFeatureTables = myGeoPackage.GeoPackageFeatureTables;
-
-            // Loop through each GeoPackageFeatureTable
-            foreach (GeoPackageFeatureTable oneGeoPackageFeatureTable in myReadOnlyListOfGeoPackageFeatureTables)
+            catch (Exception e)
             {
-                // Create a FeatureLayer from the GeoPackageFeatureLayer
-                FeatureLayer myFeatureLayer = new FeatureLayer(oneGeoPackageFeatureTable);
-
-                // Load the FeatureLayer - that way we can get to it's properties
-                await myFeatureLayer.LoadAsync();
-
-                // Create a string variable to hold the human-readable name of the FeatureLayer for
-                // display in the ListBox and the HybridDictonary
-                string myFeatureLayerName = myFeatureLayer.Name;
-
-                // Append the 'type of layer' to the myFeatureLayerName string to display in the
-                // ListBox and as the key for the HybridDictonary
-                myFeatureLayerName = myFeatureLayerName + " - FeatureLayer";
-
-                // Add the name of the FeatureLayer and the FeatureLayer itself into the HybridDictionary
-                _myHybridDictionary_Layers.Add(myFeatureLayerName, myFeatureLayer);
-
-                // Add the name of the RasterLayer to _myObservableCollection_LayerNamesNotInTheMap
-                // which displays the human-readable layer names used by the _myListView_LayersNotInTheMap
-                _myObservableCollection_LayerNamesNotInTheMap.Add(myFeatureLayerName);
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
             }
-
-            // Create a simple string array of the human-readable layer names from the ObservableCollection
-            string[] myStringArray_LayerNamesNotInTheMap = _myObservableCollection_LayerNamesNotInTheMap.ToArray();
-
-            // Create an ArrayAdapter from the simple string array
-            ArrayAdapter myArrayAdapter_LayerNamesNotInTheMap = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, myStringArray_LayerNamesNotInTheMap);
-
-            // Set the _myListView_LayersNotInTheMap.Adapter to the myArrayAdapter_LayerNamesNotInTheMap
-            // This allows the human-readable layer names to be displayed a ListView
-            _myListView_LayersNotInTheMap.Adapter = myArrayAdapter_LayerNamesNotInTheMap;
         }
 
         private void _myListView_LayersNotInTheMap_ItemClick(object sender, AdapterView.ItemClickEventArgs e)

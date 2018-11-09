@@ -53,19 +53,26 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
             // Add the layer to the map.
             MySceneView.Scene.OperationalLayers.Add(layer);
 
-            await dataset.LoadAsync();
-
-            // Build the ViewModel from the expanded list of layer infos.
-            foreach (KmlNode node in dataset.RootNodes)
+            try
             {
-                // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of ArcGIS Runtime.
-                LayerDisplayVM nodeVm = new LayerDisplayVM(node, null);
-                _viewModelList.Add(nodeVm);
-                LayerDisplayVM.BuildLayerInfoList(nodeVm, _viewModelList);
-            }
+                await dataset.LoadAsync();
 
-            // Update the list of layers, using the root node from the list.
-            LayerTreeView.ItemsSource = _viewModelList;
+                // Build the ViewModel from the expanded list of layer infos.
+                foreach (KmlNode node in dataset.RootNodes)
+                {
+                    // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of ArcGIS Runtime.
+                    LayerDisplayVM nodeVm = new LayerDisplayVM(node, null);
+                    _viewModelList.Add(nodeVm);
+                    LayerDisplayVM.BuildLayerInfoList(nodeVm, _viewModelList);
+                }
+
+                // Update the list of layers, using the root node from the list.
+                LayerTreeView.ItemsSource = _viewModelList;
+            }
+            catch (Exception e)
+            {
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+            }
         }
 
         private void LayerTreeView_OnSelectionChanged(object sender, SelectedItemChangedEventArgs e)
@@ -80,18 +87,25 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
 
         private async void NavigateToNode(KmlNode node)
         {
-            // Get a corrected Runtime viewpoint using the KmlViewpoint.
-            bool viewpointNeedsAltitudeAdjustment;
-            Viewpoint runtimeViewpoint = ViewpointFromKmlViewpoint(node, out viewpointNeedsAltitudeAdjustment);
-            if (viewpointNeedsAltitudeAdjustment)
+            try
             {
-                runtimeViewpoint = await GetAltitudeAdjustedViewpointAsync(node, runtimeViewpoint);
-            }
+                // Get a corrected Runtime viewpoint using the KmlViewpoint.
+                bool viewpointNeedsAltitudeAdjustment;
+                Viewpoint runtimeViewpoint = ViewpointFromKmlViewpoint(node, out viewpointNeedsAltitudeAdjustment);
+                if (viewpointNeedsAltitudeAdjustment)
+                {
+                    runtimeViewpoint = await GetAltitudeAdjustedViewpointAsync(node, runtimeViewpoint);
+                }
 
-            // Set the viewpoint.
-            if (runtimeViewpoint != null && !runtimeViewpoint.TargetGeometry.IsEmpty)
+                // Set the viewpoint.
+                if (runtimeViewpoint != null && !runtimeViewpoint.TargetGeometry.IsEmpty)
+                {
+                    await MySceneView.SetViewpointAsync(runtimeViewpoint);
+                }
+            }
+            catch (Exception e)
             {
-                await MySceneView.SetViewpointAsync(runtimeViewpoint);
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 

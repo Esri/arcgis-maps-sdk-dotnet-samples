@@ -59,25 +59,32 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
             // Add the layer to the map.
             _mySceneView.Scene.OperationalLayers.Add(layer);
 
-            await dataset.LoadAsync();
-
-            // Build the ViewModel from the expanded list of layer infos.
-            foreach (KmlNode node in dataset.RootNodes)
+            try
             {
-                // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of ArcGIS Runtime.
-                LayerDisplayVM nodeVm = new LayerDisplayVM(node, null);
-                _viewModelList.Add(nodeVm);
-                LayerDisplayVM.BuildLayerInfoList(nodeVm, _viewModelList);
+                await dataset.LoadAsync();
+
+                // Build the ViewModel from the expanded list of layer infos.
+                foreach (KmlNode node in dataset.RootNodes)
+                {
+                    // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of ArcGIS Runtime.
+                    LayerDisplayVM nodeVm = new LayerDisplayVM(node, null);
+                    _viewModelList.Add(nodeVm);
+                    LayerDisplayVM.BuildLayerInfoList(nodeVm, _viewModelList);
+                }
+
+                // Construct the layer list source.
+                _layerListSource = new LayerListSource(_viewModelList, this);
+
+                // Set the source for the table view (layer list).
+                _myDisplayList.Source = _layerListSource;
+
+                // Force an update of the list display.
+                _myDisplayList.ReloadData();
             }
-
-            // Construct the layer list source.
-            _layerListSource = new LayerListSource(_viewModelList, this);
-
-            // Set the source for the table view (layer list).
-            _myDisplayList.Source = _layerListSource;
-
-            // Force an update of the list display.
-            _myDisplayList.ReloadData();
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         public override void LoadView()
@@ -151,18 +158,25 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
 
         private async void NavigateToNode(KmlNode node)
         {
-            // Get a corrected Runtime viewpoint using the KmlViewpoint.
-            bool viewpointNeedsAltitudeAdjustment;
-            Viewpoint runtimeViewpoint = ViewpointFromKmlViewpoint(node, out viewpointNeedsAltitudeAdjustment);
-            if (viewpointNeedsAltitudeAdjustment)
+            try
             {
-                runtimeViewpoint = await GetAltitudeAdjustedViewpointAsync(node, runtimeViewpoint);
-            }
+                // Get a corrected Runtime viewpoint using the KmlViewpoint.
+                bool viewpointNeedsAltitudeAdjustment;
+                Viewpoint runtimeViewpoint = ViewpointFromKmlViewpoint(node, out viewpointNeedsAltitudeAdjustment);
+                if (viewpointNeedsAltitudeAdjustment)
+                {
+                    runtimeViewpoint = await GetAltitudeAdjustedViewpointAsync(node, runtimeViewpoint);
+                }
 
-            // Set the viewpoint.
-            if (runtimeViewpoint != null && !runtimeViewpoint.TargetGeometry.IsEmpty)
+                // Set the viewpoint.
+                if (runtimeViewpoint != null && !runtimeViewpoint.TargetGeometry.IsEmpty)
+                {
+                    await _mySceneView.SetViewpointAsync(runtimeViewpoint);
+                }
+            }
+            catch (Exception e)
             {
-                await _mySceneView.SetViewpointAsync(runtimeViewpoint);
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
         }
 

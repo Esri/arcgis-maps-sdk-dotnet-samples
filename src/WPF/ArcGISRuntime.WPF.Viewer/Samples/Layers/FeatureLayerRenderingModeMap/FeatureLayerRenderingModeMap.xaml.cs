@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.FeatureLayerRenderingModeMap
 {
@@ -81,19 +82,25 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerRenderingModeMap
 
         private async void OnZoomClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            // Initiate task to zoom both map views in.  
-            Task t1 = MyStaticMapView.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
-            Task t2 = MyDynamicMapView.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
-            await Task.WhenAll(t1, t2);
+            try
+            {
+                // Initiate task to zoom both map views in.  
+                Task t1 = MyStaticMapView.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
+                Task t2 = MyDynamicMapView.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
+                await Task.WhenAll(t1, t2);
 
-            // Delay start of next set of zoom tasks.
-            await Task.Delay(2000);
+                // Delay start of next set of zoom tasks.
+                await Task.Delay(2000);
             
-            // Initiate task to zoom both map views out. 
-            Task t3 = MyStaticMapView.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
-            Task t4 = MyDynamicMapView.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
-            await Task.WhenAll(t3, t4);
-
+                // Initiate task to zoom both map views out. 
+                Task t3 = MyStaticMapView.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
+                Task t4 = MyDynamicMapView.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
+                await Task.WhenAll(t3, t4);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+            }
         }
     }
 }

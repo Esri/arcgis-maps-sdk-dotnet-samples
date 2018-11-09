@@ -103,19 +103,25 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
 
         private async void OnZoomClick(object sender, EventArgs e)
         {
-            // Initiate task to zoom both map views in.  
-            Task t1 = _myMapViewTop.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
-            Task t2 = _myMapViewBottom.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
-            await Task.WhenAll(t1, t2);
+            try
+            {
+                // Initiate task to zoom both map views in.  
+                Task t1 = _myMapViewTop.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
+                Task t2 = _myMapViewBottom.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
+                await Task.WhenAll(t1, t2);
 
-            // Delay start of next set of zoom tasks.
-            await Task.Delay(2000);
+                // Delay start of next set of zoom tasks.
+                await Task.Delay(2000);
 
-            // Initiate task to zoom both map views out. 
-            Task t3 = _myMapViewTop.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
-            Task t4 = _myMapViewBottom.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
-            await Task.WhenAll(t3, t4);
-
+                // Initiate task to zoom both map views out. 
+                Task t3 = _myMapViewTop.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
+                Task t4 = _myMapViewBottom.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
+                await Task.WhenAll(t3, t4);
+            }
+            catch (Exception ex)
+            {
+                new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("Error").Show();
+            }
         }
     }
 }

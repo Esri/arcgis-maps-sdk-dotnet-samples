@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
@@ -47,32 +48,39 @@ namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
             // Note: this constructor takes an array of paths because so that update sets can be loaded alongside base data
             EncExchangeSet myEncExchangeSet = new EncExchangeSet( encPath );
 
-            // Wait for the exchange set to load
-            await myEncExchangeSet.LoadAsync();
-
-            // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set
-            List<Envelope> dataSetExtents = new List<Envelope>();
-
-            // Add each data set as a layer
-            foreach (EncDataset myEncDataSet in myEncExchangeSet.Datasets)
+            try
             {
-                EncLayer myEncLayer = new EncLayer(new EncCell(myEncDataSet));
+                // Wait for the exchange set to load
+                await myEncExchangeSet.LoadAsync();
 
-                // Add the layer to the map
-                MyMapView.Map.OperationalLayers.Add(myEncLayer);
+                // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set
+                List<Envelope> dataSetExtents = new List<Envelope>();
 
-                // Wait for the layer to load
-                await myEncLayer.LoadAsync();
+                // Add each data set as a layer
+                foreach (EncDataset myEncDataSet in myEncExchangeSet.Datasets)
+                {
+                    EncLayer myEncLayer = new EncLayer(new EncCell(myEncDataSet));
 
-                // Add the extent to the list of extents
-                dataSetExtents.Add(myEncLayer.FullExtent);
+                    // Add the layer to the map
+                    MyMapView.Map.OperationalLayers.Add(myEncLayer);
+
+                    // Wait for the layer to load
+                    await myEncLayer.LoadAsync();
+
+                    // Add the extent to the list of extents
+                    dataSetExtents.Add(myEncLayer.FullExtent);
+                }
+
+                // Use the geometry engine to compute the full extent of the ENC Exchange Set
+                Envelope fullExtent = GeometryEngine.CombineExtents(dataSetExtents);
+
+                // Set the viewpoint
+                MyMapView.SetViewpoint(new Viewpoint(fullExtent));
             }
-
-            // Use the geometry engine to compute the full extent of the ENC Exchange Set
-            Envelope fullExtent = GeometryEngine.CombineExtents(dataSetExtents);
-
-            // Set the viewpoint
-            MyMapView.SetViewpoint(new Viewpoint(fullExtent));
+            catch (Exception e)
+            {
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+            }
         }
     }
 }

@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using Android;
 
 namespace ArcGISRuntime.Samples.ReadGeoPackage
 {
@@ -160,7 +159,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
                 string[] myStringArray_LayerNamesNotInTheMap = _myObservableCollection_LayerNamesNotInTheMap.ToArray();
 
                 // Create an ArrayAdapter from the simple string array
-                ArrayAdapter myArrayAdapter_LayerNamesNotInTheMap = new ArrayAdapter<string>(this, Resource.Layout.SimpleListItem1, myStringArray_LayerNamesNotInTheMap);
+                ArrayAdapter myArrayAdapter_LayerNamesNotInTheMap = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, myStringArray_LayerNamesNotInTheMap);
 
                 // Set the _myListView_LayersNotInTheMap.Adapter to the myArrayAdapter_LayerNamesNotInTheMap
                 // This allows the human-readable layer names to be displayed a ListView

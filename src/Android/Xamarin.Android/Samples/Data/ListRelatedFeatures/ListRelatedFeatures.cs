@@ -18,7 +18,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Android;
 
 namespace ArcGISRuntime.Samples.ListRelatedFeatures
 {
@@ -141,7 +140,7 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
                 }
 
                 // Create an array adapter for the layer display
-                ArrayAdapter adapter = new ArrayAdapter(this, Resource.Layout.SimpleSpinnerItem, queryResultsForUi);
+                ArrayAdapter adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, queryResultsForUi);
 
                 // Apply the adapter to show the results in the UI
                 _myDisplayList.Adapter = adapter;

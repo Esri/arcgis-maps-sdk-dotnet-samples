@@ -10,7 +10,6 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntime;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -21,7 +20,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Android;
+using ArcGISRuntime;
 
 namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
 {
@@ -82,7 +81,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
                 }
 
                 // Create an array adapter for the content display
-                ArrayAdapter adapter = new ArrayAdapter(this, Resource.Layout.SimpleSpinnerItem, _viewModelList.Select(item => item.Name).ToList<>());
+                ArrayAdapter adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, _viewModelList.Select(item => item.Name).ToList());
 
                 // Apply the adapter
                 _myDisplayList.Adapter = adapter;

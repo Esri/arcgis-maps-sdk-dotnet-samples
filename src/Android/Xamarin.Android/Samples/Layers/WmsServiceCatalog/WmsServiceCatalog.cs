@@ -16,7 +16,6 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Android;
 
 namespace ArcGISRuntime.Samples.WmsServiceCatalog
 {
@@ -96,7 +95,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
                 }
 
                 // Create an array adapter for the layer display
-                ArrayAdapter adapter = new ArrayAdapter(this, Resource.Layout.SimpleSpinnerItem, _viewModelList);
+                ArrayAdapter adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, _viewModelList);
 
                 // Apply the adapter
                 _myDisplayList.Adapter = adapter;

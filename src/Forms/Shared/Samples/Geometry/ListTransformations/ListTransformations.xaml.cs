@@ -15,7 +15,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using UIKit;
 using Xamarin.Forms;
 using Colors = System.Drawing.Color;
 
@@ -104,7 +103,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             }
             catch (Exception e)
             {
-                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 

@@ -46,6 +46,9 @@ namespace ArcGISRuntime.UWP.Samples.ChangeSublayerRenderer
             // Zoom the map to the extent of the envelope.
             newMap.InitialViewpoint = new  Viewpoint(continentalUSEnvelope);
 
+            // Assign the map to the MapView.
+            MyMapView.Map = newMap;
+
             // Create an ArcGIS map image layer based on the Uri to that points to an ArcGIS Server map service that contains four Census sub-layers.
             // NOTE: sub-layer[0] = Census Block Points, sub-layer[1] = Census Block Group, sub-layer[3] = Counties, sub-layer[3] = States. 
             _arcGISMapImageLayer = new ArcGISMapImageLayer(new System.Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer"));

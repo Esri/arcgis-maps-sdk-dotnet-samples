@@ -183,7 +183,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private void MapItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             // Get the selected web map item in the list box
-            PortalItem selectedMap = e.SelectedItem as PortalItem;
+            PortalItem selectedMap = MapsListView.SelectedItem as PortalItem;
             if (selectedMap == null) { return; }
 
             // Create a new map, pass the web map portal item to the constructor

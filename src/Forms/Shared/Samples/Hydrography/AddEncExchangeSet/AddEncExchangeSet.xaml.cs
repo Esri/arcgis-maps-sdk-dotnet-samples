@@ -75,7 +75,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
                 Envelope fullExtent = GeometryEngine.CombineExtents(dataSetExtents);
 
                 // Set the viewpoint
-                MyMapView.SetViewpoint(new Viewpoint(fullExtent));
+                await MyMapView.SetViewpointAsync(new Viewpoint(fullExtent));
             }
             catch (Exception e)
             {

@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -42,7 +43,7 @@ namespace ArcGISRuntime.WPF.Samples.SymbolizeShapefile
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create the map with topographic basemap
             Map myMap = new Map(Basemap.CreateTopographic());
@@ -72,14 +73,24 @@ namespace ArcGISRuntime.WPF.Samples.SymbolizeShapefile
             // Create the alternate renderer
             _alternateRenderer = new SimpleRenderer(fillSymbol);
 
-            // Hold a reference to the default renderer (to enable switching between the renderers)
-            _defaultRenderer = _shapefileFeatureLayer.Renderer;
+            try
+            {
+                // Wait for the layer to load so that it will be assigned a default renderer
+                await _shapefileFeatureLayer.LoadAsync();
 
-            // Add the map to the mapview
-            MyMapView.Map = myMap;
+                // Hold a reference to the default renderer (to enable switching between the renderers)
+                _defaultRenderer = _shapefileFeatureLayer.Renderer;
 
-            // Enable changing symbology now that sample is loaded
-            MyRendererButton.IsEnabled = true;
+                // Add the map to the mapview
+                MyMapView.Map = myMap;
+
+                // Enable changing symbology now that sample is loaded
+                MyRendererButton.IsEnabled = true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error");
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

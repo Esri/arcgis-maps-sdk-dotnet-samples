@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using UIKit;
 using Xamarin.Forms;
 using Colors = System.Drawing.Color;
 
@@ -50,7 +51,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create the map.
             Map myMap = new Map(Basemap.CreateImageryWithLabels());
@@ -86,15 +87,25 @@ namespace ArcGISRuntime.Samples.ListTransformations
                 MessagesTextBox.Text = "Projection engine data not found.";
             }
 
-            // Show the input and output spatial reference.
-            InSpatialRefTextBox.Text = "In WKID = " + _originalPoint.SpatialReference.Wkid;
-            OutSpatialRefTextBox.Text = "Out WKID = " + myMap.SpatialReference.Wkid;
+            try
+            {
+                // Wait for the map to load so that it has a spatial reference.
+                await myMap.LoadAsync();
 
-            // Set up the UI.
-            TransformationsListBox.ItemsSource = SuitableTransformationsList;
+                // Show the input and output spatial reference.
+                InSpatialRefTextBox.Text = "In WKID = " + _originalPoint.SpatialReference.Wkid;
+                OutSpatialRefTextBox.Text = "Out WKID = " + myMap.SpatialReference.Wkid;
 
-            // Create a list of transformations to fill the UI list box.
-            GetSuitableTransformations(_originalPoint.SpatialReference, myMap.SpatialReference, UseExtentSwitch.IsToggled);
+                // Set up the UI.
+                TransformationsListBox.ItemsSource = SuitableTransformationsList;
+
+                // Create a list of transformations to fill the UI list box.
+                GetSuitableTransformations(_originalPoint.SpatialReference, myMap.SpatialReference, UseExtentSwitch.IsToggled);
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         // Function to get suitable datum transformations for the specified input and output spatial references.

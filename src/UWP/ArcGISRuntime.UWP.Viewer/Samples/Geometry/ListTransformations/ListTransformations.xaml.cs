@@ -16,6 +16,7 @@ using Esri.ArcGISRuntime.UI;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.UWP.Samples.ListTransformations
@@ -70,7 +71,7 @@ namespace ArcGISRuntime.UWP.Samples.ListTransformations
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create the map.
             Map myMap = new Map(Basemap.CreateImageryWithLabels());
@@ -106,12 +107,22 @@ namespace ArcGISRuntime.UWP.Samples.ListTransformations
                 MessagesTextBox.Text = "Projection engine data not found.";
             }
 
-            // Show the input and output spatial reference.
-            InSpatialRefTextBox.Text = "In WKID = " + _originalPoint.SpatialReference.Wkid;
-            OutSpatialRefTextBox.Text = "Out WKID = " + myMap.SpatialReference.Wkid;
+            try
+            {
+                // Wait for the map to load so that it has a spatial reference.
+                await myMap.LoadAsync();
 
-            // Create a list of transformations to fill the UI list box.
-            GetSuitableTransformations(_originalPoint.SpatialReference, myMap.SpatialReference, UseExtentCheckBox.IsChecked == true);
+                // Show the input and output spatial reference.
+                InSpatialRefTextBox.Text = "In WKID = " + _originalPoint.SpatialReference.Wkid;
+                OutSpatialRefTextBox.Text = "Out WKID = " + myMap.SpatialReference.Wkid;
+
+                // Create a list of transformations to fill the UI list box.
+                GetSuitableTransformations(_originalPoint.SpatialReference, myMap.SpatialReference, UseExtentCheckBox.IsChecked == true);
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+            }
         }
 
         // Function to get suitable datum transformations for the specified input and output spatial references.

@@ -52,7 +52,7 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
             Title = "Symbolize a shapefile";
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create the point for the map's initial viewpoint.
             MapPoint point = new MapPoint(-11662054, 4818336, SpatialReference.Create(3857));
@@ -82,14 +82,24 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
             // Create the alternate renderer.
             _alternateRenderer = new SimpleRenderer(fillSymbol);
 
-            // Hold a reference to the default renderer (to enable switching between the renderers).
-            _defaultRenderer = _shapefileFeatureLayer.Renderer;
+            try
+            {
+                // Wait for the layer to load so that it will be assigned a default renderer.
+                await _shapefileFeatureLayer.LoadAsync();
 
-            // Add the map to the mapview.
-            _myMapView.Map = myMap;
+                // Hold a reference to the default renderer (to enable switching between the renderers).
+                _defaultRenderer = _shapefileFeatureLayer.Renderer;
 
-            // Enable changing symbology now that sample is loaded.
-            _myRendererButton.Enabled = true;
+                // Add the map to the mapview.
+                _myMapView.Map = myMap;
+
+                // Enable changing symbology now that sample is loaded.
+                _myRendererButton.Enabled = true;
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         private void CreateLayout()

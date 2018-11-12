@@ -64,9 +64,6 @@ namespace ArcGISRuntime.Samples.ClipGeometry
                 Basemap = Basemap.CreateTopographic()
             };
 
-            // Assign the map to the MapView.
-            MyMapView.Map = newMap;
-
             // Create a graphics overlay to hold the input geometries for the clip operation.
             _inputGeometriesGraphicsOverlay = new GraphicsOverlay();
 
@@ -143,7 +140,10 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             Geometry visibleExtent = GetExtentOfGraphicsOverlay(_inputGeometriesGraphicsOverlay, 1.3, SpatialReferences.WebMercator);
 
             // Set the initial visual extent of the map view to the extent of the graphics overlay.
-            MyMapView.SetViewpoint(new Viewpoint(visibleExtent));
+            newMap.InitialViewpoint = new Viewpoint(visibleExtent);
+            
+            // Assign the map to the MapView.
+            MyMapView.Map = newMap;
         }
 
         private Geometry GetExtentOfGraphicsOverlay(GraphicsOverlay inputGraphicsOverlay, double expansionFactor, SpatialReference spatialReferenceType)

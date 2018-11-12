@@ -40,8 +40,11 @@ namespace ArcGISRuntime.UWP.Samples.ChangeSublayerRenderer
             // Create a new map based on the streets base map.
             Map newMap = new Map(Basemap.CreateStreets());
 
-            // Assign the map to the MapView.
-            MyMapView.Map = newMap;
+            // Create an envelope that covers the continental US in the web Mercator spatial reference.
+            Envelope continentalUSEnvelope = new Envelope(-14193469.5655232, 2509617.28647268, -7228772.04749191, 6737139.97573925 , SpatialReferences.WebMercator);
+
+            // Zoom the map to the extent of the envelope.
+            newMap.InitialViewpoint = new  Viewpoint(continentalUSEnvelope);
 
             // Create an ArcGIS map image layer based on the Uri to that points to an ArcGIS Server map service that contains four Census sub-layers.
             // NOTE: sub-layer[0] = Census Block Points, sub-layer[1] = Census Block Group, sub-layer[3] = Counties, sub-layer[3] = States. 
@@ -49,12 +52,6 @@ namespace ArcGISRuntime.UWP.Samples.ChangeSublayerRenderer
 
             // Add the ArcGIS map image layer to the map's operation layers collection.
             newMap.OperationalLayers.Add(_arcGISMapImageLayer);
-
-            // Create an envelope that covers the continental US in the web Mercator spatial reference.
-            Envelope continentalUSEnvelope = new Envelope(-14193469.5655232, 2509617.28647268, -7228772.04749191, 6737139.97573925, SpatialReferences.WebMercator);
-
-            // Zoom the map to the extent of the envelope.
-            MyMapView.SetViewpoint(new Viewpoint(continentalUSEnvelope));
         }
 
         private ClassBreaksRenderer CreateClassBreaksRenderer()

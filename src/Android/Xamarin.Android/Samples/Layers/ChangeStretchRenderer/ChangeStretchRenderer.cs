@@ -170,7 +170,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                 await myRasterLayer.LoadAsync();
 
                 // Set the viewpoint
-                _myMapView.SetViewpoint(new Viewpoint(myRasterLayer.FullExtent));
+                await _myMapView.SetViewpointGeometryAsync(myRasterLayer.FullExtent);
             }
             catch (Exception e)
             {

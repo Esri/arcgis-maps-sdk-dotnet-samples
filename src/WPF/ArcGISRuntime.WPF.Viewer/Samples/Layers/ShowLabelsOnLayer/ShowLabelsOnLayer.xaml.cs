@@ -117,7 +117,7 @@ namespace ArcGISRuntime.WPF.Samples.ShowLabelsOnLayer
                 await districtFeatureLabel.LoadAsync();
 
                 // Zoom the map view to the extent of the feature layer.
-                await MyMapView.SetViewpointCenterAsync(new MapPoint(-10846309.950860, 4683272.219411, SpatialReferences.WebMercator), 20000000);
+                MyMapView.SetViewpoint(new Viewpoint(new MapPoint(-10846309.950860, 4683272.219411, SpatialReferences.WebMercator), 20000000));
 
                 // Create a label definition from the JSON string. 
                 LabelDefinition redLabelDefinition = LabelDefinition.FromJson(RedLabelJson);

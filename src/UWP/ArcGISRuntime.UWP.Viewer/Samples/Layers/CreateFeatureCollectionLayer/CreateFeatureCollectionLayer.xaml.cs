@@ -110,7 +110,9 @@ namespace ArcGISRuntime.UWP.Samples.CreateFeatureCollectionLayer
                 FeatureCollectionLayer collectionLayer = new FeatureCollectionLayer(featuresCollection);
 
                 // When the layer loads, zoom the map view to the extent of the feature collection
-                collectionLayer.Loaded += CollectionLayer_Loaded;
+                await collectionLayer.LoadAsync();
+                MyMapView.SetViewpoint(new Viewpoint(collectionLayer.FullExtent));
+
                 // Add the layer to the Map's Operational Layers collection
                 MyMapView.Map.OperationalLayers.Add(collectionLayer);
             }
@@ -118,15 +120,6 @@ namespace ArcGISRuntime.UWP.Samples.CreateFeatureCollectionLayer
             {
                 await new MessageDialog(e.ToString(), "Error").ShowAsync();
             }
-        }
-
-        private async void CollectionLayer_Loaded(object sender, EventArgs e)
-        {
-            FeatureCollectionLayer collectionLayer = (FeatureCollectionLayer)sender;
-             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-             {
-                 MyMapView.SetViewpoint(new Viewpoint(collectionLayer.FullExtent));
-             });
         }
 
         private Renderer CreateRenderer(GeometryType rendererType)

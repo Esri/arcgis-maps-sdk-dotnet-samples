@@ -57,7 +57,7 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
                 await myRasterLayer.LoadAsync();
 
                 // Set the viewpoint
-                myMap.InitialViewpoint = new Viewpoint(myRasterLayer.FullExtent);
+                await MyMapView.SetViewpointGeometryAsync(myRasterLayer.FullExtent);
             }
             catch (Exception e)
             {

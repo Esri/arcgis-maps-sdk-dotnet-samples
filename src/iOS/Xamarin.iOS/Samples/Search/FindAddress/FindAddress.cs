@@ -139,7 +139,7 @@ namespace ArcGISRuntime.Samples.FindAddress
                 _myMapView.GraphicsOverlays.Add(resultOverlay);
 
                 // Update the map extent to show the marker.
-                await _myMapView.SetViewpointGeometryAsync(addresses.First().Extent);
+                _myMapView.SetViewpoint(new Viewpoint(addresses.First().Extent));
             }
             catch (Exception e)
             {

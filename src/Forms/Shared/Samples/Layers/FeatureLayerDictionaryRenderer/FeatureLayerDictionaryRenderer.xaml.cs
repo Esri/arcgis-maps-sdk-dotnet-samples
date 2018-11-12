@@ -42,12 +42,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
             // Provide Map to the MapView
             MyMapView.Map = myMap;
 
-            // Create geometry for the center of the map
-            MapPoint centerGeometry = new MapPoint(-13549402.587055, 4397264.96879385, SpatialReference.Create(3857));
-
-            // Set the map's viewpoint to highlight the desired content
-            MyMapView.SetViewpoint(new Viewpoint(centerGeometry, 201555));
-
             // Get the path to the geodatabase
             string geodbFilePath = GetGeodatabasePath();
 
@@ -84,6 +78,12 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
                     // Add the layer to the map
                     myMap.OperationalLayers.Add(myLayer);
                 }
+
+                // Create geometry for the center of the map
+                MapPoint centerGeometry = new MapPoint(-13549402.587055, 4397264.96879385, SpatialReference.Create(3857));
+
+                // Set the map's viewpoint to highlight the desired content
+                MyMapView.SetViewpoint(new Viewpoint(centerGeometry, 201555));
             }
             catch (Exception e)
             {

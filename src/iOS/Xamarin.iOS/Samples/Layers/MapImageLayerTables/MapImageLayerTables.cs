@@ -179,7 +179,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             }
             catch (Exception ex)
             {
-                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
         }
 

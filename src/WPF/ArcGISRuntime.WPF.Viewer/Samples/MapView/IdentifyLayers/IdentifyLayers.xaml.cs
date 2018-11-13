@@ -66,10 +66,12 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyLayers
                 // Perform an identify across all layers, taking up to 10 results per layer.
                 IReadOnlyList<IdentifyLayerResult> identifyResults = await MyMapView.IdentifyLayersAsync(e.Position, 15, false, 10);
 
+                // Add a line to the output for each layer, with a count of features in the layer.
                 string result = "";
                 foreach (IdentifyLayerResult layerResult in identifyResults)
                 {
-                    result = result + layerResult.LayerContent.Name + ": " + recursivelyCountIdentifyResults(layerResult) + "\n";
+                    // Note: because some layers have sublayers, a recursive function is required to count results.
+                    result = result + layerResult.LayerContent.Name + ": " + recursivelyCountIdentifyResultsForSublayers(layerResult) + "\n";
                 }
 
                 if (!String.IsNullOrEmpty(result))
@@ -83,15 +85,16 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyLayers
             }
         }
 
-        private int recursivelyCountIdentifyResults(IdentifyLayerResult result)
+        private int recursivelyCountIdentifyResultsForSublayers(IdentifyLayerResult result)
         {
-            int counter = 0;
+            int sublayerResultCount = 0;
             foreach (IdentifyLayerResult res in result.SublayerResults)
             {
-                counter += recursivelyCountIdentifyResults(res);
+                // This function calls itself to count results on sublayers.
+                sublayerResultCount += recursivelyCountIdentifyResultsForSublayers(res);
             }
-
-            return result.GeoElements.Count + counter;
+            
+            return result.GeoElements.Count + sublayerResultCount;
         }
     }
 }

@@ -4,5 +4,10 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView"/>
+        <Border Style="{StaticResource BorderStyle}">
+            <Label Content="Tap to identify features in all layers."
+                   FontWeight="SemiBold"
+                   HorizontalAlignment="Center" />
+        </Border>
     </Grid>
 </UserControl>

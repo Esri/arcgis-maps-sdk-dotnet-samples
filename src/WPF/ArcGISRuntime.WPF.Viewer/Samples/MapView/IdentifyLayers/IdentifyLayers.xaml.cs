@@ -72,7 +72,10 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyLayers
                     result = result + layerResult.LayerContent.Name + ": " + recursivelyCountIdentifyResults(layerResult) + "\n";
                 }
 
-                MessageBox.Show(result, "Identify layers result");
+                if (!String.IsNullOrEmpty(result))
+                {
+                    MessageBox.Show(result, "Identify layers result");
+                }
             }
             catch (Exception ex)
             {

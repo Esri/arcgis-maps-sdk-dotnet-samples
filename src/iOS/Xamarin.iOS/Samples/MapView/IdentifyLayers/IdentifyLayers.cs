@@ -10,13 +10,10 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Collections.Generic;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
@@ -31,33 +28,114 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
     {
         // Hold references to UI controls.
         private MapView _myMapView;
+        private UILabel _helpLabel;
 
         public IdentifyLayers()
         {
             Title = "Identify layers";
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
-            // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateImagery());
+            // Create a map with an initial viewpoint.
+            Map map = new Map(Basemap.CreateTopographic());
+            map.InitialViewpoint = new Viewpoint(new MapPoint(-10977012.785807, 4514257.550369, SpatialReference.Create(3857)), 68015210);
+            _myMapView.Map = map;
 
-            // Provide used Map to the MapView.
-            _myMapView.Map = myMap;
+            try
+            {
+                // Add a map image layer to the map after turning off two sublayers.
+                ArcGISMapImageLayer cityLayer = new ArcGISMapImageLayer(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"));
+                await cityLayer.LoadAsync();
+                cityLayer.Sublayers[1].IsVisible = false;
+                cityLayer.Sublayers[2].IsVisible = false;
+                map.OperationalLayers.Add(cityLayer);
+
+                // Add a feature layer to the map.
+                FeatureLayer damageLayer = new FeatureLayer(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0"));
+                map.OperationalLayers.Add(damageLayer);
+
+                // Listen for taps/clicks to start the identify operation.
+                _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
+        }
+
+        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            try
+            {
+                // Perform an identify across all layers, taking up to 10 results per layer.
+                IReadOnlyList<IdentifyLayerResult> identifyResults = await _myMapView.IdentifyLayersAsync(e.Position, 15, false, 10);
+
+                // Add a line to the output for each layer, with a count of features in the layer.
+                string result = "";
+                foreach (IdentifyLayerResult layerResult in identifyResults)
+                {
+                    // Note: because some layers have sublayers, a recursive function is required to count results.
+                    result = result + layerResult.LayerContent.Name + ": " + recursivelyCountIdentifyResultsForSublayers(layerResult) + "\n";
+                }
+
+                if (!String.IsNullOrEmpty(result))
+                {
+                    new UIAlertView("Identify result", result, (IUIAlertViewDelegate) null, "OK", null).Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
+        }
+
+        private int recursivelyCountIdentifyResultsForSublayers(IdentifyLayerResult result)
+        {
+            int sublayerResultCount = 0;
+            foreach (IdentifyLayerResult res in result.SublayerResults)
+            {
+                // This function calls itself to count results on sublayers.
+                sublayerResultCount += recursivelyCountIdentifyResultsForSublayers(res);
+            }
+
+            return result.GeoElements.Count + sublayerResultCount;
         }
 
         public override void LoadView()
         {
+            // Create the view.
+            View = new UIView();
+
+            // Create a MapView, turn off autoresizing masks, and add MapView to the view.
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_myMapView);
 
-            View = new UIView();
-            View.AddSubviews(_myMapView);
+            // Create and configure the help label, turn off auto resizing masks, then add it to the view.
+            _helpLabel = new UILabel
+            {
+                Text = "Tap to identify features in all layers.",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            View.AddSubview(_helpLabel);
 
+            // Apply constraints to the mapview.
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+
+            // Apply constraints to the help label.
+            _helpLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _helpLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
         }
 
         public override void ViewDidLoad()

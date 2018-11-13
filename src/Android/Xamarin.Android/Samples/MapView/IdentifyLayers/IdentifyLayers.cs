@@ -13,12 +13,9 @@ using Android.Widget;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
+using System;
+using System.Collections.Generic;
 
 namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
 {
@@ -43,19 +40,84 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
-            // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateImagery());
-            
-            // Provide used Map to the MapView.
-            _myMapView.Map = myMap;
+            // Create a map with an initial viewpoint.
+            Map map = new Map(Basemap.CreateTopographic());
+            map.InitialViewpoint = new Viewpoint(new MapPoint(-10977012.785807, 4514257.550369, SpatialReference.Create(3857)), 68015210);
+            _myMapView.Map = map;
+
+            try
+            {
+                // Add a map image layer to the map after turning off two sublayers.
+                ArcGISMapImageLayer cityLayer = new ArcGISMapImageLayer(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"));
+                await cityLayer.LoadAsync();
+                cityLayer.Sublayers[1].IsVisible = false;
+                cityLayer.Sublayers[2].IsVisible = false;
+                map.OperationalLayers.Add(cityLayer);
+
+                // Add a feature layer to the map.
+                FeatureLayer damageLayer = new FeatureLayer(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0"));
+                map.OperationalLayers.Add(damageLayer);
+
+                // Listen for taps/clicks to start the identify operation.
+                _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
+        }
+
+        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            try
+            {
+                // Perform an identify across all layers, taking up to 10 results per layer.
+                IReadOnlyList<IdentifyLayerResult> identifyResults = await _myMapView.IdentifyLayersAsync(e.Position, 15, false, 10);
+
+                // Add a line to the output for each layer, with a count of features in the layer.
+                string result = "";
+                foreach (IdentifyLayerResult layerResult in identifyResults)
+                {
+                    // Note: because some layers have sublayers, a recursive function is required to count results.
+                    result = result + layerResult.LayerContent.Name + ": " + recursivelyCountIdentifyResultsForSublayers(layerResult) + "\n";
+                }
+
+                if (!String.IsNullOrEmpty(result))
+                {
+                    new AlertDialog.Builder(this).SetMessage(result).SetTitle("Identify result").Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("Error").Show();
+            }
+        }
+
+        private int recursivelyCountIdentifyResultsForSublayers(IdentifyLayerResult result)
+        {
+            int sublayerResultCount = 0;
+            foreach (IdentifyLayerResult res in result.SublayerResults)
+            {
+                // This function calls itself to count results on sublayers.
+                sublayerResultCount += recursivelyCountIdentifyResultsForSublayers(res);
+            }
+
+            return result.GeoElements.Count + sublayerResultCount;
         }
 
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            var layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
+
+            // Create and add a help tip.
+            TextView helpLabel = new TextView(this)
+            {
+                Text = "Tap to identify features in all layers."
+            };
+            layout.AddView(helpLabel);
 
             // Add the map view to the layout.
             layout.AddView(_myMapView);

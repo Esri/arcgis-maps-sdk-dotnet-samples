@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<Content Include="Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
     <Content Include="Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
     <Content Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.jpg" />
     <Content Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.jpg" />
@@ -290,6 +291,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\MapView\IdentifyLayers\IdentifyLayers.xaml.cs">
+		<DependentUpon>IdentifyLayers.xaml</DependentUpon>
+	</Compile>
     <Compile Include="Samples\Layers\ListKmlContents\ListKmlContents.xaml.cs">
       <DependentUpon>ListKmlContents.xaml</DependentUpon>
     </Compile>
@@ -689,6 +693,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<Page Include="Samples\MapView\IdentifyLayers\IdentifyLayers.xaml">
+		<Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
     <Page Include="Samples\Layers\ListKmlContents\ListKmlContents.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

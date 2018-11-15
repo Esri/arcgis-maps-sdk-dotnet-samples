@@ -38,9 +38,9 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
         private async void Initialize()
         {
             // Create a map with an initial viewpoint.
-            Map map = new Map(Basemap.CreateTopographic());
-            map.InitialViewpoint = new Viewpoint(new MapPoint(-10977012.785807, 4514257.550369, SpatialReference.Create(3857)), 68015210);
-            _myMapView.Map = map;
+            Map myMap = new Map(Basemap.CreateTopographic());
+            myMap.InitialViewpoint = new Viewpoint(new MapPoint(-10977012.785807, 4514257.550369, SpatialReference.Create(3857)), 68015210);
+            _myMapView.Map = myMap;
 
             try
             {
@@ -49,11 +49,11 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
                 await cityLayer.LoadAsync();
                 cityLayer.Sublayers[1].IsVisible = false;
                 cityLayer.Sublayers[2].IsVisible = false;
-                map.OperationalLayers.Add(cityLayer);
+                myMap.OperationalLayers.Add(cityLayer);
 
                 // Add a feature layer to the map.
                 FeatureLayer damageLayer = new FeatureLayer(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0"));
-                map.OperationalLayers.Add(damageLayer);
+                myMap.OperationalLayers.Add(damageLayer);
 
                 // Listen for taps/clicks to start the identify operation.
                 _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;

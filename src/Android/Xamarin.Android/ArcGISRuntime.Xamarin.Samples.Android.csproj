@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
     <None Include="Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
     <None Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.jpg" />
     <None Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.jpg" />
@@ -246,6 +247,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\MapView\IdentifyLayers\IdentifyLayers.cs" />
     <Compile Include="Samples\Layers\ListKmlContents\ListKmlContents.cs" />
     <Compile Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.cs" />
     <Compile Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.cs" />

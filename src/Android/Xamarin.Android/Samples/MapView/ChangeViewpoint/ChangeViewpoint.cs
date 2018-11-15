@@ -104,41 +104,48 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
 
         private async void OnViewpointMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
         {
-            // Get title from the selected item
-            string selectedMapTitle = e.Item.TitleCondensedFormatted.ToString();
-
-            switch (selectedMapTitle)
+            try
             {
-                case "Geometry":
+                // Get title from the selected item
+                string selectedMapTitle = e.Item.TitleCondensedFormatted.ToString();
 
-                    // Set Viewpoint using Redlands envelope defined above and a padding of 20
-                    await _myMapView.SetViewpointGeometryAsync(_redlandsPolygon, 20);
-                    break;
+                switch (selectedMapTitle)
+                {
+                    case "Geometry":
 
-                case "Center & Scale":
+                        // Set Viewpoint using Redlands envelope defined above and a padding of 20
+                        await _myMapView.SetViewpointGeometryAsync(_redlandsPolygon, 20);
+                        break;
 
-                    // Set Viewpoint so that it is centered on the London coordinates defined above
-                    await _myMapView.SetViewpointCenterAsync(_londonCoords);
+                    case "Center & Scale":
 
-                    // Set the Viewpoint scale to match the specified scale
-                    await _myMapView.SetViewpointScaleAsync(LondonScale);
-                    break;
+                        // Set Viewpoint so that it is centered on the London coordinates defined above
+                        await _myMapView.SetViewpointCenterAsync(_londonCoords);
 
-                case "Animate":
+                        // Set the Viewpoint scale to match the specified scale
+                        await _myMapView.SetViewpointScaleAsync(LondonScale);
+                        break;
 
-                    // Navigate to full extent of the first baselayer before animating to specified geometry
-                    await _myMapView.SetViewpointAsync(
-                        new Viewpoint(_myMapView.Map.Basemap.BaseLayers.First().FullExtent));
+                    case "Animate":
 
-                    // Create a new Viewpoint using the specified geometry
-                    Viewpoint viewpoint = new Viewpoint(_edinburghPolygon);
+                        // Navigate to full extent of the first baselayer before animating to specified geometry
+                        await _myMapView.SetViewpointAsync(
+                            new Viewpoint(_myMapView.Map.Basemap.BaseLayers.First().FullExtent));
 
-                    // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
-                    await _myMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));
-                    break;
+                        // Create a new Viewpoint using the specified geometry
+                        Viewpoint viewpoint = new Viewpoint(_edinburghPolygon);
 
-                default:
-                    break;
+                        // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
+                        await _myMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("Error").Show();
             }
         }
 

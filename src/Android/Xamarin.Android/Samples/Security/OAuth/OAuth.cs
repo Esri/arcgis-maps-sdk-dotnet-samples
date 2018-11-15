@@ -63,20 +63,27 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
 
         private async void Initialize()
         {
-            // Set up the AuthenticationManager to use OAuth for secure ArcGIS Online requests.
-            SetOAuthInfo();
+            try
+            {
+                // Set up the AuthenticationManager to use OAuth for secure ArcGIS Online requests.
+                SetOAuthInfo();
 
-            // Connect to the portal (ArcGIS Online, for example).
-            ArcGISPortal arcgisPortal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
+                // Connect to the portal (ArcGIS Online, for example).
+                ArcGISPortal arcgisPortal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
 
-            // Get a web map portal item using its ID.
-            // If the item contains layers not shared publicly, the user will be challenged for credentials at this point.
-            PortalItem portalItem = await PortalItem.CreateAsync(arcgisPortal, WebMapId);
+                // Get a web map portal item using its ID.
+                // If the item contains layers not shared publicly, the user will be challenged for credentials at this point.
+                PortalItem portalItem = await PortalItem.CreateAsync(arcgisPortal, WebMapId);
 
-            // Create a new map with the portal item and display it in the map view.
-            // If authentication failed, only the public layers will be displayed.
-            Map myMap = new Map(portalItem);
-            _myMapView.Map = myMap;
+                // Create a new map with the portal item and display it in the map view.
+                // If authentication failed, only the public layers will be displayed.
+                Map myMap = new Map(portalItem);
+                _myMapView.Map = myMap;
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private void SetOAuthInfo()

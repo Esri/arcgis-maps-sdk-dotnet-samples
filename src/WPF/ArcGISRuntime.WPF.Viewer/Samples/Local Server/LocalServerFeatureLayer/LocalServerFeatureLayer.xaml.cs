@@ -89,11 +89,18 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
                 // Add the layer to the map
                 MyMapView.Map.OperationalLayers.Add(myFeatureLayer);
 
-                // Wait for the layer to load
-                await myFeatureLayer.LoadAsync();
+                try
+                {
+                    // Wait for the layer to load
+                    await myFeatureLayer.LoadAsync();
 
-                // Set the viewpoint on the MapView to show the layer data
-                await MyMapView.SetViewpointGeometryAsync(myFeatureLayer.FullExtent, 50);
+                    // Set the viewpoint on the MapView to show the layer data
+                    await MyMapView.SetViewpointGeometryAsync(myFeatureLayer.FullExtent, 50);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Error");
+                }
             }
         }
 

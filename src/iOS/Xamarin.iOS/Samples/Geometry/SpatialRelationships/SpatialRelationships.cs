@@ -47,7 +47,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             Title = "Spatial relationships";
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Configure the basemap.
             _myMapView.Map = new Map(Basemap.CreateTopographic());
@@ -111,17 +111,33 @@ namespace ArcGISRuntime.Samples.ListTransformations
             // Listen for taps; the spatial relationships will be updated in the handler.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
-            // Set the viewpoint to center on the point.
-            _myMapView.SetViewpointCenterAsync(pointGeometry, 200000000);
+            try
+            {
+                // Set the viewpoint to center on the point.
+                await _myMapView.SetViewpointAsync(new Viewpoint(pointGeometry, 200000000));
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Identify the tapped graphics.
-            IdentifyGraphicsOverlayResult result = await _myMapView.IdentifyGraphicsOverlayAsync(_graphicsOverlay, e.Position, 1, false);
+            IdentifyGraphicsOverlayResult result = null;
+
+            try
+            {
+                result = await _myMapView.IdentifyGraphicsOverlayAsync(_graphicsOverlay, e.Position, 1, false);
+            }
+            catch (Exception ex)
+            {
+                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
 
             // Return if there are no results.
-            if (result.Graphics.Count < 1)
+            if (result == null || result.Graphics.Count < 1)
             {
                 return;
             }

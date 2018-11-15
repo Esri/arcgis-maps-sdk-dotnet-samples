@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using System.Linq;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
@@ -59,14 +60,21 @@ namespace ArcGISRuntime.Samples.OpenMobileMap
             // Get the path to the mobile map package.
             string filepath = DataManager.GetDataFolder("e1f3a7254cb845b09450f54937c16061", "Yellowstone.mmpk");
 
-            // Open the map package.
-            MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(filepath);
-
-            // Check that there is at least one map.
-            if (myMapPackage.Maps.Count > 0)
+            try
             {
-                // Display the first map in the package.
-                _myMapView.Map = myMapPackage.Maps.First();
+                // Open the map package.
+                MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(filepath);
+
+                // Check that there is at least one map.
+                if (myMapPackage.Maps.Count > 0)
+                {
+                    // Display the first map in the package.
+                    _myMapView.Map = myMapPackage.Maps.First();
+                }
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
         }
     }

@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.SceneLayerUrl
 {
@@ -26,7 +27,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerUrl
 
         // URL for the scene layer.
         private readonly Uri _serviceUri = new Uri(
-            "https://scenesampleserverdev.arcgis.com/arcgis/rest/services/Hosted/Buildings_Philadelphia/SceneServer");
+            "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Portland/SceneServer");
 
         public SceneLayerUrl()
         {
@@ -49,20 +50,27 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerUrl
             // Add created layer to the operational layers collection.
             myScene.OperationalLayers.Add(sceneLayer);
 
-            // Load the layer.
-            await sceneLayer.LoadAsync();
+            try
+            {
+                // Load the layer.
+                await sceneLayer.LoadAsync();
 
-            // Get the center of the scene layer.
-            MapPoint center = (MapPoint)GeometryEngine.Project(sceneLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
+                // Get the center of the scene layer.
+                MapPoint center = (MapPoint)GeometryEngine.Project(sceneLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
 
-            // Create a camera with coordinates showing layer data.
-            Camera camera = new Camera(center.Y, center.X, 225, 240, 80, 0);
+                // Create a camera with coordinates showing layer data.
+                Camera camera = new Camera(center.Y, center.X, 225, 220, 80, 0);
 
-            // Assign the Scene to the SceneView.
-            MySceneView.Scene = myScene;
+                // Assign the Scene to the SceneView.
+                MySceneView.Scene = myScene;
 
-            // Set view point of scene view using camera.
-            await MySceneView.SetViewpointCameraAsync(camera);
+                // Set view point of scene view using camera.
+                await MySceneView.SetViewpointCameraAsync(camera);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error");
+            }
         }
     }
 }

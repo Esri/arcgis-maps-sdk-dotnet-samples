@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
@@ -71,14 +72,21 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
             // Add the layer to the map.
             map.OperationalLayers.Add(rasterLayer);
 
-            // Wait for the layer to load.
-            await rasterLayer.LoadAsync();
-
-            // Set the viewpoint.
-            map.InitialViewpoint = new Viewpoint(rasterLayer.FullExtent);
-
             // Add map to the mapview.
             _myMapView.Map = map;
+
+            try
+            {
+                // Wait for the layer to load.
+                await rasterLayer.LoadAsync();
+
+                // Set the viewpoint.
+                await _myMapView.SetViewpointGeometryAsync(rasterLayer.FullExtent);
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
     }
 }

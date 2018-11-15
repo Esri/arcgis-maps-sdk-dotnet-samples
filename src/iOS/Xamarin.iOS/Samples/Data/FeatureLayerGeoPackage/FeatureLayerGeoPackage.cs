@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using System.Linq;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
@@ -64,24 +65,31 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
             // Get the full path.
             string geoPackagePath = DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");
 
-            // Open the GeoPackage.
-            GeoPackage geoPackage = await GeoPackage.OpenAsync(geoPackagePath);
-
-            // Read the feature tables and get the first one.
-            FeatureTable geoPackageTable = geoPackage.GeoPackageFeatureTables.FirstOrDefault();
-
-            // Make sure a feature table was found in the package.
-            if (geoPackageTable == null)
+            try
             {
-                return;
+                // Open the GeoPackage.
+                GeoPackage geoPackage = await GeoPackage.OpenAsync(geoPackagePath);
+
+                // Read the feature tables and get the first one.
+                FeatureTable geoPackageTable = geoPackage.GeoPackageFeatureTables.FirstOrDefault();
+
+                // Make sure a feature table was found in the package.
+                if (geoPackageTable == null)
+                {
+                    return;
+                }
+
+                // Create a layer to show the feature table.
+                FeatureLayer newLayer = new FeatureLayer(geoPackageTable);
+                await newLayer.LoadAsync();
+
+                // Add the feature table as a layer to the map (with default symbology).
+                _myMapView.Map.OperationalLayers.Add(newLayer);
             }
-
-            // Create a layer to show the feature table.
-            FeatureLayer newLayer = new FeatureLayer(geoPackageTable);
-            await newLayer.LoadAsync();
-
-            // Add the feature table as a layer to the map (with default symbology).
-            _myMapView.Map.OperationalLayers.Add(newLayer);
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
     }
 }

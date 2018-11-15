@@ -54,21 +54,28 @@ namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
             // Create the US states feature table
             _usStatesTable = new ServiceFeatureTable(_usStatesServiceUri);
 
-            // Load the table
-            await _usStatesTable.LoadAsync();
+            try
+            {
+                // Load the table
+                await _usStatesTable.LoadAsync();
 
-            // Fill the fields combo and "group by" list with fields from the table
-            FieldsComboBox.ItemsSource = _usStatesTable.Fields;
-            GroupFieldsListBox.ItemsSource = _usStatesTable.Fields;
+                // Fill the fields combo and "group by" list with fields from the table
+                FieldsComboBox.ItemsSource = _usStatesTable.Fields;
+                GroupFieldsListBox.ItemsSource = _usStatesTable.Fields;
 
-            // Set the (initially empty) collection of fields as the "order by" fields list data source
-            OrderByFieldsListBox.ItemsSource = _orderByFields;
+                // Set the (initially empty) collection of fields as the "order by" fields list data source
+                OrderByFieldsListBox.ItemsSource = _orderByFields;
 
-            // Fill the statistics type combo with values from the StatisticType enum
-            StatTypeComboBox.ItemsSource = Enum.GetValues(typeof(StatisticType));
+                // Fill the statistics type combo with values from the StatisticType enum
+                StatTypeComboBox.ItemsSource = Enum.GetValues(typeof(StatisticType));
 
-            // Set the (initially empty) collection of statistic definitions as the statistics list box data source
-            StatFieldsListBox.ItemsSource = _statDefinitions;
+                // Set the (initially empty) collection of statistic definitions as the statistics list box data source
+                StatFieldsListBox.ItemsSource = _statDefinitions;
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+            }
         }
 
         // Execute a statistical query using the parameters defined by the user and display the results
@@ -99,14 +106,21 @@ namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
             // Ignore counties with missing data
             statQueryParams.WhereClause = "\"State\" IS NOT NULL";
 
-            // Execute the statistical query with these parameters and await the results
-            StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
+            try
+            {
+                // Execute the statistical query with these parameters and await the results
+                StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
 
-            // Format the output for display of grouped results in the list view
-            IEnumerable<IGrouping<string,IReadOnlyDictionary<string,object>>> groupedResults = statQueryResult.GroupBy(r => string.Join(", ", r.Group.Values), r => r.Statistics);
+                // Format the output for display of grouped results in the list view
+                IEnumerable<IGrouping<string,IReadOnlyDictionary<string,object>>> groupedResults = statQueryResult.GroupBy(r => string.Join(", ", r.Group.Values), r => r.Statistics);
 
-            // Apply the results to the list view data source
-            GroupedResultData.Source = groupedResults;
+                // Apply the results to the list view data source
+                GroupedResultData.Source = groupedResults;
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+            }
         }
         
         // Helper function to show a message

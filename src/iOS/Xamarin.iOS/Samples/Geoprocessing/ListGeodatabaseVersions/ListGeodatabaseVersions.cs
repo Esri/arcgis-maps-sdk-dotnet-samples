@@ -68,32 +68,39 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             // Set the UI to indicate that the geoprocessing is running.
             SetBusy(true);
 
-            // Get versions from a geodatabase.
-            IFeatureSet versionsFeatureSet = await GetGeodatabaseVersionsAsync();
-
-            // Continue if there is a valid geoprocessing result.
-            if (versionsFeatureSet != null)
+            try
             {
-                // Create a string builder to hold all of the information from the geoprocessing
-                // task to display in the UI.
-                StringBuilder stringBuilder = new StringBuilder();
+                // Get versions from a geodatabase.
+                IFeatureSet versionsFeatureSet = await GetGeodatabaseVersionsAsync();
 
-                // Loop through each Feature in the FeatureSet.
-                foreach (Feature version in versionsFeatureSet)
+                // Continue if there is a valid geoprocessing result.
+                if (versionsFeatureSet != null)
                 {
-                    // Loop through each attribute (a <key,value> pair).
-                    foreach (KeyValuePair<string, object> attribute in version.Attributes)
+                    // Create a string builder to hold all of the information from the geoprocessing
+                    // task to display in the UI.
+                    StringBuilder stringBuilder = new StringBuilder();
+
+                    // Loop through each Feature in the FeatureSet.
+                    foreach (Feature version in versionsFeatureSet)
                     {
-                        // Add the key and value strings to the string builder.
-                        stringBuilder.AppendLine(attribute.Key + ": " + attribute.Value);
+                        // Loop through each attribute (a <key,value> pair).
+                        foreach (KeyValuePair<string, object> attribute in version.Attributes)
+                        {
+                            // Add the key and value strings to the string builder.
+                            stringBuilder.AppendLine(attribute.Key + ": " + attribute.Value);
+                        }
+
+                        // Add a blank line after each Feature (the listing of geodatabase versions).
+                        stringBuilder.AppendLine();
                     }
 
-                    // Add a blank line after each Feature (the listing of geodatabase versions).
-                    stringBuilder.AppendLine();
+                    // Display the results to the user.
+                    _geodatabaseListField.Text = stringBuilder.ToString();
                 }
-
-                // Display the results to the user.
-                _geodatabaseListField.Text = stringBuilder.ToString();
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
 
             // Set the UI to indicate that the geoprocessing is not running.

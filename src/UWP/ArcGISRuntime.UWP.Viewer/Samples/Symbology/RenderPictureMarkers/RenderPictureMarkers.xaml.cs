@@ -15,6 +15,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace ArcGISRuntime.UWP.Samples.RenderPictureMarkers
 {
@@ -56,7 +57,14 @@ namespace ArcGISRuntime.UWP.Samples.RenderPictureMarkers
 
             // Add graphics using different source types
             CreatePictureMarkerSymbolFromUrl(overlay);
-            await CreatePictureMarkerSymbolFromResources(overlay);
+            try
+            {
+                await CreatePictureMarkerSymbolFromResources(overlay);
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+            }
         }
 
         private void CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)

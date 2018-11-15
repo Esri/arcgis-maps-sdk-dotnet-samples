@@ -15,7 +15,7 @@ Click on a building in the scene layer to select it. Deselect buildings by click
 
 ## About the data
 
-This sample shows an [Indianapolis building layer](https://www.arcgis.com/home/item.html?id=d5271294f1e04ac9acc5b36feaab7859) from ArcGIS Online.
+This sample shows a [Berlin building layer](https://www.arcgis.com/home/item.html?id=31874da8a16d45bfbc1273422f772270) from ArcGIS Online.
 
 ## Relevant API
 * `Scene`

@@ -9,6 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.ChangeSublayerVisibility
 {
@@ -48,11 +49,18 @@ namespace ArcGISRuntime.WPF.Samples.ChangeSublayerVisibility
             // Assign the map to the MapView
             MyMapView.Map = myMap;
 
-            // Wait that the image layer is loaded and sublayer information is fetched
-            await imageLayer.LoadAsync();
+            try
+            {
+                // Wait that the image layer is loaded and sublayer information is fetched
+                await imageLayer.LoadAsync();
 
-            // Assign sublayers to the listview
-            SublayerListView.ItemsSource = imageLayer.Sublayers;
+                // Assign sublayers to the listview
+                SublayerListView.ItemsSource = imageLayer.Sublayers;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error");
+            }
         }
     }
 }

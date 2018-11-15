@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using System.Linq;
 using Android.App;
 using Android.OS;
@@ -49,21 +50,28 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
             // Get the full path
             string geoPackagePath = GetGeoPackagePath();
 
-            // Open the GeoPackage
-            GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
+            try
+            {
+                // Open the GeoPackage
+                GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
 
-            // Read the feature tables and get the first one
-            FeatureTable geoPackageTable = myGeoPackage.GeoPackageFeatureTables.FirstOrDefault();
+                // Read the feature tables and get the first one
+                FeatureTable geoPackageTable = myGeoPackage.GeoPackageFeatureTables.FirstOrDefault();
 
-            // Make sure a feature table was found in the package
-            if (geoPackageTable == null) { return; }
+                // Make sure a feature table was found in the package
+                if (geoPackageTable == null) { return; }
 
-            // Create a layer to show the feature table
-            FeatureLayer newLayer = new FeatureLayer(geoPackageTable);
-            await newLayer.LoadAsync();
+                // Create a layer to show the feature table
+                FeatureLayer newLayer = new FeatureLayer(geoPackageTable);
+                await newLayer.LoadAsync();
 
-            // Add the feature table as a layer to the map (with default symbology)
-            _myMapView.Map.OperationalLayers.Add(newLayer);
+                // Add the feature table as a layer to the map (with default symbology)
+                _myMapView.Map.OperationalLayers.Add(newLayer);
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private static string GetGeoPackagePath()

@@ -25,6 +25,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         "This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.",
         "The shapefile will be downloaded from an ArcGIS Online portal automatically.",
         "Featured")]
+    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("MetadataDisplayViewController.cs")]
     public class ReadShapefileMetadata : UIViewController
     {
         // Hold references to the UI controls.
@@ -56,23 +57,30 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             // Get the path to the downloaded shapefile.
             string filepath = DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "TrailBikeNetwork.shp");
 
-            // Open the shapefile.
-            ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
+            try
+            {
+                // Open the shapefile.
+                ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
 
-            // Read metadata about the shapefile and display it in the UI.
-            _shapefileMetadata = myShapefile.Info;
+                // Read metadata about the shapefile and display it in the UI.
+                _shapefileMetadata = myShapefile.Info;
 
-            // Create a feature layer to display the shapefile.
-            FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
+                // Create a feature layer to display the shapefile.
+                FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
 
-            // Zoom the map to the extent of the shapefile.
-            _myMapView.SpatialReferenceChanged += async (s, e) => { await _myMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent); };
+                // Zoom the map to the extent of the shapefile.
+                _myMapView.SpatialReferenceChanged += async (s, e) => { await _myMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent); };
 
-            // Add the feature layer to the map.
-            streetMap.OperationalLayers.Add(newFeatureLayer);
+                // Add the feature layer to the map.
+                streetMap.OperationalLayers.Add(newFeatureLayer);
 
-            // Show the map in the MapView.
-            _myMapView.Map = streetMap;
+                // Show the map in the MapView.
+                _myMapView.Map = streetMap;
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         private void OnMetadataButtonTouch(object sender, EventArgs e)

@@ -146,29 +146,36 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             // Add the plane graphic to the inset map via the overlay
             insetMapOperlay.Graphics.Add(_plane2D);
 
-            // Create the model graphic for the plane
-            // Get the path to the 3D model
-            string modelPath = GetModelPath();
-            // Create the scene symbol from the path to the model
-            ModelSceneSymbol plane3DSymbol = await ModelSceneSymbol.CreateAsync(new Uri(modelPath), 1.0);
-            // Create the graphic with an initial location and the plane symbol
-            _plane3D = new Graphic(new MapPoint(0, 0, 0, SpatialReferences.Wgs84), plane3DSymbol);
-            // Add the plane to the overlay
-            sceneOverlay.Graphics.Add(_plane3D);
-
-            // Create the orbit camera controller to follow the plane
-            _orbitCameraController = new OrbitGeoElementCameraController(_plane3D, 20.0)
+            try
             {
-                CameraPitchOffset = 75.0
-            };
-            MySceneView.CameraController = _orbitCameraController;
+                // Create the model graphic for the plane
+                // Get the path to the 3D model
+                string modelPath = GetModelPath();
+                // Create the scene symbol from the path to the model
+                ModelSceneSymbol plane3DSymbol = await ModelSceneSymbol.CreateAsync(new Uri(modelPath), 1.0);
+                // Create the graphic with an initial location and the plane symbol
+                _plane3D = new Graphic(new MapPoint(0, 0, 0, SpatialReferences.Wgs84), plane3DSymbol);
+                // Add the plane to the overlay
+                sceneOverlay.Graphics.Add(_plane3D);
 
-            // Start a timer; this animates the plane
-            // The timespan is the length of the timer interval in milliseconds; this controls the animation speed (fps)
-            Device.StartTimer(new TimeSpan(0, 0, 0, 0, 60), AnimatePlane);
+                // Create the orbit camera controller to follow the plane
+                _orbitCameraController = new OrbitGeoElementCameraController(_plane3D, 20.0)
+                {
+                    CameraPitchOffset = 75.0
+                };
+                MySceneView.CameraController = _orbitCameraController;
 
-            // Set the initial mission for when the sample loads
-            await ChangeMission(_missionToItemId.Keys.First());
+                // Start a timer; this animates the plane
+                // The timespan is the length of the timer interval in milliseconds; this controls the animation speed (fps)
+                Device.StartTimer(new TimeSpan(0, 0, 0, 0, 60), AnimatePlane);
+
+                // Set the initial mission for when the sample loads
+                await ChangeMission(_missionToItemId.Keys.First());
+            }
+            catch (Exception e)
+            {
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+            }
         }
 
         private async Task ChangeMission(string mission)

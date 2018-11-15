@@ -65,9 +65,6 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
             // Create a layer from the feature table
             _shapefileFeatureLayer = new FeatureLayer(myFeatureTable);
 
-            // Wait for the layer to load
-            await _shapefileFeatureLayer.LoadAsync();
-
             // Add the layer to the map
             myMap.OperationalLayers.Add(_shapefileFeatureLayer);
 
@@ -78,14 +75,24 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
             // Create the alternate renderer
             _alternateRenderer = new SimpleRenderer(fillSymbol);
 
-            // Hold a reference to the default renderer (to enable switching between the renderers)
-            _defaultRenderer = _shapefileFeatureLayer.Renderer;
+            try
+            {
+                // Wait for the layer to load so that it will be assigned a default renderer
+                await _shapefileFeatureLayer.LoadAsync();
 
-            // Add the map to the mapview
-            MyMapView.Map = myMap;
+                // Hold a reference to the default renderer (to enable switching between the renderers)
+                _defaultRenderer = _shapefileFeatureLayer.Renderer;
 
-            // Enable changing symbology now that sample is loaded
-            MyRendererButton.IsEnabled = true;
+                // Add the map to the mapview
+                MyMapView.Map = myMap;
+
+                // Enable changing symbology now that sample is loaded
+                MyRendererButton.IsEnabled = true;
+            }
+            catch (Exception e)
+            {
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+            }
         }
 
         private void Button_Clicked(object sender, EventArgs e)

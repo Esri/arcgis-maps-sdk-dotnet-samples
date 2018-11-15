@@ -104,8 +104,16 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
             // Create list of the fields that are returned from the service.
             string[] outputFields = {"*"};
 
-            // Populate feature table with the data based on query.
-            await _myFeatureTable.PopulateFromServiceAsync(queryParameters, true, outputFields);
+            try
+            {
+                // Populate feature table with the data based on query.
+                await _myFeatureTable.PopulateFromServiceAsync(queryParameters, true, outputFields);
+            }
+            catch (Exception ex)
+            {
+                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+
+            }
         }
     }
 }

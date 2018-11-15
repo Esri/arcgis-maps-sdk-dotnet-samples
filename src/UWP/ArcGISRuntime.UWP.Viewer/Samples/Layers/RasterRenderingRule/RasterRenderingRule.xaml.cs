@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
 using System.Collections.Generic;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.RasterRenderingRule
@@ -46,36 +47,43 @@ namespace ArcGISRuntime.UWP.Samples.RasterRenderingRule
             // Create a new image service raster from the Uri
             ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_imageServerUri);
 
-            // Load the image service raster
-            await myImageServiceRaster.LoadAsync();
-
-            // Get the ArcGIS image service info (metadata) from the image service raster
-            ArcGISImageServiceInfo myArcGISImageServiceInfo = myImageServiceRaster.ServiceInfo;
-
-            // Get the full extent envelope of the image service raster (the Charlotte, NC area)
-            Envelope myEnvelope = myArcGISImageServiceInfo.FullExtent;
-
-            // Define a new view point from the full extent envelope
-            Viewpoint myViewPoint = new Viewpoint(myEnvelope);
-
-            // Zoom to the area of the full extent envelope of the image service raster
-            await MyMapView.SetViewpointAsync(myViewPoint);
-
-            // Get the rendering rule info (i.e. definitions of how the image should be drawn) info from the image service raster
-            _myReadOnlyListRenderRuleInfos = myArcGISImageServiceInfo.RenderingRuleInfos;
-
-            // Loop through each rendering rule info
-            foreach (RenderingRuleInfo myRenderingRuleInfo in _myReadOnlyListRenderRuleInfos)
+            try
             {
-                // Get the name of the rendering rule info
-                string myRenderingRuleName = myRenderingRuleInfo.Name;
+                // Load the image service raster
+                await myImageServiceRaster.LoadAsync();
 
-                // Add the name of the rendering rule info to the combo box
-                RenderingRuleChooser.Items.Add(myRenderingRuleName);
+                // Get the ArcGIS image service info (metadata) from the image service raster
+                ArcGISImageServiceInfo myArcGISImageServiceInfo = myImageServiceRaster.ServiceInfo;
+
+                // Get the full extent envelope of the image service raster (the Charlotte, NC area)
+                Envelope myEnvelope = myArcGISImageServiceInfo.FullExtent;
+
+                // Define a new view point from the full extent envelope
+                Viewpoint myViewPoint = new Viewpoint(myEnvelope);
+
+                // Zoom to the area of the full extent envelope of the image service raster
+                await MyMapView.SetViewpointAsync(myViewPoint);
+
+                // Get the rendering rule info (i.e. definitions of how the image should be drawn) info from the image service raster
+                _myReadOnlyListRenderRuleInfos = myArcGISImageServiceInfo.RenderingRuleInfos;
+
+                // Loop through each rendering rule info
+                foreach (RenderingRuleInfo myRenderingRuleInfo in _myReadOnlyListRenderRuleInfos)
+                {
+                    // Get the name of the rendering rule info
+                    string myRenderingRuleName = myRenderingRuleInfo.Name;
+
+                    // Add the name of the rendering rule info to the combo box
+                    RenderingRuleChooser.Items.Add(myRenderingRuleName);
+                }
+
+                // Set the combo box index to the first rendering rule info name
+                RenderingRuleChooser.SelectedIndex = 0;
             }
-
-            // Set the combo box index to the first rendering rule info name
-            RenderingRuleChooser.SelectedIndex = 0;
+            catch (Exception e)
+            {
+                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+            }
         }
 
         /// <summary>

@@ -73,7 +73,7 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
 
             // Set the viewpoint with a new camera focused on the graphic
             Camera newCamera = new Camera(new MapPoint(-2.708471, 56.096575, 5000, SpatialReferences.Wgs84), 1500, 0, 80, 0);
-            _mySceneView.SetViewpointCameraAsync(newCamera);
+            _mySceneView.SetViewpointCamera(newCamera);
         }
 
         private DistanceCompositeSceneSymbol CreateCompositeSymbol()

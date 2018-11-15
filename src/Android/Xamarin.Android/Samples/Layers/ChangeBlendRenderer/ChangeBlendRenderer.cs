@@ -219,7 +219,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("Error").Show();
             }
         }
 

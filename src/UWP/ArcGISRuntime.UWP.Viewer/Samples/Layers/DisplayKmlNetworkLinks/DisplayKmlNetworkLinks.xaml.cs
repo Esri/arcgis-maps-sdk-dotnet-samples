@@ -28,7 +28,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayKmlNetworkLinks
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Set up the basemap.
             MySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
@@ -47,7 +47,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayKmlNetworkLinks
             MySceneView.Scene.OperationalLayers.Add(fileLayer);
 
             // Zoom in to center the map on Germany.
-            await MySceneView.SetViewpointAsync(new Viewpoint(new MapPoint(8.150526, 50.472421, SpatialReferences.Wgs84), 20000000));
+            MySceneView.SetViewpoint(new Viewpoint(new MapPoint(8.150526, 50.472421, SpatialReferences.Wgs84), 20000000));
         }
 
         private async void Dataset_NetworkLinkControlMessage(object sender, KmlNetworkLinkControlMessageEventArgs e)

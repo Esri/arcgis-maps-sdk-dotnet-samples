@@ -58,49 +58,48 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromQuery
 
         private void Initialize()
         {
-            try
-            {
-                // Create a new map with the oceans basemap and add it to the map view
-                _myMapView.Map = new Map(Basemap.CreateOceans());
+            // Create a new map with the oceans basemap and add it to the map view
+            _myMapView.Map = new Map(Basemap.CreateOceans());
 
-                // Call a function that will create a new feature collection layer from a service query
-                GetFeaturesFromQuery();
-            }
-            catch (Exception ex)
-            {
-                UIAlertView alert = new UIAlertView("Error", "Unable to create feature collection layer: " + ex.Message, (IUIAlertViewDelegate) null, "OK");
-                alert.Show();
-            }
+            // Call a function that will create a new feature collection layer from a service query
+            GetFeaturesFromQuery();
         }
 
         private async void GetFeaturesFromQuery()
         {
-            // Create a service feature table to get features from.
-            ServiceFeatureTable featTable = new ServiceFeatureTable(new Uri(FeatureLayerUrl));
-
-            // Create a query to get all features in the table.
-            QueryParameters queryParams = new QueryParameters
+            try
             {
-                WhereClause = "1=1"
-            };
+                // Create a service feature table to get features from.
+                ServiceFeatureTable featTable = new ServiceFeatureTable(new Uri(FeatureLayerUrl));
 
-            // Query the table to get all features.
-            FeatureQueryResult featureResult = await featTable.QueryFeaturesAsync(queryParams);
+                // Create a query to get all features in the table.
+                QueryParameters queryParams = new QueryParameters
+                {
+                    WhereClause = "1=1"
+                };
 
-            // Create a new feature collection table from the result features.
-            FeatureCollectionTable collectTable = new FeatureCollectionTable(featureResult);
+                // Query the table to get all features.
+                FeatureQueryResult featureResult = await featTable.QueryFeaturesAsync(queryParams);
 
-            // Create a feature collection and add the table.
-            FeatureCollection featCollection = new FeatureCollection();
-            featCollection.Tables.Add(collectTable);
+                // Create a new feature collection table from the result features.
+                FeatureCollectionTable collectTable = new FeatureCollectionTable(featureResult);
 
-            // Create a layer to display the feature collection, add it to the map's operational layers.
-            FeatureCollectionLayer featureCollectionLayer = new FeatureCollectionLayer(featCollection);
-            _myMapView.Map.OperationalLayers.Add(featureCollectionLayer);
+                // Create a feature collection and add the table.
+                FeatureCollection featCollection = new FeatureCollection();
+                featCollection.Tables.Add(collectTable);
 
-            // Zoom to the extent of the feature collection layer.
-            await featureCollectionLayer.LoadAsync();
-            await _myMapView.SetViewpointGeometryAsync(featureCollectionLayer.FullExtent, 50);
+                // Create a layer to display the feature collection, add it to the map's operational layers.
+                FeatureCollectionLayer featureCollectionLayer = new FeatureCollectionLayer(featCollection);
+                _myMapView.Map.OperationalLayers.Add(featureCollectionLayer);
+
+                // Zoom to the extent of the feature collection layer.
+                await featureCollectionLayer.LoadAsync();
+                await _myMapView.SetViewpointGeometryAsync(featureCollectionLayer.FullExtent, 50);
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
     }
 }

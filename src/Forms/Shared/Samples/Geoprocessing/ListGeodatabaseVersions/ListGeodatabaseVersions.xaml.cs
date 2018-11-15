@@ -45,35 +45,42 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             // Set the UI to indicate that the geoprocessing is running
             SetBusy(true);
 
-            // Get versions from a geodatabase
-            IFeatureSet versionsFeatureSet = await GetGeodatabaseVersionsAsync();
-
-            // Continue if we got a valid geoprocessing result
-            if (versionsFeatureSet != null)
+            try
             {
-                // Create a string builder to hold all of the information from the geoprocessing 
-                // task to display in the UI 
-                StringBuilder myStringBuilder = new StringBuilder();
+                // Get versions from a geodatabase
+                IFeatureSet versionsFeatureSet = await GetGeodatabaseVersionsAsync();
 
-                // Loop through each Feature in the FeatureSet 
-                foreach (Feature version in versionsFeatureSet)
+                // Continue if we got a valid geoprocessing result
+                if (versionsFeatureSet != null)
                 {
-                    // Get the attributes (a dictionary of <key,value> pairs) from the Feature
-                    IDictionary<string,object> myDictionary = version.Attributes;
+                    // Create a string builder to hold all of the information from the geoprocessing 
+                    // task to display in the UI 
+                    StringBuilder myStringBuilder = new StringBuilder();
 
-                    // Loop through each attribute (a <key,value> pair)
-                    foreach (KeyValuePair<string,object> attribute in myDictionary)
+                    // Loop through each Feature in the FeatureSet 
+                    foreach (Feature version in versionsFeatureSet)
                     {
-                        // Add the key and value strings to the string builder 
-                        myStringBuilder.AppendLine(attribute.Key + ": " + attribute.Value);
+                        // Get the attributes (a dictionary of <key,value> pairs) from the Feature
+                        IDictionary<string,object> myDictionary = version.Attributes;
+
+                        // Loop through each attribute (a <key,value> pair)
+                        foreach (KeyValuePair<string,object> attribute in myDictionary)
+                        {
+                            // Add the key and value strings to the string builder 
+                            myStringBuilder.AppendLine(attribute.Key + ": " + attribute.Value);
+                        }
+
+                        // Add a blank line after each Feature (the listing of geodatabase versions)
+                        myStringBuilder.AppendLine();
                     }
 
-                    // Add a blank line after each Feature (the listing of geodatabase versions)
-                    myStringBuilder.AppendLine();
+                    // Display the results to the user
+                    theTextBox.Text = myStringBuilder.ToString();
                 }
-
-                // Display the results to the user
-                theTextBox.Text = myStringBuilder.ToString();
+            }
+            catch (Exception e)
+            {
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
             }
 
             // Set the UI to indicate that the geoprocessing is not running

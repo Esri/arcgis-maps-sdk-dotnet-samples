@@ -80,7 +80,14 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
 
             // Add graphics using different source types.
             CreatePictureMarkerSymbolFromUrl(overlay);
-            await CreatePictureMarkerSymbolFromResources(overlay);
+            try
+            {
+                await CreatePictureMarkerSymbolFromResources(overlay);
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         private void CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)

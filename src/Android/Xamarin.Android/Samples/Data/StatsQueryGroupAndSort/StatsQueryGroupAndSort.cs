@@ -17,6 +17,7 @@ using Esri.ArcGISRuntime.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using OrderFieldOption = ArcGISRuntime.Samples.StatsQueryGroupAndSort.OrderFieldOption;
 
 namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 {
@@ -116,18 +117,25 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             // Create the US states feature table
             _usStatesTable = new ServiceFeatureTable(_usStatesServiceUri);
 
-            // Load the table
-            await _usStatesTable.LoadAsync();
+            try
+            {
+                // Load the table
+                await _usStatesTable.LoadAsync();
 
-            // Get a list of field names from the table
-            _fieldNames = _usStatesTable.Fields.Select(field => field.Name).ToList();
+                // Get a list of field names from the table
+                _fieldNames = _usStatesTable.Fields.Select(field => field.Name).ToList();
 
-            // Create a dictionary of fields the user can select for grouping
-            // The value for each is set to false initially, as nothing is selected by default
-            _groupByFields = _fieldNames.ToDictionary(name => name, name => false);
+                // Create a dictionary of fields the user can select for grouping
+                // The value for each is set to false initially, as nothing is selected by default
+                _groupByFields = _fieldNames.ToDictionary(name => name, name => false);
 
-            // Create a list of field options for ordering results (initially empty)
-            _orderByFields = new List<OrderFieldOption>();
+                // Create a list of field options for ordering results (initially empty)
+                _orderByFields = new List<OrderFieldOption>();
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private void ShowStatDefinitions(object sender, EventArgs e)
@@ -245,23 +253,30 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             // Ignore counties with missing data
             statQueryParams.WhereClause = "\"State\" IS NOT NULL";
 
-            // Execute the statistical query with these parameters and await the results
-            StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
+            try
+            {
+                // Execute the statistical query with these parameters and await the results
+                StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
 
-            // Get results formatted as a dictionary (group names and their associated dictionary of results)
-            Dictionary<string, IReadOnlyDictionary<string, object>> resultsLookup = statQueryResult.ToDictionary(r => string.Join(", ", r.Group.Values), r => r.Statistics);
+                // Get results formatted as a dictionary (group names and their associated dictionary of results)
+                Dictionary<string, IReadOnlyDictionary<string, object>> resultsLookup = statQueryResult.ToDictionary(r => string.Join(", ", r.Group.Values), r => r.Statistics);
 
-            // Create an instance of a custom list adapter that has logic to show results as expandable groups
-            ExpandableResultsListAdapter expandableListAdapter = new ExpandableResultsListAdapter(this, resultsLookup);
+                // Create an instance of a custom list adapter that has logic to show results as expandable groups
+                ExpandableResultsListAdapter expandableListAdapter = new ExpandableResultsListAdapter(this, resultsLookup);
 
-            // Create an expandable list view and assign the expandable adapter
-            ExpandableListView expandableResultsListView = new ExpandableListView(this);
-            expandableResultsListView.SetAdapter(expandableListAdapter);
+                // Create an expandable list view and assign the expandable adapter
+                ExpandableListView expandableResultsListView = new ExpandableListView(this);
+                expandableResultsListView.SetAdapter(expandableListAdapter);
 
-            // Show the expandable list view in a dialog
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.SetView(expandableResultsListView);
-            dialogBuilder.Show();
+                // Show the expandable list view in a dialog
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                dialogBuilder.SetView(expandableResultsListView);
+                dialogBuilder.Show();
+            }
+            catch (Exception ex)
+            {
+                new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private void ShowMessage(string message, string title)

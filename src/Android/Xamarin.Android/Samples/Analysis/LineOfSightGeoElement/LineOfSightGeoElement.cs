@@ -112,44 +112,51 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             // Add the overlay to the scene
             _mySceneView.GraphicsOverlays.Add(overlay);
 
-            // Add the taxi to the scene
-            // Create the model symbol for the taxi
-            ModelSceneSymbol taxiSymbol = await ModelSceneSymbol.CreateAsync(new Uri(GetModelUri()));
-            // Set the anchor position for the mode; ensures that the model appears above the ground
-            taxiSymbol.AnchorPosition = SceneSymbolAnchorPosition.Bottom;
-            // Create the graphic from the taxi starting point and the symbol
-            _taxiGraphic = new Graphic(_points[0], taxiSymbol);
-            // Add the taxi graphic to the overlay
-            overlay.Graphics.Add(_taxiGraphic);
-
-            // Create GeoElement Line of sight analysis (taxi to building)
-            // Create the analysis
-            _geoLine = new GeoElementLineOfSight(_observerGraphic, _taxiGraphic)
+            try
             {
-                TargetOffsetZ = 2
-            };
-            // Apply an offset to the target. This helps avoid some false negatives
-            // Create the analysis overlay
-            AnalysisOverlay myAnalysisOverlay = new AnalysisOverlay();
-            // Add the analysis to the overlay
-            myAnalysisOverlay.Analyses.Add(_geoLine);
-            // Add the analysis overlay to the scene
-            _mySceneView.AnalysisOverlays.Add(myAnalysisOverlay);
+                // Add the taxi to the scene
+                // Create the model symbol for the taxi
+                ModelSceneSymbol taxiSymbol = await ModelSceneSymbol.CreateAsync(new Uri(GetModelUri()));
+                // Set the anchor position for the mode; ensures that the model appears above the ground
+                taxiSymbol.AnchorPosition = SceneSymbolAnchorPosition.Bottom;
+                // Create the graphic from the taxi starting point and the symbol
+                _taxiGraphic = new Graphic(_points[0], taxiSymbol);
+                // Add the taxi graphic to the overlay
+                overlay.Graphics.Add(_taxiGraphic);
 
-            // Create a timer; this will enable animating the taxi
-            Timer timer = new Timer(60);
-            // Move the taxi every time the timer expires
-            timer.Elapsed += AnimationTimer_Elapsed;
-            // Keep the timer running continuously
-            timer.AutoReset = true;
-            // Start the timer
-            timer.Start();
+                // Create GeoElement Line of sight analysis (taxi to building)
+                // Create the analysis
+                _geoLine = new GeoElementLineOfSight(_observerGraphic, _taxiGraphic)
+                {
+                    TargetOffsetZ = 2
+                };
+                // Apply an offset to the target. This helps avoid some false negatives
+                // Create the analysis overlay
+                AnalysisOverlay myAnalysisOverlay = new AnalysisOverlay();
+                // Add the analysis to the overlay
+                myAnalysisOverlay.Analyses.Add(_geoLine);
+                // Add the analysis overlay to the scene
+                _mySceneView.AnalysisOverlays.Add(myAnalysisOverlay);
 
-            // Subscribe to TargetVisible events; allows for updating the UI and selecting the taxi when it is visible
-            _geoLine.TargetVisibilityChanged += Geoline_TargetVisibilityChanged;
+                // Create a timer; this will enable animating the taxi
+                Timer timer = new Timer(60);
+                // Move the taxi every time the timer expires
+                timer.Elapsed += AnimationTimer_Elapsed;
+                // Keep the timer running continuously
+                timer.AutoReset = true;
+                // Start the timer
+                timer.Start();
 
-            // Add the scene to the view
-            _mySceneView.Scene = myScene;
+                // Subscribe to TargetVisible events; allows for updating the UI and selecting the taxi when it is visible
+                _geoLine.TargetVisibilityChanged += Geoline_TargetVisibilityChanged;
+
+                // Add the scene to the view
+                _mySceneView.Scene = myScene;
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private void AnimationTimer_Elapsed(object sender, EventArgs e)

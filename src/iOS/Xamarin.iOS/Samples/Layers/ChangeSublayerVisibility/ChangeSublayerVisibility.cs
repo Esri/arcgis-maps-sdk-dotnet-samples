@@ -55,20 +55,14 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
 
         private async void Initialize()
         {
-            // Create a new ArcGISMapImageLayer instance and pass a URL to the service.
-            ArcGISMapImageLayer mapImageLayer = new ArcGISMapImageLayer(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"));
-
-            // Await the load call for the layer..
-            await mapImageLayer.LoadAsync();
-
-            // Create a new Map instance with the basemap..
+            // Create a new Map instance with the basemap.
             Map map = new Map(SpatialReferences.Wgs84)
             {
                 Basemap = Basemap.CreateTopographic()
             };
 
-            // Add the map image layer to the map's operational layers.
-            map.OperationalLayers.Add(mapImageLayer);
+            // Create a new ArcGISMapImageLayer instance and pass a URL to the service.
+            ArcGISMapImageLayer mapImageLayer = new ArcGISMapImageLayer(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"));
 
             // Assign the Map to the MapView.
             _myMapView.Map = map;
@@ -86,6 +80,19 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
                     NavigationController.PushViewController(sublayersTableView, true);
                 }
             };
+
+            try
+            {
+                // Await the load call for the layer.
+                await mapImageLayer.LoadAsync();
+
+                // Add the map image layer to the map's operational layers.
+                map.OperationalLayers.Add(mapImageLayer);
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         public override void ViewDidLayoutSubviews()

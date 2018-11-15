@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Http;
 using Foundation;
 using UIKit;
+using StatDefinitionModel = ArcGISRuntime.Samples.StatsQueryGroupAndSort.StatDefinitionModel;
 
 namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 {
@@ -139,18 +140,25 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             // Create the US states feature table.
             _usStatesTable = new ServiceFeatureTable(_usStatesServiceUri);
 
-            // Load the table.
-            await _usStatesTable.LoadAsync();
+            try
+            {
+                // Load the table.
+                await _usStatesTable.LoadAsync();
 
-            // Fill the fields combo and "group by" list with field names from the table.
-            _fieldNames = _usStatesTable.Fields.Select(field => field.Name).ToList();
+                // Fill the fields combo and "group by" list with field names from the table.
+                _fieldNames = _usStatesTable.Fields.Select(field => field.Name).ToList();
 
-            // Create a model that will provide statistic definition choices for the picker.
-            _statsPickerModel = new StatDefinitionModel(_fieldNames.ToArray());
+                // Create a model that will provide statistic definition choices for the picker.
+                _statsPickerModel = new StatDefinitionModel(_fieldNames.ToArray());
 
-            // Create a list of fields the user can select for grouping.
-            // Value is initially false, since no fields are selected by default.
-            _groupByFields = _fieldNames.ToDictionary(name => name, name => false);
+                // Create a list of fields the user can select for grouping.
+                // Value is initially false, since no fields are selected by default.
+                _groupByFields = _fieldNames.ToDictionary(name => name, name => false);
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         private void ShowGroupFields(object sender, EventArgs e)

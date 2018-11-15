@@ -70,7 +70,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
             }
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Create new Map with basemap.
             Map map = new Map(Basemap.CreateTopographic());
@@ -92,16 +92,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
 
             // Initialize a new feature layer based on the feature table.
             _featureLayer = new FeatureLayer(featureTable);
-
-            // Make sure that the feature layer gets loaded.
-            await _featureLayer.LoadAsync();
-
-            // Check for the load status. If the layer is loaded then add it to map.
-            if (_featureLayer.LoadStatus == Esri.ArcGISRuntime.LoadStatus.Loaded)
-            {
-                // Add the feature layer to the map.
-                map.OperationalLayers.Add(_featureLayer);
-            }
+            map.OperationalLayers.Add(_featureLayer);
         }
 
         private void OnOverrideButtonClicked(object sender, EventArgs e)

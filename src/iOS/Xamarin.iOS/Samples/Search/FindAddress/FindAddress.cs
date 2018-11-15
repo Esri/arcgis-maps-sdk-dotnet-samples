@@ -72,11 +72,18 @@ namespace ArcGISRuntime.Samples.FindAddress
             // Show a labeled imagery basemap.
             _myMapView.Map = new Map(Basemap.CreateImageryWithLabels());
 
-            // Initialize the geocoder with the provided service URL.
-            _geocoder = await LocatorTask.CreateAsync(_serviceUri);
+            try
+            {
+                // Initialize the geocoder with the provided service URL.
+                _geocoder = await LocatorTask.CreateAsync(_serviceUri);
 
-            // Enable controls now that the geocoder is ready.
-            _addressSearchBar.UserInteractionEnabled = true;
+                // Enable controls now that the geocoder is ready.
+                _addressSearchBar.UserInteractionEnabled = true;
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         private void AddressSearchBar_Clicked(object sender, EventArgs e)
@@ -101,36 +108,43 @@ namespace ArcGISRuntime.Samples.FindAddress
                 return;
             }
 
-            // Get suggestions based on the input text.
-            IReadOnlyList<SuggestResult> suggestions = await _geocoder.SuggestAsync(enteredText);
-
-            // Stop gracefully if there are no suggestions.
-            if (suggestions.Count < 1)
+            try
             {
-                return;
+                // Get suggestions based on the input text.
+                IReadOnlyList<SuggestResult> suggestions = await _geocoder.SuggestAsync(enteredText);
+
+                // Stop gracefully if there are no suggestions.
+                if (suggestions.Count < 1)
+                {
+                    return;
+                }
+
+                // Get the full address for the first suggestion.
+                SuggestResult firstSuggestion = suggestions.First();
+                IReadOnlyList<GeocodeResult> addresses = await _geocoder.GeocodeAsync(firstSuggestion.Label);
+
+                // Stop gracefully if the geocoder does not return a result.
+                if (addresses.Count < 1)
+                {
+                    return;
+                }
+
+                // Place a marker on the map - 1. Create the overlay.
+                GraphicsOverlay resultOverlay = new GraphicsOverlay();
+                // 2. Get the Graphic to display.
+                Graphic point = await GraphicForPoint(addresses.First().DisplayLocation);
+                // 3. Add the Graphic to the GraphicsOverlay.
+                resultOverlay.Graphics.Add(point);
+                // 4. Add the GraphicsOverlay to the MapView.
+                _myMapView.GraphicsOverlays.Add(resultOverlay);
+
+                // Update the map extent to show the marker.
+                _myMapView.SetViewpoint(new Viewpoint(addresses.First().Extent));
             }
-
-            // Get the full address for the first suggestion.
-            SuggestResult firstSuggestion = suggestions.First();
-            IReadOnlyList<GeocodeResult> addresses = await _geocoder.GeocodeAsync(firstSuggestion.Label);
-
-            // Stop gracefully if the geocoder does not return a result.
-            if (addresses.Count < 1)
+            catch (Exception e)
             {
-                return;
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
-
-            // Place a marker on the map - 1. Create the overlay.
-            GraphicsOverlay resultOverlay = new GraphicsOverlay();
-            // 2. Get the Graphic to display.
-            Graphic point = await GraphicForPoint(addresses.First().DisplayLocation);
-            // 3. Add the Graphic to the GraphicsOverlay.
-            resultOverlay.Graphics.Add(point);
-            // 4. Add the GraphicsOverlay to the MapView.
-            _myMapView.GraphicsOverlays.Add(resultOverlay);
-
-            // Update the map extent to show the marker.
-            await _myMapView.SetViewpointGeometryAsync(addresses.First().Extent);
         }
 
         /// <summary>
@@ -208,10 +222,9 @@ namespace ArcGISRuntime.Samples.FindAddress
                 // Show the callout on the map at the tapped location.
                 _myMapView.ShowCalloutAt(e.Location, calloutBody);
             }
-            // Uncaught exceptions in async void will crash the app.
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex);
+                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
         }
 

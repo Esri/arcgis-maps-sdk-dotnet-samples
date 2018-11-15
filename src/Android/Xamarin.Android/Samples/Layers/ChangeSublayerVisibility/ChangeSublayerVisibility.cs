@@ -66,34 +66,41 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
 
         private async void OnSublayersClicked(object sender, EventArgs e)
         {
-            // Make sure that layer and it's sublayers are loaded
-            // If layer is already loaded, this returns directly
-            await _imageLayer.LoadAsync();
-
-            Button sublayersButton = (Button)sender;
-
-            // Create menu to change sublayer visibility
-            PopupMenu sublayersMenu = new PopupMenu(this, sublayersButton);
-            sublayersMenu.MenuItemClick += OnSublayersMenuItemClicked;
-
-            // Create menu options
-            foreach (ArcGISSublayer sublayer in _imageLayer.Sublayers)
-                sublayersMenu.Menu.Add(sublayer.Name);
-
-            // Set values to the menu items
-            for (int i = 0; i < sublayersMenu.Menu.Size(); i++)
+            try
             {
-                IMenuItem menuItem = sublayersMenu.Menu.GetItem(i);
+                // Make sure that layer and it's sublayers are loaded
+                // If layer is already loaded, this returns directly
+                await _imageLayer.LoadAsync();
 
-                // Set menu item to contain checkbox
-                menuItem.SetCheckable(true);
+                Button sublayersButton = (Button)sender;
+
+                // Create menu to change sublayer visibility
+                PopupMenu sublayersMenu = new PopupMenu(this, sublayersButton);
+                sublayersMenu.MenuItemClick += OnSublayersMenuItemClicked;
+
+                // Create menu options
+                foreach (ArcGISSublayer sublayer in _imageLayer.Sublayers)
+                    sublayersMenu.Menu.Add(sublayer.Name);
+
+                // Set values to the menu items
+                for (int i = 0; i < sublayersMenu.Menu.Size(); i++)
+                {
+                    IMenuItem menuItem = sublayersMenu.Menu.GetItem(i);
+
+                    // Set menu item to contain checkbox
+                    menuItem.SetCheckable(true);
     
-                // Set default value
-                menuItem.SetChecked(_imageLayer.Sublayers[i].IsVisible);
-            }
+                    // Set default value
+                    menuItem.SetChecked(_imageLayer.Sublayers[i].IsVisible);
+                }
 
-            // Show menu in the view
-            sublayersMenu.Show();
+                // Show menu in the view
+                sublayersMenu.Show();
+            }
+            catch (Exception ex)
+            {
+                new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private void OnSublayersMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)

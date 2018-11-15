@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -16,6 +17,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.SpatialRelationships
 {
@@ -109,11 +111,20 @@ namespace ArcGISRuntime.WPF.Samples.SpatialRelationships
 
         private async void MapViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
         {
-            // Identify the tapped graphics
-            IdentifyGraphicsOverlayResult result = await MyMapView.IdentifyGraphicsOverlayAsync(_graphicsOverlay, geoViewInputEventArgs.Position, 1, false);
+            IdentifyGraphicsOverlayResult result = null;
+
+            try
+            {
+                // Identify the tapped graphics
+                result = await MyMapView.IdentifyGraphicsOverlayAsync(_graphicsOverlay, geoViewInputEventArgs.Position, 1, false);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error");
+            }
 
             // Return if there are no results
-            if (result.Graphics.Count < 1)
+            if (result == null || result.Graphics.Count < 1)
             {
                 return;
             }

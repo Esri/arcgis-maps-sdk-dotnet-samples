@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
@@ -64,27 +65,34 @@ namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
             // Get the GeoPackage path.
             string geoPackagePath = DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");
 
-            // Open the GeoPackage.
-            GeoPackage geoPackage = await GeoPackage.OpenAsync(geoPackagePath);
-
-            // Read the raster images and get the first one.
-            Raster gpkgRaster = geoPackage.GeoPackageRasters.FirstOrDefault();
-
-            // Make sure an image was found in the package.
-            if (gpkgRaster == null)
+            try
             {
-                return;
+                // Open the GeoPackage.
+                GeoPackage geoPackage = await GeoPackage.OpenAsync(geoPackagePath);
+
+                // Read the raster images and get the first one.
+                Raster gpkgRaster = geoPackage.GeoPackageRasters.FirstOrDefault();
+
+                // Make sure an image was found in the package.
+                if (gpkgRaster == null)
+                {
+                    return;
+                }
+
+                // Create a layer to show the raster.
+                RasterLayer newLayer = new RasterLayer(gpkgRaster);
+                await newLayer.LoadAsync();
+
+                // Set the viewpoint.
+                await _myMapView.SetViewpointAsync(new Viewpoint(newLayer.FullExtent));
+
+                // Add the image as a raster layer to the map (with default symbology).
+                _myMapView.Map.OperationalLayers.Add(newLayer);
             }
-
-            // Create a layer to show the raster.
-            RasterLayer newLayer = new RasterLayer(gpkgRaster);
-            await newLayer.LoadAsync();
-
-            // Set the viewpoint.
-            await _myMapView.SetViewpointAsync(new Viewpoint(newLayer.FullExtent));
-
-            // Add the image as a raster layer to the map (with default symbology).
-            _myMapView.Map.OperationalLayers.Add(newLayer);
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
     }
 }

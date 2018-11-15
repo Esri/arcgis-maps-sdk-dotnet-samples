@@ -122,12 +122,19 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
                 statQueryParams.WhereClause = "POP_RANK = 1";
             }
 
-            // Execute the statistical query with these parameters and await the results
-            StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
+            try
+            {
+                // Execute the statistical query with these parameters and await the results
+                StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
 
-            // Display results in a list in a dialog
-            List<KeyValuePair<string,object>> statsList = statQueryResult.First().Statistics.ToList();
-            ShowStatsList(statsList);
+                // Display results in a list in a dialog
+                List<KeyValuePair<string,object>> statsList = statQueryResult.First().Statistics.ToList();
+                ShowStatsList(statsList);
+            }
+            catch (Exception ex)
+            {
+                new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private void ShowStatsList(IList<KeyValuePair<string, object>> stats)

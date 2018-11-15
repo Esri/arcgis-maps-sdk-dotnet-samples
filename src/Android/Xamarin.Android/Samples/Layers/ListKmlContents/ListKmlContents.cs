@@ -10,7 +10,6 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntime;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -21,6 +20,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using ArcGISRuntime;
 
 namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
 {
@@ -67,25 +67,32 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
             // Add the layer to the map.
             _mySceneView.Scene.OperationalLayers.Add(layer);
 
-            await dataset.LoadAsync();
-
-            // Build the ViewModel from the expanded list of layer infos.
-            foreach (KmlNode node in dataset.RootNodes)
+            try
             {
-                // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of ArcGIS Runtime.
-                LayerDisplayVM nodeVm = new LayerDisplayVM(node, null);
-                _viewModelList.Add(nodeVm);
-                LayerDisplayVM.BuildLayerInfoList(nodeVm, _viewModelList);
+                await dataset.LoadAsync();
+
+                // Build the ViewModel from the expanded list of layer infos.
+                foreach (KmlNode node in dataset.RootNodes)
+                {
+                    // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of ArcGIS Runtime.
+                    LayerDisplayVM nodeVm = new LayerDisplayVM(node, null);
+                    _viewModelList.Add(nodeVm);
+                    LayerDisplayVM.BuildLayerInfoList(nodeVm, _viewModelList);
+                }
+
+                // Create an array adapter for the content display
+                ArrayAdapter adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, _viewModelList.Select(item => item.Name).ToList());
+
+                // Apply the adapter
+                _myDisplayList.Adapter = adapter;
+
+                // Subscribe to selection change notifications
+                _myDisplayList.ItemClick += MyDisplayList_ItemClick;
             }
-
-            // Create an array adapter for the content display
-            ArrayAdapter adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, _viewModelList.Select(item => item.Name).ToList());
-
-            // Apply the adapter
-            _myDisplayList.Adapter = adapter;
-
-            // Subscribe to selection change notifications
-            _myDisplayList.ItemClick += MyDisplayList_ItemClick;
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private void MyDisplayList_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -111,18 +118,25 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
 
         private async void NavigateToNode(KmlNode node)
         {
-            // Get a corrected Runtime viewpoint using the KmlViewpoint.
-            bool viewpointNeedsAltitudeAdjustment;
-            Viewpoint runtimeViewpoint = ViewpointFromKmlViewpoint(node, out viewpointNeedsAltitudeAdjustment);
-            if (viewpointNeedsAltitudeAdjustment)
+            try
             {
-                runtimeViewpoint = await GetAltitudeAdjustedViewpointAsync(node, runtimeViewpoint);
-            }
+                // Get a corrected Runtime viewpoint using the KmlViewpoint.
+                bool viewpointNeedsAltitudeAdjustment;
+                Viewpoint runtimeViewpoint = ViewpointFromKmlViewpoint(node, out viewpointNeedsAltitudeAdjustment);
+                if (viewpointNeedsAltitudeAdjustment)
+                {
+                    runtimeViewpoint = await GetAltitudeAdjustedViewpointAsync(node, runtimeViewpoint);
+                }
 
-            // Set the viewpoint.
-            if (runtimeViewpoint != null && !runtimeViewpoint.TargetGeometry.IsEmpty)
+                // Set the viewpoint.
+                if (runtimeViewpoint != null && !runtimeViewpoint.TargetGeometry.IsEmpty)
+                {
+                    await _mySceneView.SetViewpointAsync(runtimeViewpoint);
+                }
+            }
+            catch (Exception e)
             {
-                await _mySceneView.SetViewpointAsync(runtimeViewpoint);
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
             }
         }
 

@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -105,23 +106,30 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
             int maximumResults = 1; // Only return one graphic  .
             bool onlyReturnPopups = false; // Don't only return popups.
 
-            // Use the following method to identify graphics in a specific graphics overlay.
-            IdentifyGraphicsOverlayResult identifyResults = await _myMapView.IdentifyGraphicsOverlayAsync(
-                _polygonOverlay,
-                e.Position,
-                tolerance,
-                onlyReturnPopups,
-                maximumResults);
-
-            // Check if we got results.
-            if (identifyResults.Graphics.Count > 0)
+            try
             {
-                // Make sure that the UI changes are done in the UI thread.
-                InvokeOnMainThread(() =>
+                // Use the following method to identify graphics in a specific graphics overlay.
+                IdentifyGraphicsOverlayResult identifyResults = await _myMapView.IdentifyGraphicsOverlayAsync(
+                    _polygonOverlay,
+                    e.Position,
+                    tolerance,
+                    onlyReturnPopups,
+                    maximumResults);
+
+                // Check if we got results.
+                if (identifyResults.Graphics.Count > 0)
                 {
-                    UIAlertView alert = new UIAlertView("", "Tapped on graphic", (IUIAlertViewDelegate) null, "OK", null);
-                    alert.Show();
-                });
+                    // Make sure that the UI changes are done in the UI thread.
+                    InvokeOnMainThread(() =>
+                    {
+                        UIAlertView alert = new UIAlertView("", "Tapped on graphic", (IUIAlertViewDelegate) null, "OK", null);
+                        alert.Show();
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
         }
     }

@@ -42,15 +42,17 @@ namespace ArcGISRuntime.WPF.Samples.ListGeodatabaseVersions
             // Set the UI to indicate that the geoprocessing is running
             SetBusy(true);
 
-            // Get versions from a geodatabase
-            IFeatureSet versionsFeatureSet = await GetGeodatabaseVersionsAsync();
-
-            // Continue if we got a valid geoprocessing result
-            if (versionsFeatureSet != null)
+            try
             {
-                // Create a string builder to hold all of the information from the geoprocessing 
-                // task to display in the UI 
-                StringBuilder myStringBuilder = new StringBuilder();
+                // Get versions from a geodatabase
+                IFeatureSet versionsFeatureSet = await GetGeodatabaseVersionsAsync();
+
+                // Continue if we got a valid geoprocessing result
+                if (versionsFeatureSet != null)
+                {
+                    // Create a string builder to hold all of the information from the geoprocessing 
+                    // task to display in the UI 
+                    StringBuilder myStringBuilder = new StringBuilder();
 
                     // Loop through each Feature in the FeatureSet 
                     foreach (Feature version in versionsFeatureSet)
@@ -69,8 +71,13 @@ namespace ArcGISRuntime.WPF.Samples.ListGeodatabaseVersions
                         myStringBuilder.AppendLine();
                     }
 
-                // Display the result in the textbox
-                ResultView.Text = myStringBuilder.ToString();
+                    // Display the result in the textbox
+                    ResultView.Text = myStringBuilder.ToString();
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error");
             }
 
             // Set the UI to indicate that the geoprocessing is not running

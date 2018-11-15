@@ -39,13 +39,10 @@ namespace ArcGISRuntime.WPF.Samples.LoadWebTiledLayer
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Create the layer from the URL and the subdomain list
             WebTiledLayer myBaseLayer = new WebTiledLayer(_templateUri, _tiledLayerSubdomains);
-
-            // Wait for the layer to load
-            await myBaseLayer.LoadAsync();
 
             // Create a basemap from the layer
             Basemap layerBasemap = new Basemap(myBaseLayer);

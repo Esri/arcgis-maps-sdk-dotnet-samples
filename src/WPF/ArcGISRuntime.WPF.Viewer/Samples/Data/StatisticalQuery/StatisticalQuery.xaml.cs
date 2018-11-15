@@ -103,11 +103,18 @@ namespace ArcGISRuntime.WPF.Samples.StatisticalQuery
                 statQueryParams.WhereClause = "POP_RANK = 1";
             }
 
-            // Execute the statistical query with these parameters and await the results
-            StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
+            try
+            {
+                // Execute the statistical query with these parameters and await the results
+                StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
 
-            // Display results in the list box
-            StatResultsListBox.ItemsSource = statQueryResult.First().Statistics.ToList();
+                // Display results in the list box
+                StatResultsListBox.ItemsSource = statQueryResult.First().Statistics.ToList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+            }
         }
     }
 }

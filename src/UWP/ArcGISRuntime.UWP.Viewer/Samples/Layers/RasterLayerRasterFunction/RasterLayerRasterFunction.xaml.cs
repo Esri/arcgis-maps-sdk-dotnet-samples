@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.ArcGISServices;
 using System;
 using System.Collections.Generic;
+using Windows.UI.Popups;
 
 namespace ArcGISRuntime.UWP.Samples.RasterLayerRasterFunction
 {
@@ -41,29 +42,31 @@ namespace ArcGISRuntime.UWP.Samples.RasterLayerRasterFunction
             // Create new image service raster from the Uri
             ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(myUri);
 
-            // Load the image service raster
-            await myImageServiceRaster.LoadAsync();
+            try
+            {
+                // Load the image service raster
+                await myImageServiceRaster.LoadAsync();
 
-            // NOTE: This is the ASCII text for actual raw JSON string:
-            // ========================================================
-            //{
-            //  "raster_function_arguments":
-            //  {
-            //    "z_factor":{"double":25.0,"type":"Raster_function_variable"},
-            //    "slope_type":{"raster_slope_type":"none","type":"Raster_function_variable"},
-            //    "azimuth":{"double":315,"type":"Raster_function_variable"},
-            //    "altitude":{"double":45,"type":"Raster_function_variable"},
-            //    "type":"Raster_function_arguments",
-            //    "raster":{"name":"raster","is_raster":true,"type":"Raster_function_variable"},
-            //    "nbits":{"int":8,"type":"Raster_function_variable"}
-            //  },
-            //  "raster_function":{"type":"Hillshade_function"},
-            //  "type":"Raster_function_template"
-            //}
+                // NOTE: This is the ASCII text for actual raw JSON string:
+                // ========================================================
+                //{
+                //  "raster_function_arguments":
+                //  {
+                //    "z_factor":{"double":25.0,"type":"Raster_function_variable"},
+                //    "slope_type":{"raster_slope_type":"none","type":"Raster_function_variable"},
+                //    "azimuth":{"double":315,"type":"Raster_function_variable"},
+                //    "altitude":{"double":45,"type":"Raster_function_variable"},
+                //    "type":"Raster_function_arguments",
+                //    "raster":{"name":"raster","is_raster":true,"type":"Raster_function_variable"},
+                //    "nbits":{"int":8,"type":"Raster_function_variable"}
+                //  },
+                //  "raster_function":{"type":"Hillshade_function"},
+                //  "type":"Raster_function_template"
+                //}
 
-            // Define the JSON string needed for the raster function
-            string theJSON_String =
-             @"{
+                // Define the JSON string needed for the raster function
+                string theJSON_String =
+                    @"{
                 ""raster_function_arguments"":
                 {
                   ""z_factor"":{ ""double"":25.0,""type"":""Raster_function_variable""},
@@ -78,43 +81,48 @@ namespace ArcGISRuntime.UWP.Samples.RasterLayerRasterFunction
               ""type"":""Raster_function_template""
             }";
 
-            // Create a raster function from the JSON string using the static/Shared method called: RasterFunction.FromJson(json as String)
-            RasterFunction myRasterFunction = RasterFunction.FromJson(theJSON_String);
+                // Create a raster function from the JSON string using the static/Shared method called: RasterFunction.FromJson(json as String)
+                RasterFunction myRasterFunction = RasterFunction.FromJson(theJSON_String);
 
-            // NOTE: Depending on your platform/device, you could have alternatively created the raster function via a JSON string that is contained in a 
-            // file on disk (ex: hillshade_simplified.json) via the constructor: Esri.ArcGISRuntime.Rasters.RasterFunction(path as String)
+                // NOTE: Depending on your platform/device, you could have alternatively created the raster function via a JSON string that is contained in a 
+                // file on disk (ex: hillshade_simplified.json) via the constructor: Esri.ArcGISRuntime.Rasters.RasterFunction(path as String)
 
-            // Get the raster function arguments
-            RasterFunctionArguments myRasterFunctionArguments = myRasterFunction.Arguments;
+                // Get the raster function arguments
+                RasterFunctionArguments myRasterFunctionArguments = myRasterFunction.Arguments;
 
-            // Get the list of names from the raster function arguments
-            IReadOnlyList<string> myRasterNames = myRasterFunctionArguments.GetRasterNames();
+                // Get the list of names from the raster function arguments
+                IReadOnlyList<string> myRasterNames = myRasterFunctionArguments.GetRasterNames();
 
-            // Apply the first raster name and image service raster in the raster function arguments
-            myRasterFunctionArguments.SetRaster(myRasterNames[0], myImageServiceRaster);
+                // Apply the first raster name and image service raster in the raster function arguments
+                myRasterFunctionArguments.SetRaster(myRasterNames[0], myImageServiceRaster);
 
-            // Create a new raster based on the raster function
-            Raster myRaster = new Raster(myRasterFunction);
+                // Create a new raster based on the raster function
+                Raster myRaster = new Raster(myRasterFunction);
 
-            // Create a new raster layer from the raster
-            RasterLayer myRasterLayer = new RasterLayer(myRaster);
+                // Create a new raster layer from the raster
+                RasterLayer myRasterLayer = new RasterLayer(myRaster);
 
-            // Add the raster layer to the maps layer collection
-            myMap.Basemap.BaseLayers.Add(myRasterLayer);
+                // Add the raster layer to the maps layer collection
+                myMap.Basemap.BaseLayers.Add(myRasterLayer);
 
-            // Assign the map to the map view
-            MyMapView.Map = myMap;
+                // Assign the map to the map view
+                MyMapView.Map = myMap;
 
-            // Get the service information (aka. metadata) about the image service raster
-            ArcGISImageServiceInfo myArcGISImageServiceInfo = myImageServiceRaster.ServiceInfo;
+                // Get the service information (aka. metadata) about the image service raster
+                ArcGISImageServiceInfo myArcGISImageServiceInfo = myImageServiceRaster.ServiceInfo;
 
-            // Zoom the map to the extent of the image service raster (which also the extent of the raster layer)
-            await MyMapView.SetViewpointGeometryAsync(myArcGISImageServiceInfo.FullExtent);
+                // Zoom the map to the extent of the image service raster (which also the extent of the raster layer)
+                await MyMapView.SetViewpointGeometryAsync(myArcGISImageServiceInfo.FullExtent);
 
-            // NOTE: The sample zooms to the extent of the ImageServiceRaster. Currently the ArcGIS Runtime does not 
-            // support zooming a RasterLayer out beyond 4 times it's published level of detail. The sample uses 
-            // MapView.SetViewpointCenterAsync() method to ensure the image shows when the app starts. You can see 
-            // the effect of the image service not showing when you zoom out to the full extent of the image and beyond.
+                // NOTE: The sample zooms to the extent of the ImageServiceRaster. Currently the ArcGIS Runtime does not 
+                // support zooming a RasterLayer out beyond 4 times it's published level of detail. The sample uses 
+                // MapView.SetViewpointCenterAsync() method to ensure the image shows when the app starts. You can see 
+                // the effect of the image service not showing when you zoom out to the full extent of the image and beyond.
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+            }
         }
     }
 }

@@ -104,26 +104,33 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             // Create a new map using the raster layer as the base map.
             Map map = new Map(new Basemap(rasterLayerImagery));
 
-            // Wait for the layer to load - this enabled being able to obtain the raster layer's extent.
-            await rasterLayerImagery.LoadAsync();
+            try
+            {
+                // Wait for the layer to load - this enabled being able to obtain the raster layer's extent.
+                await rasterLayerImagery.LoadAsync();
 
-            // Create a new EnvelopeBuilder from the full extent of the raster layer.
-            EnvelopeBuilder envelopeBuilder = new EnvelopeBuilder(rasterLayerImagery.FullExtent);
+                // Create a new EnvelopeBuilder from the full extent of the raster layer.
+                EnvelopeBuilder envelopeBuilder = new EnvelopeBuilder(rasterLayerImagery.FullExtent);
 
-            // Zoom in the extent just a bit so that raster layer encompasses the entire viewable area of the map.
-            envelopeBuilder.Expand(0.75);
+                // Zoom in the extent just a bit so that raster layer encompasses the entire viewable area of the map.
+                envelopeBuilder.Expand(0.75);
 
-            // Set the viewpoint of the map to the EnvelopeBuilder's extent.
-            map.InitialViewpoint = new Viewpoint(envelopeBuilder.ToGeometry().Extent);
+                // Set the viewpoint of the map to the EnvelopeBuilder's extent.
+                map.InitialViewpoint = new Viewpoint(envelopeBuilder.ToGeometry().Extent);
 
-            // Add map to the map view.
-            _myMapView.Map = map;
+                // Add map to the map view.
+                _myMapView.Map = map;
 
-            // Wait for the map to load.
-            await map.LoadAsync();
+                // Wait for the map to load.
+                await map.LoadAsync();
 
-            // Enable the 'Update Renderer' button now that the map has loaded.
-            _updateRendererButton.Enabled = true;
+                // Enable the 'Update Renderer' button now that the map has loaded.
+                _updateRendererButton.Enabled = true;
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         private void CreateLayout()

@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using System.Windows;
@@ -36,11 +37,18 @@ namespace ArcGISRuntime.WPF.Samples.TakeScreenshot
 
         private async void OnScreenshotButtonClicked(object sender, RoutedEventArgs e)
         {
-            // Export the image from mapview and display it.
-            ImageView.Source = await (await MyMapView.ExportImageAsync()).ToImageSourceAsync();
+            try
+            {
+                // Export the image from mapview and display it.
+                ImageView.Source = await (await MyMapView.ExportImageAsync()).ToImageSourceAsync();
 
-            // Make the image visible.
-            ImageView.Visibility = Visibility.Visible;
+                // Make the image visible.
+                ImageView.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+            }
         }
     }
 }

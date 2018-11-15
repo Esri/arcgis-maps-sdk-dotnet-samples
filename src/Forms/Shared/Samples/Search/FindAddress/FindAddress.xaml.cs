@@ -65,12 +65,19 @@ namespace ArcGISRuntime.Samples.FindAddress
             // Assign the map to the MapView
             MyMapView.Map = myMap;
 
-            // Initialize the LocatorTask with the provided service Uri
-            _geocoder = await LocatorTask.CreateAsync(_serviceUri);
+            try
+            {
+                // Initialize the LocatorTask with the provided service Uri
+                _geocoder = await LocatorTask.CreateAsync(_serviceUri);
 
-            // Enable the UI controls now that the LocatorTask is ready
-            MySuggestButton.IsEnabled = true;
-            MySearchBar.IsEnabled = true;
+                // Enable the UI controls now that the LocatorTask is ready
+                MySuggestButton.IsEnabled = true;
+                MySearchBar.IsEnabled = true;
+            }
+            catch (Exception e)
+            {
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+            }
         }
 
         private void Handle_TextChanged(object sender, System.EventArgs e)
@@ -89,30 +96,37 @@ namespace ArcGISRuntime.Samples.FindAddress
             // Return gracefully if the textbox is empty or the geocoder isn't ready
             if (String.IsNullOrWhiteSpace(enteredText) || _geocoder == null) { return; }
 
-            // Get suggestions based on the input text
-            IReadOnlyList<SuggestResult> suggestions = await _geocoder.SuggestAsync(enteredText);
+            try
+            {
+                // Get suggestions based on the input text
+                IReadOnlyList<SuggestResult> suggestions = await _geocoder.SuggestAsync(enteredText);
 
-            // Stop gracefully if there are no suggestions
-            if (suggestions.Count < 1) { return; }
+                // Stop gracefully if there are no suggestions
+                if (suggestions.Count < 1) { return; }
 
-            // Get the full address for the first suggestion
-            SuggestResult firstSuggestion = suggestions.First();
-            IReadOnlyList<GeocodeResult> addresses = await _geocoder.GeocodeAsync(firstSuggestion.Label);
+                // Get the full address for the first suggestion
+                SuggestResult firstSuggestion = suggestions.First();
+                IReadOnlyList<GeocodeResult> addresses = await _geocoder.GeocodeAsync(firstSuggestion.Label);
 
-            // Stop gracefully if the geocoder does not return a result
-            if (addresses.Count < 1) { return; }
+                // Stop gracefully if the geocoder does not return a result
+                if (addresses.Count < 1) { return; }
 
-            // Place a marker on the map - 1. Create the overlay
-            GraphicsOverlay resultOverlay = new GraphicsOverlay();
-            // 2. Get the Graphic to display
-            Graphic point = await GraphicForPoint(addresses.First().DisplayLocation);
-            // 3. Add the Graphic to the GraphicsOverlay
-            resultOverlay.Graphics.Add(point);
-            // 4. Add the GraphicsOverlay to the MapView
-            MyMapView.GraphicsOverlays.Add(resultOverlay);
+                // Place a marker on the map - 1. Create the overlay
+                GraphicsOverlay resultOverlay = new GraphicsOverlay();
+                // 2. Get the Graphic to display
+                Graphic point = await GraphicForPoint(addresses.First().DisplayLocation);
+                // 3. Add the Graphic to the GraphicsOverlay
+                resultOverlay.Graphics.Add(point);
+                // 4. Add the GraphicsOverlay to the MapView
+                MyMapView.GraphicsOverlays.Add(resultOverlay);
 
-            // Update the map extent to show the marker
-            await MyMapView.SetViewpointGeometryAsync(addresses.First().Extent);
+                // Update the map extent to show the marker
+                MyMapView.SetViewpoint(new Viewpoint(addresses.First().Extent));
+            }
+            catch (Exception e)
+            {
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+            }
         }
 
         /// <summary>
@@ -158,27 +172,34 @@ namespace ArcGISRuntime.Samples.FindAddress
         /// </summary>
         private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
-            // Search for the graphics underneath the user's tap
-            IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
+            try
+            {
+                // Search for the graphics underneath the user's tap
+                IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
 
-            // Return gracefully if there was no result
-            if (results.Count < 1 || results.First().Graphics.Count < 1) { return; }
+                // Return gracefully if there was no result
+                if (results.Count < 1 || results.First().Graphics.Count < 1) { return; }
 
-            // Reverse geocode to get addresses
-            IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location);
+                // Reverse geocode to get addresses
+                IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location);
 
-            // Get the first result
-            GeocodeResult address = addresses.First();
-            // Use the city and region for the Callout Title
-            string calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
-            // Use the metro area for the Callout Detail
-            string calloutDetail = address.Attributes["MetroArea"].ToString();
+                // Get the first result
+                GeocodeResult address = addresses.First();
+                // Use the city and region for the Callout Title
+                string calloutTitle = address.Attributes["City"] + ", " + address.Attributes["Region"];
+                // Use the metro area for the Callout Detail
+                string calloutDetail = address.Attributes["MetroArea"].ToString();
 
-            // Define the callout
-            CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);
+                // Define the callout
+                CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);
 
-            // Show the callout on the map at the tapped location
-            MyMapView.ShowCalloutAt(e.Location, calloutBody);
+                // Show the callout on the map at the tapped location
+                MyMapView.ShowCalloutAt(e.Location, calloutBody);
+            }
+            catch (Exception ex)
+            {
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+            }
         }
     }
 }

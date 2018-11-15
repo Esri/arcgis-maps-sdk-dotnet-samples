@@ -71,7 +71,7 @@ namespace ArcGISRuntime.Samples.OpenScene
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine(e.ToString());
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
         }
     }

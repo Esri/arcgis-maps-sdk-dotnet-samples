@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
@@ -88,11 +89,11 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
         {
             try
             {
-                // Apply an imagery basemap to the map.
-                Map myMap = new Map(Basemap.CreateImagery());
+                // Create a map with spatial reference appropriate for the service.
+                Map myMap = new Map(SpatialReference.Create(26915)) {MinScale = 7000000.0};
 
                 // Create a new WMS layer displaying the specified layers from the service.
-                // The default styles are chosen by default, which corresponds to 'Style 1' in the UI.
+                // The default styles are chosen by default.
                 _mnWmsLayer = new WmsLayer(_wmsUrl, _wmsLayerNames);
 
                 // Wait for the layer to load.
@@ -112,8 +113,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             }
             catch (Exception ex)
             {
-                // Any exceptions in the async void method must be caught, otherwise they will result in a crash.
-                Debug.WriteLine(ex.ToString());
+                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
         }
 

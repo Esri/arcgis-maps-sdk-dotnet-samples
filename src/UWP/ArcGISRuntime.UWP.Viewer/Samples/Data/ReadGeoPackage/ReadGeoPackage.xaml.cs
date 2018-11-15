@@ -7,12 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.UI.Popups;
 
 namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
 {
@@ -43,74 +45,81 @@ namespace ArcGISRuntime.UWP.Samples.ReadGeoPackage
             // Get the full path to the GeoPackage on the device
             string myGeoPackagePath = DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");
 
-            // Open the GeoPackage
-            GeoPackage myGeoPackage = await GeoPackage.OpenAsync(myGeoPackagePath);
-
-            // Loop through each GeoPackageRaster
-            foreach (GeoPackageRaster oneGeoPackageRaster in myGeoPackage.GeoPackageRasters)
+            try
             {
-                // Create a RasterLayer from the GeoPackageRaster
-                RasterLayer myRasterLayer = new RasterLayer(oneGeoPackageRaster)
+                // Open the GeoPackage
+                GeoPackage myGeoPackage = await GeoPackage.OpenAsync(myGeoPackagePath);
+
+                // Loop through each GeoPackageRaster
+                foreach (GeoPackageRaster oneGeoPackageRaster in myGeoPackage.GeoPackageRasters)
                 {
+                    // Create a RasterLayer from the GeoPackageRaster
+                    RasterLayer myRasterLayer = new RasterLayer(oneGeoPackageRaster)
+                    {
 
-                    // Set the opacity on the RasterLayer to partially visible 
-                    Opacity = 0.55
-                };
+                        // Set the opacity on the RasterLayer to partially visible 
+                        Opacity = 0.55
+                    };
 
-                // Load the RasterLayer - that way we can get to it's properties
-                await myRasterLayer.LoadAsync();
+                    // Load the RasterLayer - that way we can get to it's properties
+                    await myRasterLayer.LoadAsync();
 
-                // Create a string variable to hold the name of the RasterLayer for display
-                // in the ListBox and the Dictionary - it will initially be an empty string
-                string myRasterLayerName = "";
+                    // Create a string variable to hold the name of the RasterLayer for display
+                    // in the ListBox and the Dictionary - it will initially be an empty string
+                    string myRasterLayerName = "";
 
-                if (myRasterLayer.Name != "")
-                {
-                    // We have a good name for the RasterLayer that came from
-                    // the RasterLayer.Name property
-                    myRasterLayerName = myRasterLayer.Name;
+                    if (myRasterLayer.Name != "")
+                    {
+                        // We have a good name for the RasterLayer that came from
+                        // the RasterLayer.Name property
+                        myRasterLayerName = myRasterLayer.Name;
+                    }
+                    else if (oneGeoPackageRaster.Path.Split('/').Last() != "")
+                    {
+                        // We did not get a good name from the RasterLayer from the .Name
+                        // property, get the good name from the GeoPackageRaster.Path instead
+                        myRasterLayerName = oneGeoPackageRaster.Path.Split('/').Last();
+                    }
+
+                    // Append the 'type of layer' to the myRasterLayerName string to display in the 
+                    // ListBox and as the key for the Dictionary
+                    myRasterLayerName = myRasterLayerName + " - RasterLayer";
+
+                    // Add the name of the RasterLayer and the RasterLayer itself into the Dictionary
+                    _nameToLayerDictionary[myRasterLayerName] = myRasterLayer;
+
+                    // Add the name of the RasterLayer to the ListBox of layers not in map
+                    LayersNotInTheMap.Items.Add(myRasterLayerName);
+
                 }
-                else if (oneGeoPackageRaster.Path.Split('/').Last() != "")
+
+                // Loop through each GeoPackageFeatureTable
+                foreach (GeoPackageFeatureTable oneGeoPackageFeatureTable in myGeoPackage.GeoPackageFeatureTables)
                 {
-                    // We did not get a good name from the RasterLayer from the .Name
-                    // property, get the good name from the GeoPackageRaster.Path instead
-                    myRasterLayerName = oneGeoPackageRaster.Path.Split('/').Last();
+                    // Create a FeatureLayer from the GeoPackageFeatureLayer
+                    FeatureLayer myFeatureLayer = new FeatureLayer(oneGeoPackageFeatureTable);
+
+                    // Load the FeatureLayer - that way we can get to it's properties
+                    await myFeatureLayer.LoadAsync();
+
+                    // Create a string variable to hold the human-readable name of the FeatureLayer for 
+                    // display in the ListBox and the Dictionary 
+                    string myFeatureLayerName = myFeatureLayer.Name;
+
+                    // Append the 'type of layer' to the myFeatureLayerName string to display in the 
+                    // ListBox and as the key for the Dictionary
+                    myFeatureLayerName = myFeatureLayerName + " - FeatureLayer";
+
+                    // Add the name of the FeatureLayer and the FeatureLayer itself into the Dictionary
+                    _nameToLayerDictionary[myFeatureLayerName] = myFeatureLayer;
+
+                    // Add the name of the FeatureLayer to the ListBox of layers not in map
+                    LayersNotInTheMap.Items.Add(myFeatureLayerName);
                 }
-
-                // Append the 'type of layer' to the myRasterLayerName string to display in the 
-                // ListBox and as the key for the Dictionary
-                myRasterLayerName = myRasterLayerName + " - RasterLayer";
-
-                // Add the name of the RasterLayer and the RasterLayer itself into the Dictionary
-                _nameToLayerDictionary[myRasterLayerName] = myRasterLayer;
-
-                // Add the name of the RasterLayer to the ListBox of layers not in map
-                LayersNotInTheMap.Items.Add(myRasterLayerName);
-
             }
-
-            // Loop through each GeoPackageFeatureTable
-            foreach (GeoPackageFeatureTable oneGeoPackageFeatureTable in myGeoPackage.GeoPackageFeatureTables)
+            catch (Exception e)
             {
-                // Create a FeatureLayer from the GeoPackageFeatureLayer
-                FeatureLayer myFeatureLayer = new FeatureLayer(oneGeoPackageFeatureTable);
-
-                // Load the FeatureLayer - that way we can get to it's properties
-                await myFeatureLayer.LoadAsync();
-
-                // Create a string variable to hold the human-readable name of the FeatureLayer for 
-                // display in the ListBox and the Dictionary 
-                string myFeatureLayerName = myFeatureLayer.Name;
-
-                // Append the 'type of layer' to the myFeatureLayerName string to display in the 
-                // ListBox and as the key for the Dictionary
-                myFeatureLayerName = myFeatureLayerName + " - FeatureLayer";
-
-                // Add the name of the FeatureLayer and the FeatureLayer itself into the Dictionary
-                _nameToLayerDictionary[myFeatureLayerName] = myFeatureLayer;
-
-                // Add the name of the FeatureLayer to the ListBox of layers not in map
-                LayersNotInTheMap.Items.Add(myFeatureLayerName);
+                await new MessageDialog(e.ToString(), "Error").ShowAsync();
             }
         }
 

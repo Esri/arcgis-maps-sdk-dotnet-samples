@@ -68,36 +68,43 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
             // Create a new image service raster from the Uri
             ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri);
 
-            // Load the image service raster
-            await myImageServiceRaster.LoadAsync();
-
-            // Get the ArcGIS image service info (metadata) from the image service raster
-            ArcGISImageServiceInfo myArcGISImageServiceInfo = myImageServiceRaster.ServiceInfo;
-
-            // Get the full extent envelope of the image service raster (the Charlotte, NC area)
-            Envelope myEnvelope = myArcGISImageServiceInfo.FullExtent;
-
-            // Define a new view point from the full extent envelope
-            Viewpoint myViewPoint = new Viewpoint(myEnvelope);
-
-            // Zoom to the area of the full extent envelope of the image service raster
-            await _myMapView.SetViewpointAsync(myViewPoint);
-
-            // Get the rendering rule info (i.e. definitions of how the image should be drawn) info from the image service raster
-            _myReadOnlyListRenderRuleInfos = myArcGISImageServiceInfo.RenderingRuleInfos;
-
-            // Loop through each rendering rule info
-            foreach (RenderingRuleInfo myRenderingRuleInfo in _myReadOnlyListRenderRuleInfos)
+            try
             {
-                // Get the name of the rendering rule info
-                string myRenderingRuleName = myRenderingRuleInfo.Name;
+                // Load the image service raster
+                await myImageServiceRaster.LoadAsync();
 
-                // Add the name of the rendering rule info to the list of names
-                _names.Add(myRenderingRuleName);
+                // Get the ArcGIS image service info (metadata) from the image service raster
+                ArcGISImageServiceInfo myArcGISImageServiceInfo = myImageServiceRaster.ServiceInfo;
+
+                // Get the full extent envelope of the image service raster (the Charlotte, NC area)
+                Envelope myEnvelope = myArcGISImageServiceInfo.FullExtent;
+
+                // Define a new view point from the full extent envelope
+                Viewpoint myViewPoint = new Viewpoint(myEnvelope);
+
+                // Zoom to the area of the full extent envelope of the image service raster
+                await _myMapView.SetViewpointAsync(myViewPoint);
+
+                // Get the rendering rule info (i.e. definitions of how the image should be drawn) info from the image service raster
+                _myReadOnlyListRenderRuleInfos = myArcGISImageServiceInfo.RenderingRuleInfos;
+
+                // Loop through each rendering rule info
+                foreach (RenderingRuleInfo myRenderingRuleInfo in _myReadOnlyListRenderRuleInfos)
+                {
+                    // Get the name of the rendering rule info
+                    string myRenderingRuleName = myRenderingRuleInfo.Name;
+
+                    // Add the name of the rendering rule info to the list of names
+                    _names.Add(myRenderingRuleName);
+                }
+
+                // Invoke the button for the user to change the rendering rule of the image service raster
+                OnChangeRenderingRuleClicked(_renderingRulesButton, null);
             }
-
-            // Invoke the button for the user to change the rendering rule of the image service raster
-            OnChangeRenderingRuleClicked(_renderingRulesButton, null);
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private void OnChangeRenderingRuleClicked(object sender, EventArgs e)

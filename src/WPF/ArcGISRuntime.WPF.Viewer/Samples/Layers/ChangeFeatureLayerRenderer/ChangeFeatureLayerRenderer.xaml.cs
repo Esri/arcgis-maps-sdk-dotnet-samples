@@ -35,7 +35,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeFeatureLayerRenderer
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateTopographic());
@@ -60,16 +60,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeFeatureLayerRenderer
 
             // Initialize a new feature layer based on the feature table
             _featureLayer = new FeatureLayer(featureTable);
-
-            // Make sure that the feature layer gets loaded
-            await _featureLayer.LoadAsync();
-
-            // Check for the load status. If the layer is loaded then add it to map
-            if (_featureLayer.LoadStatus == Esri.ArcGISRuntime.LoadStatus.Loaded)
-            {
-                // Add the feature layer to the map
-                myMap.OperationalLayers.Add(_featureLayer);
-            }
+            myMap.OperationalLayers.Add(_featureLayer);
         }
 
         private void OnOverrideButtonClicked(object sender, RoutedEventArgs e)

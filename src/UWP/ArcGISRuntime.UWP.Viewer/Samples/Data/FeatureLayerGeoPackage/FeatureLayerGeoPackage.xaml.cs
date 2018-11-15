@@ -7,10 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System.Linq;
+using Windows.UI.Popups;
 
 namespace ArcGISRuntime.UWP.Samples.FeatureLayerGeoPackage
 {
@@ -39,21 +41,28 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerGeoPackage
             // Get the full path
             string geoPackagePath = GetGeoPackagePath();
 
-            // Open the GeoPackage
-            GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
+            try
+            {
+                // Open the GeoPackage
+                GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
 
-            // Read the feature tables and get the first one
-            FeatureTable geoPackageTable = myGeoPackage.GeoPackageFeatureTables.FirstOrDefault();
+                // Read the feature tables and get the first one
+                FeatureTable geoPackageTable = myGeoPackage.GeoPackageFeatureTables.FirstOrDefault();
 
-            // Make sure a feature table was found in the package
-            if (geoPackageTable == null) { return; }
+                // Make sure a feature table was found in the package
+                if (geoPackageTable == null) { return; }
 
-            // Create a layer to show the feature table
-            FeatureLayer newLayer = new FeatureLayer(geoPackageTable);
-            await newLayer.LoadAsync();
+                // Create a layer to show the feature table
+                FeatureLayer newLayer = new FeatureLayer(geoPackageTable);
+                await newLayer.LoadAsync();
 
-            // Add the feature table as a layer to the map (with default symbology)
-            MyMapView.Map.OperationalLayers.Add(newLayer);
+                // Add the feature table as a layer to the map (with default symbology)
+                MyMapView.Map.OperationalLayers.Add(newLayer);
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+            }
         }
 
         private static string GetGeoPackagePath()

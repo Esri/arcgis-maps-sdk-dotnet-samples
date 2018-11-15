@@ -62,8 +62,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             Viewpoint initialViewpoint = new Viewpoint(_originalPoint, 5000);
             myMap.InitialViewpoint = initialViewpoint;
 
-            // Load the map and add the map to the map view.
-            await myMap.LoadAsync();
+            // Add the map to the map view.
             MyMapView.Map = myMap;
 
             // Create a graphics overlay to hold the original and projected points.
@@ -87,15 +86,25 @@ namespace ArcGISRuntime.Samples.ListTransformations
                 MessagesTextBox.Text = "Projection engine data not found.";
             }
 
-            // Show the input and output spatial reference.
-            InSpatialRefTextBox.Text = "In WKID = " + _originalPoint.SpatialReference.Wkid;
-            OutSpatialRefTextBox.Text = "Out WKID = " + myMap.SpatialReference.Wkid;
+            try
+            {
+                // Wait for the map to load so that it has a spatial reference.
+                await myMap.LoadAsync();
 
-            // Set up the UI.
-            TransformationsListBox.ItemsSource = SuitableTransformationsList;
+                // Show the input and output spatial reference.
+                InSpatialRefTextBox.Text = "In WKID = " + _originalPoint.SpatialReference.Wkid;
+                OutSpatialRefTextBox.Text = "Out WKID = " + myMap.SpatialReference.Wkid;
 
-            // Create a list of transformations to fill the UI list box.
-            GetSuitableTransformations(_originalPoint.SpatialReference, myMap.SpatialReference, UseExtentSwitch.IsToggled);
+                // Set up the UI.
+                TransformationsListBox.ItemsSource = SuitableTransformationsList;
+
+                // Create a list of transformations to fill the UI list box.
+                GetSuitableTransformations(_originalPoint.SpatialReference, myMap.SpatialReference, UseExtentSwitch.IsToggled);
+            }
+            catch (Exception e)
+            {
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+            }
         }
 
         // Function to get suitable datum transformations for the specified input and output spatial references.

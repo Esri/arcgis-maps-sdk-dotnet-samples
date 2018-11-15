@@ -92,17 +92,24 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
 
         private async void OnScreenshotButtonClicked(object sender, EventArgs e)
         {
-            // Export the image from the MapView.
-            RuntimeImage exportedImage = await _myMapView.ExportImageAsync();
+            try
+            {
+                // Export the image from the MapView.
+                RuntimeImage exportedImage = await _myMapView.ExportImageAsync();
 
-            // Convert the exported image to a suitable display format, then display it.
-            _overlayImageView.Image = await exportedImage.ToImageSourceAsync();
+                // Convert the exported image to a suitable display format, then display it.
+                _overlayImageView.Image = await exportedImage.ToImageSourceAsync();
 
-            // Enable the button to close image view.
-            _closeImageViewButton.Enabled = true;
+                // Enable the button to close image view.
+                _closeImageViewButton.Enabled = true;
 
-            // Show the overlay view.
-            _overlayView.Hidden = false;
+                // Show the overlay view.
+                _overlayView.Hidden = false;
+            }
+            catch (Exception ex)
+            {
+                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         private void CreateLayout()

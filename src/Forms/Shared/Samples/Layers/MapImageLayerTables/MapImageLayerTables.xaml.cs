@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Xamarin.Forms;
+using Color = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.MapImageLayerTables
 {
@@ -89,10 +90,8 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
             }
-
-            ;
         }
 
         // Handle a new selected comment record in the table view.
@@ -120,35 +119,42 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
                 ReturnGeometry = true
             };
 
-            // Query the comments table to get the related service request feature for the selected comment.
-            IReadOnlyList<RelatedFeatureQueryResult> relatedRequestsResult = await commentsTable.QueryRelatedFeaturesAsync(selectedComment, relatedQueryParams);
-
-            // Get the first result. 
-            RelatedFeatureQueryResult result = relatedRequestsResult.FirstOrDefault();
-
-            // Get the first feature from the result. If it's null, warn the user and return.
-            ArcGISFeature serviceRequestFeature = result.FirstOrDefault() as ArcGISFeature;
-            if (serviceRequestFeature == null)
+            try
             {
-                await ((Page)Parent).DisplayAlert("No Feature", "Related feature not found.", "OK");
-                return;
+                // Query the comments table to get the related service request feature for the selected comment.
+                IReadOnlyList<RelatedFeatureQueryResult> relatedRequestsResult = await commentsTable.QueryRelatedFeaturesAsync(selectedComment, relatedQueryParams);
+
+                // Get the first result. 
+                RelatedFeatureQueryResult result = relatedRequestsResult.FirstOrDefault();
+
+                // Get the first feature from the result. If it's null, warn the user and return.
+                ArcGISFeature serviceRequestFeature = result.FirstOrDefault() as ArcGISFeature;
+                if (serviceRequestFeature == null)
+                {
+                    await ((Page)Parent).DisplayAlert("No Feature", "Related feature not found.", "OK");
+                    return;
+                }
+
+                // Load the related service request feature (so its geometry is available).
+                await serviceRequestFeature.LoadAsync();
+
+                // Get the service request geometry (point).
+                MapPoint serviceRequestPoint = serviceRequestFeature.Geometry as MapPoint;
+
+                // Create a cyan marker symbol to display the related feature.
+                Symbol selectedRequestSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Cyan, 14);
+
+                // Create a graphic using the service request point and marker symbol.
+                Graphic requestGraphic = new Graphic(serviceRequestPoint, selectedRequestSymbol);
+
+                // Add the graphic to the graphics overlay and zoom the map view to its extent.
+                _selectedFeaturesOverlay.Graphics.Add(requestGraphic);
+                await MyMapView.SetViewpointCenterAsync(serviceRequestPoint, 150000);
             }
-
-            // Load the related service request feature (so its geometry is available).
-            await serviceRequestFeature.LoadAsync();
-
-            // Get the service request geometry (point).
-            MapPoint serviceRequestPoint = serviceRequestFeature.Geometry as MapPoint;
-
-            // Create a cyan marker symbol to display the related feature.
-            Symbol selectedRequestSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Cyan, 14);
-
-            // Create a graphic using the service request point and marker symbol.
-            Graphic requestGraphic = new Graphic(serviceRequestPoint, selectedRequestSymbol);
-
-            // Add the graphic to the graphics overlay and zoom the map view to its extent.
-            _selectedFeaturesOverlay.Graphics.Add(requestGraphic);
-            await MyMapView.SetViewpointCenterAsync(serviceRequestPoint, 150000);
+            catch (Exception ex)
+            {
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+            }
         }
     }
 }

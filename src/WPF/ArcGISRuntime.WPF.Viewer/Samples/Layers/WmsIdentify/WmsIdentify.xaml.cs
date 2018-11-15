@@ -52,17 +52,24 @@ namespace ArcGISRuntime.WPF.Samples.WmsIdentify
             // Create a new WMS layer displaying the specified layers from the service.
             _wmsLayer = new WmsLayer(_wmsUrl, _wmsLayerNames);
 
-            // Load the layer.
-            await _wmsLayer.LoadAsync();
+            try
+            {
+                // Load the layer.
+                await _wmsLayer.LoadAsync();
 
-            // Add the layer to the map.
-            MyMapView.Map.OperationalLayers.Add(_wmsLayer);
+                // Add the layer to the map.
+                MyMapView.Map.OperationalLayers.Add(_wmsLayer);
 
-            // Zoom to the layer's extent.
-            MyMapView.SetViewpoint(new Viewpoint(_wmsLayer.FullExtent));
+                // Zoom to the layer's extent.
+                MyMapView.SetViewpoint(new Viewpoint(_wmsLayer.FullExtent));
 
-            // Subscribe to tap events - starting point for feature identification.
-            MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+                // Subscribe to tap events - starting point for feature identification.
+                MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error");
+            }
         }
 
         private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
@@ -70,32 +77,39 @@ namespace ArcGISRuntime.WPF.Samples.WmsIdentify
             // Hide the old result.
             BrowserView.Visibility = Visibility.Collapsed;
 
-            // Perform the identify operation.
-            IdentifyLayerResult myIdentifyResult = await MyMapView.IdentifyLayerAsync(_wmsLayer, e.Position, 20, false);
-
-            // Return if there's nothing to show.
-            if (!myIdentifyResult.GeoElements.Any())
+            try
             {
-                return;
+                // Perform the identify operation.
+                IdentifyLayerResult myIdentifyResult = await MyMapView.IdentifyLayerAsync(_wmsLayer, e.Position, 20, false);
+
+                // Return if there's nothing to show.
+                if (!myIdentifyResult.GeoElements.Any())
+                {
+                    return;
+                }
+
+                // Retrieve the identified feature, which is always a WmsFeature for WMS layers.
+                WmsFeature identifiedFeature = (WmsFeature)myIdentifyResult.GeoElements[0];
+
+                // Retrieve the WmsFeature's HTML content.
+                string htmlContent = identifiedFeature.Attributes["HTML"].ToString();
+
+                // Note that the service returns a boilerplate HTML result if there is no feature found.
+                // This test should work for most arcGIS-based WMS services, but results may vary.
+                if (!htmlContent.Contains("OBJECTID"))
+                {
+                    // Return without showing the result.
+                    return;
+                }
+
+                // Show the result.
+                BrowserView.Visibility = Visibility.Visible;
+                BrowserView.NavigateToString(htmlContent);
             }
-
-            // Retrieve the identified feature, which is always a WmsFeature for WMS layers.
-            WmsFeature identifiedFeature = (WmsFeature)myIdentifyResult.GeoElements[0];
-
-            // Retrieve the WmsFeature's HTML content.
-            string htmlContent = identifiedFeature.Attributes["HTML"].ToString();
-
-            // Note that the service returns a boilerplate HTML result if there is no feature found.
-            // This test should work for most arcGIS-based WMS services, but results may vary.
-            if (!htmlContent.Contains("OBJECTID"))
+            catch (Exception ex)
             {
-                // Return without showing the result.
-                return;
+                MessageBox.Show(ex.ToString(), "Error");
             }
-
-            // Show the result.
-            BrowserView.Visibility = Visibility.Visible;
-            BrowserView.NavigateToString(htmlContent);
         }
     }
 }

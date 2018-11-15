@@ -49,23 +49,30 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             // Create the WMS Service.
             WmsService service = new WmsService(_wmsUrl);
 
-            // Load the WMS Service.
-            await service.LoadAsync();
-
-            // Get the service info (metadata) from the service.
-            WmsServiceInfo info = service.ServiceInfo;
-
-            // Get the list of layer infos.
-            foreach (var layerInfo in info.LayerInfos)
+            try
             {
-                LayerDisplayVM.BuildLayerInfoList(new LayerDisplayVM(layerInfo, null), _viewModelList);
+                // Load the WMS Service.
+                await service.LoadAsync();
+
+                // Get the service info (metadata) from the service.
+                WmsServiceInfo info = service.ServiceInfo;
+
+                // Get the list of layer infos.
+                foreach (var layerInfo in info.LayerInfos)
+                {
+                    LayerDisplayVM.BuildLayerInfoList(new LayerDisplayVM(layerInfo, null), _viewModelList);
+                }
+
+                // Update the map display based on the viewModel.
+                UpdateMapDisplay(_viewModelList);
+
+                // Update the list of layers.
+                MyDisplayList.ItemsSource = _viewModelList;
             }
-
-            // Update the map display based on the viewModel.
-            UpdateMapDisplay(_viewModelList);
-
-            // Update the list of layers.
-            MyDisplayList.ItemsSource = _viewModelList;
+            catch (Exception e)
+            {
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+            }
         }
 
         /// <summary>
@@ -88,14 +95,21 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             // Create a new WmsLayer from the selected layers.
             WmsLayer myLayer = new WmsLayer(selectedLayers);
 
-            // Load the layer.
-            await myLayer.LoadAsync();
+            try
+            {
+                // Load the layer.
+                await myLayer.LoadAsync();
 
-            // Add the layer to the map.
-            MyMapView.Map.OperationalLayers.Add(myLayer);
+                // Add the layer to the map.
+                MyMapView.Map.OperationalLayers.Add(myLayer);
 
-            // Update the viewpoint.
-            await MyMapView.SetViewpointAsync(new Viewpoint(myLayer.FullExtent));
+                // Update the viewpoint.
+                await MyMapView.SetViewpointAsync(new Viewpoint(myLayer.FullExtent));
+            }
+            catch (Exception e)
+            {
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+            }
         }
 
         /// <summary>

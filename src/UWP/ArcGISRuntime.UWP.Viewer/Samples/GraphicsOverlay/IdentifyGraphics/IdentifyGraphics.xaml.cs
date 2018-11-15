@@ -87,19 +87,26 @@ namespace ArcGISRuntime.UWP.Samples.IdentifyGraphics
             int maximumResults = 1; // Only return one graphic  
             bool onlyReturnPopups = false; // Don't return only popups
 
-            // Use the following method to identify graphics in a specific graphics overlay
-            IdentifyGraphicsOverlayResult identifyResults = await MyMapView.IdentifyGraphicsOverlayAsync(
-                 _polygonOverlay,
-                 e.Position,
-                 tolerance, 
-                 onlyReturnPopups, 
-                 maximumResults);
+            try
+            {
+                // Use the following method to identify graphics in a specific graphics overlay
+                IdentifyGraphicsOverlayResult identifyResults = await MyMapView.IdentifyGraphicsOverlayAsync(
+                    _polygonOverlay,
+                    e.Position,
+                    tolerance, 
+                    onlyReturnPopups, 
+                    maximumResults);
 
-            // Check if we got results
-            if (identifyResults.Graphics.Count > 0)
-            { 
-                //  Display to the user the identify worked.
-                await new MessageDialog("Tapped on graphic", "").ShowAsync();
+                // Check if we got results
+                if (identifyResults.Graphics.Count > 0)
+                { 
+                    //  Display to the user the identify worked.
+                    await new MessageDialog("Tapped on graphic", "").ShowAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
             }
         }
     }

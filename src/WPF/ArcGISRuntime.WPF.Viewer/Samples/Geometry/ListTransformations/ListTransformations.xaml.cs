@@ -80,8 +80,7 @@ namespace ArcGISRuntime.WPF.Samples.ListTransformations
             // Set the initial extent to an extent centered on the point.
             myMap.InitialViewpoint = new Viewpoint(_originalPoint, 5000);
 
-            // Load the map and add the map to the map view.
-            await myMap.LoadAsync();
+            // Add the map to the view.
             MyMapView.Map = myMap;
 
             // Create a graphics overlay to hold the original and projected points.
@@ -105,13 +104,23 @@ namespace ArcGISRuntime.WPF.Samples.ListTransformations
                 MessagesTextBox.Text = "Projection engine data not found.";
             }
 
-            // Show the input and output spatial reference.
-            InSpatialRefTextBox.Text = "In WKID = " + _originalPoint.SpatialReference.Wkid;
-            OutSpatialRefTextBox.Text = "Out WKID = " + myMap.SpatialReference.Wkid;
+            try
+            {
+                // Wait for the map to load so that it has a spatial reference.
+                await myMap.LoadAsync();
 
-            // Create a list of transformations to fill the UI list box.
-            GetSuitableTransformations(_originalPoint.SpatialReference, myMap.SpatialReference,
-                UseExtentCheckBox.IsChecked == true);
+                // Show the input and output spatial reference.
+                InSpatialRefTextBox.Text = "In WKID = " + _originalPoint.SpatialReference.Wkid;
+                OutSpatialRefTextBox.Text = "Out WKID = " + myMap.SpatialReference.Wkid;
+
+                // Create a list of transformations to fill the UI list box.
+                GetSuitableTransformations(_originalPoint.SpatialReference, myMap.SpatialReference,
+                    UseExtentCheckBox.IsChecked == true);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error");
+            }
         }
 
         // Function to get suitable datum transformations for the specified input and output spatial references.

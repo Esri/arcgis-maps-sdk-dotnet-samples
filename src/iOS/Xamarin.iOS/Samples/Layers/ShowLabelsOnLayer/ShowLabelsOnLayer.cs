@@ -29,6 +29,68 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
         // Create and hold a reference to the MapView.
         private MapView _myMapView;
 
+        // Help regarding the Json syntax for defining the LabelDefinition.FromJson syntax can be found here:
+        // https://developers.arcgis.com/web-map-specification/objects/labelingInfo/
+        private const string RedLabelJson =
+            @"{
+                    ""labelExpressionInfo"":{""expression"":""$feature.NAME + ' (' + left($feature.PARTY,1) + ')\\nDistrict' + $feature.CDFIPS""},
+                    ""labelPlacement"":""esriServerPolygonPlacementAlwaysHorizontal"",
+                    ""where"":""PARTY = 'Republican'"",
+                    ""symbol"":
+                        { 
+                            ""angle"":0,
+                            ""backgroundColor"":[0,0,0,0],
+                            ""borderLineColor"":[0,0,0,0],
+                            ""borderLineSize"":0,
+                            ""color"":[255,0,0,255],
+                            ""font"":
+                                {
+                                    ""decoration"":""none"",
+                                    ""size"":10,
+                                    ""style"":""normal"",
+                                    ""weight"":""normal""
+                                },
+                            ""haloColor"":[255,255,255,255],
+                            ""haloSize"":2,
+                            ""horizontalAlignment"":""center"",
+                            ""kerning"":false,
+                            ""type"":""esriTS"",
+                            ""verticalAlignment"":""middle"",
+                            ""xoffset"":0,
+                            ""yoffset"":0
+                        }
+               }";
+
+        private const string BlueLabelJson =
+            @"{
+                    ""labelExpressionInfo"":{""expression"":""$feature.NAME + ' (' + left($feature.PARTY,1) + ')\\nDistrict' + $feature.CDFIPS""},
+                    ""labelPlacement"":""esriServerPolygonPlacementAlwaysHorizontal"",
+                    ""where"":""PARTY = 'Democrat'"",
+                    ""symbol"":
+                        { 
+                            ""angle"":0,
+                            ""backgroundColor"":[0,0,0,0],
+                            ""borderLineColor"":[0,0,0,0],
+                            ""borderLineSize"":0,
+                            ""color"":[0,0,255,255],
+                            ""font"":
+                                {
+                                    ""decoration"":""none"",
+                                    ""size"":10,
+                                    ""style"":""normal"",
+                                    ""weight"":""normal""
+                                },
+                            ""haloColor"":[255,255,255,255],
+                            ""haloSize"":2,
+                            ""horizontalAlignment"":""center"",
+                            ""kerning"":false,
+                            ""type"":""esriTS"",
+                            ""verticalAlignment"":""middle"",
+                            ""xoffset"":0,
+                            ""yoffset"":0
+                        }
+               }";
+
         public ShowLabelsOnLayer()
         {
             Title = "Show labels on layer";
@@ -75,85 +137,29 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
             // Add the feature layer to the operations layers collection of the map.
             sampleMap.OperationalLayers.Add(districtFeatureLabel);
 
-            // Load the feature layer - this way we can obtain it's extent.
-            await districtFeatureLabel.LoadAsync();
+            try
+            {
+                // Load the feature layer - this way we can obtain it's extent.
+                await districtFeatureLabel.LoadAsync();
 
-            // Zoom the map view to the extent of the feature layer.
-            await _myMapView.SetViewpointCenterAsync(new MapPoint(-10846309.950860, 4683272.219411, SpatialReferences.WebMercator), 20000000);
+                // Zoom the map view to the extent of the feature layer.
+                await _myMapView.SetViewpointCenterAsync(new MapPoint(-10846309.950860, 4683272.219411, SpatialReferences.WebMercator), 20000000);
 
-            // Help regarding the Json syntax for defining the LabelDefinition.FromJson syntax can be found here:
-            // https://developers.arcgis.com/web-map-specification/objects/labelingInfo/
-            // This particular JSON string will have the following characteristics:
-            string redLabelJson =
-             @"{
-                    ""labelExpressionInfo"":{""expression"":""$feature.NAME + ' (' + left($feature.PARTY,1) + ')\\nDistrict' + $feature.CDFIPS""},
-                    ""labelPlacement"":""esriServerPolygonPlacementAlwaysHorizontal"",
-                    ""where"":""PARTY = 'Republican'"",
-                    ""symbol"":
-                        { 
-                            ""angle"":0,
-                            ""backgroundColor"":[0,0,0,0],
-                            ""borderLineColor"":[0,0,0,0],
-                            ""borderLineSize"":0,
-                            ""color"":[255,0,0,255],
-                            ""font"":
-                                {
-                                    ""decoration"":""none"",
-                                    ""size"":10,
-                                    ""style"":""normal"",
-                                    ""weight"":""normal""
-                                },
-                            ""haloColor"":[255,255,255,255],
-                            ""haloSize"":2,
-                            ""horizontalAlignment"":""center"",
-                            ""kerning"":false,
-                            ""type"":""esriTS"",
-                            ""verticalAlignment"":""middle"",
-                            ""xoffset"":0,
-                            ""yoffset"":0
-                        }
-               }";
+                // Create a label definition from the JSON string. 
+                LabelDefinition redLabelDefinition = LabelDefinition.FromJson(RedLabelJson);
+                LabelDefinition blueLabelDefinition = LabelDefinition.FromJson(BlueLabelJson);
 
-            string blueLabelJson =
-                @"{
-                    ""labelExpressionInfo"":{""expression"":""$feature.NAME + ' (' + left($feature.PARTY,1) + ')\\nDistrict' + $feature.CDFIPS""},
-                    ""labelPlacement"":""esriServerPolygonPlacementAlwaysHorizontal"",
-                    ""where"":""PARTY = 'Democrat'"",
-                    ""symbol"":
-                        { 
-                            ""angle"":0,
-                            ""backgroundColor"":[0,0,0,0],
-                            ""borderLineColor"":[0,0,0,0],
-                            ""borderLineSize"":0,
-                            ""color"":[0,0,255,255],
-                            ""font"":
-                                {
-                                    ""decoration"":""none"",
-                                    ""size"":10,
-                                    ""style"":""normal"",
-                                    ""weight"":""normal""
-                                },
-                            ""haloColor"":[255,255,255,255],
-                            ""haloSize"":2,
-                            ""horizontalAlignment"":""center"",
-                            ""kerning"":false,
-                            ""type"":""esriTS"",
-                            ""verticalAlignment"":""middle"",
-                            ""xoffset"":0,
-                            ""yoffset"":0
-                        }
-               }";
+                // Add the label definition to the feature layer's label definition collection.
+                districtFeatureLabel.LabelDefinitions.Add(redLabelDefinition);
+                districtFeatureLabel.LabelDefinitions.Add(blueLabelDefinition);
 
-            // Create a label definition from the JSON string. 
-            LabelDefinition redLabelDefinition = LabelDefinition.FromJson(redLabelJson);
-            LabelDefinition blueLabelDefinition = LabelDefinition.FromJson(blueLabelJson);
-
-            // Add the label definition to the feature layer's label definition collection.
-            districtFeatureLabel.LabelDefinitions.Add(redLabelDefinition);
-            districtFeatureLabel.LabelDefinitions.Add(blueLabelDefinition);
-
-            // Enable the visibility of labels to be seen.
-            districtFeatureLabel.LabelsEnabled = true;
+                // Enable the visibility of labels to be seen.
+                districtFeatureLabel.LabelsEnabled = true;
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
     }
 }

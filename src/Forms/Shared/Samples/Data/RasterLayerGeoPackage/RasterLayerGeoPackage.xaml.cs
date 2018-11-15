@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
@@ -42,24 +43,31 @@ namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
             // Get the full path
             string geoPackagePath = GetGeoPackagePath();
 
-            // Open the GeoPackage
-            GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
+            try
+            {
+                // Open the GeoPackage
+                GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
 
-            // Read the raster images and get the first one
-            Raster gpkgRaster = myGeoPackage.GeoPackageRasters.FirstOrDefault();
+                // Read the raster images and get the first one
+                Raster gpkgRaster = myGeoPackage.GeoPackageRasters.FirstOrDefault();
 
-            // Make sure an image was found in the package
-            if (gpkgRaster == null) { return; }
+                // Make sure an image was found in the package
+                if (gpkgRaster == null) { return; }
 
-            // Create a layer to show the raster
-            RasterLayer newLayer = new RasterLayer(gpkgRaster);
-            await newLayer.LoadAsync();
+                // Create a layer to show the raster
+                RasterLayer newLayer = new RasterLayer(gpkgRaster);
+                await newLayer.LoadAsync();
 
-            // Set the viewpoint
-            await MyMapView.SetViewpointAsync(new Viewpoint(newLayer.FullExtent));
+                // Set the viewpoint
+                await MyMapView.SetViewpointAsync(new Viewpoint(newLayer.FullExtent));
 
-            // Add the image as a raster layer to the map (with default symbology)
-            MyMapView.Map.OperationalLayers.Add(newLayer);
+                // Add the image as a raster layer to the map (with default symbology)
+                MyMapView.Map.OperationalLayers.Add(newLayer);
+            }
+            catch (Exception e)
+            {
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+            }
         }
 
         private static string GetGeoPackagePath()

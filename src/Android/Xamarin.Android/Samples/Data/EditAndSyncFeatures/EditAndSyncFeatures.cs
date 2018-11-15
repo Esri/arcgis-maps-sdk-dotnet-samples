@@ -26,6 +26,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Esri.ArcGISRuntime;
 
 namespace ArcGISRuntime.Samples.EditAndSyncFeatures
 {
@@ -166,33 +167,40 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             // Set up event handler for mapview taps.
             myMapView.GeoViewTapped += GeoViewTapped;
 
-            // Create a task for generating a geodatabase (GeodatabaseSyncTask).
-            _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
-
-            // Add all graphics from the service to the map.
-            foreach (IdInfo layer in _gdbSyncTask.ServiceInfo.LayerInfos)
+            try
             {
-                // Get the Uri for this particular layer.
-                Uri onlineTableUri = new Uri(_featureServiceUri + "/" + layer.Id);
+                // Create a task for generating a geodatabase (GeodatabaseSyncTask).
+                _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
-                // Create the ServiceFeatureTable.
-                ServiceFeatureTable onlineTable = new ServiceFeatureTable(onlineTableUri);
-
-                // Wait for the table to load.
-                await onlineTable.LoadAsync();
-
-                // Add the layer to the map's operational layers if load succeeds.
-                if (onlineTable.LoadStatus == Esri.ArcGISRuntime.LoadStatus.Loaded)
+                // Add all graphics from the service to the map.
+                foreach (IdInfo layer in _gdbSyncTask.ServiceInfo.LayerInfos)
                 {
-                    myMap.OperationalLayers.Add(new FeatureLayer(onlineTable));
+                    // Get the Uri for this particular layer.
+                    Uri onlineTableUri = new Uri(_featureServiceUri + "/" + layer.Id);
+
+                    // Create the ServiceFeatureTable.
+                    ServiceFeatureTable onlineTable = new ServiceFeatureTable(onlineTableUri);
+
+                    // Wait for the table to load.
+                    await onlineTable.LoadAsync();
+
+                    // Add the layer to the map's operational layers if load succeeds.
+                    if (onlineTable.LoadStatus == LoadStatus.Loaded)
+                    {
+                        myMap.OperationalLayers.Add(new FeatureLayer(onlineTable));
+                    }
                 }
+
+                // Update the graphic - in case user doesn't interact with the map.
+                UpdateMapExtent();
+
+                // Enable the generate button now that the sample is ready.
+                myGenerateButton.Enabled = true;
             }
-
-            // Update the graphic - in case user doesn't interact with the map.
-            UpdateMapExtent();
-
-            // Enable the generate button now that the sample is ready.
-            myGenerateButton.Enabled = true;
+            catch (Exception e)
+            {
+                ShowStatusMessage(e.ToString());
+            }
         }
 
         private async void GeoViewTapped(object sender, GeoViewInputEventArgs e)

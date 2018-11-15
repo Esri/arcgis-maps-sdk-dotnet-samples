@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using System.Linq;
 using Esri.ArcGISRuntime.Mapping;
 using ArcGISRuntime.Samples.Managers;
@@ -37,14 +38,21 @@ namespace ArcGISRuntime.Samples.OpenMobileMap
             // Get the path to the mobile map package
             string filepath = GetMmpkPath();
 
-            // Open the map package
-            MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(filepath);
-
-            // Check that there is at least one map
-            if (myMapPackage.Maps.Count > 0)
+            try
             {
-                // Display the first map in the package
-                MyMapView.Map = myMapPackage.Maps.First();
+                // Open the map package
+                MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(filepath);
+
+                // Check that there is at least one map
+                if (myMapPackage.Maps.Count > 0)
+                {
+                    // Display the first map in the package
+                    MyMapView.Map = myMapPackage.Maps.First();
+                }
+            }
+            catch (Exception e)
+            {
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 

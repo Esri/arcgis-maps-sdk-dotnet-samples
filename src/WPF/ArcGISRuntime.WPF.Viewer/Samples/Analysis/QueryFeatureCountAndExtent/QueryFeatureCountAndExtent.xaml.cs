@@ -49,14 +49,21 @@ namespace ArcGISRuntime.WPF.Samples.QueryFeatureCountAndExtent
             // Add the feature layer to the map.
             myMap.OperationalLayers.Add(myFeatureLayer);
 
-            // Wait for the feature layer to load.
-            await myFeatureLayer.LoadAsync();
+            try
+            {
+                // Wait for the feature layer to load.
+                await myFeatureLayer.LoadAsync();
 
-            // Set the map initial extent to the extent of the feature layer.
-            myMap.InitialViewpoint = new Viewpoint(myFeatureLayer.FullExtent);
+                // Set the map initial extent to the extent of the feature layer.
+                myMap.InitialViewpoint = new Viewpoint(myFeatureLayer.FullExtent);
 
-            // Add the map to the MapView.
-            MyMapView.Map = myMap;
+                // Add the map to the MapView.
+                MyMapView.Map = myMap;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error");
+            }
         }
 
         private async void BtnZoomToFeaturesClick(object sender, RoutedEventArgs e)
@@ -67,24 +74,31 @@ namespace ArcGISRuntime.WPF.Samples.QueryFeatureCountAndExtent
                 WhereClause = string.Format("upper(State) LIKE '%{0}%'", StateTextbox.Text.ToUpper())
             };
 
-            // Get the extent from the query.
-            Envelope resultExtent = await _featureTable.QueryExtentAsync(queryStates);
-
-            // Return if there is no result (might happen if query is invalid).
-            if (resultExtent == null || resultExtent.SpatialReference == null)
+            try
             {
-                ResultsTextbox.Text = "No results. Search for an abbreviated name (e.g. NH).";
-                return;
+                // Get the extent from the query.
+                Envelope resultExtent = await _featureTable.QueryExtentAsync(queryStates);
+
+                // Return if there is no result (might happen if query is invalid).
+                if (resultExtent == null || resultExtent.SpatialReference == null)
+                {
+                    ResultsTextbox.Text = "No results. Search for an abbreviated name (e.g. NH).";
+                    return;
+                }
+
+                // Create a viewpoint from the extent.
+                Viewpoint resultViewpoint = new Viewpoint(resultExtent);
+
+                // Zoom to the viewpoint.
+                await MyMapView.SetViewpointAsync(resultViewpoint);
+
+                // Update the UI.
+                ResultsTextbox.Text = string.Format("Zoomed to features in {0}", StateTextbox.Text);
             }
-
-            // Create a viewpoint from the extent.
-            Viewpoint resultViewpoint = new Viewpoint(resultExtent);
-
-            // Zoom to the viewpoint.
-            await MyMapView.SetViewpointAsync(resultViewpoint);
-
-            // Update the UI.
-            ResultsTextbox.Text = string.Format("Zoomed to features in {0}", StateTextbox.Text);
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+            }
         }
 
         private async void BtnCountFeaturesClick(object sender, RoutedEventArgs e)
@@ -100,11 +114,18 @@ namespace ArcGISRuntime.WPF.Samples.QueryFeatureCountAndExtent
                 SpatialRelationship = SpatialRelationship.Intersects
             };
 
-            // Get the count of matching features.
-            long count = await _featureTable.QueryFeatureCountAsync(queryCityCount);
+            try
+            {
+                // Get the count of matching features.
+                long count = await _featureTable.QueryFeatureCountAsync(queryCityCount);
 
-            // Update the UI.
-            ResultsTextbox.Text = string.Format("{0} features in extent", count);
+                // Update the UI.
+                ResultsTextbox.Text = string.Format("{0} features in extent", count);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+            }
         }
     }
 }

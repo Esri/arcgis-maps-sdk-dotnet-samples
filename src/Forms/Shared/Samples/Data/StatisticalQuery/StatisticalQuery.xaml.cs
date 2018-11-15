@@ -105,12 +105,19 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
                 statQueryParams.WhereClause = "POP_RANK = 1";
             }
 
-            // Execute the statistical query with these parameters and await the results
-            StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
+            try
+            {
+                // Execute the statistical query with these parameters and await the results
+                StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
 
-            // Display results in the list box
-            StatResultsList.ItemsSource = statQueryResult.First().Statistics.ToList();
-            ResultsGrid.IsVisible = true;
+                // Display results in the list box
+                StatResultsList.ItemsSource = statQueryResult.First().Statistics.Select(m =>$"{m.Key}:{m.Value}").ToList();
+                ResultsGrid.IsVisible = true;
+            }
+            catch (Exception ex)
+            {
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+            }
         }
 
         private void HideResults(object sender, EventArgs e)

@@ -24,6 +24,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using Esri.ArcGISRuntime;
 
 namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
 {
@@ -98,33 +99,40 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             // Set up an event handler for when the viewpoint (extent) changes.
             MyMapView.ViewpointChanged += MapViewExtentChanged;
 
-            // Create a task for generating a geodatabase (GeodatabaseSyncTask).
-            _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
-
-            // Add all layers from the service to the map.
-            foreach (IdInfo layer in _gdbSyncTask.ServiceInfo.LayerInfos)
+            try
             {
-                // Get the URL for this particular layer.
-                Uri onlineTableUri = new Uri(_featureServiceUri + "/" + layer.Id);
+                // Create a task for generating a geodatabase (GeodatabaseSyncTask).
+                _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
-                // Create the ServiceFeatureTable.
-                ServiceFeatureTable onlineTable = new ServiceFeatureTable(onlineTableUri);
-
-                // Wait for the table to load.
-                await onlineTable.LoadAsync();
-
-                // Add the layer to the map's operational layers if load succeeds.
-                if (onlineTable.LoadStatus == Esri.ArcGISRuntime.LoadStatus.Loaded)
+                // Add all layers from the service to the map.
+                foreach (IdInfo layer in _gdbSyncTask.ServiceInfo.LayerInfos)
                 {
-                    myMap.OperationalLayers.Add(new FeatureLayer(onlineTable));
+                    // Get the URL for this particular layer.
+                    Uri onlineTableUri = new Uri(_featureServiceUri + "/" + layer.Id);
+
+                    // Create the ServiceFeatureTable.
+                    ServiceFeatureTable onlineTable = new ServiceFeatureTable(onlineTableUri);
+
+                    // Wait for the table to load.
+                    await onlineTable.LoadAsync();
+
+                    // Add the layer to the map's operational layers if load succeeds.
+                    if (onlineTable.LoadStatus == LoadStatus.Loaded)
+                    {
+                        myMap.OperationalLayers.Add(new FeatureLayer(onlineTable));
+                    }
                 }
+
+                // Update the extent graphic so that it is valid before user interaction.
+                UpdateMapExtent();
+
+                // Enable the generate button now that the sample is ready.
+                GenerateButton.IsEnabled = true;
             }
-
-            // Update the extent graphic so that it is valid before user interaction.
-            UpdateMapExtent();
-
-            // Enable the generate button now that the sample is ready.
-            GenerateButton.IsEnabled = true;
+            catch (Exception e)
+            {
+                ShowStatusMessage(e.ToString());
+            }
         }
 
         private async void GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)

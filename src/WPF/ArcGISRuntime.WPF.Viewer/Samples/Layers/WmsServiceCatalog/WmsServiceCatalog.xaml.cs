@@ -49,23 +49,30 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
             // Create the WMS Service.
             WmsService service = new WmsService(_wmsUrl);
 
-            // Load the WMS Service.
-            await service.LoadAsync();
-
-            // Get the service info (metadata) from the service.
-            WmsServiceInfo info = service.ServiceInfo;
-
-            // Get the list of layer infos.
-            foreach (var layerInfo in info.LayerInfos)
+            try
             {
-                LayerDisplayVM.BuildLayerInfoList(new LayerDisplayVM(layerInfo, null), _viewModelList);
+                // Load the WMS Service.
+                await service.LoadAsync();
+
+                // Get the service info (metadata) from the service.
+                WmsServiceInfo info = service.ServiceInfo;
+
+                // Get the list of layer infos.
+                foreach (var layerInfo in info.LayerInfos)
+                {
+                    LayerDisplayVM.BuildLayerInfoList(new LayerDisplayVM(layerInfo, null), _viewModelList);
+                }
+
+                // Update the map display based on the viewModel.
+                UpdateMapDisplay(_viewModelList);
+
+                // Update the list of layers.
+                LayerTreeView.ItemsSource = _viewModelList.Take(1);
             }
-
-            // Update the map display based on the viewModel.
-            UpdateMapDisplay(_viewModelList);
-
-            // Update the list of layers.
-            LayerTreeView.ItemsSource = _viewModelList.Take(1);
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error");
+            }
         }
 
         /// <summary>

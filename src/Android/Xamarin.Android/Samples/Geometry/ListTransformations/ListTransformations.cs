@@ -71,7 +71,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Create the map and add it to the map view control.
             Map myMap = new Map(Basemap.CreateImageryWithLabels());
@@ -86,8 +86,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             // Handle the map loading to fill the UI controls.
             myMap.Loaded += MyMap_Loaded;
 
-            // Load the map and add the map to the map view.
-            await myMap.LoadAsync();
+            // Add the map to the map view.
             _myMapView.Map = myMap;
 
             // Create a graphics overlay to hold the original and projected points.

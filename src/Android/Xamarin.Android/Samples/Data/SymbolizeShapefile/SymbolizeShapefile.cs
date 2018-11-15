@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using Android.App;
 using Android.OS;
 using Android.Widget;
@@ -74,9 +75,6 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
             // Create a layer from the feature table
             _shapefileFeatureLayer = new FeatureLayer(myFeatureTable);
 
-            // Wait for the layer to load
-            await _shapefileFeatureLayer.LoadAsync();
-
             // Add the layer to the map
             myMap.OperationalLayers.Add(_shapefileFeatureLayer);
 
@@ -87,14 +85,24 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
             // Create the alternate renderer
             _alternateRenderer = new SimpleRenderer(fillSymbol);
 
-            // Hold a reference to the default renderer (to enable switching between the renderers)
-            _defaultRenderer = _shapefileFeatureLayer.Renderer;
+            try
+            {
+                // Wait for the layer to load so that it will be assigned a default renderer
+                await _shapefileFeatureLayer.LoadAsync();
 
-            // Add the map to the mapview
-            _myMapView.Map = myMap;
+                // Hold a reference to the default renderer (to enable switching between the renderers)
+                _defaultRenderer = _shapefileFeatureLayer.Renderer;
 
-            // Enable changing symbology now that sample is loaded
-            _myRendererButton.Enabled = true;
+                // Add the map to the mapview
+                _myMapView.Map = myMap;
+
+                // Enable changing symbology now that sample is loaded
+                _myRendererButton.Enabled = true;
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private void CreateLayout()

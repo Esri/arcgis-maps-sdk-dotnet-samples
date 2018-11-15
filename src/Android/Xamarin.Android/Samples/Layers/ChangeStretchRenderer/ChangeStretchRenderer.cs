@@ -150,10 +150,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             _RendererTypes.Adapter = myArrayAdapter_LayerNamesInTheMap;
 
             // Add an imagery basemap
-            Map myMap = new Map(Basemap.CreateImagery());
-
-            // Wait for the map to load
-            await myMap.LoadAsync();
+            _myMapView.Map = new Map(Basemap.CreateImagery());
 
             // Get the file name
             string filepath = GetRasterPath();
@@ -165,16 +162,20 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             RasterLayer myRasterLayer = new RasterLayer(myRasterFile);
 
             // Add the layer to the map
-            myMap.OperationalLayers.Add(myRasterLayer);
+            _myMapView.Map.OperationalLayers.Add(myRasterLayer);
 
-            // Wait for the layer to load
-            await myRasterLayer.LoadAsync();
+            try
+            {
+                // Wait for the layer to load
+                await myRasterLayer.LoadAsync();
 
-            // Set the viewpoint
-            myMap.InitialViewpoint = new Viewpoint(myRasterLayer.FullExtent);
-
-            // Add map to the mapview
-            _myMapView.Map = myMap;
+                // Set the viewpoint
+                await _myMapView.SetViewpointGeometryAsync(myRasterLayer.FullExtent);
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private void OnUpdateRendererClicked(object sender, EventArgs e)

@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Esri.ArcGISRuntime.Geometry;
+using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.StyleWmsLayer
 {
@@ -68,8 +69,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             }
             catch (Exception ex)
             {
-                // Any exceptions in the async void method must be caught, otherwise they will result in a crash.
-                Debug.WriteLine(ex.ToString());
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 

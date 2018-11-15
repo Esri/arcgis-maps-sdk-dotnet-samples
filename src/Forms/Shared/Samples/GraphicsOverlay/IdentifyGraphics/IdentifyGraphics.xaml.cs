@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Geometry;
@@ -87,21 +88,28 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
             int maximumResults = 1; // Only return one graphic  
             bool onlyReturnPopups = false; // Don't return only popups
 
-            // Use the following method to identify graphics in a specific graphics overlay
-            IdentifyGraphicsOverlayResult identifyResults = await MyMapView.IdentifyGraphicsOverlayAsync(
-                 _polygonOverlay,
-                 e.Position,
-                 tolerance, 
-                 onlyReturnPopups, 
-                 maximumResults);
-
-            // Check if we got results
-            if (identifyResults.Graphics.Count > 0)
+            try
             {
-                // Make sure that the UI changes are done in the UI thread
-                Device.BeginInvokeOnMainThread(async () => {
-                    await ((Page)Parent).DisplayAlert("", "Tapped on graphic", "OK");
-                });
+                // Use the following method to identify graphics in a specific graphics overlay
+                IdentifyGraphicsOverlayResult identifyResults = await MyMapView.IdentifyGraphicsOverlayAsync(
+                    _polygonOverlay,
+                    e.Position,
+                    tolerance, 
+                    onlyReturnPopups, 
+                    maximumResults);
+
+                // Check if we got results
+                if (identifyResults.Graphics.Count > 0)
+                {
+                    // Make sure that the UI changes are done in the UI thread
+                    Device.BeginInvokeOnMainThread(async () => {
+                        await ((Page)Parent).DisplayAlert("", "Tapped on graphic", "OK");
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
     }

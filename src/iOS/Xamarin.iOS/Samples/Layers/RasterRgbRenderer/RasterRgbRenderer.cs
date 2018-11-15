@@ -95,21 +95,28 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             // Load the raster file
             Raster rasterFile = new Raster(filepath);
 
-            // Create a new raster layer to show the image.
-            _rasterLayer = new RasterLayer(rasterFile);
-            await _rasterLayer.LoadAsync();
+            try
+            {
+                // Create a new raster layer to show the image.
+                _rasterLayer = new RasterLayer(rasterFile);
+                await _rasterLayer.LoadAsync();
 
-            // Once the layer is loaded, enable the button for changing the renderer.
-            _segmentButton.Enabled = true;
+                // Once the layer is loaded, enable the button for changing the renderer.
+                _segmentButton.Enabled = true;
 
-            // Set the initial viewpoint for the map to the raster's full extent.
-            myMap.InitialViewpoint = new Viewpoint(_rasterLayer.FullExtent);
+                // Set the initial viewpoint for the map to the raster's full extent.
+                myMap.InitialViewpoint = new Viewpoint(_rasterLayer.FullExtent);
 
-            // Add the layer to the map.
-            myMap.OperationalLayers.Add(_rasterLayer);
+                // Add the layer to the map.
+                myMap.OperationalLayers.Add(_rasterLayer);
 
-            // Add the map to the map view.
-            _myMapView.Map = myMap;
+                // Add the map to the map view.
+                _myMapView.Map = myMap;
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         private void CreateLayout()

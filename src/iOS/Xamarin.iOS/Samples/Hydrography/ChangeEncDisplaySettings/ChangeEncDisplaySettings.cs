@@ -88,32 +88,39 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
             // Note: this constructor takes an array of paths because so that update sets can be loaded alongside base data.
             EncExchangeSet encExchangeSet = new EncExchangeSet(encPath);
 
-            // Wait for the layer to load.
-            await encExchangeSet.LoadAsync();
-
-            // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set.
-            List<Envelope> dataSetExtents = new List<Envelope>();
-
-            // Add each data set as a layer.
-            foreach (EncDataset encDataSet in encExchangeSet.Datasets)
+            try
             {
-                EncLayer encLayer = new EncLayer(new EncCell(encDataSet));
-
-                // Add the layer to the map.
-                _myMapView.Map.OperationalLayers.Add(encLayer);
-
                 // Wait for the layer to load.
-                await encLayer.LoadAsync();
+                await encExchangeSet.LoadAsync();
 
-                // Add the extent to the list of extents.
-                dataSetExtents.Add(encLayer.FullExtent);
+                // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set.
+                List<Envelope> dataSetExtents = new List<Envelope>();
+
+                // Add each data set as a layer.
+                foreach (EncDataset encDataSet in encExchangeSet.Datasets)
+                {
+                    EncLayer encLayer = new EncLayer(new EncCell(encDataSet));
+
+                    // Add the layer to the map.
+                    _myMapView.Map.OperationalLayers.Add(encLayer);
+
+                    // Wait for the layer to load.
+                    await encLayer.LoadAsync();
+
+                    // Add the extent to the list of extents.
+                    dataSetExtents.Add(encLayer.FullExtent);
+                }
+
+                // Use the geometry engine to compute the full extent of the ENC Exchange Set.
+                Envelope fullExtent = GeometryEngine.CombineExtents(dataSetExtents);
+
+                // Set the viewpoint.
+                _myMapView.SetViewpoint(new Viewpoint(fullExtent));
             }
-
-            // Use the geometry engine to compute the full extent of the ENC Exchange Set.
-            Envelope fullExtent = GeometryEngine.CombineExtents(dataSetExtents);
-
-            // Set the viewpoint.
-            _myMapView.SetViewpoint(new Viewpoint(fullExtent));
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         private void PointStyleChanged(object sender, EventArgs e)

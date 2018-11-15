@@ -38,10 +38,16 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Create a new map based on the streets base map.
             Map newMap = new Map(Basemap.CreateStreets());
+
+            // Create an envelope that covers the continental US in the web Mercator spatial reference.
+            Envelope continentalUSEnvelope = new Envelope(-14193469.5655232, 2509617.28647268, -7228772.04749191, 6737139.97573925 , SpatialReferences.WebMercator);
+
+            // Zoom the map to the extent of the envelope.
+            newMap.InitialViewpoint = new  Viewpoint(continentalUSEnvelope);
 
             // Assign the map to the MapView.
             MyMapView.Map = newMap;
@@ -52,15 +58,6 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
 
             // Add the ArcGIS map image layer to the map's operation layers collection.
             newMap.OperationalLayers.Add(_arcGISMapImageLayer);
-
-            // Load the ArcGIS map image layer.
-            await _arcGISMapImageLayer.LoadAsync();
-
-            // Create an envelope that covers the continental US in the web Mercator spatial reference.
-            Envelope continentalUSEnvelope = new Envelope(-14193469.5655232, 2509617.28647268, -7228772.04749191, 6737139.97573925, SpatialReferences.WebMercator);
-
-            // Zoom the map to the extent of the envelope.
-            await MyMapView.SetViewpointGeometryAsync(continentalUSEnvelope);
         }
 
         private ClassBreaksRenderer CreateClassBreaksRenderer()

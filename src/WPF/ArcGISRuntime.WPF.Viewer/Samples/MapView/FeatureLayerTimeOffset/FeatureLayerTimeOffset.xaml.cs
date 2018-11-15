@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
+using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.FeatureLayerTimeOffset
 {
@@ -66,14 +67,21 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerTimeOffset
             // Apply the Map to the MapView
             MyMapView.Map = myMap;
 
-            // Ensure the no offset layer is loaded
-            await noOffsetLayer.LoadAsync();
+            try
+            {
+                // Ensure the no offset layer is loaded
+                await noOffsetLayer.LoadAsync();
 
-            // Store a reference to the original time extent
-            _originalExtent = noOffsetLayer.FullTimeExtent;
+                // Store a reference to the original time extent
+                _originalExtent = noOffsetLayer.FullTimeExtent;
 
-            // Update the time extent set on the map
-            UpdateTimeExtent();
+                // Update the time extent set on the map
+                UpdateTimeExtent();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error");
+            }
         }
 
         private void MyTimeSlider_ValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double> e)

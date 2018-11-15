@@ -145,24 +145,31 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             // Read the geodatabase tables and add them as layers
             foreach (GeodatabaseFeatureTable table in _localGeodatabase.GeodatabaseFeatureTables)
             {
-                // Load the table so the TableName can be read
-                await table.LoadAsync();
-
-                // Store a reference to the Birds table
-                if (table.TableName.ToLower().Contains("birds"))
+                try
                 {
-                    _birdTable = table;
-                }
+                    // Load the table so the TableName can be read
+                    await table.LoadAsync();
 
-                // Store a reference to the Marine table
-                if (table.TableName.ToLower().Contains("marine"))
+                    // Store a reference to the Birds table
+                    if (table.TableName.ToLower().Contains("birds"))
+                    {
+                        _birdTable = table;
+                    }
+
+                    // Store a reference to the Marine table
+                    if (table.TableName.ToLower().Contains("marine"))
+                    {
+                        _marineTable = table;
+                    }
+
+                    // Create a new feature layer to show the table in the map
+                    FeatureLayer layer = new FeatureLayer(table);
+                    Device.BeginInvokeOnMainThread(() => MyMapView.Map.OperationalLayers.Add(layer));
+                }
+                catch (Exception e)
                 {
-                    _marineTable = table;
+                    await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
                 }
-
-                // Create a new feature layer to show the table in the map
-                FeatureLayer layer = new FeatureLayer(table);
-                Device.BeginInvokeOnMainThread(() => MyMapView.Map.OperationalLayers.Add(layer));
             }
 
             // Handle the transaction status changed event
@@ -171,7 +178,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             // Zoom the map view to the extent of the generated local datasets
             Device.BeginInvokeOnMainThread(() =>
             {
-                MyMapView.SetViewpointGeometryAsync(_marineTable.Extent);
+                MyMapView.SetViewpoint(new Viewpoint(_marineTable.Extent));
                 StartEditingButton.IsEnabled = true;
             });
         }

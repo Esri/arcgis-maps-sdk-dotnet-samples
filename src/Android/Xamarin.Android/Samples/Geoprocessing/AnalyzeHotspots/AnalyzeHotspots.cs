@@ -64,16 +64,20 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         private async void Initialize()
         {
             // Create a map with a topographic basemap.
-            Map myMap = new Map(Basemap.CreateTopographic());
+            _myMapView.Map = new Map(Basemap.CreateTopographic());
 
-            // Create a new geoprocessing task.
-            _hotspotTask = await GeoprocessingTask.CreateAsync(new Uri(_hotspotUrl));
+            try
+            {
+                // Create a new geoprocessing task.
+                _hotspotTask = await GeoprocessingTask.CreateAsync(new Uri(_hotspotUrl));
 
-            // Assign the map to the MapView.
-            _myMapView.Map = myMap;
-
-            // Zoom into Portland, Oregon.
-            await _myMapView.SetViewpointCenterAsync(new MapPoint(-122.66, 45.52, SpatialReferences.Wgs84), 1000000);
+                // Zoom into Portland, Oregon.
+                await _myMapView.SetViewpointCenterAsync(new MapPoint(-122.66, 45.52, SpatialReferences.Wgs84), 1000000);
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private async void OnRunAnalysisClicked(object sender, EventArgs e)

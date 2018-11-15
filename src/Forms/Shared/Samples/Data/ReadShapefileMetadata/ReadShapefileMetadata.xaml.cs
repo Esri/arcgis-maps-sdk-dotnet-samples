@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
@@ -42,46 +43,53 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             // Get the path to the downloaded shapefile
             string filepath = GetShapefilePath();
 
-            // Open the shapefile
-            ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
-
-            // Read metadata about the shapefile and display it in the UI
-            ShapefileInfo fileInfo = myShapefile.Info;
-            InfoPanel.BindingContext = fileInfo;
-
-            // Read the thumbnail image data into a byte array
-            Stream imageStream = await fileInfo.Thumbnail.GetEncodedBufferAsync();
-            byte[] imageData = new byte[imageStream.Length];
-            imageStream.Read(imageData, 0, imageData.Length);
-
-            // Create a new image source from the thumbnail data
-            ImageSource streamImageSource = ImageSource.FromStream(() => new MemoryStream(imageData));
-
-            // Create a new image to display the thumbnail
-            Image image = new Image()
+            try
             {
-                Source = streamImageSource,
-                Margin = new Thickness(10)
-            };
+                // Open the shapefile
+                ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
 
-            // Show the thumbnail image in a UI control
-            ShapefileThumbnailImage.Source = image.Source;
+                // Read metadata about the shapefile and display it in the UI
+                ShapefileInfo fileInfo = myShapefile.Info;
+                InfoPanel.BindingContext = fileInfo;
 
-            // Create a feature layer to display the shapefile
-            FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
-            await newFeatureLayer.LoadAsync();
+                // Read the thumbnail image data into a byte array
+                Stream imageStream = await fileInfo.Thumbnail.GetEncodedBufferAsync();
+                byte[] imageData = new byte[imageStream.Length];
+                imageStream.Read(imageData, 0, imageData.Length);
 
-            // Zoom the map to the extent of the shapefile
-            MyMapView.SpatialReferenceChanged += async (s, e) =>
+                // Create a new image source from the thumbnail data
+                ImageSource streamImageSource = ImageSource.FromStream(() => new MemoryStream(imageData));
+
+                // Create a new image to display the thumbnail
+                Image image = new Image()
+                {
+                    Source = streamImageSource,
+                    Margin = new Thickness(10)
+                };
+
+                // Show the thumbnail image in a UI control
+                ShapefileThumbnailImage.Source = image.Source;
+
+                // Create a feature layer to display the shapefile
+                FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
+                await newFeatureLayer.LoadAsync();
+
+                // Zoom the map to the extent of the shapefile
+                MyMapView.SpatialReferenceChanged += async (s, e) =>
+                {
+                    await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
+                };
+
+                // Add the feature layer to the map
+                streetMap.OperationalLayers.Add(newFeatureLayer);
+
+                // Show the map in the MapView
+                MyMapView.Map = streetMap;
+            }
+            catch (Exception e)
             {
-                await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent);
-            };
-
-            // Add the feature layer to the map
-            streetMap.OperationalLayers.Add(newFeatureLayer);
-
-            // Show the map in the MapView
-            MyMapView.Map = streetMap;
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+            }
         }
 
         private void ShowMetadataClicked(object sender, System.EventArgs e)

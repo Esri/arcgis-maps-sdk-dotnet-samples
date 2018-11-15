@@ -66,14 +66,21 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             // Add the feature layer to the map.
             myMap.OperationalLayers.Add(myFeatureLayer);
 
-            // Wait for the feature layer to load.
-            await myFeatureLayer.LoadAsync();
+            try
+            {
+                // Wait for the feature layer to load.
+                await myFeatureLayer.LoadAsync();
 
-            // Set the map initial extent to the extent of the feature layer.
-            myMap.InitialViewpoint = new Viewpoint(myFeatureLayer.FullExtent);
+                // Set the map initial extent to the extent of the feature layer.
+                myMap.InitialViewpoint = new Viewpoint(myFeatureLayer.FullExtent);
 
-            // Add the map to the MapView.
-            _myMapView.Map = myMap;
+                // Add the map to the MapView.
+                _myMapView.Map = myMap;
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private async void BtnZoomToFeatures_Click(object sender, EventArgs e)
@@ -81,24 +88,31 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             // Create the query parameters.
             QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(State) LIKE '%{_myStateEntry.Text.ToUpper()}%'" };
 
-            // Get the extent from the query.
-            Envelope resultExtent = await _featureTable.QueryExtentAsync(queryStates);
-
-            // Return if there is no result (might happen if query is invalid).
-            if (resultExtent?.SpatialReference == null)
+            try
             {
-                _myResultsLabel.Text = $"Couldn't zoom to features in {_myStateEntry.Text}.";
-                return;
+                // Get the extent from the query.
+                Envelope resultExtent = await _featureTable.QueryExtentAsync(queryStates);
+
+                // Return if there is no result (might happen if query is invalid).
+                if (resultExtent?.SpatialReference == null)
+                {
+                    _myResultsLabel.Text = $"Couldn't zoom to features in {_myStateEntry.Text}.";
+                    return;
+                }
+
+                // Create a viewpoint from the extent.
+                Viewpoint resultViewpoint = new Viewpoint(resultExtent);
+
+                // Zoom to the viewpoint.
+                await _myMapView.SetViewpointAsync(resultViewpoint);
+
+                // Update label.
+                _myResultsLabel.Text = $"Zoomed to features in {_myStateEntry.Text}.";
             }
-
-            // Create a viewpoint from the extent.
-            Viewpoint resultViewpoint = new Viewpoint(resultExtent);
-
-            // Zoom to the viewpoint.
-            await _myMapView.SetViewpointAsync(resultViewpoint);
-
-            // Update label.
-            _myResultsLabel.Text = $"Zoomed to features in {_myStateEntry.Text}.";
+            catch (Exception ex)
+            {
+                new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private async void BtnCountFeatures_Click(object sender, EventArgs e)

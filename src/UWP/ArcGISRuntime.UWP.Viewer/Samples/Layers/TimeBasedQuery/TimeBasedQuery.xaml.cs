@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using Windows.UI.Popups;
 
 namespace ArcGISRuntime.UWP.Samples.TimeBasedQuery
 {
@@ -81,8 +82,15 @@ namespace ArcGISRuntime.UWP.Samples.TimeBasedQuery
             // Create list of the fields that are returned from the service
             string[] outputFields = { "*" };
 
-            // Populate feature table with the data based on query
-            await _myFeatureTable.PopulateFromServiceAsync(queryParameters, true, outputFields);
+            try
+            {
+                // Populate feature table with the data based on query
+                await _myFeatureTable.PopulateFromServiceAsync(queryParameters, true, outputFields);
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+            }
         }
     }
 }

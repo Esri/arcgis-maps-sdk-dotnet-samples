@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArcGISRuntime.Samples.Managers;
@@ -50,36 +51,43 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             // Note: this constructor takes an array of paths because so that update sets can be loaded alongside base data.
             EncExchangeSet myEncExchangeSet = new EncExchangeSet(encPath);
 
-            // Wait for the exchange set to load.
-            await myEncExchangeSet.LoadAsync();
-
-            // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set.
-            List<Envelope> dataSetExtents = new List<Envelope>();
-
-            // Add each data set as a layer.
-            foreach (EncDataset myEncDataset in myEncExchangeSet.Datasets)
+            try
             {
-                // Create the cell and layer.
-                EncLayer myEncLayer = new EncLayer(new EncCell(myEncDataset));
+                // Wait for the exchange set to load.
+                await myEncExchangeSet.LoadAsync();
 
-                // Add the layer to the map.
-                _myMapView.Map.OperationalLayers.Add(myEncLayer);
+                // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set.
+                List<Envelope> dataSetExtents = new List<Envelope>();
 
-                // Wait for the layer to load.
-                await myEncLayer.LoadAsync();
+                // Add each data set as a layer.
+                foreach (EncDataset myEncDataset in myEncExchangeSet.Datasets)
+                {
+                    // Create the cell and layer.
+                    EncLayer myEncLayer = new EncLayer(new EncCell(myEncDataset));
 
-                // Add the extent to the list of extents.
-                dataSetExtents.Add(myEncLayer.FullExtent);
+                    // Add the layer to the map.
+                    _myMapView.Map.OperationalLayers.Add(myEncLayer);
+
+                    // Wait for the layer to load.
+                    await myEncLayer.LoadAsync();
+
+                    // Add the extent to the list of extents.
+                    dataSetExtents.Add(myEncLayer.FullExtent);
+                }
+
+                // Use the geometry engine to compute the full extent of the ENC Exchange Set.
+                Envelope fullExtent = GeometryEngine.CombineExtents(dataSetExtents);
+
+                // Set the viewpoint
+                _myMapView.SetViewpoint(new Viewpoint(fullExtent));
+
+                // Subscribe to tap events (in order to use them to identify and select features).
+                _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
             }
-
-            // Use the geometry engine to compute the full extent of the ENC Exchange Set.
-            Envelope fullExtent = GeometryEngine.CombineExtents(dataSetExtents);
-
-            // Set the viewpoint
-            _myMapView.SetViewpoint(new Viewpoint(fullExtent));
-
-            // Subscribe to tap events (in order to use them to identify and select features).
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         public override void LoadView()
@@ -121,38 +129,46 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             // First clear any existing selections.
             ClearAllSelections();
 
-            // Perform the identify operation.
-            IReadOnlyList<IdentifyLayerResult> results = await _myMapView.IdentifyLayersAsync(e.Position, 5, false);
-
-            // Return if there are no results.
-            if (results.Count < 1)
+            try
             {
-                return;
+                // Perform the identify operation.
+                IReadOnlyList<IdentifyLayerResult> results = await _myMapView.IdentifyLayersAsync(e.Position, 5, false);
+
+                // Return if there are no results.
+                if (results.Count < 1)
+                {
+                    return;
+                }
+
+                // Get the results that are from ENC layers.
+                IEnumerable<IdentifyLayerResult> encResults = results.Where(result => result.LayerContent is EncLayer);
+
+                // Get the ENC results that have features.
+                IEnumerable<IdentifyLayerResult> encResultsWithFeatures = encResults.Where(result => result.GeoElements.Count > 0);
+
+                // Get the first result with ENC features.
+                IdentifyLayerResult firstResult = encResultsWithFeatures.First();
+
+                // Get the layer associated with this set of results.
+                EncLayer containingLayer = (EncLayer) firstResult.LayerContent;
+
+                // Get the first identified ENC feature.
+                EncFeature smallestFeature = (EncFeature) firstResult.GeoElements.OrderBy(f => GeometryEngine.Area(f.Geometry)).First();
+
+                // Select the feature.
+                containingLayer.SelectFeature(smallestFeature);
+
+                // Create the callout definition.
+                CalloutDefinition definition = new CalloutDefinition(smallestFeature.Acronym, smallestFeature.Description);
+
+                // Show the callout.
+                _myMapView.ShowCalloutAt(e.Location, definition);
             }
+            catch (Exception ex)
+            {
+                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
 
-            // Get the results that are from ENC layers.
-            IEnumerable<IdentifyLayerResult> encResults = results.Where(result => result.LayerContent is EncLayer);
-
-            // Get the ENC results that have features.
-            IEnumerable<IdentifyLayerResult> encResultsWithFeatures = encResults.Where(result => result.GeoElements.Count > 0);
-
-            // Get the first result with ENC features.
-            IdentifyLayerResult firstResult = encResultsWithFeatures.First();
-
-            // Get the layer associated with this set of results.
-            EncLayer containingLayer = (EncLayer) firstResult.LayerContent;
-
-            // Get the first identified ENC feature.
-            EncFeature smallestFeature = (EncFeature) firstResult.GeoElements.OrderBy(f => GeometryEngine.Area(f.Geometry)).First();
-
-            // Select the feature.
-            containingLayer.SelectFeature(smallestFeature);
-
-            // Create the callout definition.
-            CalloutDefinition definition = new CalloutDefinition(smallestFeature.Acronym, smallestFeature.Description);
-
-            // Show the callout.
-            _myMapView.ShowCalloutAt(e.Location, definition);
+            }
         }
     }
 }

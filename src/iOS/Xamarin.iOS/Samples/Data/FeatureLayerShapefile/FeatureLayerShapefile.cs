@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
@@ -63,17 +64,24 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
             // Get the path to the downloaded shapefile.
             string filepath = DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "Public_Art.shp");
 
-            // Open the shapefile.
-            ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
+            try
+            {
+                // Open the shapefile.
+                ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
 
-            // Create a feature layer to display the shapefile.
-            FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
+                // Create a feature layer to display the shapefile.
+                FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
 
-            // Add the feature layer to the map.
-            _myMapView.Map.OperationalLayers.Add(newFeatureLayer);
+                // Add the feature layer to the map.
+                _myMapView.Map.OperationalLayers.Add(newFeatureLayer);
 
-            // Zoom the map to the extent of the shapefile.
-            await _myMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent, 50);
+                // Zoom the map to the extent of the shapefile.
+                await _myMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent, 50);
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
     }
 }

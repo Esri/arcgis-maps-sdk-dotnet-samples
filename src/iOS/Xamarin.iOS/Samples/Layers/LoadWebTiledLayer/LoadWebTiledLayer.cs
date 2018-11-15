@@ -43,13 +43,10 @@ namespace ArcGISRuntime.Samples.LoadWebTiledLayer
             Title = "Web tiled layer";
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Create the layer from the URL and the subdomain list.
             WebTiledLayer baseLayer = new WebTiledLayer(TemplateUri, _tiledLayerSubdomains);
-
-            // Wait for the layer to load.
-            await baseLayer.LoadAsync();
 
             // Create a basemap from the layer.
             Basemap layerBasemap = new Basemap(baseLayer);

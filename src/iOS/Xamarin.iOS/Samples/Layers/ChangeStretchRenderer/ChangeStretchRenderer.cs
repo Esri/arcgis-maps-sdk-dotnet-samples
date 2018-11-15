@@ -85,10 +85,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
         private async void Initialize()
         {
             // Add an imagery basemap.
-            Map map = new Map(Basemap.CreateImagery());
-
-            // Wait for the map to load.
-            await map.LoadAsync();
+            _myMapView.Map = new Map(Basemap.CreateImagery());
 
             // Get the file name.
             string filepath = DataManager.GetDataFolder("95392f99970d4a71bd25951beb34a508", "shasta", "ShastaBW.tif");
@@ -100,16 +97,20 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             RasterLayer rasterLayer = new RasterLayer(rasterFile);
 
             // Add the layer to the map.
-            map.OperationalLayers.Add(rasterLayer);
+            _myMapView.Map.OperationalLayers.Add(rasterLayer);
 
-            // Wait for the layer to load.
-            await rasterLayer.LoadAsync();
+            try
+            {
+                // Wait for the layer to load.
+                await rasterLayer.LoadAsync();
 
-            // Set the viewpoint.
-            map.InitialViewpoint = new Viewpoint(rasterLayer.FullExtent);
-
-            // Add map to the mapview.
-            _myMapView.Map = map;
+                // Set the viewpoint
+                await _myMapView.SetViewpointGeometryAsync(rasterLayer.FullExtent);
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         private void CreateLayout()

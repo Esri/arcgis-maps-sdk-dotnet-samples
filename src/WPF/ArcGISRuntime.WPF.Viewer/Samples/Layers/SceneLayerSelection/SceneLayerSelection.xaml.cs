@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using Esri.ArcGISRuntime.Geometry;
 
 namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
@@ -49,13 +50,20 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
             // Assign the Scene to the SceneView.
             MySceneView.Scene = scene;
 
-            // Create a camera with an interesting view.
-            await buildingsLayer.LoadAsync();
-            MapPoint center = (MapPoint)GeometryEngine.Project(buildingsLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
-            Camera viewCamera = new Camera(center.Y, center.X, 600, 120, 60, 0);
+            try
+            {
+                // Create a camera with an interesting view.
+                await buildingsLayer.LoadAsync();
+                MapPoint center = (MapPoint)GeometryEngine.Project(buildingsLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
+                Camera viewCamera = new Camera(center.Y, center.X, 600, 120, 60, 0);
 
-            // Set the viewpoint with the camera.
-            await MySceneView.SetViewpointCameraAsync(viewCamera);
+                // Set the viewpoint with the camera.
+                MySceneView.SetViewpointCamera(viewCamera);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error");
+            }
         }
 
         private async void SceneViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
@@ -66,22 +74,29 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
             // Clear any existing selection.
             sceneLayer.ClearSelection();
 
-            // Identify the layer at the tap point.
-            // Use a 10-pixel tolerance around the point and return a maximum of one feature.
-            IdentifyLayerResult result = await MySceneView.IdentifyLayerAsync(sceneLayer, e.Position, 10, false, 1);
-
-            // Get the GeoElements that were identified (will be 0 or 1 element).
-            IReadOnlyList<GeoElement> geoElements = result.GeoElements;
-
-            // If a GeoElement was identified, select it in the scene.
-            if (geoElements.Any())
+            try
             {
-                GeoElement geoElement = geoElements.FirstOrDefault();
-                if (geoElement != null)
+                // Identify the layer at the tap point.
+                // Use a 10-pixel tolerance around the point and return a maximum of one feature.
+                IdentifyLayerResult result = await MySceneView.IdentifyLayerAsync(sceneLayer, e.Position, 10, false, 1);
+
+                // Get the GeoElements that were identified (will be 0 or 1 element).
+                IReadOnlyList<GeoElement> geoElements = result.GeoElements;
+
+                // If a GeoElement was identified, select it in the scene.
+                if (geoElements.Any())
                 {
-                    // Select the feature to highlight it in the scene view.
-                    sceneLayer.SelectFeature((Feature) geoElement);
+                    GeoElement geoElement = geoElements.FirstOrDefault();
+                    if (geoElement != null)
+                    {
+                        // Select the feature to highlight it in the scene view.
+                        sceneLayer.SelectFeature((Feature) geoElement);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
             }
         }
     }

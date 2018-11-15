@@ -47,13 +47,17 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         private async void Initialize()
         {
             // Create a map with a topographic basemap
-            Map myMap = new Map(Basemap.CreateTopographic());
+            MyMapView.Map = new Map(Basemap.CreateTopographic());
 
-            // Create a new geoprocessing task
-            _hotspotTask = await GeoprocessingTask.CreateAsync(new Uri(_hotspotUrl));
-
-            // Assign the map to the MapView
-            MyMapView.Map = myMap;
+            try
+            {
+                // Create a new geoprocessing task
+                _hotspotTask = await GeoprocessingTask.CreateAsync(new Uri(_hotspotUrl));
+            }
+            catch (Exception e)
+            {
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+            }
         }
 
         private async void OnRunAnalysisClicked(object sender, EventArgs e)

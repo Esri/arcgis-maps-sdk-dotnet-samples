@@ -45,10 +45,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             RendererTypes.SelectedItem = "Min Max";
 
             // Add an imagery basemap
-            Map myMap = new Map(Basemap.CreateImagery());
-
-            // Wait for the map to load
-            await myMap.LoadAsync();
+            MyMapView.Map = new Map(Basemap.CreateImagery());
 
             // Get the file name
             string filepath = GetRasterPath();
@@ -60,16 +57,20 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             RasterLayer myRasterLayer = new RasterLayer(myRasterFile);
 
             // Add the layer to the map
-            myMap.OperationalLayers.Add(myRasterLayer);
+            MyMapView.Map.OperationalLayers.Add(myRasterLayer);
 
-            // Wait for the layer to load
-            await myRasterLayer.LoadAsync();
+            try
+            {
+                // Wait for the layer to load
+                await myRasterLayer.LoadAsync();
 
-            // Set the viewpoint
-            myMap.InitialViewpoint = new Viewpoint(myRasterLayer.FullExtent);
-
-            // Add map to the mapview
-                MyMapView.Map = myMap;
+                // Set the viewpoint
+                await MyMapView.SetViewpointGeometryAsync(myRasterLayer.FullExtent);
+            }
+            catch (Exception e)
+            {
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+            }
         }
 
         private void RendererTypes_SelectionChanged(object sender, SelectedItemChangedEventArgs e)

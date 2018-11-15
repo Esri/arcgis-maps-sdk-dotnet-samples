@@ -11,6 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
+using Windows.UI.Popups;
 
 namespace ArcGISRuntime.UWP.Samples.RasterHillshade
 {
@@ -57,33 +58,40 @@ namespace ArcGISRuntime.UWP.Samples.RasterHillshade
             // Load the raster file
             Raster rasterFile = new Raster(filepath);
 
-            // Create and load a new raster layer to show the image
-            _rasterLayer = new RasterLayer(rasterFile);
-            await _rasterLayer.LoadAsync();
-
-            // Enable the apply renderer button when the layer loads.
-            ApplyHillshadeButton.IsEnabled = true;
-
-            // Create a viewpoint with the raster's full extent
-            Viewpoint fullRasterExtent = new Viewpoint(_rasterLayer.FullExtent);
-
-            // Set the initial viewpoint for the map
-            map.InitialViewpoint = fullRasterExtent;
-
-            // Add the layer to the map
-            map.OperationalLayers.Add(_rasterLayer);
-
-            // Add the map to the map view
-            MyMapView.Map = map;
-
-            // Add slope type values to the combo box
-            foreach (object slope in Enum.GetValues(typeof(SlopeType)))
+            try
             {
-                SlopeTypeCombo.Items.Add(slope);
-            }
+                // Create and load a new raster layer to show the image
+                _rasterLayer = new RasterLayer(rasterFile);
+                await _rasterLayer.LoadAsync();
 
-            // Select the "Scaled" slope type enum
-            SlopeTypeCombo.SelectedIndex = 2;
+                // Enable the apply renderer button when the layer loads.
+                ApplyHillshadeButton.IsEnabled = true;
+
+                // Create a viewpoint with the raster's full extent
+                Viewpoint fullRasterExtent = new Viewpoint(_rasterLayer.FullExtent);
+
+                // Set the initial viewpoint for the map
+                map.InitialViewpoint = fullRasterExtent;
+
+                // Add the layer to the map
+                map.OperationalLayers.Add(_rasterLayer);
+
+                // Add the map to the map view
+                MyMapView.Map = map;
+
+                // Add slope type values to the combo box
+                foreach (object slope in Enum.GetValues(typeof(SlopeType)))
+                {
+                    SlopeTypeCombo.Items.Add(slope);
+                }
+
+                // Select the "Scaled" slope type enum
+                SlopeTypeCombo.SelectedIndex = 2;
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+            }
         }
 
         private void ApplyHillshadeButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)

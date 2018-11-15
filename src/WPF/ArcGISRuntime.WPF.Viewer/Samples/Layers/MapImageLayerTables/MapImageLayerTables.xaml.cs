@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows;
 
@@ -50,37 +51,44 @@ namespace ArcGISRuntime.WPF.Samples.MapImageLayerTables
             // Create a new ArcGISMapImageLayer that uses the service URI.
             ArcGISMapImageLayer serviceRequestsMapImageLayer = new ArcGISMapImageLayer(serviceRequestUri);
 
-            // Load all sublayers and tables contained by the map image layer.
-            await serviceRequestsMapImageLayer.LoadTablesAndLayersAsync();
-
-            // Set the initial map extent to the extent of all service request features.
-            Envelope requestsExtent = serviceRequestsMapImageLayer.FullExtent;
-            myMap.InitialViewpoint = new Viewpoint(requestsExtent);
-
-            // Add the layer to the map.
-            myMap.OperationalLayers.Add(serviceRequestsMapImageLayer);
-
-            // Get the service request comments table from the map image layer.
-            ServiceFeatureTable commentsTable = serviceRequestsMapImageLayer.Tables[0];
-
-            // Create query parameters to get all non-null service request comment records (features) from the table.
-            QueryParameters queryToGetNonNullComments = new QueryParameters
+            try
             {
-                WhereClause = "requestid <> '' AND comments <> ''"
-            };
+                // Load all sublayers and tables contained by the map image layer.
+                await serviceRequestsMapImageLayer.LoadTablesAndLayersAsync();
 
-            // Query the comments table to get the non-null records.
-            FeatureQueryResult commentQueryResult = await commentsTable.QueryFeaturesAsync(queryToGetNonNullComments, QueryFeatureFields.LoadAll);
+                // Set the initial map extent to the extent of all service request features.
+                Envelope requestsExtent = serviceRequestsMapImageLayer.FullExtent;
+                myMap.InitialViewpoint = new Viewpoint(requestsExtent);
 
-            // Show the records from the service request comments table in the list view control.
-            CommentsListBox.ItemsSource = commentQueryResult.ToList();
+                // Add the layer to the map.
+                myMap.OperationalLayers.Add(serviceRequestsMapImageLayer);
 
-            // Create a graphics overlay to show selected features and add it to the map view.
-            _selectedFeaturesOverlay = new GraphicsOverlay();
-            MyMapView.GraphicsOverlays.Add(_selectedFeaturesOverlay);
+                // Get the service request comments table from the map image layer.
+                ServiceFeatureTable commentsTable = serviceRequestsMapImageLayer.Tables[0];
 
-            // Assign the map to the MapView.
-            MyMapView.Map = myMap;
+                // Create query parameters to get all non-null service request comment records (features) from the table.
+                QueryParameters queryToGetNonNullComments = new QueryParameters
+                {
+                    WhereClause = "requestid <> '' AND comments <> ''"
+                };
+
+                // Query the comments table to get the non-null records.
+                FeatureQueryResult commentQueryResult = await commentsTable.QueryFeaturesAsync(queryToGetNonNullComments, QueryFeatureFields.LoadAll);
+
+                // Show the records from the service request comments table in the list view control.
+                CommentsListBox.ItemsSource = commentQueryResult.ToList();
+
+                // Create a graphics overlay to show selected features and add it to the map view.
+                _selectedFeaturesOverlay = new GraphicsOverlay();
+                MyMapView.GraphicsOverlays.Add(_selectedFeaturesOverlay);
+
+                // Assign the map to the MapView.
+                MyMapView.Map = myMap;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error");
+            }
         }
 
         // Handle a new selected comment record in the table view.
@@ -108,35 +116,42 @@ namespace ArcGISRuntime.WPF.Samples.MapImageLayerTables
                 ReturnGeometry = true
             };
 
-            // Query the comments table to get the related service request feature for the selected comment.
-            IReadOnlyList<RelatedFeatureQueryResult> relatedRequestsResult = await commentsTable.QueryRelatedFeaturesAsync(selectedComment, relatedQueryParams);
-
-            // Get the first result. 
-            RelatedFeatureQueryResult result = relatedRequestsResult.FirstOrDefault();
-
-            // Get the first feature from the result. If it's null, warn the user and return.
-            ArcGISFeature serviceRequestFeature = result.FirstOrDefault() as ArcGISFeature;
-            if (serviceRequestFeature == null)
+            try
             {
-                MessageBox.Show("Related feature not found.", "No Feature");
-                return;
+                // Query the comments table to get the related service request feature for the selected comment.
+                IReadOnlyList<RelatedFeatureQueryResult> relatedRequestsResult = await commentsTable.QueryRelatedFeaturesAsync(selectedComment, relatedQueryParams);
+
+                // Get the first result. 
+                RelatedFeatureQueryResult result = relatedRequestsResult.FirstOrDefault();
+
+                // Get the first feature from the result. If it's null, warn the user and return.
+                ArcGISFeature serviceRequestFeature = result.FirstOrDefault() as ArcGISFeature;
+                if (serviceRequestFeature == null)
+                {
+                    MessageBox.Show("Related feature not found.", "No Feature");
+                    return;
+                }
+
+                // Load the related service request feature (so its geometry is available).
+                await serviceRequestFeature.LoadAsync();
+
+                // Get the service request geometry (point).
+                MapPoint serviceRequestPoint = serviceRequestFeature.Geometry as MapPoint;
+
+                // Create a cyan marker symbol to display the related feature.
+                Symbol selectedRequestSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Cyan, 14);
+
+                // Create a graphic using the service request point and marker symbol.
+                Graphic requestGraphic = new Graphic(serviceRequestPoint, selectedRequestSymbol);
+
+                // Add the graphic to the graphics overlay and zoom the map view to its extent.
+                _selectedFeaturesOverlay.Graphics.Add(requestGraphic);
+                await MyMapView.SetViewpointCenterAsync(serviceRequestPoint, 150000);
             }
-
-            // Load the related service request feature (so its geometry is available).
-            await serviceRequestFeature.LoadAsync();
-
-            // Get the service request geometry (point).
-            MapPoint serviceRequestPoint = serviceRequestFeature.Geometry as MapPoint;
-
-            // Create a cyan marker symbol to display the related feature.
-            Symbol selectedRequestSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Cyan, 14);
-
-            // Create a graphic using the service request point and marker symbol.
-            Graphic requestGraphic = new Graphic(serviceRequestPoint, selectedRequestSymbol);
-
-            // Add the graphic to the graphics overlay and zoom the map view to its extent.
-            _selectedFeaturesOverlay.Graphics.Add(requestGraphic);
-            await MyMapView.SetViewpointCenterAsync(serviceRequestPoint, 150000);
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+            }
         }
     }
 }

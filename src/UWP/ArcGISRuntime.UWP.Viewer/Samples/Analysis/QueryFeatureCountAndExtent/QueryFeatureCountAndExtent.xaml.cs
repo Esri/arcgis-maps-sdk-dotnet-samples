@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.UWP.Samples.QueryFeatureCountAndExtent
@@ -49,14 +50,21 @@ namespace ArcGISRuntime.UWP.Samples.QueryFeatureCountAndExtent
             // Add the feature layer to the map.
             myMap.OperationalLayers.Add(myFeatureLayer);
 
-            // Wait for the feature layer to load.
-            await myFeatureLayer.LoadAsync();
+            try
+            {
+                // Wait for the feature layer to load.
+                await myFeatureLayer.LoadAsync();
 
-            // Set the map initial extent to the extent of the feature layer.
-            myMap.InitialViewpoint = new Viewpoint(myFeatureLayer.FullExtent);
+                // Set the map initial extent to the extent of the feature layer.
+                myMap.InitialViewpoint = new Viewpoint(myFeatureLayer.FullExtent);
 
-            // Add the map to the MapView.
-            MyMapView.Map = myMap;
+                // Add the map to the MapView.
+                MyMapView.Map = myMap;
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+            }
         }
 
         private async void BtnZoomToFeaturesClick(object sender, RoutedEventArgs e)
@@ -64,24 +72,31 @@ namespace ArcGISRuntime.UWP.Samples.QueryFeatureCountAndExtent
             // Create the query parameters.
             QueryParameters queryStates = new QueryParameters() { WhereClause = $"upper(State) LIKE '%{StateEntry.Text.ToUpper()}%'" };
 
-            // Get the extent from the query.
-            Envelope resultExtent = await _featureTable.QueryExtentAsync(queryStates);
-
-            // Return if there is no result (might happen if query is invalid).
-            if (resultExtent?.SpatialReference == null)
+            try
             {
-                return;
+                // Get the extent from the query.
+                Envelope resultExtent = await _featureTable.QueryExtentAsync(queryStates);
+
+                // Return if there is no result (might happen if query is invalid).
+                if (resultExtent?.SpatialReference == null)
+                {
+                    return;
+                }
+
+                // Create a viewpoint from the extent.
+                Viewpoint resultViewpoint = new Viewpoint(resultExtent);
+
+                // Zoom to the viewpoint.
+                await MyMapView.SetViewpointAsync(resultViewpoint);
+
+                // Update the UI.
+                ResultView.Text = $"Zoomed to features in {StateEntry.Text}";
+                ResultView.Visibility = Visibility.Visible;
             }
-
-            // Create a viewpoint from the extent.
-            Viewpoint resultViewpoint = new Viewpoint(resultExtent);
-
-            // Zoom to the viewpoint.
-            await MyMapView.SetViewpointAsync(resultViewpoint);
-
-            // Update the UI.
-            ResultView.Text = $"Zoomed to features in {StateEntry.Text}";
-            ResultView.Visibility = Visibility.Visible;
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+            }
         }
 
         private async void BtnCountFeaturesClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -97,12 +112,19 @@ namespace ArcGISRuntime.UWP.Samples.QueryFeatureCountAndExtent
                 SpatialRelationship = SpatialRelationship.Intersects
             };
 
-            // Get the count of matching features.
-            long count = await _featureTable.QueryFeatureCountAsync(queryCityCount);
+            try
+            {
+                // Get the count of matching features.
+                long count = await _featureTable.QueryFeatureCountAsync(queryCityCount);
 
-            // Update the UI.
-            ResultView.Text = $"{count} features in extent";
-            ResultView.Visibility = Visibility.Visible;
+                // Update the UI.
+                ResultView.Text = $"{count} features in extent";
+                ResultView.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+            }
         }
     }
 }

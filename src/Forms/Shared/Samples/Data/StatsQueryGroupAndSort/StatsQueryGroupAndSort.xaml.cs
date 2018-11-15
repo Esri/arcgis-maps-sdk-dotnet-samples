@@ -53,22 +53,29 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             // Create the US states feature table
             _usStatesTable = new ServiceFeatureTable(_usStatesServiceUri);
 
-            // Load the table
-            await _usStatesTable.LoadAsync();
+            try
+            {
+                // Load the table
+                await _usStatesTable.LoadAsync();
 
-            // Fill the fields combo and "group by" list with field names from the table
-            List<string> fieldNames = _usStatesTable.Fields.Select(field => field.Name).ToList();
-            FieldsComboBox.ItemsSource = fieldNames;
-            GroupFieldsListBox.ItemsSource = _usStatesTable.Fields;
+                // Fill the fields combo and "group by" list with field names from the table
+                List<string> fieldNames = _usStatesTable.Fields.Select(field => field.Name).ToList();
+                FieldsComboBox.ItemsSource = fieldNames;
+                GroupFieldsListBox.ItemsSource = _usStatesTable.Fields;
 
-            // Set the (initially empty) collection of fields as the "order by" fields list data source
-            OrderByFieldsListBox.ItemsSource = _orderByFields;
+                // Set the (initially empty) collection of fields as the "order by" fields list data source
+                OrderByFieldsListBox.ItemsSource = _orderByFields;
 
-            // Fill the statistics type combo with values from the StatisticType enum
-            StatTypeComboBox.ItemsSource = Enum.GetValues(typeof(StatisticType));
+                // Fill the statistics type combo with values from the StatisticType enum
+                StatTypeComboBox.ItemsSource = Enum.GetValues(typeof(StatisticType));
 
-            // Set the (initially empty) collection of statistic definitions as the statistics list box data source
-            StatFieldsListBox.ItemsSource = _statDefinitions;
+                // Set the (initially empty) collection of statistic definitions as the statistics list box data source
+                StatFieldsListBox.ItemsSource = _statDefinitions;
+            }
+            catch (Exception e)
+            {
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+            }
         }
 
         // Execute a statistical query using the parameters defined by the user and display the results
@@ -99,35 +106,42 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             // Ignore counties with missing data
             statQueryParams.WhereClause = "\"State\" IS NOT NULL";
 
-            // Execute the statistical query with these parameters and await the results
-            StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
-
-            // Get results formatted as a lookup (list of group names and their associated dictionary of results)
-            ILookup<string,IReadOnlyDictionary<string,object>> resultsLookup = statQueryResult.ToLookup(result => string.Join(", ", result.Group.Values), result => result.Statistics);
-            
-            // Loop through the formatted results and build a list of classes to display as grouped results in the list view
-            ObservableCollection<ResultGroup> resultsGroupCollection = new ObservableCollection<ResultGroup>();
-            foreach (IGrouping<string,IReadOnlyDictionary<string,object>> group in resultsLookup)
+            try
             {
-                // Create a new group
-                ResultGroup resultGroup = new ResultGroup() { GroupName = group.Key };
+                // Execute the statistical query with these parameters and await the results
+                StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
 
-                // Loop through all the results for this group and add them to the collection
-                foreach (IReadOnlyDictionary<string,object> resultSet in group)
+                // Get results formatted as a lookup (list of group names and their associated dictionary of results)
+                ILookup<string,IReadOnlyDictionary<string,object>> resultsLookup = statQueryResult.ToLookup(result => string.Join(", ", result.Group.Values), result => result.Statistics);
+            
+                // Loop through the formatted results and build a list of classes to display as grouped results in the list view
+                ObservableCollection<ResultGroup> resultsGroupCollection = new ObservableCollection<ResultGroup>();
+                foreach (IGrouping<string,IReadOnlyDictionary<string,object>> group in resultsLookup)
                 {
-                    foreach(KeyValuePair<string,object> result in resultSet)
+                    // Create a new group
+                    ResultGroup resultGroup = new ResultGroup() { GroupName = group.Key };
+
+                    // Loop through all the results for this group and add them to the collection
+                    foreach (IReadOnlyDictionary<string,object> resultSet in group)
                     {
-                        resultGroup.Add(new StatisticResult { FieldName = result.Key, StatValue = result.Value});
+                        foreach(KeyValuePair<string,object> result in resultSet)
+                        {
+                            resultGroup.Add(new StatisticResult { FieldName = result.Key, StatValue = result.Value});
+                        }
                     }
+
+                    // Add the group of results to the collection
+                    resultsGroupCollection.Add(resultGroup);
                 }
 
-                // Add the group of results to the collection
-                resultsGroupCollection.Add(resultGroup);
+                // Apply the results to the list view data source and show the results grid
+                StatResultsList.ItemsSource = resultsGroupCollection; 
+                ResultsGrid.IsVisible = true;
             }
-
-            // Apply the results to the list view data source and show the results grid
-            StatResultsList.ItemsSource = resultsGroupCollection; 
-            ResultsGrid.IsVisible = true;
+            catch (Exception ex)
+            {
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+            }
         }        
 
         // Handle when the switch for a "group by" field is toggled on or off by adding or removing the field from the collection

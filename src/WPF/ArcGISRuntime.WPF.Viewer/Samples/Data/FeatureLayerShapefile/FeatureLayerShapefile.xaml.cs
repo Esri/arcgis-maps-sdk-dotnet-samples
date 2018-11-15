@@ -7,6 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Windows;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Data;
@@ -38,17 +40,24 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerShapefile
             // Get the path to the downloaded shapefile
             string filepath = GetShapefilePath();
 
-            // Open the shapefile
-            ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
+            try
+            {
+                // Open the shapefile
+                ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
 
-            // Create a feature layer to display the shapefile
-            FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
+                // Create a feature layer to display the shapefile
+                FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
 
-            // Add the feature layer to the map
-            MyMapView.Map.OperationalLayers.Add(newFeatureLayer);
+                // Add the feature layer to the map
+                MyMapView.Map.OperationalLayers.Add(newFeatureLayer);
 
-            // Zoom the map to the extent of the shapefile
-            await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent, 50);
+                // Zoom the map to the extent of the shapefile
+                await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent, 50);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error");
+            }
         }
 
         private static string GetShapefilePath()

@@ -50,20 +50,27 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
 
         private async void Initialize()
         {
-            // Set up the AuthenticationManager to use OAuth for secure ArcGIS Online requests.
-            SetOAuthInfo();
+            try
+            {
+                // Set up the AuthenticationManager to use OAuth for secure ArcGIS Online requests.
+                SetOAuthInfo();
 
-            // Connect to the portal (ArcGIS Online, for example).
-            ArcGISPortal arcgisPortal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
+                // Connect to the portal (ArcGIS Online, for example).
+                ArcGISPortal arcgisPortal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));
 
-            // Get a web map portal item using its ID.
-            // If the item contains layers not shared publicly, the user will be challenged for credentials at this point.
-            PortalItem portalItem = await PortalItem.CreateAsync(arcgisPortal, WebMapId);
+                // Get a web map portal item using its ID.
+                // If the item contains layers not shared publicly, the user will be challenged for credentials at this point.
+                PortalItem portalItem = await PortalItem.CreateAsync(arcgisPortal, WebMapId);
 
-            // Create a new map with the portal item and display it in the map view.
-            // If authentication fails, only the public layers are displayed.
-            Map myMap = new Map(portalItem);
-            MyMapView.Map = myMap;
+                // Create a new map with the portal item and display it in the map view.
+                // If authentication fails, only the public layers are displayed.
+                Map myMap = new Map(portalItem);
+                MyMapView.Map = myMap;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Error starting sample");
+            }
         }
 
         private void SetOAuthInfo()

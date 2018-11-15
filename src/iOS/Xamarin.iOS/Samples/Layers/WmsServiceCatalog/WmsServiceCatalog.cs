@@ -103,28 +103,35 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             // Create the WMS Service.
             WmsService service = new WmsService(_wmsUrl);
 
-            // Load the WMS Service.
-            await service.LoadAsync();
-
-            // Get the service info (metadata) from the service.
-            WmsServiceInfo info = service.ServiceInfo;
-
-            List<LayerDisplayVM> viewModelList = new List<LayerDisplayVM>();
-
-            // Get the list of layer infos.
-            foreach (var layerInfo in info.LayerInfos)
+            try
             {
-                LayerDisplayVM.BuildLayerInfoList(new LayerDisplayVM(layerInfo, null), viewModelList);
+                // Load the WMS Service.
+                await service.LoadAsync();
+
+                // Get the service info (metadata) from the service.
+                WmsServiceInfo info = service.ServiceInfo;
+
+                List<LayerDisplayVM> viewModelList = new List<LayerDisplayVM>();
+
+                // Get the list of layer infos.
+                foreach (var layerInfo in info.LayerInfos)
+                {
+                    LayerDisplayVM.BuildLayerInfoList(new LayerDisplayVM(layerInfo, null), viewModelList);
+                }
+
+                // Construct the layer list source.
+                _layerListSource = new LayerListSource(viewModelList, this);
+
+                // Set the source for the table view (layer list).
+                _myDisplayList.Source = _layerListSource;
+
+                // Force an update of the list display.
+                _myDisplayList.ReloadData();
             }
-
-            // Construct the layer list source.
-            _layerListSource = new LayerListSource(viewModelList, this);
-
-            // Set the source for the table view (layer list).
-            _myDisplayList.Source = _layerListSource;
-
-            // Force an update of the list display.
-            _myDisplayList.ReloadData();
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         /// <summary>
@@ -141,14 +148,21 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             // Create a new WmsLayer from the selected layers.
             WmsLayer myLayer = new WmsLayer(selectedLayers);
 
-            // Wait for the layer to load.
-            await myLayer.LoadAsync();
+            try
+            {
+                // Wait for the layer to load.
+                await myLayer.LoadAsync();
 
-            // Zoom to the extent of the layer.
-            await _myMapView.SetViewpointAsync(new Viewpoint(myLayer.FullExtent));
+                // Zoom to the extent of the layer.
+                await _myMapView.SetViewpointAsync(new Viewpoint(myLayer.FullExtent));
 
-            // Add the layer to the map.
-            _myMapView.Map.OperationalLayers.Add(myLayer);
+                // Add the layer to the map.
+                _myMapView.Map.OperationalLayers.Add(myLayer);
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         /// <summary>

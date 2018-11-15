@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Data;
@@ -19,6 +20,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
+using ServiceRequestCommentsTableSource = ArcGISRuntime.Samples.MapImageLayerTables.ServiceRequestCommentsTableSource;
 
 namespace ArcGISRuntime.Samples.MapImageLayerTables
 {
@@ -64,52 +66,59 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             // Create a new ArcGISMapImageLayer that uses the service URI.
             ArcGISMapImageLayer serviceRequestsMapImageLayer = new ArcGISMapImageLayer(serviceRequestUri);
 
-            // Load all sublayers and tables contained by the map image layer.
-            await serviceRequestsMapImageLayer.LoadTablesAndLayersAsync();
-
-            // Set the initial map extent to the extent of all service request features.
-            Envelope requestsExtent = serviceRequestsMapImageLayer.FullExtent;
-            myMap.InitialViewpoint = new Viewpoint(requestsExtent);
-
-            // Add the layer to the map.
-            myMap.OperationalLayers.Add(serviceRequestsMapImageLayer);
-
-            // Get the service request comments table from the map image layer.
-            ServiceFeatureTable commentsTable = serviceRequestsMapImageLayer.Tables[0];
-
-            // Create query parameters to get all non-null service request comment records (features) from the table.
-            QueryParameters queryToGetNonNullComments = new QueryParameters
+            try
             {
-                WhereClause = "requestid <> '' AND comments <> ''"
-            };
+                // Load all sublayers and tables contained by the map image layer.
+                await serviceRequestsMapImageLayer.LoadTablesAndLayersAsync();
 
-            // Query the comments table to get the non-null records.
-            FeatureQueryResult commentQueryResult = await commentsTable.QueryFeaturesAsync(queryToGetNonNullComments, QueryFeatureFields.LoadAll);
+                // Set the initial map extent to the extent of all service request features.
+                Envelope requestsExtent = serviceRequestsMapImageLayer.FullExtent;
+                myMap.InitialViewpoint = new Viewpoint(requestsExtent);
 
-            // Show the records from the service request comments table in the UITableView control.
-            foreach (ArcGISFeature commentFeature in commentQueryResult)
-            {
-                _serviceRequestComments.Add(commentFeature);
-            }
+                // Add the layer to the map.
+                myMap.OperationalLayers.Add(serviceRequestsMapImageLayer);
+
+                // Get the service request comments table from the map image layer.
+                ServiceFeatureTable commentsTable = serviceRequestsMapImageLayer.Tables[0];
+
+                // Create query parameters to get all non-null service request comment records (features) from the table.
+                QueryParameters queryToGetNonNullComments = new QueryParameters
+                {
+                    WhereClause = "requestid <> '' AND comments <> ''"
+                };
+
+                // Query the comments table to get the non-null records.
+                FeatureQueryResult commentQueryResult = await commentsTable.QueryFeaturesAsync(queryToGetNonNullComments, QueryFeatureFields.LoadAll);
+
+                // Show the records from the service request comments table in the UITableView control.
+                foreach (ArcGISFeature commentFeature in commentQueryResult)
+                {
+                    _serviceRequestComments.Add(commentFeature);
+                }
             
-            // Create the table view source that uses the list of features.
-            ServiceRequestCommentsTableSource commentsTableSource = new ServiceRequestCommentsTableSource(_serviceRequestComments);
+                // Create the table view source that uses the list of features.
+                ServiceRequestCommentsTableSource commentsTableSource = new ServiceRequestCommentsTableSource(_serviceRequestComments);
 
-            // Handle a new selection in the table source.
-            commentsTableSource.ServiceRequestCommentSelected += CommentsTableSource_ServiceRequestCommentSelected;
+                // Handle a new selection in the table source.
+                commentsTableSource.ServiceRequestCommentSelected += CommentsTableSource_ServiceRequestCommentSelected;
 
-            // Assign the table view source to the table view control.
-            _tableView.Source = commentsTableSource;
+                // Assign the table view source to the table view control.
+                _tableView.Source = commentsTableSource;
 
-            // Create a graphics overlay to show selected features and add it to the map view.
-            _selectedFeaturesOverlay = new GraphicsOverlay();
-            _myMapView.GraphicsOverlays.Add(_selectedFeaturesOverlay);
+                // Create a graphics overlay to show selected features and add it to the map view.
+                _selectedFeaturesOverlay = new GraphicsOverlay();
+                _myMapView.GraphicsOverlays.Add(_selectedFeaturesOverlay);
 
-            // Assign the map to the MapView.
-            _myMapView.Map = myMap;
+                // Assign the map to the MapView.
+                _myMapView.Map = myMap;
 
-            // Reload the table view data to refresh the display.
-            _tableView.ReloadData();
+                // Reload the table view data to refresh the display.
+                _tableView.ReloadData();
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         // Handle a new selected comment record in the table view.
@@ -133,38 +142,45 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
                 ReturnGeometry = true
             };
 
-            // Query the comments table to get the related service request feature for the selected comment.
-            IReadOnlyList<RelatedFeatureQueryResult> relatedRequestsResult = await commentsTable.QueryRelatedFeaturesAsync(e.SelectedComment, relatedQueryParams);
-
-            // Get the first result. 
-            RelatedFeatureQueryResult result = relatedRequestsResult.FirstOrDefault();
-
-            // Get the first feature from the result. If it's null, warn the user and return.
-            ArcGISFeature serviceRequestFeature = result.FirstOrDefault() as ArcGISFeature;
-            if (serviceRequestFeature == null)
+            try
             {
-                UIAlertController alert = UIAlertController.Create("No Feature", "Related feature not found.", UIAlertControllerStyle.Alert);
-                alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-                PresentViewController(alert, true, null);
+                // Query the comments table to get the related service request feature for the selected comment.
+                IReadOnlyList<RelatedFeatureQueryResult> relatedRequestsResult = await commentsTable.QueryRelatedFeaturesAsync(e.SelectedComment, relatedQueryParams);
 
-                return;
+                // Get the first result. 
+                RelatedFeatureQueryResult result = relatedRequestsResult.FirstOrDefault();
+
+                // Get the first feature from the result. If it's null, warn the user and return.
+                ArcGISFeature serviceRequestFeature = result.FirstOrDefault() as ArcGISFeature;
+                if (serviceRequestFeature == null)
+                {
+                    UIAlertController alert = UIAlertController.Create("No Feature", "Related feature not found.", UIAlertControllerStyle.Alert);
+                    alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+                    PresentViewController(alert, true, null);
+
+                    return;
+                }
+
+                // Load the related service request feature (so its geometry is available).
+                await serviceRequestFeature.LoadAsync();
+
+                // Get the service request geometry (point).
+                MapPoint serviceRequestPoint = serviceRequestFeature.Geometry as MapPoint;
+
+                // Create a cyan marker symbol to display the related feature.
+                Symbol selectedRequestSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Cyan, 14);
+
+                // Create a graphic using the service request point and marker symbol.
+                Graphic requestGraphic = new Graphic(serviceRequestPoint, selectedRequestSymbol);
+
+                // Add the graphic to the graphics overlay and zoom the map view to its extent.
+                _selectedFeaturesOverlay.Graphics.Add(requestGraphic);
+                await _myMapView.SetViewpointCenterAsync(serviceRequestPoint, 150000);
             }
-
-            // Load the related service request feature (so its geometry is available).
-            await serviceRequestFeature.LoadAsync();
-
-            // Get the service request geometry (point).
-            MapPoint serviceRequestPoint = serviceRequestFeature.Geometry as MapPoint;
-
-            // Create a cyan marker symbol to display the related feature.
-            Symbol selectedRequestSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Cyan, 14);
-
-            // Create a graphic using the service request point and marker symbol.
-            Graphic requestGraphic = new Graphic(serviceRequestPoint, selectedRequestSymbol);
-
-            // Add the graphic to the graphics overlay and zoom the map view to its extent.
-            _selectedFeaturesOverlay.Graphics.Add(requestGraphic);
-            await _myMapView.SetViewpointCenterAsync(serviceRequestPoint, 150000);
+            catch (Exception ex)
+            {
+                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
 
         public override void LoadView()

@@ -49,7 +49,7 @@ namespace ArcGISRuntime.Samples.OpenScene
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine(e.ToString());
+                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
             }
         }
     }

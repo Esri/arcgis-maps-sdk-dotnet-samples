@@ -87,14 +87,21 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
             // Apply the Map to the MapView
             _myMapView.Map = myMap;
 
-            // Ensure the no offset layer is loaded
-            await noOffsetLayer.LoadAsync();
+            try
+            {
+                // Ensure the no offset layer is loaded
+                await noOffsetLayer.LoadAsync();
 
-            // Store a reference to the original time extent
-            _originalExtent = noOffsetLayer.FullTimeExtent;
+                // Store a reference to the original time extent
+                _originalExtent = noOffsetLayer.FullTimeExtent;
 
-            // Update the time extent set on the map
-            UpdateTimeExtent();
+                // Update the time extent set on the map
+                UpdateTimeExtent();
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private void CreateLayout()

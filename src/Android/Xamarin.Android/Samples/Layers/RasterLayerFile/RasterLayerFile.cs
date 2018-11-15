@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using Android.App;
 using Android.OS;
 using Android.Widget;
@@ -67,9 +68,6 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
             // Add an imagery basemap
             Map myMap = new Map(Basemap.CreateImagery());
 
-            // Wait for the map to load
-            await myMap.LoadAsync();
-
             // Get the file name
             string filepath = GetRasterPath();
 
@@ -82,14 +80,21 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
             // Add the layer to the map
             myMap.OperationalLayers.Add(myRasterLayer);
 
-            // Wait for the layer to load
-            await myRasterLayer.LoadAsync();
-
-            // Set the viewpoint
-            myMap.InitialViewpoint = new Viewpoint(myRasterLayer.FullExtent);
-
             // Add map to the mapview
             _myMapView.Map = myMap;
+
+            try
+            {
+                // Wait for the layer to load
+                await myRasterLayer.LoadAsync();
+
+                // Set the viewpoint
+                await _myMapView.SetViewpointGeometryAsync(myRasterLayer.FullExtent);
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private string GetRasterPath()

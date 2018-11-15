@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.UWP.Samples.StatisticalQuery
@@ -103,11 +104,18 @@ namespace ArcGISRuntime.UWP.Samples.StatisticalQuery
                 statQueryParams.WhereClause = "POP_RANK = 1";
             }
 
-            // Execute the statistical query with these parameters and await the results
-            StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
+            try
+            {
+                // Execute the statistical query with these parameters and await the results
+                StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
 
-            // Display results in the list box
-            StatResultsListBox.ItemsSource = statQueryResult.First().Statistics.ToList();
+                // Display results in the list box
+                StatResultsListBox.ItemsSource = statQueryResult.First().Statistics.ToList();
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+            }
         }
     }
 }

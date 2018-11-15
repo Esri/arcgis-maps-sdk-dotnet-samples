@@ -61,20 +61,27 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
             // Add created layer to the operational layers collection.
             myScene.OperationalLayers.Add(sceneLayer);
 
-            // Load the layer.
-            await sceneLayer.LoadAsync();
+            try
+            {
+                // Load the layer.
+                await sceneLayer.LoadAsync();
 
-            // Get the center of the scene layer.
-            MapPoint center = (MapPoint)GeometryEngine.Project(sceneLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
+                // Get the center of the scene layer.
+                MapPoint center = (MapPoint)GeometryEngine.Project(sceneLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
 
-            // Create a camera with coordinates showing layer data.
-            Camera camera = new Camera(center.Y, center.X, 225, 220, 80, 0);
+                // Create a camera with coordinates showing layer data.
+                Camera camera = new Camera(center.Y, center.X, 225, 220, 80, 0);
 
-            // Assign the Scene to the SceneView.
-            _mySceneView.Scene = myScene;
+                // Assign the Scene to the SceneView.
+                _mySceneView.Scene = myScene;
 
-            // Set view point of scene view using camera.
-            await _mySceneView.SetViewpointCameraAsync(camera);
+                // Set view point of scene view using camera.
+                await _mySceneView.SetViewpointCameraAsync(camera);
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private void CreateLayout()

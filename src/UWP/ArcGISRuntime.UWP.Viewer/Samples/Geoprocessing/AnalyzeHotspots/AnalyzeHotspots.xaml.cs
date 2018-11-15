@@ -45,13 +45,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
         private async void Initialize()
         {
             // Create a map with a topographic basemap
-            Map myMap = new Map(Basemap.CreateTopographic());
-
-            // Create a new geoprocessing task
-            _hotspotTask = await GeoprocessingTask.CreateAsync(new Uri(_hotspotUrl));
-
-            // Assign the map to the MapView
-            MyMapView.Map = myMap;
+            MyMapView.Map = new Map(Basemap.CreateTopographic());
 
             // Set the initial start date for the DatePicker defined in xaml
             DateTimeOffset myFromDate = new DateTimeOffset(new DateTime(1998, 1, 1));
@@ -60,6 +54,16 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
             // Set the initial end date for the DatePicker defined in xaml
             DateTimeOffset myToDate = new DateTimeOffset(new DateTime(1998, 1, 31));
             ToDate.Date = myToDate;
+
+            try
+            {
+                // Create a new geoprocessing task
+                _hotspotTask = await GeoprocessingTask.CreateAsync(new Uri(_hotspotUrl));
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+            }
         }
 
         private void OnCancelTaskClicked(object sender, RoutedEventArgs e)

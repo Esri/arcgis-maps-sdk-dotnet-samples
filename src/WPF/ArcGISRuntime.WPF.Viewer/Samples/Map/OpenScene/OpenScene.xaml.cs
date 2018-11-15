@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using System;
+using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.OpenScene
 {
@@ -46,7 +47,7 @@ namespace ArcGISRuntime.WPF.Samples.OpenScene
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine(e.ToString());
+                MessageBox.Show(e.ToString(), "Error");
             }
         }
     }

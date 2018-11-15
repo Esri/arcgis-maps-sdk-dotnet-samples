@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using Android.App;
 using Android.OS;
 using Android.Views;
@@ -122,10 +123,19 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
         private async void myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Identify the tapped graphics
-            IdentifyGraphicsOverlayResult result = await _myMapView.IdentifyGraphicsOverlayAsync(_graphicsOverlay, e.Position, 1, false);
+            IdentifyGraphicsOverlayResult result = null;
+
+            try
+            {
+                result = await _myMapView.IdentifyGraphicsOverlayAsync(_graphicsOverlay, e.Position, 1, false);
+            }
+            catch (Exception ex)
+            {
+                new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("Error").Show();
+            }
 
             // Return if there are no results
-            if (result.Graphics.Count < 1)
+            if (result == null || result.Graphics.Count < 1)
             {
                 return;
             }

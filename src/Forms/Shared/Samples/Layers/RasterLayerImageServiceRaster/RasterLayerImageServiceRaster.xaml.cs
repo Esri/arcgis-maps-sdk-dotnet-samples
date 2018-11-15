@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Create new map with the dark gray canvas basemap.
             Map myMap = new Map(Basemap.CreateDarkGrayCanvasVector());
@@ -40,9 +40,6 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
 
             // Create new image service raster from the Uri.
             ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(myUri);
-
-            // Load the image service raster.
-            await myImageServiceRaster.LoadAsync();
 
             // Create a new raster layer from the image service raster.
             RasterLayer myRasterLayer = new RasterLayer(myImageServiceRaster);
@@ -54,7 +51,7 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
             MyMapView.Map = myMap;
 
             // zoom in to the San Francisco Bay.
-            await MyMapView.SetViewpointCenterAsync(new MapPoint(-13643095.660131, 4550009.846004, SpatialReferences.WebMercator), 100000);
+            MyMapView.SetViewpointCenterAsync(new MapPoint(-13643095.660131, 4550009.846004, SpatialReferences.WebMercator), 100000);
         }
     }
 }

@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using System.Linq;
 using Android.App;
 using Android.OS;
@@ -49,24 +50,31 @@ namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
             // Get the full path
             string geoPackagePath = GetGeoPackagePath();
 
-            // Open the GeoPackage
-            GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
+            try
+            {
+                // Open the GeoPackage
+                GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
 
-            // Read the raster images and get the first one
-            Raster gpkgRaster = myGeoPackage.GeoPackageRasters.FirstOrDefault();
+                // Read the raster images and get the first one
+                Raster gpkgRaster = myGeoPackage.GeoPackageRasters.FirstOrDefault();
 
-            // Make sure an image was found in the package
-            if (gpkgRaster == null) { return; }
+                // Make sure an image was found in the package
+                if (gpkgRaster == null) { return; }
 
-            // Create a layer to show the raster
-            RasterLayer newLayer = new RasterLayer(gpkgRaster);
-            await newLayer.LoadAsync();
+                // Create a layer to show the raster
+                RasterLayer newLayer = new RasterLayer(gpkgRaster);
+                await newLayer.LoadAsync();
 
-            // Set the viewpoint
-            await _myMapView.SetViewpointAsync(new Viewpoint(newLayer.FullExtent));
+                // Set the viewpoint
+                await _myMapView.SetViewpointAsync(new Viewpoint(newLayer.FullExtent));
 
-            // Add the image as a raster layer to the map (with default symbology)
-            _myMapView.Map.OperationalLayers.Add(newLayer);
+                // Add the image as a raster layer to the map (with default symbology)
+                _myMapView.Map.OperationalLayers.Add(newLayer);
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
+            }
         }
 
         private static string GetGeoPackagePath()

@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Esri.ArcGISRuntime.Geometry;
 
@@ -69,8 +70,7 @@ namespace ArcGISRuntime.UWP.Samples.StyleWmsLayer
             }
             catch (Exception ex)
             {
-                // Any exceptions in the async void method must be caught, otherwise they will result in a crash.
-                Debug.WriteLine(ex.ToString());
+                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
             }
         }
 

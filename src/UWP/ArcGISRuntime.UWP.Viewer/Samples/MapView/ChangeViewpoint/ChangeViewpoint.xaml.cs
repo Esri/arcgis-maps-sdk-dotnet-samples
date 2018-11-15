@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -69,42 +70,49 @@ namespace ArcGISRuntime.UWP.Samples.ChangeViewpoint
 
         private async void OnButtonClick(object sender, RoutedEventArgs e)
         {
-            // Get .Content from the selected item
-            Button myButton = (Button)sender;
-            string selectedMapTitle = myButton.Content.ToString();
-
-            switch (selectedMapTitle)
+            try
             {
-                case "Geometry":
+                // Get .Content from the selected item
+                Button myButton = (Button)sender;
+                string selectedMapTitle = myButton.Content.ToString();
 
-                    // Set Viewpoint using Redlands envelope defined above and a padding of 20
-                    await MyMapView.SetViewpointGeometryAsync(_redlandsEnvelope, 20);
-                    break;
+                switch (selectedMapTitle)
+                {
+                    case "Geometry":
 
-                case "Center and Scale":
+                        // Set Viewpoint using Redlands envelope defined above and a padding of 20
+                        await MyMapView.SetViewpointGeometryAsync(_redlandsEnvelope, 20);
+                        break;
 
-                    // Set Viewpoint so that it is centered on the London coordinates defined above
-                    await MyMapView.SetViewpointCenterAsync(_londonCoords);
+                    case "Center and Scale":
 
-                    // Set the Viewpoint scale to match the specified scale 
-                    await MyMapView.SetViewpointScaleAsync(_londonScale);
-                    break;
+                        // Set Viewpoint so that it is centered on the London coordinates defined above
+                        await MyMapView.SetViewpointCenterAsync(_londonCoords);
 
-                case "Animate":
+                        // Set the Viewpoint scale to match the specified scale 
+                        await MyMapView.SetViewpointScaleAsync(_londonScale);
+                        break;
 
-                    // Navigate to full extent of the first baselayer before animating to specified geometry
-                    await MyMapView.SetViewpointAsync(
-                        new Viewpoint(MyMapView.Map.Basemap.BaseLayers.First().FullExtent));
+                    case "Animate":
 
-                    // Create a new Viewpoint using the specified geometry
-                    Viewpoint viewpoint = new Viewpoint(_edinburghEnvelope);
+                        // Navigate to full extent of the first baselayer before animating to specified geometry
+                        await MyMapView.SetViewpointAsync(
+                            new Viewpoint(MyMapView.Map.Basemap.BaseLayers.First().FullExtent));
 
-                    // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
-                    await MyMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));
-                    break;
+                        // Create a new Viewpoint using the specified geometry
+                        Viewpoint viewpoint = new Viewpoint(_edinburghEnvelope);
 
-                default:
-                    break;
+                        // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
+                        await MyMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
             }
         }
     }

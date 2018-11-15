@@ -66,29 +66,31 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
             // Create new image service raster from the URI.
             ImageServiceRaster imageServiceRaster = new ImageServiceRaster(rasterUri);
 
-            // Load the image service raster.
-            await imageServiceRaster.LoadAsync();
+            try
+            {
+                // Load the image service raster.
+                await imageServiceRaster.LoadAsync();
 
-            // NOTE: This is the ASCII text for actual raw JSON string:
-            // ========================================================
-            //{
-            //  "raster_function_arguments":
-            //  {
-            //    "z_factor":{"double":25.0,"type":"Raster_function_variable"},
-            //    "slope_type":{"raster_slope_type":"none","type":"Raster_function_variable"},
-            //    "azimuth":{"double":315,"type":"Raster_function_variable"},
-            //    "altitude":{"double":45,"type":"Raster_function_variable"},
-            //    "type":"Raster_function_arguments",
-            //    "raster":{"name":"raster","is_raster":true,"type":"Raster_function_variable"},
-            //    "nbits":{"int":8,"type":"Raster_function_variable"}
-            //  },
-            //  "raster_function":{"type":"Hillshade_function"},
-            //  "type":"Raster_function_template"
-            //}
+                // NOTE: This is the ASCII text for actual raw JSON string:
+                // ========================================================
+                //{
+                //  "raster_function_arguments":
+                //  {
+                //    "z_factor":{"double":25.0,"type":"Raster_function_variable"},
+                //    "slope_type":{"raster_slope_type":"none","type":"Raster_function_variable"},
+                //    "azimuth":{"double":315,"type":"Raster_function_variable"},
+                //    "altitude":{"double":45,"type":"Raster_function_variable"},
+                //    "type":"Raster_function_arguments",
+                //    "raster":{"name":"raster","is_raster":true,"type":"Raster_function_variable"},
+                //    "nbits":{"int":8,"type":"Raster_function_variable"}
+                //  },
+                //  "raster_function":{"type":"Hillshade_function"},
+                //  "type":"Raster_function_template"
+                //}
 
-            // Define the JSON string needed for the raster function
-            string theJsonString =
-                @"{
+                // Define the JSON string needed for the raster function
+                string theJsonString =
+                    @"{
                 ""raster_function_arguments"":
                 {
                   ""z_factor"":{ ""double"":25.0,""type"":""Raster_function_variable""},
@@ -103,38 +105,43 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
               ""type"":""Raster_function_template""
             }";
 
-            // Create a raster function from the JSON string using the static/Shared method called: RasterFunction.FromJson(JSON as String).
-            RasterFunction rasterFunction = RasterFunction.FromJson(theJsonString);
+                // Create a raster function from the JSON string using the static/Shared method called: RasterFunction.FromJson(JSON as String).
+                RasterFunction rasterFunction = RasterFunction.FromJson(theJsonString);
 
-            // NOTE: You could have alternatively created the raster function via a JSON string that is contained in a 
-            // file on disk (ex: hillshade_simplified.json) via the constructor: Esri.ArcGISRuntime.Rasters.RasterFunction(path as String).
+                // NOTE: You could have alternatively created the raster function via a JSON string that is contained in a 
+                // file on disk (ex: hillshade_simplified.json) via the constructor: Esri.ArcGISRuntime.Rasters.RasterFunction(path as String).
 
-            // Get the raster function arguments.
-            RasterFunctionArguments rasterFunctionArguments = rasterFunction.Arguments;
+                // Get the raster function arguments.
+                RasterFunctionArguments rasterFunctionArguments = rasterFunction.Arguments;
 
-            // Get the list of names from the raster function arguments.
-            IReadOnlyList<string> myRasterNames = rasterFunctionArguments.GetRasterNames();
+                // Get the list of names from the raster function arguments.
+                IReadOnlyList<string> myRasterNames = rasterFunctionArguments.GetRasterNames();
 
-            // Apply the first raster name and image service raster in the raster function arguments.
-            rasterFunctionArguments.SetRaster(myRasterNames[0], imageServiceRaster);
+                // Apply the first raster name and image service raster in the raster function arguments.
+                rasterFunctionArguments.SetRaster(myRasterNames[0], imageServiceRaster);
 
-            // Create a new raster based on the raster function.
-            Raster raster = new Raster(rasterFunction);
+                // Create a new raster based on the raster function.
+                Raster raster = new Raster(rasterFunction);
 
-            // Create a new raster layer from the raster.
-            RasterLayer rasterLayer = new RasterLayer(raster);
+                // Create a new raster layer from the raster.
+                RasterLayer rasterLayer = new RasterLayer(raster);
 
-            // Add the raster layer to the maps layer collection.
-            myMap.Basemap.BaseLayers.Add(rasterLayer);
+                // Add the raster layer to the maps layer collection.
+                myMap.Basemap.BaseLayers.Add(rasterLayer);
 
-            // Assign the map to the map view.
-            _myMapView.Map = myMap;
+                // Assign the map to the map view.
+                _myMapView.Map = myMap;
 
-            // Get the service information (aka. metadata) about the image service raster.
-            ArcGISImageServiceInfo arcGISImageServiceInfo = imageServiceRaster.ServiceInfo;
+                // Get the service information (aka. metadata) about the image service raster.
+                ArcGISImageServiceInfo arcGISImageServiceInfo = imageServiceRaster.ServiceInfo;
 
-            // Zoom the map to the extent of the image service raster (which also the extent of the raster layer).
-            await _myMapView.SetViewpointGeometryAsync(arcGISImageServiceInfo.FullExtent);
+                // Zoom the map to the extent of the image service raster (which also the extent of the raster layer).
+                await _myMapView.SetViewpointGeometryAsync(arcGISImageServiceInfo.FullExtent);
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
         }
     }
 }

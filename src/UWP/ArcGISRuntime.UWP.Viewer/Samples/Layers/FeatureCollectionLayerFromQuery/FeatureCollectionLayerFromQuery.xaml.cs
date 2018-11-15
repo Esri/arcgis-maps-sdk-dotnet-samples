@@ -31,48 +31,47 @@ namespace ArcGISRuntime.UWP.Samples.FeatureCollectionLayerFromQuery
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
-            try
-            {
-                // Create a new map with the oceans basemap and add it to the map view
-                Map map = new Map(Basemap.CreateOceans());
-                MyMapView.Map = map;
+            // Create a new map with the oceans basemap and add it to the map view
+            Map map = new Map(Basemap.CreateOceans());
+            MyMapView.Map = map;
 
-                // Call a function that will create a new feature collection layer from a service query
-                GetFeaturesFromQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageDialog messageDlg = new MessageDialog("Unable to create feature collection layer: " + ex.Message, "Error");
-                await messageDlg.ShowAsync();
-            }
+            // Call a function that will create a new feature collection layer from a service query
+            GetFeaturesFromQuery();
         }
 
         private async void GetFeaturesFromQuery()
         {
-            // Create a service feature table to get features from
-            ServiceFeatureTable featTable = new ServiceFeatureTable(new Uri(FeatureLayerUrl));
-
-            // Create a query to get all features in the table
-            QueryParameters queryParams = new QueryParameters
+            try
             {
-                WhereClause = "1=1"
-            };
+                // Create a service feature table to get features from
+                ServiceFeatureTable featTable = new ServiceFeatureTable(new Uri(FeatureLayerUrl));
 
-            // Query the table to get all features
-            FeatureQueryResult featureResult = await featTable.QueryFeaturesAsync(queryParams);
+                // Create a query to get all features in the table
+                QueryParameters queryParams = new QueryParameters
+                {
+                    WhereClause = "1=1"
+                };
 
-            // Create a new feature collection table from the result features
-            FeatureCollectionTable collectTable = new FeatureCollectionTable(featureResult);
+                // Query the table to get all features
+                FeatureQueryResult featureResult = await featTable.QueryFeaturesAsync(queryParams);
 
-            // Create a feature collection and add the table
-            FeatureCollection featCollection = new FeatureCollection();
-            featCollection.Tables.Add(collectTable);
+                // Create a new feature collection table from the result features
+                FeatureCollectionTable collectTable = new FeatureCollectionTable(featureResult);
 
-            // Create a layer to display the feature collection, add it to the map's operational layers
-            FeatureCollectionLayer featCollectionTable = new FeatureCollectionLayer(featCollection);
-            MyMapView.Map.OperationalLayers.Add(featCollectionTable);
+                // Create a feature collection and add the table
+                FeatureCollection featCollection = new FeatureCollection();
+                featCollection.Tables.Add(collectTable);
+
+                // Create a layer to display the feature collection, add it to the map's operational layers
+                FeatureCollectionLayer featCollectionTable = new FeatureCollectionLayer(featCollection);
+                MyMapView.Map.OperationalLayers.Add(featCollectionTable);
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+            }
         }
     }
 }

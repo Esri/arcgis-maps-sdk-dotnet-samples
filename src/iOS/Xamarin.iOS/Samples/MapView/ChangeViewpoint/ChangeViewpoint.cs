@@ -108,29 +108,36 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
 
         private async void ViewpointButton_ValueChanged(object sender, EventArgs e)
         {
-            switch (_viewpointsButton.SelectedSegment)
+            try
             {
-                case 0:
-                    // Set Viewpoint using Redlands envelope defined above and a padding of 20.
-                    await _myMapView.SetViewpointGeometryAsync(_redlandsEnvelope, 20);
-                    break;
-                case 1:
-                    // Set Viewpoint so that it is centered on the London coordinates defined above.
-                    await _myMapView.SetViewpointCenterAsync(_londonCoords);
+                switch (_viewpointsButton.SelectedSegment)
+                {
+                    case 0:
+                        // Set Viewpoint using Redlands envelope defined above and a padding of 20.
+                        await _myMapView.SetViewpointGeometryAsync(_redlandsEnvelope, 20);
+                        break;
+                    case 1:
+                        // Set Viewpoint so that it is centered on the London coordinates defined above.
+                        await _myMapView.SetViewpointCenterAsync(_londonCoords);
 
-                    // Set the Viewpoint scale to match the specified scale.
-                    await _myMapView.SetViewpointScaleAsync(_londonScale);
-                    break;
-                case 2:
-                    // Navigate to full extent of the first base layer before animating to specified geometry.
-                    await _myMapView.SetViewpointAsync(new Viewpoint(_myMapView.Map.Basemap.BaseLayers.First().FullExtent));
+                        // Set the Viewpoint scale to match the specified scale.
+                        await _myMapView.SetViewpointScaleAsync(_londonScale);
+                        break;
+                    case 2:
+                        // Navigate to full extent of the first base layer before animating to specified geometry.
+                        await _myMapView.SetViewpointAsync(new Viewpoint(_myMapView.Map.Basemap.BaseLayers.First().FullExtent));
 
-                    // Create a new Viewpoint using the specified geometry.
-                    Viewpoint viewpoint = new Viewpoint(_edinburghEnvelope);
+                        // Create a new Viewpoint using the specified geometry.
+                        Viewpoint viewpoint = new Viewpoint(_edinburghEnvelope);
 
-                    // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds.
-                    await _myMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));
-                    break;
+                        // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds.
+                        await _myMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
 
             // Reset the segment button.

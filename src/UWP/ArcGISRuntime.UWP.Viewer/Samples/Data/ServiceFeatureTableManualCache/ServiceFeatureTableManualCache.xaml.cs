@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using Windows.UI.Popups;
 
 namespace ArcGISRuntime.UWP.Samples.ServiceFeatureTableManualCache
 {
@@ -83,8 +84,15 @@ namespace ArcGISRuntime.UWP.Samples.ServiceFeatureTableManualCache
             // Create list of the fields that are returned from the service
             string[] outputFields = { "*" };
 
-            // Populate feature table with the data based on query
-            await _incidentsFeatureTable.PopulateFromServiceAsync(queryParameters, true, outputFields);
+            try
+            {
+                // Populate feature table with the data based on query
+                await _incidentsFeatureTable.PopulateFromServiceAsync(queryParameters, true, outputFields);
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+            }
         }
     }
 }

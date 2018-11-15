@@ -97,37 +97,44 @@ namespace ArcGISRuntime.Samples.FindRoute
 
         private async void SolveRouteClick(object sender, EventArgs e)
         {
-            // Create a new route task using the San Diego route service URI
-            RouteTask solveRouteTask = await RouteTask.CreateAsync(_sanDiegoRouteServiceUri);
+            try
+            {
+                // Create a new route task using the San Diego route service URI
+                RouteTask solveRouteTask = await RouteTask.CreateAsync(_sanDiegoRouteServiceUri);
 
-            // Get the default parameters from the route task (defined with the service)
-            RouteParameters routeParams = await solveRouteTask.CreateDefaultParametersAsync();
+                // Get the default parameters from the route task (defined with the service)
+                RouteParameters routeParams = await solveRouteTask.CreateDefaultParametersAsync();
 
-            // Make some changes to the default parameters
-            routeParams.ReturnStops = true;
-            routeParams.ReturnDirections = true;
+                // Make some changes to the default parameters
+                routeParams.ReturnStops = true;
+                routeParams.ReturnDirections = true;
 
-            // Set the list of route stops that were defined at startup
-            routeParams.SetStops(_routeStops);
+                // Set the list of route stops that were defined at startup
+                routeParams.SetStops(_routeStops);
 
-            // Solve for the best route between the stops and store the result
-            RouteResult solveRouteResult = await solveRouteTask.SolveRouteAsync(routeParams);
+                // Solve for the best route between the stops and store the result
+                RouteResult solveRouteResult = await solveRouteTask.SolveRouteAsync(routeParams);
 
-            // Get the first (should be only) route from the result
-            Route firstRoute = solveRouteResult.Routes.First();
+                // Get the first (should be only) route from the result
+                Route firstRoute = solveRouteResult.Routes.First();
 
-            // Get the route geometry (polyline)
-            Polyline routePolyline = firstRoute.RouteGeometry;
+                // Get the route geometry (polyline)
+                Polyline routePolyline = firstRoute.RouteGeometry;
 
-            // Create a thick purple line symbol for the route
-            SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Purple, 8.0);
+                // Create a thick purple line symbol for the route
+                SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Purple, 8.0);
 
-            // Create a new graphic for the route geometry and add it to the graphics overlay
-            Graphic routeGraphic = new Graphic(routePolyline, routeSymbol);
-            _routeGraphicsOverlay.Graphics.Add(routeGraphic);
+                // Create a new graphic for the route geometry and add it to the graphics overlay
+                Graphic routeGraphic = new Graphic(routePolyline, routeSymbol);
+                _routeGraphicsOverlay.Graphics.Add(routeGraphic);
 
-            // Get a list of directions for the route and display it in the list box
-            DirectionsListBox.ItemsSource = firstRoute.DirectionManeuvers.Select(direction => direction.DirectionText);
+                // Get a list of directions for the route and display it in the list box
+                DirectionsListBox.ItemsSource = firstRoute.DirectionManeuvers.Select(direction => direction.DirectionText);
+            }
+            catch (Exception ex)
+            {
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+            }
         }
 
         private void ResetClick(object sender, EventArgs e)

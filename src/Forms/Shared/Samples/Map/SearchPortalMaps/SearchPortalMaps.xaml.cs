@@ -163,7 +163,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 }
 
                 // Show the list of web maps
-                MapsListView.ItemsSource = mapItems;
+                MapsListView.ItemsSource = mapItems.ToList(); // Explicit ToList() needed to avoid Xamarin.Forms UWP ListView bug.
                 MapsListView.IsVisible = true;
             }
             catch (Exception ex)

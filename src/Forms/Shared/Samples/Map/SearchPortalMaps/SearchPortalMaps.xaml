@@ -35,6 +35,7 @@
         </TableView>
         <ListView x:Name="MapsListView" 
                   IsVisible="False"
+                  SelectionMode="Single"
                   ItemSelected="MapItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>

@@ -1,9 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ArcGISRuntime.WaitPage">
-    <StackLayout>
-        <Label Text="Downloading Data" FontSize="Large" />
-        <ActivityIndicator IsRunning="True" />
-    </StackLayout>
+    <RelativeLayout>
+        <Frame RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Factor=1,Property=Width}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Factor=0,Property=Width}"
+               RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=.5,Property=Height}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=.25,Property=Height}"
+               HasShadow="False"
+               CornerRadius="0">
+            <StackLayout>
+                <Label Text="Downloading data"
+                       FontSize="Large"
+                       HorizontalTextAlignment="Center" />
+                <ActivityIndicator IsRunning="True" />
+            </StackLayout>
+        </Frame>
+    </RelativeLayout>
 </ContentPage>

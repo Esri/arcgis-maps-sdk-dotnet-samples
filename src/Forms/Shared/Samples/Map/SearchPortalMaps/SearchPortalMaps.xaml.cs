@@ -60,23 +60,15 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             RedirectUrlEntry.Text = _oAuthRedirectUrl;
 
             // Change the style of the layer list view for Android and UWP
-            switch (Device.RuntimePlatform)
+            if (Device.RuntimePlatform == Device.UWP)
             {
-                case Device.Android:
-                    // Black background on Android (transparent by default)
-                    MapsListView.BackgroundColor = Color.Black;
-                    SearchMapsUI.BackgroundColor = Color.Black;
-                    OAuthSettingsGrid.BackgroundColor = Color.Black;
-                    break;
-                case Device.UWP:
-                    // Semi-transparent background on Windows with a small margin around the control
-                    MapsListView.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
-                    MapsListView.Margin = new Thickness(50);
-                    SearchMapsUI.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
-                    SearchMapsUI.Margin = new Thickness(50);
-                    OAuthSettingsGrid.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
-                    OAuthSettingsGrid.Margin = new Thickness(50);
-                    break;
+                // Semi-transparent background on Windows with a small margin around the control
+                MapsListView.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
+                MapsListView.Margin = new Thickness(50);
+                SearchMapsUI.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
+                SearchMapsUI.Margin = new Thickness(50);
+                OAuthSettingsGrid.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
+                OAuthSettingsGrid.Margin = new Thickness(50);
             }
         }
 
@@ -131,7 +123,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 SearchMapsUI.IsVisible = false;
 
                 // Show the list of web maps
-                MapsListView.ItemsSource = mapItems;
+                MapsListView.ItemsSource = mapItems.ToList(); // Explicit ToList() needed to avoid Xamarin.Forms UWP ListView bug.
                 MapsListView.IsVisible = true;
             }
             catch (Exception e)
@@ -171,7 +163,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 }
 
                 // Show the list of web maps
-                MapsListView.ItemsSource = mapItems;
+                MapsListView.ItemsSource = mapItems.ToList(); // Explicit ToList() needed to avoid Xamarin.Forms UWP ListView bug.
                 MapsListView.IsVisible = true;
             }
             catch (Exception ex)
@@ -208,7 +200,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 Exception err = map.LoadError;
                 if (err != null)
                 {
-                    ((Page)Parent).DisplayAlert(err.Message, "Map Load Error", "OK");
+                    Device.BeginInvokeOnMainThread(() => ((Page)Parent).DisplayAlert(err.Message, "Map Load Error", "OK"));
                 }
             }
         }
@@ -338,11 +330,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
 #if __ANDROID__
             // Get the current Android Activity
-            Activity activity = (Activity)Android.App.Application.Context;
-#endif
-#if __IOS__
-            // Get the current iOS ViewController
-            var viewController = Xamarin.Forms.Platform.iOS.Platform.GetRenderer(this).ViewController;
+            Activity activity = (Activity)ArcGISRuntime.Droid.MainActivity.Instance;
 #endif
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(
@@ -364,7 +352,11 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 {
 #if __IOS__
                     // Dismiss the OAuth UI when complete
-                    viewController.DismissViewController(true, null);
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        var viewController = UIApplication.SharedApplication.KeyWindow.RootViewController;
+                        viewController.DismissViewController(true, null);
+                    });
 #endif
 
                     // Check if the user is authenticated
@@ -431,6 +423,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password
             Device.BeginInvokeOnMainThread(() =>
             {
+                var viewController = UIApplication.SharedApplication.KeyWindow.RootViewController;
                 viewController.PresentViewController(authenticator.GetUI(), true, null);
             });
 #endif

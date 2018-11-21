@@ -72,6 +72,12 @@ namespace ArcGISRuntime.Samples.FindRoute
             flagSymbol.OffsetX = -flagSymbol.Width / 2;
             flagSymbol.OffsetY = -flagSymbol.Height / 2;
 
+            // Set the height and width.
+            flagSymbol.Height = 60;
+            flagSymbol.Width = 60;
+            carSymbol.Height = 60;
+            carSymbol.Width = 60;
+
             // Create graphics for the stops
             Graphic fromGraphic = new Graphic(fromPoint, carSymbol);
             Graphic toGraphic = new Graphic(toPoint, flagSymbol);

@@ -123,7 +123,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 SearchMapsUI.IsVisible = false;
 
                 // Show the list of web maps
-                MapsListView.ItemsSource = mapItems;
+                MapsListView.ItemsSource = mapItems.ToList(); // Explicit ToList() needed to avoid Xamarin.Forms UWP ListView bug.
                 MapsListView.IsVisible = true;
             }
             catch (Exception e)
@@ -200,7 +200,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 Exception err = map.LoadError;
                 if (err != null)
                 {
-                    ((Page)Parent).DisplayAlert(err.Message, "Map Load Error", "OK");
+                    Device.BeginInvokeOnMainThread(() => ((Page)Parent).DisplayAlert(err.Message, "Map Load Error", "OK"));
                 }
             }
         }

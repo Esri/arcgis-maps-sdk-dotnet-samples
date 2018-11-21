@@ -171,6 +171,7 @@
     <!-- Misc Resources -->
     <BundleResource Include="Resources\Default-568h%402x.png" />
     <InterfaceDefinition Include="Main.storyboard" />
+    <InterfaceDefinition Include="LaunchScreen.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Manager Code -->

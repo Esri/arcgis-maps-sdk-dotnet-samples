@@ -332,10 +332,6 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Get the current Android Activity
             Activity activity = (Activity)ArcGISRuntime.Droid.MainActivity.Instance;
 #endif
-#if __IOS__
-            // Get the current iOS ViewController
-            var viewController = Xamarin.Forms.Platform.iOS.Platform.GetRenderer(this).ViewController;
-#endif
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in
             Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(
                 clientId: _appClientId,
@@ -356,7 +352,11 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 {
 #if __IOS__
                     // Dismiss the OAuth UI when complete
-                    viewController.DismissViewController(true, null);
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        var viewController = UIApplication.SharedApplication.KeyWindow.RootViewController;
+                        viewController.DismissViewController(true, null);
+                    });
 #endif
 
                     // Check if the user is authenticated
@@ -423,6 +423,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password
             Device.BeginInvokeOnMainThread(() =>
             {
+                var viewController = UIApplication.SharedApplication.KeyWindow.RootViewController;
                 viewController.PresentViewController(authenticator.GetUI(), true, null);
             });
 #endif

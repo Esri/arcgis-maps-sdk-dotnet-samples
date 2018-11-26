@@ -61,7 +61,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
                 await ((Page)Parent).DisplayActionSheet("Select map", "Cancel",null, titles);
 
             // If selected cancel do nothing
-            if (selectedMapTitle == "Cancel") return;
+            if (selectedMapTitle == null || selectedMapTitle == "Cancel") return;
 
             // Get index that is used to get the selected url
             int selectedIndex = titles.ToList().IndexOf(selectedMapTitle);

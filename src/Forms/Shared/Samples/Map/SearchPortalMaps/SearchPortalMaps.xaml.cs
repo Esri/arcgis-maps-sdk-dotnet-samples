@@ -88,8 +88,14 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
         private void SaveOAuthSettings(object sender, EventArgs e)
         {
-            _appClientId = ClientIDEntry.Text.Trim();
-            _oAuthRedirectUrl = RedirectUrlEntry.Text.Trim();
+            var appClientId = ClientIDEntry.Text.Trim();
+            var oAuthRedirectUrl = RedirectUrlEntry.Text.Trim();
+
+            if (!String.IsNullOrWhiteSpace(appClientId) && !String.IsNullOrWhiteSpace(oAuthRedirectUrl))
+            {
+                _appClientId = appClientId;
+                _oAuthRedirectUrl = oAuthRedirectUrl;
+            }
 
             OAuthSettingsGrid.IsVisible = false;
 

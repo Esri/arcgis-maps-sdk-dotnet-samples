@@ -107,8 +107,14 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         private void SaveOAuthSettings(object sender, EventArgs e)
         {
-            AppClientId = ClientIDEntry.Text.Trim();
-            _oAuthRedirectUrl = RedirectUrlEntry.Text.Trim();
+            var appClientId = ClientIDEntry.Text.Trim();
+            var oAuthRedirectUrl = RedirectUrlEntry.Text.Trim();
+
+            if (!String.IsNullOrWhiteSpace(appClientId) && !String.IsNullOrWhiteSpace(oAuthRedirectUrl))
+            {
+                AppClientId = appClientId;
+                _oAuthRedirectUrl = oAuthRedirectUrl;
+            }
 
             OAuthSettingsGrid.IsVisible = false;
 

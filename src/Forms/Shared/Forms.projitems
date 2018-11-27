@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="$(MSBuildThisFileDirectory)Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.jpg" />
@@ -142,10 +142,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\IdentifyLayers\IdentifyLayers.xaml.cs">
-		<DependentUpon>IdentifyLayers.xaml</DependentUpon>
-		<SubType>Code</SubType>
-	</Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\IdentifyLayers\IdentifyLayers.xaml.cs">
+      <DependentUpon>IdentifyLayers.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ListKmlContents\ListKmlContents.xaml.cs">
       <DependentUpon>ListKmlContents.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -562,9 +562,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\IdentifyLayers\IdentifyLayers.xaml">
-		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	</EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\IdentifyLayers\IdentifyLayers.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ListKmlContents\ListKmlContents.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -980,7 +980,9 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)SampleListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <Compile Include="$(MSBuildThisFileDirectory)App.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)CategoryListPage.xaml.cs">
       <DependentUpon>CategoryListPage.xaml</DependentUpon>
     </Compile>
@@ -990,6 +992,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)SamplePage.xaml.cs">
       <DependentUpon>SamplePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\InsetConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\ResponsiveFormContainer.xaml.cs">
+      <DependentUpon>ResponsiveFormContainer.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ResponsiveFormContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <!-- Misc Resources -->
   <ItemGroup>

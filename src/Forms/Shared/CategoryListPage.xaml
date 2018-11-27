@@ -9,6 +9,7 @@
         </Grid.RowDefinitions>
         <SearchBar Grid.Row="0" Text="{Binding Path=SearchQuery}"></SearchBar>
         <ListView x:Name="SampleCategoriesList" Grid.Row="1" ItemsSource="{Binding Path=SampleCategories}"
+                  SelectionMode="None"
                   ItemTapped="OnItemTapped" IsVisible="{Binding Path=IsCategoriesOpen}">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -18,6 +19,7 @@
         </ListView>
 
         <ListView x:Name="SampleSearchResultList" Grid.Row="1" ItemsSource="{Binding Path=SearchResults}"
+                  SelectionMode="None"
                   ItemTapped="OnItemTapped" IsVisible="{Binding Path=IsSearchOpen}">
             <ListView.ItemTemplate>
                 <DataTemplate>

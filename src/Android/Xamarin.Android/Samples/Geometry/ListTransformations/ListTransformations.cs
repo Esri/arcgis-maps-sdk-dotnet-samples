@@ -343,6 +343,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
             // Use white as the default text color (available transforms).
             transformTextView.SetTextColor(Android.Graphics.Color.White);
+            transformTextView.SetBackgroundColor(Android.Graphics.Color.DarkGray);
 
             // See if the transform is missing required projection engine files. If so, display the text in gray.
             if (thisTransform.IsMissingProjectionEngineFiles)

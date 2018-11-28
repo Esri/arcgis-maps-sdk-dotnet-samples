@@ -43,15 +43,6 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
 
         private async void OnTakeScreenshotClicked(object sender, EventArgs e)
         {
-            // Make sure an image is not in progress (check the activity indicator)
-            if (CreatingImageIndicator.IsVisible)
-            {
-                return;
-            }
-
-            // Show the activity indicator while the image is being created
-            CreatingImageIndicator.IsVisible = true;
-
             try
             {
                 // Export the image from mapview and assign it to the imageview
@@ -88,9 +79,6 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
                     Content = layout,
                     Title = "Screenshot"
                 };
-
-                // Hide the activity indicator
-                CreatingImageIndicator.IsVisible = false;
 
                 // Navigate to the sublayers page
                 await Navigation.PushAsync(screenshotPage);

@@ -1,18 +1,29 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
+             xmlns:sampleViewer="clr-namespace:Forms.Resources;assembly=ArcGISRuntime"
              x:Class="ArcGISRuntime.Samples.MapRotation.MapRotation">
-  <Grid>
-    <Grid.RowDefinitions>
-    <RowDefinition Height="auto" />
-    <RowDefinition Height="*" />
-  </Grid.RowDefinitions>
-    <StackLayout x:Name="MyStackLayout" Grid.Row="0">
-        <Slider x:Name="MySlider" Minimum="0" Maximum="180" Value="0" ValueChanged="MySlider_ValueChanged" WidthRequest="300"/>
-        <Label x:Name="MyLabel" Text=" " />
-    </StackLayout>
-    <esriUI:MapView x:Name="MyMapView" Grid.Row="1"/>
-  </Grid>
+    <RelativeLayout>
+        <esriUI:MapView x:Name="MyMapView" Style="{StaticResource MapWithFormStyle}"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}" />
+        <sampleViewer:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Slider x:Name="MySlider"
+                        Grid.Column="1"
+                        Minimum="0" Maximum="180" Value="0"
+                        VerticalOptions="CenterAndExpand"
+                        ValueChanged="MySlider_ValueChanged" />
+                <Label x:Name="MyLabel" Style="{StaticResource LabelStyle}"
+                       Grid.Column="0"
+                       VerticalTextAlignment="Center"
+                       Text="0°" />
+            </Grid>
+        </sampleViewer:ResponsiveFormContainer>
+    </RelativeLayout>
 </ContentPage>

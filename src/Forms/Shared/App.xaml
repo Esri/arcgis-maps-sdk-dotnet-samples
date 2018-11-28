@@ -16,7 +16,10 @@
             <Style x:Key="LabelStyle" TargetType="Label">
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
                 <Setter Property="TextColor" Value="Black" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="FontAttributes" Value="Bold" />
             </Style>
+            <GridLength x:Key="DefaultGridRowHeight">40</GridLength>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

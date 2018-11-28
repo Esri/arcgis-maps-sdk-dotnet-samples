@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
+using Android.Views;
 
 namespace ArcGISRuntime.Samples.DisplayDrawingStatus
 {
@@ -31,6 +32,9 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
 
         // Waiting popup
         private AlertDialog _progressDialog;
+
+        // Status label
+        private TextView _statusLabel;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -75,10 +79,12 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
                 if (e.Status == DrawStatus.InProgress)
                 {
                     _progressDialog.Show();
+                    _statusLabel.Text = "Drawing status: In progress";
                 }
                 else
                 {
                     _progressDialog.Hide();
+                    _statusLabel.Text = "Drawing status: Complete";
                 }
             });
         }
@@ -88,7 +94,11 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
             // Create a new vertical layout for the app
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-            // Add the map view to the layout
+            _statusLabel = new TextView(this);
+            _statusLabel.Text = "Drawing status: unknown";
+
+            // Add the views to the layout
+            layout.AddView(_statusLabel);
             layout.AddView(_myMapView);
 
             // Create an activity indicator

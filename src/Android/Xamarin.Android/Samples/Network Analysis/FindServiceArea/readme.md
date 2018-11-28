@@ -6,8 +6,8 @@ Demonstrates how to find services areas around a point using the ServiceAreaTask
 
 ## Instructions
 
--To add a facility, click the facility button, then click anywhere on the MapView.
--To add a barrier, click the barrier button, and click multiple locations on MapView.
--Double tap on the MapView to finish drawing the barrier.
--To show service areas around facilities that were added, click the show service areas button.
--Click the reset button to clear all graphics and features.
+* To add a facility, click the facility button, then click anywhere on the MapView.
+* To add a barrier, click the barrier button, and click multiple locations on MapView.
+* Double tap on the MapView to finish drawing the barrier.
+* To show service areas around facilities that were added, click the show service areas button.
+* Click the reset button to clear all graphics and features.

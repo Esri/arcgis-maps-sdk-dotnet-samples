@@ -5,8 +5,8 @@
              xmlns:sampleViewer="clr-namespace:Forms.Resources;assembly=ArcGISRuntime"
              x:Class="ArcGISRuntime.Samples.QueryFeatureCountAndExtent.QueryFeatureCountAndExtent">
     <RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView" Style="{StaticResource MapWithFormStyle}" />
-        <sampleViewer:ResponsiveFormContainer>
+        <esriUI:MapView x:Name="MyMapView" Style="{StaticResource MapWithFormStyle}" BindingContext="{x:Reference Name=ResponsiveFormContainer}" />
+        <sampleViewer:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <StackLayout>
                 <Entry x:Name="txtStateEntry" Text="NH" />
                 <Button Text="Zoom to matching" Clicked="BtnZoomToFeatures_Click" />

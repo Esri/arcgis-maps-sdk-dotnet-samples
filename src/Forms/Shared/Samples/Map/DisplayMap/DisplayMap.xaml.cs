@@ -23,8 +23,6 @@ namespace ArcGISRuntime.Samples.DisplayMap
         {
             InitializeComponent();
 
-            Title = "Display a map";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

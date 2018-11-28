@@ -32,7 +32,6 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
 
         public ListKmlContents()
         {
-            Title = "List KML contents";
             InitializeComponent();
             Initialize();
         }

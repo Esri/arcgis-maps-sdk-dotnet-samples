@@ -27,8 +27,6 @@ namespace ArcGISRuntime.Samples.OpenMobileMap
         {
             InitializeComponent();
 
-            Title = "Open mobile map (map package)";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

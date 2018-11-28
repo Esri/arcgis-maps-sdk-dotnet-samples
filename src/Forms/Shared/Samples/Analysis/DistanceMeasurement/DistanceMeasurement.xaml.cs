@@ -40,9 +40,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         public DistanceMeasurement()
         {
             InitializeComponent();
-
-            Title = "Distance measurement analysis";
-
+            
             // Create the UI, setup the control references and execute initialization.
             Initialize();
         }

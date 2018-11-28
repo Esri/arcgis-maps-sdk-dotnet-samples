@@ -30,8 +30,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
         {
             InitializeComponent ();
 
-            Title = "Feature layer definition expression";
-
             //setup the control references and execute initialization 
             Initialize();
         }

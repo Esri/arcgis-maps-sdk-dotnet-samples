@@ -37,8 +37,6 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         {
             InitializeComponent ();
 
-            Title = "Query map image layer tables";
-
             // Initialize the map and show the list of comments.
             Initialize();
         }

@@ -42,8 +42,6 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         {
             InitializeComponent();
 
-            Title = "Change basemap";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

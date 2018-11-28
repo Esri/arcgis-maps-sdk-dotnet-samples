@@ -28,7 +28,6 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
         {
             InitializeComponent ();
 
-            Title = "Service feature table (manual cache)";
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

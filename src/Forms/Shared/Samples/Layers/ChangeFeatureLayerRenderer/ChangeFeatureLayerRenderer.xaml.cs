@@ -31,8 +31,6 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
         {
             InitializeComponent ();
 
-            Title = "Change feature layer renderer";
-
             //setup the control references and execute initialization 
             Initialize();
         }

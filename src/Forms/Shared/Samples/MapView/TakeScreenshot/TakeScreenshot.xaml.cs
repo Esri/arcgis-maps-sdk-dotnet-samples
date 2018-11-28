@@ -25,7 +25,6 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         public TakeScreenshot()
         {
             InitializeComponent();
-            Title = "Take screenshot";
 
             // Create the UI, setup the control references and execute initialization 
             Initialize();

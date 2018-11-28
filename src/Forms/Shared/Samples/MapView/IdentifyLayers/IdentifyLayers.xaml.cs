@@ -26,7 +26,6 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
     {
         public IdentifyLayers()
         {
-            Title = "Identify layers";
             InitializeComponent();
             Initialize();
         }

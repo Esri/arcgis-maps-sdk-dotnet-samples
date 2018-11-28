@@ -29,8 +29,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
         {
             InitializeComponent();
 
-            Title = "Feature layer (GeoPackage)";
-
             // Read data from the GeoPackage
             Initialize();
         }

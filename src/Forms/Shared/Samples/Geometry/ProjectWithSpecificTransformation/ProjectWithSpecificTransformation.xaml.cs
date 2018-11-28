@@ -23,8 +23,6 @@ namespace ArcGISRuntime.Samples.ProjectWithSpecificTransformation
         {
             InitializeComponent();
 
-            Title = "Project with specific transformation";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

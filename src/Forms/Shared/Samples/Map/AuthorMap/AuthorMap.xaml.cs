@@ -71,8 +71,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
         {
             InitializeComponent();
 
-            Title = "Author and save a map";
-
             // call a function to initialize the app (display a map, etc.)
             Initialize();
         }

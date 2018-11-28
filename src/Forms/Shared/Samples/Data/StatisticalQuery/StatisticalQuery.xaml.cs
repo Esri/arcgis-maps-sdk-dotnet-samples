@@ -34,8 +34,6 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         {
             InitializeComponent();
 
-            Title = "Statistical query";
-
             // Initialize the base map and world cities feature layer
             Initialize();
         }

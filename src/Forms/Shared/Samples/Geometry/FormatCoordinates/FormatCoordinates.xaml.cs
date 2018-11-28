@@ -31,8 +31,6 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         {
             InitializeComponent();
 
-            Title = "Format coordinates";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

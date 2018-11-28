@@ -32,7 +32,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
         {
             InitializeComponent ();
 
-            Title = "Feature layer selection";
             Initialize();
         }
 

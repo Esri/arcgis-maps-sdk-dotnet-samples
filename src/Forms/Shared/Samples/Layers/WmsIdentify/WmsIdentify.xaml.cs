@@ -36,8 +36,6 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         {
             InitializeComponent();
 
-            Title = "Identify WMS features";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

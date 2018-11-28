@@ -32,8 +32,6 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
         {
             InitializeComponent();
 
-            Title = "Select ENC features";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

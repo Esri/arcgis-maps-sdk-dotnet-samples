@@ -56,8 +56,6 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         {
             InitializeComponent();
 
-            Title = "Generate an offline map";
-
             // Load the web map, show area of interest, restrict map interaction, and set up authorization. 
             Initialize();
         }

@@ -40,7 +40,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         {
             InitializeComponent();
 
-            Title = "Feature layer query";
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

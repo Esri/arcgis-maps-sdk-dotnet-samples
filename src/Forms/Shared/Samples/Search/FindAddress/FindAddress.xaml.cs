@@ -50,8 +50,6 @@ namespace ArcGISRuntime.Samples.FindAddress
         {
             InitializeComponent();
 
-            Title = "Find address";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;

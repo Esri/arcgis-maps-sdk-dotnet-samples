@@ -28,8 +28,6 @@ namespace ArcGISRuntime.Samples.OpenScene
         {
             InitializeComponent();
 
-            Title = "Open scene (Portal item)";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

@@ -37,8 +37,6 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
         {
             InitializeComponent();
 
-            Title = "List related features";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

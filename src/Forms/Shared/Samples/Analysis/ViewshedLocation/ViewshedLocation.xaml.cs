@@ -49,8 +49,6 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         {
             InitializeComponent();
 
-            Title = "Viewshed (Location)";
-
             // Initialize the sample
             Initialize();
         }

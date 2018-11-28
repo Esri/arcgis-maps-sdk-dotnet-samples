@@ -39,8 +39,6 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         {
             InitializeComponent();
 
-            Title = "Convex hull list";
-
             Initialize();
         }
 

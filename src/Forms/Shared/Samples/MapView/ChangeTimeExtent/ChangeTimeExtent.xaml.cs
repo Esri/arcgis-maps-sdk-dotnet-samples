@@ -29,8 +29,6 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
         {
             InitializeComponent();
 
-            Title = "Change time extent";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

@@ -38,8 +38,6 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         {
             InitializeComponent();
 
-            Title = "Analyze Hotspots";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

@@ -29,8 +29,6 @@ namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
         {
             InitializeComponent();
 
-            Title = "Add an ENC exchange set";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

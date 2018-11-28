@@ -32,7 +32,6 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
 
         public IdentifyKmlFeatures()
         {
-            Title = "Identify KML features";
             InitializeComponent();
             Initialize();
         }

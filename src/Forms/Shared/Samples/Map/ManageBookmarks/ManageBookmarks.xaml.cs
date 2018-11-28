@@ -25,8 +25,6 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         {
             InitializeComponent();
 
-            Title = "Manage bookmarks";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

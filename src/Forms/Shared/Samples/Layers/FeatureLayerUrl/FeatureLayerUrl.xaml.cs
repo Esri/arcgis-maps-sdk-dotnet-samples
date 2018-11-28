@@ -24,9 +24,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerUrl
         public FeatureLayerUrl()
         {
             InitializeComponent ();
-
-            Title = "Feature layer (feature service)";
-
+            
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

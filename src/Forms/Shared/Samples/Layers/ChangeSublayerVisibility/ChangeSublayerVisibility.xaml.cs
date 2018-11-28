@@ -27,8 +27,6 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         {
             InitializeComponent();
 
-            Title = "Change sublayer visibility";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

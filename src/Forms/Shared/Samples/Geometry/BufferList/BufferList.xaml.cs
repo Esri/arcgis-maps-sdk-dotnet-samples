@@ -37,8 +37,6 @@ namespace ArcGISRuntime.Samples.BufferList
         {
             InitializeComponent();
 
-            Title = "Buffer list";
-
             // Bind the view to this page.
             BindingContext = this;
 

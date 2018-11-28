@@ -34,8 +34,6 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         {
             InitializeComponent();
 
-            Title = "Display device location";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

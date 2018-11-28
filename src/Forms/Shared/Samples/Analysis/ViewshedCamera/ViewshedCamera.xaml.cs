@@ -35,8 +35,6 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         {
             InitializeComponent ();
 
-            Title = "Viewshed for camera";
-
             // Create the Scene, basemap, camera, and location viewshed analysis
             Initialize();
         }

@@ -35,8 +35,6 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         {
             InitializeComponent();
 
-            Title = "WMS service catalog";
-
             // Initialize the map
             Initialize();
         }

@@ -24,8 +24,6 @@ namespace ArcGISRuntime.Samples.ShowMagnifier
         {
             InitializeComponent();
 
-            Title = "Show magnifier";
-
             // Initialize the sample
             Initialize();
         }

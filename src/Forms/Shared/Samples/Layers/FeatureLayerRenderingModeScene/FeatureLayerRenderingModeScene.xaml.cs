@@ -40,8 +40,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
         {
             InitializeComponent();
 
-            Title = "Feature layer rendering mode (Scene)";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

@@ -23,7 +23,6 @@ namespace ArcGISRuntime.Samples.MapRotation
         {
             InitializeComponent();
 
-            Title = "Map rotation";
             Initialize();
         }
 

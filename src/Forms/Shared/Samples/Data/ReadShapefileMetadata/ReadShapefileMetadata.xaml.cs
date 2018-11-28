@@ -29,8 +29,6 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         {
             InitializeComponent();
 
-            Title = "Read shapefile metadata";
-
             // Open a shapefile stored locally and add it to the map as a feature layer
             Initialize();
         }

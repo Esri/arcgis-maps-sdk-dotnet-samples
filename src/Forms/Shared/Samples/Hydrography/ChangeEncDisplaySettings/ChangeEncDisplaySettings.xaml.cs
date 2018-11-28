@@ -29,8 +29,6 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
         {
             InitializeComponent();
 
-            Title = "ENC Display Settings";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

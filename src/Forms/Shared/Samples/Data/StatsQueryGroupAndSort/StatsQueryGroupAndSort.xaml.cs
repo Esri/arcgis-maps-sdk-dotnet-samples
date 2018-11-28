@@ -41,8 +41,6 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         public StatsQueryGroupAndSort()
         {
             InitializeComponent();
-            
-            Title = "Statistical query group and sort";
 
             // Initialize the US states feature table and populate UI controls
             Initialize();

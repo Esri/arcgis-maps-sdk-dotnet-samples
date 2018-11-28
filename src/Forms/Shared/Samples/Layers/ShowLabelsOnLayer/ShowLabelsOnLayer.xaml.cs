@@ -89,8 +89,6 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
         {
             InitializeComponent();
 
-            Title = "Show labels on layer";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

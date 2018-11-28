@@ -27,8 +27,6 @@ namespace ArcGISRuntime.Samples.RenderSimpleMarkers
         {
             InitializeComponent ();
 
-            Title = "Render simple markers";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

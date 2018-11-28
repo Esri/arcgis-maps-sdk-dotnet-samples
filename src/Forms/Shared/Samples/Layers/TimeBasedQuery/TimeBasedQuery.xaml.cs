@@ -32,8 +32,6 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
         {
             InitializeComponent();
 
-            Title = "Time-based query";
-
             Initialize();
         }
 

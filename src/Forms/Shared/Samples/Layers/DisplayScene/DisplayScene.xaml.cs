@@ -24,8 +24,6 @@ namespace ArcGISRuntime.Samples.DisplayScene
         {
             InitializeComponent();
 
-            Title = "Display scene";
-
             // Execute initialization 
             Initialize();
         }

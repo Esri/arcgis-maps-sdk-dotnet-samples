@@ -32,8 +32,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
         {
             InitializeComponent();
 
-            Title = "Feature layer rendering mode (Map)";
-
             // Setup the control references and execute initialization 
             Initialize();
         }

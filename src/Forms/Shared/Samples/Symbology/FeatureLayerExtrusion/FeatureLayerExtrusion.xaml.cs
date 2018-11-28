@@ -29,8 +29,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         {
             InitializeComponent ();
 
-            Title = "Feature layer extrusion";
-
             Initialize();
         }
 

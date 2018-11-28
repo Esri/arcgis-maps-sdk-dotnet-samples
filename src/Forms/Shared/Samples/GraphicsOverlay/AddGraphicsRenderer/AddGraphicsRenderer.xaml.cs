@@ -28,7 +28,6 @@ namespace ArcGISRuntime.Samples.AddGraphicsRenderer
         {
             InitializeComponent();
 
-            Title = "Add graphics (Renderer)";
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

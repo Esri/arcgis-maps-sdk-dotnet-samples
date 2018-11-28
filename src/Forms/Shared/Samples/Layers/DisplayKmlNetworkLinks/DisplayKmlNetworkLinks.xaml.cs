@@ -24,7 +24,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlNetworkLinks
     {
         public DisplayKmlNetworkLinks()
         {
-            Title = "Display KML network links";
             InitializeComponent();
             Initialize();
         }

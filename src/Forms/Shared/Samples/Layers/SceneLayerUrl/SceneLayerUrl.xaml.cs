@@ -31,7 +31,6 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
 
         public SceneLayerUrl()
         {
-            Title = "ArcGIS scene layer (URL)";
             InitializeComponent();
             Initialize();
         }

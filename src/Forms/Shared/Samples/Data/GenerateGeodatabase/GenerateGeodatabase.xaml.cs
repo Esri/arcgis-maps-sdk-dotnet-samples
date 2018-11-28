@@ -49,8 +49,6 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         {
             InitializeComponent();
 
-            Title = "Generate geodatabase";
-
             // Create the UI, setup the control references and execute initialization.
             Initialize();
         }

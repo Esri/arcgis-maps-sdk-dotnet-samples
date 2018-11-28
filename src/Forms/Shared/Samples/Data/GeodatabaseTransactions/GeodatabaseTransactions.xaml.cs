@@ -50,8 +50,6 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         {
             InitializeComponent();
 
-            Title = "Geodatabase transactions";
-            
             // When the spatial reference changes (the map loads) add the local geodatabase tables as feature layers
             MyMapView.SpatialReferenceChanged += async (s, e) =>
             {

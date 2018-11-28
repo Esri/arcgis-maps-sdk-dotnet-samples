@@ -39,8 +39,6 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         {
             InitializeComponent ();
 
-            Title = "Open map (URL)";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

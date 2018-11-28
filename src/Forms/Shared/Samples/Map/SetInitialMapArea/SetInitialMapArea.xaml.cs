@@ -24,8 +24,6 @@ namespace ArcGISRuntime.Samples.SetInitialMapArea
         {
             InitializeComponent ();
 
-            Title = "Set initial map area";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

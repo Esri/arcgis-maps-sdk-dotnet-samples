@@ -26,7 +26,6 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
         {
             InitializeComponent ();
 
-            Title = "ArcGIS raster layer (service)";
             Initialize();
         }
 

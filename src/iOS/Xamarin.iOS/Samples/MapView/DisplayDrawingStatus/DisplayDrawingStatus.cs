@@ -28,6 +28,7 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
         // Hold references to the UI controls.
         private MapView _myMapView;
         private UIActivityIndicatorView _activityIndicator;
+        private UILabel _statusLabel;
 
         public DisplayDrawingStatus()
         {
@@ -52,15 +53,31 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
+            _statusLabel = new UILabel
+            {
+                Text = "Drawing status: Unknown",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
             View = new UIView();
-            View.AddSubviews(_myMapView, _activityIndicator);
+            View.AddSubviews(_myMapView, _activityIndicator, _statusLabel);
 
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
 
-            _activityIndicator.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _statusLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _statusLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _statusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _statusLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
+
+            _activityIndicator.TopAnchor.ConstraintEqualTo(_statusLabel.BottomAnchor).Active = true;
             _activityIndicator.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _activityIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
             _activityIndicator.HeightAnchor.ConstraintEqualTo(40).Active = true;
@@ -99,14 +116,17 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
             // Make sure that the UI changes are done in the UI thread.
             BeginInvokeOnMainThread(() =>
             {
+                
                 // Show the activity indicator if the map is drawing.
                 if (e.Status == DrawStatus.InProgress)
                 {
                     _activityIndicator.Hidden = false;
+                    _statusLabel.Text = "Drawing status: In progress";
                 }
                 else
                 {
                     _activityIndicator.Hidden = true;
+                    _statusLabel.Text = "Drawing status: Completed";
                 }
             });
         }

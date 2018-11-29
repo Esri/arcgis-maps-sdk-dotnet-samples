@@ -26,8 +26,6 @@ namespace ArcGISRuntime.Samples.GeoViewSync
         {
             InitializeComponent();
 
-            Title = "GeoView viewpoint synchronization";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

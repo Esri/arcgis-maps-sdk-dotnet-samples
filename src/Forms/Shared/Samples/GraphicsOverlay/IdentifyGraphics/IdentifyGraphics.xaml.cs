@@ -32,8 +32,6 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
         {
             InitializeComponent();
 
-            Title = "Identify graphics";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

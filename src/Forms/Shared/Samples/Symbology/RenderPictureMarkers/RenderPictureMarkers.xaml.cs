@@ -31,8 +31,6 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
         {
             InitializeComponent();
 
-            Title = "Render picture markers";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

@@ -26,9 +26,7 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
         public RasterLayerRasterFunction()
         {
             InitializeComponent ();
-
-            Title = "ArcGIS raster function (service)";
-
+            
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

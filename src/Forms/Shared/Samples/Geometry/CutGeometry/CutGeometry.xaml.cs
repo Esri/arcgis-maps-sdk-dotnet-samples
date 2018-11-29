@@ -38,8 +38,6 @@ namespace ArcGISRuntime.Samples.CutGeometry
         {
             InitializeComponent();
 
-            Title = "Cut geometry";
-
             // Create a map with a topographic basemap.
             Map newMap = new Map(Basemap.CreateTopographic());
 

@@ -43,8 +43,6 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         {
             InitializeComponent();
 
-            Title = "Viewshed (Geoprocessing)";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

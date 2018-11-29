@@ -25,8 +25,6 @@ namespace ArcGISRuntime.Samples.SetMapSpatialReference
         {
             InitializeComponent ();
 
-            Title = "Set map spatial reference";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

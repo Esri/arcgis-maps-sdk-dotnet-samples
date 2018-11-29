@@ -24,8 +24,6 @@ namespace ArcGISRuntime.Samples.ArcGISTiledLayerUrl
         {
             InitializeComponent ();
 
-            Title = "ArcGIS tiled layer (URL)";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

@@ -43,8 +43,6 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
         {
             InitializeComponent ();
 
-            Title = "Location line of sight";
-
             // Create the Scene, basemap, line of sight analysis, and analysis overlay
             Initialize();
 

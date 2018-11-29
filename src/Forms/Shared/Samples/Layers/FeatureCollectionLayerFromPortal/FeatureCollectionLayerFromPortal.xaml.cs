@@ -28,8 +28,6 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
         public FeatureCollectionLayerFromPortal()
         {
             InitializeComponent();
-            
-            Title = "Feature collection layer from portal";
 
             // call a function to initialize a map to display in the MyMapView control.
             Initialize();

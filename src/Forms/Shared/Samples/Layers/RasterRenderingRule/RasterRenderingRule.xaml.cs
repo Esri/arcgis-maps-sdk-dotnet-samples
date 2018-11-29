@@ -29,8 +29,6 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         {
             InitializeComponent();
 
-            Title = "Raster rendering rule";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

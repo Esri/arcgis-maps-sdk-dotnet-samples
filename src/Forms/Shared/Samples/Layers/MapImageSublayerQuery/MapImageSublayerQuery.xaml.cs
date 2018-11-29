@@ -32,8 +32,6 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         public MapImageSublayerQuery()
         {
             InitializeComponent ();
-            
-            Title = "Query a map image sublayer";
 
             // Initialize the map to show the USA map image layer. 
             Initialize();

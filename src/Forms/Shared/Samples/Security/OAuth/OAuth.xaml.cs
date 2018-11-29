@@ -54,7 +54,6 @@ namespace ArcGISRuntime.Samples.OAuth
         {
             InitializeComponent();
 
-            Title = "OAuth authentication";
             // Call a function to initialize the app and request a web map (with secured layers) to display.
             Initialize();
         }

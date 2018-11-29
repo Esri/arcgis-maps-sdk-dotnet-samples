@@ -32,8 +32,6 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         {
             InitializeComponent();
 
-            Title = "Display layer view state";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

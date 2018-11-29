@@ -32,8 +32,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
         {
             InitializeComponent();
 
-            Title = "Feature layer time offset";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

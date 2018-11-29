@@ -32,8 +32,6 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
         public QueryFeatureCountAndExtent()
         {
             InitializeComponent();
-
-            Title = "Query feature count and extent";
             Initialize();
         }
 

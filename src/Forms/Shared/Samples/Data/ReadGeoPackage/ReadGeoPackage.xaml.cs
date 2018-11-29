@@ -32,8 +32,6 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         {
             InitializeComponent();
 
-            Title = "Raster layer (GeoPackage)";
-
             // Set up the GUI of the sample
             Initialize();
         }

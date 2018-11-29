@@ -41,8 +41,6 @@ namespace ArcGISRuntime.Samples.FindPlace
         {
             InitializeComponent();
 
-            Title = "Find place";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;

@@ -27,8 +27,6 @@ namespace ArcGISRuntime.Samples.SimpleRenderers
         {
             InitializeComponent();
 
-            Title = "Simple Renderer";
-
             // Create the UI, setup the control references and execute initialization.
             Initialize();
         }

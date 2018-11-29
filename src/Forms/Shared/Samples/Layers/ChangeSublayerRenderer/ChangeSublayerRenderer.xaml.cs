@@ -32,8 +32,6 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
         {
             InitializeComponent();
 
-            Title = "Change sublayer renderer";
-
             // Load the initial datasets in the map.
             Initialize();
         }

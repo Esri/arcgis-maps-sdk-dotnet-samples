@@ -28,8 +28,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeodatabase
         {
             InitializeComponent();
 
-            Title = "Feature layer (geodatabase)";
-
             // Open a mobile geodatabase (.geodatabase file) stored locally and add it to the map as a feature layer.
             Initialize();
         }

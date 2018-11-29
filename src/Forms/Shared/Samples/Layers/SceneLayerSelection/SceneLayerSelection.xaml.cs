@@ -27,7 +27,6 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
     {
         public SceneLayerSelection()
         {
-            Title = "Scene layer selection";
             InitializeComponent();
             Initialize();
         }

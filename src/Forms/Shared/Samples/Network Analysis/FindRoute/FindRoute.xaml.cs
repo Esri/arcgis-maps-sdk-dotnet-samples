@@ -45,8 +45,6 @@ namespace ArcGISRuntime.Samples.FindRoute
         {
             InitializeComponent();
 
-            Title = "Find a route";
-
             // Create the map, graphics overlay, and the 'from' and 'to' locations for the route
             Initialize();
         }

@@ -36,8 +36,6 @@ namespace ArcGISRuntime.Samples.LoadWebTiledLayer
         {
             InitializeComponent();
 
-            Title = "Web TiledLayer";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

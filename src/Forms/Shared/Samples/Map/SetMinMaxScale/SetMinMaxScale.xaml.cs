@@ -23,8 +23,6 @@ namespace ArcGISRuntime.Samples.SetMinMaxScale
         public SetMinMaxScale()
         {
             InitializeComponent ();
-
-            Title = "Set min & max scale";
             
             // Create the UI, setup the control references and execute initialization 
             Initialize();

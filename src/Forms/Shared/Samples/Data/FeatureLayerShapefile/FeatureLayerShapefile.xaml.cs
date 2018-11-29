@@ -28,8 +28,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
         {
             InitializeComponent();
 
-            Title = "Feature layer (shapefile)";
-
             // Open a shapefile stored locally and add it to the map as a feature layer
             Initialize();
         }

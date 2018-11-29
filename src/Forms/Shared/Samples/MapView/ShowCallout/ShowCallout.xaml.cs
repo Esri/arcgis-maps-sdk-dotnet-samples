@@ -26,7 +26,6 @@ namespace ArcGISRuntime.Samples.ShowCallout
         {
             InitializeComponent();
 
-            Title = "Show callout";
             Initialize();
         }
 

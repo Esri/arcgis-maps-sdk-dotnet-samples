@@ -34,7 +34,6 @@ namespace ArcGISRuntime.Samples.NearestVertex
         public NearestVertex()
         {
             InitializeComponent();
-            Title = "Nearest vertex";
 
             Initialize();
         }

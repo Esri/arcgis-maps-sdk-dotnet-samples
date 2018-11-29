@@ -27,8 +27,6 @@ namespace ArcGISRuntime.Samples.CreateGeometries
         {
             InitializeComponent();
 
-            Title = "Create geometries";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

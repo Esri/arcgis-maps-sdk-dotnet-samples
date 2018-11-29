@@ -28,7 +28,6 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
         {
             InitializeComponent();
 
-            Title = "Surface placement";
             // Create the UI and execute initialization
             Initialize();
         }

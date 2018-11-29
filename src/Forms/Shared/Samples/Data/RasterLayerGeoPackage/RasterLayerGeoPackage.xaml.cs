@@ -29,8 +29,6 @@ namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
         {
             InitializeComponent();
 
-            Title = "Raster layer (GeoPackage)";
-
             // Read data from the GeoPackage
             Initialize();
         }

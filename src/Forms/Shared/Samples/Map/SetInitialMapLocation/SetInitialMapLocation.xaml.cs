@@ -23,8 +23,6 @@ namespace ArcGISRuntime.Samples.SetInitialMapLocation
         {
             InitializeComponent ();
 
-            Title = "Set initial map location";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

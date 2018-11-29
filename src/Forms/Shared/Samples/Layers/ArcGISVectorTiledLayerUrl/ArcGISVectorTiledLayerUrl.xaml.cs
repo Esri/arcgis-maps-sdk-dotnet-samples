@@ -35,8 +35,6 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
         {
             InitializeComponent();
 
-            Title = "ArcGIS vector tiled layer (URL)";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

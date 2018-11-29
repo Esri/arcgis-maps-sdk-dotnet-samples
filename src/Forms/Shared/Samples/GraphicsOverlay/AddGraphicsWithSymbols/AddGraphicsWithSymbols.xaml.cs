@@ -30,8 +30,6 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
         {
             InitializeComponent();
 
-            Title = "Add graphics with symbols";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

@@ -24,8 +24,6 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
         {
             InitializeComponent ();
 
-            Title = "Access load status";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

@@ -46,7 +46,6 @@ namespace ArcGISRuntime.Samples.ListTransformations
         {
             InitializeComponent();
 
-            Title = "List transformations";
             Initialize();
         }
 

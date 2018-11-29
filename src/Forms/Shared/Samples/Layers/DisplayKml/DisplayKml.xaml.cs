@@ -29,7 +29,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
 
         public DisplayKml()
         {
-            Title = "Display KML";
             InitializeComponent();
             Initialize();
         }

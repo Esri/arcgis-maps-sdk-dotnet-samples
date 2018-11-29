@@ -34,8 +34,6 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
         {
             InitializeComponent ();
 
-            Title = "List Geodatabase Versions";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

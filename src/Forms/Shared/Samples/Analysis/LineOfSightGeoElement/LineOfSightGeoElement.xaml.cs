@@ -62,9 +62,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         public LineOfSightGeoElement()
         {
             InitializeComponent();
-
-            Title = "Line of sight (GeoElement)";
-
+            
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

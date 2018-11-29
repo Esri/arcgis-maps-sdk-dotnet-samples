@@ -28,8 +28,6 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromQuery
         {
             InitializeComponent();
 
-            Title = "Feature collection layer from query result";
-
             // call a function to initialize a map to display in the MyMapView control
             Initialize();
         }

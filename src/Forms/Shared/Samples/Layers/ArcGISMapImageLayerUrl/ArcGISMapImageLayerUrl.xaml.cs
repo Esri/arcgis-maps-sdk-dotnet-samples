@@ -24,8 +24,6 @@ namespace ArcGISRuntime.Samples.ArcGISMapImageLayerUrl
         {
             InitializeComponent();
 
-            Title = "ArcGIS map image layer (URL)";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

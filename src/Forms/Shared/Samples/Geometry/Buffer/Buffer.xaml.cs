@@ -29,8 +29,6 @@ namespace ArcGISRuntime.Samples.Buffer
         {
             InitializeComponent();
 
-            Title = "Buffer";
-
             // Initialize the map and graphics overlays.
             Initialize();
         }

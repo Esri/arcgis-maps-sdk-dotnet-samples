@@ -26,7 +26,6 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableNoCache
         {
             InitializeComponent ();
 
-            Title = "Service feature table (no cache)";
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

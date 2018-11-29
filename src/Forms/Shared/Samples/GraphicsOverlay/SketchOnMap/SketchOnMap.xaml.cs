@@ -35,8 +35,6 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         {
             InitializeComponent();
 
-            Title = "Sketch on map";
-
             // Call a function to set up the map and sketch editor 
             Initialize();
         }

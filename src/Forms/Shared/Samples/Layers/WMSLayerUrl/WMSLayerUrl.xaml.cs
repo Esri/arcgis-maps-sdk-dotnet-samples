@@ -33,8 +33,6 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
         {
             InitializeComponent();
 
-            Title = "WMS layer (URL)";
-
             Initialize();
         }
 

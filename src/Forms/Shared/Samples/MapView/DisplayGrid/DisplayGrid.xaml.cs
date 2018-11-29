@@ -28,8 +28,6 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         {
             InitializeComponent();
 
-            Title = "Display a grid";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

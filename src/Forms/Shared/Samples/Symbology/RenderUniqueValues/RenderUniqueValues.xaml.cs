@@ -27,8 +27,6 @@ namespace ArcGISRuntime.Samples.RenderUniqueValues
         {
             InitializeComponent ();
 
-            Title = "Render unique values";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

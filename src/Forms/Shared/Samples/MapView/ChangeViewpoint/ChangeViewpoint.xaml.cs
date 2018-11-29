@@ -60,8 +60,6 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         {
             InitializeComponent ();
 
-            Title = "Change viewpoint";
-
             // Create the UI, setup the control references and execute initialization 
             Initialize();
         }

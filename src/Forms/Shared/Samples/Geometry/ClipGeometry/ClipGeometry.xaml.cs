@@ -50,8 +50,6 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         {
             InitializeComponent();
 
-            Title = "Clip geometry";
-
             Initialize();
         }
 

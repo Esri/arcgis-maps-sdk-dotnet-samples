@@ -29,8 +29,6 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
 		{
             InitializeComponent ();
 
-            Title = "Create a feature collection layer";
-
             // call a function to initialize a map to display in the MyMapView control
             Initialize();
 		}

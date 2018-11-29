@@ -39,8 +39,6 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
         {
             InitializeComponent();
 
-            Title = "Symbolize a shapefile";
-
             // Create the UI, setup the control references and execute initialization
             Initialize();
         }

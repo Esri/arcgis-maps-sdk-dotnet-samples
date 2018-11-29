@@ -48,8 +48,6 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
         {
             InitializeComponent();
 
-            Title = "Viewshed (GeoElement)";
-
             // Create the UI, setup the control references and execute initialization.
             Initialize();
         }

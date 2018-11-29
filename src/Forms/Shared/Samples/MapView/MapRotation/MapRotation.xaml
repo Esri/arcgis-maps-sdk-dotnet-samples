@@ -18,6 +18,8 @@
                         Grid.Column="1"
                         Minimum="0" Maximum="180" Value="0"
                         VerticalOptions="CenterAndExpand"
+                        MaximumTrackColor="CadetBlue"
+                        MinimumTrackColor="CadetBlue"
                         ValueChanged="MySlider_ValueChanged" />
                 <Label x:Name="MyLabel" Style="{StaticResource LabelStyle}"
                        Grid.Column="0"

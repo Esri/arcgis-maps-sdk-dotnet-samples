@@ -8,6 +8,8 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Threading.Tasks;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -23,14 +25,12 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
         "Distance composite symbol",
         "Symbology",
         "This sample demonstrates how to create a `DistanceCompositeSceneSymbol` with unique marker symbols to display at various distances from the camera.",
-        "1. When the Scene initially loads, you will be looking at a point graphic symbolized with a 3D cone symbol.\n2. Zoom slightly closer to the graphic and the symbol will change to a blue 3D cube symbol.\n3. Zoom farther from the graphic and the symbol will change back to a 3D cone and then to a simple marker symbol.")]
+        "1. When the Scene initially loads, you will be looking at a point graphic symbolized with a 3D model symbol (airplane).\n2. Zoom away slightly from the graphic and the symbol will change to a blue 3D cone symbol (pointing in the direction of flight).\n3. Zoom farther from the graphic and the symbol will change to a blue circle marker symbol.")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("681d6f7694644709a7c830ec57a2d72b")]
     public class UseDistanceCompositeSym : UIViewController
     {
         // Create and hold a reference to the scene view.
         private SceneView _mySceneView;
-
-        // URL for an image service to use as an elevation source.
-        private const string ElevationSourceUrl = "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
         public UseDistanceCompositeSym()
         {
@@ -39,8 +39,10 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
 
         public override void LoadView()
         {
-            _mySceneView = new SceneView();
-            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _mySceneView = new SceneView
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
 
             View = new UIView();
             View.AddSubviews(_mySceneView);
@@ -55,59 +57,63 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
         {
             base.ViewDidLoad();
 
-            // Create the UI, setup the control references and execute initialization.
+            // Create the Scene, basemap, graphic, and composite symbol.
             Initialize();
         }
 
-        private void Initialize()
+        private async Task Initialize()
         {
             // Create a new Scene with an imagery basemap.
             Scene myScene = new Scene(Basemap.CreateImagery());
 
-            // Add elevation to the scene.
-            myScene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri(ElevationSourceUrl)));
-
             // Add the Scene to the SceneView.
             _mySceneView.Scene = myScene;
 
-            // Create a new GraphicsOverlay.
-            GraphicsOverlay graphicsOverlay = new GraphicsOverlay
-            {
-                SceneProperties = {SurfacePlacement = SurfacePlacement.Relative}
-            };
-
-            // Add the overlay to the view.
+            // Create a new GraphicsOverlay and add it to the SceneView.
+            GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
+            graphicsOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
             _mySceneView.GraphicsOverlays.Add(graphicsOverlay);
 
             // Call a function to create a new distance composite symbol with three ranges.
-            DistanceCompositeSceneSymbol compositeSymbol = CreateCompositeSymbol();
+            DistanceCompositeSceneSymbol compositeSymbol = await CreateCompositeSymbol();
 
             // Create a new point graphic with the composite symbol, add it to the graphics overlay.
             MapPoint locationPoint = new MapPoint(-2.708471, 56.096575, 5000, SpatialReferences.Wgs84);
             Graphic pointGraphic = new Graphic(locationPoint, compositeSymbol);
             graphicsOverlay.Graphics.Add(pointGraphic);
 
-            // Set the viewpoint with a new camera focused on the graphic.
-            Camera newCamera = new Camera(new MapPoint(-2.708471, 56.096575, 5000, SpatialReferences.Wgs84), 1500, 0, 80, 0);
-            _mySceneView.SetViewpointCamera(newCamera);
+            // Add an orbit camera controller to lock the camera to the graphic.
+            OrbitGeoElementCameraController cameraController = new OrbitGeoElementCameraController(pointGraphic, 20)
+            {
+                CameraPitchOffset = 80,
+                CameraHeadingOffset = -30
+            };
+            _mySceneView.CameraController = cameraController;
         }
 
-        private DistanceCompositeSceneSymbol CreateCompositeSymbol()
+        private async Task<DistanceCompositeSceneSymbol> CreateCompositeSymbol()
         {
-            // Create three symbols for displaying a feature according to its distance from the camera.
-            // First, a blue cube symbol for when the camera is near the feature.
-            SimpleMarkerSceneSymbol cubeSym = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Cube, System.Drawing.Color.Blue, 125, 125, 125, SceneSymbolAnchorPosition.Center);
+            // Get the path to the 3D model.
+            string modelPath = GetModelPath();
 
-            // 3D (cone) symbol for when the feature is at an intermediate range.
-            SimpleMarkerSceneSymbol coneSym = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Cone, System.Drawing.Color.Red, 75, 75, 75, SceneSymbolAnchorPosition.Bottom);
+            // Create three symbols for displaying a feature according to its distance from the camera.
+            // First, a 3D model symbol (airplane) for when the camera is near the feature.
+            ModelSceneSymbol plane3DSymbol = await ModelSceneSymbol.CreateAsync(new System.Uri(modelPath), 1.0);
+
+            // 3D (blue cone) symbol for when the feature is at an intermediate range.
+            SimpleMarkerSceneSymbol coneSym = new SimpleMarkerSceneSymbol(SimpleMarkerSceneSymbolStyle.Cone, System.Drawing.Color.LightSkyBlue, 15, 6, 3, SceneSymbolAnchorPosition.Center)
+            {
+                // The cone will point in the same direction as the plane.
+                Pitch = -90
+            };
 
             // Simple marker symbol (circle) when the feature is far from the camera.
-            SimpleMarkerSymbol markerSym = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Yellow, 10.0);
+            SimpleMarkerSymbol markerSym = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.LightSkyBlue, 10.0);
 
             // Create three new ranges for displaying each symbol.
-            DistanceSymbolRange closeRange = new DistanceSymbolRange(cubeSym, 0, 999);
-            DistanceSymbolRange midRange = new DistanceSymbolRange(coneSym, 1000, 1999);
-            DistanceSymbolRange farRange = new DistanceSymbolRange(markerSym, 2000, 0);
+            DistanceSymbolRange closeRange = new DistanceSymbolRange(plane3DSymbol, 0, 100);
+            DistanceSymbolRange midRange = new DistanceSymbolRange(coneSym, 100, 500);
+            DistanceSymbolRange farRange = new DistanceSymbolRange(markerSym, 500, 0);
 
             // Create a new DistanceCompositeSceneSymbol and add the ranges.
             DistanceCompositeSceneSymbol compositeSymbol = new DistanceCompositeSceneSymbol();
@@ -117,6 +123,11 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
 
             // Return the new composite symbol.
             return compositeSymbol;
+        }
+
+        private static string GetModelPath()
+        {
+            return DataManager.GetDataFolder("681d6f7694644709a7c830ec57a2d72b", "Bristol.dae");
         }
     }
 }

@@ -61,34 +61,44 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
             Initialize();
         }
 
-        private async Task Initialize()
+        private async void Initialize()
         {
-            // Create a new Scene with an imagery basemap.
-            Scene myScene = new Scene(Basemap.CreateImagery());
-
-            // Add the Scene to the SceneView.
-            _mySceneView.Scene = myScene;
-
-            // Create a new GraphicsOverlay and add it to the SceneView.
-            GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
-            graphicsOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
-            _mySceneView.GraphicsOverlays.Add(graphicsOverlay);
-
-            // Call a function to create a new distance composite symbol with three ranges.
-            DistanceCompositeSceneSymbol compositeSymbol = await CreateCompositeSymbol();
-
-            // Create a new point graphic with the composite symbol, add it to the graphics overlay.
-            MapPoint locationPoint = new MapPoint(-2.708471, 56.096575, 5000, SpatialReferences.Wgs84);
-            Graphic pointGraphic = new Graphic(locationPoint, compositeSymbol);
-            graphicsOverlay.Graphics.Add(pointGraphic);
-
-            // Add an orbit camera controller to lock the camera to the graphic.
-            OrbitGeoElementCameraController cameraController = new OrbitGeoElementCameraController(pointGraphic, 20)
+            try
             {
-                CameraPitchOffset = 80,
-                CameraHeadingOffset = -30
-            };
-            _mySceneView.CameraController = cameraController;
+                // Create a new Scene with an imagery basemap.
+                Scene myScene = new Scene(Basemap.CreateImagery());
+
+                // Add the Scene to the SceneView.
+                _mySceneView.Scene = myScene;
+
+                // Create a new GraphicsOverlay and add it to the SceneView.
+                GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
+                graphicsOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
+                _mySceneView.GraphicsOverlays.Add(graphicsOverlay);
+
+                // Call a function to create a new distance composite symbol with three ranges.
+                DistanceCompositeSceneSymbol compositeSymbol = await CreateCompositeSymbol();
+
+                // Create a new point graphic with the composite symbol, add it to the graphics overlay.
+                MapPoint locationPoint = new MapPoint(-2.708471, 56.096575, 5000, SpatialReferences.Wgs84);
+                Graphic pointGraphic = new Graphic(locationPoint, compositeSymbol);
+                graphicsOverlay.Graphics.Add(pointGraphic);
+
+                // Add an orbit camera controller to lock the camera to the graphic.
+                OrbitGeoElementCameraController cameraController = new OrbitGeoElementCameraController(pointGraphic, 20)
+                {
+                    CameraPitchOffset = 80,
+                    CameraHeadingOffset = -30
+                };
+                _mySceneView.CameraController = cameraController;
+            }
+            catch (Exception e)
+            {
+                // Something went wrong, display the error.
+                UIAlertController alert = UIAlertController.Create("Error", e.Message, UIAlertControllerStyle.Alert);
+                alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+                PresentViewController(alert, true, null);
+            }
         }
 
         private async Task<DistanceCompositeSceneSymbol> CreateCompositeSymbol()

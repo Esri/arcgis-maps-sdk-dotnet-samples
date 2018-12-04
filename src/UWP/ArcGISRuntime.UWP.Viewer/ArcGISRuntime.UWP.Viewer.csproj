@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <!-- Build Configurations -->
@@ -113,7 +113,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<Content Include="Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
+    <Content Include="Samples\Geometry\SpatialOperations\SpatialOperations.jpg" />
+    <Content Include="Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
     <Content Include="Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
     <Content Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.jpg" />
     <Content Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.jpg" />
@@ -291,9 +292,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\MapView\IdentifyLayers\IdentifyLayers.xaml.cs">
-		<DependentUpon>IdentifyLayers.xaml</DependentUpon>
-	</Compile>
+    <Compile Include="Samples\Geometry\SpatialOperations\SpatialOperations.xaml.cs">
+      <DependentUpon>SpatialOperations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\IdentifyLayers\IdentifyLayers.xaml.cs">
+      <DependentUpon>IdentifyLayers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\ListKmlContents\ListKmlContents.xaml.cs">
       <DependentUpon>ListKmlContents.xaml</DependentUpon>
     </Compile>
@@ -693,10 +697,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<Page Include="Samples\MapView\IdentifyLayers\IdentifyLayers.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
+    <Page Include="Samples\Geometry\SpatialOperations\SpatialOperations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\IdentifyLayers\IdentifyLayers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\ListKmlContents\ListKmlContents.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

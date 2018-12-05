@@ -6,6 +6,6 @@ This sample demonstrates how to create a `DistanceCompositeSceneSymbol` with uni
 
 ## Instructions
 
-1. When the Scene initially loads, you will be looking at a point graphic symbolized with a 3D cone symbol.
-2. Zoom slightly closer to the graphic and the symbol will change to a blue 3D cube symbol.
-3. Zoom farther from the graphic and the symbol will change back to a 3D cone and then to a simple marker symbol.
+1. When the Scene initially loads, you will be looking at a point graphic symbolized with a 3D model symbol (airplane).
+2. Zoom away slightly from the graphic and the symbol will change to a blue 3D cone symbol (pointing in the direction of flight).
+3. Zoom farther from the graphic and the symbol will change to a blue circle marker symbol.

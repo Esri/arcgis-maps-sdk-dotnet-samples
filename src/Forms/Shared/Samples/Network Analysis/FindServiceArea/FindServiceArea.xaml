@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
              x:Class="ArcGISRuntime.Samples.FindServiceArea.FindServiceArea"
-             Title="Find service area (interactive">
+             Title="Find service area (interactive)">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />

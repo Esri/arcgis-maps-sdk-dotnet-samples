@@ -128,9 +128,9 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
                 // Create a FeatureCollectionLayer.
                 FeatureCollectionLayer collectionLayer = new FeatureCollectionLayer(featuresCollection);
 
-                // When the layer loads, zoom the map view to the extent of the feature collection.
+                // When the layer loads, zoom the map centered on the feature collection
                 await collectionLayer.LoadAsync();
-                _myMapView.SetViewpoint(new Viewpoint(collectionLayer.FullExtent));
+                await _myMapView.SetViewpointCenterAsync(collectionLayer.FullExtent.GetCenter(), 1000000);
 
                 // Add the layer to the Map's Operational Layers collection.
                 _myMapView.Map.OperationalLayers.Add(collectionLayer);

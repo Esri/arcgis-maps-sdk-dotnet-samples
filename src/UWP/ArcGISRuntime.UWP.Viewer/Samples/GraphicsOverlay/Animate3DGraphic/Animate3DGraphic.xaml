@@ -28,7 +28,7 @@
             <ComboBox x:Name="MissionSelectionBox"
                       VerticalAlignment="Top"
                       MinWidth="150" />
-            <Button Content="Pause"
+            <Button x:Name="MissionPlayPause" Content="Pause"
                     VerticalAlignment="Top"
                     Margin="5,0,0,0"
                     MinWidth="75"

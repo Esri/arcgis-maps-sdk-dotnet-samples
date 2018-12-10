@@ -89,7 +89,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             {
                 case Device.Android:
                     LayersList.BackgroundColor = Color.Black;
-                    OAuthSettingsGrid.BackgroundColor = Color.Black;
+                    OAuthSettingsGrid.BackgroundColor = Color.Gray;
                     break;
                 case Device.UWP:
                     LayersList.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);

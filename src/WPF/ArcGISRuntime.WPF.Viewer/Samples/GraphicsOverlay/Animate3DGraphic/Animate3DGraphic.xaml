@@ -40,7 +40,7 @@
                     Orientation="Horizontal" Margin="5">
             <ComboBox x:Name="MissionSelectionBox"
                       VerticalAlignment="Top" Height="25" Width="100" />
-            <Button Content="Pause"
+            <Button x:Name="MissionPlayPause" Content="Pause"
                     VerticalAlignment="Top" Height="25" Width="50"
                     Click="MissionPlayPlauseClick" />
             <TextBlock Text="Progress" Margin="5" />

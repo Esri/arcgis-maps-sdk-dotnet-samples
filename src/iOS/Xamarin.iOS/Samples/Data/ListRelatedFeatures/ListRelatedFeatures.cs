@@ -30,8 +30,8 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
     public class ListRelatedFeatures : UIViewController
     {
         // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private UITableView _myDisplayList = new UITableView();
+        private MapView _myMapView;
+        private UITableView _tableView;
 
         // URL to the web map.
         private readonly Uri _mapUri =
@@ -83,8 +83,8 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
         {
             // Clear any existing feature selection and results list.
             _myFeatureLayer.ClearSelection();
-            _myDisplayList.Source = null;
-            _myDisplayList.ReloadData();
+            _tableView.Source = null;
+            _tableView.ReloadData();
 
             try
             {
@@ -142,10 +142,10 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
                 _layerListSource = new LayerListSource(queryResultsForUi);
 
                 // Assign the source to the display view.
-                _myDisplayList.Source = _layerListSource;
+                _tableView.Source = _layerListSource;
 
                 // Force the table view to refresh its data.
-                _myDisplayList.ReloadData();
+                _tableView.ReloadData();
             }
             catch (Exception ex)
             {
@@ -153,46 +153,69 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
             }
         }
 
-        private void CreateLayout()
+
+        public override void LoadView()
         {
-            // Add MapView to the page.
-            View.AddSubviews(_myMapView);
+            _myMapView = new MapView();
+            _tableView = new UITableView();
+            _tableView.RowHeight = 30;
 
-            // Create the table view.
-            _myDisplayList = new UITableView()
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _tableView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View = new UIView();
+            View.AddSubviews(_myMapView, _tableView);
+        }
+
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            base.TraitCollectionDidChange(previousTraitCollection);
+
+            // Reset constraints.
+            _tableView.RemoveFromSuperview();
+            _myMapView.RemoveFromSuperview();
+            View.AddSubviews(_myMapView, _tableView);
+
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
             {
-                RowHeight = 20
-            };
+                applyLandscapeLayout();
+            }
+            else
+            {
+                applyPortraitLayout();
+            }
+        }
 
-            // Add the table view to the layout.
-            View.AddSubview(_myDisplayList);
+        private void applyPortraitLayout()
+        {
+            _tableView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _tableView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _tableView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _tableView.HeightAnchor.ConstraintEqualTo(120).Active = true;
+
+            _myMapView.TopAnchor.ConstraintEqualTo(_tableView.BottomAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+        }
+
+        private void applyLandscapeLayout()
+        {
+            _tableView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _tableView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _tableView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _tableView.WidthAnchor.ConstraintEqualTo(View.Frame.Height).Active = true;
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(_tableView.TrailingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
         }
 
         public override void ViewDidLoad()
         {
-            CreateLayout();
-            Initialize();
-
             base.ViewDidLoad();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.TopLayoutGuide.Length;
-
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + 150, 0, 0, 0);
-                _myDisplayList.Frame = new CGRect(0, topMargin, View.Bounds.Width, 150);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
+            Initialize();
         }
     }
 

@@ -251,7 +251,7 @@ namespace ArcGISRuntime.Samples.BufferList
                 alert.PopoverPresentationController.BarButtonItem = _bufferButton as UIBarButtonItem;  
             }
 
-            alert.AddAction(UIAlertAction.Create("Union", UIAlertActionStyle.Cancel, action => PerformUnion(true)));
+            alert.AddAction(UIAlertAction.Create("Union", UIAlertActionStyle.Default, action => PerformUnion(true)));
             alert.AddAction (UIAlertAction.Create ("Don't union", UIAlertActionStyle.Default, action => PerformUnion(false)));
             PresentViewController (alert, animated: true, completionHandler: null);
         }

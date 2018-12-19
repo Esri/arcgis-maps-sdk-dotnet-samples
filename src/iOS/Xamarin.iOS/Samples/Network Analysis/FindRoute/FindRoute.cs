@@ -32,11 +32,8 @@ namespace ArcGISRuntime.Samples.FindRoute
     public class FindRoute : UIViewController
     {
         // Create and hold references to the views.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private readonly UIButton _solveRouteButton = new UIButton(UIButtonType.Plain);
-        private readonly UIButton _resetButton = new UIButton(UIButtonType.Plain);
-        private readonly UIButton _showDirectionsButton = new UIButton(UIButtonType.Plain);
+        private MapView _myMapView;
+        private UIToolbar _toolbar;
 
         // List of stops on the route ('from' and 'to').
         private List<Stop> _routeStops;
@@ -48,11 +45,15 @@ namespace ArcGISRuntime.Samples.FindRoute
         private GraphicsOverlay _routeGraphicsOverlay;
 
         // URI for the San Diego route service.
-        private readonly Uri _sanDiegoRouteServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
+        private readonly Uri _sanDiegoRouteServiceUri = 
+            new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
 
         // URIs for picture marker images.
-        private readonly Uri _checkedFlagIconUri = new Uri("https://static.arcgis.com/images/Symbols/Transportation/CheckeredFlag.png");
-        private readonly Uri _carIconUri = new Uri("https://static.arcgis.com/images/Symbols/Transportation/CarRedFront.png");
+        private readonly Uri _checkedFlagIconUri =
+            new Uri("https://static.arcgis.com/images/Symbols/Transportation/CheckeredFlag.png");
+
+        private readonly Uri _carIconUri =
+            new Uri("https://static.arcgis.com/images/Symbols/Transportation/CarRedFront.png");
 
         public FindRoute()
         {
@@ -62,28 +63,7 @@ namespace ArcGISRuntime.Samples.FindRoute
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            CreateLayout();
             Initialize();
-        }
-
-        private void CreateLayout()
-        {
-            // Configure the UI controls.
-            _solveRouteButton.SetTitle("Solve route", UIControlState.Normal);
-            _solveRouteButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _solveRouteButton.TouchUpInside += SolveRouteButton_Click;
-
-            _resetButton.SetTitle("Reset", UIControlState.Normal);
-            _resetButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _resetButton.TouchUpInside += ResetButton_Click;
-
-            _showDirectionsButton.SetTitle("Directions", UIControlState.Normal);
-            _showDirectionsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _showDirectionsButton.TouchUpInside += ShowDirections;
-
-            // Add the controls to the view.
-            View.AddSubviews(_myMapView, _toolbar, _solveRouteButton, _resetButton, _showDirectionsButton);
         }
 
         private void Initialize()
@@ -197,28 +177,34 @@ namespace ArcGISRuntime.Samples.FindRoute
             };
             NavigationController.PushViewController(directionsTableController, true);
         }
-
-        public override void ViewDidLayoutSubviews()
+        
+        public override void LoadView()
         {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat toolbarHeight = 40;
+            View = new UIView();
 
-                // Reposition the views.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-                _solveRouteButton.Frame = new CGRect(10, _toolbar.Frame.Top + 10, 100, 20);
-                _resetButton.Frame = new CGRect(120, _toolbar.Frame.Top + 10, 50, 20);
-                _showDirectionsButton.Frame = new CGRect(180, _toolbar.Frame.Top + 10, 100, 20);
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            _toolbar = new UIToolbar();
+            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View.AddSubviews(_myMapView, _toolbar);
+
+            _toolbar.Items = new[]
             {
-            }
+                new UIBarButtonItem("Solve route", UIBarButtonItemStyle.Plain, SolveRouteButton_Click),
+                new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ResetButton_Click),
+                new UIBarButtonItem("Directions", UIBarButtonItemStyle.Plain, ShowDirections),
+            };
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
+
+            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
         }
     }
 

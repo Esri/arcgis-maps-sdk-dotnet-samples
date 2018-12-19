@@ -26,15 +26,12 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
     public class TakeScreenshot : UIViewController
     {
         // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIView _overlayView = new UIView();
-        private readonly UIImageView _overlayImageView = new UIImageView();
-
-        private readonly UIBarButtonItem _closeImageViewButton = new UIBarButtonItem
-        {
-            Title = "Close preview",
-            Style = UIBarButtonItemStyle.Plain
-        };
+        private MapView _myMapView;
+        private UIView _overlayView;
+        private UIImageView _overlayImageView;
+        private UIBarButtonItem _screenshotButton;
+        private UIBarButtonItem _closePreviewButton;
+        private UIToolbar _toolbar;
 
         public TakeScreenshot()
         {
@@ -44,36 +41,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            // Create the UI, setup the control references and execute initialization.
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewWillDisappear(bool animated)
-        {
-            base.ViewWillDisappear(animated);
-            NavigationController.ToolbarHidden = true;
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-                _overlayView.Frame = new CGRect(10, 80, _myMapView.Frame.Width - 20, _myMapView.Frame.Height - 75);
-                _overlayImageView.Frame = new CGRect(0, 0, _overlayView.Frame.Width, _overlayView.Frame.Height);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
@@ -87,7 +55,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             _overlayView.Hidden = true;
 
             // Disable the button to close image view.
-            _closeImageViewButton.Enabled = false;
+            _closePreviewButton.Enabled = false;
         }
 
         private async void OnScreenshotButtonClicked(object sender, EventArgs e)
@@ -101,7 +69,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
                 _overlayImageView.Image = await exportedImage.ToImageSourceAsync();
 
                 // Enable the button to close image view.
-                _closeImageViewButton.Enabled = true;
+                _closePreviewButton.Enabled = true;
 
                 // Show the overlay view.
                 _overlayView.Hidden = false;
@@ -112,42 +80,59 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             }
         }
 
-        private void CreateLayout()
+        public override void LoadView()
         {
-            // Configure the UI.
-            UIBarButtonItem screenshotButton = new UIBarButtonItem
-            {
-                Title = "Screenshot",
-                Style = UIBarButtonItemStyle.Plain
-            };
-            screenshotButton.Clicked += OnScreenshotButtonClicked;
+            View = new UIView();
 
-            // Initialize a button to close image preview.
-            _closeImageViewButton.Clicked += OnCloseImageViewClicked;
-            _closeImageViewButton.Enabled = false;
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            _toolbar = new UIToolbar();
+            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            _screenshotButton = new UIBarButtonItem("Take screenshot", UIBarButtonItemStyle.Plain, OnScreenshotButtonClicked);
+            _closePreviewButton = new UIBarButtonItem("Close preview", UIBarButtonItemStyle.Plain, OnCloseImageViewClicked);
+            _closePreviewButton.Enabled = false;
 
-            // Add the buttons to the toolbar.
-            SetToolbarItems(new[]
-            {
-                screenshotButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null),
-                _closeImageViewButton
-            }, false);
-
-            // Show the toolbar.
-            NavigationController.ToolbarHidden = false;
-
-            // Create a new image view to hold the screenshot image.
-            _overlayImageView.Layer.BorderColor = UIColor.White.CGColor;
-            _overlayImageView.Layer.BorderWidth = 2;
-
-            // Add the image view to the overlay view.
-            _overlayView.AddSubview(_overlayImageView);
-            // Hide the image view.
+            _overlayImageView = new UIImageView();
+            _overlayImageView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _overlayImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
+            
+            _overlayView = new UIView();
+            _overlayView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _overlayView.BackgroundColor = UIColor.White;
+            _overlayView.Layer.BorderColor = UIColor.Black.CGColor;
+            _overlayView.Layer.BorderWidth = 2;
             _overlayView.Hidden = true;
+            
+            _overlayView.AddSubview(_overlayImageView);
+            View.AddSubviews(_myMapView, _toolbar, _overlayView);
 
-            // Add controls to the view.
-            View.AddSubviews(_myMapView, _overlayView);
+            _toolbar.Items = new[]
+            {
+                _screenshotButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _closePreviewButton
+            };
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
+
+            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+
+            _overlayView.WidthAnchor.ConstraintEqualTo(View.WidthAnchor, 0.9f).Active = true;
+            _overlayView.HeightAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.HeightAnchor, 0.8f).Active = true;
+            _overlayView.CenterXAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.CenterXAnchor).Active = true;
+            _overlayView.CenterYAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.CenterYAnchor).Active = true;
+
+            _overlayImageView.LeadingAnchor.ConstraintEqualTo(_overlayView.LeadingAnchor).Active = true;
+            _overlayImageView.TrailingAnchor.ConstraintEqualTo(_overlayView.TrailingAnchor).Active = true;
+            _overlayImageView.TopAnchor.ConstraintEqualTo(_overlayView.TopAnchor).Active = true;
+            _overlayImageView.BottomAnchor.ConstraintEqualTo(_overlayView.BottomAnchor).Active = true;
         }
     }
 }

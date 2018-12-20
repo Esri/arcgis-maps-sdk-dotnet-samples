@@ -26,10 +26,8 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         "")]
     public class ChangeBasemap : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private readonly UIButton _button = new UIButton();
+        // Hold references to the UI controls.
+        private MapView _myMapView;
 
         // Dictionary that associates names with basemaps.
         private readonly Dictionary<string, Basemap> _basemapOptions = new Dictionary<string, Basemap>
@@ -55,22 +53,7 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            CreateLayout();
             Initialize();
-        }
-
-        private void CreateLayout()
-        {
-            // Update the button properties.
-            _button.SetTitle("Change basemap", UIControlState.Normal);
-            _button.SetTitleColor(View.TintColor, UIControlState.Normal);
-
-            // Handle button clicks.
-            _button.TouchUpInside += BasemapSelectionButtonClick;
-
-            // Add the views to the layout.
-            View.AddSubviews(_myMapView, _toolbar, _button);
         }
 
         private void BasemapSelectionButtonClick(object sender, EventArgs e)
@@ -102,27 +85,33 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
             _myMapView.Map = new Map(_basemapOptions.Values.First());
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void LoadView()
         {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat controlHeight = 30;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
+            View = new UIView {BackgroundColor = UIColor.White};
 
-                // Reposition the views.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-                _button.Frame = new CGRect(5, _toolbar.Frame.Top + 5, View.Bounds.Width - 10, 30);
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            View.AddSubviews(_myMapView, toolbar);
+
+            toolbar.Items = new[]
             {
-            }
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Change basemap", UIBarButtonItemStyle.Plain, BasemapSelectionButtonClick),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+            };
+
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
+
+            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
         }
     }
 }

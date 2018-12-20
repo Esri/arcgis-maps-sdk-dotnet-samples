@@ -25,8 +25,9 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         "")]
     public class ManageBookmarks : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UIToolbar _toolbar;
 
         public ManageBookmarks()
         {
@@ -36,34 +37,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            // Create the UI, setup the control references and execute initialization.
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewWillDisappear(bool animated)
-        {
-            base.ViewWillDisappear(animated);
-            NavigationController.ToolbarHidden = true;
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition the views.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
@@ -177,24 +151,33 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             PresentViewController(actionAlert, true, null);
         }
 
-        private void CreateLayout()
+        public override void LoadView()
         {
-            // Create a bookmark button to show existing bookmarks.
-            UIBarButtonItem showBookmarksButton = new UIBarButtonItem {Title = "Bookmarks", Style = UIBarButtonItemStyle.Plain};
-            showBookmarksButton.Clicked += OnShowBookmarksButtonClicked;
+            View = new UIView { BackgroundColor = UIColor.White };
 
-            // Create a button to add new bookmark.
-            UIBarButtonItem addBookmarkButton = new UIBarButtonItem(UIBarButtonSystemItem.Add);
-            addBookmarkButton.Clicked += OnAddBookmarksButtonClicked;
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            // Add the buttons to the toolbar.
-            SetToolbarItems(new[] {showBookmarksButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null), addBookmarkButton}, false);
+            _toolbar = new UIToolbar();
+            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            View.AddSubviews(_myMapView, _toolbar);
 
-            // Show the toolbar.
-            NavigationController.ToolbarHidden = false;
+            _toolbar.Items = new[]
+            {
+                new UIBarButtonItem("Bookmarks", UIBarButtonItemStyle.Plain, OnShowBookmarksButtonClicked), 
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem(UIBarButtonSystemItem.Add, OnAddBookmarksButtonClicked)
+            };
 
-            // Add MapView to the page.
-            View.AddSubviews(_myMapView);
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
+
+            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
         }
     }
 }

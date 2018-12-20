@@ -31,8 +31,9 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
         "Click the solve button to find the closest facility to every incident.")]
     public class ClosestFacilityStatic : UIViewController
     {
-        // Create and hold references to the views.
+        // Hold references to the views.
         private MapView _myMapView;
+        private UIToolbar _toolbar;
         private UIBarButtonItem _solveRoutesButton;
         private UIBarButtonItem _resetButton;
 
@@ -71,7 +72,6 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
             Initialize();
         }
 
@@ -80,13 +80,21 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _toolbar = new UIToolbar();
+            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+
             View = new UIView { BackgroundColor = UIColor.White };
-            View.AddSubviews(_myMapView);
+            
+            View.AddSubviews(_myMapView, _toolbar);
 
             _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
+
+            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
 
             // Configure the UI controls.
             _solveRoutesButton = new UIBarButtonItem("Solve routes", UIBarButtonItemStyle.Plain, SolveRoutesButton_Click);
@@ -94,23 +102,12 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ResetButton_Click);
             _resetButton.Enabled = false;
 
-            NavigationController.ToolbarHidden = false;
-            ToolbarItems = new[]
+            _toolbar.Items = new[]
             {
                 _solveRoutesButton,
-                // Put a space between the buttons
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _resetButton
             };
-        }
-
-        public override void ViewWillDisappear(bool animated)
-        {
-            base.ViewWillDisappear(animated);
-
-            // This is needed to hide the toolbar. Because NavigationController presents it, 
-            // it won't automatically disappear when leaving the sample.
-            NavigationController.ToolbarHidden = true;
         }
 
         private async void Initialize()

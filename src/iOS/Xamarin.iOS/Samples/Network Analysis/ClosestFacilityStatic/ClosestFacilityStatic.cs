@@ -80,7 +80,7 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            View = new UIView();
+            View = new UIView { BackgroundColor = UIColor.White };
             View.AddSubviews(_myMapView);
 
             _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;

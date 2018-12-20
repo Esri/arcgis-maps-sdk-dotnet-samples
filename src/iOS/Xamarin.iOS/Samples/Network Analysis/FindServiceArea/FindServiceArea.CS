@@ -286,8 +286,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
 
         public override void LoadView()
         {
-            View = new UIView();
-            View.BackgroundColor = UIColor.White;
+            View = new UIView { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;

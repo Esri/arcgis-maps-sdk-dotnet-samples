@@ -27,10 +27,8 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
         "")]
     public class ArcGISVectorTiledLayerUrl : UIViewController
     {
-        // Create the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private readonly UIButton _button = new UIButton();
+        // Hold a reference to the MapView.
+        private MapView _myMapView;
 
         // Dictionary maps layer names to URLs.
         private readonly Dictionary<string, Uri> _layerUrls = new Dictionary<string, Uri>
@@ -50,8 +48,6 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            CreateLayout();
             Initialize();
         }
 
@@ -101,40 +97,33 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
             _myMapView.Map = new Map(new Basemap(vectorTiledLayer));
         }
 
-        private void CreateLayout()
+        public override void LoadView()
         {
-            // Update the button parameters.
-            _button.SetTitle("Choose a layer", UIControlState.Normal);
-            _button.SetTitleColor(View.TintColor, UIControlState.Normal);
+            View = new UIView {BackgroundColor = UIColor.White};
+            
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            View.AddSubviews(_myMapView, toolbar);
 
-            // Allow the user to select new layers.
-            _button.TouchUpInside += LayerSelectionButtonClick;
-
-            // Add views.
-            View.AddSubviews(_myMapView, _toolbar, _button);
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
+            toolbar.Items = new[]
             {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat controlHeight = 30;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Choose a layer", UIBarButtonItemStyle.Plain, LayerSelectionButtonClick),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+            
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
 
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _button.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
+            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
         }
     }
 }

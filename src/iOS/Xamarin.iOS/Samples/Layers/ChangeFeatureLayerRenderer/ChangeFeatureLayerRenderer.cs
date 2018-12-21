@@ -21,16 +21,16 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
 {
     [Register("ChangeFeatureLayerRenderer")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Change Renderer",
+        "Change feature layer renderer",
         "Layers",
         "This sample demonstrates how to change renderer for a feature layer. It also shows how to reset the renderer back to the default.",
         "")]
     public class ChangeFeatureLayerRenderer : UIViewController
     {
-        // Create and hold a reference to the MapView.
+        // Hold a reference to the MapView.
         private MapView _myMapView;
 
-        //Create and hold reference to the feature layer.
+        // Create and hold reference to the feature layer.
         private FeatureLayer _featureLayer;
 
         public ChangeFeatureLayerRenderer()
@@ -41,33 +41,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewWillDisappear(bool animated)
-        {
-            base.ViewWillDisappear(animated);
-            NavigationController.ToolbarHidden = true;
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition controls.
-                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
@@ -76,7 +50,8 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
             Map map = new Map(Basemap.CreateTopographic());
 
             // Create and set initial map area.
-            Envelope initialLocation = new Envelope(-1.30758164047166E7, 4014771.46954516, -1.30730056797177E7, 4016869.78617381, SpatialReferences.WebMercator);
+            Envelope initialLocation = new Envelope(-1.30758164047166E7, 4014771.46954516, -1.30730056797177E7,
+                4016869.78617381, SpatialReferences.WebMercator);
 
             // Set the initial viewpoint for map.
             map.InitialViewpoint = new Viewpoint(initialLocation);
@@ -85,7 +60,8 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
             _myMapView.Map = map;
 
             // Create URI to the used feature service.
-            Uri serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/FeatureServer/0");
+            Uri serviceUri =
+                new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/FeatureServer/0");
 
             // Initialize feature table using a URL to a feature service.
             ServiceFeatureTable featureTable = new ServiceFeatureTable(serviceUri);
@@ -115,35 +91,37 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
             _featureLayer.ResetRenderer();
         }
 
-        private void CreateLayout()
+        public override void LoadView()
         {
-            // Create a MapView.
+            // Create the MapView.
             _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            // Create a button to reset the renderer.
-            UIBarButtonItem resetButton = new UIBarButtonItem
+            // Create the toolbar.
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            // Add the views to the layout.
+            View = new UIView {BackgroundColor = UIColor.White};
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Add the button.
+            toolbar.Items = new[]
             {
-                Title = "Reset",
-                Style = UIBarButtonItemStyle.Plain
+                new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, OnResetButtonClicked),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Override renderer", UIBarButtonItemStyle.Plain, OnOverrideButtonClicked),
             };
-            resetButton.Clicked += OnResetButtonClicked;
 
-            // Create a button to apply new renderer.
-            UIBarButtonItem overrideButton = new UIBarButtonItem
-            {
-                Title = "Override",
-                Style = UIBarButtonItemStyle.Plain
-            };
-            overrideButton.Clicked += OnOverrideButtonClicked;
+            // Set up constraints.
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
 
-            // Add the buttons to the toolbar.
-            SetToolbarItems(new[] {resetButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null), overrideButton}, false);
-
-            // Show the toolbar.
-            NavigationController.ToolbarHidden = false;
-
-            // Add MapView to the page.
-            View.AddSubviews(_myMapView);
+            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
         }
     }
 }

@@ -39,33 +39,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewWillDisappear(bool animated)
-        {
-            base.ViewWillDisappear(animated);
-            NavigationController.ToolbarHidden = true;
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition controls.
-                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private async void Initialize()
@@ -114,35 +88,33 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
             _featureLayer.DefinitionExpression = "";
         }
 
-        private void CreateLayout()
+        public override void LoadView()
         {
-            // Create MapView.
+            View = new UIView {BackgroundColor = UIColor.White};
+            
             _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            View.AddSubviews(_myMapView, toolbar);
 
-            // Create a button to reset the renderer.
-            UIBarButtonItem resetButton = new UIBarButtonItem
+            toolbar.Items = new[]
             {
-                Title = "Reset",
-                Style = UIBarButtonItemStyle.Plain
+                new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, OnResetButtonClicked),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Apply expression", UIBarButtonItemStyle.Plain, OnApplyExpressionClicked), 
             };
-            resetButton.Clicked += OnResetButtonClicked;
+            
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
 
-            // Create a button to apply new renderer.
-            UIBarButtonItem expressionButton = new UIBarButtonItem
-            {
-                Title = "Apply Expression",
-                Style = UIBarButtonItemStyle.Plain
-            };
-            expressionButton.Clicked += OnApplyExpressionClicked;
-
-            // Add the buttons to the toolbar.
-            SetToolbarItems(new[] {resetButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null), expressionButton}, false);
-
-            // Show the toolbar.
-            NavigationController.ToolbarHidden = false;
-
-            // Add MapView to the page.
-            View.AddSubviews(_myMapView);
+            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
         }
     }
 }

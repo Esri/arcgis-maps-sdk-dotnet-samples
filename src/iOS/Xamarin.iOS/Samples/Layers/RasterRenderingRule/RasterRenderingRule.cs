@@ -29,10 +29,9 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         "")]
     public class RasterRenderingRule : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _controlToolbar = new UIToolbar();
-        private readonly UISegmentedControl _rulePicker = new UISegmentedControl();
+        // Hold references to the UI controls.
+        private MapView _myMapView = new MapView();
+        private UILabel _selectionLabel;
 
         // Hold a reference to a read-only list for the various rendering rules of the image service raster.
         private IReadOnlyList<RenderingRuleInfo> _renderRuleInfos;
@@ -48,26 +47,15 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         public override async void ViewDidLoad()
         {
             base.ViewDidLoad();
+            
+            // Set up the map with basemap.
+            _myMapView.Map = new Map(Basemap.CreateTopographic());
 
-            // Assign the Map to the MapView
-            _myMapView.Map = new Map(SpatialReferences.WebMercator)
-            {
-                Basemap = Basemap.CreateTopographic()
-            };
-
-            // Make the text for the buttons in the UISegmentedControl small to display the names of the rendering rules.
-            UIFont myUiFont = UIFont.SystemFontOfSize(7);
-            _rulePicker.SetTitleTextAttributes(new UITextAttributes {Font = myUiFont}, UIControlState.Normal);
-            _rulePicker.ApportionsSegmentWidthsByContent = true;
-
-            // Wire-up the UISegmentedControl's value change event handler.
-            _rulePicker.ValueChanged += _segmentControl_ValueChanged;
-
-            // Add the map view and toolbar to the view.
-            View.AddSubviews(_myMapView, _controlToolbar, _rulePicker);
-
-            // Load of the rendering rules of the image service raster and display their names on the buttons in the toolbar.
+            // Load the rendering rules for the raster.
             await LoadRenderingRules();
+            
+            // Apply the first rendering rule
+            SelectRenderingRule(_renderRuleInfos[0]);
         }
 
         private async Task LoadRenderingRules()
@@ -94,22 +82,6 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
 
                 // Get the rendering rule info (i.e. definitions of how the image should be drawn) info from the image service raster.
                 _renderRuleInfos = arcGISImageServiceInfo.RenderingRuleInfos;
-
-                // Define an index counter to be used by the UISegmentedControl.
-                int counter = 0;
-
-                // Loop through each rendering rule info.
-                foreach (RenderingRuleInfo renderingRuleInfo in _renderRuleInfos)
-                {
-                    // Get the name of the rendering rule info.
-                    string renderingRuleName = renderingRuleInfo.Name;
-
-                    // Add the rendering rule info name to the UISegmentedControl.
-                    _rulePicker.InsertSegment(renderingRuleName, counter, false);
-
-                    // Increment the counter for adding segments into the UISegmentedControl.
-                    counter++;
-                }
             }
             catch (Exception e)
             {
@@ -117,66 +89,89 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
             }
         }
 
-        private void _segmentControl_ValueChanged(object sender, EventArgs e)
+        private void SelectRenderingRule(RenderingRuleInfo renderingRuleInfo)
         {
-            // Get the index number of the user choice of render rule names.
-            nint selectedSegmentId = ((UISegmentedControl)sender).SelectedSegment;
-
-            // Get the rendering rule info name from the UISegmentedControl that was chosen by the user.
-            string selectedRuleName = ((UISegmentedControl)sender).TitleAt(selectedSegmentId);
-
-            // Loop through each rendering rule info in the image service raster.
-            foreach (RenderingRuleInfo renderingRuleInfo in _renderRuleInfos)
+            // Create a new rendering rule from the rendering rule info.
+            RenderingRule renderingRule = new RenderingRule(renderingRuleInfo);
+            
+            // Create a new image service raster.
+            ImageServiceRaster imageServiceRaster = new ImageServiceRaster(_myUri)
             {
-                // Get the name of the rendering rule info.
-                string renderingRuleName = renderingRuleInfo.Name;
+                // Set the image service raster's rendering rule to the rendering rule created earlier.
+                RenderingRule = renderingRule
+            };
 
-                // If the name of the rendering rule info matches what was chosen by the user, proceed.
-                if (renderingRuleName == selectedRuleName)
-                {
-                    // Create a new rendering rule from the rendering rule info.
-                    RenderingRule renderingRule = new RenderingRule(renderingRuleInfo);
+            // Create a new raster layer from the image service raster.
+            RasterLayer rasterLayer = new RasterLayer(imageServiceRaster);
+            
+            // Clear the existing layer from the map.
+            _myMapView.Map.OperationalLayers.Clear();
 
-                    // Create a new image service raster.
-                    ImageServiceRaster imageServiceRaster2 = new ImageServiceRaster(_myUri)
-                    {
-                        // Set the image service raster's rendering rule to the rendering rule created earlier.
-                        RenderingRule = renderingRule
-                    };
-
-                    // Create a new raster layer from the image service raster.
-                    RasterLayer rasterLayer = new RasterLayer(imageServiceRaster2);
-
-                    // Add the raster layer to the operational layers of the  map view.
-                    _myMapView.Map.OperationalLayers.Add(rasterLayer);
-
-                    // Stop iterating once match is found.
-                    break;
-                }
-            }
+            // Add the raster layer to the operational layers of the  map view.
+            _myMapView.Map.OperationalLayers.Add(rasterLayer);
+            
+            // Update the label.
+            _selectionLabel.Text = $"Rule \"{renderingRuleInfo.Name}\" selected.";
         }
 
-        public override void ViewDidLayoutSubviews()
+        private void ChangeRenderingRule_Clicked(object sender, EventArgs e)
         {
-            try
+            // Create the alert controller with a title.
+            UIAlertController alertController = UIAlertController.Create("Choose a rendering rule", "", UIAlertControllerStyle.Alert);
+            
+            // Add actions for each rendering rule.
+            foreach (RenderingRuleInfo ruleInfo in _renderRuleInfos)
             {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
-
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _controlToolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _rulePicker.Frame = new CGRect(margin, _controlToolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
+                alertController.AddAction(UIAlertAction.Create(ruleInfo.Name, UIAlertActionStyle.Default, action => SelectRenderingRule(ruleInfo)));
             }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            
+            // Show the alert.
+            PresentViewController(alertController, true, null);
+        }
+
+        public override void LoadView()
+        {
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            _selectionLabel = new UILabel
             {
-            }
+                Text = "No rendering rule selected.",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            
+            View.AddSubviews(_myMapView, _selectionLabel, toolbar);
+
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Change rendering rule", UIBarButtonItemStyle.Plain, ChangeRenderingRule_Clicked),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace) 
+            };
+            
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
+
+            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            
+            _selectionLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _selectionLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _selectionLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _selectionLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
         }
     }
 }

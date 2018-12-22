@@ -26,14 +26,9 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
         "Use the button to zoom to the extent of the state specified (by abbreviation) in the textbox or use the button to count the features in the current extent.")]
     public class QueryFeatureCountAndExtent : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private UIButton _queryExtentButton;
-        private UIButton _queryStateButton;
-        private UITextField _stateEntry;
-        private UILabel _resultsLabel;
-        private UILabel _helpLabel;
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UILabel _resultLabel;
 
         // URL to the feature service.
         private readonly Uri _medicareHospitalSpendLayer =
@@ -78,10 +73,10 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             }
         }
 
-        private async void BtnZoomToFeatures_Click(object sender, EventArgs e)
+        private async void ZoomToFeature(string query)
         {
             // Create the query parameters.
-            QueryParameters queryStates = new QueryParameters {WhereClause = $"upper(State) LIKE '%{_stateEntry.Text.ToUpper()}%'"};
+            QueryParameters queryStates = new QueryParameters {WhereClause = $"upper(State) LIKE '%{query.ToUpper()}%'"};
 
             try
             {
@@ -101,7 +96,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
                 await _myMapView.SetViewpointAsync(resultViewpoint);
 
                 // Update the UI.
-                _resultsLabel.Text = $"Zoomed to features in {_stateEntry.Text}";
+                _resultLabel.Text = $"Zoomed to features in {query}";
             }
             catch (Exception ex)
             {
@@ -109,7 +104,19 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             }
         }
 
-        private async void BtnCountFeatures_Click(object sender, EventArgs e)
+        private void ZoomToQuery_Click(object sender, EventArgs e)
+        {
+            // Prompt for the type of convex hull to create.
+            UIAlertController unionAlert = UIAlertController.Create("Query features", "Enter a state abbreviation (e.g. CA)", UIAlertControllerStyle.Alert);
+            unionAlert.AddTextField(field => field.Placeholder = "e.g. CA" );
+            unionAlert.AddAction(UIAlertAction.Create("Submit query", UIAlertActionStyle.Default, action => ZoomToFeature(unionAlert.TextFields[0].Text)));
+            unionAlert.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
+            
+            // Show the alert.
+            PresentViewController(unionAlert, true, null);
+        }
+
+        private async void CountFeatures_Click(object sender, EventArgs e)
         {
             // Get the current visible extent.
             Geometry currentExtent = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry;
@@ -128,7 +135,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
                 long count = await _featureTable.QueryFeatureCountAsync(queryCityCount);
 
                 // Update the UI.
-                _resultsLabel.Text = $"{count} features in extent";
+                _resultLabel.Text = $"{count} features in extent";
             }
             catch (Exception ex)
             {
@@ -136,85 +143,54 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             }
         }
 
-        private void CreateLayout()
-        {
-            // Create the extent query button and subscribe to events.
-            _queryExtentButton = new UIButton();
-            _queryExtentButton.SetTitle("Count in extent", UIControlState.Normal);
-            _queryExtentButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _queryExtentButton.TouchUpInside += BtnCountFeatures_Click;
-
-            // Create the state query button and subscribe to events.
-            _queryStateButton = new UIButton();
-            _queryStateButton.SetTitle("Zoom to match", UIControlState.Normal);
-            _queryStateButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _queryStateButton.TouchUpInside += BtnZoomToFeatures_Click;
-
-            // Create the results label and the search bar.
-            _resultsLabel = new UILabel
-            {
-                Text = "Enter a query to begin.",
-                TextAlignment = UITextAlignment.Center
-            };
-
-            _stateEntry = new UITextField
-            {
-                Placeholder = "e.g. NH",
-                BorderStyle = UITextBorderStyle.RoundedRect,
-                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f)
-            };
-
-            // Create the help label.
-            _helpLabel = new UILabel
-            {
-                Text = "Tap 'Zoom to match' to zoom to features matching the given state abbreviation. Tap 'Count in extent' to count the features in the current extent, regardless of the query result.",
-                Lines = 4,
-                AdjustsFontSizeToFitWidth = true
-            };
-
-            // Allow the search bar to dismiss the keyboard.
-            _stateEntry.ShouldReturn += sender =>
-            {
-                sender.ResignFirstResponder();
-                return true;
-            };
-
-            // Add views to the page.
-            View.AddSubviews(_myMapView, _toolbar, _helpLabel, _queryExtentButton, _queryStateButton, _resultsLabel, _stateEntry);
-        }
-
         public override void ViewDidLoad()
         {
-            CreateLayout();
-            Initialize();
-
             base.ViewDidLoad();
+            Initialize();
         }
-
-        public override void ViewDidLayoutSubviews()
+        
+        public override void LoadView()
         {
-            try
+            View = new UIView {BackgroundColor = UIColor.White};
+            
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            // Create the label.
+            _resultLabel = new UILabel()
             {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat controlHeight = 30;
+                Text = "Press 'Zoom to query' to begin.",
+                BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
+                TextColor = UIColor.White,
+                TextAlignment = UITextAlignment.Center,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            
+            View.AddSubviews(_myMapView, toolbar, _resultLabel);
 
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, controlHeight * 6 + margin * 5);
-                _helpLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight * 3);
-                _stateEntry.Frame = new CGRect(margin, topMargin + controlHeight * 3 + 2 * margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _queryExtentButton.Frame = new CGRect(margin, topMargin + 4 * controlHeight + 3 * margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
-                _queryStateButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, topMargin + 4 * controlHeight + 3 * margin, View.Bounds.Width / 2 - margin, controlHeight);
-                _resultsLabel.Frame = new CGRect(margin, topMargin + 5 * controlHeight + 4 * margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _myMapView.ViewInsets = new UIEdgeInsets(_toolbar.Frame.Bottom, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            toolbar.Items = new[]
             {
-            }
+                new UIBarButtonItem("Count in extent", UIBarButtonItemStyle.Plain, CountFeatures_Click),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Zoom to query", UIBarButtonItemStyle.Plain, ZoomToQuery_Click)
+            };
+            
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
+
+            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            
+            _resultLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _resultLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _resultLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _resultLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
         }
     }
 }

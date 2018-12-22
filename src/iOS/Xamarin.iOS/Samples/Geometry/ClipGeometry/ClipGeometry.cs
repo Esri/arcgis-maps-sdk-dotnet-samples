@@ -28,12 +28,8 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         "")]
     public class ClipGeometry : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _helpToolbar = new UIToolbar();
-        private readonly UIToolbar _controlsToolbar = new UIToolbar();
-        private UIButton _clipButton;
-        private UILabel _sampleInstructionsLabel;
+        // Hold references to the UI controls.
+        private MapView _myMapView;
 
         // Graphics overlay to display input geometries for the clip operation.
         private GraphicsOverlay _inputGeometriesGraphicsOverlay;
@@ -64,34 +60,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
-
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, toolbarHeight, 0);
-                _helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
-                _controlsToolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _sampleInstructionsLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _clipButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
@@ -237,7 +206,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
                 }
 
                 // Disable the button after has been used.
-                _clipButton.Enabled = false;
+                (sender as UIBarButtonItem).Enabled = false;
             }
             catch (Exception ex)
             {
@@ -248,25 +217,33 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             }
         }
 
-        private void CreateLayout()
+        public override void LoadView()
         {
-            // Create a UITextView for the overall sample instructions.
-            _sampleInstructionsLabel = new UILabel
+            View = new UIView {BackgroundColor = UIColor.White};
+            
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            View.AddSubviews(_myMapView, toolbar);
+
+            toolbar.Items = new[]
             {
-                Text = "Tap 'Clip' to clip the blue graphic with red envelopes.",
-                Lines = 1,
-                AdjustsFontSizeToFitWidth = true
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Clip geometries", UIBarButtonItemStyle.Plain, ClipButton_TouchUpInside),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
+            
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
 
-            // Create a UIButton to clip the polygons.
-            _clipButton = new UIButton();
-            _clipButton.SetTitle("Clip", UIControlState.Normal);
-            _clipButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            // - Hook to touch event to clip the polygons.
-            _clipButton.TouchUpInside += ClipButton_TouchUpInside;
-
-            // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _sampleInstructionsLabel, _clipButton);
+            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
         }
     }
 }

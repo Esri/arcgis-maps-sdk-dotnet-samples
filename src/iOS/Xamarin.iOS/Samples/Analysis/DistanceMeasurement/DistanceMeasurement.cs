@@ -29,13 +29,9 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         "Featured")]
     public class DistanceMeasurement : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly UIToolbar _helpToolbar = new UIToolbar();
+        // Hold references to the UI controls.
         private SceneView _mySceneView;
-        private UILabel _helpLabel;
         private UILabel _resultLabel;
-        private UIToolbar _resultArea;
-        private UIButton _unitChangeButton;
 
         // URLs to various services used to provide an interesting scene for the sample.
         private readonly Uri _buildingService = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
@@ -116,43 +112,6 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             }
         }
 
-        private void CreateLayout()
-        {
-            // Create the scene view.
-            _mySceneView = new SceneView();
-
-            // Create the help label.
-            _helpLabel = new UILabel
-            {
-                Text = "Tap to update.",
-                TextAlignment = UITextAlignment.Center
-            };
-
-            // Create the result label.
-            _resultLabel = new UILabel
-            {
-                TextAlignment = UITextAlignment.Center,
-                AdjustsFontSizeToFitWidth = true
-            };
-
-            // Create the result toolbar.
-            _resultArea = new UIToolbar();
-
-            // Create the unit change button.
-            _unitChangeButton = new UIButton();
-            _unitChangeButton.SetTitle("Unit systems", UIControlState.Normal);
-            _unitChangeButton.BackgroundColor = View.TintColor;
-            _unitChangeButton.SetTitleColor(UIColor.White, UIControlState.Normal);
-            _unitChangeButton.Layer.CornerRadius = 10;
-            _unitChangeButton.ClipsToBounds = true;
-
-            // Handle the unit change button press.
-            _unitChangeButton.TouchUpInside += UnitChangeButton_TouchUpInside;
-
-            // Add views to the page.
-            View.AddSubviews(_mySceneView, _helpToolbar, _resultArea, _helpLabel, _resultLabel, _unitChangeButton);
-        }
-
         private void UnitChangeButton_TouchUpInside(object sender, EventArgs e)
         {
             // Create the view controller that will present the list of unit systems.
@@ -182,35 +141,62 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
 
         public override void ViewDidLoad()
         {
-            CreateLayout();
-            Initialize();
-
             base.ViewDidLoad();
+            Initialize();
         }
 
-        public override void ViewDidLayoutSubviews()
+        private void ShowHelp_Click(object sender, EventArgs e)
         {
-            try
+            // Prompt for the type of convex hull to create.
+            UIAlertController unionAlert = UIAlertController.Create("Tap to update", "Tap in the scene to set a new end point for the distance measurement.", UIAlertControllerStyle.Alert);
+            unionAlert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Default, null));
+            
+            // Show the alert.
+            PresentViewController(unionAlert, true, null);
+        }
+        
+        public override void LoadView()
+        {
+            View = new UIView {BackgroundColor = UIColor.White};
+            
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            // Create the label.
+            _resultLabel = new UILabel()
             {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat toolbarHeight = 40;
-                nfloat controlHeight = 30;
+                Text = "Tap to measure distance.",
+                BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
+                TextColor = UIColor.White,
+                TextAlignment = UITextAlignment.Center,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            
+            View.AddSubviews(_mySceneView, toolbar, _resultLabel);
 
-                // Reposition the views.
-                _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, toolbarHeight, 0);
-                _helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, 40);
-                _helpLabel.Frame = new CGRect(5, topMargin + 5, View.Bounds.Width - 10, controlHeight);
-                _resultArea.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _resultLabel.Frame = new CGRect(10, View.Bounds.Height - toolbarHeight + 5, View.Bounds.Width - 20, toolbarHeight - 10);
-                _unitChangeButton.Frame = new CGRect(View.Bounds.Width / 4, View.Bounds.Height - 3 * toolbarHeight, View.Bounds.Width / 2, toolbarHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            toolbar.Items = new[]
             {
-            }
+                new UIBarButtonItem("Help", UIBarButtonItemStyle.Plain, ShowHelp_Click),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Change units", UIBarButtonItemStyle.Plain, UnitChangeButton_TouchUpInside)
+            };
+            
+            _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _mySceneView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
+
+            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            
+            _resultLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _resultLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _resultLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _resultLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
         }
     }
 }

@@ -77,14 +77,6 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
             _loadStatusLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
         }
 
-        public override void ViewDidLayoutSubviews()
-        {
-            base.ViewDidLayoutSubviews();
-
-            // Ensure that the map is centered on the visible portion of the MapView.
-            _myMapView.ViewInsets = new UIEdgeInsets(_loadStatusLabel.Frame.Bottom, 0, 0, 0);
-        }
-
         private void OnMapsLoadStatusChanged(object sender, LoadStatusEventArgs e)
         {
             // Make sure that the UI changes are done in the UI thread.

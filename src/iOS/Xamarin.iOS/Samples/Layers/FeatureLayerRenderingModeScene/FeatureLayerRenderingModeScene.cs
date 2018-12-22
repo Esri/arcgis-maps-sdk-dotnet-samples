@@ -26,12 +26,10 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
         "Press the 'Animated Zoom' button to trigger a zoom. Observe the differences between the two scenes.")]
     public class FeatureLayerRenderingModeScene : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly UILabel _staticLabel = new UILabel {Text = "Static"};
-        private readonly UILabel _dynamicLabel = new UILabel {Text = "Dynamic"};
-        private readonly UIButton _zoomButton = new UIButton(UIButtonType.RoundedRect);
-        private readonly SceneView _myStaticSceneView = new SceneView();
-        private readonly SceneView _myDynamicSceneView = new SceneView();
+        // Hold references to the UI controls.
+        private SceneView _staticSceneView;
+        private SceneView _dynamicSceneView;
+        private UIStackView _stackView;
 
         // Points for demonstrating zoom.
         private readonly MapPoint _zoomedOutPoint = new MapPoint(-118.37, 34.46, SpatialReferences.Wgs84);
@@ -89,36 +87,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
             }
 
             // Add the scenes to the scene views.
-            _myStaticSceneView.Scene = staticScene;
-            _myDynamicSceneView.Scene = dynamicScene;
-        }
-
-        private void CreateLayout()
-        {
-            // Set zoom button text.
-            _zoomButton.SetTitle("Animated zoom", UIControlState.Normal);
-
-            // Set label and button colors.
-            _zoomButton.SetTitleColor(UIColor.White, UIControlState.Normal);
-            _zoomButton.BackgroundColor = View.TintColor;
-            _zoomButton.Layer.CornerRadius = 5;
-
-            _staticLabel.TextColor = UIColor.Black;
-            _staticLabel.ShadowColor = UIColor.White;
-            _dynamicLabel.TextColor = UIColor.Black;
-            _dynamicLabel.ShadowColor = UIColor.White;
-
-            // Hide attribution text because there is already a scene with attribution text visible.
-            _myStaticSceneView.IsAttributionTextVisible = false;
-
-            // Subscribe to button press events.
-            _zoomButton.TouchUpInside += _zoomButton_TouchUpInside;
-
-            // Add views to page.
-            View.AddSubviews(_myStaticSceneView, _myDynamicSceneView, _staticLabel, _dynamicLabel, _zoomButton);
-
-            // Set view background.
-            View.BackgroundColor = UIColor.White;
+            _staticSceneView.Scene = staticScene;
+            _dynamicSceneView.Scene = dynamicScene;
         }
 
         private void _zoomButton_TouchUpInside(object sender, EventArgs e)
@@ -126,13 +96,13 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
             // Zoom out if zoomed.
             if (_zoomed)
             {
-                _myStaticSceneView.SetViewpointCameraAsync(_zoomedOutCamera, new TimeSpan(0, 0, 5));
-                _myDynamicSceneView.SetViewpointCameraAsync(_zoomedOutCamera, new TimeSpan(0, 0, 5));
+                _staticSceneView.SetViewpointCameraAsync(_zoomedOutCamera, new TimeSpan(0, 0, 5));
+                _dynamicSceneView.SetViewpointCameraAsync(_zoomedOutCamera, new TimeSpan(0, 0, 5));
             }
             else // Zoom in otherwise.
             {
-                _myStaticSceneView.SetViewpointCameraAsync(_zoomedInCamera, new TimeSpan(0, 0, 5));
-                _myDynamicSceneView.SetViewpointCameraAsync(_zoomedInCamera, new TimeSpan(0, 0, 5));
+                _staticSceneView.SetViewpointCameraAsync(_zoomedInCamera, new TimeSpan(0, 0, 5));
+                _dynamicSceneView.SetViewpointCameraAsync(_zoomedInCamera, new TimeSpan(0, 0, 5));
             }
 
             // Toggle zoom state.
@@ -141,33 +111,83 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 
         public override void ViewDidLoad()
         {
-            CreateLayout();
-            Initialize();
-
             base.ViewDidLoad();
+            Initialize();
         }
-
-        public override void ViewDidLayoutSubviews()
+        
+        public override void LoadView()
         {
-            try
+            View = new UIView {BackgroundColor = UIColor.White};
+            
+            _staticSceneView = new SceneView();
+            _staticSceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _dynamicSceneView = new SceneView();
+            _dynamicSceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            _stackView = new UIStackView(new UIView[] {_staticSceneView, _dynamicSceneView});
+            _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _stackView.Distribution = UIStackViewDistribution.FillEqually;
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            UILabel staticLabel = new UILabel()
             {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat centerLine = (View.Bounds.Height - topMargin) / 2;
-                nfloat buttonWidth = 150;
-                nfloat startingLeft = View.Bounds.Width / 2 - buttonWidth / 2;
+                Text = "Static",
+                BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
+                TextColor = UIColor.White,
+                TextAlignment = UITextAlignment.Center,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            
+            UILabel dynamicLabel = new UILabel()
+            {
+                Text = "Dynamic",
+                BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
+                TextColor = UIColor.White,
+                TextAlignment = UITextAlignment.Center,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
 
-                // Reposition the controls.
-                _myStaticSceneView.Frame = new CGRect(0, topMargin, View.Bounds.Width, centerLine);
-                _myDynamicSceneView.Frame = new CGRect(0, centerLine + topMargin, View.Bounds.Width, View.Bounds.Height - topMargin - centerLine);
-                _staticLabel.Frame = new CGRect(10, topMargin + 5, View.Bounds.Width / 2, 30);
-                _dynamicLabel.Frame = new CGRect(10, centerLine + topMargin + 30, View.Bounds.Width / 2, 30);
-                _zoomButton.Frame = new CGRect(startingLeft, centerLine + topMargin - 15, buttonWidth, 30);
+            View.AddSubviews(_stackView, toolbar, staticLabel, dynamicLabel);
+            
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Zoom", UIBarButtonItemStyle.Plain, _zoomButton_TouchUpInside),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), 
+            };
 
-                base.ViewDidLayoutSubviews();
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _stackView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+                _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                staticLabel.TopAnchor.ConstraintEqualTo(_staticSceneView.TopAnchor),
+                staticLabel.HeightAnchor.ConstraintEqualTo(40),
+                staticLabel.LeadingAnchor.ConstraintEqualTo(_staticSceneView.LeadingAnchor),
+                staticLabel.TrailingAnchor.ConstraintEqualTo(_staticSceneView.TrailingAnchor),
+                dynamicLabel.TopAnchor.ConstraintEqualTo(_dynamicSceneView.TopAnchor),
+                dynamicLabel.HeightAnchor.ConstraintEqualTo(40),
+                dynamicLabel.LeadingAnchor.ConstraintEqualTo(_dynamicSceneView.LeadingAnchor),
+                dynamicLabel.TrailingAnchor.ConstraintEqualTo(_dynamicSceneView.TrailingAnchor)
+            });
+        }
+        
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            base.TraitCollectionDidChange(previousTraitCollection);
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                _stackView.Axis = UILayoutConstraintAxis.Horizontal;
             }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            else
             {
+                _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
         }
     }

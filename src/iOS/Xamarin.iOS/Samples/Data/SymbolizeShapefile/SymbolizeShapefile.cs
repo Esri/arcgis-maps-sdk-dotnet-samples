@@ -29,14 +29,9 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
         "Click the button to switch renderers. ")]
     public class SymbolizeShapefile : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-
-        private readonly UIButton _myRendererButton = new UIButton
-        {
-            Enabled = false
-        };
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UIBarButtonItem _changeRendererButton;
 
         // Hold reference to the feature layer so that its renderer can be changed when button is pushed.
         private FeatureLayer _shapefileFeatureLayer;
@@ -94,27 +89,13 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
                 _myMapView.Map = myMap;
 
                 // Enable changing symbology now that sample is loaded.
-                _myRendererButton.Enabled = true;
+                _changeRendererButton.Enabled = true;
             }
             catch (Exception e)
             {
                 new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
         }
-
-        private void CreateLayout()
-        {
-            // Configure the renderer button.
-            _myRendererButton.SetTitle("Change renderer", UIControlState.Normal);
-            _myRendererButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-
-            // Subscribe to button press events.
-            _myRendererButton.TouchUpInside += Button_Clicked;
-
-            // Add views to the page.
-            View.AddSubviews(_myMapView, _toolbar, _myRendererButton);
-        }
-
         private void Button_Clicked(object sender, System.EventArgs e)
         {
             // Toggle the renderer.
@@ -130,31 +111,41 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
 
         public override void ViewDidLoad()
         {
-            CreateLayout();
-            Initialize();
-
             base.ViewDidLoad();
+            Initialize();
         }
-
-        public override void ViewDidLayoutSubviews()
+        
+        public override void LoadView()
         {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat toolbarHeight = 40;
+            View = new UIView {BackgroundColor = UIColor.White};
+            
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            View.AddSubviews(_myMapView, toolbar);
 
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-                _myRendererButton.Frame = new CGRect(0, View.Bounds.Height - 35, View.Bounds.Width, 30);
+            _changeRendererButton =
+                new UIBarButtonItem("Change renderer", UIBarButtonItemStyle.Plain, Button_Clicked);
+            _changeRendererButton.Enabled = false;
 
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            toolbar.Items = new[]
             {
-            }
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _changeRendererButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+            
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
+
+            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
         }
     }
 }

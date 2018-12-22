@@ -28,12 +28,9 @@ namespace ArcGISRuntime.Samples.CutGeometry
         "")]
     public class CutGeometry : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _helpToolbar = new UIToolbar();
-        private readonly UIToolbar _buttonToolbar = new UIToolbar();
-        private UIButton _cutButton;
-        private UITextView _helpLabel;
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UIBarButtonItem _cutButton;
 
         // Graphics overlay to display the graphics.
         private GraphicsOverlay _graphicsOverlay;
@@ -52,33 +49,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat controlHeight = 30;
-
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _helpToolbar.Frame = new CGRect(0, topStart, View.Bounds.Width, controlHeight + 2 * margin);
-                _buttonToolbar.Frame = new CGRect(0, View.Bounds.Height - controlHeight - 2 * margin, View.Bounds.Width, controlHeight + 2 * margin);
-                _helpLabel.Frame = new CGRect(margin, topStart + margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _cutButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _myMapView.ViewInsets = new UIEdgeInsets(topStart + _helpToolbar.Frame.Height, 0, _buttonToolbar.Frame.Height, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
@@ -224,25 +195,35 @@ namespace ArcGISRuntime.Samples.CutGeometry
             return new Polygon(lakeSuperiorPointCollection);
         }
 
-        private void CreateLayout()
+        public override void LoadView()
         {
-            // Create a UITextView for the overall sample instructions.
-            _helpLabel = new UITextView
+            View = new UIView {BackgroundColor = UIColor.White};
+            
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            View.AddSubviews(_myMapView, toolbar);
+
+            _cutButton = new UIBarButtonItem("Cut geometry", UIBarButtonItemStyle.Plain, CutButton_TouchUpInside);
+
+            toolbar.Items = new[]
             {
-                Text = "Tap 'Cut' to cut the polygon with the polyline.",
-                TextAlignment = UITextAlignment.Center,
-                BackgroundColor = UIColor.FromWhiteAlpha(0, 0)
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _cutButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
+            
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
 
-            // Create a UIButton to cut the polygons.
-            _cutButton = new UIButton();
-            _cutButton.SetTitle("Cut", UIControlState.Normal);
-            _cutButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            // - Hook to touch event to cut the polygons.
-            _cutButton.TouchUpInside += CutButton_TouchUpInside;
-
-            // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _helpToolbar, _buttonToolbar, _helpLabel, _cutButton);
+            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
         }
     }
 }

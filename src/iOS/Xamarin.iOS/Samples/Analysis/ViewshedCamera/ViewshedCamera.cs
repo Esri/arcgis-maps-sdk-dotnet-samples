@@ -26,10 +26,8 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         "", "Featured")]
     public class ViewshedCamera : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly SceneView _mySceneView = new SceneView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private UIButton _updateViewshedButton;
+        // Hold references to the UI controls.
+        private SceneView _mySceneView;
 
         // URL for a scene service of buildings in Brest, France.
         private const string BuildingsServiceUrl = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0";
@@ -49,8 +47,6 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            CreateLayout();
             Initialize();
         }
 
@@ -89,39 +85,33 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
             _viewshedForCamera.UpdateFromCamera(_mySceneView.Camera);
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void LoadView()
         {
-            try
+            View = new UIView {BackgroundColor = UIColor.White};
+            
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            View.AddSubviews(_mySceneView, toolbar);
+
+            toolbar.Items = new[]
             {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Viewshed from here", UIBarButtonItemStyle.Plain, UpdateObserverWithCamera),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+            
+            _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _mySceneView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
 
-                // Reposition the controls.
-                _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _updateViewshedButton.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
-        }
-
-        private void CreateLayout()
-        {
-            // Create a button to update the viewshed using the current camera.
-            _updateViewshedButton = new UIButton();
-            _updateViewshedButton.SetTitle("Viewshed from here", UIControlState.Normal);
-            _updateViewshedButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _updateViewshedButton.TouchUpInside += UpdateObserverWithCamera;
-
-            // Add controls to the view.
-            View.AddSubviews(_mySceneView, _toolbar, _updateViewshedButton);
+            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
         }
     }
 }

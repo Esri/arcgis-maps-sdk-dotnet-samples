@@ -29,11 +29,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
     public class FeatureLayerRenderingModeMap : UIViewController
     {
         // Hold references to the UI controls.
-        private MapView _myMapViewTop;
-        private MapView _myMapViewBottom;
-        private UIButton _zoomButton;
-        private UILabel _staticLabel;
-        private UILabel _dynamicLabel;
+        private MapView _staticMapView;
+        private MapView _dynamicMapView;
+        private UIStackView _stackView;
 
         // Hold references to the two views.
         private Viewpoint _zoomOutPoint;
@@ -47,44 +45,18 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            CreateLayout();
             Initialize();
         }
 
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat centerLine = (View.Bounds.Height - topMargin) / 2;
-                nfloat buttonWidth = 150;
-                nfloat startingLeft = View.Bounds.Width / 2 - buttonWidth / 2;
-
-                // Reposition the views.
-                _myMapViewTop.Frame = new CGRect(0, topMargin, View.Bounds.Width, centerLine);
-                _myMapViewBottom.Frame = new CGRect(0, centerLine + topMargin, View.Bounds.Width, View.Bounds.Height - topMargin - centerLine);
-                _staticLabel.Frame = new CGRect(10, topMargin + 5, View.Bounds.Width / 2, 30);
-                _dynamicLabel.Frame = new CGRect(10, centerLine + topMargin + 30, View.Bounds.Width / 2, 30);
-                _zoomButton.Frame = new CGRect(startingLeft, centerLine + topMargin - 15, buttonWidth, 30);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
-        }
-
-        private void Initialize()
+        private async void Initialize()
         {
             // Viewpoint locations for map view to zoom in and out to.
             _zoomOutPoint = new Viewpoint(new MapPoint(-118.37, 34.46, SpatialReferences.Wgs84), 650000, 0);
             _zoomInPoint = new Viewpoint(new MapPoint(-118.45, 34.395, SpatialReferences.Wgs84), 50000, 90);
 
             // Configure the maps.
-            _myMapViewBottom.Map = new Map();
-            _myMapViewTop.Map = new Map();
+            _dynamicMapView.Map = new Map();
+            _staticMapView.Map = new Map();
 
             // Create service feature table using a point, polyline, and polygon service.
             ServiceFeatureTable pointServiceFeatureTable = new ServiceFeatureTable(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/0"));
@@ -104,58 +76,24 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
             {
                 // Add the static layer to the top map view.
                 layer.RenderingMode = FeatureRenderingMode.Static;
-                _myMapViewTop.Map.OperationalLayers.Add(layer);
+                _staticMapView.Map.OperationalLayers.Add(layer);
 
                 // Add the dynamic layer to the bottom map view.
                 FeatureLayer dynamicLayer = (FeatureLayer) layer.Clone();
                 dynamicLayer.RenderingMode = FeatureRenderingMode.Dynamic;
-                _myMapViewBottom.Map.OperationalLayers.Add(dynamicLayer);
+                _dynamicMapView.Map.OperationalLayers.Add(dynamicLayer);
             }
 
-            // Set the view point of both MapViews.
-            _myMapViewTop.SetViewpoint(_zoomOutPoint);
-            _myMapViewBottom.SetViewpoint(_zoomOutPoint);
-        }
-
-        private void CreateLayout()
-        {
-            // Create and hold a reference to the used MapView.
-            _myMapViewTop = new MapView();
-            _myMapViewBottom = new MapView();
-
-            // Hide the top attribution bar because there is already another one visible.
-            _myMapViewTop.IsAttributionTextVisible = false;
-
-            // Add a button at the bottom to show webmap choices.
-            _zoomButton = new UIButton(UIButtonType.RoundedRect)
+            try
             {
-                BackgroundColor = View.TintColor
-            };
-            _zoomButton.Layer.CornerRadius = 5;
-            _zoomButton.SetTitle("Animated zoom", UIControlState.Normal);
-            _zoomButton.SetTitleColor(UIColor.White, UIControlState.Normal);
-            _zoomButton.TouchUpInside += OnZoomClick;
-
-            // Create and add the labels.
-            _staticLabel = new UILabel
+                // Set the view point of both MapViews.
+                await _staticMapView.SetViewpointAsync(_zoomOutPoint);
+                await _dynamicMapView.SetViewpointAsync(_zoomOutPoint);
+            }
+            catch (Exception e)
             {
-                Text = "Static",
-                TextColor = UIColor.Black,
-                ShadowColor = UIColor.White
-            };
-
-            _dynamicLabel = new UILabel
-            {
-                Text = "Dynamic",
-                TextColor = UIColor.Black,
-                ShadowColor = UIColor.White
-            };
-
-            // Add MapView to the page.
-            View.AddSubviews(_myMapViewTop, _myMapViewBottom, _zoomButton, _staticLabel, _dynamicLabel);
-
-            // Set the view background.
-            View.BackgroundColor = UIColor.White;
+                Console.WriteLine(e);
+            }
         }
 
         private async void OnZoomClick(object sender, EventArgs e)
@@ -163,21 +101,97 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
             try
             {
                 // Initiate task to zoom both map views in.  
-                Task t1 = _myMapViewTop.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
-                Task t2 = _myMapViewBottom.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
+                Task t1 = _staticMapView.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
+                Task t2 = _dynamicMapView.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
                 await Task.WhenAll(t1, t2);
 
                 // Delay start of next set of zoom tasks.
                 await Task.Delay(2000);
 
                 // Initiate task to zoom both map views out. 
-                Task t3 = _myMapViewTop.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
-                Task t4 = _myMapViewBottom.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
+                Task t3 = _staticMapView.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
+                Task t4 = _dynamicMapView.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
                 await Task.WhenAll(t3, t4);
             }
             catch (Exception ex)
             {
                 new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
+        }
+        
+        public override void LoadView()
+        {
+            View = new UIView {BackgroundColor = UIColor.White};
+            
+            _staticMapView = new MapView();
+            _staticMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _dynamicMapView = new MapView();
+            _dynamicMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            _stackView = new UIStackView(new UIView[] {_staticMapView, _dynamicMapView});
+            _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _stackView.Distribution = UIStackViewDistribution.FillEqually;
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            UILabel staticLabel = new UILabel()
+            {
+                Text = "Static",
+                BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
+                TextColor = UIColor.White,
+                TextAlignment = UITextAlignment.Center,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            
+            UILabel dynamicLabel = new UILabel()
+            {
+                Text = "Dynamic",
+                BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
+                TextColor = UIColor.White,
+                TextAlignment = UITextAlignment.Center,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            View.AddSubviews(_stackView, toolbar, staticLabel, dynamicLabel);
+            
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Zoom", UIBarButtonItemStyle.Plain, OnZoomClick),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), 
+            };
+
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _stackView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+                _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                staticLabel.TopAnchor.ConstraintEqualTo(_staticMapView.TopAnchor),
+                staticLabel.HeightAnchor.ConstraintEqualTo(40),
+                staticLabel.LeadingAnchor.ConstraintEqualTo(_staticMapView.LeadingAnchor),
+                staticLabel.TrailingAnchor.ConstraintEqualTo(_staticMapView.TrailingAnchor),
+                dynamicLabel.TopAnchor.ConstraintEqualTo(_dynamicMapView.TopAnchor),
+                dynamicLabel.HeightAnchor.ConstraintEqualTo(40),
+                dynamicLabel.LeadingAnchor.ConstraintEqualTo(_dynamicMapView.LeadingAnchor),
+                dynamicLabel.TrailingAnchor.ConstraintEqualTo(_dynamicMapView.TrailingAnchor)
+            });
+        }
+        
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            base.TraitCollectionDidChange(previousTraitCollection);
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                _stackView.Axis = UILayoutConstraintAxis.Horizontal;
+            }
+            else
+            {
+                _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
         }
     }

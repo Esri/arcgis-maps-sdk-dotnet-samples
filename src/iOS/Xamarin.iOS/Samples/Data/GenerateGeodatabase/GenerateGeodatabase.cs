@@ -38,15 +38,10 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         "1. Pan and zoom to the area you would like to download features for, ensuring that all features are within the rectangle.\n2. Tap on the button. This will start the process of generating the offline geodatabase.\n3. Observe that the sample unregisters the geodatabase. This is best practice when changes won't be edited and synced back to the service.\n\nNote that the basemap will be automatically downloaded from an ArcGIS Online portal.")]
     public class GenerateGeodatabase : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIProgressView _progressBar = new UIProgressView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-
-        private readonly UIButton _generateButton = new UIButton
-        {
-            Enabled = false
-        };
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UIProgressView _progressBar;
+        private UIBarButtonItem _generateButton;
 
         // URL for a feature service that supports geodatabase generation.
         private readonly Uri _featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer");
@@ -68,44 +63,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
-
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _generateButton.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _progressBar.Frame = new CGRect(0, View.Bounds.Height - 42, View.Bounds.Width, 2);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
-        }
-
-        private void CreateLayout()
-        {
-            _generateButton.SetTitle("Generate", UIControlState.Normal);
-            _generateButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _generateButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
-            _generateButton.TouchUpInside += GenerateButton_Clicked;
-
-            // Add the views.
-            View.AddSubviews(_myMapView, _toolbar, _generateButton);
         }
 
         private async void Initialize()
@@ -236,9 +194,6 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             // Handle the progress changed event (to show progress bar).
             _generateGdbJob.ProgressChanged += (sender, e) => { UpdateProgressBar(); };
 
-            // Show the progress bar.
-            View.AddSubview(_progressBar);
-
             // Start the job.
             _generateGdbJob.Start();
 
@@ -300,9 +255,6 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                     _generateButton.Enabled = true;
                     break;
             }
-
-            // Hide the progress bar.
-            _progressBar.RemoveFromSuperview();
         }
 
         private void ShowStatusMessage(string message)
@@ -342,6 +294,47 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 // Update the progress bar value.
                 _progressBar.Progress = _generateGdbJob.Progress / 100.0f;
             });
+        }
+        
+        public override void LoadView()
+        {
+            View = new UIView {BackgroundColor = UIColor.White};
+            
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            _progressBar = new UIProgressView();
+            _progressBar.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            View.AddSubviews(_myMapView, toolbar, _progressBar);
+
+            _generateButton =
+                new UIBarButtonItem("Generate geodatabase", UIBarButtonItemStyle.Plain, GenerateButton_Clicked);
+            _generateButton.Enabled = false;
+
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _generateButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+            
+            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
+
+            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+
+            _progressBar.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
+            _progressBar.HeightAnchor.ConstraintEqualTo(8).Active = true;
+            _progressBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _progressBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
         }
     }
 }

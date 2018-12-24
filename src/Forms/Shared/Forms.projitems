@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="$(MSBuildThisFileDirectory)Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.jpg" />
@@ -142,6 +143,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="$(MSBuildThisFileDirectory)Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml.cs">
+		<DependentUpon>ChangeAtmosphereEffect.xaml</DependentUpon>
+		<SubType>Code</SubType>
+	</Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\IdentifyLayers\IdentifyLayers.xaml.cs">
       <DependentUpon>IdentifyLayers.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -562,6 +567,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\IdentifyLayers\IdentifyLayers.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

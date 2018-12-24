@@ -1,0 +1,103 @@
+﻿// Copyright 2018 Esri.
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// language governing permissions and limitations under the License.
+
+using System;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
+using Foundation;
+using UIKit;
+
+namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
+{
+    [Register("ChangeAtmosphereEffect")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Change atmosphere effect",
+        "Map",
+        "Change the appearance of the atmosphere in a scene.",
+        "",
+        "3D", "AtmosphereEffect", "Scene")]
+    public class ChangeAtmosphereEffect : UIViewController
+    {
+        // Hold references to UI controls.
+        private SceneView _mySceneView;
+        private UISegmentedControl _atmosphereEffectPicker;
+
+        private readonly string _elevationServiceUrl = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
+
+        public ChangeAtmosphereEffect()
+        {
+            Title = "Change atmosphere effect";
+        }
+
+        private void Initialize()
+        {
+            // Create the scene with a basemap.
+            _mySceneView.Scene = new Scene(Basemap.CreateImagery());
+            
+            // Add an elevation source to the scene.
+            Surface surface = new Surface();
+            surface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri(_elevationServiceUrl)));
+            _mySceneView.Scene.BaseSurface = surface;
+
+            // Set the initial viewpoint.
+            Camera camera = new Camera(64.416919, -14.483728, 100, 318, 105, 0);
+            _mySceneView.SetViewpointCamera(camera);
+
+            // Apply the selected atmosphere effect option.
+            _atmosphereEffectPicker.ValueChanged += (o, e) =>
+            {
+                switch (_atmosphereEffectPicker.SelectedSegment)
+                {
+                    case 0:
+                        _mySceneView.AtmosphereEffect = AtmosphereEffect.Realistic;
+                        break;
+                    case 1:
+                        _mySceneView.AtmosphereEffect = AtmosphereEffect.HorizonOnly;
+                        break;
+                    case 2:
+                        _mySceneView.AtmosphereEffect = AtmosphereEffect.None;
+                        break;
+                }
+            };
+        }
+
+        public override void LoadView()
+        {
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _atmosphereEffectPicker = new UISegmentedControl("Realistic", "Horizon only", "None");
+            _atmosphereEffectPicker.TranslatesAutoresizingMaskIntoConstraints = false;
+            _atmosphereEffectPicker.SelectedSegment = 1;
+            _atmosphereEffectPicker.TintColor = UIColor.White;
+            _atmosphereEffectPicker.BackgroundColor = UIColor.Black;
+            _atmosphereEffectPicker.Layer.CornerRadius = 4;
+            _atmosphereEffectPicker.ClipsToBounds = true;
+
+            View = new UIView();
+            View.AddSubviews(_mySceneView, _atmosphereEffectPicker);
+
+            _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+
+            _atmosphereEffectPicker.TopAnchor.ConstraintEqualTo(_mySceneView.TopAnchor, 8).Active = true;
+            _atmosphereEffectPicker.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 8).Active = true;
+            _atmosphereEffectPicker.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8).Active = true;
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+    }
+}

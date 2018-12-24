@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<Content Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
     <Content Include="Samples\Geometry\SpatialOperations\SpatialOperations.jpg" />
     <Content Include="Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
     <Content Include="Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
@@ -292,6 +293,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.xaml.cs">
+		<DependentUpon>TerrainExaggeration.xaml</DependentUpon>
+	</Compile>
     <Compile Include="Samples\Geometry\SpatialOperations\SpatialOperations.xaml.cs">
       <DependentUpon>SpatialOperations.xaml</DependentUpon>
     </Compile>
@@ -697,6 +701,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<Page Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.xaml">
+		<Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
     <Page Include="Samples\Geometry\SpatialOperations\SpatialOperations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

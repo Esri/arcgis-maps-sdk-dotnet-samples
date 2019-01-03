@@ -39,29 +39,18 @@ namespace ArcGISRuntime.Samples.FindPlace
         private LocatorTask _geocoder;
 
         // Service URI to be provided to the LocatorTask (geocoder).
-        private readonly Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+        private readonly Uri _serviceUri =
+            new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
         // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UITextField _searchBox = new UITextField();
-        private readonly UITextField _locationBox = new UITextField();
-        private readonly UITableView _suggestionView = new UITableView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-
-        private readonly UIButton _searchButton = new UIButton(UIButtonType.RoundedRect)
-        {
-            BackgroundColor = UIColor.White
-        };
-
-        private readonly UIButton _searchRestrictedButton = new UIButton(UIButtonType.RoundedRect)
-        {
-            BackgroundColor = UIColor.White
-        };
-
-        private readonly UIActivityIndicatorView _activityView = new UIActivityIndicatorView
-        {
-            Hidden = true
-        };
+        private MapView _myMapView = new MapView();
+        private UITextField _searchBox;
+        private UITextField _locationBox;
+        private UITableView _suggestionView;
+        private UIView _toolbar;
+        private UIButton _searchButton;
+        private UIButton _searchRestrictedButton;
+        private UIActivityIndicatorView _activityView;
 
         // Hold a suggestion source for the suggestion list view.
         private SuggestionSource _mySuggestionSource;
@@ -77,50 +66,51 @@ namespace ArcGISRuntime.Samples.FindPlace
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            // Create the UI, setup the control references, and execute initialization.
-            CreateLayout();
             Initialize();
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void LoadView()
         {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat width = View.Frame.Width - 2 * margin;
-                nfloat halfWidth = View.Frame.Width / 2 - 2 * margin;
+            View = new UIView {BackgroundColor = UIColor.White};
+            UIView formContainer = new UIView {BackgroundColor = UIColor.FromWhiteAlpha(1f, .8f)};
+            formContainer.TranslatesAutoresizingMaskIntoConstraints = false;
 
-                // Reposition the views.
-                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, controlHeight * 3 + margin * 4);
-                _myMapView.ViewInsets = new UIEdgeInsets(_toolbar.Frame.Bottom, 0, 0, 0);
-                _searchBox.Frame = new CGRect(margin, topMargin += margin, width, controlHeight);
-                _locationBox.Frame = new CGRect(margin, topMargin += margin + controlHeight, width, controlHeight);
-                _searchButton.Frame = new CGRect(margin, topMargin += margin + controlHeight, halfWidth, controlHeight);
-                _searchRestrictedButton.Frame = new CGRect(halfWidth + 3 * margin, topMargin, halfWidth, controlHeight);
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _suggestionView.Frame = new CGRect(2 * margin, topMargin + controlHeight, width - 2 * margin, 8 * controlHeight);
-                _activityView.Frame = new CGRect(0, _toolbar.Frame.Top, View.Bounds.Width, _toolbar.Frame.Height);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
-        }
-
-        private void CreateLayout()
-        {
-            // Set the text on the two buttons.
-            _searchButton.SetTitle("Search all", UIControlState.Normal);
-            _searchRestrictedButton.SetTitle("Search in view", UIControlState.Normal);
-
-            // Set the default location and search text.
-            _locationBox.Text = "Current location";
+            _searchBox = new UITextField();
+            _searchBox.TranslatesAutoresizingMaskIntoConstraints = false;
             _searchBox.Text = "Coffee";
+            _searchBox.BorderStyle = UITextBorderStyle.RoundedRect;
+            _searchBox.LeftView = new UIView(new CGRect(0, 0, 5, 20));
+            _searchBox.LeftViewMode = UITextFieldViewMode.Always;
+
+            _locationBox = new UITextField();
+            _locationBox.TranslatesAutoresizingMaskIntoConstraints = false;
+            _locationBox.Text = "Current location";
+            _locationBox.BorderStyle = UITextBorderStyle.RoundedRect;
+            _locationBox.LeftView = new UIView(new CGRect(0, 0, 5, 20));
+            _locationBox.LeftViewMode = UITextFieldViewMode.Always;
+
+            _searchButton = new UIButton(UIButtonType.RoundedRect);
+            _searchButton.BackgroundColor = UIColor.White;
+            _searchButton.TranslatesAutoresizingMaskIntoConstraints = false;
+            _searchButton.SetTitle("Search all", UIControlState.Normal);
+            _searchButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+            _searchButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _searchButton.Layer.CornerRadius = 5;
+            _searchButton.Layer.BorderColor = View.TintColor.CGColor;
+            _searchButton.Layer.BorderWidth = 1;
+
+            _searchRestrictedButton = new UIButton(UIButtonType.RoundedRect);
+            _searchRestrictedButton.BackgroundColor = UIColor.White;
+            _searchRestrictedButton.TranslatesAutoresizingMaskIntoConstraints = false;
+            _searchRestrictedButton.SetTitle("Search in view", UIControlState.Normal);
+            _searchRestrictedButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+            _searchRestrictedButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _searchRestrictedButton.Layer.CornerRadius = 5;
+            _searchRestrictedButton.Layer.BorderColor = View.TintColor.CGColor;
+            _searchRestrictedButton.Layer.BorderWidth = 1;
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Allow pressing 'return' to dismiss the keyboard.
             _locationBox.ShouldReturn += textField =>
@@ -134,56 +124,59 @@ namespace ArcGISRuntime.Samples.FindPlace
                 return true;
             };
 
-            // Gray out the buttons when they are disabled.
-            _searchButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
-            _searchRestrictedButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
-
-            // Change button color when enabled.
-            _searchButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _searchRestrictedButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-
-            // Hide the activity indicator (progress bar) when stopped.
+            _activityView = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
+            _activityView.TranslatesAutoresizingMaskIntoConstraints = false;
             _activityView.HidesWhenStopped = true;
             _activityView.ActivityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge;
             _activityView.BackgroundColor = UIColor.FromWhiteAlpha(0, .5f);
 
-            // Make the textboxes look nice.
-            _locationBox.BorderStyle = UITextBorderStyle.RoundedRect;
-            _searchBox.BorderStyle = UITextBorderStyle.RoundedRect;
-
-            // Make the buttons look nice.
-            _searchButton.Layer.CornerRadius = 5;
-            _searchRestrictedButton.Layer.CornerRadius = 5;
-
-            // Make sure the suggestion list is hidden by default.
+            _suggestionView = new UITableView();
+            _suggestionView.TranslatesAutoresizingMaskIntoConstraints = false;
             _suggestionView.Hidden = true;
-
-            // Create the suggestion source.
             _mySuggestionSource = new SuggestionSource(null, this);
-
-            // Set the source for the table view.
             _suggestionView.Source = _mySuggestionSource;
+            _suggestionView.RowHeight = 24;
 
-            // Enable tap-for-info pattern on results.
-            _myMapView.GeoViewTapped += MapView_GeoViewTapped;
-
-            // Listen for taps on the search buttons.
-            _searchButton.TouchUpInside += SearchButton_Touched;
-            _searchRestrictedButton.TouchUpInside += SearchRestrictedButton_Touched;
-
-            // Listen for text-changed events.
-            _searchBox.AllEditingEvents += SearchBox_TextChanged;
-            _locationBox.AllEditingEvents += LocationBox_TextChanged;
-
-            // Set padding on the text views.
-            _searchBox.LeftView = new UIView(new CGRect(0, 0, 5, 20));
-            _searchBox.LeftViewMode = UITextFieldViewMode.Always;
-            _locationBox.LeftView = new UIView(new CGRect(0, 0, 5, 20));
-            _locationBox.LeftViewMode = UITextFieldViewMode.Always;
-
-            // Add the views.
-            View.AddSubviews(_myMapView, _toolbar, _searchBox, _locationBox, _searchButton,
+            View.AddSubviews(_myMapView, formContainer, _searchBox, _locationBox, _searchButton,
                 _searchRestrictedButton, _activityView, _suggestionView);
+
+            _myMapView.TopAnchor.ConstraintEqualTo(formContainer.BottomAnchor).Active = true;
+            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+
+            _searchBox.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
+            _searchBox.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 8).Active = true;
+            _searchBox.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8).Active = true;
+
+            _locationBox.TopAnchor.ConstraintEqualTo(_searchBox.BottomAnchor, 8).Active = true;
+            _locationBox.LeadingAnchor.ConstraintEqualTo(_searchBox.LeadingAnchor).Active = true;
+            _locationBox.TrailingAnchor.ConstraintEqualTo(_searchBox.TrailingAnchor).Active = true;
+
+            _searchButton.TopAnchor.ConstraintEqualTo(_locationBox.BottomAnchor, 8).Active = true;
+            _searchButton.LeadingAnchor.ConstraintEqualTo(_searchBox.LeadingAnchor).Active = true;
+            _searchButton.TrailingAnchor.ConstraintEqualTo(View.CenterXAnchor, -4).Active = true;
+            _searchButton.HeightAnchor.ConstraintEqualTo(32).Active = true;
+
+            _searchRestrictedButton.TopAnchor.ConstraintEqualTo(_searchButton.TopAnchor).Active = true;
+            _searchRestrictedButton.LeadingAnchor.ConstraintEqualTo(View.CenterXAnchor, 4).Active = true;
+            _searchRestrictedButton.TrailingAnchor.ConstraintEqualTo(_searchBox.TrailingAnchor).Active = true;
+            _searchRestrictedButton.HeightAnchor.ConstraintEqualTo(32).Active = true;
+
+            formContainer.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            formContainer.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            formContainer.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            formContainer.BottomAnchor.ConstraintEqualTo(_searchRestrictedButton.BottomAnchor, 8).Active = true;
+
+            _activityView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _activityView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            _activityView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _activityView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+
+            _suggestionView.TopAnchor.ConstraintEqualTo(formContainer.BottomAnchor, 8).Active = true;
+            _suggestionView.LeadingAnchor.ConstraintEqualTo(_locationBox.LeadingAnchor, 8).Active = true;
+            _suggestionView.TrailingAnchor.ConstraintEqualTo(_locationBox.TrailingAnchor, -8).Active = true;
+            _suggestionView.HeightAnchor.ConstraintEqualTo(_suggestionView.RowHeight * 4).Active = true;
         }
 
         private async void Initialize()
@@ -205,6 +198,17 @@ namespace ArcGISRuntime.Samples.FindPlace
             _searchBox.Enabled = true;
             _searchButton.Enabled = true;
             _searchRestrictedButton.Enabled = true;
+
+            // Enable tap-for-info pattern on results.
+            _myMapView.GeoViewTapped += MapView_GeoViewTapped;
+
+            // Listen for taps on the search buttons.
+            _searchButton.TouchUpInside += SearchButton_Touched;
+            _searchRestrictedButton.TouchUpInside += SearchRestrictedButton_Touched;
+
+            // Listen for text-changed events.
+            _searchBox.AllEditingEvents += SearchBox_TextChanged;
+            _locationBox.AllEditingEvents += LocationBox_TextChanged;
         }
 
         private void LocationDisplay_LocationChanged(object sender, Esri.ArcGISRuntime.Location.Location e)
@@ -299,7 +303,8 @@ namespace ArcGISRuntime.Samples.FindPlace
             if (locations.Count < 1)
             {
                 _activityView.StopAnimating(); // 1. Hide the progress bar.
-                new UIAlertView("alert", "No results found", (IUIAlertViewDelegate) null, "OK", null).Show(); // 2. Show a message.
+                new UIAlertView("alert", "No results found", (IUIAlertViewDelegate) null, "OK", null)
+                    .Show(); // 2. Show a message.
                 return; // 3. Stop.
             }
 
@@ -368,7 +373,8 @@ namespace ArcGISRuntime.Samples.FindPlace
         private async void MapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Search for the graphics underneath the user's tap.
-            IReadOnlyList<IdentifyGraphicsOverlayResult> results = await _myMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
+            IReadOnlyList<IdentifyGraphicsOverlayResult> results =
+                await _myMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
 
             // Clear callouts and return if there was no result.
             if (results.Count < 1 || results.First().Graphics.Count < 1)
@@ -401,7 +407,8 @@ namespace ArcGISRuntime.Samples.FindPlace
         /// <param name="poiOnly">If true, restricts suggestions to only Points of Interest (e.g. businesses, parks),
         /// rather than all matching results.</param>
         /// <returns>List of suggestions as strings or null if suggestions couldn't be retrieved.</returns>
-        private async Task<List<string>> GetSuggestResultsAsync(string searchText, string location = "", bool poiOnly = false)
+        private async Task<List<string>> GetSuggestResultsAsync(string searchText, string location = "",
+            bool poiOnly = false)
         {
             // Quit if string is null, empty, or whitespace.
             if (String.IsNullOrWhiteSpace(searchText))
@@ -521,10 +528,13 @@ namespace ArcGISRuntime.Samples.FindPlace
         /// </summary>
         private async void SearchRestrictedButton_Touched(object sender, EventArgs e)
         {
-            // Dismiss callout, if any.
             try
             {
+                // Dismiss callout, if any.
                 UserInteracted();
+
+                // Hide the suggestions.
+                _suggestionView.Hidden = true;
 
                 // Get the search text.
                 string searchText = _searchBox.Text;
@@ -547,10 +557,13 @@ namespace ArcGISRuntime.Samples.FindPlace
         /// </summary>
         private async void SearchButton_Touched(object sender, EventArgs e)
         {
-            // Dismiss callout, if any.
             try
             {
+                // Dismiss callout, if any.
                 UserInteracted();
+
+                // Hide the suggestions.
+                _suggestionView.Hidden = true;
 
                 // Get the search text.
                 string searchText = _searchBox.Text;
@@ -600,6 +613,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             _myMapView.DismissCallout();
         }
     }
+
     /// <summary>
     /// Class defines how a UITableView renders its contents.
     /// This implements the suggestion UI for the table view.
@@ -633,7 +647,8 @@ namespace ArcGISRuntime.Samples.FindPlace
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             // Try to get a re-usable cell (this is for performance). If there are no cells, create a new one.
-            UITableViewCell cell = tableView.DequeueReusableCell(CellId) ?? new UITableViewCell(UITableViewCellStyle.Default, CellId);
+            UITableViewCell cell = tableView.DequeueReusableCell(CellId) ??
+                                   new UITableViewCell(UITableViewCellStyle.Default, CellId);
 
             // Set the text on the cell.
             cell.TextLabel.Text = TableItems[indexPath.Row];

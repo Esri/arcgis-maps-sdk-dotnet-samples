@@ -16,7 +16,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using ArcGISRuntime.Samples.Managers;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -28,7 +27,9 @@ using UIKit;
 namespace ArcGISRuntime.Samples.Animate3DGraphic
 {
     [Register("Animate3DGraphic")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("290f0c571c394461a8b58b6775d0bd63", "e87c154fb9c2487f999143df5b08e9b1", "5a9b60cee9ba41e79640a06bcdf8084d", "12509ffdc684437f8f2656b0129d2c13", "681d6f7694644709a7c830ec57a2d72b")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("290f0c571c394461a8b58b6775d0bd63",
+        "e87c154fb9c2487f999143df5b08e9b1", "5a9b60cee9ba41e79640a06bcdf8084d", "12509ffdc684437f8f2656b0129d2c13",
+        "681d6f7694644709a7c830ec57a2d72b")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Animate 3D graphic",
         "GraphicsOverlay",
@@ -37,31 +38,26 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         "Featured")]
     public class Animate3DGraphic : UIViewController
     {
-        // Create and hold references to UI controls.
-        private readonly MapView _insetMapView = new MapView();
-        private readonly SceneView _mySceneView = new SceneView {AtmosphereEffect = AtmosphereEffect.Realistic};
-        private readonly UIToolbar _controlToolbox = new UIToolbar();
-        private readonly UIButton _missionControlButton = new UIButton();
-        private readonly UIButton _cameraControlButton = new UIButton();
-        private readonly UIButton _statsControlButton = new UIButton();
-        private readonly UIButton _playButton = new UIButton();
-        private readonly UILabel _altitudeLabel = new UILabel();
-        private readonly UILabel _headingLabel = new UILabel();
-        private readonly UILabel _pitchLabel = new UILabel();
-        private readonly UILabel _rollLabel = new UILabel();
-        private readonly UILabel _progressLabel = new UILabel();
-        private readonly UILabel _altitudeLabelLabel = new UILabel {Text = "Altitude:"};
-        private readonly UILabel _headingLabelLabel = new UILabel {Text = "Heading:"};
-        private readonly UILabel _pitchLabelLabel = new UILabel {Text = "Pitch:"};
-        private readonly UILabel _rollLabelLabel = new UILabel {Text = "Roll:"};
-        private readonly UILabel _progressLabelLabel = new UILabel {Text = "Progress:"};
-        private readonly UIToolbar _statsFrame = new UIToolbar();
-
-        // List of labels; this simplifies the code for adding and removing the labels from the layout.
-        private List<UILabel> _statsLabels;
+        // Hold references to UI controls.
+        private MapView _insetMapView;
+        private SceneView _mySceneView;
+        private UIToolbar _controlToolbox;
+        private UIBarButtonItem _playButton;
+        private UILabel _altitudeLabel;
+        private UILabel _headingLabel;
+        private UILabel _pitchLabel;
+        private UILabel _rollLabel;
+        private UILabel _progressLabel;
+        private UILabel _altitudeLabelLabel;
+        private UILabel _headingLabelLabel;
+        private UILabel _pitchLabelLabel;
+        private UILabel _rollLabelLabel;
+        private UILabel _progressLabelLabel;
+        private UIView _statsFrame;
 
         // URL to the elevation service - provides terrain elevation.
-        private readonly Uri _elevationServiceUrl = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+        private readonly Uri _elevationServiceUrl =
+            new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
         // Graphic for highlighting the route in the inset map.
         private Graphic _routeGraphic;
@@ -215,7 +211,8 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         private void ShowMissionOptions(object sender, EventArgs eventArgs)
         {
             // Create the view controller that will present the list of missions.
-            UIAlertController missionSelectionAlert = UIAlertController.Create("Select a mission", "", UIAlertControllerStyle.ActionSheet);
+            UIAlertController missionSelectionAlert =
+                UIAlertController.Create("Select a mission", "", UIAlertControllerStyle.ActionSheet);
 
             // Needed to prevent a crash on iPad.
             UIPopoverPresentationController presentationPopover = missionSelectionAlert.PopoverPresentationController;
@@ -229,38 +226,26 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             foreach (string item in _missionToItemId.Keys)
             {
                 // Selecting the mission will call the ChangeMission method.
-                missionSelectionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, async action => await ChangeMission(item)));
+                missionSelectionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default,
+                    async action => await ChangeMission(item)));
             }
 
             // Show the alert.
             PresentViewController(missionSelectionAlert, true, null);
         }
 
-        private void ToggleStatsDisplay()
+        private void ToggleStatsDisplay(object sender, EventArgs e)
         {
             // Toggle the stats display field.
             _showStats = !_showStats;
 
             if (_showStats)
             {
-                View.AddSubview(_statsFrame);
+                _statsFrame.Hidden = false;
             }
             else
             {
-                _statsFrame.RemoveFromSuperview();
-            }
-
-            // Either show or hide each label.
-            foreach (UILabel label in _statsLabels)
-            {
-                if (_showStats)
-                {
-                    View.AddSubviews(label);
-                }
-                else
-                {
-                    label.RemoveFromSuperview();
-                }
+                _statsFrame.Hidden = true;
             }
         }
 
@@ -290,7 +275,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             _keyframe = 0;
 
             // Set the _playButton button back to the currently 'playing' state
-            _playButton.SetTitle("Pause", UIControlState.Normal);
+            _playButton.Title = "Pause";
 
             // Restart the animation.
             _animationTimer.Start();
@@ -327,10 +312,10 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             InvokeOnMainThread(() =>
             {
                 // Update stats display.
-                _altitudeLabel.Text = $"{currentFrame.Elevation:F}m";
-                _headingLabel.Text = $"{currentFrame.Heading:F}°";
-                _pitchLabel.Text = $"{currentFrame.Pitch:F}°";
-                _rollLabel.Text = $"{currentFrame.Roll:F}°";
+                _altitudeLabel.Text = $"{currentFrame.Elevation:F} m";
+                _headingLabel.Text = $"{currentFrame.Heading:F}\u00b0";
+                _pitchLabel.Text = $"{currentFrame.Pitch:F}\u00b0";
+                _rollLabel.Text = $"{currentFrame.Roll:F}\u00b0";
                 _progressLabel.Text = $"{missionProgress * 100:F}%";
             });
 
@@ -366,23 +351,23 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             return DataManager.GetDataFolder(itemId, filename);
         }
 
-        private void TogglePlayMission()
+        private void TogglePlayMission(object sender, EventArgs e)
         {
-            if (_playButton.Title(UIControlState.Normal) == "Play")
+            if (_playButton.Title == "Play")
             {
                 // Resume playing.
-                _playButton.SetTitle("Pause", UIControlState.Normal);
+                _playButton.Title = "Pause";
                 _animationTimer.Start();
             }
             else
             {
                 // Pause.
-                _playButton.SetTitle("Play", UIControlState.Normal);
+                _playButton.Title = "Play";
                 _animationTimer.Stop();
             }
         }
 
-        private void ToggleFollowPlane()
+        private void ToggleFollowPlane(object sender, EventArgs e)
         {
             // Update the flag.
             _shouldFollowPlane = !_shouldFollowPlane;
@@ -394,103 +379,131 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
         public override void ViewDidLoad()
         {
-            CreateLayout();
-            Initialize();
             base.ViewDidLoad();
+            Initialize();
         }
 
-        private void CreateLayout()
+        public override void LoadView()
         {
-            // Set the titles for the primary buttons.
-            _missionControlButton.SetTitle("Mission", UIControlState.Normal);
-            _cameraControlButton.SetTitle("Camera", UIControlState.Normal);
-            _statsControlButton.SetTitle("Stats", UIControlState.Normal);
-            _playButton.SetTitle("Pause", UIControlState.Normal);
-            _missionControlButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _cameraControlButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _statsControlButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _playButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            View = new UIView {BackgroundColor = UIColor.White};
 
-            // Allow for selecting a mission.
-            _missionControlButton.TouchUpInside += ShowMissionOptions;
+            _controlToolbox = new UIToolbar();
+            _controlToolbox.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            // Allow for pausing the mission.
-            _playButton.TouchUpInside += (sender, args) => TogglePlayMission();
+            _statsFrame = new UIView {BackgroundColor = UIColor.FromWhiteAlpha(.8f, .6f)};
+            _statsFrame.TranslatesAutoresizingMaskIntoConstraints = false;
+            _statsFrame.Hidden = true;
 
-            // Allow for toggling display of statistics.
-            _statsControlButton.TouchUpInside += (sender, args) => ToggleStatsDisplay();
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            // Allow for toggling the camera.
-            _cameraControlButton.TouchUpInside += (sender, args) => ToggleFollowPlane();
+            _insetMapView = new MapView();
+            _insetMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _insetMapView.IsAttributionTextVisible = false;
 
-            // Populate the list of labels (simplifies the process of adding and removing the labels from the UI).
-            _statsLabels = new List<UILabel>
+            _playButton = new UIBarButtonItem("Pause", UIBarButtonItemStyle.Plain, TogglePlayMission);
+            _playButton.Width = 100;
+
+            _controlToolbox.Items = new[]
             {
-                _altitudeLabel,
-                _altitudeLabelLabel,
-                _pitchLabel,
-                _pitchLabelLabel,
-                _rollLabel,
-                _rollLabelLabel,
-                _headingLabel,
-                _headingLabelLabel,
-                _progressLabel,
-                _progressLabelLabel
+                new UIBarButtonItem("Mission", UIBarButtonItemStyle.Plain, ShowMissionOptions),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Camera", UIBarButtonItemStyle.Plain, ToggleFollowPlane),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Stats", UIBarButtonItemStyle.Plain, ToggleStatsDisplay),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _playButton,
             };
 
-            // Add views to page.
-            // Only views that are visible by default are included.
-            View.AddSubviews(_mySceneView, _insetMapView, _controlToolbox, _missionControlButton, _statsControlButton, _cameraControlButton, _playButton);
-        }
+            View.AddSubviews(_mySceneView, _insetMapView, _statsFrame, _controlToolbox);
 
-        public override void ViewDidLayoutSubviews()
-        {
-            try
+            _altitudeLabel = new UILabel();
+            _headingLabel = new UILabel();
+            _pitchLabel = new UILabel();
+            _rollLabel = new UILabel();
+            _progressLabel = new UILabel();
+            _altitudeLabelLabel = new UILabel {Text = "Altitude:"};
+            _headingLabelLabel = new UILabel {Text = "Heading:"};
+            _pitchLabelLabel = new UILabel {Text = "Pitch:"};
+            _rollLabelLabel = new UILabel {Text = "Roll:"};
+            _progressLabelLabel = new UILabel {Text = "Mission progress:"};
+            UILabel[] labels =
             {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat labelHeight = 20;
-                nfloat controlHeight = 30;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
+                _altitudeLabel, _headingLabel, _pitchLabel, _rollLabel, _progressLabel, _altitudeLabelLabel,
+                _headingLabelLabel, _pitchLabelLabel, _rollLabelLabel, _progressLabelLabel
+            };
 
-                // Update the map frames.
-                _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _insetMapView.Frame = new CGRect(10, View.Bounds.Height - toolbarHeight - 35 - 100, 100, 100);
 
-                // Update the control layout.
-                _controlToolbox.Frame = new CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-                nfloat controlWidth = (View.Bounds.Width - 20) / 4;
-                nfloat controlYOffset = View.Bounds.Height - controlHeight - margin;
-                _missionControlButton.Frame = new CGRect(margin, controlYOffset, controlWidth, controlHeight);
-                _cameraControlButton.Frame = new CGRect(_missionControlButton.Frame.Right + margin, controlYOffset, controlWidth, controlHeight);
-                _statsControlButton.Frame = new CGRect(_cameraControlButton.Frame.Right + margin, controlYOffset, controlWidth, controlHeight);
-                _playButton.Frame = new CGRect(_statsControlButton.Frame.Right + margin, controlYOffset, controlWidth, controlHeight);
-
-                // Layout stats display.
-                nfloat halfWidth = View.Bounds.Width / 2;
-                _altitudeLabel.Frame = new CGRect(halfWidth, topMargin + margin, halfWidth, labelHeight);
-                _headingLabel.Frame = new CGRect(halfWidth, topMargin + labelHeight + 2 * margin, halfWidth, labelHeight);
-                _pitchLabel.Frame = new CGRect(halfWidth, topMargin + 2 * labelHeight + 3 * margin, halfWidth, labelHeight);
-                _rollLabel.Frame = new CGRect(halfWidth, topMargin + 3 * labelHeight + 4 * margin, halfWidth, labelHeight);
-                _progressLabel.Frame = new CGRect(halfWidth, topMargin + 4 * labelHeight + 5 * margin, halfWidth, labelHeight);
-
-                // Layout stats display labels.
-                _altitudeLabelLabel.Frame = new CGRect(10, topMargin + margin, halfWidth - 10, 20);
-                _headingLabelLabel.Frame = new CGRect(10, topMargin + labelHeight + 2 * margin, halfWidth - 10, 20);
-                _pitchLabelLabel.Frame = new CGRect(10, topMargin + 2 * labelHeight + 3 * margin, halfWidth - 10, 20);
-                _rollLabelLabel.Frame = new CGRect(10, topMargin + 3 * labelHeight + 4 * margin, halfWidth - 10, 20);
-                _progressLabelLabel.Frame = new CGRect(10, topMargin + 4 * labelHeight + 5 * margin, halfWidth - 10, 20);
-
-                _statsFrame.Frame = new CGRect(0, topMargin, View.Bounds.Width, 5 * labelHeight + 6 * margin);
-
-                _mySceneView.ViewInsets = new UIEdgeInsets(topMargin, 0, 40, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            foreach (var label in labels)
             {
+                label.TranslatesAutoresizingMaskIntoConstraints = false;
+                _statsFrame.AddSubview(label);
+                label.TextAlignment = UITextAlignment.Right;
             }
+
+            NSLayoutConstraint.ActivateConstraints(new NSLayoutConstraint[]
+            {
+                _controlToolbox.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _controlToolbox.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _controlToolbox.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+
+                _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(_controlToolbox.TopAnchor),
+
+                _insetMapView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 16),
+                _insetMapView.BottomAnchor.ConstraintEqualTo(_mySceneView.BottomAnchor, -40),
+                _insetMapView.WidthAnchor.ConstraintEqualTo(96),
+                _insetMapView.HeightAnchor.ConstraintEqualTo(96),
+
+                _statsFrame.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _statsFrame.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _statsFrame.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _statsFrame.BottomAnchor.ConstraintEqualTo(_progressLabel.BottomAnchor, 8),
+
+                _altitudeLabelLabel.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 8),
+                _headingLabelLabel.LeadingAnchor.ConstraintEqualTo(_altitudeLabelLabel.LeadingAnchor),
+                _pitchLabelLabel.LeadingAnchor.ConstraintEqualTo(_altitudeLabelLabel.LeadingAnchor),
+                _rollLabelLabel.LeadingAnchor.ConstraintEqualTo(_altitudeLabelLabel.LeadingAnchor),
+                _progressLabelLabel.LeadingAnchor.ConstraintEqualTo(_altitudeLabelLabel.LeadingAnchor),
+
+                _altitudeLabelLabel.HeightAnchor.ConstraintEqualTo(28),
+                _headingLabelLabel.HeightAnchor.ConstraintEqualTo(_altitudeLabelLabel.HeightAnchor),
+                _pitchLabelLabel.HeightAnchor.ConstraintEqualTo(_altitudeLabelLabel.HeightAnchor),
+                _rollLabelLabel.HeightAnchor.ConstraintEqualTo(_altitudeLabelLabel.HeightAnchor),
+                _progressLabelLabel.HeightAnchor.ConstraintEqualTo(_altitudeLabelLabel.HeightAnchor),
+
+                _altitudeLabelLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8),
+                _headingLabelLabel.TopAnchor.ConstraintEqualTo(_altitudeLabelLabel.BottomAnchor, 8),
+                _pitchLabelLabel.TopAnchor.ConstraintEqualTo(_headingLabelLabel.BottomAnchor, 8),
+                _rollLabelLabel.TopAnchor.ConstraintEqualTo(_pitchLabelLabel.BottomAnchor, 8),
+                _progressLabelLabel.TopAnchor.ConstraintEqualTo(_rollLabelLabel.BottomAnchor, 8),
+
+                _altitudeLabel.WidthAnchor.ConstraintEqualTo(96),
+                _headingLabel.WidthAnchor.ConstraintEqualTo(_altitudeLabel.WidthAnchor),
+                _pitchLabel.WidthAnchor.ConstraintEqualTo(_altitudeLabel.WidthAnchor),
+                _rollLabel.WidthAnchor.ConstraintEqualTo(_altitudeLabel.WidthAnchor),
+                _progressLabel.WidthAnchor.ConstraintEqualTo(_altitudeLabel.WidthAnchor),
+
+                _altitudeLabel.CenterYAnchor.ConstraintEqualTo(_altitudeLabelLabel.CenterYAnchor),
+                _headingLabel.CenterYAnchor.ConstraintEqualTo(_headingLabelLabel.CenterYAnchor),
+                _pitchLabel.CenterYAnchor.ConstraintEqualTo(_pitchLabelLabel.CenterYAnchor),
+                _rollLabel.CenterYAnchor.ConstraintEqualTo(_rollLabelLabel.CenterYAnchor),
+                _progressLabel.CenterYAnchor.ConstraintEqualTo(_progressLabelLabel.CenterYAnchor),
+
+                _altitudeLabel.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
+                _headingLabel.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
+                _pitchLabel.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
+                _rollLabel.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
+                _progressLabel.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
+
+                _altitudeLabel.LeadingAnchor.ConstraintEqualTo(_altitudeLabelLabel.TrailingAnchor),
+                _headingLabel.LeadingAnchor.ConstraintEqualTo(_headingLabelLabel.TrailingAnchor),
+                _pitchLabel.LeadingAnchor.ConstraintEqualTo(_pitchLabelLabel.TrailingAnchor),
+                _rollLabel.LeadingAnchor.ConstraintEqualTo(_rollLabelLabel.TrailingAnchor),
+                _progressLabel.LeadingAnchor.ConstraintEqualTo(_progressLabelLabel.TrailingAnchor)
+            });
         }
 
         /// <summary>

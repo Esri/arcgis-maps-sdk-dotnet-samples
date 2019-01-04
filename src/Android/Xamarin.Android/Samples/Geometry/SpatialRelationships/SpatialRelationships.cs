@@ -166,28 +166,28 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
             // Add the point relationships to the output
             if (selectedGeometry.GeometryType != GeometryType.Point)
             {
-                output += "\tRelationship(s) with Point:\n";
+                output += "    Relationship(s) with Point:\n";
                 foreach (SpatialRelationship relationship in pointRelationships)
                 {
-                    output += $"\t\t{relationship}\n";
+                    output += $"        {relationship}\n";
                 }
             }
             // Add the polygon relationships to the output
             if (selectedGeometry.GeometryType != GeometryType.Polygon)
             {
-                output += "\tRelationship(s) with Polygon:\n";
+                output += "    Relationship(s) with Polygon:\n";
                 foreach (SpatialRelationship relationship in polygonRelationships)
                 {
-                    output += $"\t\t{relationship}\n";
+                    output += $"        {relationship}\n";
                 }
             }
             // Add the polyline relationships to the output
             if (selectedGeometry.GeometryType != GeometryType.Polyline)
             {
-                output += "\tRelationship(s) with Polyline:\n";
+                output += "    Relationship(s) with Polyline:\n";
                 foreach (SpatialRelationship relationship in polylineRelationships)
                 {
-                    output += $"\t\t{relationship}\n";
+                    output += $"        {relationship}\n";
                 }
             }
 
@@ -224,7 +224,7 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
 
             // Create a Textview for the results.
             _resultTextView = new TextView(this);
-            _resultTextView.SetMinHeight(350);
+            _resultTextView.SetMinLines(7);
 
             //Add the labels to the layout.
             layout.AddView(helpLabel);

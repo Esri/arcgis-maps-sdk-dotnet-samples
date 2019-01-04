@@ -313,9 +313,9 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             {
                 // Update stats display.
                 _altitudeLabel.Text = $"{currentFrame.Elevation:F} m";
-                _headingLabel.Text = $"{currentFrame.Heading:F}\u00b0";
-                _pitchLabel.Text = $"{currentFrame.Pitch:F}\u00b0";
-                _rollLabel.Text = $"{currentFrame.Roll:F}\u00b0";
+                _headingLabel.Text = $"{currentFrame.Heading:F}\u00B0"; // \u00b0 is the degree symbol
+                _pitchLabel.Text = $"{currentFrame.Pitch:F}\u00B0";
+                _rollLabel.Text = $"{currentFrame.Roll:F}\u00B0";
                 _progressLabel.Text = $"{missionProgress * 100:F}%";
             });
 

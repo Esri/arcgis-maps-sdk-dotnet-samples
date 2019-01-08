@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	  <None Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
     <None Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
     <None Include="Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
 	  <None Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg" />
@@ -249,6 +250,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	  <Compile Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.cs" />
     <Compile Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.cs" />
     <Compile Include="Samples\MapView\IdentifyLayers\IdentifyLayers.cs" />
     <Compile Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.cs" />

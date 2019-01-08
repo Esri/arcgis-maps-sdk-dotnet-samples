@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+﻿// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -42,19 +42,23 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
             _mySceneView.Scene = new Scene(Basemap.CreateNationalGeographic());
 
             // Add the base surface for elevation data.
-            Surface surface = new Surface();
-            surface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri(_elevationServiceUrl)));
+            Surface elevationSurface = new Surface();
+            ArcGISTiledElevationSource elevationSource = new ArcGISTiledElevationSource(new Uri(_elevationServiceUrl));
+            elevationSurface.ElevationSources.Add(elevationSource);
 
             // Add the surface to the scene.
-            _mySceneView.Scene.BaseSurface = surface;
+            _mySceneView.Scene.BaseSurface = elevationSurface;
 
             // Set the initial camera.
             MapPoint initialLocation = new MapPoint(-119.9489, 46.7592, 0, SpatialReferences.Wgs84);
-            Camera camera = new Camera(initialLocation, 15000, 40, 60, 0);
-            _mySceneView.SetViewpointCamera(camera);
+            Camera initialCamera = new Camera(initialLocation, 15000, 40, 60, 0);
+            _mySceneView.SetViewpointCamera(initialCamera);
 
             // Update terrain exaggeration based on the slider value.
-            _terrainSlider.ValueChanged += (sender, e) => { surface.ElevationExaggeration = _terrainSlider.Value; };
+            _terrainSlider.ValueChanged += (sender, e) =>
+            {
+                elevationSurface.ElevationExaggeration = _terrainSlider.Value;
+            };
         }
 
         public override void LoadView()
@@ -73,6 +77,7 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
 
             View.AddSubviews(_mySceneView, toolbar);
 
+            // Put the slider in the center with a fixed width.
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
@@ -80,6 +85,7 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
+            // Set the layout constraints.
             _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _mySceneView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
             _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;

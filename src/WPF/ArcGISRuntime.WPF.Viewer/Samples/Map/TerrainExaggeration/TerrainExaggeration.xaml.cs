@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+﻿// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,22 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.TerrainExaggeration
 {
@@ -48,19 +35,23 @@ namespace ArcGISRuntime.WPF.Samples.TerrainExaggeration
             MySceneView.Scene = new Scene(Basemap.CreateNationalGeographic());
 
             // Add the base surface for elevation data.
-            Surface surface = new Surface();
-            surface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri(_elevationServiceUrl)));
+            Surface elevationSurface = new Surface();
+            ArcGISTiledElevationSource elevationSource = new ArcGISTiledElevationSource(new Uri(_elevationServiceUrl));
+            elevationSurface.ElevationSources.Add(elevationSource);
 
             // Add the surface to the scene.
-            MySceneView.Scene.BaseSurface = surface;
+            MySceneView.Scene.BaseSurface = elevationSurface;
 
             // Set the initial camera.
             MapPoint initialLocation = new MapPoint(-119.9489, 46.7592, 0, SpatialReferences.Wgs84);
-            Camera camera = new Camera(initialLocation, 15000, 40, 60, 0);
-            MySceneView.SetViewpointCamera(camera);
+            Camera initialCamera = new Camera(initialLocation, 15000, 40, 60, 0);
+            MySceneView.SetViewpointCamera(initialCamera);
 
             // Update terrain exaggeration based on the slider value.
-            TerrainSlider.ValueChanged += (sender, e) => { surface.ElevationExaggeration = TerrainSlider.Value; };
+            TerrainSlider.ValueChanged += (sender, e) =>
+            {
+                elevationSurface.ElevationExaggeration = TerrainSlider.Value;
+            };
         }
     }
 }

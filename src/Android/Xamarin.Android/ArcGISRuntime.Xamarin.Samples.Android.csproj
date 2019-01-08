@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg" />
 	<None Include="Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
     <None Include="Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
     <None Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.jpg" />
@@ -247,6 +248,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.cs" />
 	<Compile Include="Samples\MapView\IdentifyLayers\IdentifyLayers.cs" />
     <Compile Include="Samples\Layers\ListKmlContents\ListKmlContents.cs" />
     <Compile Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.cs" />

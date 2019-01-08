@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+﻿// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -35,13 +35,14 @@ namespace ArcGISRuntime.WPF.Samples.ChangeAtmosphereEffect
             MySceneView.Scene = new Scene(Basemap.CreateImagery());
             
             // Add an elevation source to the scene.
-            Surface surface = new Surface();
-            surface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri(_elevationServiceUrl)));
-            MySceneView.Scene.BaseSurface = surface;
+            Surface elevationSurface = new Surface();
+            ArcGISTiledElevationSource elevationSource = new ArcGISTiledElevationSource(new Uri(_elevationServiceUrl));
+            elevationSurface.ElevationSources.Add(elevationSource);
+            MySceneView.Scene.BaseSurface = elevationSurface;
 
             // Set the initial viewpoint.
-            Camera camera = new Camera(64.416919, -14.483728, 100, 318, 105, 0);
-            MySceneView.SetViewpointCamera(camera);
+            Camera initialCamera = new Camera(64.416919, -14.483728, 100, 318, 105, 0);
+            MySceneView.SetViewpointCamera(initialCamera);
 
             // Apply the selected atmosphere effect option.
             RealisticOption.Selected += (sender, e) => MySceneView.AtmosphereEffect = AtmosphereEffect.Realistic;

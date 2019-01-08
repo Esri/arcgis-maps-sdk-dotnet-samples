@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+﻿// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -36,8 +36,8 @@ namespace ArcGISRuntimeXamarin.Samples.ScenePropertiesExpressions
             
             // Set the initial viewpoint for the scene.
             MapPoint point = new MapPoint(83.9, 28.4, 1000, SpatialReferences.Wgs84);
-            Camera camera = new Camera(point, 1000, 0, 50, 0);
-            MySceneView.SetViewpointCamera(camera);
+            Camera initialCamera = new Camera(point, 1000, 0, 50, 0);
+            MySceneView.SetViewpointCamera(initialCamera);
             
             // Create a graphics overlay.
             GraphicsOverlay overlay = new GraphicsOverlay();

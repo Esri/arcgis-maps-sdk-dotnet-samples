@@ -116,6 +116,7 @@
     <!-- Screenshots -->
     <None Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
     <None Include="Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
+	  <None Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg" />
     <None Include="Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
     <None Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.jpg" />
     <None Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.jpg" />
@@ -250,6 +251,7 @@
     <!-- Sample Code -->
     <Compile Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.cs" />
     <Compile Include="Samples\MapView\IdentifyLayers\IdentifyLayers.cs" />
+    <Compile Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.cs" />
     <Compile Include="Samples\Layers\ListKmlContents\ListKmlContents.cs" />
     <Compile Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.cs" />
     <Compile Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.cs" />

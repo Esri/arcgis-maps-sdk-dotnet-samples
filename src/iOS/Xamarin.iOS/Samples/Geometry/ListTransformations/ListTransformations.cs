@@ -31,16 +31,6 @@ namespace ArcGISRuntime.Samples.ListTransformations
         "Featured")]
     public class ListTransformations : UIViewController
     {
-        // Map view control to display a map in the app.
-        private readonly MapView _myMapView = new MapView();
-
-        // Stack view to contain the datum transformation UI.
-        private readonly UIStackView _transformToolsView = new UIStackView();
-
-        // Store the height of each set of controls (may vary on different devices).
-        private nfloat _mapViewHeight;
-        private nfloat _transformToolsHeight;
-
         // Point whose coordinates will be projected using a selected transform.
         private MapPoint _originalPoint;
 
@@ -56,12 +46,11 @@ namespace ArcGISRuntime.Samples.ListTransformations
         // Labels to display the input/output spatial references (WKID).
         private UILabel _inWkidLabel;
         private UILabel _outWkidLabel;
-
-        // Picker to display the datum transformations suitable for the input/output spatial references.
         private UIPickerView _transformationsPicker;
-
-        // Switch to toggle suitable transformations for the current extent.
         private UISwitch _useExtentSwitch;
+        private MapView _myMapView;
+        private UIStackView _transformToolsView;
+        private UIStackView outerStackView;
 
         public ListTransformations()
         {
@@ -71,35 +60,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            // Get the height of the map view and the UI tools view (one half each).
-            _mapViewHeight = (nfloat) (View.Bounds.Height / 2.0);
-            _transformToolsHeight = (nfloat) (View.Bounds.Height / 2.0);
-
-            // Create the UI.
-            CreateLayout();
-
-            // Create a new map, add a point graphic, and fill the datum transformations list.
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition the views.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, _mapViewHeight);
-                _transformToolsView.Frame = new CGRect(0, _mapViewHeight, View.Bounds.Width, _transformToolsHeight);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
@@ -156,80 +117,6 @@ namespace ArcGISRuntime.Samples.ListTransformations
                 // Call a function to create a list of transformations to fill the picker.
                 GetSuitableTransformations(_originalPoint.SpatialReference, mapSpatialReference, _useExtentSwitch.On);
             });
-        }
-
-        private void CreateLayout()
-        {
-            // Place the map view in the upper half of the display.
-            _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, _mapViewHeight);
-
-            // Place the transformations UI in the bottom half.
-            _transformToolsView.Axis = UILayoutConstraintAxis.Vertical;
-            _transformToolsView.Frame = new CGRect(0, _mapViewHeight, View.Bounds.Width, _transformToolsHeight);
-
-            // View for the input/output WKID labels.
-            UIStackView wkidLabelsStackView = new UIStackView(new CGRect(10, 5, View.Bounds.Width - 10, 35))
-            {
-                Axis = UILayoutConstraintAxis.Horizontal
-            };
-
-            // Create a label for the input spatial reference.
-            _inWkidLabel = new UILabel(new CGRect(5, 0, View.Bounds.Width / 2 - 15, 30))
-            {
-                Text = "In WKID = ",
-                TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Black
-            };
-
-            // Create a label for the output spatial reference.
-            _outWkidLabel = new UILabel(new CGRect(View.Bounds.Width / 2 + 5, 0, View.Bounds.Width / 2 - 15, 30))
-            {
-                Text = "Out WKID = ",
-                TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Black
-            };
-
-            // Add the WKID labels to the stack view.
-            wkidLabelsStackView.Add(_inWkidLabel);
-            wkidLabelsStackView.Add(_outWkidLabel);
-
-            // Create a horizontal stack view for the 'use extent' switch and label.
-            UIStackView extentSwitchRow = new UIStackView(new CGRect(20, 35, View.Bounds.Width - 20, 35))
-            {
-                Axis = UILayoutConstraintAxis.Horizontal
-            };
-            _useExtentSwitch = new UISwitch
-            {
-                On = false
-            };
-            _useExtentSwitch.ValueChanged += UseExtentSwitch_ValueChanged;
-
-            // Create a label for the use extent switch.
-            UILabel useExtentLabel = new UILabel(new CGRect(70, 0, View.Bounds.Width - 70, 30))
-            {
-                Text = "Use extent",
-                TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Black
-            };
-
-            // Add the switch and the label to the horizontal stack view.
-            extentSwitchRow.Add(_useExtentSwitch);
-            extentSwitchRow.Add(useExtentLabel);
-
-            // Create a picker for datum transformations.
-            _transformationsPicker = new UIPickerView(new CGRect(20, 70, View.Bounds.Width - 20, 120));
-
-            // Create a text view to show messages.
-            _messagesTextView = new UITextView(new CGRect(20, 200, View.Bounds.Width - 20, 60));
-
-            // Add the controls to the transform UI (stack view).
-            _transformToolsView.AddSubviews(wkidLabelsStackView, extentSwitchRow, _transformationsPicker, _messagesTextView);
-
-            // Add the map view and tools subviews to the view.
-            View.AddSubviews(_myMapView, _transformToolsView);
-
-            // Set the view background color.
-            View.BackgroundColor = UIColor.White;
         }
 
         private void UseExtentSwitch_ValueChanged(object sender, EventArgs e)
@@ -317,6 +204,97 @@ namespace ArcGISRuntime.Samples.ListTransformations
             // Return the projection data path; note that this is not valid by default. 
             //You must manually download the projection engine data and update the path returned here. 
             return "";
+        }
+
+        public override void LoadView()
+        {
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            outerStackView = new UIStackView();
+            outerStackView.TranslatesAutoresizingMaskIntoConstraints = false;
+            outerStackView.Axis = UILayoutConstraintAxis.Vertical;
+            outerStackView.Distribution = UIStackViewDistribution.FillEqually;
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _transformToolsView = new UIStackView();
+            _transformToolsView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _transformToolsView.Axis = UILayoutConstraintAxis.Vertical;
+            _transformToolsView.Spacing = 8;
+            _transformToolsView.LayoutMarginsRelativeArrangement = true;
+            _transformToolsView.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
+
+            _inWkidLabel = new UILabel();
+            _inWkidLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            _outWkidLabel = new UILabel();
+            _outWkidLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UIStackView labelsRow = new UIStackView(new[] {_inWkidLabel, _outWkidLabel});
+            labelsRow.TranslatesAutoresizingMaskIntoConstraints = false;
+            labelsRow.Axis = UILayoutConstraintAxis.Horizontal;
+            labelsRow.Distribution = UIStackViewDistribution.FillEqually;
+            _transformToolsView.AddArrangedSubview(labelsRow);
+
+            _useExtentSwitch = new UISwitch();
+            _useExtentSwitch.TranslatesAutoresizingMaskIntoConstraints = false;
+            _useExtentSwitch.ValueChanged += UseExtentSwitch_ValueChanged;
+            UILabel useExtentSwitchLabel = new UILabel();
+            useExtentSwitchLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            useExtentSwitchLabel.Text = "Use extent";
+
+            UIStackView switchRow = new UIStackView(new UIView[] {_useExtentSwitch, useExtentSwitchLabel});
+            switchRow.TranslatesAutoresizingMaskIntoConstraints = false;
+            switchRow.Axis = UILayoutConstraintAxis.Horizontal;
+            switchRow.Spacing = 8;
+            _transformToolsView.AddArrangedSubview(switchRow);
+
+            _transformationsPicker = new UIPickerView();
+            _transformationsPicker.TranslatesAutoresizingMaskIntoConstraints = false;
+            _transformationsPicker.SetContentCompressionResistancePriority((float)UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Vertical);
+            _transformToolsView.AddArrangedSubview(_transformationsPicker);
+
+            _messagesTextView = new UITextView();
+            _messagesTextView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _messagesTextView.SetContentCompressionResistancePriority((float)UILayoutPriority.Required, UILayoutConstraintAxis.Vertical);
+            _messagesTextView.ScrollEnabled = false;
+            _transformToolsView.AddArrangedSubview(_messagesTextView);
+
+            outerStackView.AddArrangedSubview(_myMapView);
+            outerStackView.AddArrangedSubview(_transformToolsView);
+
+            View.AddSubviews(outerStackView);
+
+            outerStackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            outerStackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor).Active = true;
+            outerStackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor).Active = true;
+            outerStackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+        }
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            base.TraitCollectionDidChange(previousTraitCollection);
+
+            // Reset constraints.
+            outerStackView.RemoveFromSuperview();
+            View.AddSubview(outerStackView);
+
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                outerStackView.Axis = UILayoutConstraintAxis.Horizontal;
+                outerStackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+                outerStackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+                outerStackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor).Active = true;
+                outerStackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+                _transformToolsView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            }
+            else
+            {
+                outerStackView.Axis = UILayoutConstraintAxis.Vertical;
+                outerStackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+                outerStackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor).Active = true;
+                outerStackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor).Active = true;
+                outerStackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            }
         }
     }
 

@@ -113,7 +113,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<Content Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg" />
+    <Content Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
+    <Content Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg" />
     <Content Include="Samples\Geometry\SpatialOperations\SpatialOperations.jpg" />
     <Content Include="Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
     <Content Include="Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
@@ -293,9 +294,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.xaml.cs">
-		<DependentUpon>ScenePropertiesExpressions.xaml</DependentUpon>
-	</Compile>
+    <Compile Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml.cs">
+      <DependentUpon>ChangeAtmosphereEffect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.xaml.cs">
+      <DependentUpon>ScenePropertiesExpressions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Geometry\SpatialOperations\SpatialOperations.xaml.cs">
       <DependentUpon>SpatialOperations.xaml</DependentUpon>
     </Compile>
@@ -701,10 +705,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<Page Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
+    <Page Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Geometry\SpatialOperations\SpatialOperations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

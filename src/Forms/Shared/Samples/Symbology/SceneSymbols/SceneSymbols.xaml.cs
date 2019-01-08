@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+﻿// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -41,9 +41,9 @@ namespace ArcGISRuntimeXamarin.Samples.SceneSymbols
 
             // Add a surface to the scene for elevation.
             ArcGISTiledElevationSource elevationSource = new ArcGISTiledElevationSource(new Uri(_elevationServiceUrl));
-            Surface surface = new Surface();
-            surface.ElevationSources.Add(elevationSource);
-            MySceneView.Scene.BaseSurface = surface;
+            Surface elevationSurface = new Surface();
+            elevationSurface.ElevationSources.Add(elevationSource);
+            MySceneView.Scene.BaseSurface = elevationSurface;
 
             // Create the graphics overlay.
             GraphicsOverlay overlay = new GraphicsOverlay();
@@ -54,7 +54,8 @@ namespace ArcGISRuntimeXamarin.Samples.SceneSymbols
             // Create a graphic for each symbol type and add it to the scene.
             int index = 0;
             Color[] colors = {Color.Red, Color.Green, Color.Blue, Color.Purple, Color.Turquoise, Color.White};
-            foreach (SimpleMarkerSceneSymbolStyle symbolStyle in Enum.GetValues(typeof(SimpleMarkerSceneSymbolStyle)))
+            Array symbolStyles = Enum.GetValues(typeof(SimpleMarkerSceneSymbolStyle));
+            foreach (SimpleMarkerSceneSymbolStyle symbolStyle in symbolStyles)
             {
                 // Create the symbol.
                 SimpleMarkerSceneSymbol symbol = new SimpleMarkerSceneSymbol(symbolStyle, colors[index], 200, 200, 200, SceneSymbolAnchorPosition.Center);
@@ -64,10 +65,10 @@ namespace ArcGISRuntimeXamarin.Samples.SceneSymbols
                 MapPoint point = new MapPoint(44.975 + positionOffset, 29, 500, SpatialReferences.Wgs84);
 
                 // Create the graphic from the geometry and the symbol.
-                Graphic graphic = new Graphic(point, symbol);
+                Graphic item = new Graphic(point, symbol);
 
                 // Add the graphic to the overlay.
-                overlay.Graphics.Add(graphic);
+                overlay.Graphics.Add(item);
 
                 // Increment the index.
                 index++;
@@ -77,7 +78,7 @@ namespace ArcGISRuntimeXamarin.Samples.SceneSymbols
             MySceneView.GraphicsOverlays.Add(overlay);
 
             // Set the initial viewpoint.
-            Camera initalViewpoint = new Camera(29, 45, 8000, 90, 0, 0);
+            Camera initalViewpoint = new Camera(29, 45, 6000, 0, 0, 0);
             MySceneView.SetViewpointCamera(initalViewpoint);
         }
     }

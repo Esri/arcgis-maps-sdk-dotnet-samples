@@ -112,6 +112,12 @@
     <Compile Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.xaml.cs">
       <DependentUpon>TerrainExaggeration.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml.cs">
+      <DependentUpon>ChangeAtmosphereEffect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.xaml.cs">
+      <DependentUpon>ScenePropertiesExpressions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Geometry\SpatialOperations\SpatialOperations.xaml.cs">
       <DependentUpon>SpatialOperations.xaml</DependentUpon>
     </Compile>
@@ -539,6 +545,14 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1114,6 +1128,12 @@
   <ItemGroup>
     <!-- Screenshots -->
     <Content Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Geometry\SpatialOperations\SpatialOperations.jpg">

@@ -88,7 +88,7 @@ namespace ArcGISRuntimeXamarin.Samples.SceneSymbols
             _mySceneView.GraphicsOverlays.Add(overlay);
 
             // Set the initial viewpoint.
-            Camera initalViewpoint = new Camera(29, 45, 6000, 0, 0, 0);
+            Camera initalViewpoint = new Camera(28.9672, 44.9858, 2495, 12, 53, 0);
             _mySceneView.SetViewpointCamera(initalViewpoint);
         }
 

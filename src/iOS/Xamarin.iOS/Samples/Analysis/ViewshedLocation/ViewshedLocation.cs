@@ -30,31 +30,16 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         "Featured")]
     public class ViewshedLocation : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly SceneView _mySceneView = new SceneView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private readonly UISlider _headingSlider = new UISlider {MinValue = 0, MaxValue = 360, Value = 0};
-        private readonly UISlider _pitchSlider = new UISlider {MinValue = 0, MaxValue = 180, Value = 60};
-        private readonly UISlider _horizontalAngleSlider = new UISlider {MinValue = 1, MaxValue = 120, Value = 75};
-        private readonly UISlider _verticalAngleSlider = new UISlider {MinValue = 1, MaxValue = 120, Value = 90};
-        private readonly UISlider _minimumDistanceSlider = new UISlider {MinValue = 11, MaxValue = 8999, Value = 11};
-        private readonly UISlider _maximumDistanceSlider = new UISlider {MinValue = 0, MaxValue = 9999, Value = 1500};
-        private readonly UISwitch _analysisVisibilitySwitch = new UISwitch {On = true};
-        private readonly UISwitch _frustumVisibilitySwitch = new UISwitch {On = false};
-        private readonly UILabel _headingLabel = new UILabel {Text = "Heading:", TextAlignment = UITextAlignment.Right};
-        private readonly UILabel _pitchLabel = new UILabel {Text = "Pitch:", TextAlignment = UITextAlignment.Right};
-        private readonly UILabel _horizontalAngleLabel = new UILabel {Text = "Horiz. Angle:", TextAlignment = UITextAlignment.Right};
-        private readonly UILabel _verticalAngleLabel = new UILabel {Text = "Vert. Angle:", TextAlignment = UITextAlignment.Right};
-        private readonly UILabel _minimumDistanceLabel = new UILabel {Text = "Min. Dist.:", TextAlignment = UITextAlignment.Right};
-        private readonly UILabel _maximumDistanceLabel = new UILabel {Text = "Max. Dist.:", TextAlignment = UITextAlignment.Right};
-        private readonly UILabel _analysisVisibilityLabel = new UILabel {Text = "Show Analysis:", TextAlignment = UITextAlignment.Right};
-        private readonly UILabel _frustumVisibilityLabel = new UILabel {Text = "Show Frustum:", TextAlignment = UITextAlignment.Right};
-
+        // Hold references to the UI controls.
+        private SceneView _mySceneView;
+        private UIToolbar _toolbar;
+        private ViewshedLocationSettingsController _settingsVC;
+        
         // Hold the URL to the elevation source.
-        private readonly Uri _localElevationImageService = new Uri("https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
+        private Uri _localElevationImageService = new Uri("https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
 
         // Hold the URL to the buildings scene layer.
-        private readonly Uri _buildingsUrl = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
+        private Uri _buildingsUrl = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
 
         // Hold a reference to the viewshed analysis.
         private LocationViewshed _viewshed;
@@ -93,12 +78,12 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             // Create the location viewshed analysis.
             _viewshed = new LocationViewshed(
                 initialLocation,
-                _headingSlider.Value,
-                _pitchSlider.Value,
-                _horizontalAngleSlider.Value,
-                _verticalAngleSlider.Value,
-                _minimumDistanceSlider.Value,
-                _maximumDistanceSlider.Value);
+                0,
+                60,
+                75,
+                90,
+                11,
+                1500);
 
             // Create a camera based on the initial location.
             Camera camera = new Camera(initialLocation, 200.0, 20.0, 70.0, 0.0);
@@ -154,7 +139,72 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _viewpointOverlay.Graphics.Clear();
             _viewpointOverlay.Graphics.Add(new Graphic(_viewshed.Location, _viewpointSymbol));
         }
+        
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
 
+        public override void LoadView()
+        {
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _toolbar = new UIToolbar();
+            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View.AddSubviews(_mySceneView, _toolbar);
+
+            _toolbar.Items = new UIBarButtonItem[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Edit viewshed", UIBarButtonItemStyle.Plain, HandleSettings_Clicked),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor),
+                _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
+
+            _settingsVC = new ViewshedLocationSettingsController(_viewshed);
+        }
+
+        private void HandleSettings_Clicked(object sender, EventArgs e)
+        {
+            var popover = new UIPopoverController(_settingsVC);
+            popover.PopoverContentSize = new CGSize(320, 320);
+            popover.PresentFromBarButtonItem((UIBarButtonItem)sender, UIPopoverArrowDirection.Down, true);
+        }
+    }
+
+    public class ViewshedLocationSettingsController : UIViewController
+    {
+        private LocationViewshed _viewshed;
+        private UISlider _headingSlider;
+        private UISlider _pitchSlider;
+        private UISlider _horizontalAngleSlider;
+        private UISlider _verticalAngleSlider;
+        private UISlider _minimumDistanceSlider;
+        private UISlider _maximumDistanceSlider;
+        private UISwitch _analysisVisibilitySwitch;
+        private UISwitch _frustumVisibilitySwitch;
+
+        public ViewshedLocationSettingsController(LocationViewshed viewshed)
+        {
+            _viewshed = viewshed;
+            Title = "Viewshed settings";
+        }
+        
         private void HandleSettingsChange(object sender, EventArgs e)
         {
             // Update the viewshed settings.
@@ -173,18 +223,83 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _viewshed.IsFrustumOutlineVisible = _frustumVisibilitySwitch.On;
         }
 
-        private void CreateLayout()
+        public override void LoadView()
         {
-            // Add SceneView to the page.
-            View.AddSubviews(_mySceneView, _toolbar);
+            View = new UIView();
 
-            // Add the labels.
-            View.AddSubviews(_headingLabel, _pitchLabel, _horizontalAngleLabel, _verticalAngleLabel,
-                _minimumDistanceLabel, _maximumDistanceLabel, _analysisVisibilityLabel, _frustumVisibilityLabel);
+            UIScrollView scrollView = new UIScrollView();
+            scrollView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            // Add the controls.
-            View.AddSubviews(_headingSlider, _pitchSlider, _horizontalAngleSlider, _verticalAngleSlider,
-                _minimumDistanceSlider, _maximumDistanceSlider, _analysisVisibilitySwitch, _frustumVisibilitySwitch);
+            View.AddSubviews(scrollView);
+
+            scrollView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
+            scrollView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            scrollView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            scrollView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+
+            UIStackView formContainer = new UIStackView();
+            formContainer.Spacing = 8;
+            formContainer.LayoutMarginsRelativeArrangement = true;
+            formContainer.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
+            formContainer.Axis = UILayoutConstraintAxis.Vertical;
+            
+            UILabel analysisLabel = new UILabel();
+            analysisLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            analysisLabel.Text = "Analsys overlay";
+            _analysisVisibilitySwitch = new UISwitch();
+            _analysisVisibilitySwitch.On = _viewshed.IsVisible;
+            _analysisVisibilitySwitch.TranslatesAutoresizingMaskIntoConstraints = false;
+            formContainer.AddArrangedSubview(getRowStackView(new UIView[] {analysisLabel, _analysisVisibilitySwitch}));
+
+            UILabel frustumLabel = new UILabel();
+            frustumLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            frustumLabel.Text = "Analsys overlay";
+            _frustumVisibilitySwitch = new UISwitch();
+            _frustumVisibilitySwitch.On = _viewshed.IsFrustumOutlineVisible;
+            _frustumVisibilitySwitch.TranslatesAutoresizingMaskIntoConstraints = false;
+            formContainer.AddArrangedSubview(getRowStackView(new UIView[] {frustumLabel, _frustumVisibilitySwitch}));
+
+            UILabel headingLabel = new UILabel();
+            headingLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            headingLabel.Text = "Heading";
+            _headingSlider = new UISlider{MinValue = 0, MaxValue = 360, Value = (float)_viewshed.Heading};
+            _headingSlider.TranslatesAutoresizingMaskIntoConstraints = false;
+            formContainer.AddArrangedSubview(getRowStackView(new UIView[] {headingLabel, _headingSlider}));
+
+            UILabel pitchLabel = new UILabel();
+            pitchLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            pitchLabel.Text = "pitch";
+            _pitchSlider = new UISlider{MinValue = 0, MaxValue = 180, Value = (float)_viewshed.Pitch};
+            _pitchSlider.TranslatesAutoresizingMaskIntoConstraints = false;
+            formContainer.AddArrangedSubview(getRowStackView(new UIView[] {pitchLabel, _pitchSlider}));
+
+            UILabel horizontalLabel = new UILabel();
+            horizontalLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            horizontalLabel.Text = "horizontal";
+            _horizontalAngleSlider = new UISlider{MinValue = 1, MaxValue = 120, Value = (float)_viewshed.HorizontalAngle};
+            _horizontalAngleSlider.TranslatesAutoresizingMaskIntoConstraints = false;
+            formContainer.AddArrangedSubview(getRowStackView(new UIView[] {horizontalLabel, _horizontalAngleSlider}));
+
+            UILabel verticalLabel = new UILabel();
+            verticalLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            verticalLabel.Text = "vertical";
+            _verticalAngleSlider = new UISlider{MinValue = 1, MaxValue = 120, Value = (float)_viewshed.VerticalAngle};
+            _verticalAngleSlider.TranslatesAutoresizingMaskIntoConstraints = false;
+            formContainer.AddArrangedSubview(getRowStackView(new UIView[] {verticalLabel, _verticalAngleSlider}));
+
+            UILabel minLabel = new UILabel();
+            minLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            minLabel.Text = "min";
+            _minimumDistanceSlider = new UISlider {MinValue = 11, MaxValue = 8999, Value = (float)_viewshed.MinDistance};
+            _minimumDistanceSlider.TranslatesAutoresizingMaskIntoConstraints = false;
+            formContainer.AddArrangedSubview(getRowStackView(new UIView[] {minLabel, _minimumDistanceSlider}));
+
+            UILabel maxLabel = new UILabel();
+            maxLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            maxLabel.Text = "max";
+            _maximumDistanceSlider = new UISlider{MinValue = 0, MaxValue = 9999, Value = (float)_viewshed.MaxDistance};
+            _maximumDistanceSlider.TranslatesAutoresizingMaskIntoConstraints = false;
+            formContainer.AddArrangedSubview(getRowStackView(new UIView[] {maxLabel, _maximumDistanceSlider}));
 
             // Subscribe to events.
             _headingSlider.ValueChanged += HandleSettingsChange;
@@ -196,75 +311,15 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _analysisVisibilitySwitch.ValueChanged += HandleSettingsChange;
             _frustumVisibilitySwitch.ValueChanged += HandleSettingsChange;
         }
-
-        public override void ViewDidLoad()
+        
+        private UIStackView getRowStackView(UIView[] views)
         {
-            base.ViewDidLoad();
-
-            CreateLayout();
-            Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat rowHeight = 30;
-                nfloat labelWidth = 125;
-                nfloat margin = 5;
-
-                // Reposition the controls.
-                _mySceneView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, rowHeight * 8 + margin * 9);
-                _mySceneView.ViewInsets = new UIEdgeInsets(_toolbar.Frame.Bottom, 0, 0, 0);
-
-                // Heading
-                topMargin += margin;
-                _headingLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
-                _headingSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
-
-                // Pitch
-                topMargin += rowHeight + margin;
-                _pitchLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
-                _pitchSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
-
-                // Horizontal Angle
-                topMargin += rowHeight + margin;
-                _horizontalAngleLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
-                _horizontalAngleSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
-
-                // Vertical Angle
-                topMargin += rowHeight + margin;
-                _verticalAngleLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
-                _verticalAngleSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
-
-                // Min Distance
-                topMargin += rowHeight + margin;
-                _minimumDistanceLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
-                _minimumDistanceSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
-
-                // Max Distance
-                topMargin += rowHeight + margin;
-                _maximumDistanceLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
-                _maximumDistanceSlider.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
-
-                // Analysis Visibility
-                topMargin += rowHeight + margin;
-                _analysisVisibilityLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
-                _analysisVisibilitySwitch.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
-
-                // Frustum Visibility
-                topMargin += rowHeight + margin;
-                _frustumVisibilityLabel.Frame = new CGRect(margin, topMargin, labelWidth - 2 * margin, rowHeight);
-                _frustumVisibilitySwitch.Frame = new CGRect(labelWidth + margin, topMargin, View.Bounds.Width - labelWidth - 2 * margin, rowHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
+            UIStackView row = new UIStackView(views);
+            row.TranslatesAutoresizingMaskIntoConstraints = false;
+            row.Spacing = 8;
+            row.Axis = UILayoutConstraintAxis.Horizontal;
+            row.Distribution = UIStackViewDistribution.FillEqually;
+            return row;
         }
     }
 }

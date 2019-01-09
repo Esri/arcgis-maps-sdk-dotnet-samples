@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -28,22 +27,10 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
     public class WmsServiceCatalog : UIViewController
     {
         // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-
-        private readonly UIToolbar _toolbar = new UIToolbar();
-
-        private readonly UILabel _myHelpLabel = new UILabel
-        {
-            Text = "Select a layer from the list above.",
-            TextAlignment = UITextAlignment.Center,
-            AdjustsFontSizeToFitWidth = true
-        };
-
-        private readonly UITableView _myDisplayList = new UITableView
-        {
-            RowHeight = 30,
-            BackgroundColor = UIColor.FromWhiteAlpha(0, 0)
-        };
+        private MapView _myMapView;
+        private UITableView _layerList;
+        private NSLayoutConstraint[] _portraitConstraints;
+        private NSLayoutConstraint[] _landscapeConstraints;
 
         // Hold the URL to the WMS service providing the US NOAA National Weather Service forecast weather chart.
         private readonly Uri _wmsUrl = new Uri("https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer/WMSServer?request=GetCapabilities&service=WMS");
@@ -59,39 +46,80 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            CreateLayout();
             Initialize();
         }
 
-        private void CreateLayout()
+        public override void LoadView()
         {
-            // Add the controls to the view.
-            View.AddSubviews(_myMapView, _toolbar, _myDisplayList, _myHelpLabel);
+            View = new UIView { BackgroundColor = UIColor.White };
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _layerList = new UITableView();
+            _layerList.TranslatesAutoresizingMaskIntoConstraints = false;
+            // Used for calculating how large the tableview should be.
+            _layerList.RowHeight = 40;
+
+            UILabel _helpLabel = new UILabel
+            {
+                Text = "Select layers for display.",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            View.AddSubviews(_myMapView, _layerList, _helpLabel);
+
+            // These constraints don't depend on orientation.
+            _helpLabel.LeadingAnchor.ConstraintEqualTo(_myMapView.LeadingAnchor).Active = true;
+            _helpLabel.TrailingAnchor.ConstraintEqualTo(_myMapView.TrailingAnchor).Active = true;
+            _helpLabel.TopAnchor.ConstraintEqualTo(_myMapView.TopAnchor).Active = true;
+            _helpLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
+
+            _portraitConstraints = new NSLayoutConstraint[]
+            {
+                _layerList.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _layerList.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _layerList.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _layerList.HeightAnchor.ConstraintEqualTo(_layerList.RowHeight * 4),
+                _myMapView.TopAnchor.ConstraintEqualTo(_layerList.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            };
+
+            _landscapeConstraints = new NSLayoutConstraint[]
+            {
+                _layerList.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _layerList.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _layerList.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _layerList.TrailingAnchor.ConstraintEqualTo(View.CenterXAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(_layerList.TrailingAnchor),
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            };
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
         {
-            try
+            base.TraitCollectionDidChange(previousTraitCollection);
+
+            // Reset constraints.
+            NSLayoutConstraint.DeactivateConstraints(_portraitConstraints);
+            NSLayoutConstraint.DeactivateConstraints(_landscapeConstraints);
+
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
             {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat listHeight = 150;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat toolbarHeight = listHeight + controlHeight + margin * 2;
-
-                // Reposition the views
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myDisplayList.Frame = new CGRect(0, topMargin, View.Bounds.Width, listHeight);
-                _myHelpLabel.Frame = new CGRect(margin, _myDisplayList.Frame.Bottom + margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
-                _myMapView.ViewInsets = new UIEdgeInsets(_toolbar.Frame.Bottom, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
+                NSLayoutConstraint.ActivateConstraints(_landscapeConstraints);
             }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            else
             {
+                NSLayoutConstraint.ActivateConstraints(_portraitConstraints);
             }
         }
 
@@ -123,10 +151,10 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
                 _layerListSource = new LayerListSource(viewModelList, this);
 
                 // Set the source for the table view (layer list).
-                _myDisplayList.Source = _layerListSource;
+                _layerList.Source = _layerListSource;
 
                 // Force an update of the list display.
-                _myDisplayList.ReloadData();
+                _layerList.ReloadData();
             }
             catch (Exception e)
             {

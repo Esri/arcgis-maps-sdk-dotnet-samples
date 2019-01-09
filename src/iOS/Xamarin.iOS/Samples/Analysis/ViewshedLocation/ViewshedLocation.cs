@@ -34,6 +34,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         private SceneView _mySceneView;
         private UIToolbar _toolbar;
         private ViewshedLocationSettingsController _settingsVC;
+        private UIBarButtonItem _button;
         
         // Hold the URL to the elevation source.
         private Uri _localElevationImageService = new Uri("https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
@@ -84,6 +85,9 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
                 90,
                 11,
                 1500);
+            
+            _settingsVC = new ViewshedLocationSettingsController(_viewshed);
+            _button.Enabled = true;
 
             // Create a camera based on the initial location.
             Camera camera = new Camera(initialLocation, 200.0, 20.0, 70.0, 0.0);
@@ -158,10 +162,12 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
 
             View.AddSubviews(_mySceneView, _toolbar);
 
+            _button = new UIBarButtonItem("Edit settings", UIBarButtonItemStyle.Plain, HandleSettings_Clicked);
+            
             _toolbar.Items = new UIBarButtonItem[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Edit viewshed", UIBarButtonItemStyle.Plain, HandleSettings_Clicked),
+                _button, 
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -175,15 +181,31 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
                 _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
-
-            _settingsVC = new ViewshedLocationSettingsController(_viewshed);
         }
 
         private void HandleSettings_Clicked(object sender, EventArgs e)
         {
-            var popover = new UIPopoverController(_settingsVC);
-            popover.PopoverContentSize = new CGSize(320, 320);
-            popover.PresentFromBarButtonItem((UIBarButtonItem)sender, UIPopoverArrowDirection.Down, true);
+            UINavigationController controller = new UINavigationController(_settingsVC);
+            controller.ModalPresentationStyle = UIModalPresentationStyle.Popover;
+            controller.PreferredContentSize = new CGSize(300, 320);
+            UIPopoverPresentationController pc = controller.PopoverPresentationController;
+            if (pc != null)
+            {
+                pc.BarButtonItem = (UIBarButtonItem)sender;
+                pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+                pc.Delegate = new ppDelegate();
+            }
+            PresentViewController(controller, true, null);
+        }
+
+        // Force popover to display on iPhone.
+        private class ppDelegate : UIPopoverPresentationControllerDelegate
+        {
+            public override UIModalPresentationStyle GetAdaptivePresentationStyle(
+                UIPresentationController forPresentationController) => UIModalPresentationStyle.None;
+
+            public override UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController controller,
+                UITraitCollection traitCollection) => UIModalPresentationStyle.None;
         }
     }
 
@@ -238,10 +260,13 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             scrollView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
 
             UIStackView formContainer = new UIStackView();
+            formContainer.TranslatesAutoresizingMaskIntoConstraints = false;
             formContainer.Spacing = 8;
             formContainer.LayoutMarginsRelativeArrangement = true;
+            formContainer.Alignment = UIStackViewAlignment.Fill;
             formContainer.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
             formContainer.Axis = UILayoutConstraintAxis.Vertical;
+            formContainer.WidthAnchor.ConstraintEqualTo(300).Active = true;
             
             UILabel analysisLabel = new UILabel();
             analysisLabel.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -310,6 +335,13 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _maximumDistanceSlider.ValueChanged += HandleSettingsChange;
             _analysisVisibilitySwitch.ValueChanged += HandleSettingsChange;
             _frustumVisibilitySwitch.ValueChanged += HandleSettingsChange;
+            
+            scrollView.AddSubview(formContainer);
+
+            formContainer.TopAnchor.ConstraintEqualTo(scrollView.TopAnchor).Active = true;
+            formContainer.LeadingAnchor.ConstraintEqualTo(scrollView.LeadingAnchor).Active = true;
+            formContainer.TrailingAnchor.ConstraintEqualTo(scrollView.TrailingAnchor).Active = true;
+            formContainer.BottomAnchor.ConstraintEqualTo(scrollView.BottomAnchor).Active = true;
         }
         
         private UIStackView getRowStackView(UIView[] views)

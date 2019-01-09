@@ -29,9 +29,9 @@ namespace ArcGISRuntime.Samples.RasterHillshade
     public class RasterHillshade : UIViewController
     {
         // Hold references to the UI controls.
-        private UIButton _applyHillshadeButton;
-        private ApplyHillshadeRendererDialogOverlay _applyHillshadeRendererUi;
+        private UIBarButtonItem _applyHillshadeButton;
         private MapView _myMapView;
+        private HillshadeSettingsController _settingsVC;
 
         // Store a reference to the raster layer.
         private RasterLayer _rasterLayer;
@@ -44,29 +44,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            // Create the UI, initialize the map, and load a local raster image. 
-            CreateLayout();
             Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat barHeight = 40;
-
-                // Reposition thew views.
-                _myMapView.Frame = new CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin - barHeight);
-                _applyHillshadeButton.Frame = new CGRect(0, topMargin + _myMapView.Frame.Height, View.Bounds.Width, barHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private async void Initialize()
@@ -75,7 +53,8 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             Map map = new Map(Basemap.CreateStreetsVector());
 
             // Get the file name for the local raster dataset.
-            string filepath = DataManager.GetDataFolder("134d60f50e184e8fa56365f44e5ce3fb", "srtm-hillshade", "srtm.tiff");
+            string filepath =
+                DataManager.GetDataFolder("134d60f50e184e8fa56365f44e5ce3fb", "srtm-hillshade", "srtm.tiff");
 
             // Load the raster file.
             Raster rasterFile = new Raster(filepath);
@@ -85,6 +64,9 @@ namespace ArcGISRuntime.Samples.RasterHillshade
                 // Create and load a new raster layer to show the image.
                 _rasterLayer = new RasterLayer(rasterFile);
                 await _rasterLayer.LoadAsync();
+                
+                // Set up the settings controls.
+                _settingsVC = new HillshadeSettingsController(_rasterLayer);
 
                 // Enable the apply renderer button when the layer loads.
                 _applyHillshadeButton.Enabled = true;
@@ -104,272 +86,168 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             }
         }
 
-        private void CreateLayout()
+        public override void LoadView()
         {
-            View.BackgroundColor = UIColor.White;
-
-            // Create the map view control.
+            View = new UIView {BackgroundColor = UIColor.White};
+            
             _myMapView = new MapView();
-
-            // Create a button to apply the hillshade settings.
-            _applyHillshadeButton = new UIButton
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            
+            _applyHillshadeButton = new UIBarButtonItem("Configure hillshade", UIBarButtonItemStyle.Plain, HandleSettings_Clicked);
+            toolbar.Items = new[]
             {
-                BackgroundColor = UIColor.White,
-                Enabled = false
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _applyHillshadeButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
-            _applyHillshadeButton.SetTitle("Apply hillshade", UIControlState.Normal);
-            _applyHillshadeButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-
-            // Handle the button tap to show the hillshade renderer inputs.
-            _applyHillshadeButton.TouchUpInside += ApplyHillshade_Click;
-
-            // Add MapView and UI controls to the page.
-            View.AddSubviews(_myMapView, _applyHillshadeButton);
+            
+            View.AddSubviews(_myMapView, toolbar);
+            
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
+            });
         }
 
-        private void ApplyHillshade_Click(object sender, EventArgs e)
+        private void HandleSettings_Clicked(object sender, EventArgs e)
         {
-            if (_applyHillshadeRendererUi != null)
+            UINavigationController controller = new UINavigationController(_settingsVC);
+            controller.ModalPresentationStyle = UIModalPresentationStyle.Popover;
+            controller.PreferredContentSize = new CGSize(300, 250);
+            UIPopoverPresentationController pc = controller.PopoverPresentationController;
+            if (pc != null)
             {
-                return;
+                pc.BarButtonItem = (UIBarButtonItem)sender;
+                pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+                pc.Delegate = new ppDelegate();
             }
+            PresentViewController(controller, true, null);
+        }
 
-            // Create a view to show map item info entry controls over the map view.
-            CGRect ovBounds = new CGRect(0, 60, View.Bounds.Width, View.Bounds.Height);
-            _applyHillshadeRendererUi = new ApplyHillshadeRendererDialogOverlay(ovBounds, 0.9f, UIColor.White);
+        // Force popover to display on iPhone.
+        private class ppDelegate : UIPopoverPresentationControllerDelegate
+        {
+            public override UIModalPresentationStyle GetAdaptivePresentationStyle(
+                UIPresentationController forPresentationController) => UIModalPresentationStyle.None;
 
-            // Handle the OnHillshadeInputsEntered event to get the new renderer defined by the user.
-            _applyHillshadeRendererUi.OnHillshadeInputsEntered += (s, hillshadeArgs) =>
-            {
-                // Get the new hillshade renderer.
-                HillshadeRenderer newHillshadeRenderer = hillshadeArgs.HillshadeRasterRenderer;
-
-                // If it's not null, apply the new renderer to the layer.
-                if (newHillshadeRenderer != null)
-                {
-                    _rasterLayer.Renderer = newHillshadeRenderer;
-                }
-
-                // Remove the parameters input UI.
-                _applyHillshadeRendererUi.Hide();
-                _applyHillshadeRendererUi = null;
-            };
-
-            // Handle the cancel event when the user closes the dialog without entering hillshade parameters.
-            _applyHillshadeRendererUi.OnCanceled += (s, args) =>
-            {
-                // Remove the parameters input UI.
-                _applyHillshadeRendererUi.Hide();
-                _applyHillshadeRendererUi = null;
-            };
-
-            // Add the input UI view (will display semi-transparent over the map view).
-            View.Add(_applyHillshadeRendererUi);
+            public override UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController controller,
+                UITraitCollection traitCollection) => UIModalPresentationStyle.None;
         }
     }
 
-    #region UI for entering raster hillshade renderer properties.
-
-    // View containing hillshade renderer parameter input controls (altitude and azimuth).
-    public class ApplyHillshadeRendererDialogOverlay : UIView
+    public class HillshadeSettingsController : UIViewController
     {
-        // Constant to store a z-factor (conversion constant) applied to the hillshade.
-        // If needed, this can be used to convert z-values to the same unit as the x/y coordinates or to apply a vertical exaggeration.
-        private const double ZFactor = 1.0;
-
-        // Constants to store the Pixel Size Power and Pixel Size Factor values.
-        // Use these to account for altitude changes (scale) as the viewer zooms in and out (recommended when using worldwide datasets).
-        private const double PixelSizePower = 1.0;
-        private const double PixelSizeFactor = 1.0;
-
-        // Constant to store the bit depth (pixel depth), which determines the range of values that the hillshade raster can store.
-        private const int PixelBitDepth = 8;
-
-        // Event to provide the user inputs when the view is dismissed.
-        public event EventHandler<HillshadeParametersEventArgs> OnHillshadeInputsEntered;
-
-        // Event to report that the input was canceled.
-        public event EventHandler OnCanceled;
-
-        // Fields for controls that will be referenced later.
+        private RasterLayer _rasterLayer;
         private UISegmentedControl _slopeTypePicker;
         private UISlider _altitudeSlider;
         private UISlider _azimuthSlider;
-
-        public ApplyHillshadeRendererDialogOverlay(CGRect frame, nfloat transparency, UIColor color) : base(frame)
+        public HillshadeSettingsController(RasterLayer rasterLayer)
         {
-            // Create a semi-transparent overlay with the specified background color.
-            BackgroundColor = color;
-            Alpha = transparency;
-
-            // Button to create the hillshade parameters and pass them back to the main page.
-            UIButton inputHillshadeParamsButton = new UIButton();
-            inputHillshadeParamsButton.SetTitle("Apply", UIControlState.Normal);
-            inputHillshadeParamsButton.SetTitleColor(TintColor, UIControlState.Normal);
-            inputHillshadeParamsButton.TouchUpInside += InputHillshadeParamsButton_Click;
-
-            // Button to cancel the input.
-            UIButton cancelButton = new UIButton();
-            cancelButton.SetTitle("Cancel", UIControlState.Normal);
-            cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
-            cancelButton.TouchUpInside += (s, e) => { OnCanceled?.Invoke(this, null); };
-
-            CreateHillshadeInputUi(inputHillshadeParamsButton, cancelButton);
+            _rasterLayer = rasterLayer;
+            Title = "Hillshade settings";
         }
 
-        private void CreateHillshadeInputUi(UIButton applyButton, UIButton cancelButton)
+        public override void LoadView()
         {
-            // Set size and spacing for controls.
-            nfloat controlHeight = 25;
-            nfloat rowSpace = 11;
-            nfloat columnSpace = 15;
-            nfloat buttonWidth = 60;
+            View = new UIView();
 
-            // Store the total height and width.
-            nfloat totalWidth = Frame.Width - 60;
+            UIScrollView scrollView = new UIScrollView();
+            scrollView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            // Find the center x and y of the view.
-            nfloat centerX = Frame.Width / 2;
+            View.AddSubviews(scrollView);
 
-            // Find the start x and y for the control layout.
-            nfloat controlX = centerX - totalWidth / 2;
-            nfloat controlY = 30;
+            scrollView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
+            scrollView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            scrollView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            scrollView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
 
-            // Create a label for the slope type input.
-            UILabel slopeTypeLabel = new UILabel(new CGRect(controlX, controlY, totalWidth, controlHeight))
-            {
-                Text = "Slope type:",
-                TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Black
-            };
+            UIStackView formContainer = new UIStackView();
+            formContainer.TranslatesAutoresizingMaskIntoConstraints = false;
+            formContainer.Spacing = 8;
+            formContainer.LayoutMarginsRelativeArrangement = true;
+            formContainer.Alignment = UIStackViewAlignment.Fill;
+            formContainer.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
+            formContainer.Axis = UILayoutConstraintAxis.Vertical;
+            formContainer.WidthAnchor.ConstraintEqualTo(300).Active = true;
 
-            // Adjust the Y position for the next control.
-            controlY = controlY + 30;
+            UILabel slopeTypeLabel = new UILabel();
+            slopeTypeLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            slopeTypeLabel.Text = "Slope type:";
+            formContainer.AddArrangedSubview(slopeTypeLabel);
+            
+            _slopeTypePicker = new UISegmentedControl("Degree", "% Rise", "Scaled", "None");
+            _slopeTypePicker.TranslatesAutoresizingMaskIntoConstraints = false;
+            formContainer.AddArrangedSubview(_slopeTypePicker);
 
-            // Adjust the Y position for the next control.
-            _slopeTypePicker = new UISegmentedControl(Enum.GetNames(typeof(SlopeType)))
-            {
-                ApportionsSegmentWidthsByContent = true,
-                Frame = new CGRect(5, controlY, Bounds.Width - 10, 30)
-            };
-            controlY += 35;
+            UILabel altitudeLabel = new UILabel();
+            altitudeLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            altitudeLabel.Text = "Altitude:";
+            formContainer.AddArrangedSubview(altitudeLabel);
+            
+            _altitudeSlider = new UISlider();
+            _altitudeSlider.TranslatesAutoresizingMaskIntoConstraints = false;
+            _altitudeSlider.MinValue = 0;
+            _altitudeSlider.MaxValue = 90;
+            _altitudeSlider.Value = 45;
+            formContainer.AddArrangedSubview(_altitudeSlider);
 
-            // Create a label for the altitude input.
-            UILabel altitudeLabel = new UILabel(new CGRect(controlX, controlY, totalWidth, controlHeight))
-            {
-                Text = "Altitude: ",
-                TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Black
-            };
+            UILabel azimuthLabel = new UILabel();
+            azimuthLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            azimuthLabel.Text = "Azimuth:";
+            formContainer.AddArrangedSubview(azimuthLabel);
 
-            // Adjust the Y position for the next control.
-            controlY = controlY + 5;
+            _azimuthSlider = new UISlider();
+            _azimuthSlider.TranslatesAutoresizingMaskIntoConstraints = false;
+            _azimuthSlider.MinValue = 0;
+            _azimuthSlider.MaxValue = 360;
+            _azimuthSlider.Value = 270;
+            formContainer.AddArrangedSubview(_azimuthSlider);
 
-            // Create a slider for altitude value.
-            _altitudeSlider = new UISlider(new CGRect(5, controlY, Bounds.Width - 10, 100))
-            {
-                MinValue = 0,
-                MaxValue = 90,
-                Value = 45
-            };
+            _azimuthSlider.ValueChanged += UpdateSettings;
+            _altitudeSlider.ValueChanged += UpdateSettings;
+            _slopeTypePicker.ValueChanged += UpdateSettings;
+            
+            scrollView.AddSubview(formContainer);
 
-            // Adjust the Y position for the next control.
-            controlY = controlY + 100 + rowSpace;
-
-            // Create a label for the azimuth input.
-            UILabel azimuthLabel = new UILabel(new CGRect(controlX, controlY, totalWidth, controlHeight))
-            {
-                Text = "Azimuth: ",
-                TextAlignment = UITextAlignment.Left,
-                TextColor = UIColor.Black
-            };
-
-            // Adjust the Y position for the next control.
-            controlY = controlY + 5;
-
-            // Create a picker for the azimuth value.
-            _azimuthSlider = new UISlider(new CGRect(5, controlY, Bounds.Width - 10, 100))
-            {
-                MinValue = 0,
-                MaxValue = 360,
-                Value = 270
-            };
-
-            // Adjust the Y position for the next control.
-            controlY = controlY + 100 + rowSpace;
-
-            // Set the frame for the apply button.
-            applyButton.Frame = new CGRect(controlX, controlY, buttonWidth, controlHeight);
-
-            // Adjust the X position for the next control.
-            controlX = controlX + buttonWidth + columnSpace;
-
-            // Set the frame for the cancel button.
-            cancelButton.Frame = new CGRect(controlX, controlY, buttonWidth, controlHeight);
-
-            // Add the input controls.
-            AddSubviews(slopeTypeLabel, _slopeTypePicker,
-                altitudeLabel, _altitudeSlider,
-                azimuthLabel, _azimuthSlider,
-                applyButton, cancelButton);
-
-            // Set the default value for the slope type.
-            _slopeTypePicker.SelectedSegment = 0;
+            formContainer.TopAnchor.ConstraintEqualTo(scrollView.TopAnchor).Active = true;
+            formContainer.LeadingAnchor.ConstraintEqualTo(scrollView.LeadingAnchor).Active = true;
+            formContainer.TrailingAnchor.ConstraintEqualTo(scrollView.TrailingAnchor).Active = true;
+            formContainer.BottomAnchor.ConstraintEqualTo(scrollView.BottomAnchor).Active = true;
         }
 
-        // Animate increasing transparency to completely hide the view, then remove it
-        public void Hide()
+        private void UpdateSettings(object sender, EventArgs e)
         {
-            // Action to make the view transparent
-            Action makeTransparentAction = () => Alpha = 0;
-
-            // Action to remove the view
-            Action removeViewAction = RemoveFromSuperview;
-
-            // Time to complete the animation (seconds)
-            double secondsToComplete = 0.75;
-
-            // Animate transparency to zero, then remove the view
-            Animate(secondsToComplete, makeTransparentAction, removeViewAction);
-        }
-
-        private void InputHillshadeParamsButton_Click(object sender, EventArgs e)
-        {
-            // Fire the OnHillshadeInputsEntered event and provide the hillshade renderer.
-            if (OnHillshadeInputsEntered != null)
+            SlopeType type = SlopeType.None;
+            switch (_slopeTypePicker.SelectedSegment)
             {
-                // Read the inputs provided by the user.
-                // - Altitude and azimuth.
-                double altitude = _altitudeSlider.Value;
-                double azimuth = _azimuthSlider.Value;
-                // - Get the model from the slope type picker and read the selected type.
-                nint selected = _slopeTypePicker.SelectedSegment;
-                SlopeType selectedSlopeType = ((SlopeType[]) Enum.GetValues(typeof(SlopeType)))[selected];
-
-                // Create a new HillshadeRenderer using the input values and constants.
-                HillshadeRenderer hillshade = new HillshadeRenderer(altitude, azimuth, ZFactor, selectedSlopeType, PixelSizeFactor, PixelSizePower, PixelBitDepth);
-
-                // Create a new HillshadeParametersEventArgs and provide the new renderer.
-                HillshadeParametersEventArgs inputParamsEventArgs = new HillshadeParametersEventArgs(hillshade);
-
-                // Raise the event with the custom arguments.
-                OnHillshadeInputsEntered(sender, inputParamsEventArgs);
+                case 0:
+                    type = SlopeType.Degree;
+                    break;
+                case 1:
+                    type = SlopeType.PercentRise;
+                    break;
+                case 2:
+                    type = SlopeType.Scaled;
+                    break;
             }
+            HillshadeRenderer renderer = new HillshadeRenderer(
+                altitude: _altitudeSlider.Value, 
+                azimuth: _azimuthSlider.Value, 
+                zfactor: 1, 
+                slopeType: type, 
+                pixelSizeFactor: 1, 
+                pixelSizePower: 1, 
+                nbits: 8);
+            _rasterLayer.Renderer = renderer;
         }
     }
-
-    // Custom EventArgs implementation to hold hillshade renderer based on the inputs.
-    public class HillshadeParametersEventArgs : EventArgs
-    {
-        // Property to store raster stretch parameters.
-        public HillshadeRenderer HillshadeRasterRenderer { get; }
-
-        // Store the hillshade renderer passed into the constructor.
-        public HillshadeParametersEventArgs(HillshadeRenderer renderer)
-        {
-            HillshadeRasterRenderer = renderer;
-        }
-    }
-
-    #endregion
 }

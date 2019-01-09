@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	  <Content Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
 	  <Content Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
     <Content Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
     <Content Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg" />
@@ -295,6 +296,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Symbology\SceneSymbols\SceneSymbols.xaml.cs">
+      <DependentUpon>SceneSymbols.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.xaml.cs">
       <DependentUpon>TerrainExaggeration.xaml</DependentUpon>
     </Compile>
@@ -709,6 +713,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Symbology\SceneSymbols\SceneSymbols.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

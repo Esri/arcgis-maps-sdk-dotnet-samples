@@ -278,7 +278,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
 
             UILabel frustumLabel = new UILabel();
             frustumLabel.TranslatesAutoresizingMaskIntoConstraints = false;
-            frustumLabel.Text = "Analsys overlay";
+            frustumLabel.Text = "Frustum";
             _frustumVisibilitySwitch = new UISwitch();
             _frustumVisibilitySwitch.On = _viewshed.IsFrustumOutlineVisible;
             _frustumVisibilitySwitch.TranslatesAutoresizingMaskIntoConstraints = false;

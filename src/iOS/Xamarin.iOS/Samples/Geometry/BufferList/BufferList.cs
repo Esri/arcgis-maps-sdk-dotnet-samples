@@ -86,7 +86,7 @@ namespace ArcGISRuntime.Samples.BufferList
             _bufferDistanceEntryLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             _bufferDistanceEntryLabel.Text = "Buffer size:";
 
-            View = new UIView();
+            View = new UIView { BackgroundColor = UIColor.White };
             View.AddSubviews(_myMapView, _controlsToolbar, _entryToolbar, _bufferDistanceEntryLabel, _bufferDistanceEntry);
             
             _entryToolbar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;

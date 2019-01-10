@@ -95,12 +95,6 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             _sketchOverlay = new GraphicsOverlay();
             _myMapView.GraphicsOverlays.Add(_sketchOverlay);
 
-            // Set the sketch editor configuration to allow vertex editing, resizing, and moving.
-            SketchEditConfiguration config = _myMapView.SketchEditor.EditConfiguration;
-            config.AllowVertexEditing = true;
-            config.ResizeMode = SketchResizeMode.Uniform;
-            config.AllowMove = true;
-
             // Listen to the sketch editor tools CanExecuteChange so controls can be enabled/disabled.
             _myMapView.SketchEditor.UndoCommand.CanExecuteChanged += CanExecuteChanged;
             _myMapView.SketchEditor.RedoCommand.CanExecuteChanged += CanExecuteChanged;

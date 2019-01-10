@@ -115,7 +115,7 @@ namespace ArcGISRuntime
             {
                 if (value != _query)
                 {
-                    _query = value;
+                    _query = value ?? ""; // Need to guard against null on X.F ios - happens when canceling search.
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(SearchResults));
                     OnPropertyChanged(nameof(IsSearchOpen));

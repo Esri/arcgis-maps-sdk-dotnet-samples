@@ -22,10 +22,10 @@ namespace ArcGISRuntime.Samples.ProjectWithSpecificTransformation
         "See [Coordinate Systems and Transformations](https://developers.arcgis.com/net/latest/wpf/guide/coordinate-systems-and-transformations.htm) for more information about geographic coordinate systems, geographic transformations, and projected coordinate systems. ")]
     public class ProjectWithSpecificTransformation : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly UITextView _beforeLabel = new UITextView();
-        private readonly UITextView _afterLabel = new UITextView();
-        private readonly UITextView _nonSpecificLabel = new UITextView();
+        // Hold references to the UI controls.
+        private UILabel _beforeLabel;
+        private UILabel _afterLabel;
+        private UILabel _nonSpecificLabel;
 
         public ProjectWithSpecificTransformation()
         {
@@ -59,31 +59,50 @@ namespace ArcGISRuntime.Samples.ProjectWithSpecificTransformation
             _nonSpecificLabel.Text = $"After (non-specific) - x: {unspecifiedTransformPoint.X}, y: {unspecifiedTransformPoint.Y}";
         }
 
-        private void CreateLayout()
-        {
-            // Add the labels to the page.
-            View.AddSubviews(_beforeLabel, _afterLabel, _nonSpecificLabel);
-
-            // Set the background color so labels are readable.
-            View.BackgroundColor = UIColor.White;
-        }
-
         public override void ViewDidLoad()
         {
-            CreateLayout();
-            Initialize();
-
             base.ViewDidLoad();
+            Initialize();
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void LoadView()
         {
-            // Reposition controls.
-            _beforeLabel.Frame = new CGRect(10, View.Bounds.Height / 2, View.Bounds.Width - 20, 50);
-            _afterLabel.Frame = new CGRect(10, View.Bounds.Height - 50, View.Bounds.Width - 20, 50);
-            _nonSpecificLabel.Frame = new CGRect(10, View.Bounds.Height * 3.0 / 4.0, View.Bounds.Width - 20, 50);
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
 
-            base.ViewDidLayoutSubviews();
+            UIStackView container = new UIStackView();
+            container.TranslatesAutoresizingMaskIntoConstraints = false;
+            container.Axis = UILayoutConstraintAxis.Vertical;
+            container.Distribution = UIStackViewDistribution.FillEqually;
+            container.LayoutMarginsRelativeArrangement = true;
+            container.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
+
+            _beforeLabel = new UILabel();
+            _beforeLabel.Lines = 2;
+            _beforeLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _afterLabel = new UILabel();
+            _afterLabel.Lines = 2;
+            _afterLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _nonSpecificLabel = new UILabel();
+            _nonSpecificLabel.Lines = 2;
+            _nonSpecificLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            // Add the views.
+            container.AddArrangedSubview(_beforeLabel);
+            container.AddArrangedSubview(_afterLabel);
+            container.AddArrangedSubview(_nonSpecificLabel);
+            View.AddSubview(container);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                container.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                container.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                container.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                container.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
+            });
         }
     }
 }

@@ -334,7 +334,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
-                _progressBar.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+                _progressBar.TopAnchor.ConstraintEqualTo(_myMapView.TopAnchor),
                 _progressBar.HeightAnchor.ConstraintEqualTo(8),
                 _progressBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _progressBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)

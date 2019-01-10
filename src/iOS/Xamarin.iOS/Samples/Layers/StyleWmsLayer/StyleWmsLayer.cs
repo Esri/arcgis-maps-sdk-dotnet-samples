@@ -115,6 +115,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
                 TintColor = UIColor.White,
                 Enabled = false,
                 TranslatesAutoresizingMaskIntoConstraints = false,
+                SelectedSegment = 0,
                 // Clean up borders of segmented control - avoid corner pixels.
                 ClipsToBounds = true,
                 Layer = {CornerRadius = 5}

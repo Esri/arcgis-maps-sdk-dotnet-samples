@@ -180,8 +180,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _button,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+                _button
             };
 
             // Add the views.

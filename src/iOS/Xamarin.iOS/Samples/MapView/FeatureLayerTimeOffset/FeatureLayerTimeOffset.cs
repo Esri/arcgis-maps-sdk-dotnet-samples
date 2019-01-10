@@ -194,6 +194,19 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
             redIcon.Layer.CornerRadius = 8;
             legendView.AddArrangedSubview(redIcon);
 
+            UILabel _redLabel = new UILabel
+            {
+                Text = "Offset 10 days",
+                TextColor = UIColor.Red,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            legendView.AddArrangedSubview(_redLabel);
+
+            UIView spacer = new UIView();
+            spacer.TranslatesAutoresizingMaskIntoConstraints = false;
+            spacer.SetContentCompressionResistancePriority((float)UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
+            legendView.AddArrangedSubview(spacer);
+
             UIView blueIcon = new UIView();
             blueIcon.BackgroundColor = UIColor.Blue;
             blueIcon.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -203,15 +216,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
             blueIcon.Layer.CornerRadius = 8;
             legendView.AddArrangedSubview(blueIcon);
 
-            UILabel _redLabel = new UILabel
-            {
-                Text = "Offset 10 days",
-                TextColor = UIColor.Red,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-            legendView.AddArrangedSubview(_redLabel);
-
-
             UILabel _blueLabel = new UILabel
             {
                 Text = "No offset",
@@ -219,11 +223,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
             legendView.AddArrangedSubview(_blueLabel);
-
-            UIView spacer = new UIView();
-            spacer.TranslatesAutoresizingMaskIntoConstraints = false;
-            spacer.SetContentCompressionResistancePriority((float) UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
-            legendView.AddArrangedSubview(spacer);
 
             // Add the views.
             View.AddSubviews(topToolbar, _myMapView, bottomToolbar);

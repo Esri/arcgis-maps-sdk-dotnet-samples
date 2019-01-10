@@ -560,7 +560,6 @@ namespace ArcGISRuntime.Samples.FindPlace
             _activityView = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
             _activityView.TranslatesAutoresizingMaskIntoConstraints = false;
             _activityView.HidesWhenStopped = true;
-            _activityView.ActivityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge;
             _activityView.BackgroundColor = UIColor.FromWhiteAlpha(0, .5f);
 
             _suggestionView = new UITableView();

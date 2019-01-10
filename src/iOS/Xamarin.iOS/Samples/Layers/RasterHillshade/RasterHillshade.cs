@@ -111,8 +111,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Configure hillshade", UIBarButtonItemStyle.Plain, HandleSettings_Clicked),
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+                new UIBarButtonItem("Configure hillshade", UIBarButtonItemStyle.Plain, HandleSettings_Clicked)
             };
 
             // Add the views.

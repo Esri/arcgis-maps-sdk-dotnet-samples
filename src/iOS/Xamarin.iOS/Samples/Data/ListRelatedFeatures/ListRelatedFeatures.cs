@@ -181,7 +181,7 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
                 _tableView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _tableView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _tableView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _tableView.HeightAnchor.ConstraintEqualTo(120),
+                _tableView.HeightAnchor.ConstraintEqualTo(_tableView.RowHeight * 4),
 
                 _myMapView.TopAnchor.ConstraintEqualTo(_tableView.BottomAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -194,15 +194,13 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
                 _tableView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _tableView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _tableView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
-                _tableView.WidthAnchor.ConstraintEqualTo(View.Frame.Height),
+                _tableView.TrailingAnchor.ConstraintEqualTo(View.CenterXAnchor),
 
                 _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(_tableView.TrailingAnchor),
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
             };
-
-            NSLayoutConstraint.ActivateConstraints(_portraitConstraints);
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)

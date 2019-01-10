@@ -180,7 +180,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             };
 
             // Hide the activity indicator (progress bar) when stopped.
-            _progressBar = new UIActivityIndicatorView
+            _progressBar = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(0, .5f),
                 HidesWhenStopped = true,

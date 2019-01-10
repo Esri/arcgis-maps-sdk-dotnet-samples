@@ -583,8 +583,8 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 _helpLabel.HeightAnchor.ConstraintEqualTo(40),
 
                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
-                toolbar.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
-                toolbar.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
                 _progressBar.TopAnchor.ConstraintEqualTo(_helpLabel.BottomAnchor),
                 _progressBar.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),

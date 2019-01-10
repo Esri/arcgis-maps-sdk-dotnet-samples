@@ -114,8 +114,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Update renderer", UIBarButtonItemStyle.Plain, UpdateRenderer_Clicked),
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+                new UIBarButtonItem("Update renderer", UIBarButtonItemStyle.Plain, UpdateRenderer_Clicked)
             };
 
             // Add the views.

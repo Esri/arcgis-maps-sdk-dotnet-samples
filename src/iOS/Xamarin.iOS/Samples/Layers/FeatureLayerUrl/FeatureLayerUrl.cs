@@ -37,7 +37,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerUrl
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            this.View = new UIView();
+            View = new UIView();
             View.AddSubviews(_myMapView);
 
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;

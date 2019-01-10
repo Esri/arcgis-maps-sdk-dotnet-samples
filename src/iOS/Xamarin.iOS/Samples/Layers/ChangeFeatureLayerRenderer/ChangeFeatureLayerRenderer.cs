@@ -110,7 +110,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
             {
                 new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, OnResetButtonClicked),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Override renderer", UIBarButtonItemStyle.Plain, OnOverrideButtonClicked),
+                new UIBarButtonItem("Override renderer", UIBarButtonItemStyle.Plain, OnOverrideButtonClicked)
             };
 
             // Set up constraints.

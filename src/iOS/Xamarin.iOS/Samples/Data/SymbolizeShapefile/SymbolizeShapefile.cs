@@ -9,7 +9,6 @@
 
 using System;
 using ArcGISRuntime.Samples.Managers;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -96,6 +95,7 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
                 new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
         }
+
         private void Button_Clicked(object sender, System.EventArgs e)
         {
             // Toggle the renderer.
@@ -114,17 +114,17 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
             base.ViewDidLoad();
             Initialize();
         }
-        
+
         public override void LoadView()
         {
             View = new UIView {BackgroundColor = UIColor.White};
-            
+
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             View.AddSubviews(_myMapView, toolbar);
 
             _changeRendererButton =
@@ -137,7 +137,7 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
                 _changeRendererButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
-            
+
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;

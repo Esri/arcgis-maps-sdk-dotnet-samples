@@ -9,7 +9,6 @@
 
 using System;
 using System.Linq;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
@@ -153,19 +152,19 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
 
         public override void LoadView()
         {
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _toolbar = new UIToolbar();
             _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             View.AddSubviews(_myMapView, _toolbar);
 
             _toolbar.Items = new[]
             {
-                new UIBarButtonItem("Bookmarks", UIBarButtonItemStyle.Plain, OnShowBookmarksButtonClicked), 
+                new UIBarButtonItem("Bookmarks", UIBarButtonItemStyle.Plain, OnShowBookmarksButtonClicked),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem(UIBarButtonSystemItem.Add, OnAddBookmarksButtonClicked)
             };

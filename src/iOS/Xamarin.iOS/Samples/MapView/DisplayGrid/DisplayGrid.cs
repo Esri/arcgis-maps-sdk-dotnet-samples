@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -261,11 +260,11 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
         public override void LoadView()
         {
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             _toolbar = new UIToolbar();
             _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
 
@@ -279,7 +278,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem("Text color", UIBarButtonItemStyle.Plain, LabelColorButton_Click)
             };
-            
+
             View.AddSubviews(_myMapView, _toolbar);
 
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;

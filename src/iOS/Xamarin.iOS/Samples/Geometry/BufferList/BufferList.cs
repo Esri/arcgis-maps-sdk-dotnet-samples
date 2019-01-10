@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.BufferList
         private Polygon _spatialReferenceArea;
 
         // A Random object to create RGB color values.
-        private Random _random = new Random();
+        private readonly Random _random = new Random();
 
         public BufferList()
         {
@@ -61,19 +61,19 @@ namespace ArcGISRuntime.Samples.BufferList
         {
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             _controlsToolbar = new UIToolbar();
             _controlsToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _entryToolbar = new UIToolbar();
             _entryToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             _bufferDistanceEntry = new UITextField();
             _bufferDistanceEntry.TranslatesAutoresizingMaskIntoConstraints = false;
             _bufferDistanceEntry.Text = "10";
             _bufferDistanceEntry.BackgroundColor = UIColor.FromWhiteAlpha(1, .8f);
             _bufferDistanceEntry.Layer.CornerRadius = 4;
-            _bufferDistanceEntry.LeftView = new UIView(new CGRect(0,0,5,20));
+            _bufferDistanceEntry.LeftView = new UIView(new CGRect(0, 0, 5, 20));
             _bufferDistanceEntry.LeftViewMode = UITextFieldViewMode.Always;
             // Allow pressing 'return' to dismiss the keyboard.
             _bufferDistanceEntry.ShouldReturn += textField =>
@@ -81,21 +81,21 @@ namespace ArcGISRuntime.Samples.BufferList
                 textField.ResignFirstResponder();
                 return true;
             };
-            
+
             _bufferDistanceEntryLabel = new UILabel();
             _bufferDistanceEntryLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             _bufferDistanceEntryLabel.Text = "Buffer size:";
 
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView {BackgroundColor = UIColor.White};
             View.AddSubviews(_myMapView, _controlsToolbar, _entryToolbar, _bufferDistanceEntryLabel, _bufferDistanceEntry);
-            
+
             _entryToolbar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _entryToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _entryToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
 
             _bufferDistanceEntryLabel.LeadingAnchor.ConstraintEqualTo(_entryToolbar.LayoutMarginsGuide.LeadingAnchor, 8).Active = true;
             _bufferDistanceEntryLabel.CenterYAnchor.ConstraintEqualTo(_entryToolbar.CenterYAnchor).Active = true;
-            
+
             _bufferDistanceEntry.TrailingAnchor.ConstraintEqualTo(_entryToolbar.LayoutMarginsGuide.TrailingAnchor).Active = true;
             _bufferDistanceEntry.CenterYAnchor.ConstraintEqualTo(_entryToolbar.CenterYAnchor).Active = true;
             _bufferDistanceEntry.LeadingAnchor.ConstraintEqualTo(_bufferDistanceEntryLabel.TrailingAnchor, 8).Active = true;
@@ -126,9 +126,8 @@ namespace ArcGISRuntime.Samples.BufferList
 
         private void ShowHelpAlert(object sender, EventArgs e)
         {
-            string message =
-                "Tap to add points. Each point will use the buffer distance entered when it was created. " +
-                "The envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.";
+            const string message = "Tap to add points. Each point will use the buffer distance entered when it was created. " +
+                                   "The envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.";
             new UIAlertView("Instructions", message, (IUIAlertViewDelegate) null, "OK", null).Show();
         }
 
@@ -199,10 +198,10 @@ namespace ArcGISRuntime.Samples.BufferList
                 MapPoint tapMapPoint = e.Location;
 
                 // Check if the point coordinates are within the spatial reference envelope.
-                bool withinValidExent = GeometryEngine.Contains(_spatialReferenceArea, tapMapPoint);
+                bool withInvalidExtent = GeometryEngine.Contains(_spatialReferenceArea, tapMapPoint);
 
                 // If the input point is not within the valid extent for the spatial reference, warn the user and return.
-                if (!withinValidExent)
+                if (!withInvalidExtent)
                 {
                     // Display a message to warn the user.
                     UIAlertController alertController = UIAlertController.Create("Out of bounds", "Location is not valid to buffer using the defined spatial reference.", UIAlertControllerStyle.Alert);
@@ -245,15 +244,15 @@ namespace ArcGISRuntime.Samples.BufferList
 
         private void PromptForUnionChoice(object sender, EventArgs e)
         {
-            var alert = UIAlertController.Create ("Union buffers?", "", UIAlertControllerStyle.ActionSheet);
+            var alert = UIAlertController.Create("Union buffers?", "", UIAlertControllerStyle.ActionSheet);
             if (alert.PopoverPresentationController != null)
             {
-                alert.PopoverPresentationController.BarButtonItem = _bufferButton as UIBarButtonItem;  
+                alert.PopoverPresentationController.BarButtonItem = _bufferButton;
             }
 
             alert.AddAction(UIAlertAction.Create("Union", UIAlertActionStyle.Default, action => PerformUnion(true)));
-            alert.AddAction (UIAlertAction.Create ("Don't union", UIAlertActionStyle.Default, action => PerformUnion(false)));
-            PresentViewController (alert, animated: true, completionHandler: null);
+            alert.AddAction(UIAlertAction.Create("Don't union", UIAlertActionStyle.Default, action => PerformUnion(false)));
+            PresentViewController(alert, true, null);
         }
 
         private void PerformUnion(bool unionBuffers)
@@ -275,7 +274,7 @@ namespace ArcGISRuntime.Samples.BufferList
                         MapPoint bufferLocation = bufferGraphic.Geometry as MapPoint;
 
                         // Read the "distance" attribute to get the buffer distance entered when the point was tapped.
-                        double bufferDistanceFeet = (double)bufferGraphic.Attributes["distance"];
+                        double bufferDistanceFeet = (double) bufferGraphic.Attributes["distance"];
 
                         // Add the point and the corresponding distance to the lists.
                         bufferMapPoints.Add(bufferLocation);
@@ -322,7 +321,7 @@ namespace ArcGISRuntime.Samples.BufferList
         private Color GetRandomColor()
         {
             // Get a byte array with three random values.
-            var colorBytes = new byte[3];
+            byte[] colorBytes = new byte[3];
             _random.NextBytes(colorBytes);
 
             // Use the random bytes to define red, green, and blue values for a new color.

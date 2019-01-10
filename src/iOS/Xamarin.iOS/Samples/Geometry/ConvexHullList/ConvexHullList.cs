@@ -9,7 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -200,7 +199,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             UIAlertController unionAlert = UIAlertController.Create("Create convex hull", "Choose whether the convex hull should be unioned; if not, two convex hulls will be created.", UIAlertControllerStyle.Alert);
             unionAlert.AddAction(UIAlertAction.Create("Union", UIAlertActionStyle.Default, action => CreateConvexHull(true)));
             unionAlert.AddAction(UIAlertAction.Create("Don't union", UIAlertActionStyle.Default, action => CreateConvexHull(false)));
-            
+
             // Show the alert.
             PresentViewController(unionAlert, true, null);
         }
@@ -208,13 +207,13 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         public override void LoadView()
         {
             View = new UIView {BackgroundColor = UIColor.White};
-            
+
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             View.AddSubviews(_myMapView, toolbar);
 
             toolbar.Items = new[]
@@ -223,7 +222,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                 new UIBarButtonItem("Create convex hull", UIBarButtonItemStyle.Plain, CreateConvexHull_Click),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
-            
+
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;

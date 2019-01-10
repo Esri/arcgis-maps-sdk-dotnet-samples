@@ -56,13 +56,13 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
         private FeatureLayer _incidentLayer;
 
         // Uri for facilities feature service.
-        private Uri _facilityUri = new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/ArcGIS/rest/services/San_Diego_Facilities/FeatureServer/0");
+        private readonly Uri _facilityUri = new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/ArcGIS/rest/services/San_Diego_Facilities/FeatureServer/0");
 
         // Uri for incident feature service.
-        private Uri _incidentUri = new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/ArcGIS/rest/services/San_Diego_Incidents/FeatureServer/0");
+        private readonly Uri _incidentUri = new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/ArcGIS/rest/services/San_Diego_Incidents/FeatureServer/0");
 
         // Uri for the closest facility service.
-        private Uri _closestFacilityUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ClosestFacility");
+        private readonly Uri _closestFacilityUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ClosestFacility");
 
         public ClosestFacilityStatic()
         {
@@ -83,8 +83,8 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             _toolbar = new UIToolbar();
             _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            View = new UIView { BackgroundColor = UIColor.White };
-            
+            View = new UIView {BackgroundColor = UIColor.White};
+
             View.AddSubviews(_myMapView, _toolbar);
 
             _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
@@ -138,7 +138,7 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
                 };
 
                 // Create a list of line symbols to show unique routes. Different colors help make different routes visually distinguishable.
-                _routeSymbols = new List<SimpleLineSymbol>()
+                _routeSymbols = new List<SimpleLineSymbol>
                 {
                     new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 25, 45, 85), 5.0f),
                     new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 35, 65, 120), 5.0f),
@@ -194,7 +194,7 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             List<Incident> incidents = new List<Incident>();
 
             // Create query parameters to select all features.
-            QueryParameters queryParams = new QueryParameters()
+            QueryParameters queryParams = new QueryParameters
             {
                 WhereClause = "1=1"
             };

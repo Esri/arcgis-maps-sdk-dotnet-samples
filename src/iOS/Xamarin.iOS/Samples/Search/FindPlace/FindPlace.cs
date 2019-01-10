@@ -47,7 +47,6 @@ namespace ArcGISRuntime.Samples.FindPlace
         private UITextField _searchBox;
         private UITextField _locationBox;
         private UITableView _suggestionView;
-        private UIView _toolbar;
         private UIButton _searchButton;
         private UIButton _searchRestrictedButton;
         private UIActivityIndicatorView _activityView;
@@ -250,11 +249,9 @@ namespace ArcGISRuntime.Samples.FindPlace
                 // Return the map point.
                 return result.DisplayLocation;
             }
-            else
-            {
-                // Get the current device location.
-                return _myMapView.LocationDisplay.Location.Position;
-            }
+
+            // Get the current device location.
+            return _myMapView.LocationDisplay.Location.Position;
         }
 
         /// <summary>

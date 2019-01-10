@@ -195,11 +195,11 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             _slider.MinValue = 100;
             _slider.MaxValue = 500;
 
-            _toolbar.Items = new []
+            _toolbar.Items = new[]
             {
-                new UIBarButtonItem{CustomView = _operationPicker}, 
+                new UIBarButtonItem {CustomView = _operationPicker},
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem{CustomView = _slider, Width = 150}, 
+                new UIBarButtonItem {CustomView = _slider, Width = 150}
             };
 
             View.AddSubviews(_myMapView, _toolbar, _resultLabel);

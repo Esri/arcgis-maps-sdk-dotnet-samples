@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CoreGraphics;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -47,13 +46,13 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         public override async void ViewDidLoad()
         {
             base.ViewDidLoad();
-            
+
             // Set up the map with basemap.
             _myMapView.Map = new Map(Basemap.CreateTopographic());
 
             // Load the rendering rules for the raster.
             await LoadRenderingRules();
-            
+
             // Apply the first rendering rule
             SelectRenderingRule(_renderRuleInfos[0]);
         }
@@ -93,7 +92,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         {
             // Create a new rendering rule from the rendering rule info.
             RenderingRule renderingRule = new RenderingRule(renderingRuleInfo);
-            
+
             // Create a new image service raster.
             ImageServiceRaster imageServiceRaster = new ImageServiceRaster(_myUri)
             {
@@ -103,13 +102,13 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
 
             // Create a new raster layer from the image service raster.
             RasterLayer rasterLayer = new RasterLayer(imageServiceRaster);
-            
+
             // Clear the existing layer from the map.
             _myMapView.Map.OperationalLayers.Clear();
 
             // Add the raster layer to the operational layers of the  map view.
             _myMapView.Map.OperationalLayers.Add(rasterLayer);
-            
+
             // Update the label.
             _selectionLabel.Text = $"Rule \"{renderingRuleInfo.Name}\" selected.";
         }
@@ -118,13 +117,13 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         {
             // Create the alert controller with a title.
             UIAlertController alertController = UIAlertController.Create("Choose a rendering rule", "", UIAlertControllerStyle.Alert);
-            
+
             // Add actions for each rendering rule.
             foreach (RenderingRuleInfo ruleInfo in _renderRuleInfos)
             {
                 alertController.AddAction(UIAlertAction.Create(ruleInfo.Name, UIAlertActionStyle.Default, action => SelectRenderingRule(ruleInfo)));
             }
-            
+
             // Show the alert.
             PresentViewController(alertController, true, null);
         }
@@ -138,7 +137,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             _selectionLabel = new UILabel
             {
                 Text = "No rendering rule selected.",
@@ -149,16 +148,16 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
                 Lines = 1,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
-            
+
             View.AddSubviews(_myMapView, _selectionLabel, toolbar);
 
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem("Change rendering rule", UIBarButtonItemStyle.Plain, ChangeRenderingRule_Clicked),
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace) 
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
-            
+
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
@@ -167,7 +166,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
             toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
             toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            
+
             _selectionLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _selectionLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _selectionLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;

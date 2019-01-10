@@ -412,7 +412,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem("Stats", UIBarButtonItemStyle.Plain, ToggleStatsDisplay),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _playButton,
+                _playButton
             };
 
             View.AddSubviews(_mySceneView, _insetMapView, _statsFrame, _controlToolbox);
@@ -441,7 +441,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 label.TextAlignment = UITextAlignment.Right;
             }
 
-            NSLayoutConstraint.ActivateConstraints(new NSLayoutConstraint[]
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _controlToolbox.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _controlToolbox.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),

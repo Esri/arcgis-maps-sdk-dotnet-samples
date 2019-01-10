@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -45,7 +44,7 @@ namespace ArcGISRuntime.Samples.FindRoute
         private GraphicsOverlay _routeGraphicsOverlay;
 
         // URI for the San Diego route service.
-        private readonly Uri _sanDiegoRouteServiceUri = 
+        private readonly Uri _sanDiegoRouteServiceUri =
             new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
 
         // URIs for picture marker images.
@@ -177,10 +176,10 @@ namespace ArcGISRuntime.Samples.FindRoute
             };
             NavigationController.PushViewController(directionsTableController, true);
         }
-        
+
         public override void LoadView()
         {
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -194,7 +193,7 @@ namespace ArcGISRuntime.Samples.FindRoute
             {
                 new UIBarButtonItem("Solve route", UIBarButtonItemStyle.Plain, SolveRouteButton_Click),
                 new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ResetButton_Click),
-                new UIBarButtonItem("Directions", UIBarButtonItemStyle.Plain, ShowDirections),
+                new UIBarButtonItem("Directions", UIBarButtonItemStyle.Plain, ShowDirections)
             };
 
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;

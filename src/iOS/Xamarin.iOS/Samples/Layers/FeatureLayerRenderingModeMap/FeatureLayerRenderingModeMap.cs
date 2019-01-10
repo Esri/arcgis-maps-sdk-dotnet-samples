@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -118,24 +117,24 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
                 new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
         }
-        
+
         public override void LoadView()
         {
             View = new UIView {BackgroundColor = UIColor.White};
-            
+
             _staticMapView = new MapView();
             _staticMapView.TranslatesAutoresizingMaskIntoConstraints = false;
             _dynamicMapView = new MapView();
             _dynamicMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             _stackView = new UIStackView(new UIView[] {_staticMapView, _dynamicMapView});
             _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
             _stackView.Distribution = UIStackViewDistribution.FillEqually;
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
-            UILabel staticLabel = new UILabel()
+
+            UILabel staticLabel = new UILabel
             {
                 Text = "Static",
                 BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
@@ -143,7 +142,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
                 TextAlignment = UITextAlignment.Center,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
-            
+
             UILabel dynamicLabel = new UILabel()
             {
                 Text = "Dynamic",
@@ -154,15 +153,15 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
             };
 
             View.AddSubviews(_stackView, toolbar, staticLabel, dynamicLabel);
-            
+
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem("Zoom", UIBarButtonItemStyle.Plain, OnZoomClick),
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), 
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _stackView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
@@ -181,7 +180,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
                 dynamicLabel.TrailingAnchor.ConstraintEqualTo(_dynamicMapView.TrailingAnchor)
             });
         }
-        
+
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
         {
             base.TraitCollectionDidChange(previousTraitCollection);

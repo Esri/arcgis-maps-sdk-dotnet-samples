@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
@@ -128,10 +127,10 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
                         string tableName = relatedTable.TableName;
 
                         // Get the display name for the feature.
-                        string featureDisplayname = resultFeature.Attributes[displayFieldName].ToString();
+                        string featureDisplayName = resultFeature.Attributes[displayFieldName].ToString();
 
                         // Create a formatted result string.
-                        string formattedResult = $"{tableName} - {featureDisplayname}";
+                        string formattedResult = $"{tableName} - {featureDisplayName}";
 
                         // Add the result to the list.
                         queryResultsForUi.Add(formattedResult);

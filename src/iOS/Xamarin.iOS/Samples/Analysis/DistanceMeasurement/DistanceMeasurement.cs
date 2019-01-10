@@ -9,7 +9,6 @@
 
 using System;
 using System.Diagnostics;
-using CoreGraphics;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -150,23 +149,23 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             // Prompt for the type of convex hull to create.
             UIAlertController unionAlert = UIAlertController.Create("Tap to update", "Tap in the scene to set a new end point for the distance measurement.", UIAlertControllerStyle.Alert);
             unionAlert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Default, null));
-            
+
             // Show the alert.
             PresentViewController(unionAlert, true, null);
         }
-        
+
         public override void LoadView()
         {
             View = new UIView {BackgroundColor = UIColor.White};
-            
+
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             // Create the label.
-            _resultLabel = new UILabel()
+            _resultLabel = new UILabel
             {
                 Text = "Tap to measure distance.",
                 BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
@@ -174,7 +173,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
                 TextAlignment = UITextAlignment.Center,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
-            
+
             View.AddSubviews(_mySceneView, toolbar, _resultLabel);
 
             toolbar.Items = new[]
@@ -183,7 +182,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem("Change units", UIBarButtonItemStyle.Plain, UnitChangeButton_TouchUpInside)
             };
-            
+
             _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
@@ -192,7 +191,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
             toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            
+
             _resultLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _resultLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
             _resultLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;

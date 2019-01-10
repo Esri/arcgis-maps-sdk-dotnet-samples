@@ -9,7 +9,6 @@
 
 using System;
 using System.Threading.Tasks;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
@@ -82,8 +81,8 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             _progressBar.StartAnimating();
 
             // Get the 'from' and 'to' dates from the date pickers for the geoprocessing analysis.
-            DateTime fromDate = (DateTime)_selectionView.StartPicker.Date;
-            DateTime toDate = (DateTime)_selectionView.EndPicker.Date;
+            DateTime fromDate = (DateTime) _selectionView.StartPicker.Date;
+            DateTime toDate = (DateTime) _selectionView.EndPicker.Date;
 
             // The end date must be at least one day after the start date.
             if (toDate <= fromDate.AddDays(1))
@@ -162,7 +161,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
 
         public override void LoadView()
         {
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView {BackgroundColor = UIColor.White};
 
             _selectionView = new DateSelectionViewController();
 
@@ -176,7 +175,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
 
             _toolbar = new UIToolbar();
             _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            _toolbar.Items = new[] { _configureButton, spacer, _startButton };
+            _toolbar.Items = new[] {_configureButton, spacer, _startButton};
             View.AddSubview(_toolbar);
 
             // Hide the activity indicator (progress bar) when stopped.

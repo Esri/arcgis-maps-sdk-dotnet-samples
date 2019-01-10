@@ -94,7 +94,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             CreatePolygonsOverlay();
         }
 
-        void _operationChoiceButton_ValueChanged(object sender, EventArgs e)
+        private void _operationChoiceButton_ValueChanged(object sender, EventArgs e)
         {
             // Remove any currently displayed result.
             _polygonsOverlay.Graphics.Remove(_resultGraphic);

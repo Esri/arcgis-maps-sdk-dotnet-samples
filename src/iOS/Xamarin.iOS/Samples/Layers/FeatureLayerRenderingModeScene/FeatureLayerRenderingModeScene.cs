@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -81,7 +80,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
                 staticScene.OperationalLayers.Add(staticLayer);
 
                 // Create and add the dynamic layer.
-                FeatureLayer dynamicLayer = (FeatureLayer)staticLayer.Clone();
+                FeatureLayer dynamicLayer = (FeatureLayer) staticLayer.Clone();
                 dynamicLayer.RenderingMode = FeatureRenderingMode.Dynamic;
                 dynamicScene.OperationalLayers.Add(dynamicLayer);
             }
@@ -114,24 +113,24 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
             base.ViewDidLoad();
             Initialize();
         }
-        
+
         public override void LoadView()
         {
             View = new UIView {BackgroundColor = UIColor.White};
-            
+
             _staticSceneView = new SceneView();
             _staticSceneView.TranslatesAutoresizingMaskIntoConstraints = false;
             _dynamicSceneView = new SceneView();
             _dynamicSceneView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             _stackView = new UIStackView(new UIView[] {_staticSceneView, _dynamicSceneView});
             _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
             _stackView.Distribution = UIStackViewDistribution.FillEqually;
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
-            UILabel staticLabel = new UILabel()
+
+            UILabel staticLabel = new UILabel
             {
                 Text = "Static",
                 BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
@@ -139,8 +138,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
                 TextAlignment = UITextAlignment.Center,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
-            
-            UILabel dynamicLabel = new UILabel()
+
+            UILabel dynamicLabel = new UILabel
             {
                 Text = "Dynamic",
                 BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
@@ -150,15 +149,15 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
             };
 
             View.AddSubviews(_stackView, toolbar, staticLabel, dynamicLabel);
-            
+
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem("Zoom", UIBarButtonItemStyle.Plain, _zoomButton_TouchUpInside),
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), 
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _stackView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
@@ -177,7 +176,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
                 dynamicLabel.TrailingAnchor.ConstraintEqualTo(_dynamicSceneView.TrailingAnchor)
             });
         }
-        
+
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
         {
             base.TraitCollectionDidChange(previousTraitCollection);

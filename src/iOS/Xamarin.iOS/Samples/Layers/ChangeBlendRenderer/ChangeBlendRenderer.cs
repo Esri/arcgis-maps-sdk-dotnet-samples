@@ -64,7 +64,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 
                 // Create a new EnvelopeBuilder from the full extent of the raster layer.
                 EnvelopeBuilder envelopeBuilder = new EnvelopeBuilder(rasterLayerImagery.FullExtent);
-                
+
                 // Configure the settings view.
                 _settingsVC = new BlendSettingsController(map);
 
@@ -95,7 +95,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
 
@@ -107,9 +107,9 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
                 _updateRendererButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
-            
+
             View.AddSubviews(_myMapView, toolbar);
-            
+
             NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
@@ -130,15 +130,16 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             UIPopoverPresentationController pc = controller.PopoverPresentationController;
             if (pc != null)
             {
-                pc.BarButtonItem = (UIBarButtonItem)sender;
+                pc.BarButtonItem = (UIBarButtonItem) sender;
                 pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
-                pc.Delegate = new ppDelegate();
+                pc.Delegate = new PpDelegate();
             }
+
             PresentViewController(controller, true, null);
         }
-        
+
         // Force popover to display on iPhone.
-        private class ppDelegate : UIPopoverPresentationControllerDelegate
+        private class PpDelegate : UIPopoverPresentationControllerDelegate
         {
             public override UIModalPresentationStyle GetAdaptivePresentationStyle(
                 UIPresentationController forPresentationController) => UIModalPresentationStyle.None;
@@ -147,16 +148,15 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
                 UITraitCollection traitCollection) => UIModalPresentationStyle.None;
         }
     }
-    
+
     public class BlendSettingsController : UIViewController
     {
-        private RasterLayer _imageLayer;
-        private RasterLayer _elevationLayer;
+        private readonly Map _map;
         private UISegmentedControl _slopeTypesPicker;
         private UISegmentedControl _colorRampsPicker;
         private UISlider _altitudeSlider;
         private UISlider _azimuthSlider;
-        private Map _map;
+
         public BlendSettingsController(Map map)
         {
             _map = map;
@@ -191,7 +191,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             slopeTypesLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             slopeTypesLabel.Text = "Slope type:";
             formContainer.AddArrangedSubview(slopeTypesLabel);
-            
+
             _slopeTypesPicker = new UISegmentedControl(Enum.GetNames(typeof(SlopeType)));
             _slopeTypesPicker.TranslatesAutoresizingMaskIntoConstraints = false;
             _slopeTypesPicker.SelectedSegment = 0;
@@ -201,17 +201,17 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             colorRampsLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             colorRampsLabel.Text = "Color ramp:";
             formContainer.AddArrangedSubview(colorRampsLabel);
-            
+
             _colorRampsPicker = new UISegmentedControl(Enum.GetNames(typeof(PresetColorRampType)));
             _colorRampsPicker.TranslatesAutoresizingMaskIntoConstraints = false;
             _colorRampsPicker.SelectedSegment = 0;
             formContainer.AddArrangedSubview(_colorRampsPicker);
-            
+
             UILabel altitudeLabel = new UILabel();
             altitudeLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             altitudeLabel.Text = "Altitude:";
             formContainer.AddArrangedSubview(altitudeLabel);
-            
+
             _altitudeSlider = new UISlider();
             _altitudeSlider.TranslatesAutoresizingMaskIntoConstraints = false;
             _altitudeSlider.MinValue = 0;
@@ -230,9 +230,9 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             _azimuthSlider.MaxValue = 360;
             _azimuthSlider.Value = 180;
             formContainer.AddArrangedSubview(_azimuthSlider);
-            
+
             scrollView.AddSubview(formContainer);
-            
+
             NavigationItem.RightBarButtonItem = new UIBarButtonItem("Apply", UIBarButtonItemStyle.Plain, UpdateRendererButton_Clicked);
 
             formContainer.TopAnchor.ConstraintEqualTo(scrollView.TopAnchor).Active = true;

@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -150,7 +149,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
 
             // Set the initial visual extent of the map view to the extent of the graphics overlay.
             newMap.InitialViewpoint = new Viewpoint(visibleExtent);
-            
+
             // Assign the map to the MapView.
             _myMapView.Map = newMap;
         }
@@ -220,13 +219,13 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         public override void LoadView()
         {
             View = new UIView {BackgroundColor = UIColor.White};
-            
+
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             View.AddSubviews(_myMapView, toolbar);
 
             toolbar.Items = new[]
@@ -235,7 +234,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
                 new UIBarButtonItem("Clip geometries", UIBarButtonItemStyle.Plain, ClipButton_TouchUpInside),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
-            
+
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;

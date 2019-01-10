@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -108,10 +107,10 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
         {
             // Prompt for the type of convex hull to create.
             UIAlertController unionAlert = UIAlertController.Create("Query features", "Enter a state abbreviation (e.g. CA)", UIAlertControllerStyle.Alert);
-            unionAlert.AddTextField(field => field.Placeholder = "e.g. CA" );
+            unionAlert.AddTextField(field => field.Placeholder = "e.g. CA");
             unionAlert.AddAction(UIAlertAction.Create("Submit query", UIAlertActionStyle.Default, action => ZoomToFeature(unionAlert.TextFields[0].Text)));
             unionAlert.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
-            
+
             // Show the alert.
             PresentViewController(unionAlert, true, null);
         }
@@ -148,19 +147,19 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             base.ViewDidLoad();
             Initialize();
         }
-        
+
         public override void LoadView()
         {
             View = new UIView {BackgroundColor = UIColor.White};
-            
+
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             // Create the label.
-            _resultLabel = new UILabel()
+            _resultLabel = new UILabel
             {
                 Text = "Press 'Zoom to query' to begin.",
                 BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
@@ -168,7 +167,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
                 TextAlignment = UITextAlignment.Center,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
-            
+
             View.AddSubviews(_myMapView, toolbar, _resultLabel);
 
             toolbar.Items = new[]
@@ -177,7 +176,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem("Zoom to query", UIBarButtonItemStyle.Plain, ZoomToQuery_Click)
             };
-            
+
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
@@ -186,7 +185,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
             toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            
+
             _resultLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _resultLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
             _resultLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;

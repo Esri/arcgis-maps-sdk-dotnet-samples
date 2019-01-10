@@ -15,16 +15,16 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
 {
     public class DateSelectionViewController : UIViewController
     {
-        public UIDatePicker StartPicker;
-        public UIDatePicker EndPicker;
+        public readonly UIDatePicker StartPicker;
+        public readonly UIDatePicker EndPicker;
 
         public DateSelectionViewController()
         {
             Title = "Select a date range";
             StartPicker = new UIDatePicker();
-            StartPicker.SetDate((NSDate)new DateTime(1998, 1, 1, 0, 0, 0, DateTimeKind.Local), false);
+            StartPicker.SetDate((NSDate) new DateTime(1998, 1, 1, 0, 0, 0, DateTimeKind.Local), false);
             EndPicker = new UIDatePicker();
-            EndPicker.SetDate((NSDate)new DateTime(1998, 1, 31, 0, 0, 0, DateTimeKind.Local), false);
+            EndPicker.SetDate((NSDate) new DateTime(1998, 1, 31, 0, 0, 0, DateTimeKind.Local), false);
         }
 
         public override void LoadView()

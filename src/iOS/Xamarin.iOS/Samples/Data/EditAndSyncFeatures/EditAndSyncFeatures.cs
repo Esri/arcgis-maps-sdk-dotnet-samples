@@ -81,7 +81,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
 
         public override void LoadView()
         {
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView {BackgroundColor = UIColor.White};
 
             _toolbar = new UIToolbar();
             _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -241,7 +241,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                         foreach (Feature feature in selectedFeatures)
                         {
                             // Get a reference to the correct feature table for the feature.
-                            GeodatabaseFeatureTable table = (GeodatabaseFeatureTable)feature.FeatureTable;
+                            GeodatabaseFeatureTable table = (GeodatabaseFeatureTable) feature.FeatureTable;
 
                             // Ensure the geometry type of the table is point.
                             if (table.GeometryType != GeometryType.Point)
@@ -280,7 +280,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                         Envelope selectionEnvelope = new Envelope(e.Location.X - tolerance, e.Location.Y - tolerance, e.Location.X + tolerance, e.Location.Y + tolerance);
 
                         // Define query parameters for feature selection.
-                        QueryParameters query = new QueryParameters()
+                        QueryParameters query = new QueryParameters
                         {
                             Geometry = selectionEnvelope
                         };
@@ -374,7 +374,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             generateGdbJob.ProgressChanged += (sender, e) =>
             {
                 // Get the job.
-                GenerateGeodatabaseJob job = (GenerateGeodatabaseJob)sender;
+                GenerateGeodatabaseJob job = (GenerateGeodatabaseJob) sender;
 
                 // Update the progress bar.
                 UpdateProgressBar(job.Progress);
@@ -540,7 +540,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            UIAlertView alertView = new UIAlertView("alert", message, (IUIAlertViewDelegate)null, "OK", null);
+            UIAlertView alertView = new UIAlertView("alert", message, (IUIAlertViewDelegate) null, "OK", null);
             alertView.Show();
         }
 

@@ -126,10 +126,10 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
             _myMapView.Map = sampleMap;
 
             // Define the URL string for the feature layer.
-            string layerUrl = "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_115th_Congressional_Districts/FeatureServer/0";
+            const string layerUrl = "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_115th_Congressional_Districts/FeatureServer/0";
 
             // Create a service feature table from the URL.
-            ServiceFeatureTable featureTable = new ServiceFeatureTable(new System.Uri(layerUrl));
+            ServiceFeatureTable featureTable = new ServiceFeatureTable(new Uri(layerUrl));
 
             // Create a feature layer from the service feature table.
             FeatureLayer districtFeatureLabel = new FeatureLayer(featureTable);

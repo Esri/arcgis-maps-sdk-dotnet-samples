@@ -63,7 +63,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             base.ViewDidLoad();
             Initialize();
         }
-        
+
         private void Initialize()
         {
             // When the spatial reference changes (the map loads) add the local geodatabase tables as feature layers.
@@ -255,15 +255,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 }
 
                 // Store the correct table to edit (for the button clicked).
-                GeodatabaseFeatureTable editTable = null;
-                if (isMarine)
-                {
-                    editTable = _marineTable;
-                }
-                else
-                {
-                    editTable = _birdTable;
-                }
+                GeodatabaseFeatureTable editTable = isMarine ? _marineTable : _birdTable;
 
                 // Inform the user which table is being edited.
                 _statusLabel.Text = "Click the map to add a new feature to the geodatabase table '" + editTable.TableName + "'";
@@ -456,9 +448,9 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             requireTransactionsLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             requireTransactionsLabel.Text = "Require transaction";
             requireTransactionsLabel.TextAlignment = UITextAlignment.Right;
-            requireTransactionsLabel.SetContentCompressionResistancePriority((float)UILayoutPriority.DefaultHigh, UILayoutConstraintAxis.Horizontal);
+            requireTransactionsLabel.SetContentCompressionResistancePriority((float) UILayoutPriority.DefaultHigh, UILayoutConstraintAxis.Horizontal);
 
-            UIStackView requireTransactionRow = new UIStackView(new UIView[] { requireTransactionsLabel, _transactionSwitch });
+            UIStackView requireTransactionRow = new UIStackView(new UIView[] {requireTransactionsLabel, _transactionSwitch});
             requireTransactionRow.TranslatesAutoresizingMaskIntoConstraints = false;
             requireTransactionRow.Axis = UILayoutConstraintAxis.Horizontal;
             requireTransactionRow.Distribution = UIStackViewDistribution.Fill;
@@ -474,7 +466,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 new UIBarButtonItem("Start transaction", UIBarButtonItemStyle.Plain, HandleTransaction_Click),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem("Sync", UIBarButtonItemStyle.Plain, SynchronizeEdits),
-                new UIBarButtonItem(UIBarButtonSystemItem.Add, HandleAddButton_Click) { Enabled = false }
+                new UIBarButtonItem(UIBarButtonSystemItem.Add, HandleAddButton_Click) {Enabled = false}
             };
 
             _transactionButton = _toolbar.Items[0];
@@ -483,7 +475,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
 
             View.AddSubviews(_mapView, _statusLabel, requireTransactionRow, _toolbar, _progressBar);
 
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _mapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _mapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),

@@ -35,12 +35,12 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         private UIToolbar _toolbar;
         private ViewshedLocationSettingsController _settingsVC;
         private UIBarButtonItem _button;
-        
+
         // Hold the URL to the elevation source.
-        private Uri _localElevationImageService = new Uri("https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
+        private readonly Uri _localElevationImageService = new Uri("https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
 
         // Hold the URL to the buildings scene layer.
-        private Uri _buildingsUrl = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
+        private readonly Uri _buildingsUrl = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
 
         // Hold a reference to the viewshed analysis.
         private LocationViewshed _viewshed;
@@ -85,7 +85,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
                 90,
                 11,
                 1500);
-            
+
             _settingsVC = new ViewshedLocationSettingsController(_viewshed);
             _button.Enabled = true;
 
@@ -143,7 +143,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _viewpointOverlay.Graphics.Clear();
             _viewpointOverlay.Graphics.Add(new Graphic(_viewshed.Location, _viewpointSymbol));
         }
-        
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -163,15 +163,15 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             View.AddSubviews(_mySceneView, _toolbar);
 
             _button = new UIBarButtonItem("Edit settings", UIBarButtonItemStyle.Plain, HandleSettings_Clicked);
-            
-            _toolbar.Items = new UIBarButtonItem[]
+
+            _toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _button, 
+                _button,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -191,15 +191,16 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             UIPopoverPresentationController pc = controller.PopoverPresentationController;
             if (pc != null)
             {
-                pc.BarButtonItem = (UIBarButtonItem)sender;
+                pc.BarButtonItem = (UIBarButtonItem) sender;
                 pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
-                pc.Delegate = new ppDelegate();
+                pc.Delegate = new PpDelegate();
             }
+
             PresentViewController(controller, true, null);
         }
 
         // Force popover to display on iPhone.
-        private class ppDelegate : UIPopoverPresentationControllerDelegate
+        private class PpDelegate : UIPopoverPresentationControllerDelegate
         {
             public override UIModalPresentationStyle GetAdaptivePresentationStyle(
                 UIPresentationController forPresentationController) => UIModalPresentationStyle.None;
@@ -211,7 +212,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
 
     public class ViewshedLocationSettingsController : UIViewController
     {
-        private LocationViewshed _viewshed;
+        private readonly LocationViewshed _viewshed;
         private UISlider _headingSlider;
         private UISlider _pitchSlider;
         private UISlider _horizontalAngleSlider;
@@ -226,7 +227,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _viewshed = viewshed;
             Title = "Viewshed settings";
         }
-        
+
         private void HandleSettingsChange(object sender, EventArgs e)
         {
             // Update the viewshed settings.
@@ -267,10 +268,10 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             formContainer.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
             formContainer.Axis = UILayoutConstraintAxis.Vertical;
             formContainer.WidthAnchor.ConstraintEqualTo(300).Active = true;
-            
+
             UILabel analysisLabel = new UILabel();
             analysisLabel.TranslatesAutoresizingMaskIntoConstraints = false;
-            analysisLabel.Text = "Analsys overlay";
+            analysisLabel.Text = "Analysis overlay";
             _analysisVisibilitySwitch = new UISwitch();
             _analysisVisibilitySwitch.On = _viewshed.IsVisible;
             _analysisVisibilitySwitch.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -287,42 +288,42 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             UILabel headingLabel = new UILabel();
             headingLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             headingLabel.Text = "Heading";
-            _headingSlider = new UISlider{MinValue = 0, MaxValue = 360, Value = (float)_viewshed.Heading};
+            _headingSlider = new UISlider {MinValue = 0, MaxValue = 360, Value = (float) _viewshed.Heading};
             _headingSlider.TranslatesAutoresizingMaskIntoConstraints = false;
             formContainer.AddArrangedSubview(getRowStackView(new UIView[] {headingLabel, _headingSlider}));
 
             UILabel pitchLabel = new UILabel();
             pitchLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             pitchLabel.Text = "pitch";
-            _pitchSlider = new UISlider{MinValue = 0, MaxValue = 180, Value = (float)_viewshed.Pitch};
+            _pitchSlider = new UISlider {MinValue = 0, MaxValue = 180, Value = (float) _viewshed.Pitch};
             _pitchSlider.TranslatesAutoresizingMaskIntoConstraints = false;
             formContainer.AddArrangedSubview(getRowStackView(new UIView[] {pitchLabel, _pitchSlider}));
 
             UILabel horizontalLabel = new UILabel();
             horizontalLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             horizontalLabel.Text = "horizontal";
-            _horizontalAngleSlider = new UISlider{MinValue = 1, MaxValue = 120, Value = (float)_viewshed.HorizontalAngle};
+            _horizontalAngleSlider = new UISlider {MinValue = 1, MaxValue = 120, Value = (float) _viewshed.HorizontalAngle};
             _horizontalAngleSlider.TranslatesAutoresizingMaskIntoConstraints = false;
             formContainer.AddArrangedSubview(getRowStackView(new UIView[] {horizontalLabel, _horizontalAngleSlider}));
 
             UILabel verticalLabel = new UILabel();
             verticalLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             verticalLabel.Text = "vertical";
-            _verticalAngleSlider = new UISlider{MinValue = 1, MaxValue = 120, Value = (float)_viewshed.VerticalAngle};
+            _verticalAngleSlider = new UISlider {MinValue = 1, MaxValue = 120, Value = (float) _viewshed.VerticalAngle};
             _verticalAngleSlider.TranslatesAutoresizingMaskIntoConstraints = false;
             formContainer.AddArrangedSubview(getRowStackView(new UIView[] {verticalLabel, _verticalAngleSlider}));
 
             UILabel minLabel = new UILabel();
             minLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             minLabel.Text = "min";
-            _minimumDistanceSlider = new UISlider {MinValue = 11, MaxValue = 8999, Value = (float)_viewshed.MinDistance};
+            _minimumDistanceSlider = new UISlider {MinValue = 11, MaxValue = 8999, Value = (float) _viewshed.MinDistance};
             _minimumDistanceSlider.TranslatesAutoresizingMaskIntoConstraints = false;
             formContainer.AddArrangedSubview(getRowStackView(new UIView[] {minLabel, _minimumDistanceSlider}));
 
             UILabel maxLabel = new UILabel();
             maxLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             maxLabel.Text = "max";
-            _maximumDistanceSlider = new UISlider{MinValue = 0, MaxValue = 9999, Value = (float)_viewshed.MaxDistance};
+            _maximumDistanceSlider = new UISlider {MinValue = 0, MaxValue = 9999, Value = (float) _viewshed.MaxDistance};
             _maximumDistanceSlider.TranslatesAutoresizingMaskIntoConstraints = false;
             formContainer.AddArrangedSubview(getRowStackView(new UIView[] {maxLabel, _maximumDistanceSlider}));
 
@@ -335,7 +336,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _maximumDistanceSlider.ValueChanged += HandleSettingsChange;
             _analysisVisibilitySwitch.ValueChanged += HandleSettingsChange;
             _frustumVisibilitySwitch.ValueChanged += HandleSettingsChange;
-            
+
             scrollView.AddSubview(formContainer);
 
             formContainer.TopAnchor.ConstraintEqualTo(scrollView.TopAnchor).Active = true;
@@ -343,7 +344,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             formContainer.TrailingAnchor.ConstraintEqualTo(scrollView.TrailingAnchor).Active = true;
             formContainer.BottomAnchor.ConstraintEqualTo(scrollView.BottomAnchor).Active = true;
         }
-        
+
         private UIStackView getRowStackView(UIView[] views)
         {
             UIStackView row = new UIStackView(views);

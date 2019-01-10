@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
@@ -46,10 +45,10 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         private GenerateOfflineMapJob _generateOfflineMapJob;
 
         // The extent of the data to take offline.
-        private Envelope _areaOfInterest = new Envelope(-88.1541, 41.7690, -88.1471, 41.7720, SpatialReferences.Wgs84);
+        private readonly Envelope _areaOfInterest = new Envelope(-88.1541, 41.7690, -88.1471, 41.7720, SpatialReferences.Wgs84);
 
         // The ID for a web map item hosted on the server (water network map of Naperville IL).
-        private string WebMapId = "acc027394bc84c2fb04d1ed317aac674";
+        private const string WebMapId = "acc027394bc84c2fb04d1ed317aac674";
 
         public GenerateOfflineMap()
         {
@@ -110,7 +109,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
 
         public override void ViewDidLoad()
         {
-            base.ViewDidLoad(); 
+            base.ViewDidLoad();
             Initialize();
         }
 
@@ -142,7 +141,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             int num = 1;
             while (Directory.Exists(packagePath))
             {
-                packagePath = Path.Combine(tempPath, @"NapervilleWaterNetwork" + num.ToString());
+                packagePath = Path.Combine(tempPath, @"NapervilleWaterNetwork" + num);
                 num++;
             }
 
@@ -230,7 +229,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
 
         public override void LoadView()
         {
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -240,7 +239,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
 
             _takeMapOfflineButton = new UIBarButtonItem("Generate offline map", UIBarButtonItemStyle.Plain, TakeMapOfflineButton_Click);
 
-            toolbar.Items = new UIBarButtonItem[]
+            toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _takeMapOfflineButton,
@@ -301,11 +300,14 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
 
 
         #region Authentication
+
         // Constants for OAuth-related values.
         // - The URL of the portal to authenticate with (ArcGIS Online).
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
+
         // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
         private const string AppClientId = @"lgAdHkYZYlwwfAhC";
+
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
         private const string OAuthRedirectUrl = @"my-ags-app://auth";
 
@@ -334,7 +336,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         }
 
         // ChallengeHandler function that will be called whenever access to a secured resource is attempted.
-        public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
+        private async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
             Credential credential = null;
 
@@ -343,7 +345,10 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials.
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (TaskCanceledException) { return credential; }
+            catch (TaskCanceledException)
+            {
+                return credential;
+            }
             catch (Exception)
             {
                 // Exception will be reported in calling function.
@@ -354,6 +359,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         }
 
         #region IOAuthAuthorizationHandler implementation
+
         // Use a TaskCompletionSource to track the completion of the authorization.
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 
@@ -361,21 +367,15 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
             // If the TaskCompletionSource is not null, authorization may already be in progress and should be canceled.
-            if (_taskCompletionSource != null)
-            {
-                // Try to cancel any existing authentication task.
-                _taskCompletionSource.TrySetCanceled();
-            }
+            // Try to cancel any existing authentication task.
+            _taskCompletionSource?.TrySetCanceled();
 
             // Create a task completion source.
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
             // Get the current iOS ViewController.
             UIViewController viewController = null;
-            InvokeOnMainThread(() =>
-            {
-                viewController = UIApplication.SharedApplication.KeyWindow.RootViewController;
-            });
+            InvokeOnMainThread(() => { viewController = UIApplication.SharedApplication.KeyWindow.RootViewController; });
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
             OAuth2Authenticator authenticator = new OAuth2Authenticator(
@@ -432,10 +432,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
                 else
                 {
                     // Login canceled: dismiss the OAuth login.
-                    if (_taskCompletionSource != null)
-                    {
-                        _taskCompletionSource.TrySetCanceled();
-                    }
+                    _taskCompletionSource?.TrySetCanceled();
                 }
 
                 // Cancel authentication.
@@ -444,14 +441,12 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
 
 
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password.
-            InvokeOnMainThread(() =>
-            {
-                viewController.PresentViewController(authenticator.GetUI(), true, null);
-            });
+            InvokeOnMainThread(() => { viewController.PresentViewController(authenticator.GetUI(), true, null); });
 
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;
         }
+
         #endregion
 
         #endregion

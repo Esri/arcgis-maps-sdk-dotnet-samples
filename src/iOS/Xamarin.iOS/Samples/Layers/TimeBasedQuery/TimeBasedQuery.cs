@@ -112,7 +112,6 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
             catch (Exception ex)
             {
                 new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
-
             }
         }
     }

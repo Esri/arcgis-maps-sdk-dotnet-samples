@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CoreGraphics;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
@@ -42,11 +41,11 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
 
         // TODO: Add Client ID for an app registered with the server.
-        private string _appClientId = "2Gh53JRzkPtOENQq";
+        private const string AppClientId = "2Gh53JRzkPtOENQq";
 
         // TODO: Add URL for redirecting after a successful authorization.
         //       Note - this must be a URL configured as a valid Redirect URI with your app.
-        private string _oAuthRedirectUrl = "https://developers.arcgis.com";
+        private const string OAuthRedirectUrl = "https://developers.arcgis.com";
 
         public SearchPortalMaps()
         {
@@ -268,8 +267,8 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 ServerUri = new Uri(ServerUrl),
                 OAuthClientInfo = new OAuthClientInfo
                 {
-                    ClientId = _appClientId,
-                    RedirectUri = new Uri(_oAuthRedirectUrl)
+                    ClientId = AppClientId,
+                    RedirectUri = new Uri(OAuthRedirectUrl)
                 },
                 // Specify OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret).
                 // Otherwise, use OAuthImplicit.
@@ -372,7 +371,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
             Xamarin.Auth.OAuth2Authenticator auth = new OAuth2Authenticator(
-                clientId: _appClientId,
+                clientId: AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
                 redirectUrl: callbackUri)

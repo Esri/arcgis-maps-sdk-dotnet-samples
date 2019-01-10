@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using ArcGISRuntime.Samples.Managers;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;

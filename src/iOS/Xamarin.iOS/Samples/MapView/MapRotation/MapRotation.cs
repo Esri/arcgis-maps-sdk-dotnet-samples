@@ -50,7 +50,7 @@ namespace ArcGISRuntime.Samples.MapRotation
 
         public override void LoadView()
         {
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -73,7 +73,8 @@ namespace ArcGISRuntime.Samples.MapRotation
             _toolbar = new UIToolbar
             {
                 TranslatesAutoresizingMaskIntoConstraints = false,
-                Items = new[] {
+                Items = new[]
+                {
                     new UIBarButtonItem(_rotationLabel),
                     new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace) {Width = 0},
                     new UIBarButtonItem(_rotationSlider)

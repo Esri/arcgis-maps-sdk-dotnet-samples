@@ -84,7 +84,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             UIAlertController prompt = UIAlertController.Create("Add facilities & barriers", "Tap to add facilities. Tap to build a polyline representing barriers. Press 'Done' to finish.", UIAlertControllerStyle.ActionSheet);
             prompt.AddAction(UIAlertAction.Create("Add a facility", UIAlertActionStyle.Default, DrawFacilities));
             prompt.AddAction(UIAlertAction.Create("Add a barrier", UIAlertActionStyle.Default, DrawBarrier_Click));
-            
+
             // Needed to prevent crash on iPad.
             UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
             if (ppc != null)
@@ -106,9 +106,15 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             {
                 _myMapView.SketchEditor.CompleteCommand.Execute(sender);
             }
-            
-            // Swap toolbar.
-            _toolbar.Items = getToolbarItems;
+
+            // Re-add toolbar.
+            _toolbar.Items = new[]
+            {
+                _addButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _showButton,
+                _resetButton
+            };
         }
 
         private async void DrawFacilities(UIAlertAction action)
@@ -116,8 +122,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             try
             {
                 // Let the user tap on the map view using the point sketch mode.
-                SketchCreationMode creationMode = SketchCreationMode.Point;
-                Geometry geometry = await _myMapView.SketchEditor.StartAsync(creationMode, true);
+                Geometry geometry = await _myMapView.SketchEditor.StartAsync(SketchCreationMode.Point, true);
 
                 // Symbology for a facility.
                 PictureMarkerSymbol facilitySymbol = new PictureMarkerSymbol(new Uri("https://static.arcgis.com/images/Symbols/SafetyHealth/Hospital.png"))
@@ -127,7 +132,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
                 };
 
                 // Create a graphic for the facility.
-                Graphic facilityGraphic = new Graphic(geometry, new Dictionary<string, object>() {{"Type", "Facility"}}, facilitySymbol)
+                Graphic facilityGraphic = new Graphic(geometry, new Dictionary<string, object> {{"Type", "Facility"}}, facilitySymbol)
                 {
                     ZIndex = 2
                 };
@@ -153,14 +158,13 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             try
             {
                 // Let the user draw on the map view using the polyline sketch mode.
-                SketchCreationMode creationMode = SketchCreationMode.Polyline;
-                Geometry geometry = await _myMapView.SketchEditor.StartAsync(creationMode, false);
+                Geometry geometry = await _myMapView.SketchEditor.StartAsync(SketchCreationMode.Polyline, false);
 
                 // Symbol for the barriers.
                 SimpleLineSymbol barrierSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Black, 5.0f);
 
                 // Create the graphic to be used for barriers.
-                Graphic barrierGraphic = new Graphic(geometry, new Dictionary<string, object>() {{"Type", "Barrier"}}, barrierSymbol)
+                Graphic barrierGraphic = new Graphic(geometry, new Dictionary<string, object> {{"Type", "Barrier"}}, barrierSymbol)
                 {
                     ZIndex = 1
                 };
@@ -255,7 +259,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
                     for (int j = 0; j < polygons.Count; j++)
                     {
                         // Create the graphic for the service areas, alternating between fill symbols.
-                        Graphic serviceGraphic = new Graphic(polygons[j].Geometry, new Dictionary<string, object>() {{"Type", "ServiceArea"}}, fillSymbols[j % 2])
+                        Graphic serviceGraphic = new Graphic(polygons[j].Geometry, new Dictionary<string, object> {{"Type", "ServiceArea"}}, fillSymbols[j % 2])
                         {
                             ZIndex = 0
                         };
@@ -286,7 +290,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
 
         public override void LoadView()
         {
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -300,7 +304,13 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             _doneButton = new UIBarButtonItem(UIBarButtonSystemItem.Done, DoneClick);
             _showButton = new UIBarButtonItem("Solve", UIBarButtonItemStyle.Plain, ShowServiceAreas_Click);
             _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, Reset_Click);
-            _toolbar.Items = getToolbarItems;
+            _toolbar.Items = new[]
+            {
+                _addButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _showButton,
+                _resetButton
+            };
 
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
@@ -311,10 +321,6 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
         }
-
-        private UIBarButtonItem[] getToolbarItems =>
-            new[] {_addButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), _showButton, _resetButton};
-
 
         private void CreateErrorDialog(string message)
         {

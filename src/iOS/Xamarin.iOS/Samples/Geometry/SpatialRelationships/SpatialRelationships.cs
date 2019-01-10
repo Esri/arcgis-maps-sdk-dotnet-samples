@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -262,7 +261,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
                 ScrollEnabled = false
             };
 
-            _stackView = new UIStackView(new UIView[] { _myMapView, _resultTextView });
+            _stackView = new UIStackView(new UIView[] {_myMapView, _resultTextView});
             _stackView.Distribution = UIStackViewDistribution.FillEqually;
             _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
 

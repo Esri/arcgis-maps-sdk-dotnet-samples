@@ -172,11 +172,11 @@ namespace ArcGISRuntime.Samples.Buffer
 
         public override void LoadView()
         {
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             // Create the help label.
             _helpLabel = new UILabel
             {
@@ -215,7 +215,7 @@ namespace ArcGISRuntime.Samples.Buffer
             _bufferDistanceMilesTextField.RightViewMode = UITextFieldViewMode.Always;
 
             // Allow pressing 'return' to dismiss the keyboard.
-            _bufferDistanceMilesTextField.ShouldReturn += (textField) =>
+            _bufferDistanceMilesTextField.ShouldReturn += textField =>
             {
                 textField.ResignFirstResponder();
                 return true;
@@ -229,7 +229,7 @@ namespace ArcGISRuntime.Samples.Buffer
                 Text = "Planar buffers",
                 TextAlignment = UITextAlignment.Center,
                 TranslatesAutoresizingMaskIntoConstraints = false,
-                Layer = { CornerRadius = 5 }
+                Layer = {CornerRadius = 5}
             };
 
             // Create the label to show the geodesic buffer color.
@@ -240,7 +240,7 @@ namespace ArcGISRuntime.Samples.Buffer
                 Text = "Geodesic buffers",
                 TextAlignment = UITextAlignment.Center,
                 TranslatesAutoresizingMaskIntoConstraints = false,
-                Layer = { CornerRadius = 5 }
+                Layer = {CornerRadius = 5}
             };
 
             // Create the clear buffers button.
@@ -298,7 +298,7 @@ namespace ArcGISRuntime.Samples.Buffer
             _clearBuffersButton.LeadingAnchor.ConstraintEqualTo(_geodesicSwatchLabel.CenterXAnchor, margin).Active = true;
             _clearBuffersButton.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -margin).Active = true;
             _clearBuffersButton.HeightAnchor.ConstraintEqualTo(controlHeight).Active = true;
-            
+
             _planarSwatchLabel.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, margin).Active = true;
             _planarSwatchLabel.TrailingAnchor.ConstraintEqualTo(View.CenterXAnchor, -margin).Active = true;
             _planarSwatchLabel.TopAnchor.ConstraintEqualTo(_bufferInputLabel.BottomAnchor, margin).Active = true;

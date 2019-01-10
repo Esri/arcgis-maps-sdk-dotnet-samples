@@ -1,7 +1,5 @@
-﻿using System;
-using Esri.ArcGISRuntime.Data;
+﻿using Esri.ArcGISRuntime.Data;
 using UIKit;
-using System.Linq;
 using Esri.ArcGISRuntime.UI;
 
 namespace ArcGISRuntime.Samples.ReadShapefileMetadata
@@ -12,7 +10,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         private UIStackView _stackLayout;
 
         // Hold a reference to the shapefile metadata.
-        private ShapefileInfo _metadata;
+        private readonly ShapefileInfo _metadata;
 
         public MetadataDisplayViewController(ShapefileInfo metadata) : base("MetadataDisplayViewController", null)
         {
@@ -30,7 +28,8 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             _imageView.TranslatesAutoresizingMaskIntoConstraints = false;
             _imageView.ContentMode = UIViewContentMode.ScaleAspectFit;
 
-            _stackLayout = new UIStackView(new UIView[] {
+            _stackLayout = new UIStackView(new[]
+            {
                 _imageView,
                 getContentLabel(_metadata.Summary),
                 getHeaderLabel("Description"),
@@ -39,13 +38,14 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
                 getContentLabel(_metadata.Credits),
                 getHeaderLabel("Tags"),
                 getContentLabel(string.Join(", ", _metadata.Tags)),
-                new UIView()});
+                new UIView()
+            });
             _stackLayout.TranslatesAutoresizingMaskIntoConstraints = false;
             _stackLayout.Axis = UILayoutConstraintAxis.Vertical;
             _stackLayout.Spacing = 8;
 
             View.AddSubview(_stackLayout);
-            NSLayoutConstraint.ActivateConstraints(new NSLayoutConstraint[]
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _stackLayout.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _stackLayout.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
@@ -80,12 +80,5 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             label.Lines = 0;
             return label;
         }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            // Perform any additional setup after loading the view, typically from a nib.
-        }
     }
 }
-

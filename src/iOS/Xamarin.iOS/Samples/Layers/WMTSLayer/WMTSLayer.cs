@@ -67,7 +67,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             _constructorChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
         }
 
-        public async override void ViewDidLoad()
+        public override async void ViewDidLoad()
         {
             base.ViewDidLoad();
             _constructorChoiceButton.SelectedSegment = 0;

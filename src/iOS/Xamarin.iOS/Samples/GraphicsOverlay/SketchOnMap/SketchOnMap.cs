@@ -273,7 +273,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             // Add sketch modes to the action sheet.
             foreach (KeyValuePair<string, int> mode in _sketchModeDictionary)
             {
-                UIAlertAction actionItem = UIAlertAction.Create(mode.Key, UIAlertActionStyle.Default, (action) => SketchGeometry(action.Title));
+                UIAlertAction actionItem = UIAlertAction.Create(mode.Key, UIAlertActionStyle.Default, action => SketchGeometry(action.Title));
                 sketchModeActionSheet.AddAction(actionItem);
             }
 

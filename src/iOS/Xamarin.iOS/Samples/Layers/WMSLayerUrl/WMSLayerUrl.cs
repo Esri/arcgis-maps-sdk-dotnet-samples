@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
             "https://nowcoast.noaa.gov/arcgis/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Hold a list of uniquely-identifying WMS layer names to display.
-        private readonly List<string> _wmsLayerNames = new List<string> { "1" };
+        private readonly List<string> _wmsLayerNames = new List<string> {"1"};
 
         public WMSLayerUrl()
         {

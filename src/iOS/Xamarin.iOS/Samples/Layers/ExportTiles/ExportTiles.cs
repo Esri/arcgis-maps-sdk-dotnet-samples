@@ -12,7 +12,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -300,7 +299,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
             var vc = new UIViewController();
             Map previewMap = new Map();
             previewMap.OperationalLayers.Add(myLayer);
-            vc.View = new MapView() {Map = previewMap};
+            vc.View = new MapView {Map = previewMap};
             vc.Title = "Exported tiles";
             NavigationController.PushViewController(vc, true);
         }

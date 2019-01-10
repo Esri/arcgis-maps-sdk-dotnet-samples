@@ -64,7 +64,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
                 // Create and load a new raster layer to show the image.
                 _rasterLayer = new RasterLayer(rasterFile);
                 await _rasterLayer.LoadAsync();
-                
+
                 // Set up the settings controls.
                 _settingsVC = new HillshadeSettingsController(_rasterLayer);
 
@@ -89,13 +89,13 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         public override void LoadView()
         {
             View = new UIView {BackgroundColor = UIColor.White};
-            
+
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             _applyHillshadeButton = new UIBarButtonItem("Configure hillshade", UIBarButtonItemStyle.Plain, HandleSettings_Clicked);
             toolbar.Items = new[]
             {
@@ -103,9 +103,9 @@ namespace ArcGISRuntime.Samples.RasterHillshade
                 _applyHillshadeButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
-            
+
             View.AddSubviews(_myMapView, toolbar);
-            
+
             NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
@@ -126,15 +126,16 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             UIPopoverPresentationController pc = controller.PopoverPresentationController;
             if (pc != null)
             {
-                pc.BarButtonItem = (UIBarButtonItem)sender;
+                pc.BarButtonItem = (UIBarButtonItem) sender;
                 pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
-                pc.Delegate = new ppDelegate();
+                pc.Delegate = new PpDelegate();
             }
+
             PresentViewController(controller, true, null);
         }
 
         // Force popover to display on iPhone.
-        private class ppDelegate : UIPopoverPresentationControllerDelegate
+        private class PpDelegate : UIPopoverPresentationControllerDelegate
         {
             public override UIModalPresentationStyle GetAdaptivePresentationStyle(
                 UIPresentationController forPresentationController) => UIModalPresentationStyle.None;
@@ -146,10 +147,11 @@ namespace ArcGISRuntime.Samples.RasterHillshade
 
     public class HillshadeSettingsController : UIViewController
     {
-        private RasterLayer _rasterLayer;
+        private readonly RasterLayer _rasterLayer;
         private UISegmentedControl _slopeTypePicker;
         private UISlider _altitudeSlider;
         private UISlider _azimuthSlider;
+
         public HillshadeSettingsController(RasterLayer rasterLayer)
         {
             _rasterLayer = rasterLayer;
@@ -183,7 +185,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             slopeTypeLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             slopeTypeLabel.Text = "Slope type:";
             formContainer.AddArrangedSubview(slopeTypeLabel);
-            
+
             _slopeTypePicker = new UISegmentedControl("Degree", "% Rise", "Scaled", "None");
             _slopeTypePicker.TranslatesAutoresizingMaskIntoConstraints = false;
             formContainer.AddArrangedSubview(_slopeTypePicker);
@@ -192,7 +194,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             altitudeLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             altitudeLabel.Text = "Altitude:";
             formContainer.AddArrangedSubview(altitudeLabel);
-            
+
             _altitudeSlider = new UISlider();
             _altitudeSlider.TranslatesAutoresizingMaskIntoConstraints = false;
             _altitudeSlider.MinValue = 0;
@@ -215,7 +217,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             _azimuthSlider.ValueChanged += UpdateSettings;
             _altitudeSlider.ValueChanged += UpdateSettings;
             _slopeTypePicker.ValueChanged += UpdateSettings;
-            
+
             scrollView.AddSubview(formContainer);
 
             formContainer.TopAnchor.ConstraintEqualTo(scrollView.TopAnchor).Active = true;
@@ -239,13 +241,14 @@ namespace ArcGISRuntime.Samples.RasterHillshade
                     type = SlopeType.Scaled;
                     break;
             }
+
             HillshadeRenderer renderer = new HillshadeRenderer(
-                altitude: _altitudeSlider.Value, 
-                azimuth: _azimuthSlider.Value, 
-                zfactor: 1, 
-                slopeType: type, 
-                pixelSizeFactor: 1, 
-                pixelSizePower: 1, 
+                altitude: _altitudeSlider.Value,
+                azimuth: _azimuthSlider.Value,
+                zfactor: 1,
+                slopeType: type,
+                pixelSizeFactor: 1,
+                pixelSizePower: 1,
                 nbits: 8);
             _rasterLayer.Renderer = renderer;
         }

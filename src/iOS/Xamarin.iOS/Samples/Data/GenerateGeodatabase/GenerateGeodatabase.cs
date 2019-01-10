@@ -14,7 +14,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
-using CoreGraphics;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -295,20 +294,20 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 _progressBar.Progress = _generateGdbJob.Progress / 100.0f;
             });
         }
-        
+
         public override void LoadView()
         {
             View = new UIView {BackgroundColor = UIColor.White};
-            
+
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             _progressBar = new UIProgressView();
             _progressBar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             View.AddSubviews(_myMapView, toolbar, _progressBar);
 
             _generateButton =
@@ -321,7 +320,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 _generateButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
-            
+
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;

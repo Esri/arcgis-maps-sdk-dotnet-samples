@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using CoreGraphics;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -50,7 +49,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         private UISwitch _useExtentSwitch;
         private MapView _myMapView;
         private UIStackView _transformToolsView;
-        private UIStackView outerStackView;
+        private UIStackView _outerStackView;
 
         public ListTransformations()
         {
@@ -105,7 +104,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         private void MyMap_Loaded(object sender, EventArgs e)
         {
             // Get the map's spatial reference.
-            SpatialReference mapSpatialReference = ((Map)sender).SpatialReference;
+            SpatialReference mapSpatialReference = ((Map) sender).SpatialReference;
 
             // Run on the UI thread.
             InvokeOnMainThread(() =>
@@ -210,10 +209,10 @@ namespace ArcGISRuntime.Samples.ListTransformations
         {
             View = new UIView {BackgroundColor = UIColor.White};
 
-            outerStackView = new UIStackView();
-            outerStackView.TranslatesAutoresizingMaskIntoConstraints = false;
-            outerStackView.Axis = UILayoutConstraintAxis.Vertical;
-            outerStackView.Distribution = UIStackViewDistribution.FillEqually;
+            _outerStackView = new UIStackView();
+            _outerStackView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _outerStackView.Axis = UILayoutConstraintAxis.Vertical;
+            _outerStackView.Distribution = UIStackViewDistribution.FillEqually;
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -251,49 +250,50 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
             _transformationsPicker = new UIPickerView();
             _transformationsPicker.TranslatesAutoresizingMaskIntoConstraints = false;
-            _transformationsPicker.SetContentCompressionResistancePriority((float)UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Vertical);
+            _transformationsPicker.SetContentCompressionResistancePriority((float) UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Vertical);
             _transformToolsView.AddArrangedSubview(_transformationsPicker);
 
             _messagesTextView = new UITextView();
             _messagesTextView.TranslatesAutoresizingMaskIntoConstraints = false;
-            _messagesTextView.SetContentCompressionResistancePriority((float)UILayoutPriority.Required, UILayoutConstraintAxis.Vertical);
+            _messagesTextView.SetContentCompressionResistancePriority((float) UILayoutPriority.Required, UILayoutConstraintAxis.Vertical);
             _messagesTextView.ScrollEnabled = false;
             _transformToolsView.AddArrangedSubview(_messagesTextView);
 
-            outerStackView.AddArrangedSubview(_myMapView);
-            outerStackView.AddArrangedSubview(_transformToolsView);
+            _outerStackView.AddArrangedSubview(_myMapView);
+            _outerStackView.AddArrangedSubview(_transformToolsView);
 
-            View.AddSubviews(outerStackView);
+            View.AddSubviews(_outerStackView);
 
-            outerStackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            outerStackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor).Active = true;
-            outerStackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor).Active = true;
-            outerStackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            _outerStackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+            _outerStackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor).Active = true;
+            _outerStackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor).Active = true;
+            _outerStackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
         }
+
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
         {
             base.TraitCollectionDidChange(previousTraitCollection);
 
             // Reset constraints.
-            outerStackView.RemoveFromSuperview();
-            View.AddSubview(outerStackView);
+            _outerStackView.RemoveFromSuperview();
+            View.AddSubview(_outerStackView);
 
             if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
             {
-                outerStackView.Axis = UILayoutConstraintAxis.Horizontal;
-                outerStackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-                outerStackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-                outerStackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor).Active = true;
-                outerStackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+                _outerStackView.Axis = UILayoutConstraintAxis.Horizontal;
+                _outerStackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+                _outerStackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+                _outerStackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor).Active = true;
+                _outerStackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
                 _transformToolsView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
             }
             else
             {
-                outerStackView.Axis = UILayoutConstraintAxis.Vertical;
-                outerStackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-                outerStackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor).Active = true;
-                outerStackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor).Active = true;
-                outerStackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+                _outerStackView.Axis = UILayoutConstraintAxis.Vertical;
+                _outerStackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
+                _outerStackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor).Active = true;
+                _outerStackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor).Active = true;
+                _outerStackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
             }
         }
     }

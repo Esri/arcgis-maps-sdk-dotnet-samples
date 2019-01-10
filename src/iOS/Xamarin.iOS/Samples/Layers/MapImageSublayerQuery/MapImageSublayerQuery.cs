@@ -115,7 +115,7 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
 
             // Prompt the user for a query.
             UIAlertController prompt = UIAlertController.Create("Enter query", "Query for places with population(2000) > ", UIAlertControllerStyle.Alert);
-            prompt.AddTextField((obj) =>
+            prompt.AddTextField(obj =>
             {
                 _queryEntry = obj;
                 obj.Text = "181000";

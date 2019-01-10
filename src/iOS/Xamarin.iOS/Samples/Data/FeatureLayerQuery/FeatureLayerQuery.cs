@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -96,10 +95,10 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         {
             // Prompt for the type of convex hull to create.
             UIAlertController unionAlert = UIAlertController.Create("Query features", "Enter a state name.", UIAlertControllerStyle.Alert);
-            unionAlert.AddTextField(field => field.Placeholder = "State name" );
-            unionAlert.AddAction(UIAlertAction.Create("Submit query", UIAlertActionStyle.Default, action => QueryStateFeature(unionAlert.TextFields[0].Text)));
+            unionAlert.AddTextField(field => field.Placeholder = "State name");
+            unionAlert.AddAction(UIAlertAction.Create("Submit query", UIAlertActionStyle.Default, async action => await QueryStateFeature(unionAlert.TextFields[0].Text)));
             unionAlert.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
-            
+
             // Show the alert.
             PresentViewController(unionAlert, true, null);
         }
@@ -110,7 +109,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             {
                 // Clear the existing selection.
                 _featureLayer.ClearSelection();
-                
+
                 // Create a query parameters that will be used to Query the feature table.
                 QueryParameters queryParams = new QueryParameters();
 
@@ -160,13 +159,13 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         public override void LoadView()
         {
             View = new UIView {BackgroundColor = UIColor.White};
-            
+
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             View.AddSubviews(_myMapView, toolbar);
 
             toolbar.Items = new[]
@@ -175,7 +174,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
                 new UIBarButtonItem("Query features", UIBarButtonItemStyle.Plain, OnQueryClicked),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
-            
+
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;

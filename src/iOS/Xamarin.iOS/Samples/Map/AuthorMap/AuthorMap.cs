@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
@@ -350,7 +349,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem("Layers", UIBarButtonItemStyle.Plain, ShowLayerListClicked),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Save", UIBarButtonItemStyle.Plain, SaveMapClicked),
+                new UIBarButtonItem("Save", UIBarButtonItemStyle.Plain, SaveMapClicked)
             };
 
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;

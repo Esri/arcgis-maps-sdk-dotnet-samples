@@ -92,7 +92,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
             View = new UIView();
 
             _mySceneView = new SceneView();
-            _myDisplayList = new UITableView()
+            _myDisplayList = new UITableView
             {
                 RowHeight = 30
             };
@@ -115,7 +115,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
 
             View.AddSubviews(_stackView);
 
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
@@ -212,18 +212,16 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
                     // Defaults based on Google Earth.
                     return new Viewpoint(node.Extent, new Camera(node.Extent.GetCenter(), 1000, 0, 45, 0));
                 }
-                else
-                {
-                    Envelope tx = node.Extent;
-                    // Add padding on each side.
-                    double bufferDistance = Math.Max(node.Extent.Width, node.Extent.Height) / 20;
-                    Envelope bufferedExtent = new Envelope(
-                        tx.XMin - bufferDistance, tx.YMin - bufferDistance,
-                        tx.XMax + bufferDistance, tx.YMax + bufferDistance,
-                        tx.ZMin - bufferDistance, tx.ZMax + bufferDistance,
-                        SpatialReferences.Wgs84);
-                    return new Viewpoint(bufferedExtent);
-                }
+
+                Envelope tx = node.Extent;
+                // Add padding on each side.
+                double bufferDistance = Math.Max(node.Extent.Width, node.Extent.Height) / 20;
+                Envelope bufferedExtent = new Envelope(
+                    tx.XMin - bufferDistance, tx.YMin - bufferDistance,
+                    tx.XMax + bufferDistance, tx.YMax + bufferDistance,
+                    tx.ZMin - bufferDistance, tx.ZMax + bufferDistance,
+                    SpatialReferences.Wgs84);
+                return new Viewpoint(bufferedExtent);
             }
             else
             {
@@ -344,7 +342,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
     public class LayerDisplayVM
     {
         public KmlNode Node { get; }
-        
+
         private LayerDisplayVM Parent { get; set; }
 
         private int NestLevel

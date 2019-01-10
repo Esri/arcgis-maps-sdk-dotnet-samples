@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -88,13 +87,13 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         public override void LoadView()
         {
             View = new UIView {BackgroundColor = UIColor.White};
-            
+
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             View.AddSubviews(_mySceneView, toolbar);
 
             toolbar.Items = new[]
@@ -103,7 +102,7 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
                 new UIBarButtonItem("Viewshed from here", UIBarButtonItemStyle.Plain, UpdateObserverWithCamera),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
-            
+
             _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;

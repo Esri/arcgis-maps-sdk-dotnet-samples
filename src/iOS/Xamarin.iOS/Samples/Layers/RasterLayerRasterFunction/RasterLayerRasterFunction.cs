@@ -89,8 +89,7 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
                 //}
 
                 // Define the JSON string needed for the raster function
-                string theJsonString =
-                    @"{
+                const string theJsonString = @"{
                 ""raster_function_arguments"":
                 {
                   ""z_factor"":{ ""double"":25.0,""type"":""Raster_function_variable""},

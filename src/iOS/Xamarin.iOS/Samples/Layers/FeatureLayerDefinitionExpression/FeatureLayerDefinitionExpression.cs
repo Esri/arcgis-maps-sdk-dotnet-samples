@@ -91,22 +91,22 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
         public override void LoadView()
         {
             View = new UIView {BackgroundColor = UIColor.White};
-            
+
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             View.AddSubviews(_myMapView, toolbar);
 
             toolbar.Items = new[]
             {
                 new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, OnResetButtonClicked),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Apply expression", UIBarButtonItemStyle.Plain, OnApplyExpressionClicked), 
+                new UIBarButtonItem("Apply expression", UIBarButtonItemStyle.Plain, OnApplyExpressionClicked)
             };
-            
+
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;

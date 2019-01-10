@@ -9,7 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -52,10 +51,10 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
             Map newMap = new Map(Basemap.CreateStreets());
 
             // Create an envelope that covers the continental US in the web Mercator spatial reference.
-            Envelope continentalUSEnvelope = new Envelope(-14193469.5655232, 2509617.28647268, -7228772.04749191, 6737139.97573925 , SpatialReferences.WebMercator);
+            Envelope continentalUSEnvelope = new Envelope(-14193469.5655232, 2509617.28647268, -7228772.04749191, 6737139.97573925, SpatialReferences.WebMercator);
 
             // Zoom the map to the extent of the envelope.
-            newMap.InitialViewpoint = new  Viewpoint(continentalUSEnvelope);
+            newMap.InitialViewpoint = new Viewpoint(continentalUSEnvelope);
 
             // Assign the map to the MapView.
             _myMapView.Map = newMap;
@@ -117,7 +116,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
             // Create the MapView.
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             // Create the toolbar.
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -125,9 +124,9 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
             // Add the views to the layout.
             View = new UIView {BackgroundColor = UIColor.White};
             View.AddSubviews(_myMapView, toolbar);
-            
+
             _changeRendererButton = new UIBarButtonItem("Change sublayer renderer", UIBarButtonItemStyle.Plain, ChangeSublayerRendererButton_TouchUpInside);
-            
+
             // Add the button.
             toolbar.Items = new[]
             {
@@ -141,7 +140,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
             _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
             _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-            
+
             toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
             toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;

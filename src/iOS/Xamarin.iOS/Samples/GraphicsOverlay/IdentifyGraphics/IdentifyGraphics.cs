@@ -102,19 +102,15 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
 
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            double tolerance = 10d; // Use larger tolerance for touch.
-            int maximumResults = 1; // Only return one graphic  .
-            bool onlyReturnPopups = false; // Don't only return popups.
-
             try
             {
                 // Use the following method to identify graphics in a specific graphics overlay.
                 IdentifyGraphicsOverlayResult identifyResults = await _myMapView.IdentifyGraphicsOverlayAsync(
-                    _polygonOverlay,
-                    e.Position,
-                    tolerance,
-                    onlyReturnPopups,
-                    maximumResults);
+                    graphicsOverlay: _polygonOverlay,
+                    screenPoint: e.Position,
+                    tolerance: 10d,
+                    returnPopupsOnly: false,
+                    maximumResults: 1);
 
                 // Check if we got results.
                 if (identifyResults.Graphics.Count > 0)
@@ -129,7 +125,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
             }
             catch (Exception ex)
             {
-                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView(title: "Error", message: ex.ToString(), del: (IUIAlertViewDelegate) null, cancelButtonTitle: "OK", otherButtons: null).Show();
             }
         }
     }

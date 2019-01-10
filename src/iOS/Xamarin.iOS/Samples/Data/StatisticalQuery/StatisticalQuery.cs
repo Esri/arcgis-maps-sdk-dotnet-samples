@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Http;
@@ -70,8 +69,8 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
 
         public override void LoadView()
         {
-            View = new UIView { BackgroundColor = UIColor.White };
-            
+            View = new UIView {BackgroundColor = UIColor.White};
+
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
@@ -100,17 +99,17 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
 
         private void GetStatisticsPressed(object sender, EventArgs e)
         {
-            var alert = UIAlertController.Create ("Query statistics", "Get statistics for all cities matching these criteria", UIAlertControllerStyle.ActionSheet);
+            var alert = UIAlertController.Create("Query statistics", "Get statistics for all cities matching these criteria", UIAlertControllerStyle.ActionSheet);
             if (alert.PopoverPresentationController != null)
             {
-                alert.PopoverPresentationController.BarButtonItem = _toolbar.Items[0];  
+                alert.PopoverPresentationController.BarButtonItem = _toolbar.Items[0];
             }
 
             alert.AddAction(UIAlertAction.Create("Cities in extent with pop. > 5M", UIAlertActionStyle.Default, action => QueryStatistics(true, true)));
             alert.AddAction(UIAlertAction.Create("Cities with pop. > 5M", UIAlertActionStyle.Default, action => QueryStatistics(false, true)));
             alert.AddAction(UIAlertAction.Create("Cities in extent", UIAlertActionStyle.Default, action => QueryStatistics(true, false)));
             alert.AddAction(UIAlertAction.Create("All cities", UIAlertActionStyle.Default, action => QueryStatistics(false, false)));
-            PresentViewController (alert, animated: true, completionHandler: null);
+            PresentViewController(alert, true, null);
         }
 
         private async void QueryStatistics(bool onlyInExtent, bool onlyLargePop)

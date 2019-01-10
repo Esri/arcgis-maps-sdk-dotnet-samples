@@ -167,7 +167,6 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             catch (Exception ex)
             {
                 new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
-
             }
         }
     }

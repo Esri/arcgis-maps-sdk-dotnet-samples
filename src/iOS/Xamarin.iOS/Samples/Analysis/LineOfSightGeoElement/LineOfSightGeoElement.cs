@@ -228,8 +228,8 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         private void MyHeightSlider_ValueChanged(object sender, EventArgs e)
         {
             // Constrain the min and max to 20 and 150 units.
-            double minHeight = 20;
-            double maxHeight = 150;
+            const double minHeight = 20;
+            const double maxHeight = 150;
 
             // Scale the slider value; its default range is 0-10.
             double value = _mySlider.Value;
@@ -261,7 +261,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             _sliderToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             View.AddSubview(_sliderToolbar);
 
-            _statusLabel = new UILabel()
+            _statusLabel = new UILabel
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
                 TextColor = UIColor.White,

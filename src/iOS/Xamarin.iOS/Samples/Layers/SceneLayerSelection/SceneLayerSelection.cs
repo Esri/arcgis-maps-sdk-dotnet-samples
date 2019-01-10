@@ -80,7 +80,7 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
             {
                 // Create a camera with an interesting view.
                 await buildingsLayer.LoadAsync();
-                MapPoint center = (MapPoint)GeometryEngine.Project(buildingsLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
+                MapPoint center = (MapPoint) GeometryEngine.Project(buildingsLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
                 Camera viewCamera = new Camera(center.Y, center.X, 600, 120, 60, 0);
 
                 // Set the viewpoint with the camera.

@@ -73,7 +73,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
 
                 // Add the map to the map view.
                 _myMapView.Map = myMap;
-                
+
                 // Create the settings view controllers.
                 _minMaxController = new MinMaxSettingsController(_rasterLayer);
                 _percentClipController = new PercentClipSettingsController(_rasterLayer);
@@ -121,20 +121,20 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
                 _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
             });
         }
-        
+
         private void MinMax_Clicked(object sender, EventArgs e)
         {
-            ShowPopover(_minMaxController, (UIBarButtonItem)sender);
+            ShowPopover(_minMaxController, (UIBarButtonItem) sender);
         }
 
         private void PercentClip_Clicked(object sender, EventArgs e)
         {
-            ShowPopover(_percentClipController, (UIBarButtonItem)sender);
+            ShowPopover(_percentClipController, (UIBarButtonItem) sender);
         }
-        
+
         private void StdDev_Clicked(object sender, EventArgs e)
         {
-            ShowPopover(_stdDevController, (UIBarButtonItem)sender);
+            ShowPopover(_stdDevController, (UIBarButtonItem) sender);
         }
 
         private void ShowPopover(UIViewController controller, UIBarButtonItem sender)
@@ -147,12 +147,13 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             {
                 pc.BarButtonItem = sender;
                 pc.PermittedArrowDirections = UIPopoverArrowDirection.Unknown;
-                pc.Delegate = new ppDelegate();
+                pc.Delegate = new PpDelegate();
             }
+
             PresentViewController(navController, true, null);
         }
-        
-        private class ppDelegate : UIPopoverPresentationControllerDelegate
+
+        private class PpDelegate : UIPopoverPresentationControllerDelegate
         {
             public override UIModalPresentationStyle GetAdaptivePresentationStyle(
                 UIPresentationController forPresentationController) => UIModalPresentationStyle.None;
@@ -164,7 +165,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
 
     public class MinMaxSettingsController : UIViewController
     {
-        private RasterLayer _rasterLayer;
+        private readonly RasterLayer _rasterLayer;
         private RgbValuePickerModel _minPickerModel;
         private RgbValuePickerModel _maxPickerModel;
         private UIPickerView _maxPicker;
@@ -232,7 +233,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             _maxPicker.HeightAnchor.ConstraintEqualTo(90).Active = true;
             _maxPicker.Model = _maxPickerModel;
             formContainer.AddArrangedSubview(_maxPicker);
-            
+
             NavigationItem.RightBarButtonItem = new UIBarButtonItem("Apply", UIBarButtonItemStyle.Plain, ApplyButton_Clicked);
 
             scrollView.AddSubview(formContainer);
@@ -250,7 +251,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             double[] maxValues =
                 {_maxPickerModel.SelectedRed, _maxPickerModel.SelectedBlue, _maxPickerModel.SelectedGreen};
             MinMaxStretchParameters parameters = new MinMaxStretchParameters(minValues, maxValues);
-            
+
             int[] bands = {0, 1, 2};
             _rasterLayer.Renderer = new RgbRenderer(parameters, bands, null, true);
         }
@@ -319,7 +320,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
 
     public class PercentClipSettingsController : UIViewController
     {
-        private RasterLayer _rasterLayer;
+        private readonly RasterLayer _rasterLayer;
         private UISlider _minSlider;
         private UISlider _maxSlider;
 
@@ -369,7 +370,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             _maxSlider.MinValue = 0;
             _maxSlider.MaxValue = 100;
             formContainer.AddArrangedSubview(getRowStackView(new UIView[] {maxLabel, _maxSlider}));
-            
+
             NavigationItem.RightBarButtonItem = new UIBarButtonItem("Apply", UIBarButtonItemStyle.Plain, ApplyButton_Clicked);
 
             scrollView.AddSubview(formContainer);
@@ -399,10 +400,10 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             _rasterLayer.Renderer = new RgbRenderer(parameters, bands, null, true);
         }
     }
-    
+
     public class StandardDeviationSettingsController : UIViewController
     {
-        private RasterLayer _rasterLayer;
+        private readonly RasterLayer _rasterLayer;
         private StdDevFactorPickerModel _pickerModel;
 
         public StandardDeviationSettingsController(RasterLayer rasterLayer)
@@ -439,14 +440,14 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             factorLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             factorLabel.Text = "Factor:";
             formContainer.AddArrangedSubview(factorLabel);
-            
+
             UIPickerView picker = new UIPickerView();
             picker.TranslatesAutoresizingMaskIntoConstraints = false;
             _pickerModel = new StdDevFactorPickerModel();
             picker.Model = _pickerModel;
             picker.HeightAnchor.ConstraintEqualTo(90).Active = true;
             formContainer.AddArrangedSubview(picker);
-            
+
             NavigationItem.RightBarButtonItem = new UIBarButtonItem("Apply", UIBarButtonItemStyle.Plain, ApplyButton_Clicked);
 
             scrollView.AddSubview(formContainer);
@@ -464,7 +465,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             int[] bands = {0, 1, 2};
             _rasterLayer.Renderer = new RgbRenderer(parameters, bands, null, true);
         }
-        
+
         // Class that defines a view model for showing standard deviation factor values (0.5-4.50) in a picker control.
         private class StdDevFactorPickerModel : UIPickerViewModel
         {

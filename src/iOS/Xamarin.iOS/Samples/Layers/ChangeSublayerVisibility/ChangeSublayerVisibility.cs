@@ -29,10 +29,10 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         // Hold references to the UI controls.
         private MapView _myMapView;
         private SublayersTable _sublayersTableView;
-        
+
         // Hold a reference to the layer.
         private ArcGISMapImageLayer _mapImageLayer;
-        
+
         public ChangeSublayerVisibility()
         {
             Title = "Change sublayer visibility";
@@ -91,19 +91,19 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             View.AddSubviews(_myMapView, toolbar);
 
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem("Choose sublayers", UIBarButtonItemStyle.Plain, sublayerButton_Clicked),
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace) 
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
-            
+
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
@@ -158,7 +158,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             // Create the cells in the table.
             UITableViewCell cell = new UITableViewCell(UITableViewCellStyle.Default, CellId);
 
-            ArcGISMapImageSublayer sublayer = (ArcGISMapImageSublayer)_sublayers[indexPath.Row];
+            ArcGISMapImageSublayer sublayer = (ArcGISMapImageSublayer) _sublayers[indexPath.Row];
             cell.TextLabel.Text = sublayer.Name;
 
             // Create a UISwitch for controlling the layer visibility.
@@ -179,11 +179,11 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         private void VisibilitySwitch_ValueChanged(object sender, EventArgs e)
         {
             // Get the row containing the UISwitch that was changed.
-            var index = ((UISwitch)sender).Tag;
+            var index = ((UISwitch) sender).Tag;
 
             // Set the sublayer visibility according to the UISwitch setting.
-            ArcGISMapImageSublayer sublayer = (ArcGISMapImageSublayer)_sublayers[(int) index];
-            sublayer.IsVisible = ((UISwitch)sender).On;
+            ArcGISMapImageSublayer sublayer = (ArcGISMapImageSublayer) _sublayers[(int) index];
+            sublayer.IsVisible = ((UISwitch) sender).On;
         }
 
         public override nint RowsInSection(UITableView tableview, nint section)

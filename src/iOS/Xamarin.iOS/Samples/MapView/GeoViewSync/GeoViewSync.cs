@@ -130,7 +130,7 @@ namespace ArcGISRuntime.Samples.GeoViewSync
 
             View.AddSubviews(_stackView);
 
-            NSLayoutConstraint.ActivateConstraints(new NSLayoutConstraint[]
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),

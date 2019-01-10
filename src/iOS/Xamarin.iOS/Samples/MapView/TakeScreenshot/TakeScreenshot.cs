@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -82,14 +81,14 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
 
         public override void LoadView()
         {
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             _toolbar = new UIToolbar();
             _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             _screenshotButton = new UIBarButtonItem("Take screenshot", UIBarButtonItemStyle.Plain, OnScreenshotButtonClicked);
             _closePreviewButton = new UIBarButtonItem("Close preview", UIBarButtonItemStyle.Plain, OnCloseImageViewClicked);
             _closePreviewButton.Enabled = false;
@@ -97,14 +96,14 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             _overlayImageView = new UIImageView();
             _overlayImageView.TranslatesAutoresizingMaskIntoConstraints = false;
             _overlayImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
-            
+
             _overlayView = new UIView();
             _overlayView.TranslatesAutoresizingMaskIntoConstraints = false;
             _overlayView.BackgroundColor = UIColor.White;
             _overlayView.Layer.BorderColor = UIColor.Black.CGColor;
             _overlayView.Layer.BorderWidth = 2;
             _overlayView.Hidden = true;
-            
+
             _overlayView.AddSubview(_overlayImageView);
             View.AddSubviews(_myMapView, _toolbar, _overlayView);
 

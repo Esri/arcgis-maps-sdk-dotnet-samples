@@ -100,7 +100,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                 textField.ResignFirstResponder();
                 return true;
             };
-            
+
             _inputParameter2 = new UITextField();
             _inputParameter2.TranslatesAutoresizingMaskIntoConstraints = false;
             _inputParameter2.BorderStyle = UITextBorderStyle.RoundedRect;
@@ -123,17 +123,17 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             _updateRendererButton.SetTitle("Update renderer", UIControlState.Normal);
             _updateRendererButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _updateRendererButton.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             _rendererTypes = new UISegmentedControl("Min/Max", "% Clip", "Std. Deviation");
             _rendererTypes.ValueChanged += rendererTypes_ValueChanged;
             _rendererTypes.SelectedSegment = 0;
             _rendererTypes.TintColor = View.TintColor;
             _rendererTypes.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             // Call a function to configure the labels appropriately
             rendererTypes_ValueChanged(_rendererTypes, null);
-            
-            View.AddSubviews(_myMapView, formContainer, _rendererTypes, _inputParameter1, 
+
+            View.AddSubviews(_myMapView, formContainer, _rendererTypes, _inputParameter1,
                 _inputParameter2, _labelParameter1, _labelParameter2, _updateRendererButton);
 
             _rendererTypes.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
@@ -144,11 +144,11 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             _inputParameter1.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8).Active =
                 true;
             _inputParameter1.WidthAnchor.ConstraintEqualTo(72).Active = true;
-            
+
             _inputParameter2.TopAnchor.ConstraintEqualTo(_inputParameter1.BottomAnchor, 8).Active = true;
             _inputParameter2.TrailingAnchor.ConstraintEqualTo(_inputParameter1.TrailingAnchor).Active = true;
             _inputParameter2.WidthAnchor.ConstraintEqualTo(_inputParameter1.WidthAnchor).Active = true;
-            
+
             _updateRendererButton.TopAnchor.ConstraintEqualTo(_inputParameter2.BottomAnchor, 8).Active = true;
             _updateRendererButton.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor).Active = true;
             _updateRendererButton.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor).Active =

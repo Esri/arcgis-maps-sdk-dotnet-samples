@@ -100,7 +100,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             View.AddSubviews(_myMapView, toolbar);
 
             toolbar.Items = new[]

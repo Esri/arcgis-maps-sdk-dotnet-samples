@@ -76,7 +76,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         private void RecalculateFields(object sender)
         {
             // Hold the entered point.
-            MapPoint enteredPoint = null;
+            MapPoint enteredPoint;
 
             // Update the point based on which text sent the event.
             try
@@ -84,7 +84,8 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
                 if (sender == _ddEntry || sender == _dmsEntry)
                 {
                     enteredPoint = CoordinateFormatter.FromLatitudeLongitude(_selectedField.Text, _myMapView.SpatialReference);
-                } else if (sender == _utmEntry)
+                }
+                else if (sender == _utmEntry)
                 {
                     enteredPoint = CoordinateFormatter.FromUtm(_selectedField.Text, _myMapView.SpatialReference, UtmConversionMode.NorthSouthIndicators);
                 }
@@ -197,11 +198,11 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             _usngEntry = new UITextField();
 
             // Uniformly configure the entries.
-            foreach (UITextField tf in new [] {_ddEntry, _dmsEntry, _utmEntry, _usngEntry})
+            foreach (UITextField tf in new[] {_ddEntry, _dmsEntry, _utmEntry, _usngEntry})
             {
                 tf.TranslatesAutoresizingMaskIntoConstraints = false;
                 tf.BorderStyle = UITextBorderStyle.RoundedRect;
-                
+
                 // Allow returning to dismiss the keyboard.
                 tf.ShouldReturn += field =>
                 {
@@ -212,18 +213,18 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
                 };
             }
 
-            UIStackView formView = new UIStackView(new UIView[] 
-                {_decimalDegreesLabel, _ddEntry, _dmsLabel, _dmsEntry, _utmLabel, _utmEntry, _usngLabel, _usngEntry });
+            UIStackView formView = new UIStackView(new UIView[]
+                {_decimalDegreesLabel, _ddEntry, _dmsLabel, _dmsEntry, _utmLabel, _utmEntry, _usngLabel, _usngEntry});
             formView.TranslatesAutoresizingMaskIntoConstraints = false;
             formView.Axis = UILayoutConstraintAxis.Vertical;
             formView.Spacing = 4;
             formView.LayoutMarginsRelativeArrangement = true;
             formView.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
-            formView.SetContentHuggingPriority((float)UILayoutPriority.DefaultHigh, UILayoutConstraintAxis.Vertical);
+            formView.SetContentHuggingPriority((float) UILayoutPriority.DefaultHigh, UILayoutConstraintAxis.Vertical);
 
             View.AddSubviews(formView, _myMapView);
 
-            _portraitConstraints = new NSLayoutConstraint[]
+            _portraitConstraints = new[]
             {
                 formView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 formView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
@@ -233,7 +234,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
             };
-            _landscapeConstraints = new NSLayoutConstraint[]
+            _landscapeConstraints = new[]
             {
                 formView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
                 formView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
@@ -265,8 +266,8 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             {
                 // Update layout for landscape.
                 NSLayoutConstraint.ActivateConstraints(_landscapeConstraints);
-            } 
-            else 
+            }
+            else
             {
                 // Update layout for portrait.
                 NSLayoutConstraint.ActivateConstraints(_portraitConstraints);

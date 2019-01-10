@@ -98,7 +98,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
         {
             _webView = new WKWebView(new CGRect(), new WKWebViewConfiguration());
             _myMapView = new MapView();
-            _stackView = new UIStackView(new UIView[] { _myMapView, _webView })
+            _stackView = new UIStackView(new UIView[] {_myMapView, _webView})
             {
                 Alignment = UIStackViewAlignment.Fill,
                 Distribution = UIStackViewDistribution.FillEqually,
@@ -122,7 +122,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
                 // Landscape
                 _stackView.Axis = UILayoutConstraintAxis.Horizontal;
             }
-            else 
+            else
             {
                 // Portrait
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;

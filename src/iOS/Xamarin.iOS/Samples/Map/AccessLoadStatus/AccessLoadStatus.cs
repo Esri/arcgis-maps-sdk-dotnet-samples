@@ -24,8 +24,8 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
     public class AccessLoadStatus : UIViewController
     {
         // Create and hold references to the UI controls.
-        MapView _myMapView;
-        UILabel _loadStatusLabel;
+        private MapView _myMapView;
+        private UILabel _loadStatusLabel;
 
         public AccessLoadStatus()
         {
@@ -53,7 +53,7 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Create the label.
-            _loadStatusLabel = new UILabel()
+            _loadStatusLabel = new UILabel
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
                 TextColor = UIColor.White,

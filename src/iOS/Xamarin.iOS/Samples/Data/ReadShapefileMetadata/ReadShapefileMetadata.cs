@@ -112,7 +112,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
 
             _showMetadataButton = new UIBarButtonItem("See metadata", UIBarButtonItemStyle.Plain, OnMetadataButtonTouch);
-            _toolbar.Items = new []
+            _toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _showMetadataButton,

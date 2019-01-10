@@ -51,7 +51,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
 
         public override void LoadView()
         {
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -61,7 +61,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             // Used for calculating how large the tableview should be.
             _layerList.RowHeight = 40;
 
-            UILabel _helpLabel = new UILabel
+            UILabel helpLabel = new UILabel
             {
                 Text = "Select layers for display.",
                 AdjustsFontSizeToFitWidth = true,
@@ -72,13 +72,13 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
-            View.AddSubviews(_myMapView, _layerList, _helpLabel);
+            View.AddSubviews(_myMapView, _layerList, helpLabel);
 
             // These constraints don't depend on orientation.
-            _helpLabel.LeadingAnchor.ConstraintEqualTo(_myMapView.LeadingAnchor).Active = true;
-            _helpLabel.TrailingAnchor.ConstraintEqualTo(_myMapView.TrailingAnchor).Active = true;
-            _helpLabel.TopAnchor.ConstraintEqualTo(_myMapView.TopAnchor).Active = true;
-            _helpLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
+            helpLabel.LeadingAnchor.ConstraintEqualTo(_myMapView.LeadingAnchor).Active = true;
+            helpLabel.TrailingAnchor.ConstraintEqualTo(_myMapView.TrailingAnchor).Active = true;
+            helpLabel.TopAnchor.ConstraintEqualTo(_myMapView.TopAnchor).Active = true;
+            helpLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
 
             _portraitConstraints = new NSLayoutConstraint[]
             {
@@ -92,7 +92,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
             };
 
-            _landscapeConstraints = new NSLayoutConstraint[]
+            _landscapeConstraints = new[]
             {
                 _layerList.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _layerList.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
@@ -263,7 +263,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         }
 
         // Name with formatting to simulate treeview.
-        public string Name => $"{new String(' ', NestLevel * 8)} {Info.Title}";
+        public string Name => $"{new string(' ', NestLevel * 8)} {Info.Title}";
 
         public static void BuildLayerInfoList(LayerDisplayVM root, IList<LayerDisplayVM> result)
         {

@@ -89,7 +89,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
             _myMapView.Map.OperationalLayers.Add(pointLayer);
         }
 
-        void _timeExtentsButton_ValueChanged(object sender, EventArgs e)
+        private void _timeExtentsButton_ValueChanged(object sender, EventArgs e)
         {
             DateTime start;
             DateTime end;

@@ -113,8 +113,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	  <Content Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
-	  <Content Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
+    <Content Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
+    <Content Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
     <Content Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
     <Content Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg" />
     <Content Include="Samples\Geometry\SpatialOperations\SpatialOperations.jpg" />
@@ -1326,10 +1326,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.4.0</Version>
+      <Version>100.5.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.UWP">
-      <Version>100.4.0</Version>
+      <Version>100.5.0</Version>
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.2</Version>

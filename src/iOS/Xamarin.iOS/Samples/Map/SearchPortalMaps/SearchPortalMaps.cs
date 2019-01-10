@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         "1. When the sample starts, you will be presented with a dialog for entering OAuth settings. If you need to create your own settings, sign in with your developer account and use the [ArcGIS for Developers dashboard](https://developers.arcgis.com/dashboard) to create an Application to store these settings.\n2. Enter values for the following OAuth settings.\n\t1. **Client ID**: a unique alphanumeric string identifier for your application\n\t2. **Redirect URL**: a URL to which a successful OAuth login response will be sent\n3. If you do not enter OAuth settings, you will be able to search public web maps on ArcGIS Online. Browsing the web map items in your ArcGIS Online account will be disabled, however.")]
     public class SearchPortalMaps : UIViewController, IOAuthAuthorizeHandler
     {
-        // Hold references to the UI controls.
+        // Hold a reference to the MapView.
         private MapView _myMapView;
 
         // Use a TaskCompletionSource to track the completion of the authorization.
@@ -50,12 +50,6 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         public SearchPortalMaps()
         {
             Title = "Search a portal for maps";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
 
         private void Initialize()
@@ -226,16 +220,22 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             }
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
-
-            UIToolbar toolbar = new UIToolbar();
-            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem("Search maps", UIBarButtonItemStyle.Plain, SearchMaps_Clicked),
@@ -243,8 +243,10 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 new UIBarButtonItem("Get my maps", UIBarButtonItemStyle.Plain, GetMyMaps_Clicked)
             };
 
+            // Add the views.
             View.AddSubviews(_myMapView, toolbar);
 
+            // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),

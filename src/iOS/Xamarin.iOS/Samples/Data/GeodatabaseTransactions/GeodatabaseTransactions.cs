@@ -30,12 +30,11 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         "When the sample loads, a local geodatabase will be generated for a small area from the 'SaveTheBay' feature service. When the geodatabase is ready, its tables are added as feature layers and the map view zooms to the extent of the local data. Use the UI controls to make edits either inside or outside of a transaction. If made in a transaction, you can rollback or commit your edits as a single unit when you choose to stop editing. To allow edits without a transaction, set 'Require transaction' to false. You can then add features directly into the local geodatabase. When done adding features, you can synchronize your local edits with the service.")]
     public class GeodatabaseTransactions : UIViewController
     {
-        // Create and hold references to the UI controls.
+        // Hold references to the UI controls.
         private MapView _mapView;
         private UIProgressView _progressBar;
         private UILabel _statusLabel;
         private UISwitch _transactionSwitch;
-        private UIToolbar _toolbar;
         private UIBarButtonItem _transactionButton;
         private UIBarButtonItem _syncButton;
         private UIBarButtonItem _addButton;
@@ -57,13 +56,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         {
             Title = "Geodatabase transactions";
         }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
+        
         private void Initialize()
         {
             // When the spatial reference changes (the map loads) add the local geodatabase tables as feature layers.
@@ -416,16 +409,62 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 _progressBar.Progress = (float) (jobProgress / 100.0);
             });
         }
+        
+        private void HandleAddButton_Click(object sender, EventArgs e)
+        {
+            // Create the alert controller with a title.
+            UIAlertController alertController = UIAlertController.Create("Choose a feature to add", "", UIAlertControllerStyle.Alert);
+
+            // Actions can be default, cancel, or destructive
+            alertController.AddAction(UIAlertAction.Create("Bird", UIAlertActionStyle.Default, action => AddNewFeature(false)));
+            alertController.AddAction(UIAlertAction.Create("Marine", UIAlertActionStyle.Default, action => AddNewFeature(true)));
+            alertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
+
+            // Show the alert.
+            PresentViewController(alertController, true, null);
+        }
+
+        private void HandleTransaction_Click(object sender, EventArgs e)
+        {
+            if (_transactionButton.Title == "Start transaction")
+            {
+                BeginTransaction();
+                _transactionButton.Title = "End transaction";
+            }
+            else
+            {
+                StopEditTransaction();
+                _transactionButton.Title = "Start transaction";
+            }
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
 
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _mapView = new MapView();
             _mapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _toolbar = new UIToolbar();
-            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            _transactionButton = new UIBarButtonItem("Start transaction", UIBarButtonItemStyle.Plain, HandleTransaction_Click);
+            _syncButton = new UIBarButtonItem("Sync", UIBarButtonItemStyle.Plain, SynchronizeEdits);
+            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, HandleAddButton_Click) {Enabled = false};
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                _transactionButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _syncButton,
+                _addButton
+            };
 
             _transactionSwitch = new UISwitch();
             _transactionSwitch.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -461,69 +500,35 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             _progressBar = new UIProgressView(UIProgressViewStyle.Bar);
             _progressBar.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _toolbar.Items = new[]
-            {
-                new UIBarButtonItem("Start transaction", UIBarButtonItemStyle.Plain, HandleTransaction_Click),
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Sync", UIBarButtonItemStyle.Plain, SynchronizeEdits),
-                new UIBarButtonItem(UIBarButtonSystemItem.Add, HandleAddButton_Click) {Enabled = false}
-            };
+            // Add the views.
+            View.AddSubviews(_mapView, _statusLabel, requireTransactionRow, toolbar, _progressBar);
 
-            _transactionButton = _toolbar.Items[0];
-            _syncButton = _toolbar.Items[2];
-            _addButton = _toolbar.Items[3];
-
-            View.AddSubviews(_mapView, _statusLabel, requireTransactionRow, _toolbar, _progressBar);
-
+            // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _mapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _mapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _mapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _mapView.BottomAnchor.ConstraintEqualTo(requireTransactionRow.TopAnchor),
-                _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+
                 requireTransactionRow.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
                 requireTransactionRow.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
-                requireTransactionRow.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor),
+                requireTransactionRow.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
                 _statusLabel.TopAnchor.ConstraintEqualTo(_mapView.TopAnchor),
                 _statusLabel.LeadingAnchor.ConstraintEqualTo(_mapView.LeadingAnchor),
                 _statusLabel.TrailingAnchor.ConstraintEqualTo(_mapView.TrailingAnchor),
                 _statusLabel.HeightAnchor.ConstraintEqualTo(80),
+
                 _progressBar.TopAnchor.ConstraintEqualTo(_statusLabel.BottomAnchor),
                 _progressBar.LeadingAnchor.ConstraintEqualTo(_statusLabel.LeadingAnchor),
                 _progressBar.TrailingAnchor.ConstraintEqualTo(_statusLabel.TrailingAnchor),
                 _progressBar.HeightAnchor.ConstraintEqualTo(8)
             });
-        }
-
-        private void HandleAddButton_Click(object sender, EventArgs e)
-        {
-            // Create the alert controller with a title.
-            UIAlertController alertController = UIAlertController.Create("Choose a feature to add", "", UIAlertControllerStyle.Alert);
-
-            // Actions can be default, cancel, or destructive
-            alertController.AddAction(UIAlertAction.Create("Bird", UIAlertActionStyle.Default, action => AddNewFeature(false)));
-            alertController.AddAction(UIAlertAction.Create("Marine", UIAlertActionStyle.Default, action => AddNewFeature(true)));
-            alertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
-
-            // Show the alert.
-            PresentViewController(alertController, true, null);
-        }
-
-        private void HandleTransaction_Click(object sender, EventArgs e)
-        {
-            if (_transactionButton.Title == "Start transaction")
-            {
-                BeginTransaction();
-                _transactionButton.Title = "End transaction";
-            }
-            else
-            {
-                StopEditTransaction();
-                _transactionButton.Title = "Start transaction";
-            }
         }
     }
 }

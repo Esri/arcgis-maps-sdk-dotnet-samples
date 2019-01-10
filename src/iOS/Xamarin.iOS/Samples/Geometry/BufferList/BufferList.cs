@@ -30,12 +30,9 @@ namespace ArcGISRuntime.Samples.BufferList
         "GeometryEngine, Geometry, Buffer, SpatialReference")]
     public class BufferList : UIViewController
     {
-        // Controls needed for the app UI.
+        // Hold references to the UI controls.
         private MapView _myMapView;
-        private UIToolbar _controlsToolbar;
-        private UIToolbar _entryToolbar;
         private UITextField _bufferDistanceEntry;
-        private UILabel _bufferDistanceEntryLabel;
         private UIBarButtonItem _helpButton;
         private UIBarButtonItem _bufferButton;
         private UIBarButtonItem _resetButton;
@@ -49,86 +46,6 @@ namespace ArcGISRuntime.Samples.BufferList
         public BufferList()
         {
             Title = "Buffer list";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
-        public override void LoadView()
-        {
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _controlsToolbar = new UIToolbar();
-            _controlsToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _entryToolbar = new UIToolbar();
-            _entryToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _bufferDistanceEntry = new UITextField();
-            _bufferDistanceEntry.TranslatesAutoresizingMaskIntoConstraints = false;
-            _bufferDistanceEntry.Text = "10";
-            _bufferDistanceEntry.BackgroundColor = UIColor.FromWhiteAlpha(1, .8f);
-            _bufferDistanceEntry.Layer.CornerRadius = 4;
-            _bufferDistanceEntry.LeftView = new UIView(new CGRect(0, 0, 5, 20));
-            _bufferDistanceEntry.LeftViewMode = UITextFieldViewMode.Always;
-            // Allow pressing 'return' to dismiss the keyboard.
-            _bufferDistanceEntry.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
-
-            _bufferDistanceEntryLabel = new UILabel();
-            _bufferDistanceEntryLabel.TranslatesAutoresizingMaskIntoConstraints = false;
-            _bufferDistanceEntryLabel.Text = "Buffer size:";
-
-            View = new UIView {BackgroundColor = UIColor.White};
-            View.AddSubviews(_myMapView, _controlsToolbar, _entryToolbar, _bufferDistanceEntryLabel, _bufferDistanceEntry);
-
-            _entryToolbar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _entryToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _entryToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-
-            _bufferDistanceEntryLabel.LeadingAnchor.ConstraintEqualTo(_entryToolbar.LayoutMarginsGuide.LeadingAnchor, 8).Active = true;
-            _bufferDistanceEntryLabel.CenterYAnchor.ConstraintEqualTo(_entryToolbar.CenterYAnchor).Active = true;
-
-            _bufferDistanceEntry.TrailingAnchor.ConstraintEqualTo(_entryToolbar.LayoutMarginsGuide.TrailingAnchor).Active = true;
-            _bufferDistanceEntry.CenterYAnchor.ConstraintEqualTo(_entryToolbar.CenterYAnchor).Active = true;
-            _bufferDistanceEntry.LeadingAnchor.ConstraintEqualTo(_bufferDistanceEntryLabel.TrailingAnchor, 8).Active = true;
-
-            _myMapView.TopAnchor.ConstraintEqualTo(_entryToolbar.BottomAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(_controlsToolbar.TopAnchor).Active = true;
-
-            _controlsToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _controlsToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _controlsToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-
-            // Configure the UI controls.
-            _helpButton = new UIBarButtonItem("Help", UIBarButtonItemStyle.Plain, ShowHelpAlert);
-            _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ClearButton_Click);
-            _bufferButton = new UIBarButtonItem("Buffer", UIBarButtonItemStyle.Plain, PromptForUnionChoice);
-
-            _controlsToolbar.Items = new[]
-            {
-                _helpButton,
-                // Put a space between the buttons
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _bufferButton,
-                _resetButton
-            };
-        }
-
-        private void ShowHelpAlert(object sender, EventArgs e)
-        {
-            const string message = "Tap to add points. Each point will use the buffer distance entered when it was created. " +
-                                   "The envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.";
-            new UIAlertView("Instructions", message, (IUIAlertViewDelegate) null, "OK", null).Show();
         }
 
         private void Initialize()
@@ -349,6 +266,91 @@ namespace ArcGISRuntime.Samples.BufferList
                     bufferGraphics.RemoveAt(i);
                 }
             }
+        }
+
+        private void ShowHelpAlert(object sender, EventArgs e)
+        {
+            const string message = "Tap to add points. Each point will use the buffer distance entered when it was created. " +
+                                   "The envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.";
+            new UIAlertView("Instructions", message, (IUIAlertViewDelegate) null, "OK", null).Show();
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _helpButton = new UIBarButtonItem("Help", UIBarButtonItemStyle.Plain, ShowHelpAlert);
+            _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ClearButton_Click);
+            _bufferButton = new UIBarButtonItem("Buffer", UIBarButtonItemStyle.Plain, PromptForUnionChoice);
+
+            UIToolbar controlsToolbar = new UIToolbar();
+            controlsToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            controlsToolbar.Items = new[]
+            {
+                _helpButton,
+                // Put a space between the buttons
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _bufferButton,
+                _resetButton
+            };
+
+            UIToolbar entryToolbar = new UIToolbar();
+            entryToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _bufferDistanceEntry = new UITextField();
+            _bufferDistanceEntry.TranslatesAutoresizingMaskIntoConstraints = false;
+            _bufferDistanceEntry.Text = "10";
+            _bufferDistanceEntry.BackgroundColor = UIColor.FromWhiteAlpha(1, .8f);
+            _bufferDistanceEntry.Layer.CornerRadius = 4;
+            _bufferDistanceEntry.LeftView = new UIView(new CGRect(0, 0, 5, 20));
+            _bufferDistanceEntry.LeftViewMode = UITextFieldViewMode.Always;
+            // Allow pressing 'return' to dismiss the keyboard.
+            _bufferDistanceEntry.ShouldReturn += textField =>
+            {
+                textField.ResignFirstResponder();
+                return true;
+            };
+
+            UILabel bufferDistanceEntryLabel = new UILabel();
+            bufferDistanceEntryLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            bufferDistanceEntryLabel.Text = "Buffer size:";
+
+            // Add the views.
+            View.AddSubviews(_myMapView, controlsToolbar, entryToolbar, bufferDistanceEntryLabel, _bufferDistanceEntry);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                entryToolbar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                entryToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                entryToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                bufferDistanceEntryLabel.LeadingAnchor.ConstraintEqualTo(entryToolbar.LayoutMarginsGuide.LeadingAnchor, 8),
+                bufferDistanceEntryLabel.CenterYAnchor.ConstraintEqualTo(entryToolbar.CenterYAnchor),
+
+                _bufferDistanceEntry.TrailingAnchor.ConstraintEqualTo(entryToolbar.LayoutMarginsGuide.TrailingAnchor),
+                _bufferDistanceEntry.CenterYAnchor.ConstraintEqualTo(entryToolbar.CenterYAnchor),
+                _bufferDistanceEntry.LeadingAnchor.ConstraintEqualTo(bufferDistanceEntryLabel.TrailingAnchor, 8),
+
+                _myMapView.TopAnchor.ConstraintEqualTo(entryToolbar.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(controlsToolbar.TopAnchor),
+
+                controlsToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                controlsToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                controlsToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
+            });
         }
     }
 }

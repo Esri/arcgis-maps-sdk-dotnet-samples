@@ -252,7 +252,12 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
         public override void LoadView()
         {
+            // Create the views.
+            View = new UIView();
+
             _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
             _resultTextView = new UITextView
             {
                 TextColor = UIColor.Black,
@@ -265,13 +270,17 @@ namespace ArcGISRuntime.Samples.ListTransformations
             _stackView.Distribution = UIStackViewDistribution.FillEqually;
             _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            View = new UIView();
+            // Add the views.
             View.AddSubview(_stackView);
 
-            _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            });
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)

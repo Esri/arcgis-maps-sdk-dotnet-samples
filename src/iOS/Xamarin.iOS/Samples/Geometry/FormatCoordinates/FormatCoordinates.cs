@@ -34,10 +34,6 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         private UITextField _dmsEntry;
         private UITextField _ddEntry;
         private UITextField _usngEntry;
-        private UILabel _utmLabel;
-        private UILabel _dmsLabel;
-        private UILabel _decimalDegreesLabel;
-        private UILabel _usngLabel;
         private NSLayoutConstraint[] _landscapeConstraints;
         private NSLayoutConstraint[] _portraitConstraints;
 
@@ -171,26 +167,27 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
 
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _decimalDegreesLabel = new UILabel();
-            _decimalDegreesLabel.TranslatesAutoresizingMaskIntoConstraints = false;
-            _decimalDegreesLabel.Text = "Decimal degrees:";
+            UILabel decimalDegreesLabel = new UILabel();
+            decimalDegreesLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            decimalDegreesLabel.Text = "Decimal degrees:";
 
-            _dmsLabel = new UILabel();
-            _dmsLabel.TranslatesAutoresizingMaskIntoConstraints = false;
-            _dmsLabel.Text = "Degrees, minutes, seconds:";
+            UILabel dmsLabel = new UILabel();
+            dmsLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            dmsLabel.Text = "Degrees, minutes, seconds:";
 
-            _utmLabel = new UILabel();
-            _utmLabel.TranslatesAutoresizingMaskIntoConstraints = false;
-            _utmLabel.Text = "UTM:";
+            UILabel utmLabel = new UILabel();
+            utmLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            utmLabel.Text = "UTM:";
 
-            _usngLabel = new UILabel();
-            _usngLabel.TranslatesAutoresizingMaskIntoConstraints = false;
-            _usngLabel.Text = "USNG:";
+            UILabel usngLabel = new UILabel();
+            usngLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            usngLabel.Text = "USNG:";
 
             _ddEntry = new UITextField();
             _dmsEntry = new UITextField();
@@ -214,7 +211,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             }
 
             UIStackView formView = new UIStackView(new UIView[]
-                {_decimalDegreesLabel, _ddEntry, _dmsLabel, _dmsEntry, _utmLabel, _utmEntry, _usngLabel, _usngEntry});
+                {decimalDegreesLabel, _ddEntry, dmsLabel, _dmsEntry, utmLabel, _utmEntry, usngLabel, _usngEntry});
             formView.TranslatesAutoresizingMaskIntoConstraints = false;
             formView.Axis = UILayoutConstraintAxis.Vertical;
             formView.Spacing = 4;
@@ -222,8 +219,10 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             formView.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
             formView.SetContentHuggingPriority((float) UILayoutPriority.DefaultHigh, UILayoutConstraintAxis.Vertical);
 
+            // Add the views.
             View.AddSubviews(formView, _myMapView);
 
+            // Lay out the views.
             _portraitConstraints = new[]
             {
                 formView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),

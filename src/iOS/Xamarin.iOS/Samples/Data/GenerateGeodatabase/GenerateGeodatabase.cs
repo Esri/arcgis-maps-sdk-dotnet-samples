@@ -58,13 +58,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         {
             Title = "Generate geodatabase";
         }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
+        
         private async void Initialize()
         {
             try
@@ -295,25 +289,26 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             });
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            UIToolbar toolbar = new UIToolbar();
-            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _progressBar = new UIProgressView();
-            _progressBar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View.AddSubviews(_myMapView, toolbar, _progressBar);
-
             _generateButton =
                 new UIBarButtonItem("Generate geodatabase", UIBarButtonItemStyle.Plain, GenerateButton_Clicked);
             _generateButton.Enabled = false;
 
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
@@ -321,19 +316,29 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
+            _progressBar = new UIProgressView();
+            _progressBar.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar, _progressBar);
 
-            _progressBar.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
-            _progressBar.HeightAnchor.ConstraintEqualTo(8).Active = true;
-            _progressBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _progressBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                _progressBar.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+                _progressBar.HeightAnchor.ConstraintEqualTo(8),
+                _progressBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _progressBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
         }
     }
 }

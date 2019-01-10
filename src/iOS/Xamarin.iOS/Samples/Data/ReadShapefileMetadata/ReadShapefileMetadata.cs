@@ -31,22 +31,13 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         // Hold references to the UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _showMetadataButton;
-        private UIToolbar _toolbar;
 
         // Store the shapefile metadata.
         private ShapefileInfo _shapefileMetadata;
 
-
         public ReadShapefileMetadata()
         {
             Title = "Read shapefile metadata";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            Initialize();
         }
 
         private async void Initialize()
@@ -89,35 +80,47 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
                 new MetadataDisplayViewController(_shapefileMetadata), true);
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView();
             View.BackgroundColor = UIColor.White;
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_myMapView);
-
-            _toolbar = new UIToolbar();
-            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_toolbar);
-
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-
-            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
 
             _showMetadataButton = new UIBarButtonItem("See metadata", UIBarButtonItemStyle.Plain, OnMetadataButtonTouch);
-            _toolbar.Items = new[]
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _showMetadataButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 }

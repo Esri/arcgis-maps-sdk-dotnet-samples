@@ -138,12 +138,6 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             PresentViewController(unitSystemSelectionAlert, true, null);
         }
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
         private void ShowHelp_Click(object sender, EventArgs e)
         {
             // Prompt for the type of convex hull to create.
@@ -154,8 +148,15 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             PresentViewController(unionAlert, true, null);
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create and configure the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _mySceneView = new SceneView();
@@ -164,7 +165,6 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            // Create the label.
             _resultLabel = new UILabel
             {
                 Text = "Tap to measure distance.",
@@ -174,8 +174,6 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
-            View.AddSubviews(_mySceneView, toolbar, _resultLabel);
-
             toolbar.Items = new[]
             {
                 new UIBarButtonItem("Help", UIBarButtonItemStyle.Plain, ShowHelp_Click),
@@ -183,19 +181,26 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
                 new UIBarButtonItem("Change units", UIBarButtonItemStyle.Plain, UnitChangeButton_TouchUpInside)
             };
 
-            _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _mySceneView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
+            // Add the views.
+            View.AddSubviews(_mySceneView, toolbar, _resultLabel);
 
-            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
 
-            _resultLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _resultLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _resultLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _resultLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                _resultLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _resultLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _resultLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _resultLabel.HeightAnchor.ConstraintEqualTo(40)
+            });
         }
     }
 }

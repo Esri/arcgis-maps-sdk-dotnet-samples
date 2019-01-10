@@ -35,7 +35,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         "When the app starts, a web map is loaded from ArcGIS Online. The red border shows the extent that of the data that will be downloaded for use offline. Click the `Take map offline` button to start the offline map job (you will be prompted for your ArcGIS Online login). The progress bar will show the job's progress. When complete, the offline map will replace the online map in the map view.")]
     public class GenerateOfflineMap : UIViewController, IOAuthAuthorizeHandler
     {
-        // Create and hold references to the UI controls.
+        // Hold references to the UI controls.
         private MapView _myMapView;
         private UIActivityIndicatorView _loadingIndicator;
         private UIBarButtonItem _takeMapOfflineButton;
@@ -105,12 +105,6 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
                 messageAlert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(messageAlert, true, null);
             }
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
 
         private async void TakeMapOfflineButton_Click(object sender, EventArgs e)
@@ -227,18 +221,38 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             }
         }
 
+        // Show changes in job progress.
+        private void OfflineMapJob_ProgressChanged(object sender, EventArgs e)
+        {
+            // Get the job.
+            GenerateOfflineMapJob job = sender as GenerateOfflineMapJob;
+
+            // Dispatch to the UI thread.
+            InvokeOnMainThread(() =>
+            {
+                // Show the percent complete and update the progress bar.
+                _statusLabel.Text = $"Taking map offline ({job.Progress}%) ...";
+            });
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            UIToolbar toolbar = new UIToolbar();
-            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
             _takeMapOfflineButton = new UIBarButtonItem("Generate offline map", UIBarButtonItemStyle.Plain, TakeMapOfflineButton_Click);
 
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
@@ -246,7 +260,6 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
-            // Create and configure the help label, turn off auto resizing masks, then add it to the view.
             _statusLabel = new UILabel
             {
                 Text = "Use the button to take the map offline.",
@@ -262,42 +275,32 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             _loadingIndicator.TranslatesAutoresizingMaskIntoConstraints = false;
             _loadingIndicator.BackgroundColor = UIColor.FromWhiteAlpha(0, .6f);
 
+            // Add the views.
             View.AddSubviews(_myMapView, toolbar, _loadingIndicator, _statusLabel);
 
+            // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+
                 _statusLabel.TopAnchor.ConstraintEqualTo(_myMapView.TopAnchor),
                 _statusLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _statusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _statusLabel.HeightAnchor.ConstraintEqualTo(40),
+
                 _loadingIndicator.TopAnchor.ConstraintEqualTo(_statusLabel.BottomAnchor),
                 _loadingIndicator.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
                 _loadingIndicator.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _loadingIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
         }
-
-        // Show changes in job progress.
-        private void OfflineMapJob_ProgressChanged(object sender, EventArgs e)
-        {
-            // Get the job.
-            GenerateOfflineMapJob job = sender as GenerateOfflineMapJob;
-
-            // Dispatch to the UI thread.
-            InvokeOnMainThread(() =>
-            {
-                // Show the percent complete and update the progress bar.
-                _statusLabel.Text = $"Taking map offline ({job.Progress}%) ...";
-            });
-        }
-
 
         #region Authentication
 

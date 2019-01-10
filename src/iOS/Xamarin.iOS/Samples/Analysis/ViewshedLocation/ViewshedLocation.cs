@@ -32,7 +32,6 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
     {
         // Hold references to the UI controls.
         private SceneView _mySceneView;
-        private UIToolbar _toolbar;
         private ViewshedLocationSettingsController _settingsVC;
         private UIBarButtonItem _button;
 
@@ -144,45 +143,6 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _viewpointOverlay.Graphics.Add(new Graphic(_viewshed.Location, _viewpointSymbol));
         }
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
-        public override void LoadView()
-        {
-            View = new UIView {BackgroundColor = UIColor.White};
-
-            _mySceneView = new SceneView();
-            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _toolbar = new UIToolbar();
-            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View.AddSubviews(_mySceneView, _toolbar);
-
-            _button = new UIBarButtonItem("Edit settings", UIBarButtonItemStyle.Plain, HandleSettings_Clicked);
-
-            _toolbar.Items = new[]
-            {
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _button,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
-            };
-
-            NSLayoutConstraint.ActivateConstraints(new[]
-            {
-                _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _mySceneView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor),
-                _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
-                _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
-            });
-        }
-
         private void HandleSettings_Clicked(object sender, EventArgs e)
         {
             UINavigationController controller = new UINavigationController(_settingsVC);
@@ -197,6 +157,48 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             }
 
             PresentViewController(controller, true, null);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _button = new UIBarButtonItem("Edit settings", UIBarButtonItemStyle.Plain, HandleSettings_Clicked);
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _button,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+
+            // Add the views.
+            View.AddSubviews(_mySceneView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
         }
 
         // Force popover to display on iPhone.
@@ -248,6 +250,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
 
         public override void LoadView()
         {
+            // Create and add the container views.
             View = new UIView();
 
             UIScrollView scrollView = new UIScrollView();
@@ -269,6 +272,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             formContainer.Axis = UILayoutConstraintAxis.Vertical;
             formContainer.WidthAnchor.ConstraintEqualTo(300).Active = true;
 
+            // Create and add each row.
             UILabel analysisLabel = new UILabel();
             analysisLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             analysisLabel.Text = "Analysis overlay";
@@ -337,6 +341,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _analysisVisibilitySwitch.ValueChanged += HandleSettingsChange;
             _frustumVisibilitySwitch.ValueChanged += HandleSettingsChange;
 
+            // Lay out container and scroll view.
             scrollView.AddSubview(formContainer);
 
             formContainer.TopAnchor.ConstraintEqualTo(scrollView.TopAnchor).Active = true;

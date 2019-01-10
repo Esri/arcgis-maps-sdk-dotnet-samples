@@ -29,7 +29,6 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
     {
         // Hold references to the UI controls.
         private MapView _myMapView;
-        private UIBarButtonItem _changeRendererButton;
 
         // ArcGIS map image layer that contains four Census sub-layers.
         private ArcGISMapImageLayer _arcGISMapImageLayer;
@@ -37,12 +36,6 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
         public ChangeSublayerRenderer()
         {
             Title = "Change sublayer renderer";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
 
         private void Initialize()
@@ -108,42 +101,47 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
             countiesArcGISMapImageSubLayer.Renderer = CreateClassBreaksRenderer();
 
             // Disable the button after has been used.
-            _changeRendererButton.Enabled = false;
+            ((UIBarButtonItem) sender).Enabled = false;
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
         }
 
         public override void LoadView()
         {
-            // Create the MapView.
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            // Create the toolbar.
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            // Add the views to the layout.
-            View = new UIView {BackgroundColor = UIColor.White};
-            View.AddSubviews(_myMapView, toolbar);
-
-            _changeRendererButton = new UIBarButtonItem("Change sublayer renderer", UIBarButtonItemStyle.Plain, ChangeSublayerRendererButton_TouchUpInside);
-
-            // Add the button.
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _changeRendererButton,
+                new UIBarButtonItem("Change sublayer renderer", UIBarButtonItemStyle.Plain, ChangeSublayerRendererButton_TouchUpInside),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
-            // Set up constraints.
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
 
-            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 }

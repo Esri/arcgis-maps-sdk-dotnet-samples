@@ -47,13 +47,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         {
             Title = "Query map image layer tables";
         }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
+        
         private async void Initialize()
         {
             // Create a new Map with a vector streets basemap.
@@ -182,9 +176,17 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             }
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
-            // Create a UIStackView for laying out the map view and table view.
+            // Create the views.
+            View = new UIView();
+
             _stackView = new UIStackView
             {
                 Axis = UILayoutConstraintAxis.Vertical,
@@ -193,22 +195,22 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
-            // Create the map view and add it to the stack view.
             _myMapView = new MapView();
             _stackView.AddArrangedSubview(_myMapView);
 
-            // Create a table view for displaying records from the comments table.
             _tableView = new UITableView();
             _stackView.AddArrangedSubview(_tableView);
 
-            // Add the stack view to the page.
-            View = new UIView();
+            // Add the views.
             View.AddSubviews(_stackView);
 
-            _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+            });
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)

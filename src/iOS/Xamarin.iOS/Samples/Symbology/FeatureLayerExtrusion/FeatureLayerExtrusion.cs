@@ -28,51 +28,14 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         "")]
     public class FeatureLayerExtrusion : UIViewController
     {
-        // Hold references to UI controls.
+        // Hold a reference to the SceneView.
         private SceneView _mySceneView;
-        private UISegmentedControl _extrusionFieldButton;
 
         public FeatureLayerExtrusion()
         {
             Title = "Feature layer extrusion";
         }
-
-        public override void LoadView()
-        {
-            // Create the views.
-            _mySceneView = new SceneView();
-            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _extrusionFieldButton = new UISegmentedControl("Population density", "Total population")
-            {
-                TintColor = UIColor.White,
-                SelectedSegment = 1,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-            _extrusionFieldButton.ValueChanged += ToggleExtrusionButton_Clicked;
-
-            // Add the views.
-            View = new UIView();
-            View.AddSubviews(_mySceneView, _extrusionFieldButton);
-
-            // Apply constraints.
-            _mySceneView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
-            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-
-            _extrusionFieldButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor).Active = true;
-            _extrusionFieldButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor).Active = true;
-            _extrusionFieldButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            Initialize();
-        }
-
+        
         private void Initialize()
         {
             try
@@ -147,7 +110,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             RendererSceneProperties sceneProperties = censusRenderer.SceneProperties;
 
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text.
-            if (_extrusionFieldButton.SelectedSegment == 0)
+            if (((UISegmentedControl)sender).SelectedSegment == 0)
             {
                 // An offset of 100000 is added to ensure that polygons for large areas (like Alaska)
                 // with low populations will be extruded above the curvature of the Earth.
@@ -157,6 +120,45 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             {
                 sceneProperties.ExtrusionExpression = "[POP2007] / 10";
             }
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UISegmentedControl extrusionFieldButton = new UISegmentedControl("Population density", "Total population")
+            {
+                TintColor = UIColor.White,
+                SelectedSegment = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            extrusionFieldButton.ValueChanged += ToggleExtrusionButton_Clicked;
+
+            // Add the views.
+            View.AddSubviews(_mySceneView, extrusionFieldButton);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _mySceneView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
+                _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+
+                extrusionFieldButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
+                extrusionFieldButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
+                extrusionFieldButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
+            });
         }
     }
 }

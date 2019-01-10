@@ -35,21 +35,21 @@ namespace ArcGISRuntime.Samples.FindPlace
     [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public class FindPlace : UIViewController
     {
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UITextField _searchBox;
+        private UITextField _locationBox;
+        private UITableView _suggestionView;
+        private UIButton _searchButton;
+        private UIButton _searchInViewButton;
+        private UIActivityIndicatorView _activityView;
+
         // The LocatorTask provides geocoding services.
         private LocatorTask _geocoder;
 
         // Service URI to be provided to the LocatorTask (geocoder).
         private readonly Uri _serviceUri =
             new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
-
-        // Create and hold references to the UI controls.
-        private MapView _myMapView = new MapView();
-        private UITextField _searchBox;
-        private UITextField _locationBox;
-        private UITableView _suggestionView;
-        private UIButton _searchButton;
-        private UIButton _searchRestrictedButton;
-        private UIActivityIndicatorView _activityView;
 
         // Hold a suggestion source for the suggestion list view.
         private SuggestionSource _mySuggestionSource;
@@ -60,122 +60,6 @@ namespace ArcGISRuntime.Samples.FindPlace
         public FindPlace()
         {
             Title = "Find place";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
-        public override void LoadView()
-        {
-            View = new UIView {BackgroundColor = UIColor.White};
-            UIView formContainer = new UIView {BackgroundColor = UIColor.FromWhiteAlpha(1f, .8f)};
-            formContainer.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _searchBox = new UITextField();
-            _searchBox.TranslatesAutoresizingMaskIntoConstraints = false;
-            _searchBox.Text = "Coffee";
-            _searchBox.BorderStyle = UITextBorderStyle.RoundedRect;
-            _searchBox.LeftView = new UIView(new CGRect(0, 0, 5, 20));
-            _searchBox.LeftViewMode = UITextFieldViewMode.Always;
-
-            _locationBox = new UITextField();
-            _locationBox.TranslatesAutoresizingMaskIntoConstraints = false;
-            _locationBox.Text = "Current location";
-            _locationBox.BorderStyle = UITextBorderStyle.RoundedRect;
-            _locationBox.LeftView = new UIView(new CGRect(0, 0, 5, 20));
-            _locationBox.LeftViewMode = UITextFieldViewMode.Always;
-
-            _searchButton = new UIButton(UIButtonType.RoundedRect);
-            _searchButton.BackgroundColor = UIColor.White;
-            _searchButton.TranslatesAutoresizingMaskIntoConstraints = false;
-            _searchButton.SetTitle("Search all", UIControlState.Normal);
-            _searchButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
-            _searchButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _searchButton.Layer.CornerRadius = 5;
-            _searchButton.Layer.BorderColor = View.TintColor.CGColor;
-            _searchButton.Layer.BorderWidth = 1;
-
-            _searchRestrictedButton = new UIButton(UIButtonType.RoundedRect);
-            _searchRestrictedButton.BackgroundColor = UIColor.White;
-            _searchRestrictedButton.TranslatesAutoresizingMaskIntoConstraints = false;
-            _searchRestrictedButton.SetTitle("Search in view", UIControlState.Normal);
-            _searchRestrictedButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
-            _searchRestrictedButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _searchRestrictedButton.Layer.CornerRadius = 5;
-            _searchRestrictedButton.Layer.BorderColor = View.TintColor.CGColor;
-            _searchRestrictedButton.Layer.BorderWidth = 1;
-
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            // Allow pressing 'return' to dismiss the keyboard.
-            _locationBox.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
-            _searchBox.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
-
-            _activityView = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
-            _activityView.TranslatesAutoresizingMaskIntoConstraints = false;
-            _activityView.HidesWhenStopped = true;
-            _activityView.ActivityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge;
-            _activityView.BackgroundColor = UIColor.FromWhiteAlpha(0, .5f);
-
-            _suggestionView = new UITableView();
-            _suggestionView.TranslatesAutoresizingMaskIntoConstraints = false;
-            _suggestionView.Hidden = true;
-            _mySuggestionSource = new SuggestionSource(null, this);
-            _suggestionView.Source = _mySuggestionSource;
-            _suggestionView.RowHeight = 24;
-
-            View.AddSubviews(_myMapView, formContainer, _searchBox, _locationBox, _searchButton,
-                _searchRestrictedButton, _activityView, _suggestionView);
-
-            _myMapView.TopAnchor.ConstraintEqualTo(formContainer.BottomAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-
-            _searchBox.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
-            _searchBox.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 8).Active = true;
-            _searchBox.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8).Active = true;
-
-            _locationBox.TopAnchor.ConstraintEqualTo(_searchBox.BottomAnchor, 8).Active = true;
-            _locationBox.LeadingAnchor.ConstraintEqualTo(_searchBox.LeadingAnchor).Active = true;
-            _locationBox.TrailingAnchor.ConstraintEqualTo(_searchBox.TrailingAnchor).Active = true;
-
-            _searchButton.TopAnchor.ConstraintEqualTo(_locationBox.BottomAnchor, 8).Active = true;
-            _searchButton.LeadingAnchor.ConstraintEqualTo(_searchBox.LeadingAnchor).Active = true;
-            _searchButton.TrailingAnchor.ConstraintEqualTo(View.CenterXAnchor, -4).Active = true;
-            _searchButton.HeightAnchor.ConstraintEqualTo(32).Active = true;
-
-            _searchRestrictedButton.TopAnchor.ConstraintEqualTo(_searchButton.TopAnchor).Active = true;
-            _searchRestrictedButton.LeadingAnchor.ConstraintEqualTo(View.CenterXAnchor, 4).Active = true;
-            _searchRestrictedButton.TrailingAnchor.ConstraintEqualTo(_searchBox.TrailingAnchor).Active = true;
-            _searchRestrictedButton.HeightAnchor.ConstraintEqualTo(32).Active = true;
-
-            formContainer.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            formContainer.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            formContainer.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            formContainer.BottomAnchor.ConstraintEqualTo(_searchRestrictedButton.BottomAnchor, 8).Active = true;
-
-            _activityView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _activityView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _activityView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _activityView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-
-            _suggestionView.TopAnchor.ConstraintEqualTo(formContainer.BottomAnchor, 8).Active = true;
-            _suggestionView.LeadingAnchor.ConstraintEqualTo(_locationBox.LeadingAnchor, 8).Active = true;
-            _suggestionView.TrailingAnchor.ConstraintEqualTo(_locationBox.TrailingAnchor, -8).Active = true;
-            _suggestionView.HeightAnchor.ConstraintEqualTo(_suggestionView.RowHeight * 4).Active = true;
         }
 
         private async void Initialize()
@@ -196,14 +80,14 @@ namespace ArcGISRuntime.Samples.FindPlace
             _locationBox.Enabled = true;
             _searchBox.Enabled = true;
             _searchButton.Enabled = true;
-            _searchRestrictedButton.Enabled = true;
+            _searchInViewButton.Enabled = true;
 
             // Enable tap-for-info pattern on results.
             _myMapView.GeoViewTapped += MapView_GeoViewTapped;
 
             // Listen for taps on the search buttons.
             _searchButton.TouchUpInside += SearchButton_Touched;
-            _searchRestrictedButton.TouchUpInside += SearchRestrictedButton_Touched;
+            _searchInViewButton.TouchUpInside += SearchRestrictedButton_Touched;
 
             // Listen for text-changed events.
             _searchBox.AllEditingEvents += SearchBox_TextChanged;
@@ -608,6 +492,129 @@ namespace ArcGISRuntime.Samples.FindPlace
         {
             // Hide the callout.
             _myMapView.DismissCallout();
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UIView formContainer = new UIView {BackgroundColor = UIColor.FromWhiteAlpha(1f, .8f)};
+            formContainer.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _searchBox = new UITextField();
+            _searchBox.TranslatesAutoresizingMaskIntoConstraints = false;
+            _searchBox.Text = "Coffee";
+            _searchBox.BorderStyle = UITextBorderStyle.RoundedRect;
+            _searchBox.LeftView = new UIView(new CGRect(0, 0, 5, 20));
+            _searchBox.LeftViewMode = UITextFieldViewMode.Always;
+            // Allow pressing 'return' to dismiss the keyboard.
+            _searchBox.ShouldReturn += textField =>
+            {
+                textField.ResignFirstResponder();
+                return true;
+            };
+
+            _locationBox = new UITextField();
+            _locationBox.TranslatesAutoresizingMaskIntoConstraints = false;
+            _locationBox.Text = "Current location";
+            _locationBox.BorderStyle = UITextBorderStyle.RoundedRect;
+            _locationBox.LeftView = new UIView(new CGRect(0, 0, 5, 20));
+            _locationBox.LeftViewMode = UITextFieldViewMode.Always;
+            // Allow pressing 'return' to dismiss the keyboard.
+            _locationBox.ShouldReturn += textField =>
+            {
+                textField.ResignFirstResponder();
+                return true;
+            };
+
+            _searchButton = new UIButton(UIButtonType.RoundedRect);
+            _searchButton.BackgroundColor = UIColor.White;
+            _searchButton.TranslatesAutoresizingMaskIntoConstraints = false;
+            _searchButton.SetTitle("Search all", UIControlState.Normal);
+            _searchButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+            _searchButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _searchButton.Layer.CornerRadius = 5;
+            _searchButton.Layer.BorderColor = View.TintColor.CGColor;
+            _searchButton.Layer.BorderWidth = 1;
+
+            _searchInViewButton = new UIButton(UIButtonType.RoundedRect);
+            _searchInViewButton.BackgroundColor = UIColor.White;
+            _searchInViewButton.TranslatesAutoresizingMaskIntoConstraints = false;
+            _searchInViewButton.SetTitle("Search in view", UIControlState.Normal);
+            _searchInViewButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+            _searchInViewButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _searchInViewButton.Layer.CornerRadius = 5;
+            _searchInViewButton.Layer.BorderColor = View.TintColor.CGColor;
+            _searchInViewButton.Layer.BorderWidth = 1;
+
+            _activityView = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
+            _activityView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _activityView.HidesWhenStopped = true;
+            _activityView.ActivityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge;
+            _activityView.BackgroundColor = UIColor.FromWhiteAlpha(0, .5f);
+
+            _suggestionView = new UITableView();
+            _suggestionView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _suggestionView.Hidden = true;
+            _mySuggestionSource = new SuggestionSource(null, this);
+            _suggestionView.Source = _mySuggestionSource;
+            _suggestionView.RowHeight = 24;
+
+            // Add the views.
+            View.AddSubviews(_myMapView, formContainer, _searchBox, _locationBox, _searchButton,
+                _searchInViewButton, _activityView, _suggestionView);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(formContainer.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+
+                _searchBox.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8),
+                _searchBox.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 8),
+                _searchBox.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
+
+                _locationBox.TopAnchor.ConstraintEqualTo(_searchBox.BottomAnchor, 8),
+                _locationBox.LeadingAnchor.ConstraintEqualTo(_searchBox.LeadingAnchor),
+                _locationBox.TrailingAnchor.ConstraintEqualTo(_searchBox.TrailingAnchor),
+
+                _searchButton.TopAnchor.ConstraintEqualTo(_locationBox.BottomAnchor, 8),
+                _searchButton.LeadingAnchor.ConstraintEqualTo(_searchBox.LeadingAnchor),
+                _searchButton.TrailingAnchor.ConstraintEqualTo(View.CenterXAnchor, -4),
+                _searchButton.HeightAnchor.ConstraintEqualTo(32),
+
+                _searchInViewButton.TopAnchor.ConstraintEqualTo(_searchButton.TopAnchor),
+                _searchInViewButton.LeadingAnchor.ConstraintEqualTo(View.CenterXAnchor, 4),
+                _searchInViewButton.TrailingAnchor.ConstraintEqualTo(_searchBox.TrailingAnchor),
+                _searchInViewButton.HeightAnchor.ConstraintEqualTo(32),
+
+                formContainer.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                formContainer.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                formContainer.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                formContainer.BottomAnchor.ConstraintEqualTo(_searchInViewButton.BottomAnchor, 8),
+
+                _activityView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _activityView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _activityView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _activityView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+
+                _suggestionView.TopAnchor.ConstraintEqualTo(formContainer.BottomAnchor, 8),
+                _suggestionView.LeadingAnchor.ConstraintEqualTo(_locationBox.LeadingAnchor, 8),
+                _suggestionView.TrailingAnchor.ConstraintEqualTo(_locationBox.TrailingAnchor, -8),
+                _suggestionView.HeightAnchor.ConstraintEqualTo(_suggestionView.RowHeight * 4)
+            });
         }
     }
 

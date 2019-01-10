@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         "")]
     public class ClipGeometry : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold a reference to the MapView.
         private MapView _myMapView;
 
         // Graphics overlay to display input geometries for the clip operation.
@@ -55,13 +55,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         {
             Title = "Clip geometry";
         }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
+        
         private void Initialize()
         {
             // Create and show a new map using the WebMercator spatial reference.
@@ -216,8 +210,15 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             }
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
@@ -225,9 +226,6 @@ namespace ArcGISRuntime.Samples.ClipGeometry
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View.AddSubviews(_myMapView, toolbar);
-
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
@@ -235,14 +233,21 @@ namespace ArcGISRuntime.Samples.ClipGeometry
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+            
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
 
-            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 }

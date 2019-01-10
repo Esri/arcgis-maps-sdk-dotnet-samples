@@ -32,18 +32,11 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
     {
         // Hold references to UI controls.
         private MapView _myMapView;
-        private UIBarButtonItem _updateRendererButton;
         private BlendSettingsController _settingsVC;
 
         public ChangeBlendRenderer()
         {
             Title = "Blend renderer";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
 
         private async void Initialize()
@@ -79,47 +72,11 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 
                 // Wait for the map to load.
                 await map.LoadAsync();
-
-                // Enable the 'Update Renderer' button now that the map has loaded.
-                _updateRendererButton.Enabled = true;
             }
             catch (Exception e)
             {
                 new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
-        }
-
-        public override void LoadView()
-        {
-            View = new UIView {BackgroundColor = UIColor.White};
-
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            UIToolbar toolbar = new UIToolbar();
-            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _updateRendererButton =
-                new UIBarButtonItem("Update renderer", UIBarButtonItemStyle.Plain, UpdateRenderer_Clicked);
-            toolbar.Items = new[]
-            {
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _updateRendererButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
-            };
-
-            View.AddSubviews(_myMapView, toolbar);
-
-            NSLayoutConstraint.ActivateConstraints(new[]
-            {
-                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
-                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
-            });
         }
 
         private void UpdateRenderer_Clicked(object sender, EventArgs e)
@@ -138,6 +95,46 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             PresentViewController(controller, true, null);
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Update renderer", UIBarButtonItemStyle.Plain, UpdateRenderer_Clicked),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
+            });
+        }
+
         // Force popover to display on iPhone.
         private class PpDelegate : UIPopoverPresentationControllerDelegate
         {
@@ -151,6 +148,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 
     public class BlendSettingsController : UIViewController
     {
+        // Hold references to the UI controls.
         private readonly Map _map;
         private UISegmentedControl _slopeTypesPicker;
         private UISegmentedControl _colorRampsPicker;
@@ -165,6 +163,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView();
 
             UIScrollView scrollView = new UIScrollView();
@@ -231,10 +230,13 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             _azimuthSlider.Value = 180;
             formContainer.AddArrangedSubview(_azimuthSlider);
 
+            // Add the views.
             scrollView.AddSubview(formContainer);
 
+            // Put the apply button in the top-right part of the popover.
             NavigationItem.RightBarButtonItem = new UIBarButtonItem("Apply", UIBarButtonItemStyle.Plain, UpdateRendererButton_Clicked);
 
+            // Lay out the views.
             formContainer.TopAnchor.ConstraintEqualTo(scrollView.TopAnchor).Active = true;
             formContainer.LeadingAnchor.ConstraintEqualTo(scrollView.LeadingAnchor).Active = true;
             formContainer.TrailingAnchor.ConstraintEqualTo(scrollView.TrailingAnchor).Active = true;

@@ -116,6 +116,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _staticSceneView = new SceneView();
@@ -129,6 +130,12 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Zoom", UIBarButtonItemStyle.Plain, _zoomButton_TouchUpInside),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
 
             UILabel staticLabel = new UILabel
             {
@@ -148,28 +155,26 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
+            // Add the views.
             View.AddSubviews(_stackView, toolbar, staticLabel, dynamicLabel);
 
-            toolbar.Items = new[]
-            {
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Zoom", UIBarButtonItemStyle.Plain, _zoomButton_TouchUpInside),
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
-            };
-
+            // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _stackView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
                 _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+
                 staticLabel.TopAnchor.ConstraintEqualTo(_staticSceneView.TopAnchor),
                 staticLabel.HeightAnchor.ConstraintEqualTo(40),
                 staticLabel.LeadingAnchor.ConstraintEqualTo(_staticSceneView.LeadingAnchor),
                 staticLabel.TrailingAnchor.ConstraintEqualTo(_staticSceneView.TrailingAnchor),
+
                 dynamicLabel.TopAnchor.ConstraintEqualTo(_dynamicSceneView.TopAnchor),
                 dynamicLabel.HeightAnchor.ConstraintEqualTo(40),
                 dynamicLabel.LeadingAnchor.ConstraintEqualTo(_dynamicSceneView.LeadingAnchor),

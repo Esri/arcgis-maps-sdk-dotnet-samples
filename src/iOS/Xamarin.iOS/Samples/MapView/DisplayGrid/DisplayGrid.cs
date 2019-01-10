@@ -27,8 +27,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         "Use the buttons in the toolbar to change grid settings. Changes take effect immediately.")]
     public class DisplayGrid : UIViewController
     {
-        // Hld references to the UI controls.
-        private UIToolbar _toolbar;
+        // Hold a reference to the MapView.
         private MapView _myMapView;
 
         // Fields for storing the user's grid preferences.
@@ -40,12 +39,6 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         public DisplayGrid()
         {
             Title = "Display a grid";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
 
         private void Initialize()
@@ -258,17 +251,23 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             PresentViewController(gridColorAlert, true, null);
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Add the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _toolbar = new UIToolbar();
-            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _toolbar.Items = new[]
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
             {
                 new UIBarButtonItem("Grid type", UIBarButtonItemStyle.Plain, GridTypeButton_Click),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
@@ -279,16 +278,21 @@ namespace ArcGISRuntime.Samples.DisplayGrid
                 new UIBarButtonItem("Text color", UIBarButtonItemStyle.Plain, LabelColorButton_Click)
             };
 
-            View.AddSubviews(_myMapView, _toolbar);
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
 
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
 
-            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 }

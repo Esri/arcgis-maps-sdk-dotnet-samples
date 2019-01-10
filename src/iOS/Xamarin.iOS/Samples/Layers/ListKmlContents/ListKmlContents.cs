@@ -87,34 +87,47 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
             }
         }
 
+
+        /// <summary>
+        /// Takes action once a new content selection is made.
+        /// </summary>
+        public void ContentSelectionChanged(int selectedIndex)
+        {
+            // Get the KML node.
+            LayerDisplayVM selectedItem = _viewModelList[selectedIndex];
+
+            NavigateToNode(selectedItem.Node);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView();
 
             _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+
             _myDisplayList = new UITableView
             {
                 RowHeight = 30
             };
-            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
             _myDisplayList.TranslatesAutoresizingMaskIntoConstraints = false;
+
             _stackView = new UIStackView(new UIView[] {_mySceneView, _myDisplayList});
             _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            // Relayout on rotation.
-            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
-            {
-                _stackView.Axis = UILayoutConstraintAxis.Horizontal;
-            }
-            else
-            {
-                _stackView.Axis = UILayoutConstraintAxis.Vertical;
-            }
-
+            _stackView.Axis = UILayoutConstraintAxis.Horizontal;
             _stackView.Distribution = UIStackViewDistribution.FillEqually;
 
+            // Add the views.
             View.AddSubviews(_stackView);
 
+            // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
@@ -135,23 +148,6 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
             {
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
-        /// <summary>
-        /// Takes action once a new content selection is made.
-        /// </summary>
-        public void ContentSelectionChanged(int selectedIndex)
-        {
-            // Get the KML node.
-            LayerDisplayVM selectedItem = _viewModelList[selectedIndex];
-
-            NavigateToNode(selectedItem.Node);
         }
 
         #region viewpoint_conversion

@@ -41,12 +41,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
             Title = "Feature layer rendering mode (Map)";
         }
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
         private async void Initialize()
         {
             // Viewpoint locations for map view to zoom in and out to.
@@ -118,12 +112,20 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
             }
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _staticMapView = new MapView();
             _staticMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
             _dynamicMapView = new MapView();
             _dynamicMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
@@ -133,6 +135,12 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Zoom", UIBarButtonItemStyle.Plain, OnZoomClick),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
 
             UILabel staticLabel = new UILabel
             {
@@ -152,28 +160,26 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
+            // Add the views.
             View.AddSubviews(_stackView, toolbar, staticLabel, dynamicLabel);
 
-            toolbar.Items = new[]
-            {
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Zoom", UIBarButtonItemStyle.Plain, OnZoomClick),
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
-            };
-
+            // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _stackView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
                 _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+
                 staticLabel.TopAnchor.ConstraintEqualTo(_staticMapView.TopAnchor),
                 staticLabel.HeightAnchor.ConstraintEqualTo(40),
                 staticLabel.LeadingAnchor.ConstraintEqualTo(_staticMapView.LeadingAnchor),
                 staticLabel.TrailingAnchor.ConstraintEqualTo(_staticMapView.TrailingAnchor),
+
                 dynamicLabel.TopAnchor.ConstraintEqualTo(_dynamicMapView.TopAnchor),
                 dynamicLabel.HeightAnchor.ConstraintEqualTo(40),
                 dynamicLabel.LeadingAnchor.ConstraintEqualTo(_dynamicMapView.LeadingAnchor),

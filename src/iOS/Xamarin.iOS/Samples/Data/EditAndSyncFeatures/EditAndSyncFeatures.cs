@@ -41,7 +41,6 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         private MapView _myMapView;
         private UIProgressView _progressBar;
         private UILabel _helpLabel;
-        private UIToolbar _toolbar;
         private UIBarButtonItem _generateButton;
         private UIBarButtonItem _syncButton;
 
@@ -71,72 +70,6 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         public EditAndSyncFeatures()
         {
             Title = "Edit and Sync Features";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
-        public override void LoadView()
-        {
-            View = new UIView {BackgroundColor = UIColor.White};
-
-            _toolbar = new UIToolbar();
-            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _helpLabel = new UILabel
-            {
-                Text = "1. Tap 'Generate'.",
-                AdjustsFontSizeToFitWidth = true,
-                TextAlignment = UITextAlignment.Center,
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
-                TextColor = UIColor.White,
-                Lines = 1,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _progressBar = new UIProgressView();
-            _progressBar.TranslatesAutoresizingMaskIntoConstraints = false;
-            _progressBar.Hidden = true;
-
-            View.AddSubviews(_myMapView, _helpLabel, _progressBar, _toolbar);
-
-            _generateButton = new UIBarButtonItem("Generate", UIBarButtonItemStyle.Plain, GenerateButton_Clicked);
-            _generateButton.Enabled = false;
-            _syncButton = new UIBarButtonItem("Synchronize", UIBarButtonItemStyle.Plain, SyncButton_Click);
-            _syncButton.Enabled = false;
-
-            _toolbar.Items = new[]
-            {
-                _generateButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _syncButton
-            };
-
-            // Apply constraints.
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-
-            _helpLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _helpLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
-
-            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-            _toolbar.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor).Active = true;
-            _toolbar.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor).Active = true;
-
-            _progressBar.TopAnchor.ConstraintEqualTo(_helpLabel.BottomAnchor).Active = true;
-            _progressBar.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor).Active = true;
-            _progressBar.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor).Active = true;
-            _progressBar.HeightAnchor.ConstraintEqualTo(8).Active = true;
         }
 
         private async void Initialize()
@@ -588,6 +521,76 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             {
                 ShowStatusMessage(ex.ToString());
             }
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _generateButton = new UIBarButtonItem("Generate", UIBarButtonItemStyle.Plain, GenerateButton_Clicked);
+            _generateButton.Enabled = false;
+            _syncButton = new UIBarButtonItem("Synchronize", UIBarButtonItemStyle.Plain, SyncButton_Click);
+            _syncButton.Enabled = false;
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                _generateButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _syncButton
+            };
+
+            _helpLabel = new UILabel
+            {
+                Text = "1. Tap 'Generate'.",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _progressBar = new UIProgressView();
+            _progressBar.TranslatesAutoresizingMaskIntoConstraints = false;
+            _progressBar.Hidden = true;
+
+            // Add the views.
+            View.AddSubviews(_myMapView, _helpLabel, _progressBar, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                _helpLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _helpLabel.HeightAnchor.ConstraintEqualTo(40),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+
+                _progressBar.TopAnchor.ConstraintEqualTo(_helpLabel.BottomAnchor),
+                _progressBar.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                _progressBar.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                _progressBar.HeightAnchor.ConstraintEqualTo(8)
+            });
         }
     }
 }

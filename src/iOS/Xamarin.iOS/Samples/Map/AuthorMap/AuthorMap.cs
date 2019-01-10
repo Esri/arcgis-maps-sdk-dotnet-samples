@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         "1. Pan and zoom to the extent you would like for your map. \n2. Choose a basemap from the list of available basemaps. \n3. Choose one or more operational layers to include. \n4. Click 'Save ...' to apply your changes. \n5. Provide info for the new portal item, such as a Title, Description, and Tags. \n6. Click 'Save Map'. \n7. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder. \n8. You can make additional changes, update the map, and then re-save to store changes in the portal item.")]
     public class AuthorMap : UIViewController, IOAuthAuthorizeHandler
     {
-        // Hold references to the UI controls.
+        // Hold a reference to the MapView.
         private MapView _myMapView;
 
         // Map metadata.
@@ -76,13 +76,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
         public AuthorMap()
         {
             Title = "Author and save a map";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-            ShowOAuthPropsUi();
         }
 
         private void Initialize()
@@ -322,8 +315,22 @@ namespace ArcGISRuntime.Samples.AuthorMap
             await myMap.SaveAsAsync(agsOnline, null, title, description, tags, img);
         }
 
+        private void NewMapClicked(object sender, EventArgs e)
+        {
+            // Clear the map from the map view (allow the user to start over and save as a new portal item).
+            _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+            ShowOAuthPropsUi();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
@@ -331,16 +338,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
-            {
-                TranslatesAutoresizingMaskIntoConstraints = false,
-                BackgroundColor = UIColor.FromWhiteAlpha(0f, .8f),
-                HidesWhenStopped = true
-            };
-
-            View.AddSubviews(_myMapView, toolbar, _activityIndicator);
-
             toolbar.Items = new[]
             {
                 new UIBarButtonItem("New map", UIBarButtonItemStyle.Plain, NewMapClicked),
@@ -352,25 +349,33 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 new UIBarButtonItem("Save", UIBarButtonItemStyle.Plain, SaveMapClicked)
             };
 
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
+            _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                BackgroundColor = UIColor.FromWhiteAlpha(0f, .8f),
+                HidesWhenStopped = true
+            };
 
-            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar, _activityIndicator);
 
-            _activityIndicator.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _activityIndicator.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _activityIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _activityIndicator.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-        }
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
 
-        private void NewMapClicked(object sender, EventArgs e)
-        {
-            // Clear the map from the map view (allow the user to start over and save as a new portal item).
-            _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+
+                _activityIndicator.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _activityIndicator.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _activityIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _activityIndicator.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            });
         }
 
         #region OAuth helpers

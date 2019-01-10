@@ -30,6 +30,15 @@ namespace ArcGISRuntime.Samples.ListTransformations
         "Featured")]
     public class ListTransformations : UIViewController
     {
+        // Hold references to the UI controls.
+        private UILabel _inWkidLabel;
+        private UILabel _outWkidLabel;
+        private UIPickerView _transformationsPicker;
+        private UISwitch _useExtentSwitch;
+        private MapView _myMapView;
+        private UIStackView _transformToolsView;
+        private UIStackView _outerStackView;
+
         // Point whose coordinates will be projected using a selected transform.
         private MapPoint _originalPoint;
 
@@ -42,24 +51,9 @@ namespace ArcGISRuntime.Samples.ListTransformations
         // Text view to display messages to the user (exceptions, etc.).
         private UITextView _messagesTextView;
 
-        // Labels to display the input/output spatial references (WKID).
-        private UILabel _inWkidLabel;
-        private UILabel _outWkidLabel;
-        private UIPickerView _transformationsPicker;
-        private UISwitch _useExtentSwitch;
-        private MapView _myMapView;
-        private UIStackView _transformToolsView;
-        private UIStackView _outerStackView;
-
         public ListTransformations()
         {
             Title = "List transformations by suitability";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
 
         private void Initialize()
@@ -205,8 +199,15 @@ namespace ArcGISRuntime.Samples.ListTransformations
             return "";
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _outerStackView = new UIStackView();
@@ -262,12 +263,17 @@ namespace ArcGISRuntime.Samples.ListTransformations
             _outerStackView.AddArrangedSubview(_myMapView);
             _outerStackView.AddArrangedSubview(_transformToolsView);
 
+            // Add the views.
             View.AddSubviews(_outerStackView);
 
-            _outerStackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _outerStackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor).Active = true;
-            _outerStackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor).Active = true;
-            _outerStackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _outerStackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _outerStackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                _outerStackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                _outerStackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
+            });
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)

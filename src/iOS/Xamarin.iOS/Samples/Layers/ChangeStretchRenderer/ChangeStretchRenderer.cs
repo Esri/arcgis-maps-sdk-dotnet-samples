@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
         "Featured")]
     public class ChangeStretchRenderer : UIViewController
     {
-        // Create and hold references to the UI controls.
+        // Hold references to the UI controls.
         private MapView _myMapView;
         private UISegmentedControl _rendererTypes;
         private UILabel _labelParameter1;
@@ -37,17 +37,9 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
         private UITextField _inputParameter2;
         private UIButton _updateRendererButton;
 
-        private readonly string[] _rendererChoices = {"Min/Max", "% Clip", "Std. Deviation"};
-
         public ChangeStretchRenderer()
         {
             Title = "Stretch renderer";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
 
         private async void Initialize()
@@ -79,100 +71,6 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             {
                 new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
-        }
-
-        public override void LoadView()
-        {
-            View = new UIView {BackgroundColor = UIColor.White};
-
-            UIView formContainer = new UIView();
-            formContainer.TranslatesAutoresizingMaskIntoConstraints = false;
-            formContainer.BackgroundColor = UIColor.White;
-
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _inputParameter1 = new UITextField();
-            _inputParameter1.TranslatesAutoresizingMaskIntoConstraints = false;
-            _inputParameter1.BorderStyle = UITextBorderStyle.RoundedRect;
-            _inputParameter1.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
-
-            _inputParameter2 = new UITextField();
-            _inputParameter2.TranslatesAutoresizingMaskIntoConstraints = false;
-            _inputParameter2.BorderStyle = UITextBorderStyle.RoundedRect;
-            _inputParameter2.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
-
-            _labelParameter1 = new UILabel();
-            _labelParameter1.TextAlignment = UITextAlignment.Right;
-            _labelParameter1.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _labelParameter2 = new UILabel();
-            _labelParameter2.TextAlignment = UITextAlignment.Right;
-            _labelParameter2.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _updateRendererButton = new UIButton();
-            _updateRendererButton.TouchUpInside += UpdateRendererButton_Clicked;
-            _updateRendererButton.SetTitle("Update renderer", UIControlState.Normal);
-            _updateRendererButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _updateRendererButton.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _rendererTypes = new UISegmentedControl("Min/Max", "% Clip", "Std. Deviation");
-            _rendererTypes.ValueChanged += rendererTypes_ValueChanged;
-            _rendererTypes.SelectedSegment = 0;
-            _rendererTypes.TintColor = View.TintColor;
-            _rendererTypes.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            // Call a function to configure the labels appropriately
-            rendererTypes_ValueChanged(_rendererTypes, null);
-
-            View.AddSubviews(_myMapView, formContainer, _rendererTypes, _inputParameter1,
-                _inputParameter2, _labelParameter1, _labelParameter2, _updateRendererButton);
-
-            _rendererTypes.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
-            _rendererTypes.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 8).Active = true;
-            _rendererTypes.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8).Active = true;
-
-            _inputParameter1.TopAnchor.ConstraintEqualTo(_rendererTypes.BottomAnchor, 8).Active = true;
-            _inputParameter1.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8).Active =
-                true;
-            _inputParameter1.WidthAnchor.ConstraintEqualTo(72).Active = true;
-
-            _inputParameter2.TopAnchor.ConstraintEqualTo(_inputParameter1.BottomAnchor, 8).Active = true;
-            _inputParameter2.TrailingAnchor.ConstraintEqualTo(_inputParameter1.TrailingAnchor).Active = true;
-            _inputParameter2.WidthAnchor.ConstraintEqualTo(_inputParameter1.WidthAnchor).Active = true;
-
-            _updateRendererButton.TopAnchor.ConstraintEqualTo(_inputParameter2.BottomAnchor, 8).Active = true;
-            _updateRendererButton.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor).Active = true;
-            _updateRendererButton.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor).Active =
-                true;
-
-            _labelParameter1.TopAnchor.ConstraintEqualTo(_inputParameter1.TopAnchor).Active = true;
-            _labelParameter1.LeadingAnchor.ConstraintEqualTo(_rendererTypes.LeadingAnchor).Active = true;
-            _labelParameter1.TrailingAnchor.ConstraintEqualTo(_inputParameter1.LeadingAnchor, -8).Active = true;
-            _labelParameter1.BottomAnchor.ConstraintEqualTo(_inputParameter1.BottomAnchor).Active = true;
-
-            _labelParameter2.TopAnchor.ConstraintEqualTo(_inputParameter2.TopAnchor).Active = true;
-            _labelParameter2.BottomAnchor.ConstraintEqualTo(_inputParameter2.BottomAnchor).Active = true;
-            _labelParameter2.LeadingAnchor.ConstraintEqualTo(_labelParameter1.LeadingAnchor).Active = true;
-            _labelParameter2.TrailingAnchor.ConstraintEqualTo(_labelParameter1.TrailingAnchor).Active = true;
-
-            formContainer.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            formContainer.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            formContainer.BottomAnchor.ConstraintEqualTo(_updateRendererButton.BottomAnchor, 8).Active = true;
-            formContainer.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-
-            _myMapView.TopAnchor.ConstraintEqualTo(formContainer.BottomAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
         }
 
         private void rendererTypes_ValueChanged(object sender, EventArgs e)
@@ -225,7 +123,6 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     break;
             }
         }
-
 
         private void UpdateRendererButton_Clicked(object sender, EventArgs e)
         {
@@ -337,6 +234,110 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
         private void ShowMessage(string title, string message)
         {
             new UIAlertView(title, message, (IUIAlertViewDelegate) null, "OK", null).Show();
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            UIView formContainer = new UIView();
+            formContainer.TranslatesAutoresizingMaskIntoConstraints = false;
+            formContainer.BackgroundColor = UIColor.White;
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _inputParameter1 = new UITextField();
+            _inputParameter1.TranslatesAutoresizingMaskIntoConstraints = false;
+            _inputParameter1.BorderStyle = UITextBorderStyle.RoundedRect;
+            _inputParameter1.ShouldReturn += textField =>
+            {
+                textField.ResignFirstResponder();
+                return true;
+            };
+
+            _inputParameter2 = new UITextField();
+            _inputParameter2.TranslatesAutoresizingMaskIntoConstraints = false;
+            _inputParameter2.BorderStyle = UITextBorderStyle.RoundedRect;
+            _inputParameter2.ShouldReturn += textField =>
+            {
+                textField.ResignFirstResponder();
+                return true;
+            };
+
+            _labelParameter1 = new UILabel();
+            _labelParameter1.TextAlignment = UITextAlignment.Right;
+            _labelParameter1.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _labelParameter2 = new UILabel();
+            _labelParameter2.TextAlignment = UITextAlignment.Right;
+            _labelParameter2.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _updateRendererButton = new UIButton();
+            _updateRendererButton.TouchUpInside += UpdateRendererButton_Clicked;
+            _updateRendererButton.SetTitle("Update renderer", UIControlState.Normal);
+            _updateRendererButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _updateRendererButton.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _rendererTypes = new UISegmentedControl("Min/Max", "% Clip", "Std. Deviation");
+            _rendererTypes.ValueChanged += rendererTypes_ValueChanged;
+            _rendererTypes.SelectedSegment = 0;
+            _rendererTypes.TintColor = View.TintColor;
+            _rendererTypes.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            // Call a function to configure the labels appropriately
+            rendererTypes_ValueChanged(_rendererTypes, null);
+
+            // Add the views.
+            View.AddSubviews(_myMapView, formContainer, _rendererTypes, _inputParameter1,
+                _inputParameter2, _labelParameter1, _labelParameter2, _updateRendererButton);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _rendererTypes.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8),
+                _rendererTypes.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 8),
+                _rendererTypes.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
+
+                _inputParameter1.TopAnchor.ConstraintEqualTo(_rendererTypes.BottomAnchor, 8),
+                _inputParameter1.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
+                _inputParameter1.WidthAnchor.ConstraintEqualTo(72),
+
+                _inputParameter2.TopAnchor.ConstraintEqualTo(_inputParameter1.BottomAnchor, 8),
+                _inputParameter2.TrailingAnchor.ConstraintEqualTo(_inputParameter1.TrailingAnchor),
+                _inputParameter2.WidthAnchor.ConstraintEqualTo(_inputParameter1.WidthAnchor),
+
+                _updateRendererButton.TopAnchor.ConstraintEqualTo(_inputParameter2.BottomAnchor, 8),
+                _updateRendererButton.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                _updateRendererButton.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+
+                _labelParameter1.TopAnchor.ConstraintEqualTo(_inputParameter1.TopAnchor),
+                _labelParameter1.LeadingAnchor.ConstraintEqualTo(_rendererTypes.LeadingAnchor),
+                _labelParameter1.TrailingAnchor.ConstraintEqualTo(_inputParameter1.LeadingAnchor, -8),
+                _labelParameter1.BottomAnchor.ConstraintEqualTo(_inputParameter1.BottomAnchor),
+
+                _labelParameter2.TopAnchor.ConstraintEqualTo(_inputParameter2.TopAnchor),
+                _labelParameter2.BottomAnchor.ConstraintEqualTo(_inputParameter2.BottomAnchor),
+                _labelParameter2.LeadingAnchor.ConstraintEqualTo(_labelParameter1.LeadingAnchor),
+                _labelParameter2.TrailingAnchor.ConstraintEqualTo(_labelParameter1.TrailingAnchor),
+
+                formContainer.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                formContainer.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                formContainer.BottomAnchor.ConstraintEqualTo(_updateRendererButton.BottomAnchor, 8),
+                formContainer.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                _myMapView.TopAnchor.ConstraintEqualTo(formContainer.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            });
         }
     }
 }

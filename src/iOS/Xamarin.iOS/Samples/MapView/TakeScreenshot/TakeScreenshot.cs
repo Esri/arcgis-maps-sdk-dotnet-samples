@@ -24,25 +24,18 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         "")]
     public class TakeScreenshot : UIViewController
     {
-        // Create and hold references to the UI controls.
+        // Hold references to the UI controls.
         private MapView _myMapView;
         private UIView _overlayView;
         private UIImageView _overlayImageView;
         private UIBarButtonItem _screenshotButton;
         private UIBarButtonItem _closePreviewButton;
-        private UIToolbar _toolbar;
 
         public TakeScreenshot()
         {
             Title = "Take screenshot";
         }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
+        
         private void Initialize()
         {
             // Show an imagery basemap.
@@ -79,19 +72,31 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             }
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _toolbar = new UIToolbar();
-            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
             _screenshotButton = new UIBarButtonItem("Take screenshot", UIBarButtonItemStyle.Plain, OnScreenshotButtonClicked);
-            _closePreviewButton = new UIBarButtonItem("Close preview", UIBarButtonItemStyle.Plain, OnCloseImageViewClicked);
-            _closePreviewButton.Enabled = false;
+            _closePreviewButton = new UIBarButtonItem("Close preview", UIBarButtonItemStyle.Plain, OnCloseImageViewClicked) { Enabled = false };
+            
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                _screenshotButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _closePreviewButton
+            };
 
             _overlayImageView = new UIImageView();
             _overlayImageView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -104,34 +109,32 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             _overlayView.Layer.BorderWidth = 2;
             _overlayView.Hidden = true;
 
+            // Add the views.
             _overlayView.AddSubview(_overlayImageView);
-            View.AddSubviews(_myMapView, _toolbar, _overlayView);
+            View.AddSubviews(_myMapView, toolbar, _overlayView);
 
-            _toolbar.Items = new[]
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
             {
-                _screenshotButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _closePreviewButton
-            };
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
 
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
-            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+                _overlayView.WidthAnchor.ConstraintEqualTo(View.WidthAnchor, 0.9f),
+                _overlayView.HeightAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.HeightAnchor, 0.8f),
+                _overlayView.CenterXAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.CenterXAnchor),
+                _overlayView.CenterYAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.CenterYAnchor),
 
-            _overlayView.WidthAnchor.ConstraintEqualTo(View.WidthAnchor, 0.9f).Active = true;
-            _overlayView.HeightAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.HeightAnchor, 0.8f).Active = true;
-            _overlayView.CenterXAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.CenterXAnchor).Active = true;
-            _overlayView.CenterYAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.CenterYAnchor).Active = true;
-
-            _overlayImageView.LeadingAnchor.ConstraintEqualTo(_overlayView.LeadingAnchor).Active = true;
-            _overlayImageView.TrailingAnchor.ConstraintEqualTo(_overlayView.TrailingAnchor).Active = true;
-            _overlayImageView.TopAnchor.ConstraintEqualTo(_overlayView.TopAnchor).Active = true;
-            _overlayImageView.BottomAnchor.ConstraintEqualTo(_overlayView.BottomAnchor).Active = true;
+                _overlayImageView.LeadingAnchor.ConstraintEqualTo(_overlayView.LeadingAnchor),
+                _overlayImageView.TrailingAnchor.ConstraintEqualTo(_overlayView.TrailingAnchor),
+                _overlayImageView.TopAnchor.ConstraintEqualTo(_overlayView.TopAnchor),
+                _overlayImageView.BottomAnchor.ConstraintEqualTo(_overlayView.BottomAnchor)
+            });
         }
     }
 }

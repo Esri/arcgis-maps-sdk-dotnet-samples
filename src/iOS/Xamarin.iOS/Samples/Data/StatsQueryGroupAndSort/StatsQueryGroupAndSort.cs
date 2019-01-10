@@ -26,12 +26,6 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         "")]
     public class StatsQueryGroupAndSort : UIViewController
     {
-        // Hold references to the UI controls.
-        private UIToolbar _toolbar;
-        private UIButton _showStatDefinitionsButton;
-        private UIButton _showGroupFieldsButton;
-        private UIButton _showOrderByFieldsButton;
-
         // URI for the US states map service.
         private readonly Uri _usStatesServiceUri = new Uri("https://services.arcgis.com/jIL9msH9OI208GCb/arcgis/rest/services/Counties_Obesity_Inactivity_Diabetes_2013/FeatureServer/0");
 
@@ -56,12 +50,6 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         public StatsQueryGroupAndSort()
         {
             Title = "Statistical query group and sort";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
 
         private async void Initialize()
@@ -246,52 +234,64 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             PresentViewController(alert, true, null);
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
-            _toolbar = new UIToolbar();
-            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            _toolbar.Items = new[]
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem("Get statistics", UIBarButtonItemStyle.Plain, ExecuteStatisticsQuery),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
-            _showStatDefinitionsButton = new UIButton();
-            _showStatDefinitionsButton.TranslatesAutoresizingMaskIntoConstraints = false;
-            _showStatDefinitionsButton.SetTitle("1. Choose statistic definitions", UIControlState.Normal);
-            _showStatDefinitionsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _showStatDefinitionsButton.TouchUpInside += ShowStatDefinitions;
+            UIButton showStatDefinitionsButton = new UIButton();
+            showStatDefinitionsButton.TranslatesAutoresizingMaskIntoConstraints = false;
+            showStatDefinitionsButton.SetTitle("1. Choose statistic definitions", UIControlState.Normal);
+            showStatDefinitionsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            showStatDefinitionsButton.TouchUpInside += ShowStatDefinitions;
 
-            _showGroupFieldsButton = new UIButton();
-            _showGroupFieldsButton.TranslatesAutoresizingMaskIntoConstraints = false;
-            _showGroupFieldsButton.SetTitle("2. Choose group fields", UIControlState.Normal);
-            _showGroupFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _showGroupFieldsButton.TouchUpInside += ShowGroupFields;
+            UIButton showGroupFieldsButton = new UIButton();
+            showGroupFieldsButton.TranslatesAutoresizingMaskIntoConstraints = false;
+            showGroupFieldsButton.SetTitle("2. Choose group fields", UIControlState.Normal);
+            showGroupFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            showGroupFieldsButton.TouchUpInside += ShowGroupFields;
 
-            _showOrderByFieldsButton = new UIButton();
-            _showOrderByFieldsButton.SetTitle("3. Choose 'Order by' fields", UIControlState.Normal);
-            _showOrderByFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _showOrderByFieldsButton.TouchUpInside += ShowOrderByFields;
+            UIButton showOrderByFieldsButton = new UIButton();
+            showOrderByFieldsButton.SetTitle("3. Choose 'Order by' fields", UIControlState.Normal);
+            showOrderByFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            showOrderByFieldsButton.TouchUpInside += ShowOrderByFields;
 
-            UIStackView buttonContainer = new UIStackView(new[] {_showStatDefinitionsButton, _showGroupFieldsButton, _showOrderByFieldsButton, new UIView()});
+            UIStackView buttonContainer = new UIStackView(new[] {showStatDefinitionsButton, showGroupFieldsButton, showOrderByFieldsButton, new UIView()});
             buttonContainer.Axis = UILayoutConstraintAxis.Vertical;
             buttonContainer.TranslatesAutoresizingMaskIntoConstraints = false;
             buttonContainer.Distribution = UIStackViewDistribution.Fill;
             buttonContainer.Alignment = UIStackViewAlignment.Top;
 
-            View.AddSubviews(buttonContainer, _toolbar);
+            // Add the views.
+            View.AddSubviews(buttonContainer, toolbar);
 
-            buttonContainer.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            buttonContainer.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor).Active = true;
-            buttonContainer.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor).Active = true;
-            buttonContainer.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                buttonContainer.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                buttonContainer.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
+                buttonContainer.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
+                buttonContainer.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
 
-            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
         }
     }
 

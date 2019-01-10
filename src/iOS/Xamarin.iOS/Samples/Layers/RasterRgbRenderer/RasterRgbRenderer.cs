@@ -27,9 +27,8 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         "Choose one of the stretch parameter types. The other options will adjust based on the chosen type. Add your inputs and press the Apply button to update the renderer.")]
     public class RasterRgbRenderer : UIViewController
     {
-        // Create and hold references to the UI controls.
+        // Hold references to the UI controls.
         private MapView _myMapView;
-        private UIToolbar _toolbar;
         private MinMaxSettingsController _minMaxController;
         private PercentClipSettingsController _percentClipController;
         private StandardDeviationSettingsController _stdDevController;
@@ -41,13 +40,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         {
             Title = "Raster RGB renderer";
         }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
+        
         private async void Initialize()
         {
             // Create a map with a streets basemap.
@@ -90,38 +83,6 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             return DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");
         }
 
-        public override void LoadView()
-        {
-            View = new UIView {BackgroundColor = UIColor.White};
-
-            _toolbar = new UIToolbar();
-            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _toolbar.Items = new[]
-            {
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Min/Max", UIBarButtonItemStyle.Plain, MinMax_Clicked),
-                new UIBarButtonItem("% Clip", UIBarButtonItemStyle.Plain, PercentClip_Clicked),
-                new UIBarButtonItem("Std. Dev.", UIBarButtonItemStyle.Plain, StdDev_Clicked)
-            };
-
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View.AddSubviews(_myMapView, _toolbar);
-
-            NSLayoutConstraint.ActivateConstraints(new[]
-            {
-                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor),
-                _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
-            });
-        }
-
         private void MinMax_Clicked(object sender, EventArgs e)
         {
             ShowPopover(_minMaxController, (UIBarButtonItem) sender);
@@ -153,6 +114,48 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             PresentViewController(navController, true, null);
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Min/Max", UIBarButtonItemStyle.Plain, MinMax_Clicked),
+                new UIBarButtonItem("% Clip", UIBarButtonItemStyle.Plain, PercentClip_Clicked),
+                new UIBarButtonItem("Std. Dev.", UIBarButtonItemStyle.Plain, StdDev_Clicked)
+            };
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
+            });
+        }
+
+        // Used to force popovers to appear on iPhone.
         private class PpDelegate : UIPopoverPresentationControllerDelegate
         {
             public override UIModalPresentationStyle GetAdaptivePresentationStyle(
@@ -165,15 +168,30 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
 
     public class MinMaxSettingsController : UIViewController
     {
-        private readonly RasterLayer _rasterLayer;
+        // Hold references to UI controls.
         private RgbValuePickerModel _minPickerModel;
         private RgbValuePickerModel _maxPickerModel;
         private UIPickerView _maxPicker;
+
+        // Hold a reference to the raster layer.
+        private RasterLayer _rasterLayer;
 
         public MinMaxSettingsController(RasterLayer rasterLayer)
         {
             _rasterLayer = rasterLayer;
             Title = "Min/Max RGB Renderer";
+        }
+        
+        private void ApplyButton_Clicked(object sender, EventArgs e)
+        {
+            double[] minValues =
+                {_minPickerModel.SelectedRed, _minPickerModel.SelectedBlue, _minPickerModel.SelectedGreen};
+            double[] maxValues =
+                {_maxPickerModel.SelectedRed, _maxPickerModel.SelectedBlue, _maxPickerModel.SelectedGreen};
+            MinMaxStretchParameters parameters = new MinMaxStretchParameters(minValues, maxValues);
+
+            int[] bands = {0, 1, 2};
+            _rasterLayer.Renderer = new RgbRenderer(parameters, bands, null, true);
         }
 
         public override void ViewDidAppear(bool animated)
@@ -193,10 +211,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
 
             View.AddSubviews(scrollView);
 
-            scrollView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
-            scrollView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            scrollView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            scrollView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            
 
             UIStackView formContainer = new UIStackView();
             formContainer.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -238,22 +253,15 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
 
             scrollView.AddSubview(formContainer);
 
+            scrollView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
+            scrollView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            scrollView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            scrollView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+
             formContainer.TopAnchor.ConstraintEqualTo(scrollView.TopAnchor).Active = true;
             formContainer.LeadingAnchor.ConstraintEqualTo(scrollView.LeadingAnchor).Active = true;
             formContainer.TrailingAnchor.ConstraintEqualTo(scrollView.TrailingAnchor).Active = true;
             formContainer.BottomAnchor.ConstraintEqualTo(scrollView.BottomAnchor).Active = true;
-        }
-
-        private void ApplyButton_Clicked(object sender, EventArgs e)
-        {
-            double[] minValues =
-                {_minPickerModel.SelectedRed, _minPickerModel.SelectedBlue, _minPickerModel.SelectedGreen};
-            double[] maxValues =
-                {_maxPickerModel.SelectedRed, _maxPickerModel.SelectedBlue, _maxPickerModel.SelectedGreen};
-            MinMaxStretchParameters parameters = new MinMaxStretchParameters(minValues, maxValues);
-
-            int[] bands = {0, 1, 2};
-            _rasterLayer.Renderer = new RgbRenderer(parameters, bands, null, true);
         }
 
         // Class that defines a view model for showing color values (0-255 for RGB) in a picker control.
@@ -320,7 +328,10 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
 
     public class PercentClipSettingsController : UIViewController
     {
+        // Hold a reference to the raster layer.
         private readonly RasterLayer _rasterLayer;
+
+        // Hold references to UI controls.
         private UISlider _minSlider;
         private UISlider _maxSlider;
 
@@ -328,6 +339,15 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         {
             _rasterLayer = rasterLayer;
             Title = "% Clip Renderer";
+        }
+        
+        private void ApplyButton_Clicked(object sender, EventArgs e)
+        {
+            PercentClipStretchParameters parameters =
+                new PercentClipStretchParameters(_minSlider.Value, _maxSlider.Value);
+
+            int[] bands = {0, 1, 2};
+            _rasterLayer.Renderer = new RgbRenderer(parameters, bands, null, true);
         }
 
         public override void LoadView()
@@ -390,15 +410,6 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             row.Distribution = UIStackViewDistribution.FillEqually;
             return row;
         }
-
-        private void ApplyButton_Clicked(object sender, EventArgs e)
-        {
-            PercentClipStretchParameters parameters =
-                new PercentClipStretchParameters(_minSlider.Value, _maxSlider.Value);
-
-            int[] bands = {0, 1, 2};
-            _rasterLayer.Renderer = new RgbRenderer(parameters, bands, null, true);
-        }
     }
 
     public class StandardDeviationSettingsController : UIViewController
@@ -410,6 +421,14 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         {
             _rasterLayer = rasterLayer;
             Title = "Std. Deviation Renderer";
+        }
+        
+        private void ApplyButton_Clicked(object sender, EventArgs e)
+        {
+            StandardDeviationStretchParameters parameters = new StandardDeviationStretchParameters(_pickerModel.SelectedFactor);
+
+            int[] bands = {0, 1, 2};
+            _rasterLayer.Renderer = new RgbRenderer(parameters, bands, null, true);
         }
 
         public override void LoadView()
@@ -456,14 +475,6 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             formContainer.LeadingAnchor.ConstraintEqualTo(scrollView.LeadingAnchor).Active = true;
             formContainer.TrailingAnchor.ConstraintEqualTo(scrollView.TrailingAnchor).Active = true;
             formContainer.BottomAnchor.ConstraintEqualTo(scrollView.BottomAnchor).Active = true;
-        }
-
-        private void ApplyButton_Clicked(object sender, EventArgs e)
-        {
-            StandardDeviationStretchParameters parameters = new StandardDeviationStretchParameters(_pickerModel.SelectedFactor);
-
-            int[] bands = {0, 1, 2};
-            _rasterLayer.Renderer = new RgbRenderer(parameters, bands, null, true);
         }
 
         // Class that defines a view model for showing standard deviation factor values (0.5-4.50) in a picker control.

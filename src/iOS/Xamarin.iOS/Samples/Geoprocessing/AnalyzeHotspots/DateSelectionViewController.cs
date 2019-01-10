@@ -15,12 +15,15 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
 {
     public class DateSelectionViewController : UIViewController
     {
+        // Hold references to the UI controls
         public readonly UIDatePicker StartPicker;
         public readonly UIDatePicker EndPicker;
 
         public DateSelectionViewController()
         {
             Title = "Select a date range";
+
+            // Configured here because these need to be initialized before the view is loaded/presented.
             StartPicker = new UIDatePicker();
             StartPicker.SetDate((NSDate) new DateTime(1998, 1, 1, 0, 0, 0, DateTimeKind.Local), false);
             EndPicker = new UIDatePicker();
@@ -29,19 +32,14 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
 
         public override void LoadView()
         {
-            View = new UIView();
-            View.BackgroundColor = UIColor.White;
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
 
             UIStackView stackView = new UIStackView();
             stackView.Axis = UILayoutConstraintAxis.Vertical;
             stackView.TranslatesAutoresizingMaskIntoConstraints = false;
             stackView.Spacing = 8;
-            View.AddSubview(stackView);
 
-            stackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 8).Active = true;
-            stackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8).Active = true;
-            stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
-            stackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor, -8).Active = true;
 
             UILabel startLabel = new UILabel();
             startLabel.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -63,6 +61,18 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
 
             // Spacing.
             stackView.AddArrangedSubview(new UIView());
+
+            // Add the views.
+            View.AddSubview(stackView);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                stackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 8),
+                stackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
+                stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8),
+                stackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor, -8)
+            });
         }
     }
 }

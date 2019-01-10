@@ -47,13 +47,6 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             Title = "Find service area";
         }
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            Initialize();
-        }
-
         private void Initialize()
         {
             // Center the map on San Diego.
@@ -150,7 +143,6 @@ namespace ArcGISRuntime.Samples.FindServiceArea
                 CreateErrorDialog("Error drawing facility:\n" + ex.Message);
             }
         }
-
 
         private async void DrawBarrier_Click(UIAlertAction action)
         {
@@ -288,40 +280,6 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             _myMapView.GraphicsOverlays[0].Graphics.Clear();
         }
 
-        public override void LoadView()
-        {
-            View = new UIView {BackgroundColor = UIColor.White};
-
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_myMapView);
-
-            _toolbar = new UIToolbar();
-            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_toolbar);
-
-            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, AddClick);
-            _doneButton = new UIBarButtonItem(UIBarButtonSystemItem.Done, DoneClick);
-            _showButton = new UIBarButtonItem("Solve", UIBarButtonItemStyle.Plain, ShowServiceAreas_Click);
-            _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, Reset_Click);
-            _toolbar.Items = new[]
-            {
-                _addButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _showButton,
-                _resetButton
-            };
-
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
-
-            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-        }
-
         private void CreateErrorDialog(string message)
         {
             // Create Alert.
@@ -332,6 +290,52 @@ namespace ArcGISRuntime.Samples.FindServiceArea
 
             // Present Alert.
             PresentViewController(okAlertController, true, null);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, AddClick);
+            _doneButton = new UIBarButtonItem(UIBarButtonSystemItem.Done, DoneClick);
+            _showButton = new UIBarButtonItem("Solve", UIBarButtonItemStyle.Plain, ShowServiceAreas_Click);
+            _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, Reset_Click);
+
+            _toolbar = new UIToolbar();
+            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            _toolbar.Items = new[]
+            {
+                _addButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _showButton,
+                _resetButton
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, _toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor),
+
+                _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 }

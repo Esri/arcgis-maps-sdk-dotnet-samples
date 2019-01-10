@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         "", "Featured")]
     public class ViewshedCamera : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold a reference to the SceneView.
         private SceneView _mySceneView;
 
         // URL for a scene service of buildings in Brest, France.
@@ -41,12 +41,6 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         public ViewshedCamera()
         {
             Title = "Viewshed from camera";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
 
         private void Initialize()
@@ -84,8 +78,15 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
             _viewshedForCamera.UpdateFromCamera(_mySceneView.Camera);
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _mySceneView = new SceneView();
@@ -93,9 +94,6 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View.AddSubviews(_mySceneView, toolbar);
-
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
@@ -103,14 +101,21 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
-            _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _mySceneView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
+            // Add the views.
+            View.AddSubviews(_mySceneView, toolbar);
 
-            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
         }
     }
 }

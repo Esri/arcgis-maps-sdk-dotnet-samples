@@ -27,10 +27,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
     {
         // Hold references to the UI controls.
         private MapView _myMapView;
-        private UIToolbar _topToolbar;
-        private UIToolbar _bottomToolbar;
-        private UILabel _redLabel;
-        private UILabel _blueLabel;
         private UILabel _timeLabel;
         private UISlider _timeSlider;
 
@@ -43,12 +39,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
         public FeatureLayerTimeOffset()
         {
             Title = "Feature layer time offset";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
 
         private async void Initialize()
@@ -150,28 +140,50 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
             _timeLabel.Text = $"{newStart:MMM d} - {newEnd:MMM d}";
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
-            _topToolbar = new UIToolbar();
-            _topToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_topToolbar);
-
+            UIToolbar topToolbar = new UIToolbar();
+            topToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_myMapView);
 
-            _bottomToolbar = new UIToolbar();
-            _bottomToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_bottomToolbar);
+            _timeLabel = new UILabel
+            {
+                TextColor = UIColor.Black,
+                TextAlignment = UITextAlignment.Center,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            _timeSlider = new UISlider
+            {
+                MinValue = 0,
+                MaxValue = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            UIToolbar bottomToolbar = new UIToolbar();
+            bottomToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            bottomToolbar.Items = new[]
+            {
+                new UIBarButtonItem(_timeLabel),
+                new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace) {Width = 0},
+                new UIBarButtonItem(_timeSlider)
+            };
 
             UIStackView legendView = new UIStackView();
             legendView.TranslatesAutoresizingMaskIntoConstraints = false;
             legendView.Axis = UILayoutConstraintAxis.Horizontal;
             legendView.Spacing = 8;
-            _topToolbar.AddSubview(legendView);
 
             UIView redIcon = new UIView();
             redIcon.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -180,6 +192,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
             redIcon.HeightAnchor.ConstraintEqualTo(16).Active = true;
             redIcon.ClipsToBounds = true;
             redIcon.Layer.CornerRadius = 8;
+            legendView.AddArrangedSubview(redIcon);
 
             UIView blueIcon = new UIView();
             blueIcon.BackgroundColor = UIColor.Blue;
@@ -188,74 +201,61 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
             blueIcon.HeightAnchor.ConstraintEqualTo(16).Active = true;
             blueIcon.ClipsToBounds = true;
             blueIcon.Layer.CornerRadius = 8;
+            legendView.AddArrangedSubview(blueIcon);
 
-            legendView.LeftAnchor.ConstraintEqualTo(_topToolbar.SafeAreaLayoutGuide.LeftAnchor, 8).Active = true;
-            legendView.RightAnchor.ConstraintEqualTo(_topToolbar.SafeAreaLayoutGuide.RightAnchor, -8).Active = true;
-            legendView.TopAnchor.ConstraintEqualTo(_topToolbar.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
-            legendView.BottomAnchor.ConstraintEqualTo(_topToolbar.SafeAreaLayoutGuide.BottomAnchor, -8).Active = true;
-
-            _redLabel = new UILabel
+            UILabel _redLabel = new UILabel
             {
                 Text = "Offset 10 days",
                 TextColor = UIColor.Red,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
+            legendView.AddArrangedSubview(_redLabel);
 
-            _blueLabel = new UILabel
+
+            UILabel _blueLabel = new UILabel
             {
                 Text = "No offset",
                 TextColor = UIColor.Blue,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
+            legendView.AddArrangedSubview(_blueLabel);
 
             UIView spacer = new UIView();
             spacer.TranslatesAutoresizingMaskIntoConstraints = false;
             spacer.SetContentCompressionResistancePriority((float) UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
-
-            legendView.AddArrangedSubview(redIcon);
-            legendView.AddArrangedSubview(_redLabel);
             legendView.AddArrangedSubview(spacer);
-            legendView.AddArrangedSubview(blueIcon);
-            legendView.AddArrangedSubview(_blueLabel);
 
-            redIcon.CenterYAnchor.ConstraintEqualTo(blueIcon.CenterYAnchor).Active = true;
-            blueIcon.CenterYAnchor.ConstraintEqualTo(_topToolbar.CenterYAnchor).Active = true;
+            // Add the views.
+            View.AddSubviews(topToolbar, _myMapView, bottomToolbar);
+            topToolbar.AddSubview(legendView);
 
-            _timeLabel = new UILabel
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
-                TextColor = UIColor.Black,
-                TextAlignment = UITextAlignment.Center,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-            _timeLabel.WidthAnchor.ConstraintEqualTo(150).Active = true;
+                topToolbar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                topToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                topToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
-            _timeSlider = new UISlider
-            {
-                MinValue = 0,
-                MaxValue = 1,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-            _timeSlider.WidthAnchor.ConstraintEqualTo(600).Active = true;
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.TopAnchor.ConstraintEqualTo(topToolbar.BottomAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(bottomToolbar.TopAnchor),
 
-            _bottomToolbar.Items = new[]
-            {
-                new UIBarButtonItem(_timeLabel),
-                new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace) {Width = 0},
-                new UIBarButtonItem(_timeSlider)
-            };
+                bottomToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                bottomToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                bottomToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
 
-            _topToolbar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _topToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _topToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+                legendView.LeftAnchor.ConstraintEqualTo(topToolbar.SafeAreaLayoutGuide.LeftAnchor, 8),
+                legendView.RightAnchor.ConstraintEqualTo(topToolbar.SafeAreaLayoutGuide.RightAnchor, -8),
+                legendView.TopAnchor.ConstraintEqualTo(topToolbar.SafeAreaLayoutGuide.TopAnchor, 8),
+                legendView.BottomAnchor.ConstraintEqualTo(topToolbar.SafeAreaLayoutGuide.BottomAnchor, -8),
 
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.TopAnchor.ConstraintEqualTo(_topToolbar.BottomAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(_bottomToolbar.TopAnchor).Active = true;
+                redIcon.CenterYAnchor.ConstraintEqualTo(blueIcon.CenterYAnchor),
+                blueIcon.CenterYAnchor.ConstraintEqualTo(topToolbar.CenterYAnchor),
 
-            _bottomToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _bottomToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _bottomToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+                _timeLabel.WidthAnchor.ConstraintEqualTo(150),
+                _timeSlider.WidthAnchor.ConstraintEqualTo(600),
+            });
         }
     }
 }

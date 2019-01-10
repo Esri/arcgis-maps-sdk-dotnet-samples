@@ -29,7 +29,6 @@ namespace ArcGISRuntime.Samples.RasterHillshade
     public class RasterHillshade : UIViewController
     {
         // Hold references to the UI controls.
-        private UIBarButtonItem _applyHillshadeButton;
         private MapView _myMapView;
         private HillshadeSettingsController _settingsVC;
 
@@ -39,12 +38,6 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         public RasterHillshade()
         {
             Title = "Raster hillshade";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
 
         private async void Initialize()
@@ -68,9 +61,6 @@ namespace ArcGISRuntime.Samples.RasterHillshade
                 // Set up the settings controls.
                 _settingsVC = new HillshadeSettingsController(_rasterLayer);
 
-                // Enable the apply renderer button when the layer loads.
-                _applyHillshadeButton.Enabled = true;
-
                 // Set the initial viewpoint to the raster's full extent.
                 map.InitialViewpoint = new Viewpoint(_rasterLayer.FullExtent);
 
@@ -84,38 +74,6 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             {
                 new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
-        }
-
-        public override void LoadView()
-        {
-            View = new UIView {BackgroundColor = UIColor.White};
-
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            UIToolbar toolbar = new UIToolbar();
-            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _applyHillshadeButton = new UIBarButtonItem("Configure hillshade", UIBarButtonItemStyle.Plain, HandleSettings_Clicked);
-            toolbar.Items = new[]
-            {
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _applyHillshadeButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
-            };
-
-            View.AddSubviews(_myMapView, toolbar);
-
-            NSLayoutConstraint.ActivateConstraints(new[]
-            {
-                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
-                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
-            });
         }
 
         private void HandleSettings_Clicked(object sender, EventArgs e)
@@ -132,6 +90,46 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             }
 
             PresentViewController(controller, true, null);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Configure hillshade", UIBarButtonItemStyle.Plain, HandleSettings_Clicked),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
+            });
         }
 
         // Force popover to display on iPhone.

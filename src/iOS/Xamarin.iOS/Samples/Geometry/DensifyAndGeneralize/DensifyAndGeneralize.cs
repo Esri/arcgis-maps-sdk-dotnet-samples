@@ -29,8 +29,7 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
         "Featured")]
     public class DensifyAndGeneralize : UIViewController
     {
-        // Create and hold references to UI controls.
-        private UIToolbar _toolbar;
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UISegmentedControl _operationPicker;
         private UISlider _slider;
@@ -46,12 +45,6 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
         public DensifyAndGeneralize()
         {
             Title = "Densify and generalize";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
 
         private void Initialize()
@@ -165,8 +158,15 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             };
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
@@ -183,9 +183,6 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
-            _toolbar = new UIToolbar();
-            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
             _operationPicker = new UISegmentedControl("Densify", "Generalize");
             _operationPicker.TranslatesAutoresizingMaskIntoConstraints = false;
             _operationPicker.SelectedSegment = 0;
@@ -195,28 +192,35 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             _slider.MinValue = 100;
             _slider.MaxValue = 500;
 
-            _toolbar.Items = new[]
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
             {
                 new UIBarButtonItem {CustomView = _operationPicker},
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem {CustomView = _slider, Width = 150}
             };
 
-            View.AddSubviews(_myMapView, _toolbar, _resultLabel);
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar, _resultLabel);
 
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
 
-            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
 
-            _resultLabel.TopAnchor.ConstraintEqualTo(_myMapView.TopAnchor).Active = true;
-            _resultLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _resultLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _resultLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
+                _resultLabel.TopAnchor.ConstraintEqualTo(_myMapView.TopAnchor),
+                _resultLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _resultLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _resultLabel.HeightAnchor.ConstraintEqualTo(40)
+            });
         }
     }
 }

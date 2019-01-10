@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         "")]
     public class WmsServiceCatalog : UIViewController
     {
-        // Create and hold references to the UI controls.
+        // Hold references to the UI controls.
         private MapView _myMapView;
         private UITableView _layerList;
         private NSLayoutConstraint[] _portraitConstraints;
@@ -41,86 +41,6 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         public WmsServiceCatalog()
         {
             Title = "WMS service catalog";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
-        public override void LoadView()
-        {
-            View = new UIView {BackgroundColor = UIColor.White};
-
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _layerList = new UITableView();
-            _layerList.TranslatesAutoresizingMaskIntoConstraints = false;
-            // Used for calculating how large the tableview should be.
-            _layerList.RowHeight = 40;
-
-            UILabel helpLabel = new UILabel
-            {
-                Text = "Select layers for display.",
-                AdjustsFontSizeToFitWidth = true,
-                TextAlignment = UITextAlignment.Center,
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
-                TextColor = UIColor.White,
-                Lines = 1,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-
-            View.AddSubviews(_myMapView, _layerList, helpLabel);
-
-            // These constraints don't depend on orientation.
-            helpLabel.LeadingAnchor.ConstraintEqualTo(_myMapView.LeadingAnchor).Active = true;
-            helpLabel.TrailingAnchor.ConstraintEqualTo(_myMapView.TrailingAnchor).Active = true;
-            helpLabel.TopAnchor.ConstraintEqualTo(_myMapView.TopAnchor).Active = true;
-            helpLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
-
-            _portraitConstraints = new NSLayoutConstraint[]
-            {
-                _layerList.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _layerList.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _layerList.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _layerList.HeightAnchor.ConstraintEqualTo(_layerList.RowHeight * 4),
-                _myMapView.TopAnchor.ConstraintEqualTo(_layerList.BottomAnchor),
-                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
-            };
-
-            _landscapeConstraints = new[]
-            {
-                _layerList.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _layerList.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _layerList.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
-                _layerList.TrailingAnchor.ConstraintEqualTo(View.CenterXAnchor),
-                _myMapView.LeadingAnchor.ConstraintEqualTo(_layerList.TrailingAnchor),
-                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
-                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
-            };
-        }
-
-        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
-        {
-            base.TraitCollectionDidChange(previousTraitCollection);
-
-            // Reset constraints.
-            NSLayoutConstraint.DeactivateConstraints(_portraitConstraints);
-            NSLayoutConstraint.DeactivateConstraints(_landscapeConstraints);
-
-            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
-            {
-                NSLayoutConstraint.ActivateConstraints(_landscapeConstraints);
-            }
-            else
-            {
-                NSLayoutConstraint.ActivateConstraints(_portraitConstraints);
-            }
         }
 
         private async void Initialize()
@@ -209,6 +129,90 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
 
             // Update the map.
             UpdateMapDisplay(_layerListSource.ViewModelList);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _layerList = new UITableView();
+            _layerList.TranslatesAutoresizingMaskIntoConstraints = false;
+            _layerList.RowHeight = 40;
+
+            UILabel helpLabel = new UILabel
+            {
+                Text = "Select layers for display.",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, _layerList, helpLabel);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                helpLabel.LeadingAnchor.ConstraintEqualTo(_myMapView.LeadingAnchor),
+                helpLabel.TrailingAnchor.ConstraintEqualTo(_myMapView.TrailingAnchor),
+                helpLabel.TopAnchor.ConstraintEqualTo(_myMapView.TopAnchor),
+                helpLabel.HeightAnchor.ConstraintEqualTo(40),
+            });
+
+            _portraitConstraints = new[]
+            {
+                _layerList.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _layerList.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _layerList.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _layerList.HeightAnchor.ConstraintEqualTo(_layerList.RowHeight * 4),
+                _myMapView.TopAnchor.ConstraintEqualTo(_layerList.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            };
+
+            _landscapeConstraints = new[]
+            {
+                _layerList.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _layerList.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _layerList.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _layerList.TrailingAnchor.ConstraintEqualTo(View.CenterXAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(_layerList.TrailingAnchor),
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            };
+        }
+
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            base.TraitCollectionDidChange(previousTraitCollection);
+
+            // Reset constraints.
+            NSLayoutConstraint.DeactivateConstraints(_portraitConstraints);
+            NSLayoutConstraint.DeactivateConstraints(_landscapeConstraints);
+
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                NSLayoutConstraint.ActivateConstraints(_landscapeConstraints);
+            }
+            else
+            {
+                NSLayoutConstraint.ActivateConstraints(_portraitConstraints);
+            }
         }
     }
 

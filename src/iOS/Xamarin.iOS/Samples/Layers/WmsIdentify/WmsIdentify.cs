@@ -47,48 +47,6 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             Title = "Identify WMS features";
         }
 
-        public override void ViewDidLoad()
-        {
-            Initialize();
-
-            base.ViewDidLoad();
-        }
-
-        public override void LoadView()
-        {
-            _webView = new WKWebView(new CGRect(), new WKWebViewConfiguration());
-            _myMapView = new MapView();
-            _stackView = new UIStackView(new UIView[] {_myMapView, _webView})
-            {
-                Alignment = UIStackViewAlignment.Fill,
-                Distribution = UIStackViewDistribution.FillEqually,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-
-            View = new UIView();
-            View.AddSubview(_stackView);
-
-            _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-        }
-
-        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
-        {
-            base.TraitCollectionDidChange(previousTraitCollection);
-            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
-            {
-                // Landscape
-                _stackView.Axis = UILayoutConstraintAxis.Horizontal;
-            }
-            else
-            {
-                // Portrait
-                _stackView.Axis = UILayoutConstraintAxis.Vertical;
-            }
-        }
-
         private async void Initialize()
         {
             // Show an imagery basemap.
@@ -145,6 +103,56 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             catch (Exception ex)
             {
                 new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _webView = new WKWebView(new CGRect(), new WKWebViewConfiguration());
+
+            _myMapView = new MapView();
+
+            _stackView = new UIStackView(new UIView[] {_myMapView, _webView})
+            {
+                Alignment = UIStackViewAlignment.Fill,
+                Distribution = UIStackViewDistribution.FillEqually,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            // Add the views.
+            View.AddSubview(_stackView);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            });
+        }
+
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            base.TraitCollectionDidChange(previousTraitCollection);
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                // Landscape
+                _stackView.Axis = UILayoutConstraintAxis.Horizontal;
+            }
+            else
+            {
+                // Portrait
+                _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
         }
     }

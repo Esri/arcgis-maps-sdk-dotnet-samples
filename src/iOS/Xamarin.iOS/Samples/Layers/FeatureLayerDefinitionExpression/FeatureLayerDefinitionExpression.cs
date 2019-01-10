@@ -25,8 +25,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
         "")]
     public class FeatureLayerDefinitionExpression : UIViewController
     {
-        // Create and hold a reference to the MapView.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the MapView.
+        private MapView _myMapView;
 
         // Create and hold reference to the feature layer.
         private FeatureLayer _featureLayer;
@@ -34,12 +34,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
         public FeatureLayerDefinitionExpression()
         {
             Title = "Feature layer definition expression";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
 
         private async void Initialize()
@@ -88,8 +82,15 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
             _featureLayer.DefinitionExpression = "";
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
@@ -97,9 +98,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View.AddSubviews(_myMapView, toolbar);
-
             toolbar.Items = new[]
             {
                 new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, OnResetButtonClicked),
@@ -107,14 +105,21 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
                 new UIBarButtonItem("Apply expression", UIBarButtonItemStyle.Plain, OnApplyExpressionClicked)
             };
 
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
 
-            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 }

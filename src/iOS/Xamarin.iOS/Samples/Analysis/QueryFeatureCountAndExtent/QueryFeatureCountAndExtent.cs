@@ -150,6 +150,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
 
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
@@ -157,8 +158,13 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem("Count in extent", UIBarButtonItemStyle.Plain, CountFeatures_Click),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Zoom to query", UIBarButtonItemStyle.Plain, ZoomToQuery_Click)
+            };
 
-            // Create the label.
             _resultLabel = new UILabel
             {
                 Text = "Press 'Zoom to query' to begin.",
@@ -168,28 +174,26 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
+            // Add the views.
             View.AddSubviews(_myMapView, toolbar, _resultLabel);
 
-            toolbar.Items = new[]
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
             {
-                new UIBarButtonItem("Count in extent", UIBarButtonItemStyle.Plain, CountFeatures_Click),
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Zoom to query", UIBarButtonItemStyle.Plain, ZoomToQuery_Click)
-            };
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
 
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
-            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-
-            _resultLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _resultLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _resultLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _resultLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
+                _resultLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _resultLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _resultLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _resultLabel.HeightAnchor.ConstraintEqualTo(40)
+            });
         }
     }
 }

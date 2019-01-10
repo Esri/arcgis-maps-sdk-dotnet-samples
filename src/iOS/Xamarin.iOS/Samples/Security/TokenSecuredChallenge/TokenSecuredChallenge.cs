@@ -26,6 +26,9 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
     [Register("TokenSecuredChallenge")]
     public class TokenSecuredChallenge : UIViewController
     {
+        // Hold a reference to the MapView.
+        private MapView _myMapView;
+
         // Public and secured map service URLs.
         private const string PublicMapServiceUrl = "https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer";
         private const string SecureMapServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer";
@@ -37,9 +40,6 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         // Use a TaskCompletionSource to store the result of a login task.
         private TaskCompletionSource<Credential> _loginTaskCompletionSource;
 
-        // Store the map view displayed in the app.
-        private MapView _myMapView;
-
         // Labels to show layer load status.
         private UILabel _publicLayerLabel;
         private UILabel _secureLayerLabel;
@@ -47,12 +47,6 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         public TokenSecuredChallenge()
         {
             Title = "Token Challenge";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
 
         private void Initialize()
@@ -156,67 +150,6 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             return await _loginTaskCompletionSource.Task;
         }
 
-        private void ShowLoginUI()
-        {
-            // Prompt for the type of convex hull to create.
-            UIAlertController loginAlert = UIAlertController.Create("Authenticate", "", UIAlertControllerStyle.Alert);
-            loginAlert.AddTextField(field => field.Placeholder = "Username = user1");
-            loginAlert.AddTextField(field => field.Placeholder = "Password = user1");
-            loginAlert.AddAction(UIAlertAction.Create("Log in", UIAlertActionStyle.Default, action => { LoginEntered(loginAlert.TextFields[0].Text, loginAlert.TextFields[1].Text); }));
-            loginAlert.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
-
-            // Show the alert.
-            PresentViewController(loginAlert, true, null);
-        }
-
-        public override void LoadView()
-        {
-            View = new UIView {BackgroundColor = UIColor.White};
-
-            _publicLayerLabel = new UILabel
-            {
-                Text = "public layer",
-                AdjustsFontSizeToFitWidth = true,
-                TextAlignment = UITextAlignment.Center,
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
-                TextColor = UIColor.White,
-                Lines = 1,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-
-            _secureLayerLabel = new UILabel
-            {
-                Text = "secure layer",
-                AdjustsFontSizeToFitWidth = true,
-                TextAlignment = UITextAlignment.Center,
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
-                TextColor = UIColor.White,
-                Lines = 1,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View.AddSubviews(_myMapView, _publicLayerLabel, _secureLayerLabel);
-
-            NSLayoutConstraint.ActivateConstraints(new[]
-            {
-                _publicLayerLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _publicLayerLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _publicLayerLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _publicLayerLabel.HeightAnchor.ConstraintEqualTo(40),
-                _secureLayerLabel.TopAnchor.ConstraintEqualTo(_publicLayerLabel.BottomAnchor),
-                _secureLayerLabel.LeadingAnchor.ConstraintEqualTo(_publicLayerLabel.LeadingAnchor),
-                _secureLayerLabel.TrailingAnchor.ConstraintEqualTo(_publicLayerLabel.TrailingAnchor),
-                _secureLayerLabel.HeightAnchor.ConstraintEqualTo(40),
-                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
-            });
-        }
-
         // Handle the OnLoginEntered event from the login UI.
         // LoginEventArgs contains the username and password that were entered.
         private async void LoginEntered(string username, string password)
@@ -249,6 +182,78 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
                 // Unable to create credential, set the exception on the task completion source.
                 _loginTaskCompletionSource.TrySetException(ex);
             }
+        }
+
+        private void ShowLoginUI()
+        {
+            // Prompt for the type of convex hull to create.
+            UIAlertController loginAlert = UIAlertController.Create("Authenticate", "", UIAlertControllerStyle.Alert);
+            loginAlert.AddTextField(field => field.Placeholder = "Username = user1");
+            loginAlert.AddTextField(field => field.Placeholder = "Password = user1");
+            loginAlert.AddAction(UIAlertAction.Create("Log in", UIAlertActionStyle.Default, action => { LoginEntered(loginAlert.TextFields[0].Text, loginAlert.TextFields[1].Text); }));
+            loginAlert.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
+
+            // Show the alert.
+            PresentViewController(loginAlert, true, null);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _publicLayerLabel = new UILabel
+            {
+                Text = "public layer",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            _secureLayerLabel = new UILabel
+            {
+                Text = "secure layer",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, _publicLayerLabel, _secureLayerLabel);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _publicLayerLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _publicLayerLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _publicLayerLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _publicLayerLabel.HeightAnchor.ConstraintEqualTo(40),
+
+                _secureLayerLabel.TopAnchor.ConstraintEqualTo(_publicLayerLabel.BottomAnchor),
+                _secureLayerLabel.LeadingAnchor.ConstraintEqualTo(_publicLayerLabel.LeadingAnchor),
+                _secureLayerLabel.TrailingAnchor.ConstraintEqualTo(_publicLayerLabel.TrailingAnchor),
+                _secureLayerLabel.HeightAnchor.ConstraintEqualTo(40),
+
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            });
         }
     }
 }

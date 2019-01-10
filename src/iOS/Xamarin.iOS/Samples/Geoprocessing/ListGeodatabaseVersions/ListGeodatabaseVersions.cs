@@ -40,12 +40,6 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             Title = "List geodatabase versions";
         }
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
         private async void Initialize()
         {
             try
@@ -140,8 +134,15 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             return results;
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _progressBar = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
@@ -152,17 +153,22 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             _geodatabaseListField = new UITextView();
             _geodatabaseListField.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            // Add the views.
             View.AddSubviews(_geodatabaseListField, _progressBar);
 
-            _geodatabaseListField.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _geodatabaseListField.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor).Active = true;
-            _geodatabaseListField.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor).Active = true;
-            _geodatabaseListField.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _geodatabaseListField.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _geodatabaseListField.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                _geodatabaseListField.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                _geodatabaseListField.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
 
-            _progressBar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _progressBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _progressBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _progressBar.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+                _progressBar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _progressBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _progressBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _progressBar.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            });
         }
     }
 }

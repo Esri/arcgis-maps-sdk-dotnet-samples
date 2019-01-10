@@ -41,18 +41,12 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         // Hold references to UI controls.
         private MapView _insetMapView;
         private SceneView _mySceneView;
-        private UIToolbar _controlToolbox;
         private UIBarButtonItem _playButton;
         private UILabel _altitudeLabel;
         private UILabel _headingLabel;
         private UILabel _pitchLabel;
         private UILabel _rollLabel;
         private UILabel _progressLabel;
-        private UILabel _altitudeLabelLabel;
-        private UILabel _headingLabelLabel;
-        private UILabel _pitchLabelLabel;
-        private UILabel _rollLabelLabel;
-        private UILabel _progressLabelLabel;
         private UIView _statsFrame;
 
         // URL to the elevation service - provides terrain elevation.
@@ -385,10 +379,11 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
-            _controlToolbox = new UIToolbar();
-            _controlToolbox.TranslatesAutoresizingMaskIntoConstraints = false;
+            UIToolbar controlToolbox = new UIToolbar();
+            controlToolbox.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _statsFrame = new UIView {BackgroundColor = UIColor.FromWhiteAlpha(.8f, .6f)};
             _statsFrame.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -404,7 +399,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             _playButton = new UIBarButtonItem("Pause", UIBarButtonItemStyle.Plain, TogglePlayMission);
             _playButton.Width = 100;
 
-            _controlToolbox.Items = new[]
+            controlToolbox.Items = new[]
             {
                 new UIBarButtonItem("Mission", UIBarButtonItemStyle.Plain, ShowMissionOptions),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
@@ -415,42 +410,38 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 _playButton
             };
 
-            View.AddSubviews(_mySceneView, _insetMapView, _statsFrame, _controlToolbox);
-
             _altitudeLabel = new UILabel();
             _headingLabel = new UILabel();
             _pitchLabel = new UILabel();
             _rollLabel = new UILabel();
             _progressLabel = new UILabel();
-            _altitudeLabelLabel = new UILabel {Text = "Altitude:"};
-            _headingLabelLabel = new UILabel {Text = "Heading:"};
-            _pitchLabelLabel = new UILabel {Text = "Pitch:"};
-            _rollLabelLabel = new UILabel {Text = "Roll:"};
-            _progressLabelLabel = new UILabel {Text = "Mission progress:"};
-            UILabel[] labels =
-            {
-                _altitudeLabel, _headingLabel, _pitchLabel, _rollLabel, _progressLabel, _altitudeLabelLabel,
-                _headingLabelLabel, _pitchLabelLabel, _rollLabelLabel, _progressLabelLabel
-            };
+            UILabel altitudeLabelLabel = new UILabel {Text = "Altitude:"};
+            UILabel headingLabelLabel = new UILabel {Text = "Heading:"};
+            UILabel pitchLabelLabel = new UILabel {Text = "Pitch:"};
+            UILabel rollLabelLabel = new UILabel {Text = "Roll:"};
+            UILabel progressLabelLabel = new UILabel {Text = "Mission progress:"};
 
-
-            foreach (var label in labels)
+            foreach (var label in new[] {_altitudeLabel, _headingLabel, _pitchLabel, _rollLabel, _progressLabel, altitudeLabelLabel, headingLabelLabel, pitchLabelLabel, rollLabelLabel, progressLabelLabel})
             {
                 label.TranslatesAutoresizingMaskIntoConstraints = false;
                 _statsFrame.AddSubview(label);
                 label.TextAlignment = UITextAlignment.Right;
             }
 
+            // Add the views.
+            View.AddSubviews(_mySceneView, _insetMapView, _statsFrame, controlToolbox);
+
+            // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
-                _controlToolbox.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _controlToolbox.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _controlToolbox.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                controlToolbox.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                controlToolbox.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                controlToolbox.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
 
                 _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _mySceneView.BottomAnchor.ConstraintEqualTo(_controlToolbox.TopAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(controlToolbox.TopAnchor),
 
                 _insetMapView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 16),
                 _insetMapView.BottomAnchor.ConstraintEqualTo(_mySceneView.BottomAnchor, -40),
@@ -462,23 +453,23 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 _statsFrame.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _statsFrame.BottomAnchor.ConstraintEqualTo(_progressLabel.BottomAnchor, 8),
 
-                _altitudeLabelLabel.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 8),
-                _headingLabelLabel.LeadingAnchor.ConstraintEqualTo(_altitudeLabelLabel.LeadingAnchor),
-                _pitchLabelLabel.LeadingAnchor.ConstraintEqualTo(_altitudeLabelLabel.LeadingAnchor),
-                _rollLabelLabel.LeadingAnchor.ConstraintEqualTo(_altitudeLabelLabel.LeadingAnchor),
-                _progressLabelLabel.LeadingAnchor.ConstraintEqualTo(_altitudeLabelLabel.LeadingAnchor),
+                altitudeLabelLabel.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 8),
+                headingLabelLabel.LeadingAnchor.ConstraintEqualTo(altitudeLabelLabel.LeadingAnchor),
+                pitchLabelLabel.LeadingAnchor.ConstraintEqualTo(altitudeLabelLabel.LeadingAnchor),
+                rollLabelLabel.LeadingAnchor.ConstraintEqualTo(altitudeLabelLabel.LeadingAnchor),
+                progressLabelLabel.LeadingAnchor.ConstraintEqualTo(altitudeLabelLabel.LeadingAnchor),
 
-                _altitudeLabelLabel.HeightAnchor.ConstraintEqualTo(28),
-                _headingLabelLabel.HeightAnchor.ConstraintEqualTo(_altitudeLabelLabel.HeightAnchor),
-                _pitchLabelLabel.HeightAnchor.ConstraintEqualTo(_altitudeLabelLabel.HeightAnchor),
-                _rollLabelLabel.HeightAnchor.ConstraintEqualTo(_altitudeLabelLabel.HeightAnchor),
-                _progressLabelLabel.HeightAnchor.ConstraintEqualTo(_altitudeLabelLabel.HeightAnchor),
+                altitudeLabelLabel.HeightAnchor.ConstraintEqualTo(28),
+                headingLabelLabel.HeightAnchor.ConstraintEqualTo(altitudeLabelLabel.HeightAnchor),
+                pitchLabelLabel.HeightAnchor.ConstraintEqualTo(altitudeLabelLabel.HeightAnchor),
+                rollLabelLabel.HeightAnchor.ConstraintEqualTo(altitudeLabelLabel.HeightAnchor),
+                progressLabelLabel.HeightAnchor.ConstraintEqualTo(altitudeLabelLabel.HeightAnchor),
 
-                _altitudeLabelLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8),
-                _headingLabelLabel.TopAnchor.ConstraintEqualTo(_altitudeLabelLabel.BottomAnchor, 8),
-                _pitchLabelLabel.TopAnchor.ConstraintEqualTo(_headingLabelLabel.BottomAnchor, 8),
-                _rollLabelLabel.TopAnchor.ConstraintEqualTo(_pitchLabelLabel.BottomAnchor, 8),
-                _progressLabelLabel.TopAnchor.ConstraintEqualTo(_rollLabelLabel.BottomAnchor, 8),
+                altitudeLabelLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8),
+                headingLabelLabel.TopAnchor.ConstraintEqualTo(altitudeLabelLabel.BottomAnchor, 8),
+                pitchLabelLabel.TopAnchor.ConstraintEqualTo(headingLabelLabel.BottomAnchor, 8),
+                rollLabelLabel.TopAnchor.ConstraintEqualTo(pitchLabelLabel.BottomAnchor, 8),
+                progressLabelLabel.TopAnchor.ConstraintEqualTo(rollLabelLabel.BottomAnchor, 8),
 
                 _altitudeLabel.WidthAnchor.ConstraintEqualTo(96),
                 _headingLabel.WidthAnchor.ConstraintEqualTo(_altitudeLabel.WidthAnchor),
@@ -486,11 +477,11 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 _rollLabel.WidthAnchor.ConstraintEqualTo(_altitudeLabel.WidthAnchor),
                 _progressLabel.WidthAnchor.ConstraintEqualTo(_altitudeLabel.WidthAnchor),
 
-                _altitudeLabel.CenterYAnchor.ConstraintEqualTo(_altitudeLabelLabel.CenterYAnchor),
-                _headingLabel.CenterYAnchor.ConstraintEqualTo(_headingLabelLabel.CenterYAnchor),
-                _pitchLabel.CenterYAnchor.ConstraintEqualTo(_pitchLabelLabel.CenterYAnchor),
-                _rollLabel.CenterYAnchor.ConstraintEqualTo(_rollLabelLabel.CenterYAnchor),
-                _progressLabel.CenterYAnchor.ConstraintEqualTo(_progressLabelLabel.CenterYAnchor),
+                _altitudeLabel.CenterYAnchor.ConstraintEqualTo(altitudeLabelLabel.CenterYAnchor),
+                _headingLabel.CenterYAnchor.ConstraintEqualTo(headingLabelLabel.CenterYAnchor),
+                _pitchLabel.CenterYAnchor.ConstraintEqualTo(pitchLabelLabel.CenterYAnchor),
+                _rollLabel.CenterYAnchor.ConstraintEqualTo(rollLabelLabel.CenterYAnchor),
+                _progressLabel.CenterYAnchor.ConstraintEqualTo(progressLabelLabel.CenterYAnchor),
 
                 _altitudeLabel.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
                 _headingLabel.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
@@ -498,11 +489,11 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 _rollLabel.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
                 _progressLabel.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
 
-                _altitudeLabel.LeadingAnchor.ConstraintEqualTo(_altitudeLabelLabel.TrailingAnchor),
-                _headingLabel.LeadingAnchor.ConstraintEqualTo(_headingLabelLabel.TrailingAnchor),
-                _pitchLabel.LeadingAnchor.ConstraintEqualTo(_pitchLabelLabel.TrailingAnchor),
-                _rollLabel.LeadingAnchor.ConstraintEqualTo(_rollLabelLabel.TrailingAnchor),
-                _progressLabel.LeadingAnchor.ConstraintEqualTo(_progressLabelLabel.TrailingAnchor)
+                _altitudeLabel.LeadingAnchor.ConstraintEqualTo(altitudeLabelLabel.TrailingAnchor),
+                _headingLabel.LeadingAnchor.ConstraintEqualTo(headingLabelLabel.TrailingAnchor),
+                _pitchLabel.LeadingAnchor.ConstraintEqualTo(pitchLabelLabel.TrailingAnchor),
+                _rollLabel.LeadingAnchor.ConstraintEqualTo(rollLabelLabel.TrailingAnchor),
+                _progressLabel.LeadingAnchor.ConstraintEqualTo(progressLabelLabel.TrailingAnchor)
             });
         }
 

@@ -30,9 +30,8 @@ namespace ArcGISRuntime.Samples.FindRoute
         "")]
     public class FindRoute : UIViewController
     {
-        // Create and hold references to the views.
+        // Hold a reference to the MapView.
         private MapView _myMapView;
-        private UIToolbar _toolbar;
 
         // List of stops on the route ('from' and 'to').
         private List<Stop> _routeStops;
@@ -57,12 +56,6 @@ namespace ArcGISRuntime.Samples.FindRoute
         public FindRoute()
         {
             Title = "Find route";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
 
         private void Initialize()
@@ -177,33 +170,44 @@ namespace ArcGISRuntime.Samples.FindRoute
             NavigationController.PushViewController(directionsTableController, true);
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _toolbar = new UIToolbar();
-            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View.AddSubviews(_myMapView, _toolbar);
-
-            _toolbar.Items = new[]
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
             {
                 new UIBarButtonItem("Solve route", UIBarButtonItemStyle.Plain, SolveRouteButton_Click),
                 new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ResetButton_Click),
                 new UIBarButtonItem("Directions", UIBarButtonItemStyle.Plain, ShowDirections)
             };
 
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
 
-            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 

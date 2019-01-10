@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         "")]
     public class ChangeBasemap : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold a reference to the MapView.
         private MapView _myMapView;
 
         // Dictionary that associates names with basemaps.
@@ -47,12 +47,6 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         public ChangeBasemap()
         {
             Title = "Change basemap";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
 
         private void BasemapSelectionButtonClick(object sender, EventArgs e)
@@ -84,8 +78,15 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
             _myMapView.Map = new Map(_basemapOptions.Values.First());
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
@@ -93,9 +94,6 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View.AddSubviews(_myMapView, toolbar);
-
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
@@ -103,14 +101,21 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
 
-            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
         }
     }
 }

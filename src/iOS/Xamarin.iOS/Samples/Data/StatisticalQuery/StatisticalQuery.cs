@@ -28,9 +28,9 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         "Check the appropriate boxes to filter features by attributes and/or within the current extent. Click the button to see basic statistics displayed for world cities.")]
     public class StatisticalQuery : UIViewController
     {
-        // Create and hold references to the UI controls.
+        // Hold references to the UI controls.
         private MapView _myMapView;
-        private UIToolbar _toolbar;
+        private UIBarButtonItem _queryButton;
 
         // URI for the world cities map service layer.
         private readonly Uri _worldCitiesServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0");
@@ -41,12 +41,6 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         public StatisticalQuery()
         {
             Title = "Statistical query";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
 
         private void Initialize()
@@ -67,42 +61,12 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             _myMapView.Map = myMap;
         }
 
-        public override void LoadView()
-        {
-            View = new UIView {BackgroundColor = UIColor.White};
-
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _toolbar = new UIToolbar();
-            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _toolbar.Items = new[]
-            {
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Get statistics", UIBarButtonItemStyle.Plain, GetStatisticsPressed),
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
-            };
-
-            // Add MapView and UI controls to the page.
-            View.AddSubviews(_myMapView, _toolbar);
-
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
-
-            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-        }
-
         private void GetStatisticsPressed(object sender, EventArgs e)
         {
             var alert = UIAlertController.Create("Query statistics", "Get statistics for all cities matching these criteria", UIAlertControllerStyle.ActionSheet);
             if (alert.PopoverPresentationController != null)
             {
-                alert.PopoverPresentationController.BarButtonItem = _toolbar.Items[0];
+                alert.PopoverPresentationController.BarButtonItem = _queryButton;
             }
 
             alert.AddAction(UIAlertAction.Create("Cities in extent with pop. > 5M", UIAlertActionStyle.Default, action => QueryStatistics(true, true)));
@@ -214,6 +178,48 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         private void ShowMessage(string title, string message)
         {
             new UIAlertView(title, message, (IUIAlertViewDelegate) null, "OK", null).Show();
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _queryButton = new UIBarButtonItem("Get statistics", UIBarButtonItemStyle.Plain, GetStatisticsPressed);
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _queryButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 }

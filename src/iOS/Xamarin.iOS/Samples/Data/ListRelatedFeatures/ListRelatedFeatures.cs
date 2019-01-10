@@ -28,9 +28,11 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
         "Click on a feature to identify it. Related features will be listed in the window above the map.")]
     public class ListRelatedFeatures : UIViewController
     {
-        // Create and hold references to the UI controls.
+        // Hold references to the UI controls.
         private MapView _myMapView;
         private UITableView _tableView;
+        private NSLayoutConstraint[] _portraitConstraints;
+        private NSLayoutConstraint[] _landscapeConstraints;
 
         // URL to the web map.
         private readonly Uri _mapUri =
@@ -152,18 +154,55 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
             }
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
 
         public override void LoadView()
         {
+            // Create the views.
             _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
             _tableView = new UITableView();
+            _tableView.TranslatesAutoresizingMaskIntoConstraints = false;
             _tableView.RowHeight = 30;
 
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            _tableView.TranslatesAutoresizingMaskIntoConstraints = false;
-
             View = new UIView();
+
+            // Add the views.
             View.AddSubviews(_myMapView, _tableView);
+
+            // Lay out the views.
+            _portraitConstraints = new[]
+            {
+                _tableView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _tableView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _tableView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _tableView.HeightAnchor.ConstraintEqualTo(120),
+
+                _myMapView.TopAnchor.ConstraintEqualTo(_tableView.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            };
+
+            _landscapeConstraints = new[]
+            {
+                _tableView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _tableView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _tableView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _tableView.WidthAnchor.ConstraintEqualTo(View.Frame.Height),
+
+                _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(_tableView.TrailingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            };
+
+            NSLayoutConstraint.ActivateConstraints(_portraitConstraints);
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
@@ -171,50 +210,17 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
             base.TraitCollectionDidChange(previousTraitCollection);
 
             // Reset constraints.
-            _tableView.RemoveFromSuperview();
-            _myMapView.RemoveFromSuperview();
-            View.AddSubviews(_myMapView, _tableView);
+            NSLayoutConstraint.DeactivateConstraints(_portraitConstraints);
+            NSLayoutConstraint.DeactivateConstraints(_landscapeConstraints);
 
             if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
             {
-                applyLandscapeLayout();
+                NSLayoutConstraint.ActivateConstraints(_landscapeConstraints);
             }
             else
             {
-                applyPortraitLayout();
+                NSLayoutConstraint.ActivateConstraints(_portraitConstraints);
             }
-        }
-
-        private void applyPortraitLayout()
-        {
-            _tableView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _tableView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _tableView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _tableView.HeightAnchor.ConstraintEqualTo(120).Active = true;
-
-            _myMapView.TopAnchor.ConstraintEqualTo(_tableView.BottomAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-        }
-
-        private void applyLandscapeLayout()
-        {
-            _tableView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _tableView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _tableView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-            _tableView.WidthAnchor.ConstraintEqualTo(View.Frame.Height).Active = true;
-
-            _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(_tableView.TrailingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
     }
 

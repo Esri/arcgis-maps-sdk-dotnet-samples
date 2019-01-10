@@ -48,12 +48,6 @@ namespace ArcGISRuntime.Samples.ExportTiles
             Title = "Export tiles";
         }
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
         private async void Initialize()
         {
             try
@@ -101,47 +95,6 @@ namespace ArcGISRuntime.Samples.ExportTiles
             {
                 ShowStatusMessage(ex.ToString());
             }
-        }
-
-        public override void LoadView()
-        {
-            View = new UIView {BackgroundColor = UIColor.White};
-
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            UIToolbar toolbar = new UIToolbar();
-            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _statusIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
-            _statusIndicator.TranslatesAutoresizingMaskIntoConstraints = false;
-            _statusIndicator.HidesWhenStopped = true;
-            _statusIndicator.BackgroundColor = UIColor.FromWhiteAlpha(0f, .8f);
-
-            View.AddSubviews(_myMapView, toolbar, _statusIndicator);
-
-            _exportTilesButton = new UIBarButtonItem("Export tiles", UIBarButtonItemStyle.Plain, MyExportButton_Click);
-
-            toolbar.Items = new[]
-            {
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _exportTilesButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
-            };
-
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
-
-            toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-            toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-
-            _statusIndicator.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
-            _statusIndicator.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-            _statusIndicator.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _statusIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
         }
 
         private void MyMapView_ViewpointChanged(object sender, EventArgs e)
@@ -330,6 +283,58 @@ namespace ArcGISRuntime.Samples.ExportTiles
             // Display the message to the user.
             UIAlertView alertView = new UIAlertView("alert", message, (IUIAlertViewDelegate) null, "OK", null);
             alertView.Show();
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _exportTilesButton = new UIBarButtonItem("Export tiles", UIBarButtonItemStyle.Plain, MyExportButton_Click);
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _exportTilesButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+
+            _statusIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
+            _statusIndicator.TranslatesAutoresizingMaskIntoConstraints = false;
+            _statusIndicator.HidesWhenStopped = true;
+            _statusIndicator.BackgroundColor = UIColor.FromWhiteAlpha(0f, .8f);
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar, _statusIndicator);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                _statusIndicator.TopAnchor.ConstraintEqualTo(View.TopAnchor),
+                _statusIndicator.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _statusIndicator.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _statusIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
         }
     }
 }

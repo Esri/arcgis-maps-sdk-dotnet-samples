@@ -26,8 +26,10 @@ namespace ArcGISRuntime.UWP.Samples.DeleteFeatures
         "")]
     public partial class DeleteFeatures
     {
+        // Path to the feature service.
         private const string FeatureServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0";
 
+        // Hold a reference to the feature layer.
         private FeatureLayer _damageLayer;
 
         public DeleteFeatures()

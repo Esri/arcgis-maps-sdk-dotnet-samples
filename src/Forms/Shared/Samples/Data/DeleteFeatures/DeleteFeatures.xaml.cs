@@ -10,12 +10,9 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
+using System;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
@@ -27,6 +24,15 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
         "")]
     public partial class DeleteFeatures : ContentPage
     {
+        // Path to the feature service.
+        private const string FeatureServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0";
+
+        // Hold a reference to the feature layer.
+        private FeatureLayer _damageLayer;
+
+        // Hold a reference to the most recently tapped feature.
+        private Feature _tappedFeature;
+
         public DeleteFeatures()
         {
             InitializeComponent();
@@ -35,11 +41,100 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
 
         private void Initialize()
         {
-            // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateImagery());
+            // Create the map with streets basemap.
+            MyMapView.Map = new Map(Basemap.CreateStreets());
 
-            // Assign the map to the MapView.
-            MyMapView.Map = myMap;
+            // Create the feature table, referring to the Damage Assessment feature service.
+            ServiceFeatureTable damageTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
+
+            // Create a feature layer to visualize the features in the table.
+            _damageLayer = new FeatureLayer(damageTable);
+
+            // Add the layer to the map.
+            MyMapView.Map.OperationalLayers.Add(_damageLayer);
+
+            // Listen for user taps on the map - on tap, a callout will be shown.
+            MyMapView.GeoViewTapped += MapView_Tapped;
+
+            // Zoom to the United States.
+            MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+        }
+
+        private async void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        {
+            // Clear any existing selection.
+            _damageLayer.ClearSelection();
+
+            // Dismiss any existing callouts.
+            MyMapView.DismissCallout();
+
+            try
+            {
+                // Perform an identify to determine if a user tapped on a feature.
+                IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_damageLayer, e.Position, 10, false);
+
+                // Do nothing if there are no results.
+                if (!identifyResult.GeoElements.Any())
+                {
+                    return;
+                }
+
+                // Otherwise, get the ID of the first result.
+                long featureId = (long) identifyResult.GeoElements.First().Attributes["objectid"];
+
+                // Get the feature by constructing a query and running it.
+                QueryParameters qp = new QueryParameters();
+                qp.ObjectIds.Add(featureId);
+                FeatureQueryResult queryResult = await _damageLayer.FeatureTable.QueryFeaturesAsync(qp);
+                _tappedFeature = queryResult.First();
+
+                // Select the feature.
+                _damageLayer.SelectFeature(_tappedFeature);
+
+                // Update the button to allow deleting the feature.
+                ConfigureDeletionButton(_tappedFeature);
+            }
+            catch (Exception ex)
+            {
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+            }
+        }
+
+        private void ConfigureDeletionButton(Feature tappedFeature)
+        {
+            // Create a button for deleting the feature.
+            DeleteButton.Text = $"Delete incident {tappedFeature.Attributes["objectid"]}";
+            DeleteButton.IsEnabled = true;
+        }
+
+        private async void DeleteButton_Click(object sender, EventArgs e)
+        {
+            
+            // Disable the button.
+            DeleteButton.IsEnabled = false;
+
+            // Guard against null.
+            if (_tappedFeature == null)
+            {
+                return;
+            }
+
+            try
+            {
+                // Delete the feature.
+                await _damageLayer.FeatureTable.DeleteFeatureAsync(_tappedFeature);
+
+                // Sync the change with the service.
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _damageLayer.FeatureTable;
+                await serviceTable.ApplyEditsAsync();
+
+                // Show a message confirming the deletion.
+                await ((Page)Parent).DisplayAlert("Success!", $"Deleted feature with ID {_tappedFeature.Attributes["objectid"]}", "OK");
+            }
+            catch (Exception ex)
+            {
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+            }
         }
     }
 }

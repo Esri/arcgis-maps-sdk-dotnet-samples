@@ -1,4 +1,4 @@
-# Delete features
+﻿# Delete features
 
 Delete features from an online feature service.
 

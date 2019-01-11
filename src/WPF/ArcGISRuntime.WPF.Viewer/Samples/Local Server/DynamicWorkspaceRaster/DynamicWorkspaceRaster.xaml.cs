@@ -46,6 +46,13 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceRaster
 
             try
             {
+                // Set the local data path - must be done before starting. On most systems, this will be C:\Esri_LS_Data.
+                // This path should be kept short to avoid Windows path length limitations.
+                string tempDataPathRoot = Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.Windows)).FullName;
+                string tempDataPath = Path.Combine(tempDataPathRoot, "Esri_LS_Data");
+                Directory.CreateDirectory(tempDataPath); // CreateDirectory won't overwrite if it already exists.
+                LocalServer.Instance.AppDataPath = tempDataPath;
+
                 // Start the local server instance
                 await LocalServer.Instance.StartAsync();
 

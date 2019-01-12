@@ -10,12 +10,8 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
+using System;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
@@ -27,6 +23,15 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
         "")]
     public partial class UpdateGeometries : ContentPage
     {
+        // URL to the feature service.
+        private const string FeatureServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0";
+
+        // Hold a reference to the feature layer.
+        private FeatureLayer _damageLayer;
+
+        // Hold a reference to the selected feature.
+        private ArcGISFeature _selectedFeature;
+
         public UpdateGeometries()
         {
             InitializeComponent();
@@ -35,11 +40,102 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
 
         private void Initialize()
         {
-            // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateImagery());
+            // Create the map with streets basemap.
+            MyMapView.Map = new Map(Basemap.CreateStreets());
 
-            // Assign the map to the MapView.
-            MyMapView.Map = myMap;
+            // Create the feature table, referring to the Damage Assessment feature service.
+            ServiceFeatureTable damageTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
+
+            // Create a feature layer to visualize the features in the table.
+            _damageLayer = new FeatureLayer(damageTable);
+
+            // Add the layer to the map.
+            MyMapView.Map.OperationalLayers.Add(_damageLayer);
+
+            // Listen for user taps on the map - on tap, a feature will be selected.
+            MyMapView.GeoViewTapped += MapView_Tapped;
+
+            // Zoom to the United States.
+            MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+        }
+
+        private void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        {
+            // Select the feature if none selected, move the feature otherwise.
+            if (_selectedFeature == null)
+            {
+                // Select the feature.
+                TrySelectFeature(e);
+            }
+            else
+            {
+                // Move the feature.
+                MoveSelectedFeature(e);
+            }
+        }
+
+        private async void MoveSelectedFeature(Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs tapEventDetails)
+        {
+            try
+            {
+                // Get the MapPoint from the EventArgs for the tap.
+                MapPoint destinationPoint = tapEventDetails.Location;
+
+                // Load the feature.
+                await _selectedFeature.LoadAsync();
+
+                // Update the geometry of the selected feature.
+                _selectedFeature.Geometry = destinationPoint;
+
+                // Apply the edit to the feature table.
+                await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
+
+                // Push the update to the service.
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+                await serviceTable.ApplyEditsAsync();
+                await ((Page) Parent).DisplayAlert("Success!", $"Moved feature {_selectedFeature.Attributes["objectid"]}", "OK");
+            }
+            catch (Exception ex)
+            {
+                await ((Page) Parent).DisplayAlert("Error when moving feature", ex.ToString(), "OK");
+            }
+            finally
+            {
+                // Reset the selection.
+                _damageLayer.ClearSelection();
+                _selectedFeature = null;
+            }
+        }
+
+        private async void TrySelectFeature(Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs tapEventDetails)
+        {
+            try
+            {
+                // Perform an identify to determine if a user tapped on a feature.
+                IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_damageLayer, tapEventDetails.Position, 10, false);
+
+                // Do nothing if there are no results.
+                if (!identifyResult.GeoElements.Any())
+                {
+                    return;
+                }
+
+                // Otherwise, get the ID of the first result.
+                long featureId = (long) identifyResult.GeoElements.First().Attributes["objectid"];
+
+                // Get the feature by constructing a query and running it.
+                QueryParameters qp = new QueryParameters();
+                qp.ObjectIds.Add(featureId);
+                FeatureQueryResult queryResult = await _damageLayer.FeatureTable.QueryFeaturesAsync(qp);
+                _selectedFeature = (ArcGISFeature) queryResult.First();
+
+                // Select the feature.
+                _damageLayer.SelectFeature(_selectedFeature);
+            }
+            catch (Exception ex)
+            {
+                await ((Page) Parent).DisplayAlert("Problem selecting feature", ex.ToString(), "OK");
+            }
         }
     }
 }

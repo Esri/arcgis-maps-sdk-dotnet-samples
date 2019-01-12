@@ -100,7 +100,7 @@ namespace ArcGISRuntime.UWP.Samples.UpdateGeometries
                 // Push the update to the service.
                 ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
                 await serviceTable.ApplyEditsAsync();
-                await new MessageDialog("Moved feature " + _selectedFeature.Attributes["objectid"], "Success!").ShowAsync();
+                await new MessageDialog($"Moved feature {_selectedFeature.Attributes["objectid"]}", "Success!").ShowAsync();
             }
             catch (Exception ex)
             {

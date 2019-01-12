@@ -234,6 +234,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
     <None Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
 	  <None Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
     <None Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
@@ -368,6 +369,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Data\UpdateGeometries\UpdateGeometries.cs" />
     <Compile Include="Samples\Symbology\SceneSymbols\SceneSymbols.cs" />
 	  <Compile Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.cs" />
     <Compile Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.cs" />

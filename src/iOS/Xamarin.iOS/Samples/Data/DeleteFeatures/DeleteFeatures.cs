@@ -72,7 +72,7 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
             try
             {
                 // Perform an identify to determine if a user tapped on a feature.
-                IdentifyLayerResult identifyResult = await _myMapView.IdentifyLayerAsync(_damageLayer, e.Position, 10, false);
+                IdentifyLayerResult identifyResult = await _myMapView.IdentifyLayerAsync(_damageLayer, e.Position, 8, false);
 
                 // Do nothing if there are no results.
                 if (!identifyResult.GeoElements.Any())

@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.ManageOperationalLayers.ManageOperationalLayers"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <UserControl.Resources>
+        <DataTemplate x:Key="LayerListTemplate" DataType="esri:Layer">
+            <Label Content="{Binding Name}" />
+        </DataTemplate>
+        <Style TargetType="ListBoxItem" x:Key="LayerListBoxItemStyle">
+            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListBox_DragPreviewMove" />
+            <EventSetter Event="Drop" Handler="ListBoxItem_OnDrop" />
+            <Setter Property="AllowDrop" Value="True" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <esri:MapView Map="{Binding Map}" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel Orientation="Vertical">
+                <Label Content="Drag and drop to reorder and move layers." />
+                <Label Content="Layers in map"
+                       HorizontalContentAlignment="Center"
+                       FontWeight="SemiBold" />
+                <ListBox x:Name="IncludedListBox"
+                         ItemsSource="{Binding IncludedLayers}"
+                         ItemTemplate="{StaticResource LayerListTemplate}"
+                         ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
+                         AllowDrop="True"
+                         Drop="ListBoxItem_OnDrop" />
+                <Label Content="Layers not in map"
+                       HorizontalContentAlignment="Center"
+                       FontWeight="SemiBold" />
+                <ListBox x:Name="ExcludedListBox"
+                         ItemsSource="{Binding ExcludedLayers, Mode=TwoWay}"
+                         ItemTemplate="{StaticResource LayerListTemplate}"
+                         ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
+                         AllowDrop="True"
+                         Drop="ListBoxItem_OnDrop" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

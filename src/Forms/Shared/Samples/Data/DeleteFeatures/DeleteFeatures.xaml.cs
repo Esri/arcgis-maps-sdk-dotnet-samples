@@ -64,8 +64,9 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
             // Clear any existing selection.
             _damageLayer.ClearSelection();
 
-            // Dismiss any existing callouts.
-            MyMapView.DismissCallout();
+            // Reconfigure the button.
+            DeleteButton.IsEnabled = false;
+            DeleteButton.Text = "Delete feature";
 
             try
             {
@@ -109,8 +110,9 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
         private async void DeleteButton_Click(object sender, EventArgs e)
         {
             
-            // Disable the button.
+            // Reconfigure the button.
             DeleteButton.IsEnabled = false;
+            DeleteButton.Text = "Delete feature";
 
             // Guard against null.
             if (_tappedFeature == null)

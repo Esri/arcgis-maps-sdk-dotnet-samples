@@ -93,6 +93,9 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
                 // Get the MapPoint from the EventArgs for the tap.
                 MapPoint destinationPoint = tapEventDetails.Location;
 
+                // Normalize the point - needed when the tapped location is over the international date line.
+                destinationPoint = (MapPoint) GeometryEngine.NormalizeCentralMeridian(destinationPoint);
+
                 // Load the feature.
                 await _selectedFeature.LoadAsync();
 

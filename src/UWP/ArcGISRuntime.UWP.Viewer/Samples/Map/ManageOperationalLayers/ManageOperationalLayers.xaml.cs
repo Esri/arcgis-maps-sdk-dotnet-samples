@@ -7,18 +7,16 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.Foundation;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace ArcGISRuntime.UWP.Samples.ManageOperationalLayers
 {
@@ -29,6 +27,20 @@ namespace ArcGISRuntime.UWP.Samples.ManageOperationalLayers
         "")]
     public partial class ManageOperationalLayers
     {
+        // The view model manages the data for the sample.
+        private MapViewModel _viewModel;
+
+        // Hold a reference to the originating listview when dragging and dropping.
+        private ListView _originListView;
+
+        // Some URLs of layers to add to the map.
+        private readonly string[] _layerUrls = new[]
+        {
+            "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer",
+            "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Census/MapServer",
+            "http://sampleserver5.arcgisonline.com/arcgis/rest/services/DamageAssessment/MapServer"
+        };
+
         public ManageOperationalLayers()
         {
             InitializeComponent();
@@ -37,6 +49,86 @@ namespace ArcGISRuntime.UWP.Samples.ManageOperationalLayers
 
         private void Initialize()
         {
+            _viewModel = new MapViewModel(new Map(Basemap.CreateStreets()));
+            this.DataContext = _viewModel;
+
+            // Add the layers.
+            foreach (string layerUrl in _layerUrls)
+            {
+                _viewModel.AddLayerFromUrl(layerUrl);
+            }
+        }
+
+        private void ListBox_OnDragOver(object sender, DragEventArgs e)
+        {
+            // Specify that the listview accepts dropping.
+            e.AcceptedOperation = DataPackageOperation.Move;
+        }
+
+        private void ListBox_OnDrop(object sender, DragEventArgs e)
+        {
+            if (e.DataView != null && e.DataView.Properties != null && e.DataView.Properties.Any(x => x.Key == "item" && x.Value is Layer))
+            {
+                try
+                {
+                    DragOperationDeferral deferral = e.GetDeferral();
+
+                    // Get the layer that is being moved.
+                    KeyValuePair<string, object> draggedItem = e.Data.Properties.FirstOrDefault(x => x.Key == "item");
+                    Layer draggedLayer = draggedItem.Value as Layer;
+
+                    // Find the source and destination views.
+                    ListView destinationList = sender as ListView;
+                    ListView sourceList = _originListView;
+
+                    // Remove the layer and re-add it.
+                    ((LayerCollection) sourceList.ItemsSource).Remove(draggedLayer);
+                    ((LayerCollection) destinationList.ItemsSource).Add(draggedLayer);
+
+                    deferral.Complete();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.ToString());
+                }
+            }
+            else
+            {
+                e.AcceptedOperation = DataPackageOperation.None;
+            }
+        }
+
+        private void ListBox_OnDragItemsStarting(object sender, DragItemsStartingEventArgs e)
+        {
+            // Store the originating list view for the drag operation.
+            _originListView = sender as ListView;
+
+            // Specify the type of drag and drop.
+            e.Data.RequestedOperation = DataPackageOperation.Move;
+
+            if (e.Items != null && e.Items.Any())
+            {
+                // Store the layer in the data package.
+                e.Data.Properties.Add("item", e.Items.FirstOrDefault());
+            }
+        }
+    }
+
+    class MapViewModel
+    {
+        public Map Map { get; }
+        public LayerCollection IncludedLayers => Map.OperationalLayers;
+        public LayerCollection ExcludedLayers { get; } = new LayerCollection();
+
+        public MapViewModel(Map map)
+        {
+            Map = map;
+        }
+
+        public void AddLayerFromUrl(string layerUrl)
+        {
+            ArcGISMapImageLayer layer = new ArcGISMapImageLayer(new Uri(layerUrl));
+            Map.OperationalLayers.Add(layer);
         }
     }
 }

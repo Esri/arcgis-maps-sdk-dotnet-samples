@@ -61,9 +61,11 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
         private void ManageLayers_Clicked(object sender, EventArgs e)
         {
             var controller = new UINavigationController(_tableController);
-            controller.NavigationBar.Items[0].SetRightBarButtonItem(_tableController.EditButtonItem, false);
+            controller.NavigationBar.Items[0].SetLeftBarButtonItem(_tableController.EditButtonItem, false);
+            var closeButton = new UIBarButtonItem("Close", UIBarButtonItemStyle.Plain, (o, ea) => controller.DismissViewController(true, null));
+            controller.NavigationBar.Items[0].SetRightBarButtonItem(closeButton, false);
             controller.ModalPresentationStyle = UIModalPresentationStyle.Popover;
-            controller.PreferredContentSize = new CGSize(300, 320);
+            controller.PreferredContentSize = new CGSize(300, 250);
             UIPopoverPresentationController pc = controller.PopoverPresentationController;
             if (pc != null)
             {
@@ -171,6 +173,11 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
             }
         }
 
+        public override nint NumberOfSections(UITableView tableView)
+        {
+            return 2;
+        }
+
         public override string TitleForHeader(UITableView tableView, nint section)
         {
             return section == 0 ? "Layers in map" : "Layers not in map";
@@ -199,7 +206,6 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
             // Note: this assumes deletion, so doesn't check editingStyle.
 
             Layer selectedLayer;
-            tableView.BeginUpdates();
             switch (indexPath.Section)
             {
                 case 0:
@@ -213,13 +219,18 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
                     IncludedLayers.Add(selectedLayer);
                     break;
             }
-
-            tableView.EndUpdates();
+            tableView.ReloadData();
         }
 
         public override UITableViewCellEditingStyle EditingStyleForRow(UITableView tableView, NSIndexPath indexPath)
         {
-            return UITableViewCellEditingStyle.Delete;
+            switch (indexPath.Section)
+            {
+                case 0:
+                    return UITableViewCellEditingStyle.Delete;
+                default:
+                    return UITableViewCellEditingStyle.Insert;
+            }
         }
 
         public override bool CanMoveRow(UITableView tableView, NSIndexPath indexPath)
@@ -233,16 +244,18 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
             LayerCollection destination = destinationIndexPath.Section == 0 ? IncludedLayers : ExcludedLayers;
 
             Layer movedLayer = source[sourceIndexPath.Row];
-
             source.RemoveAt(sourceIndexPath.Row);
-            if (source == destination && destinationIndexPath.Row < sourceIndexPath.Row && destinationIndexPath.Row > 0)
+
+            int destinationIndex = destinationIndexPath.Row;
+
+            if (source == destination && sourceIndexPath.Row < destinationIndexPath.Row && destinationIndexPath.Row > 0)
             {
-                destination.Insert(destinationIndexPath.Row - 1, movedLayer);
+                destinationIndex -= 1;
             }
-            else
-            {
-                destination.Insert(destinationIndexPath.Row, movedLayer);
-            }
+
+            destination.Insert(destinationIndexPath.Row, movedLayer);
+
+            tableView.ReloadData();
         }
     }
 }

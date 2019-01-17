@@ -79,6 +79,7 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
             {
                 _queryEntry = obj;
                 obj.Text = "181000";
+                obj.KeyboardType = UIKeyboardType.NumberPad;
             });
             prompt.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, submitQuery));
             PresentViewController(prompt, true, null);

@@ -42,12 +42,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         private MapView _insetMapView;
         private SceneView _mySceneView;
         private UIBarButtonItem _playButton;
-        private UILabel _altitudeLabel;
-        private UILabel _headingLabel;
-        private UILabel _pitchLabel;
-        private UILabel _rollLabel;
-        private UILabel _progressLabel;
-        private UIView _statsFrame;
+        private StatsDisplayViewController _statsVC;
 
         // URL to the elevation service - provides terrain elevation.
         private readonly Uri _elevationServiceUrl =
@@ -101,6 +96,8 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
         private async void Initialize()
         {
+            _statsVC = new StatsDisplayViewController();
+
             // Apply appropriate maps to the scene and the inset map view.
             _insetMapView.Map = new Map(Basemap.CreateImagery());
             _insetMapView.IsAttributionTextVisible = false;
@@ -228,21 +225,6 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             PresentViewController(missionSelectionAlert, true, null);
         }
 
-        private void ToggleStatsDisplay(object sender, EventArgs e)
-        {
-            // Toggle the stats display field.
-            _showStats = !_showStats;
-
-            if (_showStats)
-            {
-                _statsFrame.Hidden = false;
-            }
-            else
-            {
-                _statsFrame.Hidden = true;
-            }
-        }
-
         private async Task ChangeMission(string mission)
         {
             // Stop animating the current mission.
@@ -306,11 +288,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             InvokeOnMainThread(() =>
             {
                 // Update stats display.
-                _altitudeLabel.Text = $"{currentFrame.Elevation:F} m";
-                _headingLabel.Text = $"{currentFrame.Heading:F}\u00B0"; // \u00b0 is the degree symbol
-                _pitchLabel.Text = $"{currentFrame.Pitch:F}\u00B0";
-                _rollLabel.Text = $"{currentFrame.Roll:F}\u00B0";
-                _progressLabel.Text = $"{missionProgress * 100:F}%";
+                _statsVC.UpdateStatsDisplay(currentFrame, missionProgress);
             });
 
             // Update plane's position.
@@ -371,6 +349,21 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             _mySceneView.CameraController = _shouldFollowPlane ? _orbitCameraController : null;
         }
 
+        private void ToggleStatsDisplay(object sender, EventArgs e)
+        {
+            _statsVC.ModalPresentationStyle = UIModalPresentationStyle.Popover;
+            _statsVC.PreferredContentSize = new CoreGraphics.CGSize(275, 175);
+            UIPopoverPresentationController pc = _statsVC.PopoverPresentationController;
+            if (pc != null)
+            {
+                pc.BarButtonItem = (UIBarButtonItem)sender;
+                pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+                pc.Delegate = new PpDelegate();
+            }
+
+            PresentViewController(_statsVC, true, null);
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -384,10 +377,6 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
             UIToolbar controlToolbox = new UIToolbar();
             controlToolbox.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _statsFrame = new UIView {BackgroundColor = UIColor.FromWhiteAlpha(.8f, .6f)};
-            _statsFrame.TranslatesAutoresizingMaskIntoConstraints = false;
-            _statsFrame.Hidden = true;
 
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -405,31 +394,13 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem("Camera", UIBarButtonItemStyle.Plain, ToggleFollowPlane),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Stats", UIBarButtonItemStyle.Plain, ToggleStatsDisplay),
+                 _playButton,                
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _playButton
+                new UIBarButtonItem("Stats", UIBarButtonItemStyle.Plain, ToggleStatsDisplay)
             };
 
-            _altitudeLabel = new UILabel();
-            _headingLabel = new UILabel();
-            _pitchLabel = new UILabel();
-            _rollLabel = new UILabel();
-            _progressLabel = new UILabel();
-            UILabel altitudeLabelLabel = new UILabel {Text = "Altitude:"};
-            UILabel headingLabelLabel = new UILabel {Text = "Heading:"};
-            UILabel pitchLabelLabel = new UILabel {Text = "Pitch:"};
-            UILabel rollLabelLabel = new UILabel {Text = "Roll:"};
-            UILabel progressLabelLabel = new UILabel {Text = "Mission progress:"};
-
-            foreach (var label in new[] {_altitudeLabel, _headingLabel, _pitchLabel, _rollLabel, _progressLabel, altitudeLabelLabel, headingLabelLabel, pitchLabelLabel, rollLabelLabel, progressLabelLabel})
-            {
-                label.TranslatesAutoresizingMaskIntoConstraints = false;
-                _statsFrame.AddSubview(label);
-                label.TextAlignment = UITextAlignment.Right;
-            }
-
             // Add the views.
-            View.AddSubviews(_mySceneView, _insetMapView, _statsFrame, controlToolbox);
+            View.AddSubviews(_mySceneView, _insetMapView, controlToolbox);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
@@ -446,119 +417,168 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 _insetMapView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 16),
                 _insetMapView.BottomAnchor.ConstraintEqualTo(_mySceneView.BottomAnchor, -40),
                 _insetMapView.WidthAnchor.ConstraintEqualTo(96),
-                _insetMapView.HeightAnchor.ConstraintEqualTo(96),
-
-                _statsFrame.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _statsFrame.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _statsFrame.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _statsFrame.BottomAnchor.ConstraintEqualTo(_progressLabel.BottomAnchor, 8),
-
-                altitudeLabelLabel.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 8),
-                headingLabelLabel.LeadingAnchor.ConstraintEqualTo(altitudeLabelLabel.LeadingAnchor),
-                pitchLabelLabel.LeadingAnchor.ConstraintEqualTo(altitudeLabelLabel.LeadingAnchor),
-                rollLabelLabel.LeadingAnchor.ConstraintEqualTo(altitudeLabelLabel.LeadingAnchor),
-                progressLabelLabel.LeadingAnchor.ConstraintEqualTo(altitudeLabelLabel.LeadingAnchor),
-
-                altitudeLabelLabel.HeightAnchor.ConstraintEqualTo(28),
-                headingLabelLabel.HeightAnchor.ConstraintEqualTo(altitudeLabelLabel.HeightAnchor),
-                pitchLabelLabel.HeightAnchor.ConstraintEqualTo(altitudeLabelLabel.HeightAnchor),
-                rollLabelLabel.HeightAnchor.ConstraintEqualTo(altitudeLabelLabel.HeightAnchor),
-                progressLabelLabel.HeightAnchor.ConstraintEqualTo(altitudeLabelLabel.HeightAnchor),
-
-                altitudeLabelLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8),
-                headingLabelLabel.TopAnchor.ConstraintEqualTo(altitudeLabelLabel.BottomAnchor, 8),
-                pitchLabelLabel.TopAnchor.ConstraintEqualTo(headingLabelLabel.BottomAnchor, 8),
-                rollLabelLabel.TopAnchor.ConstraintEqualTo(pitchLabelLabel.BottomAnchor, 8),
-                progressLabelLabel.TopAnchor.ConstraintEqualTo(rollLabelLabel.BottomAnchor, 8),
-
-                _altitudeLabel.WidthAnchor.ConstraintEqualTo(96),
-                _headingLabel.WidthAnchor.ConstraintEqualTo(_altitudeLabel.WidthAnchor),
-                _pitchLabel.WidthAnchor.ConstraintEqualTo(_altitudeLabel.WidthAnchor),
-                _rollLabel.WidthAnchor.ConstraintEqualTo(_altitudeLabel.WidthAnchor),
-                _progressLabel.WidthAnchor.ConstraintEqualTo(_altitudeLabel.WidthAnchor),
-
-                _altitudeLabel.CenterYAnchor.ConstraintEqualTo(altitudeLabelLabel.CenterYAnchor),
-                _headingLabel.CenterYAnchor.ConstraintEqualTo(headingLabelLabel.CenterYAnchor),
-                _pitchLabel.CenterYAnchor.ConstraintEqualTo(pitchLabelLabel.CenterYAnchor),
-                _rollLabel.CenterYAnchor.ConstraintEqualTo(rollLabelLabel.CenterYAnchor),
-                _progressLabel.CenterYAnchor.ConstraintEqualTo(progressLabelLabel.CenterYAnchor),
-
-                _altitudeLabel.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
-                _headingLabel.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
-                _pitchLabel.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
-                _rollLabel.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
-                _progressLabel.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
-
-                _altitudeLabel.LeadingAnchor.ConstraintEqualTo(altitudeLabelLabel.TrailingAnchor),
-                _headingLabel.LeadingAnchor.ConstraintEqualTo(headingLabelLabel.TrailingAnchor),
-                _pitchLabel.LeadingAnchor.ConstraintEqualTo(pitchLabelLabel.TrailingAnchor),
-                _rollLabel.LeadingAnchor.ConstraintEqualTo(rollLabelLabel.TrailingAnchor),
-                _progressLabel.LeadingAnchor.ConstraintEqualTo(progressLabelLabel.TrailingAnchor)
+                _insetMapView.HeightAnchor.ConstraintEqualTo(96)
             });
         }
 
-        /// <summary>
-        /// Private helper class represents a single frame in the animation.
-        /// </summary>
-        private class MissionFrame
+        // Force popover to display on iPhone.
+        private class PpDelegate : UIPopoverPresentationControllerDelegate
         {
-            private double Longitude { get; }
-            private double Latitude { get; }
-            public double Elevation { get; }
-            public double Heading { get; }
-            public double Pitch { get; }
-            public double Roll { get; }
+            public override UIModalPresentationStyle GetAdaptivePresentationStyle(
+                UIPresentationController forPresentationController) => UIModalPresentationStyle.None;
 
-            /// <summary>
-            /// Private constructor ensures that only the factory method (Create) can be called..
-            /// </summary>
-            /// <param name="missionLine">A string describing a single frame in the mission animation.</param>
-            private MissionFrame(string missionLine)
+            public override UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController controller,
+                UITraitCollection traitCollection) => UIModalPresentationStyle.None;
+        }
+    }
+
+    /// <summary>
+    /// Private helper class represents a single frame in the animation.
+    /// </summary>
+    public class MissionFrame
+    {
+        private double Longitude { get; }
+        private double Latitude { get; }
+        public double Elevation { get; }
+        public double Heading { get; }
+        public double Pitch { get; }
+        public double Roll { get; }
+
+        /// <summary>
+        /// Private constructor ensures that only the factory method (Create) can be called..
+        /// </summary>
+        /// <param name="missionLine">A string describing a single frame in the mission animation.</param>
+        public MissionFrame(string missionLine)
+        {
+            // Split the string into a list of entries (columns).
+            // Example line: -156.3666517,20.6255059,999.999908,83.77659,.00009,-47.766567
+            string[] missionFrameParameters = missionLine.Split(',');
+
+            // Throw if the line isn't valid.
+            if (missionFrameParameters.Length != 6)
             {
-                // Split the string into a list of entries (columns).
-                // Example line: -156.3666517,20.6255059,999.999908,83.77659,.00009,-47.766567
-                string[] missionFrameParameters = missionLine.Split(',');
-
-                // Throw if the line isn't valid.
-                if (missionFrameParameters.Length != 6)
-                {
-                    throw new Exception("Invalid mission part definition");
-                }
-
-                // Populate the object's properties from the array of parameters.
-                Longitude = Convert.ToDouble(missionFrameParameters[0]);
-                Latitude = Convert.ToDouble(missionFrameParameters[1]);
-                Elevation = Convert.ToDouble(missionFrameParameters[2]);
-                Heading = Convert.ToDouble(missionFrameParameters[3]);
-                Pitch = Convert.ToDouble(missionFrameParameters[4]);
-                Roll = Convert.ToDouble(missionFrameParameters[5]);
+                throw new Exception("Invalid mission part definition");
             }
 
-            /// <summary>
-            /// Creates a new MissionFrame.
-            /// The private constructor + static construction method allows
-            ///     for keeping the exception-handling logic for the constructor
-            ///     internal to the class.
-            /// </summary>
-            /// <param name="missionLine">A string describing a single frame in the mission animation.</param>
-            /// <returns>Constructed MissionFrame or null if the line is invalid.</returns>
-            public static MissionFrame Create(string missionLine)
-            {
-                try
-                {
-                    return new MissionFrame(missionLine);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                    return null;
-                }
-            }
+            // Populate the object's properties from the array of parameters.
+            Longitude = Convert.ToDouble(missionFrameParameters[0]);
+            Latitude = Convert.ToDouble(missionFrameParameters[1]);
+            Elevation = Convert.ToDouble(missionFrameParameters[2]);
+            Heading = Convert.ToDouble(missionFrameParameters[3]);
+            Pitch = Convert.ToDouble(missionFrameParameters[4]);
+            Roll = Convert.ToDouble(missionFrameParameters[5]);
+        }
 
-            public MapPoint ToMapPoint()
+        /// <summary>
+        /// Creates a new MissionFrame.
+        /// The private constructor + static construction method allows
+        ///     for keeping the exception-handling logic for the constructor
+        ///     internal to the class.
+        /// </summary>
+        /// <param name="missionLine">A string describing a single frame in the mission animation.</param>
+        /// <returns>Constructed MissionFrame or null if the line is invalid.</returns>
+        public static MissionFrame Create(string missionLine)
+        {
+            try
             {
-                return new MapPoint(Longitude, Latitude, Elevation, SpatialReferences.Wgs84);
+                return new MissionFrame(missionLine);
             }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
+        public MapPoint ToMapPoint()
+        {
+            return new MapPoint(Longitude, Latitude, Elevation, SpatialReferences.Wgs84);
+        }
+    }
+
+    public class StatsDisplayViewController : UIViewController
+    {
+        private UILabel _altitudeLabel;
+        private UILabel _headingLabel;
+        private UILabel _pitchLabel;
+        private UILabel _rollLabel;
+        private UILabel _progressLabel;
+
+        public StatsDisplayViewController()
+        {
+            Title = "Mission stats";
+        }
+
+        public void UpdateStatsDisplay(MissionFrame currentFrame, double missionProgress)
+        {
+            // Skip if stats display hasn't been shown yet.
+            if (_altitudeLabel == null)
+            {
+                return;
+            }
+            _altitudeLabel.Text = $"{currentFrame.Elevation:F} m";
+            _headingLabel.Text = $"{currentFrame.Heading:F}\u00B0"; // \u00b0 is the degree symbol
+            _pitchLabel.Text = $"{currentFrame.Pitch:F}\u00B0";
+            _rollLabel.Text = $"{currentFrame.Roll:F}\u00B0";
+            _progressLabel.Text = $"{missionProgress * 100:F}%";
+        }
+
+        public override void LoadView()
+        {
+            UIStackView floatContainer = new UIStackView();
+            floatContainer.TranslatesAutoresizingMaskIntoConstraints = false;
+            floatContainer.Axis = UILayoutConstraintAxis.Horizontal;
+            floatContainer.Alignment = UIStackViewAlignment.Top;
+            floatContainer.LayoutMarginsRelativeArrangement = true;
+            floatContainer.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
+
+            UIStackView statsContainer = new UIStackView();
+            statsContainer.TranslatesAutoresizingMaskIntoConstraints = false;
+            statsContainer.Axis = UILayoutConstraintAxis.Vertical;
+            statsContainer.Spacing = 8;
+
+            _altitudeLabel = new UILabel();
+            _headingLabel = new UILabel();
+            _pitchLabel = new UILabel();
+            _rollLabel = new UILabel();
+            _progressLabel = new UILabel();
+
+            statsContainer.AddArrangedSubview(GetStatStack("Altitude (meters):", _altitudeLabel));
+            statsContainer.AddArrangedSubview(GetStatStack("Heading:", _headingLabel));
+            statsContainer.AddArrangedSubview(GetStatStack("Pitch:", _pitchLabel));
+            statsContainer.AddArrangedSubview(GetStatStack("Roll:", _rollLabel));
+            statsContainer.AddArrangedSubview(GetStatStack("Progress:", _progressLabel));
+
+            floatContainer.AddArrangedSubview(statsContainer);
+
+            View = new UIView();
+            View.AddSubview(floatContainer);
+
+            floatContainer.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            floatContainer.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            floatContainer.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
+            floatContainer.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+        }
+
+        private UIView GetStatStack(string label, UILabel parameterField)
+        {
+            UIStackView statStack = new UIStackView();
+            statStack.TranslatesAutoresizingMaskIntoConstraints = false;
+            statStack.Distribution = UIStackViewDistribution.EqualSpacing;
+
+            UILabel labellabel = new UILabel();
+            labellabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            labellabel.TextAlignment = UITextAlignment.Left;
+            labellabel.Text = label;
+
+            statStack.AddArrangedSubview(labellabel);
+
+            parameterField.TextAlignment = UITextAlignment.Right;
+            parameterField.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            statStack.AddArrangedSubview(parameterField);
+
+            return statStack;
         }
     }
 }

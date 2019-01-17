@@ -240,6 +240,9 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             formContainer.LeadingAnchor.ConstraintEqualTo(scrollView.LeadingAnchor).Active = true;
             formContainer.TrailingAnchor.ConstraintEqualTo(scrollView.TrailingAnchor).Active = true;
             formContainer.BottomAnchor.ConstraintEqualTo(scrollView.BottomAnchor).Active = true;
+
+            // Disable horizontal scrolling.
+            formContainer.WidthAnchor.ConstraintEqualTo(scrollView.WidthAnchor).Active = true;
         }
 
         private void UpdateRendererButton_Clicked(object sender, EventArgs e)

@@ -118,7 +118,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new []
             {
-                _mySceneView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
+                _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),

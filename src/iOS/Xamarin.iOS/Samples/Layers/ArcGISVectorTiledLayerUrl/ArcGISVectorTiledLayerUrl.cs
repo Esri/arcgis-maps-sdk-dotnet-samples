@@ -74,7 +74,7 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
             var popoverPresentationController = layerSelectionAlert.PopoverPresentationController;
             if (popoverPresentationController != null)
             {
-                popoverPresentationController.SourceView = (UIButton) sender;
+                popoverPresentationController.BarButtonItem = (UIBarButtonItem)sender;
             }
 
             // Show the alert.

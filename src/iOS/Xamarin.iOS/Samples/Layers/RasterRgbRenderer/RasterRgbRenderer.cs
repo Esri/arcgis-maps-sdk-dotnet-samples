@@ -102,7 +102,6 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         {
             UINavigationController navController = new UINavigationController(controller);
             navController.ModalPresentationStyle = UIModalPresentationStyle.Popover;
-            navController.PreferredContentSize = new CGSize(300, 250);
             UIPopoverPresentationController pc = navController.PopoverPresentationController;
             if (pc != null)
             {
@@ -194,12 +193,14 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             _rasterLayer.Renderer = new RgbRenderer(parameters, bands, null, true);
         }
 
-        public override void ViewDidAppear(bool animated)
+        public override void ViewWillAppear(bool animated)
         {
-            base.ViewDidAppear(animated);
+            base.ViewWillAppear(animated);
             _maxPicker.Select(255, 0, false);
             _maxPicker.Select(255, 1, false);
             _maxPicker.Select(255, 2, false);
+
+            NavigationController.PreferredContentSize = new CGSize(300, 250);
         }
 
         public override void LoadView()
@@ -211,8 +212,6 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
 
             View.AddSubviews(scrollView);
 
-            
-
             UIStackView formContainer = new UIStackView();
             formContainer.TranslatesAutoresizingMaskIntoConstraints = false;
             formContainer.Spacing = 8;
@@ -220,7 +219,6 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             formContainer.Alignment = UIStackViewAlignment.Center;
             formContainer.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
             formContainer.Axis = UILayoutConstraintAxis.Vertical;
-            formContainer.WidthAnchor.ConstraintEqualTo(300).Active = true;
 
             // Add controls here.
             UILabel minLabel = new UILabel();
@@ -232,7 +230,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             UIPickerView minPicker = new UIPickerView();
             minPicker.TranslatesAutoresizingMaskIntoConstraints = false;
             _minPickerModel = new RgbValuePickerModel(0, 0, 0);
-            minPicker.HeightAnchor.ConstraintEqualTo(90).Active = true;
+            minPicker.HeightAnchor.ConstraintEqualTo(60).Active = true;
             minPicker.Model = _minPickerModel;
             formContainer.AddArrangedSubview(minPicker);
 
@@ -245,7 +243,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             _maxPicker = new UIPickerView();
             _maxPicker.TranslatesAutoresizingMaskIntoConstraints = false;
             _maxPickerModel = new RgbValuePickerModel(255, 255, 255);
-            _maxPicker.HeightAnchor.ConstraintEqualTo(90).Active = true;
+            _maxPicker.HeightAnchor.ConstraintEqualTo(60).Active = true;
             _maxPicker.Model = _maxPickerModel;
             formContainer.AddArrangedSubview(_maxPicker);
 
@@ -262,6 +260,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             formContainer.LeadingAnchor.ConstraintEqualTo(scrollView.LeadingAnchor).Active = true;
             formContainer.TrailingAnchor.ConstraintEqualTo(scrollView.TrailingAnchor).Active = true;
             formContainer.BottomAnchor.ConstraintEqualTo(scrollView.BottomAnchor).Active = true;
+            formContainer.WidthAnchor.ConstraintEqualTo(scrollView.WidthAnchor).Active = true;
         }
 
         // Class that defines a view model for showing color values (0-255 for RGB) in a picker control.
@@ -350,6 +349,12 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             _rasterLayer.Renderer = new RgbRenderer(parameters, bands, null, true);
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            NavigationController.PreferredContentSize = new CGSize(250, 100);
+        }
+
         public override void LoadView()
         {
             View = new UIView();
@@ -371,7 +376,6 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             formContainer.Alignment = UIStackViewAlignment.Fill;
             formContainer.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
             formContainer.Axis = UILayoutConstraintAxis.Vertical;
-            formContainer.WidthAnchor.ConstraintEqualTo(300).Active = true;
 
             // Add controls here.
             UILabel minLabel = new UILabel();
@@ -399,6 +403,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             formContainer.LeadingAnchor.ConstraintEqualTo(scrollView.LeadingAnchor).Active = true;
             formContainer.TrailingAnchor.ConstraintEqualTo(scrollView.TrailingAnchor).Active = true;
             formContainer.BottomAnchor.ConstraintEqualTo(scrollView.BottomAnchor).Active = true;
+            formContainer.WidthAnchor.ConstraintEqualTo(scrollView.WidthAnchor).Active = true;
         }
 
         private UIStackView getRowStackView(UIView[] views)
@@ -431,6 +436,12 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             _rasterLayer.Renderer = new RgbRenderer(parameters, bands, null, true);
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            NavigationController.PreferredContentSize = new CGSize(200, 175);
+        }
+
         public override void LoadView()
         {
             View = new UIView();
@@ -452,7 +463,6 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             formContainer.Alignment = UIStackViewAlignment.Center;
             formContainer.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
             formContainer.Axis = UILayoutConstraintAxis.Vertical;
-            formContainer.WidthAnchor.ConstraintEqualTo(300).Active = true;
 
             // Add controls here.
             UILabel factorLabel = new UILabel();
@@ -475,6 +485,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             formContainer.LeadingAnchor.ConstraintEqualTo(scrollView.LeadingAnchor).Active = true;
             formContainer.TrailingAnchor.ConstraintEqualTo(scrollView.TrailingAnchor).Active = true;
             formContainer.BottomAnchor.ConstraintEqualTo(scrollView.BottomAnchor).Active = true;
+            formContainer.WidthAnchor.ConstraintEqualTo(scrollView.WidthAnchor).Active = true;
         }
 
         // Class that defines a view model for showing standard deviation factor values (0.5-4.50) in a picker control.

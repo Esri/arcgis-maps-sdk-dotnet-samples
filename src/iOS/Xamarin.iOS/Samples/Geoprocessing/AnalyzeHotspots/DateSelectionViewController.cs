@@ -18,6 +18,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         // Hold references to the UI controls
         public readonly UIDatePicker StartPicker;
         public readonly UIDatePicker EndPicker;
+        private UIStackView _outerStackView;
 
         public DateSelectionViewController()
         {
@@ -35,44 +36,67 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
-            UIStackView stackView = new UIStackView();
-            stackView.Axis = UILayoutConstraintAxis.Vertical;
-            stackView.TranslatesAutoresizingMaskIntoConstraints = false;
-            stackView.Spacing = 8;
-
+            _outerStackView = new UIStackView();
+            _outerStackView.Axis = UILayoutConstraintAxis.Vertical;
+            _outerStackView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _outerStackView.Spacing = 8;
+            _outerStackView.Alignment = UIStackViewAlignment.Top;
 
             UILabel startLabel = new UILabel();
             startLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             startLabel.Text = "Start date:";
-            stackView.AddArrangedSubview(startLabel);
 
             StartPicker.TranslatesAutoresizingMaskIntoConstraints = false;
             StartPicker.Mode = UIDatePickerMode.Date;
-            stackView.AddArrangedSubview(StartPicker);
+
+            UIStackView startStack = new UIStackView(new UIView[] { startLabel, StartPicker });
+            startStack.TranslatesAutoresizingMaskIntoConstraints = false;
+            startStack.Axis = UILayoutConstraintAxis.Vertical;
+            _outerStackView.AddArrangedSubview(startStack);
 
             UILabel endLabel = new UILabel();
             endLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             endLabel.Text = "End date:";
-            stackView.AddArrangedSubview(endLabel);
 
             EndPicker.TranslatesAutoresizingMaskIntoConstraints = false;
             EndPicker.Mode = UIDatePickerMode.Date;
-            stackView.AddArrangedSubview(EndPicker);
 
-            // Spacing.
-            stackView.AddArrangedSubview(new UIView());
+            UIStackView endStack = new UIStackView(new UIView[] { endLabel, EndPicker });
+            endStack.TranslatesAutoresizingMaskIntoConstraints = false;
+            endStack.Axis = UILayoutConstraintAxis.Vertical;
+            _outerStackView.AddArrangedSubview(endStack);
+
+            UIView spacer = new UIView();
+            spacer.TranslatesAutoresizingMaskIntoConstraints = false;
+            spacer.SetContentHuggingPriority((float)UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Vertical);
+            spacer.SetContentHuggingPriority((float)UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
+            _outerStackView.AddArrangedSubview(spacer);
 
             // Add the views.
-            View.AddSubview(stackView);
+            View.AddSubview(_outerStackView);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new []
             {
-                stackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 8),
-                stackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
-                stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8),
-                stackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor, -8)
+                _outerStackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 8),
+                _outerStackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
+                _outerStackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8),
+                _outerStackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor, -8)
             });
+        }
+
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            base.TraitCollectionDidChange(previousTraitCollection);
+
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                _outerStackView.Axis = UILayoutConstraintAxis.Horizontal;
+            }
+            else
+            {
+                _outerStackView.Axis = UILayoutConstraintAxis.Vertical;
+            }
         }
     }
 }

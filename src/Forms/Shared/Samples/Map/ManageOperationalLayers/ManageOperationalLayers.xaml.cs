@@ -7,16 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using System;
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
+using System;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
@@ -46,6 +38,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         private void Initialize()
         {
+            // Set up the view model and bindings.
             _viewModel = new MapViewModel(new Map(Basemap.CreateStreets()));
             MyMapView.Map = _viewModel.Map;
             IncludedListView.ItemsSource = _viewModel.IncludedLayers;
@@ -112,13 +105,13 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
             Map.OperationalLayers.Add(layer);
         }
 
-        public void DemoteLayer(Layer layer)
+        public void DemoteLayer(Layer selectedLayer)
         {
             // Find the collection the layer is in.
-            LayerCollection owningCollection = IncludedLayers.Contains(layer) ? IncludedLayers : ExcludedLayers;
+            LayerCollection owningCollection = IncludedLayers.Contains(selectedLayer) ? IncludedLayers : ExcludedLayers;
 
             // Get the current index (position) of the layer.
-            int layerIndex = owningCollection.IndexOf(layer);
+            int layerIndex = owningCollection.IndexOf(selectedLayer);
 
             if (layerIndex == owningCollection.Count - 1)
             {
@@ -126,17 +119,17 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
             }
 
             // Move the layer.
-            owningCollection.Remove(layer);
-            owningCollection.Insert(layerIndex + 1, layer);
+            owningCollection.Remove(selectedLayer);
+            owningCollection.Insert(layerIndex + 1, selectedLayer);
         }
 
-        public void PromoteLayer(Layer layer)
+        public void PromoteLayer(Layer selectedLayer)
         {
             // Find the collection the layer is in.
-            LayerCollection owningCollection = IncludedLayers.Contains(layer) ? IncludedLayers : ExcludedLayers;
+            LayerCollection owningCollection = IncludedLayers.Contains(selectedLayer) ? IncludedLayers : ExcludedLayers;
 
             // Get the current index (position) of the layer.
-            int layerIndex = owningCollection.IndexOf(layer);
+            int layerIndex = owningCollection.IndexOf(selectedLayer);
 
             if (layerIndex < 1)
             {
@@ -144,22 +137,22 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
             }
 
             // Move the layer.
-            owningCollection.Remove(layer);
-            owningCollection.Insert(layerIndex - 1, layer);
+            owningCollection.Remove(selectedLayer);
+            owningCollection.Insert(layerIndex - 1, selectedLayer);
         }
 
-        public void MoveLayer(Layer layer)
+        public void MoveLayer(Layer selectedLayer)
         {
             // Move the layer from one list to another.
-            if (IncludedLayers.Contains(layer))
+            if (IncludedLayers.Contains(selectedLayer))
             {
-                IncludedLayers.Remove(layer);
-                ExcludedLayers.Add(layer);
+                IncludedLayers.Remove(selectedLayer);
+                ExcludedLayers.Add(selectedLayer);
             }
             else
             {
-                ExcludedLayers.Remove(layer);
-                IncludedLayers.Add(layer);
+                ExcludedLayers.Remove(selectedLayer);
+                IncludedLayers.Add(selectedLayer);
             }
         }
     }

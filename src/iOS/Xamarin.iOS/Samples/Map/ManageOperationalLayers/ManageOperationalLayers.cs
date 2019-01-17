@@ -60,6 +60,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         private void ManageLayers_Clicked(object sender, EventArgs e)
         {
+            // Show the layer list popover. Note: most behavior is managed by the table view & its source. See MapViewModel.
             var controller = new UINavigationController(_tableController);
             controller.NavigationBar.Items[0].SetLeftBarButtonItem(_tableController.EditButtonItem, false);
             var closeButton = new UIBarButtonItem("Close", UIBarButtonItemStyle.Plain, (o, ea) => controller.DismissViewController(true, null));
@@ -146,6 +147,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
+            // Gets a cell for the specified section and row.
             var cell = new UITableViewCell(UITableViewCellStyle.Default, CellIdentifier);
             switch (indexPath.Section)
             {
@@ -162,6 +164,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         public override nint RowsInSection(UITableView tableview, nint section)
         {
+            // Get the number of layers in each section - sections are how the two lists are represented.
             switch (section)
             {
                 case 0:
@@ -175,6 +178,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         public override nint NumberOfSections(UITableView tableView)
         {
+            // Two sections - layers in the map and layers not in the map.
             return 2;
         }
 
@@ -185,11 +189,13 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         public override bool CanEditRow(UITableView tableView, NSIndexPath indexPath)
         {
+            // All rows are editable - they can be reordered or moved to another list via insertion/deletion.
             return true;
         }
 
         public override string TitleForDeleteConfirmation(UITableView tableView, NSIndexPath indexPath)
         {
+            // The message shown when you drag to the side when editing.
             switch (indexPath.Section)
             {
                 case 0:
@@ -203,7 +209,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         public override void CommitEditingStyle(UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
         {
-            // Note: this assumes deletion, so doesn't check editingStyle.
+            // Commit editing - in this case, editing means insertion or deletion.
 
             Layer selectedLayer;
             switch (indexPath.Section)
@@ -219,6 +225,8 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
                     IncludedLayers.Add(selectedLayer);
                     break;
             }
+
+            // Force the view to reload its data.
             tableView.ReloadData();
         }
 
@@ -245,14 +253,6 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
             Layer movedLayer = source[sourceIndexPath.Row];
             source.RemoveAt(sourceIndexPath.Row);
-
-            int destinationIndex = destinationIndexPath.Row;
-
-            if (source == destination && sourceIndexPath.Row < destinationIndexPath.Row && destinationIndexPath.Row > 0)
-            {
-                destinationIndex -= 1;
-            }
-
             destination.Insert(destinationIndexPath.Row, movedLayer);
 
             tableView.ReloadData();

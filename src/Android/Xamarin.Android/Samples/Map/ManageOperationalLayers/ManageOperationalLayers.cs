@@ -9,16 +9,12 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
+using System;
+using System.Linq;
 
 namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 {
@@ -30,8 +26,20 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
         "")]
     public class ManageOperationalLayers : Activity
     {
-        // Create and hold reference to the used MapView.
-        private readonly MapView _myMapView = new MapView();
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private ListView _includedListView;
+        private ListView _excludedListView;
+        private PopupMenu _menu;
+        private MapViewModel _viewModel;
+
+        // Some URLs of layers to add to the map.
+        private readonly string[] _layerUrls = new[]
+        {
+            "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer",
+            "http://sampleserver5.arcgisonline.com/arcgis/rest/services/Census/MapServer",
+            "http://sampleserver5.arcgisonline.com/arcgis/rest/services/DamageAssessment/MapServer"
+        };
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -45,23 +53,179 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         private void Initialize()
         {
-            // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateImagery());
-            
-            // Provide used Map to the MapView.
-            _myMapView.Map = myMap;
+            // Configure the view model and the map.
+            _viewModel = new MapViewModel(new Map(Basemap.CreateStreets()));
+            _myMapView.Map = _viewModel.Map;
+
+            // Add the layers.
+            foreach (string layerUrl in _layerUrls)
+            {
+                _viewModel.AddLayerFromUrl(layerUrl);
+            }
+
+            // Configure the list views to show the layer lists.
+            UpdateLayerListViews();
+
+            // Listen for taps to enable reconfiguring.
+            _includedListView.ItemClick += ListItem_Click;
+            _excludedListView.ItemClick += ListItem_Click;
+        }
+
+        private void UpdateLayerListViews()
+        {
+            // Configure array adapters.
+            ArrayAdapter includedLayerAdapter = new ArrayAdapter<string>(
+                this,
+                Android.Resource.Layout.SimpleListItem1,
+                _viewModel.IncludedLayers.Select(layer => layer.Name).ToArray());
+            ArrayAdapter excludedLayerAdapter = new ArrayAdapter<string>(
+                this,
+                Android.Resource.Layout.SimpleListItem1,
+                _viewModel.ExcludedLayers.Select(layer => layer.Name).ToArray());
+
+            _includedListView.Adapter = includedLayerAdapter;
+            _excludedListView.Adapter = excludedLayerAdapter;
+        }
+
+        private void ListItem_Click(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            LayerCollection sendingList = sender == _includedListView ? _viewModel.IncludedLayers : _viewModel.ExcludedLayers;
+
+            const string moveUpCommand = "Move up";
+            const string moveDownCommand = "Move down";
+            const string addToMapCommand = "Add to map";
+            const string removeFromMapCommand = "Remove from map";
+
+            // Create menu to show options.
+            _menu = new PopupMenu(this, (ListView) sender);
+
+            // Handle the click, calling the right method depending on the command.
+            _menu.MenuItemClick += (o, menuArgs) =>
+            {
+                _menu.Dismiss();
+                switch (menuArgs.Item.ToString())
+                {
+                    case moveUpCommand:
+                        _viewModel.PromoteLayer(sendingList, e.Position);
+                        break;
+                    case moveDownCommand:
+                        _viewModel.DemoteLayer(sendingList, e.Position);
+                        break;
+                    case addToMapCommand:
+                    case removeFromMapCommand:
+                        _viewModel.MoveLayer(sendingList, e.Position);
+                        break;
+                }
+
+                // Update the lists in the view.
+                UpdateLayerListViews();
+            };
+
+            // Add the menu commands.
+            _menu.Menu.Add(moveUpCommand);
+            _menu.Menu.Add(moveDownCommand);
+            _menu.Menu.Add(sender == _includedListView ? removeFromMapCommand : addToMapCommand);
+
+            // Show menu in the view.
+            _menu.Show();
         }
 
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            var layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
+
+            // Create and add a help label.
+            TextView helpLabel = new TextView(this);
+            helpLabel.Text = "Tap to reorder or add/remove layers.";
+            helpLabel.Gravity = GravityFlags.Center;
+            layout.AddView(helpLabel);
+
+            // Create and add layer lists and their labels.
+            TextView inMapLabel = new TextView(this);
+            inMapLabel.Text = "Layers in map";
+            inMapLabel.Gravity = GravityFlags.Center;
+            layout.AddView(inMapLabel);
+
+            _includedListView = new ListView(this);
+            layout.AddView(_includedListView);
+
+            TextView outOfMapLabel = new TextView(this);
+            outOfMapLabel.Text = "Layers not in map";
+            outOfMapLabel.Gravity = GravityFlags.Center;
+            layout.AddView(outOfMapLabel);
+
+            _excludedListView = new ListView(this);
+            layout.AddView(_excludedListView);
+
+            // Create the map view.
+            _myMapView = new MapView();
 
             // Add the map view to the layout.
             layout.AddView(_myMapView);
 
             // Show the layout in the app.
             SetContentView(layout);
+        }
+    }
+
+    class MapViewModel
+    {
+        public Map Map { get; }
+        public LayerCollection IncludedLayers => Map.OperationalLayers;
+        public LayerCollection ExcludedLayers { get; } = new LayerCollection();
+
+        public MapViewModel(Map map)
+        {
+            Map = map;
+        }
+
+        public void AddLayerFromUrl(string layerUrl)
+        {
+            ArcGISMapImageLayer layer = new ArcGISMapImageLayer(new Uri(layerUrl));
+            Map.OperationalLayers.Add(layer);
+        }
+
+        public void DemoteLayer(LayerCollection owningCollection, int position)
+        {
+            if (position == owningCollection.Count - 1)
+            {
+                return;
+            }
+
+            // Move the layer.
+            Layer selectedLayer = owningCollection[position];
+            owningCollection.RemoveAt(position);
+            owningCollection.Insert(position + 1, selectedLayer);
+        }
+
+        public void PromoteLayer(LayerCollection owningCollection, int position)
+        {
+            if (position < 1)
+            {
+                return;
+            }
+
+            // Move the layer.
+            Layer selectedLayer = owningCollection[position];
+            owningCollection.RemoveAt(position);
+            owningCollection.Insert(position - 1, selectedLayer);
+        }
+
+        public void MoveLayer(LayerCollection owningCollection, int position)
+        {
+            Layer selectedLayer = owningCollection[position];
+            // Move the layer from one list to another.
+            if (IncludedLayers.Contains(selectedLayer))
+            {
+                IncludedLayers.Remove(selectedLayer);
+                ExcludedLayers.Add(selectedLayer);
+            }
+            else
+            {
+                ExcludedLayers.Remove(selectedLayer);
+                IncludedLayers.Add(selectedLayer);
+            }
         }
     }
 }

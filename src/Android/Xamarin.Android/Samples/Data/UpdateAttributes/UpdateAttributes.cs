@@ -105,7 +105,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
             try
             {
                 // Perform an identify to determine if a user tapped on a feature.
-                IdentifyLayerResult identifyResult = await _myMapView.IdentifyLayerAsync(_damageLayer, e.Position, 10, false);
+                IdentifyLayerResult identifyResult = await _myMapView.IdentifyLayerAsync(_damageLayer, e.Position, 8, false);
 
                 // Do nothing if there are no results.
                 if (!identifyResult.GeoElements.Any())
@@ -170,6 +170,11 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
             {
                 // Load the feature.
                 await _selectedFeature.LoadAsync();
+
+                if (_selectedFeature.Attributes[AttributeFieldName].ToString() == selectedAttributeValue)
+                {
+                    throw new Exception("Old and new attribute values are the same.");
+                }
 
                 // Update the attribute value.
                 _selectedFeature.SetAttributeValue(AttributeFieldName, selectedAttributeValue);

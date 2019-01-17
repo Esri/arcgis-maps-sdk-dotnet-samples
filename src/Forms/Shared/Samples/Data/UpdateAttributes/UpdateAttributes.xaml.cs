@@ -90,10 +90,14 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
             // Dismiss any existing callouts.
             MyMapView.DismissCallout();
 
+            // Reset the picker.
+            DamageTypePicker.IsEnabled = false;
+            DamageTypePicker.SelectedIndex = -1;
+
             try
             {
                 // Perform an identify to determine if a user tapped on a feature.
-                IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_damageLayer, e.Position, 10, false);
+                IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_damageLayer, e.Position, 8, false);
 
                 // Do nothing if there are no results.
                 if (!identifyResult.GeoElements.Any())

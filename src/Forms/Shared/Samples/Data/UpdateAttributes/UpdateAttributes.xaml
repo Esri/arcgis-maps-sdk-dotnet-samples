@@ -9,7 +9,7 @@
                         BindingContext="{x:Reference Name=ResponsiveFormContainer}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <StackLayout>
-                <Label Text="Tap to select a feature to delete."
+                <Label Text="Tap to select a feature to edit."
                        HorizontalTextAlignment="Center"/>
                 <Picker x:Name="DamageTypePicker"
                         IsEnabled="False"/>

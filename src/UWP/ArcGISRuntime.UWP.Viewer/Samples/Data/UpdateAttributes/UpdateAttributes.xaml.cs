@@ -92,10 +92,14 @@ namespace ArcGISRuntime.UWP.Samples.UpdateAttributes
             // Dismiss any existing callouts.
             MyMapView.DismissCallout();
 
+            // Reset the dropdown.
+            DamageTypeDropDown.IsEnabled = false;
+            DamageTypeDropDown.SelectedIndex = -1;
+
             try
             {
                 // Perform an identify to determine if a user tapped on a feature.
-                IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_damageLayer, e.Position, 10, false);
+                IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_damageLayer, e.Position, 2, false);
 
                 // Do nothing if there are no results.
                 if (!identifyResult.GeoElements.Any())

@@ -98,7 +98,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
             try
             {
                 // Perform an identify to determine if a user tapped on a feature.
-                IdentifyLayerResult identifyResult = await _myMapView.IdentifyLayerAsync(_damageLayer, e.Position, 10, false);
+                IdentifyLayerResult identifyResult = await _myMapView.IdentifyLayerAsync(_damageLayer, e.Position, 8, false);
 
                 // Do nothing if there are no results.
                 if (!identifyResult.GeoElements.Any())
@@ -147,10 +147,13 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
             string message = $"Current value is {_selectedFeature.Attributes[AttributeFieldName]}";
             UIAlertController alertController = UIAlertController.Create("Choose a damage type.", message, UIAlertControllerStyle.Alert);
 
-            foreach (CodedValue codeValue in _domain.CodedValues)
+            foreach (CodedValue codeValue in _domain.CodedValues.Where(value => value.Name != _selectedFeature.Attributes[AttributeFieldName].ToString()))
             {
                 alertController.AddAction(UIAlertAction.Create(codeValue.Name, UIAlertActionStyle.Default, action => UpdateDamageType(codeValue.Name)));
             }
+
+            // Allow the user to cancel.
+            alertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
 
             // Show the alert.
             PresentViewController(alertController, true, null);

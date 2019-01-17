@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
         "")]
     public class WMSLayerUrl : UIViewController
     {
-        // Create and hold a reference to the MapView.
+        // Hold a reference to the MapView.
         private MapView _myMapView;
 
         // Hold the URL to the WMS service showing U.S. weather radar.
@@ -33,32 +33,11 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
             "https://nowcoast.noaa.gov/arcgis/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Hold a list of uniquely-identifying WMS layer names to display.
-        private readonly List<string> _wmsLayerNames = new List<string> { "1" };
+        private readonly List<string> _wmsLayerNames = new List<string> {"1"};
 
         public WMSLayerUrl()
         {
             Title = "WMS layer (URL)";
-        }
-
-        public override void LoadView()
-        {
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View = new UIView();
-            View.AddSubviews(_myMapView);
-
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            Initialize();
         }
 
         private void Initialize()
@@ -79,6 +58,33 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
 
             // Add the layer to the map.
             myMap.OperationalLayers.Add(myWmsLayer);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            // Add the views.
+            View.AddSubviews(_myMapView);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
         }
     }
 }

@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -27,10 +26,8 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
         "")]
     public class ArcGISVectorTiledLayerUrl : UIViewController
     {
-        // Create the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private readonly UIButton _button = new UIButton();
+        // Hold a reference to the MapView.
+        private MapView _myMapView;
 
         // Dictionary maps layer names to URLs.
         private readonly Dictionary<string, Uri> _layerUrls = new Dictionary<string, Uri>
@@ -45,14 +42,6 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
         public ArcGISVectorTiledLayerUrl()
         {
             Title = "ArcGIS vector tiled layer (URL)";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            CreateLayout();
-            Initialize();
         }
 
         private void Initialize()
@@ -85,7 +74,7 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
             var popoverPresentationController = layerSelectionAlert.PopoverPresentationController;
             if (popoverPresentationController != null)
             {
-                popoverPresentationController.SourceView = (UIButton) sender;
+                popoverPresentationController.BarButtonItem = (UIBarButtonItem)sender;
             }
 
             // Show the alert.
@@ -101,40 +90,44 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
             _myMapView.Map = new Map(new Basemap(vectorTiledLayer));
         }
 
-        private void CreateLayout()
+        public override void ViewDidLoad()
         {
-            // Update the button parameters.
-            _button.SetTitle("Choose a layer", UIControlState.Normal);
-            _button.SetTitleColor(View.TintColor, UIControlState.Normal);
-
-            // Allow the user to select new layers.
-            _button.TouchUpInside += LayerSelectionButtonClick;
-
-            // Add views.
-            View.AddSubviews(_myMapView, _toolbar, _button);
+            base.ViewDidLoad();
+            Initialize();
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void LoadView()
         {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat controlHeight = 30;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
 
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _button.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
             {
-            }
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Choose a layer", UIBarButtonItemStyle.Plain, LayerSelectionButtonClick),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 }

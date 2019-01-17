@@ -20,7 +20,6 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
-using ServiceRequestCommentsTableSource = ArcGISRuntime.Samples.MapImageLayerTables.ServiceRequestCommentsTableSource;
 
 namespace ArcGISRuntime.Samples.MapImageLayerTables
 {
@@ -42,19 +41,13 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         private GraphicsOverlay _selectedFeaturesOverlay;
 
         // A list of all service request comment records (non-spatial features).
-        private List<ArcGISFeature> _serviceRequestComments = new List<ArcGISFeature>();
+        private readonly List<ArcGISFeature> _serviceRequestComments = new List<ArcGISFeature>();
 
         public MapImageLayerTables()
         {
             Title = "Query map image layer tables";
         }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
+        
         private async void Initialize()
         {
             // Create a new Map with a vector streets basemap.
@@ -95,7 +88,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
                 {
                     _serviceRequestComments.Add(commentFeature);
                 }
-            
+
                 // Create the table view source that uses the list of features.
                 ServiceRequestCommentsTableSource commentsTableSource = new ServiceRequestCommentsTableSource(_serviceRequestComments);
 
@@ -128,7 +121,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             _selectedFeaturesOverlay.Graphics.Clear();
 
             // Get the map image layer that contains the service request sublayer and the service request comments table.
-            ArcGISMapImageLayer serviceRequestsMapImageLayer = (ArcGISMapImageLayer)_myMapView.Map.OperationalLayers[0];
+            ArcGISMapImageLayer serviceRequestsMapImageLayer = (ArcGISMapImageLayer) _myMapView.Map.OperationalLayers[0];
 
             // Get the (non-spatial) table that contains the service request comments.
             ServiceFeatureTable commentsTable = serviceRequestsMapImageLayer.Tables[0];
@@ -183,10 +176,18 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             }
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
-            // Create a UIStackView for laying out the map view and table view.
-            _stackView = new UIStackView()
+            // Create the views.
+            View = new UIView();
+
+            _stackView = new UIStackView
             {
                 Axis = UILayoutConstraintAxis.Vertical,
                 Alignment = UIStackViewAlignment.Fill,
@@ -194,22 +195,22 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
-            // Create the map view and add it to the stack view.
             _myMapView = new MapView();
             _stackView.AddArrangedSubview(_myMapView);
 
-            // Create a table view for displaying records from the comments table.
             _tableView = new UITableView();
             _stackView.AddArrangedSubview(_tableView);
 
-            // Add the stack view to the page.
-            View = new UIView();
+            // Add the views.
             View.AddSubviews(_stackView);
 
-            _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+            });
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
@@ -220,8 +221,8 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             {
                 // Update layout for landscape.
                 _stackView.Axis = UILayoutConstraintAxis.Horizontal;
-            } 
-            else 
+            }
+            else
             {
                 // Update layout for portrait.
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;
@@ -270,7 +271,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         public override nint RowsInSection(UITableView tableview, nint section)
         {
             // If the feature list is null, return 0. Otherwise the number of features in the internal comments list.
-            return _comments != null ? _comments.Count : 0;
+            return _comments?.Count ?? 0;
         }
 
         // Get the cell to display for the specified row.

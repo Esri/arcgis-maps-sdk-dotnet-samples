@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
@@ -29,9 +28,11 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
         "Click on a feature to identify it. Related features will be listed in the window above the map.")]
     public class ListRelatedFeatures : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private UITableView _myDisplayList = new UITableView();
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UITableView _tableView;
+        private NSLayoutConstraint[] _portraitConstraints;
+        private NSLayoutConstraint[] _landscapeConstraints;
 
         // URL to the web map.
         private readonly Uri _mapUri =
@@ -83,8 +84,8 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
         {
             // Clear any existing feature selection and results list.
             _myFeatureLayer.ClearSelection();
-            _myDisplayList.Source = null;
-            _myDisplayList.ReloadData();
+            _tableView.Source = null;
+            _tableView.ReloadData();
 
             try
             {
@@ -128,10 +129,10 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
                         string tableName = relatedTable.TableName;
 
                         // Get the display name for the feature.
-                        string featureDisplayname = resultFeature.Attributes[displayFieldName].ToString();
+                        string featureDisplayName = resultFeature.Attributes[displayFieldName].ToString();
 
                         // Create a formatted result string.
-                        string formattedResult = $"{tableName} - {featureDisplayname}";
+                        string formattedResult = $"{tableName} - {featureDisplayName}";
 
                         // Add the result to the list.
                         queryResultsForUi.Add(formattedResult);
@@ -142,10 +143,10 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
                 _layerListSource = new LayerListSource(queryResultsForUi);
 
                 // Assign the source to the display view.
-                _myDisplayList.Source = _layerListSource;
+                _tableView.Source = _layerListSource;
 
                 // Force the table view to refresh its data.
-                _myDisplayList.ReloadData();
+                _tableView.ReloadData();
             }
             catch (Exception ex)
             {
@@ -153,45 +154,70 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
             }
         }
 
-        private void CreateLayout()
-        {
-            // Add MapView to the page.
-            View.AddSubviews(_myMapView);
-
-            // Create the table view.
-            _myDisplayList = new UITableView()
-            {
-                RowHeight = 20
-            };
-
-            // Add the table view to the layout.
-            View.AddSubview(_myDisplayList);
-        }
-
         public override void ViewDidLoad()
         {
-            CreateLayout();
-            Initialize();
-
             base.ViewDidLoad();
+            Initialize();
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void LoadView()
         {
-            try
+            // Create the views.
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _tableView = new UITableView();
+            _tableView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _tableView.RowHeight = 30;
+
+            View = new UIView();
+
+            // Add the views.
+            View.AddSubviews(_myMapView, _tableView);
+
+            // Lay out the views.
+            _portraitConstraints = new[]
             {
-                nfloat topMargin = NavigationController.TopLayoutGuide.Length;
+                _tableView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _tableView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _tableView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _tableView.HeightAnchor.ConstraintEqualTo(_tableView.RowHeight * 4),
 
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + 150, 0, 0, 0);
-                _myDisplayList.Frame = new CGRect(0, topMargin, View.Bounds.Width, 150);
+                _myMapView.TopAnchor.ConstraintEqualTo(_tableView.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            };
 
-                base.ViewDidLayoutSubviews();
+            _landscapeConstraints = new[]
+            {
+                _tableView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _tableView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _tableView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _tableView.TrailingAnchor.ConstraintEqualTo(View.CenterXAnchor),
+
+                _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(_tableView.TrailingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            };
+        }
+
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            base.TraitCollectionDidChange(previousTraitCollection);
+
+            // Reset constraints.
+            NSLayoutConstraint.DeactivateConstraints(_portraitConstraints);
+            NSLayoutConstraint.DeactivateConstraints(_landscapeConstraints);
+
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                NSLayoutConstraint.ActivateConstraints(_landscapeConstraints);
             }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            else
             {
+                NSLayoutConstraint.ActivateConstraints(_portraitConstraints);
             }
         }
     }

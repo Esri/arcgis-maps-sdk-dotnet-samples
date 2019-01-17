@@ -23,19 +23,19 @@ using UIKit;
 namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-           "Integrated Windows Authentication",
-           "Security",
-           "This sample demonstrates how to use a Windows login to authenticate with a portal that is secured with IWA.",
-           "1. Enter the URL to your IWA-secured portal.\n2. Click the button to search for web maps on the secure portal.\n3. You will be prompted for a user name, password, and domain to authenticate with the portal.\n4. If you authenticate successfully, search results will display.",
-           "Authentication, Security, Windows")]
+        "Integrated Windows Authentication",
+        "Security",
+        "This sample demonstrates how to use a Windows login to authenticate with a portal that is secured with IWA.",
+        "1. Enter the URL to your IWA-secured portal.\n2. Click the button to search for web maps on the secure portal.\n3. You will be prompted for a user name, password, and domain to authenticate with the portal.\n4. If you authenticate successfully, search results will display.",
+        "Authentication, Security, Windows")]
     [Register("IntegratedWindowsAuth")]
     public class IntegratedWindowsAuth : UIViewController
     {
         // A TaskCompletionSource to store the result of a login task.
-        TaskCompletionSource<Credential> _loginTaskCompletionSrc;
+        private TaskCompletionSource<Credential> _loginTaskCompletionSrc;
 
         // The map view to display a map in the app.
-        MapView _myMapView;
+        private MapView _myMapView;
 
         // A table view to show search results (web map portal items).
         private UITableView _webMapTableView = new UITableView();
@@ -48,10 +48,10 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
         private UILabel _messagesLabel;
 
         // An overlay containing login controls to display over the map view.
-        LoginOverlay _loginUI;
+        private LoginOverlay _loginUI;
 
         // The ArcGIS Online URL for searching public web maps.
-        private string _publicPortalUrl = "http://www.arcgis.com";
+        private const string PublicPortalUrl = "http://www.arcgis.com";
 
         public IntegratedWindowsAuth()
         {
@@ -81,9 +81,9 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
                 // Position the controls.
                 _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
                 _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, controlHeight * 6 + margin * 5);
-                _securePortalUrlEntry.Frame = new  CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight);
+                _securePortalUrlEntry.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight);
                 _searchPublicPortalButton.Frame = new CGRect(margin, topMargin + controlHeight + margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
-                _searchSecurePortalButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, topMargin + controlHeight +  margin, View.Bounds.Width / 2 - margin, controlHeight);
+                _searchSecurePortalButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, topMargin + controlHeight + margin, View.Bounds.Width / 2 - margin, controlHeight);
                 _webMapTableView.Frame = new CGRect(margin, topMargin + 2 * controlHeight + 2 * margin, View.Bounds.Width - 2 * margin, controlHeight * 3);
                 _messagesLabel.Frame = new CGRect(margin, topMargin + 5 * controlHeight + 4 * margin, View.Bounds.Width - 2 * margin, controlHeight);
                 _myMapView.ViewInsets = new UIEdgeInsets(_toolbar.Frame.Bottom, 0, 0, 0);
@@ -113,8 +113,8 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
                 Placeholder = "Enter IWA-secured portal URL",
                 BorderStyle = UITextBorderStyle.RoundedRect,
                 BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
-                AutocapitalizationType = UITextAutocapitalizationType.None, 
-                SpellCheckingType = UITextSpellCheckingType.No, 
+                AutocapitalizationType = UITextAutocapitalizationType.None,
+                SpellCheckingType = UITextSpellCheckingType.No,
                 AutocorrectionType = UITextAutocorrectionType.No
             };
 
@@ -138,7 +138,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
             _searchPublicPortalButton.TouchUpInside += SearchPublicPortalButton_Click;
 
             // Table view to show web map item results.
-            _webMapTableView = new UITableView()
+            _webMapTableView = new UITableView
             {
                 RowHeight = 20
             };
@@ -146,13 +146,13 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
             // A label to display errors and other messages.
             _messagesLabel = new UILabel
             {
-                Text = "Search portals for web maps", 
+                Text = "Search portals for web maps",
                 TextAlignment = UITextAlignment.Center
             };
             _messagesLabel.Font = _messagesLabel.Font.WithSize(10.0f);
 
             // Add the map view and toolbar controls to the page.
-            View.AddSubviews( _myMapView, _toolbar, _securePortalUrlEntry, _webMapTableView, _searchSecurePortalButton, _searchPublicPortalButton, _messagesLabel);
+            View.AddSubviews(_myMapView, _toolbar, _securePortalUrlEntry, _webMapTableView, _searchSecurePortalButton, _searchPublicPortalButton, _messagesLabel);
         }
 
         private void Initialize()
@@ -173,14 +173,17 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
         private async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
             // Ignore token or certificate authentication challenges (would require more code/UI).
-            if(info.AuthenticationType != AuthenticationType.NetworkCredential)
+            if (info.AuthenticationType != AuthenticationType.NetworkCredential)
             {
                 Console.WriteLine("Skipping authentication for " + info.ServiceUri.Host);
                 return null;
             }
 
             // Return if authentication is already in progress.
-            if (_loginTaskCompletionSrc != null && !_loginTaskCompletionSrc.Task.IsCanceled) { return null; }
+            if (_loginTaskCompletionSrc != null && !_loginTaskCompletionSrc.Task.IsCanceled)
+            {
+                return null;
+            }
 
             // Create a new TaskCompletionSource for the login operation.
             // (passing the CredentialRequestInfo object to the constructor will make it available from its AsyncState property)
@@ -254,7 +257,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
             try
             {
                 // Create an instance of the public portal.
-                var publicPortal = await ArcGISPortal.CreateAsync(new Uri(_publicPortalUrl));
+                var publicPortal = await ArcGISPortal.CreateAsync(new Uri(PublicPortalUrl));
 
                 // Call a function to search the portal.
                 SearchPortal(publicPortal);
@@ -292,7 +295,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
                 var items = await currentPortal.FindItemsAsync(new PortalQueryParameters("type:(\"web map\" NOT \"web mapping application\")"));
 
                 // Build a list of items from the results that stores the map name as a key for the item.
-                var resultItems = from r in items.Results select new KeyValuePair<string, PortalItem>(r.Title, r); 
+                var resultItems = from r in items.Results select new KeyValuePair<string, PortalItem>(r.Title, r);
 
                 // Add the items to a dictionary.
                 List<PortalItem> webMapItems = new List<PortalItem>();
@@ -480,7 +483,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
             {
                 Placeholder = "Domain",
                 AutocapitalizationType = UITextAutocapitalizationType.None,
-                BackgroundColor = UIColor.White, 
+                BackgroundColor = UIColor.White,
                 TextColor = UIColor.Black
             };
 
@@ -516,7 +519,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
             Action removeViewAction = RemoveFromSuperview;
 
             // Time to complete the animation (seconds).
-            double secondsToComplete = 0.75;
+            const double secondsToComplete = 0.75;
 
             // Animate transparency to zero, then remove the view.
             Animate(secondsToComplete, makeTransparentAction, removeViewAction);
@@ -525,9 +528,9 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
         private void LoginButtonClick(object sender, EventArgs e)
         {
             // Get the values entered in the text fields.
-            var username = _usernameTextField.Text.Trim();
-            var password = _passwordTextField.Text.Trim();
-            var domain = _domainTextField.Text.Trim();
+            string username = _usernameTextField.Text.Trim();
+            string password = _passwordTextField.Text.Trim();
+            string domain = _domainTextField.Text.Trim();
 
             // Make sure the user entered all values.
             if (string.IsNullOrEmpty(username) ||
@@ -578,7 +581,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
         public event EventHandler<WebMapSelectedEventArgs> OnWebMapSelected;
 
         // List of portal items to display.
-        private readonly List<PortalItem> _webMapItemsList = new List<PortalItem>();
+        private readonly List<PortalItem> _webMapItemsList;
 
         // Used when re-using cells to ensure that a cell of the right type is used.
         private const string CellId = "TableCell";
@@ -632,7 +635,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
     {
         // The selected web map portal item.
         public PortalItem SelectedWebMapItem { get; set; }
-        
+
         // Take the portal item in the constructor.
         public WebMapSelectedEventArgs(PortalItem webMapItem)
         {

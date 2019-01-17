@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
         "Tap to find the route to the nearest hospital.")]
     public class ClosestFacility : UIViewController
     {
-        // Map view that will be used.
+        // Hold a reference to the MapView.
         private MapView _myMapView;
 
         // Holds locations of hospitals around San Diego.
@@ -60,43 +60,6 @@ namespace ArcGISRuntime.Samples.ClosestFacility
         public ClosestFacility()
         {
             Title = "Closest facility";
-        }
-
-        public override void LoadView()
-        {
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            UILabel helpLabel = new UILabel
-            {
-                Text = "Tap to show the route to the nearest facility.",
-                AdjustsFontSizeToFitWidth = true,
-                TextAlignment = UITextAlignment.Center,
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
-                TextColor = UIColor.White,
-                Lines = 1,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-
-            View = new UIView();
-            View.AddSubviews(_myMapView, helpLabel);
-
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-
-            helpLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            helpLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            Initialize();
         }
 
         private async void Initialize()
@@ -231,6 +194,49 @@ namespace ArcGISRuntime.Samples.ClosestFacility
 
             // Present Alert.
             PresentViewController(okAlertController, true, null);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UILabel helpLabel = new UILabel
+            {
+                Text = "Tap to show the route to the nearest facility.",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, helpLabel);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                helpLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                helpLabel.HeightAnchor.ConstraintEqualTo(40)
+            });
         }
     }
 }

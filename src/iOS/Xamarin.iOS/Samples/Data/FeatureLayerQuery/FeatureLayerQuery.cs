@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -31,12 +30,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         "The sample provides a search bar on the top, where you can input the name of a US State. When you hit search the app performs a query on the feature table and based on the result either highlights the state geometry or provides an error.")]
     public class FeatureLayerQuery : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private UITextField _queryTextView;
-        private UILabel _helpLabel;
-        private UIButton _queryButton;
+        // Hold a reference to the MapView.
+        private MapView _myMapView;
 
         // Create reference to service of US States  
         private const string StatesUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2";
@@ -50,40 +45,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         public FeatureLayerQuery()
         {
             Title = "Feature layer query";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            CreateLayout();
-            Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat controlHeight = 30;
-                nfloat toolbarHeight = controlHeight * 2 + margin * 3;
-                nfloat colBreak = View.Bounds.Width - 100;
-
-                // Setup the visual frames for the views.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, 0, 0);
-                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
-                _helpLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _queryTextView.Frame = new CGRect(margin, _helpLabel.Frame.Bottom + margin, colBreak - 2 * margin, controlHeight);
-                _queryButton.Frame = new CGRect(colBreak + margin, _queryTextView.Frame.Top, 100 - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
@@ -124,21 +85,24 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             _myMapView.SelectionProperties.Color = Color.Cyan;
         }
 
-        private async void OnQueryClicked(object sender, EventArgs e)
+        private void OnQueryClicked(object sender, EventArgs e)
         {
-            // Remove any previous feature selections that may have been made.
-            _featureLayer.ClearSelection();
+            // Prompt for the type of convex hull to create.
+            UIAlertController unionAlert = UIAlertController.Create("Query features", "Enter a state name.", UIAlertControllerStyle.Alert);
+            unionAlert.AddTextField(field => field.Placeholder = "State name");
+            unionAlert.AddAction(UIAlertAction.Create("Submit query", UIAlertActionStyle.Default, async action => await QueryStateFeature(unionAlert.TextFields[0].Text)));
+            unionAlert.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
 
-            // Begin query process.
-            await QueryStateFeature(_queryTextView.Text);
+            // Show the alert.
+            PresentViewController(unionAlert, true, null);
         }
 
         private async Task QueryStateFeature(string stateName)
         {
             try
             {
-                // Hide keyboard.
-                _queryTextView.ResignFirstResponder();
+                // Clear the existing selection.
+                _featureLayer.ClearSelection();
 
                 // Create a query parameters that will be used to Query the feature table.
                 QueryParameters queryParams = new QueryParameters();
@@ -186,46 +150,44 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             }
         }
 
-        private void CreateLayout()
+        public override void ViewDidLoad()
         {
-            // Create text view for query input.
-            _queryTextView = new UITextField
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
             {
-                Placeholder = "State name",
-                AdjustsFontSizeToFitWidth = true,
-                BorderStyle = UITextBorderStyle.RoundedRect,
-                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f)
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Query features", UIBarButtonItemStyle.Plain, OnQueryClicked),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
-            // Allow pressing 'return' to dismiss the keyboard.
-            _queryTextView.ShouldReturn += textField =>
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
-                textField.ResignFirstResponder();
-                return true;
-            };
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
 
-            // Create button to invoke the query.
-            _queryButton = new UIButton()
-            {
-                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
-                Layer = {CornerRadius = 5}
-            };
-            _queryButton.SetTitle("Query", UIControlState.Normal);
-            _queryButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-
-            // Create the help label.
-            _helpLabel = new UILabel
-            {
-                Text = "Enter a state name and tap 'Query' to search.",
-                Lines = 1,
-                AdjustsFontSizeToFitWidth = true
-            };
-
-            // Hook to touch event to do querying.
-            _queryButton.TouchUpInside += OnQueryClicked;
-
-            // Add MapView to the page.
-            View.AddSubviews(_myMapView, _toolbar, _helpLabel, _queryTextView, _queryButton);
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 }

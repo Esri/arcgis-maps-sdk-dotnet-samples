@@ -34,6 +34,10 @@ namespace ArcGISRuntime.Samples.FindAddress
     [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public class FindAddress : UIViewController
     {
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UISearchBar _addressSearchBar;
+
         // Addresses for suggestion.
         private readonly string[] _addresses =
         {
@@ -50,22 +54,10 @@ namespace ArcGISRuntime.Samples.FindAddress
         // Service URI to be provided to the LocatorTask (geocoder).
         private readonly Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
-        // Hold references to UI controls.
-        private MapView _myMapView;
-        private UISearchBar _addressSearchBar;
-
         public FindAddress()
         {
             Title = "Find address";
         }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            Initialize();
-        }
-
 
         private async void Initialize()
         {
@@ -228,39 +220,44 @@ namespace ArcGISRuntime.Samples.FindAddress
             }
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
-            View = new UIView();
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_myMapView);
+            // Enable tap-for-callout pattern on results.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
             _addressSearchBar = new UISearchBar();
             _addressSearchBar.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_addressSearchBar);
-
-            _addressSearchBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _addressSearchBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _addressSearchBar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-            _myMapView.TopAnchor.ConstraintEqualTo(_addressSearchBar.BottomAnchor).Active = true;
-
-            // Enable search.
-            _addressSearchBar.SearchButtonClicked += AddressSearchBar_Clicked;
-
-            // Configure the search bar to support popover address suggestion.
+            _addressSearchBar.UserInteractionEnabled = false;
             _addressSearchBar.ShowsSearchResultsButton = true;
             _addressSearchBar.ListButtonClicked += AddressSearch_ListButtonClicked;
+            _addressSearchBar.SearchButtonClicked += AddressSearchBar_Clicked;
 
-            // Disable user interaction until the geocoder is ready.
-            _addressSearchBar.UserInteractionEnabled = false;
+            // Add the views.
+            View.AddSubviews(_myMapView, _addressSearchBar);
 
-            // Enable tap-for-info pattern on results.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _addressSearchBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _addressSearchBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _addressSearchBar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _myMapView.TopAnchor.ConstraintEqualTo(_addressSearchBar.BottomAnchor)
+            });
         }
     }
 }

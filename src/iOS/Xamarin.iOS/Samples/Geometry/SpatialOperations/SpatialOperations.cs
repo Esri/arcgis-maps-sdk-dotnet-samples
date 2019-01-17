@@ -27,9 +27,8 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         "The sample provides a drop down on the top, where you can select a geometry operation. When you choose a geometry operation, the application performs this operation between the overlapping polygons and applies the result to the geometries.")]
     public class SpatialOperations : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold a reference to the MapView.
         private MapView _myMapView;
-        private UISegmentedControl _operationChoiceButton;
 
         // GraphicsOverlay to hold the polygon graphics.
         private GraphicsOverlay _polygonsOverlay;
@@ -46,45 +45,6 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             Title = "Spatial operations";
         }
 
-        public override void LoadView()
-        {
-            // Create the views.
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            _operationChoiceButton = new UISegmentedControl("Difference", "Intersection", "Symm. diff.", "Union")
-            {
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
-                TintColor = UIColor.White,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-
-            // Clean up borders of segmented control - avoid corner pixels.
-            _operationChoiceButton.ClipsToBounds = true;
-            _operationChoiceButton.Layer.CornerRadius = 5;
-
-            _operationChoiceButton.ValueChanged += _operationChoiceButton_ValueChanged;
-
-            // Add the views.
-            View = new UIView();
-            View.AddSubviews(_myMapView, _operationChoiceButton);
-
-            // Apply constraints.
-            _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-
-            _operationChoiceButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor).Active = true;
-            _operationChoiceButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor).Active = true;
-            _operationChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
         private void Initialize()
         {
             // Create and show a map with a gray canvas basemap and an initial location centered on London, UK.
@@ -94,7 +54,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             CreatePolygonsOverlay();
         }
 
-        void _operationChoiceButton_ValueChanged(object sender, EventArgs e)
+        private void _operationChoiceButton_ValueChanged(object sender, EventArgs e)
         {
             // Remove any currently displayed result.
             _polygonsOverlay.Graphics.Remove(_resultGraphic);
@@ -107,7 +67,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             Geometry resultPolygon = null;
 
             // Run the selected spatial operation on the polygon graphics and get the result geometry.
-            switch (_operationChoiceButton.SelectedSegment)
+            switch (((UISegmentedControl) sender).SelectedSegment)
             {
                 case 0:
                     resultPolygon = GeometryEngine.Difference(polygonOne, polygonTwo);
@@ -190,6 +150,51 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             // Add the polygons to the graphics overlay.
             _polygonsOverlay.Graphics.Add(_graphicOne);
             _polygonsOverlay.Graphics.Add(_graphicTwo);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UISegmentedControl operationChoiceButton = new UISegmentedControl("Difference", "Intersection", "Symm. diff.", "Union")
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                TintColor = UIColor.White,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            // Clean up borders of segmented control - avoid corner pixels.
+            operationChoiceButton.ClipsToBounds = true;
+            operationChoiceButton.Layer.CornerRadius = 5;
+
+            // Listen for taps.
+            operationChoiceButton.ValueChanged += _operationChoiceButton_ValueChanged;
+
+            // Add the views.
+            View.AddSubviews(_myMapView, operationChoiceButton);
+
+            // Lay out views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+
+                operationChoiceButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
+                operationChoiceButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
+                operationChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
+            });
         }
     }
 }

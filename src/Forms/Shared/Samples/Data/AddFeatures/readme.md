@@ -20,7 +20,7 @@ A `Feature` instance is added to a `ServiceFeatureTable` which then pushes that 
 2. Create a `FeatureLayer` from the `ServiceFeatureTable` instance.
 3. Create a `Feature` with attributes and a location using the `ServiceFeatureTable`.
 4. Add the `Feature` to the `ServiceFeatureTable`.
-5. *Apply edits* to the `ServiceFeatureTable` which will upload the new feature to the online service.
+5. Apply edits to the `ServiceFeatureTable` which will upload the new feature to the online service.
 
 ## Relevant API
 

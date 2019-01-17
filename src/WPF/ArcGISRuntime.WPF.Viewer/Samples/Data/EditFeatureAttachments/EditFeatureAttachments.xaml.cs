@@ -93,7 +93,7 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
                 QueryParameters qp = new QueryParameters();
                 qp.ObjectIds.Add(featureId);
                 FeatureQueryResult queryResult = await _damageLayer.FeatureTable.QueryFeaturesAsync(qp);
-                ArcGISFeature tappedFeature = (ArcGISFeature)queryResult.First();
+                ArcGISFeature tappedFeature = (ArcGISFeature) queryResult.First();
 
                 // Select the feature.
                 _damageLayer.SelectFeature(tappedFeature);
@@ -112,7 +112,7 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "There was a problem.");
+                MessageBox.Show(ex.ToString(), "Error loading feature");
             }
         }
 
@@ -232,11 +232,6 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
                 Button sendingButton = (Button) sender;
                 Attachment selectedAttachment = (Attachment) sendingButton.DataContext;
 
-                // Load the data into a byte array.
-                Stream attachmentDataStream = await selectedAttachment.GetDataAsync();
-                byte[] attachmentData = new byte[attachmentDataStream.Length];
-                attachmentDataStream.Read(attachmentData, 0, attachmentData.Length);
-
                 // Show a file dialog.
                 // Allow the user to specify a file path - create the dialog.
                 SaveFileDialog dlg = new SaveFileDialog
@@ -254,6 +249,11 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
                 {
                     return;
                 }
+
+                // Load the data into a byte array.
+                Stream attachmentDataStream = await selectedAttachment.GetDataAsync();
+                byte[] attachmentData = new byte[attachmentDataStream.Length];
+                attachmentDataStream.Read(attachmentData, 0, attachmentData.Length);
 
                 // Write out the file.
                 FileStream fs = new FileStream(dlg.FileName,

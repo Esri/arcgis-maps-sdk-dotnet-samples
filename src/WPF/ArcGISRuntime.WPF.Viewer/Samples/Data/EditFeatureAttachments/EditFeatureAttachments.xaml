@@ -40,6 +40,7 @@
                     </ListBox>
                     <Button x:Name="AddAttachmentButton"
                             Content="Add attachment"
+                            IsEnabled="False"
                             Margin="0,5,0,5"
                             Click="AddAttachment_Click" />
                     <ProgressBar x:Name="ActivityIndicator"

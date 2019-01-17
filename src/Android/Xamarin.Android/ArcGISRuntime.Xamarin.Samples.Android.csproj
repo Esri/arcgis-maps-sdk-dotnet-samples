@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg" />
 	<None Include="Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
     <None Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
 	  <None Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
@@ -252,6 +253,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.cs" />
 	<Compile Include="Samples\Data\DeleteFeatures\DeleteFeatures.cs" />
     <Compile Include="Samples\Symbology\SceneSymbols\SceneSymbols.cs" />
 	  <Compile Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.cs" />

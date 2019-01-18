@@ -7,23 +7,16 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
@@ -64,7 +57,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             // Add the layer to the map.
             _myMapView.Map.OperationalLayers.Add(_damageLayer);
 
-            // Listen for user taps on the map - on tap, a callout will be shown.
+            // Listen for user taps on the map.
             _myMapView.GeoViewTapped += MapView_Tapped;
 
             // Zoom to the United States.
@@ -87,14 +80,8 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                     return;
                 }
 
-                // Otherwise, get the ID of the first result.
-                long featureId = (long) identifyResult.GeoElements.First().Attributes["objectid"];
-
-                // Get the feature by constructing a query and running it.
-                QueryParameters qp = new QueryParameters();
-                qp.ObjectIds.Add(featureId);
-                FeatureQueryResult queryResult = await _damageLayer.FeatureTable.QueryFeaturesAsync(qp);
-                ArcGISFeature tappedFeature = (ArcGISFeature) queryResult.First();
+                // Get the selected feature.
+                ArcGISFeature tappedFeature = (ArcGISFeature) identifyResult.GeoElements.First();
 
                 // Select the feature.
                 _damageLayer.SelectFeature(tappedFeature);
@@ -170,7 +157,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
 
     public class AttachmentsTableView : UITableViewController
     {
-        private ArcGISFeature _feature;
+        private readonly ArcGISFeature _feature;
 
         public AttachmentsTableView(ArcGISFeature feature)
         {
@@ -224,12 +211,12 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
 
         private class AttachmentsTableSource : UITableViewSource
         {
+            private readonly AttachmentsTableView _viewController;
+            private readonly ArcGISFeature _selectedFeature;
             private IReadOnlyList<Attachment> _attachments;
-            private ArcGISFeature _selectedFeature;
             private TaskCompletionSource<Stream> _taskCompletionSource;
             private UIImagePickerController _imagePicker;
             private string _filename;
-            private AttachmentsTableView _viewController;
 
             public AttachmentsTableSource(AttachmentsTableView controller, ArcGISFeature selectedFeature, IReadOnlyList<Attachment> attachments)
             {
@@ -238,29 +225,34 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                 _viewController = controller;
             }
 
+            // These methods tell the table view what to show.
+            #region table view source overrides
             public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
             {
-                // Gets a cell for the specified section and row.
+                // Gets a cell for the specified row.
+                UITableViewCell cell;
+
+                // If the cell represents an attachment, get an attachment cell.
                 if (indexPath.Row < _attachments.Count)
                 {
-                    var cell = new UITableViewCell(UITableViewCellStyle.Default, "AttachmentCell");
+                    cell = new UITableViewCell(UITableViewCellStyle.Default, "AttachmentCell");
                     cell.TextLabel.Text = _attachments[indexPath.Row].Name;
                     cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
                     return cell;
                 }
-                else
-                {
-                    var cell = new UITableViewCell(UITableViewCellStyle.Default, "InsertCell");
-                    cell.TextLabel.Text = "Add attachment";
-                    cell.Accessory = UITableViewCellAccessory.Checkmark;
-                    return cell;
-                }
+
+                // Otherwise, show the 'add attachment' cell.
+                cell = new UITableViewCell(UITableViewCellStyle.Default, "InsertCell");
+                cell.TextLabel.Text = "Add attachment";
+                cell.Accessory = UITableViewCellAccessory.Checkmark;
+                return cell;
             }
 
             public override nint RowsInSection(UITableView tableview, nint section)
             {
                 if (section == 0)
                 {
+                    // The extra row is the 'add attachment' row.
                     return _attachments?.Count + 1 ?? 0;
                 }
 
@@ -287,48 +279,17 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
 
             public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
             {
-                // Add a new attachment.
+                // If the row doesn't represent an attachment, it is the insert row.
                 if (indexPath.Row >= _attachments.Count)
                 {
+                    // Insert row was selected, add a new attachment.
                     AddAttachment(tableView);
-                }
-                else
-                {
-                    PreviewAttachment(_attachments[indexPath.Row]);
-                }
-            }
 
-            private async void PreviewAttachment(Attachment selectedAttachment)
-            {
-                if (selectedAttachment.ContentType.Contains("image"))
-                {
-                    // Create a preview and show it.
-                    // Get the image data.
-                    Stream contentStream = await selectedAttachment.GetDataAsync();
-                    var imageData = NSData.FromStream(contentStream);
-                    var image = UIImage.LoadFromData(imageData);
-                    UIImageView imageView = new UIImageView(image);
-                    imageView.TranslatesAutoresizingMaskIntoConstraints = false;
-                    imageView.ContentMode = UIViewContentMode.ScaleAspectFit;
-                    var imagePreviewVC = new UIViewController();
-                    imagePreviewVC.View = new UIView {BackgroundColor = UIColor.White};
-                    imagePreviewVC.View.AddSubview(imageView);
-                    imagePreviewVC.Title = "Attachment preview";
-                    NSLayoutConstraint.ActivateConstraints(new NSLayoutConstraint[]
-                    {
-                        imageView.TopAnchor.ConstraintEqualTo(imagePreviewVC.View.SafeAreaLayoutGuide.TopAnchor),
-                        imageView.LeftAnchor.ConstraintEqualTo(imagePreviewVC.View.SafeAreaLayoutGuide.LeftAnchor),
-                        imageView.RightAnchor.ConstraintEqualTo(imagePreviewVC.View.SafeAreaLayoutGuide.RightAnchor),
-                        imageView.BottomAnchor.ConstraintEqualTo(imagePreviewVC.View.SafeAreaLayoutGuide.BottomAnchor)
-                    });
-
-                    // Show the preview.
-                    _viewController.NavigationController.PushViewController(imagePreviewVC, true);
+                    // Force the view to reload its data.
+                    tableView.ReloadData();
                 }
-                else
-                {
-                    _viewController.ShowMessage("This sample can only show image attachments", "Can't show attachment");
-                }
+                // An existing attachment was selected, show the preview.
+                PreviewAttachment(_attachments[indexPath.Row]);
             }
 
             public override string TitleForDeleteConfirmation(UITableView tableView, NSIndexPath indexPath)
@@ -338,40 +299,41 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
 
             public override bool CanEditRow(UITableView tableView, NSIndexPath indexPath)
             {
+                // All rows are editable.
                 return true;
             }
 
             public override UITableViewCellEditingStyle EditingStyleForRow(UITableView tableView, NSIndexPath indexPath)
             {
+                // If there is an attachment for the row, the editing style is deletion.
                 if (indexPath.Row < _attachments.Count)
                 {
                     return UITableViewCellEditingStyle.Delete;
                 }
-                else
-                {
-                    return UITableViewCellEditingStyle.Insert;
-                }
+                // Otherwise, this is the insert row, so use the 'Insert' editing style.
+                return UITableViewCellEditingStyle.Insert;
             }
+            #endregion table view source overrides
 
             #region attachment actions
             private async void AddAttachment(UITableView tableView)
             {
-                byte[] attachmentData;
-                string filename;
-                string contentType = "image/jpg";
-
+                // Get the image to upload.
                 Stream imageStream = await GetImageStreamAsync();
                 if (imageStream == null)
                 {
                     return;
                 }
 
-                attachmentData = new byte[imageStream.Length];
+                // Convert the image stream into a byte array.
+                byte[] attachmentData = new byte[imageStream.Length];
                 imageStream.Read(attachmentData, 0, attachmentData.Length);
-                filename = _filename ?? "file1.jpg";
+
+                // Determine the file name.
+                string filename = _filename ?? "iOS_image_1.jpg";
 
                 // Add the attachment.
-                await _selectedFeature.AddAttachmentAsync(filename, contentType, attachmentData);
+                await _selectedFeature.AddAttachmentAsync(filename, "image/jpg", attachmentData);
 
                 // Update the table.
                 await ((ServiceFeatureTable) _selectedFeature.FeatureTable).ApplyEditsAsync();
@@ -404,12 +366,52 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                     _viewController.ShowMessage(exception.ToString(), "Error deleting attachment");
                 }
             }
+
+            private async void PreviewAttachment(Attachment selectedAttachment)
+            {
+                if (selectedAttachment.ContentType.Contains("image"))
+                {
+                    // Get the image data.
+                    Stream contentStream = await selectedAttachment.GetDataAsync();
+                    var imageData = NSData.FromStream(contentStream);
+
+                    // Create a native iOS image from the image data.
+                    var image = UIImage.LoadFromData(imageData);
+
+                    // Create a view to show the image.
+                    UIImageView imageView = new UIImageView(image);
+
+                    // Configure the view's appearance.
+                    imageView.TranslatesAutoresizingMaskIntoConstraints = false;
+                    imageView.ContentMode = UIViewContentMode.ScaleAspectFit;
+                    // A view controller is needed to show the view.
+                    var imagePreviewVC = new UIViewController();
+                    imagePreviewVC.View = new UIView {BackgroundColor = UIColor.White};
+                    imagePreviewVC.View.AddSubview(imageView);
+                    imagePreviewVC.Title = "Attachment preview";
+                    NSLayoutConstraint.ActivateConstraints(new []
+                    {
+                        imageView.TopAnchor.ConstraintEqualTo(imagePreviewVC.View.SafeAreaLayoutGuide.TopAnchor),
+                        imageView.LeftAnchor.ConstraintEqualTo(imagePreviewVC.View.SafeAreaLayoutGuide.LeftAnchor),
+                        imageView.RightAnchor.ConstraintEqualTo(imagePreviewVC.View.SafeAreaLayoutGuide.RightAnchor),
+                        imageView.BottomAnchor.ConstraintEqualTo(imagePreviewVC.View.SafeAreaLayoutGuide.BottomAnchor)
+                    });
+
+                    // Show the preview.
+                    _viewController.NavigationController.PushViewController(imagePreviewVC, true);
+                }
+                else
+                {
+                    _viewController.ShowMessage("This sample can only show image attachments", "Can't show attachment");
+                }
+            }
             #endregion attachment actions
 
             #region file picker
+            // Note: this code is adapted from https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/dependency-service/photo-picker
             private Task<Stream> GetImageStreamAsync()
             {
-                // Create and define UIImagePickerController.
+                // Create and define the UIImagePickerController.
                 _imagePicker = new UIImagePickerController
                 {
                     SourceType = UIImagePickerControllerSourceType.PhotoLibrary,
@@ -430,39 +432,47 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                 return _taskCompletionSource.Task;
             }
 
-            void OnImagePickerFinishedPickingMedia(object sender, UIImagePickerMediaPickedEventArgs args)
+            private void OnImagePickerFinishedPickingMedia(object sender, UIImagePickerMediaPickedEventArgs args)
             {
+                // This is called when the user has finished making their selection.
+
+                // Get the image - either with edits or without.
                 UIImage image = args.EditedImage ?? args.OriginalImage;
+
+                // Get the name of the file.
                 _filename = args.ImageUrl.LastPathComponent;
+
+                UnregisterEventHandlers();
+
                 if (image != null)
                 {
-                    // Convert UIImage to .NET Stream object.
+                    // Convert iOS image to .NET Stream.
                     NSData data = image.AsJPEG(1);
                     Stream stream = data.AsStream();
-
-                    UnregisterEventHandlers();
 
                     // Set the Stream as the completion of the Task.
                     _taskCompletionSource.SetResult(stream);
                 }
                 else
                 {
-                    UnregisterEventHandlers();
                     _taskCompletionSource.SetResult(null);
                 }
 
+                // Hide the picker view.
                 _imagePicker.DismissModalViewController(true);
             }
 
-            void OnImagePickerCancelled(object sender, EventArgs args)
+            private void OnImagePickerCancelled(object sender, EventArgs args)
             {
+                // Handle cancellation.
                 UnregisterEventHandlers();
                 _taskCompletionSource.SetResult(null);
                 _imagePicker.DismissModalViewController(true);
             }
 
-            void UnregisterEventHandlers()
+            private void UnregisterEventHandlers()
             {
+                // Clean up when done picking image.
                 _imagePicker.FinishedPickingMedia -= OnImagePickerFinishedPickingMedia;
                 _imagePicker.Canceled -= OnImagePickerCancelled;
             }

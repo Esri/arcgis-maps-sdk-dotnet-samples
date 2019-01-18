@@ -124,14 +124,8 @@ namespace ArcGISRuntime.WPF.Samples.UpdateGeometries
                     return;
                 }
 
-                // Otherwise, get the ID of the first result.
-                long featureId = (long) identifyResult.GeoElements.First().Attributes["objectid"];
-
-                // Get the feature by constructing a query and running it.
-                QueryParameters qp = new QueryParameters();
-                qp.ObjectIds.Add(featureId);
-                FeatureQueryResult queryResult = await _damageLayer.FeatureTable.QueryFeaturesAsync(qp);
-                _selectedFeature = (ArcGISFeature) queryResult.First();
+                // Get the tapped feature.
+                _selectedFeature = (ArcGISFeature)identifyResult.GeoElements.First();
 
                 // Select the feature.
                 _damageLayer.SelectFeature(_selectedFeature);

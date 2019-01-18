@@ -10,16 +10,10 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
 using Windows.UI.Popups;
-using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.UpdateGeometries
 {
@@ -130,14 +124,8 @@ namespace ArcGISRuntime.UWP.Samples.UpdateGeometries
                     return;
                 }
 
-                // Otherwise, get the ID of the first result.
-                long featureId = (long) identifyResult.GeoElements.First().Attributes["objectid"];
-
-                // Get the feature by constructing a query and running it.
-                QueryParameters qp = new QueryParameters();
-                qp.ObjectIds.Add(featureId);
-                FeatureQueryResult queryResult = await _damageLayer.FeatureTable.QueryFeaturesAsync(qp);
-                _selectedFeature = (ArcGISFeature) queryResult.First();
+                // Get the tapped feature.
+                _selectedFeature = (ArcGISFeature)identifyResult.GeoElements.First();
 
                 // Select the feature.
                 _damageLayer.SelectFeature(_selectedFeature);

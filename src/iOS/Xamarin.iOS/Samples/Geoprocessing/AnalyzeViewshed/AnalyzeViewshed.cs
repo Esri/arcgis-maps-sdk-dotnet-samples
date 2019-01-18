@@ -31,8 +31,9 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         "")]
     public class AnalyzeViewshed : UIViewController
     {
-        // Create and hold a reference to the MapView.
+        // Hold references to the UI controls.
         private MapView _myMapView;
+        private UIActivityIndicatorView _activityIndicator;
 
         // URL for the geoprocessing service.
         private const string ViewshedServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/ESRI_Elevation_World/GPServer/Viewshed";
@@ -47,28 +48,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         {
             Title = "Viewshed (Geoprocessing)";
         }
-
-        public override void LoadView()
-        {
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View = new UIView();
-            View.AddSubviews(_myMapView);
-
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            Initialize();
-        }
-
+        
         private void Initialize()
         {
             // Create and show a map with topographic basemap and an initial location.
@@ -83,6 +63,9 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
+            // Show the loading indicator.
+            _activityIndicator.StartAnimating();
+
             // Clear previous user click location and the viewshed geoprocessing task results.
             _inputOverlay.Graphics.Clear();
             _resultOverlay.Graphics.Clear();
@@ -110,6 +93,10 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             catch (Exception ex)
             {
                 new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+            }
+            finally
+            {
+                _activityIndicator.StopAnimating();
             }
         }
 
@@ -219,6 +206,42 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             // Add the created overlays to the MapView.
             _myMapView.GraphicsOverlays.Add(_inputOverlay);
             _myMapView.GraphicsOverlays.Add(_resultOverlay);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
+            _activityIndicator.TranslatesAutoresizingMaskIntoConstraints = false;
+            _activityIndicator.HidesWhenStopped = true;
+            _activityIndicator.BackgroundColor = UIColor.FromWhiteAlpha(0, .5f);
+
+            // Add the views.
+            View.AddSubviews(_myMapView, _activityIndicator);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _activityIndicator.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _activityIndicator.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _activityIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _activityIndicator.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            });
         }
     }
 }

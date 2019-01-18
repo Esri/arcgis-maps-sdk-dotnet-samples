@@ -27,47 +27,21 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
         "")]
     public class ListGeodatabaseVersions : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly UIActivityIndicatorView _progressBar = new UIActivityIndicatorView();
-        private readonly UITextView _geodatabaseListField = new UITextView();
+        // Hold references to the UI controls.
+        private UIActivityIndicatorView _progressBar;
+        private UITextView _geodatabaseListField;
 
-        // URL to used geoprocessing service
-        private readonly Uri _listVersionsUrl = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/GDBVersions/GPServer/ListVersions");
+        // URL pointing to the service.
+        private readonly Uri _listVersionsUrl =
+            new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/GDBVersions/GPServer/ListVersions");
 
         public ListGeodatabaseVersions()
         {
             Title = "List geodatabase versions";
         }
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            CreateLayout();
-            Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition controls.
-                _geodatabaseListField.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin);
-                _progressBar.Frame = new CoreGraphics.CGRect(0, topMargin, View.Bounds.Width, View.Bounds.Height - topMargin);
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
-        }
-
         private async void Initialize()
         {
-            // Set the UI to indicate that the geoprocessing is running.
-            SetBusy(true);
-
             try
             {
                 // Get versions from a geodatabase.
@@ -102,13 +76,13 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             {
                 new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
-
-            // Set the UI to indicate that the geoprocessing is not running.
-            SetBusy(false);
         }
 
         private async Task<IFeatureSet> GetGeodatabaseVersionsAsync()
         {
+            // Start animating the activity indicator.
+            _progressBar.StartAnimating();
+
             // Results will be returned as a feature set.
             IFeatureSet results = null;
 
@@ -126,7 +100,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
                 GeoprocessingResult analysisResult = await listVersionsJob.GetResultAsync();
 
                 // Get results from the outputs.
-                GeoprocessingFeatures listVersionsResults = (GeoprocessingFeatures)analysisResult.Outputs["Versions"];
+                GeoprocessingFeatures listVersionsResults = (GeoprocessingFeatures) analysisResult.Outputs["Versions"];
 
                 // Set results.
                 results = listVersionsResults.Features;
@@ -153,37 +127,48 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             }
             finally
             {
-                // Set the UI to indicate that the geoprocessing is not running.
-                SetBusy(false);
+                // Stop the activity animation.
+                _progressBar.StopAnimating();
             }
 
             return results;
         }
 
-        private void SetBusy(bool isBusy = true)
+        public override void ViewDidLoad()
         {
-            // This function toggles running of the 'progress' control feedback status to denote if 
-            // the viewshed analysis is executing as a result of the user click on the map.
-            _progressBar.Hidden = !isBusy;
+            base.ViewDidLoad();
+            Initialize();
         }
 
-        private void CreateLayout()
+        public override void LoadView()
         {
-            // Hide the progress bar.
-            _progressBar.Hidden = true;
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
 
-            // Enable animation.
-            _progressBar.StartAnimating();
+            _progressBar = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
+            _progressBar.TranslatesAutoresizingMaskIntoConstraints = false;
+            _progressBar.BackgroundColor = UIColor.FromWhiteAlpha(.3f, .8f);
+            _progressBar.HidesWhenStopped = true;
 
-            // Set the color.
-            _progressBar.Color = View.TintColor;
-            _progressBar.BackgroundColor = UIColor.FromWhiteAlpha(.5f, .8f);
+            _geodatabaseListField = new UITextView();
+            _geodatabaseListField.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            // Make the view background color white (so the navigation bar looks good).
-            View.BackgroundColor = UIColor.White;
-
-            // Add views to the layout.
+            // Add the views.
             View.AddSubviews(_geodatabaseListField, _progressBar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _geodatabaseListField.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _geodatabaseListField.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                _geodatabaseListField.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                _geodatabaseListField.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+
+                _progressBar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _progressBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _progressBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _progressBar.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            });
         }
     }
 }

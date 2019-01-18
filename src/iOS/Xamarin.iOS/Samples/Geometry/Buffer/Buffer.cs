@@ -30,29 +30,15 @@ namespace ArcGISRuntime.Samples.Buffer
     public class Buffer : UIViewController
     {
         // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private UILabel _helpLabel;
-        private UIToolbar _helpToolbar;
-        private UIToolbar _bufferInputArea;
-        private UILabel _bufferInputLabel;
+        private MapView _myMapView;
         private UITextField _bufferDistanceMilesTextField;
-        private UILabel _geodesicSwatchLabel;
-        private UILabel _planarSwatchLabel;
-
-        // A button to clear buffer graphics from the display.
+        private UIView _geodesicSwatchSwatch;
+        private UIView _planarSwatchSwatch;
         private UIButton _clearBuffersButton;
 
         public Buffer()
         {
             Title = "Buffer";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            CreateLayout();
-            Initialize();
         }
 
         private void Initialize()
@@ -106,6 +92,9 @@ namespace ArcGISRuntime.Samples.Buffer
 
         private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
+            // Hide keyboard if present.
+            _bufferDistanceMilesTextField.ResignFirstResponder();
+
             try
             {
                 // Get the location tapped by the user (a map point in the WebMercator projected coordinate system).
@@ -160,12 +149,15 @@ namespace ArcGISRuntime.Samples.Buffer
                 geodesicBufferColor.A);
 
             // Show buffer symbol colors in the UI by setting the appropriate text view fill color.
-            _planarSwatchLabel.BackgroundColor = planarLabelColor;
-            _geodesicSwatchLabel.BackgroundColor = geodesicLabelColor;
+            _planarSwatchSwatch.BackgroundColor = planarLabelColor;
+            _geodesicSwatchSwatch.BackgroundColor = geodesicLabelColor;
         }
 
         private void ClearBuffersButton_TouchUpInside(object sender, EventArgs e)
         {
+            // Hide keyboard if present.
+            _bufferDistanceMilesTextField.ResignFirstResponder();
+
             // Clear the buffer and point graphics.
             foreach (GraphicsOverlay ov in _myMapView.GraphicsOverlays)
             {
@@ -173,73 +165,105 @@ namespace ArcGISRuntime.Samples.Buffer
             }
         }
 
-        private void CreateLayout()
+        public override void ViewDidLoad()
         {
-            // Create the help label.
-            _helpLabel = new UILabel
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UILabel helpLabel = new UILabel
             {
-                TextColor = UIColor.Blue,
                 Text = "Tap the map to create planar and geodesic buffers.",
                 TextAlignment = UITextAlignment.Center,
                 AdjustsFontSizeToFitWidth = true,
-                Lines = 1
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
             };
 
-            // Create the buffer input area (toolbar).
-            _bufferInputArea = new UIToolbar();
+            UIView formArea = new UIView { BackgroundColor = UIColor.White };
+            formArea.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            // Create the buffer input label.
-            _bufferInputLabel = new UILabel
+            UILabel bufferInputLabel = new UILabel
             {
-                TextColor = View.TintColor,
                 Text = "Distance (miles):",
-                TextAlignment = UITextAlignment.Left
+                TextAlignment = UITextAlignment.Right,
+                TranslatesAutoresizingMaskIntoConstraints = false
             };
 
-            // Create the buffer input control.
             _bufferDistanceMilesTextField = new UITextField
             {
-                BackgroundColor = UIColor.White,
+                BackgroundColor = UIColor.LightGray,
                 KeyboardType = UIKeyboardType.NumberPad,
                 Text = "1000",
                 TextAlignment = UITextAlignment.Right,
-                TextColor = View.TintColor
+                TranslatesAutoresizingMaskIntoConstraints = false
             };
             _bufferDistanceMilesTextField.Layer.CornerRadius = 5;
 
             // Add padding within the field.
-            _bufferDistanceMilesTextField.RightView = new UIView(new CGRect(0, 0, 5, 20)); // 5 is amount of left padding
+            _bufferDistanceMilesTextField.RightView = new UIView(new CGRect(0, 0, 5, 20)); // 5 is amount of left padding.
             _bufferDistanceMilesTextField.RightViewMode = UITextFieldViewMode.Always;
 
             // Allow pressing 'return' to dismiss the keyboard.
-            _bufferDistanceMilesTextField.ShouldReturn += (textField) =>
+            _bufferDistanceMilesTextField.ShouldReturn += textField =>
             {
                 textField.ResignFirstResponder();
                 return true;
             };
 
-            // Create the help toolbar.
-            _helpToolbar = new UIToolbar();
+            UIStackView legendView = new UIStackView();
+            legendView.TranslatesAutoresizingMaskIntoConstraints = false;
+            legendView.Axis = UILayoutConstraintAxis.Horizontal;
+            legendView.Alignment = UIStackViewAlignment.Center;
+            legendView.Spacing = 8;
 
-            // Create the label to show the planar buffer color.
-            _planarSwatchLabel = new UILabel
-            {
-                AdjustsFontSizeToFitWidth = true,
-                TextColor = UIColor.White,
-                Text = "Planar buffers",
-                TextAlignment = UITextAlignment.Center
-            };
+            _geodesicSwatchSwatch = new UIView();
+            _geodesicSwatchSwatch.TranslatesAutoresizingMaskIntoConstraints = false;
+            _geodesicSwatchSwatch.BackgroundColor = UIColor.Red;
+            _geodesicSwatchSwatch.WidthAnchor.ConstraintEqualTo(16).Active = true;
+            _geodesicSwatchSwatch.HeightAnchor.ConstraintEqualTo(16).Active = true;
+            _geodesicSwatchSwatch.ClipsToBounds = true;
+            _geodesicSwatchSwatch.Layer.CornerRadius = 8;
+            legendView.AddArrangedSubview(_geodesicSwatchSwatch);
 
-            // Create the label to show the geodesic buffer color.
-            _geodesicSwatchLabel = new UILabel
+            UILabel geodesicSwatchLabel = new UILabel
             {
-                AdjustsFontSizeToFitWidth = true,
-                TextColor = UIColor.White,
                 Text = "Geodesic buffers",
-                TextAlignment = UITextAlignment.Center
+                TextColor = UIColor.Red,
+                TranslatesAutoresizingMaskIntoConstraints = false
             };
+            legendView.AddArrangedSubview(geodesicSwatchLabel);
 
-            // Create the clear buffers button.
+            UIView spacer = new UIView();
+            spacer.TranslatesAutoresizingMaskIntoConstraints = false;
+            spacer.SetContentCompressionResistancePriority((float)UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
+            legendView.AddArrangedSubview(spacer);
+
+            _planarSwatchSwatch = new UIView();
+            _planarSwatchSwatch.BackgroundColor = UIColor.Blue;
+            _planarSwatchSwatch.TranslatesAutoresizingMaskIntoConstraints = false;
+            _planarSwatchSwatch.WidthAnchor.ConstraintEqualTo(16).Active = true;
+            _planarSwatchSwatch.HeightAnchor.ConstraintEqualTo(16).Active = true;
+            _planarSwatchSwatch.ClipsToBounds = true;
+            _planarSwatchSwatch.Layer.CornerRadius = 8;
+            legendView.AddArrangedSubview(_planarSwatchSwatch);
+
+            UILabel planarSwatchLabel = new UILabel
+            {
+                Text = "Planar buffers",
+                TextColor = UIColor.Blue,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            legendView.AddArrangedSubview(planarSwatchLabel);
+
             _clearBuffersButton = new UIButton
             {
                 ClipsToBounds = true,
@@ -248,60 +272,62 @@ namespace ArcGISRuntime.Samples.Buffer
             _clearBuffersButton.SetTitle("Clear", UIControlState.Normal);
             _clearBuffersButton.SetTitleColor(UIColor.White, UIControlState.Normal);
             _clearBuffersButton.Layer.CornerRadius = 5;
+            _clearBuffersButton.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Handle the clear buffers button press.
             _clearBuffersButton.TouchUpInside += ClearBuffersButton_TouchUpInside;
 
-            // Add views to the page.
+            // Add the views.
             View.AddSubviews(_myMapView,
-                _helpToolbar,
-                _bufferInputArea,
-                _helpLabel,
-                _bufferInputLabel,
+                formArea,
+                helpLabel,
+                bufferInputLabel,
                 _bufferDistanceMilesTextField,
-                _planarSwatchLabel,
-                _geodesicSwatchLabel,
+                legendView,
                 _clearBuffersButton);
-        }
 
-        public override void ViewDidLayoutSubviews()
-        {
-            try
+            // Lay out the views.
+            // TODO: consider replacing with UIStackView-based layout.
+            nfloat margin = 8;
+            nfloat controlHeight = 4 * margin;
+
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
-                var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat toolbarHeight = controlHeight * 2 + margin * 3;
-                nfloat helpToolbarHeight = controlHeight + 2 * margin;
+                formArea.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                formArea.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                formArea.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                formArea.HeightAnchor.ConstraintEqualTo((3 * margin) + (2 * controlHeight)),
 
-                // Place the scene view and update the insets to avoid hiding view elements like the attribution bar.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + helpToolbarHeight, 0, toolbarHeight, 0);
+                legendView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 8),
+                legendView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
+                legendView.TopAnchor.ConstraintEqualTo(formArea.BottomAnchor),
+                legendView.HeightAnchor.ConstraintEqualTo(24),
 
-                // Place the help label.
-                _helpLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, helpToolbarHeight);
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.TopAnchor.ConstraintEqualTo(legendView.BottomAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
 
-                // Place the distance input toolbar.
-                _bufferInputArea.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
+                helpLabel.TopAnchor.ConstraintEqualTo(formArea.TopAnchor, margin),
+                helpLabel.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                helpLabel.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                helpLabel.HeightAnchor.ConstraintEqualTo(controlHeight),
 
-                // Place the buffer distance input text view and label.
-                _bufferInputLabel.Frame = new CGRect(margin, _bufferInputArea.Frame.Top + margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
-                _bufferDistanceMilesTextField.Frame = new CGRect(_bufferInputLabel.Frame.Right + 2 * margin, _bufferInputArea.Frame.Top + margin, View.Bounds.Width / 4 - 2 * margin, controlHeight);
+                bufferInputLabel.TopAnchor.ConstraintEqualTo(helpLabel.BottomAnchor, margin),
+                bufferInputLabel.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, margin),
+                bufferInputLabel.TrailingAnchor.ConstraintEqualTo(formArea.CenterXAnchor, -margin),
+                bufferInputLabel.HeightAnchor.ConstraintEqualTo(controlHeight),
 
-                // Place the clear buffers button.
-                _clearBuffersButton.Frame = new CGRect(View.Bounds.Width / 4 * 3 + margin, _bufferInputArea.Frame.Top + margin, View.Bounds.Width / 4 - 2 * margin, controlHeight);
+                _bufferDistanceMilesTextField.TopAnchor.ConstraintEqualTo(bufferInputLabel.TopAnchor),
+                _bufferDistanceMilesTextField.LeadingAnchor.ConstraintEqualTo(formArea.CenterXAnchor, margin),
+                _bufferDistanceMilesTextField.TrailingAnchor.ConstraintEqualTo(_clearBuffersButton.LeadingAnchor, -margin),
+                _bufferDistanceMilesTextField.HeightAnchor.ConstraintEqualTo(controlHeight),
 
-                // Place the planar and geodesic legend labels.
-                _planarSwatchLabel.Frame = new CGRect(margin, _bufferInputLabel.Frame.Bottom + margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
-                _geodesicSwatchLabel.Frame = new CGRect(View.Bounds.Width / 2 + margin, _bufferInputLabel.Frame.Bottom + margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Error laying out sub views: " + ex.Message);
-            }
+                _clearBuffersButton.TopAnchor.ConstraintEqualTo(_bufferDistanceMilesTextField.TopAnchor),
+                _clearBuffersButton.WidthAnchor.ConstraintEqualTo(100),
+                _clearBuffersButton.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -margin),
+                _clearBuffersButton.HeightAnchor.ConstraintEqualTo(controlHeight)
+            });
         }
     }
 }

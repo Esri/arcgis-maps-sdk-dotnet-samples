@@ -144,7 +144,7 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
         #region OAuth helpers
 
         // ChallengeHandler function that will be called whenever access to a secured resource is attempted.
-        public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
+        private async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
             Credential credential = null;
 

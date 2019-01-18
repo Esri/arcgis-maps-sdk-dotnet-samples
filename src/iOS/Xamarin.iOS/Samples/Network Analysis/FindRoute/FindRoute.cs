@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -31,12 +30,8 @@ namespace ArcGISRuntime.Samples.FindRoute
         "")]
     public class FindRoute : UIViewController
     {
-        // Create and hold references to the views.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private readonly UIButton _solveRouteButton = new UIButton(UIButtonType.Plain);
-        private readonly UIButton _resetButton = new UIButton(UIButtonType.Plain);
-        private readonly UIButton _showDirectionsButton = new UIButton(UIButtonType.Plain);
+        // Hold a reference to the MapView.
+        private MapView _myMapView;
 
         // List of stops on the route ('from' and 'to').
         private List<Stop> _routeStops;
@@ -48,42 +43,19 @@ namespace ArcGISRuntime.Samples.FindRoute
         private GraphicsOverlay _routeGraphicsOverlay;
 
         // URI for the San Diego route service.
-        private readonly Uri _sanDiegoRouteServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
+        private readonly Uri _sanDiegoRouteServiceUri =
+            new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
 
         // URIs for picture marker images.
-        private readonly Uri _checkedFlagIconUri = new Uri("https://static.arcgis.com/images/Symbols/Transportation/CheckeredFlag.png");
-        private readonly Uri _carIconUri = new Uri("https://static.arcgis.com/images/Symbols/Transportation/CarRedFront.png");
+        private readonly Uri _checkedFlagIconUri =
+            new Uri("https://static.arcgis.com/images/Symbols/Transportation/CheckeredFlag.png");
+
+        private readonly Uri _carIconUri =
+            new Uri("https://static.arcgis.com/images/Symbols/Transportation/CarRedFront.png");
 
         public FindRoute()
         {
             Title = "Find route";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            CreateLayout();
-            Initialize();
-        }
-
-        private void CreateLayout()
-        {
-            // Configure the UI controls.
-            _solveRouteButton.SetTitle("Solve route", UIControlState.Normal);
-            _solveRouteButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _solveRouteButton.TouchUpInside += SolveRouteButton_Click;
-
-            _resetButton.SetTitle("Reset", UIControlState.Normal);
-            _resetButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _resetButton.TouchUpInside += ResetButton_Click;
-
-            _showDirectionsButton.SetTitle("Directions", UIControlState.Normal);
-            _showDirectionsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _showDirectionsButton.TouchUpInside += ShowDirections;
-
-            // Add the controls to the view.
-            View.AddSubviews(_myMapView, _toolbar, _solveRouteButton, _resetButton, _showDirectionsButton);
         }
 
         private void Initialize()
@@ -198,27 +170,44 @@ namespace ArcGISRuntime.Samples.FindRoute
             NavigationController.PushViewController(directionsTableController, true);
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void ViewDidLoad()
         {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat toolbarHeight = 40;
+            base.ViewDidLoad();
+            Initialize();
+        }
 
-                // Reposition the views.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-                _solveRouteButton.Frame = new CGRect(10, _toolbar.Frame.Top + 10, 100, 20);
-                _resetButton.Frame = new CGRect(120, _toolbar.Frame.Top + 10, 50, 20);
-                _showDirectionsButton.Frame = new CGRect(180, _toolbar.Frame.Top + 10, 100, 20);
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
 
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
             {
-            }
+                new UIBarButtonItem("Solve route", UIBarButtonItemStyle.Plain, SolveRouteButton_Click),
+                new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ResetButton_Click),
+                new UIBarButtonItem("Directions", UIBarButtonItemStyle.Plain, ShowDirections)
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 

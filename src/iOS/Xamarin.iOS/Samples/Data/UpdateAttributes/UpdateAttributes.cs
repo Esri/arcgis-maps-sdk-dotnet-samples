@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UIKit;
 
@@ -106,14 +107,8 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
                     return;
                 }
 
-                // Otherwise, get the ID of the first result.
-                long featureId = (long) identifyResult.GeoElements.First().Attributes["objectid"];
-
-                // Get the feature by constructing a query and running it.
-                QueryParameters qp = new QueryParameters();
-                qp.ObjectIds.Add(featureId);
-                FeatureQueryResult queryResult = await _damageLayer.FeatureTable.QueryFeaturesAsync(qp);
-                _selectedFeature = (ArcGISFeature) queryResult.First();
+                // Get the tapped feature.
+                _selectedFeature = (ArcGISFeature)identifyResult.GeoElements.First();
 
                 // Select the feature.
                 _damageLayer.SelectFeature(_selectedFeature);
@@ -144,10 +139,17 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
 
         private void ShowDamageTypeChoices(object sender, EventArgs e)
         {
+            // Show the currently selected attribute value.
             string message = $"Current value is {_selectedFeature.Attributes[AttributeFieldName]}";
+
+            // Create the alert controller - will show current value and the options for changing the value.
             UIAlertController alertController = UIAlertController.Create("Choose a damage type.", message, UIAlertControllerStyle.Alert);
 
-            foreach (CodedValue codeValue in _domain.CodedValues.Where(value => value.Name != _selectedFeature.Attributes[AttributeFieldName].ToString()))
+            // Get the list of valid choices - all of the coded values that aren't currently selected.
+            IEnumerable<CodedValue> possibleChoices = _domain.CodedValues.Where(value => value.Name != _selectedFeature.Attributes[AttributeFieldName].ToString());
+
+            // Add an action (shows as button) for every choice.
+            foreach (CodedValue codeValue in possibleChoices)
             {
                 alertController.AddAction(UIAlertAction.Create(codeValue.Name, UIAlertActionStyle.Default, action => UpdateDamageType(codeValue.Name)));
             }

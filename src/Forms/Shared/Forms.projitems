@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\AddFeatures\AddFeatures.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
@@ -149,6 +150,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateAttributes\UpdateAttributes.xaml.cs">
+      <DependentUpon>UpdateAttributes.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateGeometries\UpdateGeometries.xaml.cs">
       <DependentUpon>UpdateGeometries.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -596,6 +601,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateAttributes\UpdateAttributes.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateGeometries\UpdateGeometries.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

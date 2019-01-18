@@ -112,6 +112,15 @@
     <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.xaml.cs">
       <DependentUpon>UpdateAttributes.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Data\UpdateGeometries\UpdateGeometries.xaml.cs">
+      <DependentUpon>UpdateGeometries.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\AddFeatures\AddFeatures.xaml.cs">
+      <DependentUpon>AddFeatures.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\DeleteFeatures\DeleteFeatures.xaml.cs">
+      <DependentUpon>DeleteFeatures.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\SceneSymbols\SceneSymbols.xaml.cs">
       <DependentUpon>SceneSymbols.xaml</DependentUpon>
     </Compile>
@@ -551,6 +560,18 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Data\UpdateAttributes\UpdateAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\UpdateGeometries\UpdateGeometries.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\AddFeatures\AddFeatures.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\DeleteFeatures\DeleteFeatures.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1142,6 +1163,15 @@
   <ItemGroup>
     <!-- Screenshots -->
     <Content Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\AddFeatures\AddFeatures.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\DeleteFeatures\DeleteFeatures.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg">

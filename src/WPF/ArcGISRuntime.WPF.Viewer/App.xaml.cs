@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.IO;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Viewer
@@ -18,6 +19,14 @@ namespace ArcGISRuntime.WPF.Viewer
         {
             try
             {
+                // Set the local data path - must be done before starting. On most systems, this will be C:\EsriSamples\Temp.
+                // This path should be kept short to avoid Windows path length limitations.
+                string tempDataPathRoot = Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.Windows)).FullName;
+                string tempDataPath = Path.Combine(tempDataPathRoot, "EsriSamples", "Temp");
+                Directory.CreateDirectory(tempDataPath); // CreateDirectory won't overwrite if it already exists.
+                Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.TempPath = tempDataPath;
+
+                // Initialize ArcGISRuntime.
                 Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
             }
             catch (Exception ex)

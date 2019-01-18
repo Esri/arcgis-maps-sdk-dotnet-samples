@@ -57,7 +57,7 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
             // Add the layer to the map.
             MyMapView.Map.OperationalLayers.Add(_damageLayer);
 
-            // Listen for user taps on the map - on tap, a callout will be shown.
+            // Listen for user taps on the map.
             MyMapView.GeoViewTapped += MapView_Tapped;
 
             // Zoom to the United States.
@@ -86,14 +86,8 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
                     return;
                 }
 
-                // Otherwise, get the ID of the first result.
-                long featureId = (long) identifyResult.GeoElements.First().Attributes["objectid"];
-
-                // Get the feature by constructing a query and running it.
-                QueryParameters qp = new QueryParameters();
-                qp.ObjectIds.Add(featureId);
-                FeatureQueryResult queryResult = await _damageLayer.FeatureTable.QueryFeaturesAsync(qp);
-                ArcGISFeature tappedFeature = (ArcGISFeature) queryResult.First();
+                // Get the selected feature.
+                ArcGISFeature tappedFeature = (ArcGISFeature) identifyResult.GeoElements.First();
 
                 // Select the feature.
                 _damageLayer.SelectFeature(tappedFeature);
@@ -127,11 +121,6 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
             AddAttachmentButton.IsEnabled = false;
             ActivityIndicator.Visibility = Visibility.Visible;
 
-            // Get the file.
-            string filename;
-            string contentType = "image/jpg";
-            byte[] attachmentData;
-
             try
             {
                 // Show a file dialog.
@@ -153,7 +142,7 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
                 }
 
                 // Get the name of the file from the full path (dlg.FileName is the full path).
-                filename = Path.GetFileName(dlg.FileName);
+                string filename = Path.GetFileName(dlg.FileName);
 
                 // Create a stream for reading the file.
                 FileStream fs = new FileStream(dlg.FileName,
@@ -165,10 +154,13 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
 
                 // Populate the attachment data with the binary content.
                 long numBytes = new FileInfo(dlg.FileName).Length;
-                attachmentData = br.ReadBytes((int) numBytes);
+                byte[] attachmentData = br.ReadBytes((int) numBytes);
+
+                // Close the stream.
+                fs.Close();
 
                 // Add the attachment.
-                await _selectedFeature.AddAttachmentAsync(filename, contentType, attachmentData);
+                await _selectedFeature.AddAttachmentAsync(filename, "image/jpg", attachmentData);
 
                 // Update the table.
                 await ((ServiceFeatureTable) _selectedFeature.FeatureTable).ApplyEditsAsync();
@@ -260,6 +252,7 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
                     FileMode.OpenOrCreate,
                     FileAccess.Write);
                 fs.Write(attachmentData, 0, attachmentData.Length);
+                fs.Close();
             }
             catch (Exception exception)
             {

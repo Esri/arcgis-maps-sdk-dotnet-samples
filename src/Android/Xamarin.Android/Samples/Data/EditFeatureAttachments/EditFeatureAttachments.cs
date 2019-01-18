@@ -36,12 +36,12 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
         // Hold references to the UI controls.
         private MapView _myMapView;
         private ListView _attachmentsListView;
-        private Button addButton;
+        private Button _addButton;
 
         // Hold a reference to the layer.
         private FeatureLayer _damageLayer;
 
-        // Hold a reference to the currently selected feature.
+        // Hold references to the currently selected feature & any attachments.
         private ArcGISFeature _selectedFeature;
         private IReadOnlyList<Attachment> _featureAttachments;
 
@@ -72,7 +72,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             // Add the layer to the map.
             _myMapView.Map.OperationalLayers.Add(_damageLayer);
 
-            // Listen for user taps on the map - on tap, a callout will be shown.
+            // Listen for user taps on the map.
             _myMapView.GeoViewTapped += MapView_Tapped;
 
             // Zoom to the United States.
@@ -83,8 +83,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
         {
             // Clear any existing selection.
             _damageLayer.ClearSelection();
-            addButton.Enabled = false;
+            _addButton.Enabled = false;
             _attachmentsListView.Enabled = false;
+
             try
             {
                 // Perform an identify to determine if a user tapped on a feature.
@@ -101,7 +102,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
 
                 // Update the UI.
                 UpdateUIForFeature();
-                addButton.Enabled = true;
+                _addButton.Enabled = true;
                 _attachmentsListView.Enabled = true;
             }
             catch (Exception ex)
@@ -132,16 +133,19 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
         {
             if (selectedAttachment.ContentType.Contains("image"))
             {
-                // Create a preview and show it.
                 // Get the image data.
                 Stream contentStream = await selectedAttachment.GetDataAsync();
                 byte[] attachmentData = new byte[contentStream.Length];
                 contentStream.Read(attachmentData, 0, attachmentData.Length);
+
+                // Convert the image into a usable form on Android.
                 Bitmap bmp = BitmapFactory.DecodeByteArray (attachmentData, 0, attachmentData.Length);
+
+                // Create the view that will present the image.
                 ImageView imageView = new ImageView(this);
                 imageView.SetImageBitmap(bmp);
 
-                // Show the preview.
+                // Show the image view in a dialog.
                 ShowImageDialog(imageView);
             }
             else
@@ -152,9 +156,16 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
 
         private void ShowImageDialog(ImageView previewImageView)
         {
+            // Create the dialog.
             Dialog imageDialog = new Dialog(this);
+
+            // Remove the title bar for the dialog.
             imageDialog.Window.RequestFeature(WindowFeatures.NoTitle);
+
+            // Add the image to the dialog.
             imageDialog.SetContentView(previewImageView);
+
+            // Show the dialog.
             imageDialog.Show();
         }
 
@@ -182,8 +193,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
 
         private void RequestImage()
         {
-            // Start the process of requesting an image.
-            // Will be completed in OnActivityResult.
+            // Start the process of requesting an image. Will be completed in OnActivityResult.
             Intent = new Intent();
             Intent.SetType("image/*.jpg");
             Intent.SetAction(Intent.ActionGetContent);
@@ -193,20 +203,29 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             // Method called when the image picker activity ends.
-            if ((requestCode == 1000) && (resultCode == Result.Ok) && (data != null))
+            if (requestCode == 1000 && resultCode == Result.Ok && data != null)
             {
+                // Get the path to the selected image.
                 Android.Net.Uri uri = data.Data;
+
+                // Upload the image as an attachment.
                 AddAttachment(uri);
+            }
+            else
+            {
+                ShowMessage("No image selected.", "Error adding attachment");
             }
         }
 
         private async void AddAttachment(Android.Net.Uri imageUri)
         {
-            byte[] attachmentData;
             string contentType = "image/jpg";
 
+            // Read the image into a stream.
             Stream stream = ContentResolver.OpenInputStream(imageUri);   
-
+            
+            // Read from the stream into the byte array.
+            byte[] attachmentData;
             using (var memoryStream = new MemoryStream())
             {
                 stream.CopyTo(memoryStream);
@@ -290,11 +309,11 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             _attachmentsListView.ItemClick += Attachment_Clicked;
 
             // Create and add an 'add attachment' button.
-            addButton = new Button(this);
-            addButton.Text = "Add attachment";
-            addButton.Enabled = false;
-            addButton.Click += AddButton_Clicked;
-            layout.AddView(addButton);
+            _addButton = new Button(this);
+            _addButton.Text = "Add attachment";
+            _addButton.Enabled = false;
+            _addButton.Click += AddButton_Clicked;
+            layout.AddView(_addButton);
 
             // Add the map view to the layout.
             layout.AddView(_myMapView);

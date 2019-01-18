@@ -6,7 +6,7 @@ Add, delete, and download attachments for features from a service.
 
 ## How to use the sample
 
-Tap a feature to load its attachments. Use the buttons to save, delete, or add attachments.
+Tap a feature to load its attachments. Tap on an attachment to see options for viewing or deleting the attachment.
 
 ## How it works
 

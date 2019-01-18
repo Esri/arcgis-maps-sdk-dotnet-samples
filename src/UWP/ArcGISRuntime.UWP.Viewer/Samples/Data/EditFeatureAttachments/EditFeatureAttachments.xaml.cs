@@ -60,7 +60,7 @@ namespace ArcGISRuntime.UWP.Samples.EditFeatureAttachments
             // Add the layer to the map.
             MyMapView.Map.OperationalLayers.Add(_damageLayer);
 
-            // Listen for user taps on the map - on tap, a callout will be shown.
+            // Listen for user taps on the map.
             MyMapView.GeoViewTapped += MapView_Tapped;
 
             // Zoom to the United States.
@@ -89,14 +89,8 @@ namespace ArcGISRuntime.UWP.Samples.EditFeatureAttachments
                     return;
                 }
 
-                // Otherwise, get the ID of the first result.
-                long featureId = (long) identifyResult.GeoElements.First().Attributes["objectid"];
-
-                // Get the feature by constructing a query and running it.
-                QueryParameters qp = new QueryParameters();
-                qp.ObjectIds.Add(featureId);
-                FeatureQueryResult queryResult = await _damageLayer.FeatureTable.QueryFeaturesAsync(qp);
-                ArcGISFeature tappedFeature = (ArcGISFeature) queryResult.First();
+                // Get the selected feature.
+                ArcGISFeature tappedFeature = (ArcGISFeature) identifyResult.GeoElements.First();
 
                 // Select the feature.
                 _damageLayer.SelectFeature(tappedFeature);
@@ -154,6 +148,7 @@ namespace ArcGISRuntime.UWP.Samples.EditFeatureAttachments
                 Stream dataStream = await file.OpenStreamForReadAsync();
                 attachmentData = new byte[dataStream.Length];
                 dataStream.Read(attachmentData, 0, attachmentData.Length);
+                dataStream.Close();
 
                 // Add the attachment.
                 await _selectedFeature.AddAttachmentAsync(file.Name, contentType, attachmentData);
@@ -244,6 +239,9 @@ namespace ArcGISRuntime.UWP.Samples.EditFeatureAttachments
 
                 // Write out the file.
                 await FileIO.WriteBufferAsync(file, attachmentData.AsBuffer());
+
+                // Close the stream.
+                attachmentDataStream.Close();
             }
             catch (Exception exception)
             {

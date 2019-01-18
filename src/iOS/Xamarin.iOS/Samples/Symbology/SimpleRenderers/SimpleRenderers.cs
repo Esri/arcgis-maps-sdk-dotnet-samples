@@ -26,34 +26,12 @@ namespace ArcGISRuntime.Samples.SimpleRenderers
         "")]
     public class SimpleRenderers : UIViewController
     {
-        // Create and hold a reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the MapView.
+        private MapView _myMapView;
 
         public SimpleRenderers()
         {
             Title = "Simple renderer";
-        }
-
-        public override void LoadView()
-        {
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View = new UIView();
-            View.AddSubviews(_myMapView);
-
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            // Create the UI, setup the control references and execute initialization.
-            Initialize();
         }
 
         private async void Initialize()
@@ -96,6 +74,33 @@ namespace ArcGISRuntime.Samples.SimpleRenderers
 
             // Set the viewpoint to the envelope with padding.
             await _myMapView.SetViewpointGeometryAsync(initialEnvelope, 50);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            // Add the views.
+            View.AddSubviews(_myMapView);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
         }
     }
 }

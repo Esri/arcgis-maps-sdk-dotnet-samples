@@ -25,35 +25,15 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
         "")]
     public class ServiceFeatureTableManualCache : UIViewController
     {
-        // Create and hold a reference to the MapView
+        // Hold a reference to the MapView.
         private MapView _myMapView;
 
+        // Hold a reference to the service feature table.
         private ServiceFeatureTable _incidentsFeatureTable;
 
         public ServiceFeatureTableManualCache()
         {
             Title = "Service feature table (manual cache)";
-        }
-
-        public override void LoadView()
-        {
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View = new UIView();
-            View.AddSubviews(_myMapView);
-
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            Initialize();
         }
 
         private void Initialize()
@@ -112,6 +92,33 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
             {
                 new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View = new UIView();
+
+            // Add the views.
+            View.AddSubviews(_myMapView);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
         }
     }
 }

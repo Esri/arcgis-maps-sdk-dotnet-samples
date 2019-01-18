@@ -15,7 +15,6 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Http;
 using Foundation;
 using UIKit;
-using StatDefinitionModel = ArcGISRuntime.Samples.StatsQueryGroupAndSort.StatDefinitionModel;
 
 namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 {
@@ -27,14 +26,6 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         "")]
     public class StatsQueryGroupAndSort : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private UILabel _helpLabel;
-        private UIButton _showStatDefinitionsButton;
-        private UIButton _showGroupFieldsButton;
-        private UIButton _showOrderByFieldsButton;
-        private UIButton _getStatsButton;
-
         // URI for the US states map service.
         private readonly Uri _usStatesServiceUri = new Uri("https://services.arcgis.com/jIL9msH9OI208GCb/arcgis/rest/services/Counties_Obesity_Inactivity_Diabetes_2013/FeatureServer/0");
 
@@ -59,80 +50,6 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         public StatsQueryGroupAndSort()
         {
             Title = "Statistical query group and sort";
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat pageOffset = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat controlHeight = 30;
-                nfloat controlWidth = View.Bounds.Width - 2 * margin;
-
-                // Reposition the controls.
-                _toolbar.Frame = new CGRect(0, pageOffset, View.Bounds.Width, View.Bounds.Height - pageOffset);
-                _helpLabel.Frame = new CGRect(margin, pageOffset + margin, controlWidth, controlHeight * 2);
-                _showStatDefinitionsButton.Frame = new CGRect(margin, pageOffset + controlHeight * 4 + margin * 2, controlWidth, controlHeight);
-                _showGroupFieldsButton.Frame = new CGRect(margin, pageOffset + controlHeight * 5 + margin * 3, controlWidth, controlHeight);
-                _showOrderByFieldsButton.Frame = new CGRect(margin, pageOffset + controlHeight * 6 + margin * 4, controlWidth, controlHeight);
-                _getStatsButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, controlWidth, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            CreateLayout();
-            Initialize();
-        }
-
-        private void CreateLayout()
-        {
-            View.BackgroundColor = UIColor.White;
-
-            _helpLabel = new UILabel
-            {
-                Text = "Tap 'Choose statistic definitions' to specify statistics to calculate. Then tap 'Choose group fields' to define how results will be grouped. Tap 'Choose order by fields' to define how results will be ordered. Finally, tap 'Get statistics' to see the results.",
-                Lines = 4,
-                AdjustsFontSizeToFitWidth = true
-            };
-
-            // Button for launching the UI to view or define statistics definitions for the query.
-            _showStatDefinitionsButton = new UIButton();
-            _showStatDefinitionsButton.SetTitle("Choose statistic definitions", UIControlState.Normal);
-            _showStatDefinitionsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _showStatDefinitionsButton.TouchUpInside += ShowStatDefinitions;
-
-            // Button to choose fields with which to group results.
-            _showGroupFieldsButton = new UIButton();
-            _showGroupFieldsButton.SetTitle("Choose group fields", UIControlState.Normal);
-            _showGroupFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _showGroupFieldsButton.TouchUpInside += ShowGroupFields;
-
-            // Button to choose fields with which to sort results (must be one of the 'group by' fields).
-            _showOrderByFieldsButton = new UIButton();
-            _showOrderByFieldsButton.SetTitle("Choose 'Order by' fields", UIControlState.Normal);
-            _showOrderByFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _showOrderByFieldsButton.TouchUpInside += ShowOrderByFields;
-
-            // Create a button to invoke the query using the query parameters defined.
-            _getStatsButton = new UIButton();
-            _getStatsButton.SetTitle("Get statistics", UIControlState.Normal);
-            _getStatsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-
-            // Handle the button tap to execute the statistics query.
-            _getStatsButton.TouchUpInside += ExecuteStatisticsQuery;
-
-            // Add controls to the stack view.
-            View.AddSubviews(_toolbar, _helpLabel, _showStatDefinitionsButton, _showGroupFieldsButton, _showOrderByFieldsButton, _getStatsButton);
         }
 
         private async void Initialize()
@@ -293,7 +210,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
                 UITableViewController statResultsTable = new UITableViewController(UITableViewStyle.Grouped)
                 {
                     // Set the table view data source.
-                    TableView = { Source = statResultsDataSource }
+                    TableView = {Source = statResultsDataSource}
                 };
 
                 // Show the table view.
@@ -315,6 +232,66 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 
             // Display the alert.
             PresentViewController(alert, true, null);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Get statistics", UIBarButtonItemStyle.Plain, ExecuteStatisticsQuery),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+
+            UIButton showStatDefinitionsButton = new UIButton();
+            showStatDefinitionsButton.TranslatesAutoresizingMaskIntoConstraints = false;
+            showStatDefinitionsButton.SetTitle("1. Choose statistic definitions", UIControlState.Normal);
+            showStatDefinitionsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            showStatDefinitionsButton.TouchUpInside += ShowStatDefinitions;
+
+            UIButton showGroupFieldsButton = new UIButton();
+            showGroupFieldsButton.TranslatesAutoresizingMaskIntoConstraints = false;
+            showGroupFieldsButton.SetTitle("2. Choose group fields", UIControlState.Normal);
+            showGroupFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            showGroupFieldsButton.TouchUpInside += ShowGroupFields;
+
+            UIButton showOrderByFieldsButton = new UIButton();
+            showOrderByFieldsButton.SetTitle("3. Choose 'Order by' fields", UIControlState.Normal);
+            showOrderByFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            showOrderByFieldsButton.TouchUpInside += ShowOrderByFields;
+
+            UIStackView buttonContainer = new UIStackView(new[] {showStatDefinitionsButton, showGroupFieldsButton, showOrderByFieldsButton, new UIView()});
+            buttonContainer.Axis = UILayoutConstraintAxis.Vertical;
+            buttonContainer.TranslatesAutoresizingMaskIntoConstraints = false;
+            buttonContainer.Distribution = UIStackViewDistribution.Fill;
+            buttonContainer.Alignment = UIStackViewAlignment.Top;
+
+            // Add the views.
+            View.AddSubviews(buttonContainer, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                buttonContainer.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                buttonContainer.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
+                buttonContainer.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
+                buttonContainer.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
         }
     }
 
@@ -350,7 +327,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         }
 
         // Property to expose the currently selected definition in the picker.
-        public StatisticDefinition SelectedStatDefinition { get; private set; } = null;
+        public StatisticDefinition SelectedStatDefinition { get; private set; }
 
         // Return the number of picker components (two sections: field names and statistic types).
         public override nint GetComponentCount(UIPickerView pickerView)
@@ -431,12 +408,8 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             // Respond to the user's edit request: Insert a new statistic definition, or delete an existing one.
             if (editingStyle == UITableViewCellEditingStyle.Insert)
             {
-                // Get the bounds of the table.
-                CGRect ovBounds = tableView.Bounds;
-                ovBounds.Height = ovBounds.Height + 60;
-
                 // Create an overlay UI that lets the user choose a field and statistic type to add.
-                _chooseStatOverlay = new ChooseStatisticOverlay(ovBounds, 0.70f, UIColor.White, _statPicker);
+                _chooseStatOverlay = new ChooseStatisticOverlay(_statPicker);
 
                 // Handle the OnStatisticDefined event to get the info entered by the user.
                 _chooseStatOverlay.OnStatisticDefined += (s, statDef) =>
@@ -470,7 +443,14 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
                 };
 
                 // Add the picker UI view (will display semi-transparent over the table view).
-                tableView.Add(_chooseStatOverlay);
+                tableView.AddSubview(_chooseStatOverlay);
+
+                _chooseStatOverlay.TranslatesAutoresizingMaskIntoConstraints = false;
+                _chooseStatOverlay.LeadingAnchor.ConstraintEqualTo(tableView.SafeAreaLayoutGuide.LeadingAnchor).Active =
+                    true;
+                _chooseStatOverlay.TrailingAnchor.ConstraintEqualTo(tableView.SafeAreaLayoutGuide.TrailingAnchor)
+                    .Active = true;
+                _chooseStatOverlay.BottomAnchor.ConstraintEqualTo(tableView.SafeAreaLayoutGuide.BottomAnchor).Active = true;
             }
             else if (editingStyle == UITableViewCellEditingStyle.Delete)
             {
@@ -606,11 +586,11 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         private void GroupBySwitched(object sender, EventArgs e)
         {
             // Use the control's tag to get the row that was changed.
-            nint index = ((UISwitch)sender).Tag;
+            nint index = ((UISwitch) sender).Tag;
 
             // Set or clear the group field according to the UISwitch setting.
             string key = _potentialGroupFields.ElementAt((int) index).Key;
-            _potentialGroupFields[key] = ((UISwitch)sender).On;
+            _potentialGroupFields[key] = ((UISwitch) sender).On;
         }
 
         // Return the number of rows to display.
@@ -667,11 +647,11 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         private void OrderBySwitched(object sender, EventArgs e)
         {
             // Use the control's tag to get the row that was changed.
-            nint index = ((UISwitch)sender).Tag;
+            nint index = ((UISwitch) sender).Tag;
 
             // Get the corresponding field and update its choice as a sort field.
             OrderFieldOption orderByOption = _potentialOrderByFields.ElementAt((int) index);
-            orderByOption.OrderWith = ((UISwitch)sender).On;
+            orderByOption.OrderWith = ((UISwitch) sender).On;
         }
 
         // Return the number of rows to display.
@@ -748,40 +728,20 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         public event EventHandler OnCanceled;
 
         // Constructor that takes a picker for defining new statistics.
-        public ChooseStatisticOverlay(CGRect frame, nfloat transparency, UIColor color, UIPickerView statPicker) : base(frame)
+        public ChooseStatisticOverlay(UIPickerView statPicker)
         {
-            // Store the statistics picker.
-            UIPickerView statisticPicker = statPicker;
-
-            // Create a semi-transparent overlay with the specified background color.
-            BackgroundColor = color;
-            Alpha = transparency;
-
-            // Set the total height and width of the control set.
-            nfloat totalHeight = 400;
-            nfloat totalWidth = 320;
-
-            // Find the bottom x and y of the view.
-            nfloat centerX = Frame.Width / 2;
-            nfloat centerY = Frame.Bottom - 40;
-
-            // Find the start x and y for the control layout (aligned to the bottom of the view).
-            nfloat controlX = centerX - totalWidth / 2;
-            nfloat controlY = centerY - totalHeight;
-
+            this.TranslatesAutoresizingMaskIntoConstraints = false;
             // Toolbar with "Add" and "Done" buttons.
-            UIToolbar toolbar = new UIToolbar
-            {
-                BarStyle = UIBarStyle.Black,
-                Translucent = false
-            };
-            toolbar.SizeToFit();
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            statPicker.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Add Button (add the new stat and don't dismiss the UI).
-            UIBarButtonItem addButton = new UIBarButtonItem("Add", UIBarButtonItemStyle.Done, (s, e) =>
+            UIBarButtonItem addButton = new UIBarButtonItem("Add", UIBarButtonItemStyle.Plain, (s, e) =>
             {
                 // Get the selected StatisticDefinition.
-                StatDefinitionModel statPickerModel = (StatDefinitionModel)statisticPicker.Model;
+                StatDefinitionModel statPickerModel = (StatDefinitionModel) statPicker.Model;
                 StatisticDefinition newStatDefinition = statPickerModel.SelectedStatDefinition;
                 if (newStatDefinition != null)
                 {
@@ -791,22 +751,25 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             });
 
             // Done Button (dismiss the UI, don't use the selected statistic).
-            UIBarButtonItem doneButton = new UIBarButtonItem("Done", UIBarButtonItemStyle.Plain, 
+            UIBarButtonItem doneButton = new UIBarButtonItem("Done", UIBarButtonItemStyle.Done,
                 (s, e) => { OnCanceled?.Invoke(this, null); });
 
             // Add the buttons to the toolbar.
-            toolbar.SetItems(new[] {addButton, doneButton}, true);
+            toolbar.Items = new[] {addButton, doneButton};
 
-            // Define the location of the statistic picker.
-            controlY = controlY + 200;
-            statisticPicker.Frame = new CGRect(controlX, controlY, totalWidth, 200);
-
-            // Set the location for the toolbar.
-            controlY = controlY + 220;
-            toolbar.Frame = new CGRect(controlX, controlY, totalWidth, 30);
+            statPicker.BackgroundColor = UIColor.White;
 
             // Add the controls.
-            AddSubviews(toolbar, statisticPicker);
+            AddSubviews(toolbar, statPicker);
+
+            toolbar.BottomAnchor.ConstraintEqualTo(BottomAnchor).Active = true;
+            toolbar.LeadingAnchor.ConstraintEqualTo(LeadingAnchor).Active = true;
+            toolbar.TrailingAnchor.ConstraintEqualTo(TrailingAnchor).Active = true;
+
+            statPicker.TopAnchor.ConstraintEqualTo(TopAnchor).Active = true;
+            statPicker.LeadingAnchor.ConstraintEqualTo(LeadingAnchor).Active = true;
+            statPicker.TrailingAnchor.ConstraintEqualTo(TrailingAnchor).Active = true;
+            statPicker.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor).Active = true;
         }
 
         // Animate increasing transparency to completely hide the view, then remove it.
@@ -819,7 +782,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             Action removeViewAction = RemoveFromSuperview;
 
             // Time to complete the animation (seconds).
-            double secondsToComplete = 0.75;
+            const double secondsToComplete = 0.75;
 
             // Animate transparency to zero, then remove the view.
             Animate(secondsToComplete, makeTransparentAction, removeViewAction);

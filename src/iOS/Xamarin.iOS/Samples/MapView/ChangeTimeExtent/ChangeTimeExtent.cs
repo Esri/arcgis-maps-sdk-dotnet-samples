@@ -24,9 +24,8 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
         "Switch between the available options and observe how the data is filtered.")]
     public class ChangeTimeExtent : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold a reference to the MapView.
         private MapView _myMapView;
-        private UISegmentedControl _timeExtentsButton;
 
         private readonly Uri _mapServerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer");
         private readonly Uri _featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Earthquakes_Since1970/MapServer/0");
@@ -34,45 +33,6 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
         public ChangeTimeExtent()
         {
             Title = "Change time extent";
-        }
-
-        public override void LoadView()
-        {
-            // Create the views.
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            _timeExtentsButton = new UISegmentedControl("2000", "2005")
-            {
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
-                TintColor = UIColor.White,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-            // Clean up borders of segmented control - avoid corner pixels.
-            _timeExtentsButton.ClipsToBounds = true;
-            _timeExtentsButton.Layer.CornerRadius = 5;
-
-            _timeExtentsButton.ValueChanged += _timeExtentsButton_ValueChanged;
-
-            // Add the views.
-            View = new UIView();
-            View.AddSubviews(_myMapView, _timeExtentsButton);
-
-            // Apply constraints.
-            _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-
-            _timeExtentsButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor).Active = true;
-            _timeExtentsButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor).Active = true;
-            _timeExtentsButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            Initialize();
         }
 
         private void Initialize()
@@ -89,12 +49,12 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
             _myMapView.Map.OperationalLayers.Add(pointLayer);
         }
 
-        void _timeExtentsButton_ValueChanged(object sender, EventArgs e)
+        private void _timeExtentsButton_ValueChanged(object sender, EventArgs e)
         {
             DateTime start;
             DateTime end;
 
-            switch (_timeExtentsButton.SelectedSegment)
+            switch (((UISegmentedControl) sender).SelectedSegment)
             {
                 case 0:
                     // Hard-coded values: January 1st, 2000 - December 31st, 2000.
@@ -109,6 +69,48 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
                     _myMapView.TimeExtent = new TimeExtent(start, end);
                     break;
             }
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UISegmentedControl timeExtentsButton = new UISegmentedControl("2000", "2005")
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                TintColor = UIColor.White,
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                // Clean up borders of segmented control - avoid corner pixels.
+                ClipsToBounds = true,
+                Layer = {CornerRadius = 5}
+            };
+            timeExtentsButton.ValueChanged += _timeExtentsButton_ValueChanged;
+
+            // Add the views.
+            View.AddSubviews(_myMapView, timeExtentsButton);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+
+                timeExtentsButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
+                timeExtentsButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
+                timeExtentsButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
+            });
         }
     }
 }

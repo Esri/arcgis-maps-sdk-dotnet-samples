@@ -94,24 +94,38 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
             }
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
+            View = new UIView();
+
             _webView = new WKWebView(new CGRect(), new WKWebViewConfiguration());
             _myMapView = new MapView();
-            _stackView = new UIStackView(new UIView[] { _myMapView, _webView })
+
+            _stackView = new UIStackView(new UIView[] {_myMapView, _webView})
             {
                 Alignment = UIStackViewAlignment.Fill,
                 Distribution = UIStackViewDistribution.FillEqually,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
-            View = new UIView();
+            // Add the views.
             View.AddSubview(_stackView);
 
-            _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            });
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
@@ -122,17 +136,11 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
                 // Landscape
                 _stackView.Axis = UILayoutConstraintAxis.Horizontal;
             }
-            else 
+            else
             {
                 // Portrait
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
     }
 }

@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
     <None Include="Samples\Data\AddFeatures\AddFeatures.jpg" />
     <None Include="Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
     <None Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
@@ -253,6 +254,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Data\UpdateGeometries\UpdateGeometries.cs" />
     <Compile Include="Samples\Data\AddFeatures\AddFeatures.cs" />
     <Compile Include="Samples\Data\DeleteFeatures\DeleteFeatures.cs" />
     <Compile Include="Samples\Symbology\SceneSymbols\SceneSymbols.cs" />

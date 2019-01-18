@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
     <Content Include="Samples\Data\AddFeatures\AddFeatures.jpg" />
     <Content Include="Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
 	  <Content Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
@@ -298,6 +299,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Data\UpdateGeometries\UpdateGeometries.xaml.cs">
+      <DependentUpon>UpdateGeometries.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Data\AddFeatures\AddFeatures.xaml.cs">
       <DependentUpon>AddFeatures.xaml</DependentUpon>
     </Compile>
@@ -721,6 +725,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Data\UpdateGeometries\UpdateGeometries.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Data\AddFeatures\AddFeatures.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

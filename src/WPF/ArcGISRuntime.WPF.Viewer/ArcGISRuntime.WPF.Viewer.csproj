@@ -109,6 +109,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Data\UpdateGeometries\UpdateGeometries.xaml.cs">
+      <DependentUpon>UpdateGeometries.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Data\AddFeatures\AddFeatures.xaml.cs">
       <DependentUpon>AddFeatures.xaml</DependentUpon>
     </Compile>
@@ -553,6 +556,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Data\UpdateGeometries\UpdateGeometries.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Data\AddFeatures\AddFeatures.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1148,6 +1155,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Data\AddFeatures\AddFeatures.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

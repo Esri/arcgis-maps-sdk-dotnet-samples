@@ -11,6 +11,7 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Data\AddFeatures\AddFeatures.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
@@ -150,6 +151,10 @@
     <!-- Sample Code -->
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateGeometries\UpdateGeometries.xaml.cs">
       <DependentUpon>UpdateGeometries.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\AddFeatures\AddFeatures.xaml.cs">
+      <DependentUpon>AddFeatures.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\DeleteFeatures\DeleteFeatures.xaml.cs">
@@ -592,6 +597,9 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateGeometries\UpdateGeometries.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\AddFeatures\AddFeatures.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\DeleteFeatures\DeleteFeatures.xaml">

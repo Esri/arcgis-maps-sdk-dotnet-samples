@@ -13,12 +13,15 @@ using Android.Widget;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Android.Content;
+using Android.Graphics;
+using Android.Views;
 
 namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
 {
@@ -30,8 +33,20 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
         "")]
     public class EditFeatureAttachments : Activity
     {
-        // Create and hold reference to the used MapView.
-        private readonly MapView _myMapView = new MapView();
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private ListView _attachmentsListView;
+        private Button addButton;
+
+        // Hold a reference to the layer.
+        private FeatureLayer _damageLayer;
+
+        // Hold a reference to the currently selected feature.
+        private ArcGISFeature _selectedFeature;
+        private IReadOnlyList<Attachment> _featureAttachments;
+
+        // URL to the feature service.
+        private const string FeatureServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0";
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -45,23 +60,259 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
 
         private void Initialize()
         {
-            // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateImagery());
-            
-            // Provide used Map to the MapView.
-            _myMapView.Map = myMap;
+            // Create the map with streets basemap.
+            _myMapView.Map = new Map(Basemap.CreateStreets());
+
+            // Create the feature table, referring to the Damage Assessment feature service.
+            ServiceFeatureTable damageTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
+
+            // Create a feature layer to visualize the features in the table.
+            _damageLayer = new FeatureLayer(damageTable);
+
+            // Add the layer to the map.
+            _myMapView.Map.OperationalLayers.Add(_damageLayer);
+
+            // Listen for user taps on the map - on tap, a callout will be shown.
+            _myMapView.GeoViewTapped += MapView_Tapped;
+
+            // Zoom to the United States.
+            _myMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+        }
+
+        private async void MapView_Tapped(object sender, GeoViewInputEventArgs e)
+        {
+            // Clear any existing selection.
+            _damageLayer.ClearSelection();
+            addButton.Enabled = false;
+            _attachmentsListView.Enabled = false;
+            try
+            {
+                // Perform an identify to determine if a user tapped on a feature.
+                IdentifyLayerResult identifyResult = await _myMapView.IdentifyLayerAsync(_damageLayer, e.Position, 2, false);
+
+                // Do nothing if there are no results.
+                if (!identifyResult.GeoElements.Any())
+                {
+                    return;
+                }
+
+                // Get the tapped feature.
+                _selectedFeature = (ArcGISFeature)identifyResult.GeoElements.First();
+
+                // Update the UI.
+                UpdateUIForFeature();
+                addButton.Enabled = true;
+                _attachmentsListView.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                ShowMessage(ex.ToString(), "Error selecting feature");
+            }
+        }
+
+        private async void UpdateUIForFeature()
+        {
+            // Select the feature.
+            _damageLayer.SelectFeature(_selectedFeature);
+
+            // Get the attachments.
+            _featureAttachments = await _selectedFeature.GetAttachmentsAsync();
+
+            // Configure array adapter.
+            ArrayAdapter attachmentAdapter = new ArrayAdapter<string>(
+                this,
+                Android.Resource.Layout.SimpleListItem1,
+                _featureAttachments.Select(attachment => attachment.Name).ToArray());
+
+            // Populate the list.
+            _attachmentsListView.Adapter = attachmentAdapter;
+        }
+
+        private async Task PreviewAttachment(Attachment selectedAttachment)
+        {
+            if (selectedAttachment.ContentType.Contains("image"))
+            {
+                // Create a preview and show it.
+                // Get the image data.
+                Stream contentStream = await selectedAttachment.GetDataAsync();
+                byte[] attachmentData = new byte[contentStream.Length];
+                contentStream.Read(attachmentData, 0, attachmentData.Length);
+                Bitmap bmp = BitmapFactory.DecodeByteArray (attachmentData, 0, attachmentData.Length);
+                ImageView imageView = new ImageView(this);
+                imageView.SetImageBitmap(bmp);
+
+                // Show the preview.
+                ShowImageDialog(imageView);
+            }
+            else
+            {
+                ShowMessage("This sample can only show image attachments", "Can't show attachment");
+            }
+        }
+
+        private void ShowImageDialog(ImageView previewImageView)
+        {
+            Dialog imageDialog = new Dialog(this);
+            imageDialog.Window.RequestFeature(WindowFeatures.NoTitle);
+            imageDialog.SetContentView(previewImageView);
+            imageDialog.Show();
+        }
+
+        private async Task DeleteAttachment(Attachment attachmentToDelete)
+        {
+            try
+            {
+                // Delete the attachment.
+                await _selectedFeature.DeleteAttachmentAsync(attachmentToDelete);
+
+                // Update the table.
+                await ((ServiceFeatureTable) _selectedFeature.FeatureTable).ApplyEditsAsync();
+
+                // Update UI.
+                _selectedFeature.Refresh();
+                _featureAttachments = await _selectedFeature.GetAttachmentsAsync();
+                UpdateUIForFeature();
+                ShowMessage("Successfully deleted attachment", "Success!");
+            }
+            catch (Exception exception)
+            {
+                ShowMessage(exception.ToString(), "Error deleting attachment");
+            }
+        }
+
+        private void RequestImage()
+        {
+            // Start the process of requesting an image.
+            // Will be completed in OnActivityResult.
+            Intent = new Intent();
+            Intent.SetType("image/*.jpg");
+            Intent.SetAction(Intent.ActionGetContent);
+            StartActivityForResult(Intent.CreateChooser(Intent, "Select Picture"), 1000);
+        }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            // Method called when the image picker activity ends.
+            if ((requestCode == 1000) && (resultCode == Result.Ok) && (data != null))
+            {
+                Android.Net.Uri uri = data.Data;
+                AddAttachment(uri);
+            }
+        }
+
+        private async void AddAttachment(Android.Net.Uri imageUri)
+        {
+            byte[] attachmentData;
+            string contentType = "image/jpg";
+
+            Stream stream = ContentResolver.OpenInputStream(imageUri);   
+
+            using (var memoryStream = new MemoryStream())
+            {
+                stream.CopyTo(memoryStream);
+                attachmentData = memoryStream.ToArray();
+            }
+
+            // Add the attachment.
+            await _selectedFeature.AddAttachmentAsync(imageUri.LastPathSegment + ".jpg", contentType, attachmentData);
+
+            // Update the table.
+            await ((ServiceFeatureTable) _selectedFeature.FeatureTable).ApplyEditsAsync();
+
+            // Update UI.
+            _selectedFeature.Refresh();
+            _featureAttachments = await _selectedFeature.GetAttachmentsAsync();
+            UpdateUIForFeature();
+            ShowMessage("Successfully added attachment", "Success!");
+        }
+
+        private void Attachment_Clicked(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            // Get the selected attachment.
+            Attachment selectedAttachment = _featureAttachments[e.Position];
+
+            // Create menu to show options.
+            PopupMenu menu = new PopupMenu(this, (ListView) sender);
+
+            // Handle the click, calling the right method depending on the command.
+            menu.MenuItemClick += async (o, menuArgs) =>
+            {
+                menu.Dismiss();
+                switch (menuArgs.Item.ToString())
+                {
+                    case "View":
+                        await PreviewAttachment(selectedAttachment);
+                        break;
+                    case "Delete":
+                        await DeleteAttachment(selectedAttachment);
+                        break;
+                }
+                UpdateUIForFeature();
+            };
+
+            // Add the menu commands.
+            menu.Menu.Add("View");
+            menu.Menu.Add("Delete");
+
+            // Show menu in the view.
+            menu.Show();
+        }
+
+        private void ShowMessage(string message, string title)
+        {
+            // Display the message to the user.
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetMessage(message).SetTitle(title).Show();
         }
 
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            var layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
+
+            // Create the MapView.
+            _myMapView = new MapView();
+
+            // Create the help label.
+            TextView helpLabel = new TextView(this);
+            helpLabel.Text = "Tap to select features.";
+            helpLabel.TextAlignment = TextAlignment.Center;
+            helpLabel.Gravity = GravityFlags.Center;
+
+            // Add the help label to the layout.
+            layout.AddView(helpLabel);
+
+            // Create and add a listview for showing attachments;
+            _attachmentsListView = new ListView(this);
+            _attachmentsListView.Enabled = false;
+            _attachmentsListView.SetMinimumHeight(100);
+            layout.AddView(_attachmentsListView);
+            _attachmentsListView.ItemClick += Attachment_Clicked;
+
+            // Create and add an 'add attachment' button.
+            addButton = new Button(this);
+            addButton.Text = "Add attachment";
+            addButton.Enabled = false;
+            addButton.Click += AddButton_Clicked;
+            layout.AddView(addButton);
 
             // Add the map view to the layout.
             layout.AddView(_myMapView);
 
             // Show the layout in the app.
             SetContentView(layout);
+        }
+
+        private void AddButton_Clicked(object sender, EventArgs e)
+        {
+            // Do nothing if nothing selected.
+            if (_selectedFeature == null)
+            {
+                return;
+            }
+
+            // Start the process of requesting an image to add.
+            RequestImage();
         }
     }
 }

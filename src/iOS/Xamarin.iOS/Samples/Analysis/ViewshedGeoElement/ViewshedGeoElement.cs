@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
         "Featured")]
     public class ViewshedGeoElement : UIViewController
     {
-        // Create and hold references to the UI controls.
+        // Hold a reference to the SceneView.
         private SceneView _mySceneView;
 
         // URLs to the scene layer with buildings and the elevation source
@@ -176,25 +176,32 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
             }
         }
 
-        public override void LoadView()
-        {
-            _mySceneView = new SceneView();
-            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View = new UIView();
-            View.AddSubviews(_mySceneView);
-
-            _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-        }
-
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
             Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            // Add the views.
+            View.AddSubviews(_mySceneView);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
         }
     }
 }

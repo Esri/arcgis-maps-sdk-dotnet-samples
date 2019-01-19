@@ -14,7 +14,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
-using CoreGraphics;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -38,18 +37,12 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         "1. Pan and zoom to the area you would like to download point features for, ensuring that all point features are within the rectangle.\n2. Tap the 'generate' button. This will start the process of generating the offline geodatabase.\n3. Tap on a point feature within the area of the generated geodatabase. Then tap on the screen (anywhere within the range of the local geodatabase) to move the point to that location.\n4. Tap the 'Sync Geodatabase' button to synchronize the changes back to the feature service.\n\n Note that the basemap for this sample is downloaded from ArcGIS Online automatically.")]
     public class EditAndSyncFeatures : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIProgressView _progressBar = new UIProgressView();
-        private readonly UIButton _syncButton = new UIButton();
-        private readonly UILabel _helpLabel = new UILabel();
-        private readonly UIToolbar _helpToolbar = new UIToolbar();
-        private readonly UIToolbar _controlsToolbar = new UIToolbar();
-
-        private readonly UIButton _generateButton = new UIButton
-        {
-            Enabled = false
-        };
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UIProgressView _progressBar;
+        private UILabel _helpLabel;
+        private UIBarButtonItem _generateButton;
+        private UIBarButtonItem _syncButton;
 
         // Enumeration to track which phase of the workflow the sample is in.
         private enum EditState
@@ -77,65 +70,6 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         public EditAndSyncFeatures()
         {
             Title = "Edit and Sync Features";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            CreateLayout();
-            Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat pageOffset = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat controlHeight = 30;
-
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _helpToolbar.Frame = new CGRect(0, pageOffset, View.Bounds.Width, controlHeight + 2 * margin);
-                _controlsToolbar.Frame = new CGRect(0, View.Bounds.Height - controlHeight - 2 * margin, View.Bounds.Width, controlHeight + 2 * margin);
-                _generateButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
-                _syncButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
-                _progressBar.Frame = new CGRect(0, View.Bounds.Height - 42, View.Bounds.Width, 2);
-                _helpLabel.Frame = new CGRect(margin, pageOffset + margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _myMapView.ViewInsets = new UIEdgeInsets(_helpToolbar.Frame.Bottom, 0, _controlsToolbar.Frame.Height, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
-        }
-
-        private void CreateLayout()
-        {
-            // Update the Generate Button.
-            _generateButton.SetTitle("Generate", UIControlState.Normal);
-            _generateButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _generateButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
-            _generateButton.TouchUpInside += GenerateButton_Clicked;
-
-            // Update the Sync Button.
-            _syncButton.SetTitle("Synchronize", UIControlState.Normal);
-            _syncButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _syncButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
-            _syncButton.TouchUpInside += SyncButton_Click;
-            _syncButton.Enabled = false;
-
-            // Update the help label.
-            _helpLabel.Text = "1. Tap 'Generate'.";
-            _helpLabel.TextAlignment = UITextAlignment.Center;
-            _helpLabel.Lines = 1;
-            _helpLabel.AdjustsFontSizeToFitWidth = true;
-
-            // Add the views.
-            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _syncButton, _generateButton, _helpLabel);
         }
 
         private async void Initialize()
@@ -246,7 +180,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                         foreach (Feature feature in selectedFeatures)
                         {
                             // Get a reference to the correct feature table for the feature.
-                            GeodatabaseFeatureTable table = (GeodatabaseFeatureTable)feature.FeatureTable;
+                            GeodatabaseFeatureTable table = (GeodatabaseFeatureTable) feature.FeatureTable;
 
                             // Ensure the geometry type of the table is point.
                             if (table.GeometryType != GeometryType.Point)
@@ -285,7 +219,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                         Envelope selectionEnvelope = new Envelope(e.Location.X - tolerance, e.Location.Y - tolerance, e.Location.X + tolerance, e.Location.Y + tolerance);
 
                         // Define query parameters for feature selection.
-                        QueryParameters query = new QueryParameters()
+                        QueryParameters query = new QueryParameters
                         {
                             Geometry = selectionEnvelope
                         };
@@ -387,14 +321,14 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             generateGdbJob.ProgressChanged += (sender, e) =>
             {
                 // Get the job.
-                GenerateGeodatabaseJob job = (GenerateGeodatabaseJob)sender;
+                GenerateGeodatabaseJob job = (GenerateGeodatabaseJob) sender;
 
                 // Update the progress bar.
                 UpdateProgressBar(job.Progress);
             };
 
             // Show the progress bar.
-            View.AddSubview(_progressBar);
+            _progressBar.Hidden = false;
 
             // Start the job.
             generateGdbJob.Start();
@@ -409,7 +343,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         private async void HandleGenerationCompleted(GenerateGeodatabaseJob job)
         {
             // Hide the progress bar.
-            _progressBar.RemoveFromSuperview();
+            _progressBar.Hidden = true;
 
             switch (job.Status)
             {
@@ -477,6 +411,9 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             // Disable editing.
             _myMapView.GeoViewTapped -= GeoViewTapped;
 
+            // Show the progress bar.
+            _progressBar.Hidden = false;
+
             // Create parameters for the sync task.
             SyncGeodatabaseParameters parameters = new SyncGeodatabaseParameters
             {
@@ -507,9 +444,6 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 UpdateProgressBar(job.Progress);
             };
 
-            // Show the progress bar.
-            View.AddSubview(_progressBar);
-
             // Start the sync.
             job.Start();
 
@@ -523,7 +457,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         private void HandleSyncCompleted(SyncGeodatabaseJob job)
         {
             // Hide the progress bar & enable the sync button.
-            _progressBar.RemoveFromSuperview();
+            _progressBar.Hidden = true;
             _syncButton.Enabled = true;
 
             // Re-enable editing.
@@ -611,6 +545,76 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             {
                 ShowStatusMessage(ex.ToString());
             }
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _generateButton = new UIBarButtonItem("Generate", UIBarButtonItemStyle.Plain, GenerateButton_Clicked);
+            _generateButton.Enabled = false;
+            _syncButton = new UIBarButtonItem("Synchronize", UIBarButtonItemStyle.Plain, SyncButton_Click);
+            _syncButton.Enabled = false;
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                _generateButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _syncButton
+            };
+
+            _helpLabel = new UILabel
+            {
+                Text = "1. Tap 'Generate'.",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _progressBar = new UIProgressView();
+            _progressBar.TranslatesAutoresizingMaskIntoConstraints = false;
+            _progressBar.Hidden = true;
+
+            // Add the views.
+            View.AddSubviews(_myMapView, _helpLabel, _progressBar, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                _helpLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _helpLabel.HeightAnchor.ConstraintEqualTo(40),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                _progressBar.TopAnchor.ConstraintEqualTo(_helpLabel.BottomAnchor),
+                _progressBar.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                _progressBar.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                _progressBar.HeightAnchor.ConstraintEqualTo(8)
+            });
         }
     }
 }

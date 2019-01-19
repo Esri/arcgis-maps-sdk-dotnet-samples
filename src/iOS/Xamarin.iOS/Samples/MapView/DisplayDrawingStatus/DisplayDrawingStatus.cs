@@ -35,54 +35,6 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
             Title = "Display drawing status";
         }
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            Initialize();
-        }
-
-        public override void LoadView()
-        {
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
-            {
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-
-            _statusLabel = new UILabel
-            {
-                Text = "Drawing status: Unknown",
-                AdjustsFontSizeToFitWidth = true,
-                TextAlignment = UITextAlignment.Center,
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
-                TextColor = UIColor.White,
-                Lines = 1,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-
-            View = new UIView();
-            View.AddSubviews(_myMapView, _activityIndicator, _statusLabel);
-
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-
-            _statusLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _statusLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _statusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _statusLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
-
-            _activityIndicator.TopAnchor.ConstraintEqualTo(_statusLabel.BottomAnchor).Active = true;
-            _activityIndicator.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _activityIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _activityIndicator.HeightAnchor.ConstraintEqualTo(40).Active = true;
-        }
-
         private async void Initialize()
         {
             // Create new Map with basemap.
@@ -127,6 +79,60 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
                     _activityIndicator.Hidden = true;
                     _statusLabel.Text = "Drawing status: Completed";
                 }
+            });
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            _statusLabel = new UILabel
+            {
+                Text = "Drawing status: Unknown",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, _activityIndicator, _statusLabel);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                _statusLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _statusLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _statusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _statusLabel.HeightAnchor.ConstraintEqualTo(40),
+
+                _activityIndicator.TopAnchor.ConstraintEqualTo(_statusLabel.BottomAnchor),
+                _activityIndicator.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _activityIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _activityIndicator.HeightAnchor.ConstraintEqualTo(40)
             });
         }
     }

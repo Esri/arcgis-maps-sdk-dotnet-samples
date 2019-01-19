@@ -190,6 +190,12 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     // Wait for the table to load.
                     await onlineTable.LoadAsync();
 
+                    // Skip tables that aren't for point features.{
+                    if (onlineTable.GeometryType != GeometryType.Point)
+                    {
+                        continue;
+                    }
+
                     // Add the layer to the map's operational layers if load succeeds.
                     if (onlineTable.LoadStatus == Esri.ArcGISRuntime.LoadStatus.Loaded)
                     {
@@ -284,17 +290,25 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                             Geometry = selectionEnvelope
                         };
 
+                        // Track whether any selections were made.
+                        bool selectedFeature = false;
+
                         // Select the feature in all applicable tables.
                         foreach (FeatureLayer layer in _myMapView.Map.OperationalLayers)
                         {
-                            await layer.SelectFeaturesAsync(query, SelectionMode.New);
+                            FeatureQueryResult res = await layer.SelectFeaturesAsync(query, SelectionMode.New);
+                            selectedFeature = selectedFeature || res.Any();
                         }
 
-                        // Set the edit state.
-                        _readyForEdits = EditState.Editing;
+                        // Only update state if a feature was selected.
+                        if (selectedFeature)
+                        {
+                            // Set the edit state.
+                            _readyForEdits = EditState.Editing;
 
-                        // Update the help label.
-                        _helpLabel.Text = "3. Tap on the map to move the point.";
+                            // Update the help label.
+                            _helpLabel.Text = "3. Tap on the map to move the point";
+                        }
                         break;
                 }
             }
@@ -392,7 +406,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             HandleGenerationCompleted(generateGdbJob);
         }
 
-        private void HandleGenerationCompleted(GenerateGeodatabaseJob job)
+        private async void HandleGenerationCompleted(GenerateGeodatabaseJob job)
         {
             // Hide the progress bar.
             _progressBar.RemoveFromSuperview();
@@ -407,6 +421,13 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     // Loop through all feature tables in the geodatabase and add a new layer to the map.
                     foreach (GeodatabaseFeatureTable table in _resultGdb.GeodatabaseFeatureTables)
                     {
+                        // Skip non-point tables.
+                        await table.LoadAsync();
+                        if (table.GeometryType != GeometryType.Point)
+                        {
+                            continue;
+                        }
+
                         // Create a new feature layer for the table.
                         FeatureLayer layer = new FeatureLayer(table);
 
@@ -545,6 +566,9 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
 
         private async void GenerateButton_Clicked(object sender, EventArgs e)
         {
+            // Fix the selection graphic extent.
+            _myMapView.ViewpointChanged -= MapViewExtentChanged;
+
             try
             {
                 // Disable the generate button.

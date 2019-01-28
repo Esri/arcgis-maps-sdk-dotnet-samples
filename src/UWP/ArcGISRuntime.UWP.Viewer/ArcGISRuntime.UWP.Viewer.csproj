@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<Content Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg" />
 	  <Content Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
     <Content Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
     <Content Include="Samples\Data\AddFeatures\AddFeatures.jpg" />
@@ -300,6 +301,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.xaml.cs">
+		<DependentUpon>OpenStreetMapLayer.xaml</DependentUpon>
+	</Compile>
     <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.xaml.cs">
       <DependentUpon>UpdateAttributes.xaml</DependentUpon>
     </Compile>
@@ -729,6 +733,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<Page Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.xaml">
+		<Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
     <Page Include="Samples\Data\UpdateAttributes\UpdateAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

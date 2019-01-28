@@ -65,7 +65,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
                 _viewModel.MoveLayer(clickedLayer);
             }
             // Sometimes if the user clicks too quickly NREs will occur.
-            catch (NullReferenceException exception)
+            catch (Exception exception)
             {
                 Console.WriteLine(exception);
             }
@@ -85,7 +85,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
                 _viewModel.DemoteLayer(clickedLayer);
             }
             // Sometimes if the user clicks too quickly NREs will occur.
-            catch (NullReferenceException exception)
+            catch (Exception exception)
             {
                 Console.WriteLine(exception);
             }
@@ -105,7 +105,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
                 _viewModel.PromoteLayer(clickedLayer);
             }
             // Sometimes if the user clicks too quickly NREs will occur.
-            catch (NullReferenceException exception)
+            catch (Exception exception)
             {
                 Console.WriteLine(exception);
             }

@@ -25,6 +25,7 @@
                          ItemTemplate="{StaticResource LayerListTemplate}"
                          ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
                          AllowDrop="True"
+                         MinHeight="100"
                          Drop="ListBoxItem_OnDrop" />
                 <Label Content="Layers not in map"
                        HorizontalContentAlignment="Center"
@@ -34,6 +35,7 @@
                          ItemTemplate="{StaticResource LayerListTemplate}"
                          ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
                          AllowDrop="True"
+                         MinHeight="100"
                          Drop="ListBoxItem_OnDrop" />
             </StackPanel>
         </Border>

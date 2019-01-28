@@ -53,38 +53,62 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         private void MoveButton_OnClicked(object sender, EventArgs e)
         {
-            // Get the clicked button.
-            Button clickedButton = (Button) sender;
+            try
+            {
+                // Get the clicked button.
+                Button clickedButton = (Button) sender;
 
-            // Get the clicked layer.
-            Layer clickedLayer = (Layer) clickedButton.BindingContext;
+                // Get the clicked layer.
+                Layer clickedLayer = (Layer) clickedButton.BindingContext;
 
-            // Move the layer.
-            _viewModel.MoveLayer(clickedLayer);
+                // Move the layer.
+                _viewModel.MoveLayer(clickedLayer);
+            }
+            // Sometimes if the user clicks too quickly NREs will occur.
+            catch (NullReferenceException exception)
+            {
+                Console.WriteLine(exception);
+            }
         }
 
         private void DemoteButton_Clicked(object sender, EventArgs e)
         {
-            // Get the clicked button.
-            Button clickedButton = (Button) sender;
+            try
+            {
+                // Get the clicked button.
+                Button clickedButton = (Button) sender;
 
-            // Get the clicked layer.
-            Layer clickedLayer = (Layer) clickedButton.BindingContext;
+                // Get the clicked layer.
+                Layer clickedLayer = (Layer) clickedButton.BindingContext;
 
-            // Move the layer.
-            _viewModel.DemoteLayer(clickedLayer);
+                // Move the layer.
+                _viewModel.DemoteLayer(clickedLayer);
+            }
+            // Sometimes if the user clicks too quickly NREs will occur.
+            catch (NullReferenceException exception)
+            {
+                Console.WriteLine(exception);
+            }
         }
 
         private void PromoteButton_Clicked(object sender, EventArgs e)
         {
-            // Get the clicked button.
-            Button clickedButton = (Button) sender;
+            try
+            {
+                // Get the clicked button.
+                Button clickedButton = (Button) sender;
 
-            // Get the clicked layer.
-            Layer clickedLayer = (Layer) clickedButton.BindingContext;
+                // Get the clicked layer.
+                Layer clickedLayer = (Layer) clickedButton.BindingContext;
 
-            // Move the layer.
-            _viewModel.PromoteLayer(clickedLayer);
+                // Move the layer.
+                _viewModel.PromoteLayer(clickedLayer);
+            }
+            // Sometimes if the user clicks too quickly NREs will occur.
+            catch (NullReferenceException exception)
+            {
+                Console.WriteLine(exception);
+            }
         }
     }
 

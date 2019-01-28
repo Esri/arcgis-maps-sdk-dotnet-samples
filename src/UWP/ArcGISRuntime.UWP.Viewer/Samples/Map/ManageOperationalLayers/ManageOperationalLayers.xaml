@@ -33,7 +33,7 @@
                           DragOver="ListBox_OnDragOver"
                           Drop="ListBox_OnDrop"
                           DragItemsStarting="ListBox_OnDragItemsStarting" />
-                <TextBlock Text="Layers in map"
+                <TextBlock Text="Layers not in map"
                            TextAlignment="Center"
                            FontWeight="SemiBold" />
                 <ListView Style="{StaticResource LayerListStyle}"

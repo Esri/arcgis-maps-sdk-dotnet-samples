@@ -68,8 +68,10 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
                 Maps.Add(map);
             }
 
+            // Show the first map by default.
             MyMapView.Map = Maps.First();
 
+            // Populate the map list in the UI.
             MapListView.ItemsSource = Maps;
 
             // Get the locator task from the package.

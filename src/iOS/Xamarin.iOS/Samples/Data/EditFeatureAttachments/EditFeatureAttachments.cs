@@ -288,8 +288,11 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                     // Force the view to reload its data.
                     tableView.ReloadData();
                 }
-                // An existing attachment was selected, show the preview.
-                PreviewAttachment(_attachments[indexPath.Row]);
+                else
+                {
+                    // An existing attachment was selected, show the preview.
+                    PreviewAttachment(_attachments[indexPath.Row]);
+                }
             }
 
             public override string TitleForDeleteConfirmation(UITableView tableView, NSIndexPath indexPath)

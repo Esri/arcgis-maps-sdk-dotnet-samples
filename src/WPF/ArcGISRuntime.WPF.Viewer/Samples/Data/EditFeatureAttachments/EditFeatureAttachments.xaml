@@ -13,6 +13,7 @@
                     <ListBox x:Name="AttachmentsListBox"
                              IsEnabled="False"
                              MinHeight="100"
+                             MaxHeight="300"
                              HorizontalContentAlignment="Stretch"
                              Background="LightGray">
                         <ListBox.ItemTemplate>

@@ -98,9 +98,9 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
 
                 // Get the attachments.
                 IReadOnlyList<Attachment> attachments = await tappedFeature.GetAttachmentsAsync();
-
+                
                 // Populate the UI.
-                AttachmentsListBox.ItemsSource = attachments;
+                AttachmentsListBox.ItemsSource = attachments.Where(attachment => attachment.ContentType == "image/jpeg");;
                 AttachmentsListBox.IsEnabled = true;
                 AddAttachmentButton.IsEnabled = true;
             }
@@ -229,7 +229,7 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
                 SaveFileDialog dlg = new SaveFileDialog
                 {
                     FileName = selectedAttachment.Name,
-                    Filter = selectedAttachment.ContentType + "|*.*",
+                    Filter = selectedAttachment.ContentType + "|*.jpg",
                     InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                 };
 
@@ -253,6 +253,9 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
                     FileAccess.Write);
                 fs.Write(attachmentData, 0, attachmentData.Length);
                 fs.Close();
+
+                // Launch the file.
+                System.Diagnostics.Process.Start(dlg.FileName);
             }
             catch (Exception exception)
             {

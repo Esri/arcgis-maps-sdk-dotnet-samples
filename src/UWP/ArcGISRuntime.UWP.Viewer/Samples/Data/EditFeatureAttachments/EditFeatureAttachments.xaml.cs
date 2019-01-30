@@ -242,6 +242,9 @@ namespace ArcGISRuntime.UWP.Samples.EditFeatureAttachments
 
                 // Close the stream.
                 attachmentDataStream.Close();
+
+                // Launch the file.
+                Windows.System.Launcher.LaunchFileAsync(file);
             }
             catch (Exception exception)
             {

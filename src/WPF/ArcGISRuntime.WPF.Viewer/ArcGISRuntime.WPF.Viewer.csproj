@@ -109,6 +109,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Converters\ItemToImageSourceConverter.cs" />
+    <Compile Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.xaml.cs">
+      <DependentUpon>MobileMapSearchAndRoute.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.xaml.cs">
       <DependentUpon>UpdateAttributes.xaml</DependentUpon>
     </Compile>
@@ -559,6 +563,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Data\UpdateAttributes\UpdateAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1162,6 +1170,11 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Resource Include="Resources\routingSymbol.png" />
+    <Resource Include="Resources\files-48.png" />
+    <Content Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

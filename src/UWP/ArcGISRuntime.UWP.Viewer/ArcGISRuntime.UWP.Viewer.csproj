@@ -113,12 +113,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	  <Content Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
+    <Content Include="Assets\routingSymbol.png" />
+    <Content Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
+    <Content Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
     <Content Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
     <Content Include="Samples\Data\AddFeatures\AddFeatures.jpg" />
     <Content Include="Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
-	  <Content Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
-	  <Content Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
+    <Content Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
+    <Content Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
     <Content Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
     <Content Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg" />
     <Content Include="Samples\Geometry\SpatialOperations\SpatialOperations.jpg" />
@@ -300,6 +302,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Converters\ItemToImageSourceConverter.cs" />
+    <Compile Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.xaml.cs">
+      <DependentUpon>MobileMapSearchAndRoute.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.xaml.cs">
       <DependentUpon>UpdateAttributes.xaml</DependentUpon>
     </Compile>
@@ -729,6 +735,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Data\UpdateAttributes\UpdateAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

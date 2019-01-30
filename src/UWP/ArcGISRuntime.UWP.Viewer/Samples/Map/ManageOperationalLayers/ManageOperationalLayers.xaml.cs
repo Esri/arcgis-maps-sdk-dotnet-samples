@@ -48,6 +48,8 @@ namespace ArcGISRuntime.UWP.Samples.ManageOperationalLayers
         private void Initialize()
         {
             _viewModel = new MapViewModel(new Map(Basemap.CreateStreets()));
+
+            // Configure the bindings to point to the view model.
             this.DataContext = _viewModel;
 
             // Add the layers.
@@ -59,16 +61,18 @@ namespace ArcGISRuntime.UWP.Samples.ManageOperationalLayers
 
         private void ListBox_OnDragOver(object sender, DragEventArgs e)
         {
-            // Specify that the listview accepts dropping.
+            // Specify that the listview accepts dropping and that the operation is a move (rather than a copy or link)
             e.AcceptedOperation = DataPackageOperation.Move;
         }
 
         private void ListBox_OnDrop(object sender, DragEventArgs e)
         {
+            // If the item being dropped is a layer...
             if (e.DataView != null && e.DataView.Properties != null && e.DataView.Properties.Any(x => x.Key == "item" && x.Value is Layer))
             {
                 try
                 {
+                    // Start doing work for the drop.
                     DragOperationDeferral deferral = e.GetDeferral();
 
                     // Get the layer that is being moved.
@@ -83,6 +87,7 @@ namespace ArcGISRuntime.UWP.Samples.ManageOperationalLayers
                     ((LayerCollection) sourceList.ItemsSource).Remove(draggedLayer);
                     ((LayerCollection) destinationList.ItemsSource).Add(draggedLayer);
 
+                    // Finish the drop.
                     deferral.Complete();
                 }
                 catch (Exception ex)
@@ -92,6 +97,7 @@ namespace ArcGISRuntime.UWP.Samples.ManageOperationalLayers
             }
             else
             {
+                // Don't allow other things to be dropped (e.g. files from the desktop).
                 e.AcceptedOperation = DataPackageOperation.None;
             }
         }

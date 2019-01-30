@@ -73,7 +73,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         private void UpdateLayerListViews()
         {
-            // Configure array adapters.
+            // Configure array adapters - these convert the layer lists into arrays of strings that can be displayed in a list view.
             ArrayAdapter includedLayerAdapter = new ArrayAdapter<string>(
                 this,
                 Android.Resource.Layout.SimpleListItem1,
@@ -89,8 +89,10 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         private void ListItem_Click(object sender, AdapterView.ItemClickEventArgs e)
         {
+            // Find the list the item belongs to.
             LayerCollection sendingList = sender == _includedListView ? _viewModel.IncludedLayers : _viewModel.ExcludedLayers;
 
+            // Constants for command names.
             const string moveUpCommand = "Move up";
             const string moveDownCommand = "Move down";
             const string addToMapCommand = "Add to map";
@@ -188,12 +190,13 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         public void DemoteLayer(LayerCollection owningCollection, int position)
         {
+            // Skip if the layer can't be moved because its already at the bottom.
             if (position == owningCollection.Count - 1)
             {
                 return;
             }
 
-            // Move the layer.
+            // Move the layer by removing it from its current position and inserting it at the next higher position.
             Layer selectedLayer = owningCollection[position];
             owningCollection.RemoveAt(position);
             owningCollection.Insert(position + 1, selectedLayer);
@@ -201,12 +204,13 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         public void PromoteLayer(LayerCollection owningCollection, int position)
         {
+            // Skip if the layer can't be moved up because it is already at the top.
             if (position < 1)
             {
                 return;
             }
 
-            // Move the layer.
+            // Move the layer by removing it from its current position and adding it at the next lower position.
             Layer selectedLayer = owningCollection[position];
             owningCollection.RemoveAt(position);
             owningCollection.Insert(position - 1, selectedLayer);
@@ -214,8 +218,10 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         public void MoveLayer(LayerCollection owningCollection, int position)
         {
+            // Find the selected layer.
             Layer selectedLayer = owningCollection[position];
-            // Move the layer from one list to another.
+
+            // Move the layer from one list to another by removing it from the source list and adding it to the destination list.
             if (IncludedLayers.Contains(selectedLayer))
             {
                 IncludedLayers.Remove(selectedLayer);

@@ -46,6 +46,8 @@ namespace ArcGISRuntime.WPF.Samples.ManageOperationalLayers
         private void Initialize()
         {
             _viewModel = new MapViewModel(new Map(Basemap.CreateStreets()));
+
+            // Configure bindings to point to the view model.
             this.DataContext = _viewModel;
 
             // Add the layers.
@@ -63,9 +65,16 @@ namespace ArcGISRuntime.WPF.Samples.ManageOperationalLayers
 
             if (sender is ListBoxItem)
             {
+                // Get the listbox item that is being moved.
                 ListBoxItem sendingItem = (ListBoxItem) sender;
+
+                // Record that this item was being dragged - used later when drag ends to determine which item to move.
                 _originatingListBoxItem = sendingItem;
+
+                // Register the start of the drag & drop operation with the system.
                 DragDrop.DoDragDrop(sendingItem, sendingItem.DataContext, DragDropEffects.Move);
+
+                // Mark the dragged item as selected.
                 sendingItem.IsSelected = true;
             }
         }
@@ -82,6 +91,7 @@ namespace ArcGISRuntime.WPF.Samples.ManageOperationalLayers
                 return;
             }
 
+            // Find the list box that the item was dropped on (i.e. dragged to).
             ListBox destinationBox = FindParentListBox((UIElement) sender);
 
             // Get the data that is being dropped.
@@ -94,11 +104,16 @@ namespace ArcGISRuntime.WPF.Samples.ManageOperationalLayers
             // Sender is the control that the item is being dropped on. Could be a listbox or a listbox item.
             if (sender is ListBoxItem)
             {
+                // Find the layer that the item represents.
                 Layer targetData = ((ListBoxItem) sender).DataContext as Layer;
+
+                // Find the position of the layer in the listbox.
                 indexOfInsertion = destinationBox.Items.IndexOf(targetData);
             }
             else if (destinationBox != sourceBox)
             {
+                // Drop the item at the end of the list if the user let go of the item on the empty space in the box rather than the list item.
+                // This works because both the listbox and its individual listbox items participate in drag and drop.
                 indexOfInsertion = destinationBox.Items.Count - 1;
             }
             else
@@ -132,8 +147,10 @@ namespace ArcGISRuntime.WPF.Samples.ManageOperationalLayers
 
             // Walk up the visual element tree until a ListBox is found.
             UIElement parentElement = source;
+            // While the parent element is not a listbox and the parent element is not null,
             while (!(parentElement is ListBox) && parentElement != null)
             {
+                // find the next parent.
                 parentElement = VisualTreeHelper.GetParent(parentElement) as UIElement;
             }
 

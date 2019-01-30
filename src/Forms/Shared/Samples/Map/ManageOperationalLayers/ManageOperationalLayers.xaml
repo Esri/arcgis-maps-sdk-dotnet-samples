@@ -34,16 +34,20 @@
                 <Label Text="Layers in map"
                        FontAttributes="Bold"
                        HorizontalTextAlignment="Center" />
+                <!-- Item template defined in UserControl.Resources above specifies that each listbox 
+                     item's content consists of a label with the layer's Name and three buttons. -->
                 <ListView x:Name="IncludedListView"
                           VerticalOptions="Start"
-                          HeightRequest="60"
+                          HeightRequest="80"
                           ItemTemplate="{StaticResource LayerListTemplate}" />
                 <Label Text="Layers not in map"
                        FontAttributes="Bold"
                        HorizontalTextAlignment="Center" />
+                <!-- Item template defined in UserControl.Resources above specifies that each listbox 
+                     item's content consists of a label with the layer's Name and three buttons. -->
                 <ListView x:Name="ExcludedListView"
                           VerticalOptions="Start"
-                          HeightRequest="60"
+                          HeightRequest="80"
                           ItemTemplate="{StaticResource LayerListTemplate}" />
             </StackLayout>
         </resources:ResponsiveFormContainer>

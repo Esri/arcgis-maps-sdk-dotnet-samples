@@ -6,7 +6,7 @@ Add, remove, and reorder operational layers in a map.
 
 ## How to use the sample
 
-Drag layers between the lists to add and remove them from the map. Drag layers within the lists to reorder them.
+Tap a layer in a list to see a list of options. Select 'Move up' or 'Move down' to rearrange the layer within a list. Select 'Remove from map' or 'Add to map' to move the layer in or out of the map's operational layers.
 
 ## How it works
 

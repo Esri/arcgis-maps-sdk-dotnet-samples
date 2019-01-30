@@ -55,6 +55,8 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
             // Create the table view controller.
             _tableController = new UITableViewController(UITableViewStyle.Plain);
+
+            // The table view content is managed by the view model.
             _tableController.TableView.Source = _viewModel;
         }
 
@@ -62,9 +64,12 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
         {
             // Show the layer list popover. Note: most behavior is managed by the table view & its source. See MapViewModel.
             var controller = new UINavigationController(_tableController);
+            // Show an edit button in the top left of the popover.
             controller.NavigationBar.Items[0].SetLeftBarButtonItem(_tableController.EditButtonItem, false);
+            // Show a close button in the top right.
             var closeButton = new UIBarButtonItem("Close", UIBarButtonItemStyle.Plain, (o, ea) => controller.DismissViewController(true, null));
             controller.NavigationBar.Items[0].SetRightBarButtonItem(closeButton, false);
+            // Show the table view in a popover.
             controller.ModalPresentationStyle = UIModalPresentationStyle.Popover;
             controller.PreferredContentSize = new CGSize(300, 250);
             UIPopoverPresentationController pc = controller.PopoverPresentationController;
@@ -147,8 +152,9 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            // Gets a cell for the specified section and row.
+            // Gets a cell for the specified section and row within that section.
             var cell = new UITableViewCell(UITableViewCellStyle.Default, CellIdentifier);
+            // The first section is Map.OperationalLayers, the other section is excluded layers.
             switch (indexPath.Section)
             {
                 case 0:
@@ -184,6 +190,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         public override string TitleForHeader(UITableView tableView, nint section)
         {
+            // The first section is for included layers, the second section is excluded layers.
             return section == 0 ? "Layers in map" : "Layers not in map";
         }
 
@@ -232,6 +239,8 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         public override UITableViewCellEditingStyle EditingStyleForRow(UITableView tableView, NSIndexPath indexPath)
         {
+            // Layers in the first section can be removed from the map (looks like deletion).
+            // Layers in the second section can be added to the map (looks like insertion).
             switch (indexPath.Section)
             {
                 case 0:
@@ -243,18 +252,24 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         public override bool CanMoveRow(UITableView tableView, NSIndexPath indexPath)
         {
+            // All rows can be moved.
             return true;
         }
 
         public override void MoveRow(UITableView tableView, NSIndexPath sourceIndexPath, NSIndexPath destinationIndexPath)
         {
+            // Find the source and destination lists (based on the section of the source and destination index).
             LayerCollection source = sourceIndexPath.Section == 0 ? IncludedLayers : ExcludedLayers;
             LayerCollection destination = destinationIndexPath.Section == 0 ? IncludedLayers : ExcludedLayers;
 
+            // Find the layer that is being moved.
             Layer movedLayer = source[sourceIndexPath.Row];
+
+            // Remove the layer from the source list and insert into the destination list.
             source.RemoveAt(sourceIndexPath.Row);
             destination.Insert(destinationIndexPath.Row, movedLayer);
 
+            // Reload the table now that the data has changed.
             tableView.ReloadData();
         }
     }

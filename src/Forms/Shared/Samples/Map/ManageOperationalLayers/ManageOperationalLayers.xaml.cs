@@ -132,17 +132,26 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
         public void DemoteLayer(Layer selectedLayer)
         {
             // Find the collection the layer is in.
-            LayerCollection owningCollection = IncludedLayers.Contains(selectedLayer) ? IncludedLayers : ExcludedLayers;
+            LayerCollection owningCollection;
+            if (IncludedLayers.Contains(selectedLayer))
+            {
+                owningCollection = IncludedLayers;
+            }
+            else
+            {
+                owningCollection = ExcludedLayers;
+            }
 
             // Get the current index (position) of the layer.
             int layerIndex = owningCollection.IndexOf(selectedLayer);
 
+            // Skip if the layer can't be moved down because it is already at the bottom.
             if (layerIndex == owningCollection.Count - 1)
             {
                 return;
             }
 
-            // Move the layer.
+            // Move the layer by removing it and re-adding it at its old position plus 1.
             owningCollection.Remove(selectedLayer);
             owningCollection.Insert(layerIndex + 1, selectedLayer);
         }
@@ -155,19 +164,20 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
             // Get the current index (position) of the layer.
             int layerIndex = owningCollection.IndexOf(selectedLayer);
 
+            // Skip if the layer can't be moved because it is already at the top.
             if (layerIndex < 1)
             {
                 return;
             }
 
-            // Move the layer.
+            // Move the layer by removing it and re-adding it at its old position minus 1.
             owningCollection.Remove(selectedLayer);
             owningCollection.Insert(layerIndex - 1, selectedLayer);
         }
 
         public void MoveLayer(Layer selectedLayer)
         {
-            // Move the layer from one list to another.
+            // Remove the layer from the list it is currently in and add it to the other list.
             if (IncludedLayers.Contains(selectedLayer))
             {
                 IncludedLayers.Remove(selectedLayer);

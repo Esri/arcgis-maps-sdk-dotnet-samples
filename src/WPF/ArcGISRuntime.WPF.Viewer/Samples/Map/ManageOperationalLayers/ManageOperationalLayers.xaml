@@ -7,8 +7,12 @@
             <Label Content="{Binding Name}" />
         </DataTemplate>
         <Style TargetType="ListBoxItem" x:Key="LayerListBoxItemStyle">
+            <!-- PreviewMouseLeftButtonDown is the event that is raised when the user clicks and holds the click. -->
             <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListBox_DragPreviewMove" />
+            <!-- Drop is raised when user lets go while doing a drag-and-drop operation. -->
             <EventSetter Event="Drop" Handler="ListBoxItem_OnDrop" />
+            <!-- AllowDrop specifies that dragged items can be dropped on this item. -->
+            <!-- ListBox items need to be supported for dragging to enable re-ordering. -->
             <Setter Property="AllowDrop" Value="True" />
         </Style>
     </UserControl.Resources>
@@ -20,6 +24,9 @@
                 <Label Content="Layers in map"
                        HorizontalContentAlignment="Center"
                        FontWeight="SemiBold" />
+                <!-- Item template defined in UserControl.Resources above specifies that each listbox 
+                     item's content consists of a label with the layer's Name property displayed. -->
+                <!-- The item container style is used to define events and properties on listbox items. -->
                 <ListBox x:Name="IncludedListBox"
                          ItemsSource="{Binding IncludedLayers}"
                          ItemTemplate="{StaticResource LayerListTemplate}"
@@ -30,6 +37,9 @@
                 <Label Content="Layers not in map"
                        HorizontalContentAlignment="Center"
                        FontWeight="SemiBold" />
+                <!-- Item template defined in UserControl.Resources above specifies that each listbox 
+                     item's content consists of a label with the layer's Name property displayed. -->
+                <!-- The item container style is used to define events and properties on listbox items. -->
                 <ListBox x:Name="ExcludedListBox"
                          ItemsSource="{Binding ExcludedLayers, Mode=TwoWay}"
                          ItemTemplate="{StaticResource LayerListTemplate}"

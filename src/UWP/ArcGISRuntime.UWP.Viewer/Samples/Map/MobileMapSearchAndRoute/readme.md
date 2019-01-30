@@ -10,7 +10,7 @@ Mobile map packages make it easy to transmit and store the necessary components 
 
 ## How to use the sample
 
-A list of maps from a mobile map package will be displayed. If the map contains transportation networks, the list item will have a navigation icon. Click on a map in the list to open it. Click on the map to reverse geocode the clicked locations's address if a locator task is available. If transportation networks are available, a route will be calculated between geocode locations.
+A list of maps from a mobile map package will be displayed. If the map contains transportation networks, the list item will have a navigation icon. Click on a map in the list to open it. Tap on the map to reverse geocode the tapped locations's address if a locator task is available. If transportation networks are available, a route will be calculated between tapped locations. Tap again to clear the route result.
 
 ## How it works
 

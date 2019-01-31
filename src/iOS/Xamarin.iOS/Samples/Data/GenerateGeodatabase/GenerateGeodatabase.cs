@@ -259,6 +259,9 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
 
         private async void GenerateButton_Clicked(object sender, EventArgs e)
         {
+            // Fix the extent of the graphic.
+            _myMapView.ViewpointChanged -= MapViewExtentChanged;
+
             try
             {
                 // Disable the generate button.

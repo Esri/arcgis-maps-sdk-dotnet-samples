@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Http;
@@ -29,14 +28,9 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         "Check the appropriate boxes to filter features by attributes and/or within the current extent. Click the button to see basic statistics displayed for world cities.")]
     public class StatisticalQuery : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private UISwitch _onlyInExtentSwitch;
-        private UISwitch _onlyBigCitiesSwitch;
-        private UILabel _extentSwitchLabel;
-        private UILabel _citySwitchLabel;
-        private UIButton _getStatsButton;
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UIBarButtonItem _queryButton;
 
         // URI for the world cities map service layer.
         private readonly Uri _worldCitiesServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0");
@@ -47,42 +41,6 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         public StatisticalQuery()
         {
             Title = "Statistical query";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            CreateLayout();
-            Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Size.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat switchWidth = _onlyInExtentSwitch.IntrinsicContentSize.Width;
-                nfloat colSplit = View.Bounds.Width / 2;
-
-                // Reposition the controls.
-                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, controlHeight * 2 + margin * 3);
-                _extentSwitchLabel.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, colSplit - switchWidth - 2 * margin, controlHeight);
-                _onlyInExtentSwitch.Frame = new CGRect(colSplit - switchWidth, _toolbar.Frame.Top + margin, switchWidth, controlHeight);
-                _citySwitchLabel.Frame = new CGRect(colSplit + margin, _toolbar.Frame.Top + margin, colSplit - switchWidth - 4 * margin, controlHeight);
-                _onlyBigCitiesSwitch.Frame = new CGRect(View.Bounds.Width - switchWidth - margin, _toolbar.Frame.Top + margin, switchWidth, controlHeight);
-                _getStatsButton.Frame = new CGRect(margin, _onlyBigCitiesSwitch.Frame.Bottom + margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(_toolbar.Frame.Bottom, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
@@ -103,39 +61,22 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             _myMapView.Map = myMap;
         }
 
-        private void CreateLayout()
+        private void GetStatisticsPressed(object sender, EventArgs e)
         {
-            // Create a switch (and associated label) to include only big cities in the query.
-            _onlyBigCitiesSwitch = new UISwitch();
-            _citySwitchLabel = new UILabel
+            var alert = UIAlertController.Create("Query statistics", "Get statistics for all cities matching these criteria", UIAlertControllerStyle.ActionSheet);
+            if (alert.PopoverPresentationController != null)
             {
-                Text = "Only cities over 5M",
-                TextAlignment = UITextAlignment.Right,
-                AdjustsFontSizeToFitWidth = true
-            };
+                alert.PopoverPresentationController.BarButtonItem = _queryButton;
+            }
 
-            // Create a switch (and associated label) to include only cities in the current extent.
-            _onlyInExtentSwitch = new UISwitch();
-            _extentSwitchLabel = new UILabel
-            {
-                Text = "Only cities in extent",
-                TextAlignment = UITextAlignment.Right,
-                AdjustsFontSizeToFitWidth = true
-            };
-
-            // Create a button to invoke the query.
-            _getStatsButton = new UIButton();
-            _getStatsButton.SetTitle("Get statistics", UIControlState.Normal);
-            _getStatsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-
-            // Handle the button tap to execute the statistics query.
-            _getStatsButton.TouchUpInside += OnExecuteStatisticsQueryClicked;
-
-            // Add MapView and UI controls to the page.
-            View.AddSubviews(_myMapView, _toolbar, _onlyInExtentSwitch, _onlyBigCitiesSwitch, _citySwitchLabel, _extentSwitchLabel, _getStatsButton);
+            alert.AddAction(UIAlertAction.Create("Cities in extent with pop. > 5M", UIAlertActionStyle.Default, action => QueryStatistics(true, true)));
+            alert.AddAction(UIAlertAction.Create("Cities with pop. > 5M", UIAlertActionStyle.Default, action => QueryStatistics(false, true)));
+            alert.AddAction(UIAlertAction.Create("Cities in extent", UIAlertActionStyle.Default, action => QueryStatistics(true, false)));
+            alert.AddAction(UIAlertAction.Create("All cities", UIAlertActionStyle.Default, action => QueryStatistics(false, false)));
+            PresentViewController(alert, true, null);
         }
 
-        private async void OnExecuteStatisticsQueryClicked(object sender, EventArgs e)
+        private async void QueryStatistics(bool onlyInExtent, bool onlyLargePop)
         {
             // Create definitions for each statistic to calculate.
             StatisticDefinition statDefinitionAvgPop = new StatisticDefinition("POP", StatisticType.Average, "");
@@ -164,7 +105,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             StatisticsQueryParameters statQueryParams = new StatisticsQueryParameters(statDefinitions);
 
             // If only using features in the current extent, set up the spatial filter for the statistics query parameters.
-            if (_onlyInExtentSwitch.On)
+            if (onlyInExtent)
             {
                 // Get the current extent (envelope) from the map view.
                 Envelope currentExtent = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
@@ -177,7 +118,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             }
 
             // If only evaluating the largest cities (over 5 million in population), set up an attribute filter.
-            if (_onlyBigCitiesSwitch.On)
+            if (onlyLargePop)
             {
                 // Set a where clause to get the largest cities (could also use "POP_CLASS = '5,000,000 and greater'").
                 statQueryParams.WhereClause = "POP_RANK = 1";
@@ -237,6 +178,48 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         private void ShowMessage(string title, string message)
         {
             new UIAlertView(title, message, (IUIAlertViewDelegate) null, "OK", null).Show();
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _queryButton = new UIBarButtonItem("Get statistics", UIBarButtonItemStyle.Plain, GetStatisticsPressed);
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _queryButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 }

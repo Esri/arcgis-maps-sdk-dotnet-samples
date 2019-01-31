@@ -29,7 +29,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
     {
         // Hold a reference to the SceneView.
         private SceneView _mySceneView;
-        private UISegmentedControl _dataChoiceButton;
 
         private readonly Envelope _usEnvelope = new Envelope(-144.619561355187, 18.0328662832097, -66.0903762761083, 67.6390975806745, SpatialReferences.Wgs84);
         private readonly string[] _sources = {"URL", "Local file", "Portal item"};
@@ -45,47 +44,13 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
             _mySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
         }
 
-        public override void LoadView()
-        {
-            // Create the views.
-            _mySceneView = new SceneView();
-            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _dataChoiceButton = new UISegmentedControl(_sources)
-            {
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
-                TintColor = UIColor.White,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-
-            // Clean up borders of segmented control - avoid corner pixels.
-            _dataChoiceButton.ClipsToBounds = true;
-            _dataChoiceButton.Layer.CornerRadius = 5;
-
-            _dataChoiceButton.ValueChanged += DataChoiceButtonOnValueChanged;
-
-            // Add the views.
-            View = new UIView();
-            View.AddSubviews(_mySceneView, _dataChoiceButton);
-
-            // Apply constraints.
-            _mySceneView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
-            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-
-            _dataChoiceButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor).Active = true;
-            _dataChoiceButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor).Active = true;
-            _dataChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
-        }
-
         private async void DataChoiceButtonOnValueChanged(object sender, EventArgs e)
         {
             // Clear existing layers.
             _mySceneView.Scene.OperationalLayers.Clear();
 
             // Get the name of the selected layer.
-            string name = _sources[_dataChoiceButton.SelectedSegment];
+            string name = _sources[((UISegmentedControl) sender).SelectedSegment];
 
             try
             {
@@ -124,6 +89,44 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
         {
             base.ViewDidLoad();
             Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UISegmentedControl dataChoiceButton = new UISegmentedControl(_sources)
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                TintColor = UIColor.White,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            // Clean up borders of segmented control - avoid corner pixels.
+            dataChoiceButton.ClipsToBounds = true;
+            dataChoiceButton.Layer.CornerRadius = 5;
+
+            dataChoiceButton.ValueChanged += DataChoiceButtonOnValueChanged;
+
+            // Add the views.
+            View.AddSubviews(_mySceneView, dataChoiceButton);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+
+                dataChoiceButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
+                dataChoiceButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
+                dataChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
+            });
         }
     }
 }

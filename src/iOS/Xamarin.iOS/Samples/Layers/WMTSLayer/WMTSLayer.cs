@@ -26,58 +26,23 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         "")]
     public class WMTSLayer : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold a reference to the MapView.
         private MapView _myMapView;
-        private UISegmentedControl _constructorChoiceButton;
 
         public WMTSLayer()
         {
             Title = "WMTS layer";
         }
 
-        public override void LoadView()
+        private async void Initialize()
         {
-            // Create the views.
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            _constructorChoiceButton = new UISegmentedControl("URI", "Service Info")
-            {
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
-                TintColor = UIColor.White,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-            // Clean up borders of segmented control - avoid corner pixels.
-            _constructorChoiceButton.ClipsToBounds = true;
-            _constructorChoiceButton.Layer.CornerRadius = 5;
-
-            _constructorChoiceButton.ValueChanged += _constructorChoiceButton_ValueChanged;
-
-            // Add the views.
-            View = new UIView();
-            View.AddSubviews(_myMapView, _constructorChoiceButton);
-
-            // Apply constraints.
-            _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-
-            _constructorChoiceButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor).Active = true;
-            _constructorChoiceButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor).Active = true;
-            _constructorChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
-        }
-
-        public async override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            _constructorChoiceButton.SelectedSegment = 0;
             await LoadWMTSLayerAsync(true);
         }
 
         private async void _constructorChoiceButton_ValueChanged(object sender, EventArgs e)
         {
             //Load the WMTS layer using service info or URL.
-            switch (_constructorChoiceButton.SelectedSegment)
+            switch (((UISegmentedControl) sender).SelectedSegment)
             {
                 case 0:
                     await LoadWMTSLayerAsync(true);
@@ -145,6 +110,49 @@ namespace ArcGISRuntime.Samples.WMTSLayer
                 alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alert, true, null);
             }
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UISegmentedControl constructorChoiceButton = new UISegmentedControl("URI", "Service Info")
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                TintColor = UIColor.White,
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                SelectedSegment = 0,
+                // Clean up borders of segmented control - avoid corner pixels.
+                ClipsToBounds = true,
+                Layer = {CornerRadius = 5}
+            };
+            constructorChoiceButton.ValueChanged += _constructorChoiceButton_ValueChanged;
+
+            // Add the views.
+            View.AddSubviews(_myMapView, constructorChoiceButton);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+
+                constructorChoiceButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
+                constructorChoiceButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
+                constructorChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
+            });
         }
     }
 }

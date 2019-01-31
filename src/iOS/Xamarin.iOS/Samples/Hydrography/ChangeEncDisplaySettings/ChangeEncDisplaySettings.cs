@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using ArcGISRuntime.Samples.Managers;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
@@ -29,42 +28,12 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
     public class ChangeEncDisplaySettings : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-
-        private readonly UISegmentedControl _colorSchemeSegment = new UISegmentedControl("Day", "Dusk", "Night")
-        {
-            SelectedSegment = 0
-        };
-
-        private readonly UISegmentedControl _areaSegment = new UISegmentedControl("Plain", "Symbolized")
-        {
-            SelectedSegment = 1
-        };
-
-        private readonly UISegmentedControl _pointSegment = new UISegmentedControl("Paper Chart", "Simplified")
-        {
-            SelectedSegment = 0
-        };
-
-        private readonly UILabel _colorsLabel = new UILabel
-        {
-            Text = "Color scheme:"
-        };
-
-        private readonly UILabel _areaLabel = new UILabel
-        {
-            Text = "Area symbolization type:"
-        };
-
-        private readonly UILabel _pointLabel = new UILabel
-        {
-            Text = "Point symbolization type:"
-        };
+        // Hold a reference to the MapView.
+        private MapView _myMapView;
 
         // Hold a reference to the (static) app-wide ENC Mariner settings
-        private readonly EncMarinerSettings _encMarinerSettings = EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings;
+        private readonly EncMarinerSettings _encMarinerSettings =
+            EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings;
 
         public ChangeEncDisplaySettings()
         {
@@ -73,16 +42,12 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
 
         private async void Initialize()
         {
-            // Subscribe to event notifications.
-            _colorSchemeSegment.ValueChanged += ColorSchemeChanged;
-            _areaSegment.ValueChanged += AreaStyleChanged;
-            _pointSegment.ValueChanged += PointStyleChanged;
-
             // Initialize the map with an oceans basemap.
             _myMapView.Map = new Map(Basemap.CreateOceans());
 
             // Get the path to the ENC Exchange Set.
-            string encPath = DataManager.GetDataFolder("9d2987a825c646468b3ce7512fb76e2d", "ExchangeSetwithoutUpdates", "ENC_ROOT", "CATALOG.031");
+            string encPath = DataManager.GetDataFolder("9d2987a825c646468b3ce7512fb76e2d", "ExchangeSetwithoutUpdates",
+                "ENC_ROOT", "CATALOG.031");
 
             // Create the Exchange Set.
             // Note: this constructor takes an array of paths because so that update sets can be loaded alongside base data.
@@ -123,72 +88,6 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
             }
         }
 
-        private void PointStyleChanged(object sender, EventArgs e)
-        {
-            // Apply the selected point symbolization.
-            switch (_pointSegment.SelectedSegment)
-            {
-                case 0:
-                    _encMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart;
-                    break;
-
-                case 1:
-                default:
-                    _encMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified;
-                    break;
-            }
-        }
-
-        private void AreaStyleChanged(object sender, EventArgs e)
-        {
-            // Apply the selected area symbolization.
-            switch (_areaSegment.SelectedSegment)
-            {
-                case 0:
-                    _encMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain;
-                    break;
-
-                case 1:
-                default:
-                    _encMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Symbolized;
-                    break;
-            }
-        }
-
-        private void ColorSchemeChanged(object sender, EventArgs e)
-        {
-            // Apply the selected color scheme.
-            switch (_colorSchemeSegment.SelectedSegment)
-            {
-                case 0:
-                    _encMarinerSettings.ColorScheme = EncColorScheme.Day;
-                    break;
-
-                case 1:
-                    _encMarinerSettings.ColorScheme = EncColorScheme.Dusk;
-                    break;
-
-                case 2:
-                default:
-                    _encMarinerSettings.ColorScheme = EncColorScheme.Night;
-                    break;
-            }
-        }
-
-        private void CreateLayout()
-        {
-            // Add controls to the view.
-            View.AddSubviews(_myMapView, _toolbar, _colorsLabel, _areaLabel, _pointLabel, _colorSchemeSegment, _areaSegment, _pointSegment);
-        }
-
-        public override void ViewDidLoad()
-        {
-            CreateLayout();
-            Initialize();
-
-            base.ViewDidLoad();
-        }
-
         public override void ViewWillDisappear(bool animated)
         {
             base.ViewWillDisappear(animated);
@@ -200,33 +99,96 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
             EncEnvironmentSettings.Default.DisplaySettings.TextGroupVisibilitySettings.ResetToDefaults();
         }
 
-        public override void ViewDidLayoutSubviews()
+        private void ColorSettingsClicked(object sender, EventArgs e)
         {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat toolbarHeight = 6 * controlHeight + 7 * margin;
-                nfloat controlWidth = View.Bounds.Width - 2 * margin;
+            // Create the alert controller with a title.
+            UIAlertController alertController =
+                UIAlertController.Create("Choose a color scheme", "", UIAlertControllerStyle.Alert);
 
-                // Reposition the controls. 
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _colorsLabel.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, controlWidth, controlHeight);
-                _colorSchemeSegment.Frame = new CGRect(margin, _colorsLabel.Frame.Bottom + margin, controlWidth, controlHeight);
-                _areaLabel.Frame = new CGRect(margin, _colorSchemeSegment.Frame.Bottom + margin, controlWidth, controlHeight);
-                _areaSegment.Frame = new CGRect(margin, _areaLabel.Frame.Bottom + margin, controlWidth, controlHeight);
-                _pointLabel.Frame = new CGRect(margin, _areaSegment.Frame.Bottom + margin, controlWidth, controlHeight);
-                _pointSegment.Frame = new CGRect(margin, _pointLabel.Frame.Bottom + margin, controlWidth, controlHeight);
+            // Actions can be default, cancel, or destructive
+            alertController.AddAction(UIAlertAction.Create("Day", UIAlertActionStyle.Default,
+                action => _encMarinerSettings.ColorScheme = EncColorScheme.Day));
+            alertController.AddAction(UIAlertAction.Create("Dusk", UIAlertActionStyle.Default,
+                action => _encMarinerSettings.ColorScheme = EncColorScheme.Dusk));
+            alertController.AddAction(UIAlertAction.Create("Night", UIAlertActionStyle.Default,
+                action => _encMarinerSettings.ColorScheme = EncColorScheme.Night));
 
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            // Show the alert.
+            PresentViewController(alertController, true, null);
+        }
+
+        private void AreaSettingsClicked(object sender, EventArgs e)
+        {
+            // Create the alert controller with a title.
+            UIAlertController alertController =
+                UIAlertController.Create("Choose how areas will be shown", "", UIAlertControllerStyle.Alert);
+
+            // Actions can be default, cancel, or destructive
+            alertController.AddAction(UIAlertAction.Create("Plain", UIAlertActionStyle.Default, action =>
+                _encMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain));
+            alertController.AddAction(UIAlertAction.Create("Symbolized", UIAlertActionStyle.Default, action =>
+                _encMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Symbolized));
+
+            // Show the alert.
+            PresentViewController(alertController, true, null);
+        }
+
+        private void PointSettingsClicked(object sender, EventArgs e)
+        {
+            // Create the alert controller with a title.
+            UIAlertController alertController =
+                UIAlertController.Create("Choose how points will be shown", "", UIAlertControllerStyle.Alert);
+
+            // Actions can be default, cancel, or destructive
+            alertController.AddAction(UIAlertAction.Create("Paper chart", UIAlertActionStyle.Default, action =>
+                _encMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart));
+            alertController.AddAction(UIAlertAction.Create("Simplified", UIAlertActionStyle.Default, action =>
+                _encMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified));
+
+            // Show the alert.
+            PresentViewController(alertController, true, null);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
             {
-            }
+                new UIBarButtonItem("Colors", UIBarButtonItemStyle.Plain, ColorSettingsClicked),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Areas", UIBarButtonItemStyle.Plain, AreaSettingsClicked),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Points", UIBarButtonItemStyle.Plain, PointSettingsClicked)
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 }

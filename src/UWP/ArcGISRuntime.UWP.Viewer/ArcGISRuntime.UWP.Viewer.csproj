@@ -113,7 +113,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<Content Include="Samples\Geometry\Project\Project.jpg" />
+	  <Content Include="Samples\Geometry\Project\Project.jpg" />
+	  <Content Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg" />
+	  <Content Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
 	  <Content Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
     <Content Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
     <Content Include="Samples\Data\AddFeatures\AddFeatures.jpg" />
@@ -301,9 +303,15 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Geometry\Project\Project.xaml.cs">
-		<DependentUpon>Project.xaml</DependentUpon>
-	</Compile>
+    <Compile Include="Samples\Geometry\Project\Project.xaml.cs">
+      <DependentUpon>Project.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.xaml.cs">
+      <DependentUpon>OpenStreetMapLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.xaml.cs">
+      <DependentUpon>ManageOperationalLayers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.xaml.cs">
       <DependentUpon>UpdateAttributes.xaml</DependentUpon>
     </Compile>
@@ -733,10 +741,18 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<Page Include="Samples\Geometry\Project\Project.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
+    <Page Include="Samples\Geometry\Project\Project.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Data\UpdateAttributes\UpdateAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

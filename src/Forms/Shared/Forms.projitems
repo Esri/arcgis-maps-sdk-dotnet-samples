@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Geometry\Project\Project.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
@@ -152,6 +153,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geometry\Project\Project.xaml.cs">
+      <DependentUpon>Project.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.xaml.cs">
       <DependentUpon>OpenStreetMapLayer.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -611,6 +616,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\Project\Project.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

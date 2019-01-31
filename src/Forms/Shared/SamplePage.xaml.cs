@@ -99,14 +99,13 @@ namespace ArcGISRuntime
                 try
                 {
                     Device.OpenUri(new Uri(e.Url));
+                    e.Cancel = true;
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex);
                 }
             }
-
-            e.Cancel = true;
         }
     }
 }

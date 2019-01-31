@@ -1,4 +1,4 @@
-# OpenStreetMap Layer
+# OpenStreetMap layer
 
 Add OpenStreetMap as a basemap layer.
 
@@ -7,10 +7,6 @@ Add OpenStreetMap as a basemap layer.
 ## Use case
 
 [OpenStreetMap](https://www.openstreetmap.org) is a free community-edited basemap.
-
-## How to use the sample
-
-Simply run the app.
 
 ## How it works
 

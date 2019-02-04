@@ -86,10 +86,11 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
                     return;
                 }
 
-                // Get the selected feature.
-                ArcGISFeature tappedFeature = (ArcGISFeature) identifyResult.GeoElements.First();
+                // Get the selected feature as an ArcGISFeature. It is assumed that all GeoElements in the result are of type ArcGISFeature.
+                GeoElement tappedElement = identifyResult.GeoElements.First();
+                ArcGISFeature tappedFeature = (ArcGISFeature) tappedElement;
 
-                // Select the feature.
+                // Select the feature in the UI and hold a reference to the tapped feature in a field.
                 _damageLayer.SelectFeature(tappedFeature);
                 _selectedFeature = tappedFeature;
 
@@ -99,8 +100,8 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
                 // Get the attachments.
                 IReadOnlyList<Attachment> attachments = await tappedFeature.GetAttachmentsAsync();
                 
-                // Populate the UI.
-                AttachmentsListBox.ItemsSource = attachments.Where(attachment => attachment.ContentType == "image/jpeg");;
+                // Populate the UI with a list of attachments that have a content type of image/jpeg.
+                AttachmentsListBox.ItemsSource = attachments.Where(attachment => attachment.ContentType == "image/jpeg");
                 AttachmentsListBox.IsEnabled = true;
                 AddAttachmentButton.IsEnabled = true;
             }
@@ -160,10 +161,14 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
                 fs.Close();
 
                 // Add the attachment.
-                await _selectedFeature.AddAttachmentAsync(filename, "image/jpg", attachmentData);
+                // The contentType string is the MIME type for JPEG files, image/jpeg.
+                await _selectedFeature.AddAttachmentAsync(filename, "image/jpeg", attachmentData);
 
-                // Update the table.
-                await ((ServiceFeatureTable) _selectedFeature.FeatureTable).ApplyEditsAsync();
+                // Get a reference to the feature's service feature table.
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+
+                // Apply the edits to the service feature table.
+                await serviceTable.ApplyEditsAsync();
 
                 // Update UI.
                 _selectedFeature.Refresh();
@@ -189,15 +194,20 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
 
             try
             {
-                // Get the attachment that should be deleted.
+                // Get a reference to the button that raised the event.
                 Button sendingButton = (Button) sender;
+
+                // Get the attachment from the button's DataContext. The button's DataContext is set by the list view.
                 Attachment selectedAttachment = (Attachment) sendingButton.DataContext;
 
                 // Delete the attachment.
                 await _selectedFeature.DeleteAttachmentAsync(selectedAttachment);
 
-                // Update the table.
-                await ((ServiceFeatureTable) _selectedFeature.FeatureTable).ApplyEditsAsync();
+                // Get a reference to the feature's service feature table.
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+
+                // Apply the edits to the service feature table.
+                await serviceTable.ApplyEditsAsync();
 
                 // Update UI.
                 _selectedFeature.Refresh();

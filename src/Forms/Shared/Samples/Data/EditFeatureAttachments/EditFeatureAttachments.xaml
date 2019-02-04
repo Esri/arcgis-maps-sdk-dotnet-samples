@@ -19,6 +19,7 @@
                               IsEnabled="False"
                               HeightRequest="100"
                               BackgroundColor="LightGray">
+                        <!-- ItemTemplate defines how each item (Attachment) is rendered. -->
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -31,11 +32,13 @@
                                         <Label Text="{Binding Name}"
                                                Margin="5,0,5,0"
                                                VerticalTextAlignment="Center" />
+                                        <!-- DataTemplate sets the item as the button's DataContext automatically. -->
                                         <Button Text="🔎"
                                                 Grid.Column="1"
                                                 VerticalOptions="End"
                                                 Margin="0,0,5,0"
                                                 Clicked="DownloadAttachment_Click" />
+                                        <!-- These symbols are emojis. Use Win+. on Windows to open the emoji picker. -->
                                         <Button Text="🗑"
                                                 Grid.Column="2"
                                                 VerticalOptions="End"

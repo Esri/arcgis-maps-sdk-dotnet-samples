@@ -92,10 +92,11 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                     return;
                 }
 
-                // Get the selected feature.
-                ArcGISFeature tappedFeature = (ArcGISFeature) identifyResult.GeoElements.First();
+                // Get the selected feature as an ArcGISFeature. It is assumed that all GeoElements in the result are of type ArcGISFeature.
+                GeoElement tappedElement = identifyResult.GeoElements.First();
+                ArcGISFeature tappedFeature = (ArcGISFeature) tappedElement;
 
-                // Select the feature.
+                // Select the feature in the UI and hold a reference to the tapped feature in a field.
                 _damageLayer.SelectFeature(tappedFeature);
                 _selectedFeature = tappedFeature;
 
@@ -105,8 +106,8 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                 // Get the attachments.
                 IReadOnlyList<Attachment> attachments = await tappedFeature.GetAttachmentsAsync();
 
-                // Populate the UI.
-                AttachmentsListBox.ItemsSource = attachments;
+                // Populate the UI with a list of attachments that have a content type of image/jpeg.
+                AttachmentsListBox.ItemsSource = attachments.Where(attachment => attachment.ContentType == "image/jpeg");
                 AttachmentsListBox.IsEnabled = true;
                 AddAttachmentButton.IsEnabled = true;
             }
@@ -128,7 +129,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             AttachmentActivityIndicator.IsVisible = true;
 
             // Get the file.
-            string contentType = "image/jpg";
+            string contentType = "image/jpeg";
 
             try
             {
@@ -159,10 +160,14 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                 filename = fileData.FileName;
 #endif
                 // Add the attachment.
+                // The contentType string is the MIME type for JPEG files, image/jpeg.
                 await _selectedFeature.AddAttachmentAsync(filename, contentType, attachmentData);
 
-                // Update the table.
-                await ((ServiceFeatureTable) _selectedFeature.FeatureTable).ApplyEditsAsync();
+                // Get a reference to the feature's service feature table.
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+
+                // Apply the edits to the service feature table.
+                await serviceTable.ApplyEditsAsync();
 
                 // Update UI.
                 _selectedFeature.Refresh();
@@ -195,8 +200,11 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                 // Delete the attachment.
                 await _selectedFeature.DeleteAttachmentAsync(selectedAttachment);
 
-                // Update the table.
-                await ((ServiceFeatureTable) _selectedFeature.FeatureTable).ApplyEditsAsync();
+                // Get a reference to the feature's service feature table.
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+
+                // Apply the edits to the service feature table.
+                await serviceTable.ApplyEditsAsync();
 
                 // Update UI.
                 _selectedFeature.Refresh();
@@ -219,8 +227,10 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
         {
             try
             {
-                // Get the attachment that should be downloaded.
+                // Get a reference to the button that raised the event.
                 Button sendingButton = (Button) sender;
+
+                // Get the attachment from the button's DataContext. The button's DataContext is set by the list view.
                 Attachment selectedAttachment = (Attachment) sendingButton.BindingContext;
 
                 if (selectedAttachment.ContentType.Contains("image"))

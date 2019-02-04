@@ -89,10 +89,11 @@ namespace ArcGISRuntime.UWP.Samples.EditFeatureAttachments
                     return;
                 }
 
-                // Get the selected feature.
-                ArcGISFeature tappedFeature = (ArcGISFeature) identifyResult.GeoElements.First();
+                // Get the selected feature as an ArcGISFeature. It is assumed that all GeoElements in the result are of type ArcGISFeature.
+                GeoElement tappedElement = identifyResult.GeoElements.First();
+                ArcGISFeature tappedFeature = (ArcGISFeature) tappedElement;
 
-                // Select the feature.
+                // Select the feature in the UI and hold a reference to the tapped feature in a field.
                 _damageLayer.SelectFeature(tappedFeature);
                 _selectedFeature = tappedFeature;
 
@@ -102,8 +103,8 @@ namespace ArcGISRuntime.UWP.Samples.EditFeatureAttachments
                 // Get the attachments.
                 IReadOnlyList<Attachment> attachments = await tappedFeature.GetAttachmentsAsync();
 
-                // Populate the UI.
-                AttachmentsListBox.ItemsSource = attachments;
+                // Populate the UI with a list of attachments that have a content type of image/jpeg.
+                AttachmentsListBox.ItemsSource = attachments.Where(attachment => attachment.ContentType == "image/jpeg");
                 AttachmentsListBox.IsEnabled = true;
                 AddAttachmentButton.IsEnabled = true;
             }
@@ -125,7 +126,7 @@ namespace ArcGISRuntime.UWP.Samples.EditFeatureAttachments
             ActivityIndicator.Visibility = Visibility.Visible;
 
             // Get the file.
-            string contentType = "image/jpg";
+            string contentType = "image/jpeg";
             byte[] attachmentData;
 
             try
@@ -151,10 +152,14 @@ namespace ArcGISRuntime.UWP.Samples.EditFeatureAttachments
                 dataStream.Close();
 
                 // Add the attachment.
+                // The contentType string is the MIME type for JPEG files, image/jpeg.
                 await _selectedFeature.AddAttachmentAsync(file.Name, contentType, attachmentData);
 
-                // Update the table.
-                await ((ServiceFeatureTable) _selectedFeature.FeatureTable).ApplyEditsAsync();
+                // Get a reference to the feature's service feature table.
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+
+                // Apply the edits to the service feature table.
+                await serviceTable.ApplyEditsAsync();
 
                 // Update UI.
                 _selectedFeature.Refresh();
@@ -180,15 +185,20 @@ namespace ArcGISRuntime.UWP.Samples.EditFeatureAttachments
 
             try
             {
-                // Get the attachment that should be deleted.
+                // Get a reference to the button that raised the event.
                 Button sendingButton = (Button) sender;
+
+                // Get the attachment from the button's DataContext. The button's DataContext is set by the list box.
                 Attachment selectedAttachment = (Attachment) sendingButton.DataContext;
 
                 // Delete the attachment.
                 await _selectedFeature.DeleteAttachmentAsync(selectedAttachment);
 
-                // Update the table.
-                await ((ServiceFeatureTable) _selectedFeature.FeatureTable).ApplyEditsAsync();
+                // Get a reference to the feature's service feature table.
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+
+                // Apply the edits to the service feature table.
+                await serviceTable.ApplyEditsAsync();
 
                 // Update UI.
                 _selectedFeature.Refresh();
@@ -219,8 +229,7 @@ namespace ArcGISRuntime.UWP.Samples.EditFeatureAttachments
                 // Allow the user to specify a file path - create the dialog.
                 var savePicker = new FileSavePicker();
                 savePicker.SuggestedStartLocation = PickerLocationId.Downloads;
-                string extension = selectedAttachment.Name.Split('.').Last();
-                savePicker.FileTypeChoices.Add(selectedAttachment.ContentType, new List<string>() {$".{extension}"});
+                savePicker.FileTypeChoices.Add(selectedAttachment.ContentType, new List<string> {".jpeg"});
                 savePicker.SuggestedFileName = selectedAttachment.Name;
 
                 // Show the dialog and get a file to write to.
@@ -244,7 +253,7 @@ namespace ArcGISRuntime.UWP.Samples.EditFeatureAttachments
                 attachmentDataStream.Close();
 
                 // Launch the file.
-                Windows.System.Launcher.LaunchFileAsync(file);
+                await Windows.System.Launcher.LaunchFileAsync(file);
             }
             catch (Exception exception)
             {

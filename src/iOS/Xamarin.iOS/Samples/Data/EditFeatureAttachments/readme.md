@@ -6,7 +6,7 @@ Add, delete, and download attachments for features from a service.
 
 ## How to use the sample
 
-Tap a feature to load its attachments. Swipe to delete, select to preview, or add a new attachment from your photo library.
+Tap a feature to load its attachments. Swipe to delete, select to preview, or tap 'Add attachment' to add a new attachment from your photo library.
 
 ## How it works
 

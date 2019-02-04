@@ -80,8 +80,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                     return;
                 }
 
-                // Get the selected feature.
-                ArcGISFeature tappedFeature = (ArcGISFeature) identifyResult.GeoElements.First();
+                // Get the selected feature as an ArcGISFeature. It is assumed that all GeoElements in the result are of type ArcGISFeature.
+                GeoElement tappedElement = identifyResult.GeoElements.First();
+                ArcGISFeature tappedFeature = (ArcGISFeature) tappedElement;
 
                 // Select the feature.
                 _damageLayer.SelectFeature(tappedFeature);
@@ -220,7 +221,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
 
             public AttachmentsTableSource(AttachmentsTableView controller, ArcGISFeature selectedFeature, IReadOnlyList<Attachment> attachments)
             {
-                _attachments = attachments;
+                _attachments = attachments.Where(attachment => attachment.ContentType == "image/jpeg").ToList();
                 _selectedFeature = selectedFeature;
                 _viewController = controller;
             }
@@ -336,10 +337,14 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                 string filename = _filename ?? "iOS_image_1.jpg";
 
                 // Add the attachment.
-                await _selectedFeature.AddAttachmentAsync(filename, "image/jpg", attachmentData);
+                // The contentType string is the MIME type for JPEG files, image/jpeg.
+                await _selectedFeature.AddAttachmentAsync(filename, "image/jpeg", attachmentData);
 
-                // Update the table.
-                await ((ServiceFeatureTable) _selectedFeature.FeatureTable).ApplyEditsAsync();
+                // Get a reference to the feature's service feature table.
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+
+                // Apply the edits to the service feature table.
+                await serviceTable.ApplyEditsAsync();
 
                 // Update UI.
                 _selectedFeature.Refresh();
@@ -355,8 +360,11 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                     // Delete the attachment.
                     await _selectedFeature.DeleteAttachmentAsync(attachmentToDelete);
 
-                    // Update the table.
-                    await ((ServiceFeatureTable) _selectedFeature.FeatureTable).ApplyEditsAsync();
+                    // Get a reference to the feature's service feature table.
+                    ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+
+                    // Apply the edits to the service feature table.
+                    await serviceTable.ApplyEditsAsync();
 
                     // Update UI.
                     _selectedFeature.Refresh();

@@ -97,8 +97,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                     return;
                 }
 
-                // Get the tapped feature.
-                _selectedFeature = (ArcGISFeature)identifyResult.GeoElements.First();
+                // Get the selected feature as an ArcGISFeature. It is assumed that all GeoElements in the result are of type ArcGISFeature.
+                GeoElement tappedElement = identifyResult.GeoElements.First();
+                _selectedFeature = (ArcGISFeature) tappedElement;
 
                 // Update the UI.
                 UpdateUIForFeature();
@@ -118,6 +119,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
 
             // Get the attachments.
             _featureAttachments = await _selectedFeature.GetAttachmentsAsync();
+
+            // Limit to only feature attachments with an image/jpeg content type.
+            _featureAttachments = _featureAttachments.Where(attachment => attachment.ContentType == "image/jpeg").ToList();
 
             // Configure array adapter.
             ArrayAdapter attachmentAdapter = new ArrayAdapter<string>(
@@ -176,8 +180,11 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                 // Delete the attachment.
                 await _selectedFeature.DeleteAttachmentAsync(attachmentToDelete);
 
-                // Update the table.
-                await ((ServiceFeatureTable) _selectedFeature.FeatureTable).ApplyEditsAsync();
+                // Get a reference to the feature's service feature table.
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+
+                // Apply the edits to the service feature table.
+                await serviceTable.ApplyEditsAsync();
 
                 // Update UI.
                 _selectedFeature.Refresh();
@@ -219,7 +226,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
 
         private async void AddAttachment(Android.Net.Uri imageUri)
         {
-            string contentType = "image/jpg";
+            string contentType = "image/jpeg";
 
             // Read the image into a stream.
             Stream stream = ContentResolver.OpenInputStream(imageUri);   
@@ -233,10 +240,14 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             }
 
             // Add the attachment.
+            // The contentType string is the MIME type for JPEG files, image/jpeg.
             await _selectedFeature.AddAttachmentAsync(imageUri.LastPathSegment + ".jpg", contentType, attachmentData);
 
-            // Update the table.
-            await ((ServiceFeatureTable) _selectedFeature.FeatureTable).ApplyEditsAsync();
+            // Get a reference to the feature's service feature table.
+            ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+
+            // Apply the edits to the service feature table.
+            await serviceTable.ApplyEditsAsync();
 
             // Update UI.
             _selectedFeature.Refresh();

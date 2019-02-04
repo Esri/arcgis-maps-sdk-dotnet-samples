@@ -16,6 +16,7 @@
                              MaxHeight="300"
                              HorizontalContentAlignment="Stretch"
                              Background="LightGray">
+                        <!-- ItemTemplate defines how each item (Attachment) is rendered. -->
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -25,6 +26,7 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <Label Content="{Binding Name}" />
+                                    <!-- DataTemplate sets the item as the button's DataContext automatically. -->
                                     <Button Content="Download"
                                             Grid.Column="1"
                                             HorizontalAlignment="Right"

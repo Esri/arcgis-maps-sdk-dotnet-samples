@@ -229,7 +229,7 @@ namespace ArcGISRuntime.UWP.Samples.EditFeatureAttachments
                 // Allow the user to specify a file path - create the dialog.
                 var savePicker = new FileSavePicker();
                 savePicker.SuggestedStartLocation = PickerLocationId.Downloads;
-                savePicker.FileTypeChoices.Add(selectedAttachment.ContentType, new List<string> {".jpeg"});
+                savePicker.FileTypeChoices.Add(selectedAttachment.ContentType, new List<string> {".jpeg", ".jpg"});
                 savePicker.SuggestedFileName = selectedAttachment.Name;
 
                 // Show the dialog and get a file to write to.

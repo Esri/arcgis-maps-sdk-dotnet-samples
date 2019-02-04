@@ -156,6 +156,12 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                     return;
                 }
 
+                if (!fileData.FileName.EndsWith(".jpg") && !fileData.FileName.EndsWith(".jpeg"))
+                {
+                    await ((Page) Parent).DisplayAlert("Try again!", "This sample only allows uploading jpg files.", "OK");
+                    return;
+                }
+
                 attachmentData = fileData.DataArray;
                 filename = fileData.FileName;
 #endif

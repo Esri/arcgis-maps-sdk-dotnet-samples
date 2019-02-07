@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="$(MSBuildThisFileDirectory)Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
@@ -146,6 +147,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.xaml.cs">
+		<DependentUpon>BrowseWfsLayers.xaml</DependentUpon>
+		<SubType>Code</SubType>
+	</Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\SceneSymbols\SceneSymbols.xaml.cs">
       <DependentUpon>SceneSymbols.xaml</DependentUpon>
     </Compile>
@@ -581,6 +586,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\SceneSymbols\SceneSymbols.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<Content Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
     <Content Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
     <Content Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
     <Content Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
@@ -296,6 +297,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.xaml.cs">
+		<DependentUpon>BrowseWfsLayers.xaml</DependentUpon>
+	</Compile>
     <Compile Include="Samples\Symbology\SceneSymbols\SceneSymbols.xaml.cs">
       <DependentUpon>SceneSymbols.xaml</DependentUpon>
     </Compile>
@@ -713,6 +717,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<Page Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.xaml">
+		<Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
     <Page Include="Samples\Symbology\SceneSymbols\SceneSymbols.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

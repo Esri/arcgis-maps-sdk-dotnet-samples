@@ -234,6 +234,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
 	<None Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
 	<None Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
     <None Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
@@ -370,6 +371,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.cs" />
 	<Compile Include="Samples\Layers\DisplayWfs\DisplayWfs.cs" />
 	<Compile Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.cs" />
     <Compile Include="Samples\Symbology\SceneSymbols\SceneSymbols.cs" />

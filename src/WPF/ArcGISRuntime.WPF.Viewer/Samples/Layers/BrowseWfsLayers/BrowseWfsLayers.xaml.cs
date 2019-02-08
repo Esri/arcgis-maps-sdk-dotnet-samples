@@ -28,7 +28,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
         "")]
     public partial class BrowseWfsLayers
     {
-        private WfsServiceInfo info;
+        private WfsServiceInfo info; // TODO - get rid of this - workaround for .NET bug
         private static Random _rand = new Random();
 
         public BrowseWfsLayers()
@@ -69,7 +69,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
             try
             {
                 // Get a list of layer infos
-                IEnumerable<WfsLayerInfo> selectedLayers = WfsLayerList.SelectedItems.Cast<WfsLayerInfo>();
+                List<WfsLayerInfo> selectedLayers = WfsLayerList.SelectedItems.Cast<WfsLayerInfo>().ToList();
 
                 // Add each layer to the map.
                 foreach (WfsLayerInfo selectedLayerInfo in selectedLayers)

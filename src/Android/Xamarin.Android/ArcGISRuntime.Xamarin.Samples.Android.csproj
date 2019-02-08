@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
 	<None Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
     <None Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
     <None Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
@@ -252,6 +253,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Layers\DisplayWfs\DisplayWfs.cs" />
 	<Compile Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.cs" />
     <Compile Include="Samples\Symbology\SceneSymbols\SceneSymbols.cs" />
     <Compile Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.cs" />

@@ -234,6 +234,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	  <None Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg" />
 	  <None Include="Samples\Geometry\Project\Project.jpg" />
 	  <None Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg" />
 	  <None Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
@@ -375,6 +376,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	  <Compile Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.cs" />
 	  <Compile Include="Samples\Geometry\Project\Project.cs" />
 	  <Compile Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.cs" />
 	  <Compile Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.cs" />

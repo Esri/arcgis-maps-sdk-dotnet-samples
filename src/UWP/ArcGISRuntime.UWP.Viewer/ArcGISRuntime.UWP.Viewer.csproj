@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg" />
 	  <Content Include="Samples\Geometry\Project\Project.jpg" />
 	  <Content Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg" />
 	  <Content Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
@@ -303,6 +304,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.xaml.cs">
+      <DependentUpon>EditFeatureAttachments.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Geometry\Project\Project.xaml.cs">
       <DependentUpon>Project.xaml</DependentUpon>
     </Compile>
@@ -741,6 +745,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Geometry\Project\Project.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1413,7 +1421,6 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup />
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

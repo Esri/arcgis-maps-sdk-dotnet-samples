@@ -59,6 +59,11 @@ namespace ArcGISRuntime.WPF.Samples.DisplayWfs
                 // Add the layer to the map.
                 MyMapView.Map.OperationalLayers.Add(manhattanFeatureLayer);
 
+                // Zoom to a small area within the dataset by default.
+                MapPoint topLeft = new MapPoint(-73.993723, 40.799872, SpatialReferences.Wgs84);
+                MapPoint bottomRight = new MapPoint( -73.943217, 40.761679, SpatialReferences.Wgs84);
+                await MyMapView.SetViewpointGeometryAsync(new Envelope(topLeft, bottomRight));
+
                 // Use the navigation completed event to populate the table with the features needed for the current extent.
                 MyMapView.NavigationCompleted += MapView_NavigationCompleted;
             }

@@ -23,19 +23,17 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
         "")]
     public class AccessLoadStatus : UIViewController
     {
-        // Create and hold references to the UI controls.
-        MapView _myMapView;
-        UILabel _loadStatusLabel;
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UILabel _loadStatusLabel;
 
         public AccessLoadStatus()
         {
             Title = "Access load status";
         }
 
-        public override void ViewDidLoad()
+        private void Initialize()
         {
-            base.ViewDidLoad();
-
             // Create new Map with basemap.
             Map myMap = new Map(Basemap.CreateImagery());
 
@@ -46,45 +44,6 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
             _myMapView.Map = myMap;
         }
 
-        public override void LoadView()
-        {
-            // Create the MapView.
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            // Create the label.
-            _loadStatusLabel = new UILabel()
-            {
-                BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
-                TextColor = UIColor.White,
-                TextAlignment = UITextAlignment.Center,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-
-            // Add the views to the layout.
-            View = new UIView();
-            View.AddSubviews(_myMapView, _loadStatusLabel);
-
-            // Set up constraints.
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-
-            _loadStatusLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _loadStatusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _loadStatusLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _loadStatusLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            base.ViewDidLayoutSubviews();
-
-            // Ensure that the map is centered on the visible portion of the MapView.
-            _myMapView.ViewInsets = new UIEdgeInsets(_loadStatusLabel.Frame.Bottom, 0, 0, 0);
-        }
-
         private void OnMapsLoadStatusChanged(object sender, LoadStatusEventArgs e)
         {
             // Make sure that the UI changes are done in the UI thread.
@@ -92,6 +51,46 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
             {
                 // Update the load status information.
                 _loadStatusLabel.Text = $"Map's load status: {e.Status}";
+            });
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _loadStatusLabel = new UILabel
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
+                TextColor = UIColor.White,
+                TextAlignment = UITextAlignment.Center,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, _loadStatusLabel);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+
+                _loadStatusLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _loadStatusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _loadStatusLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _loadStatusLabel.HeightAnchor.ConstraintEqualTo(40)
             });
         }
     }

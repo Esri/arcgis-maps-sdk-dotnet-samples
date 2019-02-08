@@ -22,9 +22,8 @@ namespace ArcGISRuntime.Samples.MapRotation
         "")]
     public class MapRotation : UIViewController
     {
-        // Hold references to UI controls.
+        // Hold references to the UI controls.
         private MapView _myMapView;
-        private UIToolbar _toolbar;
         private UILabel _rotationLabel;
         private UISlider _rotationSlider;
 
@@ -33,10 +32,8 @@ namespace ArcGISRuntime.Samples.MapRotation
             Title = "Map rotation";
         }
 
-        public override void ViewDidLoad()
+        private void Initialize()
         {
-            base.ViewDidLoad();
-
             // Show a streets basemap.
             _myMapView.Map = new Map(Basemap.CreateStreets());
 
@@ -48,14 +45,19 @@ namespace ArcGISRuntime.Samples.MapRotation
             };
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
-            View = new UIView();
-            View.BackgroundColor = UIColor.White;
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_myMapView);
 
             _rotationSlider = new UISlider
             {
@@ -71,27 +73,32 @@ namespace ArcGISRuntime.Samples.MapRotation
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
-            _toolbar = new UIToolbar
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
             {
-                TranslatesAutoresizingMaskIntoConstraints = false,
-                Items = new[] {
-                    new UIBarButtonItem(_rotationLabel),
-                    new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace) {Width = 0},
-                    new UIBarButtonItem(_rotationSlider)
-                }
+                new UIBarButtonItem(_rotationLabel),
+                new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace) {Width = 0},
+                new UIBarButtonItem(_rotationSlider)
             };
-            View.AddSubview(_toolbar);
 
-            _rotationLabel.WidthAnchor.ConstraintEqualTo(64).Active = true;
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
 
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _rotationLabel.WidthAnchor.ConstraintEqualTo(64),
 
-            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
+            });
         }
     }
 }

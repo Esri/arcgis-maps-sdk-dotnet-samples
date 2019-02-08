@@ -32,9 +32,7 @@ namespace ArcGISRuntime
 
             NavigationController.NavigationBar.TintColor = UIColor.White;
             NavigationController.NavigationBar.BarTintColor = UIColor.FromRGB(0, 140, 200);
-
-
-            NavigationController.NavigationBar.TitleTextAttributes = new UIStringAttributes()
+            NavigationController.NavigationBar.TitleTextAttributes = new UIStringAttributes
             {
                 ForegroundColor = UIColor.White
             };
@@ -53,12 +51,11 @@ namespace ArcGISRuntime
             searchUpdater.UpdateSearchResults += searchResultsController.Search;
 
             // Create a new search controller
-            SearchController = new UISearchController(searchResultsController) 
-            { 
+            SearchController = new UISearchController(searchResultsController)
+            {
                 SearchResultsUpdater = searchUpdater
             };
             SearchController.SearchBar.TintColor = UIColor.White;
-
 
 
             // Show the search bar in the navigation/header area
@@ -67,7 +64,8 @@ namespace ArcGISRuntime
             if (entry != null)
             {
                 var backgroundView = entry.Subviews.FirstOrDefault();
-                if (backgroundView != null){
+                if (backgroundView != null)
+                {
                     backgroundView.BackgroundColor = UIColor.White;
                     backgroundView.Layer.CornerRadius = 10;
                     backgroundView.ClipsToBounds = true;

@@ -9,7 +9,6 @@
 
 using System;
 using System.Threading.Tasks;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
@@ -30,7 +29,6 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
     {
         // Hold references to the UI controls.
         private MapView _myMapView;
-        private UIToolbar _toolbar;
         private UIBarButtonItem _configureButton;
         private UIBarButtonItem _startButton;
         private DateSelectionViewController _selectionView;
@@ -48,13 +46,6 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         public AnalyzeHotspots()
         {
             Title = "Analyze hotspots";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            Initialize();
         }
 
         private async void Initialize()
@@ -82,8 +73,8 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             _progressBar.StartAnimating();
 
             // Get the 'from' and 'to' dates from the date pickers for the geoprocessing analysis.
-            DateTime fromDate = (DateTime)_selectionView.StartPicker.Date;
-            DateTime toDate = (DateTime)_selectionView.EndPicker.Date;
+            DateTime fromDate = (DateTime) _selectionView.StartPicker.Date;
+            DateTime toDate = (DateTime) _selectionView.EndPicker.Date;
 
             // The end date must be at least one day after the start date.
             if (toDate <= fromDate.AddDays(1))
@@ -160,48 +151,62 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             NavigationController.PushViewController(_selectionView, true);
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
-            View = new UIView();
-            View.BackgroundColor = UIColor.White;
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
 
             _selectionView = new DateSelectionViewController();
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_myMapView);
 
             _configureButton = new UIBarButtonItem("Configure", UIBarButtonItemStyle.Plain, ShowConfiguration);
             _startButton = new UIBarButtonItem("Run analysis", UIBarButtonItemStyle.Plain, OnRunAnalysisClicked);
-            UIBarButtonItem spacer = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
 
-            _toolbar = new UIToolbar();
-            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            _toolbar.Items = new[] { _configureButton, spacer, _startButton };
-            View.AddSubview(_toolbar);
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                _configureButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _startButton
+            };
 
             // Hide the activity indicator (progress bar) when stopped.
-            _progressBar = new UIActivityIndicatorView
+            _progressBar = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(0, .5f),
                 HidesWhenStopped = true,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
-            View.AddSubview(_progressBar);
 
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar, _progressBar);
 
-            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
-            _progressBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _progressBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _progressBar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _progressBar.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+
+                _progressBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _progressBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _progressBar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _progressBar.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            });
         }
     }
 }

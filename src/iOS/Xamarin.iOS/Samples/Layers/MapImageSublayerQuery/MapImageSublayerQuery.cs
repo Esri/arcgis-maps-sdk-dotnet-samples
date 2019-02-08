@@ -31,7 +31,6 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
     {
         // Hold references to the UI controls.
         private MapView _myMapView;
-        private UIToolbar _toolbar;
         private UITextField _queryEntry;
 
         // Graphics overlay for showing selected features.
@@ -40,45 +39,6 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         public MapImageSublayerQuery()
         {
             Title = "Query a map image sublayer";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            Initialize();
-        }
-
-        public override void LoadView()
-        {
-            View = new UIView();
-            View.BackgroundColor = UIColor.White;
-
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_myMapView);
-
-            _toolbar = new UIToolbar();
-            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_toolbar);
-
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor).Active = true;
-
-            _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-
-            UIBarButtonItem queryButton = new UIBarButtonItem("Query", UIBarButtonItemStyle.Plain, QuerySublayers_Click);
-
-            _toolbar.Items = new[]
-            {
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                queryButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
-            };
         }
 
         private void Initialize()
@@ -115,10 +75,11 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
 
             // Prompt the user for a query.
             UIAlertController prompt = UIAlertController.Create("Enter query", "Query for places with population(2000) > ", UIAlertControllerStyle.Alert);
-            prompt.AddTextField((obj) =>
+            prompt.AddTextField(obj =>
             {
                 _queryEntry = obj;
                 obj.Text = "181000";
+                obj.KeyboardType = UIKeyboardType.NumberPad;
             });
             prompt.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, submitQuery));
             PresentViewController(prompt, true, null);
@@ -200,6 +161,47 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
             {
                 new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            View.AddSubview(_myMapView);
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Query", UIBarButtonItemStyle.Plain, QuerySublayers_Click),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
+            });
         }
     }
 }

@@ -242,6 +242,9 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
 
         private async void GenerateButton_Clicked(object sender, RoutedEventArgs e)
         {
+            // Fix the extent of the graphic.
+            MyMapView.ViewpointChanged -= UpdateMapExtent;
+
             // Update the geodatabase path for the new run.
             try
             {

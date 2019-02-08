@@ -114,9 +114,15 @@
   <ItemGroup>
     <!-- Screenshots -->
     <Content Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg" />
+	  <Content Include="Samples\Geometry\Project\Project.jpg" />
+	  <Content Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg" />
+	  <Content Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
+	  <Content Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
+    <Content Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
+    <Content Include="Samples\Data\AddFeatures\AddFeatures.jpg" />
     <Content Include="Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
-    <Content Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
-    <Content Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
+	  <Content Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
+	  <Content Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
     <Content Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
     <Content Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg" />
     <Content Include="Samples\Geometry\SpatialOperations\SpatialOperations.jpg" />
@@ -300,6 +306,24 @@
     <!-- Sample Code -->
     <Compile Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.xaml.cs">
       <DependentUpon>EditFeatureAttachments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\Project\Project.xaml.cs">
+      <DependentUpon>Project.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.xaml.cs">
+      <DependentUpon>OpenStreetMapLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.xaml.cs">
+      <DependentUpon>ManageOperationalLayers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.xaml.cs">
+      <DependentUpon>UpdateAttributes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\UpdateGeometries\UpdateGeometries.xaml.cs">
+      <DependentUpon>UpdateGeometries.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\AddFeatures\AddFeatures.xaml.cs">
+      <DependentUpon>AddFeatures.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Data\DeleteFeatures\DeleteFeatures.xaml.cs">
       <DependentUpon>DeleteFeatures.xaml</DependentUpon>
@@ -722,6 +746,30 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\Project\Project.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\UpdateAttributes\UpdateAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\UpdateGeometries\UpdateGeometries.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\AddFeatures\AddFeatures.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

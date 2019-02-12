@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -106,7 +107,8 @@ namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
             }
             catch (Exception ex)
             {
-                await ((Page) Parent).DisplayAlert("Error", ex.ToString(), "OK");
+                Debug.WriteLine(ex);
+                await ((Page) Parent).DisplayAlert("No results", "No results found", "OK");
             }
         }
 

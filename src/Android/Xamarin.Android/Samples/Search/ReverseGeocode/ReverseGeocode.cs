@@ -118,7 +118,8 @@ namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
             }
             catch (Exception ex)
             {
-                new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("Error").Show();
+                System.Diagnostics.Debug.WriteLine(ex);
+                new AlertDialog.Builder(this).SetMessage("No results found.").SetTitle("No results").Show();
             }
         }
 

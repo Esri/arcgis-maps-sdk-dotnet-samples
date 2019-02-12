@@ -16,6 +16,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -111,7 +112,8 @@ namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
             }
             catch (Exception ex)
             {
-                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                Debug.WriteLine(ex);
+                new UIAlertView("No results", "No results found.", (IUIAlertViewDelegate) null, "OK", null).Show();
             }
         }
 

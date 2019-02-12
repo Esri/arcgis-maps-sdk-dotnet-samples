@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -107,7 +108,8 @@ namespace ArcGISRuntime.UWP.Samples.ReverseGeocode
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Error finding address").ShowAsync();
+                Debug.WriteLine(ex);
+                await new MessageDialog("No results found.", "No results").ShowAsync();
             }
         }
 

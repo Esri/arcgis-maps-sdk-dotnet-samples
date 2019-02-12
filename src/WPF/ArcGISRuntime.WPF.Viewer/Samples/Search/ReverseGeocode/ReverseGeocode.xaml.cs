@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -107,7 +108,8 @@ namespace ArcGISRuntime.WPF.Samples.ReverseGeocode
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error");
+                Debug.WriteLine(ex);
+                MessageBox.Show("No results found.", "No results");
             }
         }
 

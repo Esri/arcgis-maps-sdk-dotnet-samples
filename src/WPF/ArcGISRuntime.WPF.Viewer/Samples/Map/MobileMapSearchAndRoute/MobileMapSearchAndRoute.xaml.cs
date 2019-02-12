@@ -100,7 +100,7 @@ namespace ArcGISRuntime.WPF.Samples.MobileMapSearchAndRoute
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
-                MessageBox.Show(exception.ToString(), "Couldn't process route");
+                MessageBox.Show("Couldn't geocode or route.", "Error");
             }
         }
 

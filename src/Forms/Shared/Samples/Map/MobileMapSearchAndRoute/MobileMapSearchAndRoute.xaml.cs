@@ -103,7 +103,7 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
-                await ((Page)Parent).DisplayAlert("Couldn't process route", exception.ToString(), "OK");
+                await ((Page)Parent).DisplayAlert("Error", "Couldn't geocode or route.", "OK");
             }
         }
 

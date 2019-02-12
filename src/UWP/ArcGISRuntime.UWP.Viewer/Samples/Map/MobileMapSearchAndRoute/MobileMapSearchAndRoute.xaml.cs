@@ -99,7 +99,7 @@ namespace ArcGISRuntime.UWP.Samples.MobileMapSearchAndRoute
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
-                await new MessageDialog(exception.ToString(), "Couldn't process route").ShowAsync();
+                await new MessageDialog("Couldn't geocode or route.", "Error").ShowAsync();
             }
         }
 

@@ -10,13 +10,13 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Diagnostics;
+using System.Drawing;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
@@ -31,33 +31,138 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
     {
         // Hold references to UI controls.
         private MapView _myMapView;
+        private UIActivityIndicatorView _loadingProgressBar;
+
+        // Hold a reference to the feature table.
+        private WfsFeatureTable _featureTable;
+
+        // Constant for the service URL and layer name.
+        private const string ServiceUrl = "http://qadev000238.esri.com:8070/geoserver/ows?service=wfs&request=GetCapabilities";
+        private const string LayerName = "tiger:tiger_roads";
 
         public DisplayWfs()
         {
             Title = "Display a WFS layer";
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
-            // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateImagery());
+            // Create the map with topographic basemap.
+            _myMapView.Map = new Map(Basemap.CreateTopographic());
 
-            // Provide used Map to the MapView.
-            _myMapView.Map = myMap;
+            try
+            {
+                // Create the feature table from URI and layer name.
+                _featureTable = new WfsFeatureTable(new Uri(ServiceUrl), LayerName);
+
+                // Set the feature request mode to manual - only manual is supported at v100.5.
+                _featureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
+
+                // Set the axis order.
+                _featureTable.AxisOrder = OgcAxisOrder.NoSwap;
+
+                // Load the table.
+                await _featureTable.LoadAsync();
+
+                // Create a feature layer to visualize the WFS features.
+                FeatureLayer manhattanFeatureLayer = new FeatureLayer(_featureTable);
+
+                // Apply a renderer.
+                manhattanFeatureLayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 3));
+
+                // Add the layer to the map.
+                _myMapView.Map.OperationalLayers.Add(manhattanFeatureLayer);
+
+                // Use the navigation completed event to populate the table with the features needed for the current extent.
+                _myMapView.NavigationCompleted += MapView_NavigationCompleted;
+
+                // Zoom to a small area within the dataset by default.
+                MapPoint topLeft = new MapPoint(-73.993723, 40.799872, SpatialReferences.Wgs84);
+                MapPoint bottomRight = new MapPoint( -73.943217, 40.761679, SpatialReferences.Wgs84);
+                await _myMapView.SetViewpointGeometryAsync(new Envelope(topLeft, bottomRight));
+            }
+            catch (Exception e)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "Couldn't load sample.", null).Show();
+                Debug.WriteLine(e);
+            }
+        }
+
+        private async void MapView_NavigationCompleted(object sender, EventArgs e)
+        {
+            // Show the loading bar.
+            _loadingProgressBar.StartAnimating();
+
+            // Get the current extent.
+            Envelope currentExtent = _myMapView.VisibleArea.Extent;
+
+            // Create a query based on the current visible extent.
+            QueryParameters visibleExtentQuery = new QueryParameters();
+            visibleExtentQuery.Geometry = currentExtent;
+            visibleExtentQuery.SpatialRelationship = SpatialRelationship.Intersects;
+
+            try
+            {
+                // Populate the table with the query, leaving existing table entries intact.
+                await _featureTable.PopulateFromServiceAsync(visibleExtentQuery, false, null);
+            }
+            catch (Exception exception)
+            {
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "Couldn't populate table.", null).Show();
+                Debug.WriteLine(exception);
+            }
+            finally
+            {
+                // Hide the loading bar.
+                _loadingProgressBar.StopAnimating();
+            }
         }
 
         public override void LoadView()
         {
+            // Create the views.
+            View = new UIView();
+
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            View = new UIView();
-            View.AddSubviews(_myMapView);
+            _loadingProgressBar = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
+            {
+                HidesWhenStopped = true, 
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
 
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            UILabel helpLabel = new UILabel
+            {
+                Text = "Pan and zoom to see features.",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, helpLabel, _loadingProgressBar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                helpLabel.TopAnchor.ConstraintEqualTo(_myMapView.TopAnchor),
+                helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                helpLabel.HeightAnchor.ConstraintEqualTo(40),
+                _loadingProgressBar.TopAnchor.ConstraintEqualTo(helpLabel.BottomAnchor),
+                _loadingProgressBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _loadingProgressBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _loadingProgressBar.HeightAnchor.ConstraintEqualTo(40)
+            });
         }
 
         public override void ViewDidLoad()

@@ -8,17 +8,11 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
+using Esri.ArcGISRuntime.Ogc;
 using System;
-using System.Linq;
-using Windows.UI.Xaml.Controls;
+using System.Diagnostics;
+using Windows.UI.Popups;
 
 namespace ArcGISRuntime.UWP.Samples.WfsXmlQuery
 {
@@ -29,14 +23,65 @@ namespace ArcGISRuntime.UWP.Samples.WfsXmlQuery
         "")]
     public partial class WfsXmlQuery
     {
+        // Constants for the service URL and the query.
+        private const string XmlQuery = @"
+<wfs:GetFeature service=""WFS"" version=""2.0.0""
+  xmlns:readOnly_Countries_join=""https:capitest1051.esri.com/arcgis/services/readOnly/Countries_join/MapServer/WFSServer""
+  xmlns:wfs=""http://www.opengis.net/wfs/2.0""
+  xmlns:fes=""http://www.opengis.net/fes/2.0""
+  xmlns:gml=""http://www.opengis.net/gml/3.2"">
+  <wfs:Query typeNames=""readOnly_Countries_join:DATA.APPTEST.USA_States_Copy"">
+    <fes:Filter>
+      <fes:PropertyIsEqualTo>
+        <fes:ValueReference>readOnly_Countries_join:SUB_REGION</fes:ValueReference>
+        <fes:Literal>Pacific</fes:Literal>
+      </fes:PropertyIsEqualTo>
+    </fes:Filter>
+  </wfs:Query>
+</wfs:GetFeature>
+";
+        private const string TableUrl = "http://rtc-100-4.esri.com/arcgis/services/readOnly/Countries_join/MapServer/WFSServer?request=GetCapabilities&service=WFS";
+
         public WfsXmlQuery()
         {
             InitializeComponent();
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
+            // Create the map with basemap.
+            MyMapView.Map = new Map(Basemap.CreateNavigationVector());
+
+            try
+            {
+                // Create the WFS feature table from URL and name.
+                WfsFeatureTable statesTable = new WfsFeatureTable(new Uri(TableUrl), "readOnly_Countries_join:DATA.APPTEST.USA_States_Copy");
+
+                // Set the feature request mode and axis order.
+                statesTable.AxisOrder = OgcAxisOrder.NoSwap;
+                statesTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
+
+                // Load the table.
+                await statesTable.LoadAsync();
+
+                // Create a feature layer to visualize the table.
+                FeatureLayer statesLayer = new FeatureLayer(statesTable);
+
+                // Add the layer to the map.
+                MyMapView.Map.OperationalLayers.Add(statesLayer);
+
+                // Populate the feature table with the XML query.
+                await statesTable.PopulateFromServiceWithXmlAsync(XmlQuery, true);
+
+                // Zoom to the extent of the query results.
+                await MyMapView.SetViewpointGeometryAsync(statesTable.Extent, 50);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+                await new MessageDialog(e.ToString(), "Couldn't populate table with XML query.").ShowAsync();
+            }
         }
     }
 }

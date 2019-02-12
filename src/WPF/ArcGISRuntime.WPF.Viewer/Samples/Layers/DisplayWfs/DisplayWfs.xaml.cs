@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Diagnostics;
 using System.Windows;
+using Esri.ArcGISRuntime.Ogc;
 using Color = System.Drawing.Color;
 
 namespace ArcGISRuntime.WPF.Samples.DisplayWfs
@@ -25,7 +26,13 @@ namespace ArcGISRuntime.WPF.Samples.DisplayWfs
         "")]
     public partial class DisplayWfs
     {
+        // Hold a reference to the feature table.
         private WfsFeatureTable _featureTable;
+
+        // Constant for the service URL and layer name.
+        private const string ServiceUrl = "http://qadev000238.esri.com:8070/geoserver/ows?service=wfs&request=GetCapabilities";
+        private const string LayerName = "tiger:tiger_roads";
+
         public DisplayWfs()
         {
             InitializeComponent();
@@ -40,12 +47,13 @@ namespace ArcGISRuntime.WPF.Samples.DisplayWfs
             try
             {
                 // Create the feature table from URI and layer name.
-                _featureTable = new WfsFeatureTable(
-                    new Uri("http://qadev000238.esri.com:8070/geoserver/ows?service=wfs&request=GetCapabilities"), 
-                    "tiger:tiger_roads");
+                _featureTable = new WfsFeatureTable(new Uri(ServiceUrl), LayerName);
 
                 // Set the feature request mode to manual - only manual is supported at v100.5.
                 _featureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
+
+                // Set the axis order.
+                _featureTable.AxisOrder = OgcAxisOrder.NoSwap;
 
                 // Load the table.
                 await _featureTable.LoadAsync();
@@ -59,13 +67,13 @@ namespace ArcGISRuntime.WPF.Samples.DisplayWfs
                 // Add the layer to the map.
                 MyMapView.Map.OperationalLayers.Add(manhattanFeatureLayer);
 
+                // Use the navigation completed event to populate the table with the features needed for the current extent.
+                MyMapView.NavigationCompleted += MapView_NavigationCompleted;
+
                 // Zoom to a small area within the dataset by default.
                 MapPoint topLeft = new MapPoint(-73.993723, 40.799872, SpatialReferences.Wgs84);
                 MapPoint bottomRight = new MapPoint( -73.943217, 40.761679, SpatialReferences.Wgs84);
                 await MyMapView.SetViewpointGeometryAsync(new Envelope(topLeft, bottomRight));
-
-                // Use the navigation completed event to populate the table with the features needed for the current extent.
-                MyMapView.NavigationCompleted += MapView_NavigationCompleted;
             }
             catch (Exception e)
             {
@@ -85,6 +93,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayWfs
             // Create a query based on the current visible extent.
             QueryParameters visibleExtentQuery = new QueryParameters();
             visibleExtentQuery.Geometry = currentExtent;
+            visibleExtentQuery.SpatialRelationship = SpatialRelationship.Intersects;
 
             try
             {

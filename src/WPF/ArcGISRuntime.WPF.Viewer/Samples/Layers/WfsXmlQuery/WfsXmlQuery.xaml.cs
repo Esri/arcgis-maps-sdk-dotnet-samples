@@ -23,6 +23,7 @@ namespace ArcGISRuntime.WPF.Samples.WfsXmlQuery
         "")]
     public partial class WfsXmlQuery
     {
+        // Constants for the service URL and the query.
         private const string XmlQuery = @"
 <wfs:GetFeature service=""WFS"" version=""2.0.0""
   xmlns:readOnly_Countries_join=""https:capitest1051.esri.com/arcgis/services/readOnly/Countries_join/MapServer/WFSServer""
@@ -39,8 +40,8 @@ namespace ArcGISRuntime.WPF.Samples.WfsXmlQuery
   </wfs:Query>
 </wfs:GetFeature>
 ";
+        private const string TableUrl = "http://rtc-100-4.esri.com/arcgis/services/readOnly/Countries_join/MapServer/WFSServer?request=GetCapabilities&service=WFS";
 
-        private const string TableUrl = "_/MapServer/WFSServer?request=GetCapabilities&service=WFS";
         public WfsXmlQuery()
         {
             InitializeComponent();
@@ -72,6 +73,9 @@ namespace ArcGISRuntime.WPF.Samples.WfsXmlQuery
 
                 // Populate the feature table with the XML query.
                 await statesTable.PopulateFromServiceWithXmlAsync(XmlQuery, true);
+
+                // Zoom to the extent of the query results.
+                await MyMapView.SetViewpointGeometryAsync(statesTable.Extent, 50);
             }
             catch (Exception e)
             {

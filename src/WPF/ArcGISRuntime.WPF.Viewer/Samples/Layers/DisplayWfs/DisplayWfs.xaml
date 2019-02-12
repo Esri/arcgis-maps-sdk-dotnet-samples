@@ -5,10 +5,15 @@
     <Grid>
         <esri:MapView x:Name="MyMapView"/>
         <Border Style="{StaticResource BorderStyle}">
-            <ProgressBar x:Name="LoadingProgressbar"
-                         IsIndeterminate="True"
-                         Visibility="Collapsed"
-                         IsEnabled="True" />
+            <StackPanel>
+                <TextBlock Text="Pan and zoom to see features."
+                           TextAlignment="Center"
+                           FontWeight="SemiBold" />
+                <ProgressBar x:Name="LoadingProgressbar"
+                             IsIndeterminate="True"
+                             Visibility="Collapsed"
+                             IsEnabled="True" />
+            </StackPanel>
         </Border>
     </Grid>
 </UserControl>

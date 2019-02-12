@@ -29,7 +29,9 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
     public partial class BrowseWfsLayers
     {
         private WfsServiceInfo info; // TODO - get rid of this - workaround for .NET bug
-        private static Random _rand = new Random();
+
+        // URL to the WFS service.
+        private const string ServiceUrl = "http://qadev000238.esri.com:8070/geoserver/ows?service=wfs&request=GetCapabilities";
 
         public BrowseWfsLayers()
         {
@@ -43,7 +45,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
             MyMapView.Map = new Map(Basemap.CreateImagery());
 
             // Create the service.
-            WfsService service = new WfsService(new Uri("http://qadev000238.esri.com:8070/geoserver/ows?service=wfs&request=GetCapabilities"));
+            WfsService service = new WfsService(new Uri(ServiceUrl));
 
             // Load the service.
             await service.LoadAsync();
@@ -119,6 +121,10 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
             }
         }
 
+        #region Random symbology
+        // Random number generator used to generate random symbology.
+        private static readonly Random _rand = new Random();
+
         private Renderer GetRandomRendererForTable(FeatureTable table)
         {
             switch (table.GeometryType)
@@ -140,5 +146,6 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
         {
             return Color.FromArgb(alpha, _rand.Next(0, 255), _rand.Next(0, 255), _rand.Next(0, 255));
         }
+        #endregion Random symbology
     }
 }

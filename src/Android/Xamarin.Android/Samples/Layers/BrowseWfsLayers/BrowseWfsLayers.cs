@@ -9,16 +9,16 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
+using System;
+using System.Drawing;
 
 namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
 {
@@ -30,8 +30,17 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
         "")]
     public class BrowseWfsLayers : Activity
     {
-        // Create and hold reference to the used MapView.
-        private readonly MapView _myMapView = new MapView();
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private Switch _axisOrderSwitch;
+        private ProgressBar _loadingProgressBar;
+        private Button _loadLayerButton;
+
+        // Hold a reference to the WFS service info.
+        private WfsServiceInfo _serviceInfo;
+
+        // URL to the WFS service.
+        private const string ServiceUrl = "http://qadev000238.esri.com:8070/geoserver/ows?service=wfs&request=GetCapabilities";
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -43,21 +52,155 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
-            // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateImagery());
-            
-            // Provide used Map to the MapView.
-            _myMapView.Map = myMap;
+            // Create the map with imagery basemap.
+            _myMapView.Map = new Map(Basemap.CreateImagery());
+
+            // Create the service.
+            WfsService service = new WfsService(new Uri(ServiceUrl));
+
+            // Load the service.
+            await service.LoadAsync();
+
+            // Store information about the WFS service for later.
+            _serviceInfo = service.ServiceInfo;
+
+            // Update the UI.
+            _loadLayerButton.Enabled = true;
         }
+
+        private async void LayerMenu_LayerSelected(object sender, PopupMenu.MenuItemClickEventArgs e)
+        {
+            // Show the progress bar.
+            _loadingProgressBar.Visibility = ViewStates.Visible;
+
+            // Clear the existing layers.
+            _myMapView.Map.OperationalLayers.Clear();
+
+            try
+            {
+                // Get the selected layer info.
+                WfsLayerInfo selectedLayerInfo = _serviceInfo.LayerInfos[e.Item.Order];
+
+                // Create the feature table.
+                WfsFeatureTable table = new WfsFeatureTable(selectedLayerInfo);
+
+                // Set the table's feature request mode.
+                table.FeatureRequestMode = FeatureRequestMode.ManualCache;
+
+                // Set the axis order based on the UI.
+                if (_axisOrderSwitch.Checked)
+                {
+                    table.AxisOrder = OgcAxisOrder.Swap;
+                }
+                else
+                {
+                    table.AxisOrder = OgcAxisOrder.NoSwap;
+                }
+
+                // Populate the table.
+                await table.PopulateFromServiceAsync(new QueryParameters(), false, null);
+
+                // Create a layer from the table.
+                FeatureLayer wfsFeatureLayer = new FeatureLayer(table);
+
+                // Choose a renderer for the table.
+                wfsFeatureLayer.Renderer = GetRandomRendererForTable(table) ?? wfsFeatureLayer.Renderer;
+
+                // Add the layer to the map.
+                _myMapView.Map.OperationalLayers.Add(wfsFeatureLayer);
+
+                // Zoom to the extent of the layer.
+                await _myMapView.SetViewpointGeometryAsync(selectedLayerInfo.Extent, 50);
+            }
+            catch (Exception exception)
+            {
+                System.Diagnostics.Debug.WriteLine(exception);
+                new AlertDialog.Builder(this).SetMessage(exception.ToString()).SetTitle("Couldn't load layer.").Show();
+            }
+            finally
+            {
+                // Hide the progress bar.
+                _loadingProgressBar.Visibility = ViewStates.Gone;
+            }
+        }
+
+        private void ChooseLayer_Clicked(object sender, EventArgs e)
+        {
+            // Get a reference to the button.
+            Button loadButton = (Button)sender;
+
+            // Create menu to show layer options.
+            PopupMenu layerMenu = new PopupMenu(this, loadButton);
+            layerMenu.MenuItemClick += LayerMenu_LayerSelected;
+
+            // Create menu options.
+            int index = 0;
+            foreach (WfsLayerInfo layerInfo in _serviceInfo.LayerInfos)
+            {
+                layerMenu.Menu.Add(0, index, index, layerInfo.Title);
+                index++;
+            }
+
+            // Show menu in the view.
+            layerMenu.Show();
+        }
+
+        #region Random symbology
+
+        // Random number generator used to generate random symbology.
+        private static readonly Random _rand = new Random();
+
+        private Renderer GetRandomRendererForTable(FeatureTable table)
+        {
+            switch (table.GeometryType)
+            {
+                case GeometryType.Point:
+                case GeometryType.Multipoint:
+                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, GetRandomColor(), 2));
+                case GeometryType.Polygon:
+                case GeometryType.Envelope:
+                    return new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, GetRandomColor(180), null));
+                case GeometryType.Polyline:
+                    return new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, GetRandomColor(), 1));
+            }
+
+            return null;
+        }
+
+        private Color GetRandomColor(int alpha = 255)
+        {
+            return Color.FromArgb(alpha, _rand.Next(0, 255), _rand.Next(0, 255), _rand.Next(0, 255));
+        }
+
+        #endregion Random symbology
 
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
+            // Add the axis order switch.
+            _axisOrderSwitch = new Switch(this);
+            _axisOrderSwitch.Text = "Swap coordinates";
+            layout.AddView(_axisOrderSwitch);
+
+            // Add the button.
+            _loadLayerButton = new Button(this);
+            _loadLayerButton.Text = "Choose a layer";
+            _loadLayerButton.Click += ChooseLayer_Clicked;
+            _loadLayerButton.Enabled = false;
+            layout.AddView(_loadLayerButton);
+
+            // Add the loading indicator.
+            _loadingProgressBar = new ProgressBar(this);
+            _loadingProgressBar.Indeterminate = true;
+            _loadingProgressBar.Visibility = ViewStates.Gone;
+            layout.AddView(_loadingProgressBar);
+
             // Add the map view to the layout.
+            _myMapView = new MapView();
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

@@ -36,7 +36,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
         private UIBarButtonItem _chooseLayersButton;
 
         // Hold a reference to the WFS service info - used to get list of available layers.
-        private WfsServiceInfo _info;
+        private WfsServiceInfo _serviceInfo;
 
         // URL to the WFS service.
         private const string ServiceUrl = "http://qadev000238.esri.com:8070/geoserver/ows?service=wfs&request=GetCapabilities";
@@ -58,7 +58,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             await service.LoadAsync();
 
             // Store information about the WFS service for later.
-            _info = service.ServiceInfo;
+            _serviceInfo = service.ServiceInfo;
 
             // Update the UI.
             _chooseLayersButton.Enabled = true;
@@ -123,7 +123,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             UIAlertController layerSelectionAlert = UIAlertController.Create("Select a basemap", "", UIAlertControllerStyle.ActionSheet);
 
             // Add an option for each layer.
-            foreach (WfsLayerInfo layerInfo in _info.LayerInfos)
+            foreach (WfsLayerInfo layerInfo in _serviceInfo.LayerInfos)
             {
                 // Selecting a layer will call the lambda method, which will show the layer.
                 layerSelectionAlert.AddAction(UIAlertAction.Create(layerInfo.Title, UIAlertActionStyle.Default, action => LoadSelectedLayer(layerInfo)));

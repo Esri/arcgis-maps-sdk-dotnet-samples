@@ -6,7 +6,7 @@ Geocode addresses to locations and reverse geocode locations to addresses when t
 
 ## How to use the sample
 
-Type the address in the search menu option or select from the list to `Geocode` the address and view the result on the map. Tap the location you want to reverse geocode. 
+Type an address in the search menu option or select from the list to `Geocode` the address and view the result on the map. Tap the location you want to reverse geocode. The locator used by this sample doesn't support suggestion, so you must use a full address (including city) to get results.
 
 ## How it works
 
@@ -24,10 +24,8 @@ Type the address in the search menu option or select from the list to `Geocode` 
 
 The sample viewer will download offline data automatically before loading the sample.
 	
-Link     |
----------|
-|[San Diego Streets Tile Package](http://www.arcgis.com/home/item.html?id=1330ab96ac9c40a49e59650557f2cd63)|
-|[San Diego Offline Locator](http://www.arcgis.com/home/item.html?id=344e3b12368543ef84045ef9aa3c32ba)|
+* [San Diego Streets Tile Package](http://www.arcgis.com/home/item.html?id=1330ab96ac9c40a49e59650557f2cd63)
+* [San Diego Offline Locator](http://www.arcgis.com/home/item.html?id=344e3b12368543ef84045ef9aa3c32ba)
 	
 ## Tags
 

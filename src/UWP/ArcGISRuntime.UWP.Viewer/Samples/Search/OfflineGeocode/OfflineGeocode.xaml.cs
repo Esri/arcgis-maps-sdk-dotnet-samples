@@ -182,6 +182,10 @@ namespace ArcGISRuntime.UWP.Samples.OfflineGeocode
 
         private void AutoSuggestBox_OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
+            if (args.ChosenSuggestion != null)
+            {
+                AutoSuggestBox.Text = args.ChosenSuggestion.ToString();
+            }
             UpdateSearch();
         }
 

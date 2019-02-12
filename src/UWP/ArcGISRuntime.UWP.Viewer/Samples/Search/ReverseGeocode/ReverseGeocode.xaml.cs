@@ -82,8 +82,11 @@ namespace ArcGISRuntime.UWP.Samples.ReverseGeocode
                 Graphic pinGraphic = await GraphicForPoint(e.Location);
                 MyMapView.GraphicsOverlays[0].Graphics.Add(pinGraphic);
 
+                // Normalize the geometry - needed if the user crosses the international date line.
+                MapPoint normalizedPoint = (MapPoint)GeometryEngine.NormalizeCentralMeridian(e.Location);
+
                 // Reverse geocode to get addresses.
-                IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location);
+                IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(normalizedPoint);
 
                 // Get the first result.
                 GeocodeResult address = addresses.First();

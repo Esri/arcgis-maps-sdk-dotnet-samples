@@ -6,7 +6,7 @@ Use an online service to find the address for a tapped point.
 
 ## Use case
 
-Reverse geocoding - finding the address for a point - is a fundamental GIS task. For example, you might use a geocoder to find a customer's delivery address based on the location returned by their device's GPS.
+You might use a geocoder to find a customer's delivery address based on the location returned by their device's GPS.
 
 ## How to use the sample
 
@@ -22,12 +22,9 @@ Tap the map to see the nearest address displayed in a callout.
 ## Relevant API
 
 * GeocodeParameters
-* GraphicsOverlay
 * LocatorTask
-* MapView
-* PictureMarkerSymbol
 * ReverseGeocodeParameters
-* TileCache
 
+## Tags
 
-
+search, address, locate, geocode

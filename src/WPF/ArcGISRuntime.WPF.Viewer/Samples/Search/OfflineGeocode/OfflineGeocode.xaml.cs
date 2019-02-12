@@ -155,6 +155,13 @@ namespace ArcGISRuntime.WPF.Samples.OfflineGeocode
                 parameters.MaxResults = 1;
                 IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location, parameters);
 
+                // Skip if there are no results.
+                if (!addresses.Any())
+                {
+                    MessageBox.Show("No results found.", "No results");
+                    return;
+                }
+
                 // Get the first result.
                 var address = addresses.First();
 

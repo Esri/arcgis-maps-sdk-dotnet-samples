@@ -195,6 +195,13 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
                 parameters.MaxResults = 1;
                 IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location, parameters);
 
+                // Skip if there are no results.
+                if (!addresses.Any())
+                {
+                    await ((Page) Parent).DisplayAlert("No results", "No results found.", "OK");
+                    return;
+                }
+
                 // Get the first result.
                 GeocodeResult address = addresses.First();
 

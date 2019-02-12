@@ -124,9 +124,10 @@ namespace ArcGISRuntime.UWP.Samples.OfflineGeocode
                 GeocodeResult firstSuggestion = geocodeResults.First();
                 IReadOnlyList<GeocodeResult> addresses = await _geocoder.GeocodeAsync(firstSuggestion.Label);
 
-                // Stop if the geocoder does not return a result.
-                if (addresses.Count < 1)
+                // Skip if there are no results.
+                if (!addresses.Any())
                 {
+                    await new MessageDialog("No results found.", "No results").ShowAsync();
                     return;
                 }
 

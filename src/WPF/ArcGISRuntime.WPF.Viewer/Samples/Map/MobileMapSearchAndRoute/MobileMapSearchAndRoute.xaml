@@ -13,7 +13,7 @@
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock
-                    Text="Select a map from the package. If a network is a available, you can route between tapped points. If a locator is available, the address for each tapped point will be displayed in a callout."
+                    Text="Select a map from the package. If a network is available, you can route between tapped points. If a locator is available, the address for each tapped point will be displayed in a callout."
                     TextWrapping="Wrap" FontWeight="SemiBold" />
                 <ListBox ItemsSource="{Binding Maps}"
                          SelectionChanged="Map_Selected">

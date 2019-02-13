@@ -18,7 +18,7 @@
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <StackLayout>
                 <Label
-                    Text="Select a map from the package. If a network is a available, you can route between tapped points. If a locator is available, the address for each tapped point will be displayed in a callout."
+                    Text="Select a map from the package. If a network is available, you can route between tapped points. If a locator is available, the address for each tapped point will be displayed in a callout."
                     LineBreakMode="WordWrap" />
                 <ListView x:Name="MapListView"
                           ItemSelected="Map_Selected"

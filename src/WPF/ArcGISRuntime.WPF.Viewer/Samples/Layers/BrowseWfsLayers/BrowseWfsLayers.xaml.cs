@@ -31,7 +31,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
         private WfsServiceInfo info; // TODO - get rid of this - workaround for .NET bug
 
         // URL to the WFS service.
-        private const string ServiceUrl = "http://qadev000238.esri.com:8070/geoserver/ows?service=wfs&request=GetCapabilities";
+        private const string ServiceUrl = "https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer?service=wfs&request=getcapabilities";
 
         public BrowseWfsLayers()
         {
@@ -51,7 +51,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
             await service.LoadAsync();
 
             // Show the layers in the UI.
-            WfsLayerList.ItemsSource = service.ServiceInfo.LayerInfos;
+            WfsLayerList.ItemsSource = service.ServiceInfo.LayerInfos.Reverse();
 
             // Update the UI.
             LoadingProgressBar.Visibility = Visibility.Collapsed;

@@ -13,7 +13,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Text="Select WFS layers for display."
+                <TextBlock Text="Select a WFS layer for display."
                            Grid.Row="0" Margin="5"
                            Foreground="Black" FontWeight="Bold" TextAlignment="Center" />
                 <ProgressBar x:Name="LoadingProgressBar"
@@ -23,9 +23,11 @@
                              IsEnabled="True"
                              Margin="0,5,0,5"
                              Visibility="Visible" />
-                <ListView x:Name="WfsLayerList" 
+                <ListView x:Name="WfsLayerList"
                           Grid.Row="2"
-                          SelectionMode="Multiple">
+                          SelectionMode="Single"
+                          IsEnabled="False"
+                          SelectionChanged="Layer_Selected">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Label Content="{Binding Title}" />
@@ -34,13 +36,8 @@
                 </ListView>
                 <CheckBox x:Name="AxisOrderSwapCheckbox"
                           Grid.Row="3"
-                          Margin="0,5,0,5"
+                          Margin="0,0,0,5"
                           Content="Swap coordinate order" />
-                <Button x:Name="LoadLayersButton" 
-                        Grid.Row="4"
-                        Content="Load selected layers"
-                        Click="LoadLayers_Clicked"
-                        IsEnabled="False" />
             </Grid>
         </Border>
     </Grid>

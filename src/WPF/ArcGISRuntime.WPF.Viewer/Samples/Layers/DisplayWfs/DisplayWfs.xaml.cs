@@ -30,8 +30,8 @@ namespace ArcGISRuntime.WPF.Samples.DisplayWfs
         private WfsFeatureTable _featureTable;
 
         // Constant for the service URL and layer name.
-        private const string ServiceUrl = "http://qadev000238.esri.com:8070/geoserver/ows?service=wfs&request=GetCapabilities";
-        private const string LayerName = "tiger:tiger_roads";
+        private const string ServiceUrl = "https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer?service=wfs&request=getcapabilities";
+        private const string LayerName = "Seattle_Downtown_Features:Buildings";
 
         public DisplayWfs()
         {
@@ -59,20 +59,20 @@ namespace ArcGISRuntime.WPF.Samples.DisplayWfs
                 await _featureTable.LoadAsync();
 
                 // Create a feature layer to visualize the WFS features.
-                FeatureLayer manhattanFeatureLayer = new FeatureLayer(_featureTable);
+                FeatureLayer seattleFeatureLayer = new FeatureLayer(_featureTable);
 
                 // Apply a renderer.
-                manhattanFeatureLayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 3));
+                seattleFeatureLayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 3));
 
                 // Add the layer to the map.
-                MyMapView.Map.OperationalLayers.Add(manhattanFeatureLayer);
+                MyMapView.Map.OperationalLayers.Add(seattleFeatureLayer);
 
                 // Use the navigation completed event to populate the table with the features needed for the current extent.
                 MyMapView.NavigationCompleted += MapView_NavigationCompleted;
 
                 // Zoom to a small area within the dataset by default.
-                MapPoint topLeft = new MapPoint(-73.993723, 40.799872, SpatialReferences.Wgs84);
-                MapPoint bottomRight = new MapPoint( -73.943217, 40.761679, SpatialReferences.Wgs84);
+                MapPoint topLeft = new MapPoint(-122.341581, 47.617207, SpatialReferences.Wgs84);
+                MapPoint bottomRight = new MapPoint(-122.332662, 47.613758, SpatialReferences.Wgs84);
                 await MyMapView.SetViewpointGeometryAsync(new Envelope(topLeft, bottomRight));
             }
             catch (Exception e)
@@ -98,7 +98,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayWfs
             try
             {
                 // Populate the table with the query, leaving existing table entries intact.
-                await _featureTable.PopulateFromServiceAsync(visibleExtentQuery, false, null);
+                await _featureTable.PopulateFromServiceAsync(visibleExtentQuery, true, null);
             }
             catch (Exception exception)
             {

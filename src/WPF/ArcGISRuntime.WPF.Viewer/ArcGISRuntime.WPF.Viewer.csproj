@@ -109,6 +109,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Search\ReverseGeocode\ReverseGeocode.xaml.cs">
+      <DependentUpon>ReverseGeocode.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.xaml.cs">
       <DependentUpon>EditFeatureAttachments.xaml</DependentUpon>
     </Compile>
@@ -571,6 +574,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Search\ReverseGeocode\ReverseGeocode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1190,6 +1197,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Search\ReverseGeocode\ReverseGeocode.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

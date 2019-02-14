@@ -80,7 +80,7 @@
   </ItemGroup>
   <!-- Resources -->
   <ItemGroup>
-    <None Include="ArcGISLocalServer_100.3.AGSDeployment" />
+    <None Include="ArcGISLocalServer_100.5.AGSDeployment" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

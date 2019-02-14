@@ -98,7 +98,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayWfs
             try
             {
                 // Populate the table with the query, leaving existing table entries intact.
-                await _featureTable.PopulateFromServiceAsync(visibleExtentQuery, true, null);
+                await _featureTable.PopulateFromServiceAsync(visibleExtentQuery, false, null);
             }
             catch (Exception exception)
             {

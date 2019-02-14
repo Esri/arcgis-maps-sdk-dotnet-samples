@@ -68,26 +68,26 @@ namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
             try
             {
                 // Create the WFS feature table from URL and name.
-                WfsFeatureTable statesTable = new WfsFeatureTable(new Uri(TableUrl), LayerName);
+                WfsFeatureTable wfsTable = new WfsFeatureTable(new Uri(TableUrl), LayerName);
 
                 // Set the feature request mode and axis order.
-                statesTable.AxisOrder = OgcAxisOrder.NoSwap;
-                statesTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
+                wfsTable.AxisOrder = OgcAxisOrder.NoSwap;
+                wfsTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
 
                 // Load the table.
-                await statesTable.LoadAsync();
+                await wfsTable.LoadAsync();
 
                 // Create a feature layer to visualize the table.
-                FeatureLayer statesLayer = new FeatureLayer(statesTable);
+                FeatureLayer statesLayer = new FeatureLayer(wfsTable);
 
                 // Add the layer to the map.
                 _myMapView.Map.OperationalLayers.Add(statesLayer);
 
                 // Populate the feature table with the XML query.
-                await statesTable.PopulateFromServiceWithXmlAsync(XmlQuery, true);
+                await wfsTable.PopulateFromServiceWithXmlAsync(XmlQuery, true);
 
                 // Zoom to the extent of the query results.
-                await _myMapView.SetViewpointGeometryAsync(statesTable.Extent, 50);
+                await _myMapView.SetViewpointGeometryAsync(wfsTable.Extent, 50);
             }
             catch (Exception e)
             {

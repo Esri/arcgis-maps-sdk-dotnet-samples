@@ -101,7 +101,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
             }
             catch (Exception exception)
             {
-                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "Couldn't populate table.");
+                await ((Page)Parent).DisplayAlert("Error", exception.ToString(), "Couldn't populate table.");
                 Debug.WriteLine(exception);
             }
             finally

@@ -108,7 +108,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
             }
             catch (Exception exception)
             {
-                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "Couldn't populate table.", null).Show();
+                new UIAlertView("Error", exception.ToString(), (IUIAlertViewDelegate) null, "Couldn't populate table.", null).Show();
                 Debug.WriteLine(exception);
             }
             finally

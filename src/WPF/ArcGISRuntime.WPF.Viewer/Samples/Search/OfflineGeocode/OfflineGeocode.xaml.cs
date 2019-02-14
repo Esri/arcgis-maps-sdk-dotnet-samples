@@ -16,6 +16,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -57,10 +58,10 @@ namespace ArcGISRuntime.WPF.Samples.OfflineGeocode
         {
             // Get the offline tile package and use it as a basemap.
             string basemapPath = DataManager.GetDataFolder("1330ab96ac9c40a49e59650557f2cd63", "streetmap_SD.tpk");
-            var tiledBasemapLayer = new ArcGISTiledLayer(new TileCache(basemapPath));
+            ArcGISTiledLayer tiledBasemapLayer = new ArcGISTiledLayer(new TileCache(basemapPath));
 
             // Create new Map with basemap.
-            var myMap = new Map(new Basemap(tiledBasemapLayer));
+            Map myMap = new Map(new Basemap(tiledBasemapLayer));
 
             // Provide Map to the MapView.
             MyMapView.Map = myMap;
@@ -118,14 +119,14 @@ namespace ArcGISRuntime.WPF.Samples.OfflineGeocode
                 }
 
                 // Get the full address for the first suggestion.
-                var firstSuggestion = geocodeResults.First();
+                GeocodeResult firstSuggestion = geocodeResults.First();
                 IReadOnlyList<GeocodeResult> addresses = await _geocoder.GeocodeAsync(firstSuggestion.Label);
 
                 // Stop if the geocoder does not return a result.
                 if (addresses.Count < 1) return;
 
                 // Show a graphic for the address.
-                var point = await GraphicForPoint(addresses.First().DisplayLocation);
+                Graphic point = await GraphicForPoint(addresses.First().DisplayLocation);
                 MyMapView.GraphicsOverlays[0].Graphics.Add(point);
 
                 // Update the map extent to show the marker.
@@ -146,11 +147,11 @@ namespace ArcGISRuntime.WPF.Samples.OfflineGeocode
                 MyMapView.GraphicsOverlays[0].Graphics.Clear();
 
                 // Add a graphic for the tapped point.
-                var pinGraphic = await GraphicForPoint(e.Location);
+                Graphic pinGraphic = await GraphicForPoint(e.Location);
                 MyMapView.GraphicsOverlays[0].Graphics.Add(pinGraphic);
 
                 // Reverse geocode to get addresses.
-                var parameters = new ReverseGeocodeParameters();
+                ReverseGeocodeParameters parameters = new ReverseGeocodeParameters();
                 parameters.ResultAttributeNames.Add("*");
                 parameters.MaxResults = 1;
                 IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(e.Location, parameters);
@@ -163,14 +164,14 @@ namespace ArcGISRuntime.WPF.Samples.OfflineGeocode
                 }
 
                 // Get the first result.
-                var address = addresses.First();
+                GeocodeResult address = addresses.First();
 
                 // Use the address as the callout title.
                 string calloutTitle = address.Attributes["Street"].ToString();
                 string calloutDetail = address.Attributes["City"] + ", " + address.Attributes["State"] + " " + address.Attributes["ZIP"];
 
                 // Define the callout.
-                var calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);
+                CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);
 
                 // Show the callout on the map at the tapped location.
                 MyMapView.ShowCalloutForGeoElement(pinGraphic, e.Position, calloutBody);
@@ -199,15 +200,15 @@ namespace ArcGISRuntime.WPF.Samples.OfflineGeocode
         private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
             // Get current assembly that contains the image.
-            var currentAssembly = Assembly.GetExecutingAssembly();
+            Assembly currentAssembly = Assembly.GetExecutingAssembly();
 
             // Get image as a stream from the resources.
             // Picture is defined as EmbeddedResource and DoNotCopy.
-            var resourceStream = currentAssembly.GetManifestResourceStream(
+            Stream resourceStream = currentAssembly.GetManifestResourceStream(
                 "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream.
-            var pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
+            PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
             pinSymbol.Width = 60;
             pinSymbol.Height = 60;
             // The image is a pin; offset the image so that the pinpoint

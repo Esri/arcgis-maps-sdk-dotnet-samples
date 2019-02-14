@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
@@ -20,6 +21,27 @@ namespace ArcGISRuntime.UWP.Viewer.Converters
             if (value == null || String.IsNullOrEmpty(value.ToString()))
                 return Visibility.Collapsed;
             return Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class NullOrEmptyToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string culture)
+        {
+            if (value == null || String.IsNullOrEmpty(value.ToString()))
+                return Visibility.Collapsed;
+
+            IList listValue = value as IList;
+            if (listValue != null && listValue.Count > 0)
+            {
+                return Visibility.Visible;
+            }
+            return Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string culture)

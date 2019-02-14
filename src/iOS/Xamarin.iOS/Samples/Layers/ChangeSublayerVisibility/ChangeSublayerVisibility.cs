@@ -26,31 +26,16 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         "")]
     public class ChangeSublayerVisibility : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIButton _sublayersButton = new UIButton(UIButtonType.Custom);
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private SublayersTable _sublayersTableView;
+
+        // Hold a reference to the layer.
+        private ArcGISMapImageLayer _mapImageLayer;
 
         public ChangeSublayerVisibility()
         {
             Title = "Change sublayer visibility";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            CreateLayout();
-            Initialize();
-        }
-
-        private void CreateLayout()
-        {
-            _sublayersButton.BackgroundColor = UIColor.White;
-            _sublayersButton.SetTitle("Sublayers", UIControlState.Normal);
-            _sublayersButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-
-            // Add the controls to the view.
-            View.AddSubviews(_myMapView, _sublayersButton);
         }
 
         private async void Initialize()
@@ -62,32 +47,22 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             };
 
             // Create a new ArcGISMapImageLayer instance and pass a URL to the service.
-            ArcGISMapImageLayer mapImageLayer = new ArcGISMapImageLayer(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"));
+            _mapImageLayer = new ArcGISMapImageLayer(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer"));
 
             // Assign the Map to the MapView.
             _myMapView.Map = map;
 
             // Create a new instance of the Sublayers Table View Controller. This View Controller
             // displays a table of sublayers with a switch for setting the layer visibility. 
-            SublayersTable sublayersTableView = new SublayersTable();
-
-            // When the sublayers button is clicked, load the Sublayer Table View Controller.
-            _sublayersButton.TouchUpInside += (s, e) =>
-            {
-                if (mapImageLayer.Sublayers.Count > 0)
-                {
-                    sublayersTableView.MapImageLayer = mapImageLayer;
-                    NavigationController.PushViewController(sublayersTableView, true);
-                }
-            };
+            _sublayersTableView = new SublayersTable();
 
             try
             {
                 // Await the load call for the layer.
-                await mapImageLayer.LoadAsync();
+                await _mapImageLayer.LoadAsync();
 
                 // Add the map image layer to the map's operational layers.
-                map.OperationalLayers.Add(mapImageLayer);
+                map.OperationalLayers.Add(_mapImageLayer);
             }
             catch (Exception e)
             {
@@ -95,24 +70,53 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             }
         }
 
-        public override void ViewDidLayoutSubviews()
+        private void sublayerButton_Clicked(object sender, EventArgs e)
         {
-            try
+            if (_mapImageLayer.Sublayers.Count > 0)
             {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat barHeight = 40;
-
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, barHeight, 0);
-                _sublayersButton.Frame = new CGRect(0, _myMapView.Bounds.Height - barHeight, View.Bounds.Width, barHeight);
-
-                base.ViewDidLayoutSubviews();
+                _sublayersTableView.MapImageLayer = _mapImageLayer;
+                NavigationController.PushViewController(_sublayersTableView, true);
             }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
             {
-            }
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Choose sublayers", UIBarButtonItemStyle.Plain, sublayerButton_Clicked),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 
@@ -159,7 +163,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             // Create the cells in the table.
             UITableViewCell cell = new UITableViewCell(UITableViewCellStyle.Default, CellId);
 
-            ArcGISMapImageSublayer sublayer = (ArcGISMapImageSublayer)_sublayers[indexPath.Row];
+            ArcGISMapImageSublayer sublayer = (ArcGISMapImageSublayer) _sublayers[indexPath.Row];
             cell.TextLabel.Text = sublayer.Name;
 
             // Create a UISwitch for controlling the layer visibility.
@@ -180,11 +184,11 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         private void VisibilitySwitch_ValueChanged(object sender, EventArgs e)
         {
             // Get the row containing the UISwitch that was changed.
-            var index = ((UISwitch)sender).Tag;
+            var index = ((UISwitch) sender).Tag;
 
             // Set the sublayer visibility according to the UISwitch setting.
-            ArcGISMapImageSublayer sublayer = (ArcGISMapImageSublayer)_sublayers[(int) index];
-            sublayer.IsVisible = ((UISwitch)sender).On;
+            ArcGISMapImageSublayer sublayer = (ArcGISMapImageSublayer) _sublayers[(int) index];
+            sublayer.IsVisible = ((UISwitch) sender).On;
         }
 
         public override nint RowsInSection(UITableView tableview, nint section)

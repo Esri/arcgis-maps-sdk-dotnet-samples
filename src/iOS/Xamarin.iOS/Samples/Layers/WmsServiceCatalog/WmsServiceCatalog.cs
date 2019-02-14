@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -27,23 +26,11 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         "")]
     public class WmsServiceCatalog : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-
-        private readonly UIToolbar _toolbar = new UIToolbar();
-
-        private readonly UILabel _myHelpLabel = new UILabel
-        {
-            Text = "Select a layer from the list above.",
-            TextAlignment = UITextAlignment.Center,
-            AdjustsFontSizeToFitWidth = true
-        };
-
-        private readonly UITableView _myDisplayList = new UITableView
-        {
-            RowHeight = 30,
-            BackgroundColor = UIColor.FromWhiteAlpha(0, 0)
-        };
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UITableView _layerList;
+        private NSLayoutConstraint[] _portraitConstraints;
+        private NSLayoutConstraint[] _landscapeConstraints;
 
         // Hold the URL to the WMS service providing the US NOAA National Weather Service forecast weather chart.
         private readonly Uri _wmsUrl = new Uri("https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer/WMSServer?request=GetCapabilities&service=WMS");
@@ -54,45 +41,6 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         public WmsServiceCatalog()
         {
             Title = "WMS service catalog";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            CreateLayout();
-            Initialize();
-        }
-
-        private void CreateLayout()
-        {
-            // Add the controls to the view.
-            View.AddSubviews(_myMapView, _toolbar, _myDisplayList, _myHelpLabel);
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat listHeight = 150;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat toolbarHeight = listHeight + controlHeight + margin * 2;
-
-                // Reposition the views
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myDisplayList.Frame = new CGRect(0, topMargin, View.Bounds.Width, listHeight);
-                _myHelpLabel.Frame = new CGRect(margin, _myDisplayList.Frame.Bottom + margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
-                _myMapView.ViewInsets = new UIEdgeInsets(_toolbar.Frame.Bottom, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private async void Initialize()
@@ -123,10 +71,10 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
                 _layerListSource = new LayerListSource(viewModelList, this);
 
                 // Set the source for the table view (layer list).
-                _myDisplayList.Source = _layerListSource;
+                _layerList.Source = _layerListSource;
 
                 // Force an update of the list display.
-                _myDisplayList.ReloadData();
+                _layerList.ReloadData();
             }
             catch (Exception e)
             {
@@ -182,6 +130,90 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             // Update the map.
             UpdateMapDisplay(_layerListSource.ViewModelList);
         }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _layerList = new UITableView();
+            _layerList.TranslatesAutoresizingMaskIntoConstraints = false;
+            _layerList.RowHeight = 40;
+
+            UILabel helpLabel = new UILabel
+            {
+                Text = "Select layers for display.",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, _layerList, helpLabel);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                helpLabel.LeadingAnchor.ConstraintEqualTo(_myMapView.LeadingAnchor),
+                helpLabel.TrailingAnchor.ConstraintEqualTo(_myMapView.TrailingAnchor),
+                helpLabel.TopAnchor.ConstraintEqualTo(_myMapView.TopAnchor),
+                helpLabel.HeightAnchor.ConstraintEqualTo(40),
+            });
+
+            _portraitConstraints = new[]
+            {
+                _layerList.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _layerList.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _layerList.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _layerList.HeightAnchor.ConstraintEqualTo(_layerList.RowHeight * 4),
+                _myMapView.TopAnchor.ConstraintEqualTo(_layerList.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            };
+
+            _landscapeConstraints = new[]
+            {
+                _layerList.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _layerList.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _layerList.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _layerList.TrailingAnchor.ConstraintEqualTo(View.CenterXAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(_layerList.TrailingAnchor),
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            };
+        }
+
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            base.TraitCollectionDidChange(previousTraitCollection);
+
+            // Reset constraints.
+            NSLayoutConstraint.DeactivateConstraints(_portraitConstraints);
+            NSLayoutConstraint.DeactivateConstraints(_landscapeConstraints);
+
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                NSLayoutConstraint.ActivateConstraints(_landscapeConstraints);
+            }
+            else
+            {
+                NSLayoutConstraint.ActivateConstraints(_portraitConstraints);
+            }
+        }
     }
 
     /// <summary>
@@ -235,7 +267,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         }
 
         // Name with formatting to simulate treeview.
-        public string Name => $"{new String(' ', NestLevel * 8)} {Info.Title}";
+        public string Name => $"{new string(' ', NestLevel * 8)} {Info.Title}";
 
         public static void BuildLayerInfoList(LayerDisplayVM root, IList<LayerDisplayVM> result)
         {

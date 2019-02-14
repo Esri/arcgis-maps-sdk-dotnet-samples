@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Diagnostics;
 using ArcGISRuntime.Samples.Shared.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -82,10 +83,28 @@ namespace ArcGISRuntime
                     Html = htmlString,
                     BaseUrl = basePath
                 };
+                DescriptionView.Navigating += Webview_Navigating;
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex);
+            }
+        }
+
+        private void Webview_Navigating(object sender, WebNavigatingEventArgs e)
+        {
+            // Open links in a new window instead of inside the web view.
+            if (e.Url.StartsWith("http"))
+            {
+                try
+                {
+                    Device.OpenUri(new Uri(e.Url));
+                    e.Cancel = true;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
             }
         }
     }

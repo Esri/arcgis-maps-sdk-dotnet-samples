@@ -10,7 +10,6 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -31,17 +30,14 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         "When the sample loads, a local geodatabase will be generated for a small area from the 'SaveTheBay' feature service. When the geodatabase is ready, its tables are added as feature layers and the map view zooms to the extent of the local data. Use the UI controls to make edits either inside or outside of a transaction. If made in a transaction, you can rollback or commit your edits as a single unit when you choose to stop editing. To allow edits without a transaction, set 'Require transaction' to false. You can then add features directly into the local geodatabase. When done adding features, you can synchronize your local edits with the service.")]
     public class GeodatabaseTransactions : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _mapView = new MapView();
-        private readonly UIProgressView _progressBar = new UIProgressView();
-        private readonly UISwitch _requireTransactionSwitch = new UISwitch();
-        private readonly UIButton _startEditingButton = new UIButton();
-        private readonly UIButton _stopEditingButton = new UIButton();
-        private readonly UIButton _addBirdButton = new UIButton();
-        private readonly UIButton _addMarineButton = new UIButton();
-        private readonly UIButton _syncEditsButton = new UIButton();
-        private readonly UITextView _messageTextBlock = new UITextView();
-        private readonly UIStackView _editToolsView = new UIStackView();
+        // Hold references to the UI controls.
+        private MapView _mapView;
+        private UIProgressView _progressBar;
+        private UILabel _statusLabel;
+        private UISwitch _transactionSwitch;
+        private UIBarButtonItem _transactionButton;
+        private UIBarButtonItem _syncButton;
+        private UIBarButtonItem _addButton;
 
         // URL for the editable feature service.
         private const string SyncServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/FeatureServer/";
@@ -56,157 +52,11 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         private GeodatabaseFeatureTable _birdTable;
         private GeodatabaseFeatureTable _marineTable;
 
-        private nfloat _mapViewHeight;
-        private nfloat _editToolsHeight;
-
         public GeodatabaseTransactions()
         {
             Title = "Geodatabase transactions";
         }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            // Get the height of the map view (two thirds of the total) and the edit tools view (one third).
-            _mapViewHeight = (nfloat) (View.Bounds.Height * (2.0 / 3.0));
-            _editToolsHeight = (nfloat) (View.Bounds.Height * (1.0 / 3.0));
-
-            CreateLayout();
-            Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition the controls.
-                _mapView.Frame = new CGRect(0, 0, View.Bounds.Width, _mapViewHeight);
-                _mapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-                _editToolsView.Frame = new CGRect(0, _mapViewHeight, View.Bounds.Width, _editToolsHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
-        }
-
-        private void CreateLayout()
-        {
-            // Place the map view in the upper two thirds of the display.
-            _mapView.Frame = new CGRect(0, 0, View.Bounds.Width, _mapViewHeight);
-            View.BackgroundColor = UIColor.Gray;
-
-            // Fit three buttons on the row.
-            double buttonWidth = View.Bounds.Width / 3.0;
-
-            // Button to start an edit transaction.
-            _startEditingButton.SetTitle("Start", UIControlState.Normal);
-            _startEditingButton.SetTitleColor(UIColor.LightGray, UIControlState.Disabled);
-            _startEditingButton.Frame = new CGRect(0, 0, buttonWidth, 30);
-            _startEditingButton.TouchUpInside += BeginTransaction;
-
-            // Button to stop a transaction.
-            _stopEditingButton.SetTitle("Stop", UIControlState.Normal);
-            _stopEditingButton.Enabled = false;
-            _stopEditingButton.SetTitleColor(UIColor.LightGray, UIControlState.Disabled);
-            _stopEditingButton.Frame = new CGRect(buttonWidth, 0, buttonWidth, 30);
-            _stopEditingButton.TouchUpInside += StopEditTransaction;
-
-            // Button to synchronize local edits with the service.
-            _syncEditsButton.SetTitle("Sync", UIControlState.Normal);
-            _syncEditsButton.SetTitleColor(UIColor.LightGray, UIControlState.Disabled);
-            _syncEditsButton.Enabled = false;
-            _syncEditsButton.Frame = new CGRect(buttonWidth * 2, 0, buttonWidth, 30);
-            _syncEditsButton.TouchUpInside += SynchronizeEdits;
-
-            // Two buttons on this row.
-            buttonWidth = View.Bounds.Width / 2.0;
-
-            // Button to add bird features.
-            _addBirdButton.SetTitle("Add Bird", UIControlState.Normal);
-            _addBirdButton.Enabled = false;
-            _addBirdButton.SetTitleColor(UIColor.LightGray, UIControlState.Disabled);
-            _addBirdButton.Frame = new CGRect(0, 0, buttonWidth, 30);
-            _addBirdButton.TouchUpInside += AddNewFeature;
-
-            // Button to add marine features.
-            _addMarineButton.SetTitle("Add Marine", UIControlState.Normal);
-            _addMarineButton.Enabled = false;
-            _addMarineButton.SetTitleColor(UIColor.LightGray, UIControlState.Disabled);
-            _addMarineButton.Frame = new CGRect(buttonWidth, 0, buttonWidth, 30);
-            _addMarineButton.TouchUpInside += AddNewFeature;
-
-            _editToolsView.Axis = UILayoutConstraintAxis.Vertical;
-            _editToolsView.Frame = new CGRect(0, _mapViewHeight, View.Bounds.Width, _editToolsHeight);
-
-            // View to hold the first row of buttons (start, stop, sync).
-            UIStackView editButtonsRow1 = new UIStackView
-            {
-                Frame = new CGRect(0, 0, View.Bounds.Width, 35),
-                Axis = UILayoutConstraintAxis.Horizontal
-            };
-            editButtonsRow1.Add(_startEditingButton);
-            editButtonsRow1.Add(_stopEditingButton);
-            editButtonsRow1.Add(_syncEditsButton);
-
-            // View to hold the second row of buttons (add bird, add marine).
-            UIStackView editButtonsRow2 = new UIStackView
-            {
-                Frame = new CGRect(0, 35, View.Bounds.Width, 35),
-                Axis = UILayoutConstraintAxis.Horizontal
-            };
-            editButtonsRow2.Add(_addBirdButton);
-            editButtonsRow2.Add(_addMarineButton);
-
-            // View for the 'require transaction' switch.
-            UIStackView editSwitchRow = new UIStackView
-            {
-                Frame = new CGRect(0, 70, View.Bounds.Width, 35),
-                Axis = UILayoutConstraintAxis.Horizontal
-            };
-            _requireTransactionSwitch.On = true;
-            _requireTransactionSwitch.ValueChanged += RequireTransactionChanged;
-            editSwitchRow.Add(_requireTransactionSwitch);
-
-            // Create a label that describes the switch value.
-            UILabel switchLabel = new UILabel
-            {
-                Text = "Require transaction",
-                Frame = new CGRect(70, 0, View.Bounds.Width - 70, 30)
-            };
-            editSwitchRow.Add(switchLabel);
-
-            // Progress bar.
-            _progressBar.Frame = new CGRect(0, 105, View.Bounds.Width, 10);
-
-            // Use the rest of the view to show status messages.
-            _messageTextBlock.Editable = false;
-            _messageTextBlock.Frame = new CGRect(0, 115, View.Bounds.Width, _editToolsHeight);
-
-            // Add the first row of buttons.
-            _editToolsView.Add(editButtonsRow1);
-
-            // Add the second row of buttons.
-            _editToolsView.Add(editButtonsRow2);
-
-            // Add the 'require transaction' switch and label.
-            _editToolsView.Add(editSwitchRow);
-
-            // Add the messages text view.
-            _editToolsView.Add(_messageTextBlock);
-
-            // Add the progress bar.
-            _editToolsView.Add(_progressBar);
-
-            // Add the views.
-            View.AddSubviews(_mapView, _editToolsView);
-        }
-
+        
         private void Initialize()
         {
             // When the spatial reference changes (the map loads) add the local geodatabase tables as feature layers.
@@ -242,7 +92,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                     // If the geodatabase is already available, open it, hide the progress control, and update the message.
                     _localGeodatabase = await Geodatabase.OpenAsync(localGeodatabasePath);
                     _progressBar.Hidden = true;
-                    _messageTextBlock.Text = "Using local geodatabase from '" + _localGeodatabase.Path + "'";
+                    _statusLabel.Text = "Using local geodatabase.";
                 }
                 else
                 {
@@ -275,7 +125,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                                 {
                                     // Hide the progress control and update the message.
                                     _progressBar.Hidden = true;
-                                    _messageTextBlock.Text = "Created local geodatabase";
+                                    _statusLabel.Text = "Created local geodatabase";
                                 });
                                 break;
                             case JobStatus.Failed:
@@ -283,7 +133,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                                 {
                                     // Hide the progress control and report the exception.
                                     _progressBar.Hidden = true;
-                                    _messageTextBlock.Text = "Unable to create local geodatabase: " + generateGdbJob.Error.Message;
+                                    _statusLabel.Text = "Unable to create local geodatabase: " + generateGdbJob.Error.Message;
                                 });
                                 break;
                         }
@@ -352,7 +202,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             InvokeOnMainThread(() =>
             {
                 _mapView.SetViewpoint(new Viewpoint(_marineTable.Extent));
-                _startEditingButton.Enabled = true;
+                _transactionButton.Enabled = true;
             });
         }
 
@@ -362,17 +212,14 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             InvokeOnMainThread(() =>
             {
                 // These buttons should be enabled when there IS a transaction.
-                _addBirdButton.Enabled = e.IsInTransaction;
-                _addMarineButton.Enabled = e.IsInTransaction;
-                _stopEditingButton.Enabled = e.IsInTransaction;
+                _addButton.Enabled = e.IsInTransaction;
 
                 // These buttons should be enabled when there is NOT a transaction.
-                _startEditingButton.Enabled = !e.IsInTransaction;
-                _syncEditsButton.Enabled = !e.IsInTransaction;
+                _syncButton.Enabled = !e.IsInTransaction;
             });
         }
 
-        private void BeginTransaction(object sender, EventArgs e)
+        private void BeginTransaction()
         {
             try
             {
@@ -381,20 +228,17 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 {
                     // If not, begin a transaction.
                     _localGeodatabase.BeginTransaction();
-                    _messageTextBlock.Text = "Transaction started";
+                    _statusLabel.Text = "Transaction started";
                 }
             }
             catch (Exception)
             {
-                _messageTextBlock.Text = "The geodatabase isn't ready yet.";
+                _statusLabel.Text = "The geodatabase isn't ready yet.";
             }
         }
 
-        private async void AddNewFeature(object sender, EventArgs args)
+        private async void AddNewFeature(bool isMarine)
         {
-            // See if it was the "Birds" or "Marine" button that was clicked.
-            UIButton addFeatureButton = sender as UIButton;
-
             try
             {
                 // Cancel execution of the sketch task if it is already active.
@@ -404,18 +248,10 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 }
 
                 // Store the correct table to edit (for the button clicked).
-                GeodatabaseFeatureTable editTable = null;
-                if (addFeatureButton == _addBirdButton)
-                {
-                    editTable = _birdTable;
-                }
-                else
-                {
-                    editTable = _marineTable;
-                }
+                GeodatabaseFeatureTable editTable = isMarine ? _marineTable : _birdTable;
 
                 // Inform the user which table is being edited.
-                _messageTextBlock.Text = "Click the map to add a new feature to the geodatabase table '" + editTable.TableName + "'";
+                _statusLabel.Text = "Click the map to add a new feature to the geodatabase table '" + editTable.TableName + "'";
 
                 // Create a random value for the 'type' attribute (integer between 1 and 7).
                 Random random = new Random(DateTime.Now.Millisecond);
@@ -435,7 +271,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 await editTable.AddFeatureAsync(newFeature);
 
                 // Clear the message.
-                _messageTextBlock.Text = "New feature added to the '" + editTable.TableName + "' table";
+                _statusLabel.Text = "New feature added to the '" + editTable.TableName + "' table";
             }
             catch (TaskCanceledException)
             {
@@ -444,11 +280,11 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             catch (Exception ex)
             {
                 // Report other exception messages.
-                _messageTextBlock.Text = ex.Message;
+                _statusLabel.Text = ex.Message;
             }
         }
 
-        private void StopEditTransaction(object sender, EventArgs e)
+        private void StopEditTransaction()
         {
             // Create an alert to ask the user if they want to commit or rollback the transaction (or cancel to keep working in the transaction).
             UIAlertController endTransactionAlertController = UIAlertController.Create("Stop Editing", "Commit your edits or roll back?", UIAlertControllerStyle.Alert);
@@ -462,7 +298,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                     {
                         // If there is, commit the transaction to store the edits (this will also end the transaction).
                         _localGeodatabase.CommitTransaction();
-                        _messageTextBlock.Text = "Edits were committed to the local geodatabase.";
+                        _statusLabel.Text = "Edits were committed to the local geodatabase.";
                     }
                 }));
 
@@ -475,7 +311,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                     {
                         // If there is, rollback the transaction to discard the edits (this will also end the transaction).
                         _localGeodatabase.RollbackTransaction();
-                        _messageTextBlock.Text = "Edits were rolled back and not stored to the local geodatabase.";
+                        _statusLabel.Text = "Edits were rolled back and not stored to the local geodatabase.";
                     }
                 }));
 
@@ -496,21 +332,18 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             }
 
             // Get the value of the "require transactions" switch.
-            bool mustHaveTransaction = _requireTransactionSwitch.On;
+            bool mustHaveTransaction = _transactionSwitch.On;
 
             // Warn the user if disabling transactions while a transaction is active.
             if (!mustHaveTransaction && _localGeodatabase.IsInTransaction)
             {
                 ShowMessage("Stop editing to end the current transaction.", "Current Transaction", "OK");
-                _requireTransactionSwitch.On = true;
+                _transactionSwitch.On = true;
                 return;
             }
 
             // Enable or disable controls according to the switch value.
-            _startEditingButton.Enabled = mustHaveTransaction;
-            _stopEditingButton.Enabled = mustHaveTransaction && _localGeodatabase.IsInTransaction;
-            _addBirdButton.Enabled = !mustHaveTransaction;
-            _addMarineButton.Enabled = !mustHaveTransaction;
+            _addButton.Enabled = !mustHaveTransaction;
         }
 
         // Synchronize edits in the local geodatabase with the service.
@@ -542,16 +375,16 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                         {
                             // Report changes in the job status.
                             case JobStatus.Succeeded:
-                                _messageTextBlock.Text = "Synchronization is complete!";
+                                _statusLabel.Text = "Synchronization is complete!";
                                 _progressBar.Hidden = true;
                                 break;
                             case JobStatus.Failed:
                                 // Report failure.
-                                _messageTextBlock.Text = job.Error.Message;
+                                _statusLabel.Text = job.Error.Message;
                                 _progressBar.Hidden = true;
                                 break;
                             default:
-                                _messageTextBlock.Text = "Sync in progress ...";
+                                _statusLabel.Text = "Sync in progress ...";
                                 break;
                         }
                     });
@@ -563,7 +396,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             catch (Exception ex)
             {
                 // Show the message if an exception occurred.
-                _messageTextBlock.Text = "Error when synchronizing: " + ex.Message;
+                _statusLabel.Text = "Error when synchronizing: " + ex.Message;
             }
         }
 
@@ -574,6 +407,127 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             {
                 // Update the progress bar value.
                 _progressBar.Progress = (float) (jobProgress / 100.0);
+            });
+        }
+        
+        private void HandleAddButton_Click(object sender, EventArgs e)
+        {
+            // Create the alert controller with a title.
+            UIAlertController alertController = UIAlertController.Create("Choose a feature to add", "", UIAlertControllerStyle.Alert);
+
+            // Actions can be default, cancel, or destructive
+            alertController.AddAction(UIAlertAction.Create("Bird", UIAlertActionStyle.Default, action => AddNewFeature(false)));
+            alertController.AddAction(UIAlertAction.Create("Marine", UIAlertActionStyle.Default, action => AddNewFeature(true)));
+            alertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
+
+            // Show the alert.
+            PresentViewController(alertController, true, null);
+        }
+
+        private void HandleTransaction_Click(object sender, EventArgs e)
+        {
+            if (_transactionButton.Title == "Start transaction")
+            {
+                BeginTransaction();
+                _transactionButton.Title = "End transaction";
+            }
+            else
+            {
+                StopEditTransaction();
+                _transactionButton.Title = "Start transaction";
+            }
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _mapView = new MapView();
+            _mapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _transactionButton = new UIBarButtonItem("Start transaction", UIBarButtonItemStyle.Plain, HandleTransaction_Click);
+            _syncButton = new UIBarButtonItem("Sync", UIBarButtonItemStyle.Plain, SynchronizeEdits);
+            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, HandleAddButton_Click) {Enabled = false};
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                _transactionButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _syncButton,
+                _addButton
+            };
+
+            _transactionSwitch = new UISwitch();
+            _transactionSwitch.TranslatesAutoresizingMaskIntoConstraints = false;
+            _transactionSwitch.ValueChanged += RequireTransactionChanged;
+            _transactionSwitch.On = true;
+
+            _statusLabel = new UILabel
+            {
+                Text = "Preparing sample data...",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 2,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            _statusLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UILabel requireTransactionsLabel = new UILabel();
+            requireTransactionsLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            requireTransactionsLabel.Text = "Require transaction";
+            requireTransactionsLabel.TextAlignment = UITextAlignment.Right;
+            requireTransactionsLabel.SetContentCompressionResistancePriority((float) UILayoutPriority.DefaultHigh, UILayoutConstraintAxis.Horizontal);
+
+            UIStackView requireTransactionRow = new UIStackView(new UIView[] {requireTransactionsLabel, _transactionSwitch});
+            requireTransactionRow.TranslatesAutoresizingMaskIntoConstraints = false;
+            requireTransactionRow.Axis = UILayoutConstraintAxis.Horizontal;
+            requireTransactionRow.Distribution = UIStackViewDistribution.Fill;
+            requireTransactionRow.Spacing = 8;
+            requireTransactionRow.LayoutMarginsRelativeArrangement = true;
+            requireTransactionRow.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
+
+            _progressBar = new UIProgressView(UIProgressViewStyle.Bar);
+            _progressBar.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            // Add the views.
+            View.AddSubviews(_mapView, _statusLabel, requireTransactionRow, toolbar, _progressBar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _mapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _mapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _mapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _mapView.BottomAnchor.ConstraintEqualTo(requireTransactionRow.TopAnchor),
+
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+
+                requireTransactionRow.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                requireTransactionRow.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                requireTransactionRow.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                _statusLabel.TopAnchor.ConstraintEqualTo(_mapView.TopAnchor),
+                _statusLabel.LeadingAnchor.ConstraintEqualTo(_mapView.LeadingAnchor),
+                _statusLabel.TrailingAnchor.ConstraintEqualTo(_mapView.TrailingAnchor),
+                _statusLabel.HeightAnchor.ConstraintEqualTo(80),
+
+                _progressBar.TopAnchor.ConstraintEqualTo(_statusLabel.BottomAnchor),
+                _progressBar.LeadingAnchor.ConstraintEqualTo(_statusLabel.LeadingAnchor),
+                _progressBar.TrailingAnchor.ConstraintEqualTo(_statusLabel.TrailingAnchor),
+                _progressBar.HeightAnchor.ConstraintEqualTo(8)
             });
         }
     }

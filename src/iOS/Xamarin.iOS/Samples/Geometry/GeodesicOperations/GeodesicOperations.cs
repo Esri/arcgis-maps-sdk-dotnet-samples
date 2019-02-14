@@ -7,8 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -107,13 +105,15 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
 
         public override void ViewDidLoad()
         {
-            Initialize();
-
             base.ViewDidLoad();
+            Initialize();
         }
 
         public override void LoadView()
         {
+            // Create the views.
+            View = new UIView();
+
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
@@ -126,18 +126,22 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
-            View = new UIView();
+            // Add the views.
             View.AddSubviews(_myMapView, _distanceLabel);
 
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
 
-            _distanceLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _distanceLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _distanceLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _distanceLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
+                _distanceLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _distanceLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _distanceLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _distanceLabel.HeightAnchor.ConstraintEqualTo(40)
+            });
         }
     }
 }

@@ -11,10 +11,16 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Geometry\Project\Project.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\AddFeatures\AddFeatures.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
@@ -156,6 +162,30 @@
     <Compile Include="$(MSBuildThisFileDirectory)Resources\ImageResourceExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.xaml.cs">
       <DependentUpon>MobileMapSearchAndRoute.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Search\OfflineGeocode\OfflineGeocode.xaml.cs">
+      <DependentUpon>OfflineGeocode.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Search\ReverseGeocode\ReverseGeocode.xaml.cs">
+      <DependentUpon>ReverseGeocode.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\EditFeatureAttachments\EditFeatureAttachments.xaml.cs">
+      <DependentUpon>EditFeatureAttachments.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Geometry\Project\Project.xaml.cs">
+      <DependentUpon>Project.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.xaml.cs">
+      <DependentUpon>OpenStreetMapLayer.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\ManageOperationalLayers\ManageOperationalLayers.xaml.cs">
+      <DependentUpon>ManageOperationalLayers.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateAttributes\UpdateAttributes.xaml.cs">
@@ -610,6 +640,24 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Search\OfflineGeocode\OfflineGeocode.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Search\ReverseGeocode\ReverseGeocode.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\EditFeatureAttachments\EditFeatureAttachments.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\Project\Project.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\ManageOperationalLayers\ManageOperationalLayers.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateAttributes\UpdateAttributes.xaml">

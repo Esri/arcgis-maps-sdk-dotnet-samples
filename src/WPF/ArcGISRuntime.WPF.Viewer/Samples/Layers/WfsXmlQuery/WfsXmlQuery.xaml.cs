@@ -23,7 +23,7 @@ namespace ArcGISRuntime.WPF.Samples.WfsXmlQuery
         "")]
     public partial class WfsXmlQuery
     {
-        // Constants for the service URL and the query.
+        // Constants for the service URL, table name, and the query.
         private const string XmlQuery = @"
 <wfs:GetFeature service=""WFS"" version=""2.0.0""
   xmlns:Seattle_Downtown_Features=""https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer""

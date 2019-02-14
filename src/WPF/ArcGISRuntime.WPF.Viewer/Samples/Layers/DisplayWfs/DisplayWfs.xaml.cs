@@ -29,7 +29,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayWfs
         // Hold a reference to the feature table.
         private WfsFeatureTable _featureTable;
 
-        // Constant for the service URL and layer name.
+        // Constants for the service URL and layer name.
         private const string ServiceUrl = "https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer?service=wfs&request=getcapabilities";
         private const string LayerName = "Seattle_Downtown_Features:Buildings";
 
@@ -59,13 +59,13 @@ namespace ArcGISRuntime.WPF.Samples.DisplayWfs
                 await _featureTable.LoadAsync();
 
                 // Create a feature layer to visualize the WFS features.
-                FeatureLayer seattleFeatureLayer = new FeatureLayer(_featureTable);
+                FeatureLayer wfsFeatureLayer = new FeatureLayer(_featureTable);
 
                 // Apply a renderer.
-                seattleFeatureLayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 3));
+                wfsFeatureLayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 3));
 
                 // Add the layer to the map.
-                MyMapView.Map.OperationalLayers.Add(seattleFeatureLayer);
+                MyMapView.Map.OperationalLayers.Add(wfsFeatureLayer);
 
                 // Use the navigation completed event to populate the table with the features needed for the current extent.
                 MyMapView.NavigationCompleted += MapView_NavigationCompleted;

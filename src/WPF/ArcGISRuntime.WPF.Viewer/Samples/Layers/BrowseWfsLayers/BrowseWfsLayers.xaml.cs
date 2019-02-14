@@ -8,16 +8,15 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
+using Esri.ArcGISRuntime.Symbology;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Symbology;
 
 namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
 {
@@ -62,62 +61,65 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
 
         private async void LoadLayers_Clicked(object sender, RoutedEventArgs e)
         {
-            // Show the progress bar.
+            // Skip if nothing to add.
+            if (WfsLayerList.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            // Show the progress bar and hide the button.
             LoadingProgressBar.Visibility = Visibility.Visible;
+            LoadLayersButton.IsEnabled = false;
 
             // Clear the existing layers.
             MyMapView.Map.OperationalLayers.Clear();
 
             try
             {
-                // Get a list of layer infos
-                List<WfsLayerInfo> selectedLayers = WfsLayerList.SelectedItems.Cast<WfsLayerInfo>().ToList();
+                // Get the selected layer.
+                WfsLayerInfo selectedLayerInfo = (WfsLayerInfo)WfsLayerList.SelectedItems[0];
 
-                // Add each layer to the map.
-                foreach (WfsLayerInfo selectedLayerInfo in selectedLayers)
+                // Create the feature table.
+                WfsFeatureTable table = new WfsFeatureTable(selectedLayerInfo);
+                
+                // Set the table's feature request mode.
+                table.FeatureRequestMode = FeatureRequestMode.ManualCache;
+
+                // Set the axis order based on the UI.
+                if (AxisOrderSwapCheckbox.IsChecked == true)
                 {
-                    // Create the feature table.
-                    WfsFeatureTable table = new WfsFeatureTable(selectedLayerInfo);
-                    
-                    // Set the table's feature request mode.
-                    table.FeatureRequestMode = FeatureRequestMode.ManualCache;
-
-                    // Set the axis order based on the UI.
-                    if (AxisOrderSwapCheckbox.IsChecked == true)
-                    {
-                        table.AxisOrder = OgcAxisOrder.Swap;
-                    }
-                    else
-                    {
-                        table.AxisOrder = OgcAxisOrder.NoSwap;
-                    }
-
-                    // Populate the table.
-                    await table.PopulateFromServiceAsync(new QueryParameters(), false, null);
-
-                    // Create a layer from the table.
-                    FeatureLayer wfsFeatureLayer = new FeatureLayer(table);
-
-                    // Choose a renderer for the table.
-                    wfsFeatureLayer.Renderer = GetRandomRendererForTable(table) ?? wfsFeatureLayer.Renderer;
-
-                    // Add the layer to the map.
-                    MyMapView.Map.OperationalLayers.Add(wfsFeatureLayer);
+                    table.AxisOrder = OgcAxisOrder.Swap;
+                }
+                else
+                {
+                    table.AxisOrder = OgcAxisOrder.NoSwap;
                 }
 
-                // Zoom to the extent of all selected layers.
-                Envelope selectedEnvelope = GeometryEngine.CombineExtents(selectedLayers.Select(layer => layer.Extent));
-                await MyMapView.SetViewpointGeometryAsync(selectedEnvelope, 50);
+                // Populate the table.
+                await table.PopulateFromServiceAsync(new QueryParameters(), false, null);
+
+                // Create a layer from the table.
+                FeatureLayer wfsFeatureLayer = new FeatureLayer(table);
+
+                // Choose a renderer for the table.
+                wfsFeatureLayer.Renderer = GetRandomRendererForTable(table) ?? wfsFeatureLayer.Renderer;
+
+                // Add the layer to the map.
+                MyMapView.Map.OperationalLayers.Add(wfsFeatureLayer);
+
+                // Zoom to the extent of the selected layer.
+                await MyMapView.SetViewpointGeometryAsync(selectedLayerInfo.Extent, 50);
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString(), "Failed to load layers.");
+                MessageBox.Show(exception.ToString(), "Failed to load layer.");
                 Debug.WriteLine(exception);
             }
             finally
             {
-                // Hide the progress bar.
+                // Hide the progress bar and enable button.
                 LoadingProgressBar.Visibility = Visibility.Collapsed;
+                LoadLayersButton.IsEnabled = true;
             }
         }
 

@@ -40,7 +40,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
         private WfsServiceInfo _serviceInfo;
 
         // URL to the WFS service.
-        private const string ServiceUrl = "http://qadev000238.esri.com:8070/geoserver/ows?service=wfs&request=GetCapabilities";
+        private const string ServiceUrl = "https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer?service=wfs&request=getcapabilities";
 
         protected override void OnCreate(Bundle bundle)
         {

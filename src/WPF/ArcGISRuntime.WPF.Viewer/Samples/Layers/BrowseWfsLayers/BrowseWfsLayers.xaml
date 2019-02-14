@@ -25,9 +25,7 @@
                              Visibility="Visible" />
                 <ListView x:Name="WfsLayerList"
                           Grid.Row="2"
-                          SelectionMode="Single"
-                          IsEnabled="False"
-                          SelectionChanged="Layer_Selected">
+                          SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Label Content="{Binding Title}" />
@@ -36,8 +34,12 @@
                 </ListView>
                 <CheckBox x:Name="AxisOrderSwapCheckbox"
                           Grid.Row="3"
-                          Margin="0,0,0,5"
+                          Margin="0,5,0,5"
                           Content="Swap coordinate order" />
+                <Button x:Name="LoadLayersButton"
+                        Grid.Row="4"
+                        Content="Load selected layer"
+                        Click="LoadLayers_Clicked" />
             </Grid>
         </Border>
     </Grid>

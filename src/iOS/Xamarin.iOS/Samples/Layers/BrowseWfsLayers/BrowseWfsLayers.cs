@@ -39,7 +39,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
         private WfsServiceInfo _serviceInfo;
 
         // URL to the WFS service.
-        private const string ServiceUrl = "http://qadev000238.esri.com:8070/geoserver/ows?service=wfs&request=GetCapabilities";
+        private const string ServiceUrl = "https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer?service=wfs&request=getcapabilities";
 
         public BrowseWfsLayers()
         {
@@ -120,7 +120,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
         private void ShowLayerOptions(object sender, EventArgs e)
         {
             // Create the view controller that will present the list of layers.
-            UIAlertController layerSelectionAlert = UIAlertController.Create("Select a basemap", "", UIAlertControllerStyle.ActionSheet);
+            UIAlertController layerSelectionAlert = UIAlertController.Create("Select a layer", "", UIAlertControllerStyle.ActionSheet);
 
             // Add an option for each layer.
             foreach (WfsLayerInfo layerInfo in _serviceInfo.LayerInfos)

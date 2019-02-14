@@ -38,9 +38,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
         // Hold a reference to the feature table.
         private WfsFeatureTable _featureTable;
 
-        // Constant for the service URL and layer name.
-        private const string ServiceUrl = "http://qadev000238.esri.com:8070/geoserver/ows?service=wfs&request=GetCapabilities";
-        private const string LayerName = "tiger:tiger_roads";
+        // Constants for the service URL and layer name.
+        private const string ServiceUrl = "https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer?service=wfs&request=getcapabilities";
+        private const string LayerName = "Seattle_Downtown_Features:Buildings";
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -72,20 +72,20 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
                 await _featureTable.LoadAsync();
 
                 // Create a feature layer to visualize the WFS features.
-                FeatureLayer manhattanFeatureLayer = new FeatureLayer(_featureTable);
+                FeatureLayer wfsFeatureLayer = new FeatureLayer(_featureTable);
 
                 // Apply a renderer.
-                manhattanFeatureLayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 3));
+                wfsFeatureLayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 3));
 
                 // Add the layer to the map.
-                _myMapView.Map.OperationalLayers.Add(manhattanFeatureLayer);
+                _myMapView.Map.OperationalLayers.Add(wfsFeatureLayer);
 
                 // Use the navigation completed event to populate the table with the features needed for the current extent.
                 _myMapView.NavigationCompleted += MapView_NavigationCompleted;
 
                 // Zoom to a small area within the dataset by default.
-                MapPoint topLeft = new MapPoint(-73.993723, 40.799872, SpatialReferences.Wgs84);
-                MapPoint bottomRight = new MapPoint( -73.943217, 40.761679, SpatialReferences.Wgs84);
+                MapPoint topLeft = new MapPoint(-122.341581, 47.617207, SpatialReferences.Wgs84);
+                MapPoint bottomRight = new MapPoint(-122.332662, 47.613758, SpatialReferences.Wgs84);
                 await _myMapView.SetViewpointGeometryAsync(new Envelope(topLeft, bottomRight));
             }
             catch (Exception e)

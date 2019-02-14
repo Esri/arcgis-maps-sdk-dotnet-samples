@@ -13,7 +13,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.Symbology;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -32,7 +31,7 @@ namespace ArcGISRuntime.UWP.Samples.BrowseWfsLayers
         private WfsServiceInfo info; // TODO - get rid of this - workaround for .NET bug
 
         // URL to the WFS service.
-        private const string ServiceUrl = "http://qadev000238.esri.com:8070/geoserver/ows?service=wfs&request=GetCapabilities";
+        private const string ServiceUrl = "https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer?service=wfs&request=getcapabilities";
 
         public BrowseWfsLayers()
         {
@@ -52,7 +51,7 @@ namespace ArcGISRuntime.UWP.Samples.BrowseWfsLayers
             await service.LoadAsync();
 
             // Show the layers in the UI.
-            WfsLayerList.ItemsSource = service.ServiceInfo.LayerInfos;
+            WfsLayerList.ItemsSource = service.ServiceInfo.LayerInfos.Reverse();
 
             // Update the UI.
             LoadingProgressBar.Visibility = Visibility.Collapsed;
@@ -63,6 +62,12 @@ namespace ArcGISRuntime.UWP.Samples.BrowseWfsLayers
 
         private async void LoadLayers_Clicked(object sender, RoutedEventArgs e)
         {
+            // Skip if nothing selected.
+            if (WfsLayerList.SelectedItems.Count < 1)
+            {
+                return;
+            }
+
             // Show the progress bar.
             LoadingProgressBar.Visibility = Visibility.Visible;
 
@@ -71,49 +76,44 @@ namespace ArcGISRuntime.UWP.Samples.BrowseWfsLayers
 
             try
             {
-                // Get a list of layer infos
-                List<WfsLayerInfo> selectedLayers = WfsLayerList.SelectedItems.Cast<WfsLayerInfo>().ToList();
+                // Get the selected layer.
+                WfsLayerInfo selectedLayerInfo = (WfsLayerInfo)WfsLayerList.SelectedItems[0];
 
-                // Add each layer to the map.
-                foreach (WfsLayerInfo selectedLayerInfo in selectedLayers)
+                // Create the feature table.
+                WfsFeatureTable table = new WfsFeatureTable(selectedLayerInfo);
+                
+                // Set the table's feature request mode.
+                table.FeatureRequestMode = FeatureRequestMode.ManualCache;
+
+                // Set the axis order based on the UI.
+                if (AxisOrderSwapCheckbox.IsChecked == true)
                 {
-                    // Create the feature table.
-                    WfsFeatureTable table = new WfsFeatureTable(selectedLayerInfo);
-                    
-                    // Set the table's feature request mode.
-                    table.FeatureRequestMode = FeatureRequestMode.ManualCache;
-
-                    // Set the axis order based on the UI.
-                    if (AxisOrderSwapCheckbox.IsChecked == true)
-                    {
-                        table.AxisOrder = OgcAxisOrder.Swap;
-                    }
-                    else
-                    {
-                        table.AxisOrder = OgcAxisOrder.NoSwap;
-                    }
-
-                    // Populate the table.
-                    await table.PopulateFromServiceAsync(new QueryParameters(), false, null);
-
-                    // Create a layer from the table.
-                    FeatureLayer wfsFeatureLayer = new FeatureLayer(table);
-
-                    // Choose a renderer for the table.
-                    wfsFeatureLayer.Renderer = GetRandomRendererForTable(table) ?? wfsFeatureLayer.Renderer;
-
-                    // Add the layer to the map.
-                    MyMapView.Map.OperationalLayers.Add(wfsFeatureLayer);
+                    table.AxisOrder = OgcAxisOrder.Swap;
+                }
+                else
+                {
+                    table.AxisOrder = OgcAxisOrder.NoSwap;
                 }
 
-                // Zoom to the extent of all selected layers.
-                Envelope selectedEnvelope = GeometryEngine.CombineExtents(selectedLayers.Select(layer => layer.Extent));
-                await MyMapView.SetViewpointGeometryAsync(selectedEnvelope, 50);
+                // Populate the table.
+                await table.PopulateFromServiceAsync(new QueryParameters(), false, null);
+
+                // Create a layer from the table.
+                FeatureLayer wfsFeatureLayer = new FeatureLayer(table);
+
+                // Choose a renderer for the table.
+                wfsFeatureLayer.Renderer = GetRandomRendererForTable(table) ?? wfsFeatureLayer.Renderer;
+
+                // Add the layer to the map.
+                MyMapView.Map.OperationalLayers.Add(wfsFeatureLayer);
+
+                // Zoom to the extent of the selected layer.
+                await MyMapView.SetViewpointGeometryAsync(selectedLayerInfo.Extent, 50);
             }
             catch (Exception exception)
             {
                 Debug.WriteLine(exception);
-                await new MessageDialog(exception.ToString(), "Failed to load layers.").ShowAsync();
+                await new MessageDialog(exception.ToString(), "Failed to load layer.").ShowAsync();
             }
             finally
             {

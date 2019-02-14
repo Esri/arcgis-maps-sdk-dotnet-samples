@@ -23,24 +23,25 @@ namespace ArcGISRuntime.UWP.Samples.WfsXmlQuery
         "")]
     public partial class WfsXmlQuery
     {
-        // Constants for the service URL and the query.
+        // Constants for the service URL, table name, and the query.
         private const string XmlQuery = @"
 <wfs:GetFeature service=""WFS"" version=""2.0.0""
-  xmlns:readOnly_Countries_join=""https:capitest1051.esri.com/arcgis/services/readOnly/Countries_join/MapServer/WFSServer""
+  xmlns:Seattle_Downtown_Features=""https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer""
   xmlns:wfs=""http://www.opengis.net/wfs/2.0""
   xmlns:fes=""http://www.opengis.net/fes/2.0""
   xmlns:gml=""http://www.opengis.net/gml/3.2"">
-  <wfs:Query typeNames=""readOnly_Countries_join:DATA.APPTEST.USA_States_Copy"">
+  <wfs:Query typeNames=""Seattle_Downtown_Features:Trees"">
     <fes:Filter>
       <fes:PropertyIsEqualTo>
-        <fes:ValueReference>readOnly_Countries_join:SUB_REGION</fes:ValueReference>
-        <fes:Literal>Pacific</fes:Literal>
+        <fes:ValueReference>Trees:SCIENTIFIC</fes:ValueReference>
+        <fes:Literal>Tilia cordata</fes:Literal>
       </fes:PropertyIsEqualTo>
     </fes:Filter>
   </wfs:Query>
 </wfs:GetFeature>
 ";
-        private const string TableUrl = "http://rtc-100-4.esri.com/arcgis/services/readOnly/Countries_join/MapServer/WFSServer?request=GetCapabilities&service=WFS";
+        private const string TableUrl = "https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer?service=wfs&request=getcapabilities";
+        private const string LayerName = "Seattle_Downtown_Features:Trees";
 
         public WfsXmlQuery()
         {
@@ -56,7 +57,7 @@ namespace ArcGISRuntime.UWP.Samples.WfsXmlQuery
             try
             {
                 // Create the WFS feature table from URL and name.
-                WfsFeatureTable statesTable = new WfsFeatureTable(new Uri(TableUrl), "readOnly_Countries_join:DATA.APPTEST.USA_States_Copy");
+                WfsFeatureTable statesTable = new WfsFeatureTable(new Uri(TableUrl), LayerName);
 
                 // Set the feature request mode and axis order.
                 statesTable.AxisOrder = OgcAxisOrder.NoSwap;

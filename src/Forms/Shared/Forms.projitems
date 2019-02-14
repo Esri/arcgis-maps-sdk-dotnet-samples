@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="$(MSBuildThisFileDirectory)Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg" />
@@ -21,7 +22,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\AddFeatures\AddFeatures.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
-	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
@@ -156,6 +157,13 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ItemToImageSourceConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\ImageResourceExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.xaml.cs">
+      <DependentUpon>MobileMapSearchAndRoute.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Search\OfflineGeocode\OfflineGeocode.xaml.cs">
       <DependentUpon>OfflineGeocode.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -631,6 +639,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Search\OfflineGeocode\OfflineGeocode.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -1149,5 +1160,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\routingSymbol.png" />
   </ItemGroup>
 </Project>

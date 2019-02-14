@@ -113,6 +113,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
+    <Content Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
 	  <Content Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
 	  <Content Include="Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
     <Content Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg" />
@@ -123,8 +125,8 @@
     <Content Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
     <Content Include="Samples\Data\AddFeatures\AddFeatures.jpg" />
     <Content Include="Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
-	  <Content Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
-	  <Content Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
+    <Content Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
+    <Content Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
     <Content Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
     <Content Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg" />
     <Content Include="Samples\Geometry\SpatialOperations\SpatialOperations.jpg" />
@@ -306,6 +308,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Converters\ItemToImageSourceConverter.cs" />
+    <Compile Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.xaml.cs">
+      <DependentUpon>MobileMapSearchAndRoute.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Search\OfflineGeocode\OfflineGeocode.xaml.cs">
       <DependentUpon>OfflineGeocode.xaml</DependentUpon>
     </Compile>
@@ -753,6 +759,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Search\OfflineGeocode\OfflineGeocode.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1397,6 +1407,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Content Include="Assets\routingSymbol.png" />
   </ItemGroup>
   <!-- Miscellaneous Configuration -->
   <ItemGroup>

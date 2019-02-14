@@ -157,6 +157,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="Xamarin.iOS" />
     <Reference Include="Xamarin.Auth">
       <HintPath>..\..\..\packages\Xamarin.Auth.1.6.0.2\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
@@ -234,6 +235,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
+    <None Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
+    <None Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
 	  <None Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
 	  <None Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
 	  <None Include="Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
@@ -246,7 +250,7 @@
     <None Include="Samples\Data\AddFeatures\AddFeatures.jpg" />
     <None Include="Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
     <None Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
-	  <None Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
+    <None Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
     <None Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
     <None Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg" />
     <None Include="Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
@@ -379,6 +383,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.cs" />
+    <Compile Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.cs" />
+    <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.cs" />
 	  <Compile Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.cs" />
 	  <Compile Include="Samples\Search\OfflineGeocode\OfflineGeocode.cs" />
 	  <Compile Include="Samples\Search\ReverseGeocode\ReverseGeocode.cs" />
@@ -391,7 +398,7 @@
     <Compile Include="Samples\Data\AddFeatures\AddFeatures.cs" />
     <Compile Include="Samples\Data\DeleteFeatures\DeleteFeatures.cs" />
     <Compile Include="Samples\Symbology\SceneSymbols\SceneSymbols.cs" />
-	  <Compile Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.cs" />
+    <Compile Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.cs" />
     <Compile Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.cs" />
     <Compile Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.cs" />
     <Compile Include="Samples\MapView\IdentifyLayers\IdentifyLayers.cs" />

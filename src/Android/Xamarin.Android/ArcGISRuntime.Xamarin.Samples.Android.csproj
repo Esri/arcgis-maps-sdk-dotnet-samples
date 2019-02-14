@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	  <None Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
 	  <None Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
 	  <None Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
 	  <None Include="Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
@@ -262,6 +263,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	  <Compile Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.cs" />
 	  <Compile Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.cs" />
 	  <Compile Include="Samples\Search\OfflineGeocode\OfflineGeocode.cs" />
 	  <Compile Include="Samples\Search\ReverseGeocode\ReverseGeocode.cs" />

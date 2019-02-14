@@ -99,7 +99,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayWfs
             try
             {
                 // Populate the table with the query, leaving existing table entries intact.
-                await _featureTable.PopulateFromServiceAsync(null, true, null);
+                await _featureTable.PopulateFromServiceAsync(visibleExtentQuery, false, null);
             }
             catch (Exception exception)
             {

@@ -113,7 +113,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<Content Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
+	  <Content Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
+	  <Content Include="Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
+    <Content Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg" />
+	  <Content Include="Samples\Geometry\Project\Project.jpg" />
+	  <Content Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg" />
+	  <Content Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
 	  <Content Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
     <Content Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
     <Content Include="Samples\Data\AddFeatures\AddFeatures.jpg" />
@@ -301,9 +306,24 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Search\OfflineGeocode\OfflineGeocode.xaml.cs">
-		<DependentUpon>OfflineGeocode.xaml</DependentUpon>
-	</Compile>
+    <Compile Include="Samples\Search\OfflineGeocode\OfflineGeocode.xaml.cs">
+      <DependentUpon>OfflineGeocode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Search\ReverseGeocode\ReverseGeocode.xaml.cs">
+      <DependentUpon>ReverseGeocode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.xaml.cs">
+      <DependentUpon>EditFeatureAttachments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\Project\Project.xaml.cs">
+      <DependentUpon>Project.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.xaml.cs">
+      <DependentUpon>OpenStreetMapLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.xaml.cs">
+      <DependentUpon>ManageOperationalLayers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.xaml.cs">
       <DependentUpon>UpdateAttributes.xaml</DependentUpon>
     </Compile>
@@ -733,10 +753,30 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<Page Include="Samples\Search\OfflineGeocode\OfflineGeocode.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
+    <Page Include="Samples\Search\OfflineGeocode\OfflineGeocode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Search\ReverseGeocode\ReverseGeocode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\Project\Project.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Data\UpdateAttributes\UpdateAttributes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1397,7 +1437,6 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup />
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

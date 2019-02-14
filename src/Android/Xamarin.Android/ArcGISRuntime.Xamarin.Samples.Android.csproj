@@ -114,11 +114,16 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
+	  <None Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
+	  <None Include="Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
+    <None Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg" />
+    <None Include="Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
+	  <None Include="Samples\Geometry\Project\Project.jpg" />
+	  <None Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg" />
+	  <None Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
 	  <None Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
     <None Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
     <None Include="Samples\Data\AddFeatures\AddFeatures.jpg" />
-    <None Include="Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
     <None Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
 	  <None Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
     <None Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
@@ -256,7 +261,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Search\OfflineGeocode\OfflineGeocode.cs" />
+	  <Compile Include="Samples\Search\OfflineGeocode\OfflineGeocode.cs" />
+	  <Compile Include="Samples\Search\ReverseGeocode\ReverseGeocode.cs" />
+	  <Compile Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.cs" />
+	  <Compile Include="Samples\Geometry\Project\Project.cs" />
+	  <Compile Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.cs" />
+	  <Compile Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.cs" />
 	  <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.cs" />
     <Compile Include="Samples\Data\UpdateGeometries\UpdateGeometries.cs" />
     <Compile Include="Samples\Data\AddFeatures\AddFeatures.cs" />

@@ -24,45 +24,12 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         "")]
     public class DisplayDeviceLocation : UIViewController
     {
-        // Create and hold a reference to the MapView.
-        private readonly MapView _myMapView = new MapView();
+        // Hold a reference to the MapView.
+        private MapView _myMapView;
 
         public DisplayDeviceLocation()
         {
             Title = "Display Device Location";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            // Create the UI, setup the control references and execute initialization.
-            Initialize();
-            CreateLayout();
-        }
-
-        public override void ViewWillDisappear(bool animated)
-        {
-            base.ViewWillDisappear(animated);
-            NavigationController.ToolbarHidden = true;
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-
-                // Reposition controls.
-                _myMapView.Frame = new CoreGraphics.CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
@@ -118,24 +85,44 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
             }
         }
 
-        private void CreateLayout()
+        public override void ViewDidLoad()
         {
-            // Create a button to start the location.
-            UIBarButtonItem startButton = new UIBarButtonItem {Title = "Start", Style = UIBarButtonItemStyle.Plain};
-            startButton.Clicked += OnStartButtonClicked;
+            base.ViewDidLoad();
+            Initialize();
+        }
 
-            // Create a button to apply new renderer.
-            UIBarButtonItem stopButton = new UIBarButtonItem {Title = "Stop", Style = UIBarButtonItemStyle.Plain};
-            stopButton.Clicked += OnStopButtonClicked;
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
 
-            // Add the buttons to the toolbar.
-            SetToolbarItems(new[] {startButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null), stopButton}, false);
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            // Show the toolbar.
-            NavigationController.ToolbarHidden = false;
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem("Start", UIBarButtonItemStyle.Plain, OnStartButtonClicked),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Stop", UIBarButtonItemStyle.Plain, OnStopButtonClicked)
+            };
 
-            // Add MapView to the page.
-            View.AddSubviews(_myMapView);
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 }

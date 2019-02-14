@@ -32,7 +32,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         "1. Click the 'Sketch' button.\n2. Choose a sketch type from the drop down list.\n3. While sketching, you can undo/redo operations.\n4. Click 'Done' to finish the sketch.\n5. Click 'Edit', then click a graphic to start editing.\n6. Make edits then click 'Done' or 'Cancel' to finish editing.")]
     public class SketchOnMap : UIViewController
     {
-        // Create and hold references to the UI controls.
+        // Hold references to the UI controls.
         private MapView _myMapView;
         private UISegmentedControl _segmentButton;
 
@@ -47,45 +47,6 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             Title = "Sketch on map";
         }
 
-        public override void LoadView()
-        {
-            // Create the views.
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _segmentButton = new UISegmentedControl("Sketch", "Edit", "Undo", "Redo", "Done", "Clear")
-            {
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
-                TintColor = UIColor.White,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-            _segmentButton.ValueChanged += SegmentButtonClicked;
-
-            // Clean up borders of segmented control - avoid corner pixels.
-            _segmentButton.ClipsToBounds = true;
-            _segmentButton.Layer.CornerRadius = 5;
-
-            // Add the views.
-            View = new UIView();
-            View.AddSubviews(_myMapView, _segmentButton);
-
-            // Apply constraints.
-            _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-
-            _segmentButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor).Active = true;
-            _segmentButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor).Active = true;
-            _segmentButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
         private void Initialize()
         {
             // Create and show a light gray canvas basemap.
@@ -94,12 +55,6 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             // Create graphics overlay to display sketch geometry.
             _sketchOverlay = new GraphicsOverlay();
             _myMapView.GraphicsOverlays.Add(_sketchOverlay);
-
-            // Set the sketch editor configuration to allow vertex editing, resizing, and moving.
-            SketchEditConfiguration config = _myMapView.SketchEditor.EditConfiguration;
-            config.AllowVertexEditing = true;
-            config.ResizeMode = SketchResizeMode.Uniform;
-            config.AllowMove = true;
 
             // Listen to the sketch editor tools CanExecuteChange so controls can be enabled/disabled.
             _myMapView.SketchEditor.UndoCommand.CanExecuteChanged += CanExecuteChanged;
@@ -273,7 +228,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             // Add sketch modes to the action sheet.
             foreach (KeyValuePair<string, int> mode in _sketchModeDictionary)
             {
-                UIAlertAction actionItem = UIAlertAction.Create(mode.Key, UIAlertActionStyle.Default, (action) => SketchGeometry(action.Title));
+                UIAlertAction actionItem = UIAlertAction.Create(mode.Key, UIAlertActionStyle.Default, action => SketchGeometry(action.Title));
                 sketchModeActionSheet.AddAction(actionItem);
             }
 
@@ -335,6 +290,49 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                 // Report exceptions.
                 new UIAlertView("Error", "Error editing shape: " + ex.Message, (IUIAlertViewDelegate) null, "OK", null).Show();
             }
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _segmentButton = new UISegmentedControl("Sketch", "Edit", "Undo", "Redo", "Done", "Clear")
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                TintColor = UIColor.White,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            _segmentButton.ValueChanged += SegmentButtonClicked;
+
+            // Clean up borders of segmented control - avoid corner pixels.
+            _segmentButton.ClipsToBounds = true;
+            _segmentButton.Layer.CornerRadius = 5;
+
+            // Add the views.
+            View.AddSubviews(_myMapView, _segmentButton);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+
+                _segmentButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
+                _segmentButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
+                _segmentButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
+            });
         }
     }
 }

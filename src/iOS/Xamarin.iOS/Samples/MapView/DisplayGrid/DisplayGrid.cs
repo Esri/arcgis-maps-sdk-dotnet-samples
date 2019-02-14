@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -28,13 +27,8 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         "Use the buttons in the toolbar to change grid settings. Changes take effect immediately.")]
     public class DisplayGrid : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private readonly UIButton _gridTypeButton = new UIButton();
-        private readonly UIButton _gridColorButton = new UIButton();
-        private readonly UIButton _labelPositionButton = new UIButton();
-        private readonly UIButton _labelColorButton = new UIButton();
-        private readonly MapView _myMapView = new MapView();
+        // Hold a reference to the MapView.
+        private MapView _myMapView;
 
         // Fields for storing the user's grid preferences.
         private string _selectedGridType = "LatLong";
@@ -45,14 +39,6 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         public DisplayGrid()
         {
             Title = "Display a grid";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            CreateLayout();
-            Initialize();
         }
 
         private void Initialize()
@@ -265,57 +251,48 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             PresentViewController(gridColorAlert, true, null);
         }
 
-        private void CreateLayout()
+        public override void ViewDidLoad()
         {
-            // Set the button titles.
-            _gridColorButton.SetTitle("Lines", UIControlState.Normal);
-            _gridTypeButton.SetTitle("Grid type", UIControlState.Normal);
-            _labelColorButton.SetTitle("Text", UIControlState.Normal);
-            _labelPositionButton.SetTitle("Positions", UIControlState.Normal);
-
-            // Set the button color.
-            _gridColorButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _gridTypeButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _labelColorButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _labelPositionButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-
-            // Register event handlers.
-            _gridColorButton.TouchUpInside += GridColorButton_Click;
-            _labelColorButton.TouchUpInside += LabelColorButton_Click;
-            _gridTypeButton.TouchUpInside += GridTypeButton_Click;
-            _labelPositionButton.TouchUpInside += LabelPositionButton_Click;
-
-            // Add the controls to the layout.
-            View.AddSubviews(_myMapView, _toolbar, _gridColorButton, _gridTypeButton, _labelColorButton, _labelPositionButton);
+            base.ViewDidLoad();
+            Initialize();
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void LoadView()
         {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat toolbarHeight = 40;
-                nfloat buttonWidth = View.Bounds.Width / 4;
-                nfloat toolbarPadding = 5;
+            // Add the views.
+            View = new UIView {BackgroundColor = UIColor.White};
 
-                // Reposition the views.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                int index = 0;
-                foreach (UIButton button in new[] {_gridTypeButton, _gridColorButton, _labelPositionButton, _labelColorButton})
-                {
-                    // Apply the frame.
-                    button.Frame = new CGRect(buttonWidth * index + toolbarPadding, View.Bounds.Height - toolbarHeight + toolbarPadding, buttonWidth - toolbarPadding, toolbarHeight - 2 * 5);
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-                    // Increment the index.
-                    index++;
-                }
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
             {
-            }
+                new UIBarButtonItem("Grid type", UIBarButtonItemStyle.Plain, GridTypeButton_Click),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Line color", UIBarButtonItemStyle.Plain, GridColorButton_Click),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Positions", UIBarButtonItemStyle.Plain, LabelPositionButton_Click),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Text color", UIBarButtonItemStyle.Plain, LabelColorButton_Click)
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 }

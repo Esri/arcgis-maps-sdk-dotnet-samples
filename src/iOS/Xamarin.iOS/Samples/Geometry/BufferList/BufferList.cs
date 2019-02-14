@@ -30,122 +30,22 @@ namespace ArcGISRuntime.Samples.BufferList
         "GeometryEngine, Geometry, Buffer, SpatialReference")]
     public class BufferList : UIViewController
     {
-        // Controls needed for the app UI.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _helpToolbar = new UIToolbar();
-        private readonly UIToolbar _controlsToolbar = new UIToolbar();
-        private UILabel _sampleInstructionsLabel;
-        private UILabel _bufferDistanceInstructionLabel;
+        // Hold references to the UI controls.
+        private MapView _myMapView;
         private UITextField _bufferDistanceEntry;
-        private UISwitch _unionBufferSwitch;
-        private UIButton _bufferButton;
-        private UIButton _clearButton;
+        private UIBarButtonItem _helpButton;
+        private UIBarButtonItem _bufferButton;
+        private UIBarButtonItem _resetButton;
 
         // A polygon that defines the valid area of the spatial reference used.
         private Polygon _spatialReferenceArea;
 
         // A Random object to create RGB color values.
-        private Random _random = new Random();
+        private readonly Random _random = new Random();
 
         public BufferList()
         {
             Title = "Buffer list";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            CreateLayout();
-            Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                // Calculate values used to layout the UI controls.
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat helpToolbarHeight = controlHeight * 3 + margin * 2;
-                nfloat controlToolbarHeight = 2 * controlHeight + 3 * margin;
-
-                // Position the UI controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + helpToolbarHeight, 0, controlToolbarHeight, 0);
-                _helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, helpToolbarHeight);
-                _controlsToolbar.Frame = new CGRect(0, View.Bounds.Height - 2 * controlHeight - 3 * margin, View.Bounds.Width, controlToolbarHeight);
-                _sampleInstructionsLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, 3 * controlHeight);
-                _bufferDistanceInstructionLabel.Frame = new CGRect(margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, 175, controlHeight);
-                _bufferDistanceEntry.Frame = new CGRect(_bufferDistanceInstructionLabel.Frame.Right + margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, 50, controlHeight);
-                _unionBufferSwitch.Frame = new CGRect(View.Bounds.Width - 75 + margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, 75 - 2 * margin, controlHeight);
-                _bufferButton.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2, controlHeight);
-                _clearButton.Frame = new CGRect(View.Bounds.Width / 2 + (2 * margin), View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 3, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            catch (NullReferenceException)
-            {
-                // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            }
-        }
-
-        private void CreateLayout()
-        {
-            // Create a UITextView for the overall sample instructions.
-            _sampleInstructionsLabel = new UILabel
-            {
-                Text = "Tap on the map to add points. Each point will use the buffer distance entered when it was created. Use the switch to union the output buffers into a single polygon. " +
-                       "The envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.",
-                Lines = 4,
-                AdjustsFontSizeToFitWidth = true
-            };
-
-            // Create a UILabel for instructions.
-            _bufferDistanceInstructionLabel = new UILabel
-            {
-                Text = "Buffer distance (miles):",
-                AdjustsFontSizeToFitWidth = true
-            };
-
-            // Create a UITextFiled for the buffer value.
-            _bufferDistanceEntry = new UITextField
-            {
-                Text = "10",
-                AdjustsFontSizeToFitWidth = true,
-                VerticalAlignment = UIControlContentVerticalAlignment.Center,
-                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
-                BorderStyle = UITextBorderStyle.RoundedRect
-            };
-            // Allow pressing 'return' to dismiss the keyboard.
-            _bufferDistanceEntry.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
-
-            // Create a UISwitch for toggling the union of the buffer geometries.
-            _unionBufferSwitch = new UISwitch
-            {
-                On = true,
-                HorizontalAlignment = UIControlContentHorizontalAlignment.Right
-            };
-
-            // Create a UIButton to create the buffers.
-            _bufferButton = new UIButton();
-            _bufferButton.SetTitle("Create buffer(s)", UIControlState.Normal);
-            _bufferButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _bufferButton.TouchUpInside += BufferButton_Click;
-
-            // Create a button to clear all graphics (tap points and buffer polygons).
-            _clearButton = new UIButton();
-            _clearButton.SetTitle("Clear", UIControlState.Normal);
-            _clearButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _clearButton.TouchUpInside += ClearButton_Click;
-
-            // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _sampleInstructionsLabel, _bufferDistanceInstructionLabel, _bufferDistanceEntry, _unionBufferSwitch, _bufferButton, _clearButton);
         }
 
         private void Initialize()
@@ -215,10 +115,10 @@ namespace ArcGISRuntime.Samples.BufferList
                 MapPoint tapMapPoint = e.Location;
 
                 // Check if the point coordinates are within the spatial reference envelope.
-                bool withinValidExent = GeometryEngine.Contains(_spatialReferenceArea, tapMapPoint);
+                bool withInvalidExtent = GeometryEngine.Contains(_spatialReferenceArea, tapMapPoint);
 
                 // If the input point is not within the valid extent for the spatial reference, warn the user and return.
-                if (!withinValidExent)
+                if (!withInvalidExtent)
                 {
                     // Display a message to warn the user.
                     UIAlertController alertController = UIAlertController.Create("Out of bounds", "Location is not valid to buffer using the defined spatial reference.", UIAlertControllerStyle.Alert);
@@ -259,15 +159,25 @@ namespace ArcGISRuntime.Samples.BufferList
             }
         }
 
-        private void BufferButton_Click(object sender, EventArgs e)
+        private void PromptForUnionChoice(object sender, EventArgs e)
+        {
+            var alert = UIAlertController.Create("Union buffers?", "", UIAlertControllerStyle.ActionSheet);
+            if (alert.PopoverPresentationController != null)
+            {
+                alert.PopoverPresentationController.BarButtonItem = _bufferButton;
+            }
+
+            alert.AddAction(UIAlertAction.Create("Union", UIAlertActionStyle.Default, action => PerformUnion(true)));
+            alert.AddAction(UIAlertAction.Create("Don't union", UIAlertActionStyle.Default, action => PerformUnion(false)));
+            PresentViewController(alert, true, null);
+        }
+
+        private void PerformUnion(bool unionBuffers)
         {
             try
             {
                 // Call a function to delete any existing buffer polygons so they can be recreated.
                 ClearBufferPolygons();
-
-                // Check if the user wants to create a single unioned buffer or independent buffers around each map point.
-                bool areBuffersUnioned = _unionBufferSwitch.On;
 
                 // Iterate all point graphics and create a list of map points and buffer distances for each.
                 List<MapPoint> bufferMapPoints = new List<MapPoint>();
@@ -281,7 +191,7 @@ namespace ArcGISRuntime.Samples.BufferList
                         MapPoint bufferLocation = bufferGraphic.Geometry as MapPoint;
 
                         // Read the "distance" attribute to get the buffer distance entered when the point was tapped.
-                        double bufferDistanceFeet = (double)bufferGraphic.Attributes["distance"];
+                        double bufferDistanceFeet = (double) bufferGraphic.Attributes["distance"];
 
                         // Add the point and the corresponding distance to the lists.
                         bufferMapPoints.Add(bufferLocation);
@@ -290,7 +200,7 @@ namespace ArcGISRuntime.Samples.BufferList
                 }
 
                 // Call GeometryEngine.Buffer with a list of map points and a list of buffered distances.
-                IEnumerable<Geometry> bufferPolygons = GeometryEngine.Buffer(bufferMapPoints, bufferDistances, areBuffersUnioned);
+                IEnumerable<Geometry> bufferPolygons = GeometryEngine.Buffer(bufferMapPoints, bufferDistances, unionBuffers);
 
                 // Create the outline for the buffered polygons.
                 SimpleLineSymbol bufferPolygonOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.DarkBlue, 3);
@@ -328,7 +238,7 @@ namespace ArcGISRuntime.Samples.BufferList
         private Color GetRandomColor()
         {
             // Get a byte array with three random values.
-            var colorBytes = new byte[3];
+            byte[] colorBytes = new byte[3];
             _random.NextBytes(colorBytes);
 
             // Use the random bytes to define red, green, and blue values for a new color.
@@ -356,6 +266,92 @@ namespace ArcGISRuntime.Samples.BufferList
                     bufferGraphics.RemoveAt(i);
                 }
             }
+        }
+
+        private void ShowHelpAlert(object sender, EventArgs e)
+        {
+            const string message = "Tap to add points. Each point will use the buffer distance entered when it was created. " +
+                                   "The envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.";
+            new UIAlertView("Instructions", message, (IUIAlertViewDelegate) null, "OK", null).Show();
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _helpButton = new UIBarButtonItem("Help", UIBarButtonItemStyle.Plain, ShowHelpAlert);
+            _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ClearButton_Click);
+            _bufferButton = new UIBarButtonItem("Buffer", UIBarButtonItemStyle.Plain, PromptForUnionChoice);
+
+            UIToolbar controlsToolbar = new UIToolbar();
+            controlsToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            controlsToolbar.Items = new[]
+            {
+                _helpButton,
+                // Put a space between the buttons
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _bufferButton,
+                _resetButton
+            };
+
+            UIToolbar entryToolbar = new UIToolbar();
+            entryToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _bufferDistanceEntry = new UITextField();
+            _bufferDistanceEntry.TranslatesAutoresizingMaskIntoConstraints = false;
+            _bufferDistanceEntry.Text = "10";
+            _bufferDistanceEntry.BackgroundColor = UIColor.FromWhiteAlpha(1, .8f);
+            _bufferDistanceEntry.Layer.CornerRadius = 4;
+            _bufferDistanceEntry.LeftView = new UIView(new CGRect(0, 0, 5, 20));
+            _bufferDistanceEntry.LeftViewMode = UITextFieldViewMode.Always;
+            _bufferDistanceEntry.KeyboardType = UIKeyboardType.NumberPad;
+            // Allow pressing 'return' to dismiss the keyboard.
+            _bufferDistanceEntry.ShouldReturn += textField =>
+            {
+                textField.ResignFirstResponder();
+                return true;
+            };
+
+            UILabel bufferDistanceEntryLabel = new UILabel();
+            bufferDistanceEntryLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            bufferDistanceEntryLabel.Text = "Buffer size:";
+
+            // Add the views.
+            View.AddSubviews(_myMapView, controlsToolbar, entryToolbar, bufferDistanceEntryLabel, _bufferDistanceEntry);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                entryToolbar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                entryToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                entryToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                bufferDistanceEntryLabel.LeadingAnchor.ConstraintEqualTo(entryToolbar.LayoutMarginsGuide.LeadingAnchor, 8),
+                bufferDistanceEntryLabel.CenterYAnchor.ConstraintEqualTo(entryToolbar.CenterYAnchor),
+
+                _bufferDistanceEntry.TrailingAnchor.ConstraintEqualTo(entryToolbar.LayoutMarginsGuide.TrailingAnchor),
+                _bufferDistanceEntry.CenterYAnchor.ConstraintEqualTo(entryToolbar.CenterYAnchor),
+                _bufferDistanceEntry.LeadingAnchor.ConstraintEqualTo(bufferDistanceEntryLabel.TrailingAnchor, 8),
+
+                _myMapView.TopAnchor.ConstraintEqualTo(entryToolbar.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(controlsToolbar.TopAnchor),
+
+                controlsToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                controlsToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                controlsToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
+            });
         }
     }
 }

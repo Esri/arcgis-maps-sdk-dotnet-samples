@@ -87,35 +87,48 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
             }
         }
 
+
+        /// <summary>
+        /// Takes action once a new content selection is made.
+        /// </summary>
+        public void ContentSelectionChanged(int selectedIndex)
+        {
+            // Get the KML node.
+            LayerDisplayVM selectedItem = _viewModelList[selectedIndex];
+
+            NavigateToNode(selectedItem.Node);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView();
 
             _mySceneView = new SceneView();
-            _myDisplayList = new UITableView()
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _myDisplayList = new UITableView
             {
                 RowHeight = 30
             };
-            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
             _myDisplayList.TranslatesAutoresizingMaskIntoConstraints = false;
+
             _stackView = new UIStackView(new UIView[] {_mySceneView, _myDisplayList});
             _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            // Relayout on rotation.
-            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
-            {
-                _stackView.Axis = UILayoutConstraintAxis.Horizontal;
-            }
-            else
-            {
-                _stackView.Axis = UILayoutConstraintAxis.Vertical;
-            }
-
+            _stackView.Axis = UILayoutConstraintAxis.Horizontal;
             _stackView.Distribution = UIStackViewDistribution.FillEqually;
 
+            // Add the views.
             View.AddSubviews(_stackView);
 
-            NSLayoutConstraint.ActivateConstraints(new []
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
@@ -135,23 +148,6 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
             {
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
-        /// <summary>
-        /// Takes action once a new content selection is made.
-        /// </summary>
-        public void ContentSelectionChanged(int selectedIndex)
-        {
-            // Get the KML node.
-            LayerDisplayVM selectedItem = _viewModelList[selectedIndex];
-
-            NavigateToNode(selectedItem.Node);
         }
 
         #region viewpoint_conversion
@@ -212,18 +208,16 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
                     // Defaults based on Google Earth.
                     return new Viewpoint(node.Extent, new Camera(node.Extent.GetCenter(), 1000, 0, 45, 0));
                 }
-                else
-                {
-                    Envelope tx = node.Extent;
-                    // Add padding on each side.
-                    double bufferDistance = Math.Max(node.Extent.Width, node.Extent.Height) / 20;
-                    Envelope bufferedExtent = new Envelope(
-                        tx.XMin - bufferDistance, tx.YMin - bufferDistance,
-                        tx.XMax + bufferDistance, tx.YMax + bufferDistance,
-                        tx.ZMin - bufferDistance, tx.ZMax + bufferDistance,
-                        SpatialReferences.Wgs84);
-                    return new Viewpoint(bufferedExtent);
-                }
+
+                Envelope tx = node.Extent;
+                // Add padding on each side.
+                double bufferDistance = Math.Max(node.Extent.Width, node.Extent.Height) / 20;
+                Envelope bufferedExtent = new Envelope(
+                    tx.XMin - bufferDistance, tx.YMin - bufferDistance,
+                    tx.XMax + bufferDistance, tx.YMax + bufferDistance,
+                    tx.ZMin - bufferDistance, tx.ZMax + bufferDistance,
+                    SpatialReferences.Wgs84);
+                return new Viewpoint(bufferedExtent);
             }
             else
             {
@@ -344,7 +338,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
     public class LayerDisplayVM
     {
         public KmlNode Node { get; }
-        
+
         private LayerDisplayVM Parent { get; set; }
 
         private int NestLevel

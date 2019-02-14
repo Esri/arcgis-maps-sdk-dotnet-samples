@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Collections;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
@@ -21,6 +22,33 @@ namespace ArcGISRuntime.WPF.Viewer.Converters
             if (value == null || String.IsNullOrEmpty(value.ToString()))
             {
                 return Visibility.Collapsed;
+            }
+
+            return Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class NullOrEmptyToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null || String.IsNullOrEmpty(value.ToString()))
+            {
+                return Visibility.Collapsed;
+            }
+
+            var list = value as IList;
+            if (list != null)
+            {
+                if (list.Count < 1)
+                {
+                    return Visibility.Collapsed;
+                }
             }
 
             return Visibility.Visible;

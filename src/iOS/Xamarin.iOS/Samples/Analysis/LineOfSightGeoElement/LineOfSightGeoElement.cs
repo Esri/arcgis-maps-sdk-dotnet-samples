@@ -33,8 +33,6 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
     {
         // Hold references to the UI controls.
         private SceneView _mySceneView;
-        private UIToolbar _sliderToolbar;
-        private UISlider _mySlider;
         private UILabel _statusLabel;
 
         // URL of the elevation service - provides elevation component of the scene.
@@ -228,11 +226,11 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         private void MyHeightSlider_ValueChanged(object sender, EventArgs e)
         {
             // Constrain the min and max to 20 and 150 units.
-            double minHeight = 20;
-            double maxHeight = 150;
+            const double minHeight = 20;
+            const double maxHeight = 150;
 
             // Scale the slider value; its default range is 0-10.
-            double value = _mySlider.Value;
+            double value = (sender as UISlider).Value;
 
             // Get the current point.
             MapPoint oldPoint = (MapPoint) _observerGraphic.Geometry;
@@ -250,54 +248,58 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
 
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView();
             View.BackgroundColor = UIColor.White;
 
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_mySceneView);
 
-            _sliderToolbar = new UIToolbar();
-            _sliderToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_sliderToolbar);
+            UISlider heightSlider = new UISlider();
+            heightSlider.TranslatesAutoresizingMaskIntoConstraints = false;
+            // Subscribe to slider events.
+            heightSlider.ValueChanged += MyHeightSlider_ValueChanged;
 
-            _statusLabel = new UILabel()
-            {
-                BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
-                TextColor = UIColor.White,
-                TextAlignment = UITextAlignment.Center,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-            View.AddSubview(_statusLabel);
-
-            _mySlider = new UISlider();
-            _mySlider.TranslatesAutoresizingMaskIntoConstraints = false;
-            UIBarButtonItem sliderWrapper = new UIBarButtonItem(_mySlider);
+            UIBarButtonItem sliderWrapper = new UIBarButtonItem(heightSlider);
             sliderWrapper.Width = 300;
 
-            _sliderToolbar.Items = new[]
+            UIToolbar sliderToolbar = new UIToolbar();
+            sliderToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            sliderToolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 sliderWrapper,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
-            _sliderToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
-            _sliderToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _sliderToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            _statusLabel = new UILabel
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(0f, .6f),
+                TextColor = UIColor.White,
+                TextAlignment = UITextAlignment.Center,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
 
-            _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _mySceneView.BottomAnchor.ConstraintEqualTo(_sliderToolbar.TopAnchor).Active = true;
+            // Add the views.
+            View.AddSubviews(_mySceneView, sliderToolbar, _statusLabel);
 
-            _statusLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _statusLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _statusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _statusLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                sliderToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                sliderToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                sliderToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
-            // Subscribe to slider events.
-            _mySlider.ValueChanged += MyHeightSlider_ValueChanged;
+                _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(sliderToolbar.TopAnchor),
+
+                _statusLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _statusLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _statusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _statusLabel.HeightAnchor.ConstraintEqualTo(40)
+            });
         }
     }
 }

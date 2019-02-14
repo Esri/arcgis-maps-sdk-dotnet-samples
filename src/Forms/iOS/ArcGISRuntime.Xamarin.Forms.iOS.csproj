@@ -151,6 +151,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +207,9 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
       <Version>3.1.0.697729</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Plugin.FilePicker">
+      <Version>2.0.135</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

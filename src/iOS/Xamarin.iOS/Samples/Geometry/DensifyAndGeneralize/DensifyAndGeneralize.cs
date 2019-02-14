@@ -10,7 +10,6 @@
 using System;
 using System.Drawing;
 using System.Linq;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -30,13 +29,10 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
         "Featured")]
     public class DensifyAndGeneralize : UIViewController
     {
-        // Create and hold references to UI controls.
-        private readonly UIToolbar _toolbar = new UIToolbar();
+        // Hold references to UI controls.
         private MapView _myMapView;
-        private UISlider _segmentLengthSlider;
-        private UISlider _deviationSlider;
-        private UILabel _segmentLengthLabel;
-        private UILabel _deviationLabel;
+        private UISegmentedControl _operationPicker;
+        private UISlider _slider;
         private UILabel _resultLabel;
 
         // Graphic used to refer to the original geometry.
@@ -49,43 +45,6 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
         public DensifyAndGeneralize()
         {
             Title = "Densify and generalize";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            // Create the UI, setup the control references and execute initialization. 
-            CreateLayout();
-            Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat frameHeight = 3 * controlHeight + 4 * margin;
-                nfloat colSplit = View.Bounds.Width * 2 / 3;
-
-                // Reposition the views.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, frameHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - frameHeight, View.Bounds.Width, frameHeight);
-                _resultLabel.Frame = new CGRect(margin, View.Bounds.Height - 1 * controlHeight - margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _segmentLengthLabel.Frame = new CGRect(margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, colSplit - 2 * margin, controlHeight);
-                _deviationLabel.Frame = new CGRect(margin, View.Bounds.Height - 3 * controlHeight - 3 * margin, colSplit - 2 * margin, controlHeight);
-                _segmentLengthSlider.Frame = new CGRect(colSplit + margin, View.Bounds.Height - 2 * controlHeight - 2 * margin, View.Bounds.Width * 1 / 3 - margin * 2, controlHeight);
-                _deviationSlider.Frame = new CGRect(colSplit + margin, View.Bounds.Height - 3 * controlHeight - 3 * margin, View.Bounds.Width * 1 / 3 - margin * 2, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
@@ -129,16 +88,27 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             overlay.Graphics.Add(_resultPolylineGraphic);
 
             // Listen for changes in state.
-            _segmentLengthSlider.ValueChanged += (o, e) =>
-                UpdateGeometry("Densify", _segmentLengthSlider.Value, _deviationSlider.Value);
-            _deviationSlider.ValueChanged += (o, e) =>
-                UpdateGeometry("Generalize", _segmentLengthSlider.Value, _deviationSlider.Value);
+            _slider.ValueChanged += OnUIChanged;
+            _operationPicker.ValueChanged += OnUIChanged;
 
             // Center the map.
             _myMapView.SetViewpointGeometryAsync(_originalPolyline.Extent, 100);
         }
 
-        private void UpdateGeometry(string operation, double segmentLength, double deviation)
+        private void OnUIChanged(object sender, EventArgs e)
+        {
+            // Update the geometry appropriately based on selected segment and slider value.
+            if (_operationPicker.SelectedSegment == 0)
+            {
+                UpdateGeometry("Densify", _slider.Value);
+            }
+            else
+            {
+                UpdateGeometry("Generalize", _slider.Value);
+            }
+        }
+
+        private void UpdateGeometry(string operation, double value)
         {
             // Start with the original polyline.
             Polyline polyline = _originalPolyline;
@@ -146,17 +116,17 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             // Apply the selected operation.
             if (operation == "Generalize")
             {
-                polyline = (Polyline) GeometryEngine.Generalize(polyline, deviation, true);
+                polyline = (Polyline) GeometryEngine.Generalize(polyline, value, true);
 
                 // Update the result label.
-                _resultLabel.Text = $"Generalize - Deviation: {deviation:f}";
+                _resultLabel.Text = $"Generalize - Deviation: {value:f}";
             }
             else
             {
-                polyline = (Polyline) GeometryEngine.Densify(polyline, segmentLength);
+                polyline = (Polyline) GeometryEngine.Densify(polyline, value);
 
                 // Update the result label.
-                _resultLabel.Text = $"Densify - Segment length: {segmentLength:f}";
+                _resultLabel.Text = $"Densify - Segment length: {value:f}";
             }
 
             // Update the graphic geometries to show the results.
@@ -188,36 +158,69 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             };
         }
 
-        private void CreateLayout()
+        public override void ViewDidLoad()
         {
-            // Create the controls.
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
             _myMapView = new MapView();
-            _deviationLabel = new UILabel();
-            _segmentLengthLabel = new UILabel();
-            _resultLabel = new UILabel();
-            _segmentLengthSlider = new UISlider
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _resultLabel = new UILabel
             {
-                MinValue = 100,
-                MaxValue = 500
-            };
-            _deviationSlider = new UISlider
-            {
-                MinValue = 1,
-                MaxValue = 250
+                Text = "Adjust the slider to start.",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
             };
 
-            // Configure the text.
-            _deviationLabel.Text = "Max. Deviation: ";
-            _segmentLengthLabel.Text = "Max. Segment length:";
-            _resultLabel.Text = "Adjust a slider to start";
-            _deviationLabel.TextAlignment = UITextAlignment.Right;
-            _segmentLengthLabel.TextAlignment = UITextAlignment.Right;
-            _resultLabel.TextAlignment = UITextAlignment.Center;
-            _resultLabel.AdjustsFontSizeToFitWidth = true;
+            _operationPicker = new UISegmentedControl("Densify", "Generalize");
+            _operationPicker.TranslatesAutoresizingMaskIntoConstraints = false;
+            _operationPicker.SelectedSegment = 0;
 
-            // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _toolbar, _segmentLengthLabel,
-                _deviationLabel, _deviationSlider, _segmentLengthSlider, _deviationLabel, _resultLabel);
+            _slider = new UISlider();
+            _slider.TranslatesAutoresizingMaskIntoConstraints = false;
+            _slider.MinValue = 100;
+            _slider.MaxValue = 500;
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem {CustomView = _operationPicker},
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem {CustomView = _slider, Width = 150}
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar, _resultLabel);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+
+                _resultLabel.TopAnchor.ConstraintEqualTo(_myMapView.TopAnchor),
+                _resultLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _resultLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _resultLabel.HeightAnchor.ConstraintEqualTo(40)
+            });
         }
     }
 }

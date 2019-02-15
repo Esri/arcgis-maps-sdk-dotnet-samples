@@ -235,6 +235,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
     <None Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
     <None Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
     <None Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
@@ -383,6 +384,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.cs" />
     <Compile Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.cs" />
     <Compile Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.cs" />
     <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.cs" />

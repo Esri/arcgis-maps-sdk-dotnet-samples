@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Forms.Samples.Map.GenerateOfflineMapWithOverrides.ConfigureOverridesPage"
+             Title="Configure offline map job">
+    <Grid VerticalOptions="Center">
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="Margin" Value="0,0,0,5" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="Margin" Value="0,0,0,5" />
+            </Style>
+            <Style TargetType="Switch">
+                <Setter Property="Margin" Value="0,0,0,5" />
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Text="Adjust the basemap"
+               FontAttributes="Bold"
+               Grid.Row="0" Grid.Column="0" />
+        <Label Text="Min scale:"
+               Grid.Row="1" Grid.Column="0" />
+        <Entry x:Name="MinScaleEntry"
+               Text="0"
+               Grid.Row="1" Grid.Column="1" />
+        <Label Text="Max scale:"
+               Grid.Row="2" Grid.Column="0" />
+        <Entry x:Name="MaxScaleEntry"
+               Text="23"
+               Grid.Row="2" Grid.Column="1" />
+        <Label Text="Extent buffer distance (m):"
+               Grid.Row="3" Grid.Column="0" />
+        <Entry x:Name="ExtentBufferEntry"
+               Text="0"
+               Grid.Row="3" Grid.Column="1" />
+        <Label Text="Choose layers"
+               FontAttributes="Bold"
+               Grid.Row="4" Grid.Column="0" />
+        <Label Text="System valves:"
+               Grid.Row="5" Grid.Column="0" />
+        <Switch x:Name="SysValvesLayerCheckbox"
+                IsToggled="True"
+                Grid.Row="5" Grid.Column="1" />
+        <Label Text="Service connections:"
+               Grid.Row="6" Grid.Column="0" />
+        <Switch x:Name="ServiceConnCheckbox"
+                Grid.Row="6" Grid.Column="1" />
+        <Label Text="Apply a feature layer filer"
+               FontAttributes="Bold"
+               Margin="0,0,0,5"
+               Grid.Row="7" Grid.Column="0" />
+        <Label Text="Min Hydrant Flow Rate (GPM):"
+               Margin="0,0,5,5"
+               Grid.Row="8" Grid.Column="0" />
+        <Entry x:Name="FlowRateFilterEntry"
+               Text="500"
+               Grid.Row="8" Grid.Column="1" />
+        <Button Text="Take map offline"
+                Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"
+                IsEnabled="True"
+                Clicked="TakeMapOffline_Clicked" />
+    </Grid>
+</ContentPage>

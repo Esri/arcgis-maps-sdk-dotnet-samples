@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
@@ -24,10 +23,8 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         "")]
     public class OpenMapURL : UIViewController
     {
-        // Create and hold references to the controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private readonly UIButton _mapsButton = new UIButton();
+        // Hold a reference to the MapView.
+        private MapView _myMapView;
 
         // String array to hold URLs to publicly available web maps.
         private readonly string[] _itemUrLs =
@@ -48,36 +45,6 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         public OpenMapURL()
         {
             Title = "Open map (URL)";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            CreateLayout();
-            Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat controlHeight = 30;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
-
-                // Reposition the views.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _mapsButton.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
@@ -102,15 +69,44 @@ namespace ArcGISRuntime.Samples.OpenMapURL
             PresentViewController(actionSheetAlert, true, null);
         }
 
-        private void CreateLayout()
+        public override void ViewDidLoad()
         {
-            // Create button to show map options.
-            _mapsButton.SetTitle("Select a map", UIControlState.Normal);
-            _mapsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _mapsButton.TouchUpInside += OnMapsButtonTouch;
+            base.ViewDidLoad();
+            Initialize();
+        }
 
-            // Add MapView to the page.
-            View.AddSubviews(_myMapView, _toolbar, _mapsButton);
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Select a map", UIBarButtonItemStyle.Plain, OnMapsButtonTouch),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
         }
     }
 }

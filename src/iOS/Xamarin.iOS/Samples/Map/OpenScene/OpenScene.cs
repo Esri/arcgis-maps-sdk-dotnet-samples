@@ -24,36 +24,15 @@ namespace ArcGISRuntime.Samples.OpenScene
         "The sample will load the scene automatically.")]
     public class OpenScene : UIViewController
     {
+        // Hold a reference to the SceneView.
+        private SceneView _mySceneView;
+
         // Hold the ID of the portal item, which is a web scene.
         private const string ItemId = "c6f90b19164c4283884361005faea852";
-
-        // Create the scene view.
-        private SceneView _mySceneView;
 
         public OpenScene()
         {
             Title = "Open scene (Portal item)";
-        }
-
-        public override void LoadView()
-        {
-            _mySceneView = new SceneView();
-            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View = new UIView();
-            View.AddSubviews(_mySceneView);
-
-            _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            Initialize();
         }
 
         private async void Initialize()
@@ -73,6 +52,32 @@ namespace ArcGISRuntime.Samples.OpenScene
             {
                 new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            // Add the views.
+            View.AddSubviews(_mySceneView);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
         }
     }
 }

@@ -48,44 +48,6 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             Title = "Read a GeoPackage";
         }
 
-        public override void LoadView()
-        {
-            // Create the views.
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            _layerSegmentedControl = new UISegmentedControl("Remove layers", "Add layers")
-            {
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
-                TintColor = UIColor.White,
-                Enabled = false,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-            // Clean up borders of segmented control - avoid corner pixels.
-            _layerSegmentedControl.ClipsToBounds = true;
-            _layerSegmentedControl.Layer.CornerRadius = 5;
-            _layerSegmentedControl.ValueChanged += LayerSegmentedControl_ValueChanged;
-
-            // Add the views.
-            View = new UIView();
-            View.AddSubviews(_myMapView, _layerSegmentedControl);
-
-            // Apply constraints.
-            _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-
-            _layerSegmentedControl.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor).Active = true;
-            _layerSegmentedControl.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor).Active = true;
-            _layerSegmentedControl.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8).Active = true;
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
-        }
-
         private async void Initialize()
         {
             // Create a new map centered on Aurora Colorado.
@@ -294,6 +256,50 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
                 // Add the human-readable layer name to the collection of layers not in the map.
                 _layersNotInMap.Add(layerName);
             }
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _layerSegmentedControl = new UISegmentedControl("Remove layers", "Add layers")
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                TintColor = UIColor.White,
+                Enabled = false,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            // Clean up borders of segmented control - avoid corner pixels.
+            _layerSegmentedControl.ClipsToBounds = true;
+            _layerSegmentedControl.Layer.CornerRadius = 5;
+            _layerSegmentedControl.ValueChanged += LayerSegmentedControl_ValueChanged;
+
+            // Add the views.
+            View.AddSubviews(_myMapView, _layerSegmentedControl);
+
+            // Lay out the views
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+
+                _layerSegmentedControl.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
+                _layerSegmentedControl.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
+                _layerSegmentedControl.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
+            });
         }
     }
 }

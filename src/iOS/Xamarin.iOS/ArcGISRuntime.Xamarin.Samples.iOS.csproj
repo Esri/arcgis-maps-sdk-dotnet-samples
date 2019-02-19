@@ -22,7 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>i386, x86_64</MtouchArch>
+    <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>True</MtouchDebug>
     <MtouchSdkVersion>11.4</MtouchSdkVersion>
@@ -41,7 +41,7 @@
     <OutputPath>..\..\..\output\iOS\iPhoneSimulator\release\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <MtouchArch>i386, x86_64</MtouchArch>
+    <MtouchArch>x86_64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
     <LangVersion>6</LangVersion>
@@ -55,7 +55,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARM64</MtouchArch>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchProfiling>True</MtouchProfiling>
     <CodesignKey>iPhone Developer</CodesignKey>
@@ -80,7 +80,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchLink>Full</MtouchLink>
@@ -101,7 +101,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARM64</MtouchArch>
     <IpaIncludeArtwork>true</IpaIncludeArtwork>
     <CodesignKey>iPhone Distribution</CodesignKey>
     <CodesignProvision>Automatic:AdHoc</CodesignProvision>
@@ -115,19 +115,19 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARM64</MtouchArch>
     <CodesignProvision>Automatic:AppStore</CodesignProvision>
     <CodesignKey>iPhone Distribution</CodesignKey>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhoneSimulator'">
     <OutputPath>..\..\..\output\iOS\iPhoneSimulator\Ad-Hoc\</OutputPath>
-    <MtouchArch>i386, x86_64</MtouchArch>
+    <MtouchArch>x86_64</MtouchArch>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AppStore|iPhoneSimulator'">
     <OutputPath>..\..\..\output\iOS\iPhoneSimulator\AppStore\</OutputPath>
-    <MtouchArch>i386, x86_64</MtouchArch>
+    <MtouchArch>x86_64</MtouchArch>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
@@ -157,6 +157,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="Xamarin.iOS" />
     <Reference Include="Xamarin.Auth">
       <HintPath>..\..\..\packages\Xamarin.Auth.1.6.0.2\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
@@ -235,6 +236,19 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
+    <None Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
+    <None Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
+    <None Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
+    <None Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
+	  <None Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
+	  <None Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
+	  <None Include="Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
+	  <None Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg" />
+	  <None Include="Samples\Geometry\Project\Project.jpg" />
+	  <None Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg" />
+    <None Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
+    <None Include="Samples\Data\AddFeatures\AddFeatures.jpg" />
+    <None Include="Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
     <None Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
     <None Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
     <None Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
@@ -370,6 +384,19 @@
   <ItemGroup>
     <!-- Sample Code -->
     <Compile Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.cs" />
+    <Compile Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.cs" />
+    <Compile Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.cs" />
+    <Compile Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.cs" />
+    <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.cs" />
+	  <Compile Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.cs" />
+	  <Compile Include="Samples\Search\OfflineGeocode\OfflineGeocode.cs" />
+	  <Compile Include="Samples\Search\ReverseGeocode\ReverseGeocode.cs" />
+	  <Compile Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.cs" />
+	  <Compile Include="Samples\Geometry\Project\Project.cs" />
+	  <Compile Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.cs" />
+    <Compile Include="Samples\Data\UpdateGeometries\UpdateGeometries.cs" />
+    <Compile Include="Samples\Data\AddFeatures\AddFeatures.cs" />
+    <Compile Include="Samples\Data\DeleteFeatures\DeleteFeatures.cs" />
     <Compile Include="Samples\Symbology\SceneSymbols\SceneSymbols.cs" />
     <Compile Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.cs" />
     <Compile Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.cs" />

@@ -9,7 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -29,14 +28,8 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         "Analysis", "ConvexHull", "GeometryEngine")]
     public class ConvexHullList : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _helpToolbar = new UIToolbar();
-        private readonly UIToolbar _controlsToolbar = new UIToolbar();
-        private UIButton _convexHullListButton;
-        private UISwitch _unionSwitch;
-        private UILabel _switchLabel;
-        private UILabel _sampleHelpLabel;
+        // Hold a reference to the MapView.
+        private MapView _myMapView;
 
         // Graphics overlay to display the graphics.
         private GraphicsOverlay _graphicsOverlay;
@@ -50,41 +43,6 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         public ConvexHullList()
         {
             Title = "Convex hull list";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            CreateLayout();
-            Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat controlHeight = 30;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
-
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + toolbarHeight, 0, toolbarHeight, 0);
-                _helpToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, toolbarHeight);
-                _controlsToolbar.Frame = new CGRect(0, View.Bounds.Height - controlHeight - 2 * margin, View.Bounds.Width, toolbarHeight);
-                _sampleHelpLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _switchLabel.Frame = new CGRect(margin, View.Bounds.Height - controlHeight - margin, 50 - 2 * margin, controlHeight);
-                _unionSwitch.Frame = new CGRect(50 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width - 50 - 2 * margin, controlHeight);
-                _convexHullListButton.Frame = new CGRect(View.Bounds.Width / 2 + margin, View.Bounds.Height - controlHeight - margin, View.Bounds.Width / 2 - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private void Initialize()
@@ -176,7 +134,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             return new Polygon(pointCollection2);
         }
 
-        private void BufferButton_Click(object sender, EventArgs e)
+        private void CreateConvexHull(bool union)
         {
             // Reset the sample state.
             // - Clear all existing graphics.
@@ -187,9 +145,6 @@ namespace ArcGISRuntime.Samples.ConvexHullList
 
             try
             {
-                // Get the boolean value whether to create a single convex hull (true) or independent convex hulls (false).
-                bool unionBool = _unionSwitch.On;
-
                 // Add the geometries of the two polygon graphics to a list of geometries. It will be used as the 1st
                 // input parameter of the GeometryEngine.ConvexHull function.
                 List<Geometry> inputGeometryList = new List<Geometry>
@@ -200,7 +155,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
 
                 // Get the returned result from the convex hull operation. When unionBool = true there will be one returned
                 // polygon, when unionBool = false there will be one convex hull returned per input geometry.
-                foreach (Geometry oneGeometry in GeometryEngine.ConvexHull(inputGeometryList, unionBool))
+                foreach (Geometry oneGeometry in GeometryEngine.ConvexHull(inputGeometryList, union))
                 {
                     // Create a simple line symbol for the outline of the convex hull graphic(s).
                     SimpleLineSymbol convexHullSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid,
@@ -232,39 +187,55 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             }
         }
 
-        private void CreateLayout()
+        private void CreateConvexHull_Click(object sender, EventArgs e)
         {
-            // Create a UITextView for the overall sample instructions.
-            _sampleHelpLabel = new UILabel
+            // Prompt for the type of convex hull to create.
+            UIAlertController unionAlert = UIAlertController.Create("Create convex hull", "Choose whether the convex hull should be unioned; if not, two convex hulls will be created.", UIAlertControllerStyle.Alert);
+            unionAlert.AddAction(UIAlertAction.Create("Union", UIAlertActionStyle.Default, action => CreateConvexHull(true)));
+            unionAlert.AddAction(UIAlertAction.Create("Don't union", UIAlertActionStyle.Default, action => CreateConvexHull(false)));
+
+            // Show the alert.
+            PresentViewController(unionAlert, true, null);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
             {
-                Text = "Tap 'Create convex hull'. Result will be two polygons if 'Union' is off.",
-                Lines = 1,
-                AdjustsFontSizeToFitWidth = true
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Create convex hull", UIBarButtonItemStyle.Plain, CreateConvexHull_Click),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
-            // Create a UILabel for the UISwitch label.
-            _switchLabel = new UILabel
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
-                Text = "Union:",
-                AdjustsFontSizeToFitWidth = true
-            };
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
 
-            // Create a UISwitch for toggling the union of the convex hull(s).
-            _unionSwitch = new UISwitch
-            {
-                On = true
-            };
-
-            // Create a UIButton to create the convex hull(s).
-            _convexHullListButton = new UIButton();
-            _convexHullListButton.SetTitle("Create convex hull", UIControlState.Normal);
-            _convexHullListButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _convexHullListButton.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
-            // - Hook to touch event to do querying
-            _convexHullListButton.TouchUpInside += BufferButton_Click;
-
-            // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _helpToolbar, _controlsToolbar, _sampleHelpLabel, _switchLabel, _unionSwitch, _convexHullListButton);
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 }

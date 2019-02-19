@@ -30,71 +30,17 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
         "Featured")]
     public class ChangeBlendRenderer : UIViewController
     {
-        // Create and hold references to UI controls.
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private readonly MapView _myMapView = new MapView();
-        private UILabel _altitudeLabel;
-        private UISlider _altitudeSlider;
-        private UILabel _azimuthLabel;
-        private UISlider _azimuthSlider;
-        private UISegmentedControl _slopeTypesPicker;
-        private UISegmentedControl _colorRampsPicker;
-        private UIButton _updateRendererButton;
+        // Hold references to UI controls.
+        private MapView _myMapView;
+        private BlendSettingsController _settingsVC;
 
         public ChangeBlendRenderer()
         {
             Title = "Blend renderer";
         }
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            CreateLayout();
-            Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat controlHeight = 30;
-                nfloat columnSplit = 100;
-                nfloat toolbarHeight = controlHeight * 5 + margin * 6;
-                nfloat formStart = View.Bounds.Height - toolbarHeight;
-
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, formStart, View.Bounds.Width, toolbarHeight);
-                _altitudeLabel.Frame = new CGRect(margin, formStart + margin, columnSplit - 2 * margin, controlHeight);
-                _azimuthLabel.Frame = new CGRect(margin, formStart + controlHeight + 2 * margin, columnSplit - 2 * margin, controlHeight);
-                _altitudeSlider.Frame = new CGRect(columnSplit + margin, formStart + margin, View.Bounds.Width - columnSplit - 2 * margin, controlHeight);
-                _azimuthSlider.Frame = new CGRect(columnSplit + margin, formStart + controlHeight + 2 * margin, View.Bounds.Width - columnSplit - 2 * margin, controlHeight);
-                _slopeTypesPicker.Frame = new CGRect(margin, formStart + 2 * controlHeight + 3 * margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _colorRampsPicker.Frame = new CGRect(margin, formStart + 3 * controlHeight + 4 * margin, View.Bounds.Width - 2 * margin, controlHeight);
-                _updateRendererButton.Frame = new CGRect(margin, formStart + 4 * controlHeight + 5 * margin, View.Bounds.Width - 2 * margin, controlHeight);
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
-        }
-
         private async void Initialize()
         {
-            // Set the altitude slider min/max and initial value.
-            _altitudeSlider.MinValue = 0;
-            _altitudeSlider.MaxValue = 90;
-            _altitudeSlider.Value = 45;
-
-            // Set the azimuth slider min/max and initial value.
-            _azimuthSlider.MinValue = 0;
-            _azimuthSlider.MaxValue = 360;
-            _azimuthSlider.Value = 180;
-
             // Load the raster file using a path on disk.
             Raster rasterImagery = new Raster(DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif"));
 
@@ -112,6 +58,9 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
                 // Create a new EnvelopeBuilder from the full extent of the raster layer.
                 EnvelopeBuilder envelopeBuilder = new EnvelopeBuilder(rasterLayerImagery.FullExtent);
 
+                // Configure the settings view.
+                _settingsVC = new BlendSettingsController(map);
+
                 // Zoom in the extent just a bit so that raster layer encompasses the entire viewable area of the map.
                 envelopeBuilder.Expand(0.75);
 
@@ -123,9 +72,6 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 
                 // Wait for the map to load.
                 await map.LoadAsync();
-
-                // Enable the 'Update Renderer' button now that the map has loaded.
-                _updateRendererButton.Enabled = true;
             }
             catch (Exception e)
             {
@@ -133,54 +79,170 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             }
         }
 
-        private void CreateLayout()
+        private void UpdateRenderer_Clicked(object sender, EventArgs e)
         {
-            // Create label that displays the Altitude.
-            _altitudeLabel = new UILabel
+            UINavigationController controller = new UINavigationController(_settingsVC);
+            controller.ModalPresentationStyle = UIModalPresentationStyle.Popover;
+            controller.PreferredContentSize = new CGSize(320, 300);
+            UIPopoverPresentationController pc = controller.PopoverPresentationController;
+            if (pc != null)
             {
-                Text = "Altitude:",
-                AdjustsFontSizeToFitWidth = true
+                pc.BarButtonItem = (UIBarButtonItem) sender;
+                pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+                pc.Delegate = new PpDelegate();
+            }
+
+            PresentViewController(controller, true, null);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Update renderer", UIBarButtonItemStyle.Plain, UpdateRenderer_Clicked)
             };
 
-            // Create slider that the user can modify Altitude .
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
+            });
+        }
+
+        // Force popover to display on iPhone.
+        private class PpDelegate : UIPopoverPresentationControllerDelegate
+        {
+            public override UIModalPresentationStyle GetAdaptivePresentationStyle(
+                UIPresentationController forPresentationController) => UIModalPresentationStyle.None;
+
+            public override UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController controller,
+                UITraitCollection traitCollection) => UIModalPresentationStyle.None;
+        }
+    }
+
+    public class BlendSettingsController : UIViewController
+    {
+        // Hold references to the UI controls.
+        private readonly Map _map;
+        private UISegmentedControl _slopeTypesPicker;
+        private UISegmentedControl _colorRampsPicker;
+        private UISlider _altitudeSlider;
+        private UISlider _azimuthSlider;
+
+        public BlendSettingsController(Map map)
+        {
+            _map = map;
+            Title = "Hillshade settings";
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            UIScrollView scrollView = new UIScrollView();
+            scrollView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View.AddSubviews(scrollView);
+
+            scrollView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
+            scrollView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
+            scrollView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            scrollView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+
+            UIStackView formContainer = new UIStackView();
+            formContainer.TranslatesAutoresizingMaskIntoConstraints = false;
+            formContainer.Spacing = 8;
+            formContainer.LayoutMarginsRelativeArrangement = true;
+            formContainer.Alignment = UIStackViewAlignment.Fill;
+            formContainer.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
+            formContainer.Axis = UILayoutConstraintAxis.Vertical;
+            formContainer.WidthAnchor.ConstraintEqualTo(320).Active = true;
+
+            // Form controls here.
+            UILabel slopeTypesLabel = new UILabel();
+            slopeTypesLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            slopeTypesLabel.Text = "Slope type:";
+            formContainer.AddArrangedSubview(slopeTypesLabel);
+
+            _slopeTypesPicker = new UISegmentedControl(Enum.GetNames(typeof(SlopeType)));
+            _slopeTypesPicker.TranslatesAutoresizingMaskIntoConstraints = false;
+            _slopeTypesPicker.SelectedSegment = 0;
+            formContainer.AddArrangedSubview(_slopeTypesPicker);
+
+            UILabel colorRampsLabel = new UILabel();
+            colorRampsLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            colorRampsLabel.Text = "Color ramp:";
+            formContainer.AddArrangedSubview(colorRampsLabel);
+
+            _colorRampsPicker = new UISegmentedControl(Enum.GetNames(typeof(PresetColorRampType)));
+            _colorRampsPicker.TranslatesAutoresizingMaskIntoConstraints = false;
+            _colorRampsPicker.SelectedSegment = 0;
+            formContainer.AddArrangedSubview(_colorRampsPicker);
+
+            UILabel altitudeLabel = new UILabel();
+            altitudeLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            altitudeLabel.Text = "Altitude:";
+            formContainer.AddArrangedSubview(altitudeLabel);
+
             _altitudeSlider = new UISlider();
+            _altitudeSlider.TranslatesAutoresizingMaskIntoConstraints = false;
+            _altitudeSlider.MinValue = 0;
+            _altitudeSlider.MaxValue = 90;
+            _altitudeSlider.Value = 45;
+            formContainer.AddArrangedSubview(_altitudeSlider);
 
-            // Create label that displays the Azimuth.
-            _azimuthLabel = new UILabel
-            {
-                Text = "Azimuth:",
-                AdjustsFontSizeToFitWidth = true
-            };
+            UILabel azimuthLabel = new UILabel();
+            azimuthLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            azimuthLabel.Text = "Azimuth:";
+            formContainer.AddArrangedSubview(azimuthLabel);
 
-            // Create slider that the user can modify Azimuth.
             _azimuthSlider = new UISlider();
+            _azimuthSlider.TranslatesAutoresizingMaskIntoConstraints = false;
+            _azimuthSlider.MinValue = 0;
+            _azimuthSlider.MaxValue = 360;
+            _azimuthSlider.Value = 180;
+            formContainer.AddArrangedSubview(_azimuthSlider);
 
-            // Get all the SlopeType names from the PresetColorRampType Enumeration and put them 
-            // in an array of strings, then set the UITableView.Source to the array.
-            _slopeTypesPicker = new UISegmentedControl(Enum.GetNames(typeof(SlopeType)))
-            {
-                SelectedSegment = 0
-            };
+            // Add the views.
+            scrollView.AddSubview(formContainer);
 
-            // Get all the ColorRamp names from the PresetColorRampType Enumeration and put them 
-            // in an array of strings, then set the UITableView.Source to the array.
-            _colorRampsPicker = new UISegmentedControl(Enum.GetNames(typeof(PresetColorRampType)))
-            {
-                SelectedSegment = 0
-            };
+            // Put the apply button in the top-right part of the popover.
+            NavigationItem.RightBarButtonItem = new UIBarButtonItem("Apply", UIBarButtonItemStyle.Plain, UpdateRendererButton_Clicked);
 
-            // Create button to change stretch renderer of the raster.
-            _updateRendererButton = new UIButton(UIButtonType.RoundedRect);
-            _updateRendererButton.SetTitle("Update renderer", UIControlState.Normal);
-            _updateRendererButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            // Lay out the views.
+            formContainer.TopAnchor.ConstraintEqualTo(scrollView.TopAnchor).Active = true;
+            formContainer.LeadingAnchor.ConstraintEqualTo(scrollView.LeadingAnchor).Active = true;
+            formContainer.TrailingAnchor.ConstraintEqualTo(scrollView.TrailingAnchor).Active = true;
+            formContainer.BottomAnchor.ConstraintEqualTo(scrollView.BottomAnchor).Active = true;
 
-            // Hook to touch/click event of the button.
-            _updateRendererButton.TouchUpInside += UpdateRendererButton_Clicked;
-            _updateRendererButton.Enabled = false;
-
-            // Add all of the UI controls to the page.
-            View.AddSubviews(_myMapView, _toolbar, _altitudeLabel, _altitudeSlider, _azimuthLabel,
-                _azimuthSlider, _slopeTypesPicker, _colorRampsPicker, _updateRendererButton);
+            // Disable horizontal scrolling.
+            formContainer.WidthAnchor.ConstraintEqualTo(scrollView.WidthAnchor).Active = true;
         }
 
         private void UpdateRendererButton_Clicked(object sender, EventArgs e)
@@ -264,7 +326,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
                     8); // outputBitDepth - Output bit depth, default is 8-bit.
 
                 // Set the new base map to be the RasterLayer with the BlendRenderer applied.
-                _myMapView.Map.Basemap = new Basemap(rasterLayerForDisplayInMap);
+                _map.Basemap = new Basemap(rasterLayerForDisplayInMap);
             }
             catch (Exception ex)
             {

@@ -12,7 +12,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -34,51 +33,19 @@ namespace ArcGISRuntime.Samples.ExportTiles
     {
         // Hold references to the UI controls.
         private MapView _myMapView;
-        private MapView _myPreviewMapView;
-        private UIActivityIndicatorView _myProgressBar;
-        private UIButton _myExportButton;
+        private UIBarButtonItem _exportTilesButton;
+        private UIActivityIndicatorView _statusIndicator;
 
         // URL to the service tiles will be exported from.
-        private readonly Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
+        private readonly Uri _serviceUri =
+            new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
 
         // Path to exported tiles on disk.
         private string _tilePath;
 
-        // Flag to indicate if an exported cache is being previewed.
-        private bool _previewOpen = false;
-
         public ExportTiles()
         {
             Title = "Export tiles";
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            CreateLayout();
-            Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topStart = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat barHeight = 40;
-
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height - barHeight);
-                _myPreviewMapView.Frame = new CGRect(0, topStart, View.Bounds.Width, View.Bounds.Height - topStart - barHeight);
-                _myProgressBar.Frame = new CGRect(0, View.Bounds.Height - barHeight, View.Bounds.Width, barHeight);
-                _myExportButton.Frame = new CGRect(0, View.Bounds.Height - barHeight, View.Bounds.Width, barHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
         }
 
         private async void Initialize()
@@ -119,7 +86,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 UpdateMapExtentGraphic();
 
                 // Enable the export button now that sample is ready.
-                _myExportButton.Enabled = true;
+                _exportTilesButton.Enabled = true;
 
                 // Set viewpoint of the map.
                 _myMapView.SetViewpoint(new Viewpoint(-4.853791, 140.983598, _myMapView.Map.MinScale));
@@ -128,43 +95,6 @@ namespace ArcGISRuntime.Samples.ExportTiles
             {
                 ShowStatusMessage(ex.ToString());
             }
-        }
-
-        private void CreateLayout()
-        {
-            // Create the first mapview.
-            _myMapView = new MapView();
-
-            // Create the preview mapview.
-            _myPreviewMapView = new MapView
-            {
-                Hidden = true // hide it by default.
-            };
-
-            // Set a border on the preview window.
-            _myPreviewMapView.Layer.BorderColor = new CoreGraphics.CGColor(0, 0, 1f);
-            _myPreviewMapView.Layer.BorderWidth = 2.0f;
-
-            // Create the progress bar.
-            _myProgressBar = new UIActivityIndicatorView
-            {
-                // Set the progress bar to hide when not animating.
-                HidesWhenStopped = true
-            };
-
-            // Create the export button - disabled until sample is ready.
-            _myExportButton = new UIButton {Enabled = false, BackgroundColor = UIColor.White};
-            _myExportButton.SetTitle("Export", UIControlState.Normal);
-            _myExportButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-
-            // Set background color on the progress bar.
-            _myProgressBar.BackgroundColor = UIColor.FromWhiteAlpha(0, .5f);
-
-            // Get notified of button taps.
-            _myExportButton.TouchUpInside += MyExportButton_Click;
-
-            // Add the views.
-            View.AddSubviews(_myMapView, _myExportButton, _myProgressBar, _myPreviewMapView);
         }
 
         private void MyMapView_ViewpointChanged(object sender, EventArgs e)
@@ -275,7 +205,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
         private void HandleExportCompletion(ExportTileCacheJob job, TileCache cache)
         {
             // Hide the progress bar.
-            _myProgressBar.StopAnimating();
+            _statusIndicator.StopAnimating();
             switch (job.Status)
             {
                 // Update the view if the job is complete.
@@ -288,18 +218,6 @@ namespace ArcGISRuntime.Samples.ExportTiles
                         try
                         {
                             await UpdatePreviewMap(cache);
-
-                            // Show the preview window.
-                            _myPreviewMapView.Hidden = false;
-
-                            // Change the export button text.
-                            _myExportButton.SetTitle("Close preview", UIControlState.Normal);
-
-                            // Re-enable the button.
-                            _myExportButton.Enabled = true;
-
-                            // Set the preview open flag.
-                            _previewOpen = true;
                         }
                         catch (Exception ex)
                         {
@@ -315,14 +233,8 @@ namespace ArcGISRuntime.Samples.ExportTiles
                     //     this method is called from a thread other than the UI thread.
                     InvokeOnMainThread(() =>
                     {
-                        // Change the export button text.
-                        _myExportButton.SetTitle("Export Tiles", UIControlState.Normal);
-
                         // Re-enable the export button.
-                        _myExportButton.Enabled = true;
-
-                        // Set the preview open flag.
-                        _previewOpen = false;
+                        _exportTilesButton.Enabled = true;
                     });
                     break;
             }
@@ -337,7 +249,12 @@ namespace ArcGISRuntime.Samples.ExportTiles
             ArcGISTiledLayer myLayer = new ArcGISTiledLayer(cache);
 
             // Show the exported tiles in new map.
-            _myPreviewMapView.Map = new Map(new Basemap(myLayer));
+            var vc = new UIViewController();
+            Map previewMap = new Map();
+            previewMap.OperationalLayers.Add(myLayer);
+            vc.View = new MapView {Map = previewMap};
+            vc.Title = "Exported tiles";
+            NavigationController.PushViewController(vc, true);
         }
 
         private async void MyExportButton_Click(object sender, EventArgs e)
@@ -345,34 +262,18 @@ namespace ArcGISRuntime.Samples.ExportTiles
             // If preview isn't open, start an export.
             try
             {
-                if (!_previewOpen)
-                {
-                    // Disable the export button.
-                    _myExportButton.Enabled = false;
+                // Disable the export button.
+                _exportTilesButton.Enabled = false;
 
-                    // Show the progress bar.
-                    _myProgressBar.StartAnimating();
+                // Show the progress bar.
+                _statusIndicator.StartAnimating();
 
-                    // Hide the preview window if not already hidden.
-                    _myPreviewMapView.Hidden = true;
-
-                    // Start the export.
-                    await StartExport();
-                }
-                else // Otherwise, close the preview.
-                {
-                    // Hide the preview.
-                    _myPreviewMapView.Hidden = true;
-
-                    // Change the button text.
-                    _myExportButton.SetTitle("Export Tiles", UIControlState.Normal);
-
-                    // Clear the preview open flag.
-                    _previewOpen = false;
-                }
+                // Start the export.
+                await StartExport();
             }
             catch (Exception ex)
             {
+                _statusIndicator.StopAnimating();
                 ShowStatusMessage(ex.ToString());
             }
         }
@@ -382,6 +283,58 @@ namespace ArcGISRuntime.Samples.ExportTiles
             // Display the message to the user.
             UIAlertView alertView = new UIAlertView("alert", message, (IUIAlertViewDelegate) null, "OK", null);
             alertView.Show();
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _exportTilesButton = new UIBarButtonItem("Export tiles", UIBarButtonItemStyle.Plain, MyExportButton_Click);
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _exportTilesButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+
+            _statusIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
+            _statusIndicator.TranslatesAutoresizingMaskIntoConstraints = false;
+            _statusIndicator.HidesWhenStopped = true;
+            _statusIndicator.BackgroundColor = UIColor.FromWhiteAlpha(0f, .8f);
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar, _statusIndicator);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new []
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                _statusIndicator.TopAnchor.ConstraintEqualTo(View.TopAnchor),
+                _statusIndicator.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _statusIndicator.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _statusIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
         }
     }
 }

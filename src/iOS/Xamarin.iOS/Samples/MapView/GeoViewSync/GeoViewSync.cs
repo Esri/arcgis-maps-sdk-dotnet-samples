@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.GeoViewSync
         "")]
     public class GeoViewSync : UIViewController
     {
-        // Create and hold references to the UI controls.
+        // Hold references to the UI controls.
         private MapView _myMapView;
         private SceneView _mySceneView;
         private UIStackView _stackView;
@@ -34,10 +34,8 @@ namespace ArcGISRuntime.Samples.GeoViewSync
             Title = "GeoView viewpoint synchronization";
         }
 
-        public override void ViewDidLoad()
+        private void Initialize()
         {
-            base.ViewDidLoad();
-
             // Initialize the MapView and SceneView with basemaps.
             _myMapView.Map = new Map(Basemap.CreateImageryWithLabels());
             _mySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
@@ -105,32 +103,33 @@ namespace ArcGISRuntime.Samples.GeoViewSync
             }
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView();
 
             _myMapView = new MapView();
-            _mySceneView = new SceneView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+
             _stackView = new UIStackView(new UIView[] {_myMapView, _mySceneView});
             _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            // Relayout on rotation.
-            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
-            {
-                _stackView.Axis = UILayoutConstraintAxis.Horizontal;
-            }
-            else
-            {
-                _stackView.Axis = UILayoutConstraintAxis.Vertical;
-            }
-
+            _stackView.Axis = UILayoutConstraintAxis.Vertical;
             _stackView.Distribution = UIStackViewDistribution.FillEqually;
 
+            // Add the views.
             View.AddSubviews(_stackView);
 
-            NSLayoutConstraint.ActivateConstraints(new NSLayoutConstraint[]
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),

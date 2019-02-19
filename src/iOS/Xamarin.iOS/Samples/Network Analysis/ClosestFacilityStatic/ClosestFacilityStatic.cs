@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
         "Click the solve button to find the closest facility to every incident.")]
     public class ClosestFacilityStatic : UIViewController
     {
-        // Create and hold references to the views.
+        // Hold references to the UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _solveRoutesButton;
         private UIBarButtonItem _resetButton;
@@ -55,64 +55,19 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
         private FeatureLayer _incidentLayer;
 
         // Uri for facilities feature service.
-        private Uri _facilityUri = new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/ArcGIS/rest/services/San_Diego_Facilities/FeatureServer/0");
+        private readonly Uri _facilityUri = new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/ArcGIS/rest/services/San_Diego_Facilities/FeatureServer/0");
 
         // Uri for incident feature service.
-        private Uri _incidentUri = new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/ArcGIS/rest/services/San_Diego_Incidents/FeatureServer/0");
+        private readonly Uri _incidentUri = new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/ArcGIS/rest/services/San_Diego_Incidents/FeatureServer/0");
 
         // Uri for the closest facility service.
-        private Uri _closestFacilityUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ClosestFacility");
+        private readonly Uri _closestFacilityUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ClosestFacility");
 
         public ClosestFacilityStatic()
         {
             Title = "Closest facility (static)";
         }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            Initialize();
-        }
-
-        public override void LoadView()
-        {
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View = new UIView();
-            View.AddSubviews(_myMapView);
-
-            _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-
-            // Configure the UI controls.
-            _solveRoutesButton = new UIBarButtonItem("Solve routes", UIBarButtonItemStyle.Plain, SolveRoutesButton_Click);
-            _solveRoutesButton.Enabled = false;
-            _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ResetButton_Click);
-            _resetButton.Enabled = false;
-
-            NavigationController.ToolbarHidden = false;
-            ToolbarItems = new[]
-            {
-                _solveRoutesButton,
-                // Put a space between the buttons
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _resetButton
-            };
-        }
-
-        public override void ViewWillDisappear(bool animated)
-        {
-            base.ViewWillDisappear(animated);
-
-            // This is needed to hide the toolbar. Because NavigationController presents it, 
-            // it won't automatically disappear when leaving the sample.
-            NavigationController.ToolbarHidden = true;
-        }
-
+        
         private async void Initialize()
         {
             try
@@ -141,7 +96,7 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
                 };
 
                 // Create a list of line symbols to show unique routes. Different colors help make different routes visually distinguishable.
-                _routeSymbols = new List<SimpleLineSymbol>()
+                _routeSymbols = new List<SimpleLineSymbol>
                 {
                     new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 25, 45, 85), 5.0f),
                     new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.FromArgb(125, 35, 65, 120), 5.0f),
@@ -197,7 +152,7 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             List<Incident> incidents = new List<Incident>();
 
             // Create query parameters to select all features.
-            QueryParameters queryParams = new QueryParameters()
+            QueryParameters queryParams = new QueryParameters
             {
                 WhereClause = "1=1"
             };
@@ -268,6 +223,51 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
 
             // Present Alert.
             PresentViewController(okAlertController, true, null);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _solveRoutesButton = new UIBarButtonItem("Solve routes", UIBarButtonItemStyle.Plain, SolveRoutesButton_Click);
+            _solveRoutesButton.Enabled = false;
+            _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ResetButton_Click);
+            _resetButton.Enabled = false;
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                _solveRoutesButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _resetButton
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 }

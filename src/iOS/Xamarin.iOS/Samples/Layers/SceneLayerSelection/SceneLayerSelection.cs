@@ -28,33 +28,12 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
         "")]
     public class SceneLayerSelection : UIViewController
     {
-        // Hold a reference to the UI control.
+        // Hold a reference to the SceneView.
         private SceneView _mySceneView;
 
         public SceneLayerSelection()
         {
             Title = "Scene layer selection";
-        }
-
-        public override void LoadView()
-        {
-            _mySceneView = new SceneView();
-            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View = new UIView();
-            View.AddSubviews(_mySceneView);
-
-            _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-            _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            Initialize();
         }
 
         private async void Initialize()
@@ -80,7 +59,7 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
             {
                 // Create a camera with an interesting view.
                 await buildingsLayer.LoadAsync();
-                MapPoint center = (MapPoint)GeometryEngine.Project(buildingsLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
+                MapPoint center = (MapPoint) GeometryEngine.Project(buildingsLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
                 Camera viewCamera = new Camera(center.Y, center.X, 600, 120, 60, 0);
 
                 // Set the viewpoint with the camera.
@@ -127,6 +106,33 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
             {
                 new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _mySceneView = new SceneView();
+            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            // Add the views.
+            View.AddSubviews(_mySceneView);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
         }
     }
 }

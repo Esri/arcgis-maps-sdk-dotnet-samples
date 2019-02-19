@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	  <Content Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
 	  <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
 	  <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
     <Content Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
@@ -310,6 +311,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.xaml.cs">
+      <DependentUpon>ViewPointCloudDataOffline.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.xaml.cs">
       <DependentUpon>AddAnIntegratedMeshLayer.xaml</DependentUpon>
     </Compile>
@@ -767,6 +771,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

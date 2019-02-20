@@ -136,6 +136,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:minWidth="80dp"
+			android:text="0"
             app:layout_constraintBottom_toTopOf="@+id/maxScaleTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/minScaleLevelTextView" />
@@ -159,6 +160,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:minWidth="80dp"
+			android:text="23"
             app:layout_constraintBottom_toBottomOf="@+id/maxScaleTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/minScaleSeekBar"
@@ -192,6 +194,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:minWidth="80dp"
+			android:text="0"
             app:layout_constraintBottom_toBottomOf="@+id/extentBufferDistanceTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/extentBufferDistanceTextView" />
@@ -216,6 +219,7 @@
             android:layout_marginLeft="8dp"
             android:minWidth="80dp"
             android:minEms="2"
+			android:text="500"
             app:layout_constraintBottom_toBottomOf="@+id/minHydrantFlowRateTextView"
             app:layout_constraintEnd_toEndOf="@+id/currExtentBufferDistanceTextView"
             app:layout_constraintStart_toStartOf="@+id/currExtentBufferDistanceTextView"

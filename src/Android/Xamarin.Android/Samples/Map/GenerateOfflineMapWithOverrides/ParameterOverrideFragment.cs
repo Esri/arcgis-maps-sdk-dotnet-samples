@@ -15,11 +15,12 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMapWithOverrides
 {
     public class ParameterOverrideFragment : DialogFragment
     {
-
+        // Hold references to the overrides, map, and area of interest.
         private GenerateOfflineMapParameterOverrides _overrides;
         private Map _map;
         private Envelope _areaOfInterest = new Envelope(-88.1541, 41.7690, -88.1471, 41.7720, SpatialReferences.Wgs84);
 
+        // Hold references to the UI controls.
         private SeekBar _minScaleBar;
         private SeekBar _maxScaleBar;
         private SeekBar _extentBufferBar;
@@ -86,13 +87,19 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMapWithOverrides
 
         private void CropWaterPipes(GenerateOfflineMapParameterOverrides overrides)
         {
-            // For each layer option.
-            foreach (GenerateLayerOption layerOption in GetAllLayerOptions(overrides))
+            if (_cropLayerCheckBox.Checked)
             {
-                // If the option's LayerId matches the selected layer's ID.
-                if (layerOption.LayerId == GetServiceLayerId(GetLayerByName("Main")))
+                // Get the ID of the water pipes layer.
+                long targetLayerId = GetServiceLayerId(GetLayerByName("Main"));
+
+                // For each layer option.
+                foreach (GenerateLayerOption layerOption in GetAllLayerOptions(overrides))
                 {
-                    layerOption.UseGeometry = true;
+                    // If the option's LayerId matches the selected layer's ID.
+                    if (layerOption.LayerId == targetLayerId)
+                    {
+                        layerOption.UseGeometry = true;
+                    }
                 }
             }
         }
@@ -171,9 +178,11 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMapWithOverrides
 
         public override Dialog OnCreateDialog(Bundle savedInstanceState)
         {
+            // Load the layout from the XML file.
             LayoutInflater inflater = (LayoutInflater)Activity.GetSystemService(Context.LayoutInflaterService);
             View layout = inflater.Inflate(ArcGISRuntime.Resource.Layout.OverrideParametersDialog, null);
 
+            // Update the references to the UI controls.
             _minScaleBar = layout.FindViewById<SeekBar>(Resource.Id.minScaleSeekBar);
             _maxScaleBar = layout.FindViewById<SeekBar>(Resource.Id.maxScaleSeekBar);
             _extentBufferBar = layout.FindViewById<SeekBar>(Resource.Id.extentBufferDistanceSeekBar);
@@ -193,11 +202,9 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMapWithOverrides
             _sysValveCheckbox = layout.FindViewById<CheckBox>(Resource.Id.systemValvesCheckBox);
             _cropLayerCheckBox = layout.FindViewById<CheckBox>(Resource.Id.waterPipesCheckBox);
 
+            // Show the dialog.
             var builder = new AlertDialog.Builder(Activity).SetView(layout).SetTitle("Override parameters");
-
             builder.SetPositiveButton("Take map offline", TakeMapOffline_Clicked);
-            builder.SetNegativeButton("Cancel", (IDialogInterfaceOnClickListener)null);
-
             return builder.Create();
         }
 

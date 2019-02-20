@@ -9,9 +9,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -41,6 +43,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         private UIActivityIndicatorView _loadingIndicator;
         private UIBarButtonItem _takeMapOfflineButton;
         private UILabel _statusLabel;
+        private ConfigureOverridesViewController _overridesVC;
 
         // The job to generate an offline map.
         private GenerateOfflineMapJob _generateOfflineMapJob;
@@ -108,8 +111,46 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             }
         }
 
+        private void ShowConfigurationWindow(GenerateOfflineMapParameterOverrides overrides)
+        {
+            if (_overridesVC == null)
+            {
+                _overridesVC = new ConfigureOverridesViewController(overrides, _myMapView.Map);
+            }
+            // Show the layer list popover. Note: most behavior is managed by the table view & its source. See MapViewModel.
+            var controller = new UINavigationController(_overridesVC);
+            controller.Title = "Override parameters";
+            // Show a close button in the top right.
+            var closeButton = new UIBarButtonItem("Close", UIBarButtonItemStyle.Plain, (o, ea) => controller.DismissViewController(true, null));
+            controller.NavigationBar.Items[0].SetRightBarButtonItem(closeButton, false);
+            // Show the table view in a popover.
+            controller.ModalPresentationStyle = UIModalPresentationStyle.Popover;
+            controller.PreferredContentSize = new CGSize(300, 250);
+            UIPopoverPresentationController pc = controller.PopoverPresentationController;
+            if (pc != null)
+            {
+                pc.BarButtonItem = (UIBarButtonItem) _takeMapOfflineButton;
+                pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+                pc.Delegate = new ppDelegate();
+            }
+
+            PresentViewController(controller, true, null);
+        }
+
         private async void TakeMapOfflineButton_Click(object sender, EventArgs e)
         {
+            // Make sure the user is logged in.
+            /*
+            bool loggedIn = await EnsureLoggedInAsync();
+            if (!loggedIn)
+            {
+                return;
+            }
+            */
+
+            // Disable the button to prevent errors.
+            _takeMapOfflineButton.Enabled = false;
+
             // Show the loading indicator.
             _loadingIndicator.StartAnimating();
 
@@ -125,9 +166,10 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
                     // Delete the folder.
                     Directory.Delete(dir, true);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     // Ignore exceptions (files might be locked, for example).
+                    Debug.WriteLine(ex);
                 }
             }
 
@@ -157,14 +199,14 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
                 // Generate parameter overrides for more in-depth control of the job.
                 GenerateOfflineMapParameterOverrides overrides = await takeMapOfflineTask.CreateGenerateOfflineMapParameterOverridesAsync(parameters);
 
-                // Create the form for configuring the overrides.
-                ConfigureOverridesViewController configurationView = new ConfigureOverridesViewController(overrides, _myMapView.Map);
+                // Show the configuration window.
+                ShowConfigurationWindow(overrides);
 
                 // Finish work once the user has configured the override.
-                configurationView.FinishedConfiguring += async () =>
+                _overridesVC.FinishedConfiguring += async () =>
                 {
                     // Hide the configuration UI.
-                    configurationView.DismissModalViewController(true);
+                    _overridesVC.DismissViewController(true, null);
 
                     // Create the job with the parameters and output location.
                     _generateOfflineMapJob = takeMapOfflineTask.GenerateOfflineMap(parameters, packagePath, overrides);
@@ -191,7 +233,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
                         System.Text.StringBuilder errorBuilder = new System.Text.StringBuilder();
                         foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
                         {
-                            errorBuilder.AppendLine(string.Format("{0} : {1}", layerError.Key.Id, layerError.Value.Message));
+                            errorBuilder.AppendLine($"{layerError.Key.Id} : {layerError.Value.Message}");
                         }
 
                         // Show layer errors.
@@ -213,9 +255,6 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
                     _statusLabel.Text = "Map is offline";
                     _takeMapOfflineButton.Enabled = false;
                 };
-
-                // Show the configuration form.
-                NavigationController.PresentModalViewController(configurationView, true);
             }
             catch (TaskCanceledException)
             {
@@ -273,8 +312,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _takeMapOfflineButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+                _takeMapOfflineButton
             };
 
             _statusLabel = new UILabel
@@ -326,10 +364,10 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
 
         // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
-        private const string AppClientId = @"lgAdHkYZYlwwfAhC";
+        private const string AppClientId = @"2Gh53JRzkPtOENQq";
 
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
-        private const string OAuthRedirectUrl = @"my-ags-app://auth";
+        private const string OAuthRedirectUrl = @"https://developers.arcgis.com";
 
         private void SetOAuthInfo()
         {
@@ -469,21 +507,74 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 
         #endregion
 
+        /*
+        private async Task<bool> EnsureLoggedInAsync()
+        {
+            bool loggedIn = false;
+
+            try
+            {
+                // Create a challenge request for portal credentials (OAuth credential request for arcgis.com).
+                CredentialRequestInfo challengeRequest = new CredentialRequestInfo
+                {
+                    // Use the OAuth implicit grant flow.
+                    GenerateTokenOptions = new GenerateTokenOptions
+                    {
+                        TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                    },
+
+                    // Indicate the URL (portal) to authenticate with (ArcGIS Online).
+                    ServiceUri = new Uri(ServerUrl)
+                };
+
+                // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler.
+                Credential cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
+                loggedIn = cred != null;
+            }
+            catch (OperationCanceledException)
+            {
+                // Login was canceled.
+                // .. ignore, user can still search public maps without logging in.
+            }
+            catch (Exception ex)
+            {
+                // Login failure.
+                UIAlertView alert = new UIAlertView("Login Error", ex.Message, (IUIAlertViewDelegate) null, "OK", null);
+                alert.Show();
+            }
+
+            return loggedIn;
+        }
+        */
+
         #endregion
+
+        // Force popover to display on iPhone.
+        private class ppDelegate : UIPopoverPresentationControllerDelegate
+        {
+            public override UIModalPresentationStyle GetAdaptivePresentationStyle(
+                UIPresentationController forPresentationController) => UIModalPresentationStyle.None;
+
+            public override UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController controller,
+                UITraitCollection traitCollection) => UIModalPresentationStyle.None;
+        }
     }
 
     public class ConfigureOverridesViewController : UIViewController
     {
+        // Hold references to the overrides and the map.
         private GenerateOfflineMapParameterOverrides _overrides;
         private Map _map;
         private readonly Envelope _areaOfInterest = new Envelope(-88.1541, 41.7690, -88.1471, 41.7720, SpatialReferences.Wgs84);
 
+        // Hold state from UI selections.
         private int _minScale;
         private int _maxScale;
         private int _bufferExtent;
         private int _flowRate;
         private bool _includeServiceConn;
         private bool _includeSystemValues;
+        private bool _cropWaterPipes;
 
         public ConfigureOverridesViewController(GenerateOfflineMapParameterOverrides overrides, Map map)
         {
@@ -539,13 +630,19 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 
         private void CropWaterPipes()
         {
-            // For each layer option.
-            foreach (GenerateLayerOption layerOption in GetAllLayerOptions())
+            if (_cropWaterPipes)
             {
-                // If the option's LayerId matches the selected layer's ID.
-                if (layerOption.LayerId == GetServiceLayerId(GetLayerByName("Main")))
+                // Get the ID of the water pipes layer.
+                long targetLayerId = GetServiceLayerId(GetLayerByName("Main"));
+
+                // For each layer option.
+                foreach (GenerateLayerOption layerOption in GetAllLayerOptions())
                 {
-                    layerOption.UseGeometry = true;
+                    // If the option's LayerId matches the selected layer's ID.
+                    if (layerOption.LayerId == targetLayerId)
+                    {
+                        layerOption.UseGeometry = true;
+                    }
                 }
             }
         }
@@ -622,9 +719,21 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 
         #endregion overrides
 
+        public override void ViewWillDisappear(bool animated)
+        {
+            // This is called when the popover closes for any reason.
+            ConfigureOverrides();
+            FinishedConfiguring?.Invoke();
+            base.ViewWillDisappear(animated);
+        }
+
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
+
+            UIScrollView outerScroller = new UIScrollView();
+            outerScroller.TranslatesAutoresizingMaskIntoConstraints = false;
 
             UIStackView outerStackView = new UIStackView();
             outerStackView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -656,10 +765,12 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 
             innerStackView.AddArrangedSubview(getLabel("Filter feature layer"));
 
-            innerStackView.AddArrangedSubview(getSliderRow("Min. flow: ", 0, 1000, 500, " GPM", (sender, args) => { _flowRate = (int) ((UISlider) sender).Value; }));
+            innerStackView.AddArrangedSubview(getSliderRow("Min. flow: ", 0, 1000, 500, "", (sender, args) => { _flowRate = (int) ((UISlider) sender).Value; }));
 
-            View.AddSubview(outerStackView);
+            innerStackView.AddArrangedSubview(getLabel("Crop layer to extent"));
 
+            innerStackView.AddArrangedSubview(getCheckRow("Water pipes: ", (sender,args)=> _cropWaterPipes = !_cropWaterPipes));
+            
             UIButton takeOfflineButton = new UIButton();
             takeOfflineButton.TranslatesAutoresizingMaskIntoConstraints = false;
             takeOfflineButton.SetTitle("Take map offline", UIControlState.Normal);
@@ -668,16 +779,25 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 
             takeOfflineButton.TouchUpInside += (o, e) =>
             {
-                ConfigureOverrides();
-                FinishedConfiguring?.Invoke();
+                DismissViewController(true, null);
             };
 
+            // Add the views.
+            View.AddSubview(outerScroller);
+            outerScroller.AddSubview(outerStackView);
+
+            // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
-                outerStackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                outerStackView.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
-                outerStackView.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
-                outerStackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
+                outerScroller.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                outerScroller.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
+                outerScroller.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
+                outerScroller.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                outerStackView.LeadingAnchor.ConstraintEqualTo(outerScroller.LeadingAnchor),
+                outerStackView.TrailingAnchor.ConstraintEqualTo(outerScroller.TrailingAnchor),
+                outerStackView.TopAnchor.ConstraintEqualTo(outerScroller.TopAnchor),
+                outerStackView.BottomAnchor.ConstraintEqualTo(outerScroller.BottomAnchor),
+                outerStackView.WidthAnchor.ConstraintEqualTo(outerScroller.WidthAnchor)
             });
         }
 
@@ -703,20 +823,21 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             UILabel descriptionLabel = new UILabel();
             descriptionLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             descriptionLabel.Text = label;
-            descriptionLabel.WidthAnchor.ConstraintGreaterThanOrEqualTo(160).Active = true;
-            descriptionLabel.SetContentCompressionResistancePriority((float) UILayoutPriority.DefaultHigh, UILayoutConstraintAxis.Horizontal);
+            descriptionLabel.WidthAnchor.ConstraintGreaterThanOrEqualTo(140).Active = true;
+            descriptionLabel.SetContentCompressionResistancePriority((float) UILayoutPriority.Required, UILayoutConstraintAxis.Horizontal);
             rowView.AddArrangedSubview(descriptionLabel);
 
             UILabel valueLabel = new UILabel();
             valueLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             valueLabel.Text = $"{startingValue}{units}";
-            valueLabel.WidthAnchor.ConstraintEqualTo(80).Active = true;
+            valueLabel.WidthAnchor.ConstraintEqualTo(60).Active = true;
 
             UISlider sliderView = new UISlider();
             sliderView.TranslatesAutoresizingMaskIntoConstraints = false;
             sliderView.MinValue = min;
             sliderView.MaxValue = max;
-            sliderView.WidthAnchor.ConstraintGreaterThanOrEqualTo(150).Active = true;
+            sliderView.Value = startingValue;
+            sliderView.WidthAnchor.ConstraintGreaterThanOrEqualTo(100).Active = true;
             sliderView.SetContentCompressionResistancePriority((float) UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
             sliderView.ValueChanged += sliderChangeAction;
             sliderView.ValueChanged += (sender, args) => { valueLabel.Text = $"{(int) sliderView.Value}{units}"; };
@@ -735,6 +856,8 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             rowView.Alignment = UIStackViewAlignment.Center;
             rowView.Distribution = UIStackViewDistribution.Fill;
             rowView.Spacing = 5;
+            rowView.LayoutMarginsRelativeArrangement = true;
+            rowView.LayoutMargins = new UIEdgeInsets(0,0,0,5);
 
             UILabel descriptionLabel = new UILabel();
             descriptionLabel.TranslatesAutoresizingMaskIntoConstraints = false;

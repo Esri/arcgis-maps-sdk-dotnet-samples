@@ -311,6 +311,7 @@
 	  <Compile Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.cs" />
 	  <Compile Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.cs" />
 	  <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.cs" />
+    <Compile Include="Samples\Map\GenerateOfflineMapWithOverrides\ParameterOverrideFragment.cs" />
     <Compile Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.cs" />
     <Compile Include="Samples\Data\UpdateGeometries\UpdateGeometries.cs" />
     <Compile Include="Samples\Data\AddFeatures\AddFeatures.cs" />

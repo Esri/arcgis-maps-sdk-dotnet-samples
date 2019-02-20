@@ -45,8 +45,8 @@ namespace Forms.Samples.Map.GenerateOfflineMapWithOverrides
             basemapParams.LevelIds.Clear();
 
             // Get the min and max scale from the UI.
-            int minScale = int.Parse(MinScaleEntry.Text);
-            int maxScale = int.Parse(MaxScaleEntry.Text);
+            int minScale = (int)MinScaleEntry.Value;
+            int maxScale = (int) MaxScaleEntry.Value;
 
             // Re-add selected scales.
             for (int i = minScale; i < maxScale; i++)
@@ -55,7 +55,7 @@ namespace Forms.Samples.Map.GenerateOfflineMapWithOverrides
             }
 
             // Expand the area of interest based on the specified buffer distance.
-            int bufferDistance = int.Parse(ExtentBufferEntry.Text);
+            int bufferDistance = (int)ExtentBufferEntry.Value;
             basemapParams.AreaOfInterest = GeometryEngine.BufferGeodetic(_areaOfInterest, bufferDistance, LinearUnits.Meters);
         }
 
@@ -75,13 +75,19 @@ namespace Forms.Samples.Map.GenerateOfflineMapWithOverrides
 
         private void CropWaterPipes(GenerateOfflineMapParameterOverrides overrides)
         {
-            // For each layer option.
-            foreach (GenerateLayerOption layerOption in GetAllLayerOptions(overrides))
+            if (CropLayerCheckbox.IsToggled)
             {
-                // If the option's LayerId matches the selected layer's ID.
-                if (layerOption.LayerId == GetServiceLayerId(GetLayerByName("Main")))
+                // Get the ID of the water pipes layer.
+                long targetLayerId = GetServiceLayerId(GetLayerByName("Main"));
+
+                // For each layer option.
+                foreach (GenerateLayerOption layerOption in GetAllLayerOptions(overrides))
                 {
-                    layerOption.UseGeometry = true;
+                    // If the option's LayerId matches the selected layer's ID.
+                    if (layerOption.LayerId == targetLayerId)
+                    {
+                        layerOption.UseGeometry = true;
+                    }
                 }
             }
         }
@@ -95,7 +101,7 @@ namespace Forms.Samples.Map.GenerateOfflineMapWithOverrides
                 if (option.LayerId == GetServiceLayerId(GetLayerByName("Hydrant")))
                 {
                     // Apply the where clause.
-                    option.WhereClause = "FLOW >= " + FlowRateFilterEntry.Text;
+                    option.WhereClause = "FLOW >= " + (int)FlowRateFilterEntry.Value;
                     // Configure the option to use the where clause.
                     option.QueryOption = GenerateLayerQueryOption.UseFilter;
                 }

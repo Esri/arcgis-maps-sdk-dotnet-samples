@@ -19,12 +19,18 @@
                     <Style TargetType="CheckBox">
                         <Setter Property="Margin" Value="0,0,0,5" />
                     </Style>
+                    <Style TargetType="Slider">
+                        <Setter Property="Margin" Value="0,0,5,0" />
+                    </Style>
                 </Grid.Resources>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -43,19 +49,26 @@
                            Grid.Row="0" Grid.Column="0" />
                 <TextBlock Text="Min scale:"
                            Grid.Row="1" Grid.Column="0" />
-                <TextBox x:Name="MinScaleEntry"
-                         Text="0"
+                <Slider x:Name="MinScaleEntry"
+                         Value="0"
+                         Minimum="0" Maximum="23"
                          Grid.Row="1" Grid.Column="1" />
+                <TextBlock Text="{Binding ElementName=MinScaleEntry,Path=Value,StringFormat=n0}"
+                           Grid.Row="1" Grid.Column="2" />
                 <TextBlock Text="Max scale:"
                            Grid.Row="2" Grid.Column="0" />
-                <TextBox x:Name="MaxScaleEntry"
-                         Text="23"
+                <Slider x:Name="MaxScaleEntry"
+                         Value="23" Minimum="0" Maximum="23"
                          Grid.Row="2" Grid.Column="1" />
+                <TextBlock Text="{Binding ElementName=MaxScaleEntry,Path=Value,StringFormat=n0}"
+                           Grid.Row="2" Grid.Column="2" />
                 <TextBlock Text="Extent buffer distance (m):"
                            Grid.Row="3" Grid.Column="0" />
-                <TextBox x:Name="ExtentBufferEntry"
-                         Text="0"
+                <Slider x:Name="ExtentBufferEntry"
+                         Value="250" Minimum="0" Maximum="500"
                          Grid.Row="3" Grid.Column="1" />
+                <TextBlock Text="{Binding ElementName=ExtentBufferEntry,Path=Value,StringFormat=n0}"
+                           Grid.Row="3" Grid.Column="2" />
                 <TextBlock Text="Choose layers"
                            FontWeight="SemiBold"
                            Grid.Row="4" Grid.Column="0" />
@@ -73,11 +86,21 @@
                 <TextBlock Text="Min Hydrant Flow Rate (GPM):"
                            Margin="0,0,5,5"
                            Grid.Row="8" Grid.Column="0" />
-                <TextBox x:Name="FlowRateFilterEntry"
-                         Text="500"
+                <Slider x:Name="FlowRateFilterEntry"
+                         Value="500" Minimum="0" Maximum="999"
                          Grid.Row="8" Grid.Column="1" />
+                <TextBlock Text="{Binding ElementName=FlowRateFilterEntry,Path=Value,StringFormat=n0}"
+                           Grid.Row="8" Grid.Column="2"
+                           MinWidth="25"/>
+                <TextBlock Text="Crop layer to extent"
+                           FontWeight="SemiBold"
+                           Margin="0,0,0,5"
+                           Grid.Row="9" Grid.Column="0" />
+                <CheckBox x:Name="CropLayerCheckbox"
+                          Content="Water pipes"
+                          Grid.Row="10" Grid.Column="0" />
                 <Button Content="Take map offline"
-                        Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"
+                        Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3"
                         IsEnabled="True"
                         Click="TakeMapOfflineButton_Click" />
             </Grid>

@@ -58,7 +58,7 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileScenePackage
                 else
                 {
                     // Create a path for the unpacked package.
-                    string unpackedPath = Path.Combine(scenePath, "unpacked");
+                    string unpackedPath = scenePath + "unpacked";
 
                     // Unpack the package.
                     await MobileScenePackage.UnpackAsync(scenePath, unpackedPath);

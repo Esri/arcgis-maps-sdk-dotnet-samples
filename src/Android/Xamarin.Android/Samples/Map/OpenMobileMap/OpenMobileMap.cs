@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.IO;
 using Android.App;
 using Android.OS;
 using Android.Widget;
@@ -35,26 +36,42 @@ namespace ArcGISRuntime.Samples.OpenMobileMap
 
             Title = "Open mobile map (map package)";
 
-            // Create the UI, setup the control references and execute initialization
             CreateLayout();
             Initialize();
         }
 
         private async void Initialize()
         {
-            // Get the path to the mobile map package
+            // Get the path to the mobile map package.
             string filepath = GetMmpkPath();
 
             try
             {
-                // Open the map package
-                MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(filepath);
-
-                // Check that there is at least one map
-                if (myMapPackage.Maps.Count > 0)
+                // Load directly or unpack then load as needed by the map package.
+                if (await MobileMapPackage.IsDirectReadSupportedAsync(filepath))
                 {
-                    // Display the first map in the package
+                    // Open the map package.
+                    MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(filepath);
+
+                    // Display the first map in the package.
                     _myMapView.Map = myMapPackage.Maps.First();
+                }
+                else
+                {
+                    // Create a path for the unpacked package.
+                    string unpackedPath = filepath + "unpacked";
+
+                    // Unpack the package.
+                    await MobileMapPackage.UnpackAsync(filepath, unpackedPath);
+
+                    // Open the package.
+                    MobileMapPackage package = await MobileMapPackage.OpenAsync(unpackedPath);
+
+                    // Load the package.
+                    await package.LoadAsync();
+
+                    // Show the first map.
+                    _myMapView.Map = package.Maps.First();
                 }
             }
             catch (Exception e)
@@ -64,9 +81,9 @@ namespace ArcGISRuntime.Samples.OpenMobileMap
         }
 
         /// <summary>
-        /// This abstracts away platform & sample viewer-specific code for accessing local files
+        /// This abstracts away platform & sample viewer-specific code for accessing local files.
         /// </summary>
-        /// <returns>String that is the path to the file on disk</returns>
+        /// <returns>String that is the path to the file on disk.</returns>
         private string GetMmpkPath()
         {
             return DataManager.GetDataFolder("e1f3a7254cb845b09450f54937c16061", "Yellowstone.mmpk");
@@ -74,14 +91,14 @@ namespace ArcGISRuntime.Samples.OpenMobileMap
 
         private void CreateLayout()
         {
-            // Create a new vertical layout for the app
+            // Create a new vertical layout for the app.
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
-            // Add a map view to the layout
+            // Add a map view to the layout.
             _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
-            // Show the layout in the app
+            // Show the layout in the app.
             SetContentView(layout);
         }
     }

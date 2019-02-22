@@ -27,8 +27,6 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
         "")]
     public partial class BrowseWfsLayers
     {
-        private WfsServiceInfo info; // TODO - get rid of this - workaround for .NET bug
-
         // URL to the WFS service.
         private const string ServiceUrl = "https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer?service=wfs&request=getcapabilities";
 
@@ -55,8 +53,6 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
             // Update the UI.
             LoadingProgressBar.Visibility = Visibility.Collapsed;
             LoadLayersButton.IsEnabled = true;
-
-            info = service.ServiceInfo; //TODO - get rid of this - workaround for .NET memory bug
         }
 
         private async void LoadLayers_Clicked(object sender, RoutedEventArgs e)

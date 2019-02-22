@@ -14,7 +14,6 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Diagnostics;
 using System.Windows;
-using Esri.ArcGISRuntime.Ogc;
 using Color = System.Drawing.Color;
 
 namespace ArcGISRuntime.WPF.Samples.DisplayWfs
@@ -51,9 +50,6 @@ namespace ArcGISRuntime.WPF.Samples.DisplayWfs
 
                 // Set the feature request mode to manual - only manual is supported at v100.5.
                 _featureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
-
-                // Set the axis order.
-                _featureTable.AxisOrder = OgcAxisOrder.NoSwap;
 
                 // Load the table.
                 await _featureTable.LoadAsync();

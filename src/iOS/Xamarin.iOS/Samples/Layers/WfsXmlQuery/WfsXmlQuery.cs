@@ -9,7 +9,6 @@
 
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
@@ -64,8 +63,7 @@ namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
                 // Create the WFS feature table from URL and name.
                 WfsFeatureTable wfsTable = new WfsFeatureTable(new Uri(TableUrl), LayerName);
 
-                // Set the feature request mode and axis order.
-                wfsTable.AxisOrder = OgcAxisOrder.NoSwap;
+                // Set the feature request mode.
                 wfsTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
 
                 // Load the table.

@@ -10,7 +10,6 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Diagnostics;
@@ -50,9 +49,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
 
                 // Set the feature request mode to manual - only manual is supported at v100.5.
                 _featureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
-
-                // Set the axis order.
-                _featureTable.AxisOrder = OgcAxisOrder.NoSwap;
 
                 // Load the table.
                 await _featureTable.LoadAsync();

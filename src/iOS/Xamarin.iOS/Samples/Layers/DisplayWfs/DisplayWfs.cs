@@ -79,7 +79,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
             }
             catch (Exception e)
             {
-                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "Couldn't load sample.", null).Show();
+                new UIAlertView("Couldn't load sample.", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
                 Debug.WriteLine(e);
             }
         }
@@ -104,7 +104,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
             }
             catch (Exception exception)
             {
-                new UIAlertView("Error", exception.ToString(), (IUIAlertViewDelegate) null, "Couldn't populate table.", null).Show();
+                new UIAlertView("Couldn't populate table", exception.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
                 Debug.WriteLine(exception);
             }
             finally

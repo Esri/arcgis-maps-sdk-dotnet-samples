@@ -47,18 +47,6 @@
   </PropertyGroup>
   <!-- References -->
   <ItemGroup>
-    <Reference Include="Esri.ArcGISRuntime, Version=100.5.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.WPF.100.5.0\lib\net461\Esri.ArcGISRuntime.dll</HintPath>
-    </Reference>
-    <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.5.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.5.0\lib\net461\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
-    </Reference>
-    <Reference Include="Esri.ArcGISRuntime.LocalServices, Version=100.5.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.5.0\lib\net461\Esri.ArcGISRuntime.LocalServices.dll</HintPath>
-    </Reference>
-    <Reference Include="MarkedNet, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\MarkedNet.2.1.2\lib\net451\MarkedNet.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -81,9 +69,6 @@
   <!-- Resources -->
   <ItemGroup>
     <None Include="ArcGISLocalServer_100.5.AGSDeployment" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Readme.md" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-128.png" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-16.png" />
@@ -1789,21 +1774,23 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
+      <Version>100.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Esri.ArcGISRuntime.LocalServices">
+      <Version>100.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Esri.ArcGISRuntime.WPF">
+      <Version>100.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="MarkedNet">
+      <Version>2.1.2</Version>
+    </PackageReference>
+  </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="SourceViewer.targets" />
   <Import Project="readme.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.5.0\build\net461\Esri.ArcGISRuntime.WPF.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.WPF.100.5.0\build\net461\Esri.ArcGISRuntime.WPF.targets'))" />
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.5.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.5.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets'))" />
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.5.0\build\net461\Esri.ArcGISRuntime.LocalServices.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.5.0\build\net461\Esri.ArcGISRuntime.LocalServices.targets'))" />
-  </Target>
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.5.0\build\net461\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.5.0\build\net461\Esri.ArcGISRuntime.WPF.targets')" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.5.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.5.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.5.0\build\net461\Esri.ArcGISRuntime.LocalServices.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.5.0\build\net461\Esri.ArcGISRuntime.LocalServices.targets')" />
 </Project>

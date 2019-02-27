@@ -33,6 +33,7 @@ namespace ArcGISRuntime.WPF.Samples.MobileMapSearchAndRoute
         "Display maps and use locators to enable search and routing offline using a Mobile Map Package.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("260eb6535c824209964cf281766ebe43")]
+    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("Converters\\ItemToImageSourceConverter.cs", "Converters\\NullToVisibilityConverter.cs")]
     public partial class MobileMapSearchAndRoute
     {
         // Hold references to map resources for easy access.

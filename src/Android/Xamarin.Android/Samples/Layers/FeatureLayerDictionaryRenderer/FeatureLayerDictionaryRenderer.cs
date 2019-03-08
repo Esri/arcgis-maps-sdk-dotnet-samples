@@ -20,7 +20,7 @@ using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e34835bf5ec5430da7cf16bb8c0b075c","e0d41b4b409a49a5a7ba11939d8535dc")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer dictionary renderer",

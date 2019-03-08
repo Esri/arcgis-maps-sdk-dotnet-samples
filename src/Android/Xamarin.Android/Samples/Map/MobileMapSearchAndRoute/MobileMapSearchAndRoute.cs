@@ -29,7 +29,7 @@ using System.Threading.Tasks;
 
 namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Mobile map (search and route)",
         "Map",

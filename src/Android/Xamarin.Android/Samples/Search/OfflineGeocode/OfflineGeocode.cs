@@ -28,7 +28,7 @@ using System.Threading.Tasks;
 
 namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Offline geocode",
         "Search",

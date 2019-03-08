@@ -22,7 +22,7 @@ using System.Drawing;
 
 namespace ArcGISRuntime.Samples.MapImageSublayerQuery
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Query a map image sublayer",
         "Layers",

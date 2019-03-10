@@ -114,7 +114,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
+	  <None Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
+	  <None Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
 	  <None Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
 	  <None Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
 	  <None Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
@@ -265,7 +266,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.cs" />
+  	<Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.cs" />
+	  <Compile Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.cs" />
 	  <Compile Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.cs" />
 	  <Compile Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.cs" />
 	  <Compile Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.cs" />

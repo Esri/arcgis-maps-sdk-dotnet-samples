@@ -82,7 +82,7 @@ namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
                 _myMapView.Map.OperationalLayers.Add(statesLayer);
 
                 // Populate the feature table with the XML query.
-                await wfsTable.PopulateFromServiceWithXmlAsync(XmlQuery, true);
+                await wfsTable.PopulateFromServiceAsync(XmlQuery, true);
 
                 // Zoom to the extent of the query results.
                 await _myMapView.SetViewpointGeometryAsync(wfsTable.Extent, 50);

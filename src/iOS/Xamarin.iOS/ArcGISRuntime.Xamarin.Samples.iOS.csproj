@@ -22,7 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>i386, x86_64</MtouchArch>
+    <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>True</MtouchDebug>
     <MtouchSdkVersion>11.4</MtouchSdkVersion>
@@ -41,7 +41,7 @@
     <OutputPath>..\..\..\output\iOS\iPhoneSimulator\release\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <MtouchArch>i386, x86_64</MtouchArch>
+    <MtouchArch>x86_64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
     <LangVersion>6</LangVersion>
@@ -55,7 +55,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARM64</MtouchArch>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchProfiling>True</MtouchProfiling>
     <CodesignKey>iPhone Developer</CodesignKey>
@@ -80,7 +80,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchLink>Full</MtouchLink>
@@ -101,7 +101,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARM64</MtouchArch>
     <IpaIncludeArtwork>true</IpaIncludeArtwork>
     <CodesignKey>iPhone Distribution</CodesignKey>
     <CodesignProvision>Automatic:AdHoc</CodesignProvision>
@@ -115,19 +115,19 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARM64</MtouchArch>
     <CodesignProvision>Automatic:AppStore</CodesignProvision>
     <CodesignKey>iPhone Distribution</CodesignKey>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhoneSimulator'">
     <OutputPath>..\..\..\output\iOS\iPhoneSimulator\Ad-Hoc\</OutputPath>
-    <MtouchArch>i386, x86_64</MtouchArch>
+    <MtouchArch>x86_64</MtouchArch>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AppStore|iPhoneSimulator'">
     <OutputPath>..\..\..\output\iOS\iPhoneSimulator\AppStore\</OutputPath>
-    <MtouchArch>i386, x86_64</MtouchArch>
+    <MtouchArch>x86_64</MtouchArch>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
@@ -135,11 +135,11 @@
   </PropertyGroup>
   <!-- References -->
   <ItemGroup>
-    <Reference Include="Esri.ArcGISRuntime, Version=100.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.4.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.dll</HintPath>
+    <Reference Include="Esri.ArcGISRuntime, Version=100.5.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.5.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.dll</HintPath>
     </Reference>
-    <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
+    <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.5.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.5.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
     </Reference>
     <Reference Include="MarkedNet, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\MarkedNet.2.1.2\lib\netstandard2.0\MarkedNet.dll</HintPath>
@@ -236,6 +236,8 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
+    <None Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
+    <None Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
     <None Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
     <None Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
     <None Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
@@ -245,8 +247,6 @@
 	  <None Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg" />
 	  <None Include="Samples\Geometry\Project\Project.jpg" />
 	  <None Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg" />
-	  <None Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
-	  <None Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
     <None Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
     <None Include="Samples\Data\AddFeatures\AddFeatures.jpg" />
     <None Include="Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
@@ -385,6 +385,8 @@
   <ItemGroup>
     <!-- Sample Code -->
     <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.cs" />
+    <Compile Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.cs" />
+    <Compile Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.cs" />
     <Compile Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.cs" />
     <Compile Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.cs" />
     <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.cs" />
@@ -394,8 +396,6 @@
 	  <Compile Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.cs" />
 	  <Compile Include="Samples\Geometry\Project\Project.cs" />
 	  <Compile Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.cs" />
-	  <Compile Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.cs" />
-	  <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.cs" />
     <Compile Include="Samples\Data\UpdateGeometries\UpdateGeometries.cs" />
     <Compile Include="Samples\Data\AddFeatures\AddFeatures.cs" />
     <Compile Include="Samples\Data\DeleteFeatures\DeleteFeatures.cs" />
@@ -575,13 +575,13 @@
   </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.4.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.4.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.5.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.5.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.4.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.4.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets'))" />
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.5.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.5.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.5.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.5.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets'))" />
   </Target>
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.5.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.5.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets')" />
 </Project>

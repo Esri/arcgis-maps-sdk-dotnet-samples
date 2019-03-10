@@ -27,6 +27,8 @@ namespace ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth
            "This sample demonstrates how to use a Windows login to authenticate with a portal that is secured with IWA.",
            "1. Enter the URL to your IWA-secured portal.\n2. Click the button to search for web maps on the secure portal.\n3. If 'Force login' is unchecked, your current credentials will be used to view content on the portal.\n4. If your current account lacks permissions or 'Force login' is checked, you will be prompted for a user name, password, and domain.\n5. If you authenticate successfully, search results will display.",
            "Authentication, Security, Windows")]
+    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("LoginWindow.xaml.cs")]
+    [ArcGISRuntime.Samples.Shared.Attributes.XamlFiles("LoginWindow.xaml")]
     public partial class IntegratedWindowsAuth
     {
         // The ArcGIS Online URL for searching public web maps.

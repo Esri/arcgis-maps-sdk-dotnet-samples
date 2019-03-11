@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	  <None Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
 	  <None Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
 	  <None Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
 	  <None Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
@@ -268,6 +269,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+  	<Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.cs" />
 	  <Compile Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.cs" />
 	  <Compile Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.cs" />
 	  <Compile Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.cs" />

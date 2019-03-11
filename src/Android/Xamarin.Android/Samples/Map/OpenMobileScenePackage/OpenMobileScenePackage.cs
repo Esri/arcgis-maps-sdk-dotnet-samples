@@ -14,7 +14,6 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.IO;
 using System.Linq;
 using Debug = System.Diagnostics.Debug;
 

@@ -9,7 +9,6 @@
 
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;

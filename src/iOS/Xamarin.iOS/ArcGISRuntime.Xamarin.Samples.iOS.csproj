@@ -235,6 +235,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg" />
     <None Include="Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
 	  <None Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
 	  <None Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
@@ -386,6 +387,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.cs" />
     <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.cs" />
 	  <Compile Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.cs" />
 	  <Compile Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.cs" />

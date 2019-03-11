@@ -119,6 +119,7 @@
 	  <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
 	  <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
     <Content Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
+    <Content Include="Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
     <Content Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
     <Content Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
 	  <Content Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
@@ -316,6 +317,10 @@
     <!-- Sample Code -->
     <Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml.cs">
       <DependentUpon>OpenMobileScenePackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\DoubleToScaleStringConverter.cs" />
+    <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.xaml.cs">
+      <DependentUpon>MapReferenceScale.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.xaml.cs">
       <DependentUpon>CreateTerrainSurfaceFromRaster.xaml</DependentUpon>
@@ -784,6 +789,10 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\MapReferenceScale\MapReferenceScale.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

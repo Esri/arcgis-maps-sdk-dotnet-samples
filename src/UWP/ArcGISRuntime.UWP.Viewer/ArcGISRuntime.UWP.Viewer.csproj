@@ -113,6 +113,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	  <Content Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
+	  <Content Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
 	  <Content Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
 	  <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
 	  <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
@@ -315,6 +317,12 @@
     <Compile Include="Converters\DoubleToScaleStringConverter.cs" />
     <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.xaml.cs">
       <DependentUpon>MapReferenceScale.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.xaml.cs">
+      <DependentUpon>CreateTerrainSurfaceFromRaster.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.xaml.cs">
+      <DependentUpon>CreateTerrainSurfaceFromTilePackage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.xaml.cs">
       <DependentUpon>ViewPointCloudDataOffline.xaml</DependentUpon>
@@ -777,6 +785,14 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Map\MapReferenceScale\MapReferenceScale.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

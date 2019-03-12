@@ -118,6 +118,7 @@
 	  <Content Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
 	  <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
 	  <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
+    <Content Include="Samples\Layers\DisplayKmlTours\DisplayKmlTours.jpg" />
     <Content Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
     <Content Include="Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
     <Content Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
@@ -315,6 +316,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Layers\DisplayKmlTours\DisplayKmlTours.xaml.cs">
+      <DependentUpon>DisplayKmlTours.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml.cs">
       <DependentUpon>OpenMobileScenePackage.xaml</DependentUpon>
     </Compile>
@@ -788,6 +792,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Layers\DisplayKmlTours\DisplayKmlTours.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

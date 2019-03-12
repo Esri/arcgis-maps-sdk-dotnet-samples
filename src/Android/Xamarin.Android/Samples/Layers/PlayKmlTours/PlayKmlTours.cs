@@ -7,39 +7,54 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using Android.App;
+using Android.OS;
+using Android.Views;
+using Android.Widget;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
+using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using Xamarin.Forms;
+using Debug = System.Diagnostics.Debug;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayKmlTours
+namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
 {
+    [Activity]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display KML tours",
+        "Play a KML tour",
         "Layers",
-        "Display tours in KML files.",
+        "Play tours in KML files.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f10b1d37fdd645c9bc9b189fb546307c")]
-    public partial class DisplayKmlTours : ContentPage
+    public class PlayKmlTours : Activity
     {
+        // Hold references to the UI controls.
+        private SceneView _mySceneView;
+        private Button _playButton;
+        private Button _pauseButton;
+        private Button _resetButton;
+
         // The KML tour controller provides player controls for KML tours.
         private readonly KmlTourController _tourController = new KmlTourController();
 
-        public DisplayKmlTours()
+        protected override void OnCreate(Bundle bundle)
         {
-            InitializeComponent();
+            base.OnCreate(bundle);
+
+            Title = "Play a KML tour";
+
+            CreateLayout();
             Initialize();
         }
 
         private async void Initialize()
         {
             // Load the scene with a basemap and a terrain surface.
-            MySceneView.Scene = new Scene(Basemap.CreateImagery());
-            MySceneView.Scene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer")));
+            _mySceneView.Scene = new Scene(Basemap.CreateImagery());
+            _mySceneView.Scene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer")));
 
             // Get the URL to the data.
             string filePath = DataManager.GetDataFolder("f10b1d37fdd645c9bc9b189fb546307c", "Esri_tour.kmz");
@@ -50,7 +65,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlTours
             KmlLayer layer = new KmlLayer(dataset);
 
             // Add the layer to the map.
-            MySceneView.Scene.OperationalLayers.Add(layer);
+            _mySceneView.Scene.OperationalLayers.Add(layer);
 
             try
             {
@@ -67,15 +82,12 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlTours
                 }
 
                 // Enable the play button.
-                PlayButton.IsEnabled = true;
-
-                // Hide the status bar.
-                LoadingStatusBar.IsVisible = false;
+                _playButton.Enabled = true;
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.ToString());
-                await ((Page) Parent).DisplayAlert("Error", e.ToString(), "OK");
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
             }
         }
 
@@ -125,9 +137,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlTours
                 _tourController.Play();
 
                 // Configure the UI.
-                PauseButton.IsEnabled = true;
-                PlayButton.IsEnabled = false;
-                ResetButton.IsEnabled = true;
+                _pauseButton.Enabled = true;
+                _playButton.Enabled = false;
+                _resetButton.Enabled = true;
             }
         }
 
@@ -139,8 +151,8 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlTours
                 _tourController.Pause();
 
                 // Configure the UI.
-                PlayButton.IsEnabled = true;
-                PauseButton.IsEnabled = false;
+                _playButton.Enabled = true;
+                _pauseButton.Enabled = false;
             }
         }
 
@@ -152,10 +164,53 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlTours
                 _tourController.Reset();
 
                 // Configure the UI.
-                PlayButton.IsEnabled = true;
-                PauseButton.IsEnabled = false;
-                ResetButton.IsEnabled = false;
+                _playButton.Enabled = true;
+                _pauseButton.Enabled = false;
+                _resetButton.Enabled = false;
             }
+        }
+
+        private void CreateLayout()
+        {
+            // Create a new vertical layout for the app.
+            var layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
+
+            // Add a help label.
+            TextView helpLabel = new TextView(this);
+            helpLabel.Text = "Use the buttons to play the tour. Contains audio. 🎧";
+            layout.AddView(helpLabel);
+
+            // Add a row with buttons.
+            _playButton = new Button(this) {Text = "Play", Enabled = false};
+            _playButton.Click += Play_Clicked;
+            _pauseButton = new Button(this) {Text = "Pause", Enabled = false};
+            _pauseButton.Click += Pause_Clicked;
+            _resetButton = new Button(this) {Text = "Reset", Enabled = false};
+            _resetButton.Click += Reset_Clicked;
+
+            LinearLayout rowLayout = new LinearLayout(this) {Orientation = Orientation.Horizontal};
+
+            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MatchParent,
+                ViewGroup.LayoutParams.MatchParent,
+                1.0f
+            );
+            _playButton.LayoutParameters = param;
+            _pauseButton.LayoutParameters = param;
+            _resetButton.LayoutParameters = param;
+
+            rowLayout.AddView(_playButton);
+            rowLayout.AddView(_pauseButton);
+            rowLayout.AddView(_resetButton);
+
+            layout.AddView(rowLayout);
+
+            // Add the scene view to the layout.
+            _mySceneView = new SceneView();
+            layout.AddView(_mySceneView);
+
+            // Show the layout in the app.
+            SetContentView(layout);
         }
     }
 }

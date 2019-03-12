@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKmlTours\DisplayKmlTours.jpg" />
+	<None Include="$(MSBuildThisFileDirectory)Samples\Layers\PlayKmlTours\PlayKmlTours.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
@@ -165,8 +165,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKmlTours\DisplayKmlTours.xaml.cs">
-		<DependentUpon>DisplayKmlTours.xaml</DependentUpon>
+	<Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\PlayKmlTours\PlayKmlTours.xaml.cs">
+		<DependentUpon>PlayKmlTours.xaml</DependentUpon>
 		<SubType>Code</SubType>
 	</Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml.cs">
@@ -679,7 +679,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayKmlTours\DisplayKmlTours.xaml">
+	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\PlayKmlTours\PlayKmlTours.xaml">
 		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	</EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml">

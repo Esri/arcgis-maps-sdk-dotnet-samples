@@ -1,8 +1,8 @@
-# Display KML Tours
+# Play a KML tour
 
-Display tours in KML files.
+Play tours in KML files.
 
-![](DisplayKmlTours.jpg)
+![](PlayKmlTours.jpg)
 
 ## Use case
 

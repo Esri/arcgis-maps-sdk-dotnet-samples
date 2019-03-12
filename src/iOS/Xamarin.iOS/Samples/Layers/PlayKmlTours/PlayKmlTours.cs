@@ -17,16 +17,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayKmlTours
+namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
 {
-    [Register("DisplayKmlTours")]
+    [Register("PlayKmlTours")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display KML tours",
+        "Play a KML tour",
         "Layers",
         "Display tours in KML files.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f10b1d37fdd645c9bc9b189fb546307c")]
-    public class DisplayKmlTours : UIViewController
+    public class PlayKmlTours : UIViewController
     {
         // Hold references to UI controls.
         private SceneView _mySceneView;
@@ -38,9 +38,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlTours
         // The KML tour controller provides player controls for KML tours.
         private readonly KmlTourController _tourController = new KmlTourController();
 
-        public DisplayKmlTours()
+        public PlayKmlTours()
         {
-            Title = "Display KML tours";
+            Title = "Play a KML tour";
         }
 
         private async void Initialize()

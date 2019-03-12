@@ -3,33 +3,33 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Windows;
-using ArcGISRuntime.Samples.Managers;
+using Xamarin.Forms;
 
-namespace ArcGISRuntime.WPF.Samples.DisplayKmlTours
+namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display KML tours",
+        "Play a KML tour",
         "Layers",
-        "Display tours in KML files.",
+        "Play tours in KML files.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f10b1d37fdd645c9bc9b189fb546307c")]
-    public partial class DisplayKmlTours
+    public partial class PlayKmlTours : ContentPage
     {
         // The KML tour controller provides player controls for KML tours.
         private readonly KmlTourController _tourController = new KmlTourController();
 
-        public DisplayKmlTours()
+        public PlayKmlTours()
         {
             InitializeComponent();
             Initialize();
@@ -70,12 +70,12 @@ namespace ArcGISRuntime.WPF.Samples.DisplayKmlTours
                 PlayButton.IsEnabled = true;
 
                 // Hide the status bar.
-                LoadingStatusBar.Visibility = Visibility.Collapsed;
+                LoadingStatusBar.IsVisible = false;
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.ToString());
-                MessageBox.Show(e.ToString(), "Error");
+                await ((Page) Parent).DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -117,7 +117,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayKmlTours
             }
         }
 
-        private void Play_Clicked(object sender, EventArgs e)
+        private void Play_Clicked(object sender, EventArgs routedEventArgs)
         {
             if (_tourController != null)
             {
@@ -131,7 +131,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayKmlTours
             }
         }
 
-        private void Pause_Clicked(object sender, EventArgs e)
+        private void Pause_Clicked(object sender, EventArgs routedEventArgs)
         {
             if (_tourController != null)
             {
@@ -144,7 +144,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayKmlTours
             }
         }
 
-        private void Reset_Clicked(object sender, EventArgs e)
+        private void Reset_Clicked(object sender, EventArgs routedEventArgs)
         {
             if (_tourController != null)
             {

@@ -31,10 +31,10 @@ namespace ArcGISRuntime.UWP.Samples.WfsXmlQuery
   xmlns:gml=""http://www.opengis.net/gml/3.2"">
   <wfs:Query typeNames=""Seattle_Downtown_Features:Trees"">
     <fes:Filter>
-      <fes:PropertyIsEqualTo>
+      <fes:PropertyIsLike wildCard=""*"" escapeChar=""\"">
         <fes:ValueReference>Trees:SCIENTIFIC</fes:ValueReference>
-        <fes:Literal>Tilia cordata</fes:Literal>
-      </fes:PropertyIsEqualTo>
+        <fes:Literal>Tilia *</fes:Literal>
+      </fes:PropertyIsLike>
     </fes:Filter>
   </wfs:Query>
 </wfs:GetFeature>

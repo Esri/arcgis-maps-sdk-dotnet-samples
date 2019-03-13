@@ -16,7 +16,7 @@ using System;
 
 namespace ArcGISRuntime.Samples.GeoViewSync
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("GeoViewSync.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "GeoView viewpoint synchronization",

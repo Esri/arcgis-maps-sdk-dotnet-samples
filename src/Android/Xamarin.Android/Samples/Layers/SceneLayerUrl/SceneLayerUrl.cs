@@ -17,7 +17,7 @@ using Esri.ArcGISRuntime.Geometry;
 
 namespace ArcGISRuntime.Samples.SceneLayerUrl
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "ArcGIS scene layer (URL)",
         "Layers",

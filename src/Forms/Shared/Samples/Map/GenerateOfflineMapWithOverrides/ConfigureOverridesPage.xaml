@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Forms.Samples.Map.GenerateOfflineMapWithOverrides.ConfigureOverridesPage"
+             Title="Configure offline map job">
+    <Grid VerticalOptions="Center" Margin="10">
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="Margin" Value="0,0,0,5" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="Margin" Value="0,0,0,5" />
+            </Style>
+            <Style TargetType="Switch">
+                <Setter Property="Margin" Value="0,0,0,5" />
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Text="Adjust the basemap"
+               FontAttributes="Bold"
+               Grid.Row="0" Grid.Column="0" />
+        <Label Text="Min scale:"
+               Grid.Row="1" Grid.Column="0" />
+        <Slider x:Name="MinScaleEntry"
+               Value="0" Minimum="0" Maximum="23"
+               Grid.Row="1" Grid.Column="1" />
+        <Label Text="{Binding Source={x:Reference MinScaleEntry}, Path=Value, StringFormat='{0:N0}'}"
+               Grid.Row="1" Grid.Column="2" />
+        <Label Text="Max scale:"
+               Grid.Row="2" Grid.Column="0" />
+        <Slider x:Name="MaxScaleEntry"
+               Minimum="0" Maximum="23"
+               Value="23" 
+               Grid.Row="2" Grid.Column="1" />
+        <Label Text="{Binding Source={x:Reference MaxScaleEntry}, Path=Value, StringFormat='{0:N0}'}"
+               Grid.Row="2" Grid.Column="2" />
+        <Label Text="Buffer distance:"
+               Grid.Row="3" Grid.Column="0" />
+        <Slider x:Name="ExtentBufferEntry"
+               Minimum="0" Maximum="500"
+               Value="250"
+               Grid.Row="3" Grid.Column="1" />
+        <Label Text="{Binding Source={x:Reference ExtentBufferEntry}, Path=Value, StringFormat='{0:N0}m'}"
+               Grid.Row="3" Grid.Column="2" />
+        <Label Text="Choose layers"
+               FontAttributes="Bold"
+               Grid.Row="4" Grid.Column="0" />
+        <Label Text="System valves:"
+               Grid.Row="5" Grid.Column="0" />
+        <Switch x:Name="SysValvesLayerCheckbox"
+                IsToggled="True"
+                Grid.Row="5" Grid.Column="2" />
+        <Label Text="Service connections:"
+               Grid.Row="6" Grid.Column="0" />
+        <Switch x:Name="ServiceConnCheckbox"
+                Grid.Row="6" Grid.Column="2" />
+        <Label Text="Apply a feature layer filer"
+               FontAttributes="Bold"
+               Margin="0,0,0,5"
+               Grid.Row="7" Grid.Column="0" />
+        <Label Text="Min Flow Rate:"
+               Margin="0,0,5,5"
+               Grid.Row="8" Grid.Column="0" />
+        <Slider x:Name="FlowRateFilterEntry"
+               Minimum="0" Maximum="999"
+               Value="500"
+               Grid.Row="8" Grid.Column="1" />
+        <Label Text="{Binding Source={x:Reference FlowRateFilterEntry}, Path=Value, StringFormat='{0:N0} GPM'}"
+               Grid.Row="8" Grid.Column="2"
+               MinimumWidthRequest="40"/>
+        <Label Text="Crop layers to extent"
+               FontAttributes="Bold"
+               Grid.Row="9" Grid.Column="0" />
+        <Label Text="Water pipes:"
+               Grid.Row="10" Grid.Column="0" />
+        <Switch x:Name="CropLayerCheckbox"
+                IsToggled="True"
+                Grid.Row="10" Grid.Column="2" />
+        <Button Text="Take map offline"
+                Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3"
+                IsEnabled="True"
+                Clicked="TakeMapOffline_Clicked" />
+    </Grid>
+</ContentPage>

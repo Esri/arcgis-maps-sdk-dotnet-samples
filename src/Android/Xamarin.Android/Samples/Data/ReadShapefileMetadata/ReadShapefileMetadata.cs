@@ -21,7 +21,7 @@ using Esri.ArcGISRuntime.UI;
 
 namespace ArcGISRuntime.Samples.ReadShapefileMetadata
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Read shapefile metadata",

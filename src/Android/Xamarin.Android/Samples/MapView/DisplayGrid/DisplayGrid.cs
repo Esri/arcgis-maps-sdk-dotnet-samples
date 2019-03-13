@@ -20,7 +20,7 @@ using Colors = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.DisplayGrid
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Display a grid",
         "MapView",

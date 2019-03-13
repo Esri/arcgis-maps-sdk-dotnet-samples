@@ -20,7 +20,7 @@ using Android.Views.InputMethods;
 
 namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Query feature count and extent",
         "Analysis",

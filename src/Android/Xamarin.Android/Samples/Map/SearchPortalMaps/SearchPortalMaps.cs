@@ -24,7 +24,7 @@ using Xamarin.Auth;
 
 namespace ArcGISRuntime.Samples.SearchPortalMaps
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Search a portal for maps",
         "Map",

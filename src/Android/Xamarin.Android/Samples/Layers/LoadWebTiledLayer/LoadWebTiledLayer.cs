@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace ArcGISRuntime.Samples.LoadWebTiledLayer
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Web tiled layer",
         "Layers",

@@ -97,6 +97,21 @@
     <Compile Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.xaml.cs">
       <DependentUpon>AddPointSceneLayer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.xaml.cs">
+      <DependentUpon>GenerateOfflineMapWithOverrides.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.xaml.cs">
+      <DependentUpon>WfsXmlQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayWfs\DisplayWfs.xaml.cs">
+      <DependentUpon>DisplayWfs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.xaml.cs">
+      <DependentUpon>BrowseWfsLayers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml.cs">
+      <DependentUpon>OpenMobileScenePackage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.xaml.cs">
       <DependentUpon>MapReferenceScale.xaml</DependentUpon>
     </Compile>
@@ -588,6 +603,26 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\DisplayWfs\DisplayWfs.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1247,6 +1282,21 @@
   <ItemGroup>
     <!-- Screenshots -->
     <Content Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\MapReferenceScale\MapReferenceScale.jpg">

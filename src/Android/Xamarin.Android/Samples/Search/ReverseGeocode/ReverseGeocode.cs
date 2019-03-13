@@ -26,7 +26,7 @@ using Android.Views;
 
 namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Reverse geocode",
         "Search",

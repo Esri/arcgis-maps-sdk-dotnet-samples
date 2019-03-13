@@ -236,6 +236,11 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg" />
+    <None Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.jpg" />
+    <None Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
+    <None Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
+    <None Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
+	  <None Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
     <None Include="Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
 	  <None Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
 	  <None Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
@@ -388,6 +393,11 @@
   <ItemGroup>
     <!-- Sample Code -->
     <Compile Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.cs" />
+    <Compile Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.cs" />
+    <Compile Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.cs" />
+    <Compile Include="Samples\Layers\DisplayWfs\DisplayWfs.cs" />
+    <Compile Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.cs" />
+	  <Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.cs" />
     <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.cs" />
 	  <Compile Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.cs" />
 	  <Compile Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.cs" />

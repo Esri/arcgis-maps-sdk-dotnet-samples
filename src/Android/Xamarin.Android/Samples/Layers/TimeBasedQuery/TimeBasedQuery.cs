@@ -18,7 +18,7 @@ using System;
 
 namespace ArcGISRuntime.Samples.TimeBasedQuery
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Time-based query",
         "Layers",

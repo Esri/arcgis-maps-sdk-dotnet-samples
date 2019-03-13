@@ -19,7 +19,7 @@ using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
 namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Change atmosphere effect",
         "Map",

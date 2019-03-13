@@ -17,7 +17,7 @@ using System;
 
 namespace ArcGISRuntime.Samples.TakeScreenshot
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Take screenshot",
         "MapView",

@@ -121,6 +121,7 @@
 	  <Content Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
 	  <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
 	  <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
+    <Content Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.jpg" />
     <Content Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
     <Content Include="Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
     <Content Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
@@ -318,6 +319,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.xaml.cs">
+      <DependentUpon>GenerateOfflineMapWithOverrides.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.xaml.cs">
       <DependentUpon>WfsXmlQuery.xaml</DependentUpon>
     </Compile>
@@ -800,6 +804,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -47,6 +47,13 @@ namespace ArcGISRuntimeXamarin.Samples.ViewContentBeneathSurface
 
             // Show the web scene in the view.
             _mySceneView.Scene = webScene;
+
+            // Set the view properties to enable underground navigation.
+            // Note: the scene in this sample sets these properties automatically.
+            // Scenes authored in this way will be enabled for underground navigation without
+            // changing the navigation constraint manually.
+            _mySceneView.Scene.BaseSurface.NavigationConstraint = NavigationConstraint.None;
+            _mySceneView.Scene.BaseSurface.Opacity = .6;
         }
 
         private void CreateLayout()

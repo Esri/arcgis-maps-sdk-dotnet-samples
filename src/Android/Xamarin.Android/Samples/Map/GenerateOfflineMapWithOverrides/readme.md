@@ -2,6 +2,8 @@
 
 Use the `OfflineMapTask` with overrides to take a webmap offline. The overrides workflow allows you to adjust the settings used for taking each layer in the map offline. For a simple example of how you take a map offline, please consult the "Generate Offline Map" sample.
 
+> Note: due to a bug involved with the .NET HTTP client on Android, some layers may fail to be taken offline.
+
 ![Image](GenerateOfflineMapWithOverrides.jpg)
 
 ## Use case

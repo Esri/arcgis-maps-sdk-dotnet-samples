@@ -162,6 +162,7 @@
 	  <None Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
 	  <None Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
 	  <None Include="Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
+    <None Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg" />
     <None Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.jpg" />
     <None Include="Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
     <None Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg" />
@@ -326,6 +327,7 @@
 	  <Compile Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.cs" />
 	  <Compile Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.cs" />
 	  <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.cs" />
+    <Compile Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.cs" />
     <Compile Include="Samples\Map\GenerateOfflineMapWithOverrides\ParameterOverrideFragment.cs" />
     <Compile Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.cs" />
     <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.cs" />

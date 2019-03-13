@@ -30,7 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <LangVersion>5</LangVersion>
+    <LangVersion>7</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,7 +40,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>5</LangVersion>
+    <LangVersion>7</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Assets\ApplicationIcons\windows-desktop-256.ico</ApplicationIcon>

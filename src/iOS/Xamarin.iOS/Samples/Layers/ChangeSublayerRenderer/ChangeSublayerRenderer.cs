@@ -9,7 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -28,12 +27,8 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
         "")]
     public class ChangeSublayerRenderer : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIToolbar _labelToolbar = new UIToolbar();
-        private readonly UIToolbar _buttonToolbar = new UIToolbar();
-        private UIButton _changeSublayerRendererButton;
-        private UILabel _helpLabel;
+        // Hold references to the UI controls.
+        private MapView _myMapView;
 
         // ArcGIS map image layer that contains four Census sub-layers.
         private ArcGISMapImageLayer _arcGISMapImageLayer;
@@ -43,56 +38,23 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
             Title = "Change sublayer renderer";
         }
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            CreateLayout();
-            Initialize();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat controlHeight = 30;
-                nfloat barHeight = controlHeight + 2 * margin;
-
-                // Setup the frames for the views.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin + 70, 0, barHeight, 0);
-                _labelToolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, 70);
-                _helpLabel.Frame = new CGRect(margin, topMargin + margin, View.Bounds.Width - 2 * margin, 60);
-                _buttonToolbar.Frame = new CGRect(0, View.Bounds.Height - 40, View.Bounds.Width, 40);
-                _changeSublayerRendererButton.Frame = new CGRect(margin, View.Bounds.Height - 40 + margin, View.Bounds.Width - 2 * margin, 30);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
-        }
-
         private void Initialize()
         {
             // Create a new map based on the streets base map.
             Map newMap = new Map(Basemap.CreateStreets());
 
             // Create an envelope that covers the continental US in the web Mercator spatial reference.
-            Envelope continentalUSEnvelope = new Envelope(-14193469.5655232, 2509617.28647268, -7228772.04749191, 6737139.97573925 , SpatialReferences.WebMercator);
+            Envelope continentalUSEnvelope = new Envelope(-14193469.5655232, 2509617.28647268, -7228772.04749191, 6737139.97573925, SpatialReferences.WebMercator);
 
             // Zoom the map to the extent of the envelope.
-            newMap.InitialViewpoint = new  Viewpoint(continentalUSEnvelope);
+            newMap.InitialViewpoint = new Viewpoint(continentalUSEnvelope);
 
             // Assign the map to the MapView.
             _myMapView.Map = newMap;
 
             // Create an ArcGIS map image layer based on the Uri to that points to an ArcGIS Server map service that contains four Census sub-layers.
             // NOTE: sub-layer[0] = Census Block Points, sub-layer[1] = Census Block Group, sub-layer[3] = Counties, sub-layer[3] = States. 
-            _arcGISMapImageLayer = new ArcGISMapImageLayer(new System.Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer"));
+            _arcGISMapImageLayer = new ArcGISMapImageLayer(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer"));
 
             // Add the ArcGIS map image layer to the map's operation layers collection.
             newMap.OperationalLayers.Add(_arcGISMapImageLayer);
@@ -139,30 +101,47 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
             countiesArcGISMapImageSubLayer.Renderer = CreateClassBreaksRenderer();
 
             // Disable the button after has been used.
-            _changeSublayerRendererButton.Enabled = false;
-            _changeSublayerRendererButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+            ((UIBarButtonItem) sender).Enabled = false;
         }
 
-        private void CreateLayout()
+        public override void ViewDidLoad()
         {
-            // Create a UITextView for the overall sample instructions.
-            _helpLabel = new UILabel
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
             {
-                Text = "Tap 'Change sublayer renderer' to apply a unique value renderer to the counties sublayer.",
-                Lines = 2,
-                AdjustsFontSizeToFitWidth = true
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Change sublayer renderer", UIBarButtonItemStyle.Plain, ChangeSublayerRendererButton_TouchUpInside),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
-            // Create a UIButton to change the sublayer renderer.
-            _changeSublayerRendererButton = new UIButton();
-            _changeSublayerRendererButton.SetTitle("Change sublayer renderer", UIControlState.Normal);
-            _changeSublayerRendererButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar);
 
-            // - Hook to touch event to change the sublayer renderer.
-            _changeSublayerRendererButton.TouchUpInside += ChangeSublayerRendererButton_TouchUpInside;
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
 
-            // Add the MapView and other controls to the page.
-            View.AddSubviews(_myMapView, _labelToolbar, _buttonToolbar, _helpLabel, _changeSublayerRendererButton);
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+            });
         }
     }
 }

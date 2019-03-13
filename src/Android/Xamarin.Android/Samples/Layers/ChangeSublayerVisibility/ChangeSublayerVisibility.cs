@@ -18,7 +18,7 @@ using System.Linq;
 
 namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Change sublayer visibility",
         "Layers",

@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
@@ -32,27 +31,30 @@ namespace ArcGISRuntime.Samples.AuthorMap
         "1. Pan and zoom to the extent you would like for your map. \n2. Choose a basemap from the list of available basemaps. \n3. Choose one or more operational layers to include. \n4. Click 'Save ...' to apply your changes. \n5. Provide info for the new portal item, such as a Title, Description, and Tags. \n6. Click 'Save Map'. \n7. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder. \n8. You can make additional changes, update the map, and then re-save to store changes in the portal item.")]
     public class AuthorMap : UIViewController, IOAuthAuthorizeHandler
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UISegmentedControl _segmentButton = new UISegmentedControl("New", "Basemap", "Layers", "Save");
-        private readonly UIToolbar _toolbar = new UIToolbar();
+        // Hold a reference to the MapView.
+        private MapView _myMapView;
+
+        // Map metadata.
+        private string _title = "My new map";
+        private string _description = "Created with ArcGIS Runtime";
+        private string _tags = "ArcGIS Runtime";
 
         // Dictionary of operational layer names and URLs.
         private readonly Dictionary<string, string> _operationalLayerUrls = new Dictionary<string, string>
         {
-            {"World Elevations", "https://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer"},
-            {"World Cities", "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/"},
+            {
+                "World Elevations",
+                "https://sampleserver5.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer"
+            },
+            {
+                "World Cities",
+                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/"
+            },
             {"US Census Data", "https://sampleserver5.arcgisonline.com/arcgis/rest/services/Census/MapServer"}
         };
 
         // Use a TaskCompletionSource to track the completion of the authorization.
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
-
-        // Overlay with entry controls for OAuth configuration (client ID and redirect URL).
-        private OAuthPropsDialogOverlay _oauthInfoUi;
-
-        // Overlay with entry controls for map item details (title, description, and tags).
-        private SaveMapDialogOverlay _mapInfoUi;
 
         // Progress bar to show that the app is working.
         private UIActivityIndicatorView _activityIndicator;
@@ -76,103 +78,29 @@ namespace ArcGISRuntime.Samples.AuthorMap
             Title = "Author and save a map";
         }
 
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat margin = 5;
-                nfloat controlHeight = 30;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
-
-                // Reposition the views.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _segmentButton.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            CreateLayout();
-            Initialize();
-        }
-
         private void Initialize()
         {
             // Show a light gray canvas basemap by default.
             _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
-
-            // Prompt the user for OAuth settings.
-            ShowOAuthPropsUi();
         }
 
-        private void CreateLayout()
-        {
-            // Create an activity indicator.
-            CGRect centerRect = new CGRect(View.Bounds.Width / 2, View.Bounds.Height / 2, 40, 40);
-            _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
-            {
-                Frame = centerRect
-            };
-
-            // Handle the "click" for each segment (new segment is selected).
-            _segmentButton.ValueChanged += SegmentButtonClicked;
-
-            // Add the MapView, progress bar, and UIButton to the page.
-            View.AddSubviews(_myMapView, _activityIndicator, _toolbar, _segmentButton);
-        }
-
-        private void SegmentButtonClicked(object sender, EventArgs e)
-        {
-            // Get the segmented button control that raised the event.
-            UISegmentedControl buttonControl = (UISegmentedControl)sender;
-
-            switch (buttonControl.SelectedSegment)
-            {
-                case 0:
-                    // Clear the map from the map view (allow the user to start over and save as a new portal item).
-                    _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
-                    break;
-                case 1:
-                    // Show basemap choices.
-                    ShowBasemapList();
-                    break;
-                case 2:
-                    // Show a list of available operational layers.
-                    ShowLayerList();
-                    break;
-
-                case 3:
-                    // Show the save map UI.
-                    ShowSaveMapUi();
-                    break;
-            }
-
-            // Deselect all segments (user might want to click the same control twice).
-            buttonControl.SelectedSegment = -1;
-        }
-
-        private void ShowBasemapList()
+        private void ShowBasemapClicked(object sender, EventArgs e)
         {
             // Create a new Alert Controller.
-            UIAlertController basemapsActionSheet = UIAlertController.Create("Basemaps", "Choose a basemap", UIAlertControllerStyle.ActionSheet);
+            UIAlertController basemapsActionSheet =
+                UIAlertController.Create("Basemaps", "Choose a basemap", UIAlertControllerStyle.ActionSheet);
 
             // Add actions to apply each basemap type.
-            basemapsActionSheet.AddAction(UIAlertAction.Create("Topographic", UIAlertActionStyle.Default, action => _myMapView.Map.Basemap = Basemap.CreateTopographic()));
-            basemapsActionSheet.AddAction(UIAlertAction.Create("Streets", UIAlertActionStyle.Default, action => _myMapView.Map.Basemap = Basemap.CreateStreets()));
-            basemapsActionSheet.AddAction(UIAlertAction.Create("Imagery", UIAlertActionStyle.Default, action => _myMapView.Map.Basemap = Basemap.CreateImagery()));
-            basemapsActionSheet.AddAction(UIAlertAction.Create("Oceans", UIAlertActionStyle.Default, action => _myMapView.Map.Basemap = Basemap.CreateOceans()));
-            basemapsActionSheet.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, action => Console.WriteLine("Canceled")));
+            basemapsActionSheet.AddAction(UIAlertAction.Create("Topographic", UIAlertActionStyle.Default,
+                action => _myMapView.Map.Basemap = Basemap.CreateTopographic()));
+            basemapsActionSheet.AddAction(UIAlertAction.Create("Streets", UIAlertActionStyle.Default,
+                action => _myMapView.Map.Basemap = Basemap.CreateStreets()));
+            basemapsActionSheet.AddAction(UIAlertAction.Create("Imagery", UIAlertActionStyle.Default,
+                action => _myMapView.Map.Basemap = Basemap.CreateImagery()));
+            basemapsActionSheet.AddAction(UIAlertAction.Create("Oceans", UIAlertActionStyle.Default,
+                action => _myMapView.Map.Basemap = Basemap.CreateOceans()));
+            basemapsActionSheet.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel,
+                action => Console.WriteLine("Canceled")));
 
             // Required for iPad - You must specify a source for the Action Sheet since it is displayed as a popover.
             UIPopoverPresentationController presentationPopover = basemapsActionSheet.PopoverPresentationController;
@@ -186,19 +114,22 @@ namespace ArcGISRuntime.Samples.AuthorMap
             PresentViewController(basemapsActionSheet, true, null);
         }
 
-        private void ShowLayerList()
+        private void ShowLayerListClicked(object sender, EventArgs e)
         {
             // Create a new Alert Controller.
-            UIAlertController layersActionSheet = UIAlertController.Create("Layers", "Choose layers", UIAlertControllerStyle.ActionSheet);
+            UIAlertController layersActionSheet =
+                UIAlertController.Create("Layers", "Choose layers", UIAlertControllerStyle.ActionSheet);
 
             // Add actions to add or remove each of the available layers.
             foreach (string key in _operationalLayerUrls.Keys)
             {
-                layersActionSheet.AddAction(UIAlertAction.Create(key, UIAlertActionStyle.Default, action => AddOrRemoveLayer(key)));
+                layersActionSheet.AddAction(UIAlertAction.Create(key, UIAlertActionStyle.Default,
+                    action => AddOrRemoveLayer(key)));
             }
 
             // Add a choice to cancel.
-            layersActionSheet.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, action => Console.WriteLine("Canceled")));
+            layersActionSheet.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel,
+                action => Console.WriteLine("Canceled")));
 
             // Required for iPad - You must specify a source for the Action Sheet since it is displayed as a popover.
             UIPopoverPresentationController presentationPopover = layersActionSheet.PopoverPresentationController;
@@ -215,7 +146,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private async void AddOrRemoveLayer(string layerName)
         {
             // See if the layer already exists.
-            ArcGISMapImageLayer layer = _myMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name == layerName) as ArcGISMapImageLayer;
+            ArcGISMapImageLayer layer =
+                _myMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name == layerName) as ArcGISMapImageLayer;
 
             // If the layer is in the map, remove it.
             if (layer != null)
@@ -243,65 +175,46 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         private void ShowOAuthPropsUi()
         {
-            if (_oauthInfoUi != null)
-            {
-                return;
-            }
+            UIAlertController alertController = UIAlertController.Create("OAuth Properties", "Set the client ID and redirect URL",
+                UIAlertControllerStyle.Alert);
 
-            // Create a view to show entry controls over the map view.
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            CGRect ovBounds = new CGRect(5, topMargin + 5, View.Bounds.Width - 10, View.Bounds.Height - topMargin - 50);
-            _oauthInfoUi = new OAuthPropsDialogOverlay(ovBounds, 0.75f, UIColor.White, _appClientId, _oAuthRedirectUrl);
-
-            // Handle the OnOAuthPropsInfoEntered event to get the info entered by the user.
-            _oauthInfoUi.OnOAuthPropsInfoEntered += (s, e) =>
+            alertController.AddTextField(field => { field.Text = _appClientId; });
+            alertController.AddTextField(field => { field.Text = _oAuthRedirectUrl; });
+            alertController.AddAction(UIAlertAction.Create("Save", UIAlertActionStyle.Default, uiAction =>
             {
-                // Store the settings entered and use them to update the AuthenticationManager.
-                _appClientId = e.ClientId;
-                _oAuthRedirectUrl = e.RedirectUrl;
+                _appClientId = alertController.TextFields[0].Text.Trim();
+                _oAuthRedirectUrl = alertController.TextFields[1].Text.Trim();
                 UpdateAuthenticationManager();
+            }));
 
-                // Hide the OAuth entry.
-                _oauthInfoUi.Hide();
-                _oauthInfoUi = null;
-            };
-
-            // Handle the cancel event when the user closes the dialog without choosing to save.
-            _oauthInfoUi.OnCanceled += (s, e) =>
-            {
-                _oauthInfoUi.Hide();
-                _oauthInfoUi = null;
-            };
-
-            // Add the map item info UI view (will display semi-transparent over the map view).
-            View.Add(_oauthInfoUi);
+            PresentViewController(alertController, true, null);
         }
 
-        private void ShowSaveMapUi()
+        private void SaveMapClicked(object sender, EventArgs e)
         {
-            if (_mapInfoUi != null)
+            UIAlertController alertController = UIAlertController.Create("Map properties", "Set the title, description, and tags",
+                UIAlertControllerStyle.Alert);
+
+            alertController.AddTextField(field => { field.Text = _title; });
+            alertController.AddTextField(field => { field.Text = _description; });
+            alertController.AddTextField(field => { field.Text = _tags; });
+
+            alertController.AddAction(UIAlertAction.Create("Save", UIAlertActionStyle.Default, uiAction =>
             {
-                return;
-            }
+                _title = alertController.TextFields[0].Text.Trim();
+                _description = alertController.TextFields[1].Text.Trim();
+                _tags = alertController.TextFields[2].Text.Trim();
+                MapItemInfoEntered();
+            }));
 
-            // Create a view to show map item info entry controls over the map view.
-            nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-            CGRect ovBounds = new CGRect(5, topMargin + 5, View.Bounds.Width - 10, View.Bounds.Height - topMargin - 45);
-            _mapInfoUi = new SaveMapDialogOverlay(ovBounds, 0.75f, UIColor.White, (PortalItem) _myMapView.Map.Item);
+            alertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
 
-            // Handle the OnMapInfoEntered event to get the info entered by the user.
-            _mapInfoUi.OnMapInfoEntered += MapItemInfoEntered;
-
-            // Handle the cancel event when the user closes the dialog without choosing to save.
-            _mapInfoUi.OnCanceled += SaveCanceled;
-
-            // Add the map item info UI view (will display semi-transparent over the map view).
-            View.Add(_mapInfoUi);
+            PresentViewController(alertController, true, null);
         }
 
         // Handle the OnMapInfoEntered event from the item input UI.
         // MapSavedEventArgs contains the title, description, and tags that were entered.
-        private async void MapItemInfoEntered(object sender, MapSavedEventArgs e)
+        private async void MapItemInfoEntered()
         {
             // Get the current map.
             Map myMap = _myMapView.Map;
@@ -312,9 +225,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 _activityIndicator.StartAnimating();
 
                 // Get information entered by the user for the new portal item properties.
-                string title = e.Title;
-                string description = e.Description;
-                string[] tags = e.Tags;
+                string[] tags = _tags.Split(',');
 
                 // Apply the current extent as the map's initial extent.
                 myMap.InitialViewpoint = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
@@ -326,10 +237,11 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 if (myMap.Item == null)
                 {
                     // Call a function to save the map as a new portal item.
-                    await SaveNewMapAsync(myMap, title, description, tags, thumbnailImg);
+                    await SaveNewMapAsync(myMap, _title, _description, tags, thumbnailImg);
 
                     // Report a successful save.
-                    UIAlertController alert = UIAlertController.Create("Saved map", "Saved " + title + " to ArcGIS Online", UIAlertControllerStyle.Alert);
+                    UIAlertController alert = UIAlertController.Create("Saved map",
+                        "Saved " + _title + " to ArcGIS Online", UIAlertControllerStyle.Alert);
                     alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                     PresentViewController(alert, true, null);
                 }
@@ -342,11 +254,12 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
 
                     // Update the item thumbnail.
-                    ((PortalItem)myMap.Item).SetThumbnail(imageStream);
+                    ((PortalItem) myMap.Item).SetThumbnail(imageStream);
                     await myMap.SaveAsync();
 
                     // Report update was successful.
-                    UIAlertController alert = UIAlertController.Create("Updated map", "Saved changes to " + title, UIAlertControllerStyle.Alert);
+                    UIAlertController alert = UIAlertController.Create("Updated map", "Saved changes to " + _title,
+                        UIAlertControllerStyle.Alert);
                     alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                     PresentViewController(alert, true, null);
                 }
@@ -354,26 +267,16 @@ namespace ArcGISRuntime.Samples.AuthorMap
             catch (Exception)
             {
                 // Report save error.
-                UIAlertController alert = UIAlertController.Create("Error", "Unable to save " + e.Title, UIAlertControllerStyle.Alert);
+                UIAlertController alert = UIAlertController.Create("Error", "Unable to save " + _title,
+                    UIAlertControllerStyle.Alert);
                 alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                 PresentViewController(alert, true, null);
             }
             finally
             {
-                // Get rid of the item input controls.
-                _mapInfoUi.Hide();
-                _mapInfoUi = null;
-
                 // Hide the progress bar.
                 _activityIndicator.StopAnimating();
             }
-        }
-
-        private void SaveCanceled(object sender, EventArgs e)
-        {
-            // Remove the item input UI.
-            _mapInfoUi.Hide();
-            _mapInfoUi = null;
         }
 
         private async Task SaveNewMapAsync(Map myMap, string title, string description, string[] tags, RuntimeImage img)
@@ -381,7 +284,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Challenge the user for portal credentials (OAuth credential request for arcgis.com).
             CredentialRequestInfo loginInfo = new CredentialRequestInfo
             {
-
                 // Use the OAuth implicit grant flow.
                 GenerateTokenOptions = new GenerateTokenOptions
                 {
@@ -411,6 +313,69 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
             // Save the current state of the map as a portal item in the user's default folder.
             await myMap.SaveAsAsync(agsOnline, null, title, description, tags, img);
+        }
+
+        private void NewMapClicked(object sender, EventArgs e)
+        {
+            // Clear the map from the map view (allow the user to start over and save as a new portal item).
+            _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+            ShowOAuthPropsUi();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem("New map", UIBarButtonItemStyle.Plain, NewMapClicked),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Basemap", UIBarButtonItemStyle.Plain, ShowBasemapClicked),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Layers", UIBarButtonItemStyle.Plain, ShowLayerListClicked),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem("Save", UIBarButtonItemStyle.Plain, SaveMapClicked)
+            };
+
+            _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                BackgroundColor = UIColor.FromWhiteAlpha(0f, .8f),
+                HidesWhenStopped = true
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar, _activityIndicator);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+
+                _activityIndicator.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _activityIndicator.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _activityIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _activityIndicator.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            });
         }
 
         #region OAuth helpers
@@ -551,382 +516,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;
         }
+
         #endregion OAuth helpers
-    }
-
-    // View containing "configure OAuth" controls (client id and redirect URL inputs with save/cancel buttons).
-    public class OAuthPropsDialogOverlay : UIView
-    {
-        // Event to provide information the user entered when the user dismisses the view.
-        public event EventHandler<OAuthPropsSavedEventArgs> OnOAuthPropsInfoEntered;
-
-        // Event to report that the entry was canceled.
-        public event EventHandler OnCanceled;
-
-        // Store the input controls so the values can be read.
-        private readonly UITextField _clientIdTextField;
-
-        private readonly UITextField _redirectUrlTextField;
-
-        public OAuthPropsDialogOverlay(CGRect frame, nfloat transparency, UIColor color, string clientId, string redirectUrl) : base(frame)
-        {
-            // Create a semi-transparent overlay with the specified background color.
-            BackgroundColor = color;
-            Alpha = transparency;
-
-            // Set size and spacing for controls.
-            nfloat controlHeight = 25;
-            nfloat rowSpace = 7;
-            nfloat lessRowSpace = 4;
-            nfloat buttonSpace = 15;
-            nfloat textViewWidth = 200;
-            nfloat buttonWidth = 60;
-
-            // Find the start x and y for the control layout.
-            nfloat controlX = 10;
-            nfloat controlY = 10;
-
-            // Label for inputs.
-            UILabel description = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
-            {
-                Text = "OAuth Settings",
-                TextColor = TintColor
-            };
-
-            // Adjust the Y position for the next control.
-            controlY = controlY + controlHeight + rowSpace;
-
-            // Client ID text input and label.
-            UILabel clientIdLabel = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
-            {
-                Text = "Client ID"
-            };
-
-            controlY = controlY + controlHeight + lessRowSpace;
-
-            _clientIdTextField = new UITextField(new CGRect(controlX, controlY, textViewWidth, controlHeight))
-            {
-                Placeholder = "Client ID",
-                Text = clientId,
-                AutocapitalizationType = UITextAutocapitalizationType.None,
-                BackgroundColor = UIColor.LightGray,
-                LeftView = new UIView(new CGRect(0, 0, 5, 20)),
-                LeftViewMode = UITextFieldViewMode.Always
-            };
-
-            // Allow pressing 'return' to dismiss the keyboard.
-            _clientIdTextField.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
-
-            // Adjust the Y position for the next control.
-            controlY = controlY + controlHeight + rowSpace;
-
-            // Redirect URL text input and label.
-            UILabel redirectLabel = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
-            {
-                Text = "Redirect URL"
-            };
-
-            controlY = controlY + controlHeight + lessRowSpace;
-
-            _redirectUrlTextField = new UITextField(new CGRect(controlX, controlY, textViewWidth, controlHeight))
-            {
-                Placeholder = "Redirect URI",
-                Text = redirectUrl,
-                AutocapitalizationType = UITextAutocapitalizationType.None,
-                BackgroundColor = UIColor.LightGray,
-                LeftView = new UIView(new CGRect(0, 0, 5, 20)),
-                LeftViewMode = UITextFieldViewMode.Always
-            };
-
-            // Allow pressing 'return' to dismiss the keyboard.
-            _redirectUrlTextField.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
-
-            // Adjust the Y position for the next control.
-            controlY = controlY + controlHeight + rowSpace;
-
-            // Button to save the values.
-            UIButton saveButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
-            saveButton.SetTitle("Save", UIControlState.Normal);
-            saveButton.SetTitleColor(TintColor, UIControlState.Normal);
-            saveButton.TouchUpInside += SaveButtonClick;
-
-            // Adjust the X position for the next control.
-            controlX = controlX + buttonWidth + buttonSpace;
-
-            // Button to cancel the save.
-            UIButton cancelButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
-            cancelButton.SetTitle("Cancel", UIControlState.Normal);
-            cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
-            cancelButton.TouchUpInside += (s, e) => OnCanceled?.Invoke(this, null);
-
-            // Add the controls.
-            AddSubviews(description, clientIdLabel, _clientIdTextField, redirectLabel, _redirectUrlTextField, saveButton, cancelButton);
-        }
-
-        // Animate increasing transparency to completely hide the view, then remove it.
-        public void Hide()
-        {
-            // Action to make the view transparent.
-            Action makeTransparentAction = () => Alpha = 0;
-
-            // Action to remove the view.
-            Action removeViewAction = RemoveFromSuperview;
-
-            // Time to complete the animation (seconds).
-            double secondsToComplete = 0.75;
-
-            // Animate transparency to zero, then remove the view.
-            Animate(secondsToComplete, makeTransparentAction, removeViewAction);
-        }
-
-        private void SaveButtonClick(object sender, EventArgs e)
-        {
-            // Get the values entered in the text fields.
-            string clientId = _clientIdTextField.Text.Trim();
-            string redirectUrl = _redirectUrlTextField.Text.Trim();
-
-            // Make sure all required info was entered.
-            if (String.IsNullOrEmpty(clientId) || String.IsNullOrEmpty(redirectUrl))
-            {
-                new UIAlertView("Error", "Please enter a client ID and redirect URL for OAuth authentication.", (IUIAlertViewDelegate) null, "OK", null).Show();
-                return;
-            }
-
-            // Fire the OnOAuthPropsInfoEntered event and provide the map item values.
-            if (OnOAuthPropsInfoEntered != null)
-            {
-                // Create a new OAuthPropsSavedEventArgs to contain the user's values.
-                OAuthPropsSavedEventArgs oauthSaveEventArgs = new OAuthPropsSavedEventArgs(clientId, redirectUrl);
-
-                // Raise the event.
-                OnOAuthPropsInfoEntered(sender, oauthSaveEventArgs);
-            }
-        }
-    }
-
-    // Custom EventArgs implementation to hold OAuth information (client Id and redirect URL).
-    public class OAuthPropsSavedEventArgs : EventArgs
-    {
-        public string ClientId { get; }
-        public string RedirectUrl { get; }
-
-        // Store map item values passed into the constructor.
-        public OAuthPropsSavedEventArgs(string clientId, string redirectUrl)
-        {
-            ClientId = clientId;
-            RedirectUrl = redirectUrl;
-        }
-    }
-
-    // View containing "save map" controls (title, description, and tags inputs with save/cancel buttons).
-    public class SaveMapDialogOverlay : UIView
-    {
-        // Event to provide information the user entered when the user dismisses the view.
-        public event EventHandler<MapSavedEventArgs> OnMapInfoEntered;
-
-        // Event to report that the save was canceled.
-        public event EventHandler OnCanceled;
-
-        // Store the input controls so the values can be read.
-        private readonly UITextField _titleTextField;
-        private readonly UITextField _descriptionTextField;
-        private readonly UITextField _tagsTextField;
-
-        public SaveMapDialogOverlay(CGRect frame, nfloat transparency, UIColor color, PortalItem mapItem) : base(frame)
-        {
-            // Store any existing portal item (for "update" versus "save", e.g.).
-            PortalItem portalItem = mapItem;
-
-            // Create a semi-transparent overlay with the specified background color.
-            BackgroundColor = color;
-            Alpha = transparency;
-
-            // Set size and spacing for controls.
-            nfloat controlHeight = 25;
-            nfloat rowSpace = 11;
-            nfloat buttonSpace = 15;
-            nfloat textViewWidth = Frame.Width - 60;
-            nfloat buttonWidth = 60;
-
-            // Get the total height and width of the control set (five rows of controls, four sets of space).
-            nfloat totalHeight = (5 * controlHeight) + (4 * rowSpace);
-            nfloat totalWidth = textViewWidth;
-
-            // Find the center x and y of the view.
-            nfloat centerX = Frame.Width / 2;
-            nfloat centerY = Frame.Height / 2;
-
-            // Find the start x and y for the control layout.
-            nfloat controlX = centerX - totalWidth / 2;
-            nfloat controlY = centerY - totalHeight / 2;
-
-            // Label for inputs.
-            UILabel description = new UILabel(new CGRect(controlX, controlY, textViewWidth, controlHeight))
-            {
-                Text = "Portal item info",
-                TextColor = UIColor.Black
-            };
-
-            // Adjust the Y position for the next control.
-            controlY = controlY + controlHeight + rowSpace;
-
-            // Title text input.
-            _titleTextField = new UITextField(new CGRect(controlX, controlY, textViewWidth, controlHeight))
-            {
-                Placeholder = "Title",
-                AutocapitalizationType = UITextAutocapitalizationType.None,
-                BackgroundColor = UIColor.LightGray,
-                LeftView = new UIView(new CGRect(0, 0, 5, 20)),
-                LeftViewMode = UITextFieldViewMode.Always
-            };
-            // Allow pressing 'return' to dismiss the keyboard.
-            _titleTextField.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
-
-            // Adjust the Y position for the next control.
-            controlY = controlY + controlHeight + rowSpace;
-
-            // Description text input.
-            _descriptionTextField = new UITextField(new CGRect(controlX, controlY, textViewWidth, controlHeight))
-            {
-                Placeholder = "Description",
-                AutocapitalizationType = UITextAutocapitalizationType.None,
-                BackgroundColor = UIColor.LightGray,
-                LeftView = new UIView(new CGRect(0, 0, 5, 20)),
-                LeftViewMode = UITextFieldViewMode.Always
-            };
-
-            // Allow pressing 'return' to dismiss the keyboard.
-            _descriptionTextField.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
-
-            // Adjust the Y position for the next control.
-            controlY = controlY + controlHeight + rowSpace;
-
-            // Tags text input.
-            _tagsTextField = new UITextField(new CGRect(controlX, controlY, textViewWidth, controlHeight))
-            {
-                Text = "ArcGIS Runtime, Web Map",
-                AutocapitalizationType = UITextAutocapitalizationType.None,
-                BackgroundColor = UIColor.LightGray,
-                LeftView = new UIView(new CGRect(0, 0, 5, 20)),
-                LeftViewMode = UITextFieldViewMode.Always
-            };
-
-            // Allow pressing 'return' to dismiss the keyboard.
-            _tagsTextField.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
-
-            // Adjust the Y position for the next control.
-            controlY = controlY + controlHeight + rowSpace;
-
-            // Button to save the map.
-            UIButton saveButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
-            saveButton.SetTitle("Save", UIControlState.Normal);
-            saveButton.SetTitleColor(TintColor, UIControlState.Normal);
-            saveButton.TouchUpInside += SaveButtonClick;
-
-            // Adjust the X position for the next control.
-            controlX = controlX + buttonWidth + buttonSpace;
-
-            // Button to cancel the save.
-            UIButton cancelButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
-            cancelButton.SetTitle("Cancel", UIControlState.Normal);
-            cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
-            cancelButton.TouchUpInside += (s, e) => { OnCanceled?.Invoke(this, null); };
-
-            // Add the controls.
-            AddSubviews(description, _titleTextField, _descriptionTextField, _tagsTextField, saveButton, cancelButton);
-
-            // If there's an existing portal item, configure the dialog for "update" (read-only entries).
-            if (portalItem != null)
-            {
-                _titleTextField.Text = portalItem.Title;
-                _titleTextField.Enabled = false;
-
-                _descriptionTextField.Text = portalItem.Description;
-                _descriptionTextField.Enabled = false;
-
-                _tagsTextField.Text = string.Join(",", portalItem.Tags);
-                _tagsTextField.Enabled = false;
-
-                // Change the button text.
-                saveButton.SetTitle("Update", UIControlState.Normal);
-            }
-        }
-
-        // Animate increasing transparency to completely hide the view, then remove it.
-        public void Hide()
-        {
-            // Action to make the view transparent.
-            Action makeTransparentAction = () => Alpha = 0;
-
-            // Action to remove the view.
-            Action removeViewAction = RemoveFromSuperview;
-
-            // Time to complete the animation (seconds).
-            double secondsToComplete = 0.75;
-
-            // Animate transparency to zero, then remove the view.
-            Animate(secondsToComplete, makeTransparentAction, removeViewAction);
-        }
-
-        private void SaveButtonClick(object sender, EventArgs e)
-        {
-            // Get the values entered in the text fields.
-            string title = _titleTextField.Text.Trim();
-            string description = _descriptionTextField.Text.Trim();
-            string[] tags = _tagsTextField.Text.Split(',');
-
-            // Make sure all required info was entered.
-            if (String.IsNullOrEmpty(title) || String.IsNullOrEmpty(description) || tags.Length == 0)
-            {
-                new UIAlertView("Error", "Please enter a title, description, and some tags to describe the map.", (IUIAlertViewDelegate) null, "OK", null).Show();
-                return;
-            }
-
-            // Fire the OnMapInfoEntered event and provide the map item values.
-            if (OnMapInfoEntered != null)
-            {
-                // Create a new MapSavedEventArgs to contain the user's values.
-                MapSavedEventArgs mapSaveEventArgs = new MapSavedEventArgs(title, description, tags);
-
-                // Raise the event.
-                OnMapInfoEntered(sender, mapSaveEventArgs);
-            }
-        }
-    }
-
-    // Custom EventArgs implementation to hold map item information (title, description, and tags).
-    public class MapSavedEventArgs : EventArgs
-    {
-        public string Title { get; }
-        public string Description { get; }
-        public string[] Tags { get; }
-
-        // Store map item values passed into the constructor.
-        public MapSavedEventArgs(string title, string description, string[] tags)
-        {
-            Title = title;
-            Description = description;
-            Tags = tags;
-        }
     }
 }

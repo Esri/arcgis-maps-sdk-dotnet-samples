@@ -21,7 +21,7 @@ using System.Collections.Generic;
 
 namespace ArcGISRuntime.Samples.RasterRenderingRule
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Raster rendering rule",
         "Layers",

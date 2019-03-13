@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
         "")]
     public class IdentifyGraphics : UIViewController
     {
-        // Create and hold a reference to the MapView.
+        // Hold a reference to the MapView.
         private MapView _myMapView;
 
         // Graphics overlay to host graphics.
@@ -36,27 +36,6 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
         public IdentifyGraphics()
         {
             Title = "Identify graphics";
-        }
-
-        public override void LoadView()
-        {
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View = new UIView();
-            View.AddSubviews(_myMapView);
-
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            Initialize();
         }
 
         private void Initialize()
@@ -102,19 +81,15 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
 
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            double tolerance = 10d; // Use larger tolerance for touch.
-            int maximumResults = 1; // Only return one graphic  .
-            bool onlyReturnPopups = false; // Don't only return popups.
-
             try
             {
                 // Use the following method to identify graphics in a specific graphics overlay.
                 IdentifyGraphicsOverlayResult identifyResults = await _myMapView.IdentifyGraphicsOverlayAsync(
-                    _polygonOverlay,
-                    e.Position,
-                    tolerance,
-                    onlyReturnPopups,
-                    maximumResults);
+                    graphicsOverlay: _polygonOverlay,
+                    screenPoint: e.Position,
+                    tolerance: 10d,
+                    returnPopupsOnly: false,
+                    maximumResults: 1);
 
                 // Check if we got results.
                 if (identifyResults.Graphics.Count > 0)
@@ -129,8 +104,35 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
             }
             catch (Exception ex)
             {
-                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView(title: "Error", message: ex.ToString(), del: (IUIAlertViewDelegate) null, cancelButtonTitle: "OK", otherButtons: null).Show();
             }
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            // Add the views.
+            View.AddSubviews(_myMapView);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
         }
     }
 }

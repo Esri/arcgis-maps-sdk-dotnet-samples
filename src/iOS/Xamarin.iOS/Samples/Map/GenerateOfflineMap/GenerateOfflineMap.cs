@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
@@ -36,23 +35,20 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         "When the app starts, a web map is loaded from ArcGIS Online. The red border shows the extent that of the data that will be downloaded for use offline. Click the `Take map offline` button to start the offline map job (you will be prompted for your ArcGIS Online login). The progress bar will show the job's progress. When complete, the offline map will replace the online map in the map view.")]
     public class GenerateOfflineMap : UIViewController, IOAuthAuthorizeHandler
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIActivityIndicatorView _loadingIndicator = new UIActivityIndicatorView();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private readonly UIButton _takeMapOfflineButton = new UIButton();
-
-        // Overlay to show the load status for the map.
-        private LoadingMapOverlay _loadingOverlay;
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private UIActivityIndicatorView _loadingIndicator;
+        private UIBarButtonItem _takeMapOfflineButton;
+        private UILabel _statusLabel;
 
         // The job to generate an offline map.
         private GenerateOfflineMapJob _generateOfflineMapJob;
 
         // The extent of the data to take offline.
-        private Envelope _areaOfInterest = new Envelope(-88.1541, 41.7690, -88.1471, 41.7720, SpatialReferences.Wgs84);
+        private readonly Envelope _areaOfInterest = new Envelope(-88.1541, 41.7690, -88.1471, 41.7720, SpatialReferences.Wgs84);
 
         // The ID for a web map item hosted on the server (water network map of Naperville IL).
-        private string WebMapId = "acc027394bc84c2fb04d1ed317aac674";
+        private const string WebMapId = "acc027394bc84c2fb04d1ed317aac674";
 
         public GenerateOfflineMap()
         {
@@ -63,6 +59,9 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         {
             try
             {
+                // Start the loading indicator.
+                _loadingIndicator.StartAnimating();
+
                 // Call a function to set up the AuthenticationManager for OAuth.
                 SetOAuthInfo();
 
@@ -108,50 +107,11 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             }
         }
 
-        private void CreateLayout()
-        {
-            _takeMapOfflineButton.SetTitle("Generate", UIControlState.Normal);
-            _takeMapOfflineButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _takeMapOfflineButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
-            _takeMapOfflineButton.TouchUpInside += TakeMapOfflineButton_Click;
-
-            // Add the views.
-            View.AddSubviews(_myMapView, _toolbar, _takeMapOfflineButton);
-        }
-
-        public override void ViewDidLoad()
-        {
-            CreateLayout();
-            Initialize();
-
-            base.ViewDidLoad();
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            try
-            {
-                nfloat topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                nfloat controlHeight = 30;
-                nfloat margin = 5;
-                nfloat toolbarHeight = controlHeight + 2 * margin;
-
-                // Reposition the controls.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, toolbarHeight, 0);
-                _toolbar.Frame = new CGRect(0, View.Bounds.Height - toolbarHeight, View.Bounds.Width, toolbarHeight);
-                _takeMapOfflineButton.Frame = new CGRect(margin, _toolbar.Frame.Top + margin, View.Bounds.Width - 2 * margin, controlHeight);
-
-                base.ViewDidLayoutSubviews();
-            }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
-            {
-            }
-        }
-
         private async void TakeMapOfflineButton_Click(object sender, EventArgs e)
         {
+            // Show the loading indicator.
+            _loadingIndicator.StartAnimating();
+
             // Create a path for the output mobile map.
             string tempPath = $"{Path.GetTempPath()}";
             string[] outputFolders = Directory.GetDirectories(tempPath, "NapervilleWaterNetwork*");
@@ -175,7 +135,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             int num = 1;
             while (Directory.Exists(packagePath))
             {
-                packagePath = Path.Combine(tempPath, @"NapervilleWaterNetwork" + num.ToString());
+                packagePath = Path.Combine(tempPath, @"NapervilleWaterNetwork" + num);
                 num++;
             }
 
@@ -185,15 +145,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             try
             {
                 // Show the loading overlay while the job is running.
-                CGRect bounds = View.Bounds; 
-                _loadingOverlay = new LoadingMapOverlay(bounds, true);
-                _loadingOverlay.UpdateLabel("Taking map offine ...");
-                _loadingOverlay.OnCanceled += (s,evt) => 
-                {
-                    // The user canceled the job.
-                    _generateOfflineMapJob.Cancel();
-                };
-                this.ParentViewController.View.Add(_loadingOverlay);
+                _statusLabel.Text = "Taking map offline...";
 
                 // Create an offline map task with the current (online) map.
                 OfflineMapTask takeMapOfflineTask = await OfflineMapTask.CreateAsync(_myMapView.Map);
@@ -245,7 +197,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
                 _myMapView.InteractionOptions.IsEnabled = true;
 
                 // Change the title and disable the "Take map offline" button.
-                _takeMapOfflineButton.SetTitle("Map is offline", UIControlState.Normal);
+                _statusLabel.Text = "Map is offline";
                 _takeMapOfflineButton.Enabled = false;
             }
             catch (TaskCanceledException)
@@ -265,7 +217,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             finally
             {
                 // Hide the loading overlay when the job is done.
-                if (_loadingOverlay != null) { _loadingOverlay.Hide(); }
+                _loadingIndicator.StopAnimating();
             }
         }
 
@@ -279,19 +231,86 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             InvokeOnMainThread(() =>
             {
                 // Show the percent complete and update the progress bar.
-                string percentText = job.Progress > 0 ? job.Progress.ToString() + " %" : string.Empty;
-                _loadingOverlay.UpdateProgress(job.Progress);
-                _loadingOverlay.UpdateLabel("Taking map offline (" + percentText + ") ...");
+                _statusLabel.Text = $"Taking map offline ({job.Progress}%) ...";
             });
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _takeMapOfflineButton = new UIBarButtonItem("Generate offline map", UIBarButtonItemStyle.Plain, TakeMapOfflineButton_Click);
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _takeMapOfflineButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+
+            _statusLabel = new UILabel
+            {
+                Text = "Use the button to take the map offline.",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            _loadingIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
+            _loadingIndicator.TranslatesAutoresizingMaskIntoConstraints = false;
+            _loadingIndicator.BackgroundColor = UIColor.FromWhiteAlpha(0, .6f);
+
+            // Add the views.
+            View.AddSubviews(_myMapView, toolbar, _loadingIndicator, _statusLabel);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+
+                _statusLabel.TopAnchor.ConstraintEqualTo(_myMapView.TopAnchor),
+                _statusLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _statusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _statusLabel.HeightAnchor.ConstraintEqualTo(40),
+
+                _loadingIndicator.TopAnchor.ConstraintEqualTo(_statusLabel.BottomAnchor),
+                _loadingIndicator.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _loadingIndicator.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _loadingIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            });
+        }
 
         #region Authentication
+
         // Constants for OAuth-related values.
         // - The URL of the portal to authenticate with (ArcGIS Online).
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
+
         // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
         private const string AppClientId = @"lgAdHkYZYlwwfAhC";
+
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
         private const string OAuthRedirectUrl = @"my-ags-app://auth";
 
@@ -320,7 +339,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         }
 
         // ChallengeHandler function that will be called whenever access to a secured resource is attempted.
-        public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
+        private async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
             Credential credential = null;
 
@@ -329,7 +348,10 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials.
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (TaskCanceledException) { return credential; }
+            catch (TaskCanceledException)
+            {
+                return credential;
+            }
             catch (Exception)
             {
                 // Exception will be reported in calling function.
@@ -340,6 +362,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         }
 
         #region IOAuthAuthorizationHandler implementation
+
         // Use a TaskCompletionSource to track the completion of the authorization.
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 
@@ -347,21 +370,15 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
             // If the TaskCompletionSource is not null, authorization may already be in progress and should be canceled.
-            if (_taskCompletionSource != null)
-            {
-                // Try to cancel any existing authentication task.
-                _taskCompletionSource.TrySetCanceled();
-            }
+            // Try to cancel any existing authentication task.
+            _taskCompletionSource?.TrySetCanceled();
 
             // Create a task completion source.
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
             // Get the current iOS ViewController.
             UIViewController viewController = null;
-            InvokeOnMainThread(() =>
-            {
-                viewController = UIApplication.SharedApplication.KeyWindow.RootViewController;
-            });
+            InvokeOnMainThread(() => { viewController = UIApplication.SharedApplication.KeyWindow.RootViewController; });
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
             OAuth2Authenticator authenticator = new OAuth2Authenticator(
@@ -418,10 +435,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
                 else
                 {
                     // Login canceled: dismiss the OAuth login.
-                    if (_taskCompletionSource != null)
-                    {
-                        _taskCompletionSource.TrySetCanceled();
-                    }
+                    _taskCompletionSource?.TrySetCanceled();
                 }
 
                 // Cancel authentication.
@@ -430,127 +444,14 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
 
 
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password.
-            InvokeOnMainThread(() =>
-            {
-                viewController.PresentViewController(authenticator.GetUI(), true, null);
-            });
+            InvokeOnMainThread(() => { viewController.PresentViewController(authenticator.GetUI(), true, null); });
 
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;
         }
-        #endregion
 
         #endregion
-    }
 
-    /// <summary>
-    /// View to show over the map while loading.
-    /// </summary>
-    public sealed class LoadingMapOverlay : UIView
-    {
-        // Progress bar to show the percent of the job complete.
-        UIProgressView _progress;
-
-        // Label to show additional job info.
-        UILabel _label;
-
-        // Event to report that the task was canceled.
-        public event EventHandler OnCanceled;
-
-        public LoadingMapOverlay(CGRect frame, bool showProgress) : base(frame)
-        {
-            // Semi-transparent black background.
-            BackgroundColor = UIColor.Black;
-            Alpha = 0.8f;
-            AutoresizingMask = UIViewAutoresizing.All;
-
-            // Find the center for positioning UI elements.
-            nfloat centerX = Frame.Width / 2;
-            nfloat centerY = Frame.Height / 2;
-
-            // If showing progress, add a progress bar.
-            if (showProgress)
-            {
-                _progress = new UIProgressView(UIProgressViewStyle.Bar);
-
-                _progress.Frame = new CGRect(
-                   centerX - _progress.Frame.Width / 2,
-                   centerY - _progress.Frame.Height - 20,
-                    _progress.Frame.Width,
-                    _progress.Frame.Height);
-                
-                _progress.AutoresizingMask = UIViewAutoresizing.All;
-                AddSubview(_progress);
-                _progress.Progress = 0.0f;
-            }
-            else 
-            {
-                // Otherwise, show an activity indicator (spinner).
-                UIActivityIndicatorView activitySpinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
-                activitySpinner.Frame = new CGRect(
-                    centerX - activitySpinner.Frame.Width / 2,
-                    centerY - activitySpinner.Frame.Height - 20,
-                    activitySpinner.Frame.Width,
-                    activitySpinner.Frame.Height);
-                activitySpinner.AutoresizingMask = UIViewAutoresizing.All;
-                AddSubview(activitySpinner);
-                activitySpinner.StartAnimating();
-            }
-
-            // Add a label to describe what's loading.
-            _label = new UILabel(new CGRect(
-                centerX - (Frame.Width - 20) / 2,
-                centerY + 20,
-                Frame.Width - 20,
-                22
-            ))
-            {
-                BackgroundColor = UIColor.Clear,
-                TextColor = UIColor.White,
-                Text = "--",
-                TextAlignment = UITextAlignment.Center,
-                AutoresizingMask = UIViewAutoresizing.All
-            };
-            AddSubview(_label);
-
-            // Add a button that allows the user to cancel the task.
-            UIButton cancelButton = new UIButton(UIButtonType.Plain);
-            cancelButton.SetTitle("Cancel", UIControlState.Normal);
-            cancelButton.SetTitleColor(UIColor.White, UIControlState.Normal);
-            cancelButton.Frame = new CGRect(
-                centerX - (Frame.Width - 20) / 2,
-                centerY + 50,
-                Frame.Width - 20,
-                30);
-            cancelButton.TouchUpInside += (s, e) => 
-            {
-                // Raise the OnCanceled event so the task can be canceled.
-                OnCanceled?.Invoke(this, null);
-            };
-            AddSubview(cancelButton);
-        }
-
-        // Update the progress bar value.
-        public void UpdateProgress(float percentDone)
-        {
-            float progress = (float)(percentDone / 100.0);
-            _progress.SetProgress(progress, true);
-        }
-
-        // Update the label text.
-        public void UpdateLabel(string labelText)
-        {
-            _label.Text = labelText;
-        }
-
-        // Animate the disapperance of the view.
-        public void Hide()
-        {
-            Animate(
-                0.5,
-                () => { Alpha = 0; },
-                RemoveFromSuperview
-            );
-        }
+        #endregion
     }
 }

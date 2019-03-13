@@ -25,7 +25,7 @@ using System.Timers;
 
 namespace ArcGISRuntime.Samples.ViewshedGeoElement
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("07d62a792ab6496d9b772a24efea45d0")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Viewshed (GeoElement)",

@@ -9,7 +9,6 @@
 
 using System;
 using System.Drawing;
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -28,52 +27,15 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         "Tap on the map to see the point in several coordinate systems. Update one of the coordinates and select 'recalculate' to see the point converted into other coordinate systems. ")]
     public class FormatCoordinates : UIViewController
     {
-        // Create and hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
-        private readonly UIButton _recalculateButton = new UIButton();
-        private readonly UIToolbar _toolbar = new UIToolbar();
-        private readonly UILabel _helpLabel = new UILabel();
+        // Hold references to the UI controls.
+        private MapView _myMapView;
         private UITextField _selectedField;
-
-        private readonly UITextField _utmEntry = new UITextField
-        {
-            Placeholder = "UTM"
-        };
-
-        private readonly UITextField _dmsEntry = new UITextField
-        {
-            Placeholder = "Degrees, Minutes, Seconds"
-        };
-
-        private readonly UITextField _ddEntry = new UITextField
-        {
-            Placeholder = "Decimal Degrees"
-        };
-
-        private readonly UITextField _usngEntry = new UITextField
-        {
-            Placeholder = "USNG"
-        };
-
-        private readonly UILabel _utmLabel = new UILabel
-        {
-            Text = "UTM:"
-        };
-
-        private readonly UILabel _dmsLabel = new UILabel
-        {
-            Text = "Degrees, Minutes, Seconds: "
-        };
-
-        private readonly UILabel _decimalDegressLabel = new UILabel
-        {
-            Text = "Decimal Degrees: "
-        };
-
-        private readonly UILabel _usngLabel = new UILabel
-        {
-            Text = "USNG: "
-        };
+        private UITextField _utmEntry;
+        private UITextField _dmsEntry;
+        private UITextField _ddEntry;
+        private UITextField _usngEntry;
+        private NSLayoutConstraint[] _landscapeConstraints;
+        private NSLayoutConstraint[] _portraitConstraints;
 
         public FormatCoordinates()
         {
@@ -107,31 +69,25 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             _selectedField = (UITextField) sender;
         }
 
-        private void RecalculateFields(object sender, EventArgs e)
+        private void RecalculateFields(object sender)
         {
             // Hold the entered point.
-            MapPoint enteredPoint = null;
+            MapPoint enteredPoint;
 
             // Update the point based on which text sent the event.
             try
             {
-                switch (_selectedField.Placeholder)
+                if (sender == _ddEntry || sender == _dmsEntry)
                 {
-                    case "Decimal Degrees":
-                    case "Degrees, Minutes, Seconds":
-                        enteredPoint =
-                            CoordinateFormatter.FromLatitudeLongitude(_selectedField.Text, _myMapView.SpatialReference);
-                        break;
-
-                    case "UTM":
-                        enteredPoint =
-                            CoordinateFormatter.FromUtm(_selectedField.Text, _myMapView.SpatialReference, UtmConversionMode.NorthSouthIndicators);
-                        break;
-
-                    case "USNG":
-                        enteredPoint =
-                            CoordinateFormatter.FromUsng(_selectedField.Text, _myMapView.SpatialReference);
-                        break;
+                    enteredPoint = CoordinateFormatter.FromLatitudeLongitude(_selectedField.Text, _myMapView.SpatialReference);
+                }
+                else if (sender == _utmEntry)
+                {
+                    enteredPoint = CoordinateFormatter.FromUtm(_selectedField.Text, _myMapView.SpatialReference, UtmConversionMode.NorthSouthIndicators);
+                }
+                else
+                {
+                    enteredPoint = CoordinateFormatter.FromUsng(_selectedField.Text, _myMapView.SpatialReference);
                 }
             }
             catch (Exception ex)
@@ -203,107 +159,117 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             _usngEntry.EditingDidBegin += InputValueChanged;
         }
 
-        private void CreateLayout()
-        {
-            // Update the colors.
-            _dmsEntry.TextColor = View.TintColor;
-            _utmEntry.TextColor = View.TintColor;
-            _usngEntry.TextColor = View.TintColor;
-            _ddEntry.TextColor = View.TintColor;
-            _ddEntry.BorderStyle = UITextBorderStyle.RoundedRect;
-            _utmEntry.BorderStyle = UITextBorderStyle.RoundedRect;
-            _usngEntry.BorderStyle = UITextBorderStyle.RoundedRect;
-            _dmsEntry.BorderStyle = UITextBorderStyle.RoundedRect;
-
-            // Enable text fields to close keyboard.
-            _dmsEntry.ShouldReturn += HandleShouldReturn;
-            _ddEntry.ShouldReturn += HandleShouldReturn;
-            _utmEntry.ShouldReturn += HandleShouldReturn;
-            _usngEntry.ShouldReturn += HandleShouldReturn;
-
-            // Set up the help label.
-            _helpLabel.Text = "Tap the map to see coordinates in each format. Update any value and tap 'Recalculate' to see updated coordinates.";
-            _helpLabel.Lines = 2;
-            _helpLabel.AdjustsFontSizeToFitWidth = true;
-
-            // Create the UI button.
-            _recalculateButton.SetTitle("Recalculate", UIControlState.Normal);
-            _recalculateButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _recalculateButton.TouchUpInside += RecalculateFields;
-
-            // Add views to the page.
-            View.AddSubviews(_myMapView, _toolbar, _helpLabel, _recalculateButton, _ddEntry,
-                _decimalDegressLabel, _dmsLabel, _dmsEntry, _usngLabel, _usngEntry, _utmLabel, _utmEntry);
-        }
-
-        private bool HandleShouldReturn(UITextField tf)
-        {
-            tf.ResignFirstResponder();
-            return true;
-        }
-
         public override void ViewDidLoad()
         {
-            CreateLayout();
-            Initialize();
-
             base.ViewDidLoad();
+            Initialize();
         }
 
-        public override void ViewDidLayoutSubviews()
+        public override void LoadView()
         {
-            try
+            // Create the views.
+            View = new UIView {BackgroundColor = UIColor.White};
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UILabel decimalDegreesLabel = new UILabel();
+            decimalDegreesLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            decimalDegreesLabel.Text = "Decimal degrees:";
+
+            UILabel dmsLabel = new UILabel();
+            dmsLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            dmsLabel.Text = "Degrees, minutes, seconds:";
+
+            UILabel utmLabel = new UILabel();
+            utmLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            utmLabel.Text = "UTM:";
+
+            UILabel usngLabel = new UILabel();
+            usngLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            usngLabel.Text = "USNG:";
+
+            _ddEntry = new UITextField();
+            _dmsEntry = new UITextField();
+            _utmEntry = new UITextField();
+            _usngEntry = new UITextField();
+
+            // Uniformly configure the entries.
+            foreach (UITextField tf in new[] {_ddEntry, _dmsEntry, _utmEntry, _usngEntry})
             {
-                var topMargin = NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
-                int controlHeight = 20;
-                int margin = 5;
-                var controlWidth = View.Bounds.Width - 2 * margin;
+                tf.TranslatesAutoresizingMaskIntoConstraints = false;
+                tf.BorderStyle = UITextBorderStyle.RoundedRect;
 
-                // Reposition the controls.
-                _toolbar.Frame = new CGRect(0, topMargin, View.Bounds.Width, controlHeight * 11 + margin * 5);
-
-                // Help label.
-                topMargin += margin;
-                _helpLabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight * 2);
-                topMargin += controlHeight * 2 + margin * 2;
-
-                // Decimal degrees.
-                _decimalDegressLabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
-                topMargin += controlHeight;
-                _ddEntry.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
-                topMargin += controlHeight;
-
-                // DMS.
-                _dmsLabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
-                topMargin += controlHeight;
-                _dmsEntry.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
-                topMargin += controlHeight;
-
-                // UTM.
-                _utmLabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
-                topMargin += controlHeight;
-                _utmEntry.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
-                topMargin += controlHeight;
-
-                // USNG.
-                _usngLabel.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
-                topMargin += controlHeight;
-                _usngEntry.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
-                topMargin += controlHeight + margin;
-
-                // Button.
-                _recalculateButton.Frame = new CGRect(margin, topMargin, controlWidth, controlHeight);
-                topMargin += controlHeight + margin;
-
-                // MapView.
-                _myMapView.Frame = new CGRect(0, 0, View.Bounds.Width, View.Bounds.Height);
-                _myMapView.ViewInsets = new UIEdgeInsets(topMargin, 0, 0, 0);
-
-                base.ViewDidLayoutSubviews();
+                // Allow returning to dismiss the keyboard.
+                tf.ShouldReturn += field =>
+                {
+                    field.ResignFirstResponder();
+                    // Recalculate fields.
+                    RecalculateFields(field);
+                    return true;
+                };
             }
-            // Needed to prevent crash when NavigationController is null. This happens sometimes when switching between samples.
-            catch (NullReferenceException)
+
+            UIStackView formView = new UIStackView(new UIView[]
+                {decimalDegreesLabel, _ddEntry, dmsLabel, _dmsEntry, utmLabel, _utmEntry, usngLabel, _usngEntry});
+            formView.TranslatesAutoresizingMaskIntoConstraints = false;
+            formView.Axis = UILayoutConstraintAxis.Vertical;
+            formView.Spacing = 4;
+            formView.LayoutMarginsRelativeArrangement = true;
+            formView.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
+            formView.SetContentHuggingPriority((float) UILayoutPriority.DefaultHigh, UILayoutConstraintAxis.Vertical);
+
+            // Add the views.
+            View.AddSubviews(formView, _myMapView);
+
+            // Lay out the views.
+            _portraitConstraints = new[]
             {
+                formView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                formView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                formView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                formView.BottomAnchor.ConstraintEqualTo(_myMapView.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            };
+            _landscapeConstraints = new[]
+            {
+                formView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                formView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                formView.TrailingAnchor.ConstraintEqualTo(_myMapView.LeadingAnchor),
+                formView.WidthAnchor.ConstraintGreaterThanOrEqualTo(280),
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+            };
+
+            ApplyConstraints();
+        }
+
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            base.TraitCollectionDidChange(previousTraitCollection);
+
+            // Deactivate old constraints.
+            NSLayoutConstraint.DeactivateConstraints(_portraitConstraints);
+            NSLayoutConstraint.DeactivateConstraints(_landscapeConstraints);
+
+            // Apply new constraints.
+            ApplyConstraints();
+        }
+
+        private void ApplyConstraints()
+        {
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                // Update layout for landscape.
+                NSLayoutConstraint.ActivateConstraints(_landscapeConstraints);
+            }
+            else
+            {
+                // Update layout for portrait.
+                NSLayoutConstraint.ActivateConstraints(_portraitConstraints);
             }
         }
     }

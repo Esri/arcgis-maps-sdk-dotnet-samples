@@ -28,7 +28,7 @@ using Xamarin.Auth;
 
 namespace ArcGISRuntime.Samples.GenerateOfflineMap
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Generate an offline map",
         "Map",

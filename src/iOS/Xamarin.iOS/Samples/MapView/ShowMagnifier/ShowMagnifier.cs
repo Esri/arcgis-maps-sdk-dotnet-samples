@@ -23,50 +23,12 @@ namespace ArcGISRuntime.Samples.ShowMagnifier
         "")]
     public class ShowMagnifier : UIViewController
     {
-        // Create and hold references to the UI controls.
+        // Hold a reference to the MapView.
         private MapView _myMapView;
-        private UILabel _helpLabel;
 
         public ShowMagnifier()
         {
             Title = "Show magnifier";
-        }
-
-        public override void LoadView()
-        {
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _helpLabel = new UILabel
-            {
-                Text = "Tap and hold to show the magnifier.",
-                AdjustsFontSizeToFitWidth = true,
-                TextAlignment = UITextAlignment.Center,
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
-                TextColor = UIColor.White,
-                Lines = 1,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-
-            View = new UIView();
-            View.AddSubviews(_myMapView, _helpLabel);
-
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-
-            _helpLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _helpLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            Initialize();
         }
 
         private void Initialize()
@@ -82,6 +44,49 @@ namespace ArcGISRuntime.Samples.ShowMagnifier
 
             // Show the map in the view.
             _myMapView.Map = myMap;
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UILabel helpLabel = new UILabel
+            {
+                Text = "Tap and hold to show the magnifier.",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, helpLabel);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                helpLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                helpLabel.HeightAnchor.ConstraintEqualTo(40)
+            });
         }
     }
 }

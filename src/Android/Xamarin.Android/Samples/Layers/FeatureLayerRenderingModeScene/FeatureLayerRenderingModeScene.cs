@@ -18,7 +18,7 @@ using System;
 
 namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("FeatureLayerRenderingModeScene.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer rendering mode (Scene)",

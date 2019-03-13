@@ -18,7 +18,7 @@ using System;
 
 namespace ArcGISRuntimeXamarin.Samples.DisplayKmlNetworkLinks
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Display KML network links",
         "Layers",

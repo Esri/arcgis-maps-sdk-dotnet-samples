@@ -20,7 +20,7 @@ using System.Linq;
 
 namespace ArcGISRuntime.Samples.DensifyAndGeneralize
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Densify and generalize",
         "Geometry",

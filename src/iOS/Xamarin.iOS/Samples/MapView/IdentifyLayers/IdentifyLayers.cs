@@ -26,9 +26,8 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
         "")]
     public class IdentifyLayers : UIViewController
     {
-        // Hold references to UI controls.
+        // Hold a reference to the MapView.
         private MapView _myMapView;
-        private UILabel _helpLabel;
 
         public IdentifyLayers()
         {
@@ -102,18 +101,21 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
             return result.GeoElements.Count + sublayerResultCount;
         }
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
             // Create the view.
             View = new UIView();
 
-            // Create a MapView, turn off autoresizing masks, and add MapView to the view.
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            View.AddSubview(_myMapView);
 
-            // Create and configure the help label, turn off auto resizing masks, then add it to the view.
-            _helpLabel = new UILabel
+            UILabel helpLabel = new UILabel
             {
                 Text = "Tap to identify features in all layers.",
                 AdjustsFontSizeToFitWidth = true,
@@ -123,25 +125,23 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
                 Lines = 1,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
-            View.AddSubview(_helpLabel);
 
-            // Apply constraints to the mapview.
-            _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
-            _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
+            // Add the views.
+            View.AddSubviews(_myMapView, helpLabel);
 
-            // Apply constraints to the help label.
-            _helpLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
-            _helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
-            _helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
-            _helpLabel.HeightAnchor.ConstraintEqualTo(40).Active = true;
-        }
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
+                helpLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                helpLabel.HeightAnchor.ConstraintEqualTo(40)
+            });
         }
     }
 }

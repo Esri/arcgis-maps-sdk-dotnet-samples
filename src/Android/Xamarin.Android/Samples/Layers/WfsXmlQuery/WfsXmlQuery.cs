@@ -29,7 +29,6 @@ namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
         // Create and hold a reference to the MapView.
         private readonly MapView _myMapView = new MapView();
 
-        // Constants for the service URL, table name, and the query.
         // To learn more about specifying filters in OGC technologies, see https://www.opengeospatial.org/standards/filter.
         private const string XmlQuery = @"
 <wfs:GetFeature service=""WFS"" version=""2.0.0""
@@ -47,7 +46,10 @@ namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
   </wfs:Query>
 </wfs:GetFeature>
 ";
+
+        // Constants for the table name and URL.
         private const string TableUrl = "https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer?service=wfs&request=getcapabilities";
+        
         // Note that the layer name is defined by the service. The layer name can be accessed via WfsLayerInfo.Name. 
         private const string LayerName = "Seattle_Downtown_Features:Trees";
 

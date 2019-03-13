@@ -14,7 +14,6 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Diagnostics;
 using System.Windows;
-using Esri.ArcGISRuntime.Ogc;
 using Color = System.Drawing.Color;
 
 namespace ArcGISRuntime.WPF.Samples.DisplayWfs

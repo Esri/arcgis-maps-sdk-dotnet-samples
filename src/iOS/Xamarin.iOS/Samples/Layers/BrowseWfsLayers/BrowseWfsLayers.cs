@@ -77,7 +77,8 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
                 // Create the WFS feature table.
                 WfsFeatureTable table = new WfsFeatureTable(selectedLayerInfo);
 
-                // Set the WFS table's feature request mode.
+                // Set the feature request mode to manual - only manual is supported at v100.5.
+                // In this mode, you must manually populate the table - panning and zooming won't request features automatically.
                 table.FeatureRequestMode = FeatureRequestMode.ManualCache;
 
                 // Set the axis order based on the UI.
@@ -151,7 +152,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             {
                 case GeometryType.Point:
                 case GeometryType.Multipoint:
-                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, GetRandomColor(), 2));
+                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, GetRandomColor(),4));
                 case GeometryType.Polygon:
                 case GeometryType.Envelope:
                     return new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, GetRandomColor(180), null));

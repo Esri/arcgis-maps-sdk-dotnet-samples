@@ -17,13 +17,12 @@ Consider using the overrides workflow when you need to:
 
 ## How to use the sample
 
-1. Click on "Generate Offline Map (Overrides)".
-2. Adjust the min/max levelIds to be taken offline for the Streets basemap.
-3. Set the buffer distance for the streets basemap. 
-4. Choose whether to include the System Valves and Service Connections layers. 
-5. Specify the minimum flow rate for the features from the Hydrant layer.
-6. Use the button to start the job.
-7. Wait for the progress bar to indicate that the task has completed. The offline map will then be displayed.
+1. Adjust the min/max levelIds to be taken offline for the Streets basemap.
+2. Set the buffer distance for the streets basemap. 
+3. Choose whether to include the System Valves and Service Connections layers. 
+4. Specify the minimum flow rate for the features from the Hydrant layer.
+5. Use the button to start the job.
+6. Wait for the progress bar to indicate that the task has completed. The offline map will then be displayed.
 
 # How it works
 

@@ -657,6 +657,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
                 {
                     // Apply the where clause.
                     option.WhereClause = $"FLOW >= {_flowRate}";
+
                     // Configure the option to use the where clause.
                     option.QueryOption = GenerateLayerQueryOption.UseFilter;
                 }

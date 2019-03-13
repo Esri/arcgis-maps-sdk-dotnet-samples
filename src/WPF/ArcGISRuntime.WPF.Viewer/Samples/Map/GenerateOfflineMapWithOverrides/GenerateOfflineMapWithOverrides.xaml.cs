@@ -39,7 +39,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMapWithOverrides
         private Envelope _areaOfInterest = new Envelope(-88.1541, 41.7690, -88.1471, 41.7720, SpatialReferences.Wgs84);
 
         // The ID for a web map item hosted on the server (water network map of Naperville IL).
-        private string WebMapId = "acc027394bc84c2fb04d1ed317aac674";
+        private const string WebMapId = "acc027394bc84c2fb04d1ed317aac674";
 
         public GenerateOfflineMapWithOverrides()
         {
@@ -87,7 +87,8 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMapWithOverrides
                 // Hide the map loading progress indicator.
                 LoadingIndicator.Visibility = Visibility.Collapsed;
 
-                // When the map view unloads, try to clean up existing output data folders.
+                // Clean up any existing output data folders that might exist from running this sample previously. 
+                // The output data folder is where the results of the taking the web map offline get stored on the device.
                 MyMapView.Unloaded += (s, e) =>
                 {
                     // Find output mobile map folders in the temp directory.
@@ -286,6 +287,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMapWithOverrides
                 {
                     // Apply the where clause.
                     option.WhereClause = "FLOW >= " + (int)FlowRateFilterEntry.Value;
+
                     // Configure the option to use the where clause.
                     option.QueryOption = GenerateLayerQueryOption.UseFilter;
                 }

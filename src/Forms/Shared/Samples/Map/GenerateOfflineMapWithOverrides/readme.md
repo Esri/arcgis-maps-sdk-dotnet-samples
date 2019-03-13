@@ -17,7 +17,7 @@ Consider using the overrides workflow when you need to:
 
 ## How to use the sample
 
-1. Click on "Generate Offline Map (Overrides)".
+1. Tap 'Take map offline'.
 2. Adjust the min/max levelIds to be taken offline for the Streets basemap.
 3. Set the buffer distance for the streets basemap. 
 4. Choose whether to include the System Valves and Service Connections layers. 

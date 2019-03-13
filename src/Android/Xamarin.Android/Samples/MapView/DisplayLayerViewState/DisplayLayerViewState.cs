@@ -17,7 +17,7 @@ using Android.Widget;
 
 namespace ArcGISRuntime.Samples.DisplayLayerViewState
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Display layer view state",
         "MapView",

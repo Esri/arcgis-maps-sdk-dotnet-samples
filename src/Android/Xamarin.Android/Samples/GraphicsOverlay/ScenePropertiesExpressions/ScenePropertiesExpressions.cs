@@ -19,7 +19,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 
 namespace ArcGISRuntimeXamarin.Samples.ScenePropertiesExpressions
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Scene properties expressions",
         "GraphicsOverlay",

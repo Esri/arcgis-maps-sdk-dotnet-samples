@@ -19,7 +19,7 @@ using System.Drawing;
 
 namespace ArcGISRuntimeXamarin.Samples.Project
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Project",
         "Geometry",

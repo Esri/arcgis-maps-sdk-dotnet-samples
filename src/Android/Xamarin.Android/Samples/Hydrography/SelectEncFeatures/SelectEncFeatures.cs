@@ -23,7 +23,7 @@ using System.Linq;
 
 namespace ArcGISRuntime.Samples.SelectEncFeatures
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Select ENC features",

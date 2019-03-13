@@ -21,7 +21,7 @@ using System.Drawing;
 
 namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer extrusion",
         "Symbology",

@@ -20,7 +20,7 @@ using Android.Views;
 
 namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Update geometries (feature service)",
         "Data",

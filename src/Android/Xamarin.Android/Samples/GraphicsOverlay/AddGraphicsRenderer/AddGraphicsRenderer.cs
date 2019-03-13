@@ -19,7 +19,7 @@ using System;
 
 namespace ArcGISRuntime.Samples.AddGraphicsRenderer
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Add graphics (SimpleRenderer)",
         "GraphicsOverlay",

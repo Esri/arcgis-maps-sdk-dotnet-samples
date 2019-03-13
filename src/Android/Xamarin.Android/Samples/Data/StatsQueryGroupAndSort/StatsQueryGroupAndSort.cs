@@ -21,7 +21,7 @@ using OrderFieldOption = ArcGISRuntime.Samples.StatsQueryGroupAndSort.OrderField
 
 namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("GroupedResultsList_DataItem.axml", "GroupedResultsList_GroupItem.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Statistical query group and sort results",

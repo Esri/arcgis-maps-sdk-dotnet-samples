@@ -26,7 +26,7 @@ using System.Windows.Input;
 
 namespace ArcGISRuntime.Samples.SketchOnMap
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Sketch graphics on the map",
         "GraphicsOverlay",

@@ -28,7 +28,7 @@ using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
 namespace ArcGISRuntime.Samples.Animate3DGraphic
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("Animate3DGraphic.axml")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("290f0c571c394461a8b58b6775d0bd63","e87c154fb9c2487f999143df5b08e9b1","5a9b60cee9ba41e79640a06bcdf8084d","12509ffdc684437f8f2656b0129d2c13","681d6f7694644709a7c830ec57a2d72b")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

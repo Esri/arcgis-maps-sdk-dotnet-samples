@@ -16,7 +16,7 @@ using System;
 
 namespace ArcGISRuntime.Samples.ArcGISMapImageLayerUrl
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "ArcGIS map image layer (URL)",
         "Layers",

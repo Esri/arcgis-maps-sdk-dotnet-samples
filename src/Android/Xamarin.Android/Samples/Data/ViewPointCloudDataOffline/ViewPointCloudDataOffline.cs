@@ -17,7 +17,7 @@ using System;
 
 namespace ArcGISRuntimeXamarin.Samples.ViewPointCloudDataOffline
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "View point cloud data offline",
         "Data",

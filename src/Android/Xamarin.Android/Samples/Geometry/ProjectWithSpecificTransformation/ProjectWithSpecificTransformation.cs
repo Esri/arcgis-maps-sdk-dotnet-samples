@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Geometry;
 
 namespace ArcGISRuntime.Samples.ProjectWithSpecificTransformation
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Project with specific transformation",
         "Geometry",

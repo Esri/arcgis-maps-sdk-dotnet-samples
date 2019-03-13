@@ -22,7 +22,7 @@ using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
 namespace ArcGISRuntime.Samples.ViewshedLocation
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Viewshed (Location)",
         "Analysis",

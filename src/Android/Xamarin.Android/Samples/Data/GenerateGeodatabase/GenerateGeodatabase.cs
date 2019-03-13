@@ -28,7 +28,7 @@ using Esri.ArcGISRuntime.ArcGISServices;
 
 namespace ArcGISRuntime.Samples.GenerateGeodatabase
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3f1bbf0ec70b409a975f5c91f363fe7d")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Generate geodatabase",

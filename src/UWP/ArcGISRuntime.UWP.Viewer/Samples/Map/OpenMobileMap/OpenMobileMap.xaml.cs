@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.IO;
 using System.Linq;
 using Windows.UI.Popups;
 using Esri.ArcGISRuntime.Mapping;
@@ -26,26 +27,41 @@ namespace ArcGISRuntime.UWP.Samples.OpenMobileMap
         public OpenMobileMap()
         {
             InitializeComponent();
-
-            // Execute initialization
             Initialize();
         }
 
         private async void Initialize()
         {
-            // Get the path to the mobile map package
+            // Get the path to the mobile map package.
             string filepath = GetMmpkPath();
 
             try
             {
-                // Open the map package
-                MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(filepath);
-
-                // Check that there is at least one map
-                if (myMapPackage.Maps.Count > 0)
+                // Load directly or unpack then load as needed by the map package.
+                if (await MobileMapPackage.IsDirectReadSupportedAsync(filepath))
                 {
-                    // Display the first map in the package
+                    // Open the map package.
+                    MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(filepath);
+
+                    // Display the first map in the package.
                     MyMapView.Map = myMapPackage.Maps.First();
+                }
+                else
+                {
+                    // Create a path for the unpacked package.
+                    string unpackedPath = filepath + "unpacked";
+
+                    // Unpack the package.
+                    await MobileMapPackage.UnpackAsync(filepath, unpackedPath);
+
+                    // Open the package.
+                    MobileMapPackage package = await MobileMapPackage.OpenAsync(unpackedPath);
+
+                    // Load the package.
+                    await package.LoadAsync();
+
+                    // Show the first map.
+                    MyMapView.Map = package.Maps.First();
                 }
             }
             catch (Exception e)
@@ -55,9 +71,9 @@ namespace ArcGISRuntime.UWP.Samples.OpenMobileMap
         }
 
         /// <summary>
-        /// This abstracts away platform & sample viewer-specific code for accessing local files
+        /// This abstracts away platform & sample viewer-specific code for accessing local files.
         /// </summary>
-        /// <returns>String that is the path to the file on disk</returns>
+        /// <returns>String that is the path to the file on disk.</returns>
         private static string GetMmpkPath()
         {
             return DataManager.GetDataFolder("e1f3a7254cb845b09450f54937c16061", "Yellowstone.mmpk");

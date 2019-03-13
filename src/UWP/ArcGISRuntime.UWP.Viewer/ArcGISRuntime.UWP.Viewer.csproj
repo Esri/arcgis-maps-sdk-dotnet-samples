@@ -113,9 +113,17 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
+    <Content Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
+    <Content Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
+	  <Content Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
+	  <Content Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
+	  <Content Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
 	  <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
 	  <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
     <Content Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.jpg" />
+    <Content Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
+    <Content Include="Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
     <Content Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
     <Content Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
 	  <Content Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
@@ -313,6 +321,31 @@
     <!-- Sample Code -->
     <Compile Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.xaml.cs">
       <DependentUpon>GenerateOfflineMapWithOverrides.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.xaml.cs">
+      <DependentUpon>WfsXmlQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayWfs\DisplayWfs.xaml.cs">
+      <DependentUpon>DisplayWfs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.xaml.cs">
+      <DependentUpon>BrowseWfsLayers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml.cs">
+      <DependentUpon>OpenMobileScenePackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\DoubleToScaleStringConverter.cs" />
+    <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.xaml.cs">
+      <DependentUpon>MapReferenceScale.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.xaml.cs">
+      <DependentUpon>CreateTerrainSurfaceFromRaster.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.xaml.cs">
+      <DependentUpon>CreateTerrainSurfaceFromTilePackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.xaml.cs">
+      <DependentUpon>ViewPointCloudDataOffline.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.xaml.cs">
       <DependentUpon>AddAnIntegratedMeshLayer.xaml</DependentUpon>
@@ -772,6 +805,38 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\DisplayWfs\DisplayWfs.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\MapReferenceScale\MapReferenceScale.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

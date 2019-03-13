@@ -33,6 +33,7 @@ namespace ArcGISRuntime.UWP.Samples.MobileMapSearchAndRoute
         "Display maps and use locators to enable search and routing offline using a Mobile Map Package.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("260eb6535c824209964cf281766ebe43")]
+    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("Converters\\ItemToImageSourceConverter.cs", "Converters\\NullToVisibilityConverter.cs")]
     public partial class MobileMapSearchAndRoute
     {
         // Hold references to map resources for easy access.
@@ -61,7 +62,7 @@ namespace ArcGISRuntime.UWP.Samples.MobileMapSearchAndRoute
             string filePath = DataManager.GetDataFolder("260eb6535c824209964cf281766ebe43", "SanFrancisco.mmpk");
 
             // Open the map package.
-            MobileMapPackage package = await MobileMapPackage.OpenAsync(filePath);
+            MobileMapPackage package = await OpenMobileMapPackage(filePath);
 
             // Populate the list of maps.
             foreach (Map map in package.Maps)
@@ -87,6 +88,39 @@ namespace ArcGISRuntime.UWP.Samples.MobileMapSearchAndRoute
 
             // Enable tap-to-reverse geocode and tap-to-route.
             MyMapView.GeoViewTapped += MapView_Tapped;
+        }
+
+        private async Task<MobileMapPackage> OpenMobileMapPackage(string path)
+        {
+            // Load directly or unpack then load as needed by the map package.
+            if (await MobileMapPackage.IsDirectReadSupportedAsync(path))
+            {
+                // Open the map package.
+                MobileMapPackage package = await MobileMapPackage.OpenAsync(path);
+
+                // Load the package.
+                await package.LoadAsync();
+
+                // Return the opened package.
+                return package;
+            }
+            else
+            {
+                // Create a path for the unpacked package.
+                string unpackedPath = path + "unpacked";
+
+                // Unpack the package.
+                await MobileMapPackage.UnpackAsync(path, unpackedPath);
+
+                // Open the package.
+                MobileMapPackage package = await MobileMapPackage.OpenAsync(unpackedPath);
+
+                // Load the package.
+                await package.LoadAsync();
+
+                // Return the opened package.
+                return package;
+            }
         }
 
         private async void MapView_Tapped(object sender, GeoViewInputEventArgs e)

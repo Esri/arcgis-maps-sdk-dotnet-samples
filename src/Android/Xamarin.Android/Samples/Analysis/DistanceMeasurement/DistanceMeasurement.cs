@@ -20,7 +20,7 @@ using Debug = System.Diagnostics.Debug;
 
 namespace ArcGISRuntime.Samples.DistanceMeasurement
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Distance measurement analysis",
         "Analysis",

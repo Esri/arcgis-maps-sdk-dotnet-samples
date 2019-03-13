@@ -20,7 +20,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 
 namespace ArcGISRuntimeXamarin.Samples.DisplayKml
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Display KML",
         "Layers",

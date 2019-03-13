@@ -21,7 +21,7 @@ using System.Drawing;
 
 namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample("Spatial operations",
         "Geometry",
         "Demonstrates how to use the GeometryEngine to perform geometry operations between overlapping polygons in a GraphicsOverlay.",

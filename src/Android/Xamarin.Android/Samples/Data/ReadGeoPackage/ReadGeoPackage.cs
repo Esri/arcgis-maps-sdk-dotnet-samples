@@ -23,7 +23,7 @@ using System.Linq;
 
 namespace ArcGISRuntime.Samples.ReadGeoPackage
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Read a GeoPackage",

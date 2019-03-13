@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.Symbology;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -42,14 +43,20 @@ namespace ArcGISRuntime.UWP.Samples.BrowseWfsLayers
             // Create the map with imagery basemap.
             MyMapView.Map = new Map(Basemap.CreateImagery());
 
-            // Create the service.
+            // Create the WFS service.
             WfsService service = new WfsService(new Uri(ServiceUrl));
 
-            // Load the service.
+            // Load the WFS service.
             await service.LoadAsync();
 
+            // Get the service metadata.
+            WfsServiceInfo serviceInfo = service.ServiceInfo;
+
+            // Get a reversed list of available layers.
+            IEnumerable<WfsLayerInfo> layerListReversed = serviceInfo.LayerInfos.Reverse();
+
             // Show the layers in the UI.
-            WfsLayerList.ItemsSource = service.ServiceInfo.LayerInfos.Reverse();
+            WfsLayerList.ItemsSource = layerListReversed;
 
             // Update the UI.
             LoadingProgressBar.Visibility = Visibility.Collapsed;
@@ -72,13 +79,13 @@ namespace ArcGISRuntime.UWP.Samples.BrowseWfsLayers
 
             try
             {
-                // Get the selected layer.
+                // Get the selected WFS layer.
                 WfsLayerInfo selectedLayerInfo = (WfsLayerInfo)WfsLayerList.SelectedItems[0];
 
-                // Create the feature table.
+                // Create the WFS feature table.
                 WfsFeatureTable table = new WfsFeatureTable(selectedLayerInfo);
                 
-                // Set the table's feature request mode.
+                // Set the WFS table's feature request mode.
                 table.FeatureRequestMode = FeatureRequestMode.ManualCache;
 
                 // Set the axis order based on the UI.
@@ -91,13 +98,13 @@ namespace ArcGISRuntime.UWP.Samples.BrowseWfsLayers
                     table.AxisOrder = OgcAxisOrder.NoSwap;
                 }
 
-                // Populate the table.
+                // Populate the WFS table.
                 await table.PopulateFromServiceAsync(new QueryParameters(), false, null);
 
-                // Create a layer from the table.
+                // Create a feature layer from the WFS table.
                 FeatureLayer wfsFeatureLayer = new FeatureLayer(table);
 
-                // Choose a renderer for the table.
+                // Choose a renderer for the layer based on the table.
                 wfsFeatureLayer.Renderer = GetRandomRendererForTable(table) ?? wfsFeatureLayer.Renderer;
 
                 // Add the layer to the map.

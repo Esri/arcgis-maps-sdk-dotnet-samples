@@ -57,10 +57,10 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             // Create the map with imagery basemap.
             _myMapView.Map = new Map(Basemap.CreateImagery());
 
-            // Create the service.
+            // Create the WFS service.
             WfsService service = new WfsService(new Uri(ServiceUrl));
 
-            // Load the service.
+            // Load the WFS service.
             await service.LoadAsync();
 
             // Store information about the WFS service for later.
@@ -83,10 +83,10 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
                 // Get the selected layer info.
                 WfsLayerInfo selectedLayerInfo = _serviceInfo.LayerInfos[e.Item.Order];
 
-                // Create the feature table.
+                // Create the WFS feature table.
                 WfsFeatureTable table = new WfsFeatureTable(selectedLayerInfo);
 
-                // Set the table's feature request mode.
+                // Set the WFS table's feature request mode.
                 table.FeatureRequestMode = FeatureRequestMode.ManualCache;
 
                 // Set the axis order based on the UI.
@@ -99,13 +99,13 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
                     table.AxisOrder = OgcAxisOrder.NoSwap;
                 }
 
-                // Populate the table.
+                // Populate the WFS table.
                 await table.PopulateFromServiceAsync(new QueryParameters(), false, null);
 
-                // Create a layer from the table.
+                // Create a feature layer from the WFS table.
                 FeatureLayer wfsFeatureLayer = new FeatureLayer(table);
 
-                // Choose a renderer for the table.
+                // Choose a renderer for the layer based on the table.
                 wfsFeatureLayer.Renderer = GetRandomRendererForTable(table) ?? wfsFeatureLayer.Renderer;
 
                 // Add the layer to the map.

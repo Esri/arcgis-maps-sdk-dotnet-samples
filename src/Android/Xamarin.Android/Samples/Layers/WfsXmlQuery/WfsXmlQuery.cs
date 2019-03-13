@@ -30,6 +30,7 @@ namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
         private readonly MapView _myMapView = new MapView();
 
         // Constants for the service URL, table name, and the query.
+        // To learn more about specifying filters in OGC technologies, see https://www.opengeospatial.org/standards/filter.
         private const string XmlQuery = @"
 <wfs:GetFeature service=""WFS"" version=""2.0.0""
   xmlns:Seattle_Downtown_Features=""https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer""
@@ -47,6 +48,7 @@ namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
 </wfs:GetFeature>
 ";
         private const string TableUrl = "https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer?service=wfs&request=getcapabilities";
+        // Note that the layer name is defined by the service. The layer name can be accessed via WfsLayerInfo.Name. 
         private const string LayerName = "Seattle_Downtown_Features:Trees";
 
         protected override void OnCreate(Bundle bundle)
@@ -69,19 +71,20 @@ namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
                 // Create the WFS feature table from URL and name.
                 WfsFeatureTable wfsTable = new WfsFeatureTable(new Uri(TableUrl), LayerName);
 
-                // Set the feature request mode.
+                // Set the feature request mode to manual. Only calls to PopulateFromService will load features.
+                // Features will not be populated automatically when the user pans and zooms the layer.
                 wfsTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
 
-                // Load the table.
+                // Load the WFS feature table.
                 await wfsTable.LoadAsync();
 
-                // Create a feature layer to visualize the table.
+                // Create a feature layer to visualize the WFS feature table.
                 FeatureLayer statesLayer = new FeatureLayer(wfsTable);
 
                 // Add the layer to the map.
                 _myMapView.Map.OperationalLayers.Add(statesLayer);
 
-                // Populate the feature table with the XML query.
+                // Populate the WFS feature table with the XML query.
                 await wfsTable.PopulateFromServiceAsync(XmlQuery, true);
 
                 // Zoom to the extent of the query results.

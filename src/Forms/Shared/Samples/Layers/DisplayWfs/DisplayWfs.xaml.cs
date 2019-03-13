@@ -24,11 +24,12 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
         "")]
     public partial class DisplayWfs : ContentPage
     {
-        // Hold a reference to the feature table.
+        // Hold a reference to the WFS feature table.
         private WfsFeatureTable _featureTable;
 
         // Constants for the service URL and layer name.
         private const string ServiceUrl = "https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer?service=wfs&request=getcapabilities";
+        // Note that the layer name is defined by the service. The layer name can be accessed via WfsLayerInfo.Name. 
         private const string LayerName = "Seattle_Downtown_Features:Buildings";
 
         public DisplayWfs()
@@ -48,6 +49,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
                 _featureTable = new WfsFeatureTable(new Uri(ServiceUrl), LayerName);
 
                 // Set the feature request mode to manual - only manual is supported at v100.5.
+                // In this mode, you must manually populate the table - panning and zooming won't request features automatically.
                 _featureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
 
                 // Load the table.
@@ -93,6 +95,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
             try
             {
                 // Populate the table with the query, leaving existing table entries intact.
+                // Setting outFields to null requests all features.
                 await _featureTable.PopulateFromServiceAsync(visibleExtentQuery, false, null);
             }
             catch (Exception exception)

@@ -25,15 +25,17 @@
     <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>True</MtouchDebug>
-    <MtouchSdkVersion>11.4</MtouchSdkVersion>
+    <MtouchSdkVersion>
+    </MtouchSdkVersion>
     <MtouchFastDev>False</MtouchFastDev>
     <MtouchUseLlvm>False</MtouchUseLlvm>
     <MtouchUseThumb>False</MtouchUseThumb>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-    <LangVersion>6</LangVersion>
+    <LangVersion>7</LangVersion>
     <MtouchI18n />
     <CodesignKey>iPhone Developer</CodesignKey>
     <CodesignProvision />
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -44,7 +46,8 @@
     <MtouchArch>x86_64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
-    <LangVersion>6</LangVersion>
+    <LangVersion>7</LangVersion>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,7 +63,8 @@
     <MtouchProfiling>True</MtouchProfiling>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>True</MtouchDebug>
-    <MtouchSdkVersion>9.3</MtouchSdkVersion>
+    <MtouchSdkVersion>
+    </MtouchSdkVersion>
     <MtouchLink>None</MtouchLink>
     <MtouchFastDev>False</MtouchFastDev>
     <MtouchUseLlvm>False</MtouchUseLlvm>
@@ -70,8 +74,9 @@
     <BuildIpa>True</BuildIpa>
     <IpaIncludeArtwork>False</IpaIncludeArtwork>
     <DeviceSpecificBuild>False</DeviceSpecificBuild>
-    <LangVersion>6</LangVersion>
+    <LangVersion>7</LangVersion>
     <CodesignProvision />
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -92,7 +97,8 @@
     <MtouchEnableBitcode>False</MtouchEnableBitcode>
     <OptimizePNGs>True</OptimizePNGs>
     <MtouchFloat32>False</MtouchFloat32>
-    <LangVersion>6</LangVersion>
+    <LangVersion>7</LangVersion>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>full</DebugType>
@@ -106,7 +112,8 @@
     <CodesignKey>iPhone Distribution</CodesignKey>
     <CodesignProvision>Automatic:AdHoc</CodesignProvision>
     <BuildIpa>true</BuildIpa>
-    <LangVersion>6</LangVersion>
+    <LangVersion>7</LangVersion>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
     <DebugType>full</DebugType>
@@ -118,38 +125,28 @@
     <MtouchArch>ARM64</MtouchArch>
     <CodesignProvision>Automatic:AppStore</CodesignProvision>
     <CodesignKey>iPhone Distribution</CodesignKey>
-    <LangVersion>6</LangVersion>
+    <LangVersion>7</LangVersion>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhoneSimulator'">
     <OutputPath>..\..\..\output\iOS\iPhoneSimulator\Ad-Hoc\</OutputPath>
     <MtouchArch>x86_64</MtouchArch>
-    <LangVersion>6</LangVersion>
+    <LangVersion>7</LangVersion>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AppStore|iPhoneSimulator'">
     <OutputPath>..\..\..\output\iOS\iPhoneSimulator\AppStore\</OutputPath>
     <MtouchArch>x86_64</MtouchArch>
-    <LangVersion>6</LangVersion>
+    <LangVersion>7</LangVersion>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
   </PropertyGroup>
   <!-- References -->
   <ItemGroup>
-    <Reference Include="Esri.ArcGISRuntime, Version=100.5.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.5.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.dll</HintPath>
-    </Reference>
-    <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.5.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.5.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
-    </Reference>
-    <Reference Include="MarkedNet, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\MarkedNet.2.1.2\lib\netstandard2.0\MarkedNet.dll</HintPath>
-    </Reference>
     <Reference Include="MonoTouch.Dialog-1" />
     <Reference Include="OpenTK-1.0" />
-    <Reference Include="PCLCrypto, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d4421c8a4786956c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\PCLCrypto.2.0.147\lib\xamarinios10\PCLCrypto.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
@@ -159,9 +156,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Xamarin.iOS" />
-    <Reference Include="Xamarin.Auth">
-      <HintPath>..\..\..\packages\Xamarin.Auth.1.6.0.2\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <!-- Image Assets -->
   <ItemGroup>
@@ -563,7 +557,6 @@
     <None Include="app.config" />
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
-    <None Include="packages.config" />
   </ItemGroup>
   <!-- Sample Manager Code-->
   <ItemGroup>
@@ -591,15 +584,26 @@
   <ItemGroup>
     <None Include="Samples\Map\GenerateOfflineMap\GenerateOfflineMap.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
+      <Version>100.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Esri.ArcGISRuntime.Xamarin.iOS">
+      <Version>100.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="MarkedNet">
+      <Version>2.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Bcl.Build">
+      <Version>1.0.21</Version>
+    </PackageReference>
+    <PackageReference Include="PCLCrypto">
+      <Version>2.0.147</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Auth">
+      <Version>1.6.0.4</Version>
+    </PackageReference>
+  </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.5.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.5.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.5.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.5.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets'))" />
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.5.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.5.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets'))" />
-  </Target>
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.5.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.5.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets')" />
 </Project>

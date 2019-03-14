@@ -236,6 +236,7 @@
     <None Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
     <None Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
 	  <None Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
+    <None Include="Samples\Layers\PlayKmlTours\PlayKmlTours.jpg" />
     <None Include="Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
 	  <None Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
 	  <None Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
@@ -394,6 +395,7 @@
     <Compile Include="Samples\Layers\DisplayWfs\DisplayWfs.cs" />
     <Compile Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.cs" />
 	  <Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.cs" />
+    <Compile Include="Samples\Layers\PlayKmlTours\PlayKmlTours.cs" />
     <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.cs" />
 	  <Compile Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.cs" />
 	  <Compile Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.cs" />

@@ -125,6 +125,7 @@
 	  <Content Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
 	  <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
 	  <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
+    <Content Include="Samples\Layers\PlayKmlTours\PlayKmlTours.jpg" />
     <Content Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
     <Content Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg" />
     <Content Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.jpg" />
@@ -325,6 +326,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Layers\PlayKmlTours\PlayKmlTours.xaml.cs">
+      <DependentUpon>PlayKmlTours.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml.cs">
       <DependentUpon>ViewContentBeneathSurface.xaml</DependentUpon>
     </Compile>
@@ -816,6 +820,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Layers\PlayKmlTours\PlayKmlTours.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -25,7 +25,7 @@ using Android.Views;
 
 namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Edit feature attachments",
         "Data",

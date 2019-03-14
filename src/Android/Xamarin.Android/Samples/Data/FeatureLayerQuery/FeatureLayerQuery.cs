@@ -24,7 +24,7 @@ using Android.Text;
 
 namespace ArcGISRuntime.Samples.FeatureLayerQuery
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer query",
         "Data",

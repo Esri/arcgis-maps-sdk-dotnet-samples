@@ -20,7 +20,7 @@ using System.Drawing;
 
 namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Change feature layer renderer",
         "Layers",

@@ -9,7 +9,8 @@
             <StackPanel>
                 <TextBlock Text="Terrain exaggeration:" />
                 <Slider x:Name="TerrainSlider"
-                        Minimum="0" Value="1" Maximum="3"/>
+                        Minimum="0" Value="1" Maximum="3"
+                        StepFrequency=".01"/>
             </StackPanel>
         </Border>
     </Grid>

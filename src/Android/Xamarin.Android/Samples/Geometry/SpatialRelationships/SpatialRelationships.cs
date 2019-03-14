@@ -24,7 +24,7 @@ using System.Linq;
 
 namespace ArcGISRuntime.Samples.SpatialRelationships
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Spatial relationships",
         "Geometry",

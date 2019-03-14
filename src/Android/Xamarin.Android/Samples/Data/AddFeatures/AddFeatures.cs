@@ -19,7 +19,7 @@ using System;
 
 namespace ArcGISRuntimeXamarin.Samples.AddFeatures
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Add features (feature service)",
         "Data",

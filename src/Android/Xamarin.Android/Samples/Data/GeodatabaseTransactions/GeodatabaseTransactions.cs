@@ -24,7 +24,7 @@ using Android.Views;
 
 namespace ArcGISRuntime.Samples.GeodatabaseTransactions
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Geodatabase transactions",
         "Data",

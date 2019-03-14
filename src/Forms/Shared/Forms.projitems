@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
@@ -169,6 +170,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml.cs">
+      <DependentUpon>ViewContentBeneathSurface.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.xaml.cs">
       <DependentUpon>AddPointSceneLayer.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -703,6 +708,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

@@ -12,12 +12,14 @@ KML, the file format used by Google Earth, supports creating tours, which can co
 
 The sample will load the KMZ file automatically. When a tour is found, the _Play_ button will be enabled. Use _Play_ and _Pause_ to control the tour. When you're ready to show the tour, use the reset button to return the tour to the unplayed state.
 
+This sample is graphics intensive and includes audio. Performance may be poor on emulated and remote devices. Run the sample on a physical device for best performance.
+
 ## How it works
 
 1. Load the KML file and add it to a layer.
 2. Create the KML tour controller. Wire up the buttons to the `Play`, `Pause`, and `Reset` methods.
 3. Use an iterative method to explore the tree of KML content and finds the first KML tour. Once a tour is found, provide it to the KML tour controller.
-4. Enable the buttons to allow the user to play, pause, and reset the tour. 
+4. Enable the buttons to allow the user to play, pause, and reset the tour.
 
 ## Relevant API
 

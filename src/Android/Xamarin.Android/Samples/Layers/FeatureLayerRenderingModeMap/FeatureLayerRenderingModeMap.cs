@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("FeatureLayerRenderingModeMapLayout.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer rendering mode (Map)",

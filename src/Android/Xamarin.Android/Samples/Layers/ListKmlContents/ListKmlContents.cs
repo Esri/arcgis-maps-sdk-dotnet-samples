@@ -24,7 +24,7 @@ using ArcGISRuntime;
 
 namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "List KML contents",
         "Layers",

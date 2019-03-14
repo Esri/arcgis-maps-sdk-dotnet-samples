@@ -10,10 +10,19 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="$(MSBuildThisFileDirectory)Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
@@ -161,10 +170,50 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="$(MSBuildThisFileDirectory)Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml.cs">
-		<DependentUpon>ViewContentBeneathSurface.xaml</DependentUpon>
-		<SubType>Code</SubType>
-	</Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml.cs">
+      <DependentUpon>ViewContentBeneathSurface.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.xaml.cs">
+      <DependentUpon>AddPointSceneLayer.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\GenerateOfflineMapWithOverrides\ConfigureOverridesPage.xaml.cs">
+      <DependentUpon>ConfigureOverridesPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.xaml.cs">
+      <DependentUpon>GenerateOfflineMapWithOverrides.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\WfsXmlQuery\WfsXmlQuery.xaml.cs">
+      <DependentUpon>WfsXmlQuery.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayWfs\DisplayWfs.xaml.cs">
+      <DependentUpon>DisplayWfs.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.xaml.cs">
+      <DependentUpon>BrowseWfsLayers.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml.cs">
+      <DependentUpon>OpenMobileScenePackage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\MapReferenceScale\MapReferenceScale.xaml.cs">
+      <DependentUpon>MapReferenceScale.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.xaml.cs">
+      <DependentUpon>CreateTerrainSurfaceFromRaster.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.xaml.cs">
+      <DependentUpon>CreateTerrainSurfaceFromTilePackage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.xaml.cs">
       <DependentUpon>ViewPointCloudDataOffline.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -659,9 +708,36 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml">
-		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	</EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\WfsXmlQuery\WfsXmlQuery.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayWfs\DisplayWfs.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\MapReferenceScale\MapReferenceScale.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -1195,5 +1271,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\routingSymbol.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\GenerateOfflineMapWithOverrides\ConfigureOverridesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

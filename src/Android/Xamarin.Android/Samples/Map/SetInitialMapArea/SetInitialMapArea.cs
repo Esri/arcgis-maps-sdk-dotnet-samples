@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 
 namespace ArcGISRuntime.Samples.SetInitialMapArea
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Set initial map area",
         "Map",

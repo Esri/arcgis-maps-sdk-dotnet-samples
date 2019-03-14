@@ -18,7 +18,7 @@ using System;
 
 namespace ArcGISRuntime.Samples.ViewshedCamera
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Viewshed for camera",
         "Analysis",

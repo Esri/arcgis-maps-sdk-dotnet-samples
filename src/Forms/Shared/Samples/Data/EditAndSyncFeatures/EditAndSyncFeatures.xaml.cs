@@ -215,7 +215,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     // Select the feature in all applicable tables.
                     foreach (FeatureLayer layer in myMapView.Map.OperationalLayers)
                     {
-                        FeatureQueryResult res = await layer.SelectFeaturesAsync(query, SelectionMode.New);
+                        FeatureQueryResult res = await layer.SelectFeaturesAsync(query, Esri.ArcGISRuntime.Mapping.SelectionMode.New);
                         selectedFeature = selectedFeature || res.Any();
                     }
 

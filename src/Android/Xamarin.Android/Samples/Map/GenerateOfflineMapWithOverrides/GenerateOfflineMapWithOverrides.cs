@@ -26,7 +26,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using ArcGISRuntime.Samples.GenerateOfflineMapWithOverrides;
 using Xamarin.Auth;
-using Android.Support.V7.App;
 using AlertDialog = Android.App.AlertDialog;
 
 namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
@@ -37,7 +36,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         "Map",
         "Take a web map offline with additional options for each layer.",
         "")]
-    public class GenerateOfflineMapWithOverrides : AppCompatActivity, IOAuthAuthorizeHandler
+    public class GenerateOfflineMapWithOverrides : Activity, IOAuthAuthorizeHandler
     {
         // Mapview.
         private MapView _mapView;

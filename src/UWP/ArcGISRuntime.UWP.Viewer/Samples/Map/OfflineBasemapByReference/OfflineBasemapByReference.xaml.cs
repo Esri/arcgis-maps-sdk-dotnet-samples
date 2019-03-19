@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+﻿// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
@@ -22,31 +23,68 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
+namespace ArcGISRuntime.UWP.Samples.OfflineBasemapByReference
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Generate offline map",
+        "Generate offline map with local basemap",
         "Map",
-        "This sample demonstrates how to generate an offline map for a web map in ArcGIS Portal.",
-        "When the app starts, a web map is loaded from ArcGIS Online. The red border shows the extent that of the data that will be downloaded for use offline. Click the `Take map offline` button to start the offline map job (you will be prompted for your ArcGIS Online login). The progress bar will show the job's progress. When complete, the offline map will replace the online map in the map view.")]
-    public partial class GenerateOfflineMap
+        "Use the OfflineMapTask to take a web map offline while using a basemap previously taken offline.",
+        "")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("628e8e3521cf45e9a28a12fe10c02c4d")]
+    public partial class OfflineBasemapByReference
     {
         // The job to generate an offline map.
         private GenerateOfflineMapJob _generateOfflineMapJob;
 
         // The extent of the data to take offline.
-        private Envelope _areaOfInterest = new Envelope(-88.1541, 41.7690, -88.1471, 41.7720, SpatialReferences.Wgs84);
+        private readonly Envelope _areaOfInterest = new Envelope(-88.1541, 41.7690, -88.1471, 41.7720, SpatialReferences.Wgs84);
 
         // The ID for a web map item hosted on the server (water network map of Naperville IL).
         private string WebMapId = "acc027394bc84c2fb04d1ed317aac674";
 
-        public GenerateOfflineMap()
+        public OfflineBasemapByReference()
         {
             InitializeComponent();
-
-            // Load the web map, show area of interest, restrict map interaction, and set up authorization. 
             Initialize();
         }
+
+        private async Task ConfigureOfflineJobForBasemap(GenerateOfflineMapParameters parameters)
+        {
+            // Don't give the user a choice if there is no basemap specified.
+            if (String.IsNullOrWhiteSpace(parameters.ReferenceBasemapFilename))
+            {
+                return;
+            }
+
+            // Get the path to the basemap directory.
+            string basemapBasePath = DataManager.GetDataFolder("628e8e3521cf45e9a28a12fe10c02c4d");
+
+            // Get the full path to the basemap by combining the name specified in the web map (ReferenceBasemapFilename)
+            //  with the offline basemap directory.
+            string basemapFullPath = Path.Combine(basemapBasePath, parameters.ReferenceBasemapFilename);
+
+            // If the offline basemap doesn't exist, proceed without it.
+            if (!File.Exists(basemapFullPath))
+            {
+                return;
+            }
+
+            // Create a dialog for getting the user's basemap choice.
+            MessageDialog dialog = new MessageDialog("Use the offline basemap?", "Basemap choice");
+
+            // If the user selects OK, parameters.ReferenceBasemapDirectory will be set.
+            dialog.Commands.Add(new UICommand("OK", command => parameters.ReferenceBasemapDirectory = basemapBasePath));
+
+            // Do nothing otherwise.
+            dialog.Commands.Add(new UICommand("No"));
+
+            // Wait for the user to choose.
+            await dialog.ShowAsync();
+        }
+
+        // Note: all code below (except call to ConfigureOfflineJobForBasemap) is identical to code in the Generate offline map sample.
+
+        #region Generate offline map
 
         private async void Initialize()
         {
@@ -86,7 +124,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
                 extentOverlay.Graphics.Add(aoiGraphic);
 
                 // Hide the map loading progress indicator.
-                loadingIndicator.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                LoadingIndicator.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
 
                 // When the map view unloads, try to clean up existing output data folders.
                 MyMapView.Unloaded += (s, e) =>
@@ -133,13 +171,16 @@ namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
             try
             {
                 // Show the progress indicator while the job is running.
-                busyIndicator.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                BusyIndicator.Visibility = Windows.UI.Xaml.Visibility.Visible;
 
                 // Create an offline map task with the current (online) map.
                 OfflineMapTask takeMapOfflineTask = await OfflineMapTask.CreateAsync(MyMapView.Map);
 
                 // Create the default parameters for the task, pass in the area of interest.
                 GenerateOfflineMapParameters parameters = await takeMapOfflineTask.CreateDefaultGenerateOfflineMapParametersAsync(_areaOfInterest);
+
+                // Configure basemap settings for the job.
+                await ConfigureOfflineJobForBasemap(parameters);
 
                 // Create the job with the parameters and output location.
                 _generateOfflineMapJob = takeMapOfflineTask.GenerateOfflineMap(parameters, packagePath);
@@ -155,7 +196,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
                 {
                     MessageDialog dialog = new MessageDialog("Generate offline map package failed.", "Job status");
                     await dialog.ShowAsync();
-                    busyIndicator.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                    BusyIndicator.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                 }
 
                 // Check for errors with individual layers.
@@ -165,7 +206,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
                     System.Text.StringBuilder errorBuilder = new System.Text.StringBuilder();
                     foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
                     {
-                        errorBuilder.AppendLine(string.Format("{0} : {1}", layerError.Key.Id, layerError.Value.Message));
+                        errorBuilder.AppendLine($"{layerError.Key.Id} : {layerError.Value.Message}");
                     }
 
                     // Show layer errors.
@@ -184,10 +225,10 @@ namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
                 MyMapView.InteractionOptions.IsEnabled = true;
 
                 // Hide the "Take map offline" button.
-                takeOfflineArea.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                TakeOfflineArea.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
 
                 // Show a message that the map is offline.
-                messageArea.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                MessageArea.Visibility = Windows.UI.Xaml.Visibility.Visible;
             }
             catch (TaskCanceledException)
             {
@@ -204,7 +245,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
             finally
             {
                 // Hide the activity indicator when the job is done.
-                busyIndicator.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                BusyIndicator.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             }
         }
 
@@ -215,11 +256,11 @@ namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
             GenerateOfflineMapJob job = sender as GenerateOfflineMapJob;
 
             // Dispatch to the UI thread.
-            await Dispatcher.RunAsync( Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 // Show the percent complete and update the progress bar.
                 Percentage.Text = job.Progress > 0 ? job.Progress.ToString() + " %" : string.Empty;
-                progressBar.Value = job.Progress;
+                ProgressBar.Value = job.Progress;
             });
         }
 
@@ -229,14 +270,20 @@ namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
             _generateOfflineMapJob.Cancel();
         }
 
+        #endregion Generate offline map
+
         #region Authentication
+
         // Constants for OAuth-related values.
         // - The URL of the portal to authenticate with (ArcGIS Online).
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
+
         // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
         private const string AppClientId = @"lgAdHkYZYlwwfAhC";
+
         // - An optional client secret for the app (only needed for the OAuthAuthorizationCode authorization type).
         private const string ClientSecret = "";
+
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
         private const string OAuthRedirectUrl = @"my-ags-app://auth";
 
@@ -265,7 +312,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
             //     The UWP AuthenticationManager, however, uses a built-in IOAuthAuthorizeHandler (based on WebAuthenticationBroker).
         }
 
-        public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
+        private async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
             // ChallengeHandler function for AuthenticationManager that will be called whenever a secured resource is accessed.
             Credential credential = null;
@@ -284,5 +331,6 @@ namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
             return credential;
         }
     }
+
     #endregion
 }

@@ -1,4 +1,4 @@
-# Generate Offline Map
+# Generate offline map
 
 Demonstrates how to take a web map offline.
 

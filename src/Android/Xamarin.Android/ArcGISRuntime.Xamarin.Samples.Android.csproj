@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Layers\GroupLayers\GroupLayers.jpg" />
     <None Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
     <None Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
     <None Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
@@ -236,6 +237,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Layers\GroupLayers\GroupLayers.cs" />
     <Compile Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.cs" />
     <Compile Include="Samples\Layers\DisplayWfs\DisplayWfs.cs" />
     <Compile Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.cs" />
@@ -493,6 +495,9 @@
       <Version>28.0.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Fragment">
+      <Version>28.0.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat">
       <Version>28.0.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Auth">

@@ -229,6 +229,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Layers\GroupLayers\GroupLayers.jpg" />
     <None Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
     <None Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg" />
     <None Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.jpg" />
@@ -388,6 +389,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Layers\GroupLayers\GroupLayers.cs" />
     <Compile Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.cs" />
     <Compile Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.cs" />
     <Compile Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.cs" />

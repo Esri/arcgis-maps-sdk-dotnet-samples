@@ -71,6 +71,9 @@ namespace ArcGISRuntime.UWP.Samples.PlayKmlTours
                 // Listen for changes to the tour status.
                 _tourController.Tour.PropertyChanged += Tour_PropertyChanged;
 
+                // Be notified when the sample is left so that the tour can be reset.
+                this.Unloaded += Sample_Unloaded;
+
                 // Enable the play button.
                 PlayButton.IsEnabled = true;
 
@@ -158,5 +161,8 @@ namespace ArcGISRuntime.UWP.Samples.PlayKmlTours
 
         // Reset the tour when the button is pressed.
         private void Reset_Clicked(object sender, RoutedEventArgs e) => _tourController?.Reset();
+
+        // Reset the tour when the user leaves the sample - avoids a crash.
+        private void Sample_Unloaded(object sender, RoutedEventArgs e) => _tourController?.Reset();
     }
 }

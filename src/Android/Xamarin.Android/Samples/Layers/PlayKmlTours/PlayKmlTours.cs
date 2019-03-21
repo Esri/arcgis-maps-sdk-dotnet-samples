@@ -170,6 +170,14 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
         // Reset the tour when the button is pressed.
         private void Reset_Clicked(object sender, EventArgs e) => _tourController?.Reset();
 
+        protected override void OnStop()
+        {
+            base.OnStop();
+
+            // Reset the tour controller when the sample closes - avoids a crash.
+            _tourController?.Reset();
+        }
+
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.

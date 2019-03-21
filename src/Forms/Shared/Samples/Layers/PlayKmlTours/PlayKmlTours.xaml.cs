@@ -70,6 +70,11 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
                 // Listen for changes to the tour status.
                 _tourController.Tour.PropertyChanged += Tour_PropertyChanged;
 
+                // Subscribe to notifications about leaving so that the tour can be reset.
+                // This looks different because of sample viewer plumbing.
+                // Replace `((ArcGISRuntime.SamplePage)this.Parent)` with `this` in your app.
+                ((Page)this.Parent).Disappearing += Sample_Unloaded;
+
                 // Enable the play button.
                 PlayButton.IsEnabled = true;
 
@@ -157,5 +162,8 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
 
         // Reset the tour when the button is pressed.
         private void Reset_Clicked(object sender, EventArgs e) => _tourController?.Reset();
+
+        // Reset the tour when the user leaves the sample - avoids a crash.
+        private void Sample_Unloaded(object sender, EventArgs e) => _tourController?.Reset();
     }
 }

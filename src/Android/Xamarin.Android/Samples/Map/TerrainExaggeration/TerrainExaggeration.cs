@@ -63,7 +63,8 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
             // Update terrain exaggeration based on the slider value.
             _terrainSlider.ProgressChanged += (sender, e) =>
             {
-                elevationSurface.ElevationExaggeration = _terrainSlider.Progress;
+                // Values are scaled to enable smoother animation - Android Seekbar has a course step size.
+                elevationSurface.ElevationExaggeration = 1 + _terrainSlider.Progress / 20.0;
             };
         }
 
@@ -75,7 +76,7 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
             // Create the views.
             _mySceneView = new SceneView();
             _terrainSlider = new SeekBar(this);
-            _terrainSlider.Max = 3;
+            _terrainSlider.Max = 20;
 
             TextView terrainLabel = new TextView(this);
             terrainLabel.Text = "Terrain exaggeration:";

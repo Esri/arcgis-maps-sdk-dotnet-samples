@@ -7,25 +7,20 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using System;
-using System.IO;
+using ArcGISRuntime.Samples.Managers;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
+using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using UIKit;
-using CoreGraphics;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Esri.ArcGISRuntime.Portal;
-using ArcGISRuntime.Samples.Managers;
+using System.IO;
 using System.Linq;
+using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
 {
@@ -105,7 +100,8 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
 
                 // Configure the table view for showing map areas.
                 _mapAreaViewModel = new MapAreaViewModel(_mapAreas);
-                _mapAreaViewModel.MapSelected += _mapAreaViewModel_MapSelected;;
+                _mapAreaViewModel.MapSelected += _mapAreaViewModel_MapSelected;
+
                 _tableController = new UITableViewController(UITableViewStyle.Plain);
                 _tableController.TableView.Source = _mapAreaViewModel;
 
@@ -116,7 +112,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             {
                 // Something unexpected happened, show the error message.
                 Debug.WriteLine(ex);
-                new UIAlertView("There was an error", ex.ToString(), (IUIAlertViewDelegate)null, "OK", null).Show();
+                new UIAlertView("There was an error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
         }
 
@@ -153,7 +149,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
                 catch (Exception e)
                 {
                     Debug.WriteLine(e);
-                    new UIAlertView("Couldn't open offline map area. Proceeding to take area offline.", e.ToString(), (IUIAlertViewDelegate)null, "OK", null).Show();
+                    new UIAlertView("Couldn't open offline map area. Proceeding to take area offline.", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
                 }
             }
 
@@ -164,7 +160,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             DownloadPreplannedOfflineMapJob job = _offlineMapTask.DownloadPreplannedOfflineMap(parameters, path);
 
             // Set up event to update the progress bar while the job is in progress.
-            job.ProgressChanged += Job_ProgressChanged;;
+            job.ProgressChanged += Job_ProgressChanged;
 
             try
             {
@@ -188,7 +184,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
                     }
 
                     // Show the message.
-                    new UIAlertView("Warning!", errors, (IUIAlertViewDelegate)null, "OK", null).Show();
+                    new UIAlertView("Warning!", errors, (IUIAlertViewDelegate) null, "OK", null).Show();
                 }
 
                 // Show the downloaded map.
@@ -198,7 +194,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             {
                 // Report any errors.
                 Debug.WriteLine(ex);
-                new UIAlertView("Downloading map area failed", ex.ToString(), (IUIAlertViewDelegate)null, "OK", null).Show();
+                new UIAlertView("Downloading map area failed", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
             finally
             {
@@ -230,7 +226,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             UIPopoverPresentationController pc = _tableDisplayController.PopoverPresentationController;
             if (pc != null)
             {
-                pc.BarButtonItem = (UIBarButtonItem)sender;
+                pc.BarButtonItem = (UIBarButtonItem) sender;
                 pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
                 pc.Delegate = new ppDelegate();
             }
@@ -269,7 +265,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             {
                 // Report the error.
                 Debug.WriteLine(ex);
-                new UIAlertView("Deleting map area failed", ex.ToString(), (IUIAlertViewDelegate)null, "OK", null).Show();
+                new UIAlertView("Deleting map area failed", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
             finally
             {
@@ -291,7 +287,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -374,11 +370,12 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             {
                 NSData imgData = NSData.FromUrl(selectedMap.PortalItem.ThumbnailUri);
                 cell.ImageView.Image = new UIImage(imgData);
-            } 
+            }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
             }
+
             cell.ImageView.ContentMode = UIViewContentMode.ScaleAspectFill;
 
             return cell;

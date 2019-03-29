@@ -1,34 +1,47 @@
-﻿// Copyright 2019 Esri.
+// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using Android.App;
+using Android.Graphics;
+using Android.Graphics.Drawables;
+using Android.OS;
+using Android.Widget;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Tasks.Offline;
+using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
+using Debug = System.Diagnostics.Debug;
+using Path = System.IO.Path;
 
-namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
+namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
 {
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Download a preplanned map area",
         "Map",
         "Take a map offline using a preplanned map area",
         "Select a map area to take offline, then use the button to take it offline. Click 'Delete offline areas' to remove any downloaded map areas.")]
-    public partial class DownloadPreplannedMap
+    public class DownloadPreplannedMap : Activity
     {
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+        private LinearLayout _mapListView;
+        private AlertDialog _progressView;
+        private ProgressBar _progressBar;
+
         // ID of a web map with preplanned map areas.
         private const string PortalItemId = "acc027394bc84c2fb04d1ed317aac674";
 
@@ -41,9 +54,16 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
         // Hold onto the original map.
         private Map _originalMap;
 
-        public DownloadPreplannedMap()
+        // Hold a list of available map areas.
+        private readonly List<PreplannedMapArea> _mapAreas = new List<PreplannedMapArea>();
+
+        protected override void OnCreate(Bundle bundle)
         {
-            InitializeComponent();
+            base.OnCreate(bundle);
+
+            Title = "Download a preplanned map area";
+
+            CreateLayout();
             Initialize();
         }
 
@@ -68,7 +88,7 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
 
                 // Show the map.
                 _originalMap = new Map(webMapItem);
-                MyMapView.Map = _originalMap;
+                _myMapView.Map = _originalMap;
 
                 // Create an offline map task for the web map item.
                 _offlineMapTask = await OfflineMapTask.CreateAsync(webMapItem);
@@ -76,31 +96,33 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
                 // Find the available preplanned map areas.
                 IReadOnlyList<PreplannedMapArea> preplannedAreas = await _offlineMapTask.GetPreplannedMapAreasAsync();
 
-                // Load each item, then add it to the UI.
+                // Load each item, then add it to the list of areas.
                 foreach (var area in preplannedAreas)
                 {
                     await area.LoadAsync();
-                    AreasList.Items.Add(area);
+                    _mapAreas.Add(area);
                 }
 
+                // Show the map areas in the UI.
+                ConfigureMapsButtons();
+
                 // Hide the loading indicator.
-                BusyIndicator.Visibility = Visibility.Collapsed;
+                _progressView.Dismiss();
             }
             catch (Exception ex)
             {
                 // Something unexpected happened, show the error message.
                 Debug.WriteLine(ex);
-                MessageBox.Show(ex.Message, "There was an error.");
+                new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("There was an error.").Show();
             }
         }
 
         private async Task DownloadMapAreaAsync(PreplannedMapArea mapArea)
         {
             // Set up UI for downloading.
-            ProgressBar.IsIndeterminate = false;
-            ProgressBar.Value = 0;
-            BusyText.Text = "Downloading map area...";
-            BusyIndicator.Visibility = Visibility.Visible;
+            _progressBar.SetProgress(0, false);
+            _progressView.SetMessage("Downloading map area...");
+            _progressView.Show();
 
             // Create folder path where the map package will be downloaded.
             var path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
@@ -111,15 +133,15 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
                 try
                 {
                     var localMapArea = await MobileMapPackage.OpenAsync(path);
-                    MyMapView.Map = localMapArea.Maps.First();
-                    BusyText.Text = string.Empty;
-                    BusyIndicator.Visibility = Visibility.Collapsed;
+                    _myMapView.Map = localMapArea.Maps.First();
+                    _progressView.SetMessage("");
+                    _progressView.Dismiss();
                     return;
                 }
                 catch (Exception e)
                 {
                     Debug.WriteLine(e);
-                    MessageBox.Show(e.Message, "Couldn't open offline area. Proceeding to take area offline.");
+                    new AlertDialog.Builder(this).SetMessage(e.Message).SetTitle("Couldn't open offline area. Proceeding to take area offline.").Show();
                 }
             }
 
@@ -154,22 +176,23 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
                     }
 
                     // Show the message.
-                    MessageBox.Show(errors, "Warning!");
+                    new AlertDialog.Builder(this).SetMessage(errors).SetTitle("Warning!").Show();
                 }
 
                 // Show the downloaded map.
-                MyMapView.Map = results.OfflineMap;
+                _myMapView.Map = results.OfflineMap;
             }
             catch (Exception ex)
             {
                 // Report any errors.
                 Debug.WriteLine(ex);
-                MessageBox.Show(ex.Message, "Downloading map area failed.");
+                new AlertDialog.Builder(this).SetMessage(ex.Message).SetTitle("Downloading map area failed.").Show();
             }
             finally
             {
-                BusyText.Text = string.Empty;
-                BusyIndicator.Visibility = Visibility.Collapsed;
+                _progressBar.SetProgress(0, false);
+                _progressView.SetMessage("");
+                _progressView.Dismiss();
             }
         }
 
@@ -177,12 +200,12 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
         {
             // Because the event is raised on a background thread, the dispatcher must be used to
             // ensure that UI updates happen on the UI thread.
-            Dispatcher.Invoke(() =>
+            RunOnUiThread(() =>
             {
                 // Update the UI with the progress.
                 var downloadJob = sender as DownloadPreplannedOfflineMapJob;
-                ProgressBar.Value = downloadJob.Progress;
-                BusyPercentage.Text = $"{downloadJob.Progress}%";
+                _progressBar.SetProgress(downloadJob.Progress, true);
+                _progressView.SetMessage($"{downloadJob.Progress}%");
             });
         }
 
@@ -193,23 +216,16 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
             Directory.CreateDirectory(_offlineDataFolder);
         }
 
-        private async void OnDownloadMapAreaClicked(object sender, RoutedEventArgs e)
-        {
-            var selectedMapArea = AreasList.SelectedItem as PreplannedMapArea;
-            await DownloadMapAreaAsync(selectedMapArea);
-        }
-
-        private void OnDeleteAllMapAreasClicked(object sender, RoutedEventArgs e)
+        private void DeleteButtonOnClick(object sender, EventArgs e)
         {
             try
             {
                 // Set up UI for downloading.
-                ProgressBar.IsIndeterminate = true;
-                BusyText.Text = "Deleting downloaded map area...";
-                BusyIndicator.Visibility = Visibility.Visible;
+                _progressView.SetMessage("Deleting map areas...");
+                _progressView.Show();
 
                 // Reset the map.
-                MyMapView.Map = _originalMap;
+                _myMapView.Map = _originalMap;
 
                 // Wait for the garbage collector to get the hint.
                 // Areas can't be deleted until handles to geodatabase tables are released.
@@ -223,11 +239,64 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
             catch (Exception ex)
             {
                 // Report the error.
-                MessageBox.Show(ex.Message, "Deleting map area failed.");
+                Debug.WriteLine(ex);
+                new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("Deleting map areas failed.").Show();
             }
             finally
             {
-                BusyIndicator.Visibility = Visibility.Collapsed;
+                _progressView.Dismiss();
+            }
+        }
+
+        private void CreateLayout()
+        {
+            // Create a new vertical layout for the app.
+            var layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
+
+            // Add a help label.
+            TextView helpLabel = new TextView(this);
+            helpLabel.Text = "Select a map area to take offline.";
+            layout.AddView(helpLabel);
+
+            // Add space for adding options for each map.
+            _mapListView = new LinearLayout(this) {Orientation = Orientation.Horizontal};
+            layout.AddView(_mapListView);
+
+            // Add button for deleting map areas.
+            Button deleteButton = new Button(this) {Text = "Delete offline areas"};
+            deleteButton.Click += DeleteButtonOnClick;
+            layout.AddView(deleteButton);
+
+            // Add the map view to the layout.
+            _myMapView = new MapView();
+            layout.AddView(_myMapView);
+
+            // Show the layout in the app.
+            SetContentView(layout);
+
+            // Create the progress dialog display.
+            _progressBar = new ProgressBar(this);
+            _progressBar.SetProgress(0, true);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this).SetView(_progressBar);
+            builder.SetCancelable(true);
+            _progressView = builder.Create();
+        }
+
+        private async void ConfigureMapsButtons()
+        {
+            foreach (PreplannedMapArea mapArea in _mapAreas)
+            {
+                Button mapButton = new Button(this);
+
+                mapButton.SetTextColor(Color.Black);
+                mapButton.Background = Drawable.CreateFromStream(await mapArea.PortalItem.Thumbnail.GetEncodedBufferAsync(), "");
+                mapButton.Text = mapArea.PortalItem.Title.Substring(0, 6);
+                mapButton.Click += async (o, e) => { await DownloadMapAreaAsync(mapArea); };
+                _mapListView.AddView(mapButton);
+
+                LinearLayout.LayoutParams lparams = (LinearLayout.LayoutParams) mapButton.LayoutParameters;
+                lparams.SetMargins(5, 5, 0, 5);
+                mapButton.LayoutParameters = lparams;
             }
         }
     }

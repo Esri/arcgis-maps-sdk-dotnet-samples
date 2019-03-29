@@ -91,7 +91,7 @@ namespace ArcGISRuntime.UWP.Samples.DownloadPreplannedMap
             {
                 // Something unexpected happened, show the error message.
                 Debug.WriteLine(ex);
-                await new MessageDialog(ex.Message, "An error occured.").ShowAsync();
+                await new MessageDialog(ex.Message, "There was an error.").ShowAsync();
             }
         }
 

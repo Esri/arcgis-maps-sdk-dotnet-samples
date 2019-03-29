@@ -96,7 +96,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             {
                 // Something unexpected happened, show the error message.
                 Debug.WriteLine(ex);
-                await ((Page) Parent).DisplayAlert("An error occured.", ex.Message, "OK");
+                await ((Page) Parent).DisplayAlert("There was an error.", ex.Message, "OK");
             }
         }
 

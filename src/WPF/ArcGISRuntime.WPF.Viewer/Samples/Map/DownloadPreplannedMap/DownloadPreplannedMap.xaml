@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.DownloadPreplannedMap.DownloadPreplannedMap"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock Text="Select an area, then download it." FontWeight="SemiBold" />
+                <ListView x:Name="AreasList">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding PortalItem.ThumbnailUri}"
+                                       Height="70" Margin="-10,2,2,2" Grid.RowSpan="2" Stretch="UniformToFill" />
+                                <TextBlock Text="{Binding PortalItem.Title}"
+                                           Margin="10,0" VerticalAlignment="Center" Grid.Column="1" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button Content="Download"
+                        HorizontalAlignment="Stretch" Margin="0,5,0,5"
+                        Click="OnDownloadMapAreaClicked" />
+                <Button Content="Delete offline areas"
+                        HorizontalAlignment="Stretch"
+                        Click="OnDeleteAllMapAreasClicked" />
+            </StackPanel>
+        </Border>
+        <!-- Busy indication -->
+        <Grid x:Name="BusyIndicator" Background="#807f7f7f">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Foreground="White" Margin="10" FontSize="18">
+                    <Run x:Name="BusyText" Text="Querying map areas..." />
+                    <Run x:Name="BusyPercentage" Text="" />
+                </TextBlock>
+                <ProgressBar x:Name="ProgressBar" IsEnabled="True" IsIndeterminate="True" Width="100" Height="10"
+                             HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" />
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

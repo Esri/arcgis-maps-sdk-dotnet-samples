@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
     <Content Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
     <Content Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
     <Content Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
@@ -326,6 +327,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml.cs">
+      <DependentUpon>DownloadPreplannedMap.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\PlayKmlTours\PlayKmlTours.xaml.cs">
       <DependentUpon>PlayKmlTours.xaml</DependentUpon>
     </Compile>
@@ -820,6 +824,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\PlayKmlTours\PlayKmlTours.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

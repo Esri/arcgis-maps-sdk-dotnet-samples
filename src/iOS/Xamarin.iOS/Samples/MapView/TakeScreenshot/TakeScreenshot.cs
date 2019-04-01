@@ -8,6 +8,8 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -18,7 +20,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
 {
     [Register("TakeScreenshot")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Take screenshot",
+        "Take a screenshot",
         "MapView",
         "This sample demonstrates how you can take screenshot of a map. The app has a Screenshot button in the bottom toolbar you can tap to take screenshot of the visible area of the map. You can pan or zoom to a specific location and tap on the button, which also shows you the preview of the image produced. You can tap on the Close Preview button to close image preview.",
         "")]
@@ -33,7 +35,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
 
         public TakeScreenshot()
         {
-            Title = "Take screenshot";
+            Title = "Take a screenshot";
         }
         
         private void Initialize()
@@ -54,6 +56,9 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         {
             try
             {
+                // Wait for rendering to finish before taking the screenshot.
+                await WaitForRenderCompleteAsync(_myMapView);
+
                 // Export the image from the MapView.
                 RuntimeImage exportedImage = await _myMapView.ExportImageAsync();
 
@@ -70,6 +75,47 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             {
                 new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
+        }
+
+        private static Task WaitForRenderCompleteAsync(MapView mapview)
+        {
+            // The task completion source manages the task, including marking it as finished when the time comes.
+            TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
+
+            // If the map is currently finished drawing, set the result immediately.
+            if (mapview.DrawStatus == DrawStatus.Completed)
+            {
+                tcs.SetResult(null);
+            }
+            // Otherwise, configure a callback and a timeout to either set the result when
+            // the map is finished drawing or set the result after 2000 ms.
+            else
+            {
+                // Define a cancellation toke source for 2000 ms.
+                const int timeoutMs = 2000;
+                var ct = new CancellationTokenSource(timeoutMs);
+
+                // Register the callback that sets the task result after 2000 ms.
+                ct.Token.Register(() => 
+                    tcs.TrySetResult(null), false);
+
+
+                // Define a local function that will set the task result and unregister itself when the map finishes drawing.
+                void DrawCompleteHandler(object s, DrawStatusChangedEventArgs e)
+                {
+                    if (e.Status == DrawStatus.Completed)
+                    {
+                        mapview.DrawStatusChanged -= DrawCompleteHandler;
+                        tcs.TrySetResult(null);
+                    }
+                }
+
+                // Register the draw complete event handler.
+                mapview.DrawStatusChanged += DrawCompleteHandler;
+            }
+
+            // Return the task.
+            return tcs.Task;
         }
 
         public override void ViewDidLoad()

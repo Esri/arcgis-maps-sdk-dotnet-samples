@@ -154,6 +154,14 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             base.ViewDidLoad();
             Initialize();
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            _myMapView.GeoViewTapped -= MapView_Tapped;
+        }
     }
 
     public class AttachmentsTableView : UITableViewController

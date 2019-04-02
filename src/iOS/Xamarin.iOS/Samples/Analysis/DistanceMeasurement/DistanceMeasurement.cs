@@ -202,5 +202,13 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
                 _resultLabel.HeightAnchor.ConstraintEqualTo(40)
             });
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            _mySceneView.GeoViewTapped -= MySceneView_GeoViewTapped;
+        }
     }
 }

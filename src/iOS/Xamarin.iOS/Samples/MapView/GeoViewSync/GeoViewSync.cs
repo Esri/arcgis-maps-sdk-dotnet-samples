@@ -150,5 +150,16 @@ namespace ArcGISRuntime.Samples.GeoViewSync
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events. GeoViews won't be disposed otherwise.
+            _myMapView.ViewpointChanged -= OnViewpointChanged;
+            _mySceneView.ViewpointChanged -= OnViewpointChanged;
+            _myMapView.NavigationCompleted -= OnNavigationComplete;
+            _mySceneView.NavigationCompleted -= OnNavigationComplete;
+        }
     }
 }

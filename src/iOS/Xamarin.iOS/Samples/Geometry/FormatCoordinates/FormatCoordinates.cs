@@ -60,8 +60,10 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             UpdateUiFromMapPoint(startingPoint);
 
             // Subscribe to map tap events to enable tapping on map to update coordinates.
-            _myMapView.GeoViewTapped += (sender, args) => UpdateUiFromMapPoint(args.Location);
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
+
+        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e) => UpdateUiFromMapPoint(e.Location);
 
         private void InputValueChanged(object sender, EventArgs e)
         {
@@ -271,6 +273,14 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
                 // Update layout for portrait.
                 NSLayoutConstraint.ActivateConstraints(_portraitConstraints);
             }
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
         }
     }
 }

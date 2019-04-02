@@ -357,6 +357,14 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             });
         }
 
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects won't be disposed.
+            _generateOfflineMapJob.ProgressChanged -= OfflineMapJob_ProgressChanged;
+        }
+
         #region Authentication
 
         // Constants for OAuth-related values.
@@ -506,47 +514,6 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         }
 
         #endregion
-
-        /*
-        private async Task<bool> EnsureLoggedInAsync()
-        {
-            bool loggedIn = false;
-
-            try
-            {
-                // Create a challenge request for portal credentials (OAuth credential request for arcgis.com).
-                CredentialRequestInfo challengeRequest = new CredentialRequestInfo
-                {
-                    // Use the OAuth implicit grant flow.
-                    GenerateTokenOptions = new GenerateTokenOptions
-                    {
-                        TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-                    },
-
-                    // Indicate the URL (portal) to authenticate with (ArcGIS Online).
-                    ServiceUri = new Uri(ServerUrl)
-                };
-
-                // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler.
-                Credential cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
-                loggedIn = cred != null;
-            }
-            catch (OperationCanceledException)
-            {
-                // Login was canceled.
-                // .. ignore, user can still search public maps without logging in.
-            }
-            catch (Exception ex)
-            {
-                // Login failure.
-                UIAlertView alert = new UIAlertView("Login Error", ex.Message, (IUIAlertViewDelegate) null, "OK", null);
-                alert.Show();
-            }
-
-            return loggedIn;
-        }
-        */
-
         #endregion
 
         // Force popover to display on iPhone.

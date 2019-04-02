@@ -175,5 +175,13 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
+        }
     }
 }

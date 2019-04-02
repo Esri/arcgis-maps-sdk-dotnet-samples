@@ -209,6 +209,14 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             public override UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController controller,
                 UITraitCollection traitCollection) => UIModalPresentationStyle.None;
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            _mySceneView.GeoViewTapped -= MySceneView_GeoViewTapped;
+        }
     }
 
     public class ViewshedLocationSettingsController : UIViewController

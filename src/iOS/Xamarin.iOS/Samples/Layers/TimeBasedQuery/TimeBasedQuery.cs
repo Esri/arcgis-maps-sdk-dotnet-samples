@@ -72,6 +72,9 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
                 return;
             }
 
+            // Unsubscribe from events.
+            _myFeatureTable.LoadStatusChanged -= OnLoadedPopulateData;
+
             // Create new query object that contains a basic 'include everything' clause.
             QueryParameters queryParameters = new QueryParameters
             {

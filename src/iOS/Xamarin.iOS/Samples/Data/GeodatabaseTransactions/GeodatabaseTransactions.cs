@@ -60,17 +60,22 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         private void Initialize()
         {
             // When the spatial reference changes (the map loads) add the local geodatabase tables as feature layers.
-            _mapView.SpatialReferenceChanged += async (s, e) =>
-            {
-                // Call a function (and await it) to get the local geodatabase (or generate it from the feature service).
-                await GetLocalGeodatabase();
-
-                // Once the local geodatabase is available, load the tables as layers to the map.
-                await LoadLocalGeodatabaseTables();
-            };
+            _mapView.SpatialReferenceChanged += MapView_SpatialReferenceChanged;
 
             // Create a new map with the oceans basemap and add it to the map view.
             _mapView.Map = new Map(Basemap.CreateOceans());
+        }
+
+        private async void MapView_SpatialReferenceChanged(object sender, EventArgs e)
+        {
+            // Unsubscribe from the event.
+            _mapView.SpatialReferenceChanged -= MapView_SpatialReferenceChanged;
+
+            // Call a function (and await it) to get the local geodatabase (or generate it from the feature service).
+            await GetLocalGeodatabase();
+
+            // Once the local geodatabase is available, load the tables as layers to the map.
+            await LoadLocalGeodatabaseTables();
         }
 
         private void ShowMessage(string title, string message, string buttonText)
@@ -112,7 +117,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                     GenerateGeodatabaseJob generateGdbJob = gdbTask.GenerateGeodatabase(gdbParams, localGeodatabasePath);
 
                     // Handle the job changed event and check the status of the job; store the geodatabase when it's ready.
-                    generateGdbJob.JobChanged += (s, e) =>
+                    void GenerateGdbJob_JobChanged (object jobSender, EventArgs e)
                     {
                         // Call a function to update the progress bar.
                         InvokeOnMainThread(() => UpdateProgressBar(generateGdbJob.Progress));
@@ -121,6 +126,9 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                         {
                             // See if the job succeeded.
                             case JobStatus.Succeeded:
+                                // Unsubscribe from event.
+                                generateGdbJob.JobChanged -= GenerateGdbJob_JobChanged;
+
                                 InvokeOnMainThread(() =>
                                 {
                                     // Hide the progress control and update the message.
@@ -129,6 +137,9 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                                 });
                                 break;
                             case JobStatus.Failed:
+                                // Unsubscribe from event.
+                                generateGdbJob.JobChanged -= GenerateGdbJob_JobChanged;
+
                                 InvokeOnMainThread(() =>
                                 {
                                     // Hide the progress control and report the exception.
@@ -137,7 +148,10 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                                 });
                                 break;
                         }
-                    };
+                    }
+
+                    // Subscribe to job change event.
+                    generateGdbJob.JobChanged += GenerateGdbJob_JobChanged;
 
                     // Start the generate geodatabase job.
                     _localGeodatabase = await generateGdbJob.GetResultAsync();
@@ -363,8 +377,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 // Create a synchronize geodatabase job, pass in the parameters and the geodatabase.
                 SyncGeodatabaseJob job = syncTask.SyncGeodatabase(taskParameters, _localGeodatabase);
 
-                // Handle the JobChanged event for the job.
-                job.JobChanged += (s, arg) =>
+                void Job_JobChanged(object sendingJob, EventArgs args)
                 {
                     InvokeOnMainThread(() =>
                     {
@@ -375,10 +388,15 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                         {
                             // Report changes in the job status.
                             case JobStatus.Succeeded:
+                                // Unsubscribe
+                                ((SyncGeodatabaseJob)sendingJob).JobChanged -= Job_JobChanged;
+                                // Report success.
                                 _statusLabel.Text = "Synchronization is complete!";
                                 _progressBar.Hidden = true;
                                 break;
                             case JobStatus.Failed:
+                                // Unsubscribe
+                                ((SyncGeodatabaseJob)sendingJob).JobChanged -= Job_JobChanged;
                                 // Report failure.
                                 _statusLabel.Text = job.Error.Message;
                                 _progressBar.Hidden = true;
@@ -388,7 +406,10 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                                 break;
                         }
                     });
-                };
+                }
+
+                // Handle the JobChanged event for the job.
+                job.JobChanged += Job_JobChanged;
 
                 // Await the completion of the job.
                 await job.GetResultAsync();
@@ -529,6 +550,14 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 _progressBar.TrailingAnchor.ConstraintEqualTo(_statusLabel.TrailingAnchor),
                 _progressBar.HeightAnchor.ConstraintEqualTo(8)
             });
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects will never be disposed.
+            _localGeodatabase.TransactionStatusChanged -= GdbTransactionStatusChanged;
         }
     }
 }

@@ -97,6 +97,9 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
         private void MyMap_Loaded(object sender, EventArgs e)
         {
+            // Unsubscribe from event.
+            ((Map)sender).Loaded -= MyMap_Loaded;
+
             // Get the map's spatial reference.
             SpatialReference mapSpatialReference = ((Map) sender).SpatialReference;
 

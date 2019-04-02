@@ -244,5 +244,13 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
             base.ViewDidLoad();
             Initialize();
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from event.
+            _tourController.Tour.PropertyChanged -= Tour_PropertyChanged;
+        }
     }
 }

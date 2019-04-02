@@ -143,5 +143,13 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
                 _distanceLabel.HeightAnchor.ConstraintEqualTo(40)
             });
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
+        }
     }
 }

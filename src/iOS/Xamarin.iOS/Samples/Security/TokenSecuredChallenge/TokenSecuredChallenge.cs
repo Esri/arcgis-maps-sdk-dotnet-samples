@@ -44,6 +44,10 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         private UILabel _publicLayerLabel;
         private UILabel _secureLayerLabel;
 
+        // Hold references to the layers.
+        ArcGISMapImageLayer _tokenSecuredLayer;
+        ArcGISTiledLayer _publicLayer;
+
         public TokenSecuredChallenge()
         {
             Title = "Token Challenge";
@@ -56,25 +60,25 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
 
             // Create the public layer and provide a name.
-            ArcGISTiledLayer publicLayer = new ArcGISTiledLayer(new Uri(PublicMapServiceUrl))
+            _publicLayer = new ArcGISTiledLayer(new Uri(PublicMapServiceUrl))
             {
                 Name = PublicLayerName
             };
 
             // Create the secured layer and provide a name.
-            ArcGISMapImageLayer tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(SecureMapServiceUrl))
+            _tokenSecuredLayer = new ArcGISMapImageLayer(new Uri(SecureMapServiceUrl))
             {
                 Name = SecureLayerName
             };
 
             // Track the load status of each layer with a LoadStatusChangedEvent handler.
-            publicLayer.LoadStatusChanged += LayerLoadStatusChanged;
-            tokenSecuredLayer.LoadStatusChanged += LayerLoadStatusChanged;
+            _publicLayer.LoadStatusChanged += LayerLoadStatusChanged;
+            _tokenSecuredLayer.LoadStatusChanged += LayerLoadStatusChanged;
 
             // Create a new map and add the layers.
             Map myMap = new Map();
-            myMap.OperationalLayers.Add(publicLayer);
-            myMap.OperationalLayers.Add(tokenSecuredLayer);
+            myMap.OperationalLayers.Add(_publicLayer);
+            myMap.OperationalLayers.Add(_tokenSecuredLayer);
 
             // Add the map to the map view.
             _myMapView.Map = myMap;
@@ -254,6 +258,15 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
             });
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events.
+            _publicLayer.LoadStatusChanged -= LayerLoadStatusChanged;
+            _tokenSecuredLayer.LoadStatusChanged -= LayerLoadStatusChanged;
         }
     }
 }

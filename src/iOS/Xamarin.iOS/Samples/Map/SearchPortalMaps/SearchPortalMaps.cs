@@ -206,10 +206,20 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
         private void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
+            Map map = (Map)sender;
+
             // Report errors if map failed to load.
-            if (e.Status == LoadStatus.FailedToLoad)
+            if (e.Status == LoadStatus.Loaded)
             {
-                Map map = (Map) sender;
+                // Unsubscribe from event.
+                map.LoadStatusChanged -= WebMapLoadStatusChanged;
+            }
+            else if (e.Status == LoadStatus.FailedToLoad)
+            {
+                // Unsubscribe from event.
+                map.LoadStatusChanged -= WebMapLoadStatusChanged;
+
+                // Show the error
                 Exception err = map.LoadError;
                 if (err != null)
                 {

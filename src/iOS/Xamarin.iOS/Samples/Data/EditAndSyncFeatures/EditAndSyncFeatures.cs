@@ -616,5 +616,13 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 _progressBar.HeightAnchor.ConstraintEqualTo(8)
             });
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            _myMapView.GeoViewTapped -= GeoViewTapped;
+        }
     }
 }

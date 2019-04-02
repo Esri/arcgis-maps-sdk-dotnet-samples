@@ -74,6 +74,9 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
             if (e.Status != Esri.ArcGISRuntime.LoadStatus.Loaded)
                 return;
 
+            // Unsubscribe from event.
+            _incidentsFeatureTable.LoadStatusChanged -= OnLoadedPopulateData;
+
             // Create new query object that contains parameters to query specific request types.
             QueryParameters queryParameters = new QueryParameters
             {

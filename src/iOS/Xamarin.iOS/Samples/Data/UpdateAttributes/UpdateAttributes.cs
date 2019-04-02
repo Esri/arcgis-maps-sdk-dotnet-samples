@@ -73,6 +73,9 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
 
         private void DamageTable_Loaded(object sender, EventArgs e)
         {
+            // Unsubscribe from event.
+            ((ServiceFeatureTable)sender).Loaded -= DamageTable_Loaded;
+
             // This code needs to work with the UI, so it needs to run on the UI thread.
             BeginInvokeOnMainThread(() =>
             {
@@ -246,6 +249,14 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
                 helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 helpLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            _myMapView.GeoViewTapped -= MapView_Tapped;
         }
     }
 }

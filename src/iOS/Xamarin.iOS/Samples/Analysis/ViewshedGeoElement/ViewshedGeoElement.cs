@@ -36,20 +36,23 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
         // Hold a reference to the SceneView.
         private SceneView _mySceneView;
 
-        // URLs to the scene layer with buildings and the elevation source
+        // URLs to the scene layer with buildings and the elevation source.
         private readonly Uri _elevationUri = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
         private readonly Uri _buildingsUri = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Building_Johannesburg/SceneServer");
 
-        // Graphic and overlay for showing the tank
+        // Graphic and overlay for showing the tank.
         private readonly GraphicsOverlay _tankOverlay = new GraphicsOverlay();
         private Graphic _tank;
 
-        // Animation properties
+        // Animation properties.
         private MapPoint _tankEndPoint;
 
-        // Units for geodetic calculation (used in animating tank)
+        // Units for geodetic calculation (used in animating tank).
         private readonly LinearUnit _metersUnit = LinearUnits.Meters;
         private readonly AngularUnit _degreesUnit = AngularUnits.Degrees;
+
+        // Timer for running the animation.
+        private Timer _animationTimer;
 
         public ViewshedGeoElement()
         {
@@ -127,24 +130,28 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
                 };
 
                 // Create a timer; this will enable animating the tank.
-                Timer animationTimer = new Timer(60)
+                _animationTimer = new Timer(60)
                 {
                     Enabled = true,
                     AutoReset = true
                 };
                 // - Move the tank every time the timer expires.
-                animationTimer.Elapsed += (o, e) => { AnimateTank(); };
+                _animationTimer.Elapsed += UpdateAnimation;
                 // - Start the timer.
-                animationTimer.Start();
+                _animationTimer.Start();
 
                 // Allow the user to click to define a new destination.
-                _mySceneView.GeoViewTapped += (sender, args) => { _tankEndPoint = args.Location; };
+                _mySceneView.GeoViewTapped += SceneViewTapped;
             }
             catch (Exception e)
             {
                 new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
         }
+
+        private void UpdateAnimation(object sender, EventArgs e) => AnimateTank();
+
+        private void SceneViewTapped(object sender, GeoViewInputEventArgs e) => _tankEndPoint = e.Location;
 
         private void AnimateTank()
         {
@@ -202,6 +209,18 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            _mySceneView.GeoViewTapped -= SceneViewTapped;
+
+            // End the timer and unsubscribe.
+            _animationTimer.Stop();
+            _animationTimer.Elapsed -= UpdateAnimation;
         }
     }
 }

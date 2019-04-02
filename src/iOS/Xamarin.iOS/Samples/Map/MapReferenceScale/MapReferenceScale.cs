@@ -55,7 +55,7 @@ namespace ArcGISRuntimeXamarin.Samples.MapReferenceScale
             Map webMap = new Map(mapItem);
 
             // Update the UI when the map navigates.
-            _myMapView.ViewpointChanged += (o, e) => _scaleLabel.Text = $"Current map scale: 1:{_myMapView.MapScale:n0}";
+            _myMapView.ViewpointChanged += MapView_ViewpointChanged;
 
             // Display the map.
             _myMapView.Map = webMap;
@@ -70,6 +70,8 @@ namespace ArcGISRuntimeXamarin.Samples.MapReferenceScale
             // Enable the button now that the map is ready.
             _layerSelectionButton.Enabled = true;
         }
+
+        private void MapView_ViewpointChanged(object sender, EventArgs e) => _scaleLabel.Text = $"Current map scale: 1:{_myMapView.MapScale:n0}";
 
         private void ShowLayerOptions_Click(object sender, EventArgs e)
         {
@@ -176,6 +178,14 @@ namespace ArcGISRuntimeXamarin.Samples.MapReferenceScale
         {
             base.ViewDidLoad();
             Initialize();
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects will never be disposed.
+            _myMapView.ViewpointChanged -= MapView_ViewpointChanged;
         }
     }
 

@@ -67,6 +67,9 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         private int _frameIndex = 0;
         private const int FrameMax = 150;
 
+        // Timer to run the taxi animation.
+        private Timer _animationTimer;
+
         public LineOfSightGeoElement()
         {
             Title = "Line of sight (GeoElement)";
@@ -131,13 +134,13 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
                 _mySceneView.AnalysisOverlays.Add(myAnalysisOverlay);
 
                 // Create a timer; this will enable animating the taxi.
-                Timer timer = new Timer(120);
+                _animationTimer = new Timer(120);
                 // Move the taxi every time the timer expires.
-                timer.Elapsed += AnimationTimer_Elapsed;
+                _animationTimer.Elapsed += AnimationTimer_Elapsed;
                 // Keep the timer running continuously.
-                timer.AutoReset = true;
+                _animationTimer.AutoReset = true;
                 // Start the timer.
-                timer.Start();
+                _animationTimer.Start();
 
                 // Subscribe to TargetVisible events; allows for updating the UI and selecting the taxi when it is visible.
                 _geoLine.TargetVisibilityChanged += Geoline_TargetVisibilityChanged;
@@ -300,6 +303,16 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
                 _statusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _statusLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects won't be disposed.
+            _geoLine.TargetVisibilityChanged -= Geoline_TargetVisibilityChanged;
+            _animationTimer.Stop();
+            _animationTimer.Elapsed -= AnimationTimer_Elapsed;
         }
     }
 }

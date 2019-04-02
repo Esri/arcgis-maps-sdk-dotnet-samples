@@ -35,6 +35,9 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         // Store the shapefile metadata.
         private ShapefileInfo _shapefileMetadata;
 
+        // Hold a reference to the feature layer.
+        private FeatureLayer _featureLayer;
+
         public ReadShapefileMetadata()
         {
             Title = "Read shapefile metadata";
@@ -57,13 +60,13 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
                 _shapefileMetadata = myShapefile.Info;
 
                 // Create a feature layer to display the shapefile.
-                FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
+                _featureLayer = new FeatureLayer(myShapefile);
 
                 // Zoom the map to the extent of the shapefile.
-                _myMapView.SpatialReferenceChanged += async (s, e) => { await _myMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent); };
+                _myMapView.SpatialReferenceChanged += MapView_SpatialReferenceChanged;
 
                 // Add the feature layer to the map.
-                streetMap.OperationalLayers.Add(newFeatureLayer);
+                streetMap.OperationalLayers.Add(_featureLayer);
 
                 // Show the map in the MapView.
                 _myMapView.Map = streetMap;
@@ -72,6 +75,15 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             {
                 new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
+        }
+
+        private async void MapView_SpatialReferenceChanged(object sender, EventArgs e)
+        {
+            // Unsubscribe from event.
+            _myMapView.SpatialReferenceChanged -= MapView_SpatialReferenceChanged;
+
+            // Set the viewpoint.
+            await _myMapView.SetViewpointGeometryAsync(_featureLayer.FullExtent);
         }
 
         private void OnMetadataButtonTouch(object sender, EventArgs e)

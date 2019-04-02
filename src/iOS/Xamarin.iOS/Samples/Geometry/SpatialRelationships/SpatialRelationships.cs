@@ -297,5 +297,13 @@ namespace ArcGISRuntime.Samples.ListTransformations
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
+        }
     }
 }

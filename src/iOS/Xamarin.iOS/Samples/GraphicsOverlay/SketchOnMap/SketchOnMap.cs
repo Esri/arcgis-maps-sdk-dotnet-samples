@@ -334,5 +334,16 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                 _segmentButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events.
+            _myMapView.SketchEditor.UndoCommand.CanExecuteChanged -= CanExecuteChanged;
+            _myMapView.SketchEditor.RedoCommand.CanExecuteChanged -= CanExecuteChanged;
+            _myMapView.SketchEditor.CompleteCommand.CanExecuteChanged -= CanExecuteChanged;
+            _sketchOverlay.Graphics.CollectionChanged -= GraphicsChanged;
+        }
     }
 }

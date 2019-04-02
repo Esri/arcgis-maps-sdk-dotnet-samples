@@ -185,7 +185,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             _generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the progress changed event (to show progress bar).
-            _generateGdbJob.ProgressChanged += (sender, e) => { UpdateProgressBar(); };
+            _generateGdbJob.ProgressChanged += GenerateGdbJob_ProgressChanged;
 
             // Start the job.
             _generateGdbJob.Start();
@@ -196,6 +196,8 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             // Do the rest of the work.
             await HandleGenerationStatusChange(_generateGdbJob, resultGdb);
         }
+
+        private void GenerateGdbJob_ProgressChanged(object sender, EventArgs e) => UpdateProgressBar();
 
         private async Task HandleGenerationStatusChange(GenerateGeodatabaseJob job, Geodatabase resultGdb)
         {
@@ -342,6 +344,14 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 _progressBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _progressBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects won't be disposed.
+            _generateGdbJob.ProgressChanged -= GenerateGdbJob_ProgressChanged;
         }
     }
 }

@@ -345,6 +345,15 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
             base.ViewDidLoad();
             Initialize();
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe to events. Objects will never be disposed otherwise.
+            _myMapView.GeoViewTapped -= MapView_Tapped;
+            _viewModel.MapSelected -= Map_Selected;
+        }
     }
 
     class MapsViewModel : UITableViewSource

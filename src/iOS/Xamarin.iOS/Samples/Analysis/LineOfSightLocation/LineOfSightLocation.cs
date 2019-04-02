@@ -136,5 +136,13 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
                 _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            _mySceneView.GeoViewTapped -= SceneViewTapped;
+        }
     }
 }

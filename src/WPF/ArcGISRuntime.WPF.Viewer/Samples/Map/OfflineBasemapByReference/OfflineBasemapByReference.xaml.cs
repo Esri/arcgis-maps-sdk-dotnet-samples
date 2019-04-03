@@ -1,10 +1,10 @@
-// Copyright 2018 Esri.
+﻿// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -24,32 +24,67 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using System.Windows.Threading;
+using ArcGISRuntime.Samples.Managers;
 
-namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
+namespace ArcGISRuntime.WPF.Samples.OfflineBasemapByReference
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Generate offline map",
+        "Generate offline map with local basemap",
         "Map",
-        "This sample demonstrates how to generate an offline map for a web map in ArcGIS Portal.",
-        "When the app starts, a web map is loaded from ArcGIS Online. The red border shows the extent that of the data that will be downloaded for use offline. Click the `Take map offline` button to start the offline map job (you will be prompted for your ArcGIS Online login). The progress bar will show the job's progress. When complete, the offline map will replace the online map in the map view.")]
-    public partial class GenerateOfflineMap
+        "Use the OfflineMapTask to take a web map offline while using a basemap previously taken offline.",
+        "")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("628e8e3521cf45e9a28a12fe10c02c4d")]
+    public partial class OfflineBasemapByReference
     {
         // The job to generate an offline map.
         private GenerateOfflineMapJob _generateOfflineMapJob;
 
         // The extent of the data to take offline.
-        private Envelope _areaOfInterest = new Envelope(-88.1541, 41.7690, -88.1471, 41.7720, SpatialReferences.Wgs84);
-        
-        // The ID for a web map item hosted on the server (water network map of Naperville IL).
-        private string WebMapId = "acc027394bc84c2fb04d1ed317aac674";
+        private readonly Envelope _areaOfInterest = new Envelope(-88.1541, 41.7690, -88.1471, 41.7720, SpatialReferences.Wgs84);
 
-        public GenerateOfflineMap()
+        // The ID for a web map item hosted on the server (water network map of Naperville IL).
+        private const string WebMapId = "acc027394bc84c2fb04d1ed317aac674";
+
+        public OfflineBasemapByReference()
         {
             InitializeComponent();
-
-            // Load the web map, show area of interest, restrict map interaction, and set up authorization. 
             Initialize();
         }
+
+        private void ConfigureOfflineJobForBasemap(GenerateOfflineMapParameters parameters)
+        {
+            // Don't give the user a choice if there is no basemap specified.
+            if (String.IsNullOrWhiteSpace(parameters.ReferenceBasemapFilename))
+            {
+                return;
+            }
+
+            // Get the path to the basemap directory.
+            string basemapBasePath = DataManager.GetDataFolder("628e8e3521cf45e9a28a12fe10c02c4d");
+
+            // Get the full path to the basemap by combining the name specified in the web map (ReferenceBasemapFilename)
+            //  with the offline basemap directory.
+            string basemapFullPath = Path.Combine(basemapBasePath, parameters.ReferenceBasemapFilename);
+
+            // If the offline basemap doesn't exist, proceed without it.
+            if (!File.Exists(basemapFullPath))
+            {
+                return;
+            }
+
+            // Get the user's choice.
+            MessageBoxResult userChoice = MessageBox.Show("Use the offline basemap?", "Basemap choice", MessageBoxButton.YesNo);
+
+            // If the user approves, use the offline basemap.
+            if (userChoice == MessageBoxResult.Yes)
+            {
+                parameters.ReferenceBasemapDirectory = basemapBasePath;
+            }
+        }
+
+        // Note: all code below (except call to ConfigureOfflineJobForBasemap) is identical to code in the Generate offline map sample.
+
+        #region Generate offline map
 
         private async void Initialize()
         {
@@ -83,20 +118,20 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
                     Renderer = new SimpleRenderer(aoiOutlineSymbol)
                 };
                 MyMapView.GraphicsOverlays.Add(extentOverlay);
-                
+
                 // Add a graphic to show the area of interest (extent) that will be taken offline.
                 Graphic aoiGraphic = new Graphic(_areaOfInterest);
                 extentOverlay.Graphics.Add(aoiGraphic);
 
                 // Hide the map loading progress indicator.
-                loadingIndicator.Visibility = Visibility.Collapsed;
+                LoadingIndicator.Visibility = Visibility.Collapsed;
 
                 // When the map view unloads, try to clean up existing output data folders.
-                MyMapView.Unloaded += (s, e) => 
+                MyMapView.Unloaded += (s, e) =>
                 {
                     // Find output mobile map folders in the temp directory.
                     string[] outputFolders = Directory.GetDirectories(Environment.ExpandEnvironmentVariables("%TEMP%"), "NapervilleWaterNetwork*");
-                    
+
                     // Loop through the folder names and delete them.
                     foreach (string dir in outputFolders)
                     {
@@ -135,13 +170,16 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
             try
             {
                 // Show the progress indicator while the job is running.
-                busyIndicator.Visibility = Visibility.Visible;
+                BusyIndicator.Visibility = Visibility.Visible;
 
                 // Create an offline map task with the current (online) map.
                 OfflineMapTask takeMapOfflineTask = await OfflineMapTask.CreateAsync(MyMapView.Map);
 
                 // Create the default parameters for the task, pass in the area of interest.
                 GenerateOfflineMapParameters parameters = await takeMapOfflineTask.CreateDefaultGenerateOfflineMapParametersAsync(_areaOfInterest);
+
+                // Configure basemap settings for the job.
+                ConfigureOfflineJobForBasemap(parameters);
 
                 // Create the job with the parameters and output location.
                 _generateOfflineMapJob = takeMapOfflineTask.GenerateOfflineMap(parameters, packagePath);
@@ -156,7 +194,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
                 if (_generateOfflineMapJob.Status != JobStatus.Succeeded)
                 {
                     MessageBox.Show("Generate offline map package failed.", "Job status");
-                    busyIndicator.Visibility = Visibility.Collapsed;
+                    BusyIndicator.Visibility = Visibility.Collapsed;
                 }
 
                 // Check for errors with individual layers.
@@ -166,7 +204,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
                     System.Text.StringBuilder errorBuilder = new System.Text.StringBuilder();
                     foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
                     {
-                        errorBuilder.AppendLine(string.Format("{0} : {1}", layerError.Key.Id, layerError.Value.Message));
+                        errorBuilder.AppendLine($"{layerError.Key.Id} : {layerError.Value.Message}");
                     }
 
                     // Show layer errors.
@@ -183,11 +221,11 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
                 // Enable map interaction so the user can explore the offline data.
                 MyMapView.InteractionOptions.IsEnabled = true;
 
-                // Hide the "Take map offline" button.
-                takeOfflineArea.Visibility = Visibility.Collapsed;
-
                 // Show a message that the map is offline.
-                messageArea.Visibility = Visibility.Visible;
+                MessageArea.Visibility = Visibility.Visible;
+
+                // Hide the controls.
+                TakeOfflineArea.Visibility = Visibility.Collapsed;
             }
             catch (TaskCanceledException)
             {
@@ -202,7 +240,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
             finally
             {
                 // Hide the activity indicator when the job is done.
-                busyIndicator.Visibility = Visibility.Collapsed;
+                BusyIndicator.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -217,7 +255,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
             {
                 // Show the percent complete and update the progress bar.
                 Percentage.Text = job.Progress > 0 ? job.Progress.ToString() + " %" : string.Empty;
-                progressBar.Value = job.Progress;
+                ProgressBar.Value = job.Progress;
             });
         }
 
@@ -227,12 +265,17 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
             _generateOfflineMapJob.Cancel();
         }
 
+        #endregion Generate offline map
+
         #region Authentication
+
         // Constants for OAuth-related values.
         // - The URL of the portal to authenticate with (ArcGIS Online).
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
+
         // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
         private const string AppClientId = @"lgAdHkYZYlwwfAhC";
+
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
         private const string OAuthRedirectUrl = @"my-ags-app://auth";
 
@@ -260,10 +303,10 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
         }
 
-        public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
+        private async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
             // ChallengeHandler function for AuthenticationManager that will be called whenever a secured resource is accessed.
-            Credential credential = null;
+            Credential credential;
 
             try
             {
@@ -278,184 +321,176 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
 
             return credential;
         }
-    }
 
-    public class OAuthAuthorize : IOAuthAuthorizeHandler
-    {
-        // A window to contain the OAuth UI.
-        private Window _authWindow;
-
-        // A TaskCompletionSource to track the completion of the authorization.
-        private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
-
-        // URL for the authorization callback result (the redirect URI configured for the application).
-        private string _callbackUrl;
-
-        // URL that handles the OAuth request.
-        private string _authorizeUrl;
-
-        // A function to handle authorization requests. It takes the URIs for the secured service, the authorization endpoint, and the redirect URI.
-        public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
+        private class OAuthAuthorize : IOAuthAuthorizeHandler
         {
-            // If the TaskCompletionSource.Task has not completed, authorization is in progress.
-            if (_taskCompletionSource != null || _authWindow != null)
+            // A window to contain the OAuth UI.
+            private Window _authWindow;
+
+            // A TaskCompletionSource to track the completion of the authorization.
+            private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
+
+            // URL for the authorization callback result (the redirect URI configured for the application).
+            private string _callbackUrl;
+
+            // URL that handles the OAuth request.
+            private string _authorizeUrl;
+
+            // A function to handle authorization requests. It takes the URIs for the secured service, the authorization endpoint, and the redirect URI.
+            public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
             {
-                // Allow only one authorization process at a time.
-                throw new Exception("Authorization is in progress");
+                // If the TaskCompletionSource.Task has not completed, authorization is in progress.
+                if (_taskCompletionSource != null || _authWindow != null)
+                {
+                    // Allow only one authorization process at a time.
+                    throw new Exception("Authorization is in progress");
+                }
+
+                // Store the authorization and redirect URLs.
+                _authorizeUrl = authorizeUri.AbsoluteUri;
+                _callbackUrl = callbackUri.AbsoluteUri;
+
+                // Create a task completion source to track completion.
+                _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
+
+                // Call a function to show the login controls, make sure it runs on the UI thread.
+                Dispatcher dispatcher = Application.Current.Dispatcher;
+                if (dispatcher == null || dispatcher.CheckAccess())
+                    AuthorizeOnUIThread(_authorizeUrl);
+                else
+                {
+                    Action authorizeOnUIAction = () => AuthorizeOnUIThread(_authorizeUrl);
+                    dispatcher.BeginInvoke(authorizeOnUIAction);
+                }
+
+                // Return the task associated with the TaskCompletionSource.
+                return _taskCompletionSource.Task;
             }
 
-            // Store the authorization and redirect URLs.
-            _authorizeUrl = authorizeUri.AbsoluteUri;
-            _callbackUrl = callbackUri.AbsoluteUri;
-
-            // Create a task completion source to track completion.
-            _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
-
-            // Call a function to show the login controls, make sure it runs on the UI thread.
-            Dispatcher dispatcher = Application.Current.Dispatcher;
-            if (dispatcher == null || dispatcher.CheckAccess())
-                AuthorizeOnUIThread(_authorizeUrl);
-            else
+            // A function to challenge for OAuth credentials on the UI thread.
+            private void AuthorizeOnUIThread(string authorizeUri)
             {
-                Action authorizeOnUIAction = () => AuthorizeOnUIThread(_authorizeUrl);
-                dispatcher.BeginInvoke(authorizeOnUIAction);
+                // Create a WebBrowser control to display the authorize page.
+                WebBrowser authBrowser = new WebBrowser();
+
+                // Handle the navigating event for the browser to check for a response sent to the redirect URL.
+                authBrowser.Navigating += WebBrowserOnNavigating;
+
+                // Display the web browser in a new window.
+                _authWindow = new Window
+                {
+                    Content = authBrowser,
+                    Height = 420,
+                    Width = 350,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner
+                };
+
+                // Set the app's window as the owner of the browser window (if main window closes, so will the browser).
+                if (Application.Current != null && Application.Current.MainWindow != null)
+                {
+                    _authWindow.Owner = Application.Current.MainWindow;
+                }
+
+                // Handle the window closed event then navigate to the authorize url.
+                _authWindow.Closed += OnWindowClosed;
+                authBrowser.Navigate(authorizeUri);
+
+                // Display the Window.
+                _authWindow?.ShowDialog();
             }
 
-            // Return the task associated with the TaskCompletionSource.
-            return _taskCompletionSource.Task;
-        }
-
-        // A function to challenge for OAuth credentials on the UI thread.
-        private void AuthorizeOnUIThread(string authorizeUri)
-        {
-            // Create a WebBrowser control to display the authorize page.
-            WebBrowser authBrowser = new WebBrowser();
-
-            // Handle the navigating event for the browser to check for a response sent to the redirect URL.
-            authBrowser.Navigating += WebBrowserOnNavigating;
-
-            // Display the web browser in a new window.
-            _authWindow = new Window
+            private void OnWindowClosed(object sender, EventArgs e)
             {
-                Content = authBrowser,
-                Height = 420,
-                Width = 350,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
-            };
+                // If the browser window closes, return the focus to the main window.
+                _authWindow?.Owner?.Focus();
 
-            // Set the app's window as the owner of the browser window (if main window closes, so will the browser).
-            if (Application.Current != null && Application.Current.MainWindow != null)
-            {
-                _authWindow.Owner = Application.Current.MainWindow;
-            }
+                // If the task wasn't completed, the user must have closed the window without logging in.
+                if (_taskCompletionSource != null && !_taskCompletionSource.Task.IsCompleted)
+                {
+                    // Set the task completion to indicate a canceled operation.
+                    _taskCompletionSource.TrySetCanceled();
+                }
 
-            // Handle the window closed event then navigate to the authorize url.
-            _authWindow.Closed += OnWindowClosed;
-            authBrowser.Navigate(authorizeUri);
-
-            // Display the Window.
-            if (_authWindow != null)
-            {
-                _authWindow.ShowDialog();
-            }
-        }
-
-        private void OnWindowClosed(object sender, EventArgs e)
-        {
-            // If the browser window closes, return the focus to the main window.
-            if (_authWindow != null && _authWindow.Owner != null)
-            {
-                _authWindow.Owner.Focus();
-            }
-
-            // If the task wasn't completed, the user must have closed the window without logging in.
-            if (_taskCompletionSource != null && !_taskCompletionSource.Task.IsCompleted)
-            {
-                // Set the task completion to indicate a canceled operation.
-                _taskCompletionSource.TrySetCanceled();
-            }
-
-            _taskCompletionSource = null;
-            _authWindow = null;
-        }
-
-        // Handle browser navigation (page content changing).
-        private void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
-        {
-            // Check for a response to the callback url.
-            WebBrowser webBrowser = sender as WebBrowser;
-            Uri uri = e.Uri;
-
-            // If no browser, uri, or an empty url return.
-            if (webBrowser == null || uri == null || _taskCompletionSource == null || String.IsNullOrEmpty(uri.AbsoluteUri))
-            {
-                return;
-            }
-
-            // Check if the new content is from the callback url.
-            bool isRedirected = uri.AbsoluteUri.StartsWith(_callbackUrl);
-
-            if (isRedirected)
-            {
-                // Cancel the event to prevent it from being handled elsewhere.
-                e.Cancel = true;
-
-                // Get a local copy of the task completion source.
-                TaskCompletionSource<IDictionary<string, string>> tcs = _taskCompletionSource;
                 _taskCompletionSource = null;
+                _authWindow = null;
+            }
 
-                // Close the window.
-                if (_authWindow != null)
+            // Handle browser navigation (page content changing).
+            private void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
+            {
+                // Check for a response to the callback url.
+                WebBrowser webBrowser = sender as WebBrowser;
+                Uri uri = e.Uri;
+
+                // If no browser, uri, or an empty url return.
+                if (webBrowser == null || uri == null || _taskCompletionSource == null || String.IsNullOrEmpty(uri.AbsoluteUri))
                 {
-                    _authWindow.Close();
+                    return;
                 }
 
-                // Call a helper function to decode the response parameters (which includes the authorization key).
-                IDictionary<string, string> authResponse = DecodeParameters(uri);
+                // Check if the new content is from the callback url.
+                bool isRedirected = uri.AbsoluteUri.StartsWith(_callbackUrl);
 
-                // Set the result for the task completion source.
-                tcs.SetResult(authResponse);
+                if (isRedirected)
+                {
+                    // Cancel the event to prevent it from being handled elsewhere.
+                    e.Cancel = true;
+
+                    // Get a local copy of the task completion source.
+                    TaskCompletionSource<IDictionary<string, string>> tcs = _taskCompletionSource;
+                    _taskCompletionSource = null;
+
+                    // Close the window.
+                    _authWindow?.Close();
+
+                    // Call a helper function to decode the response parameters (which includes the authorization key).
+                    IDictionary<string, string> authResponse = DecodeParameters(uri);
+
+                    // Set the result for the task completion source.
+                    tcs.SetResult(authResponse);
+                }
+            }
+
+            // A helper function that decodes values from a querystring into a dictionary of keys and values.
+            private static IDictionary<string, string> DecodeParameters(Uri uri)
+            {
+                // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string.
+                string answer = "";
+
+                // Get the values from the URI fragment or query string.
+                if (!string.IsNullOrEmpty(uri.Fragment))
+                {
+                    answer = uri.Fragment.Substring(1);
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(uri.Query))
+                    {
+                        answer = uri.Query.Substring(1);
+                    }
+                }
+
+                // Parse parameters into key / value pairs.
+                Dictionary<string, string> keyValueDictionary = new Dictionary<string, string>();
+                string[] keysAndValues = answer.Split(new[] {'&'}, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string kvString in keysAndValues)
+                {
+                    string[] pair = kvString.Split('=');
+                    string key = pair[0];
+                    string value = string.Empty;
+                    if (key.Length > 1)
+                    {
+                        value = Uri.UnescapeDataString(pair[1]);
+                    }
+
+                    keyValueDictionary.Add(key, value);
+                }
+
+                // Return the dictionary of string keys/values.
+                return keyValueDictionary;
             }
         }
 
-        // A helper function that decodes values from a querystring into a dictionary of keys and values.
-        private static IDictionary<string, string> DecodeParameters(Uri uri)
-        {
-            // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string.
-            string answer = "";
-
-            // Get the values from the URI fragment or query string.
-            if (!string.IsNullOrEmpty(uri.Fragment))
-            {
-                answer = uri.Fragment.Substring(1);
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(uri.Query))
-                {
-                    answer = uri.Query.Substring(1);
-                }
-            }
-
-            // Parse parameters into key / value pairs.
-            Dictionary<string, string> keyValueDictionary = new Dictionary<string, string>();
-            string[] keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (string kvString in keysAndValues)
-            {
-                string[] pair = kvString.Split('=');
-                string key = pair[0];
-                string value = string.Empty;
-                if (key.Length > 1)
-                {
-                    value = Uri.UnescapeDataString(pair[1]);
-                }
-
-                keyValueDictionary.Add(key, value);
-            }
-
-            // Return the dictionary of string keys/values.
-            return keyValueDictionary;
-        }
+        #endregion
     }
-    #endregion
 }

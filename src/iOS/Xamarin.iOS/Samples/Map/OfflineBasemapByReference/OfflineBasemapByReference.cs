@@ -1,4 +1,4 @@
-// Copyright 2016 Esri.
+﻿// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,11 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
@@ -22,18 +18,25 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Auth;
 
-namespace ArcGISRuntime.Samples.GenerateOfflineMap
+namespace ArcGISRuntimeXamarin.Samples.OfflineBasemapByReference
 {
-    [Register("GenerateOfflineMap")]
+    [Register("OfflineBasemapByReference")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Generate offline map",
+        "Generate offline map with local basemap",
         "Map",
-        "This sample demonstrates how to generate an offline map for a web map in ArcGIS Portal.",
-        "When the app starts, a web map is loaded from ArcGIS Online. The red border shows the extent that of the data that will be downloaded for use offline. Click the `Take map offline` button to start the offline map job (you will be prompted for your ArcGIS Online login). The progress bar will show the job's progress. When complete, the offline map will replace the online map in the map view.")]
-    public class GenerateOfflineMap : UIViewController, IOAuthAuthorizeHandler
+        "Use the OfflineMapTask to take a web map offline while using a basemap previously taken offline.",
+        "")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("628e8e3521cf45e9a28a12fe10c02c4d")]
+    public class OfflineBasemapByReference : UIViewController, IOAuthAuthorizeHandler
     {
         // Hold references to the UI controls.
         private MapView _myMapView;
@@ -50,10 +53,52 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         // The ID for a web map item hosted on the server (water network map of Naperville IL).
         private const string WebMapId = "acc027394bc84c2fb04d1ed317aac674";
 
-        public GenerateOfflineMap()
+        public OfflineBasemapByReference()
         {
-            Title = "Generate offline map";
+            Title = "Generate offline map with local basemap";
         }
+
+        private void ConfigureOfflineJobForBasemap(GenerateOfflineMapParameters parameters, Action completionAction)
+        {
+            // Don't give the user a choice if there is no basemap specified.
+            if (String.IsNullOrWhiteSpace(parameters.ReferenceBasemapFilename))
+            {
+                return;
+            }
+
+            // Get the path to the basemap directory.
+            string basemapBasePath = DataManager.GetDataFolder("628e8e3521cf45e9a28a12fe10c02c4d");
+
+            // Get the full path to the basemap by combining the name specified in the web map (ReferenceBasemapFilename)
+            //  with the offline basemap directory.
+            string basemapFullPath = Path.Combine(basemapBasePath, parameters.ReferenceBasemapFilename);
+
+            // If the offline basemap doesn't exist, proceed without it.
+            if (!File.Exists(basemapFullPath))
+            {
+                return;
+            }
+
+            UIAlertController basemapAlert = UIAlertController.Create("Basemap choice", "Use the offline basemap?", UIAlertControllerStyle.Alert);
+
+            // Configure the directory and move on when the user says 'yes'. 
+            basemapAlert.AddAction(UIAlertAction.Create("Yes", UIAlertActionStyle.Default,
+                uiAlertAction =>
+                {
+                    parameters.ReferenceBasemapDirectory = basemapBasePath;
+                    completionAction.Invoke();
+                }));
+
+            // Do nothing and move on if the user says no.
+            basemapAlert.AddAction(UIAlertAction.Create("No", UIAlertActionStyle.Cancel, action => completionAction.Invoke()));
+
+            // Show the alert.
+            PresentViewController(basemapAlert, true, null);
+        }
+
+        // Note: all code below (except call to ConfigureOfflineJobForBasemap) is identical to code in the Generate offline map sample.
+
+        #region Generate offline map
 
         private async void Initialize()
         {
@@ -142,83 +187,87 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             // Create the output directory.
             Directory.CreateDirectory(packagePath);
 
-            try
+            // Show the loading overlay while the job is running.
+            _statusLabel.Text = "Taking map offline...";
+
+            // Create an offline map task with the current (online) map.
+            OfflineMapTask takeMapOfflineTask = await OfflineMapTask.CreateAsync(_myMapView.Map);
+
+            // Create the default parameters for the task, pass in the area of interest.
+            GenerateOfflineMapParameters parameters = await takeMapOfflineTask.CreateDefaultGenerateOfflineMapParametersAsync(_areaOfInterest);
+
+            // Configure basemap settings for the job.
+            ConfigureOfflineJobForBasemap(parameters, async () =>
             {
-                // Show the loading overlay while the job is running.
-                _statusLabel.Text = "Taking map offline...";
-
-                // Create an offline map task with the current (online) map.
-                OfflineMapTask takeMapOfflineTask = await OfflineMapTask.CreateAsync(_myMapView.Map);
-
-                // Create the default parameters for the task, pass in the area of interest.
-                GenerateOfflineMapParameters parameters = await takeMapOfflineTask.CreateDefaultGenerateOfflineMapParametersAsync(_areaOfInterest);
-
-                // Create the job with the parameters and output location.
-                _generateOfflineMapJob = takeMapOfflineTask.GenerateOfflineMap(parameters, packagePath);
-
-                // Handle the progress changed event for the job.
-                _generateOfflineMapJob.ProgressChanged += OfflineMapJob_ProgressChanged;
-
-                // Await the job to generate geodatabases, export tile packages, and create the mobile map package.
-                GenerateOfflineMapResult results = await _generateOfflineMapJob.GetResultAsync();
-
-                // Check for job failure (writing the output was denied, e.g.).
-                if (_generateOfflineMapJob.Status != JobStatus.Succeeded)
+                try
                 {
-                    // Report failure to the user.
-                    UIAlertController messageAlert = UIAlertController.Create("Error", "Failed to take the map offline.", UIAlertControllerStyle.Alert);
-                    messageAlert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-                    PresentViewController(messageAlert, true, null);
-                }
+                    // Create the job with the parameters and output location.
+                    _generateOfflineMapJob = takeMapOfflineTask.GenerateOfflineMap(parameters, packagePath);
 
-                // Check for errors with individual layers.
-                if (results.LayerErrors.Any())
-                {
-                    // Build a string to show all layer errors.
-                    System.Text.StringBuilder errorBuilder = new System.Text.StringBuilder();
-                    foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
+                    // Handle the progress changed event for the job.
+                    _generateOfflineMapJob.ProgressChanged += OfflineMapJob_ProgressChanged;
+
+                    // Await the job to generate geodatabases, export tile packages, and create the mobile map package.
+                    GenerateOfflineMapResult results = await _generateOfflineMapJob.GetResultAsync();
+
+                    // Check for job failure (writing the output was denied, e.g.).
+                    if (_generateOfflineMapJob.Status != JobStatus.Succeeded)
                     {
-                        errorBuilder.AppendLine(string.Format("{0} : {1}", layerError.Key.Id, layerError.Value.Message));
+                        // Report failure to the user.
+                        UIAlertController messageAlert = UIAlertController.Create("Error", "Failed to take the map offline.", UIAlertControllerStyle.Alert);
+                        messageAlert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+                        PresentViewController(messageAlert, true, null);
                     }
 
-                    // Show layer errors.
-                    UIAlertController messageAlert = UIAlertController.Create("Error", errorBuilder.ToString(), UIAlertControllerStyle.Alert);
+                    // Check for errors with individual layers.
+                    if (results.LayerErrors.Any())
+                    {
+                        // Build a string to show all layer errors.
+                        StringBuilder errorBuilder = new StringBuilder();
+                        foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
+                        {
+                            errorBuilder.AppendLine($"{layerError.Key.Id} : {layerError.Value.Message}");
+                        }
+
+                        // Show layer errors.
+                        UIAlertController messageAlert = UIAlertController.Create("Error", errorBuilder.ToString(), UIAlertControllerStyle.Alert);
+                        messageAlert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+                        PresentViewController(messageAlert, true, null);
+                    }
+
+                    // Display the offline map.
+                    _myMapView.Map = results.OfflineMap;
+
+                    // Apply the original viewpoint for the offline map.
+                    _myMapView.SetViewpoint(new Viewpoint(_areaOfInterest));
+
+                    // Enable map interaction so the user can explore the offline data.
+                    _myMapView.InteractionOptions.IsEnabled = true;
+
+                    // Change the title and disable the "Take map offline" button.
+                    _statusLabel.Text = "Map is offline";
+                    _takeMapOfflineButton.Enabled = false;
+                }
+                catch (TaskCanceledException)
+                {
+                    // Generate offline map task was canceled.
+                    UIAlertController messageAlert = UIAlertController.Create("Canceled", "Taking map offline was canceled", UIAlertControllerStyle.Alert);
                     messageAlert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
                     PresentViewController(messageAlert, true, null);
                 }
-
-                // Display the offline map.
-                _myMapView.Map = results.OfflineMap;
-
-                // Apply the original viewpoint for the offline map.
-                _myMapView.SetViewpoint(new Viewpoint(_areaOfInterest));
-
-                // Enable map interaction so the user can explore the offline data.
-                _myMapView.InteractionOptions.IsEnabled = true;
-
-                // Change the title and disable the "Take map offline" button.
-                _statusLabel.Text = "Map is offline";
-                _takeMapOfflineButton.Enabled = false;
-            }
-            catch (TaskCanceledException)
-            {
-                // Generate offline map task was canceled.
-                UIAlertController messageAlert = UIAlertController.Create("Canceled", "Taking map offline was canceled", UIAlertControllerStyle.Alert);
-                messageAlert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-                PresentViewController(messageAlert, true, null);
-            }
-            catch (Exception ex)
-            {
-                // Exception while taking the map offline.
-                UIAlertController messageAlert = UIAlertController.Create("Error", ex.Message, UIAlertControllerStyle.Alert);
-                messageAlert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-                PresentViewController(messageAlert, true, null);
-            }
-            finally
-            {
-                // Hide the loading overlay when the job is done.
-                _loadingIndicator.StopAnimating();
-            }
+                catch (Exception ex)
+                {
+                    // Exception while taking the map offline.
+                    UIAlertController messageAlert = UIAlertController.Create("Error", ex.Message, UIAlertControllerStyle.Alert);
+                    messageAlert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+                    PresentViewController(messageAlert, true, null);
+                }
+                finally
+                {
+                    // Hide the loading overlay when the job is done.
+                    _loadingIndicator.StopAnimating();
+                }
+            });
         }
 
         // Show changes in job progress.
@@ -301,6 +350,8 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
                 _loadingIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
         }
+
+        #endregion Generate offline map
 
         #region Authentication
 
@@ -451,7 +502,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         }
 
         #endregion
-
-        #endregion
     }
+
+    #endregion
 }

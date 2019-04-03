@@ -8,7 +8,9 @@
                         BindingContext="{x:Reference Name=ResponsiveFormContainer}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <StackLayout>
-                <Label Text="Select an area, then download it." />
+                <Label x:Name="MessageLabel" 
+                       Text="Select an area, then download it."
+                       HorizontalTextAlignment="Center"/>
                 <ListView x:Name="AreasList" HeightRequest="150">
                     <ListView.ItemTemplate>
                         <DataTemplate>

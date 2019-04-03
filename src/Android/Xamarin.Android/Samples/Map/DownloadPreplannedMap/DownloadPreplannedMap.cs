@@ -41,6 +41,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
         private LinearLayout _mapListView;
         private AlertDialog _progressView;
         private ProgressBar _progressBar;
+        private TextView _helpLabel;
 
         // ID of a web map with preplanned map areas.
         private const string PortalItemId = "acc027394bc84c2fb04d1ed317aac674";
@@ -132,10 +133,16 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             {
                 try
                 {
+                    // Open the offline map package.
                     var localMapArea = await MobileMapPackage.OpenAsync(path);
+
+                    // Open the first map in the package.
                     _myMapView.Map = localMapArea.Maps.First();
+
+                    // Update the UI.
                     _progressView.SetMessage("");
                     _progressView.Dismiss();
+                    _helpLabel.Text = "Opened offline area.";
                     return;
                 }
                 catch (Exception e)
@@ -181,6 +188,9 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
 
                 // Show the downloaded map.
                 _myMapView.Map = results.OfflineMap;
+
+                // Update the UI.
+                _helpLabel.Text = "Downloaded offline area.";
             }
             catch (Exception ex)
             {
@@ -214,6 +224,9 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             // Delete all data from the temporary data folder.
             Directory.Delete(_offlineDataFolder, true);
             Directory.CreateDirectory(_offlineDataFolder);
+
+            // Update the UI.
+            _helpLabel.Text = "Deleted offline areas.";
         }
 
         private void DeleteButtonOnClick(object sender, EventArgs e)
@@ -254,9 +267,9 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             var layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
 
             // Add a help label.
-            TextView helpLabel = new TextView(this);
-            helpLabel.Text = "Select a map area to take offline.";
-            layout.AddView(helpLabel);
+            _helpLabel = new TextView(this);
+            _helpLabel.Text = "Select a map area to take offline.";
+            layout.AddView(_helpLabel);
 
             // Add space for adding options for each map.
             _mapListView = new LinearLayout(this) {Orientation = Orientation.Horizontal};

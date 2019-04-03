@@ -111,10 +111,16 @@ namespace ArcGISRuntime.UWP.Samples.DownloadPreplannedMap
             {
                 try
                 {
+                    // Open the offline map package.
                     var localMapArea = await MobileMapPackage.OpenAsync(path);
+
+                    // Display the first map.
                     MyMapView.Map = localMapArea.Maps.First();
+
+                    // Update the UI.
                     BusyText.Text = string.Empty;
                     BusyIndicator.Visibility = Visibility.Collapsed;
+                    MessageLabel.Text = "Opened offline area.";
                     return;
                 }
                 catch (Exception e)
@@ -160,6 +166,9 @@ namespace ArcGISRuntime.UWP.Samples.DownloadPreplannedMap
 
                 // Show the downloaded map.
                 MyMapView.Map = results.OfflineMap;
+
+                // Update the UI.
+                MessageLabel.Text = "Downloaded preplanned area.";
             }
             catch (Exception ex)
             {
@@ -192,6 +201,9 @@ namespace ArcGISRuntime.UWP.Samples.DownloadPreplannedMap
             // Delete all data from the temporary data folder.
             Directory.Delete(_offlineDataFolder, true);
             Directory.CreateDirectory(_offlineDataFolder);
+
+            // Update the UI.
+            MessageLabel.Text = "Deleted offline areas.";
         }
 
         private async void OnDownloadMapAreaClicked(object sender, RoutedEventArgs e)

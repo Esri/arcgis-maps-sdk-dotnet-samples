@@ -270,7 +270,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             finally
             {
                 _activityIndicator.StopAnimating();
-                _helpLabel.Text = "Choose a map area to take offline.";
+                _helpLabel.Text = "Deleted offline areas.";
             }
         }
 

@@ -7,7 +7,9 @@
         <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock Text="Select an area, then download it." FontWeight="SemiBold" />
+                <TextBlock x:Name="MessageLabel" 
+                           Text="Select an area, then download it." 
+                           FontWeight="SemiBold" HorizontalAlignment="Center" Margin="5" />
                 <ListView x:Name="AreasList">
                     <ListView.ItemTemplate>
                         <DataTemplate>

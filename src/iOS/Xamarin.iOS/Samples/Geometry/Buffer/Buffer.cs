@@ -213,11 +213,7 @@ namespace ArcGISRuntime.Samples.Buffer
             _bufferDistanceMilesTextField.RightViewMode = UITextFieldViewMode.Always;
 
             // Allow pressing 'return' to dismiss the keyboard.
-            _bufferDistanceMilesTextField.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
+            _bufferDistanceMilesTextField.ShouldReturn += HandleTextField;
 
             UIStackView legendView = new UIStackView();
             legendView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -330,12 +326,20 @@ namespace ArcGISRuntime.Samples.Buffer
             });
         }
 
+        private bool HandleTextField(UITextField textField)
+        {
+            textField.ResignFirstResponder();
+            return true;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, otherwise objects won't be disposed.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
+            _bufferDistanceMilesTextField.ShouldReturn -= HandleTextField;
+            _clearBuffersButton.TouchUpInside -= ClearBuffersButton_TouchUpInside;
         }
     }
 }

@@ -245,6 +245,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
 
             // Unsubscribe to tap events. The view will never be disposed otherwise.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
+            _myMapView.DrawStatusChanged -= OnDrawStatusChanged;
         }
     }
 }

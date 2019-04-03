@@ -53,6 +53,9 @@ namespace ArcGISRuntime.Samples.FindRoute
         private readonly Uri _carIconUri =
             new Uri("https://static.arcgis.com/images/Symbols/Transportation/CarRedFront.png");
 
+        // San Diego viewpoint.
+        Viewpoint _sanDiegoViewpoint;
+
         public FindRoute()
         {
             Title = "Find route";
@@ -92,12 +95,21 @@ namespace ArcGISRuntime.Samples.FindRoute
             envBuilder.Expand(1.5);
 
             // Create a new viewpoint apply it to the map view when the spatial reference changes.
-            Viewpoint sanDiegoViewpoint = new Viewpoint(envBuilder.ToGeometry());
-            _myMapView.SpatialReferenceChanged += (s, e) => _myMapView.SetViewpoint(sanDiegoViewpoint);
+            _sanDiegoViewpoint = new Viewpoint(envBuilder.ToGeometry());
+            _myMapView.SpatialReferenceChanged += MapView_SpatialReferenceChanged;
 
             // Add a new Map and the graphics overlay to the map view.
             _myMapView.Map = new Map(Basemap.CreateStreetsVector());
             _myMapView.GraphicsOverlays.Add(_routeGraphicsOverlay);
+        }
+
+        private void MapView_SpatialReferenceChanged(object sender, EventArgs e)
+        {
+            // Unsubscribe from the event.
+            _myMapView.SpatialReferenceChanged -= MapView_SpatialReferenceChanged;
+
+            // Set the viewpoint.
+            _myMapView.SetViewpoint(_sanDiegoViewpoint);
         }
 
         private async void SolveRouteButton_Click(object sender, EventArgs e)

@@ -27,8 +27,9 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         "The sample provides a drop down on the top, where you can select a geometry operation. When you choose a geometry operation, the application performs this operation between the overlapping polygons and applies the result to the geometries.")]
     public class SpatialOperations : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to the UI controls.
         private MapView _myMapView;
+        private UISegmentedControl _operationChoiceButton;
 
         // GraphicsOverlay to hold the polygon graphics.
         private GraphicsOverlay _polygonsOverlay;
@@ -166,7 +167,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            UISegmentedControl operationChoiceButton = new UISegmentedControl("Difference", "Intersection", "Symm. diff.", "Union")
+            _operationChoiceButton = new UISegmentedControl("Difference", "Intersection", "Symm. diff.", "Union")
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
                 TintColor = UIColor.White,
@@ -174,14 +175,14 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             };
 
             // Clean up borders of segmented control - avoid corner pixels.
-            operationChoiceButton.ClipsToBounds = true;
-            operationChoiceButton.Layer.CornerRadius = 5;
+            _operationChoiceButton.ClipsToBounds = true;
+            _operationChoiceButton.Layer.CornerRadius = 5;
 
             // Listen for taps.
-            operationChoiceButton.ValueChanged += _operationChoiceButton_ValueChanged;
+            _operationChoiceButton.ValueChanged += _operationChoiceButton_ValueChanged;
 
             // Add the views.
-            View.AddSubviews(_myMapView, operationChoiceButton);
+            View.AddSubviews(_myMapView, _operationChoiceButton);
 
             // Lay out views.
             NSLayoutConstraint.ActivateConstraints(new []
@@ -191,10 +192,18 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
 
-                operationChoiceButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
-                operationChoiceButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
-                operationChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
+                _operationChoiceButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
+                _operationChoiceButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
+                _operationChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects won't be disposed.
+            _operationChoiceButton.ValueChanged -= _operationChoiceButton_ValueChanged;
         }
     }
 }

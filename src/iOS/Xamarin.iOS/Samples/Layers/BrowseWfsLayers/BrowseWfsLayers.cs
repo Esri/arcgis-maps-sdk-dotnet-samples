@@ -229,5 +229,13 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             base.ViewDidLoad();
             Initialize();
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects won't be disposed.
+            _chooseLayersButton.Clicked -= ShowLayerOptions;
+        }
     }
 }

@@ -518,11 +518,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             _searchBox.LeftView = new UIView(new CGRect(0, 0, 5, 20));
             _searchBox.LeftViewMode = UITextFieldViewMode.Always;
             // Allow pressing 'return' to dismiss the keyboard.
-            _searchBox.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
+            _searchBox.ShouldReturn += HandleTextField;
 
             _locationBox = new UITextField();
             _locationBox.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -531,11 +527,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             _locationBox.LeftView = new UIView(new CGRect(0, 0, 5, 20));
             _locationBox.LeftViewMode = UITextFieldViewMode.Always;
             // Allow pressing 'return' to dismiss the keyboard.
-            _locationBox.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
+            _locationBox.ShouldReturn += HandleTextField;
 
             _searchButton = new UIButton(UIButtonType.RoundedRect);
             _searchButton.BackgroundColor = UIColor.White;
@@ -616,12 +608,24 @@ namespace ArcGISRuntime.Samples.FindPlace
             });
         }
 
+        private bool HandleTextField(UITextField textField)
+        {
+            textField.ResignFirstResponder();
+            return true;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe to tap events. Objects won't be disposed otherwise.
             _myMapView.GeoViewTapped -= MapView_GeoViewTapped;
+            _searchButton.TouchUpInside -= SearchButton_Touched;
+            _searchInViewButton.TouchUpInside -= SearchRestrictedButton_Touched;
+            _searchBox.AllEditingEvents -= SearchBox_TextChanged;
+            _locationBox.AllEditingEvents -= LocationBox_TextChanged;
+            _searchBox.ShouldReturn -= HandleTextField;
+            _locationBox.ShouldReturn -= HandleTextField;
         }
     }
 

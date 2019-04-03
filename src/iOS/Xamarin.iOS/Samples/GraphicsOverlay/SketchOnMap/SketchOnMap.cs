@@ -344,6 +344,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             _myMapView.SketchEditor.RedoCommand.CanExecuteChanged -= CanExecuteChanged;
             _myMapView.SketchEditor.CompleteCommand.CanExecuteChanged -= CanExecuteChanged;
             _sketchOverlay.Graphics.CollectionChanged -= GraphicsChanged;
+            _segmentButton.ValueChanged -= SegmentButtonClicked;
         }
     }
 }

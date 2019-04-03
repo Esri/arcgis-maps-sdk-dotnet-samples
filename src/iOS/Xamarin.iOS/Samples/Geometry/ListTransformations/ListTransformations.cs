@@ -305,6 +305,14 @@ namespace ArcGISRuntime.Samples.ListTransformations
                 _outerStackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
             }
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects won't be disposed.
+            _useExtentSwitch.ValueChanged -= UseExtentSwitch_ValueChanged;
+        }
     }
 
     // Class that defines a view model for showing available datum transformations in a picker control.

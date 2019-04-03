@@ -188,7 +188,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 };
 
                 // Call the animation method every time the timer expires (once every 60ms per above).
-                _animationTimer.Elapsed += (sender, args) => AnimatePlane();
+                _animationTimer.Elapsed += Timer_Elapsed;
 
                 // Set the initial mission for when the sample loads.
                 await ChangeMission(_missionToItemId.Keys.First());
@@ -198,6 +198,8 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
         }
+
+        private void Timer_Elapsed(object sender, EventArgs e) => AnimatePlane();
 
         private void ShowMissionOptions(object sender, EventArgs eventArgs)
         {
@@ -429,6 +431,14 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
             public override UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController controller,
                 UITraitCollection traitCollection) => UIModalPresentationStyle.None;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects won't be disposed.
+            _animationTimer.Elapsed -= Timer_Elapsed;
         }
     }
 

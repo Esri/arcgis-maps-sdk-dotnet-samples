@@ -60,15 +60,17 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             _myMapView.GraphicsOverlays.Add(new GraphicsOverlay());
 
             // Add a new behavior for double taps on the MapView.
-            _myMapView.GeoViewDoubleTapped += (s, e) =>
+            _myMapView.GeoViewDoubleTapped += MapView_DoubleTapped;
+        }
+
+        private void MapView_DoubleTapped(object sender, GeoViewInputEventArgs e)
+        {
+            // If the sketch editor complete command is enabled, a sketch is in progress.
+            if (_myMapView.SketchEditor.CompleteCommand.CanExecute(null))
             {
-                // If the sketch editor complete command is enabled, a sketch is in progress.
-                if (_myMapView.SketchEditor.CompleteCommand.CanExecute(null))
-                {
-                    // Set the event as handled.
-                    e.Handled = true;
-                }
-            };
+                // Set the event as handled.
+                e.Handled = true;
+            }
         }
 
         private void AddClick(object sender, EventArgs e)
@@ -336,6 +338,14 @@ namespace ArcGISRuntime.Samples.FindServiceArea
                 _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects won't be disposed.
+            _myMapView.GeoViewDoubleTapped += MapView_DoubleTapped;
         }
     }
 }

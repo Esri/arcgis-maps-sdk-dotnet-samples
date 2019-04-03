@@ -257,20 +257,12 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             _inputParameter1 = new UITextField();
             _inputParameter1.TranslatesAutoresizingMaskIntoConstraints = false;
             _inputParameter1.BorderStyle = UITextBorderStyle.RoundedRect;
-            _inputParameter1.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
+            _inputParameter1.ShouldReturn += HandleTextField;
 
             _inputParameter2 = new UITextField();
             _inputParameter2.TranslatesAutoresizingMaskIntoConstraints = false;
             _inputParameter2.BorderStyle = UITextBorderStyle.RoundedRect;
-            _inputParameter2.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
+            _inputParameter2.ShouldReturn += HandleTextField;
 
             _labelParameter1 = new UILabel();
             _labelParameter1.TextAlignment = UITextAlignment.Right;
@@ -338,6 +330,23 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
             });
+        }
+
+        private bool HandleTextField(UITextField textField)
+        {
+            textField.ResignFirstResponder();
+            return true;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects won't be disposed.
+            _inputParameter1.ShouldReturn -= HandleTextField;
+            _inputParameter2.ShouldReturn -= HandleTextField;
+            _updateRendererButton.TouchUpInside -= UpdateRendererButton_Clicked;
+            _rendererTypes.ValueChanged -= rendererTypes_ValueChanged;
         }
     }
 }

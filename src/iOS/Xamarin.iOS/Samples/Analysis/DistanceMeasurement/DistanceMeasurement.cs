@@ -69,28 +69,24 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             measureAnalysisOverlay.Analyses.Add(_distanceMeasurement);
             _mySceneView.SetViewpointCamera(new Camera(start, 200, 45, 45, 0));
 
-            // Keep the UI updated.
-            _distanceMeasurement.MeasurementChanged += (o, e) =>
-            {
-                // This is needed because measurement change events occur on a non-UI thread and this code accesses UI object.
-                BeginInvokeOnMainThread(() =>
-                {
-                    // Update the labels with new values in the format {value} {unit system}.
-                    string direct =
-                        $"{_distanceMeasurement.DirectDistance.Value:F} {_distanceMeasurement.DirectDistance.Unit.Abbreviation}";
-                    string vertical =
-                        $"{_distanceMeasurement.VerticalDistance.Value:F} {_distanceMeasurement.VerticalDistance.Unit.Abbreviation}";
-                    string horizontal =
-                        $"{_distanceMeasurement.HorizontalDistance.Value:F} {_distanceMeasurement.HorizontalDistance.Unit.Abbreviation}";
-                    _resultLabel.Text = $"Direct: {direct}, V: {vertical}, H: {horizontal}";
-                });
-            };
-
             // Show the scene in the view.
             _mySceneView.Scene = myScene;
+        }
 
-            // Subscribe to tap events to enable updating the measurement.
-            _mySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
+        private void Measurement_Changed(object sender, EventArgs e)
+        {
+            // This is needed because measurement change events occur on a non-UI thread and this code accesses UI object.
+            BeginInvokeOnMainThread(() =>
+            {
+                // Update the labels with new values in the format {value} {unit system}.
+                string direct =
+                    $"{_distanceMeasurement.DirectDistance.Value:F} {_distanceMeasurement.DirectDistance.Unit.Abbreviation}";
+                string vertical =
+                    $"{_distanceMeasurement.VerticalDistance.Value:F} {_distanceMeasurement.VerticalDistance.Unit.Abbreviation}";
+                string horizontal =
+                    $"{_distanceMeasurement.HorizontalDistance.Value:F} {_distanceMeasurement.HorizontalDistance.Unit.Abbreviation}";
+                _resultLabel.Text = $"Direct: {direct}, V: {vertical}, H: {horizontal}";
+            });
         }
 
         private async void MySceneView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -203,12 +199,22 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             });
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _distanceMeasurement.MeasurementChanged += Measurement_Changed;
+            _mySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe to events, otherwise objects won't be disposed.
             _mySceneView.GeoViewTapped -= MySceneView_GeoViewTapped;
+            _distanceMeasurement.MeasurementChanged -= Measurement_Changed;
         }
     }
 }

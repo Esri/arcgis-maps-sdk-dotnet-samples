@@ -29,6 +29,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
     {
         // Hold references to the UI controls.
         private MapView _myMapView;
+        private UIButton _changeValueButton;
 
         // URL to the feature service.
         private const string FeatureServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0";
@@ -131,13 +132,13 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
             string currentAttributeValue = _selectedFeature.Attributes[AttributeFieldName].ToString();
 
             // Set up the UI for the callout.
-            UIButton changeValueButton = new UIButton();
-            changeValueButton.SetTitle($"{currentAttributeValue} - Edit", UIControlState.Normal);
-            changeValueButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            changeValueButton.TouchUpInside += ShowDamageTypeChoices;
+            _changeValueButton = new UIButton();
+            _changeValueButton.SetTitle($"{currentAttributeValue} - Edit", UIControlState.Normal);
+            _changeValueButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _changeValueButton.TouchUpInside += ShowDamageTypeChoices;
 
             // Show the callout.
-            _myMapView.ShowCalloutAt((MapPoint) _selectedFeature.Geometry, changeValueButton);
+            _myMapView.ShowCalloutAt((MapPoint) _selectedFeature.Geometry, _changeValueButton);
         }
 
         private void ShowDamageTypeChoices(object sender, EventArgs e)
@@ -255,8 +256,9 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, otherwise objects won't be disposed.
             _myMapView.GeoViewTapped -= MapView_Tapped;
+            _changeValueButton.TouchUpInside -= ShowDamageTypeChoices;
         }
     }
 }

@@ -93,5 +93,13 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
                 _loadStatusLabel.HeightAnchor.ConstraintEqualTo(40)
             });
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects won't be disposed.
+            _myMapView.Map.LoadStatusChanged -= OnMapsLoadStatusChanged;
+        }
     }
 }

@@ -139,5 +139,13 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
                 _styleChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects won't be disposed.
+            _styleChoiceButton.ValueChanged -= _styleChoiceButton_ValueChanged;
+        }
     }
 }

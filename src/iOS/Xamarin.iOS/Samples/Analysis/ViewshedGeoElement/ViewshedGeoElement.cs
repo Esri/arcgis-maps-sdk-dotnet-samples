@@ -135,13 +135,6 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
                     Enabled = true,
                     AutoReset = true
                 };
-                // - Move the tank every time the timer expires.
-                _animationTimer.Elapsed += UpdateAnimation;
-                // - Start the timer.
-                _animationTimer.Start();
-
-                // Allow the user to click to define a new destination.
-                _mySceneView.GeoViewTapped += SceneViewTapped;
             }
             catch (Exception e)
             {
@@ -209,6 +202,16 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _animationTimer.Elapsed += UpdateAnimation;
+            _animationTimer.Start();
+            _mySceneView.GeoViewTapped += SceneViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)

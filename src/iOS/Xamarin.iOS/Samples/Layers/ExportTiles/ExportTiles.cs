@@ -336,5 +336,13 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 _statusIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects won't be disposed.
+            _myMapView.ViewpointChanged -= MyMapView_ViewpointChanged;
+        }
     }
 }

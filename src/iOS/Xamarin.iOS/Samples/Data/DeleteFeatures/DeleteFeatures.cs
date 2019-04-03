@@ -109,7 +109,18 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
             deleteButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Handle button clicks.
-            deleteButton.TouchUpInside += (o, e) => { DeleteFeature(tappedFeature); };
+            void DeleteFeature_click(object sender, EventArgs e)
+            {
+                // Unsubscribe from event.
+                deleteButton.TouchUpInside -= DeleteFeature_click;
+
+                // Delete the feature.
+                DeleteFeature(tappedFeature);
+
+                // Dismiss the callout.
+                _myMapView.DismissCallout();
+            }
+            deleteButton.TouchUpInside += DeleteFeature_click;
 
             // Show the callout.
             _myMapView.ShowCalloutAt((MapPoint) tappedFeature.Geometry, deleteButton);
@@ -117,9 +128,6 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
 
         private async void DeleteFeature(Feature featureToDelete)
         {
-            // Dismiss the callout.
-            _myMapView.DismissCallout();
-
             try
             {
                 // Delete the feature.

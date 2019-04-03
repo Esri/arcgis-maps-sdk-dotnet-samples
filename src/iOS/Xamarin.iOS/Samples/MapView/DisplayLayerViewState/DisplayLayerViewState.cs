@@ -181,6 +181,14 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
             _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects won't be disposed.
+            _myMapView.LayerViewStateChanged -= OnLayerViewStateChanged;
+        }
     }
 
     /// <summary>

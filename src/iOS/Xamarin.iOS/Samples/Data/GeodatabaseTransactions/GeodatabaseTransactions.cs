@@ -558,6 +558,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
 
             // Unsubscribe from events, otherwise objects will never be disposed.
             _localGeodatabase.TransactionStatusChanged -= GdbTransactionStatusChanged;
+            _transactionSwitch.ValueChanged -= RequireTransactionChanged;
         }
     }
 }

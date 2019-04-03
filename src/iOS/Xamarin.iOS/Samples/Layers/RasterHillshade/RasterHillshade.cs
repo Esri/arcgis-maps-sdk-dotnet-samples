@@ -223,6 +223,16 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             formContainer.BottomAnchor.ConstraintEqualTo(scrollView.BottomAnchor).Active = true;
         }
 
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects won't be disposed.
+            _azimuthSlider.ValueChanged -= UpdateSettings;
+            _altitudeSlider.ValueChanged -= UpdateSettings;
+            _slopeTypePicker.ValueChanged -= UpdateSettings;
+        }
+
         private void UpdateSettings(object sender, EventArgs e)
         {
             SlopeType type = SlopeType.None;

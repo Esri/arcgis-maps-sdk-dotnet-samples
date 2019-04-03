@@ -67,6 +67,10 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         // Hold a reference to the generated geodatabase.
         private Geodatabase _resultGdb;
 
+        // Hold references to the jobs.
+        private SyncGeodatabaseJob _gdbSyncJob;
+        private GenerateGeodatabaseJob _gdbGenJob;
+
         public EditAndSyncFeatures()
         {
             Title = "Edit and Sync Features";
@@ -315,30 +319,25 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
 
             // Create a generate geodatabase job.
-            GenerateGeodatabaseJob generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
+            _gdbGenJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
-            // Handle the progress changed event with an inline (lambda) function to show the progress bar.
-            generateGdbJob.ProgressChanged += (sender, e) =>
-            {
-                // Get the job.
-                GenerateGeodatabaseJob job = (GenerateGeodatabaseJob) sender;
-
-                // Update the progress bar.
-                UpdateProgressBar(job.Progress);
-            };
+            // Handle the progress changed event.
+            _gdbGenJob.ProgressChanged += GenerateGdbJob_ProgressChanged;
 
             // Show the progress bar.
             _progressBar.Hidden = false;
 
             // Start the job.
-            generateGdbJob.Start();
+            _gdbGenJob.Start();
 
             // Get the result.
-            _resultGdb = await generateGdbJob.GetResultAsync();
+            _resultGdb = await _gdbGenJob.GetResultAsync();
 
             // Do the rest of the work.
-            HandleGenerationCompleted(generateGdbJob);
+            HandleGenerationCompleted(_gdbGenJob);
         }
+
+        private void GenerateGdbJob_ProgressChanged(object sender, EventArgs e) => UpdateProgressBar(_gdbGenJob.Progress);
 
         private async void HandleGenerationCompleted(GenerateGeodatabaseJob job)
         {
@@ -435,23 +434,25 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             }
 
             // Create job.
-            SyncGeodatabaseJob job = _gdbSyncTask.SyncGeodatabase(parameters, _resultGdb);
+            _gdbSyncJob = _gdbSyncTask.SyncGeodatabase(parameters, _resultGdb);
 
             // Subscribe to progress updates.
-            job.ProgressChanged += (o, e) =>
-            {
-                // Update the progress bar.
-                UpdateProgressBar(job.Progress);
-            };
+            _gdbSyncJob.ProgressChanged += Job_ProgressChanged;
 
             // Start the sync.
-            job.Start();
+            _gdbSyncJob.Start();
 
             // Get the result.
-            await job.GetResultAsync();
+            await _gdbSyncJob.GetResultAsync();
 
             // Do the rest of the work.
-            HandleSyncCompleted(job);
+            HandleSyncCompleted(_gdbSyncJob);
+        }
+
+        private void Job_ProgressChanged(object sender, EventArgs e)
+        {
+            // Update the progress bar.
+            UpdateProgressBar(_gdbSyncJob.Progress);
         }
 
         private void HandleSyncCompleted(SyncGeodatabaseJob job)
@@ -623,6 +624,9 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
 
             // Unsubscribe to tap events. The view will never be disposed otherwise.
             _myMapView.GeoViewTapped -= GeoViewTapped;
+            _myMapView.ViewpointChanged -= MapViewExtentChanged;
+            _gdbSyncJob.ProgressChanged -= Job_ProgressChanged;
+            _gdbGenJob.ProgressChanged -= GenerateGdbJob_ProgressChanged;
         }
     }
 }

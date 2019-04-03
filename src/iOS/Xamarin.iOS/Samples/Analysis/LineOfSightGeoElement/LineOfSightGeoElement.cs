@@ -34,6 +34,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         // Hold references to the UI controls.
         private SceneView _mySceneView;
         private UILabel _statusLabel;
+        private UISlider _heightSlider;
 
         // URL of the elevation service - provides elevation component of the scene.
         private readonly Uri _elevationUri = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
@@ -135,15 +136,8 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
 
                 // Create a timer; this will enable animating the taxi.
                 _animationTimer = new Timer(120);
-                // Move the taxi every time the timer expires.
-                _animationTimer.Elapsed += AnimationTimer_Elapsed;
                 // Keep the timer running continuously.
                 _animationTimer.AutoReset = true;
-                // Start the timer.
-                _animationTimer.Start();
-
-                // Subscribe to TargetVisible events; allows for updating the UI and selecting the taxi when it is visible.
-                _geoLine.TargetVisibilityChanged += Geoline_TargetVisibilityChanged;
 
                 // Add the scene to the view.
                 _mySceneView.Scene = myScene;
@@ -258,12 +252,10 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            UISlider heightSlider = new UISlider();
-            heightSlider.TranslatesAutoresizingMaskIntoConstraints = false;
-            // Subscribe to slider events.
-            heightSlider.ValueChanged += MyHeightSlider_ValueChanged;
+            _heightSlider = new UISlider();
+            _heightSlider.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            UIBarButtonItem sliderWrapper = new UIBarButtonItem(heightSlider);
+            UIBarButtonItem sliderWrapper = new UIBarButtonItem(_heightSlider);
             sliderWrapper.Width = 300;
 
             UIToolbar sliderToolbar = new UIToolbar();
@@ -305,6 +297,17 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             });
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _heightSlider.ValueChanged += MyHeightSlider_ValueChanged;
+            _geoLine.TargetVisibilityChanged += Geoline_TargetVisibilityChanged;
+            _animationTimer.Elapsed += AnimationTimer_Elapsed;
+            _animationTimer.Start();
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
@@ -313,6 +316,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             _geoLine.TargetVisibilityChanged -= Geoline_TargetVisibilityChanged;
             _animationTimer.Stop();
             _animationTimer.Elapsed -= AnimationTimer_Elapsed;
+            _heightSlider.ValueChanged -= MyHeightSlider_ValueChanged;
         }
     }
 }

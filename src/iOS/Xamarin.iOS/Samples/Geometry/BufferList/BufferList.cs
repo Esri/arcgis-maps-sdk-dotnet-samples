@@ -316,11 +316,7 @@ namespace ArcGISRuntime.Samples.BufferList
             _bufferDistanceEntry.LeftViewMode = UITextFieldViewMode.Always;
             _bufferDistanceEntry.KeyboardType = UIKeyboardType.NumberPad;
             // Allow pressing 'return' to dismiss the keyboard.
-            _bufferDistanceEntry.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
+            _bufferDistanceEntry.ShouldReturn += HandleTextField;
 
             UILabel bufferDistanceEntryLabel = new UILabel();
             bufferDistanceEntryLabel.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -354,12 +350,19 @@ namespace ArcGISRuntime.Samples.BufferList
             });
         }
 
+        private bool HandleTextField(UITextField textField)
+        {
+            textField.ResignFirstResponder();
+            return true;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, otherwise objects won't be disposed.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
+            _bufferDistanceEntry.ShouldReturn -= HandleTextField;
         }
     }
 }

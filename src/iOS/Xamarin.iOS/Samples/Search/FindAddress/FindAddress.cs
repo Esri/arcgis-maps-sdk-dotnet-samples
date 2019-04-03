@@ -264,8 +264,10 @@ namespace ArcGISRuntime.Samples.FindAddress
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events. Objects won't be disposed otherwise.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
+            _addressSearchBar.ListButtonClicked -= AddressSearch_ListButtonClicked;
+            _addressSearchBar.SearchButtonClicked -= AddressSearchBar_Clicked;
         }
     }
 }

@@ -52,21 +52,23 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
             _mySceneView.SetViewpointCamera(initialCamera);
 
             // Apply the selected atmosphere effect option.
-            _atmosphereEffectPicker.ValueChanged += (o, e) =>
+            _atmosphereEffectPicker.ValueChanged += Picker_ValuedChanged;
+        }
+
+        private void Picker_ValuedChanged(object sender, EventArgs e)
+        {
+            switch (_atmosphereEffectPicker.SelectedSegment)
             {
-                switch (_atmosphereEffectPicker.SelectedSegment)
-                {
-                    case 0:
-                        _mySceneView.AtmosphereEffect = AtmosphereEffect.Realistic;
-                        break;
-                    case 1:
-                        _mySceneView.AtmosphereEffect = AtmosphereEffect.HorizonOnly;
-                        break;
-                    case 2:
-                        _mySceneView.AtmosphereEffect = AtmosphereEffect.None;
-                        break;
-                }
-            };
+                case 0:
+                    _mySceneView.AtmosphereEffect = AtmosphereEffect.Realistic;
+                    break;
+                case 1:
+                    _mySceneView.AtmosphereEffect = AtmosphereEffect.HorizonOnly;
+                    break;
+                case 2:
+                    _mySceneView.AtmosphereEffect = AtmosphereEffect.None;
+                    break;
+            }
         }
 
         public override void LoadView()
@@ -99,6 +101,14 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
         {
             base.ViewDidLoad();
             Initialize();
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects won't be disposed.
+            _atmosphereEffectPicker.ValueChanged -= Picker_ValuedChanged;
         }
     }
 }

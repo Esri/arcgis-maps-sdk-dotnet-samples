@@ -203,13 +203,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
                 tf.BorderStyle = UITextBorderStyle.RoundedRect;
 
                 // Allow returning to dismiss the keyboard.
-                tf.ShouldReturn += field =>
-                {
-                    field.ResignFirstResponder();
-                    // Recalculate fields.
-                    RecalculateFields(field);
-                    return true;
-                };
+                tf.ShouldReturn += HandleTextField;
             }
 
             UIStackView formView = new UIStackView(new UIView[]
@@ -249,6 +243,14 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             ApplyConstraints();
         }
 
+        private bool HandleTextField(UITextField textField)
+        {
+            textField.ResignFirstResponder();
+            // Recalculate fields.
+            RecalculateFields(textField);
+            return true;
+        }
+
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
         {
             base.TraitCollectionDidChange(previousTraitCollection);
@@ -279,8 +281,14 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, otherwise objects won't be disposed.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
+            _utmEntry.EditingDidBegin -= InputValueChanged;
+            _dmsEntry.EditingDidBegin -= InputValueChanged;
+            _ddEntry.EditingDidBegin -= InputValueChanged;
+            _usngEntry.EditingDidBegin -= InputValueChanged;
+            foreach (UITextField tf in new[] { _ddEntry, _dmsEntry, _utmEntry, _usngEntry })
+                tf.ShouldReturn -= HandleTextField;
         }
     }
 }

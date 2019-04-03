@@ -222,5 +222,14 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
                 _resultLabel.HeightAnchor.ConstraintEqualTo(40)
             });
         }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects won't be disposed.
+            _slider.ValueChanged -= OnUIChanged;
+            _operationPicker.ValueChanged -= OnUIChanged;
+        }
     }
 }

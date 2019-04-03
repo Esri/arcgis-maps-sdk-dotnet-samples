@@ -77,7 +77,6 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
             AnalysisOverlay lineOfSightOverlay = new AnalysisOverlay();
             lineOfSightOverlay.Analyses.Add(_lineOfSightAnalysis);
             _mySceneView.AnalysisOverlays.Add(lineOfSightOverlay);
-            _mySceneView.GeoViewTapped += SceneViewTapped;
         }
 
         private void SceneViewTapped(object sender, GeoViewInputEventArgs e)
@@ -135,6 +134,14 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to GeoView tap event.
+            _mySceneView.GeoViewTapped += SceneViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)

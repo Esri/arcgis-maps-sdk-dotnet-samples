@@ -150,6 +150,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
     public class SublayerDataSource : UITableViewSource
     {
         private readonly List<ArcGISSublayer> _sublayers;
+        private UISwitch _visibilitySwitch;
 
         private const string CellId = "cellid";
 
@@ -167,16 +168,16 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             cell.TextLabel.Text = sublayer.Name;
 
             // Create a UISwitch for controlling the layer visibility.
-            UISwitch visibilitySwitch = new UISwitch
+            _visibilitySwitch = new UISwitch
             {
                 Frame = new CGRect(cell.Bounds.Width - 60, 7, 50, cell.Bounds.Height),
                 Tag = indexPath.Row,
                 On = sublayer.IsVisible
             };
-            visibilitySwitch.ValueChanged += VisibilitySwitch_ValueChanged;
+            _visibilitySwitch.ValueChanged += VisibilitySwitch_ValueChanged;
 
             // Add the UISwitch to the cell's content view.
-            cell.ContentView.AddSubview(visibilitySwitch);
+            cell.ContentView.AddSubview(_visibilitySwitch);
 
             return cell;
         }
@@ -194,6 +195,12 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         public override nint RowsInSection(UITableView tableview, nint section)
         {
             return _sublayers.Count;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            _visibilitySwitch.ValueChanged -= VisibilitySwitch_ValueChanged;
         }
     }
 }

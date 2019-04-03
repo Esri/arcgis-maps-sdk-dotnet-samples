@@ -119,13 +119,13 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             // Update the frustum outline color.
             // The frustum outline shows the volume in which the viewshed analysis is performed.
             Viewshed.FrustumOutlineColor = Color.Blue;
-
-            // Subscribe to tap events to enable moving the observer.
-            _mySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
         }
 
         private void MySceneView_GeoViewTapped(object sender, GeoViewInputEventArgs viewInputEventArgs)
         {
+            // Sample isn't ready yet, return.
+            if (_viewshed == null) return;
+
             if (viewInputEventArgs.Location == null)
             {
                 // User clicked on the sky - don't update the location with invalid value.
@@ -210,6 +210,14 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
                 UITraitCollection traitCollection) => UIModalPresentationStyle.None;
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _mySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
@@ -230,6 +238,11 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         private UISlider _maximumDistanceSlider;
         private UISwitch _analysisVisibilitySwitch;
         private UISwitch _frustumVisibilitySwitch;
+
+        ~ViewshedLocationSettingsController()
+        {
+            System.Diagnostics.Debug.WriteLine($"Finalized {nameof(ViewshedLocationSettingsController)}");
+        }
 
         public ViewshedLocationSettingsController(LocationViewshed viewshed)
         {
@@ -338,16 +351,6 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _maximumDistanceSlider.TranslatesAutoresizingMaskIntoConstraints = false;
             formContainer.AddArrangedSubview(getRowStackView(new UIView[] {maxLabel, _maximumDistanceSlider}));
 
-            // Subscribe to events.
-            _headingSlider.ValueChanged += HandleSettingsChange;
-            _pitchSlider.ValueChanged += HandleSettingsChange;
-            _horizontalAngleSlider.ValueChanged += HandleSettingsChange;
-            _verticalAngleSlider.ValueChanged += HandleSettingsChange;
-            _minimumDistanceSlider.ValueChanged += HandleSettingsChange;
-            _maximumDistanceSlider.ValueChanged += HandleSettingsChange;
-            _analysisVisibilitySwitch.ValueChanged += HandleSettingsChange;
-            _frustumVisibilitySwitch.ValueChanged += HandleSettingsChange;
-
             // Lay out container and scroll view.
             scrollView.AddSubview(formContainer);
 
@@ -365,6 +368,36 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             row.Axis = UILayoutConstraintAxis.Horizontal;
             row.Distribution = UIStackViewDistribution.FillEqually;
             return row;
+        }
+
+        public override void ViewDidAppear(bool animated)
+        {
+            base.ViewDidAppear(animated);
+
+            // Subscribe to events.
+            _headingSlider.ValueChanged += HandleSettingsChange;
+            _pitchSlider.ValueChanged += HandleSettingsChange;
+            _horizontalAngleSlider.ValueChanged += HandleSettingsChange;
+            _verticalAngleSlider.ValueChanged += HandleSettingsChange;
+            _minimumDistanceSlider.ValueChanged += HandleSettingsChange;
+            _maximumDistanceSlider.ValueChanged += HandleSettingsChange;
+            _analysisVisibilitySwitch.ValueChanged += HandleSettingsChange;
+            _frustumVisibilitySwitch.ValueChanged += HandleSettingsChange;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, otherwise objects won't be disposed.
+            _headingSlider.ValueChanged -= HandleSettingsChange;
+            _pitchSlider.ValueChanged -= HandleSettingsChange;
+            _horizontalAngleSlider.ValueChanged -= HandleSettingsChange;
+            _verticalAngleSlider.ValueChanged -= HandleSettingsChange;
+            _minimumDistanceSlider.ValueChanged -= HandleSettingsChange;
+            _maximumDistanceSlider.ValueChanged -= HandleSettingsChange;
+            _analysisVisibilitySwitch.ValueChanged -= HandleSettingsChange;
+            _frustumVisibilitySwitch.ValueChanged -= HandleSettingsChange;
         }
     }
 }

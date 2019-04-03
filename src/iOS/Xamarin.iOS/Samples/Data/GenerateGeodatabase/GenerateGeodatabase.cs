@@ -352,6 +352,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
 
             // Unsubscribe from events, otherwise objects won't be disposed.
             _generateGdbJob.ProgressChanged -= GenerateGdbJob_ProgressChanged;
+            _myMapView.ViewpointChanged -= MapViewExtentChanged;
         }
     }
 }

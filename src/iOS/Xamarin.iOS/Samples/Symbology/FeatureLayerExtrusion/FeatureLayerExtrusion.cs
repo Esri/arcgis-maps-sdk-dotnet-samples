@@ -28,8 +28,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         "")]
     public class FeatureLayerExtrusion : UIViewController
     {
-        // Hold a reference to the SceneView.
+        // Hold references to the UI controls.
         private SceneView _mySceneView;
+        private UISegmentedControl _extrusionFieldButton;
 
         public FeatureLayerExtrusion()
         {
@@ -136,16 +137,16 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            UISegmentedControl extrusionFieldButton = new UISegmentedControl("Population density", "Total population")
+            _extrusionFieldButton = new UISegmentedControl("Population density", "Total population")
             {
                 TintColor = UIColor.White,
                 SelectedSegment = 1,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
-            extrusionFieldButton.ValueChanged += ToggleExtrusionButton_Clicked;
+            _extrusionFieldButton.ValueChanged += ToggleExtrusionButton_Clicked;
 
             // Add the views.
-            View.AddSubviews(_mySceneView, extrusionFieldButton);
+            View.AddSubviews(_mySceneView, _extrusionFieldButton);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new []
@@ -155,10 +156,18 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
                 _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
 
-                extrusionFieldButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
-                extrusionFieldButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
-                extrusionFieldButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
+                _extrusionFieldButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
+                _extrusionFieldButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
+                _extrusionFieldButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe to events, otherwise objects won't be disposed.
+            _extrusionFieldButton.ValueChanged -= ToggleExtrusionButton_Clicked;
         }
     }
 }

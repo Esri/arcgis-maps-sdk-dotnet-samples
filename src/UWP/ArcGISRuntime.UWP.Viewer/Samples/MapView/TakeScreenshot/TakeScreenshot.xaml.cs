@@ -29,14 +29,12 @@ namespace ArcGISRuntime.UWP.Samples.TakeScreenshot
         public TakeScreenshot()
         {
             InitializeComponent();
-
-            // Setup the control references and execute initialization
             Initialize();
         }
 
         private void Initialize()
         {
-            // Display an imagery basemap.
+            // Show an imagery basemap.
             MyMapView.Map = new Map(Basemap.CreateImagery());
         }
 
@@ -79,7 +77,7 @@ namespace ArcGISRuntime.UWP.Samples.TakeScreenshot
             // the map is finished drawing or set the result after 2000 ms.
             else
             {
-                // Define a cancellation toke source for 2000 ms.
+                // Define a cancellation token source for 2000 ms.
                 const int timeoutMs = 2000;
                 var ct = new CancellationTokenSource(timeoutMs);
 

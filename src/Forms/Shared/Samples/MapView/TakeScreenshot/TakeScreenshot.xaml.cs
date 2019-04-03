@@ -33,12 +33,8 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
 
         private void Initialize()
         {
-            // Create a new Map instance with the basemap.
-            Basemap myBasemap = Basemap.CreateStreets();
-            Map myMap = new Map(myBasemap);
-
-            // Assign the map to the MapView.
-            MyMapView.Map = myMap;
+            // Show an imagery basemap.
+            MyMapView.Map = new Map(Basemap.CreateImagery());
         }
 
         private async void OnTakeScreenshotClicked(object sender, EventArgs e)
@@ -106,7 +102,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             // the map is finished drawing or set the result after 2000 ms.
             else
             {
-                // Define a cancellation toke source for 2000 ms.
+                // Define a cancellation token source for 2000 ms.
                 const int timeoutMs = 2000;
                 var ct = new CancellationTokenSource(timeoutMs);
 

@@ -91,7 +91,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             // the map is finished drawing or set the result after 2000 ms.
             else
             {
-                // Define a cancellation toke source for 2000 ms.
+                // Define a cancellation token source for 2000 ms.
                 const int timeoutMs = 2000;
                 var ct = new CancellationTokenSource(timeoutMs);
 

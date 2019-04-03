@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using UIKit;
 
@@ -74,6 +75,9 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
                     throw new InvalidOperationException("No tour found. Can't enable touring for a KML file with no tours.");
                 }
 
+                // Listen for changes to the tour status.
+                _tourController.Tour.PropertyChanged += Tour_PropertyChanged;
+
                 // Enable the play button.
                 _playButton.Enabled = true;
 
@@ -104,16 +108,15 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
                 KmlNode currentNode = nodesToExplore.Dequeue();
 
                 // If the node is a tour, use it.
-                if (currentNode is KmlTour)
+                if (currentNode is KmlTour tourNode)
                 {
-                    _tourController.Tour = (KmlTour) currentNode;
+                    _tourController.Tour = tourNode;
                     return;
                 }
 
                 // If the node is a container, add all of its children to the list of nodes to explore.
-                if (currentNode is KmlContainer)
+                if (currentNode is KmlContainer container)
                 {
-                    KmlContainer container = (KmlContainer) currentNode;
                     foreach (KmlNode node in container.ChildNodes)
                     {
                         nodesToExplore.Enqueue(node);
@@ -124,45 +127,50 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
             }
         }
 
-        private void Play_Clicked(object sender, EventArgs routedEventArgs)
+        private void Tour_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (_tourController != null)
+            // Skip for everything except tour status property changes.
+            if (e.PropertyName != nameof(KmlTour.TourStatus))
             {
-                // Play the tour.
-                _tourController.Play();
+                return;
+            }
 
-                // Configure the UI.
-                _pauseButton.Enabled = true;
-                _playButton.Enabled = false;
-                _resetButton.Enabled = true;
+            // Set the UI based on the current state of the tour.
+            switch (_tourController.Tour.TourStatus)
+            {
+                case KmlTourStatus.Completed:
+                case KmlTourStatus.Initialized:
+                    _playButton.Enabled = true;
+                    _pauseButton.Enabled = false;
+                    break;
+                case KmlTourStatus.Paused:
+                    _playButton.Enabled = true;
+                    _pauseButton.Enabled = false;
+                    _resetButton.Enabled = true;
+                    break;
+                case KmlTourStatus.Playing:
+                    _resetButton.Enabled = true;
+                    _playButton.Enabled = false;
+                    _pauseButton.Enabled = true;
+                    break;
             }
         }
 
-        private void Pause_Clicked(object sender, EventArgs routedEventArgs)
+        // Play the tour when the button is pressed.
+        private void Play_Clicked(object sender, EventArgs e) => _tourController?.Play();
+
+        // Pause the tour when the button is pressed.
+        private void Pause_Clicked(object sender, EventArgs e) => _tourController?.Pause();
+
+        // Reset the tour when the button is pressed.
+        private void Reset_Clicked(object sender, EventArgs e) => _tourController?.Reset();
+
+        public override void ViewWillDisappear(bool animated)
         {
-            if (_tourController != null)
-            {
-                // Pause the tour.
-                _tourController.Pause();
+            base.ViewWillDisappear(animated);
 
-                // Configure the UI.
-                _playButton.Enabled = true;
-                _pauseButton.Enabled = false;
-            }
-        }
-
-        private void Reset_Clicked(object sender, EventArgs routedEventArgs)
-        {
-            if (_tourController != null)
-            {
-                // Reset the tour.
-                _tourController.Reset();
-
-                // Configure the UI.
-                _playButton.Enabled = true;
-                _pauseButton.Enabled = false;
-                _resetButton.Enabled = false;
-            }
+            // Reset the tour controller when the sample closes - avoids a crash.
+            _tourController?.Reset();
         }
 
         public override void LoadView()

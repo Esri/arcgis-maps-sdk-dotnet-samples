@@ -29,6 +29,8 @@ This sample is graphics intensive and includes audio. Performance may be poor on
 * KmlTourController.Pause()
 * KmlTourController.Reset()
 * KmlTour
+* KmlTour.TourStatus
+* KmlTour.PropertyChanged
 
 ## Offline data
 

@@ -88,7 +88,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             }
         }
 
-        private static Task WaitForRenderCompleteAsync(MapView mapview)
+        private static Task WaitForRenderCompleteAsync(Esri.ArcGISRuntime.Xamarin.Forms.MapView mapview)
         {
             // The task completion source manages the task, including marking it as finished when the time comes.
             TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();

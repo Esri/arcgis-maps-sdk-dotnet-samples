@@ -638,8 +638,8 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             // Unsubscribe to tap events. The view will never be disposed otherwise.
             _myMapView.GeoViewTapped -= GeoViewTapped;
             _myMapView.ViewpointChanged -= MapViewExtentChanged;
-            _gdbSyncJob.ProgressChanged -= Job_ProgressChanged;
-            _gdbGenJob.ProgressChanged -= GenerateGdbJob_ProgressChanged;
+            if(_gdbSyncJob != null)_gdbSyncJob.ProgressChanged -= Job_ProgressChanged;
+            if(_gdbGenJob != null)_gdbGenJob.ProgressChanged -= GenerateGdbJob_ProgressChanged;
             _generateButton.Clicked -= GenerateButton_Clicked;
             _syncButton.Clicked -= SyncButton_Click;
         }

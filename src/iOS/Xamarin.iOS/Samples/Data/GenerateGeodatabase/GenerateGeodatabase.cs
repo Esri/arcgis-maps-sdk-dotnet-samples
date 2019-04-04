@@ -269,6 +269,10 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 // Call the geodatabase generation method.
                 await StartGeodatabaseGeneration();
             }
+            catch (TaskCanceledException)
+            {
+                ShowStatusMessage("Geodatabase generation cancelled.");
+            }
             catch (Exception ex)
             {
                 ShowStatusMessage(ex.ToString());
@@ -349,7 +353,6 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
 
             // Set up an event handler for when the viewpoint (extent) changes.
             _myMapView.ViewpointChanged += MapViewExtentChanged;
-            if(_generateGdbJob != null)_generateGdbJob.ProgressChanged += GenerateGdbJob_ProgressChanged;
             _generateButton.Clicked += GenerateButton_Clicked;
         }
 
@@ -358,7 +361,10 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from events, otherwise objects won't be disposed.
-            _generateGdbJob.ProgressChanged -= GenerateGdbJob_ProgressChanged;
+            if (_generateGdbJob != null) {
+                _generateGdbJob.Cancel();
+                _generateGdbJob.ProgressChanged -= GenerateGdbJob_ProgressChanged; 
+            }
             _myMapView.ViewpointChanged -= MapViewExtentChanged;
             _generateButton.Clicked -= GenerateButton_Clicked;
         }

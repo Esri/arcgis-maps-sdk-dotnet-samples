@@ -138,6 +138,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
             _changeValueButton = new UIButton();
             _changeValueButton.SetTitle($"{currentAttributeValue} - Edit", UIControlState.Normal);
             _changeValueButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _changeValueButton.TouchUpInside += ShowDamageTypeChoices;
 
             // Show the callout.
             _myMapView.ShowCalloutAt((MapPoint) _selectedFeature.Geometry, _changeValueButton);

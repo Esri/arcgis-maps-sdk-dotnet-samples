@@ -13,7 +13,6 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.TakeScreenshot
@@ -58,6 +57,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
                 closeButton.Clicked += CloseButton_Clicked;
 
                 // Create image bitmap by getting stream from the exported image.
+                // NOTE: currently broken on UWP due to Xamarin.Forms bug https://github.com/xamarin/Xamarin.Forms/issues/5188. 
                 var buffer = await exportedImage.GetEncodedBufferAsync();
                 byte[] data = new byte[buffer.Length];
                 buffer.Read(data, 0, data.Length);

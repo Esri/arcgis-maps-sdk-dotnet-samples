@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Android.App;
 using Android.OS;
+using Android.Text;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
@@ -81,6 +82,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
 
             // Create the entry for the secure portal URL.
             _securePortalEditText = new EditText(this) { Hint = "IWA-secured portal URL" };
+            _securePortalEditText.InputType = InputTypes.TextVariationUri;
 
             // Hide the keyboard on enter.
             _securePortalEditText.KeyPress += (sender, args) =>

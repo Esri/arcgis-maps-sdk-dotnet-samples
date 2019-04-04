@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -120,7 +121,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
                 };
 
                 // Remove any existing convex hull graphics from the overlay.
-                foreach (Graphic g in _graphicsOverlay.Graphics)
+                foreach (Graphic g in _graphicsOverlay.Graphics.ToList())
                     if ((string)g.Attributes["Type"] == "Hull")
                         _graphicsOverlay.Graphics.Remove(g);
 

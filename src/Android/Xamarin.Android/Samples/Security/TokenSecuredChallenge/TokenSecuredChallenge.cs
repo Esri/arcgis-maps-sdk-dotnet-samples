@@ -18,6 +18,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Threading.Tasks;
 using Android.Content;
+using ContextThemeWrapper = Android.Support.V7.View.ContextThemeWrapper;
 
 namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
 {
@@ -255,19 +256,20 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         {
             base.OnCreateView(inflater, container, savedInstanceState);
             Context ctx = this.Activity.ApplicationContext;
+            Android.Support.V7.View.ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
 
             // The container for the dialog is a vertical linear layout.
-            LinearLayout dialogView = new LinearLayout(ctx) { Orientation = Orientation.Vertical };
+            LinearLayout dialogView = new LinearLayout(ctxWrapper) { Orientation = Orientation.Vertical };
 
             // Add a text box for entering a username.
-            _usernameTextbox = new EditText(ctx)
+            _usernameTextbox = new EditText(ctxWrapper)
             {
                 Hint = "Username = user1"
             };
             dialogView.AddView(_usernameTextbox);
 
             // Add a text box for entering a password.
-            _passwordTextbox = new EditText(ctx)
+            _passwordTextbox = new EditText(ctxWrapper)
             {
                 Hint = "Password = user1",
                 InputType = Android.Text.InputTypes.TextVariationPassword | Android.Text.InputTypes.ClassText
@@ -275,10 +277,10 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             dialogView.AddView(_passwordTextbox);
 
             // Use a horizontal layout for the two buttons (login and cancel).
-            LinearLayout buttonsRow = new LinearLayout(ctx) { Orientation = Orientation.Horizontal };
+            LinearLayout buttonsRow = new LinearLayout(ctxWrapper) { Orientation = Orientation.Horizontal };
 
             // Create a button to login with these credentials.
-            Button loginButton = new Button(ctx)
+            Button loginButton = new Button(ctxWrapper)
             {
                 Text = "Login"
             };
@@ -286,7 +288,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             buttonsRow.AddView(loginButton);
 
             // Create a button to cancel.
-            Button cancelButton = new Button(ctx)
+            Button cancelButton = new Button(ctxWrapper)
             {
                 Text = "Cancel"
             };

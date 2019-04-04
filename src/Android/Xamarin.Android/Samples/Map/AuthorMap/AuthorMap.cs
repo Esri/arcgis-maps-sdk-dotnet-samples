@@ -23,6 +23,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Android.Content;
 using Xamarin.Auth;
+using ContextThemeWrapper = Android.Support.V7.View.ContextThemeWrapper;
 
 namespace ArcGISRuntime.Samples.AuthorMap
 {
@@ -677,6 +678,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
             // Get the context for creating the dialog controls
             Android.Content.Context ctx = Activity.ApplicationContext;
+            Android.Support.V7.View.ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
 
             // Set a dialog title
             Dialog.SetTitle("Save map to Portal");
@@ -686,35 +688,35 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 base.OnCreateView(inflater, container, savedInstanceState);
 
                 // The container for the dialog is a vertical linear layout
-                dialogView = new LinearLayout(ctx)
+                dialogView = new LinearLayout(ctxWrapper)
                 {
                     Orientation = Orientation.Vertical
                 };
                 dialogView.SetPadding(10,0,10,10);
 
                 // Add a text box for entering a title for the new web map
-                _mapTitleTextbox = new EditText(ctx)
+                _mapTitleTextbox = new EditText(ctxWrapper)
                 {
                     Hint = "Title"
                 };
                 dialogView.AddView(_mapTitleTextbox);
 
                 // Add a text box for entering a description
-                _mapDescriptionTextbox = new EditText(ctx)
+                _mapDescriptionTextbox = new EditText(ctxWrapper)
                 {
                     Hint = "Description"
                 };
                 dialogView.AddView(_mapDescriptionTextbox);
 
                 // Add a text box for entering tags (populate with some values so the user doesn't have to fill this in)
-                _tagsTextbox = new EditText(ctx)
+                _tagsTextbox = new EditText(ctxWrapper)
                 {
                     Text = "ArcGIS Runtime, Web Map"
                 };
                 dialogView.AddView(_tagsTextbox);
 
                 // Add a button to save the map
-                Button saveMapButton = new Button(ctx)
+                Button saveMapButton = new Button(ctxWrapper)
                 {
                     Text = "Save"
                 };

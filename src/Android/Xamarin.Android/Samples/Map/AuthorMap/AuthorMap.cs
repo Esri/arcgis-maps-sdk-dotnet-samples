@@ -26,7 +26,7 @@ using Xamarin.Auth;
 
 namespace ArcGISRuntime.Samples.AuthorMap
 {
-    [Activity(Label = "AuthorMap")]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Author and save a map",
         "Map",

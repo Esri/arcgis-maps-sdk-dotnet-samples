@@ -24,7 +24,7 @@ using System.Threading.Tasks;
 
 namespace ArcGISRuntime.Samples.ExportTiles
 {
-    [Activity(Label = "ExportTiles")]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Export tiles",
         "Layers",

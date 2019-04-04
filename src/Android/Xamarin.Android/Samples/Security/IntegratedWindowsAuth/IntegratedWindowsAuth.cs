@@ -28,13 +28,13 @@ using Esri.ArcGISRuntime.UI.Controls;
 // *****************************************
 namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
 {
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
            "Integrated Windows Authentication",
            "Security",
            "This sample demonstrates how to use a Windows login to authenticate with a portal that is secured with IWA.",
            "1. Enter the URL to your IWA-secured portal.\n2. Click the button to search for web maps on the secure portal.\n3. You will be prompted for a user name, password, and domain to authenticate with the portal.\n4. If you authenticate successfully, search results will display.",
            "Authentication, Security, Windows")]
-    [Activity(Label = "IntegratedWindowsAuth")]
     public class IntegratedWindowsAuth : Activity
     {
         // The ArcGIS Online URL for searching public web maps.

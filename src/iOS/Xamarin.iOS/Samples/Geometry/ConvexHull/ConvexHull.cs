@@ -163,8 +163,9 @@ namespace ArcGISRuntime.Samples.ConvexHull
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _createHullButton =
-                new UIBarButtonItem("Create convex hull", UIBarButtonItemStyle.Plain, ConvexHullButton_Click) {Enabled = false};
+            _createHullButton = new UIBarButtonItem();
+            _createHullButton.Title = "Create convex hull";
+            _createHullButton.Enabled = false;
 
             _helpButton = new UIBarButtonItem();
             _helpButton.Title = "Help";
@@ -207,6 +208,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
             _helpButton.Clicked += HelpButton_Click;
             _resetButton.Clicked += ResetButton_Click;
+            _createHullButton.Clicked += ConvexHullButton_Click;
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -217,6 +219,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
             _helpButton.Clicked -= HelpButton_Click;
             _resetButton.Clicked -= ResetButton_Click;
+            _createHullButton.Clicked -= ConvexHullButton_Click;
         }
     }
 }

@@ -142,7 +142,11 @@ namespace ArcGISRuntime.Samples.ListTransformations
             // Create a picker model to display the updated transformations.
             TransformationsPickerModel pickerModel = new TransformationsPickerModel(transformations, defaultTransform);
 
-            // Handle the selection event to work with the selected transformation.
+            // Handle the selection event to work with the selected transformation, avoiding duplicate subscriptions.
+            if (_transformationsPicker?.Model != null && _transformationsPicker.Model is TransformationsPickerModel tm)
+            {
+                tm.TransformationSelected -= TransformationsPicker_TransformationSelected;
+            }
             pickerModel.TransformationSelected += TransformationsPicker_TransformationSelected;
 
             // Apply the model to the picker.
@@ -312,6 +316,11 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
             // Unsubscribe from events, otherwise objects won't be disposed.
             _useExtentSwitch.ValueChanged -= UseExtentSwitch_ValueChanged;
+
+            if (_transformationsPicker?.Model != null && _transformationsPicker.Model is TransformationsPickerModel tm)
+            {
+                tm.TransformationSelected -= TransformationsPicker_TransformationSelected;
+            }
         }
     }
 

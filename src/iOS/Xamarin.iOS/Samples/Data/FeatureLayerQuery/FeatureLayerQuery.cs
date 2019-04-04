@@ -32,6 +32,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
     {
         // Hold a reference to the MapView.
         private MapView _myMapView;
+        private UIBarButtonItem _queryButton;
 
         // Create reference to service of US States  
         private const string StatesUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2";
@@ -164,12 +165,15 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _queryButton = new UIBarButtonItem();
+            _queryButton.Title = "Query features";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Query features", UIBarButtonItemStyle.Plain, OnQueryClicked),
+                _queryButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -188,6 +192,20 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _queryButton.Clicked += OnQueryClicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _queryButton.Clicked -= OnQueryClicked;
         }
     }
 }

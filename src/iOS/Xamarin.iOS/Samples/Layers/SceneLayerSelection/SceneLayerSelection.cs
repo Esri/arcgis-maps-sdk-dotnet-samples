@@ -64,9 +64,6 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
 
                 // Set the viewpoint with the camera.
                 _mySceneView.SetViewpointCamera(viewCamera);
-
-                // Listen for taps.
-                _mySceneView.GeoViewTapped += SceneViewTapped;
             }
             catch (Exception e)
             {
@@ -133,6 +130,14 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Listen for taps.
+            _mySceneView.GeoViewTapped += SceneViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)

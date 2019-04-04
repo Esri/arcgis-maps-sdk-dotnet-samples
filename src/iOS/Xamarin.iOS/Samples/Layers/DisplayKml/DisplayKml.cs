@@ -111,8 +111,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
             _dataChoiceButton.ClipsToBounds = true;
             _dataChoiceButton.Layer.CornerRadius = 5;
 
-            _dataChoiceButton.ValueChanged += DataChoiceButtonOnValueChanged;
-
             // Add the views.
             View.AddSubviews(_mySceneView, _dataChoiceButton);
 
@@ -128,6 +126,13 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
                 _dataChoiceButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
                 _dataChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _dataChoiceButton.ValueChanged += DataChoiceButtonOnValueChanged;
         }
 
         public override void ViewDidDisappear(bool animated)

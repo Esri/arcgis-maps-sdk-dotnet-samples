@@ -107,12 +107,6 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 // Add graphics overlay to the map view.
                 _myMapView.GraphicsOverlays.Add(extentOverlay);
 
-                // Set up an event handler for 'tapped' events.
-                _myMapView.GeoViewTapped += GeoViewTapped;
-
-                // Set up an event handler for when the viewpoint (extent) changes.
-                _myMapView.ViewpointChanged += MapViewExtentChanged;
-
                 // Create a task for generating a geodatabase (GeodatabaseSyncTask).
                 _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
@@ -559,9 +553,11 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
-            _generateButton = new UIBarButtonItem("Generate", UIBarButtonItemStyle.Plain, GenerateButton_Clicked);
+            _generateButton = new UIBarButtonItem();
+            _generateButton.Title = "Generate";
             _generateButton.Enabled = false;
-            _syncButton = new UIBarButtonItem("Synchronize", UIBarButtonItemStyle.Plain, SyncButton_Click);
+            _syncButton = new UIBarButtonItem();
+            _syncButton.Title = "Synchronize";
             _syncButton.Enabled = false;
 
             UIToolbar toolbar = new UIToolbar();
@@ -618,6 +614,23 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             });
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Set up an event handler for 'tapped' events.
+            _myMapView.GeoViewTapped += GeoViewTapped;
+
+            // Set up an event handler for when the viewpoint (extent) changes.
+            _myMapView.ViewpointChanged += MapViewExtentChanged;
+
+            if (_gdbSyncJob != null) _gdbSyncJob.ProgressChanged -= Job_ProgressChanged;
+            if (_gdbGenJob != null) _gdbGenJob.ProgressChanged -= GenerateGdbJob_ProgressChanged;
+
+            _generateButton.Clicked += GenerateButton_Clicked;
+            _syncButton.Clicked += SyncButton_Click;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
@@ -627,6 +640,8 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             _myMapView.ViewpointChanged -= MapViewExtentChanged;
             _gdbSyncJob.ProgressChanged -= Job_ProgressChanged;
             _gdbGenJob.ProgressChanged -= GenerateGdbJob_ProgressChanged;
+            _generateButton.Clicked -= GenerateButton_Clicked;
+            _syncButton.Clicked -= SyncButton_Click;
         }
     }
 }

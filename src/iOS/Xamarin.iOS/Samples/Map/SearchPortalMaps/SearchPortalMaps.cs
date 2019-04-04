@@ -32,6 +32,8 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
     {
         // Hold a reference to the MapView.
         private MapView _myMapView;
+        private UIBarButtonItem _searchButton;
+        private UIBarButtonItem _myMapsButton;
 
         // Use a TaskCompletionSource to track the completion of the authorization.
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
@@ -46,6 +48,9 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         // TODO: Add URL for redirecting after a successful authorization.
         //       Note - this must be a URL configured as a valid Redirect URI with your app.
         private const string OAuthRedirectUrl = "https://developers.arcgis.com";
+
+        // Hold a reference to the authenticator.
+        private Xamarin.Auth.OAuth2Authenticator _auth;
 
         public SearchPortalMaps()
         {
@@ -244,13 +249,19 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _searchButton = new UIBarButtonItem();
+            _searchButton.Title = "Search maps";
+
+            _myMapsButton = new UIBarButtonItem();
+            _myMapsButton.Title = "Get my maps";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("Search maps", UIBarButtonItemStyle.Plain, SearchMaps_Clicked),
+                _searchButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Get my maps", UIBarButtonItemStyle.Plain, GetMyMaps_Clicked)
+                _myMapsButton
             };
 
             // Add the views.
@@ -267,6 +278,36 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            if (_auth != null)
+            {
+                _auth.Completed -= AuthCompleted;
+                _auth.Completed += AuthCompleted;
+
+                _auth.Error -= AuthError;
+                _auth.Error += AuthError;
+            }
+
+            _searchButton.Clicked += SearchMaps_Clicked;
+            _myMapsButton.Clicked += GetMyMaps_Clicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            if (_auth != null)
+            {
+                _auth.Completed -= AuthCompleted;
+                _auth.Error -= AuthError;
+            }
+
+            _searchButton.Clicked -= SearchMaps_Clicked;
+            _myMapsButton.Clicked -= GetMyMaps_Clicked;
         }
 
         #region OAuth helpers
@@ -382,7 +423,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
-            Xamarin.Auth.OAuth2Authenticator auth = new OAuth2Authenticator(
+            _auth = new OAuth2Authenticator(
                 clientId: AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
@@ -394,56 +435,60 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             };
 
             // Define a handler for the OAuth2Authenticator.Completed event.
-            auth.Completed += (sender, authArgs) =>
-            {
-                try
-                {
-                    // Dismiss the OAuth UI when complete.
-                    DismissViewController(true, null);
-
-                    // Throw an exception if the user could not be authenticated.
-                    if (!authArgs.IsAuthenticated)
-                    {
-                        throw new Exception("Unable to authenticate user.");
-                    }
-
-                    // If authorization was successful, get the user's account.
-                    Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
-
-                    // Set the result (Credential) for the TaskCompletionSource.
-                    _taskCompletionSource.SetResult(authenticatedAccount.Properties);
-                }
-                catch (Exception ex)
-                {
-                    // If authentication failed, set the exception on the TaskCompletionSource.
-                    _taskCompletionSource.TrySetException(ex);
-
-                    // Cancel authentication.
-                    auth.OnCancelled();
-                }
-            };
+            _auth.Completed += AuthCompleted;
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
-            auth.Error += (sender, errArgs) =>
-            {
-                if (errArgs.Exception != null)
-                {
-                    _taskCompletionSource.TrySetException(errArgs.Exception);
-                }
-                else
-                {
-                    _taskCompletionSource.TrySetException(new Exception(errArgs.Message));
-                }
-
-                // Cancel authentication.
-                auth.OnCancelled();
-            };
+            _auth.Error += AuthError;
 
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password.
-            InvokeOnMainThread(() => { PresentViewController(auth.GetUI(), true, null); });
+            InvokeOnMainThread(() => { PresentViewController(_auth.GetUI(), true, null); });
 
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;
+        }
+
+        private void AuthCompleted(object sender, AuthenticatorCompletedEventArgs args)
+        {
+            try
+            {
+                // Dismiss the OAuth UI when complete.
+                DismissViewController(true, null);
+
+                // Throw an exception if the user could not be authenticated.
+                if (!args.IsAuthenticated)
+                {
+                    throw new Exception("Unable to authenticate user.");
+                }
+
+                // If authorization was successful, get the user's account.
+                Xamarin.Auth.Account authenticatedAccount = args.Account;
+
+                // Set the result (Credential) for the TaskCompletionSource.
+                _taskCompletionSource.SetResult(authenticatedAccount.Properties);
+            }
+            catch (Exception ex)
+            {
+                // If authentication failed, set the exception on the TaskCompletionSource.
+                _taskCompletionSource.TrySetException(ex);
+
+                // Cancel authentication.
+                _auth.OnCancelled();
+            }
+        }
+
+        private void AuthError(object sender, AuthenticatorErrorEventArgs args)
+        {
+            if (args.Exception != null)
+            {
+                _taskCompletionSource.TrySetException(args.Exception);
+            }
+            else
+            {
+                _taskCompletionSource.TrySetException(new Exception(args.Message));
+            }
+
+            // Cancel authentication.
+            _auth.OnCancelled();
         }
 
         #endregion OAuth helpers

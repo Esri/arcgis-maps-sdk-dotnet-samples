@@ -260,6 +260,23 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             });
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            if (_publicLayer != null)
+            {
+                _publicLayer.LoadStatusChanged -= LayerLoadStatusChanged;
+                _publicLayer.LoadStatusChanged += LayerLoadStatusChanged;
+            }
+
+            if (_tokenSecuredLayer != null)
+            {
+                _tokenSecuredLayer.LoadStatusChanged -= LayerLoadStatusChanged;
+                _tokenSecuredLayer.LoadStatusChanged += LayerLoadStatusChanged;
+            }
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);

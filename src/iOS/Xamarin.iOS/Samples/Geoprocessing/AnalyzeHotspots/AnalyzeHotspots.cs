@@ -167,8 +167,11 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _configureButton = new UIBarButtonItem("Configure", UIBarButtonItemStyle.Plain, ShowConfiguration);
-            _startButton = new UIBarButtonItem("Run analysis", UIBarButtonItemStyle.Plain, OnRunAnalysisClicked);
+            _configureButton = new UIBarButtonItem();
+            _configureButton.Title = "Configure";
+
+            _startButton = new UIBarButtonItem();
+            _startButton.Title = "Run analysis";
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -207,6 +210,22 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
                 _progressBar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _progressBar.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _startButton.Clicked += OnRunAnalysisClicked;
+            _configureButton.Clicked += ShowConfiguration;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _startButton.Clicked -= OnRunAnalysisClicked;
+            _configureButton.Clicked -= ShowConfiguration;
         }
     }
 }

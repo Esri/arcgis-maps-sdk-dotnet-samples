@@ -57,15 +57,15 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
             // Add the layer to the map.
             _myMapView.Map.OperationalLayers.Add(_damageLayer);
 
-            // Listen for user taps on the map - on tap, a feature will be selected.
-            _myMapView.GeoViewTapped += MapView_Tapped;
-
             // Zoom to the United States.
             _myMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
         }
 
         private void MapView_Tapped(object sender, GeoViewInputEventArgs e)
         {
+            // Skip if the sample isn't ready.
+            if (_damageLayer == null) return;
+
             // Select the feature if none selected, move the feature otherwise.
             if (_selectedFeature == null)
             {
@@ -191,6 +191,14 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
                 helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 helpLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Listen for user taps on the map - on tap, a feature will be selected.
+            _myMapView.GeoViewTapped += MapView_Tapped;
         }
 
         public override void ViewDidDisappear(bool animated)

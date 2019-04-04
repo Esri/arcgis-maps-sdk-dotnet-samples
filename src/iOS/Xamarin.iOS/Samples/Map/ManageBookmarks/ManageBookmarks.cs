@@ -26,6 +26,8 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
     {
         // Hold a reference to the MapView.
         private MapView _myMapView;
+        private UIBarButtonItem _bookmarksButton;
+        private UIBarButtonItem _addButton;
 
         public ManageBookmarks()
         {
@@ -157,13 +159,18 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _bookmarksButton = new UIBarButtonItem();
+            _bookmarksButton.Title = "Bookmarks";
+
+            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add);
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("Bookmarks", UIBarButtonItemStyle.Plain, OnShowBookmarksButtonClicked),
+                _bookmarksButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem(UIBarButtonSystemItem.Add, OnAddBookmarksButtonClicked)
+                _addButton
             };
 
             // Add the views.
@@ -181,6 +188,22 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _bookmarksButton.Clicked += OnShowBookmarksButtonClicked;
+            _addButton.Clicked += OnAddBookmarksButtonClicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _bookmarksButton.Clicked -= OnShowBookmarksButtonClicked;
+            _addButton.Clicked -= OnAddBookmarksButtonClicked;
         }
     }
 }

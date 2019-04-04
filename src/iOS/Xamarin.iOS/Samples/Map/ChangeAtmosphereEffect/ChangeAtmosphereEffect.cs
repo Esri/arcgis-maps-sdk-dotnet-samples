@@ -50,9 +50,6 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
             // Set the initial viewpoint.
             Camera initialCamera = new Camera(64.416919, -14.483728, 100, 318, 105, 0);
             _mySceneView.SetViewpointCamera(initialCamera);
-
-            // Apply the selected atmosphere effect option.
-            _atmosphereEffectPicker.ValueChanged += Picker_ValuedChanged;
         }
 
         private void Picker_ValuedChanged(object sender, EventArgs e)
@@ -101,6 +98,14 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
         {
             base.ViewDidLoad();
             Initialize();
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Apply the selected atmosphere effect option.
+            _atmosphereEffectPicker.ValueChanged += Picker_ValuedChanged;
         }
 
         public override void ViewDidDisappear(bool animated)

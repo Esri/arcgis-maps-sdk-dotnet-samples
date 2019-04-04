@@ -86,14 +86,14 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
 
                 // Get the domain for the field.
                 _domain = (CodedValueDomain) typeDamageField.Domain;
-
-                // Listen for user taps on the map - this will select the feature.
-                _myMapView.GeoViewTapped += MapView_Tapped;
             });
         }
 
         private async void MapView_Tapped(object sender, GeoViewInputEventArgs e)
         {
+            // Skip if the sample isn't ready yet.
+            if (_damageLayer == null) return;
+
             // Clear any existing selection.
             _damageLayer.ClearSelection();
 
@@ -131,11 +131,13 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
             // Get the current value.
             string currentAttributeValue = _selectedFeature.Attributes[AttributeFieldName].ToString();
 
+            // Unsubscribe from previous event handler.
+            if (_changeValueButton != null) _changeValueButton.TouchUpInside -= ShowDamageTypeChoices;
+
             // Set up the UI for the callout.
             _changeValueButton = new UIButton();
             _changeValueButton.SetTitle($"{currentAttributeValue} - Edit", UIControlState.Normal);
             _changeValueButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _changeValueButton.TouchUpInside += ShowDamageTypeChoices;
 
             // Show the callout.
             _myMapView.ShowCalloutAt((MapPoint) _selectedFeature.Geometry, _changeValueButton);
@@ -252,13 +254,22 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
             });
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Listen for user taps on the map - this will select the feature.
+            _myMapView.GeoViewTapped += MapView_Tapped;
+            if (_changeValueButton != null) _changeValueButton.TouchUpInside += ShowDamageTypeChoices;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from events, otherwise objects won't be disposed.
             _myMapView.GeoViewTapped -= MapView_Tapped;
-            _changeValueButton.TouchUpInside -= ShowDamageTypeChoices;
+            if (_changeValueButton != null) _changeValueButton.TouchUpInside -= ShowDamageTypeChoices;
         }
     }
 }

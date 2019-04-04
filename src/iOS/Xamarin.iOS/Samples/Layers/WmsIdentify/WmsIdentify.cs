@@ -65,9 +65,6 @@ namespace ArcGISRuntime.Samples.WmsIdentify
 
                 // Zoom to the layer's extent.
                 _myMapView.SetViewpoint(new Viewpoint(_wmsLayer.FullExtent));
-
-                // Subscribe to tap events - starting point for feature identification.
-                _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
             }
             catch (Exception e)
             {
@@ -154,6 +151,14 @@ namespace ArcGISRuntime.Samples.WmsIdentify
                 // Portrait
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Subscribe to tap events - starting point for feature identification.
+            _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)

@@ -44,14 +44,6 @@ namespace ArcGISRuntime.Samples.GeoViewSync
             //     animation on one view from competing with user interaction on the other.
             _mySceneView.InteractionOptions = new SceneViewInteractionOptions {IsFlickEnabled = false};
             _myMapView.InteractionOptions = new MapViewInteractionOptions {IsFlickEnabled = false};
-
-            // Subscribe to viewpoint change events for both views - event raised on click+drag.
-            _myMapView.ViewpointChanged += OnViewpointChanged;
-            _mySceneView.ViewpointChanged += OnViewpointChanged;
-
-            // Subscribe to the navigation completed events - raised on flick.
-            _myMapView.NavigationCompleted += OnNavigationComplete;
-            _mySceneView.NavigationCompleted += OnNavigationComplete;
         }
 
         private void OnNavigationComplete(object sender, EventArgs eventArgs)
@@ -149,6 +141,19 @@ namespace ArcGISRuntime.Samples.GeoViewSync
             {
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to viewpoint change events for both views - event raised on click+drag.
+            _myMapView.ViewpointChanged += OnViewpointChanged;
+            _mySceneView.ViewpointChanged += OnViewpointChanged;
+
+            // Subscribe to the navigation completed events - raised on flick.
+            _myMapView.NavigationCompleted += OnNavigationComplete;
+            _mySceneView.NavigationCompleted += OnNavigationComplete;
         }
 
         public override void ViewDidDisappear(bool animated)

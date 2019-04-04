@@ -80,9 +80,6 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
 
                 // Set the viewpoint
                 _myMapView.SetViewpoint(new Viewpoint(fullExtent));
-
-                // Subscribe to tap events (in order to use them to identify and select features).
-                _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
             }
             catch (Exception e)
             {
@@ -174,6 +171,14 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Subscribe to tap events (in order to use them to identify and select features).
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)

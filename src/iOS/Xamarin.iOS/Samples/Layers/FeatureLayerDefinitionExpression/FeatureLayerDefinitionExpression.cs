@@ -27,6 +27,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
     {
         // Hold a reference to the MapView.
         private MapView _myMapView;
+        private UIBarButtonItem _resetButton;
+        private UIBarButtonItem _applyExpressionButton;
 
         // Create and hold reference to the feature layer.
         private FeatureLayer _featureLayer;
@@ -96,13 +98,19 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _resetButton = new UIBarButtonItem();
+            _resetButton.Title = "Reset";
+
+            _applyExpressionButton = new UIBarButtonItem();
+            _applyExpressionButton.Title = "Apply expression";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, OnResetButtonClicked),
+                _resetButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Apply expression", UIBarButtonItemStyle.Plain, OnApplyExpressionClicked)
+                _applyExpressionButton
             };
 
             // Add the views.
@@ -120,6 +128,22 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _resetButton.Clicked += OnResetButtonClicked;
+            _applyExpressionButton.Clicked += OnApplyExpressionClicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _resetButton.Clicked -= OnResetButtonClicked;
+            _applyExpressionButton.Clicked -= OnApplyExpressionClicked;
         }
     }
 }

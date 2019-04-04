@@ -37,9 +37,6 @@ namespace ArcGISRuntime.Samples.MapRotation
         {
             // Show a streets basemap.
             _myMapView.Map = new Map(Basemap.CreateStreets());
-
-            // Configure the slider.
-            _rotationSlider.ValueChanged += RotationSlider_Changed;
         }
 
         private void RotationSlider_Changed (object sender, EventArgs e)
@@ -102,6 +99,14 @@ namespace ArcGISRuntime.Samples.MapRotation
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Configure the slider.
+            _rotationSlider.ValueChanged += RotationSlider_Changed;
         }
 
         public override void ViewDidDisappear(bool animated)

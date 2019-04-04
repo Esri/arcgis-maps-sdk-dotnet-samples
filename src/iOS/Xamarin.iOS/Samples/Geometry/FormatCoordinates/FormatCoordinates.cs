@@ -58,9 +58,6 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
 
             // Update the UI with the initial point.
             UpdateUiFromMapPoint(startingPoint);
-
-            // Subscribe to map tap events to enable tapping on map to update coordinates.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e) => UpdateUiFromMapPoint(e.Location);
@@ -201,9 +198,6 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             {
                 tf.TranslatesAutoresizingMaskIntoConstraints = false;
                 tf.BorderStyle = UITextBorderStyle.RoundedRect;
-
-                // Allow returning to dismiss the keyboard.
-                tf.ShouldReturn += HandleTextField;
             }
 
             UIStackView formView = new UIStackView(new UIView[]
@@ -277,6 +271,23 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             }
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to map tap events to enable tapping on map to update coordinates.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+
+            _utmEntry.EditingDidBegin += InputValueChanged;
+            _dmsEntry.EditingDidBegin += InputValueChanged;
+            _ddEntry.EditingDidBegin += InputValueChanged;
+            _usngEntry.EditingDidBegin += InputValueChanged;
+            foreach (UITextField tf in new[] { _ddEntry, _dmsEntry, _utmEntry, _usngEntry })
+            {
+                tf.ShouldReturn += HandleTextField;
+            }
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
@@ -288,7 +299,9 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             _ddEntry.EditingDidBegin -= InputValueChanged;
             _usngEntry.EditingDidBegin -= InputValueChanged;
             foreach (UITextField tf in new[] { _ddEntry, _dmsEntry, _utmEntry, _usngEntry })
+            {
                 tf.ShouldReturn -= HandleTextField;
+            }
         }
     }
 }

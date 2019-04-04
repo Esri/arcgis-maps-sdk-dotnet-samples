@@ -103,7 +103,6 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             // Create the table view source and pass the list of models to it.
             _tableView.Source = new LayerViewStatusTableSource(_layerStatusModels);
 
-            // Event for layer view state changed.
             _myMapView.LayerViewStateChanged += OnLayerViewStateChanged;
 
             // Provide used Map to the MapView.
@@ -180,6 +179,16 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             _myMapView.LeadingAnchor.ConstraintEqualTo(_tableView.TrailingAnchor).Active = true;
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
             _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+        }
+        
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+
+            // Event for layer view state changed, avoiding duplicate subscription.
+            _myMapView.LayerViewStateChanged -= OnLayerViewStateChanged;
+            _myMapView.LayerViewStateChanged += OnLayerViewStateChanged;
         }
 
         public override void ViewDidDisappear(bool animated)

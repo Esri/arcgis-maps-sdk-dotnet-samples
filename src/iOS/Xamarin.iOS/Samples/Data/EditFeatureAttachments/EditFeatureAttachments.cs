@@ -57,9 +57,6 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             // Add the layer to the map.
             _myMapView.Map.OperationalLayers.Add(_damageLayer);
 
-            // Listen for user taps on the map.
-            _myMapView.GeoViewTapped += MapView_Tapped;
-
             // Zoom to the United States.
             _myMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
         }
@@ -153,6 +150,14 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
         {
             base.ViewDidLoad();
             Initialize();
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Listen for user taps on the map.
+            _myMapView.GeoViewTapped += MapView_Tapped;
         }
 
         public override void ViewDidDisappear(bool animated)

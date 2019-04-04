@@ -194,7 +194,8 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _queryButton = new UIBarButtonItem("Get statistics", UIBarButtonItemStyle.Plain, GetStatisticsPressed);
+            _queryButton = new UIBarButtonItem();
+            _queryButton.Title = "Get statistics";
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -220,6 +221,20 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _queryButton.Clicked += GetStatisticsPressed;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _queryButton.Clicked -= GetStatisticsPressed;
         }
     }
 }

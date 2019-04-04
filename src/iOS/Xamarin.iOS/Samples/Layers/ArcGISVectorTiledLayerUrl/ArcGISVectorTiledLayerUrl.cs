@@ -28,6 +28,7 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
     {
         // Hold a reference to the MapView.
         private MapView _myMapView;
+        private UIBarButtonItem _chooseLayerButton;
 
         // Dictionary maps layer names to URLs.
         private readonly Dictionary<string, Uri> _layerUrls = new Dictionary<string, Uri>
@@ -104,12 +105,15 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _chooseLayerButton = new UIBarButtonItem();
+            _chooseLayerButton.Title = "Choose a layer";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Choose a layer", UIBarButtonItemStyle.Plain, LayerSelectionButtonClick),
+                _chooseLayerButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -128,6 +132,20 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _chooseLayerButton.Clicked += LayerSelectionButtonClick;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _chooseLayerButton.Clicked -= LayerSelectionButtonClick;
         }
     }
 }

@@ -53,9 +53,6 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
                 // Add a feature layer to the map.
                 FeatureLayer damageLayer = new FeatureLayer(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0"));
                 myMap.OperationalLayers.Add(damageLayer);
-
-                // Listen for taps/clicks to start the identify operation.
-                _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
             }
             catch (Exception e)
             {
@@ -142,6 +139,14 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
                 helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 helpLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Listen for taps/clicks to start the identify operation.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)

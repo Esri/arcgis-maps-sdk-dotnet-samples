@@ -186,7 +186,6 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             _chooseLayersButton = new UIBarButtonItem();
             _chooseLayersButton.Title = "Choose layer";
             _chooseLayersButton.Enabled = false;
-            _chooseLayersButton.Clicked += ShowLayerOptions;
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -228,6 +227,13 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
         {
             base.ViewDidLoad();
             Initialize();
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _chooseLayersButton.Clicked += ShowLayerOptions;
         }
 
         public override void ViewDidDisappear(bool animated)

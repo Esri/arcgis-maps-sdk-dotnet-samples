@@ -25,8 +25,9 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         "", "Featured")]
     public class ViewshedCamera : UIViewController
     {
-        // Hold a reference to the SceneView.
+        // Hold references to the UI controls.
         private SceneView _mySceneView;
+        private UIBarButtonItem _updateViewshedButton;
 
         // URL for a scene service of buildings in Brest, France.
         private const string BuildingsServiceUrl = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0";
@@ -92,12 +93,15 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _updateViewshedButton = new UIBarButtonItem();
+            _updateViewshedButton.Title = "Viewshed from here";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Viewshed from here", UIBarButtonItemStyle.Plain, UpdateObserverWithCamera),
+                _updateViewshedButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -116,6 +120,22 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _updateViewshedButton.Clicked += UpdateObserverWithCamera;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events.
+            _updateViewshedButton.Clicked -= UpdateObserverWithCamera;
         }
     }
 }

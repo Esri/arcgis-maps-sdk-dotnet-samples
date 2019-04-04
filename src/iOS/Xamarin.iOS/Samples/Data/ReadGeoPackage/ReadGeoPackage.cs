@@ -283,8 +283,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             // Clean up borders of segmented control - avoid corner pixels.
             _layerSegmentedControl.ClipsToBounds = true;
             _layerSegmentedControl.Layer.CornerRadius = 5;
-            _layerSegmentedControl.ValueChanged += LayerSegmentedControl_ValueChanged;
-
+            
             // Add the views.
             View.AddSubviews(_myMapView, _layerSegmentedControl);
 
@@ -300,6 +299,13 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
                 _layerSegmentedControl.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
                 _layerSegmentedControl.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _layerSegmentedControl.ValueChanged += LayerSegmentedControl_ValueChanged;
         }
 
         public override void ViewDidDisappear(bool animated)

@@ -64,9 +64,6 @@ namespace ArcGISRuntime.Samples.ClosestFacility
 
         private async void Initialize()
         {
-            // Hook up the DrawStatusChanged event.
-            _myMapView.DrawStatusChanged += OnDrawStatusChanged;
-
             // Construct the map and set the MapView.Map property.
             Map map = new Map(Basemap.CreateLightGrayCanvasVector());
             _myMapView.Map = map;
@@ -122,18 +119,6 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             catch (Exception e)
             {
                 new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
-            }
-        }
-
-        private void OnDrawStatusChanged(object sender, DrawStatusChangedEventArgs e)
-        {
-            if (e.Status == DrawStatus.Completed)
-            {
-                // Link the action of tapping on the map with the MyMapView_GeoViewTapped method.
-                _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
-
-                // Remove this method from DrawStatusChanged events.
-                _myMapView.DrawStatusChanged -= OnDrawStatusChanged;
             }
         }
 
@@ -239,13 +224,20 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             });
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Link the action of tapping on the map with the MyMapView_GeoViewTapped method.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
 
             // Unsubscribe to tap events. The view will never be disposed otherwise.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
-            _myMapView.DrawStatusChanged -= OnDrawStatusChanged;
         }
     }
 }

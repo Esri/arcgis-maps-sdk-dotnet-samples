@@ -42,6 +42,9 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         private MapView _insetMapView;
         private SceneView _mySceneView;
         private UIBarButtonItem _playButton;
+        private UIBarButtonItem _missionButton;
+        private UIBarButtonItem _cameraButton;
+        private UIBarButtonItem _statsButton;
         private StatsDisplayViewController _statsVC;
 
         // URL to the elevation service - provides terrain elevation.
@@ -186,9 +189,6 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 {
                     AutoReset = true
                 };
-
-                // Call the animation method every time the timer expires (once every 60ms per above).
-                _animationTimer.Elapsed += Timer_Elapsed;
 
                 // Set the initial mission for when the sample loads.
                 await ChangeMission(_missionToItemId.Keys.First());
@@ -387,18 +387,28 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             _insetMapView.TranslatesAutoresizingMaskIntoConstraints = false;
             _insetMapView.IsAttributionTextVisible = false;
 
-            _playButton = new UIBarButtonItem("Pause", UIBarButtonItemStyle.Plain, TogglePlayMission);
+            _playButton = new UIBarButtonItem();
+            _playButton.Title = "Pause";
             _playButton.Width = 100;
+
+            _missionButton = new UIBarButtonItem();
+            _missionButton.Title = "Mission";
+
+            _cameraButton = new UIBarButtonItem();
+            _cameraButton.Title = "Camera";
+
+            _statsButton = new UIBarButtonItem();
+            _statsButton.Title = "Stats";
 
             controlToolbox.Items = new[]
             {
-                new UIBarButtonItem("Mission", UIBarButtonItemStyle.Plain, ShowMissionOptions),
+                _missionButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Camera", UIBarButtonItemStyle.Plain, ToggleFollowPlane),
+                _cameraButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                  _playButton,                
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Stats", UIBarButtonItemStyle.Plain, ToggleStatsDisplay)
+                _statsButton
             };
 
             // Add the views.
@@ -433,12 +443,30 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 UITraitCollection traitCollection) => UIModalPresentationStyle.None;
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Call the animation method every time the timer expires (once every 60ms per above).
+            _animationTimer.Elapsed += Timer_Elapsed;
+            _animationTimer.Start();
+            _playButton.Clicked += TogglePlayMission;
+            _missionButton.Clicked += ShowMissionOptions;
+            _cameraButton.Clicked += ToggleFollowPlane;
+            _statsButton.Clicked += ToggleStatsDisplay;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from events, otherwise objects won't be disposed.
+            _animationTimer.Stop();
             _animationTimer.Elapsed -= Timer_Elapsed;
+            _playButton.Clicked -= TogglePlayMission;
+            _missionButton.Clicked -= ShowMissionOptions;
+            _cameraButton.Clicked -= ToggleFollowPlane;
+            _statsButton.Clicked -= ToggleStatsDisplay;
         }
     }
 

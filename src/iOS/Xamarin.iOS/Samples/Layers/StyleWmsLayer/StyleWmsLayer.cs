@@ -121,8 +121,6 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
                 Layer = {CornerRadius = 5}
             };
 
-            _styleChoiceButton.ValueChanged += _styleChoiceButton_ValueChanged;
-
             // Add the views.
             View.AddSubviews(_myMapView, _styleChoiceButton);
 
@@ -138,6 +136,13 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
                 _styleChoiceButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
                 _styleChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            _styleChoiceButton.ValueChanged += _styleChoiceButton_ValueChanged;
         }
 
         public override void ViewDidDisappear(bool animated)

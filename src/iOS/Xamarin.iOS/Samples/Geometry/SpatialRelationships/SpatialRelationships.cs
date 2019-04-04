@@ -107,9 +107,6 @@ namespace ArcGISRuntime.Samples.ListTransformations
             _pointGraphic = new Graphic(pointGeometry, locationMarker);
             _graphicsOverlay.Graphics.Add(_pointGraphic);
 
-            // Listen for taps; the spatial relationships will be updated in the handler.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
-
             try
             {
                 // Set the viewpoint to center on the point.
@@ -296,6 +293,14 @@ namespace ArcGISRuntime.Samples.ListTransformations
                 // Portrait
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Listen for taps; the spatial relationships will be updated in the handler.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)

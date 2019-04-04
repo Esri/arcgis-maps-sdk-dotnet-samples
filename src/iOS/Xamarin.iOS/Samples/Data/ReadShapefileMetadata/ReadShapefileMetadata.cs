@@ -107,7 +107,8 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _showMetadataButton = new UIBarButtonItem("See metadata", UIBarButtonItemStyle.Plain, OnMetadataButtonTouch);
+            _showMetadataButton = new UIBarButtonItem();
+            _showMetadataButton.Title = "See metadata";
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -133,6 +134,20 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _showMetadataButton.Clicked += OnMetadataButtonTouch;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _showMetadataButton.Clicked -= OnMetadataButtonTouch;
         }
     }
 }

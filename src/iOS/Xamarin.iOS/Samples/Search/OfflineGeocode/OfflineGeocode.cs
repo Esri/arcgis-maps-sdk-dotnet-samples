@@ -71,9 +71,6 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
             // Add a graphics overlay for showing pins.
             _myMapView.GraphicsOverlays.Add(new GraphicsOverlay());
 
-            // Enable tap-for-info pattern on results.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
-
             try
             {
                 // Get the path to the locator.
@@ -254,8 +251,6 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
             _addressSearchBar.TranslatesAutoresizingMaskIntoConstraints = false;
             _addressSearchBar.UserInteractionEnabled = false;
             _addressSearchBar.ShowsSearchResultsButton = true;
-            _addressSearchBar.ListButtonClicked += AddressSearch_ListButtonClicked;
-            _addressSearchBar.SearchButtonClicked += AddressSearchBar_Clicked;
 
             // Add the views.
             View.AddSubviews(_myMapView, _addressSearchBar);
@@ -272,6 +267,18 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
                 _myMapView.TopAnchor.ConstraintEqualTo(_addressSearchBar.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Enable tap-for-info pattern on results.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+
+            
+            _addressSearchBar.ListButtonClicked += AddressSearch_ListButtonClicked;
+            _addressSearchBar.SearchButtonClicked += AddressSearchBar_Clicked;
         }
 
         public override void ViewDidDisappear(bool animated)

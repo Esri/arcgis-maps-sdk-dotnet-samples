@@ -29,6 +29,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
     {
         // Hold references to the UI controls.
         private MapView _myMapView;
+        private UIBarButtonItem _changeRendererButton;
 
         // ArcGIS map image layer that contains four Census sub-layers.
         private ArcGISMapImageLayer _arcGISMapImageLayer;
@@ -118,12 +119,15 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _changeRendererButton = new UIBarButtonItem();
+            _changeRendererButton.Title = "Change sublayer renderer";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Change sublayer renderer", UIBarButtonItemStyle.Plain, ChangeSublayerRendererButton_TouchUpInside),
+                _changeRendererButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -142,6 +146,20 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _changeRendererButton.Clicked += ChangeSublayerRendererButton_TouchUpInside;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _changeRendererButton.Clicked -= ChangeSublayerRendererButton_TouchUpInside;
         }
     }
 }

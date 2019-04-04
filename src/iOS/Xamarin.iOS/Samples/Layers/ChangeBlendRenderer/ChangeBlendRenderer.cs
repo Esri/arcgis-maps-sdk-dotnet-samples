@@ -33,6 +33,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
         // Hold references to UI controls.
         private MapView _myMapView;
         private BlendSettingsController _settingsVC;
+        private UIBarButtonItem _updateButton;
 
         public ChangeBlendRenderer()
         {
@@ -109,12 +110,15 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _updateButton = new UIBarButtonItem();
+            _updateButton.Title = "Update renderer";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Update renderer", UIBarButtonItemStyle.Plain, UpdateRenderer_Clicked)
+                _updateButton
             };
 
             // Add the views.
@@ -132,6 +136,20 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _updateButton.Clicked += UpdateRenderer_Clicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _updateButton.Clicked -= UpdateRenderer_Clicked;
         }
 
         // Force popover to display on iPhone.

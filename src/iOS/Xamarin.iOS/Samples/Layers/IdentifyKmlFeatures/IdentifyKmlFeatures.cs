@@ -61,9 +61,6 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
 
             // Zoom to the extent of the United States.
             _myMapView.SetViewpoint(new Viewpoint(_usEnvelope));
-
-            // Listen for taps to identify features.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -141,6 +138,14 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
                 // Portrait
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Listen for taps to identify features.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)

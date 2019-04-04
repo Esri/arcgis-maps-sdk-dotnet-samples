@@ -81,17 +81,6 @@ namespace ArcGISRuntime.Samples.FindPlace
             _searchBox.Enabled = true;
             _searchButton.Enabled = true;
             _searchInViewButton.Enabled = true;
-
-            // Enable tap-for-info pattern on results.
-            _myMapView.GeoViewTapped += MapView_GeoViewTapped;
-
-            // Listen for taps on the search buttons.
-            _searchButton.TouchUpInside += SearchButton_Touched;
-            _searchInViewButton.TouchUpInside += SearchRestrictedButton_Touched;
-
-            // Listen for text-changed events.
-            _searchBox.AllEditingEvents += SearchBox_TextChanged;
-            _locationBox.AllEditingEvents += LocationBox_TextChanged;
         }
 
         private void LocationDisplay_LocationChanged(object sender, Esri.ArcGISRuntime.Location.Location e)
@@ -517,8 +506,6 @@ namespace ArcGISRuntime.Samples.FindPlace
             _searchBox.BorderStyle = UITextBorderStyle.RoundedRect;
             _searchBox.LeftView = new UIView(new CGRect(0, 0, 5, 20));
             _searchBox.LeftViewMode = UITextFieldViewMode.Always;
-            // Allow pressing 'return' to dismiss the keyboard.
-            _searchBox.ShouldReturn += HandleTextField;
 
             _locationBox = new UITextField();
             _locationBox.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -526,8 +513,6 @@ namespace ArcGISRuntime.Samples.FindPlace
             _locationBox.BorderStyle = UITextBorderStyle.RoundedRect;
             _locationBox.LeftView = new UIView(new CGRect(0, 0, 5, 20));
             _locationBox.LeftViewMode = UITextFieldViewMode.Always;
-            // Allow pressing 'return' to dismiss the keyboard.
-            _locationBox.ShouldReturn += HandleTextField;
 
             _searchButton = new UIButton(UIButtonType.RoundedRect);
             _searchButton.BackgroundColor = UIColor.White;
@@ -612,6 +597,26 @@ namespace ArcGISRuntime.Samples.FindPlace
         {
             textField.ResignFirstResponder();
             return true;
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Enable tap-for-info pattern on results.
+            _myMapView.GeoViewTapped += MapView_GeoViewTapped;
+
+            // Listen for taps on the search buttons.
+            _searchButton.TouchUpInside += SearchButton_Touched;
+            _searchInViewButton.TouchUpInside += SearchRestrictedButton_Touched;
+
+            // Listen for text-changed events.
+            _searchBox.AllEditingEvents += SearchBox_TextChanged;
+            _locationBox.AllEditingEvents += LocationBox_TextChanged;
+
+            // Return dismisses software keyboard.
+            _searchBox.ShouldReturn += HandleTextField;
+            _locationBox.ShouldReturn += HandleTextField;
         }
 
         public override void ViewDidDisappear(bool animated)

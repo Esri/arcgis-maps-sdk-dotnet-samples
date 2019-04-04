@@ -473,9 +473,12 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             _mapView = new MapView();
             _mapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _transactionButton = new UIBarButtonItem("Start transaction", UIBarButtonItemStyle.Plain, HandleTransaction_Click);
-            _syncButton = new UIBarButtonItem("Sync", UIBarButtonItemStyle.Plain, SynchronizeEdits);
-            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, HandleAddButton_Click) {Enabled = false};
+            _transactionButton = new UIBarButtonItem();
+            _transactionButton.Title = "Start transaction";
+            _syncButton = new UIBarButtonItem();
+            _syncButton.Title = "Sync";
+            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add);
+            _addButton.Enabled = false;
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -489,7 +492,6 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
 
             _transactionSwitch = new UISwitch();
             _transactionSwitch.TranslatesAutoresizingMaskIntoConstraints = false;
-            _transactionSwitch.ValueChanged += RequireTransactionChanged;
             _transactionSwitch.On = true;
 
             _statusLabel = new UILabel
@@ -552,13 +554,27 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             });
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            if(_localGeodatabase != null)_localGeodatabase.TransactionStatusChanged += GdbTransactionStatusChanged;
+            _transactionSwitch.ValueChanged += RequireTransactionChanged;
+            _transactionButton.Clicked += HandleTransaction_Click;
+            _syncButton.Clicked += SynchronizeEdits;
+            _addButton.Clicked += HandleAddButton_Click;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from events, otherwise objects will never be disposed.
-            _localGeodatabase.TransactionStatusChanged -= GdbTransactionStatusChanged;
+            if (_localGeodatabase != null)_localGeodatabase.TransactionStatusChanged -= GdbTransactionStatusChanged;
             _transactionSwitch.ValueChanged -= RequireTransactionChanged;
+            _transactionButton.Clicked -= HandleTransaction_Click;
+            _syncButton.Clicked -= SynchronizeEdits;
+            _addButton.Clicked -= HandleAddButton_Click;
         }
     }
 }

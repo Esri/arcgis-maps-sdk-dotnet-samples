@@ -56,9 +56,6 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
             // Provide used Map to the MapView.
             _myMapView.Map = myMap;
 
-            // Hook up the DrawStatusChanged event.
-            _myMapView.DrawStatusChanged += OnMapViewDrawStatusChanged;
-
             // Animate the activity spinner.
             _activityIndicator.StartAnimating();
         }
@@ -134,6 +131,15 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
                 _activityIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _activityIndicator.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Hook up the DrawStatusChanged event, avoiding duplicate subscription.
+            _myMapView.DrawStatusChanged -= OnMapViewDrawStatusChanged;
+            _myMapView.DrawStatusChanged += OnMapViewDrawStatusChanged;
         }
 
         public override void ViewDidDisappear(bool animated)

@@ -36,9 +36,6 @@ namespace ArcGISRuntime.Samples.ShowCallout
         {
             // Show a streets basemap.
             _myMapView.Map = new Map(Basemap.CreateStreets());
-
-            // Respond to taps on the map.
-            _myMapView.GeoViewTapped += MapView_GeoViewTapped;
         }
 
         private void MapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -100,6 +97,14 @@ namespace ArcGISRuntime.Samples.ShowCallout
                 helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 helpLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Respond to taps on the map.
+            _myMapView.GeoViewTapped += MapView_GeoViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)

@@ -79,9 +79,6 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 // Add the graphics overlay to the map view.
                 _myMapView.GraphicsOverlays.Add(extentOverlay);
 
-                // Subscribe to changes in the mapview's viewpoint so the preview box can be kept in position.
-                _myMapView.ViewpointChanged += MyMapView_ViewpointChanged;
-
                 // Update the graphic - needed in case the user decides not to interact before pressing the button.
                 UpdateMapExtentGraphic();
 
@@ -299,7 +296,8 @@ namespace ArcGISRuntime.Samples.ExportTiles
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _exportTilesButton = new UIBarButtonItem("Export tiles", UIBarButtonItemStyle.Plain, MyExportButton_Click);
+            _exportTilesButton = new UIBarButtonItem();
+            _exportTilesButton.Title = "Export tiles";
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -337,12 +335,22 @@ namespace ArcGISRuntime.Samples.ExportTiles
             });
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Subscribe to changes in the mapview's viewpoint so the preview box can be kept in position.
+            _myMapView.ViewpointChanged += MyMapView_ViewpointChanged;
+            _exportTilesButton.Clicked += MyExportButton_Click;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from events, otherwise objects won't be disposed.
             _myMapView.ViewpointChanged -= MyMapView_ViewpointChanged;
+            _exportTilesButton.Clicked -= MyExportButton_Click;
         }
     }
 }

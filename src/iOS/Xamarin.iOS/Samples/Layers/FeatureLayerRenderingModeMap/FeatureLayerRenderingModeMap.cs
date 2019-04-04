@@ -31,6 +31,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
         private MapView _staticMapView;
         private MapView _dynamicMapView;
         private UIStackView _stackView;
+        private UIBarButtonItem _zoomButton;
 
         // Hold references to the two views.
         private Viewpoint _zoomOutPoint;
@@ -133,12 +134,15 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
             _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
             _stackView.Distribution = UIStackViewDistribution.FillEqually;
 
+            _zoomButton = new UIBarButtonItem();
+            _zoomButton.Title = "Zoom";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Zoom", UIBarButtonItemStyle.Plain, OnZoomClick),
+                _zoomButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -198,6 +202,20 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
             {
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _zoomButton.Clicked += OnZoomClick;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _zoomButton.Clicked -= OnZoomClick;
         }
     }
 }

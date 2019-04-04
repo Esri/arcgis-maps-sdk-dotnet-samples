@@ -90,9 +90,6 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 // Add graphics overlay to the map view.
                 _myMapView.GraphicsOverlays.Add(extentOverlay);
 
-                // Set up an event handler for when the viewpoint (extent) changes.
-                _myMapView.ViewpointChanged += MapViewExtentChanged;
-
                 // Create a task for generating a geodatabase (GeodatabaseSyncTask).
                 _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
@@ -308,8 +305,8 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _generateButton =
-                new UIBarButtonItem("Generate geodatabase", UIBarButtonItemStyle.Plain, GenerateButton_Clicked);
+            _generateButton = new UIBarButtonItem();
+            _generateButton.Title = "Generate geodatabase";
             _generateButton.Enabled = false;
 
             UIToolbar toolbar = new UIToolbar();
@@ -346,6 +343,16 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             });
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Set up an event handler for when the viewpoint (extent) changes.
+            _myMapView.ViewpointChanged += MapViewExtentChanged;
+            if(_generateGdbJob != null)_generateGdbJob.ProgressChanged += GenerateGdbJob_ProgressChanged;
+            _generateButton.Clicked += GenerateButton_Clicked;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
@@ -353,6 +360,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             // Unsubscribe from events, otherwise objects won't be disposed.
             _generateGdbJob.ProgressChanged -= GenerateGdbJob_ProgressChanged;
             _myMapView.ViewpointChanged -= MapViewExtentChanged;
+            _generateButton.Clicked -= GenerateButton_Clicked;
         }
     }
 }

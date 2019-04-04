@@ -32,18 +32,6 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
             Title = "Access load status";
         }
 
-        private void Initialize()
-        {
-            // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateImagery());
-
-            // Register to handle loading status changes.
-            myMap.LoadStatusChanged += OnMapsLoadStatusChanged;
-
-            // Show the map.
-            _myMapView.Map = myMap;
-        }
-
         private void OnMapsLoadStatusChanged(object sender, LoadStatusEventArgs e)
         {
             // Make sure that the UI changes are done in the UI thread.
@@ -52,12 +40,6 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
                 // Update the load status information.
                 _loadStatusLabel.Text = $"Map's load status: {e.Status}";
             });
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
         }
 
         public override void LoadView()
@@ -92,6 +74,20 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
                 _loadStatusLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _loadStatusLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Create new Map with basemap.
+            Map myMap = new Map(Basemap.CreateImagery());
+
+            // Register to handle loading status changes.
+            myMap.LoadStatusChanged += OnMapsLoadStatusChanged;
+
+            // Show the map.
+            _myMapView.Map = myMap;
         }
 
         public override void ViewDidDisappear(bool animated)

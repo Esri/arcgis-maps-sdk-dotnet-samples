@@ -33,6 +33,10 @@ namespace ArcGISRuntime.Samples.AuthorMap
     {
         // Hold a reference to the MapView.
         private MapView _myMapView;
+        private UIBarButtonItem _newMapButton;
+        private UIBarButtonItem _basemapButton;
+        private UIBarButtonItem _layersButton;
+        private UIBarButtonItem _saveButton;
 
         // Map metadata.
         private string _title = "My new map";
@@ -72,6 +76,9 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         // URL used by the server for authorization.
         private const string AuthorizeUrl = "https://www.arcgis.com/sharing/oauth2/authorize";
+
+        // Hold a reference to the authenticator.
+        private OAuth2Authenticator _auth;
 
         public AuthorMap()
         {
@@ -336,17 +343,29 @@ namespace ArcGISRuntime.Samples.AuthorMap
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _newMapButton = new UIBarButtonItem();
+            _newMapButton.Title = "New map";
+
+            _basemapButton = new UIBarButtonItem();
+            _basemapButton.Title = "Basemap";
+
+            _layersButton = new UIBarButtonItem();
+            _layersButton.Title = "Layers";
+
+            _saveButton = new UIBarButtonItem();
+            _saveButton.Title = "Save";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("New map", UIBarButtonItemStyle.Plain, NewMapClicked),
+                _newMapButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Basemap", UIBarButtonItemStyle.Plain, ShowBasemapClicked),
+                _basemapButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Layers", UIBarButtonItemStyle.Plain, ShowLayerListClicked),
+                _layersButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Save", UIBarButtonItemStyle.Plain, SaveMapClicked)
+                _saveButton
             };
 
             _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
@@ -376,6 +395,38 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 _activityIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _activityIndicator.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _newMapButton.Clicked += NewMapClicked;
+            _basemapButton.Clicked += ShowBasemapClicked;
+            _layersButton.Clicked += ShowLayerListClicked;
+            _saveButton.Clicked += SaveMapClicked;
+
+            if (_auth != null)
+            {
+                _auth.Error += HandleAuthError;
+                _auth.Completed += HandleAuthCompleted;
+            }
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _newMapButton.Clicked -= NewMapClicked;
+            _basemapButton.Clicked -= ShowBasemapClicked;
+            _layersButton.Clicked -= ShowLayerListClicked;
+            _saveButton.Clicked -= SaveMapClicked;
+
+            if (_auth != null)
+            {
+                _auth.Error -= HandleAuthError;
+                _auth.Completed -= HandleAuthCompleted;
+            }
         }
 
         #region OAuth helpers
@@ -453,7 +504,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
-            OAuth2Authenticator auth = new OAuth2Authenticator(
+            _auth = new OAuth2Authenticator(
                 clientId: _appClientId,
                 scope: "",
                 authorizeUrl: new Uri(AuthorizeUrl),
@@ -465,56 +516,60 @@ namespace ArcGISRuntime.Samples.AuthorMap
             };
 
             // Define a handler for the OAuth2Authenticator.Completed event.
-            auth.Completed += (sender, authArgs) =>
-            {
-                try
-                {
-                    // Dismiss the OAuth UI when complete.
-                    DismissViewController(true, null);
-
-                    // Throw an exception if the user could not be authenticated.
-                    if (!authArgs.IsAuthenticated)
-                    {
-                        throw new Exception("Unable to authenticate user.");
-                    }
-
-                    // If authorization was successful, get the user's account.
-                    Account authenticatedAccount = authArgs.Account;
-
-                    // Set the result (Credential) for the TaskCompletionSource.
-                    _taskCompletionSource.SetResult(authenticatedAccount.Properties);
-                }
-                catch (Exception ex)
-                {
-                    // If authentication failed, set the exception on the TaskCompletionSource.
-                    _taskCompletionSource.TrySetException(ex);
-
-                    // Cancel authentication.
-                    auth.OnCancelled();
-                }
-            };
+            _auth.Completed += HandleAuthCompleted;
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
-            auth.Error += (sender, errArgs) =>
-            {
-                if (errArgs.Exception != null)
-                {
-                    _taskCompletionSource.TrySetException(errArgs.Exception);
-                }
-                else
-                {
-                    _taskCompletionSource.TrySetException(new Exception(errArgs.Message));
-                }
-
-                // Cancel authentication.
-                auth.OnCancelled();
-            };
+            _auth.Error += HandleAuthError;
 
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password.
-            InvokeOnMainThread(() => { PresentViewController(auth.GetUI(), true, null); });
+            InvokeOnMainThread(() => { PresentViewController(_auth.GetUI(), true, null); });
 
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;
+        }
+
+        private void HandleAuthCompleted(object sender, AuthenticatorCompletedEventArgs authArgs)
+        {
+            try
+            {
+                // Dismiss the OAuth UI when complete.
+                DismissViewController(true, null);
+
+                // Throw an exception if the user could not be authenticated.
+                if (!authArgs.IsAuthenticated)
+                {
+                    throw new Exception("Unable to authenticate user.");
+                }
+
+                // If authorization was successful, get the user's account.
+                Account authenticatedAccount = authArgs.Account;
+
+                // Set the result (Credential) for the TaskCompletionSource.
+                _taskCompletionSource.SetResult(authenticatedAccount.Properties);
+            }
+            catch (Exception ex)
+            {
+                // If authentication failed, set the exception on the TaskCompletionSource.
+                _taskCompletionSource.TrySetException(ex);
+
+                // Cancel authentication.
+                _auth.OnCancelled();
+            }
+        }
+
+        private void HandleAuthError (object sender, AuthenticatorErrorEventArgs errArgs)
+        {
+            if (errArgs.Exception != null)
+            {
+                _taskCompletionSource.TrySetException(errArgs.Exception);
+            }
+            else
+            {
+                _taskCompletionSource.TrySetException(new Exception(errArgs.Message));
+            }
+
+            // Cancel authentication.
+            _auth.OnCancelled();
         }
 
         #endregion OAuth helpers

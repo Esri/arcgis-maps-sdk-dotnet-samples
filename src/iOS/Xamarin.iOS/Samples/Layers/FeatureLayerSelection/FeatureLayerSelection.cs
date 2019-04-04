@@ -65,30 +65,15 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
             // Initialize a new feature layer based on the feature table.
             _featureLayer = new FeatureLayer(featureTable);
 
-            try
-            {
-                // Make sure that used feature layer is loaded before hooking into the tapped event
-                // This prevents trying to do selection on the layer that isn't initialized.
-                await _featureLayer.LoadAsync();
-
-                // Check for the load status. If the layer is loaded then add it to map.
-                if (_featureLayer.LoadStatus == LoadStatus.Loaded)
-                {
-                    // Add the feature layer to the map.
-                    myMap.OperationalLayers.Add(_featureLayer);
-
-                    // Add tap event handler for mapview.
-                    _myMapView.GeoViewTapped += OnMapViewTapped;
-                }
-            }
-            catch (Exception e)
-            {
-                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
-            }
+            // Add the layer to the map.
+            myMap.OperationalLayers.Add(_featureLayer);
         }
 
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
+            // Skip if the sample isn't ready yet.
+            if (_featureLayer.LoadStatus != LoadStatus.Loaded) return;
+
             try
             {
                 // Define the selection tolerance.
@@ -153,6 +138,13 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _myMapView.GeoViewTapped += OnMapViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)

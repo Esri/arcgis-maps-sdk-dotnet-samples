@@ -58,9 +58,6 @@ namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
             // Add a graphics overlay to the map for showing where the user tapped.
             _myMapView.GraphicsOverlays.Add(new GraphicsOverlay());
 
-            // Enable tap-for-info pattern on results.
-            _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
-
             // Initialize the LocatorTask with the provided service Uri.
             try
             {
@@ -179,6 +176,14 @@ namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
         {
             base.ViewDidLoad();
             Initialize();
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Enable tap-for-info pattern on results.
+            _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)

@@ -69,10 +69,9 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
 
         private async void ViewpointButton_ValueChanged(object sender, EventArgs e)
         {
-            UISegmentedControl segmentedControl = (UISegmentedControl) sender;
             try
             {
-                switch (segmentedControl.SelectedSegment)
+                switch (_viewpointsButton.SelectedSegment)
                 {
                     case 0:
                         // Set Viewpoint using Redlands envelope defined above and a padding of 20.
@@ -103,7 +102,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
             }
 
             // Reset the segment button.
-            segmentedControl.SelectedSegment = -1;
+            _viewpointsButton.SelectedSegment = -1;
         }
 
         public override void ViewDidLoad()
@@ -129,7 +128,6 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
                 ClipsToBounds = true,
                 Layer = {CornerRadius = 5}
             };
-            _viewpointsButton.ValueChanged += ViewpointButton_ValueChanged;
 
             // Add the views.
             View.AddSubviews(_myMapView, _viewpointsButton);
@@ -146,6 +144,13 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
                 _viewpointsButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
                 _viewpointsButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            _viewpointsButton.ValueChanged += ViewpointButton_ValueChanged;
         }
 
         public override void ViewDidDisappear(bool animated)

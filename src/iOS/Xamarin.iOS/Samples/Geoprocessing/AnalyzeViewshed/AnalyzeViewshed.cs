@@ -54,9 +54,6 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             // Create and show a map with topographic basemap and an initial location.
             _myMapView.Map = new Map(BasemapType.Topographic, 45.3790902612337, 6.84905317262762, 13);
 
-            // Hook into the MapView tapped event.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
-
             // Create empty overlays for the user clicked location and the results of the viewshed analysis.
             CreateOverlays();
         }
@@ -242,6 +239,14 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
                 _activityIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _activityIndicator.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Hook into the MapView tapped event.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)

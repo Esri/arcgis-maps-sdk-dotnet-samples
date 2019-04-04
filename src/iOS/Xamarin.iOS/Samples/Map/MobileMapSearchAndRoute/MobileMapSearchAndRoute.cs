@@ -39,6 +39,7 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
         // Hold references to UI controls.
         private MapView _myMapView;
         private UITableViewController _tableController;
+        private UIBarButtonItem _chooseMapButton;
 
         // Hold references to map resources for easy access.
         private MapsViewModel _viewModel;
@@ -91,9 +92,6 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
             // Create and add an overlay for showing waypoints/stops.
             _waypointOverlay = new GraphicsOverlay();
             _myMapView.GraphicsOverlays.Add(_waypointOverlay);
-
-            // Enable tap-to-reverse geocode and tap-to-route.
-            _myMapView.GeoViewTapped += MapView_Tapped;
 
             // Configure the table view for showing maps.
             _viewModel = new MapsViewModel(_maps);
@@ -301,12 +299,15 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _chooseMapButton = new UIBarButtonItem();
+            _chooseMapButton.Title = "Choose map";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Choose map", UIBarButtonItemStyle.Plain, ChangeMap_Click)
+                _chooseMapButton
             };
 
             UILabel helpLabel = new UILabel
@@ -346,6 +347,23 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
             Initialize();
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Enable tap-to-reverse geocode and tap-to-route.
+            _myMapView.GeoViewTapped += MapView_Tapped;
+
+            // Re-subscribe if needed.
+            if (_viewModel != null)
+            {
+                _viewModel.MapSelected -= Map_Selected;
+                _viewModel.MapSelected += Map_Selected;
+            }
+
+            _chooseMapButton.Clicked += ChangeMap_Click;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
@@ -353,6 +371,7 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
             // Unsubscribe to events. Objects will never be disposed otherwise.
             _myMapView.GeoViewTapped -= MapView_Tapped;
             _viewModel.MapSelected -= Map_Selected;
+            _chooseMapButton.Clicked -= ChangeMap_Click;
         }
     }
 

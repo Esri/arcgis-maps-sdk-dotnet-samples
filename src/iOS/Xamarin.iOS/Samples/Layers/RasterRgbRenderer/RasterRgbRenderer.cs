@@ -32,6 +32,9 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         private MinMaxSettingsController _minMaxController;
         private PercentClipSettingsController _percentClipController;
         private StandardDeviationSettingsController _stdDevController;
+        private UIBarButtonItem _minMaxButton;
+        private UIBarButtonItem _percentClipButton;
+        private UIBarButtonItem _stdDevButton;
 
         // Reference to the raster layer to render.
         private RasterLayer _rasterLayer;
@@ -124,14 +127,23 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
+            _minMaxButton = new UIBarButtonItem();
+            _minMaxButton.Title = "Min/Max";
+
+            _percentClipButton = new UIBarButtonItem();
+            _percentClipButton.Title = "% Clip";
+
+            _stdDevButton = new UIBarButtonItem();
+            _stdDevButton.Title = "Std. Dev.";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Min/Max", UIBarButtonItemStyle.Plain, MinMax_Clicked),
-                new UIBarButtonItem("% Clip", UIBarButtonItemStyle.Plain, PercentClip_Clicked),
-                new UIBarButtonItem("Std. Dev.", UIBarButtonItemStyle.Plain, StdDev_Clicked)
+                _minMaxButton,
+                _percentClipButton,
+                _stdDevButton
             };
 
             _myMapView = new MapView();
@@ -152,6 +164,24 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _minMaxButton.Clicked += MinMax_Clicked;
+            _percentClipButton.Clicked += PercentClip_Clicked;
+            _stdDevButton.Clicked += StdDev_Clicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _minMaxButton.Clicked -= MinMax_Clicked;
+            _percentClipButton.Clicked -= PercentClip_Clicked;
+            _stdDevButton.Clicked -= StdDev_Clicked;
         }
 
         // Used to force popovers to appear on iPhone.

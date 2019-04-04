@@ -45,9 +45,6 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
 
             // Create graphics overlay with graphics.
             CreateOverlay();
-
-            // Respond to taps on the map.
-            _myMapView.GeoViewTapped += OnMapViewTapped;
         }
 
         private void CreateOverlay()
@@ -133,6 +130,14 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Respond to taps on the map.
+            _myMapView.GeoViewTapped += OnMapViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)

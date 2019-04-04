@@ -249,7 +249,8 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _takeMapOfflineButton = new UIBarButtonItem("Generate offline map", UIBarButtonItemStyle.Plain, TakeMapOfflineButton_Click);
+            _takeMapOfflineButton = new UIBarButtonItem();
+            _takeMapOfflineButton.Title = "Generate offline map";
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -302,12 +303,21 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             });
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            if (_generateOfflineMapJob != null) _generateOfflineMapJob.ProgressChanged += OfflineMapJob_ProgressChanged;
+            _takeMapOfflineButton.Clicked += TakeMapOfflineButton_Click;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from events, otherwise objects won't be disposed.
             _generateOfflineMapJob.ProgressChanged -= OfflineMapJob_ProgressChanged;
+            _takeMapOfflineButton.Clicked -= TakeMapOfflineButton_Click;
         }
 
         #region Authentication

@@ -52,7 +52,7 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
             };
 
             // When feature table is loaded, populate data.
-            _myFeatureTable.LoadStatusChanged += OnLoadedPopulateData;
+            _myFeatureTable.Loaded += OnLoadedPopulateData;
 
             // Create FeatureLayer that uses the created table.
             FeatureLayer myFeatureLayer = new FeatureLayer(_myFeatureTable);
@@ -64,16 +64,10 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
             _myMapView.Map = myMap;
         }
 
-        private async void OnLoadedPopulateData(object sender, LoadStatusEventArgs e)
+        private async void OnLoadedPopulateData(object sender, EventArgs e)
         {
-            // If layer isn't loaded, do nothing.
-            if (e.Status != LoadStatus.Loaded)
-            {
-                return;
-            }
-
             // Unsubscribe from events.
-            _myFeatureTable.LoadStatusChanged -= OnLoadedPopulateData;
+            _myFeatureTable.Loaded -= OnLoadedPopulateData;
 
             // Create new query object that contains a basic 'include everything' clause.
             QueryParameters queryParameters = new QueryParameters

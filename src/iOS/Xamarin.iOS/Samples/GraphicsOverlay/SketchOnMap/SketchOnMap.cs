@@ -55,14 +55,6 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             // Create graphics overlay to display sketch geometry.
             _sketchOverlay = new GraphicsOverlay();
             _myMapView.GraphicsOverlays.Add(_sketchOverlay);
-
-            // Listen to the sketch editor tools CanExecuteChange so controls can be enabled/disabled.
-            _myMapView.SketchEditor.UndoCommand.CanExecuteChanged += CanExecuteChanged;
-            _myMapView.SketchEditor.RedoCommand.CanExecuteChanged += CanExecuteChanged;
-            _myMapView.SketchEditor.CompleteCommand.CanExecuteChanged += CanExecuteChanged;
-
-            // Listen to collection changed event on the graphics overlay to enable/disable controls that require a graphic.
-            _sketchOverlay.Graphics.CollectionChanged += GraphicsChanged;
         }
 
         private void GraphicsChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -312,8 +304,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                 TintColor = UIColor.White,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
-            _segmentButton.ValueChanged += SegmentButtonClicked;
-
+            
             // Clean up borders of segmented control - avoid corner pixels.
             _segmentButton.ClipsToBounds = true;
             _segmentButton.Layer.CornerRadius = 5;
@@ -333,6 +324,21 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                 _segmentButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
                 _segmentButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            _segmentButton.ValueChanged += SegmentButtonClicked;
+
+            // Listen to the sketch editor tools CanExecuteChange so controls can be enabled/disabled.
+            _myMapView.SketchEditor.UndoCommand.CanExecuteChanged += CanExecuteChanged;
+            _myMapView.SketchEditor.RedoCommand.CanExecuteChanged += CanExecuteChanged;
+            _myMapView.SketchEditor.CompleteCommand.CanExecuteChanged += CanExecuteChanged;
+
+            // Listen to collection changed event on the graphics overlay to enable/disable controls that require a graphic.
+            _sketchOverlay.Graphics.CollectionChanged += GraphicsChanged;
         }
 
         public override void ViewDidDisappear(bool animated)

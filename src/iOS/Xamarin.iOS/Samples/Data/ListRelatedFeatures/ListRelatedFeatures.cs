@@ -70,9 +70,6 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
 
                 // Update the selection color.
                 _myMapView.SelectionProperties.Color = Color.Yellow;
-
-                // Listen for GeoViewTapped events.
-                _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
             }
             catch (Exception e)
             {
@@ -219,6 +216,14 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
             {
                 NSLayoutConstraint.ActivateConstraints(_portraitConstraints);
             }
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Listen for GeoViewTapped events.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)

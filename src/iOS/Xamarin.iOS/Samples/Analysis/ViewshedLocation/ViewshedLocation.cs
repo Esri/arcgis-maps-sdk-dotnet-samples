@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         // Hold references to the UI controls.
         private SceneView _mySceneView;
         private ViewshedLocationSettingsController _settingsVC;
-        private UIBarButtonItem _button;
+        private UIBarButtonItem _settingsButton;
 
         // Hold the URL to the elevation source.
         private readonly Uri _localElevationImageService = new Uri("https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
@@ -86,7 +86,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
                 1500);
 
             _settingsVC = new ViewshedLocationSettingsController(_viewshed);
-            _button.Enabled = true;
+            _settingsButton.Enabled = true;
 
             // Create a camera based on the initial location.
             Camera camera = new Camera(initialLocation, 200.0, 20.0, 70.0, 0.0);
@@ -173,14 +173,15 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _button = new UIBarButtonItem("Edit settings", UIBarButtonItemStyle.Plain, HandleSettings_Clicked);
+            _settingsButton = new UIBarButtonItem();
+            _settingsButton.Title = "Edit settings";
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _button
+                _settingsButton
             };
 
             // Add the views.
@@ -216,6 +217,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
 
             // Subscribe to events.
             _mySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
+            _settingsButton.Clicked += HandleSettings_Clicked;
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -224,6 +226,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
 
             // Unsubscribe to tap events. The view will never be disposed otherwise.
             _mySceneView.GeoViewTapped -= MySceneView_GeoViewTapped;
+            _settingsButton.Clicked -= HandleSettings_Clicked;
         }
     }
 

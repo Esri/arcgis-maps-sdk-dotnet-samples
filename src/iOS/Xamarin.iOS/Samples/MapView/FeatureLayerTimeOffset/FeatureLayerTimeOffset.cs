@@ -82,9 +82,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
 
                 // Update the time extent set on the map.
                 UpdateTimeExtent();
-
-                // Listen for slider changes.
-                _timeSlider.ValueChanged += TimeSlider_ValueChanged;
             }
             catch (Exception e)
             {
@@ -255,6 +252,14 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
                 _timeLabel.WidthAnchor.ConstraintEqualTo(150),
                 _timeSlider.WidthAnchor.ConstraintEqualTo(600),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Listen for slider changes.
+            _timeSlider.ValueChanged += TimeSlider_ValueChanged;
         }
 
         public override void ViewDidDisappear(bool animated)

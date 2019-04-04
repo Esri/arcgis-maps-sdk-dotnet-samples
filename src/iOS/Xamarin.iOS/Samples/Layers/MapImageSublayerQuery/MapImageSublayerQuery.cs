@@ -32,6 +32,7 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         // Hold references to the UI controls.
         private MapView _myMapView;
         private UITextField _queryEntry;
+        private UIBarButtonItem _queryButton;
 
         // Graphics overlay for showing selected features.
         private GraphicsOverlay _selectedFeaturesOverlay;
@@ -178,12 +179,15 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
             View.AddSubview(_myMapView);
 
+            _queryButton = new UIBarButtonItem();
+            _queryButton.Title = "Query";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Query", UIBarButtonItemStyle.Plain, QuerySublayers_Click),
+                _queryButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -202,6 +206,20 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _queryButton.Clicked += QuerySublayers_Click;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _queryButton.Clicked -= QuerySublayers_Click;
         }
     }
 }

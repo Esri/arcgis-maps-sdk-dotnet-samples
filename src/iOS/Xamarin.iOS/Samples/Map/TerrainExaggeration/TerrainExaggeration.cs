@@ -56,9 +56,6 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
             MapPoint initialLocation = new MapPoint(-119.9489, 46.7592, 0, SpatialReferences.Wgs84);
             Camera initialCamera = new Camera(initialLocation, 15000, 40, 60, 0);
             _mySceneView.SetViewpointCamera(initialCamera);
-
-            // Update terrain exaggeration based on the slider value.
-            _terrainSlider.ValueChanged += TerrainSlider_ValueChanged;
         }
 
         private void TerrainSlider_ValueChanged(object sender, EventArgs e) => _elevationSurface.ElevationExaggeration = _terrainSlider.Value;
@@ -102,6 +99,14 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
         {
             base.ViewDidLoad();
             Initialize();
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Update terrain exaggeration based on the slider value.
+            _terrainSlider.ValueChanged += TerrainSlider_ValueChanged;
         }
 
         public override void ViewDidDisappear(bool animated)

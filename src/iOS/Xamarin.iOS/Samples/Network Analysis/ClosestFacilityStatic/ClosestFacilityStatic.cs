@@ -239,9 +239,12 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _solveRoutesButton = new UIBarButtonItem("Solve routes", UIBarButtonItemStyle.Plain, SolveRoutesButton_Click);
+            _solveRoutesButton = new UIBarButtonItem();
+            _solveRoutesButton.Title = "Solve routes";
             _solveRoutesButton.Enabled = false;
-            _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ResetButton_Click);
+
+            _resetButton = new UIBarButtonItem();
+            _resetButton.Title = "Reset";
             _resetButton.Enabled = false;
 
             UIToolbar toolbar = new UIToolbar();
@@ -268,6 +271,22 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _solveRoutesButton.Clicked += SolveRoutesButton_Click;
+            _resetButton.Clicked += ResetButton_Click;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _solveRoutesButton.Clicked -= SolveRoutesButton_Click;
+            _resetButton.Clicked -= ResetButton_Click;
         }
     }
 }

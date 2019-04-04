@@ -58,9 +58,6 @@ namespace ArcGISRuntime.Samples.FindServiceArea
 
             // Create graphics overlays for all of the elements of the map.
             _myMapView.GraphicsOverlays.Add(new GraphicsOverlay());
-
-            // Add a new behavior for double taps on the MapView.
-            _myMapView.GeoViewDoubleTapped += MapView_DoubleTapped;
         }
 
         private void MapView_DoubleTapped(object sender, GeoViewInputEventArgs e)
@@ -308,10 +305,14 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, AddClick);
-            _doneButton = new UIBarButtonItem(UIBarButtonSystemItem.Done, DoneClick);
-            _showButton = new UIBarButtonItem("Solve", UIBarButtonItemStyle.Plain, ShowServiceAreas_Click);
-            _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, Reset_Click);
+            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add);
+            _doneButton = new UIBarButtonItem(UIBarButtonSystemItem.Done);
+
+            _showButton = new UIBarButtonItem();
+            _showButton.Title = "Solve";
+
+            _resetButton = new UIBarButtonItem();
+            _resetButton.Title = "Reset";
 
             _toolbar = new UIToolbar();
             _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -340,9 +341,27 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             });
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _addButton.Clicked += AddClick;
+            _doneButton.Clicked += DoneClick;
+            _showButton.Clicked += ShowServiceAreas_Click;
+            _resetButton.Clicked += Reset_Click;
+            
+            // Add a new behavior for double taps on the MapView.
+            _myMapView.GeoViewDoubleTapped += MapView_DoubleTapped;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
+
+            _addButton.Clicked -= AddClick;
+            _doneButton.Clicked -= DoneClick;
+            _showButton.Clicked -= ShowServiceAreas_Click;
+            _resetButton.Clicked -= Reset_Click;
 
             // Unsubscribe from events, otherwise objects won't be disposed.
             _myMapView.GeoViewDoubleTapped += MapView_DoubleTapped;

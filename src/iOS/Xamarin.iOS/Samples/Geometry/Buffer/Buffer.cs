@@ -46,9 +46,6 @@ namespace ArcGISRuntime.Samples.Buffer
             // Create a map with a topographic basemap and add it to the map view.
             _myMapView.Map = new Map(Basemap.CreateTopographic());
 
-            // Handle the MapView's GeoViewTapped event to create buffers.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
-
             // Create a fill symbol for geodesic buffer polygons.            
             Colors geodesicBufferColor = Colors.FromArgb(120, 255, 0, 0);
             SimpleLineSymbol geodesicOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, geodesicBufferColor, 2);
@@ -212,9 +209,6 @@ namespace ArcGISRuntime.Samples.Buffer
             _bufferDistanceMilesTextField.RightView = new UIView(new CGRect(0, 0, 5, 20)); // 5 is amount of left padding.
             _bufferDistanceMilesTextField.RightViewMode = UITextFieldViewMode.Always;
 
-            // Allow pressing 'return' to dismiss the keyboard.
-            _bufferDistanceMilesTextField.ShouldReturn += HandleTextField;
-
             UIStackView legendView = new UIStackView();
             legendView.TranslatesAutoresizingMaskIntoConstraints = false;
             legendView.Axis = UILayoutConstraintAxis.Horizontal;
@@ -269,9 +263,6 @@ namespace ArcGISRuntime.Samples.Buffer
             _clearBuffersButton.SetTitleColor(UIColor.White, UIControlState.Normal);
             _clearBuffersButton.Layer.CornerRadius = 5;
             _clearBuffersButton.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            // Handle the clear buffers button press.
-            _clearBuffersButton.TouchUpInside += ClearBuffersButton_TouchUpInside;
 
             // Add the views.
             View.AddSubviews(_myMapView,
@@ -330,6 +321,20 @@ namespace ArcGISRuntime.Samples.Buffer
         {
             textField.ResignFirstResponder();
             return true;
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Handle the MapView's GeoViewTapped event to create buffers.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+
+            // Handle the clear buffers button press.
+            _clearBuffersButton.TouchUpInside += ClearBuffersButton_TouchUpInside;
+
+            // Allow pressing 'return' to dismiss the keyboard.
+            _bufferDistanceMilesTextField.ShouldReturn += HandleTextField;
         }
 
         public override void ViewDidDisappear(bool animated)

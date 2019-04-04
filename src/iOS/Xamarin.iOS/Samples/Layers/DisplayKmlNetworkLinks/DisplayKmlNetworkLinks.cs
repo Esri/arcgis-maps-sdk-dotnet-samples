@@ -98,6 +98,15 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlNetworkLinks
             });
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Network link message is listened for in Initialize, so remove existing listener if any before re-subscribing
+            _dataset.NetworkLinkControlMessage -= Dataset_NetworkLinkControlMessage;
+            _dataset.NetworkLinkControlMessage += Dataset_NetworkLinkControlMessage;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);

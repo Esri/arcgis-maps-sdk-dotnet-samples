@@ -43,6 +43,9 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         // A list of all service request comment records (non-spatial features).
         private readonly List<ArcGISFeature> _serviceRequestComments = new List<ArcGISFeature>();
 
+        // Hold a reference to the comments table source.
+        private ServiceRequestCommentsTableSource _commentsTableSource;
+
         public MapImageLayerTables()
         {
             Title = "Query map image layer tables";
@@ -90,13 +93,10 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
                 }
 
                 // Create the table view source that uses the list of features.
-                ServiceRequestCommentsTableSource commentsTableSource = new ServiceRequestCommentsTableSource(_serviceRequestComments);
-
-                // Handle a new selection in the table source.
-                commentsTableSource.ServiceRequestCommentSelected += CommentsTableSource_ServiceRequestCommentSelected;
+                _commentsTableSource = new ServiceRequestCommentsTableSource(_serviceRequestComments);
 
                 // Assign the table view source to the table view control.
-                _tableView.Source = commentsTableSource;
+                _tableView.Source = _commentsTableSource;
 
                 // Create a graphics overlay to show selected features and add it to the map view.
                 _selectedFeaturesOverlay = new GraphicsOverlay();
@@ -227,6 +227,21 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
                 // Update layout for portrait.
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Handle a new selection in the table source.
+            _commentsTableSource.ServiceRequestCommentSelected += CommentsTableSource_ServiceRequestCommentSelected;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _commentsTableSource.ServiceRequestCommentSelected -= CommentsTableSource_ServiceRequestCommentSelected;
         }
     }
 

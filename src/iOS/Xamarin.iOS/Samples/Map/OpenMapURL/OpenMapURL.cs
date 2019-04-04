@@ -25,6 +25,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
     {
         // Hold a reference to the MapView.
         private MapView _myMapView;
+        private UIBarButtonItem _selectMapButton;
 
         // String array to hold URLs to publicly available web maps.
         private readonly string[] _itemUrLs =
@@ -83,12 +84,15 @@ namespace ArcGISRuntime.Samples.OpenMapURL
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _selectMapButton = new UIBarButtonItem();
+            _selectMapButton.Title = "Select a map";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Select a map", UIBarButtonItemStyle.Plain, OnMapsButtonTouch),
+                _selectMapButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -107,6 +111,20 @@ namespace ArcGISRuntime.Samples.OpenMapURL
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _selectMapButton.Clicked += OnMapsButtonTouch;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _selectMapButton.Clicked -= OnMapsButtonTouch;
         }
     }
 }

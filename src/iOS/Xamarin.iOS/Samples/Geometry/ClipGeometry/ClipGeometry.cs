@@ -29,6 +29,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
     {
         // Hold a reference to the MapView.
         private MapView _myMapView;
+        private UIBarButtonItem _clipButton;
 
         // Graphics overlay to display input geometries for the clip operation.
         private GraphicsOverlay _inputGeometriesGraphicsOverlay;
@@ -224,12 +225,15 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _clipButton = new UIBarButtonItem();
+            _clipButton.Title = "Clip geometries";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Clip geometries", UIBarButtonItemStyle.Plain, ClipButton_TouchUpInside),
+                _clipButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -248,6 +252,20 @@ namespace ArcGISRuntime.Samples.ClipGeometry
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _clipButton.Clicked += ClipButton_TouchUpInside;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _clipButton.Clicked -= ClipButton_TouchUpInside;
         }
     }
 }

@@ -71,13 +71,12 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
                 // Add the layer to the map.
                 _myMapView.Map.OperationalLayers.Add(wfsFeatureLayer);
 
-                // Use the navigation completed event to populate the table with the features needed for the current extent.
-                _myMapView.NavigationCompleted += MapView_NavigationCompleted;
-
                 // Zoom to a small area within the dataset by default.
                 MapPoint topLeft = new MapPoint(-122.341581, 47.617207, SpatialReferences.Wgs84);
                 MapPoint bottomRight = new MapPoint(-122.332662, 47.613758, SpatialReferences.Wgs84);
                 await _myMapView.SetViewpointGeometryAsync(new Envelope(topLeft, bottomRight));
+
+                UpdateForExtent();
             }
             catch (Exception e)
             {
@@ -86,7 +85,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
             }
         }
 
-        private async void MapView_NavigationCompleted(object sender, EventArgs e)
+        private void MapView_NavigationCompleted(object sender, EventArgs e) => UpdateForExtent();
+
+        private async void UpdateForExtent()
         {
             // Show the loading bar.
             _loadingProgressBar.StartAnimating();
@@ -168,6 +169,14 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
         {
             base.ViewDidLoad();
             Initialize();
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Use the navigation completed event to populate the table with the features needed for the current extent.
+            _myMapView.NavigationCompleted += MapView_NavigationCompleted;
         }
 
         public override void ViewDidDisappear(bool animated)

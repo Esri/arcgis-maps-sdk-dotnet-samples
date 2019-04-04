@@ -43,7 +43,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         private async void _constructorChoiceButton_ValueChanged(object sender, EventArgs e)
         {
             //Load the WMTS layer using service info or URL.
-            switch (((UISegmentedControl) sender).SelectedSegment)
+            switch (_constructorChoiceButton.SelectedSegment)
             {
                 case 0:
                     await LoadWMTSLayerAsync(true);
@@ -137,7 +137,6 @@ namespace ArcGISRuntime.Samples.WMTSLayer
                 ClipsToBounds = true,
                 Layer = {CornerRadius = 5}
             };
-            _constructorChoiceButton.ValueChanged += _constructorChoiceButton_ValueChanged;
 
             // Add the views.
             View.AddSubviews(_myMapView, _constructorChoiceButton);
@@ -154,6 +153,13 @@ namespace ArcGISRuntime.Samples.WMTSLayer
                 _constructorChoiceButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
                 _constructorChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            _constructorChoiceButton.ValueChanged += _constructorChoiceButton_ValueChanged;
         }
 
         public override void ViewDidDisappear(bool animated)

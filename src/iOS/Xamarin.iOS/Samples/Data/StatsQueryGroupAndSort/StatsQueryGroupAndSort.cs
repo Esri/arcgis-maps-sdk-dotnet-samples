@@ -263,18 +263,15 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             _showStatDefinitionsButton.TranslatesAutoresizingMaskIntoConstraints = false;
             _showStatDefinitionsButton.SetTitle("1. Choose statistic definitions", UIControlState.Normal);
             _showStatDefinitionsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _showStatDefinitionsButton.TouchUpInside += ShowStatDefinitions;
 
             _showGroupFieldsButton = new UIButton();
             _showGroupFieldsButton.TranslatesAutoresizingMaskIntoConstraints = false;
             _showGroupFieldsButton.SetTitle("2. Choose group fields", UIControlState.Normal);
             _showGroupFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _showGroupFieldsButton.TouchUpInside += ShowGroupFields;
 
             _showOrderByFieldsButton = new UIButton();
             _showOrderByFieldsButton.SetTitle("3. Choose 'Order by' fields", UIControlState.Normal);
             _showOrderByFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            _showOrderByFieldsButton.TouchUpInside += ShowOrderByFields;
 
             UIStackView buttonContainer = new UIStackView(new[] { _showStatDefinitionsButton, _showGroupFieldsButton, _showOrderByFieldsButton, new UIView()});
             buttonContainer.Axis = UILayoutConstraintAxis.Vertical;
@@ -297,6 +294,15 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _showStatDefinitionsButton.TouchUpInside += ShowStatDefinitions;
+            _showGroupFieldsButton.TouchUpInside += ShowGroupFields;
+            _showOrderByFieldsButton.TouchUpInside += ShowOrderByFields;
         }
 
         public override void ViewDidDisappear(bool animated)

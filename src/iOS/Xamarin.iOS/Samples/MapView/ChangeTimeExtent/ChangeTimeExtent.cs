@@ -55,7 +55,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
             DateTime start;
             DateTime end;
 
-            switch (((UISegmentedControl) sender).SelectedSegment)
+            switch (_timeExtentsButton.SelectedSegment)
             {
                 case 0:
                     // Hard-coded values: January 1st, 2000 - December 31st, 2000.
@@ -95,7 +95,6 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
                 ClipsToBounds = true,
                 Layer = { CornerRadius = 5 }
             };
-            _timeExtentsButton.ValueChanged += _timeExtentsButton_ValueChanged;
 
             // Add the views.
             View.AddSubviews(_myMapView, _timeExtentsButton);
@@ -112,6 +111,13 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
                 _timeExtentsButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
                 _timeExtentsButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _timeExtentsButton.ValueChanged += _timeExtentsButton_ValueChanged;
         }
 
         public override void ViewDidDisappear(bool animated)

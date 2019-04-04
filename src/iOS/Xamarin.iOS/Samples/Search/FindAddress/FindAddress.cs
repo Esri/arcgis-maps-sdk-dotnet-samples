@@ -233,15 +233,11 @@ namespace ArcGISRuntime.Samples.FindAddress
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            // Enable tap-for-callout pattern on results.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
             _addressSearchBar = new UISearchBar();
             _addressSearchBar.TranslatesAutoresizingMaskIntoConstraints = false;
             _addressSearchBar.UserInteractionEnabled = false;
             _addressSearchBar.ShowsSearchResultsButton = true;
-            _addressSearchBar.ListButtonClicked += AddressSearch_ListButtonClicked;
-            _addressSearchBar.SearchButtonClicked += AddressSearchBar_Clicked;
 
             // Add the views.
             View.AddSubviews(_myMapView, _addressSearchBar);
@@ -258,6 +254,17 @@ namespace ArcGISRuntime.Samples.FindAddress
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
                 _myMapView.TopAnchor.ConstraintEqualTo(_addressSearchBar.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            _addressSearchBar.ListButtonClicked += AddressSearch_ListButtonClicked;
+            _addressSearchBar.SearchButtonClicked += AddressSearchBar_Clicked;
+            
+            // Enable tap-for-callout pattern on results.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)

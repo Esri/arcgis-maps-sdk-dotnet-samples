@@ -72,11 +72,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
         public override void LoadView()
         {
             // Create the views.
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
             View = new UIView();
 
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            
             // Add the views.
             View.AddSubviews(_myMapView);
 

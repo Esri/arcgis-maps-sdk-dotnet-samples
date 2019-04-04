@@ -75,9 +75,6 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
                     throw new InvalidOperationException("No tour found. Can't enable touring for a KML file with no tours.");
                 }
 
-                // Listen for changes to the tour status.
-                _tourController.Tour.PropertyChanged += Tour_PropertyChanged;
-
                 // Enable the play button.
                 _playButton.Enabled = true;
 
@@ -165,14 +162,6 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
         // Reset the tour when the button is pressed.
         private void Reset_Clicked(object sender, EventArgs e) => _tourController?.Reset();
 
-        public override void ViewWillDisappear(bool animated)
-        {
-            base.ViewWillDisappear(animated);
-
-            // Reset the tour controller when the sample closes - avoids a crash.
-            _tourController?.Reset();
-        }
-
         public override void LoadView()
         {
             // Create the views.
@@ -184,9 +173,9 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _playButton = new UIBarButtonItem(UIBarButtonSystemItem.Play, Play_Clicked) {Enabled = false};
-            _pauseButton = new UIBarButtonItem(UIBarButtonSystemItem.Pause, Pause_Clicked) {Enabled = false};
-            _resetButton = new UIBarButtonItem(UIBarButtonSystemItem.Refresh, Reset_Clicked) {Enabled = false};
+            _playButton = new UIBarButtonItem(UIBarButtonSystemItem.Play) {Enabled = false};
+            _pauseButton = new UIBarButtonItem(UIBarButtonSystemItem.Pause) {Enabled = false};
+            _resetButton = new UIBarButtonItem(UIBarButtonSystemItem.Refresh) {Enabled = false};
 
             toolbar.Items = new UIBarButtonItem[]
             {
@@ -245,12 +234,36 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
             Initialize();
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _playButton.Clicked += Play_Clicked;
+            _pauseButton.Clicked += Pause_Clicked;
+            _resetButton.Clicked += Reset_Clicked;
+            
+            // Listen for changes to the tour status.
+            _tourController.Tour.PropertyChanged += Tour_PropertyChanged;
+        }
+
+        public override void ViewWillDisappear(bool animated)
+        {
+            base.ViewWillDisappear(animated);
+
+            // Reset the tour controller when the sample closes - avoids a crash.
+            _tourController?.Reset();
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from event.
             _tourController.Tour.PropertyChanged -= Tour_PropertyChanged;
+
+            _playButton.Clicked -= Play_Clicked;
+            _pauseButton.Clicked -= Pause_Clicked;
+            _resetButton.Clicked -= Reset_Clicked;
         }
     }
 }

@@ -257,12 +257,10 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             _inputParameter1 = new UITextField();
             _inputParameter1.TranslatesAutoresizingMaskIntoConstraints = false;
             _inputParameter1.BorderStyle = UITextBorderStyle.RoundedRect;
-            _inputParameter1.ShouldReturn += HandleTextField;
 
             _inputParameter2 = new UITextField();
             _inputParameter2.TranslatesAutoresizingMaskIntoConstraints = false;
             _inputParameter2.BorderStyle = UITextBorderStyle.RoundedRect;
-            _inputParameter2.ShouldReturn += HandleTextField;
 
             _labelParameter1 = new UILabel();
             _labelParameter1.TextAlignment = UITextAlignment.Right;
@@ -273,13 +271,11 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             _labelParameter2.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _updateRendererButton = new UIButton();
-            _updateRendererButton.TouchUpInside += UpdateRendererButton_Clicked;
             _updateRendererButton.SetTitle("Update renderer", UIControlState.Normal);
             _updateRendererButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _updateRendererButton.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _rendererTypes = new UISegmentedControl("Min/Max", "% Clip", "Std. Deviation");
-            _rendererTypes.ValueChanged += rendererTypes_ValueChanged;
             _rendererTypes.SelectedSegment = 0;
             _rendererTypes.TintColor = View.TintColor;
             _rendererTypes.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -336,6 +332,16 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
         {
             textField.ResignFirstResponder();
             return true;
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _inputParameter1.ShouldReturn += HandleTextField;
+            _inputParameter2.ShouldReturn += HandleTextField;
+            _updateRendererButton.TouchUpInside += UpdateRendererButton_Clicked;
+            _rendererTypes.ValueChanged += rendererTypes_ValueChanged;
         }
 
         public override void ViewDidDisappear(bool animated)

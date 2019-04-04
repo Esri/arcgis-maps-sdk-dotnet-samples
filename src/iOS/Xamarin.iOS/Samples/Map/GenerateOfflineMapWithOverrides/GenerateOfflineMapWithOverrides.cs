@@ -313,7 +313,8 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _takeMapOfflineButton = new UIBarButtonItem("Generate offline map", UIBarButtonItemStyle.Plain, TakeMapOfflineButton_Click);
+            _takeMapOfflineButton = new UIBarButtonItem();
+            _takeMapOfflineButton.Title = "Generate offline map";
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -365,6 +366,15 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             });
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            _takeMapOfflineButton.Clicked += TakeMapOfflineButton_Click;
+
+            if (_overridesVC != null) _overridesVC.FinishedConfiguring += ConfigurationContinuation;
+            if (_generateOfflineMapJob != null) _generateOfflineMapJob.ProgressChanged += OfflineMapJob_ProgressChanged;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
@@ -372,6 +382,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             // Unsubscribe from events, otherwise objects won't be disposed.
             _generateOfflineMapJob.ProgressChanged -= OfflineMapJob_ProgressChanged;
             _overridesVC.FinishedConfiguring -= ConfigurationContinuation;
+            _takeMapOfflineButton.Clicked -= TakeMapOfflineButton_Click;
         }
 
         #region Authentication
@@ -755,8 +766,6 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             _takeOfflineButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             innerStackView.AddArrangedSubview(_takeOfflineButton);
 
-            _takeOfflineButton.TouchUpInside += TakeOffline_Click;
-
             // Add the views.
             View.AddSubview(outerScroller);
             outerScroller.AddSubview(outerStackView);
@@ -849,7 +858,12 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             return rowView;
         }
 
-        private List<Tuple<UISlider, EventHandler>> _eventsToUnsub = new List<Tuple<UISlider, EventHandler>>();
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            _takeOfflineButton.TouchUpInside += TakeOffline_Click;
+        }
 
         public override void ViewDidDisappear(bool animated)
         {

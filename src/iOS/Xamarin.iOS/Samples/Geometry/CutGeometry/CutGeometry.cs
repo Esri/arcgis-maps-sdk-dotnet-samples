@@ -29,6 +29,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
     {
         // Hold a reference to the MapView.
         private MapView _myMapView;
+        private UIBarButtonItem _cutGeometryButton;
 
         // Graphics overlay to display the graphics.
         private GraphicsOverlay _graphicsOverlay;
@@ -201,12 +202,15 @@ namespace ArcGISRuntime.Samples.CutGeometry
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _cutGeometryButton = new UIBarButtonItem();
+            _cutGeometryButton.Title = "Cut geometry";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Cut geometry", UIBarButtonItemStyle.Plain, CutButton_TouchUpInside),
+                _cutGeometryButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -225,6 +229,20 @@ namespace ArcGISRuntime.Samples.CutGeometry
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _cutGeometryButton.Clicked += CutButton_TouchUpInside;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _cutGeometryButton.Clicked -= CutButton_TouchUpInside;
         }
     }
 }

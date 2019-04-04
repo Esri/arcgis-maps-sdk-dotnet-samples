@@ -143,7 +143,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
                 SelectedSegment = 1,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
-            _extrusionFieldButton.ValueChanged += ToggleExtrusionButton_Clicked;
 
             // Add the views.
             View.AddSubviews(_mySceneView, _extrusionFieldButton);
@@ -160,6 +159,13 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
                 _extrusionFieldButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
                 _extrusionFieldButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            _extrusionFieldButton.ValueChanged += ToggleExtrusionButton_Clicked;
         }
 
         public override void ViewDidDisappear(bool animated)

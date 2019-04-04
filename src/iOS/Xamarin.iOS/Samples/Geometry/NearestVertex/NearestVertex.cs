@@ -88,9 +88,6 @@ namespace ArcGISRuntime.Samples.NearestVertex
             _graphicsOverlay.Graphics.Add(_nearestVertexGraphic);
             _graphicsOverlay.Graphics.Add(_nearestCoordinateGraphic);
 
-            // Listen for taps; the spatial relationships will be updated in the handler.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
-
             // Center the map on the polygon.
             MapPoint centerPoint = new MapPoint(-4487263.495911, 3699176.480377, SpatialReferences.WebMercator);
             _myMapView.SetViewpointCenterAsync(centerPoint, 200000000);
@@ -166,6 +163,14 @@ namespace ArcGISRuntime.Samples.NearestVertex
                 _distanceLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _distanceLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Listen for taps; the spatial relationships will be updated in the handler.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)

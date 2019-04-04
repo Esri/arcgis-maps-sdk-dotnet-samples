@@ -29,6 +29,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         // Hold references to the UI controls.
         private MapView _myMapView;
         private SublayersTable _sublayersTableView;
+        private UIBarButtonItem _chooseLayersButton;
 
         // Hold a reference to the layer.
         private ArcGISMapImageLayer _mapImageLayer;
@@ -93,12 +94,15 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _chooseLayersButton = new UIBarButtonItem();
+            _chooseLayersButton.Title = "Choose sublayers";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Choose sublayers", UIBarButtonItemStyle.Plain, sublayerButton_Clicked),
+                _chooseLayersButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -117,6 +121,20 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _chooseLayersButton.Clicked += sublayerButton_Clicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _chooseLayersButton.Clicked -= sublayerButton_Clicked;
         }
     }
 

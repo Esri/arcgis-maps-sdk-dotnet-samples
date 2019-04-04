@@ -178,9 +178,6 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             _operationChoiceButton.ClipsToBounds = true;
             _operationChoiceButton.Layer.CornerRadius = 5;
 
-            // Listen for taps.
-            _operationChoiceButton.ValueChanged += _operationChoiceButton_ValueChanged;
-
             // Add the views.
             View.AddSubviews(_myMapView, _operationChoiceButton);
 
@@ -196,6 +193,14 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
                 _operationChoiceButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
                 _operationChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Listen for taps.
+            _operationChoiceButton.ValueChanged += _operationChoiceButton_ValueChanged;
         }
 
         public override void ViewDidDisappear(bool animated)

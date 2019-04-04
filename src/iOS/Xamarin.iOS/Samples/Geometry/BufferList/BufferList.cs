@@ -102,9 +102,6 @@ namespace ArcGISRuntime.Samples.BufferList
             // Add the graphics overlays to the MapView.
             _myMapView.GraphicsOverlays.Add(bufferGraphicsOverlay);
             _myMapView.GraphicsOverlays.Add(spatialReferenceGraphicsOverlay);
-
-            // Wire up the MapView's GeoViewTapped event handler.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -289,9 +286,14 @@ namespace ArcGISRuntime.Samples.BufferList
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _helpButton = new UIBarButtonItem("Help", UIBarButtonItemStyle.Plain, ShowHelpAlert);
-            _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ClearButton_Click);
-            _bufferButton = new UIBarButtonItem("Buffer", UIBarButtonItemStyle.Plain, PromptForUnionChoice);
+            _helpButton = new UIBarButtonItem();
+            _helpButton.Title = "Help";
+            
+            _resetButton = new UIBarButtonItem();
+            _resetButton.Title = "Reset";
+
+            _bufferButton = new UIBarButtonItem();
+            _bufferButton.Title = "Buffer";
 
             UIToolbar controlsToolbar = new UIToolbar();
             controlsToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -315,8 +317,6 @@ namespace ArcGISRuntime.Samples.BufferList
             _bufferDistanceEntry.LeftView = new UIView(new CGRect(0, 0, 5, 20));
             _bufferDistanceEntry.LeftViewMode = UITextFieldViewMode.Always;
             _bufferDistanceEntry.KeyboardType = UIKeyboardType.NumberPad;
-            // Allow pressing 'return' to dismiss the keyboard.
-            _bufferDistanceEntry.ShouldReturn += HandleTextField;
 
             UILabel bufferDistanceEntryLabel = new UILabel();
             bufferDistanceEntryLabel.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -356,6 +356,21 @@ namespace ArcGISRuntime.Samples.BufferList
             return true;
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Allow pressing 'return' to dismiss the keyboard.
+            _bufferDistanceEntry.ShouldReturn += HandleTextField;
+
+            // Wire up the MapView's GeoViewTapped event handler.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+
+            _helpButton.Clicked += ShowHelpAlert;
+            _resetButton.Clicked += ClearButton_Click;
+            _bufferButton.Clicked += PromptForUnionChoice;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
@@ -363,6 +378,10 @@ namespace ArcGISRuntime.Samples.BufferList
             // Unsubscribe from events, otherwise objects won't be disposed.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
             _bufferDistanceEntry.ShouldReturn -= HandleTextField;
+
+            _helpButton.Clicked -= ShowHelpAlert;
+            _resetButton.Clicked -= ClearButton_Click;
+            _bufferButton.Clicked -= PromptForUnionChoice;
         }
     }
 }

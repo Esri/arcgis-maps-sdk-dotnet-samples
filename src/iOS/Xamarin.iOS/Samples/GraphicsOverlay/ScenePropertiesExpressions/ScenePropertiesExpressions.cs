@@ -72,10 +72,6 @@ namespace ArcGISRuntimeXamarin.Samples.ScenePropertiesExpressions
 
             // Add the cone graphic to the overlay.
             overlay.Graphics.Add(_cone);
-
-            // Listen for changes in slider values and update graphic properties.
-            _headingSlider.ValueChanged += HeightSlider_ValueChanged;
-            _pitchSlider.ValueChanged += PitchSlider_ValueChanged;
         }
 
         private void HeightSlider_ValueChanged (object sender, EventArgs e)
@@ -163,6 +159,15 @@ namespace ArcGISRuntimeXamarin.Samples.ScenePropertiesExpressions
         {
             base.ViewDidLoad();
             Initialize();
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Listen for changes in slider values and update graphic properties.
+            _headingSlider.ValueChanged += HeightSlider_ValueChanged;
+            _pitchSlider.ValueChanged += PitchSlider_ValueChanged;
         }
 
         public override void ViewDidDisappear(bool animated)

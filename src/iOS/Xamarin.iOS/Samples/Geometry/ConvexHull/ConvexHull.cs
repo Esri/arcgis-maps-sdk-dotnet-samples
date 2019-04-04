@@ -30,6 +30,8 @@ namespace ArcGISRuntime.Samples.ConvexHull
         // Hold references to the UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _createHullButton;
+        private UIBarButtonItem _helpButton;
+        private UIBarButtonItem _resetButton;
 
         // Graphics overlay to display the graphics.
         private GraphicsOverlay _graphicsOverlay;
@@ -52,9 +54,6 @@ namespace ArcGISRuntime.Samples.ConvexHull
 
             // Add the created graphics overlay to the MapView.
             _myMapView.GraphicsOverlays.Add(_graphicsOverlay);
-
-            // Wire up the MapView's GeoViewTapped event handler.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -167,12 +166,18 @@ namespace ArcGISRuntime.Samples.ConvexHull
             _createHullButton =
                 new UIBarButtonItem("Create convex hull", UIBarButtonItemStyle.Plain, ConvexHullButton_Click) {Enabled = false};
 
+            _helpButton = new UIBarButtonItem();
+            _helpButton.Title = "Help";
+
+            _resetButton = new UIBarButtonItem();
+            _resetButton.Title = "Reset";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("Help", UIBarButtonItemStyle.Plain, HelpButton_Click),
-                new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ResetButton_Click),
+                _helpButton,
+                _resetButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _createHullButton
             };
@@ -194,12 +199,24 @@ namespace ArcGISRuntime.Samples.ConvexHull
             });
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Wire up the MapView's GeoViewTapped event handler.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+            _helpButton.Clicked += HelpButton_Click;
+            _resetButton.Clicked += ResetButton_Click;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
 
             // Unsubscribe to tap events. The view will never be disposed otherwise.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
+            _helpButton.Clicked -= HelpButton_Click;
+            _resetButton.Clicked -= ResetButton_Click;
         }
     }
 }

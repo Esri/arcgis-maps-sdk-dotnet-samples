@@ -32,6 +32,9 @@ namespace ArcGISRuntime.Samples.FindRoute
     {
         // Hold a reference to the MapView.
         private MapView _myMapView;
+        private UIBarButtonItem _solveRouteButton;
+        private UIBarButtonItem _resetButton;
+        private UIBarButtonItem _directionsButton;
 
         // List of stops on the route ('from' and 'to').
         private List<Stop> _routeStops;
@@ -196,13 +199,22 @@ namespace ArcGISRuntime.Samples.FindRoute
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _solveRouteButton = new UIBarButtonItem();
+            _solveRouteButton.Title = "Solve route";
+
+            _resetButton = new UIBarButtonItem();
+            _resetButton.Title = "Reset";
+
+            _directionsButton = new UIBarButtonItem();
+            _directionsButton.Title = "Directions";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("Solve route", UIBarButtonItemStyle.Plain, SolveRouteButton_Click),
-                new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ResetButton_Click),
-                new UIBarButtonItem("Directions", UIBarButtonItemStyle.Plain, ShowDirections)
+                _solveRouteButton,
+                _resetButton,
+                _directionsButton
             };
 
             // Add the views.
@@ -220,6 +232,24 @@ namespace ArcGISRuntime.Samples.FindRoute
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _solveRouteButton.Clicked += SolveRouteButton_Click;
+            _directionsButton.Clicked += ShowDirections;
+            _resetButton.Clicked += ResetButton_Click;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _solveRouteButton.Clicked -= SolveRouteButton_Click;
+            _directionsButton.Clicked -= ShowDirections;
+            _resetButton.Clicked -= ResetButton_Click;
         }
     }
 

@@ -86,9 +86,13 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _screenshotButton = new UIBarButtonItem("Take screenshot", UIBarButtonItemStyle.Plain, OnScreenshotButtonClicked);
-            _closePreviewButton = new UIBarButtonItem("Close preview", UIBarButtonItemStyle.Plain, OnCloseImageViewClicked) { Enabled = false };
-            
+            _screenshotButton = new UIBarButtonItem();
+            _screenshotButton.Title = "Take screenshot";
+
+            _closePreviewButton = new UIBarButtonItem();
+            _closePreviewButton.Title = "Close preview";
+            _closePreviewButton.Enabled = false;
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
@@ -135,6 +139,22 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
                 _overlayImageView.TopAnchor.ConstraintEqualTo(_overlayView.TopAnchor),
                 _overlayImageView.BottomAnchor.ConstraintEqualTo(_overlayView.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            _screenshotButton.Clicked += OnScreenshotButtonClicked;
+            _closePreviewButton.Clicked += OnCloseImageViewClicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            _screenshotButton.Clicked -= OnScreenshotButtonClicked;
+            _closePreviewButton.Clicked -= OnCloseImageViewClicked;
         }
     }
 }

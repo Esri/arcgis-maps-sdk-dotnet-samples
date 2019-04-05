@@ -98,7 +98,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
                 IReadOnlyList<PreplannedMapArea> preplannedAreas = await _offlineMapTask.GetPreplannedMapAreasAsync();
 
                 // Load each item, then add it to the list of areas.
-                foreach (var area in preplannedAreas)
+                foreach (PreplannedMapArea area in preplannedAreas)
                 {
                     await area.LoadAsync();
                     _mapAreas.Add(area);
@@ -126,7 +126,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             _progressView.Show();
 
             // Create folder path where the map package will be downloaded.
-            var path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
+            string path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
 
             // If the area is already downloaded, open it.
             if (Directory.Exists(path))
@@ -134,7 +134,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
                 try
                 {
                     // Open the offline map package.
-                    var localMapArea = await MobileMapPackage.OpenAsync(path);
+                    MobileMapPackage localMapArea = await MobileMapPackage.OpenAsync(path);
 
                     // Open the first map in the package.
                     _myMapView.Map = localMapArea.Maps.First();
@@ -213,7 +213,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             RunOnUiThread(() =>
             {
                 // Update the UI with the progress.
-                var downloadJob = sender as DownloadPreplannedOfflineMapJob;
+                DownloadPreplannedOfflineMapJob downloadJob = sender as DownloadPreplannedOfflineMapJob;
                 _progressBar.SetProgress(downloadJob.Progress, true);
                 _progressView.SetMessage($"{downloadJob.Progress}%");
             });
@@ -264,7 +264,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
-            var layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
+            LinearLayout layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
 
             // Add a help label.
             _helpLabel = new TextView(this);

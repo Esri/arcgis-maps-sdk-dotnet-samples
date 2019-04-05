@@ -92,7 +92,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
                 IReadOnlyList<PreplannedMapArea> preplannedAreas = await _offlineMapTask.GetPreplannedMapAreasAsync();
 
                 // Load each item, then add it to the list of areas.
-                foreach (var area in preplannedAreas)
+                foreach (PreplannedMapArea area in preplannedAreas)
                 {
                     await area.LoadAsync();
                     _mapAreas.Add(area);
@@ -132,14 +132,14 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             _helpLabel.Text = "Downloading map area...";
 
             // Create folder path where the map package will be downloaded.
-            var path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
+            string path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
 
             // If the area is already downloaded, open it.
             if (Directory.Exists(path))
             {
                 try
                 {
-                    var localMapArea = await MobileMapPackage.OpenAsync(path);
+                    MobileMapPackage localMapArea = await MobileMapPackage.OpenAsync(path);
                     _myMapView.Map = localMapArea.Maps.First();
 
                     _helpLabel.Text = "Opened offline area.";
@@ -210,7 +210,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             InvokeOnMainThread(() =>
             {
                 // Update the UI with the progress.
-                var downloadJob = sender as DownloadPreplannedOfflineMapJob;
+                DownloadPreplannedOfflineMapJob downloadJob = sender as DownloadPreplannedOfflineMapJob;
                 _helpLabel.Text = $"Downloading map area... ({downloadJob.Progress}%).";
             });
         }
@@ -219,7 +219,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
         {
             // Show the layer list popover. Note: most behavior is managed by the table view & its source. See MapViewModel.
             _tableDisplayController = new UINavigationController(_tableController);
-            var closeButton = new UIBarButtonItem("Close", UIBarButtonItemStyle.Plain, (o, ea) => _tableDisplayController.DismissViewController(true, null));
+            UIBarButtonItem closeButton = new UIBarButtonItem("Close", UIBarButtonItemStyle.Plain, (o, ea) => _tableDisplayController.DismissViewController(true, null));
             _tableDisplayController.NavigationBar.Items[0].SetRightBarButtonItem(closeButton, false);
             _tableDisplayController.ModalPresentationStyle = UIModalPresentationStyle.Popover;
             _tableDisplayController.PreferredContentSize = new CGSize(300, 250);
@@ -362,7 +362,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             // Gets a cell for the specified section and row.
-            var cell = new UITableViewCell(UITableViewCellStyle.Subtitle, CellIdentifier);
+            UITableViewCell cell = new UITableViewCell(UITableViewCellStyle.Subtitle, CellIdentifier);
             PreplannedMapArea selectedMap = _maps[indexPath.Row];
 
             cell.TextLabel.Text = selectedMap.PortalItem.Title;

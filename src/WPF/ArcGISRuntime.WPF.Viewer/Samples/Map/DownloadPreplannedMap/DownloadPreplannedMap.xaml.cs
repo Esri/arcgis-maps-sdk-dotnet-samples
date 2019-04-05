@@ -77,7 +77,7 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
                 IReadOnlyList<PreplannedMapArea> preplannedAreas = await _offlineMapTask.GetPreplannedMapAreasAsync();
 
                 // Load each item, then add it to the UI.
-                foreach (var area in preplannedAreas)
+                foreach (PreplannedMapArea area in preplannedAreas)
                 {
                     await area.LoadAsync();
                     AreasList.Items.Add(area);
@@ -103,7 +103,7 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
             BusyIndicator.Visibility = Visibility.Visible;
 
             // Create folder path where the map package will be downloaded.
-            var path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
+            string path = Path.Combine(_offlineDataFolder, mapArea.PortalItem.Title);
 
             // If the area is already downloaded, open it.
             if (Directory.Exists(path))
@@ -111,7 +111,7 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
                 try
                 {
                     // Open the downloaded mobile map package.
-                    var localMapArea = await MobileMapPackage.OpenAsync(path);
+                    MobileMapPackage localMapArea = await MobileMapPackage.OpenAsync(path);
 
                     // Show the first map.
                     MyMapView.Map = localMapArea.Maps.First();
@@ -189,7 +189,7 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
             Dispatcher.Invoke(() =>
             {
                 // Update the UI with the progress.
-                var downloadJob = sender as DownloadPreplannedOfflineMapJob;
+                DownloadPreplannedOfflineMapJob downloadJob = sender as DownloadPreplannedOfflineMapJob;
                 ProgressBar.Value = downloadJob.Progress;
                 BusyPercentage.Text = $"{downloadJob.Progress}%";
             });
@@ -207,7 +207,7 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
 
         private async void OnDownloadMapAreaClicked(object sender, RoutedEventArgs e)
         {
-            var selectedMapArea = AreasList.SelectedItem as PreplannedMapArea;
+            PreplannedMapArea selectedMapArea = AreasList.SelectedItem as PreplannedMapArea;
             await DownloadMapAreaAsync(selectedMapArea);
         }
 

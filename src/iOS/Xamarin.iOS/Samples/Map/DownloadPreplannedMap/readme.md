@@ -10,7 +10,7 @@ When a map is taken offline, a package containing basemap tiles, feature data, a
 
 ## How to use the sample
 
-Click 'Download area' to see a list of areas, then select a map area to take offline. Click 'Delete offline areas' to remove any downloaded map areas.
+Click 'Download area' to see a list of areas, then select a map area to take offline. If the area is already offline, the offline copy will be opened. Click 'Delete offline areas' to remove any downloaded map areas.
 
 ## How it works
 

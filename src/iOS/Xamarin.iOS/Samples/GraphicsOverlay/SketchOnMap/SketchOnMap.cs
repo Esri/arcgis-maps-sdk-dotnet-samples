@@ -346,6 +346,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from events.
+            _myMapView.SketchEditor.CancelCommand.Execute(null);
             _myMapView.SketchEditor.UndoCommand.CanExecuteChanged -= CanExecuteChanged;
             _myMapView.SketchEditor.RedoCommand.CanExecuteChanged -= CanExecuteChanged;
             _myMapView.SketchEditor.CompleteCommand.CanExecuteChanged -= CanExecuteChanged;

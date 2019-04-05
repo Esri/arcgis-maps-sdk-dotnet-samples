@@ -245,9 +245,6 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             // Create a polyline to symbolize the route from the point collection.
             _routeGraphic.Geometry = new Polyline(points);
 
-            // Update the inset map's scale.
-            await _insetMapView.SetViewpointScaleAsync(100000);
-
             // Update animation parameters.
             _frameCount = _missionData.Length;
             _keyframe = 0;
@@ -303,8 +300,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             _plane2D.Geometry = currentFrame.ToMapPoint();
 
             // Update inset's viewpoint and heading.
-            Viewpoint vp = new Viewpoint(currentFrame.ToMapPoint(), _insetMapView.MapScale,
-                360 + (float) currentFrame.Heading);
+            Viewpoint vp = new Viewpoint(currentFrame.ToMapPoint(), 100000, 360 + (float) currentFrame.Heading);
             _insetMapView.SetViewpoint(vp);
 
             // Update the keyframe. This advances the animation.

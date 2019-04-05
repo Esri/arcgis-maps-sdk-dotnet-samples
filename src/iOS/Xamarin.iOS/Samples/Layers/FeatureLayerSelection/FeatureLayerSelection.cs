@@ -38,7 +38,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
             Title = "Feature layer Selection";
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Create new Map with basemap.
             Map myMap = new Map(Basemap.CreateLightGrayCanvas());

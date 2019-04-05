@@ -108,6 +108,7 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
                 if (currentNode is KmlTour tourNode)
                 {
                     _tourController.Tour = tourNode;
+                    _tourController.Tour.PropertyChanged += Tour_PropertyChanged;
                     return;
                 }
 
@@ -241,9 +242,13 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
             _playButton.Clicked += Play_Clicked;
             _pauseButton.Clicked += Pause_Clicked;
             _resetButton.Clicked += Reset_Clicked;
-            
+
             // Listen for changes to the tour status.
-            _tourController.Tour.PropertyChanged += Tour_PropertyChanged;
+            if (_tourController.Tour != null)
+            {
+                _tourController.Tour.PropertyChanged -= Tour_PropertyChanged;
+                _tourController.Tour.PropertyChanged += Tour_PropertyChanged;
+            }
         }
 
         public override void ViewWillDisappear(bool animated)
@@ -259,7 +264,7 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from event.
-            _tourController.Tour.PropertyChanged -= Tour_PropertyChanged;
+            if (_tourController.Tour != null) _tourController.Tour.PropertyChanged -= Tour_PropertyChanged;
 
             _playButton.Clicked -= Play_Clicked;
             _pauseButton.Clicked -= Pause_Clicked;

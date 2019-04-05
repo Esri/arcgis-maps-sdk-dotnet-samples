@@ -98,6 +98,9 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
                 // Assign the table view source to the table view control.
                 _tableView.Source = _commentsTableSource;
 
+                // Subscribe to event.
+                _commentsTableSource.ServiceRequestCommentSelected += CommentsTableSource_ServiceRequestCommentSelected;
+
                 // Create a graphics overlay to show selected features and add it to the map view.
                 _selectedFeaturesOverlay = new GraphicsOverlay();
                 _myMapView.GraphicsOverlays.Add(_selectedFeaturesOverlay);
@@ -234,7 +237,12 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             base.ViewWillAppear(animated);
             
             // Handle a new selection in the table source.
-            _commentsTableSource.ServiceRequestCommentSelected += CommentsTableSource_ServiceRequestCommentSelected;
+            if (_commentsTableSource != null)
+            {
+                // Avoid duplicate subscription.
+                _commentsTableSource.ServiceRequestCommentSelected -= CommentsTableSource_ServiceRequestCommentSelected;
+                _commentsTableSource.ServiceRequestCommentSelected += CommentsTableSource_ServiceRequestCommentSelected;
+            }
         }
 
         public override void ViewDidDisappear(bool animated)

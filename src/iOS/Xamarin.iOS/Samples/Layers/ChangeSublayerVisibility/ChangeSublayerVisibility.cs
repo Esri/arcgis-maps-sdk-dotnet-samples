@@ -218,7 +218,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-            _visibilitySwitch.ValueChanged -= VisibilitySwitch_ValueChanged;
+            BeginInvokeOnMainThread(() => _visibilitySwitch.ValueChanged -= VisibilitySwitch_ValueChanged);
         }
     }
 }

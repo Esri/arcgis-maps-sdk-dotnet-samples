@@ -137,6 +137,27 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
             });
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            if (_layerListSource != null)
+            {
+                _layerListSource.Owner = this;
+            }
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            if (_layerListSource != null)
+            {
+                // Avoid circular reference.
+                _layerListSource.Owner = null;
+            }
+        }
+
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
         {
             base.TraitCollectionDidChange(previousTraitCollection);
@@ -408,7 +429,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
         private const string CellId = "KmlContentCell";
 
         // Hold a reference to the owning view controller; this will be the active instance of ListKmlContents.
-        private ListKmlContents Owner { get; }
+        public ListKmlContents Owner { get; set; }
 
         public LayerListSource(List<LayerDisplayVM> items, ListKmlContents owner)
         {

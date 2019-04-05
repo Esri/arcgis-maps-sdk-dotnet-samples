@@ -24,6 +24,10 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         "")]
     public class ManageBookmarks : UIViewController
     {
+        ~ManageBookmarks()
+        {
+            System.Diagnostics.Debug.WriteLine(GetType().Name);
+        }
         // Hold a reference to the MapView.
         private MapView _myMapView;
         private UIBarButtonItem _bookmarksButton;
@@ -94,9 +98,13 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             // Add Text Input.
             textInputAlertController.AddTextField(textField => { });
 
+
+
             // Add Actions.
             var cancelAction = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null);
-            var okayAction = UIAlertAction.Create("Done", UIAlertActionStyle.Default, alertAction =>
+            var okayAction = UIAlertAction.Create("Done", UIAlertActionStyle.Default, handleAlertAction);
+
+            void handleAlertAction (UIAlertAction action)
             {
                 // Get the name from the text field.
                 string name = textInputAlertController.TextFields[0].Text;
@@ -109,7 +117,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
                 bool doesNameExist = _myMapView.Map.Bookmarks.Any(b => b.Name == name);
                 if (doesNameExist)
                     return;
-
+                
                 // Create a new bookmark.
                 Bookmark myBookmark = new Bookmark
                 {
@@ -120,7 +128,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
 
                 // Add the bookmark to bookmark collection of the map.
                 _myMapView.Map.Bookmarks.Add(myBookmark);
-            });
+            }
 
             textInputAlertController.AddAction(cancelAction);
             textInputAlertController.AddAction(okayAction);

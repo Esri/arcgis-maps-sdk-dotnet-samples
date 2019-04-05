@@ -118,6 +118,8 @@
   <ItemGroup>
     <!-- Screenshots -->
     <Content Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
+    <Content Include="Samples\Layers\GroupLayers\GroupLayers.jpg" />
+    <Content Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.jpg" />
     <Content Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
     <Content Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
     <Content Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
@@ -329,6 +331,12 @@
     <!-- Sample Code -->
     <Compile Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml.cs">
       <DependentUpon>DownloadPreplannedMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\GroupLayers\GroupLayers.xaml.cs">
+      <DependentUpon>GroupLayers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.xaml.cs">
+      <DependentUpon>OfflineBasemapByReference.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\PlayKmlTours\PlayKmlTours.xaml.cs">
       <DependentUpon>PlayKmlTours.xaml</DependentUpon>
@@ -825,6 +833,14 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\GroupLayers\GroupLayers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

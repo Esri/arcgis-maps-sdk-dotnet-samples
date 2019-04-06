@@ -8,7 +8,7 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Forms.Samples.Map.GenerateOfflineMapWithOverrides
+namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ConfigureOverridesPage : ContentPage

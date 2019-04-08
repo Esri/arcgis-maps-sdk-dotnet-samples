@@ -66,7 +66,7 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
             var popoverPresentationController = basemapSelectionAlert.PopoverPresentationController;
             if (popoverPresentationController != null)
             {
-                popoverPresentationController.BarButtonItem = (UIBarButtonItem)sender;
+                popoverPresentationController.BarButtonItem = (UIBarButtonItem) sender;
             }
 
             // Show the alert.

@@ -75,7 +75,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
         private void DamageTable_Loaded(object sender, EventArgs e)
         {
             // Unsubscribe from event.
-            ((ServiceFeatureTable)sender).Loaded -= DamageTable_Loaded;
+            ((ServiceFeatureTable) sender).Loaded -= DamageTable_Loaded;
 
             // This code needs to work with the UI, so it needs to run on the UI thread.
             BeginInvokeOnMainThread(() =>
@@ -112,7 +112,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
                 }
 
                 // Get the tapped feature.
-                _selectedFeature = (ArcGISFeature)identifyResult.GeoElements.First();
+                _selectedFeature = (ArcGISFeature) identifyResult.GeoElements.First();
 
                 // Select the feature.
                 _damageLayer.SelectFeature(_selectedFeature);
@@ -258,7 +258,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Listen for user taps on the map - this will select the feature.
             _myMapView.GeoViewTapped += MapView_Tapped;
             if (_changeValueButton != null) _changeValueButton.TouchUpInside += ShowDamageTypeChoices;

@@ -37,6 +37,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
 
         // Constants for the service URL and layer name.
         private const string ServiceUrl = "https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer?service=wfs&request=getcapabilities";
+
         // Note that the layer name is defined by the service. The layer name can be accessed via WfsLayerInfo.Name. 
         private const string LayerName = "Seattle_Downtown_Features:Buildings";
 
@@ -128,7 +129,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
 
             _loadingProgressBar = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
             {
-                HidesWhenStopped = true, 
+                HidesWhenStopped = true,
                 BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
@@ -148,7 +149,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
             View.AddSubviews(_myMapView, helpLabel, _loadingProgressBar);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
@@ -174,7 +175,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Use the navigation completed event to populate the table with the features needed for the current extent.
             _myMapView.NavigationCompleted += MapView_NavigationCompleted;
         }

@@ -156,7 +156,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Subscribe to tap events - starting point for feature identification.
             _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
         }

@@ -304,7 +304,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                 TintColor = UIColor.White,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
-            
+
             // Clean up borders of segmented control - avoid corner pixels.
             _segmentButton.ClipsToBounds = true;
             _segmentButton.Layer.CornerRadius = 5;
@@ -313,7 +313,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             View.AddSubviews(_myMapView, _segmentButton);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -329,7 +329,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             _segmentButton.ValueChanged += SegmentButtonClicked;
 
             // Listen to the sketch editor tools CanExecuteChange so controls can be enabled/disabled.

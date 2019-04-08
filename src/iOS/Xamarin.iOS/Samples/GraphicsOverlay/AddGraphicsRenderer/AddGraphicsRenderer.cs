@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.AddGraphicsRenderer
         {
             Title = "Add graphics (Renderer)";
         }
-        
+
         private void Initialize()
         {
             // Create a map with 'Imagery with Labels' basemap and an initial location.

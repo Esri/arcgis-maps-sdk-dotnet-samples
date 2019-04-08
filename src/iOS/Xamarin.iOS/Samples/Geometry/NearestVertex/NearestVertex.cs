@@ -151,7 +151,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
             View.AddSubviews(_myMapView, _distanceLabel);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -168,7 +168,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Listen for taps; the spatial relationships will be updated in the handler.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }

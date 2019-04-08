@@ -211,7 +211,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
         private void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
-            Map map = (Map)sender;
+            Map map = (Map) sender;
 
             // Report errors if map failed to load.
             if (e.Status == LoadStatus.Loaded)

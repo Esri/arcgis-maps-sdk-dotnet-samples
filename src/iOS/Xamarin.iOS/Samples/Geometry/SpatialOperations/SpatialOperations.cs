@@ -182,7 +182,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             View.AddSubviews(_myMapView, _operationChoiceButton);
 
             // Lay out views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -198,7 +198,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Listen for taps.
             _operationChoiceButton.ValueChanged += _operationChoiceButton_ValueChanged;
         }

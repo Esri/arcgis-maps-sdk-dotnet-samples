@@ -194,7 +194,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             View.AddSubviews(_myMapView, toolbar, _progressBar);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),

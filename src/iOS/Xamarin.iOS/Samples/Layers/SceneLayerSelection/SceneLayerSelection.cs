@@ -135,7 +135,7 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Listen for taps.
             _mySceneView.GeoViewTapped += SceneViewTapped;
         }

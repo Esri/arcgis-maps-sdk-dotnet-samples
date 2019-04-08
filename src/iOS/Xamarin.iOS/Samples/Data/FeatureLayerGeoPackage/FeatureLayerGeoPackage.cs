@@ -35,7 +35,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
         {
             Title = "Feature layer (GeoPackage)";
         }
-        
+
         private async void Initialize()
         {
             // Create a new map centered on Aurora Colorado.

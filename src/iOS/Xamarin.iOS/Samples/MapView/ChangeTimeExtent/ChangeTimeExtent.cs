@@ -93,7 +93,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 // Clean up borders of segmented control - avoid corner pixels.
                 ClipsToBounds = true,
-                Layer = { CornerRadius = 5 }
+                Layer = {CornerRadius = 5}
             };
 
             // Add the views.

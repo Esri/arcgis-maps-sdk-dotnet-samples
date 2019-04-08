@@ -103,7 +103,7 @@ namespace ArcGISRuntimeXamarin.Samples.Project
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Respond to user taps.
             _myMapView.GeoViewTapped += MapView_Tapped;
         }

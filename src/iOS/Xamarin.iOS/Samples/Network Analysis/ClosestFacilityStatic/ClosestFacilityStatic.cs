@@ -67,7 +67,7 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
         {
             Title = "Closest facility (static)";
         }
-        
+
         private async void Initialize()
         {
             try

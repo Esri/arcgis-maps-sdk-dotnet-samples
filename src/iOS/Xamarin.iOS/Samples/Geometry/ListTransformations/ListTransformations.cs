@@ -98,7 +98,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         private void MyMap_Loaded(object sender, EventArgs e)
         {
             // Unsubscribe from event.
-            ((Map)sender).Loaded -= MyMap_Loaded;
+            ((Map) sender).Loaded -= MyMap_Loaded;
 
             // Get the map's spatial reference.
             SpatialReference mapSpatialReference = ((Map) sender).SpatialReference;
@@ -147,6 +147,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             {
                 tm.TransformationSelected -= TransformationsPicker_TransformationSelected;
             }
+
             pickerModel.TransformationSelected += TransformationsPicker_TransformationSelected;
 
             // Apply the model to the picker.
@@ -274,7 +275,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             View.AddSubviews(_outerStackView);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _outerStackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _outerStackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),

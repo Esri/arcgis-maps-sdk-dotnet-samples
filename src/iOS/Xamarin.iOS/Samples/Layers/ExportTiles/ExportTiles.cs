@@ -317,7 +317,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
             View.AddSubviews(_myMapView, toolbar, _statusIndicator);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -338,7 +338,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Subscribe to changes in the mapview's viewpoint so the preview box can be kept in position.
             _myMapView.ViewpointChanged += MyMapView_ViewpointChanged;
             _exportTilesButton.Clicked += MyExportButton_Click;

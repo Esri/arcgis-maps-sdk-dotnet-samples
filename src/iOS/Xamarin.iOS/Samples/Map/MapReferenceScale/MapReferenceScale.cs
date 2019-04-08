@@ -187,7 +187,7 @@ namespace ArcGISRuntimeXamarin.Samples.MapReferenceScale
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Update the UI when the map navigates.
             _myMapView.ViewpointChanged += MapView_ViewpointChanged;
             _referenceScaleButton.Clicked += ShowScaleOptions_Click;

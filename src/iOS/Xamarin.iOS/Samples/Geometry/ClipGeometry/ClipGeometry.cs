@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         {
             Title = "Clip geometry";
         }
-        
+
         private void Initialize()
         {
             // Create and show a new map using the WebMercator spatial reference.
@@ -239,7 +239,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
 
             // Add the views.
             View.AddSubviews(_myMapView, toolbar);
-            
+
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {

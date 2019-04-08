@@ -279,7 +279,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             View.AddSubviews(_mySceneView, sliderToolbar, _statusLabel);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 sliderToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
                 sliderToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),

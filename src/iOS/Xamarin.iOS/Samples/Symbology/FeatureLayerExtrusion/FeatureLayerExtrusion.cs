@@ -36,7 +36,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         {
             Title = "Feature layer extrusion";
         }
-        
+
         private void Initialize()
         {
             try
@@ -111,7 +111,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             RendererSceneProperties sceneProperties = censusRenderer.SceneProperties;
 
             // Toggle the feature layer's scene properties renderer extrusion expression and change the button text.
-            if (((UISegmentedControl)sender).SelectedSegment == 0)
+            if (((UISegmentedControl) sender).SelectedSegment == 0)
             {
                 // An offset of 100000 is added to ensure that polygons for large areas (like Alaska)
                 // with low populations will be extruded above the curvature of the Earth.
@@ -148,7 +148,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             View.AddSubviews(_mySceneView, _extrusionFieldButton);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _mySceneView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -164,7 +164,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             _extrusionFieldButton.ValueChanged += ToggleExtrusionButton_Clicked;
         }
 

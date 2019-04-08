@@ -350,7 +350,7 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Enable tap-to-reverse geocode and tap-to-route.
             _myMapView.GeoViewTapped += MapView_Tapped;
 

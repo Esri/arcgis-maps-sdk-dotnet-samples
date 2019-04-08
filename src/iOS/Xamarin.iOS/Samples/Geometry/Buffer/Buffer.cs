@@ -185,7 +185,7 @@ namespace ArcGISRuntime.Samples.Buffer
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
-            UIView formArea = new UIView { BackgroundColor = UIColor.White };
+            UIView formArea = new UIView {BackgroundColor = UIColor.White};
             formArea.TranslatesAutoresizingMaskIntoConstraints = false;
 
             UILabel bufferInputLabel = new UILabel
@@ -234,7 +234,7 @@ namespace ArcGISRuntime.Samples.Buffer
 
             UIView spacer = new UIView();
             spacer.TranslatesAutoresizingMaskIntoConstraints = false;
-            spacer.SetContentCompressionResistancePriority((float)UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
+            spacer.SetContentCompressionResistancePriority((float) UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
             legendView.AddArrangedSubview(spacer);
 
             _planarSwatchSwatch = new UIView();
@@ -326,7 +326,7 @@ namespace ArcGISRuntime.Samples.Buffer
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Handle the MapView's GeoViewTapped event to create buffers.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 

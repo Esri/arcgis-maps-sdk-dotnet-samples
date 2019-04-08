@@ -201,7 +201,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
 
             UIView spacer = new UIView();
             spacer.TranslatesAutoresizingMaskIntoConstraints = false;
-            spacer.SetContentCompressionResistancePriority((float)UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
+            spacer.SetContentCompressionResistancePriority((float) UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
             legendView.AddArrangedSubview(spacer);
 
             UIView blueIcon = new UIView();
@@ -257,7 +257,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Listen for slider changes.
             _timeSlider.ValueChanged += TimeSlider_ValueChanged;
         }

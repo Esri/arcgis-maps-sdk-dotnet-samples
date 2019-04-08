@@ -178,7 +178,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
 
             _helpButton = new UIBarButtonItem();
             _helpButton.Title = "Help";
-            
+
             _changeUnitsButton = new UIBarButtonItem();
             _changeUnitsButton.Title = "Change units";
 
@@ -193,7 +193,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             View.AddSubviews(_mySceneView, toolbar, _resultLabel);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),

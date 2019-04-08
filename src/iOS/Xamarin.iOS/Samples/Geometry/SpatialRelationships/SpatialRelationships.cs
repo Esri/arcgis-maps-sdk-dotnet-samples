@@ -271,7 +271,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             View.AddSubview(_stackView);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -298,7 +298,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Listen for taps; the spatial relationships will be updated in the handler.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }

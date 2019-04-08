@@ -76,7 +76,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            
+
             // Add the views.
             View.AddSubviews(_myMapView);
 

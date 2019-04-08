@@ -240,7 +240,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             }
 
             // These methods tell the table view what to show.
+
             #region table view source overrides
+
             public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
             {
                 // Gets a cell for the specified row.
@@ -327,12 +329,15 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                 {
                     return UITableViewCellEditingStyle.Delete;
                 }
+
                 // Otherwise, this is the insert row, so use the 'Insert' editing style.
                 return UITableViewCellEditingStyle.Insert;
             }
+
             #endregion table view source overrides
 
             #region attachment actions
+
             private async void AddAttachment(UITableView tableView)
             {
                 // Get the image to upload.
@@ -413,7 +418,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                     imagePreviewVC.View = new UIView {BackgroundColor = UIColor.White};
                     imagePreviewVC.View.AddSubview(imageView);
                     imagePreviewVC.Title = "Attachment preview";
-                    NSLayoutConstraint.ActivateConstraints(new []
+                    NSLayoutConstraint.ActivateConstraints(new[]
                     {
                         imageView.TopAnchor.ConstraintEqualTo(imagePreviewVC.View.SafeAreaLayoutGuide.TopAnchor),
                         imageView.LeftAnchor.ConstraintEqualTo(imagePreviewVC.View.SafeAreaLayoutGuide.LeftAnchor),
@@ -429,9 +434,11 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                     _viewController.ShowMessage("This sample can only show image attachments", "Can't show attachment");
                 }
             }
+
             #endregion attachment actions
 
             #region file picker
+
             // Note: this code is adapted from https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/dependency-service/photo-picker
             private Task<Stream> GetImageStreamAsync()
             {
@@ -500,6 +507,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                 _imagePicker.FinishedPickingMedia -= OnImagePickerFinishedPickingMedia;
                 _imagePicker.Canceled -= OnImagePickerCancelled;
             }
+
             #endregion file picker
         }
     }

@@ -127,7 +127,7 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
             View.AddSubviews(_myMapView, _distanceLabel);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),

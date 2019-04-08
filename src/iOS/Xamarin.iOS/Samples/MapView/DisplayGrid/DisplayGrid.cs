@@ -280,7 +280,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
             _labelColorButton = new UIBarButtonItem();
             _labelColorButton.Title = "Text color";
-            
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]

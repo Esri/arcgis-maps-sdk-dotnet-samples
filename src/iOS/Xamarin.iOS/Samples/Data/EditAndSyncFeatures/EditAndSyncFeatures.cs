@@ -241,6 +241,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                             // Update the help label.
                             _helpLabel.Text = "3. Tap on the map to move the point";
                         }
+
                         break;
                 }
             }
@@ -591,7 +592,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             View.AddSubviews(_myMapView, _helpLabel, _progressBar, toolbar);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
@@ -617,7 +618,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Set up an event handler for 'tapped' events.
             _myMapView.GeoViewTapped += GeoViewTapped;
 
@@ -638,8 +639,8 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             // Unsubscribe to tap events. The view will never be disposed otherwise.
             _myMapView.GeoViewTapped -= GeoViewTapped;
             _myMapView.ViewpointChanged -= MapViewExtentChanged;
-            if(_gdbSyncJob != null)_gdbSyncJob.ProgressChanged -= Job_ProgressChanged;
-            if(_gdbGenJob != null)_gdbGenJob.ProgressChanged -= GenerateGdbJob_ProgressChanged;
+            if (_gdbSyncJob != null) _gdbSyncJob.ProgressChanged -= Job_ProgressChanged;
+            if (_gdbGenJob != null) _gdbGenJob.ProgressChanged -= GenerateGdbJob_ProgressChanged;
             _generateButton.Clicked -= GenerateButton_Clicked;
             _syncButton.Clicked -= SyncButton_Click;
         }

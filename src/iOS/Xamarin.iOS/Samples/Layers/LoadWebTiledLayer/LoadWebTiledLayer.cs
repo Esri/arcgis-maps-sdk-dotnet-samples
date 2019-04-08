@@ -76,7 +76,7 @@ namespace ArcGISRuntime.Samples.LoadWebTiledLayer
             View.AddSubviews(_myMapView);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),

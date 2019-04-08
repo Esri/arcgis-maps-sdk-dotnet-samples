@@ -37,7 +37,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         "Take a web map offline with additional options for each layer.",
         "")]
     public class GenerateOfflineMapWithOverrides : UIViewController, IOAuthAuthorizeHandler
-    { 
+    {
         // Hold references to the UI controls.
         private MapView _myMapView;
         private UIActivityIndicatorView _loadingIndicator;
@@ -124,6 +124,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             {
                 _overridesVC = new ConfigureOverridesViewController(overrides, _myMapView.Map);
             }
+
             // Show the layer list popover. Note: most behavior is managed by the table view & its source. See MapViewModel.
             var controller = new UINavigationController(_overridesVC);
             controller.Title = "Override parameters";
@@ -531,6 +532,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         }
 
         #endregion
+
         #endregion
 
         // Force popover to display on iPhone.
@@ -755,8 +757,8 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 
             innerStackView.AddArrangedSubview(getLabel("Crop layer to extent"));
 
-            innerStackView.AddArrangedSubview(getCheckRow("Water pipes: ", (sender,args)=> _cropWaterPipes = !_cropWaterPipes));
-            
+            innerStackView.AddArrangedSubview(getCheckRow("Water pipes: ", (sender, args) => _cropWaterPipes = !_cropWaterPipes));
+
             _takeOfflineButton = new UIButton();
             _takeOfflineButton.TranslatesAutoresizingMaskIntoConstraints = false;
             _takeOfflineButton.SetTitle("Take map offline", UIControlState.Normal);
@@ -823,7 +825,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             sliderView.WidthAnchor.ConstraintGreaterThanOrEqualTo(100).Active = true;
             sliderView.SetContentCompressionResistancePriority((float) UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
             sliderView.ValueChanged += sliderChangeAction;
-            sliderView.ValueChanged += (sender, args) => { valueLabel.Text = $"{(int)sliderView.Value}{units}"; };
+            sliderView.ValueChanged += (sender, args) => { valueLabel.Text = $"{(int) sliderView.Value}{units}"; };
             rowView.AddArrangedSubview(sliderView);
 
             rowView.AddArrangedSubview(valueLabel);
@@ -840,7 +842,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             rowView.Distribution = UIStackViewDistribution.Fill;
             rowView.Spacing = 5;
             rowView.LayoutMarginsRelativeArrangement = true;
-            rowView.LayoutMargins = new UIEdgeInsets(0,0,0,5);
+            rowView.LayoutMargins = new UIEdgeInsets(0, 0, 0, 5);
 
             UILabel descriptionLabel = new UILabel();
             descriptionLabel.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -858,7 +860,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             _takeOfflineButton.TouchUpInside += TakeOffline_Click;
         }
 

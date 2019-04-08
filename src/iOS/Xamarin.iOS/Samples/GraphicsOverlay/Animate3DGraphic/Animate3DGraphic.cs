@@ -354,7 +354,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             UIPopoverPresentationController pc = _statsVC.PopoverPresentationController;
             if (pc != null)
             {
-                pc.BarButtonItem = (UIBarButtonItem)sender;
+                pc.BarButtonItem = (UIBarButtonItem) sender;
                 pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
                 pc.Delegate = new PpDelegate();
             }
@@ -402,7 +402,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _cameraButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                 _playButton,                
+                _playButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _statsButton
             };
@@ -442,7 +442,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Call the animation method every time the timer expires (once every 60ms per above).
             _animationTimer.Elapsed += Timer_Elapsed;
             _animationTimer.Start();
@@ -550,6 +550,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             {
                 return;
             }
+
             _altitudeLabel.Text = $"{currentFrame.Elevation:F} m";
             _headingLabel.Text = $"{currentFrame.Heading:F}\u00B0"; // \u00b0 is the degree symbol
             _pitchLabel.Text = $"{currentFrame.Pitch:F}\u00B0";

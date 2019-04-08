@@ -48,7 +48,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         {
             Title = "Viewshed (Geoprocessing)";
         }
-        
+
         private void Initialize()
         {
             // Create and show a map with topographic basemap and an initial location.
@@ -244,7 +244,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Hook into the MapView tapped event.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }

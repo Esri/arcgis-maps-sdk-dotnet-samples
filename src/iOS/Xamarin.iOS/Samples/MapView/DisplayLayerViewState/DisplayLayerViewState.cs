@@ -180,11 +180,11 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
             _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
         }
-        
+
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
 
             // Event for layer view state changed, avoiding duplicate subscription.
             _myMapView.LayerViewStateChanged -= OnLayerViewStateChanged;

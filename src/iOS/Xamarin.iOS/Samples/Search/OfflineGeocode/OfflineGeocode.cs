@@ -269,7 +269,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Enable tap-for-info pattern on results.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 

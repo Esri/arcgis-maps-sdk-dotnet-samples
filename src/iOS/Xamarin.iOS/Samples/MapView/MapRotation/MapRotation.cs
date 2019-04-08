@@ -39,7 +39,7 @@ namespace ArcGISRuntime.Samples.MapRotation
             _myMapView.Map = new Map(Basemap.CreateStreets());
         }
 
-        private void RotationSlider_Changed (object sender, EventArgs e)
+        private void RotationSlider_Changed(object sender, EventArgs e)
         {
             _myMapView.SetViewpointRotationAsync(_rotationSlider.Value);
             _rotationLabel.Text = $"{_rotationSlider.Value:0}°";
@@ -104,7 +104,7 @@ namespace ArcGISRuntime.Samples.MapRotation
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Configure the slider.
             _rotationSlider.ValueChanged += RotationSlider_Changed;
         }

@@ -40,7 +40,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
         {
             // Create the scene with a basemap.
             _mySceneView.Scene = new Scene(Basemap.CreateImagery());
-            
+
             // Add an elevation source to the scene.
             Surface elevationSurface = new Surface();
             ArcGISTiledElevationSource elevationSource = new ArcGISTiledElevationSource(new Uri(_elevationServiceUrl));
@@ -103,7 +103,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Apply the selected atmosphere effect option.
             _atmosphereEffectPicker.ValueChanged += Picker_ValuedChanged;
         }

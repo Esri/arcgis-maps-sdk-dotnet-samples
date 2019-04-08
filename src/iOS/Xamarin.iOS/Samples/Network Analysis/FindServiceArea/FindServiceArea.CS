@@ -349,7 +349,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             _doneButton.Clicked += DoneClick;
             _showButton.Clicked += ShowServiceAreas_Click;
             _resetButton.Clicked += Reset_Click;
-            
+
             // Add a new behavior for double taps on the MapView.
             _myMapView.GeoViewDoubleTapped += MapView_DoubleTapped;
         }

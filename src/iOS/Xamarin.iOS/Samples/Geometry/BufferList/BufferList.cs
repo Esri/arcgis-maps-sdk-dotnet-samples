@@ -288,7 +288,7 @@ namespace ArcGISRuntime.Samples.BufferList
 
             _helpButton = new UIBarButtonItem();
             _helpButton.Title = "Help";
-            
+
             _resetButton = new UIBarButtonItem();
             _resetButton.Title = "Reset";
 
@@ -326,7 +326,7 @@ namespace ArcGISRuntime.Samples.BufferList
             View.AddSubviews(_myMapView, controlsToolbar, entryToolbar, bufferDistanceEntryLabel, _bufferDistanceEntry);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 entryToolbar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 entryToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -359,7 +359,7 @@ namespace ArcGISRuntime.Samples.BufferList
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Allow pressing 'return' to dismiss the keyboard.
             _bufferDistanceEntry.ShouldReturn += HandleTextField;
 

@@ -149,7 +149,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             _viewpointsButton.ValueChanged += ViewpointButton_ValueChanged;
         }
 

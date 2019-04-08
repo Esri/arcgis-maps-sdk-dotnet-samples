@@ -504,7 +504,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             };
 
             // Define a handler for the OAuth2Authenticator.Completed event.
-            _auth.Completed += (o,authArgs)=>
+            _auth.Completed += (o, authArgs) =>
             {
                 try
                 {
@@ -536,7 +536,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             };
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
-            _auth.Error += (o,errArgs)=> 
+            _auth.Error += (o, errArgs) =>
             {
                 // If the user cancels, the Error event is raised but there is no exception ... best to check first.
                 if (errArgs.Exception != null)

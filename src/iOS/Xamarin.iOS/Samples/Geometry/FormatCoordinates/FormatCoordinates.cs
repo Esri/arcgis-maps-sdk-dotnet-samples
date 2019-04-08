@@ -282,7 +282,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             _dmsEntry.EditingDidBegin += InputValueChanged;
             _ddEntry.EditingDidBegin += InputValueChanged;
             _usngEntry.EditingDidBegin += InputValueChanged;
-            foreach (UITextField tf in new[] { _ddEntry, _dmsEntry, _utmEntry, _usngEntry })
+            foreach (UITextField tf in new[] {_ddEntry, _dmsEntry, _utmEntry, _usngEntry})
             {
                 tf.ShouldReturn += HandleTextField;
             }
@@ -298,7 +298,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             _dmsEntry.EditingDidBegin -= InputValueChanged;
             _ddEntry.EditingDidBegin -= InputValueChanged;
             _usngEntry.EditingDidBegin -= InputValueChanged;
-            foreach (UITextField tf in new[] { _ddEntry, _dmsEntry, _utmEntry, _usngEntry })
+            foreach (UITextField tf in new[] {_ddEntry, _dmsEntry, _utmEntry, _usngEntry})
             {
                 tf.ShouldReturn -= HandleTextField;
             }

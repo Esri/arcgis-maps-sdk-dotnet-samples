@@ -129,7 +129,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
                 }
 
                 // Get the tapped feature.
-                _selectedFeature = (ArcGISFeature)identifyResult.GeoElements.First();
+                _selectedFeature = (ArcGISFeature) identifyResult.GeoElements.First();
 
                 // Select the feature.
                 _damageLayer.SelectFeature(_selectedFeature);
@@ -179,7 +179,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
             View.AddSubviews(_myMapView, helpLabel);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),

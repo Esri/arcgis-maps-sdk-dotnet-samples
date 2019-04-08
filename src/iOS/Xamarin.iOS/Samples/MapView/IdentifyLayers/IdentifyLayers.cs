@@ -144,7 +144,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Listen for taps/clicks to start the identify operation.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }

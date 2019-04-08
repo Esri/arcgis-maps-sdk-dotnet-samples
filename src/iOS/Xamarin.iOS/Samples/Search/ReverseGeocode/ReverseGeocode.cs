@@ -85,7 +85,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
                 _myMapView.GraphicsOverlays[0].Graphics.Add(pinGraphic);
 
                 // Normalize the geometry - needed if the user crosses the international date line.
-                MapPoint normalizedPoint = (MapPoint)GeometryEngine.NormalizeCentralMeridian(e.Location);
+                MapPoint normalizedPoint = (MapPoint) GeometryEngine.NormalizeCentralMeridian(e.Location);
 
                 // Reverse geocode to get addresses.
                 IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(normalizedPoint);
@@ -181,7 +181,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Enable tap-for-info pattern on results.
             _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
         }

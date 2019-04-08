@@ -283,12 +283,12 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             // Clean up borders of segmented control - avoid corner pixels.
             _layerSegmentedControl.ClipsToBounds = true;
             _layerSegmentedControl.Layer.CornerRadius = 5;
-            
+
             // Add the views.
             View.AddSubviews(_myMapView, _layerSegmentedControl);
 
             // Lay out the views
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),

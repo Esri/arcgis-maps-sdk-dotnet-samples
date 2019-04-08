@@ -176,7 +176,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Subscribe to tap events (in order to use them to identify and select features).
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }

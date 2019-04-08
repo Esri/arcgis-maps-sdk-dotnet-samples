@@ -195,7 +195,7 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
             View.AddSubviews(_myMapView, toolbar);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),

@@ -602,7 +602,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Enable tap-for-info pattern on results.
             _myMapView.GeoViewTapped += MapView_GeoViewTapped;
 

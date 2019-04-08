@@ -135,7 +135,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Respond to taps on the map.
             _myMapView.GeoViewTapped += OnMapViewTapped;
         }

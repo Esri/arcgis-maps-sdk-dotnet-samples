@@ -195,7 +195,7 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
 
             // Define a handler for the OAuth2Authenticator.Completed event.
             _auth.Completed += (object sender, AuthenticatorCompletedEventArgs args) =>
-        {
+            {
                 try
                 {
                     // Dismiss the OAuth UI when complete.

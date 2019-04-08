@@ -141,7 +141,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             _styleChoiceButton.ValueChanged += _styleChoiceButton_ValueChanged;
         }
 

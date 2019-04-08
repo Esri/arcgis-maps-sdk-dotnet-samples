@@ -50,7 +50,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         {
             Title = "Query map image layer tables";
         }
-        
+
         private async void Initialize()
         {
             // Create a new Map with a vector streets basemap.
@@ -207,7 +207,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             // Add the views.
             View.AddSubviews(_stackView);
 
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -235,7 +235,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Handle a new selection in the table source.
             if (_commentsTableSource != null)
             {

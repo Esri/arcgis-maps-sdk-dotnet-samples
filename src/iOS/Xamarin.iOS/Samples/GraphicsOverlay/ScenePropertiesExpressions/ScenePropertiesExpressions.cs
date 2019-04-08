@@ -74,7 +74,7 @@ namespace ArcGISRuntimeXamarin.Samples.ScenePropertiesExpressions
             overlay.Graphics.Add(_cone);
         }
 
-        private void HeightSlider_ValueChanged (object sender, EventArgs e)
+        private void HeightSlider_ValueChanged(object sender, EventArgs e)
         {
             _cone.Attributes["HEADING"] = _headingSlider.Value;
             _headingValueLabel.Text = _headingSlider.Value.ToString("###");
@@ -164,7 +164,7 @@ namespace ArcGISRuntimeXamarin.Samples.ScenePropertiesExpressions
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Listen for changes in slider values and update graphic properties.
             _headingSlider.ValueChanged += HeightSlider_ValueChanged;
             _pitchSlider.ValueChanged += PitchSlider_ValueChanged;

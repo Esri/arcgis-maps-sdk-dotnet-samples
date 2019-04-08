@@ -81,7 +81,7 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem(_terrainSlider) { Width = 250 },
+                new UIBarButtonItem(_terrainSlider) {Width = 250},
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -105,7 +105,7 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             // Update terrain exaggeration based on the slider value.
             _terrainSlider.ValueChanged += TerrainSlider_ValueChanged;
         }

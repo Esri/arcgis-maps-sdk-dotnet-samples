@@ -43,7 +43,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         {
             Title = "Raster RGB renderer";
         }
-        
+
         private async void Initialize()
         {
             // Create a map with a streets basemap.
@@ -210,7 +210,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             _rasterLayer = rasterLayer;
             Title = "Min/Max RGB Renderer";
         }
-        
+
         private void ApplyButton_Clicked(object sender, EventArgs e)
         {
             double[] minValues =
@@ -369,7 +369,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             _rasterLayer = rasterLayer;
             Title = "% Clip Renderer";
         }
-        
+
         private void ApplyButton_Clicked(object sender, EventArgs e)
         {
             PercentClipStretchParameters parameters =
@@ -457,7 +457,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             _rasterLayer = rasterLayer;
             Title = "Std. Deviation Renderer";
         }
-        
+
         private void ApplyButton_Clicked(object sender, EventArgs e)
         {
             StandardDeviationStretchParameters parameters = new StandardDeviationStretchParameters(_pickerModel.SelectedFactor);

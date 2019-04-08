@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         {
             Title = "Geodatabase transactions";
         }
-        
+
         private void Initialize()
         {
             // When the spatial reference changes (the map loads) add the local geodatabase tables as feature layers.
@@ -117,7 +117,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                     GenerateGeodatabaseJob generateGdbJob = gdbTask.GenerateGeodatabase(gdbParams, localGeodatabasePath);
 
                     // Handle the job changed event and check the status of the job; store the geodatabase when it's ready.
-                    void GenerateGdbJob_JobChanged (object jobSender, EventArgs e)
+                    void GenerateGdbJob_JobChanged(object jobSender, EventArgs e)
                     {
                         // Call a function to update the progress bar.
                         InvokeOnMainThread(() => UpdateProgressBar(generateGdbJob.Progress));
@@ -389,14 +389,14 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                             // Report changes in the job status.
                             case JobStatus.Succeeded:
                                 // Unsubscribe
-                                ((SyncGeodatabaseJob)sendingJob).JobChanged -= Job_JobChanged;
+                                ((SyncGeodatabaseJob) sendingJob).JobChanged -= Job_JobChanged;
                                 // Report success.
                                 _statusLabel.Text = "Synchronization is complete!";
                                 _progressBar.Hidden = true;
                                 break;
                             case JobStatus.Failed:
                                 // Unsubscribe
-                                ((SyncGeodatabaseJob)sendingJob).JobChanged -= Job_JobChanged;
+                                ((SyncGeodatabaseJob) sendingJob).JobChanged -= Job_JobChanged;
                                 // Report failure.
                                 _statusLabel.Text = job.Error.Message;
                                 _progressBar.Hidden = true;
@@ -430,7 +430,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 _progressBar.Progress = (float) (jobProgress / 100.0);
             });
         }
-        
+
         private void HandleAddButton_Click(object sender, EventArgs e)
         {
             // Create the alert controller with a title.
@@ -558,7 +558,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         {
             base.ViewWillAppear(animated);
 
-            if(_localGeodatabase != null)_localGeodatabase.TransactionStatusChanged += GdbTransactionStatusChanged;
+            if (_localGeodatabase != null) _localGeodatabase.TransactionStatusChanged += GdbTransactionStatusChanged;
             _transactionSwitch.ValueChanged += RequireTransactionChanged;
             _transactionButton.Clicked += HandleTransaction_Click;
             _syncButton.Clicked += SynchronizeEdits;
@@ -570,7 +570,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from events, otherwise objects will never be disposed.
-            if (_localGeodatabase != null)_localGeodatabase.TransactionStatusChanged -= GdbTransactionStatusChanged;
+            if (_localGeodatabase != null) _localGeodatabase.TransactionStatusChanged -= GdbTransactionStatusChanged;
             _transactionSwitch.ValueChanged -= RequireTransactionChanged;
             _transactionButton.Clicked -= HandleTransaction_Click;
             _syncButton.Clicked -= SynchronizeEdits;

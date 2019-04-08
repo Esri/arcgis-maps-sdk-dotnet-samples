@@ -58,7 +58,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         {
             Title = "Generate geodatabase";
         }
-        
+
         private async void Initialize()
         {
             try
@@ -329,7 +329,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             View.AddSubviews(_myMapView, toolbar, _progressBar);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -361,10 +361,12 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from events, otherwise objects won't be disposed.
-            if (_generateGdbJob != null) {
+            if (_generateGdbJob != null)
+            {
                 _generateGdbJob.Cancel();
-                _generateGdbJob.ProgressChanged -= GenerateGdbJob_ProgressChanged; 
+                _generateGdbJob.ProgressChanged -= GenerateGdbJob_ProgressChanged;
             }
+
             _myMapView.ViewpointChanged -= MapViewExtentChanged;
             _generateButton.Clicked -= GenerateButton_Clicked;
         }

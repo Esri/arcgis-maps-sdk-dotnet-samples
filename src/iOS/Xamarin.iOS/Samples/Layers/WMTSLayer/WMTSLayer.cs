@@ -158,7 +158,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             _constructorChoiceButton.ValueChanged += _constructorChoiceButton_ValueChanged;
         }
 

@@ -127,7 +127,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
             View.AddSubviews(_mySceneView);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),

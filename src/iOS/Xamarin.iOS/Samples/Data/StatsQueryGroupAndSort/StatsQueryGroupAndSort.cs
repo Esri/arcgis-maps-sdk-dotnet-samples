@@ -273,7 +273,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             _showOrderByFieldsButton.SetTitle("3. Choose 'Order by' fields", UIControlState.Normal);
             _showOrderByFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
-            UIStackView buttonContainer = new UIStackView(new[] { _showStatDefinitionsButton, _showGroupFieldsButton, _showOrderByFieldsButton, new UIView()});
+            UIStackView buttonContainer = new UIStackView(new[] {_showStatDefinitionsButton, _showGroupFieldsButton, _showOrderByFieldsButton, new UIView()});
             buttonContainer.Axis = UILayoutConstraintAxis.Vertical;
             buttonContainer.TranslatesAutoresizingMaskIntoConstraints = false;
             buttonContainer.Distribution = UIStackViewDistribution.Fill;
@@ -283,7 +283,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             View.AddSubviews(buttonContainer, toolbar);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 buttonContainer.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 buttonContainer.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),

@@ -259,10 +259,10 @@ namespace ArcGISRuntime.Samples.FindAddress
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             _addressSearchBar.ListButtonClicked += AddressSearch_ListButtonClicked;
             _addressSearchBar.SearchButtonClicked += AddressSearchBar_Clicked;
-            
+
             // Enable tap-for-callout pattern on results.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }

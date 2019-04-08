@@ -117,6 +117,7 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
                 // Dismiss the callout.
                 _myMapView.DismissCallout();
             }
+
             deleteButton.TouchUpInside += DeleteFeature_click;
 
             // Show the callout.

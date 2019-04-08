@@ -152,7 +152,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             {
                 case GeometryType.Point:
                 case GeometryType.Multipoint:
-                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, GetRandomColor(),4));
+                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, GetRandomColor(), 4));
                 case GeometryType.Polygon:
                 case GeometryType.Envelope:
                     return new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, GetRandomColor(180), null));
@@ -192,7 +192,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(_toggleAxisOrderSwitch),
-                new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace) { Width = 8 }, 
+                new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace) {Width = 8},
                 new UIBarButtonItem(axisOrderLabel),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _chooseLayersButton

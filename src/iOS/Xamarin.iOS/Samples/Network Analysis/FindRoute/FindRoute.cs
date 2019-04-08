@@ -150,6 +150,9 @@ namespace ArcGISRuntime.Samples.FindRoute
 
                 // Get a list of directions for the route and display it in the list box.
                 _directionsList = firstRoute.DirectionManeuvers;
+
+                // Enable the directions button.
+                _directionsButton.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -161,6 +164,7 @@ namespace ArcGISRuntime.Samples.FindRoute
         {
             // Clear the list of directions.
             _directionsList = null;
+            _directionsButton.Enabled = false;
 
             // Remove the route graphic from the graphics overlay (only line graphic in the collection).
             int graphicsCount = _routeGraphicsOverlay.Graphics.Count;
@@ -207,6 +211,7 @@ namespace ArcGISRuntime.Samples.FindRoute
 
             _directionsButton = new UIBarButtonItem();
             _directionsButton.Title = "Directions";
+            _directionsButton.Enabled = false;
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;

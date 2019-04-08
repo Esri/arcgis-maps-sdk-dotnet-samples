@@ -244,9 +244,6 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            // Enable tap-for-callout pattern on results.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
-
             _addressSearchBar = new UISearchBar();
             _addressSearchBar.TranslatesAutoresizingMaskIntoConstraints = false;
             _addressSearchBar.UserInteractionEnabled = false;
@@ -276,7 +273,6 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
             // Enable tap-for-info pattern on results.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
-            
             _addressSearchBar.ListButtonClicked += AddressSearch_ListButtonClicked;
             _addressSearchBar.SearchButtonClicked += AddressSearchBar_Clicked;
         }

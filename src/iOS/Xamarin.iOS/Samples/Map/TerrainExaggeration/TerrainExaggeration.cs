@@ -69,6 +69,7 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
 
             _terrainSlider = new UISlider();
             _terrainSlider.TranslatesAutoresizingMaskIntoConstraints = false;
+            _terrainSlider.MinValue = 1;
             _terrainSlider.MaxValue = 3;
 
             UIToolbar toolbar = new UIToolbar();

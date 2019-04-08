@@ -117,14 +117,17 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
+    <Content Include="Samples\Layers\GroupLayers\GroupLayers.jpg" />
+    <Content Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.jpg" />
     <Content Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
     <Content Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
     <Content Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
-	  <Content Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
-	  <Content Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
-	  <Content Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
-	  <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
-	  <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
+    <Content Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
+    <Content Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
+    <Content Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
+    <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
+    <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
     <Content Include="Samples\Layers\PlayKmlTours\PlayKmlTours.jpg" />
     <Content Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
     <Content Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg" />
@@ -133,13 +136,13 @@
     <Content Include="Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
     <Content Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
     <Content Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
-	  <Content Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
-	  <Content Include="Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
+    <Content Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
+    <Content Include="Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
     <Content Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg" />
-	  <Content Include="Samples\Geometry\Project\Project.jpg" />
-	  <Content Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg" />
-	  <Content Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
-	  <Content Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
+    <Content Include="Samples\Geometry\Project\Project.jpg" />
+    <Content Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg" />
+    <Content Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
+    <Content Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
     <Content Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
     <Content Include="Samples\Data\AddFeatures\AddFeatures.jpg" />
     <Content Include="Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
@@ -326,6 +329,15 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml.cs">
+      <DependentUpon>DownloadPreplannedMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\GroupLayers\GroupLayers.xaml.cs">
+      <DependentUpon>GroupLayers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.xaml.cs">
+      <DependentUpon>OfflineBasemapByReference.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\PlayKmlTours\PlayKmlTours.xaml.cs">
       <DependentUpon>PlayKmlTours.xaml</DependentUpon>
     </Compile>
@@ -820,6 +832,18 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\GroupLayers\GroupLayers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\PlayKmlTours\PlayKmlTours.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

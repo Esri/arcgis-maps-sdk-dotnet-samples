@@ -1,8 +1,6 @@
-# Generate Offline Map
+# Generate offline map
 
 Demonstrates how to take a web map offline.
-
-> Note: due to a bug involved with the .NET HTTP client on iOS, some layers may fail to be taken offline on mobile devices.
 
 ![](GenerateOfflineMap.jpg)
 

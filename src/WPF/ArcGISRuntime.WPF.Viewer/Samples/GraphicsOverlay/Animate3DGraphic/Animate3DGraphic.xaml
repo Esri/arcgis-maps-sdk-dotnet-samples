@@ -46,7 +46,7 @@
             <TextBlock Text="Progress" Margin="5" />
             <Slider x:Name="MissionProgressBar"
                     VerticalAlignment="Top" Margin="5" Width="100" Height="25"
-                    Minimum="0" Maximum="1"
+                    Minimum="0" Maximum="1" IsMoveToPointEnabled="True"
                     ValueChanged="MissionProgressOnSeek" />
             <Button Content="Don't follow"
                     VerticalAlignment="Top" Height="25" Width="100"
@@ -66,7 +66,7 @@
                     </Grid.ColumnDefinitions>
                     <Slider x:Name="MissionPlaySpeedSlider"
                             Grid.Column="0"
-                            Minimum="0.5" Maximum="8" Value="1"
+                            Minimum="0.5" Maximum="8" Value="1" IsMoveToPointEnabled="True"
                             ValueChanged="MissionPlaySpeedChanged" />
                     <TextBlock Text="{Binding ElementName=MissionPlaySpeedSlider, Path=Value, StringFormat=N2}"
                                Grid.Column="1" />

@@ -647,7 +647,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         private const string CellId = "TableCell";
 
         // Hold a reference to the owning view controller; this will be the active instance of FindPlace.
-        private FindPlace Owner { get; }
+        [Weak] private FindPlace Owner;
 
         public SuggestionSource(List<string> items, FindPlace owner)
         {

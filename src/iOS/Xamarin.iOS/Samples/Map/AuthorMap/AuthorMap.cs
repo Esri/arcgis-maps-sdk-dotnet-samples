@@ -405,12 +405,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
             _basemapButton.Clicked += ShowBasemapClicked;
             _layersButton.Clicked += ShowLayerListClicked;
             _saveButton.Clicked += SaveMapClicked;
-
-            if (_auth != null)
-            {
-                _auth.Error += HandleAuthError;
-                _auth.Completed += HandleAuthCompleted;
-            }
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -421,12 +415,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
             _basemapButton.Clicked -= ShowBasemapClicked;
             _layersButton.Clicked -= ShowLayerListClicked;
             _saveButton.Clicked -= SaveMapClicked;
-
-            if (_auth != null)
-            {
-                _auth.Error -= HandleAuthError;
-                _auth.Completed -= HandleAuthCompleted;
-            }
         }
 
         #region OAuth helpers
@@ -507,7 +495,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             _auth = new OAuth2Authenticator(
                 clientId: _appClientId,
                 scope: "",
-                authorizeUrl: new Uri(AuthorizeUrl),
+                authorizeUrl: authorizeUri,
                 redirectUrl: new Uri(_oAuthRedirectUrl))
             {
                 ShowErrors = false,
@@ -516,60 +504,61 @@ namespace ArcGISRuntime.Samples.AuthorMap
             };
 
             // Define a handler for the OAuth2Authenticator.Completed event.
-            _auth.Completed += HandleAuthCompleted;
+            _auth.Completed += (o,authArgs)=>
+            {
+                try
+                {
+                    // Dismiss the OAuth UI when complete.
+                    InvokeOnMainThread(() => { UIApplication.SharedApplication.KeyWindow.RootViewController.DismissViewController(true, null); });
+
+                    // Check if the user is authenticated.
+                    if (authArgs.IsAuthenticated)
+                    {
+                        // If authorization was successful, get the user's account.
+                        Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
+
+                        // Set the result (Credential) for the TaskCompletionSource.
+                        _taskCompletionSource.SetResult(authenticatedAccount.Properties);
+                    }
+                    else
+                    {
+                        throw new Exception("Unable to authenticate user.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // If authentication failed, set the exception on the TaskCompletionSource.
+                    _taskCompletionSource.TrySetException(ex);
+
+                    // Cancel authentication.
+                    _auth.OnCancelled();
+                }
+            };
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
-            _auth.Error += HandleAuthError;
-
-            // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password.
-            InvokeOnMainThread(() => { PresentViewController(_auth.GetUI(), true, null); });
-
-            // Return completion source task so the caller can await completion.
-            return _taskCompletionSource.Task;
-        }
-
-        private void HandleAuthCompleted(object sender, AuthenticatorCompletedEventArgs authArgs)
-        {
-            try
+            _auth.Error += (o,errArgs)=> 
             {
-                // Dismiss the OAuth UI when complete.
-                DismissViewController(true, null);
-
-                // Throw an exception if the user could not be authenticated.
-                if (!authArgs.IsAuthenticated)
+                // If the user cancels, the Error event is raised but there is no exception ... best to check first.
+                if (errArgs.Exception != null)
                 {
-                    throw new Exception("Unable to authenticate user.");
+                    _taskCompletionSource.TrySetException(errArgs.Exception);
                 }
-
-                // If authorization was successful, get the user's account.
-                Account authenticatedAccount = authArgs.Account;
-
-                // Set the result (Credential) for the TaskCompletionSource.
-                _taskCompletionSource.SetResult(authenticatedAccount.Properties);
-            }
-            catch (Exception ex)
-            {
-                // If authentication failed, set the exception on the TaskCompletionSource.
-                _taskCompletionSource.TrySetException(ex);
+                else
+                {
+                    // Login canceled: dismiss the OAuth login.
+                    _taskCompletionSource?.TrySetCanceled();
+                }
 
                 // Cancel authentication.
                 _auth.OnCancelled();
-            }
-        }
+                _auth = null;
+            };
 
-        private void HandleAuthError (object sender, AuthenticatorErrorEventArgs errArgs)
-        {
-            if (errArgs.Exception != null)
-            {
-                _taskCompletionSource.TrySetException(errArgs.Exception);
-            }
-            else
-            {
-                _taskCompletionSource.TrySetException(new Exception(errArgs.Message));
-            }
+            // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password.
+            InvokeOnMainThread(() => { UIApplication.SharedApplication.KeyWindow.RootViewController.PresentViewController(_auth.GetUI(), true, null); });
 
-            // Cancel authentication.
-            _auth.OnCancelled();
+            // Return completion source task so the caller can await completion.
+            return _taskCompletionSource.Task;
         }
 
         #endregion OAuth helpers

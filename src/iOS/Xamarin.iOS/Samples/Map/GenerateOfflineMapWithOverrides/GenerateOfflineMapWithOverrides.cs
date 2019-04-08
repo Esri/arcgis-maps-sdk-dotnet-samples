@@ -37,13 +37,14 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         "Take a web map offline with additional options for each layer.",
         "")]
     public class GenerateOfflineMapWithOverrides : UIViewController, IOAuthAuthorizeHandler
-    {
+    { 
         // Hold references to the UI controls.
         private MapView _myMapView;
         private UIActivityIndicatorView _loadingIndicator;
         private UIBarButtonItem _takeMapOfflineButton;
         private UILabel _statusLabel;
         private ConfigureOverridesViewController _overridesVC;
+        private OAuth2Authenticator _auth;
 
         // Class-scope variables needed because job continues after configuration by separate class.
         private OfflineMapTask _takeMapOfflineTask;
@@ -62,7 +63,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 
         public GenerateOfflineMapWithOverrides()
         {
-            Title = "Generate an offline map";
+            Title = "Generate offline map (overrides)";
         }
 
         private async void Initialize()
@@ -380,8 +381,8 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from events, otherwise objects won't be disposed.
-            _generateOfflineMapJob.ProgressChanged -= OfflineMapJob_ProgressChanged;
-            _overridesVC.FinishedConfiguring -= ConfigurationContinuation;
+            if (_generateOfflineMapJob != null) _generateOfflineMapJob.ProgressChanged -= OfflineMapJob_ProgressChanged;
+            if (_overridesVC != null) _overridesVC.FinishedConfiguring -= ConfigurationContinuation;
             _takeMapOfflineButton.Clicked -= TakeMapOfflineButton_Click;
         }
 
@@ -453,22 +454,18 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
             // If the TaskCompletionSource is not null, authorization may already be in progress and should be canceled.
-            // Try to cancel any existing authentication task.
+            // Try to cancel any existing authentication process.
             _taskCompletionSource?.TrySetCanceled();
 
             // Create a task completion source.
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
-            // Get the current iOS ViewController.
-            UIViewController viewController = null;
-            InvokeOnMainThread(() => { viewController = UIApplication.SharedApplication.KeyWindow.RootViewController; });
-
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
-            OAuth2Authenticator authenticator = new OAuth2Authenticator(
+            _auth = new OAuth2Authenticator(
                 clientId: AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri)
+                redirectUrl: new Uri(OAuthRedirectUrl))
             {
                 ShowErrors = false,
                 // Allow the user to cancel the OAuth attempt.
@@ -476,18 +473,18 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             };
 
             // Define a handler for the OAuth2Authenticator.Completed event.
-            authenticator.Completed += (sender, authArgs) =>
+            _auth.Completed += (o, authArgs) =>
             {
                 try
                 {
                     // Dismiss the OAuth UI when complete.
-                    viewController.DismissViewController(true, null);
+                    InvokeOnMainThread(() => { UIApplication.SharedApplication.KeyWindow.RootViewController.DismissViewController(true, null); });
 
                     // Check if the user is authenticated.
                     if (authArgs.IsAuthenticated)
                     {
                         // If authorization was successful, get the user's account.
-                        Account authenticatedAccount = authArgs.Account;
+                        Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
 
                         // Set the result (Credential) for the TaskCompletionSource.
                         _taskCompletionSource.SetResult(authenticatedAccount.Properties);
@@ -503,12 +500,12 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
                     _taskCompletionSource.TrySetException(ex);
 
                     // Cancel authentication.
-                    authenticator.OnCancelled();
+                    _auth.OnCancelled();
                 }
             };
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
-            authenticator.Error += (sndr, errArgs) =>
+            _auth.Error += (o, errArgs) =>
             {
                 // If the user cancels, the Error event is raised but there is no exception ... best to check first.
                 if (errArgs.Exception != null)
@@ -522,12 +519,12 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
                 }
 
                 // Cancel authentication.
-                authenticator.OnCancelled();
+                _auth.OnCancelled();
+                _auth = null;
             };
 
-
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password.
-            InvokeOnMainThread(() => { viewController.PresentViewController(authenticator.GetUI(), true, null); });
+            InvokeOnMainThread(() => { UIApplication.SharedApplication.KeyWindow.RootViewController.PresentViewController(_auth.GetUI(), true, null); });
 
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;

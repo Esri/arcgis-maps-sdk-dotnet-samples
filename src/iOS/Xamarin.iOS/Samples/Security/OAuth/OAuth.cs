@@ -79,32 +79,6 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
         }
 
-        public override void ViewWillAppear(bool animated)
-        {
-            base.ViewWillAppear(animated);
-
-            if (_auth != null)
-            {
-                // Define a handler for the OAuth2Authenticator.Completed event.
-                _auth.Completed -= AuthCompleted;
-                _auth.Completed += AuthCompleted;
-
-                // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
-                _auth.Error -= AuthError;
-                _auth.Error += AuthError;
-            }
-        }
-
-        public override void ViewDidDisappear(bool animated)
-        {
-            base.ViewDidDisappear(animated);
-            if (_auth != null)
-            {
-                _auth.Completed -= AuthCompleted;
-                _auth.Error -= AuthError;
-            }
-        }
-
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -220,54 +194,50 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
             };
 
             // Define a handler for the OAuth2Authenticator.Completed event.
-            _auth.Completed += AuthCompleted;
+            _auth.Completed += (object sender, AuthenticatorCompletedEventArgs args) =>
+        {
+                try
+                {
+                    // Dismiss the OAuth UI when complete.
+                    this.DismissViewController(true, null);
+
+                    // Throw an exception if the user could not be authenticated.
+                    if (!args.IsAuthenticated)
+                    {
+                        throw new Exception("Unable to authenticate user.");
+                    }
+
+                    // If authorization was successful, get the user's account.
+                    Xamarin.Auth.Account authenticatedAccount = args.Account;
+
+                    // Set the result (Credential) for the TaskCompletionSource.
+                    _taskCompletionSource.SetResult(authenticatedAccount.Properties);
+                }
+                catch (Exception ex)
+                {
+                    // If authentication failed, set the exception on the TaskCompletionSource.
+                    _taskCompletionSource.SetException(ex);
+                }
+            };
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
-            _auth.Error += AuthError;
+            _auth.Error += (object sender, AuthenticatorErrorEventArgs args) =>
+            {
+                if (args.Exception != null)
+                {
+                    _taskCompletionSource.TrySetException(args.Exception);
+                }
+                else
+                {
+                    _taskCompletionSource.TrySetException(new Exception(args.Message));
+                }
+            };
 
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password.
             InvokeOnMainThread(() => { this.PresentViewController(_auth.GetUI(), true, null); });
 
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;
-        }
-
-        private void AuthCompleted(object sender, AuthenticatorCompletedEventArgs args)
-        {
-            try
-            {
-                // Dismiss the OAuth UI when complete.
-                this.DismissViewController(true, null);
-
-                // Throw an exception if the user could not be authenticated.
-                if (!args.IsAuthenticated)
-                {
-                    throw new Exception("Unable to authenticate user.");
-                }
-
-                // If authorization was successful, get the user's account.
-                Xamarin.Auth.Account authenticatedAccount = args.Account;
-
-                // Set the result (Credential) for the TaskCompletionSource.
-                _taskCompletionSource.SetResult(authenticatedAccount.Properties);
-            }
-            catch (Exception ex)
-            {
-                // If authentication failed, set the exception on the TaskCompletionSource.
-                _taskCompletionSource.SetException(ex);
-            }
-        }
-
-        private void AuthError(object sender, AuthenticatorErrorEventArgs args)
-        {
-            if (args.Exception != null)
-            {
-                _taskCompletionSource.TrySetException(args.Exception);
-            }
-            else
-            {
-                _taskCompletionSource.TrySetException(new Exception(args.Message));
-            }
         }
 
         #endregion

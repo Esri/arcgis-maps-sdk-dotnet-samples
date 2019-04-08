@@ -364,7 +364,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             _resetButton.Clicked -= Reset_Click;
 
             // Unsubscribe from events, otherwise objects won't be disposed.
-            _myMapView.GeoViewDoubleTapped += MapView_DoubleTapped;
+            _myMapView.GeoViewDoubleTapped -= MapView_DoubleTapped;
         }
     }
 }

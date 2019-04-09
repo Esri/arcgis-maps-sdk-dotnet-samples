@@ -33,6 +33,7 @@ namespace ArcGISRuntime.Samples.FindPlace
     {
         // The LocatorTask provides geocoding services
         private LocatorTask _geocoder;
+        private SearchBar _lastInteractedBar;
 
         // Service Uri to be provided to the LocatorTask (geocoder)
         private Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
@@ -421,6 +422,9 @@ namespace ArcGISRuntime.Samples.FindPlace
         /// </summary>
         private void MySearchBox_Focused(object sender, FocusEventArgs e)
         {
+            // Track last used control for autocomplete selection purposes.
+            _lastInteractedBar = ((SearchBar)sender);
+
             // Dismiss callout, if any
             UserInteracted();
 
@@ -447,10 +451,15 @@ namespace ArcGISRuntime.Samples.FindPlace
             {
                 MyLocationBox.Text = suggestion;
             }
-            else
+            else if (MySearchBox.IsFocused)
             {
                 // Otherwise, update the search box
                 MySearchBox.Text = suggestion;
+            }
+            // Work around focus behavior on some platforms (e.g. Android)
+            else if (_lastInteractedBar != null)
+            {
+                _lastInteractedBar.Text = suggestion;
             }
         }
 

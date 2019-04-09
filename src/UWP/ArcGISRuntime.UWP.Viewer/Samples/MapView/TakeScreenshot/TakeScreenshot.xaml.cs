@@ -8,16 +8,19 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
+using Esri.ArcGISRuntime.UI.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.TakeScreenshot
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Take screenshot",
+        "Take a screenshot",
         "MapView",
         "This sample demonstrates how you can take screenshot of a map. Click 'capture' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.",
         "")]
@@ -26,26 +29,27 @@ namespace ArcGISRuntime.UWP.Samples.TakeScreenshot
         public TakeScreenshot()
         {
             InitializeComponent();
-
-            // Setup the control references and execute initialization
             Initialize();
         }
 
         private void Initialize()
         {
-            // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
-
-            // Provide used Map to the MapView
-            MyMapView.Map = myMap;
+            // Show an imagery basemap.
+            MyMapView.Map = new Map(Basemap.CreateImagery());
         }
 
         private async void OnTakeScreenshotButtonClicked(object sender, RoutedEventArgs e)
         {
             try
             {
-                // Export the image from mapview and assign it to the imageview.
-                ImageSource exportedImage = await (await MyMapView.ExportImageAsync()).ToImageSourceAsync();
+                // Wait for rendering to finish before taking the screenshot.
+                await WaitForRenderCompleteAsync(MyMapView);
+
+                // Export the image from the map view.
+                RuntimeImage image = await MyMapView.ExportImageAsync();
+
+                // Convert the image to a displayable format.
+                ImageSource exportedImage = await image.ToImageSourceAsync();
 
                 // Set the screenshot view to the new exported image.
                 ScreenshotView.Source = exportedImage;
@@ -57,6 +61,47 @@ namespace ArcGISRuntime.UWP.Samples.TakeScreenshot
             {
                 await new MessageDialog(ex.ToString(), "Error").ShowAsync();
             }
+        }
+
+        private static Task WaitForRenderCompleteAsync(MapView mapview)
+        {
+            // The task completion source manages the task, including marking it as finished when the time comes.
+            TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
+
+            // If the map is currently finished drawing, set the result immediately.
+            if (mapview.DrawStatus == DrawStatus.Completed)
+            {
+                tcs.SetResult(null);
+            }
+            // Otherwise, configure a callback and a timeout to either set the result when
+            // the map is finished drawing or set the result after 2000 ms.
+            else
+            {
+                // Define a cancellation token source for 2000 ms.
+                const int timeoutMs = 2000;
+                var ct = new CancellationTokenSource(timeoutMs);
+
+                // Register the callback that sets the task result after 2000 ms.
+                ct.Token.Register(() =>
+                    tcs.TrySetResult(null), false);
+
+
+                // Define a local function that will set the task result and unregister itself when the map finishes drawing.
+                void DrawCompleteHandler(object s, DrawStatusChangedEventArgs e)
+                {
+                    if (e.Status == DrawStatus.Completed)
+                    {
+                        mapview.DrawStatusChanged -= DrawCompleteHandler;
+                        tcs.TrySetResult(null);
+                    }
+                }
+
+                // Register the draw complete event handler.
+                mapview.DrawStatusChanged += DrawCompleteHandler;
+            }
+
+            // Return the task.
+            return tcs.Task;
         }
     }
 }

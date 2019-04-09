@@ -10,13 +10,15 @@
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using Esri.ArcGISRuntime.UI;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.TakeScreenshot
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Take screenshot",
+        "Take a screenshot",
         "MapView",
         "This sample demonstrates how you can take screenshot of a map. Click 'capture' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.",
         "")]
@@ -25,26 +27,23 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         public TakeScreenshot()
         {
             InitializeComponent();
-
-            // Create the UI, setup the control references and execute initialization 
             Initialize();
         }
 
         private void Initialize()
         {
-            // Create a new Map instance with the basemap  
-            Basemap myBasemap = Basemap.CreateStreets();
-            Map myMap = new Map(myBasemap);
-
-            // Assign the map to the MapView
-            MyMapView.Map = myMap;
+            // Show an imagery basemap.
+            MyMapView.Map = new Map(Basemap.CreateImagery());
         }
 
         private async void OnTakeScreenshotClicked(object sender, EventArgs e)
         {
             try
             {
-                // Export the image from mapview and assign it to the imageview
+                // Wait for rendering to finish before taking the screenshot.
+                await WaitForRenderCompleteAsync(MyMapView);
+
+                // Export the image from the map view.
                 RuntimeImage exportedImage = await MyMapView.ExportImageAsync();
 
                 // Create layout for sublayers page
@@ -57,7 +56,8 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
                 };
                 closeButton.Clicked += CloseButton_Clicked;
 
-                // Create image bitmap by getting stream from the exported image
+                // Create image bitmap by getting stream from the exported image.
+                // NOTE: currently broken on UWP due to Xamarin.Forms bug https://github.com/xamarin/Xamarin.Forms/issues/5188. 
                 var buffer = await exportedImage.GetEncodedBufferAsync();
                 byte[] data = new byte[buffer.Length];
                 buffer.Read(data, 0, data.Length);
@@ -68,24 +68,65 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
                     Margin = new Thickness(10)
                 };
 
-                // Add elements into the layout
+                // Add elements into the layout.
                 layout.Children.Add(closeButton);
                 layout.Children.Add(image);
 
-                // Create internal page for the navigation page
+                // Create internal page for the navigation page.
                 ContentPage screenshotPage = new ContentPage()
                 {
                     Content = layout,
                     Title = "Screenshot"
                 };
 
-                // Navigate to the sublayers page
+                // Navigate to the sublayers page.
                 await Navigation.PushAsync(screenshotPage);
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+                await ((Page) Parent).DisplayAlert("Error", ex.ToString(), "OK");
             }
+        }
+
+        private static Task WaitForRenderCompleteAsync(Esri.ArcGISRuntime.Xamarin.Forms.MapView mapview)
+        {
+            // The task completion source manages the task, including marking it as finished when the time comes.
+            TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
+
+            // If the map is currently finished drawing, set the result immediately.
+            if (mapview.DrawStatus == DrawStatus.Completed)
+            {
+                tcs.SetResult(null);
+            }
+            // Otherwise, configure a callback and a timeout to either set the result when
+            // the map is finished drawing or set the result after 2000 ms.
+            else
+            {
+                // Define a cancellation token source for 2000 ms.
+                const int timeoutMs = 2000;
+                var ct = new CancellationTokenSource(timeoutMs);
+
+                // Register the callback that sets the task result after 2000 ms.
+                ct.Token.Register(() =>
+                    tcs.TrySetResult(null), false);
+
+
+                // Define a local function that will set the task result and unregister itself when the map finishes drawing.
+                void DrawCompleteHandler(object s, DrawStatusChangedEventArgs e)
+                {
+                    if (e.Status == DrawStatus.Completed)
+                    {
+                        mapview.DrawStatusChanged -= DrawCompleteHandler;
+                        tcs.TrySetResult(null);
+                    }
+                }
+
+                // Register the draw complete event handler.
+                mapview.DrawStatusChanged += DrawCompleteHandler;
+            }
+
+            // Return the task.
+            return tcs.Task;
         }
 
         private async void CloseButton_Clicked(object sender, EventArgs e)

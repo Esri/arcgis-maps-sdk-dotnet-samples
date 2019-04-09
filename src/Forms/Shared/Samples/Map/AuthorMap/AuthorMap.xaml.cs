@@ -323,19 +323,22 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         private void AddLayer(string layerName, string url)
         {
-            // Clear any existing layers
-            MyMapView.Map.OperationalLayers.Clear();
+            // See if the layer already exists, and remove it if it does
+            if (MyMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name == layerName) is ArcGISMapImageLayer layer)
+            {
+                MyMapView.Map.OperationalLayers.Remove(layer);
+            }
+            else
+            {
+                // Otherwise, add the layer
+                Uri layerUri = new Uri(url);
 
-            // See if the layer already exists
-            ArcGISMapImageLayer layer = MyMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name == layerName) as ArcGISMapImageLayer;
-
-            Uri layerUri = new Uri(url);
-
-            // Create and add a new map image layer
-            layer = new ArcGISMapImageLayer(layerUri);
-            layer.Name = layerName;
-            layer.Opacity = 0.5;
-            MyMapView.Map.OperationalLayers.Add(layer);
+                // Create and add a new map image layer
+                layer = new ArcGISMapImageLayer(layerUri);
+                layer.Name = layerName;
+                layer.Opacity = 0.5;
+                MyMapView.Map.OperationalLayers.Add(layer);
+            }
         }
 
         #region OAuth

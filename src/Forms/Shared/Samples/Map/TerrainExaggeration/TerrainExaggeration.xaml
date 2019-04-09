@@ -5,7 +5,7 @@
              xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime"
              x:Class="ArcGISRuntimeXamarin.Samples.TerrainExaggeration.TerrainExaggeration">
     <RelativeLayout>
-        <esriUI:SceneView x:Name="MySceneView" Style="{StaticResource MapWithFormStyle}" ViewInsets="0" />
+        <esriUI:SceneView x:Name="MySceneView" Style="{StaticResource SceneWithFormStyle}" />
         <resources:ResponsiveFormContainer x:Name="FormContainer">
             <StackLayout>
                 <Label Text="Terrain exaggeration:" Style="{StaticResource LabelStyle}" />

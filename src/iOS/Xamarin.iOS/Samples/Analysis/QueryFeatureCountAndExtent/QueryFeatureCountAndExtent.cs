@@ -28,6 +28,9 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
         // Hold references to UI controls.
         private MapView _myMapView;
         private UILabel _resultLabel;
+        private UIBarButtonItem _countInExtentButton;
+        private UIBarButtonItem _zoomToQueryButton;
+        private UIAlertController _unionAlert;
 
         // URL to the feature service.
         private readonly Uri _medicareHospitalSpendLayer =
@@ -106,13 +109,16 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
         private void ZoomToQuery_Click(object sender, EventArgs e)
         {
             // Prompt for the type of convex hull to create.
-            UIAlertController unionAlert = UIAlertController.Create("Query features", "Enter a state abbreviation (e.g. CA)", UIAlertControllerStyle.Alert);
-            unionAlert.AddTextField(field => field.Placeholder = "e.g. CA");
-            unionAlert.AddAction(UIAlertAction.Create("Submit query", UIAlertActionStyle.Default, action => ZoomToFeature(unionAlert.TextFields[0].Text)));
-            unionAlert.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
+            if (_unionAlert == null)
+            {
+                _unionAlert = UIAlertController.Create("Query features", "Enter a state abbreviation (e.g. CA)", UIAlertControllerStyle.Alert);
+                _unionAlert.AddTextField(field => field.Placeholder = "e.g. CA");
+                _unionAlert.AddAction(UIAlertAction.Create("Submit query", UIAlertActionStyle.Default, action => ZoomToFeature(_unionAlert.TextFields[0].Text)));
+                _unionAlert.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
+            }
 
             // Show the alert.
-            PresentViewController(unionAlert, true, null);
+            PresentViewController(_unionAlert, true, null);
         }
 
         private async void CountFeatures_Click(object sender, EventArgs e)
@@ -156,13 +162,19 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _zoomToQueryButton = new UIBarButtonItem();
+            _zoomToQueryButton.Title = "Zoom to query";
+
+            _countInExtentButton = new UIBarButtonItem();
+            _countInExtentButton.Title = "Count in extent";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("Count in extent", UIBarButtonItemStyle.Plain, CountFeatures_Click),
+                _countInExtentButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Zoom to query", UIBarButtonItemStyle.Plain, ZoomToQuery_Click)
+                _zoomToQueryButton
             };
 
             _resultLabel = new UILabel
@@ -194,6 +206,27 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
                 _resultLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _resultLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _zoomToQueryButton.Clicked += ZoomToQuery_Click;
+            _countInExtentButton.Clicked += CountFeatures_Click;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _zoomToQueryButton.Clicked -= ZoomToQuery_Click;
+            _countInExtentButton.Clicked -= CountFeatures_Click;
+
+            // Remove the reference to the alert, preventing a memory leak.
+            _unionAlert = null;
         }
     }
 }

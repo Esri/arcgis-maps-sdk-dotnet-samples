@@ -26,7 +26,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
     [Register("TokenSecuredChallenge")]
     public class TokenSecuredChallenge : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // Public and secured map service URLs.
@@ -264,6 +264,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events, removing any existing subscriptions.
             if (_publicLayer != null)
             {
                 _publicLayer.LoadStatusChanged -= LayerLoadStatusChanged;
@@ -281,7 +282,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events.
+            // Unsubscribe from events, per best practice.
             _publicLayer.LoadStatusChanged -= LayerLoadStatusChanged;
             _tokenSecuredLayer.LoadStatusChanged -= LayerLoadStatusChanged;
         }

@@ -156,7 +156,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
         {
             base.ViewWillAppear(animated);
 
-            // Listen for user taps on the map.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MapView_Tapped;
         }
 
@@ -164,7 +164,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MapView_Tapped;
         }
     }

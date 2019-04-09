@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
         "Featured")]
     public class FeatureLayerShapefile : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public FeatureLayerShapefile()

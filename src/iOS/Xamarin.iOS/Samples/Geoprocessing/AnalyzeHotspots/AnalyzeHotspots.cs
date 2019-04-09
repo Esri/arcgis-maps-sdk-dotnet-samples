@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         "To run the hotspot analysis, select a data range and click on the 'Run analysis' button. Note the larger the date range, the longer it may take for the task to run and send back the results.")]
     public class AnalyzeHotspots : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _configureButton;
         private UIBarButtonItem _startButton;
@@ -216,6 +216,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _startButton.Clicked += OnRunAnalysisClicked;
             _configureButton.Clicked += ShowConfiguration;
         }
@@ -224,6 +225,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _startButton.Clicked -= OnRunAnalysisClicked;
             _configureButton.Clicked -= ShowConfiguration;
         }

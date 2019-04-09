@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         "")]
     public class StatsQueryGroupAndSort : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         UIButton _showStatDefinitionsButton;
         UIButton _showGroupFieldsButton;
         UIButton _showOrderByFieldsButton;
@@ -300,6 +300,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _showStatDefinitionsButton.TouchUpInside += ShowStatDefinitions;
             _showGroupFieldsButton.TouchUpInside += ShowGroupFields;
             _showOrderByFieldsButton.TouchUpInside += ShowOrderByFields;
@@ -309,7 +310,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _showStatDefinitionsButton.TouchUpInside -= ShowStatDefinitions;
             _showGroupFieldsButton.TouchUpInside -= ShowGroupFields;
             _showOrderByFieldsButton.TouchUpInside -= ShowOrderByFields;

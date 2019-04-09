@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
         "")]
     public class ChangeSublayerRenderer : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _changeRendererButton;
 
@@ -152,6 +152,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _changeRendererButton.Clicked += ChangeSublayerRendererButton_TouchUpInside;
         }
 
@@ -159,6 +160,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _changeRendererButton.Clicked -= ChangeSublayerRendererButton_TouchUpInside;
         }
     }

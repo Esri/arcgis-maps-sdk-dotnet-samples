@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         "Check the appropriate boxes to filter features by attributes and/or within the current extent. Click the button to see basic statistics displayed for world cities.")]
     public class StatisticalQuery : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _queryButton;
 
@@ -227,6 +227,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _queryButton.Clicked += GetStatisticsPressed;
         }
 
@@ -234,6 +235,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _queryButton.Clicked -= GetStatisticsPressed;
         }
     }

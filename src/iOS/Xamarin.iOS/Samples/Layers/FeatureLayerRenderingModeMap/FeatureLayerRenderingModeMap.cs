@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
         "")]
     public class FeatureLayerRenderingModeMap : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _staticMapView;
         private MapView _dynamicMapView;
         private UIStackView _stackView;
@@ -208,6 +208,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _zoomButton.Clicked += OnZoomClick;
         }
 
@@ -215,6 +216,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _zoomButton.Clicked -= OnZoomClick;
         }
     }

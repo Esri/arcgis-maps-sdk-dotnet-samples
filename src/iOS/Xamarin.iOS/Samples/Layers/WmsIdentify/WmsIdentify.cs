@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         "Tap to identify a feature. Note: the service returns HTML regardless of whether there was an identify result. See the Forms implementation for an example heuristic for identifying empty results.")]
     public class WmsIdentify : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private WKWebView _webView;
         private UIStackView _stackView;
@@ -157,7 +157,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         {
             base.ViewWillAppear(animated);
 
-            // Subscribe to tap events - starting point for feature identification.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
         }
 
@@ -165,7 +165,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= _myMapView_GeoViewTapped;
         }
     }

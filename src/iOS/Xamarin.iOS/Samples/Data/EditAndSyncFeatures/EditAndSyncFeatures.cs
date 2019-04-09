@@ -37,7 +37,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         "1. Pan and zoom to the area you would like to download point features for, ensuring that all point features are within the rectangle.\n2. Tap the 'generate' button. This will start the process of generating the offline geodatabase.\n3. Tap on a point feature within the area of the generated geodatabase. Then tap on the screen (anywhere within the range of the local geodatabase) to move the point to that location.\n4. Tap the 'Sync Geodatabase' button to synchronize the changes back to the feature service.\n\n Note that the basemap for this sample is downloaded from ArcGIS Online automatically.")]
     public class EditAndSyncFeatures : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIProgressView _progressBar;
         private UILabel _helpLabel;
@@ -619,10 +619,8 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         {
             base.ViewWillAppear(animated);
 
-            // Set up an event handler for 'tapped' events.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += GeoViewTapped;
-
-            // Set up an event handler for when the viewpoint (extent) changes.
             _myMapView.ViewpointChanged += MapViewExtentChanged;
 
             if (_gdbSyncJob != null) _gdbSyncJob.ProgressChanged -= Job_ProgressChanged;
@@ -636,7 +634,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= GeoViewTapped;
             _myMapView.ViewpointChanged -= MapViewExtentChanged;
             if (_gdbSyncJob != null) _gdbSyncJob.ProgressChanged -= Job_ProgressChanged;

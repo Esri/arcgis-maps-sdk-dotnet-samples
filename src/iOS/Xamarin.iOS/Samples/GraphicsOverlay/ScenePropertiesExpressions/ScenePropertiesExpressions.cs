@@ -165,7 +165,7 @@ namespace ArcGISRuntimeXamarin.Samples.ScenePropertiesExpressions
         {
             base.ViewWillAppear(animated);
 
-            // Listen for changes in slider values and update graphic properties.
+            // Subscribe to events.
             _headingSlider.ValueChanged += HeightSlider_ValueChanged;
             _pitchSlider.ValueChanged += PitchSlider_ValueChanged;
         }
@@ -174,7 +174,7 @@ namespace ArcGISRuntimeXamarin.Samples.ScenePropertiesExpressions
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _headingSlider.ValueChanged -= HeightSlider_ValueChanged;
             _pitchSlider.ValueChanged -= PitchSlider_ValueChanged;
         }

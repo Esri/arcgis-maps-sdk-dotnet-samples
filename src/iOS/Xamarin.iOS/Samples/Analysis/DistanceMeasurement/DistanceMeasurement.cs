@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         "Featured")]
     public class DistanceMeasurement : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
         private UILabel _resultLabel;
         private UIBarButtonItem _helpButton;
@@ -224,7 +224,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events.
+            // Unsubscribe from events, per best practice.
             _mySceneView.GeoViewTapped -= MySceneView_GeoViewTapped;
             _helpButton.Clicked -= ShowHelp_Click;
             _changeUnitsButton.Clicked -= UnitChangeButton_TouchUpInside;

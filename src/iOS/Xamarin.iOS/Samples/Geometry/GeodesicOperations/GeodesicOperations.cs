@@ -145,7 +145,7 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
         {
             base.ViewWillAppear(animated);
 
-            // Update end location when the user taps.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
@@ -153,7 +153,7 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
         }
     }

@@ -15,7 +15,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
 {
     public class DateSelectionViewController : UIViewController
     {
-        // Hold references to the UI controls
+        // Hold references to UI controls.
         public readonly UIDatePicker StartPicker;
         public readonly UIDatePicker EndPicker;
         private UIStackView _outerStackView;

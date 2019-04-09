@@ -32,7 +32,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         "1. Click the 'Sketch' button.\n2. Choose a sketch type from the drop down list.\n3. While sketching, you can undo/redo operations.\n4. Click 'Done' to finish the sketch.\n5. Click 'Edit', then click a graphic to start editing.\n6. Make edits then click 'Done' or 'Cancel' to finish editing.")]
     public class SketchOnMap : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UISegmentedControl _segmentButton;
 
@@ -330,14 +330,11 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _segmentButton.ValueChanged += SegmentButtonClicked;
-
-            // Listen to the sketch editor tools CanExecuteChange so controls can be enabled/disabled.
-            _myMapView.SketchEditor.UndoCommand.CanExecuteChanged += CanExecuteChanged;
+            _myMapView.SketchEditor.UndoCommand.CanExecuteChanged += CanExecuteChanged; // CanExecuteChanged events used to enable/disable controls.
             _myMapView.SketchEditor.RedoCommand.CanExecuteChanged += CanExecuteChanged;
             _myMapView.SketchEditor.CompleteCommand.CanExecuteChanged += CanExecuteChanged;
-
-            // Listen to collection changed event on the graphics overlay to enable/disable controls that require a graphic.
             _sketchOverlay.Graphics.CollectionChanged += GraphicsChanged;
         }
 
@@ -345,7 +342,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events.
+            // Unsubscribe from events, per best practice.
             _myMapView.SketchEditor.CancelCommand.Execute(null);
             _myMapView.SketchEditor.UndoCommand.CanExecuteChanged -= CanExecuteChanged;
             _myMapView.SketchEditor.RedoCommand.CanExecuteChanged -= CanExecuteChanged;

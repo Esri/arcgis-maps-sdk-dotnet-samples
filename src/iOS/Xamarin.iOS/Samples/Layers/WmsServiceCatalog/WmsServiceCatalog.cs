@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         "")]
     public class WmsServiceCatalog : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UITableView _layerList;
         private NSLayoutConstraint[] _portraitConstraints;
@@ -197,27 +197,6 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             };
         }
 
-        public override void ViewWillAppear(bool animated)
-        {
-            base.ViewWillAppear(animated);
-
-            if (_layerListSource != null)
-            {
-                _layerListSource.Owner = this;
-            }
-        }
-
-        public override void ViewDidDisappear(bool animated)
-        {
-            base.ViewDidDisappear(animated);
-
-            if (_layerListSource != null)
-            {
-                // Avoid circular reference.
-                _layerListSource.Owner = null;
-            }
-        }
-
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
         {
             base.TraitCollectionDidChange(previousTraitCollection);
@@ -325,7 +304,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         private const string CellId = "TableCell";
 
         // Hold a reference to the owning view controller; this will be the active instance of WmsServiceCatalog.
-        public WmsServiceCatalog Owner { get; set; }
+        [Weak] public WmsServiceCatalog Owner;
 
         public LayerListSource(List<LayerDisplayVM> items, WmsServiceCatalog owner)
         {

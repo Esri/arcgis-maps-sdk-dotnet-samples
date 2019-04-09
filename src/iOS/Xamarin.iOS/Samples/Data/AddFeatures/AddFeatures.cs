@@ -25,7 +25,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeatures
         "")]
     public class AddFeatures : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // URL to the feature service.
@@ -147,7 +147,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeatures
         {
             base.ViewWillAppear(animated);
 
-            // Listen for user taps on the map - this will select the feature.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MapView_Tapped;
         }
 
@@ -155,7 +155,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeatures
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MapView_Tapped;
         }
     }

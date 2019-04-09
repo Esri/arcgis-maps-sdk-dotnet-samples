@@ -139,6 +139,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _manageLayersButton.Clicked += ManageLayers_Clicked;
         }
 
@@ -146,6 +147,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _manageLayersButton.Clicked -= ManageLayers_Clicked;
         }
     }

@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         "Featured")]
     public class RasterHillshade : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private HillshadeSettingsController _settingsVC;
         private UIBarButtonItem _configureButton;
@@ -139,6 +139,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _configureButton.Clicked += HandleSettings_Clicked;
         }
 
@@ -146,6 +147,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _configureButton.Clicked -= HandleSettings_Clicked;
         }
 
@@ -241,6 +243,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _azimuthSlider.ValueChanged += UpdateSettings;
             _altitudeSlider.ValueChanged += UpdateSettings;
             _slopeTypePicker.ValueChanged += UpdateSettings;
@@ -250,7 +253,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _azimuthSlider.ValueChanged -= UpdateSettings;
             _altitudeSlider.ValueChanged -= UpdateSettings;
             _slopeTypePicker.ValueChanged -= UpdateSettings;

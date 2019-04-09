@@ -28,7 +28,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
     public class ChangeEncDisplaySettings : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _colorsButton;
         private UIBarButtonItem _areasButton;
@@ -207,6 +207,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _colorsButton.Clicked += ColorSettingsClicked;
             _areasButton.Clicked += AreaSettingsClicked;
             _pointsButton.Clicked += PointSettingsClicked;
@@ -216,6 +217,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _colorsButton.Clicked -= ColorSettingsClicked;
             _areasButton.Clicked -= AreaSettingsClicked;
             _pointsButton.Clicked -= PointSettingsClicked;

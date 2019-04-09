@@ -106,7 +106,7 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
         {
             base.ViewWillAppear(animated);
 
-            // Update terrain exaggeration based on the slider value.
+            // Subscribe to events.
             _terrainSlider.ValueChanged += TerrainSlider_ValueChanged;
         }
 
@@ -114,7 +114,7 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _terrainSlider.ValueChanged -= TerrainSlider_ValueChanged;
         }
     }

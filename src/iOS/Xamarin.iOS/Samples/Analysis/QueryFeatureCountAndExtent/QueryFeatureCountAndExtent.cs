@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
         "Use the button to zoom to the extent of the state specified (by abbreviation) in the textbox or use the button to count the features in the current extent.")]
     public class QueryFeatureCountAndExtent : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UILabel _resultLabel;
 

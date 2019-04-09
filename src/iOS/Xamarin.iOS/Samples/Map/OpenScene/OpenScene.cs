@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.OpenScene
         "The sample will load the scene automatically.")]
     public class OpenScene : UIViewController
     {
-        // Hold a reference to the SceneView.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
 
         // Hold the ID of the portal item, which is a web scene.

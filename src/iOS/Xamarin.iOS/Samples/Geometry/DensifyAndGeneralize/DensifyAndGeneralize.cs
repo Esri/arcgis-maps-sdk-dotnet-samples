@@ -223,7 +223,7 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
         {
             base.ViewWillAppear(animated);
 
-            // Listen for changes in state.
+            // Subscribe to events.
             _slider.ValueChanged += OnUIChanged;
             _operationPicker.ValueChanged += OnUIChanged;
         }
@@ -232,7 +232,7 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _slider.ValueChanged -= OnUIChanged;
             _operationPicker.ValueChanged -= OnUIChanged;
         }

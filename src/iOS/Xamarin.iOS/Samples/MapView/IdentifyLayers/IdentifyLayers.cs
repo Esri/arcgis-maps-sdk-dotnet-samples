@@ -26,7 +26,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
         "")]
     public class IdentifyLayers : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public IdentifyLayers()
@@ -145,7 +145,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
         {
             base.ViewWillAppear(animated);
 
-            // Listen for taps/clicks to start the identify operation.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
@@ -153,7 +153,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
         }
     }

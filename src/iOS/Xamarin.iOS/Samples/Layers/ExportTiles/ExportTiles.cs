@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
         "1. Pan and zoom until the area you want tiles for is within the red box.\n2. Click 'Export Tiles'.\n3. Pan and zoom to see the area covered by the downloaded tiles in the preview box.")]
     public class ExportTiles : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _exportTilesButton;
         private UIActivityIndicatorView _statusIndicator;
@@ -339,7 +339,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
         {
             base.ViewWillAppear(animated);
 
-            // Subscribe to changes in the mapview's viewpoint so the preview box can be kept in position.
+            // Subscribe to events.
             _myMapView.ViewpointChanged += MyMapView_ViewpointChanged;
             _exportTilesButton.Clicked += MyExportButton_Click;
         }
@@ -348,7 +348,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _myMapView.ViewpointChanged -= MyMapView_ViewpointChanged;
             _exportTilesButton.Clicked -= MyExportButton_Click;
         }

@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
         "Analysis", "ConvexHull", "GeometryEngine")]
     public class ConvexHull : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _createHullButton;
         private UIBarButtonItem _helpButton;
@@ -204,7 +204,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
         {
             base.ViewWillAppear(animated);
 
-            // Wire up the MapView's GeoViewTapped event handler.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
             _helpButton.Clicked += HelpButton_Click;
             _resetButton.Clicked += ResetButton_Click;
@@ -215,7 +215,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
             _helpButton.Clicked -= HelpButton_Click;
             _resetButton.Clicked -= ResetButton_Click;

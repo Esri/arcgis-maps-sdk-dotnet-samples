@@ -142,6 +142,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _updateButton.Clicked += UpdateRenderer_Clicked;
         }
 
@@ -149,6 +150,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _updateButton.Clicked -= UpdateRenderer_Clicked;
         }
 
@@ -165,7 +167,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 
     public class BlendSettingsController : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private readonly Map _map;
         private UISegmentedControl _slopeTypesPicker;
         private UISegmentedControl _colorRampsPicker;

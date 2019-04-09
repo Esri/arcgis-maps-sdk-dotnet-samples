@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         "")]
     public class ChangeSublayerVisibility : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private SublayersTable _sublayersTableView;
         private UIBarButtonItem _chooseLayersButton;
@@ -127,6 +127,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _chooseLayersButton.Clicked += sublayerButton_Clicked;
         }
 
@@ -134,6 +135,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _chooseLayersButton.Clicked -= sublayerButton_Clicked;
         }
     }
@@ -218,6 +220,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
+            // Unsubscribe from events, per best practice.
             BeginInvokeOnMainThread(() => _visibilitySwitch.ValueChanged -= VisibilitySwitch_ValueChanged);
         }
     }

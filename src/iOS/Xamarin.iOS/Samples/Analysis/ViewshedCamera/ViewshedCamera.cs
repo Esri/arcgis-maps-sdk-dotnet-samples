@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         "", "Featured")]
     public class ViewshedCamera : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
         private UIBarButtonItem _updateViewshedButton;
 
@@ -134,7 +134,7 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events.
+            // Unsubscribe from events, per best practice.
             _updateViewshedButton.Clicked -= UpdateObserverWithCamera;
         }
     }

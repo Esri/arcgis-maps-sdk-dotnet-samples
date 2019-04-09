@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
         "Press the 'Animated Zoom' button to trigger a zoom. Observe the differences between the two scenes.")]
     public class FeatureLayerRenderingModeScene : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private SceneView _staticSceneView;
         private SceneView _dynamicSceneView;
         private UIStackView _stackView;
@@ -203,6 +203,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _zoomButton.Clicked += _zoomButton_TouchUpInside;
         }
 
@@ -210,6 +211,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _zoomButton.Clicked -= _zoomButton_TouchUpInside;
         }
     }

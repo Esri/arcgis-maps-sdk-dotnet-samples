@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         "The sample provides a search bar on the top, where you can input the name of a US State. When you hit search the app performs a query on the feature table and based on the result either highlights the state geometry or provides an error.")]
     public class FeatureLayerQuery : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _queryButton;
 
@@ -198,6 +198,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _queryButton.Clicked += OnQueryClicked;
         }
 
@@ -205,6 +206,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _queryButton.Clicked -= OnQueryClicked;
         }
     }

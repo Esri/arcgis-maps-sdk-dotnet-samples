@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         "")]
     public class AnalyzeViewshed : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIActivityIndicatorView _activityIndicator;
 
@@ -245,7 +245,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         {
             base.ViewWillAppear(animated);
 
-            // Hook into the MapView tapped event.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
@@ -253,7 +253,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
         }
     }

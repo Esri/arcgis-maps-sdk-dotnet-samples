@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         "Analysis", "ConvexHull", "GeometryEngine")]
     public class ConvexHullList : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _convexHullButton;
 
@@ -246,6 +246,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _convexHullButton.Clicked += CreateConvexHull_Click;
         }
 
@@ -253,6 +254,7 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _convexHullButton.Clicked -= CreateConvexHull_Click;
         }
     }

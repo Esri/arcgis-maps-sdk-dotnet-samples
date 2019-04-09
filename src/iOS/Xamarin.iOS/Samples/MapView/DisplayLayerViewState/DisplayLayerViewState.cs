@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         "")]
     public class DisplayLayerViewState : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UITableView _tableView;
 
@@ -125,15 +125,20 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
 
         public override void LoadView()
         {
-            _myMapView = new MapView();
-            _tableView = new UITableView();
-            _tableView.RowHeight = 40;
-
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            _tableView.TranslatesAutoresizingMaskIntoConstraints = false;
-
+            // Create the views.
             View = new UIView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _tableView = new UITableView();
+            _tableView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _tableView.RowHeight = 40;
+            
+            // Add the views.
             View.AddSubviews(_myMapView, _tableView);
+
+            // Layout happens in TraitCollectionDidChange.
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
@@ -184,9 +189,8 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-
-
-            // Event for layer view state changed, avoiding duplicate subscription.
+            
+            // Subscribe to events, removing any existing subscriptions.
             _myMapView.LayerViewStateChanged -= OnLayerViewStateChanged;
             _myMapView.LayerViewStateChanged += OnLayerViewStateChanged;
         }
@@ -195,7 +199,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _myMapView.LayerViewStateChanged -= OnLayerViewStateChanged;
         }
     }

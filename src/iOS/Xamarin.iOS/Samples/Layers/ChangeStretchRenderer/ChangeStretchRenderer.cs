@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
         "Featured")]
     public class ChangeStretchRenderer : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UISegmentedControl _rendererTypes;
         private UILabel _labelParameter1;
@@ -330,6 +330,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
 
         private bool HandleTextField(UITextField textField)
         {
+            // This method allows pressing 'return' to dismiss the software keyboard.
             textField.ResignFirstResponder();
             return true;
         }
@@ -338,6 +339,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _inputParameter1.ShouldReturn += HandleTextField;
             _inputParameter2.ShouldReturn += HandleTextField;
             _updateRendererButton.TouchUpInside += UpdateRendererButton_Clicked;
@@ -348,7 +350,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _inputParameter1.ShouldReturn -= HandleTextField;
             _inputParameter2.ShouldReturn -= HandleTextField;
             _updateRendererButton.TouchUpInside -= UpdateRendererButton_Clicked;

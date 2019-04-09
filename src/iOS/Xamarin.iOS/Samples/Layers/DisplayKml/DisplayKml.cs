@@ -27,7 +27,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("324e4742820e46cfbe5029ff2c32cb1f")]
     public class DisplayKml : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
         private UISegmentedControl _dataChoiceButton;
 
@@ -132,6 +132,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _dataChoiceButton.ValueChanged += DataChoiceButtonOnValueChanged;
         }
 
@@ -139,7 +140,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _dataChoiceButton.ValueChanged -= DataChoiceButtonOnValueChanged;
         }
     }

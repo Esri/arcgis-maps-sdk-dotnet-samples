@@ -29,7 +29,7 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         "Query", "Sublayer", "MapServer", "Table")]
     public class MapImageSublayerQuery : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UITextField _queryEntry;
         private UIBarButtonItem _queryButton;
@@ -212,6 +212,7 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _queryButton.Clicked += QuerySublayers_Click;
         }
 
@@ -219,6 +220,7 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _queryButton.Clicked -= QuerySublayers_Click;
         }
     }

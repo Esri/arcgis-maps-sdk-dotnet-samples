@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         "When the sample loads, a local geodatabase will be generated for a small area from the 'SaveTheBay' feature service. When the geodatabase is ready, its tables are added as feature layers and the map view zooms to the extent of the local data. Use the UI controls to make edits either inside or outside of a transaction. If made in a transaction, you can rollback or commit your edits as a single unit when you choose to stop editing. To allow edits without a transaction, set 'Require transaction' to false. You can then add features directly into the local geodatabase. When done adding features, you can synchronize your local edits with the service.")]
     public class GeodatabaseTransactions : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _mapView;
         private UIProgressView _progressBar;
         private UILabel _statusLabel;
@@ -558,6 +558,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             if (_localGeodatabase != null) _localGeodatabase.TransactionStatusChanged += GdbTransactionStatusChanged;
             _transactionSwitch.ValueChanged += RequireTransactionChanged;
             _transactionButton.Clicked += HandleTransaction_Click;
@@ -569,7 +570,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects will never be disposed.
+            // Unsubscribe from events, per best practice.
             if (_localGeodatabase != null) _localGeodatabase.TransactionStatusChanged -= GdbTransactionStatusChanged;
             _transactionSwitch.ValueChanged -= RequireTransactionChanged;
             _transactionButton.Clicked -= HandleTransaction_Click;

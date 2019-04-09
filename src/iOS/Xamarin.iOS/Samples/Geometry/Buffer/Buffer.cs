@@ -29,7 +29,7 @@ namespace ArcGISRuntime.Samples.Buffer
         "Buffer, Geodesic, Planar")]
     public class Buffer : UIViewController
     {
-        // Create and hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UITextField _bufferDistanceMilesTextField;
         private UIView _geodesicSwatchSwatch;
@@ -319,6 +319,7 @@ namespace ArcGISRuntime.Samples.Buffer
 
         private bool HandleTextField(UITextField textField)
         {
+            // This method allows pressing 'return' to dismiss the software keyboard.
             textField.ResignFirstResponder();
             return true;
         }
@@ -327,13 +328,9 @@ namespace ArcGISRuntime.Samples.Buffer
         {
             base.ViewWillAppear(animated);
 
-            // Handle the MapView's GeoViewTapped event to create buffers.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
-
-            // Handle the clear buffers button press.
             _clearBuffersButton.TouchUpInside += ClearBuffersButton_TouchUpInside;
-
-            // Allow pressing 'return' to dismiss the keyboard.
             _bufferDistanceMilesTextField.ShouldReturn += HandleTextField;
         }
 
@@ -341,7 +338,7 @@ namespace ArcGISRuntime.Samples.Buffer
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
             _bufferDistanceMilesTextField.ShouldReturn -= HandleTextField;
             _clearBuffersButton.TouchUpInside -= ClearBuffersButton_TouchUpInside;

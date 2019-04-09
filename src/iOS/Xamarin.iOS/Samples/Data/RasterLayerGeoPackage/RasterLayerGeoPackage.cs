@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
         "The GeoPackage will be downloaded from an ArcGIS Online portal automatically.")]
     public class RasterLayerGeoPackage : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public RasterLayerGeoPackage()

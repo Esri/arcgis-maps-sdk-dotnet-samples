@@ -35,7 +35,7 @@ namespace ArcGISRuntime.Samples.FindPlace
     [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public class FindPlace : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UITextField _searchBox;
         private UITextField _locationBox;
@@ -595,6 +595,7 @@ namespace ArcGISRuntime.Samples.FindPlace
 
         private bool HandleTextField(UITextField textField)
         {
+            // This method allows pressing 'return' to dismiss the software keyboard.
             textField.ResignFirstResponder();
             return true;
         }
@@ -603,18 +604,12 @@ namespace ArcGISRuntime.Samples.FindPlace
         {
             base.ViewWillAppear(animated);
 
-            // Enable tap-for-info pattern on results.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MapView_GeoViewTapped;
-
-            // Listen for taps on the search buttons.
             _searchButton.TouchUpInside += SearchButton_Touched;
             _searchInViewButton.TouchUpInside += SearchRestrictedButton_Touched;
-
-            // Listen for text-changed events.
             _searchBox.AllEditingEvents += SearchBox_TextChanged;
             _locationBox.AllEditingEvents += LocationBox_TextChanged;
-
-            // Return dismisses software keyboard.
             _searchBox.ShouldReturn += HandleTextField;
             _locationBox.ShouldReturn += HandleTextField;
         }
@@ -623,7 +618,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. Objects won't be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MapView_GeoViewTapped;
             _searchButton.TouchUpInside -= SearchButton_Touched;
             _searchInViewButton.TouchUpInside -= SearchRestrictedButton_Touched;

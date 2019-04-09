@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         "")]
     public class DisplayDeviceLocation : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _startButton;
         private UIBarButtonItem _stopButton;
@@ -137,6 +137,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _startButton.Clicked += OnStartButtonClicked;
             _stopButton.Clicked += OnStopButtonClicked;
         }
@@ -145,6 +146,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _startButton.Clicked -= OnStartButtonClicked;
             _stopButton.Clicked -= OnStopButtonClicked;
         }

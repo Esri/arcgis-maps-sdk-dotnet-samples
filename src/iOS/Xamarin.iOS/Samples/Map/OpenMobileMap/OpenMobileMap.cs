@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.OpenMobileMap
         "The map package will be downloaded from an ArcGIS Online portal automatically.")]
     public class OpenMobileMap : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public OpenMobileMap()

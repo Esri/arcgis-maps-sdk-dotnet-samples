@@ -95,12 +95,16 @@ namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
 
         public override void LoadView()
         {
+            // Create the views.
+            View = new UIView();
+
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            View = new UIView();
+            // Add the views.
             View.AddSubviews(_myMapView);
 
+            // Lay out the views.
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;

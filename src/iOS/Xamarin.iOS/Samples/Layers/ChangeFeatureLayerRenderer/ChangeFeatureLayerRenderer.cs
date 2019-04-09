@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
         "")]
     public class ChangeFeatureLayerRenderer : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _resetButton;
         private UIBarButtonItem _overrideButton;
@@ -137,6 +137,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _resetButton.Clicked += OnResetButtonClicked;
             _overrideButton.Clicked += OnOverrideButtonClicked;
         }
@@ -145,6 +146,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _resetButton.Clicked -= OnResetButtonClicked;
             _overrideButton.Clicked -= OnOverrideButtonClicked;
         }

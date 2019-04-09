@@ -233,6 +233,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _chooseLayersButton.Clicked += ShowLayerOptions;
         }
 
@@ -240,7 +241,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _chooseLayersButton.Clicked -= ShowLayerOptions;
         }
     }

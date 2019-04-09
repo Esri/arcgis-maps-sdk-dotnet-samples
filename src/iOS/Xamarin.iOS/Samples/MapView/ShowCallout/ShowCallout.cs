@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.ShowCallout
         "Tap on the map to show that point's coordinates.")]
     public class ShowCallout : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public ShowCallout()
@@ -103,7 +103,7 @@ namespace ArcGISRuntime.Samples.ShowCallout
         {
             base.ViewWillAppear(animated);
 
-            // Respond to taps on the map.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MapView_GeoViewTapped;
         }
 
@@ -111,7 +111,7 @@ namespace ArcGISRuntime.Samples.ShowCallout
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MapView_GeoViewTapped;
         }
     }

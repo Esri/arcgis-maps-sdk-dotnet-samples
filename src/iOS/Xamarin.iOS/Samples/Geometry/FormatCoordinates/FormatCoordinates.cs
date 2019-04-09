@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         "Tap on the map to see the point in several coordinate systems. Update one of the coordinates and select 'recalculate' to see the point converted into other coordinate systems. ")]
     public class FormatCoordinates : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UITextField _selectedField;
         private UITextField _utmEntry;
@@ -275,9 +275,8 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         {
             base.ViewWillAppear(animated);
 
-            // Subscribe to map tap events to enable tapping on map to update coordinates.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
-
             _utmEntry.EditingDidBegin += InputValueChanged;
             _dmsEntry.EditingDidBegin += InputValueChanged;
             _ddEntry.EditingDidBegin += InputValueChanged;
@@ -292,7 +291,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
             _utmEntry.EditingDidBegin -= InputValueChanged;
             _dmsEntry.EditingDidBegin -= InputValueChanged;

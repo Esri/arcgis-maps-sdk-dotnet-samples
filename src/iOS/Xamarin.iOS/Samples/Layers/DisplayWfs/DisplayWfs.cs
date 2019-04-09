@@ -176,7 +176,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
         {
             base.ViewWillAppear(animated);
 
-            // Use the navigation completed event to populate the table with the features needed for the current extent.
+            // Subscribe to events.
             _myMapView.NavigationCompleted += MapView_NavigationCompleted;
         }
 
@@ -184,7 +184,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _myMapView.NavigationCompleted -= MapView_NavigationCompleted;
         }
     }

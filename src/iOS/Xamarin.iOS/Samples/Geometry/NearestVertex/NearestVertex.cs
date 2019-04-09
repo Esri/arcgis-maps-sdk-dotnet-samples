@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
         "Tap on the map. The nearest point/coordinate and nearest vertex in the polygon will be shown.")]
     public class NearestVertex : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UILabel _distanceLabel;
 
@@ -169,7 +169,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
         {
             base.ViewWillAppear(animated);
 
-            // Listen for taps; the spatial relationships will be updated in the handler.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
@@ -177,7 +177,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
         }
     }

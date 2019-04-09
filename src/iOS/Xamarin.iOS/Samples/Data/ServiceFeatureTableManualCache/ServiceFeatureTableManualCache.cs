@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
         "")]
     public class ServiceFeatureTableManualCache : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // Hold a reference to the service feature table.

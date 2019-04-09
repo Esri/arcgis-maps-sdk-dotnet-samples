@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         "")]
     public class ChangeViewpoint : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UISegmentedControl _viewpointsButton;
 
@@ -150,6 +150,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _viewpointsButton.ValueChanged += ViewpointButton_ValueChanged;
         }
 
@@ -157,7 +158,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _viewpointsButton.ValueChanged -= ViewpointButton_ValueChanged;
         }
     }

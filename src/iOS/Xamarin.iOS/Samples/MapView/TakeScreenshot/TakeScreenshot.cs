@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         "")]
     public class TakeScreenshot : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIView _overlayView;
         private UIImageView _overlayImageView;
@@ -191,6 +191,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _screenshotButton.Clicked += OnScreenshotButtonClicked;
             _closePreviewButton.Clicked += OnCloseImageViewClicked;
         }
@@ -199,6 +200,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _screenshotButton.Clicked -= OnScreenshotButtonClicked;
             _closePreviewButton.Clicked -= OnCloseImageViewClicked;
         }

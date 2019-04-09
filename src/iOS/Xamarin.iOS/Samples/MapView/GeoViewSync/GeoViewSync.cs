@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.GeoViewSync
         "")]
     public class GeoViewSync : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private SceneView _mySceneView;
         private UIStackView _stackView;
@@ -160,7 +160,7 @@ namespace ArcGISRuntime.Samples.GeoViewSync
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events. GeoViews won't be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.ViewpointChanged -= OnViewpointChanged;
             _mySceneView.ViewpointChanged -= OnViewpointChanged;
             _myMapView.NavigationCompleted -= OnNavigationComplete;

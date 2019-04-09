@@ -88,12 +88,16 @@ namespace ArcGISRuntimeXamarin.Samples.SceneSymbols
 
         public override void LoadView()
         {
+            // Create the views.
+            View = new UIView();
+
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            View = new UIView();
+            // Add the views.
             View.AddSubviews(_mySceneView);
 
+            // Lay out the views.
             _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
             _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;

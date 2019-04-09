@@ -23,7 +23,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         "")]
     public class OpenMapURL : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _selectMapButton;
 
@@ -117,6 +117,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _selectMapButton.Clicked += OnMapsButtonTouch;
         }
 
@@ -124,6 +125,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _selectMapButton.Clicked -= OnMapsButtonTouch;
         }
     }

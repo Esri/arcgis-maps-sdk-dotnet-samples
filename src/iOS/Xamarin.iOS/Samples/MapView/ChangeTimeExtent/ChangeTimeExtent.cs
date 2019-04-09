@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
         "Switch between the available options and observe how the data is filtered.")]
     public class ChangeTimeExtent : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UISegmentedControl _timeExtentsButton;
 
@@ -117,6 +117,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _timeExtentsButton.ValueChanged += _timeExtentsButton_ValueChanged;
         }
 
@@ -124,7 +125,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _timeExtentsButton.ValueChanged -= _timeExtentsButton_ValueChanged;
         }
     }

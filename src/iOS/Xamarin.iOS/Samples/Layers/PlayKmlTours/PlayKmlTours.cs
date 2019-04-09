@@ -239,11 +239,12 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _playButton.Clicked += Play_Clicked;
             _pauseButton.Clicked += Pause_Clicked;
             _resetButton.Clicked += Reset_Clicked;
 
-            // Listen for changes to the tour status.
+            // Subscribe to tour events, removing any existing subscription.
             if (_tourController.Tour != null)
             {
                 _tourController.Tour.PropertyChanged -= Tour_PropertyChanged;
@@ -263,9 +264,8 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from event.
+            // Unsubscribe from events, per best practice.
             if (_tourController.Tour != null) _tourController.Tour.PropertyChanged -= Tour_PropertyChanged;
-
             _playButton.Clicked -= Play_Clicked;
             _pauseButton.Clicked -= Pause_Clicked;
             _resetButton.Clicked -= Reset_Clicked;

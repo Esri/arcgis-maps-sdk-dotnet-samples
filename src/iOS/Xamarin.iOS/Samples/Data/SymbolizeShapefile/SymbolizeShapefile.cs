@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
         "Click the button to switch renderers. ")]
     public class SymbolizeShapefile : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _changeRendererButton;
 
@@ -157,6 +157,7 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _changeRendererButton.Clicked += ChangeRenderer_Clicked;
         }
 
@@ -164,6 +165,7 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _changeRendererButton.Clicked -= ChangeRenderer_Clicked;
         }
     }

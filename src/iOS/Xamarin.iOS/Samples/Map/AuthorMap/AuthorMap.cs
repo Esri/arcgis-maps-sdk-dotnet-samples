@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         "1. Pan and zoom to the extent you would like for your map. \n2. Choose a basemap from the list of available basemaps. \n3. Choose one or more operational layers to include. \n4. Click 'Save ...' to apply your changes. \n5. Provide info for the new portal item, such as a Title, Description, and Tags. \n6. Click 'Save Map'. \n7. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder. \n8. You can make additional changes, update the map, and then re-save to store changes in the portal item.")]
     public class AuthorMap : UIViewController, IOAuthAuthorizeHandler
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _newMapButton;
         private UIBarButtonItem _basemapButton;
@@ -401,6 +401,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _newMapButton.Clicked += NewMapClicked;
             _basemapButton.Clicked += ShowBasemapClicked;
             _layersButton.Clicked += ShowLayerListClicked;
@@ -411,6 +412,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _newMapButton.Clicked -= NewMapClicked;
             _basemapButton.Clicked -= ShowBasemapClicked;
             _layersButton.Clicked -= ShowLayerListClicked;

@@ -299,7 +299,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         {
             base.ViewWillAppear(animated);
 
-            // Listen for taps; the spatial relationships will be updated in the handler.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
@@ -307,7 +307,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
         }
     }

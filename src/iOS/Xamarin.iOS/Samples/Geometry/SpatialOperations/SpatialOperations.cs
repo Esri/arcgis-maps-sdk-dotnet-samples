@@ -27,7 +27,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         "The sample provides a drop down on the top, where you can select a geometry operation. When you choose a geometry operation, the application performs this operation between the overlapping polygons and applies the result to the geometries.")]
     public class SpatialOperations : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UISegmentedControl _operationChoiceButton;
 
@@ -199,7 +199,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         {
             base.ViewWillAppear(animated);
 
-            // Listen for taps.
+            // Subscribe to events.
             _operationChoiceButton.ValueChanged += _operationChoiceButton_ValueChanged;
         }
 
@@ -207,7 +207,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _operationChoiceButton.ValueChanged -= _operationChoiceButton_ValueChanged;
         }
     }

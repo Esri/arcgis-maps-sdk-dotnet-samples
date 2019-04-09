@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
         "")]
     public class CutGeometry : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _cutGeometryButton;
 
@@ -235,6 +235,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _cutGeometryButton.Clicked += CutButton_TouchUpInside;
         }
 
@@ -242,6 +243,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _cutGeometryButton.Clicked -= CutButton_TouchUpInside;
         }
     }

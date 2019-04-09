@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
         "")]
     public class FeatureLayerDefinitionExpression : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _resetButton;
         private UIBarButtonItem _applyExpressionButton;
@@ -134,6 +134,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _resetButton.Clicked += OnResetButtonClicked;
             _applyExpressionButton.Clicked += OnApplyExpressionClicked;
         }
@@ -142,6 +143,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _resetButton.Clicked -= OnResetButtonClicked;
             _applyExpressionButton.Clicked -= OnApplyExpressionClicked;
         }

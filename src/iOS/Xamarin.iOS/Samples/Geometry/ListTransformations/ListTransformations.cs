@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         "Featured")]
     public class ListTransformations : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private UILabel _inWkidLabel;
         private UILabel _outWkidLabel;
         private UIPickerView _transformationsPicker;
@@ -246,7 +246,6 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
             _useExtentSwitch = new UISwitch();
             _useExtentSwitch.TranslatesAutoresizingMaskIntoConstraints = false;
-            _useExtentSwitch.ValueChanged += UseExtentSwitch_ValueChanged;
             UILabel useExtentSwitchLabel = new UILabel();
             useExtentSwitchLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             useExtentSwitchLabel.Text = "Use extent";
@@ -311,11 +310,19 @@ namespace ArcGISRuntime.Samples.ListTransformations
             }
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _useExtentSwitch.ValueChanged += UseExtentSwitch_ValueChanged;
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _useExtentSwitch.ValueChanged -= UseExtentSwitch_ValueChanged;
 
             if (_transformationsPicker?.Model != null && _transformationsPicker.Model is TransformationsPickerModel tm)

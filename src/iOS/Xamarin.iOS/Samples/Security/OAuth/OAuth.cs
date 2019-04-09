@@ -67,12 +67,16 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
 
         public override void LoadView()
         {
+            // Create the views.
+            View = new UIView();
+
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            View = new UIView();
+            // Add the views.
             View.AddSubviews(_myMapView);
 
+            // Lay out the views.
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
@@ -82,8 +86,6 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            // Create the UI, setup the control references and execute initialization.
             Initialize();
         }
 

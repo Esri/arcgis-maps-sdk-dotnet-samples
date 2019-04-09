@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
         "Click the solve button to find the closest facility to every incident.")]
     public class ClosestFacilityStatic : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _solveRoutesButton;
         private UIBarButtonItem _resetButton;
@@ -277,6 +277,7 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _solveRoutesButton.Clicked += SolveRoutesButton_Click;
             _resetButton.Clicked += ResetButton_Click;
         }
@@ -285,6 +286,7 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _solveRoutesButton.Clicked -= SolveRoutesButton_Click;
             _resetButton.Clicked -= ResetButton_Click;
         }

@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         "Featured")]
     public class LineOfSightGeoElement : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
         private UILabel _statusLabel;
         private UISlider _heightSlider;
@@ -312,7 +312,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _geoLine.TargetVisibilityChanged -= Geoline_TargetVisibilityChanged;
             _animationTimer.Stop();
             _animationTimer.Elapsed -= AnimationTimer_Elapsed;

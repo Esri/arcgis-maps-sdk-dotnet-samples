@@ -25,7 +25,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlNetworkLinks
         "")]
     public class DisplayKmlNetworkLinks : UIViewController
     {
-        // Hold a reference to the SceneView.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
 
         // Hold a reference to the KML data set.
@@ -102,17 +102,20 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlNetworkLinks
         {
             base.ViewWillAppear(animated);
 
-            // Network link message is listened for in Initialize, so remove existing listener if any before re-subscribing
-            _dataset.NetworkLinkControlMessage -= Dataset_NetworkLinkControlMessage;
-            _dataset.NetworkLinkControlMessage += Dataset_NetworkLinkControlMessage;
+            // Subscribe to events, removing any existing subscriptions.
+            if (_dataset != null)
+            {
+                _dataset.NetworkLinkControlMessage -= Dataset_NetworkLinkControlMessage;
+                _dataset.NetworkLinkControlMessage += Dataset_NetworkLinkControlMessage;
+            }
         }
 
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
-            _dataset.NetworkLinkControlMessage -= Dataset_NetworkLinkControlMessage;
+            // Unsubscribe from events, per best practice.
+            if (_dataset != null) _dataset.NetworkLinkControlMessage -= Dataset_NetworkLinkControlMessage;
         }
     }
 }

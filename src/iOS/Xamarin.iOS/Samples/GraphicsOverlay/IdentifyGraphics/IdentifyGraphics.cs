@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
         "")]
     public class IdentifyGraphics : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // Graphics overlay to host graphics.
@@ -136,7 +136,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
         {
             base.ViewWillAppear(animated);
 
-            // Respond to taps on the map.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += OnMapViewTapped;
         }
 
@@ -144,7 +144,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= OnMapViewTapped;
         }
     }

@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
         "")]
     public class TimeBasedQuery : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // Hold a URI pointing to the feature service.

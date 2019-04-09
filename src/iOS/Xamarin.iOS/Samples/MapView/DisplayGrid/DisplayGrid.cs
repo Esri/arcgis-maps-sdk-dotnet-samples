@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         "Use the buttons in the toolbar to change grid settings. Changes take effect immediately.")]
     public class DisplayGrid : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _typeButton;
         private UIBarButtonItem _lineColorButton;
@@ -263,7 +263,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
         public override void LoadView()
         {
-            // Add the views.
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
@@ -315,6 +315,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _typeButton.Clicked += GridTypeButton_Click;
             _lineColorButton.Clicked += GridColorButton_Click;
             _positionButton.Clicked += LabelPositionButton_Click;
@@ -325,6 +326,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _typeButton.Clicked -= GridTypeButton_Click;
             _lineColorButton.Clicked -= GridColorButton_Click;
             _positionButton.Clicked -= LabelPositionButton_Click;

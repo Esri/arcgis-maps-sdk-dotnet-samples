@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
         "")]
     public class ArcGISVectorTiledLayerUrl : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _chooseLayerButton;
 
@@ -138,6 +138,7 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _chooseLayerButton.Clicked += LayerSelectionButtonClick;
         }
 
@@ -145,6 +146,7 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _chooseLayerButton.Clicked -= LayerSelectionButtonClick;
         }
     }

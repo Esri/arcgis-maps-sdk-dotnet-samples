@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
         "Featured")]
     public class LineOfSightLocation : UIViewController
     {
-        // Hold a reference to the SceneView.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
 
         // URL for an image service to use as an elevation source.
@@ -140,7 +140,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
         {
             base.ViewWillAppear(animated);
 
-            // Subscribe to GeoView tap event.
+            // Subscribe to events.
             _mySceneView.GeoViewTapped += SceneViewTapped;
         }
 
@@ -148,7 +148,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _mySceneView.GeoViewTapped -= SceneViewTapped;
         }
     }

@@ -38,7 +38,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         "")]
     public class GenerateOfflineMapWithOverrides : UIViewController, IOAuthAuthorizeHandler
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIActivityIndicatorView _loadingIndicator;
         private UIBarButtonItem _takeMapOfflineButton;
@@ -371,6 +371,8 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
+
+            // Subscribe to events.
             _takeMapOfflineButton.Clicked += TakeMapOfflineButton_Click;
 
             if (_overridesVC != null) _overridesVC.FinishedConfiguring += ConfigurationContinuation;
@@ -381,7 +383,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             if (_generateOfflineMapJob != null) _generateOfflineMapJob.ProgressChanged -= OfflineMapJob_ProgressChanged;
             if (_overridesVC != null) _overridesVC.FinishedConfiguring -= ConfigurationContinuation;
             _takeMapOfflineButton.Clicked -= TakeMapOfflineButton_Click;
@@ -861,6 +863,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _takeOfflineButton.TouchUpInside += TakeOffline_Click;
         }
 
@@ -868,7 +871,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _takeOfflineButton.TouchUpInside -= TakeOffline_Click;
         }
 

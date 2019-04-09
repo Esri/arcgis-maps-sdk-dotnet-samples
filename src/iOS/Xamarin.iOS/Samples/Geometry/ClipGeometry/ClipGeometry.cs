@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         "")]
     public class ClipGeometry : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _clipButton;
 
@@ -258,6 +258,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _clipButton.Clicked += ClipButton_TouchUpInside;
         }
 
@@ -265,6 +266,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _clipButton.Clicked -= ClipButton_TouchUpInside;
         }
     }

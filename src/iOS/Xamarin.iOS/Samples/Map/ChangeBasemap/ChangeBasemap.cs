@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         "")]
     public class ChangeBasemap : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _changeBasemapButton;
 
@@ -126,6 +126,7 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _changeBasemapButton.Clicked += BasemapSelectionButtonClick;
         }
 
@@ -133,6 +134,7 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _changeBasemapButton.Clicked -= BasemapSelectionButtonClick;
         }
     }

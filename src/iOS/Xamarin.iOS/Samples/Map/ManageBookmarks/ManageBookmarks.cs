@@ -24,12 +24,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         "")]
     public class ManageBookmarks : UIViewController
     {
-        ~ManageBookmarks()
-        {
-            System.Diagnostics.Debug.WriteLine(GetType().Name);
-        }
-
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _bookmarksButton;
         private UIBarButtonItem _addButton;
@@ -102,9 +97,9 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
 
             // Add Actions.
             var cancelAction = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null);
-            var okayAction = UIAlertAction.Create("Done", UIAlertActionStyle.Default, handleAlertAction);
+            var okayAction = UIAlertAction.Create("Done", UIAlertActionStyle.Default, HandleAlertAction);
 
-            void handleAlertAction(UIAlertAction action)
+            void HandleAlertAction(UIAlertAction action)
             {
                 // Get the name from the text field.
                 string name = textInputAlertController.TextFields[0].Text;
@@ -202,6 +197,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _bookmarksButton.Clicked += OnShowBookmarksButtonClicked;
             _addButton.Clicked += OnAddBookmarksButtonClicked;
         }
@@ -210,6 +206,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _bookmarksButton.Clicked -= OnShowBookmarksButtonClicked;
             _addButton.Clicked -= OnAddBookmarksButtonClicked;
         }

@@ -443,9 +443,8 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         {
             base.ViewWillAppear(animated);
 
-            // Call the animation method every time the timer expires (once every 60ms per above).
-            _animationTimer.Elapsed += Timer_Elapsed;
-            _animationTimer.Start();
+            // Subscribe to events.
+            if (_animationTimer != null) _animationTimer.Elapsed += Timer_Elapsed;
             _playButton.Clicked += TogglePlayMission;
             _missionButton.Clicked += ShowMissionOptions;
             _cameraButton.Clicked += ToggleFollowPlane;
@@ -456,9 +455,13 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
-            _animationTimer.Stop();
-            _animationTimer.Elapsed -= Timer_Elapsed;
+            // Unsubscribe from events, per best practice.
+            if (_animationTimer != null)
+            {
+                // Explicitly stop the timer before unsubscribing.
+                _animationTimer.Stop();
+                _animationTimer.Elapsed -= Timer_Elapsed;
+            }
             _playButton.Clicked -= TogglePlayMission;
             _missionButton.Clicked -= ShowMissionOptions;
             _cameraButton.Clicked -= ToggleFollowPlane;

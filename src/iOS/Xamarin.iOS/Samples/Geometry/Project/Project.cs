@@ -104,7 +104,7 @@ namespace ArcGISRuntimeXamarin.Samples.Project
         {
             base.ViewWillAppear(animated);
 
-            // Respond to user taps.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MapView_Tapped;
         }
 
@@ -112,7 +112,7 @@ namespace ArcGISRuntimeXamarin.Samples.Project
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MapView_Tapped;
         }
     }

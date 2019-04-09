@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.BufferList
         "GeometryEngine, Geometry, Buffer, SpatialReference")]
     public class BufferList : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UITextField _bufferDistanceEntry;
         private UIBarButtonItem _helpButton;
@@ -352,6 +352,7 @@ namespace ArcGISRuntime.Samples.BufferList
 
         private bool HandleTextField(UITextField textField)
         {
+            // This method allows pressing 'return' to dismiss the software keyboard.
             textField.ResignFirstResponder();
             return true;
         }
@@ -360,12 +361,9 @@ namespace ArcGISRuntime.Samples.BufferList
         {
             base.ViewWillAppear(animated);
 
-            // Allow pressing 'return' to dismiss the keyboard.
+            // Subscribe to events.
             _bufferDistanceEntry.ShouldReturn += HandleTextField;
-
-            // Wire up the MapView's GeoViewTapped event handler.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
-
             _helpButton.Clicked += ShowHelpAlert;
             _resetButton.Clicked += ClearButton_Click;
             _bufferButton.Clicked += PromptForUnionChoice;
@@ -375,10 +373,9 @@ namespace ArcGISRuntime.Samples.BufferList
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
             _bufferDistanceEntry.ShouldReturn -= HandleTextField;
-
             _helpButton.Clicked -= ShowHelpAlert;
             _resetButton.Clicked -= ClearButton_Click;
             _bufferButton.Clicked -= PromptForUnionChoice;

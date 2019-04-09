@@ -27,7 +27,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
         "")]
     public class UpdateAttributes : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIButton _changeValueButton;
 
@@ -259,7 +259,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
         {
             base.ViewWillAppear(animated);
 
-            // Listen for user taps on the map - this will select the feature.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MapView_Tapped;
             if (_changeValueButton != null) _changeValueButton.TouchUpInside += ShowDamageTypeChoices;
         }
@@ -268,7 +268,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MapView_Tapped;
             if (_changeValueButton != null) _changeValueButton.TouchUpInside -= ShowDamageTypeChoices;
         }

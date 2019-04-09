@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
         "")]
     public class ListGeodatabaseVersions : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private UIActivityIndicatorView _progressBar;
         private UITextView _geodatabaseListField;
 

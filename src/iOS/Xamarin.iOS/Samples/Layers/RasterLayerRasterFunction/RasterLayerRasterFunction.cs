@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
         "")]
     public class RasterLayerRasterFunction : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public RasterLayerRasterFunction()

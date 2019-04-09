@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
         "")]
     public class WMSLayerUrl : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // Hold the URL to the WMS service showing U.S. weather radar.

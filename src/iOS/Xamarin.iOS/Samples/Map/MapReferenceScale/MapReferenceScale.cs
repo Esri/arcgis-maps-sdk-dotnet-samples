@@ -188,7 +188,7 @@ namespace ArcGISRuntimeXamarin.Samples.MapReferenceScale
         {
             base.ViewWillAppear(animated);
 
-            // Update the UI when the map navigates.
+            // Subscribe to events.
             _myMapView.ViewpointChanged += MapView_ViewpointChanged;
             _referenceScaleButton.Clicked += ShowScaleOptions_Click;
             _layerSelectionButton.Clicked += ShowLayerOptions_Click;
@@ -198,7 +198,7 @@ namespace ArcGISRuntimeXamarin.Samples.MapReferenceScale
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects will never be disposed.
+            // Unsubscribe from events, per best practice.
             _myMapView.ViewpointChanged -= MapView_ViewpointChanged;
             _referenceScaleButton.Clicked -= ShowScaleOptions_Click;
             _layerSelectionButton.Clicked -= ShowLayerOptions_Click;

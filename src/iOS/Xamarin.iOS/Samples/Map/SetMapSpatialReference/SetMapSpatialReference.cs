@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.SetMapSpatialReference
         "")]
     public class SetMapSpatialReference : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public SetMapSpatialReference()

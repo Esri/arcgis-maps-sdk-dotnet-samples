@@ -23,7 +23,7 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
         "")]
     public class AccessLoadStatus : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UILabel _loadStatusLabel;
 
@@ -94,7 +94,7 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _myMapView.Map.LoadStatusChanged -= OnMapsLoadStatusChanged;
         }
     }

@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         "Choose one of the stretch parameter types. The other options will adjust based on the chosen type. Add your inputs and press the Apply button to update the renderer.")]
     public class RasterRgbRenderer : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private MinMaxSettingsController _minMaxController;
         private PercentClipSettingsController _percentClipController;

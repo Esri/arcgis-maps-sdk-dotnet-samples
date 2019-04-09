@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
         "")]
     public class SceneLayerSelection : UIViewController
     {
-        // Hold a reference to the SceneView.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
 
         public SceneLayerSelection()
@@ -136,7 +136,7 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
         {
             base.ViewWillAppear(animated);
 
-            // Listen for taps.
+            // Subscribe to events.
             _mySceneView.GeoViewTapped += SceneViewTapped;
         }
 
@@ -144,7 +144,7 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _mySceneView.GeoViewTapped -= SceneViewTapped;
         }
     }

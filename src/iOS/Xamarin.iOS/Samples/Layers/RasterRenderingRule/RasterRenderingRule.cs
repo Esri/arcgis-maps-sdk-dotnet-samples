@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         "")]
     public class RasterRenderingRule : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UILabel _selectionLabel;
         private UIBarButtonItem _changeRuleButton;
@@ -190,6 +190,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _changeRuleButton.Clicked += ChangeRenderingRule_Clicked;
         }
 
@@ -197,6 +198,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _changeRuleButton.Clicked -= ChangeRenderingRule_Clicked;
         }
     }

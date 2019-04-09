@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.AddGraphicsRenderer
         "")]
     public class AddGraphicsRenderer : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public AddGraphicsRenderer()

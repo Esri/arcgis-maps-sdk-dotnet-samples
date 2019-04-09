@@ -29,7 +29,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
         "")]
     public class IdentifyKmlFeatures : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private WKWebView _webView;
         private UIStackView _stackView;
@@ -144,7 +144,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
         {
             base.ViewWillAppear(animated);
 
-            // Listen for taps to identify features.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
@@ -152,7 +152,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
         }
     }

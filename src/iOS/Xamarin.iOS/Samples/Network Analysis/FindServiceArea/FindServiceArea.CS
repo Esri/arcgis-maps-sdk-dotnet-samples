@@ -345,12 +345,11 @@ namespace ArcGISRuntime.Samples.FindServiceArea
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _addButton.Clicked += AddClick;
             _doneButton.Clicked += DoneClick;
             _showButton.Clicked += ShowServiceAreas_Click;
             _resetButton.Clicked += Reset_Click;
-
-            // Add a new behavior for double taps on the MapView.
             _myMapView.GeoViewDoubleTapped += MapView_DoubleTapped;
         }
 
@@ -358,12 +357,11 @@ namespace ArcGISRuntime.Samples.FindServiceArea
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _addButton.Clicked -= AddClick;
             _doneButton.Clicked -= DoneClick;
             _showButton.Clicked -= ShowServiceAreas_Click;
             _resetButton.Clicked -= Reset_Click;
-
-            // Unsubscribe from events, otherwise objects won't be disposed.
             _myMapView.GeoViewDoubleTapped -= MapView_DoubleTapped;
         }
     }

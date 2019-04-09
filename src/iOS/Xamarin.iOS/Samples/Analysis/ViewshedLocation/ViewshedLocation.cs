@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         "Featured")]
     public class ViewshedLocation : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
         private ViewshedLocationSettingsController _settingsVC;
         private UIBarButtonItem _settingsButton;
@@ -224,7 +224,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _mySceneView.GeoViewTapped -= MySceneView_GeoViewTapped;
             _settingsButton.Clicked -= HandleSettings_Clicked;
         }
@@ -392,7 +392,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _headingSlider.ValueChanged -= HandleSettingsChange;
             _pitchSlider.ValueChanged -= HandleSettingsChange;
             _horizontalAngleSlider.ValueChanged -= HandleSettingsChange;

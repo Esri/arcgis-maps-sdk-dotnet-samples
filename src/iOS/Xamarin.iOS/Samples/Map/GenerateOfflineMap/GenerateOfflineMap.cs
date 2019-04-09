@@ -35,7 +35,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         "When the app starts, a web map is loaded from ArcGIS Online. The red border shows the extent that of the data that will be downloaded for use offline. Click the `Take map offline` button to start the offline map job (you will be prompted for your ArcGIS Online login). The progress bar will show the job's progress. When complete, the offline map will replace the online map in the map view.")]
     public class GenerateOfflineMap : UIViewController, IOAuthAuthorizeHandler
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIActivityIndicatorView _loadingIndicator;
         private UIBarButtonItem _takeMapOfflineButton;
@@ -308,6 +308,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             if (_generateOfflineMapJob != null) _generateOfflineMapJob.ProgressChanged += OfflineMapJob_ProgressChanged;
             _takeMapOfflineButton.Clicked += TakeMapOfflineButton_Click;
         }
@@ -316,7 +317,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _generateOfflineMapJob.ProgressChanged -= OfflineMapJob_ProgressChanged;
             _takeMapOfflineButton.Clicked -= TakeMapOfflineButton_Click;
         }

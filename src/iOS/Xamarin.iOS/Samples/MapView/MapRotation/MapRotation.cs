@@ -23,7 +23,7 @@ namespace ArcGISRuntime.Samples.MapRotation
         "")]
     public class MapRotation : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UILabel _rotationLabel;
         private UISlider _rotationSlider;
@@ -105,7 +105,7 @@ namespace ArcGISRuntime.Samples.MapRotation
         {
             base.ViewWillAppear(animated);
 
-            // Configure the slider.
+            // Subscribe to events.
             _rotationSlider.ValueChanged += RotationSlider_Changed;
         }
 
@@ -113,7 +113,7 @@ namespace ArcGISRuntime.Samples.MapRotation
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise object won't be disposed.
+            // Unsubscribe from events, per best practice.
             _rotationSlider.ValueChanged -= RotationSlider_Changed;
         }
     }

@@ -34,7 +34,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1330ab96ac9c40a49e59650557f2cd63", "344e3b12368543ef84045ef9aa3c32ba")]
     public class OfflineGeocode : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UISearchBar _addressSearchBar;
 
@@ -270,9 +270,8 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
         {
             base.ViewWillAppear(animated);
 
-            // Enable tap-for-info pattern on results.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
-
             _addressSearchBar.ListButtonClicked += AddressSearch_ListButtonClicked;
             _addressSearchBar.SearchButtonClicked += AddressSearchBar_Clicked;
         }
@@ -281,7 +280,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
             _addressSearchBar.ListButtonClicked -= AddressSearch_ListButtonClicked;
             _addressSearchBar.SearchButtonClicked -= AddressSearchBar_Clicked;

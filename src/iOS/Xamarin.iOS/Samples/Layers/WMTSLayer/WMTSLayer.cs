@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         "")]
     public class WMTSLayer : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UISegmentedControl _constructorChoiceButton;
 
@@ -159,6 +159,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _constructorChoiceButton.ValueChanged += _constructorChoiceButton_ValueChanged;
         }
 
@@ -166,7 +167,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _constructorChoiceButton.ValueChanged -= _constructorChoiceButton_ValueChanged;
         }
     }

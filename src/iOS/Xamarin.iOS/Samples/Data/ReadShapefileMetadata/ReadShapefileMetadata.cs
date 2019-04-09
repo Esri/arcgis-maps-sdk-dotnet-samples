@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
     [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("MetadataDisplayViewController.cs")]
     public class ReadShapefileMetadata : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _showMetadataButton;
 
@@ -140,6 +140,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _showMetadataButton.Clicked += OnMetadataButtonTouch;
         }
 
@@ -147,6 +148,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _showMetadataButton.Clicked -= OnMetadataButtonTouch;
         }
     }

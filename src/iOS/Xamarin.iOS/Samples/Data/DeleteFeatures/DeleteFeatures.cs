@@ -26,7 +26,7 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
         "")]
     public class DeleteFeatures : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // URL to the feature service.
@@ -201,7 +201,7 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
         {
             base.ViewWillAppear(animated);
 
-            // Listen for user taps on the map - on tap, a callout will be shown.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MapView_Tapped;
         }
 
@@ -209,7 +209,7 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MapView_Tapped;
         }
     }

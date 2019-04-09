@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
         "")]
     public class FeatureLayerTimeOffset : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UILabel _timeLabel;
         private UISlider _timeSlider;
@@ -258,7 +258,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
         {
             base.ViewWillAppear(animated);
 
-            // Listen for slider changes.
+            // Subscribe to events.
             _timeSlider.ValueChanged += TimeSlider_ValueChanged;
         }
 
@@ -266,7 +266,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _timeSlider.ValueChanged -= TimeSlider_ValueChanged;
         }
     }

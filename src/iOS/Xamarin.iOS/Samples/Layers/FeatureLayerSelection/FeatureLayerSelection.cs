@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
         "")]
     public class FeatureLayerSelection : UIViewController
     {
-        // Hold a references to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // Hold reference to the feature layer.
@@ -144,6 +144,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _myMapView.GeoViewTapped += OnMapViewTapped;
         }
 
@@ -151,7 +152,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= OnMapViewTapped;
         }
     }

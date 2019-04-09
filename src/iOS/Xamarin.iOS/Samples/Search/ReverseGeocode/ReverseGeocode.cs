@@ -182,7 +182,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
         {
             base.ViewWillAppear(animated);
 
-            // Enable tap-for-info pattern on results.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
         }
 
@@ -190,7 +190,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= _myMapView_GeoViewTapped;
         }
     }

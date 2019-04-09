@@ -351,24 +351,23 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
         {
             base.ViewWillAppear(animated);
 
-            // Enable tap-to-reverse geocode and tap-to-route.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MapView_Tapped;
+            _chooseMapButton.Clicked += ChangeMap_Click;
 
-            // Re-subscribe if needed.
+            // Subscribe to events, removing any existing subscriptions.
             if (_viewModel != null)
             {
                 _viewModel.MapSelected -= Map_Selected;
                 _viewModel.MapSelected += Map_Selected;
             }
-
-            _chooseMapButton.Clicked += ChangeMap_Click;
         }
 
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to events. Objects will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MapView_Tapped;
             _viewModel.MapSelected -= Map_Selected;
             _chooseMapButton.Clicked -= ChangeMap_Click;

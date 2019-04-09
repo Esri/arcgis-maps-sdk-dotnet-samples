@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         "")]
     public class FeatureLayerExtrusion : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
         private UISegmentedControl _extrusionFieldButton;
 
@@ -165,6 +165,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _extrusionFieldButton.ValueChanged += ToggleExtrusionButton_Clicked;
         }
 
@@ -172,7 +173,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _extrusionFieldButton.ValueChanged -= ToggleExtrusionButton_Clicked;
         }
     }

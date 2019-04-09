@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         "Select a layer name in the 'Layers Not in the Map' UISegmentedControl to add it to the map. Conversely to remove a layer from the map select a layer name in the 'Layers in the Map' UISegmentedControl. NOTE: The GeoPackage will be downloaded from an ArcGIS Online portal automatically.")]
     public class ReadGeoPackage : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UISegmentedControl _layerSegmentedControl;
 
@@ -305,6 +305,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _layerSegmentedControl.ValueChanged += LayerSegmentedControl_ValueChanged;
         }
 
@@ -312,7 +313,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _layerSegmentedControl.ValueChanged -= LayerSegmentedControl_ValueChanged;
         }
     }

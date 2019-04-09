@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.FindRoute
         "")]
     public class FindRoute : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _solveRouteButton;
         private UIBarButtonItem _resetButton;
@@ -243,6 +243,7 @@ namespace ArcGISRuntime.Samples.FindRoute
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _solveRouteButton.Clicked += SolveRouteButton_Click;
             _directionsButton.Clicked += ShowDirections;
             _resetButton.Clicked += ResetButton_Click;
@@ -252,6 +253,7 @@ namespace ArcGISRuntime.Samples.FindRoute
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _solveRouteButton.Clicked -= SolveRouteButton_Click;
             _directionsButton.Clicked -= ShowDirections;
             _resetButton.Clicked -= ResetButton_Click;

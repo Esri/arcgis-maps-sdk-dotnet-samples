@@ -70,6 +70,9 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
 
         public override void LoadView()
         {
+            // Create the views.
+            View = new UIView();
+
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
@@ -81,9 +84,11 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
             _atmosphereEffectPicker.Layer.CornerRadius = 4;
             _atmosphereEffectPicker.ClipsToBounds = true;
 
-            View = new UIView();
+            // Add the views.
             View.AddSubviews(_mySceneView, _atmosphereEffectPicker);
 
+
+            // Lay out the views.
             _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
             _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
@@ -104,7 +109,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
         {
             base.ViewWillAppear(animated);
 
-            // Apply the selected atmosphere effect option.
+            // Subscribe to events.
             _atmosphereEffectPicker.ValueChanged += Picker_ValuedChanged;
         }
 
@@ -112,7 +117,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _atmosphereEffectPicker.ValueChanged -= Picker_ValuedChanged;
         }
     }

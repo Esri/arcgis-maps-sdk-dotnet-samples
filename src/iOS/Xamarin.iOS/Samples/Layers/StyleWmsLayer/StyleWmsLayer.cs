@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
         "Click to select from one of the two preset styles.")]
     public class StyleWmsLayer : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UISegmentedControl _styleChoiceButton;
 
@@ -142,6 +142,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _styleChoiceButton.ValueChanged += _styleChoiceButton_ValueChanged;
         }
 
@@ -149,7 +150,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, otherwise objects won't be disposed.
+            // Unsubscribe from events, per best practice.
             _styleChoiceButton.ValueChanged -= _styleChoiceButton_ValueChanged;
         }
     }

@@ -34,7 +34,7 @@ namespace ArcGISRuntime.Samples.FindAddress
     [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public class FindAddress : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UISearchBar _addressSearchBar;
 
@@ -260,10 +260,9 @@ namespace ArcGISRuntime.Samples.FindAddress
         {
             base.ViewWillAppear(animated);
 
+            // Subscribe to events.
             _addressSearchBar.ListButtonClicked += AddressSearch_ListButtonClicked;
             _addressSearchBar.SearchButtonClicked += AddressSearchBar_Clicked;
-
-            // Enable tap-for-callout pattern on results.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
@@ -271,7 +270,7 @@ namespace ArcGISRuntime.Samples.FindAddress
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events. Objects won't be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
             _addressSearchBar.ListButtonClicked -= AddressSearch_ListButtonClicked;
             _addressSearchBar.SearchButtonClicked -= AddressSearchBar_Clicked;

@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
         "Featured")]
     public class ViewshedGeoElement : UIViewController
     {
-        // Hold a reference to the SceneView.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
 
         // URLs to the scene layer with buildings and the elevation source.
@@ -218,7 +218,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _mySceneView.GeoViewTapped -= SceneViewTapped;
 
             // End the timer and unsubscribe.

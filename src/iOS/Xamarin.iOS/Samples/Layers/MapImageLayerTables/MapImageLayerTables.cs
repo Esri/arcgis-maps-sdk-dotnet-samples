@@ -207,6 +207,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             // Add the views.
             View.AddSubviews(_stackView);
 
+            // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
@@ -236,7 +237,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         {
             base.ViewWillAppear(animated);
 
-            // Handle a new selection in the table source.
+            // Subscribe to events, removing any existing subscriptions.
             if (_commentsTableSource != null)
             {
                 // Avoid duplicate subscription.
@@ -249,6 +250,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         {
             base.ViewDidDisappear(animated);
 
+            // Unsubscribe from events, per best practice.
             _commentsTableSource.ServiceRequestCommentSelected -= CommentsTableSource_ServiceRequestCommentSelected;
         }
     }

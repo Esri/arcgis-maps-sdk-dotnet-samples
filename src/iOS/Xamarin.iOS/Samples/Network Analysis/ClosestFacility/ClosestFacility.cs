@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
         "Tap to find the route to the nearest hospital.")]
     public class ClosestFacility : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // Holds locations of hospitals around San Diego.
@@ -228,7 +228,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
         {
             base.ViewWillAppear(animated);
 
-            // Link the action of tapping on the map with the MyMapView_GeoViewTapped method.
+            // Subscribe to events.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
@@ -236,7 +236,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe to tap events. The view will never be disposed otherwise.
+            // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
         }
     }

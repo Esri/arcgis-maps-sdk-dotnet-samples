@@ -56,12 +56,6 @@ namespace ArcGISRuntime.UWP.Samples.SketchOnMap
             SketchModeComboBox.ItemsSource = System.Enum.GetValues(typeof(SketchCreationMode));
             SketchModeComboBox.SelectedIndex = 0;
 
-            // Set the sketch editor configuration to allow vertex editing, resizing, and moving
-            SketchEditConfiguration config = MyMapView.SketchEditor.EditConfiguration;
-            config.AllowVertexEditing = true;
-            config.ResizeMode = SketchResizeMode.Uniform;
-            config.AllowMove = true;
-
             // Set the sketch editor as the page's data context
             DataContext = MyMapView.SketchEditor;
         }

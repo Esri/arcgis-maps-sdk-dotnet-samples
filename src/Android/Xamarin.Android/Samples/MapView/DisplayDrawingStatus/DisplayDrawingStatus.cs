@@ -19,7 +19,7 @@ using Android.Views;
 
 namespace ArcGISRuntime.Samples.DisplayDrawingStatus
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Display drawing status",
         "MapView",

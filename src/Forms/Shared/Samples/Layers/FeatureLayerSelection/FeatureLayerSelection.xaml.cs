@@ -117,7 +117,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
                 };
 
                 // Select the features based on query parameters defined above.
-                await _featureLayer.SelectFeaturesAsync(queryParams, SelectionMode.New);
+                await _featureLayer.SelectFeaturesAsync(queryParams, Esri.ArcGISRuntime.Mapping.SelectionMode.New);
             }
             catch (Exception ex)
             {

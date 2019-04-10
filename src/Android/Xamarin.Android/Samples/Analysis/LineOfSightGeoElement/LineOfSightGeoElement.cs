@@ -22,7 +22,7 @@ using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.LineOfSightGeoElement
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Line of sight (GeoElement)",

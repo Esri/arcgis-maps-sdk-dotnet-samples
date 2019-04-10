@@ -30,7 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <LangVersion>5</LangVersion>
+    <LangVersion>7</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,25 +40,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>5</LangVersion>
+    <LangVersion>7</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Assets\ApplicationIcons\windows-desktop-256.ico</ApplicationIcon>
   </PropertyGroup>
   <!-- References -->
   <ItemGroup>
-    <Reference Include="Esri.ArcGISRuntime, Version=100.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0\lib\net461\Esri.ArcGISRuntime.dll</HintPath>
-    </Reference>
-    <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\lib\net461\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
-    </Reference>
-    <Reference Include="Esri.ArcGISRuntime.LocalServices, Version=100.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0.1\lib\net461\Esri.ArcGISRuntime.LocalServices.dll</HintPath>
-    </Reference>
-    <Reference Include="MarkedNet, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\MarkedNet.2.1.2\lib\net451\MarkedNet.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -80,10 +68,7 @@
   </ItemGroup>
   <!-- Resources -->
   <ItemGroup>
-    <None Include="ArcGISLocalServer_100.3.AGSDeployment" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="ArcGISLocalServer_100.5.AGSDeployment" />
     <None Include="Readme.md" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-128.png" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-16.png" />
@@ -109,6 +94,103 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml.cs">
+      <DependentUpon>DownloadPreplannedMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\GroupLayers\GroupLayers.xaml.cs">
+      <DependentUpon>GroupLayers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.xaml.cs">
+      <DependentUpon>OfflineBasemapByReference.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\PlayKmlTours\PlayKmlTours.xaml.cs">
+      <DependentUpon>PlayKmlTours.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml.cs">
+      <DependentUpon>ViewContentBeneathSurface.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.xaml.cs">
+      <DependentUpon>AddPointSceneLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.xaml.cs">
+      <DependentUpon>GenerateOfflineMapWithOverrides.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.xaml.cs">
+      <DependentUpon>WfsXmlQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayWfs\DisplayWfs.xaml.cs">
+      <DependentUpon>DisplayWfs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.xaml.cs">
+      <DependentUpon>BrowseWfsLayers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml.cs">
+      <DependentUpon>OpenMobileScenePackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.xaml.cs">
+      <DependentUpon>MapReferenceScale.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.xaml.cs">
+      <DependentUpon>CreateTerrainSurfaceFromRaster.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.xaml.cs">
+      <DependentUpon>CreateTerrainSurfaceFromTilePackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.xaml.cs">
+      <DependentUpon>ViewPointCloudDataOffline.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.xaml.cs">
+      <DependentUpon>AddAnIntegratedMeshLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.xaml.cs">
+      <DependentUpon>DictionaryRendererGraphicsOverlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\ItemToImageSourceConverter.cs" />
+    <Compile Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.xaml.cs">
+      <DependentUpon>MobileMapSearchAndRoute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Search\OfflineGeocode\OfflineGeocode.xaml.cs">
+      <DependentUpon>OfflineGeocode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Search\ReverseGeocode\ReverseGeocode.xaml.cs">
+      <DependentUpon>ReverseGeocode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.xaml.cs">
+      <DependentUpon>EditFeatureAttachments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\Project\Project.xaml.cs">
+      <DependentUpon>Project.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.xaml.cs">
+      <DependentUpon>OpenStreetMapLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.xaml.cs">
+      <DependentUpon>ManageOperationalLayers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.xaml.cs">
+      <DependentUpon>UpdateAttributes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\UpdateGeometries\UpdateGeometries.xaml.cs">
+      <DependentUpon>UpdateGeometries.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\AddFeatures\AddFeatures.xaml.cs">
+      <DependentUpon>AddFeatures.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\DeleteFeatures\DeleteFeatures.xaml.cs">
+      <DependentUpon>DeleteFeatures.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\SceneSymbols\SceneSymbols.xaml.cs">
+      <DependentUpon>SceneSymbols.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.xaml.cs">
+      <DependentUpon>TerrainExaggeration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml.cs">
+      <DependentUpon>ChangeAtmosphereEffect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.xaml.cs">
+      <DependentUpon>ScenePropertiesExpressions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Geometry\SpatialOperations\SpatialOperations.xaml.cs">
       <DependentUpon>SpatialOperations.xaml</DependentUpon>
     </Compile>
@@ -535,6 +617,134 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\GroupLayers\GroupLayers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\PlayKmlTours\PlayKmlTours.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\DisplayWfs\DisplayWfs.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\MapReferenceScale\MapReferenceScale.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Search\OfflineGeocode\OfflineGeocode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Search\ReverseGeocode\ReverseGeocode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Geometry\Project\Project.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\UpdateAttributes\UpdateAttributes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\UpdateGeometries\UpdateGeometries.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\AddFeatures\AddFeatures.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\DeleteFeatures\DeleteFeatures.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\SceneSymbols\SceneSymbols.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Geometry\SpatialOperations\SpatialOperations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1106,6 +1316,104 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\GroupLayers\GroupLayers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\PlayKmlTours\PlayKmlTours.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\MapReferenceScale\MapReferenceScale.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\routingSymbol.png" />
+    <Resource Include="Resources\files-48.png" />
+    <Content Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Search\ReverseGeocode\ReverseGeocode.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\Project\Project.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\AddFeatures\AddFeatures.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\DeleteFeatures\DeleteFeatures.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Geometry\SpatialOperations\SpatialOperations.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1606,21 +1914,23 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
+      <Version>100.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Esri.ArcGISRuntime.LocalServices">
+      <Version>100.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Esri.ArcGISRuntime.WPF">
+      <Version>100.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="MarkedNet">
+      <Version>2.1.2</Version>
+    </PackageReference>
+  </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="SourceViewer.targets" />
   <Import Project="readme.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0\build\net461\Esri.ArcGISRuntime.WPF.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0\build\net461\Esri.ArcGISRuntime.WPF.targets'))" />
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets'))" />
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0.1\build\net461\Esri.ArcGISRuntime.LocalServices.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0.1\build\net461\Esri.ArcGISRuntime.LocalServices.targets'))" />
-  </Target>
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0\build\net461\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.4.0\build\net461\Esri.ArcGISRuntime.WPF.targets')" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0.1\build\net461\Esri.ArcGISRuntime.LocalServices.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.3.0.1\build\net461\Esri.ArcGISRuntime.LocalServices.targets')" />
 </Project>

@@ -116,6 +116,12 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
                     // Wait for the table to load.
                     await onlineTable.LoadAsync();
 
+                    // Skip tables that aren't for point features.{
+                    if (onlineTable.GeometryType != GeometryType.Point)
+                    {
+                        continue;
+                    }
+
                     // Add the layer to the map's operational layers if load succeeds.
                     if (onlineTable.LoadStatus == LoadStatus.Loaded)
                     {
@@ -211,17 +217,25 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
                         Geometry = selectionEnvelope
                     };
 
+                    // Track whether any selections were made.
+                    bool selectedFeature = false;
+
                     // Select the feature in all applicable tables.
                     foreach (FeatureLayer layer in MyMapView.Map.OperationalLayers)
                     {
-                        await layer.SelectFeaturesAsync(query, SelectionMode.New);
+                        FeatureQueryResult res = await layer.SelectFeaturesAsync(query, SelectionMode.New);
+                        selectedFeature = selectedFeature || res.Any();
                     }
 
-                    // Set the edit state.
-                    _readyForEdits = EditState.Editing;
+                    // Only update state if a feature was selected.
+                    if (selectedFeature)
+                    {
+                        // Set the edit state.
+                        _readyForEdits = EditState.Editing;
 
-                    // Update the help label.
-                    MyHelpLabel.Text = "3. Tap on the map to move the point";
+                        // Update the help label.
+                        MyHelpLabel.Text = "3. Tap on the map to move the point";
+                    }
                 }
             }
             catch (Exception ex)
@@ -316,7 +330,7 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
             HandleGenerationStatusChange(generateGdbJob);
         }
 
-        private void HandleGenerationStatusChange(GenerateGeodatabaseJob job)
+        private async void HandleGenerationStatusChange(GenerateGeodatabaseJob job)
         {
             // If the job completed successfully, add the geodatabase data to the map.
             if (job.Status == JobStatus.Succeeded)
@@ -327,6 +341,13 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
                 // Loop through all feature tables in the geodatabase and add a new layer to the map.
                 foreach (GeodatabaseFeatureTable table in _resultGdb.GeodatabaseFeatureTables)
                 {
+                    // Skip non-point tables.
+                    await table.LoadAsync();
+                    if (table.GeometryType != GeometryType.Point)
+                    {
+                        continue;
+                    }
+
                     // Create a new feature layer for the table.
                     FeatureLayer layer = new FeatureLayer(table);
 
@@ -468,6 +489,9 @@ namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
 
         private async void GenerateButton_Clicked(object sender, RoutedEventArgs e)
         {
+            // Fix the selection graphic extent.
+            MyMapView.ViewpointChanged -= MapViewExtentChanged;
+
             try
             {
                 // Disable the generate button.

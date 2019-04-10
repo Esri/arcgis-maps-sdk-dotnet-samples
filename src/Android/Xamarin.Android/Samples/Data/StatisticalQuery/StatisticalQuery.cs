@@ -20,7 +20,7 @@ using System.Linq;
 
 namespace ArcGISRuntime.Samples.StatisticalQuery
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Statistical query",
         "Data",

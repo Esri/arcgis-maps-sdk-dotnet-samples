@@ -16,26 +16,35 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
+using Android;
+using Android.Content.PM;
+using Android.Support.Design.Widget;
+using Android.Support.V4.App;
+using Android.Support.V4.Content;
 
 namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 {
-    [Activity]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Display Device Location",
         "Location",
         "This sample demonstrates how you can enable location services and switch between different types of auto pan modes.",
         "")]
-    public class DisplayDeviceLocation : Activity
+    public class DisplayDeviceLocation : Activity, ActivityCompat.IOnRequestPermissionsResultCallback
     {
+        // Constant for tracking permission request.
+        private const int LocationPermissionRequestCode = 99;
+
         // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        private readonly MapView _myMapView = new MapView();
 
         // String array to store the different device location options.
-        private string[] _navigationTypes = {
+        private readonly string[] _navigationTypes =
+        {
             "On",
             "Re-Center",
             "Navigation",
-            "Compass" 
+            "Compass"
         };
 
         protected override void OnCreate(Bundle bundle)
@@ -44,7 +53,6 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 
             Title = "Display device location";
 
-            // Create the UI, setup the control references and execute initialization 
             CreateLayout();
             Initialize();
         }
@@ -58,16 +66,11 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
             _myMapView.Map = myMap;
         }
 
-        private void OnStopButtonClicked(object sender, EventArgs e)
-        {
-            //TODO Remove this IsStarted check https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/182
-            if (_myMapView.LocationDisplay.IsEnabled)
-                _myMapView.LocationDisplay.IsEnabled = false;
-        }
+        private void OnStopButtonClicked(object sender, EventArgs e) => _myMapView.LocationDisplay.IsEnabled = false;
 
         private void OnStartButtonClicked(object sender, EventArgs e)
         {
-            Button startButton = (Button)sender;
+            Button startButton = (Button) sender;
 
             // Create menu to show navigation options
             PopupMenu navigationMenu = new PopupMenu(this, startButton);
@@ -85,83 +88,147 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 
         private void OnNavigationMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
         {
+            // Reset navigation display.
+            _myMapView.LocationDisplay.IsEnabled = false;
+
             // Get title from the selected item
             string selectedNavigationType = e.Item.TitleCondensedFormatted.ToString();
 
             // Get index that is used to get the selected url
             int selectedIndex = _navigationTypes.ToList().IndexOf(selectedNavigationType);
 
+            // Set location display automatic panning mode.
             switch (selectedIndex)
             {
                 case 0:
-                    // Starts location display with auto pan mode set to Off
                     _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Off;
-
-                    //TODO Remove this IsStarted check https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/182
-                    if (!_myMapView.LocationDisplay.IsEnabled)
-                        _myMapView.LocationDisplay.IsEnabled = true;
                     break;
-
                 case 1:
-                    // Starts location display with auto pan mode set to Re-center
                     _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
-
-                    //TODO Remove this IsStarted check https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/182
-                    if (!_myMapView.LocationDisplay.IsEnabled)
-                        _myMapView.LocationDisplay.IsEnabled = true;
                     break;
 
                 case 2:
-                    // Starts location display with auto pan mode set to Navigation
                     _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
-
-                    //TODO Remove this IsStarted check https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/182
-                    if (!_myMapView.LocationDisplay.IsEnabled)
-                        _myMapView.LocationDisplay.IsEnabled = true;
                     break;
 
                 case 3:
-                    // Starts location display with auto pan mode set to Compass Navigation
                     _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.CompassNavigation;
-
-                    //TODO Remove this IsStarted check https://github.com/Esri/arcgis-runtime-samples-xamarin/issues/182
-                    if (!_myMapView.LocationDisplay.IsEnabled)
-                        _myMapView.LocationDisplay.IsEnabled = true;
                     break;
+            }
+
+            // Ask for location and enable location display when permission is granted.
+            AskForLocationPermission();
+        }
+
+        private async void AskForLocationPermission()
+        {
+            // Only check if permission hasn't been granted yet.
+            if (ContextCompat.CheckSelfPermission(this, LocationService) != Permission.Granted)
+            {
+                // The Fine location permission will be requested.
+                var requiredPermissions = new[] {Manifest.Permission.AccessFineLocation};
+
+                // Only prompt the user first if the system says to.
+                if (ActivityCompat.ShouldShowRequestPermissionRationale(this, Manifest.Permission.AccessFineLocation))
+                {
+                    // A snackbar is a small notice that shows on the bottom of the view.
+                    Snackbar.Make(_myMapView,
+                            "Location permission is needed to display location on the map.",
+                            Snackbar.LengthIndefinite)
+                        .SetAction("OK",
+                            delegate
+                            {
+                                // When the user presses 'OK', the system will show the standard permission dialog.
+                                // Once the user has accepted or denied, OnRequestPermissionsResult is called with the result.
+                                ActivityCompat.RequestPermissions(this, requiredPermissions, LocationPermissionRequestCode);
+                            }
+                        ).Show();
+                }
+                else
+                {
+                    // When the user presses 'OK', the system will show the standard permission dialog.
+                    // Once the user has accepted or denied, OnRequestPermissionsResult is called with the result.
+                    this.RequestPermissions(requiredPermissions, LocationPermissionRequestCode);
+                }
+            }
+            else
+            {
+                try
+                {
+                    // Explicit DataSource.LoadAsync call is used to surface any errors that may arise.
+                    await _myMapView.LocationDisplay.DataSource.StartAsync();
+                    _myMapView.LocationDisplay.IsEnabled = true;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex);
+                    ShowMessage(ex.Message, "Failed to start location display.");
+                }
             }
         }
 
+        public override async void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            // Ignore other location requests.
+            if (requestCode != LocationPermissionRequestCode)
+            {
+                return;
+            }
+
+            // If the permissions were granted, enable location.
+            if (grantResults.Length == 1 && grantResults[0] == Permission.Granted)
+            {
+                System.Diagnostics.Debug.WriteLine("User affirmatively gave permission to use location. Enabling location.");
+                try
+                {
+                    // Explicit DataSource.LoadAsync call is used to surface any errors that may arise.
+                    await _myMapView.LocationDisplay.DataSource.StartAsync();
+                    _myMapView.LocationDisplay.IsEnabled = true;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex);
+                    ShowMessage(ex.Message, "Failed to start location display.");
+                }
+            }
+            else
+            {
+                ShowMessage("Location permissions not granted.", "Failed to start location display.");
+            }
+        }
+
+        private void ShowMessage(string message, string title = "Error") => new AlertDialog.Builder(this).SetTitle(title).SetMessage(message).Show();
+
         private void CreateLayout()
         {
+            // Create a new vertical layout for the app.
+            LinearLayout layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
 
-            // Create a new vertical layout for the app
-            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
-
-            // Create button to show possible navigation options
+            // Create button to show possible navigation options.
             Button startButton = new Button(this)
             {
                 Text = "Start"
             };
             startButton.Click += OnStartButtonClicked;
 
-            // Create button to stop navigation
+            // Create button to stop navigation.
             Button stopButton = new Button(this)
             {
                 Text = "Stop"
             };
             stopButton.Click += OnStopButtonClicked;
 
-            // Add start button to the layout
+            // Add start button to the layout.
             layout.AddView(startButton);
 
-            // Add stop button to the layout
+            // Add stop button to the layout.
             layout.AddView(stopButton);
 
-            // Add the map view to the layout
+            // Add the map view to the layout.
             layout.AddView(_myMapView);
 
-            // Show the layout in the app
-            SetContentView(layout);          
+            // Show the layout in the app.
+            SetContentView(layout);
         }
     }
 }

@@ -23,7 +23,7 @@ using System.Drawing;
 
 namespace ArcGISRuntime.Samples.ListTransformations
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "List transformations by suitability",

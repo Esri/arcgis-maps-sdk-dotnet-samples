@@ -21,7 +21,7 @@ using System.Linq;
 
 namespace ArcGISRuntime.Samples.ListRelatedFeatures
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "List related features",
         "Data",

@@ -22,18 +22,20 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>i386, x86_64</MtouchArch>
+    <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>True</MtouchDebug>
-    <MtouchSdkVersion>11.4</MtouchSdkVersion>
+    <MtouchSdkVersion>
+    </MtouchSdkVersion>
     <MtouchFastDev>False</MtouchFastDev>
     <MtouchUseLlvm>False</MtouchUseLlvm>
     <MtouchUseThumb>False</MtouchUseThumb>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-    <LangVersion>6</LangVersion>
+    <LangVersion>7</LangVersion>
     <MtouchI18n />
     <CodesignKey>iPhone Developer</CodesignKey>
     <CodesignProvision />
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -41,10 +43,11 @@
     <OutputPath>..\..\..\output\iOS\iPhoneSimulator\release\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <MtouchArch>i386, x86_64</MtouchArch>
+    <MtouchArch>x86_64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
-    <LangVersion>6</LangVersion>
+    <LangVersion>7</LangVersion>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,12 +58,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARM64</MtouchArch>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchProfiling>True</MtouchProfiling>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>True</MtouchDebug>
-    <MtouchSdkVersion>9.3</MtouchSdkVersion>
+    <MtouchSdkVersion>
+    </MtouchSdkVersion>
     <MtouchLink>None</MtouchLink>
     <MtouchFastDev>False</MtouchFastDev>
     <MtouchUseLlvm>False</MtouchUseLlvm>
@@ -70,8 +74,9 @@
     <BuildIpa>True</BuildIpa>
     <IpaIncludeArtwork>False</IpaIncludeArtwork>
     <DeviceSpecificBuild>False</DeviceSpecificBuild>
-    <LangVersion>6</LangVersion>
+    <LangVersion>7</LangVersion>
     <CodesignProvision />
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -80,7 +85,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchLink>Full</MtouchLink>
@@ -92,7 +97,8 @@
     <MtouchEnableBitcode>False</MtouchEnableBitcode>
     <OptimizePNGs>True</OptimizePNGs>
     <MtouchFloat32>False</MtouchFloat32>
-    <LangVersion>6</LangVersion>
+    <LangVersion>7</LangVersion>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>full</DebugType>
@@ -101,12 +107,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARM64</MtouchArch>
     <IpaIncludeArtwork>true</IpaIncludeArtwork>
     <CodesignKey>iPhone Distribution</CodesignKey>
     <CodesignProvision>Automatic:AdHoc</CodesignProvision>
     <BuildIpa>true</BuildIpa>
-    <LangVersion>6</LangVersion>
+    <LangVersion>7</LangVersion>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
     <DebugType>full</DebugType>
@@ -115,41 +122,31 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARM64</MtouchArch>
     <CodesignProvision>Automatic:AppStore</CodesignProvision>
     <CodesignKey>iPhone Distribution</CodesignKey>
-    <LangVersion>6</LangVersion>
+    <LangVersion>7</LangVersion>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhoneSimulator'">
     <OutputPath>..\..\..\output\iOS\iPhoneSimulator\Ad-Hoc\</OutputPath>
-    <MtouchArch>i386, x86_64</MtouchArch>
-    <LangVersion>6</LangVersion>
+    <MtouchArch>x86_64</MtouchArch>
+    <LangVersion>7</LangVersion>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AppStore|iPhoneSimulator'">
     <OutputPath>..\..\..\output\iOS\iPhoneSimulator\AppStore\</OutputPath>
-    <MtouchArch>i386, x86_64</MtouchArch>
-    <LangVersion>6</LangVersion>
+    <MtouchArch>x86_64</MtouchArch>
+    <LangVersion>7</LangVersion>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
   </PropertyGroup>
   <!-- References -->
   <ItemGroup>
-    <Reference Include="Esri.ArcGISRuntime, Version=100.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.4.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.dll</HintPath>
-    </Reference>
-    <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\lib\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
-    </Reference>
-    <Reference Include="MarkedNet, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\MarkedNet.2.1.2\lib\netstandard2.0\MarkedNet.dll</HintPath>
-    </Reference>
     <Reference Include="MonoTouch.Dialog-1" />
     <Reference Include="OpenTK-1.0" />
-    <Reference Include="PCLCrypto, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d4421c8a4786956c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\PCLCrypto.2.0.147\lib\xamarinios10\PCLCrypto.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
@@ -157,10 +154,8 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="Xamarin.iOS" />
-    <Reference Include="Xamarin.Auth">
-      <HintPath>..\..\..\packages\Xamarin.Auth.1.6.0.2\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <!-- Image Assets -->
   <ItemGroup>
@@ -234,7 +229,39 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
+    <None Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
+    <None Include="Samples\Layers\GroupLayers\GroupLayers.jpg" />
+    <None Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.jpg" />
+    <None Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
+    <None Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg" />
+    <None Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.jpg" />
+    <None Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
+    <None Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
+    <None Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
+    <None Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
+    <None Include="Samples\Layers\PlayKmlTours\PlayKmlTours.jpg" />
+    <None Include="Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
+    <None Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
+    <None Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
+    <None Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
+    <None Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
+    <None Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
+    <None Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
+    <None Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
+    <None Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
+    <None Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
+    <None Include="Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
+    <None Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg" />
+    <None Include="Samples\Geometry\Project\Project.jpg" />
+    <None Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg" />
+    <None Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
+    <None Include="Samples\Data\AddFeatures\AddFeatures.jpg" />
+    <None Include="Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
+    <None Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
+    <None Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
+    <None Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
+    <None Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg" />
+    <None Include="Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
     <None Include="Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
     <None Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.jpg" />
     <None Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.jpg" />
@@ -364,7 +391,39 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\MapView\IdentifyLayers\IdentifyLayers.cs" />
+    <Compile Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.cs" />
+    <Compile Include="Samples\Layers\GroupLayers\GroupLayers.cs" />
+    <Compile Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.cs" />
+    <Compile Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.cs" />
+    <Compile Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.cs" />
+    <Compile Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.cs" />
+    <Compile Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.cs" />
+    <Compile Include="Samples\Layers\DisplayWfs\DisplayWfs.cs" />
+    <Compile Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.cs" />
+    <Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.cs" />
+    <Compile Include="Samples\Layers\PlayKmlTours\PlayKmlTours.cs" />
+    <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.cs" />
+    <Compile Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.cs" />
+    <Compile Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.cs" />
+    <Compile Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.cs" />
+    <Compile Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.cs" />
+    <Compile Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.cs" />
+    <Compile Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.cs" />
+    <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.cs" />
+    <Compile Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.cs" />
+    <Compile Include="Samples\Search\OfflineGeocode\OfflineGeocode.cs" />
+    <Compile Include="Samples\Search\ReverseGeocode\ReverseGeocode.cs" />
+    <Compile Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.cs" />
+    <Compile Include="Samples\Geometry\Project\Project.cs" />
+    <Compile Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.cs" />
+    <Compile Include="Samples\Data\UpdateGeometries\UpdateGeometries.cs" />
+    <Compile Include="Samples\Data\AddFeatures\AddFeatures.cs" />
+    <Compile Include="Samples\Data\DeleteFeatures\DeleteFeatures.cs" />
+    <Compile Include="Samples\Symbology\SceneSymbols\SceneSymbols.cs" />
+    <Compile Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.cs" />
+    <Compile Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.cs" />
+    <Compile Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.cs" />
+    <Compile Include="Samples\MapView\IdentifyLayers\IdentifyLayers.cs" />
     <Compile Include="Samples\Layers\ListKmlContents\ListKmlContents.cs" />
     <Compile Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.cs" />
     <Compile Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.cs" />
@@ -506,7 +565,6 @@
     <None Include="app.config" />
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
-    <None Include="packages.config" />
   </ItemGroup>
   <!-- Sample Manager Code-->
   <ItemGroup>
@@ -531,19 +589,29 @@
     <None Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.jpg" />
   </ItemGroup>
   <!-- Imports -->
-  <ItemGroup />
   <ItemGroup>
     <None Include="Samples\Map\GenerateOfflineMap\GenerateOfflineMap.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
+      <Version>100.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Esri.ArcGISRuntime.Xamarin.iOS">
+      <Version>100.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="MarkedNet">
+      <Version>2.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Bcl.Build">
+      <Version>1.0.21</Version>
+    </PackageReference>
+    <PackageReference Include="PCLCrypto">
+      <Version>2.0.147</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Auth">
+      <Version>1.6.0.4</Version>
+    </PackageReference>
+  </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.4.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.4.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.4.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Xamarin.iOS.100.4.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Xamarin.iOS.targets'))" />
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets'))" />
-  </Target>
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.4.0\build\Xamarin.iOS10\Esri.ArcGISRuntime.Hydrography.targets')" />
 </Project>

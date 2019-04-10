@@ -20,7 +20,7 @@ using System.Collections.Generic;
 
 namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Add ENC Exchange Set",
         "Hydrography",

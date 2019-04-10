@@ -60,12 +60,6 @@ namespace ArcGISRuntime.Samples.SketchOnMap
 
             SketchModePicker.SelectedIndex = 0;
 
-            // Set the sketch editor configuration to allow vertex editing, resizing, and moving
-            SketchEditConfiguration config = MyMapView.SketchEditor.EditConfiguration;
-            config.AllowVertexEditing = true;
-            config.ResizeMode = SketchResizeMode.Uniform;
-            config.AllowMove = true;
-
             // Set a gray background color for Android
             if (Device.RuntimePlatform == Device.Android)
             {

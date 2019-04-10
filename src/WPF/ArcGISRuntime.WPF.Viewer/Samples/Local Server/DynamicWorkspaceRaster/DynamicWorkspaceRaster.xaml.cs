@@ -46,6 +46,19 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceRaster
 
             try
             {
+                // LocalServer must not be running when setting the data path.
+                if (LocalServer.Instance.Status == LocalServerStatus.Started)
+                {
+                    await LocalServer.Instance.StopAsync();
+                }
+
+                // Set the local data path - must be done before starting. On most systems, this will be C:\EsriSamples\AppData.
+                // This path should be kept short to avoid Windows path length limitations.
+                string tempDataPathRoot = Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.Windows)).FullName;
+                string tempDataPath = Path.Combine(tempDataPathRoot, "EsriSamples", "AppData");
+                Directory.CreateDirectory(tempDataPath); // CreateDirectory won't overwrite if it already exists.
+                LocalServer.Instance.AppDataPath = tempDataPath;
+
                 // Start the local server instance
                 await LocalServer.Instance.StartAsync();
 
@@ -57,7 +70,7 @@ namespace ArcGISRuntime.WPF.Samples.DynamicWorkspaceRaster
             }
             catch (InvalidOperationException ex)
             {
-                MessageBox.Show(String.Format("Please ensure that local server is installed prior to using the sample. See instructions in readme.md or metadata.json. Message: {0}", ex.Message), "Local Server failed to start");
+                MessageBox.Show(String.Format("Please ensure that local server is installed prior to using the sample. See instructions in readme.md. Message: {0}", ex.Message), "Local Server failed to start");
             }
         }
 

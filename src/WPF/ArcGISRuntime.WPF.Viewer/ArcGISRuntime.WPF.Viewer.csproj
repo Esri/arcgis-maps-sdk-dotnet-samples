@@ -94,6 +94,11 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Controls\SearchTextBox.xaml.cs">
+      <DependentUpon>SearchTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\TreeViewLeftMarginMultiplierConverter.cs" />
+    <Compile Include="Helpers\TreeViewItemExtensions.cs" />
     <Compile Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml.cs">
       <DependentUpon>DownloadPreplannedMap.xaml</DependentUpon>
     </Compile>
@@ -617,6 +622,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Controls\SearchTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1316,6 +1325,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Resource Include="Resources\ic_menu_closeclear_light.png" />
+    <Resource Include="Resources\ic_menu_find_light.png" />
+    <Resource Include="Resources\ic_menu_settings_dark.png" />
     <Content Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

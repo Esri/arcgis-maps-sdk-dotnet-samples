@@ -6,78 +6,75 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:models="clr-namespace:ArcGISRuntime.Samples.Shared.Models"
+        xmlns:controls="clr-namespace:ArcGISRuntime.Controls"
         mc:Ignorable="d"
         Title="ArcGIS Runtime for .NET Samples"
-        WindowState="Maximized" Icon="Assets/ApplicationIcons/windows-desktop-256.ico"
-        >
+        WindowStartupLocation="CenterScreen"
+        WindowState="Normal" Icon="Assets/ApplicationIcons/windows-desktop-256.ico">
 
     <Window.Resources>
         <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />
         <DataTemplate x:Key="StandardSampleItemTemplate">
-            <Border Background="{StaticResource PrimaryBackgroundColor}" BorderThickness="1" Margin="2" BorderBrush="{StaticResource SecondaryBackgroundColor}">
-                <Grid Width="270" Margin="2,10,2,2" Height="285" d:DataContext="{d:DesignInstance models:SampleInfo}">
+            <Border Background="{StaticResource PrimaryBackgroundColor}" Margin="2">
+                <Grid Width="300" Margin="0,10,0,2" d:DataContext="{d:DesignInstance models:SampleInfo}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="200" />
-                        <RowDefinition Height="35" />
                         <RowDefinition Height="60" />
                     </Grid.RowDefinitions>
-                    <Image Width="270" Height="200" Stretch="Uniform"
+                    <Image Width="300" Height="250" Stretch="Uniform"
                            HorizontalAlignment="Center"
                            Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}" />
-                    <TextBlock Text="{Binding SampleName}" FontSize="18" Grid.Row="1" Margin="10,5,10,5"
-                               Style="{StaticResource PrimaryTextBlock}" />
+                    <TextBlock Text="{Binding SampleName}" 
+                               FontSize="18" Grid.Row="0" Padding="10"
+                               VerticalAlignment="Bottom" Background="#A52F2F2F" Foreground="White" />
                     <TextBlock Text="{Binding Description}" FontSize="13"
-                               TextWrapping="Wrap" Grid.Row="2" VerticalAlignment="Top"
-                               Margin="10,-5,10,5" FontWeight="Normal" TextTrimming="CharacterEllipsis"
+                               TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Top"
+                               Margin="5,5,5,5" FontWeight="Normal" TextTrimming="CharacterEllipsis"
                                Style="{StaticResource SecondaryTextBlock}" />
                 </Grid>
             </Border>
         </DataTemplate>
     </Window.Resources>
-    <Grid Background="#F7F8F8">
+    <Grid Background="{StaticResource PrimaryBackgroundColor}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="80" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="490" MaxWidth="535" />
+            <ColumnDefinition Width="325" MaxWidth="535" />
             <ColumnDefinition Width="*" MinWidth="450" />
         </Grid.ColumnDefinitions>
 
         <!-- Header-->
         <Grid Grid.ColumnSpan="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
             <Grid.Background>
                 <ImageBrush ImageSource="Assets/banner-background-blue.png" TileMode="Tile" />
             </Grid.Background>
-            <TextBlock Text="ArcGIS Runtime SDK for .NET Samples" Foreground="White" FontSize="32"
-                       FontWeight="Bold" VerticalAlignment="Center" Margin="40,0,0,0" />
+            <TextBlock Text="ArcGIS Runtime SDK for .NET" Foreground="White" FontSize="18"
+                       FontWeight="SemiBold" VerticalAlignment="Center" Margin="10,0,0,0"
+                       TextOptions.TextRenderingMode="Aliased">
+            </TextBlock>
+            <controls:SearchTextBox x:Name="SearchFilterBox" Grid.Column="2" 
+                                    Placeholder="Search..." Margin="5" 
+                                    TextChanged="SearchFilterBox_OnTextChanged" />
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label Content="Search: " VerticalContentAlignment="Center" />
-            <TextBox Grid.Column="1" x:Name="SearchFilterBox" TextChanged="SearchFilterBox_OnTextChanged"
-                     Margin="0,10,10,10" VerticalContentAlignment="Center" />
-        </Grid>
-        <Grid Grid.Row="2" Grid.Column="0">
+        
+        <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="0">
             <!-- Categories treeview -->
             <TreeView x:Name="Categories"
-                      Background="#F7F8F8"
+                      Background="{StaticResource PrimaryBackgroundColor}"
                       ItemsSource="{Binding}"
                       Visibility="Visible"
                       Margin="0,-1,0,0"
                       Grid.ColumnSpan="2"
                       SelectedItemChanged="categories_SelectedItemChanged"
                       BorderBrush="Transparent" FontSize="18">
-                <TreeView.ItemContainerStyle>
-                    <Style TargetType="TreeViewItem">
-                        <Setter Property="HorizontalAlignment" Value="Stretch" />
-                        <Setter Property="Margin" Value="1" />
-                    </Style>
-                </TreeView.ItemContainerStyle>
             </TreeView>
         </Grid>
 
@@ -124,6 +121,10 @@
                     <RowDefinition Height="50" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
+                <TextBlock x:Name="CategoriesHeader" Grid.Row="0"
+                           VerticalAlignment="Center"
+                           Margin="10,0,0,0"
+                           FontSize="24" FontWeight="SemiBold"/>
                 <!-- Secondary navigation -->
                 <Grid Grid.Row="1" Background="{StaticResource PrimaryBackgroundColor}">
                     <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -138,6 +139,19 @@
                                 <WrapPanel />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Cursor" Value="Hand" />
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                            <ContentPresenter />
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
                     </ListView>
                 </Grid>
             </Grid>

@@ -73,6 +73,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 CategoriesList.ItemsSource = category.Items;
                 DetailsRegion.Visibility = Visibility.Collapsed;
                 CategoriesRegion.Visibility = Visibility.Visible;
+                CategoriesHeader.Text = category.Name;
             }
             else if (sample != null)
             {
@@ -186,7 +187,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private bool SampleSearchFunc(SampleInfo sample)
         {
-            return SampleManager.Current.SampleSearchFunc(sample, SearchFilterBox.Text);
+            return SampleManager.Current.SampleSearchFunc(sample, SearchFilterBox.SearchText);
         }
     }
 }

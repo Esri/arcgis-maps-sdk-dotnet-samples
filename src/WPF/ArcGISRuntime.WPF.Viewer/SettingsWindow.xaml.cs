@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,6 +29,7 @@ namespace ArcGISRuntime
     {
         private static string _runtimeVersion = "";
         private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
+        CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         private List<SampleInfo> OfflineDataSamples;
 
@@ -94,6 +96,8 @@ namespace ArcGISRuntime
         {
             try
             {
+                CancellationToken token = _cancellationTokenSource.Token;
+                CancelButton.Visibility = Visibility.Visible;
                 SetStatusMessage("Downloading all...", true);
                 HashSet<string> itemIds = new HashSet<string>();
                 List<Task> downloadTasks = new List<Task>();
@@ -107,12 +111,16 @@ namespace ArcGISRuntime
 
                 foreach (var item in itemIds)
                 {
-                    downloadTasks.Add(DataManager.DownloadDataItem(item));
+                    downloadTasks.Add(DataManager.DownloadDataItem(item, token));
                 }
 
                 await Task.WhenAll(downloadTasks);
 
                 MessageBox.Show("All data downloaded");
+            }
+            catch (OperationCanceledException)
+            {
+                MessageBox.Show("Download canceled");
             }
             catch (Exception exception)
             {
@@ -121,7 +129,9 @@ namespace ArcGISRuntime
             }
             finally
             {
+                _cancellationTokenSource = new CancellationTokenSource();
                 SetStatusMessage("Ready", false);
+                CancelButton.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -195,6 +205,11 @@ namespace ArcGISRuntime
                 StatusSpinner.Visibility = Visibility.Collapsed;
                 SampleDataListView.IsEnabled = true;
             }
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            _cancellationTokenSource.Cancel(true);
         }
     }
 }

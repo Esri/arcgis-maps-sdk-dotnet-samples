@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -97,16 +98,24 @@ namespace ArcGISRuntime.Samples.Desktop
             {
                 if (selectedSample.OfflineDataItems != null)
                 {
+                    CancellationTokenSource cancellationSource = new CancellationTokenSource();
+
                     // Show waiting page
-                    SampleContainer.Content = new WPF.Viewer.WaitPage();
+                    SampleContainer.Content = new WPF.Viewer.WaitPage(cancellationSource);
 
                     // Wait for offline data to complete
-                    await DataManager.EnsureSampleDataPresent(selectedSample);
+                    await DataManager.EnsureSampleDataPresent(selectedSample, cancellationSource.Token);
                 }
 
                 // Show the sample
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
                 SourceCodeContainer.LoadSourceCode();
+            }
+            catch (OperationCanceledException)
+            {
+                CategoriesRegion.Visibility = Visibility.Visible;
+                SampleContainer.Visibility = Visibility.Collapsed;
+                return;
             }
             catch (Exception exception)
             {

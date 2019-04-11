@@ -82,6 +82,9 @@
                         <StatusBarItem>
                             <TextBlock x:Name="StatusLabel" Text="Ready" />
                         </StatusBarItem>
+                        <StatusBarItem>
+                            <Button x:Name="CancelButton" Content="Cancel" Click="Cancel_Click" />
+                        </StatusBarItem>
                         <StatusBarItem HorizontalAlignment="Right">
                             <ProgressBar x:Name="StatusSpinner" 
                                          IsIndeterminate="True"

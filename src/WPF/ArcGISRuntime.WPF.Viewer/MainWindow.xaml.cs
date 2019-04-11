@@ -113,6 +113,9 @@ namespace ArcGISRuntime.Samples.Desktop
                 // failed to create new instance of the sample
                 SampleContainer.Content = new WPF.Viewer.ErrorPage(exception);
             }
+
+            SampleTitleBlock.Text = selectedSample.SampleName;
+
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SampleContainer.Visibility = Visibility.Visible;
         }

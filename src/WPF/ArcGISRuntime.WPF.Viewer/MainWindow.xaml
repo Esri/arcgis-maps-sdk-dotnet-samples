@@ -115,7 +115,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock  Grid.Row="0"
+                    <TextBlock x:Name="SampleTitleBlock" Grid.Row="0"
                                VerticalAlignment="Center"
                                Margin="10,0,0,0"
                                FontSize="24" FontWeight="SemiBold"/>
@@ -147,7 +147,7 @@
               Grid.Column="1" Grid.RowSpan="2">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
+                    <RowDefinition Height="40" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="CategoriesHeader" Grid.Row="0"

@@ -9,6 +9,7 @@
     <SolidColorBrush x:Key="PrimaryTextColor" Color="#404040" />
     <SolidColorBrush x:Key="SecondaryTextColor" Color="#555555" />
     <SolidColorBrush x:Key="OverlayColor" Color="#8C000000" />
+    <SolidColorBrush x:Key="SidebarBackground" Color="#FFF8F8F8" />
 
     <SolidColorBrush x:Key="EsriPrimary" Color="#007ac2" />
 
@@ -78,14 +79,24 @@
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <Border Opacity="0" x:Name="TopBorder" Background="{StaticResource PrimaryColor}"
-                                BorderBrush="{StaticResource PrimaryColor}" BorderThickness="2" />
+                        <Border Grid.Row="1" Opacity="0" x:Name="TopBorder" Background="{StaticResource PrimaryColor}"
+                                BorderBrush="{StaticResource PrimaryColor}" BorderThickness="2"
+                                VerticalAlignment="Bottom"/>
 
                         <Border x:Name="Background"
                                 Grid.Row="1"
-                                BorderBrush="Transparent"
+                                BorderBrush="{StaticResource EsriPrimary}"
                                 BorderThickness="0"
-                                Background="Transparent" />
+                                Background="Transparent">
+                            <TextBlock x:Name="contentPresenter"
+                                       Margin="15, 4, 15, 7"
+                                       Foreground="Black"
+                                       FontSize="18"
+                                       Text="{TemplateBinding Content}"
+                                       Grid.Row="1"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Border>
 
                         <Rectangle x:Name="DisabledVisualElement"
                                    Grid.Row="1"
@@ -93,23 +104,16 @@
                                    IsHitTestVisible="False"
                                    Opacity="0" />
 
-                        <TextBlock x:Name="contentPresenter"
-                                   Margin="15, 4, 15, 7"
-                                   Foreground="Black"
-                                   FontSize="24"
-                                   Text="{TemplateBinding Content}"
-                                   Grid.Row="1"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center" />
+                        
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Opacity" TargetName="TopBorder" Value="100" />
+                            <Setter Property="BorderThickness" TargetName="Background" Value="0,0,0,2" />
+                            <Setter Property="Padding" TargetName="Background" Value="0,2,0,0" />
                             <Setter Property="Background" TargetName="Background"
                                     Value="{StaticResource PrimaryBackgroundColor}" />
                             <Setter Property="Foreground" TargetName="contentPresenter"
                                     Value="{StaticResource PrimaryColor}" />
-                            <Setter Property="FontWeight" TargetName="contentPresenter" Value="SemiBold" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -215,7 +219,6 @@
                     </ControlTemplate.Resources>
                     <StackPanel>
                         <Border Name="Bd"
-                                Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 Padding="0,2.5,0,2.5" Margin="0,2.5,2.5,0">
@@ -238,6 +241,7 @@
                                     <ContentPresenter.Resources>
                                         <Style TargetType="TextBlock">
                                             <Setter Property="FontSize" Value="16" />
+                                            <Setter Property="TextWrapping" Value="Wrap" />
                                         </Style>
                                     </ContentPresenter.Resources>
                                 </ContentPresenter>
@@ -296,9 +300,9 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="Bd"
                                     Property="Background"
-                                    Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+                                    Value="Transparent" />
                             <Setter Property="Foreground"
-                                    Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+                                    Value="{StaticResource EsriPrimary}" />
                         </MultiTrigger>
                         <Trigger Property="IsEnabled"
                                  Value="false">

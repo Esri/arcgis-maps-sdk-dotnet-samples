@@ -107,6 +107,18 @@ namespace ArcGISRuntime.Samples.Managers
             await Task.WhenAll(downloads);
         }
 
+        public static async Task DownloadDataItem(string itemId)
+        {
+            // Create ArcGIS portal item
+            var portal = await ArcGISPortal.CreateAsync().ConfigureAwait(false);
+            var item = await PortalItem.CreateAsync(portal, itemId).ConfigureAwait(false);
+            // Download item if not already present
+            if (!IsDataPresent(item))
+            {
+                await DownloadItem(item);
+            }
+        }
+
         /// <summary>
         /// Unzips the file at path defined by <paramref name="zipFile"/>
         ///  into <paramref name="folder"/>.

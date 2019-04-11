@@ -189,5 +189,11 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             return SampleManager.Current.SampleSearchFunc(sample, SearchFilterBox.SearchText);
         }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow settingsWindow = new SettingsWindow();
+            settingsWindow.Show();
+        }
     }
 }

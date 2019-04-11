@@ -70,6 +70,9 @@
   <ItemGroup>
     <None Include="ArcGISLocalServer_100.5.AGSDeployment" />
     <None Include="Readme.md" />
+    <Content Include="Resources\licenses.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Assets\ApplicationIcons\windows-desktop-128.png" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-16.png" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-256.ico" />
@@ -1318,6 +1321,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WaitPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1860,6 +1867,9 @@
       <DependentUpon>ErrorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ToTreeViewItem.cs" />
+    <Compile Include="SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WaitPage.xaml.cs">
       <DependentUpon>WaitPage.xaml</DependentUpon>
     </Compile>

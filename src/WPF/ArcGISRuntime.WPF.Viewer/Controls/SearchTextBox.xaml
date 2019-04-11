@@ -9,14 +9,14 @@
         <TextBox x:Name="SearchBox" 
                    Text="{Binding SearchText, Mode=TwoWay}"
                    TextChanged="SearchBox_OnTextChanged"
-                   Width="250" Height="28"
+                   Width="250" Height="28" Padding="10,5,10,5"
                    HorizontalAlignment="Stretch"
                    VerticalContentAlignment="Center"
                    VerticalAlignment="Center"/>
         <Label x:Name="SearchPlaceholder" 
                Content="{Binding Placeholder, Mode=OneTime}"
                VerticalContentAlignment="Center" VerticalAlignment="Center"
-               IsHitTestVisible="False"
+               IsHitTestVisible="False" Padding="15,5,10,5"
                Foreground="LightSlateGray"/>
         <Button x:Name="ClearButton" Background="Transparent" 
                 BorderBrush="Transparent" Height="16" Width="16" Margin="5" HorizontalAlignment="Right"

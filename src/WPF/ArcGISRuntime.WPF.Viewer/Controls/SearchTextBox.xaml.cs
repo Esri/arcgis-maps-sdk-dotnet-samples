@@ -31,6 +31,7 @@ namespace ArcGISRuntime.Controls
 
         private void SearchBoxOnTextChanged(object sender, TextChangedEventArgs e)
         {
+            SearchText = SearchBox.Text;
             TextChanged?.Invoke(this, e);
         }
 

@@ -415,26 +415,17 @@ namespace ArcGISRuntimeXamarin.Samples.SymbolsFromMobileStyle
                 Text = $"Size: {_sizeSlider.Value:0}"
             };
 
-            _sizeSlider.TranslatesAutoresizingMaskIntoConstraints = false;
-
             // Handle the slider value changed event to update the label with the specified size.
             _sizeSlider.ValueChanged += async (sender, e) => 
             {
                 sizeLabel.Text = $"Size: {_sizeSlider.Value:0}";
                 await UpdateSymbol(); 
             };
-           
-            // Create a horizontal stack view to contain the slider.
-            UIStackView sizeStack = new UIStackView(new UIView[] { _sizeSlider })
-            {
-                TranslatesAutoresizingMaskIntoConstraints = false,
-                Axis = UILayoutConstraintAxis.Horizontal,
-                Alignment = UIStackViewAlignment.Center,
-                Distribution = UIStackViewDistribution.Fill
-            };
+
+            _sizeSlider.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Create a vertical stack view to contain the color segmented control, size slider, and size label.
-            UIStackView colorSizeStack = new UIStackView(new UIView[] { _colorSegments, sizeStack, sizeLabel })
+            UIStackView colorSizeStack = new UIStackView(new UIView[] { _colorSegments, _sizeSlider, sizeLabel })
             {
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 Axis = UILayoutConstraintAxis.Vertical,
@@ -448,15 +439,6 @@ namespace ArcGISRuntimeXamarin.Samples.SymbolsFromMobileStyle
             // Add the preview image view to the outer stack view.
             _outerStackView.AddArrangedSubview(_symbolPreviewImageView);
 
-            // Add some space to the outer stack view.
-            UIView spacer = new UIView
-            {
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
-            spacer.SetContentHuggingPriority((float)UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Vertical);
-            spacer.SetContentHuggingPriority((float)UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
-            _outerStackView.AddArrangedSubview(spacer);
-
             // Add the outer stack view to the main view.
             View.AddSubview(_outerStackView);
 
@@ -466,10 +448,13 @@ namespace ArcGISRuntimeXamarin.Samples.SymbolsFromMobileStyle
                 _outerStackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 8),
                 _outerStackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),
                 _outerStackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8),
-                _outerStackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor, -8)
+                _outerStackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor, -8),
+                _sizeSlider.LeftAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeftAnchor, 20),
+                _sizeSlider.RightAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.RightAnchor, -20)
             });
         }
 
+        // Handle changes to display orientation.
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
         {
             base.TraitCollectionDidChange(previousTraitCollection);

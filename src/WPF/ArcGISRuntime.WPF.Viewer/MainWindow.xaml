@@ -72,7 +72,7 @@
             <Grid.Background>
                 <ImageBrush ImageSource="Assets/banner-background-blue.png" TileMode="Tile" />
             </Grid.Background>
-            <TextBlock Text="ArcGIS Runtime SDK for .NET" Foreground="White" FontSize="18"
+            <TextBlock Text="ArcGIS Runtime SDK for .NET (WPF)" Foreground="White" FontSize="18"
                        FontWeight="SemiBold" VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="0"
                        TextOptions.TextRenderingMode="Aliased">
             </TextBlock>

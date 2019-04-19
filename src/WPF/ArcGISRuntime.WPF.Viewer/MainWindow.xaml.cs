@@ -205,6 +205,7 @@ namespace ArcGISRuntime.Samples.Desktop
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
             SettingsWindow settingsWindow = new SettingsWindow();
+            settingsWindow.Owner = this;
             settingsWindow.Show();
         }
     }

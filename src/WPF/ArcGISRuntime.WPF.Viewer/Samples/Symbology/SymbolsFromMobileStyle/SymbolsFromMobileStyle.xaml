@@ -25,37 +25,40 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <ListBox x:Name="EyeSymbolList"
-                     Grid.Row="0" Grid.Column="0"
+                         Grid.Row="0" Grid.Column="0"
                          Margin="20"
-                     SelectionMode="Single"
-                     SelectionChanged="ListBox_SelectionChanged">
+                         SelectionMode="Single"
+                         SelectionChanged="SymbolPropertyChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Image Source="{Binding ImgSrc}"
+                            <Image Source="{Binding ImageSrc}"
+                                   Height="15"
                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <ListBox x:Name="MouthSymbolList"
-                     Grid.Row="0" Grid.Column="1"
+                         Grid.Row="0" Grid.Column="1"
                          Margin="20"
-                     SelectionMode="Single"
-                     SelectionChanged="ListBox_SelectionChanged">
+                         SelectionMode="Single"
+                         SelectionChanged="SymbolPropertyChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Image Source="{Binding ImgSrc}"
+                            <Image Source="{Binding ImageSrc}"
+                                   Height="15"
                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <ListBox x:Name="HatSymbolList"
-                     Grid.Row="0" Grid.Column="2"
+                         Grid.Row="0" Grid.Column="2"
                          Margin="20"
-                     SelectionMode="Single"
-                     SelectionChanged="ListBox_SelectionChanged">
+                         SelectionMode="Single"
+                         SelectionChanged="SymbolPropertyChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Image Source="{Binding ImgSrc}"
+                            <Image Source="{Binding ImageSrc}"
+                                   Height="20"
                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -63,19 +66,26 @@
                 <Slider x:Name="SizeSlider"
                         SmallChange="1" LargeChange="5"
                         Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                        Margin="10,0"
                         Minimum="8" Maximum="60" Value="20"/>
                 <Label x:Name="SizeLabel" 
-                       Grid.Row="1" Grid.Column="2"
-                       Content="{Binding ElementName=SizeSlider, Path=Value, StringFormat='Size: {0:#,#.0}'}"/>
+                       Grid.Row="1" Grid.Column="2">
+                    <Label.Content>
+                        <TextBlock>
+                            <Run Text="Size:"/>
+                            <Run Text="{Binding ElementName=SizeSlider, Path=Value, StringFormat={}{0:#}}"/>
+                        </TextBlock>
+                    </Label.Content>
+                </Label>
                 <ComboBox x:Name="FaceColorComboBox"
                           Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                          Width="160" Height="25"
+                          Width="150" Height="25"
                           HorizontalAlignment="Center" VerticalAlignment="Center"
                           HorizontalContentAlignment="Center"
-                          SelectionChanged="ListBox_SelectionChanged">
+                          SelectionChanged="SymbolPropertyChanged">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="------------------" 
+                                <TextBlock Text="--------------------" 
                                        HorizontalAlignment="Center"
                                        Background="{Binding Converter={StaticResource ColorToBrushConverter}}"
                                        Foreground="{Binding Converter={StaticResource ColorToBrushConverter}}"/>
@@ -90,7 +100,7 @@
                        Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                        Width="140" Height="20"
                         Content="Clear graphics"
-                        Click="ClearGraphicsButton_Click"/>
+                        Click="ClearGraphicsClick"/>
             </Grid>
         </Border>
     </Grid>

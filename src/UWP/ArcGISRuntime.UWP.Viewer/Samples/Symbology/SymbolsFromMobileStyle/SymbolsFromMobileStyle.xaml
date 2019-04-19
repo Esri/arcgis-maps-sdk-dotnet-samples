@@ -2,10 +2,91 @@
     x:Class="ArcGISRuntime.UWP.Samples.SymbolsFromMobileStyle.SymbolsFromMobileStyle"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ArcGISRuntime.UWP.Samples.SymbolsFromMobileStyle"
     xmlns:esri="using:Esri.ArcGISRuntime"
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
+        <esriUI:MapView x:Name="MyMapView"/>
+        <Border Width="400" Height="290"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="0,20,20,0"
+                Background="White">
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="140"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ListBox x:Name="EyeSymbolList"
+                         Grid.Row="0" Grid.Column="0"
+                         Margin="20"
+                         SelectionMode="Single"
+                         SelectionChanged="SymbolPropertyChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding ImageSrc}"
+                                   Height="15"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <ListBox x:Name="MouthSymbolList"
+                         Grid.Row="0" Grid.Column="1"
+                         Margin="20"
+                         SelectionMode="Single"
+                         SelectionChanged="SymbolPropertyChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding ImageSrc}"
+                                   Height="15"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <ListBox x:Name="HatSymbolList"
+                         Grid.Row="0" Grid.Column="2"
+                         Margin="20"
+                         SelectionMode="Single"
+                         SelectionChanged="SymbolPropertyChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding ImageSrc}"
+                                   Height="20"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Slider x:Name="SizeSlider"
+                        SmallChange="1" LargeChange="5"
+                        Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                        Margin="10,0"
+                        Minimum="8" Maximum="60" Value="20"/>
+                <TextBlock x:Name="SizeLabel" 
+                       Grid.Row="1" Grid.Column="2"
+                       Text="{Binding ElementName=SizeSlider, Path=Value}"/>
+                <ComboBox x:Name="FaceColorComboBox"
+                          Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                          Width="150" Height="25"
+                          HorizontalAlignment="Center" VerticalAlignment="Center"
+                          HorizontalContentAlignment="Center"
+                          SelectionChanged="SymbolPropertyChanged"/>
+
+                <Image x:Name="SymbolPreviewImage"
+                       Grid.Row="2" Grid.Column="3" Grid.RowSpan="2"
+                       Width="80" Height="80"/>
+                <Button x:Name="ClearGraphicsButton"
+                       Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                       Width="140" Height="20"
+                        Content="Clear graphics"
+                        Click="ClearGraphicsClick"/>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>
 

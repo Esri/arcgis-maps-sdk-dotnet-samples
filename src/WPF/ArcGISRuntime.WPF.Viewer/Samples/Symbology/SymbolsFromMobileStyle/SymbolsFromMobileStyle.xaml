@@ -85,10 +85,7 @@
                           SelectionChanged="SymbolPropertyChanged">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="--------------------" 
-                                       HorizontalAlignment="Center"
-                                       Background="{Binding Converter={StaticResource ColorToBrushConverter}}"
-                                       Foreground="{Binding Converter={StaticResource ColorToBrushConverter}}"/>
+                                <Border Background="{Binding Converter={StaticResource ColorToBrushConverter}}" Height="25" Width="150"/>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>

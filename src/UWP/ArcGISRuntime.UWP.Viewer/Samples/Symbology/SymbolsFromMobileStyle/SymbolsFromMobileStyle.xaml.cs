@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 
@@ -33,6 +34,7 @@ namespace ArcGISRuntime.UWP.Samples.SymbolsFromMobileStyle
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1bd036f221f54a99abc9e46ff3511cbf")]
     public partial class SymbolsFromMobileStyle
     {
+        // A mobile style containing symbols.
         private SymbolStyle _emojiStyle;
 
         // The unique identifier (key) for the background face symbol in the mobile style.
@@ -57,9 +59,11 @@ namespace ArcGISRuntime.UWP.Samples.SymbolsFromMobileStyle
             MyMapView.GraphicsOverlays.Add(overlay);
 
             // Fill the symbol color combo box with some color choices.
-            FaceColorComboBox.Items.Add(Color.Yellow);
-            FaceColorComboBox.Items.Add(Color.LightGreen);
-            FaceColorComboBox.Items.Add(Color.LightPink);
+            List<Color> faceColors = new List<Color>
+            {
+                Color.Yellow, Color.LightGreen, Color.LightPink
+            };
+            FaceColorComboBox.ItemsSource = faceColors;
             FaceColorComboBox.SelectedIndex = 0;
 
             // Get the full path to the downloaded mobile style file (.stylx).
@@ -141,6 +145,7 @@ namespace ArcGISRuntime.UWP.Samples.SymbolsFromMobileStyle
             }
             catch (Exception ex)
             {
+                // Report the exception.
                 MessageDialog dialog = new MessageDialog("Error reading symbols from style: " + ex.Message);
                 await dialog.ShowAsync();
             }
@@ -164,7 +169,7 @@ namespace ArcGISRuntime.UWP.Samples.SymbolsFromMobileStyle
             Symbol faceSymbol = await GetCurrentSymbol();
 
             // Call a function to update the symbol preview.
-            UpdateSymbolPreview(faceSymbol);
+            await UpdateSymbolPreview(faceSymbol);
         }
 
         private async Task<MultilayerPointSymbol> GetCurrentSymbol()
@@ -189,9 +194,9 @@ namespace ArcGISRuntime.UWP.Samples.SymbolsFromMobileStyle
 
                 // Create a list of the symbol keys that identify the selected symbol layers, including the base (circle) symbol.
                 List<string> symbolKeys = new List<string>
-            {
-                _baseSymbolKey, eyeLayerKey, mouthLayerKey, hatLayerKey
-            };
+                {
+                    _baseSymbolKey, eyeLayerKey, mouthLayerKey, hatLayerKey
+                };
 
                 // Get a multilayer point symbol from the style that contains the selected symbol layers.
                 faceSymbol = await _emojiStyle.GetSymbolAsync(symbolKeys) as MultilayerPointSymbol;
@@ -217,7 +222,9 @@ namespace ArcGISRuntime.UWP.Samples.SymbolsFromMobileStyle
             }
             catch (Exception ex)
             {
-
+                // Report the exception.
+                MessageDialog dialog = new MessageDialog("Error creating the symbol: " + ex.Message);
+                await dialog.ShowAsync();
             }
 
             // Return the multilayer point symbol.
@@ -262,6 +269,28 @@ namespace ArcGISRuntime.UWP.Samples.SymbolsFromMobileStyle
             Name = name;
             ImageSrc = source;
             Key = key;
+        }
+    }
+
+    // A class that converts a System.Drawing.Color object to a solid brush for setting background color for UI controls. 
+    public class ColorToSolidBrushConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            // Get the input value as a System.Drawing.Color.
+            Color inColor = (Color)value;
+
+            // Create a Windows.UI.Color from the System.Drawing.Color.
+            Windows.UI.Color outColor = Windows.UI.Color.FromArgb(inColor.A, inColor.R, inColor.G, inColor.B);
+
+            // Create a solid color brush using the color and return it.
+            SolidColorBrush brush = new SolidColorBrush(outColor);
+            return brush;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -45,6 +45,8 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
 
         private async Task Initialize()
         {
+            SelectSymbolGrid.IsVisible = false;
+
             // Create a new topographic basemap and assign it to the map view.
             Map map = new Map(Basemap.CreateTopographic());
             MyMapView.Map = map;

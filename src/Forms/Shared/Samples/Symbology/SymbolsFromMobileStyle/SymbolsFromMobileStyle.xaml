@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
@@ -28,7 +28,7 @@
               HorizontalOptions="Center" VerticalOptions="Start"
               MinimumHeightRequest="300" MinimumWidthRequest="300"
               BackgroundColor="White"
-              IsVisible="False">
+              IsVisible="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="100"/>
@@ -42,7 +42,7 @@
                 <ColumnDefinition Width="70"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0"
-                   Text="Eyes" 
+                   Text="Eyes" TextColor="Gray"
                    HorizontalOptions="Center" VerticalOptions="Center"
                    Margin="10,10,0,0"/>
             <ListView x:Name="EyesListView"
@@ -62,7 +62,7 @@
                 </ListView.ItemTemplate>
             </ListView>
             <Label Grid.Row="0" Grid.Column="1"
-                   Text="Mouth" 
+                   Text="Mouth" TextColor="Gray"
                    HorizontalOptions="Center" VerticalOptions="Center"
                    Margin="10,10,0,0"/>
             <ListView x:Name="MouthListView"
@@ -81,7 +81,7 @@
                 </ListView.ItemTemplate>
             </ListView>
             <Label Grid.Row="0" Grid.Column="2"
-                   Text="Hat" 
+                   Text="Hat" TextColor="Gray"
                    HorizontalOptions="Center" VerticalOptions="Center"
                    Margin="10,10,0,0"/>
             <ListView x:Name="HatListView"
@@ -119,6 +119,7 @@
                     Maximum="60" Minimum="8" Value="20"/>
             <Label Grid.Row="3" Grid.Column="2"
                    VerticalOptions="Center" HorizontalOptions="Start"
+                   TextColor="Black"
                    Text="{Binding Source={x:Reference SizeSlider}, Path=Value, StringFormat='Size: {0:0#}'}"/>
             <Image x:Name="SymbolPreviewImage"
                    Grid.Row="4" Grid.Column="1"

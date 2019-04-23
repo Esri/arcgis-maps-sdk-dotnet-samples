@@ -90,7 +90,7 @@ namespace ArcGISRuntime.UWP.Samples.SymbolsFromMobileStyle
                 IList<SymbolStyleSearchResult> styleResults = await _emojiStyle.SearchSymbolsAsync(searchParams);
 
                 // Create an empty placeholder image to represent "no symbol" for each category.
-                ImageSource emptyImage = null; //??
+                ImageSource emptyImage = null;
 
                 // Create lists to contain the available symbol layers for each category of symbol and add an empty entry as default.
                 List<SymbolLayerInfo> eyeSymbolInfos = new List<SymbolLayerInfo> { new SymbolLayerInfo("", emptyImage, "") };

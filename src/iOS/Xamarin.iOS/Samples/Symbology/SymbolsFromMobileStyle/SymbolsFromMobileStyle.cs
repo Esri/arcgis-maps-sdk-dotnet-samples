@@ -187,7 +187,7 @@ namespace ArcGISRuntimeXamarin.Samples.SymbolsFromMobileStyle
         // An image view to show a preview of the currently designed symbol.
         private UIImageView _symbolPreviewImageView;
 
-        // The file path to the moblile style file (.stylx) and the symbol style object.
+        // The file path to the mobile style file (.stylx) and the symbol style object.
         private readonly string _mobileStyleFilePath;
         private SymbolStyle _emojiStyle;
 

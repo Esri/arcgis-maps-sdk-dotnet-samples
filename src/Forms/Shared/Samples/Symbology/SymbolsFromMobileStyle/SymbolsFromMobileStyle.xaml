@@ -1,9 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntimeXamarin.Samples.SymbolsFromMobileStyle.SymbolsFromMobileStyle">
-    <Grid>    
+             x:Class="ArcGISRuntime.Samples.SymbolsFromMobileStyle.SymbolsFromMobileStyle">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="50"/>
@@ -24,35 +24,39 @@
         </Grid>
         <Grid x:Name="SelectSymbolGrid"
               Grid.Row="0"
-              Margin="10,100"
+              Margin="10"
+              HorizontalOptions="Center" VerticalOptions="Start"
+              MinimumHeightRequest="300" MinimumWidthRequest="300"
               BackgroundColor="White"
               IsVisible="False">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="160"/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="70"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0"
                    Text="Eyes" 
                    HorizontalOptions="Center" VerticalOptions="Center"
                    Margin="10,10,0,0"/>
             <ListView x:Name="EyesListView"
-                    Grid.Row="1" Grid.Column="0"
-                    WidthRequest="60" HeightRequest="140"
-                    HorizontalOptions="Center" VerticalOptions="Center"
-                     ItemSelected="SymbolLayerSelected">
+                      Grid.Row="1" Grid.Column="0"
+                      WidthRequest="40" HeightRequest="100"
+                      HorizontalOptions="Center" VerticalOptions="Center"
+                      Margin="10,0,0,0"
+                      VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never"
+                      ItemSelected="SymbolLayerSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Image Source="{Binding Image}"/>
+                            <Image Source="{Binding ImageSrc}" HeightRequest="25"
+                                   HorizontalOptions="Start"/>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -62,14 +66,16 @@
                    HorizontalOptions="Center" VerticalOptions="Center"
                    Margin="10,10,0,0"/>
             <ListView x:Name="MouthListView"
-                    Grid.Row="1" Grid.Column="1"
-                    WidthRequest="60" HeightRequest="140"
-                    HorizontalOptions="Center" VerticalOptions="Center"
-                     ItemSelected="SymbolLayerSelected">
+                      Grid.Row="1" Grid.Column="1"
+                      WidthRequest="40" HeightRequest="100"
+                      HorizontalOptions="Center" VerticalOptions="Center"
+                      VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never"
+                      ItemSelected="SymbolLayerSelected">
                 <ListView.ItemTemplate>
-                     <DataTemplate>
+                    <DataTemplate>
                         <ViewCell>
-                            <Image Source="{Binding Image}"/>
+                            <Image Source="{Binding ImageSrc}" HeightRequest="25"
+                                   HorizontalOptions="Start"/>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -79,32 +85,45 @@
                    HorizontalOptions="Center" VerticalOptions="Center"
                    Margin="10,10,0,0"/>
             <ListView x:Name="HatListView"
-                    Grid.Row="1" Grid.Column="2"
-                    WidthRequest="60" HeightRequest="140"
-                    HorizontalOptions="Center" VerticalOptions="Center"
-                    ItemSelected="SymbolLayerSelected">
+                      Grid.Row="1" Grid.Column="2"
+                      WidthRequest="40" HeightRequest="100"
+                      HorizontalOptions="Center" VerticalOptions="Center"
+                      VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never"
+                      ItemSelected="SymbolLayerSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Image Source="{Binding Image}"/>
+                            <Image Source="{Binding ImageSrc}" HeightRequest="25"
+                                   HorizontalOptions="Start"/>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
             <ListView x:Name="ColorListView"
                       Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
-                      Margin="60,10"
-                      WidthRequest="240" HeightRequest="100"
+                      Margin="10"
+                      WidthRequest="300" HeightRequest="75"
                       HorizontalOptions="Center" VerticalOptions="Center"
                       ItemSelected="SymbolLayerSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
+                        <ViewCell Height="20">
                             <Label BackgroundColor="{Binding}"/>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Slider x:Name="SizeSlider"
+                    Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                    Margin="10,0"
+                    Maximum="60" Minimum="8" Value="20"/>
+            <Label Grid.Row="3" Grid.Column="2"
+                   VerticalOptions="Center" HorizontalOptions="Start"
+                   Text="{Binding Source={x:Reference SizeSlider}, Path=Value, StringFormat='Size: {0:0#}'}"/>
+            <Image x:Name="SymbolPreviewImage"
+                   Grid.Row="4" Grid.Column="1"
+                   Margin="10"
+                   WidthRequest="80" HeightRequest="80"/>
         </Grid>
     </Grid>
 </ContentPage>

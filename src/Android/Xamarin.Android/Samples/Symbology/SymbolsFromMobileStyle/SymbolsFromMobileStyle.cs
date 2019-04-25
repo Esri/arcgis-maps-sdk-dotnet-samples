@@ -658,13 +658,13 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
     public class SymbolLayerInfo
     {
         // A bitmap preview of the symbol.
-        public Bitmap Image { get; private set; }
+        public Bitmap Image;
 
         // The name of the symbol in the style.
-        public string Name { get; private set; }
+        public string Name;
 
         // A key that uniquely identifies the symbol in the style.
-        public string Key { get; private set; }
+        public string Key;
 
         // Take the symbol info property values in the constructor.
         public SymbolLayerInfo(string name, Bitmap image, string key)

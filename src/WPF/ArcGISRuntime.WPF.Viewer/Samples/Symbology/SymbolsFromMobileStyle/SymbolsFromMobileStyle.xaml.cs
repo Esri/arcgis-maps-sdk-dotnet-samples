@@ -167,7 +167,7 @@ namespace ArcGISRuntime.WPF.Samples.SymbolsFromMobileStyle
             Symbol faceSymbol = await GetCurrentSymbol();
 
             // Call a function to update the symbol preview.
-            UpdateSymbolPreview(faceSymbol);
+            await UpdateSymbolPreview(faceSymbol);
         }
 
         private async Task<MultilayerPointSymbol> GetCurrentSymbol()
@@ -190,37 +190,37 @@ namespace ArcGISRuntime.WPF.Samples.SymbolsFromMobileStyle
                 SymbolLayerInfo hatLayerInfo = (SymbolLayerInfo)HatSymbolList.SelectedItem;
                 string hatLayerKey = hatLayerInfo != null ? hatLayerInfo.Key : string.Empty;
             
-            // Create a list of the symbol keys that identify the selected symbol layers, including the base (circle) symbol.
-            List<string> symbolKeys = new List<string>
-            {
-                _baseSymbolKey, eyeLayerKey, mouthLayerKey, hatLayerKey
-            };
+                // Create a list of the symbol keys that identify the selected symbol layers, including the base (circle) symbol.
+                List<string> symbolKeys = new List<string>
+                {
+                    _baseSymbolKey, eyeLayerKey, mouthLayerKey, hatLayerKey
+                };
 
-            // Get a multilayer point symbol from the style that contains the selected symbol layers.
-            faceSymbol = await _emojiStyle.GetSymbolAsync(symbolKeys) as MultilayerPointSymbol;
+                // Get a multilayer point symbol from the style that contains the selected symbol layers.
+                faceSymbol = await _emojiStyle.GetSymbolAsync(symbolKeys) as MultilayerPointSymbol;
 
-            // Loop through all symbol layers and lock the color.
-            foreach (SymbolLayer lyr in faceSymbol.SymbolLayers)
-            {
-                // Changing the color of the symbol will not affect this layer.
-                lyr.IsColorLocked = true;
-            }
+                // Loop through all symbol layers and lock the color.
+                foreach (SymbolLayer lyr in faceSymbol.SymbolLayers)
+                {
+                    // Changing the color of the symbol will not affect this layer.
+                    lyr.IsColorLocked = true;
+                }
 
-            // Unlock the color for the base (first) layer. Changing the symbol color will change this layer's color.
-            faceSymbol.SymbolLayers.First().IsColorLocked = false;
+                // Unlock the color for the base (first) layer. Changing the symbol color will change this layer's color.
+                faceSymbol.SymbolLayers.First().IsColorLocked = false;
 
-            // Set the symbol color from the combo box.
-            if (FaceColorComboBox.SelectedItem != null)
-            {
-                faceSymbol.Color = (Color)FaceColorComboBox.SelectedItem;
-            }
+                // Set the symbol color from the combo box.
+                if (FaceColorComboBox.SelectedItem != null)
+                {
+                    faceSymbol.Color = (Color)FaceColorComboBox.SelectedItem;
+                }
 
-            // Set the symbol size from the slider.
-            faceSymbol.Size = SizeSlider.Value;
+                // Set the symbol size from the slider.
+                faceSymbol.Size = SizeSlider.Value;
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show("Unable to create symbol: " + ex.Message, "Exception");
             }
 
             // Return the multilayer point symbol.
@@ -251,13 +251,13 @@ namespace ArcGISRuntime.WPF.Samples.SymbolsFromMobileStyle
     public class SymbolLayerInfo
     {
         // An image source for a preview image of the symbol.
-        public WinMedia.ImageSource ImageSrc { get; private set; }
+        public WinMedia.ImageSource ImageSrc;
 
         // The name of the symbol as it appears in the mobile style.
-        public string Name { get; private set; }
+        public string Name;
 
         // A key that uniquely identifies the symbol in the style.
-        public string Key { get; private set; }
+        public string Key;
 
         // Take all symbol info in the constructor.
         public SymbolLayerInfo(string name, WinMedia.ImageSource source, string key)

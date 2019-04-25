@@ -36,10 +36,7 @@ Multilayer symbols provide the ability to create much more complex and interesti
 
 A mobile style file (created using ArcGIS Pro) provides the symbols used by the sample.
 
-Link | Local Location
----------|-------|
-|[Emoji mobile style](https://www.arcgis.com/home/item.html?id=1bd036f221f54a99abc9e46ff3511cbf)| `<sample data folder>`/emoji-mobile.stylx |
-
+[Emoji mobile style](https://www.arcgis.com/home/item.html?id=1bd036f221f54a99abc9e46ff3511cbf)
 
 ## Tags
 

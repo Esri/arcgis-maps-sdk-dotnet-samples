@@ -2,7 +2,7 @@
 
 Open a mobile style (.stylx) and read its contents. Combine several symbols from the style into a single multilayer point symbol, then use it to display graphics in the map view.
 
-![image](symbol-from-style.jpg)
+![image](SymbolsFromMobileStyle.jpg)
 
 ## Use case
 
@@ -36,10 +36,7 @@ Multilayer symbols provide the ability to create much more complex and interesti
 
 A mobile style file (created using ArcGIS Pro) provides the symbols used by the sample.
 
-Link | Local Location
----------|-------|
-|[Emoji mobile style](https://www.arcgis.com/home/item.html?id=1bd036f221f54a99abc9e46ff3511cbf)| `<sample data folder>`/emoji-mobile.stylx |
-
+[Emoji mobile style](https://www.arcgis.com/home/item.html?id=1bd036f221f54a99abc9e46ff3511cbf)
 
 ## Tags
 

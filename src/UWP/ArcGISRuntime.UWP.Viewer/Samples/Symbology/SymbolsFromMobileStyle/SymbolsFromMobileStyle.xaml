@@ -9,10 +9,9 @@
     </UserControl.Resources>
     <Grid>
         <esriUI:MapView x:Name="MyMapView"/>
-        <Border Width="400" Height="290"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="0,20,20,0"
-                Background="White">
+        <Border Style="{StaticResource BorderStyle}" 
+                Padding="0" Width="400" Height="290" 
+                Margin="0,20,20,0">
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="140"/>
@@ -28,7 +27,7 @@
                 <ListBox x:Name="EyeSymbolList"
                          Grid.Row="0" Grid.Column="0"
                          Margin="20"
-                         Background="White"
+                         BorderThickness="1"
                          SelectionMode="Single"
                          SelectionChanged="SymbolPropertyChanged">
                     <ListBox.ItemTemplate>
@@ -42,7 +41,7 @@
                 <ListBox x:Name="MouthSymbolList"
                          Grid.Row="0" Grid.Column="1"
                          Margin="20"
-                         Background="White"
+                         BorderThickness="1"
                          SelectionMode="Single"
                          SelectionChanged="SymbolPropertyChanged">
                     <ListBox.ItemTemplate>
@@ -56,7 +55,7 @@
                 <ListBox x:Name="HatSymbolList"
                          Grid.Row="0" Grid.Column="2"
                          Margin="20"
-                         Background="White"
+                         BorderThickness="1"
                          SelectionMode="Single"
                          SelectionChanged="SymbolPropertyChanged">
                     <ListBox.ItemTemplate>

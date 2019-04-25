@@ -255,13 +255,13 @@ namespace ArcGISRuntime.UWP.Samples.SymbolsFromMobileStyle
     public class SymbolLayerInfo
     {
         // An image source for a preview image of the symbol.
-        public ImageSource ImageSrc { get; private set; }
+        public ImageSource ImageSrc;
 
         // The name of the symbol as it appears in the mobile style.
-        public string Name { get; private set; }
+        public string Name;
 
         // A key that uniquely identifies the symbol in the style.
-        public string Key { get; private set; }
+        public string Key;
 
         // Take all symbol info in the constructor.
         public SymbolLayerInfo(string name, ImageSource source, string key)

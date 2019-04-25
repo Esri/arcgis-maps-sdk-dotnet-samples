@@ -249,10 +249,17 @@ namespace ArcGISRuntimeXamarin.Samples.SymbolsFromMobileStyle
             _colorSegments.Subviews[2].BackgroundColor = UIColor.FromRGB(255,192,203);
             _colorSegments.Subviews[2].TintColor = UIColor.FromRGB(255, 192, 203);
 
-            // Handle the value changed event for the segmented control to update the current symbol.
-            _colorSegments.ValueChanged += (sender, e) =>
+            // Set the color segments text color to black so it's more visible.
+            UITextAttributes textAttributes = new UITextAttributes
             {
-                UpdateSymbol();
+                TextColor = UIColor.Black
+            };
+            _colorSegments.SetTitleTextAttributes(textAttributes, UIControlState.Normal);
+
+            // Handle the value changed event for the segmented control to update the current symbol.
+            _colorSegments.ValueChanged += async(sender, e) =>
+            {
+                await UpdateSymbol();
             };
 
             _colorSegments.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -474,13 +481,13 @@ namespace ArcGISRuntimeXamarin.Samples.SymbolsFromMobileStyle
     public class SymbolLayerInfo
     {
         // An image of the symbol.
-        public UIImage Image { get; private set; }
+        public UIImage Image;
 
         // The name of the symbol in the mobile style file.
-        public string Name { get; private set; }
+        public string Name;
 
         // A unique key that identifies the symbol in the mobile style.
-        public string Key { get; private set; }
+        public string Key;
 
         // Take all the symbol info property values in the constructor.
         public SymbolLayerInfo(string name, UIImage image, string key)

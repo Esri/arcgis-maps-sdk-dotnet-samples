@@ -57,8 +57,9 @@ namespace ArcGISRuntime.WPF.Samples.ReadGeoPackage
 
                 // Get the read only list of GeoPackageRasters from the GeoPackage
                 IReadOnlyList<GeoPackageRaster> myReadOnlyListOfGeoPackageRasters = myGeoPackage.GeoPackageRasters;
-            
+
                 // Loop through each GeoPackageRaster
+                int idx = 0;
                 foreach (GeoPackageRaster oneGeoPackageRaster in myReadOnlyListOfGeoPackageRasters)
                 {
                     // Create a RasterLayer from the GeoPackageRaster
@@ -86,12 +87,12 @@ namespace ArcGISRuntime.WPF.Samples.ReadGeoPackage
                     {
                         // We did not get a good human-readable name from the RasterLayer from the .Name
                         // property, get the good human-readable name from the GeoPackageRaster.Path instead
-                        myRasterLayerName = oneGeoPackageRaster.Path.Split('/').Last();
+                        myRasterLayerName = oneGeoPackageRaster.Path.Split('\\').Last();
                     }
 
                     // Append the 'type of layer' to the myRasterLayerName string to display in the 
                     // ListBox and as the key for the HybridDictonary
-                    myRasterLayerName = myRasterLayerName + " - RasterLayer";
+                    myRasterLayerName = myRasterLayerName + " - RasterLayer " + ++idx;
 
                     // Add the name of the RasterLayer and the RasterLayer itself into the HybridDictionary
                     _myHybridDictionary_Layers.Add(myRasterLayerName, myRasterLayer);

@@ -156,6 +156,21 @@ namespace ArcGISRuntime.Samples.Desktop
             }
         }
 
+        private void CloseCategoryLeaves()
+        {
+            if (Categories.Items.Count > 0)
+            {
+                var firstTreeViewItem = Categories.Items[0] as TreeViewItem;
+                if (firstTreeViewItem != null) firstTreeViewItem.IsSelected = true;
+
+                foreach (var item in Categories.Items)
+                {
+                    var treeViewItem = item as TreeViewItem;
+                    if (treeViewItem != null) treeViewItem.IsExpanded = false;
+                }
+            }
+        }
+
         private void LiveSample_Click(object sender, RoutedEventArgs e)
         {
             SampleContainer.Visibility = Visibility.Visible;
@@ -193,8 +208,15 @@ namespace ArcGISRuntime.Samples.Desktop
             // Set category data context
             Categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(results);
 
-            // Open all
-            OpenCategoryLeaves();
+            // Open all if query isn't empty
+            if (!String.IsNullOrWhiteSpace(SearchFilterBox.SearchText))
+            {
+                OpenCategoryLeaves();
+            }
+            else
+            {
+                CloseCategoryLeaves();
+            }
         }
 
         private bool SampleSearchFunc(SampleInfo sample)

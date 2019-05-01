@@ -39,13 +39,21 @@
                     
                     <TextBlock Text="The ArcGIS Runtime SDK sample viewer downloads offline data on-demand. You can optionally pre-download data if you expect to go offline in the future."
                                TextWrapping="Wrap"
+                               Margin="5"
                                Grid.Row="0"/>
-
-                    <ToolBar Grid.Row="1">
-                            <Button Content="Download all" Click="DownloadAll_Clicked" />
-                            <Button Content="Delete all" Click="DeleteAll_Click" />
-                    </ToolBar>
-
+                    <StackPanel Orientation="Horizontal" 
+                                Grid.Row="1">
+                        <Button Content="Download all" 
+                                Margin="5"
+                                Click="DownloadAll_Clicked" />
+                        <Button Content="Delete all" 
+                                Margin="5"
+                                Click="DeleteAll_Click" />
+                        <Button x:Name="CancelButton" Content="Cancel" 
+                                Visibility="Collapsed"
+                                Margin="5"
+                                Click="Cancel_Click" />
+                    </StackPanel>
                     <ListView x:Name="SampleDataListView"
                               Grid.Row="2" HorizontalContentAlignment="Stretch">
                         <ListView.ItemTemplate>
@@ -81,11 +89,6 @@
                     <StatusBar Grid.Row="3">
                         <StatusBarItem>
                             <TextBlock x:Name="StatusLabel" Text="Ready" />
-                        </StatusBarItem>
-                        <StatusBarItem>
-                            <Button x:Name="CancelButton" Content="Cancel" 
-                                    Visibility="Collapsed"
-                                    Click="Cancel_Click" />
                         </StatusBarItem>
                         <StatusBarItem HorizontalAlignment="Right">
                             <ProgressBar x:Name="StatusSpinner" 

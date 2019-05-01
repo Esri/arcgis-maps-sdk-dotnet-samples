@@ -26,10 +26,10 @@ namespace ArcGISRuntime.WPF.Viewer
             DataContext = sample;
 
             string folderPath = sample.Path;
+            string cssPath = System.IO.Path.Combine(App.ResourcePath, "Resources", "github-markdown.css");
             string readmePath = System.IO.Path.Combine(folderPath, "Readme.md");
             string readmeContent = System.IO.File.ReadAllText(readmePath);
-            string cssPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Resources", "github-markdown.css");
-            string overrideCssPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Resources", "hide-header.css");
+            string overrideCssPath = System.IO.Path.Combine(App.ResourcePath, "Resources", "hide-header.css");
             readmeContent = _markdownRenderer.Parse(readmeContent);
 
             string htmlString = "<!doctype html><head><base href=\"" + readmePath + "\"><link rel=\"stylesheet\" href=\"" + cssPath + "\" /><link rel=\"stylesheet\" href=\"" + overrideCssPath + "\" /></head><body class=\"markdown-body\">" + readmeContent + "</body>";

@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using ArcGISRuntime.Converters;
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
+using ArcGISRuntime.WPF.Viewer;
 using Esri.ArcGISRuntime;
 
 namespace ArcGISRuntime
@@ -47,8 +48,8 @@ namespace ArcGISRuntime
             VersionTextField.Text = _runtimeVersion;
 
             // Set up license info.
-            string markdownPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Resources", "licenses.md");
-            string cssPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Resources", "github-markdown.css");
+            string markdownPath = System.IO.Path.Combine(App.ResourcePath, "Resources", "licenses.md");
+            string cssPath = System.IO.Path.Combine(App.ResourcePath, "Resources", "github-markdown.css");
             string licenseContent = System.IO.File.ReadAllText(markdownPath);
             licenseContent = _markdownRenderer.Parse(licenseContent);
             string htmlString = "<!doctype html><head><link rel=\"stylesheet\" href=\"" + cssPath + "\" /></head><body class=\"markdown-body\">" + licenseContent + "</body>";

@@ -110,9 +110,8 @@ namespace ArcGISRuntime.WPF.Viewer
             {
                 // Filepaths for the css and js files used for syntax highlighting.
 
-                string assemblyPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                string cssPath = System.IO.Path.Combine(assemblyPath, "Resources", "SyntaxHighlighting", "highlight.css");
-                string jsPath = System.IO.Path.Combine(assemblyPath, "Resources", "SyntaxHighlighting", "highlight.pack.js");
+                string cssPath = System.IO.Path.Combine(App.ResourcePath, "Resources", "SyntaxHighlighting", "highlight.css");
+                string jsPath = System.IO.Path.Combine(App.ResourcePath, "Resources", "SyntaxHighlighting", "highlight.pack.js");
 
                 // Source code of the file.
                 try

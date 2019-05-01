@@ -161,6 +161,8 @@ namespace ArcGISRuntime
 
         private void RevealInExplorer_Clicked(object sender, RoutedEventArgs e)
         {
+            // Button for this was removed because it doesn't work with
+            // folder redirection when packaged with desktop bridge.
             System.Diagnostics.Process.Start(DataManager.GetDataFolder());
         }
 

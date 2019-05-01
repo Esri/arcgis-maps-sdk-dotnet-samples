@@ -37,14 +37,13 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     
-                    <TextBlock Text="The ArcGIS Runtime SDK sample viewer downloads offline data on-demand. You can optionally pre-download data in anticipation of going offline."
+                    <TextBlock Text="The ArcGIS Runtime SDK sample viewer downloads offline data on-demand. You can optionally pre-download data if you expect to go offline in the future."
                                TextWrapping="Wrap"
                                Grid.Row="0"/>
 
                     <ToolBar Grid.Row="1">
                             <Button Content="Download all" Click="DownloadAll_Clicked" />
                             <Button Content="Delete all" Click="DeleteAll_Click" />
-                            <Button Content="Reveal in File Explorer" Click="RevealInExplorer_Clicked" />
                     </ToolBar>
 
                     <ListView x:Name="SampleDataListView"
@@ -84,7 +83,9 @@
                             <TextBlock x:Name="StatusLabel" Text="Ready" />
                         </StatusBarItem>
                         <StatusBarItem>
-                            <Button x:Name="CancelButton" Content="Cancel" Click="Cancel_Click" />
+                            <Button x:Name="CancelButton" Content="Cancel" 
+                                    Visibility="Collapsed"
+                                    Click="Cancel_Click" />
                         </StatusBarItem>
                         <StatusBarItem HorizontalAlignment="Right">
                             <ProgressBar x:Name="StatusSpinner" 

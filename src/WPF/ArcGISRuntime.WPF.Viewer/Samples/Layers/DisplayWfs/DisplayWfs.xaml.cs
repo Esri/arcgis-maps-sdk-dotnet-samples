@@ -22,7 +22,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayWfs
         "Display a WFS layer",
         "Layers",
         "Display a layer from a WFS service, requesting only features for the current extent.",
-        "")]
+        "", "Featured")]
     public partial class DisplayWfs
     {
         // Hold a reference to the WFS feature table.

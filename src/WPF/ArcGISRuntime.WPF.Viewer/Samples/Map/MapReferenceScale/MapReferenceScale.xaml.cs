@@ -17,7 +17,7 @@ namespace ArcGISRuntime.WPF.Samples.MapReferenceScale
         "Map reference scale",
         "Map",
         "Set a map's reference scale and control which feature layers honor that scale.",
-        "")]
+        "", "Featured")]
     public partial class MapReferenceScale
     {
         // List of reference scale options.

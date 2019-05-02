@@ -90,6 +90,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
             SampleManager.Current.SelectedSample = selectedSample;
             DescriptionContainer.SetSample(selectedSample);
+            ShowSampleTab();
 
             // Call a function to clear any existing credentials from AuthenticationManager
             ClearCredentials();
@@ -171,28 +172,38 @@ namespace ArcGISRuntime.Samples.Desktop
             }
         }
 
-        private void LiveSample_Click(object sender, RoutedEventArgs e)
+        private void ShowSampleTab()
         {
+            SampleRadTab.IsChecked = true;
             SampleContainer.Visibility = Visibility.Visible;
             DescriptionContainer.Visibility = Visibility.Collapsed;
             CategoriesRegion.Visibility = Visibility.Collapsed;
-            SourceCodeContainer.Visibility = Visibility.Collapsed;
+            SourceCodeContainer.Visibility = Visibility.Collapsed; 
         }
 
-        private void Description_Click(object sender, RoutedEventArgs e)
+        private void ShowDescriptionTab()
         {
+            DetailsRadTab.IsChecked = true;
             SampleContainer.Visibility = Visibility.Collapsed;
             DescriptionContainer.Visibility = Visibility.Visible;
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SourceCodeContainer.Visibility = Visibility.Collapsed;
         }
-        private void SourceCode_Click(object sender, RoutedEventArgs e)
+
+        private void ShowSourceTab()
         {
+            SourceRadTab.IsChecked = true;
             SampleContainer.Visibility = Visibility.Collapsed;
             DescriptionContainer.Visibility = Visibility.Collapsed;
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SourceCodeContainer.Visibility = Visibility.Visible;
         }
+
+        private void LiveSample_Click(object sender, RoutedEventArgs e) => ShowSampleTab();
+
+        private void Description_Click(object sender, RoutedEventArgs e) => ShowDescriptionTab();
+
+        private void SourceCode_Click(object sender, RoutedEventArgs e) => ShowSourceTab();
 
         private async void SearchFilterBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {

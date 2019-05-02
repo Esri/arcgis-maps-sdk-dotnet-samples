@@ -26,6 +26,7 @@
                            Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}" />
                     <TextBlock Text="{Binding SampleName}" 
                                FontSize="18" Grid.Row="0" Padding="10"
+                               TextWrapping="Wrap"
                                VerticalAlignment="Bottom" Background="#A52F2F2F" Foreground="White" />
                     <TextBlock Text="{Binding Description}" FontSize="13"
                                TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Top"
@@ -120,14 +121,14 @@
                                Margin="10,0,0,0"
                                FontSize="24" FontWeight="SemiBold"/>
                     <StackPanel Orientation="Horizontal" Grid.Column="1">
-                        <RadioButton Margin="5,0,0,0" IsChecked="True" Content="Live sample" Click="LiveSample_Click"
+                        <RadioButton x:Name="SampleRadTab" Margin="5,0,0,0" IsChecked="True" Content="Live sample" Click="LiveSample_Click"
                                      GroupName="DetailsTabs" FontSize="24"
                                      Style="{DynamicResource SampleHeaderToggleButtonStyle}" />
-                        <RadioButton Margin="5,0,0,0" Content="Description" Click="Description_Click"
+                        <RadioButton x:Name="DetailsRadTab" Margin="5,0,0,0" Content="Description" Click="Description_Click"
                                      GroupName="DetailsTabs" Background="Transparent"
                                      BorderBrush="{StaticResource PrimaryBackgroundColor}" FontSize="24"
                                      Style="{DynamicResource SampleHeaderToggleButtonStyle}" />
-                        <RadioButton Margin="5,0,0,0" Content="Source code" Click="SourceCode_Click"
+                        <RadioButton x:Name="SourceRadTab" Margin="5,0,0,0" Content="Source code" Click="SourceCode_Click"
                                      GroupName="DetailsTabs" Background="Transparent"
                                      BorderBrush="{StaticResource PrimaryBackgroundColor}" FontSize="24"
                                      Style="{DynamicResource SampleHeaderToggleButtonStyle}" />

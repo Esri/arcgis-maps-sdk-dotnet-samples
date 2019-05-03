@@ -25,7 +25,7 @@
                 <!-- Inputs -->
                 <!-- Text is null unless explicitly set on Forms UWP -->
                 <Entry x:Name="PortalUrlEntry"
-                       Text=""
+                       Text="" Keyboard="Plain"
                        Placeholder="IWA-secured portal URL"
                         Grid.Row="0" Grid.ColumnSpan="2"/>
                 <Button Grid.Row="1"

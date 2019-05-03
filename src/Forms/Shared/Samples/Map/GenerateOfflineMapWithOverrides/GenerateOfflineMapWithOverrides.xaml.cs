@@ -20,7 +20,6 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
-using Forms.Samples.Map.GenerateOfflineMapWithOverrides;
 using Xamarin.Forms;
 #if __IOS__
 using Xamarin.Auth;

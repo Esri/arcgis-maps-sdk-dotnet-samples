@@ -27,6 +27,7 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
         "Map",
         "Take a map offline using a preplanned map area",
         "Select a map area to take offline, then use the button to take it offline. Click 'Delete offline areas' to remove any downloaded map areas.")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData]
     public partial class DownloadPreplannedMap
     {
         // ID of a web map with preplanned map areas.

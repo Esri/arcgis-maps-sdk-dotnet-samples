@@ -20,7 +20,7 @@ using System.Collections.Generic;
 
 namespace ArcGISRuntime.Samples.ReadGeoPackage
 {
-    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Read a GeoPackage",
         "Data",

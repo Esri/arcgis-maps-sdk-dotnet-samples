@@ -28,6 +28,7 @@ namespace ArcGISRuntime.UWP.Samples.MapReferenceScale
         "Map",
         "Set a map's reference scale and control which feature layers honor that scale.",
         "")]
+    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("Converters/DoubleToScaleStringConverter")]
     public partial class MapReferenceScale
     {
         // List of reference scale options.

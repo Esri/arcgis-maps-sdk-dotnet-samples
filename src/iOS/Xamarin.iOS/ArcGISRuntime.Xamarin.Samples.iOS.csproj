@@ -229,6 +229,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.jpg" />
     <None Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
     <None Include="Samples\Layers\GroupLayers\GroupLayers.jpg" />
     <None Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.jpg" />
@@ -391,6 +392,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.cs" />
     <Compile Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.cs" />
     <Compile Include="Samples\Layers\GroupLayers\GroupLayers.cs" />
     <Compile Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.cs" />

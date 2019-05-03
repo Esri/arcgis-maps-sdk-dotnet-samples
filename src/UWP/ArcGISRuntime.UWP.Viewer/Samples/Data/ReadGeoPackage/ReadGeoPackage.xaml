@@ -5,36 +5,5 @@
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
-            <ScrollViewer>
-                <StackPanel>
-                    <TextBlock
-                        Text="Select a layer name from 'Layers not in the map' and click 'Add layer'. To remove a layer from the map, select a layer from 'Layers in the map' and click 'Remove layer'."
-                        Margin="0,0,0,10"
-                        TextWrapping="Wrap" FontWeight="SemiBold" />
-                    <TextBlock Text="Layers in the map"
-                               FontWeight="Bold"
-                               Margin="0,0,0,5" HorizontalAlignment="Center"
-                               TextWrapping="Wrap" />
-                    <ListBox x:Name="LayersInTheMap"
-                             Margin="0,5,0,5" />
-                    <Button Content="Remove layer"
-                            HorizontalAlignment="Stretch"
-                            Click="Button_RemoveLayerFromMap_Click" />
-                    <TextBlock Text="Layers not in the map"
-                               FontWeight="Bold"
-                               Margin="0,10,0,5" HorizontalAlignment="Center"
-                               TextWrapping="Wrap" />
-                    <ListBox x:Name="LayersNotInTheMap"
-                             Margin="0,5,0,5" />
-                    <Button Content="Add layer"
-                            HorizontalAlignment="Stretch"
-                            Click="Button_AddLayerToMap_Click" />
-
-                </StackPanel>
-            </ScrollViewer>
-
-        </Border>
     </Grid>
-
 </UserControl>

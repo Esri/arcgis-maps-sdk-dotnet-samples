@@ -9,9 +9,12 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         <Button x:Name="PlaceFacilityButton"
                         Grid.Row="0" Grid.Column="0"
                         Text="Place Facility"
@@ -23,19 +26,19 @@
                         Clicked="DrawBarrierButton_Click"
                         HorizontalOptions="FillAndExpand" />
         <Button x:Name="ShowServiceAreasButton"
-                        Grid.Row="2"
+                        Grid.Row="1"
                         Grid.ColumnSpan="2"
                         Text="Show Service Areas"
                         Clicked="ShowServiceAreasButton_Click"
                         HorizontalOptions="FillAndExpand" />
         <Button x:Name="ResetButton"
-                        Grid.Row="3"
+                        Grid.Row="2"
                         Grid.ColumnSpan="2"
                         Text="Reset"
                         Clicked="Reset_Click"
                         HorizontalOptions="FillAndExpand" />
         <esriUI:MapView x:Name="MyMapView"  
-                        Grid.Row="4" 
+                        Grid.Row="3" 
                         Grid.ColumnSpan="2"/>
     </Grid>
 </ContentPage>

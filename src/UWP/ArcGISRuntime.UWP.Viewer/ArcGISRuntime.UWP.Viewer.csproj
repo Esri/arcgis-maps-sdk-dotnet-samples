@@ -124,11 +124,11 @@
     <Content Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
     <Content Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
     <Content Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
-    <Content Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
-    <Content Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
-    <Content Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
-    <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
-    <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
+	  <Content Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
+	  <Content Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
+	  <Content Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
+	  <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
+	  <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
     <Content Include="Samples\Layers\PlayKmlTours\PlayKmlTours.jpg" />
     <Content Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
     <Content Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg" />

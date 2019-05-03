@@ -24,7 +24,7 @@ using System.Threading.Tasks;
 
 namespace ArcGISRuntime.Samples.FindServiceArea
 {
-    [Activity(Label = "FindServiceArea")]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Find service area (interactive)",
         "Network Analysis",
@@ -40,7 +40,6 @@ namespace ArcGISRuntime.Samples.FindServiceArea
 
         // Create buttons for the UI.
         private Button _facilityButton;
-
         private Button _barrierButton;
         private Button _serviceAreasButton;
         private Button _resetButton;
@@ -51,10 +50,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
 
             Title = "Find service area (interactive)";
 
-            // Create the UI.
             CreateLayout();
-
-            // Initialize the app.
             Initialize();
         }
 
@@ -126,6 +122,12 @@ namespace ArcGISRuntime.Samples.FindServiceArea
                 {
                     // Set the event as handled.
                     e.Handled = true;
+
+                    // Finish any drawing.
+                    _myMapView.SketchEditor.CompleteCommand.Execute(null);
+
+                    // Update UI.
+                    _barrierButton.Text = "Draw barrier";
                 }
             };
         }
@@ -173,11 +175,26 @@ namespace ArcGISRuntime.Samples.FindServiceArea
 
         private async void DrawBarrierButtonClick(object sender, EventArgs e)
         {
-            // Disable the button so the user recognizes that they are drawing a barrier.
-            _barrierButton.Enabled = false;
+            // Finish any drawings in progress.
+            if (_barrierButton.Text != "Draw barrier")
+            {
+                // Finish the sketch.
+                if (_myMapView.SketchEditor.CompleteCommand.CanExecute(null))
+                {
+                    _myMapView.SketchEditor.CompleteCommand.Execute(null);
+                }
+
+                // Update the UI.
+                _barrierButton.Text = "Draw barrier";
+
+                return;
+            }
 
             try
             {
+                // Update the UI.
+                _barrierButton.Text = "Finish drawing";
+
                 // Let the user draw on the map view using the polyline sketch mode.
                 SketchCreationMode creationMode = SketchCreationMode.Polyline;
                 Geometry geometry = await _myMapView.SketchEditor.StartAsync(creationMode, false);
@@ -210,6 +227,15 @@ namespace ArcGISRuntime.Samples.FindServiceArea
 
         private async void ShowServiceAreasButtonClick(object sender, EventArgs e)
         {
+            // Finish any drawings in progress.
+            if (_myMapView.SketchEditor.CompleteCommand.CanExecute(null))
+            {
+                _myMapView.SketchEditor.CompleteCommand.Execute(null);
+            }
+
+            // Update the UI.
+            _barrierButton.Text = "Draw barrier";
+
             // Use a local variable for the graphics overlay.
             GraphicCollection allGraphics = _myMapView.GraphicsOverlays[0].Graphics;
 

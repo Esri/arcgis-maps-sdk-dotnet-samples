@@ -60,6 +60,10 @@ namespace ArcGISRuntime.UWP.Samples.FindServiceArea
                 {
                     // Set the event as handled.
                     e.Handled = true;
+
+                    // Finish the sketch.
+                    MyMapView.SketchEditor.CompleteCommand.Execute(null);
+                    DrawBarrierButton.Content = "Draw barrier";
                 }
             };
         }
@@ -101,8 +105,19 @@ namespace ArcGISRuntime.UWP.Samples.FindServiceArea
 
         private async void DrawBarrierButton_Click(object sender, RoutedEventArgs e)
         {
+            // Finish the drawing if already started.
+            if ((string)DrawBarrierButton.Content != "Draw barrier")
+            {
+                if (MyMapView.SketchEditor.CompleteCommand.CanExecute(null))
+                    MyMapView.SketchEditor.CompleteCommand.Execute(null);
+                DrawBarrierButton.Content = "Draw barrier";
+                return;
+            }
             try
             {
+                // Update the button label.
+                DrawBarrierButton.Content = "Finish drawing";
+
                 // Let the user draw on the map view using the polyline sketch mode.
                 SketchCreationMode creationMode = SketchCreationMode.Polyline;
                 Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, false);
@@ -111,7 +126,7 @@ namespace ArcGISRuntime.UWP.Samples.FindServiceArea
                 SimpleLineSymbol barrierSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Black, 5.0f);
 
                 // Create the graphic to be used for barriers.
-                Graphic barrierGraphic = new Graphic(geometry, new Dictionary<string, object>() { { "Type", "Barrier" } }, barrierSymbol)
+                Graphic barrierGraphic = new Graphic(geometry, new Dictionary<string, object> { { "Type", "Barrier" } }, barrierSymbol)
                 {
                     ZIndex = 1
                 };
@@ -132,6 +147,15 @@ namespace ArcGISRuntime.UWP.Samples.FindServiceArea
 
         private async void ShowServiceAreasButton_Click(object sender, RoutedEventArgs e)
         {
+            // Finish any sketches in progress.
+            // If the sketch editor complete command is enabled, a sketch is in progress.
+            if (MyMapView.SketchEditor.CompleteCommand.CanExecute(null))
+            {
+                // Finish the sketch.
+                MyMapView.SketchEditor.CompleteCommand.Execute(null);
+                DrawBarrierButton.Content = "Draw barrier";
+            }
+
             // Use a local variable for the graphics overlay.
             GraphicCollection allGraphics = MyMapView.GraphicsOverlays[0].Graphics;
 

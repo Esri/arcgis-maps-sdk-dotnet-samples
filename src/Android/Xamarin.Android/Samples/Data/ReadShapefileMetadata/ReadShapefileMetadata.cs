@@ -18,6 +18,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.UI;
+using ContextThemeWrapper = Android.Support.V7.View.ContextThemeWrapper;
 
 namespace ArcGISRuntime.Samples.ReadShapefileMetadata
 {
@@ -142,26 +143,28 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
 
             // Get the context for creating the dialog controls
             Android.Content.Context ctx = Activity.ApplicationContext;
+            Android.Support.V7.View.ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
+
 
             // Set a dialog title
             Dialog.SetTitle(_metadata.Credits);
 
             // The container for the dialog is a vertical linear layout
-            dialogView = new LinearLayout(ctx)
+            dialogView = new LinearLayout(ctxWrapper)
             {
                 Orientation = Orientation.Vertical
             };
             dialogView.SetPadding(20, 20, 20, 20);
 
             // Add a text box for showing metadata summary
-            TextView summaryTextView = new TextView(ctx)
+            TextView summaryTextView = new TextView(ctxWrapper)
             {
                 Text = _metadata.Summary
             };
             dialogView.AddView(summaryTextView);
 
             // Add an image to show the thumbnail
-            _thumbnailImageView = new ImageView(ctx);
+            _thumbnailImageView = new ImageView(ctxWrapper);
             _thumbnailImageView.SetMinimumHeight(200);
             _thumbnailImageView.SetMinimumWidth(200);
             dialogView.AddView(_thumbnailImageView);
@@ -170,14 +173,14 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             LoadThumbnail();
 
             // Add a text box for showing metadata tags
-            TextView tagsTextView = new TextView(ctx)
+            TextView tagsTextView = new TextView(ctxWrapper)
             {
                 Text = string.Join(",", _metadata.Tags)
             };
             dialogView.AddView(tagsTextView);
 
             // Add a button to close the dialog
-            Button dismissButton = new Button(ctx)
+            Button dismissButton = new Button(ctxWrapper)
             {
                 Text = "OK"
             };

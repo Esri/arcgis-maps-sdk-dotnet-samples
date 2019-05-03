@@ -21,6 +21,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime;
 using Xamarin.Auth;
+using ContextThemeWrapper = Android.Support.V7.View.ContextThemeWrapper;
 
 namespace ArcGISRuntime.Samples.SearchPortalMaps
 {
@@ -586,6 +587,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
             // Get the context for creating the dialog controls
             Android.Content.Context ctx = Activity.ApplicationContext;
+            Android.Support.V7.View.ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
 
             // Set a dialog title
             Dialog.SetTitle("Search Portal");
@@ -595,20 +597,20 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 base.OnCreateView(inflater, container, savedInstanceState);
 
                 // The container for the dialog is a vertical linear layout
-                dialogView = new LinearLayout(ctx)
+                dialogView = new LinearLayout(ctxWrapper)
                 {
                     Orientation = Orientation.Vertical
                 };
 
                 // Add a text box for entering web map search text
-                _mapSearchTextbox = new EditText(ctx)
+                _mapSearchTextbox = new EditText(ctxWrapper)
                 {
                     Hint = "Search text"
                 };
                 dialogView.AddView(_mapSearchTextbox);
 
                 // Add a button to complete search
-                Button searchMapsButton = new Button(ctx)
+                Button searchMapsButton = new Button(ctxWrapper)
                 {
                     Text = "Search"
                 };

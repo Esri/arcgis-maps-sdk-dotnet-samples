@@ -19,7 +19,7 @@ using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.RasterHillshade
 {
-    [Activity(Label = "RasterHillshade")]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("134d60f50e184e8fa56365f44e5ce3fb")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Raster hillshade renderer",

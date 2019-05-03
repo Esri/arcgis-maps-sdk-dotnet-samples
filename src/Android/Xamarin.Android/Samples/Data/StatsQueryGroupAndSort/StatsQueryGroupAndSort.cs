@@ -17,6 +17,7 @@ using Esri.ArcGISRuntime.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ContextThemeWrapper = Android.Support.V7.View.ContextThemeWrapper;
 using OrderFieldOption = ArcGISRuntime.Samples.StatsQueryGroupAndSort.OrderFieldOption;
 
 namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
@@ -338,6 +339,8 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 
             // Get the context for creating the dialog controls
             Android.Content.Context ctx = Activity.ApplicationContext;
+            Android.Support.V7.View.ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
+
 
             // Set a dialog title
             Dialog.SetTitle("Statistics Definitions");
@@ -346,16 +349,16 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             base.OnCreateView(inflater, container, savedInstanceState);
 
             // The container for the dialog is a vertical linear layout
-            dialogView = new LinearLayout(ctx)
+            dialogView = new LinearLayout(ctxWrapper)
             {
                 Orientation = Orientation.Vertical
             };
 
             // Spinner for choosing a field to get statistics for
-            _fieldSpinner = new Spinner(ctx);
+            _fieldSpinner = new Spinner(ctxWrapper);
 
             // Create an array adapter to display the fields
-            ArrayAdapter fieldsAdapter = new ArrayAdapter(ctx, Android.Resource.Layout.SimpleSpinnerItem);
+            ArrayAdapter fieldsAdapter = new ArrayAdapter(ctxWrapper, Android.Resource.Layout.SimpleSpinnerItem);
             foreach (string field in _fieldNames)
             {
                 fieldsAdapter.Add(field);
@@ -366,13 +369,13 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             _fieldSpinner.Adapter = fieldsAdapter;
 
             // Create a horizontal layout to display the field spinner (with a label)
-            LinearLayout fieldView = new LinearLayout(ctx)
+            LinearLayout fieldView = new LinearLayout(ctxWrapper)
             {
                 Orientation = Orientation.Horizontal
             };
 
             // Create a label for the spinner
-            TextView fieldLabel = new TextView(ctx)
+            TextView fieldLabel = new TextView(ctxWrapper)
             {
                 Text = "Field:",
                 LabelFor = _fieldSpinner.Id
@@ -388,7 +391,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             _statSpinner = new Spinner(ctx);
 
             // Create an array adapter to display the statistic types
-            ArrayAdapter statTypeAdapter = new ArrayAdapter(ctx, Android.Resource.Layout.SimpleSpinnerItem);
+            ArrayAdapter statTypeAdapter = new ArrayAdapter(ctxWrapper, Android.Resource.Layout.SimpleSpinnerItem);
 
             // Read the statistic types from the StatisticType enum
             Array statTypes = Enum.GetValues(typeof(StatisticType));
@@ -403,13 +406,13 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             _statSpinner.Adapter = statTypeAdapter;
 
             // Create a horizontal layout to display the statistic type spinner (with a label)
-            LinearLayout statTypeView = new LinearLayout(ctx)
+            LinearLayout statTypeView = new LinearLayout(ctxWrapper)
             {
                 Orientation = Orientation.Horizontal
             };
 
             // Create the label for the statistic type list
-            TextView typeLabel = new TextView(ctx)
+            TextView typeLabel = new TextView(ctxWrapper)
             {
                 Text = "Type:",
                 LabelFor = _statSpinner.Id
@@ -424,21 +427,21 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             dialogView.AddView(statTypeView);
 
             // Create a button to add a new statistic definition (selected field and statistic type)
-            Button addStatDefButton = new Button(ctx)
+            Button addStatDefButton = new Button(ctxWrapper)
             {
                 Text = "Add"
             };
             addStatDefButton.Click += AddStatisticDefinition;
 
             // Create a button to remove the selected statistic definition
-            Button removeStatDefButton = new Button(ctx)
+            Button removeStatDefButton = new Button(ctxWrapper)
             {
                 Text = "Remove"
             };
             removeStatDefButton.Click += RemoveStatisticDefinition;
 
             // Create a horizontal layout to contain the add and remove buttons
-            LinearLayout buttonView = new LinearLayout(ctx)
+            LinearLayout buttonView = new LinearLayout(ctxWrapper)
             {
                 Orientation = Orientation.Horizontal
             };
@@ -450,7 +453,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 
             // Create a list view and an instance of a custom list adapter to show the statistic definitions
             StatDefinitionListAdapter listAdapter = new StatDefinitionListAdapter(Activity, _statisticDefinitions);
-            _statDefListView = new ListView(ctx)
+            _statDefListView = new ListView(ctxWrapper)
             {
                 Adapter = listAdapter,
 
@@ -640,6 +643,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 
             // Get the context for creating the dialog controls
             Android.Content.Context ctx = this.Activity.ApplicationContext;
+            Android.Support.V7.View.ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
 
             // Set a dialog title
             this.Dialog.SetTitle("Group Results By");
@@ -648,7 +652,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             base.OnCreateView(inflater, container, savedInstanceState);
 
             // The container for the dialog is a vertical linear layout
-            dialogView = new LinearLayout(ctx)
+            dialogView = new LinearLayout(ctxWrapper)
             {
                 Orientation = Orientation.Vertical
             };
@@ -657,7 +661,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             GroupFieldListAdapter listAdapter = new GroupFieldListAdapter(this.Activity, _potentialGroupByFields);
 
             // Create a new list view that uses the adapter and allows for multiple row selection
-            _groupFieldsListView = new ListView(ctx)
+            _groupFieldsListView = new ListView(ctxWrapper)
             {
                 Adapter = listAdapter,
                 ChoiceMode = ChoiceMode.Multiple
@@ -795,6 +799,8 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 
             // Get the context for creating the dialog controls
             Android.Content.Context ctx = this.Activity.ApplicationContext;
+            Android.Support.V7.View.ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
+
 
             // Set a dialog title
             this.Dialog.SetTitle("Order Results");
@@ -803,7 +809,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             base.OnCreateView(inflater, container, savedInstanceState);
 
             // The container for the dialog is a vertical linear layout
-            dialogView = new LinearLayout(ctx)
+            dialogView = new LinearLayout(ctxWrapper)
             {
                 Orientation = Orientation.Vertical
             };
@@ -812,7 +818,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             OrderFieldListAdapter listAdapter = new OrderFieldListAdapter(this.Activity, _potentialOrderByFields);
 
             // Create a new list view that uses the adapter
-            _orderFieldsListView = new ListView(ctx)
+            _orderFieldsListView = new ListView(ctxWrapper)
             {
                 Adapter = listAdapter,
 

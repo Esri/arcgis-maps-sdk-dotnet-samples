@@ -71,7 +71,7 @@ namespace ArcGISRuntime.WPF.Samples.QueryFeatureCountAndExtent
             try
             {
                 // Create the query parameters.
-                QueryParameters queryStates = new QueryParameters{WhereClause = "upper(State) LIKE '%NQ%'"};
+                QueryParameters queryStates = new QueryParameters{WhereClause = $"upper(State) LIKE '%{StateTextbox.Text}%'"};
 
                 // Get the extent from the query.
                 Envelope resultExtent = await _featureTable.QueryExtentAsync(queryStates);

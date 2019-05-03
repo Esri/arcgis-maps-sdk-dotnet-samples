@@ -229,6 +229,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.jpg" />
 	<None Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.jpg" />
     <None Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
     <None Include="Samples\Layers\GroupLayers\GroupLayers.jpg" />
@@ -392,6 +393,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.cs" />
 	<Compile Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.cs" />
     <Compile Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.cs" />
     <Compile Include="Samples\Layers\GroupLayers\GroupLayers.cs" />

@@ -20,7 +20,7 @@ namespace ArcGISRuntime.WPF.Samples.ScenePropertiesExpressions
         "GraphicsOverlay",
         "Update the orientation of a graphic using scene property rotation expressions.",
         "",
-        "rotation", "expression", "heading", "pitch", "scene", "3D", "symbology", "Featured")]
+        "rotation", "expression", "heading", "pitch", "scene", "3D", "symbology")]
     public partial class ScenePropertiesExpressions
     {
         public ScenePropertiesExpressions()

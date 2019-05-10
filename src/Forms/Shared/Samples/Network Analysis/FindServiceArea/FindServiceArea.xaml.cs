@@ -59,6 +59,12 @@ namespace ArcGISRuntime.Samples.FindServiceArea
                 {
                     // Set the event as handled.
                     e.Handled = true;
+
+                    // Finish any drawing.
+                    MyMapView.SketchEditor.CompleteCommand.Execute(null);
+
+                    // Reset the UI.
+                    DrawBarrierButton.Text = "Draw barrier";
                 }
             };
         }
@@ -100,8 +106,20 @@ namespace ArcGISRuntime.Samples.FindServiceArea
 
         private async void DrawBarrierButton_Click(object sender, EventArgs e)
         {
+            // Finish drawing barriers if started.
+            if (DrawBarrierButton.Text != "Draw barrier")
+            {
+                if (MyMapView.SketchEditor.CompleteCommand.CanExecute(null))
+                    MyMapView.SketchEditor.CompleteCommand.Execute(null);
+
+                DrawBarrierButton.Text = "Draw barrier";
+                return;
+            }
             try
             {
+                // Update the UI.
+                DrawBarrierButton.Text = "Finish drawing";
+
                 // Let the user draw on the map view using the polyline sketch mode.
                 SketchCreationMode creationMode = SketchCreationMode.Polyline;
                 Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, false);
@@ -131,6 +149,14 @@ namespace ArcGISRuntime.Samples.FindServiceArea
 
         private async void ShowServiceAreasButton_Click(object sender, EventArgs e)
         {
+            // Finish any drawing in progress.
+            if (MyMapView.SketchEditor.CompleteCommand.CanExecute(null))
+            {
+                MyMapView.SketchEditor.CompleteCommand.Execute(null);
+
+                DrawBarrierButton.Text = "Draw barrier";
+            }
+
             // Use a local variable for the graphics overlay.
             GraphicCollection allGraphics = MyMapView.GraphicsOverlays[0].Graphics;
 

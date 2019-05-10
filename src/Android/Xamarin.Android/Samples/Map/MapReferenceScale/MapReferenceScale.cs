@@ -19,7 +19,7 @@ using System.Linq;
 
 namespace ArcGISRuntimeXamarin.Samples.MapReferenceScale
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Map reference scale",
         "Map",

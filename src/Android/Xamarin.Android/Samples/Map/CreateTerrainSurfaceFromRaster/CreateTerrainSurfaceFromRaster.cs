@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 
 namespace ArcGISRuntimeXamarin.Samples.CreateTerrainSurfaceFromRaster
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Create terrain surface from a local raster",
         "Map",

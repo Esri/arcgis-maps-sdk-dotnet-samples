@@ -7,24 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
-using System;
-using System.Linq;
-using Windows.UI.Xaml.Controls;
 using Esri.ArcGISRuntime.Portal;
-using Windows.UI.Popups;
 using Esri.ArcGISRuntime.Security;
+using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using Windows.UI.Text.Core;
+using Windows.UI.Popups;
+using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.CertificateAuthenticationWithPKI
 {
@@ -60,11 +49,19 @@ namespace ArcGISRuntime.UWP.Samples.CertificateAuthenticationWithPKI
                 store.Open(OpenFlags.ReadOnly);
                 var certificates = store.Certificates.Find(X509FindType.FindByTimeValid, DateTime.Now, true);
 
+                ContentDialog dialog = new ContentDialog();
+                dialog.CloseButtonText = "Select certificate";
+                ListView listview = new ListView();
+                listview.ItemsSource = certificates;
+                dialog.Content = listview;
+
+                await dialog.ShowAsync();
+
                 // Make sure the user chose one
-                if (true) //(selection.Count > 0)
+                if (listview.SelectedItems.Count > 0)
                 {
                     // Create a new CertificateCredential using the chosen certificate
-                    credential = new Esri.ArcGISRuntime.Security.CertificateCredential(certificates[0])
+                    credential = new Esri.ArcGISRuntime.Security.CertificateCredential((X509Certificate2)listview.SelectedItem)
                     {
                         ServiceUri = new Uri(ServerUrl)
                     };
@@ -83,11 +80,19 @@ namespace ArcGISRuntime.UWP.Samples.CertificateAuthenticationWithPKI
         {
             try
             {
-                ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl), null, await CreateCertCredentialAsync(null), new System.Threading.CancellationToken());
+                // Workaround for HTTP client bug affecting System.Net.HttpClient.
+                var httpClient = new Windows.Web.Http.HttpClient();
+                var json = await httpClient.GetStringAsync(new Uri(ServerUrl));
+                // End workaround
+
+                Credential cred = await CreateCertCredentialAsync(null);
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl), null, cred, new System.Threading.CancellationToken());
                 await new MessageDialog(portal.User.FullName).ShowAsync();
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine(ex);
+                await new MessageDialog("Error authenticating; see debug output for details.").ShowAsync();
             }
         }
     }

@@ -22,7 +22,6 @@ namespace ArcGISRuntime.UWP.Samples.CertificateAuthenticationWithPKI
         "Security",
         "Access secured portals using a certificate.",
         "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class CertificateAuthenticationWithPKI
     {
         private const string ServerUrl = "https://portallxpkids.esri.com/gis/";
@@ -81,6 +80,7 @@ namespace ArcGISRuntime.UWP.Samples.CertificateAuthenticationWithPKI
             try
             {
                 // Workaround for HTTP client bug affecting System.Net.HttpClient.
+                // https://github.com/dotnet/corefx/issues/37598
                 var httpClient = new Windows.Web.Http.HttpClient();
                 var json = await httpClient.GetStringAsync(new Uri(ServerUrl));
                 // End workaround

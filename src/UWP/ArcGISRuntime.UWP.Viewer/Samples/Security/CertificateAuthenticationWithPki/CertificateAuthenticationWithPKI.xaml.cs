@@ -13,6 +13,7 @@ using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.CertificateAuthenticationWithPKI
@@ -24,54 +25,65 @@ namespace ArcGISRuntime.UWP.Samples.CertificateAuthenticationWithPKI
         "")]
     public partial class CertificateAuthenticationWithPKI
     {
-        private const string ServerUrl = "https://portallxpkids.esri.com/gis/";
-
         public CertificateAuthenticationWithPKI()
         {
             InitializeComponent();
-            Initialize();
-        }
-
-        private void Initialize()
-        {
         }
 
         public async Task<Credential> CreateCertCredentialAsync(CredentialRequestInfo info)
         {
-            // Handle challenges for a secured resource by prompting for a client certificate
+            // Handle challenges for a secured resource by prompting for a client certificate.
             Credential credential = null;
 
             try
             {
-                // Use the X509Store to get a collection of available certificates
+                // Create an X509 store for reading certificates for the current user.
                 var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-                store.Open(OpenFlags.ReadOnly);
-                var certificates = store.Certificates.Find(X509FindType.FindByTimeValid, DateTime.Now, true);
 
+                // Open the store in read-only mode.
+                store.Open(OpenFlags.ReadOnly);
+
+                // Get a list of cartificates that are currently valid.
+                X509Certificate2Collection certificates = store.Certificates.Find(X509FindType.FindByTimeValid, DateTime.Now, true);
+
+                // Create a dialog for showing the list of certificates.
                 ContentDialog dialog = new ContentDialog();
                 dialog.CloseButtonText = "Select certificate";
+
+                // Create a listview for rendering the list.
                 ListView listview = new ListView();
+
+                // Use a template defined as a resource in XAML.
+                listview.ItemTemplate = (DataTemplate)this.Resources["CertificateTemplate"];
+
+                // Display the items in the listview.
                 listview.ItemsSource = certificates;
+
+                // Display the listview in the dialog.
                 dialog.Content = listview;
 
+                // Display the dialog.
                 await dialog.ShowAsync();
 
-                // Make sure the user chose one
+                // Make sure the user chose a certificate.
                 if (listview.SelectedItems.Count > 0)
                 {
-                    // Create a new CertificateCredential using the chosen certificate
-                    credential = new Esri.ArcGISRuntime.Security.CertificateCredential((X509Certificate2)listview.SelectedItem)
+                    // Get the chosen certificate.
+                    X509Certificate2 cert = (X509Certificate2)listview.SelectedItem;
+
+                    // Create a new CertificateCredential using the chosen certificate.
+                    credential = new Esri.ArcGISRuntime.Security.CertificateCredential(cert)
                     {
-                        ServiceUri = new Uri(ServerUrl)
+                        ServiceUri = new Uri(PortalUrlTextbox.Text)
                     };
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                System.Diagnostics.Debug.WriteLine(ex);
             }
 
-            // Return the CertificateCredential for the secured portal
+            // Return the CertificateCredential for the secured portal.
             return credential;
         }
 
@@ -82,12 +94,17 @@ namespace ArcGISRuntime.UWP.Samples.CertificateAuthenticationWithPKI
                 // Workaround for HTTP client bug affecting System.Net.HttpClient.
                 // https://github.com/dotnet/corefx/issues/37598
                 var httpClient = new Windows.Web.Http.HttpClient();
-                var json = await httpClient.GetStringAsync(new Uri(ServerUrl));
+                var json = await httpClient.GetStringAsync(new Uri(PortalUrlTextbox.Text));
                 // End workaround
 
+                // Explicitly create the credential.
                 Credential cred = await CreateCertCredentialAsync(null);
-                ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl), null, cred, new System.Threading.CancellationToken());
-                await new MessageDialog(portal.User.FullName).ShowAsync();
+
+                // Create the portal with the credential.
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(PortalUrlTextbox.Text), null, cred, new System.Threading.CancellationToken());
+
+                // Update the UI with the logged in user.
+                LoggedInUsername.Text = portal.User.FullName;
             }
             catch (Exception ex)
             {

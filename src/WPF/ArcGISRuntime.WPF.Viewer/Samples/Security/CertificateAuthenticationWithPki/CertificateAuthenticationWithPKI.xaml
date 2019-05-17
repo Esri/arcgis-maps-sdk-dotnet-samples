@@ -4,7 +4,24 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="Choose cert" Click="Button_Click" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="User: "
+                       Grid.Row="2" Grid.Column="0" />
+            <TextBlock x:Name="LoggedInUserName" Text="Not logged in"
+                       Grid.Row="2" Grid.Column="1" />
+            <TextBox x:Name="PortalUrlTextbox" Text="Portal URL..."
+                     Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" />
+            <Button Content="Choose certficate" 
+                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                    Click="Button_Click" />
         </Grid>
     </Grid>
 </UserControl>

@@ -17,7 +17,7 @@ using System;
 
 namespace ArcGISRuntime.Samples.ManageBookmarks
 {
-    [Activity(Label = "ManageBookmarks")]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Manage bookmarks",
         "Map",

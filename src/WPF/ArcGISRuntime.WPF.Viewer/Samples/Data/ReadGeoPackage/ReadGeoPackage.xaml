@@ -5,32 +5,5 @@
     xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
-            <StackPanel>
-                <TextBlock
-                    Text="Select a layer name in the 'Layers not in map' list and then click the 'Add layer to map' button to add it to the map. Select a layer name in the 'Layers in map' list and click 'Remove layer from map' to remove it."
-                    Margin="0,0,0,10" TextWrapping="Wrap" />
-                <TextBlock Text="Layers in map"
-                           FontWeight="Bold"
-                           Margin="0,0,0,2" TextWrapping="Wrap" />
-                <ListBox Name="LayersInTheMapList" />
-                <TextBlock Text="Layers not in map"
-                           FontWeight="Bold"
-                           Margin="0,10,0,2" TextWrapping="Wrap" />
-                <ListBox Name="LayersNotInTheMapList" />
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Button Content="Add layer to map"
-                            Grid.Column="0" Margin="0,5,5,0"
-                            Click="Button_AddLayerToMap_Click" />
-                    <Button Content="Remove layer from map"
-                            Grid.Column="1" Margin="5,5,0,0"
-                            Click="Button_RemoveLayerFromMap_Click" />
-                </Grid>
-            </StackPanel>
-        </Border>
     </Grid>
 </UserControl>

@@ -8,6 +8,8 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -75,7 +77,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
                 SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Red, 10);
 
                 // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol. 
-                Graphic userTappedGraphic = new Graphic(e.Location, userTappedSimpleMarkerSymbol)
+                Graphic userTappedGraphic = new Graphic(e.Location, new Dictionary<string, object>{{ "Type", "Point" }}, userTappedSimpleMarkerSymbol)
                 {
                     // Set the Z index for the user tapped graphic so that it appears above the convex hull graphic(s) added later.
                     ZIndex = 1
@@ -111,11 +113,16 @@ namespace ArcGISRuntime.Samples.ConvexHull
                 SimpleFillSymbol convexHullSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Null, System.Drawing.Color.Red, convexHullSimpleLineSymbol);
 
                 // Create the graphic for the convex hull - comprised of a polygon shape and fill symbol.
-                Graphic convexHullGraphic = new Graphic(convexHullGeometry, convexHullSimpleFillSymbol)
+                Graphic convexHullGraphic = new Graphic(convexHullGeometry, new Dictionary<string, object>() { { "Type", "Hull" } }, convexHullSimpleFillSymbol)
                 {
                     // Set the Z index for the convex hull graphic so that it appears below the initial input user tapped map point graphics added earlier.
                     ZIndex = 0
                 };
+
+                // Remove any existing convex hull graphics from the overlay.
+                foreach (Graphic g in _graphicsOverlay.Graphics.ToList())
+                    if ((string)g.Attributes["Type"] == "Hull")
+                        _graphicsOverlay.Graphics.Remove(g);
 
                 // Add the convex hull graphic to the graphics overlay collection.
                 _graphicsOverlay.Graphics.Add(convexHullGraphic);

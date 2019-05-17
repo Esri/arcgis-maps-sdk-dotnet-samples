@@ -18,7 +18,7 @@ using System;
 
 namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
 {
-    [Activity(Label = "FeatureCollectionLayerFromPortal")]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Create a feature collection layer from a portal item",
         "Layers",

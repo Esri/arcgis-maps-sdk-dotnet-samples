@@ -229,6 +229,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.jpg" />
     <None Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
     <None Include="Samples\Layers\GroupLayers\GroupLayers.jpg" />
     <None Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.jpg" />
@@ -238,22 +239,22 @@
     <None Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
     <None Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
     <None Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
-    <None Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
+	  <None Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
     <None Include="Samples\Layers\PlayKmlTours\PlayKmlTours.jpg" />
     <None Include="Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
-    <None Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
-    <None Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
+	  <None Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
+	  <None Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
     <None Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
     <None Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
     <None Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
     <None Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
     <None Include="Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
-    <None Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
-    <None Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
-    <None Include="Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
-    <None Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg" />
-    <None Include="Samples\Geometry\Project\Project.jpg" />
-    <None Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg" />
+	  <None Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
+	  <None Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
+	  <None Include="Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
+	  <None Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg" />
+	  <None Include="Samples\Geometry\Project\Project.jpg" />
+	  <None Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg" />
     <None Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
     <None Include="Samples\Data\AddFeatures\AddFeatures.jpg" />
     <None Include="Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
@@ -391,6 +392,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.cs" />
     <Compile Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.cs" />
     <Compile Include="Samples\Layers\GroupLayers\GroupLayers.cs" />
     <Compile Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.cs" />
@@ -400,22 +402,22 @@
     <Compile Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.cs" />
     <Compile Include="Samples\Layers\DisplayWfs\DisplayWfs.cs" />
     <Compile Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.cs" />
-    <Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.cs" />
+	  <Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.cs" />
     <Compile Include="Samples\Layers\PlayKmlTours\PlayKmlTours.cs" />
     <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.cs" />
-    <Compile Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.cs" />
-    <Compile Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.cs" />
+	  <Compile Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.cs" />
+	  <Compile Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.cs" />
     <Compile Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.cs" />
     <Compile Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.cs" />
     <Compile Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.cs" />
     <Compile Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.cs" />
     <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.cs" />
-    <Compile Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.cs" />
-    <Compile Include="Samples\Search\OfflineGeocode\OfflineGeocode.cs" />
-    <Compile Include="Samples\Search\ReverseGeocode\ReverseGeocode.cs" />
-    <Compile Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.cs" />
-    <Compile Include="Samples\Geometry\Project\Project.cs" />
-    <Compile Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.cs" />
+	  <Compile Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.cs" />
+	  <Compile Include="Samples\Search\OfflineGeocode\OfflineGeocode.cs" />
+	  <Compile Include="Samples\Search\ReverseGeocode\ReverseGeocode.cs" />
+	  <Compile Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.cs" />
+	  <Compile Include="Samples\Geometry\Project\Project.cs" />
+	  <Compile Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.cs" />
     <Compile Include="Samples\Data\UpdateGeometries\UpdateGeometries.cs" />
     <Compile Include="Samples\Data\AddFeatures\AddFeatures.cs" />
     <Compile Include="Samples\Data\DeleteFeatures\DeleteFeatures.cs" />

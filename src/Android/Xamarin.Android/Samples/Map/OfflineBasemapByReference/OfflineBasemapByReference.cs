@@ -30,7 +30,7 @@ using Xamarin.Auth;
 
 namespace ArcGISRuntimeXamarin.Samples.OfflineBasemapByReference
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Generate offline map with local basemap",
         "Map",

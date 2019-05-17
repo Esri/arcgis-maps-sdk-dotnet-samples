@@ -11,15 +11,19 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="150" />
             </Grid.ColumnDefinitions>
             <TextBlock Text="User: "
+                       Margin="5"
                        Grid.Row="2" Grid.Column="0" />
             <TextBlock x:Name="LoggedInUserName" Text="Not logged in"
+                       Margin="5"
                        Grid.Row="2" Grid.Column="1" />
             <TextBox x:Name="PortalUrlTextbox" Text="Portal URL..."
-                     Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" />
+                     Margin="5"
+                     Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
             <Button Content="Choose certficate" 
+                    Margin="5"
                     Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                     Click="Button_Click" />
         </Grid>

@@ -342,13 +342,23 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         {
             base.ViewDidDisappear(animated);
 
-            // Unsubscribe from events, per best practice.
-            _myMapView.SketchEditor.CancelCommand.Execute(null);
-            _myMapView.SketchEditor.UndoCommand.CanExecuteChanged -= CanExecuteChanged;
-            _myMapView.SketchEditor.RedoCommand.CanExecuteChanged -= CanExecuteChanged;
-            _myMapView.SketchEditor.CompleteCommand.CanExecuteChanged -= CanExecuteChanged;
-            _sketchOverlay.Graphics.CollectionChanged -= GraphicsChanged;
-            _segmentButton.ValueChanged -= SegmentButtonClicked;
+            try
+            {
+                // Unsubscribe from events, per best practice.
+                if (_myMapView.SketchEditor.CancelCommand.CanExecute(null))
+                {
+                    _myMapView.SketchEditor.CancelCommand.Execute(null);
+                }
+                _myMapView.SketchEditor.UndoCommand.CanExecuteChanged -= CanExecuteChanged;
+                _myMapView.SketchEditor.RedoCommand.CanExecuteChanged -= CanExecuteChanged;
+                _myMapView.SketchEditor.CompleteCommand.CanExecuteChanged -= CanExecuteChanged;
+                _sketchOverlay.Graphics.CollectionChanged -= GraphicsChanged;
+                _segmentButton.ValueChanged -= SegmentButtonClicked;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
         }
     }
 }

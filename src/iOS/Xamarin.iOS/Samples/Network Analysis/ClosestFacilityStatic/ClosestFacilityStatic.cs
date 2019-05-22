@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
         "Click the solve button to find the closest facility to every incident.")]
     public class ClosestFacilityStatic : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _solveRoutesButton;
         private UIBarButtonItem _resetButton;
@@ -67,7 +67,7 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
         {
             Title = "Closest facility (static)";
         }
-        
+
         private async void Initialize()
         {
             try
@@ -239,9 +239,12 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _solveRoutesButton = new UIBarButtonItem("Solve routes", UIBarButtonItemStyle.Plain, SolveRoutesButton_Click);
+            _solveRoutesButton = new UIBarButtonItem();
+            _solveRoutesButton.Title = "Solve routes";
             _solveRoutesButton.Enabled = false;
-            _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ResetButton_Click);
+
+            _resetButton = new UIBarButtonItem();
+            _resetButton.Title = "Reset";
             _resetButton.Enabled = false;
 
             UIToolbar toolbar = new UIToolbar();
@@ -268,6 +271,24 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _solveRoutesButton.Clicked += SolveRoutesButton_Click;
+            _resetButton.Clicked += ResetButton_Click;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _solveRoutesButton.Clicked -= SolveRoutesButton_Click;
+            _resetButton.Clicked -= ResetButton_Click;
         }
     }
 }

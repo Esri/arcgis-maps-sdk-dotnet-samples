@@ -28,9 +28,10 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         "Featured")]
     public class RasterHillshade : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private HillshadeSettingsController _settingsVC;
+        private UIBarButtonItem _configureButton;
 
         // Store a reference to the raster layer.
         private RasterLayer _rasterLayer;
@@ -106,12 +107,15 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _configureButton = new UIBarButtonItem();
+            _configureButton.Title = "Configure hillshade";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Configure hillshade", UIBarButtonItemStyle.Plain, HandleSettings_Clicked)
+                _configureButton
             };
 
             // Add the views.
@@ -129,6 +133,22 @@ namespace ArcGISRuntime.Samples.RasterHillshade
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _configureButton.Clicked += HandleSettings_Clicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _configureButton.Clicked -= HandleSettings_Clicked;
         }
 
         // Force popover to display on iPhone.
@@ -211,16 +231,32 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             _azimuthSlider.Value = 270;
             formContainer.AddArrangedSubview(_azimuthSlider);
 
-            _azimuthSlider.ValueChanged += UpdateSettings;
-            _altitudeSlider.ValueChanged += UpdateSettings;
-            _slopeTypePicker.ValueChanged += UpdateSettings;
-
             scrollView.AddSubview(formContainer);
 
             formContainer.TopAnchor.ConstraintEqualTo(scrollView.TopAnchor).Active = true;
             formContainer.LeadingAnchor.ConstraintEqualTo(scrollView.LeadingAnchor).Active = true;
             formContainer.TrailingAnchor.ConstraintEqualTo(scrollView.TrailingAnchor).Active = true;
             formContainer.BottomAnchor.ConstraintEqualTo(scrollView.BottomAnchor).Active = true;
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _azimuthSlider.ValueChanged += UpdateSettings;
+            _altitudeSlider.ValueChanged += UpdateSettings;
+            _slopeTypePicker.ValueChanged += UpdateSettings;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _azimuthSlider.ValueChanged -= UpdateSettings;
+            _altitudeSlider.ValueChanged -= UpdateSettings;
+            _slopeTypePicker.ValueChanged -= UpdateSettings;
         }
 
         private void UpdateSettings(object sender, EventArgs e)

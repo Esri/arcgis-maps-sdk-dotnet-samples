@@ -29,7 +29,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
         "")]
     public class IdentifyKmlFeatures : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private WKWebView _webView;
         private UIStackView _stackView;
@@ -61,9 +61,6 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
 
             // Zoom to the extent of the United States.
             _myMapView.SetViewpoint(new Viewpoint(_usEnvelope));
-
-            // Listen for taps to identify features.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -141,6 +138,22 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
                 // Portrait
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
         }
     }
 }

@@ -28,8 +28,11 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
     public class ChangeEncDisplaySettings : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
+        private UIBarButtonItem _colorsButton;
+        private UIBarButtonItem _areasButton;
+        private UIBarButtonItem _pointsButton;
 
         // Hold a reference to the (static) app-wide ENC Mariner settings
         private readonly EncMarinerSettings _encMarinerSettings =
@@ -163,15 +166,24 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _colorsButton = new UIBarButtonItem();
+            _colorsButton.Title = "Colors";
+
+            _areasButton = new UIBarButtonItem();
+            _areasButton.Title = "Areas";
+
+            _pointsButton = new UIBarButtonItem();
+            _pointsButton.Title = "Points";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("Colors", UIBarButtonItemStyle.Plain, ColorSettingsClicked),
+                _colorsButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Areas", UIBarButtonItemStyle.Plain, AreaSettingsClicked),
+                _areasButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Points", UIBarButtonItemStyle.Plain, PointSettingsClicked)
+                _pointsButton
             };
 
             // Add the views.
@@ -189,6 +201,26 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _colorsButton.Clicked += ColorSettingsClicked;
+            _areasButton.Clicked += AreaSettingsClicked;
+            _pointsButton.Clicked += PointSettingsClicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _colorsButton.Clicked -= ColorSettingsClicked;
+            _areasButton.Clicked -= AreaSettingsClicked;
+            _pointsButton.Clicked -= PointSettingsClicked;
         }
     }
 }

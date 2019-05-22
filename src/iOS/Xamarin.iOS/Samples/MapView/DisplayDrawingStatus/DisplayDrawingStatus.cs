@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
         "")]
     public class DisplayDrawingStatus : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIActivityIndicatorView _activityIndicator;
         private UILabel _statusLabel;
@@ -55,9 +55,6 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
 
             // Provide used Map to the MapView.
             _myMapView.Map = myMap;
-
-            // Hook up the DrawStatusChanged event.
-            _myMapView.DrawStatusChanged += OnMapViewDrawStatusChanged;
 
             // Animate the activity spinner.
             _activityIndicator.StartAnimating();
@@ -134,6 +131,23 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
                 _activityIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _activityIndicator.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events, removing any existing subscriptions.
+            _myMapView.DrawStatusChanged -= OnMapViewDrawStatusChanged;
+            _myMapView.DrawStatusChanged += OnMapViewDrawStatusChanged;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.DrawStatusChanged -= OnMapViewDrawStatusChanged;
         }
     }
 }

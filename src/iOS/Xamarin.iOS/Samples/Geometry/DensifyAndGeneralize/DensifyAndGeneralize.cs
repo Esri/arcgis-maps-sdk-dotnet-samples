@@ -87,10 +87,6 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             };
             overlay.Graphics.Add(_resultPolylineGraphic);
 
-            // Listen for changes in state.
-            _slider.ValueChanged += OnUIChanged;
-            _operationPicker.ValueChanged += OnUIChanged;
-
             // Center the map.
             _myMapView.SetViewpointGeometryAsync(_originalPolyline.Extent, 100);
         }
@@ -221,6 +217,24 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
                 _resultLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _resultLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _slider.ValueChanged += OnUIChanged;
+            _operationPicker.ValueChanged += OnUIChanged;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _slider.ValueChanged -= OnUIChanged;
+            _operationPicker.ValueChanged -= OnUIChanged;
         }
     }
 }

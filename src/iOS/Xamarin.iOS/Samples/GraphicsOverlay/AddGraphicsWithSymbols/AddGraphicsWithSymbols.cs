@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
         "")]
     public class AddGraphicsWithSymbols : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // Create the graphics overlay.
@@ -180,7 +180,6 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
             Initialize();
         }
 

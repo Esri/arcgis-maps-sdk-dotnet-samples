@@ -48,7 +48,7 @@ namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
 
         // Constants for the table name and URL.
         private const string TableUrl = "https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer?service=wfs&request=getcapabilities";
-        
+
         // Note that the layer name is defined by the service. The layer name can be accessed via WfsLayerInfo.Name. 
         private const string LayerName = "Seattle_Downtown_Features:Trees";
 
@@ -95,12 +95,16 @@ namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
 
         public override void LoadView()
         {
+            // Create the views.
+            View = new UIView();
+
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            View = new UIView();
+            // Add the views.
             View.AddSubviews(_myMapView);
 
+            // Lay out the views.
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;

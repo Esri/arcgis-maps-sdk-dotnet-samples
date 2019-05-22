@@ -29,9 +29,11 @@ namespace ArcGISRuntime.Samples.ConvexHull
         "Analysis", "ConvexHull", "GeometryEngine")]
     public class ConvexHull : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _createHullButton;
+        private UIBarButtonItem _helpButton;
+        private UIBarButtonItem _resetButton;
 
         // Graphics overlay to display the graphics.
         private GraphicsOverlay _graphicsOverlay;
@@ -54,9 +56,6 @@ namespace ArcGISRuntime.Samples.ConvexHull
 
             // Add the created graphics overlay to the MapView.
             _myMapView.GraphicsOverlays.Add(_graphicsOverlay);
-
-            // Wire up the MapView's GeoViewTapped event handler.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -171,15 +170,22 @@ namespace ArcGISRuntime.Samples.ConvexHull
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _createHullButton =
-                new UIBarButtonItem("Create convex hull", UIBarButtonItemStyle.Plain, ConvexHullButton_Click) {Enabled = false};
+            _createHullButton = new UIBarButtonItem();
+            _createHullButton.Title = "Create convex hull";
+            _createHullButton.Enabled = false;
+
+            _helpButton = new UIBarButtonItem();
+            _helpButton.Title = "Help";
+
+            _resetButton = new UIBarButtonItem();
+            _resetButton.Title = "Reset";
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("Help", UIBarButtonItemStyle.Plain, HelpButton_Click),
-                new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ResetButton_Click),
+                _helpButton,
+                _resetButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _createHullButton
             };
@@ -199,6 +205,28 @@ namespace ArcGISRuntime.Samples.ConvexHull
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+            _helpButton.Clicked += HelpButton_Click;
+            _resetButton.Clicked += ResetButton_Click;
+            _createHullButton.Clicked += ConvexHullButton_Click;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
+            _helpButton.Clicked -= HelpButton_Click;
+            _resetButton.Clicked -= ResetButton_Click;
+            _createHullButton.Clicked -= ConvexHullButton_Click;
         }
     }
 }

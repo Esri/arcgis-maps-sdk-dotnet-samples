@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
         "Featured")]
     public class FeatureLayerShapefile : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public FeatureLayerShapefile()
@@ -72,10 +72,10 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
         public override void LoadView()
         {
             // Create the views.
+            View = new UIView();
+
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            View = new UIView();
 
             // Add the views.
             View.AddSubviews(_myMapView);

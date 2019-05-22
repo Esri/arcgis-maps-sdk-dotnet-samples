@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
         "")]
     public class SceneLayerUrl : UIViewController
     {
-        // Hold a reference to the SceneView.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
 
         // URL for a service to use as an elevation source.

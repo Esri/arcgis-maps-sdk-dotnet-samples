@@ -30,8 +30,11 @@ namespace ArcGISRuntime.Samples.FindRoute
         "")]
     public class FindRoute : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
+        private UIBarButtonItem _solveRouteButton;
+        private UIBarButtonItem _resetButton;
+        private UIBarButtonItem _directionsButton;
 
         // List of stops on the route ('from' and 'to').
         private List<Stop> _routeStops;
@@ -52,6 +55,9 @@ namespace ArcGISRuntime.Samples.FindRoute
 
         private readonly Uri _carIconUri =
             new Uri("https://static.arcgis.com/images/Symbols/Transportation/CarRedFront.png");
+
+        // San Diego viewpoint.
+        Viewpoint _sanDiegoViewpoint;
 
         public FindRoute()
         {
@@ -92,12 +98,21 @@ namespace ArcGISRuntime.Samples.FindRoute
             envBuilder.Expand(1.5);
 
             // Create a new viewpoint apply it to the map view when the spatial reference changes.
-            Viewpoint sanDiegoViewpoint = new Viewpoint(envBuilder.ToGeometry());
-            _myMapView.SpatialReferenceChanged += (s, e) => _myMapView.SetViewpoint(sanDiegoViewpoint);
+            _sanDiegoViewpoint = new Viewpoint(envBuilder.ToGeometry());
+            _myMapView.SpatialReferenceChanged += MapView_SpatialReferenceChanged;
 
             // Add a new Map and the graphics overlay to the map view.
             _myMapView.Map = new Map(Basemap.CreateStreetsVector());
             _myMapView.GraphicsOverlays.Add(_routeGraphicsOverlay);
+        }
+
+        private void MapView_SpatialReferenceChanged(object sender, EventArgs e)
+        {
+            // Unsubscribe from the event.
+            _myMapView.SpatialReferenceChanged -= MapView_SpatialReferenceChanged;
+
+            // Set the viewpoint.
+            _myMapView.SetViewpoint(_sanDiegoViewpoint);
         }
 
         private async void SolveRouteButton_Click(object sender, EventArgs e)
@@ -135,6 +150,9 @@ namespace ArcGISRuntime.Samples.FindRoute
 
                 // Get a list of directions for the route and display it in the list box.
                 _directionsList = firstRoute.DirectionManeuvers;
+
+                // Enable the directions button.
+                _directionsButton.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -146,6 +164,7 @@ namespace ArcGISRuntime.Samples.FindRoute
         {
             // Clear the list of directions.
             _directionsList = null;
+            _directionsButton.Enabled = false;
 
             // Remove the route graphic from the graphics overlay (only line graphic in the collection).
             int graphicsCount = _routeGraphicsOverlay.Graphics.Count;
@@ -184,13 +203,23 @@ namespace ArcGISRuntime.Samples.FindRoute
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _solveRouteButton = new UIBarButtonItem();
+            _solveRouteButton.Title = "Solve route";
+
+            _resetButton = new UIBarButtonItem();
+            _resetButton.Title = "Reset";
+
+            _directionsButton = new UIBarButtonItem();
+            _directionsButton.Title = "Directions";
+            _directionsButton.Enabled = false;
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("Solve route", UIBarButtonItemStyle.Plain, SolveRouteButton_Click),
-                new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ResetButton_Click),
-                new UIBarButtonItem("Directions", UIBarButtonItemStyle.Plain, ShowDirections)
+                _solveRouteButton,
+                _resetButton,
+                _directionsButton
             };
 
             // Add the views.
@@ -208,6 +237,26 @@ namespace ArcGISRuntime.Samples.FindRoute
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _solveRouteButton.Clicked += SolveRouteButton_Click;
+            _directionsButton.Clicked += ShowDirections;
+            _resetButton.Clicked += ResetButton_Click;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _solveRouteButton.Clicked -= SolveRouteButton_Click;
+            _directionsButton.Clicked -= ShowDirections;
+            _resetButton.Clicked -= ResetButton_Click;
         }
     }
 

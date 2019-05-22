@@ -32,7 +32,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         "1. Click the 'Sketch' button.\n2. Choose a sketch type from the drop down list.\n3. While sketching, you can undo/redo operations.\n4. Click 'Done' to finish the sketch.\n5. Click 'Edit', then click a graphic to start editing.\n6. Make edits then click 'Done' or 'Cancel' to finish editing.")]
     public class SketchOnMap : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UISegmentedControl _segmentButton;
 
@@ -55,14 +55,6 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             // Create graphics overlay to display sketch geometry.
             _sketchOverlay = new GraphicsOverlay();
             _myMapView.GraphicsOverlays.Add(_sketchOverlay);
-
-            // Listen to the sketch editor tools CanExecuteChange so controls can be enabled/disabled.
-            _myMapView.SketchEditor.UndoCommand.CanExecuteChanged += CanExecuteChanged;
-            _myMapView.SketchEditor.RedoCommand.CanExecuteChanged += CanExecuteChanged;
-            _myMapView.SketchEditor.CompleteCommand.CanExecuteChanged += CanExecuteChanged;
-
-            // Listen to collection changed event on the graphics overlay to enable/disable controls that require a graphic.
-            _sketchOverlay.Graphics.CollectionChanged += GraphicsChanged;
         }
 
         private void GraphicsChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -312,7 +304,6 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                 TintColor = UIColor.White,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
-            _segmentButton.ValueChanged += SegmentButtonClicked;
 
             // Clean up borders of segmented control - avoid corner pixels.
             _segmentButton.ClipsToBounds = true;
@@ -322,7 +313,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             View.AddSubviews(_myMapView, _segmentButton);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -333,6 +324,41 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                 _segmentButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
                 _segmentButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _segmentButton.ValueChanged += SegmentButtonClicked;
+            _myMapView.SketchEditor.UndoCommand.CanExecuteChanged += CanExecuteChanged; // CanExecuteChanged events used to enable/disable controls.
+            _myMapView.SketchEditor.RedoCommand.CanExecuteChanged += CanExecuteChanged;
+            _myMapView.SketchEditor.CompleteCommand.CanExecuteChanged += CanExecuteChanged;
+            _sketchOverlay.Graphics.CollectionChanged += GraphicsChanged;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            try
+            {
+                // Unsubscribe from events, per best practice.
+                if (_myMapView.SketchEditor.CancelCommand.CanExecute(null))
+                {
+                    _myMapView.SketchEditor.CancelCommand.Execute(null);
+                }
+                _myMapView.SketchEditor.UndoCommand.CanExecuteChanged -= CanExecuteChanged;
+                _myMapView.SketchEditor.RedoCommand.CanExecuteChanged -= CanExecuteChanged;
+                _myMapView.SketchEditor.CompleteCommand.CanExecuteChanged -= CanExecuteChanged;
+                _sketchOverlay.Graphics.CollectionChanged -= GraphicsChanged;
+                _segmentButton.ValueChanged -= SegmentButtonClicked;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
         }
     }
 }

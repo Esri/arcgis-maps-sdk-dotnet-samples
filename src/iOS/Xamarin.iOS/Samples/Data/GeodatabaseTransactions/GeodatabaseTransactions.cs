@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         "When the sample loads, a local geodatabase will be generated for a small area from the 'SaveTheBay' feature service. When the geodatabase is ready, its tables are added as feature layers and the map view zooms to the extent of the local data. Use the UI controls to make edits either inside or outside of a transaction. If made in a transaction, you can rollback or commit your edits as a single unit when you choose to stop editing. To allow edits without a transaction, set 'Require transaction' to false. You can then add features directly into the local geodatabase. When done adding features, you can synchronize your local edits with the service.")]
     public class GeodatabaseTransactions : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _mapView;
         private UIProgressView _progressBar;
         private UILabel _statusLabel;
@@ -56,21 +56,26 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         {
             Title = "Geodatabase transactions";
         }
-        
+
         private void Initialize()
         {
             // When the spatial reference changes (the map loads) add the local geodatabase tables as feature layers.
-            _mapView.SpatialReferenceChanged += async (s, e) =>
-            {
-                // Call a function (and await it) to get the local geodatabase (or generate it from the feature service).
-                await GetLocalGeodatabase();
-
-                // Once the local geodatabase is available, load the tables as layers to the map.
-                await LoadLocalGeodatabaseTables();
-            };
+            _mapView.SpatialReferenceChanged += MapView_SpatialReferenceChanged;
 
             // Create a new map with the oceans basemap and add it to the map view.
             _mapView.Map = new Map(Basemap.CreateOceans());
+        }
+
+        private async void MapView_SpatialReferenceChanged(object sender, EventArgs e)
+        {
+            // Unsubscribe from the event.
+            _mapView.SpatialReferenceChanged -= MapView_SpatialReferenceChanged;
+
+            // Call a function (and await it) to get the local geodatabase (or generate it from the feature service).
+            await GetLocalGeodatabase();
+
+            // Once the local geodatabase is available, load the tables as layers to the map.
+            await LoadLocalGeodatabaseTables();
         }
 
         private void ShowMessage(string title, string message, string buttonText)
@@ -112,7 +117,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                     GenerateGeodatabaseJob generateGdbJob = gdbTask.GenerateGeodatabase(gdbParams, localGeodatabasePath);
 
                     // Handle the job changed event and check the status of the job; store the geodatabase when it's ready.
-                    generateGdbJob.JobChanged += (s, e) =>
+                    void GenerateGdbJob_JobChanged(object jobSender, EventArgs e)
                     {
                         // Call a function to update the progress bar.
                         InvokeOnMainThread(() => UpdateProgressBar(generateGdbJob.Progress));
@@ -121,6 +126,9 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                         {
                             // See if the job succeeded.
                             case JobStatus.Succeeded:
+                                // Unsubscribe from event.
+                                generateGdbJob.JobChanged -= GenerateGdbJob_JobChanged;
+
                                 InvokeOnMainThread(() =>
                                 {
                                     // Hide the progress control and update the message.
@@ -129,6 +137,9 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                                 });
                                 break;
                             case JobStatus.Failed:
+                                // Unsubscribe from event.
+                                generateGdbJob.JobChanged -= GenerateGdbJob_JobChanged;
+
                                 InvokeOnMainThread(() =>
                                 {
                                     // Hide the progress control and report the exception.
@@ -137,7 +148,10 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                                 });
                                 break;
                         }
-                    };
+                    }
+
+                    // Subscribe to job change event.
+                    generateGdbJob.JobChanged += GenerateGdbJob_JobChanged;
 
                     // Start the generate geodatabase job.
                     _localGeodatabase = await generateGdbJob.GetResultAsync();
@@ -363,8 +377,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 // Create a synchronize geodatabase job, pass in the parameters and the geodatabase.
                 SyncGeodatabaseJob job = syncTask.SyncGeodatabase(taskParameters, _localGeodatabase);
 
-                // Handle the JobChanged event for the job.
-                job.JobChanged += (s, arg) =>
+                void Job_JobChanged(object sendingJob, EventArgs args)
                 {
                     InvokeOnMainThread(() =>
                     {
@@ -375,10 +388,15 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                         {
                             // Report changes in the job status.
                             case JobStatus.Succeeded:
+                                // Unsubscribe
+                                ((SyncGeodatabaseJob) sendingJob).JobChanged -= Job_JobChanged;
+                                // Report success.
                                 _statusLabel.Text = "Synchronization is complete!";
                                 _progressBar.Hidden = true;
                                 break;
                             case JobStatus.Failed:
+                                // Unsubscribe
+                                ((SyncGeodatabaseJob) sendingJob).JobChanged -= Job_JobChanged;
                                 // Report failure.
                                 _statusLabel.Text = job.Error.Message;
                                 _progressBar.Hidden = true;
@@ -388,7 +406,10 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                                 break;
                         }
                     });
-                };
+                }
+
+                // Handle the JobChanged event for the job.
+                job.JobChanged += Job_JobChanged;
 
                 // Await the completion of the job.
                 await job.GetResultAsync();
@@ -409,7 +430,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 _progressBar.Progress = (float) (jobProgress / 100.0);
             });
         }
-        
+
         private void HandleAddButton_Click(object sender, EventArgs e)
         {
             // Create the alert controller with a title.
@@ -452,9 +473,12 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             _mapView = new MapView();
             _mapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _transactionButton = new UIBarButtonItem("Start transaction", UIBarButtonItemStyle.Plain, HandleTransaction_Click);
-            _syncButton = new UIBarButtonItem("Sync", UIBarButtonItemStyle.Plain, SynchronizeEdits);
-            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, HandleAddButton_Click) {Enabled = false};
+            _transactionButton = new UIBarButtonItem();
+            _transactionButton.Title = "Start transaction";
+            _syncButton = new UIBarButtonItem();
+            _syncButton.Title = "Sync";
+            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add);
+            _addButton.Enabled = false;
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -468,7 +492,6 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
 
             _transactionSwitch = new UISwitch();
             _transactionSwitch.TranslatesAutoresizingMaskIntoConstraints = false;
-            _transactionSwitch.ValueChanged += RequireTransactionChanged;
             _transactionSwitch.On = true;
 
             _statusLabel = new UILabel
@@ -529,6 +552,30 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 _progressBar.TrailingAnchor.ConstraintEqualTo(_statusLabel.TrailingAnchor),
                 _progressBar.HeightAnchor.ConstraintEqualTo(8)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            if (_localGeodatabase != null) _localGeodatabase.TransactionStatusChanged += GdbTransactionStatusChanged;
+            _transactionSwitch.ValueChanged += RequireTransactionChanged;
+            _transactionButton.Clicked += HandleTransaction_Click;
+            _syncButton.Clicked += SynchronizeEdits;
+            _addButton.Clicked += HandleAddButton_Click;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            if (_localGeodatabase != null) _localGeodatabase.TransactionStatusChanged -= GdbTransactionStatusChanged;
+            _transactionSwitch.ValueChanged -= RequireTransactionChanged;
+            _transactionButton.Clicked -= HandleTransaction_Click;
+            _syncButton.Clicked -= SynchronizeEdits;
+            _addButton.Clicked -= HandleAddButton_Click;
         }
     }
 }

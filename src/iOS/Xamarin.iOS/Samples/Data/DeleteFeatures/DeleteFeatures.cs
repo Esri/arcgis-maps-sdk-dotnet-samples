@@ -26,7 +26,7 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
         "")]
     public class DeleteFeatures : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // URL to the feature service.
@@ -53,9 +53,6 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
 
             // Add the layer to the map.
             _myMapView.Map.OperationalLayers.Add(_damageLayer);
-
-            // Listen for user taps on the map - on tap, a callout will be shown.
-            _myMapView.GeoViewTapped += MapView_Tapped;
 
             // Zoom to the United States.
             _myMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
@@ -109,7 +106,19 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
             deleteButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             // Handle button clicks.
-            deleteButton.TouchUpInside += (o, e) => { DeleteFeature(tappedFeature); };
+            void DeleteFeature_click(object sender, EventArgs e)
+            {
+                // Unsubscribe from event.
+                deleteButton.TouchUpInside -= DeleteFeature_click;
+
+                // Delete the feature.
+                DeleteFeature(tappedFeature);
+
+                // Dismiss the callout.
+                _myMapView.DismissCallout();
+            }
+
+            deleteButton.TouchUpInside += DeleteFeature_click;
 
             // Show the callout.
             _myMapView.ShowCalloutAt((MapPoint) tappedFeature.Geometry, deleteButton);
@@ -117,9 +126,6 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
 
         private async void DeleteFeature(Feature featureToDelete)
         {
-            // Dismiss the callout.
-            _myMapView.DismissCallout();
-
             try
             {
                 // Delete the feature.
@@ -189,6 +195,22 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
                 helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 helpLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MapView_Tapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MapView_Tapped;
         }
     }
 }

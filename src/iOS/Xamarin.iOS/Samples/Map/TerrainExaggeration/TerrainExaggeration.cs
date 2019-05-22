@@ -29,6 +29,9 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
         private SceneView _mySceneView;
         private UISlider _terrainSlider;
 
+        // Hold a reference to the elevation surface.
+        Surface _elevationSurface;
+
         private readonly string _elevationServiceUrl = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
         public TerrainExaggeration()
@@ -42,24 +45,20 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
             _mySceneView.Scene = new Scene(Basemap.CreateNationalGeographic());
 
             // Add the base surface for elevation data.
-            Surface elevationSurface = new Surface();
+            _elevationSurface = new Surface();
             ArcGISTiledElevationSource elevationSource = new ArcGISTiledElevationSource(new Uri(_elevationServiceUrl));
-            elevationSurface.ElevationSources.Add(elevationSource);
+            _elevationSurface.ElevationSources.Add(elevationSource);
 
             // Add the surface to the scene.
-            _mySceneView.Scene.BaseSurface = elevationSurface;
+            _mySceneView.Scene.BaseSurface = _elevationSurface;
 
             // Set the initial camera.
             MapPoint initialLocation = new MapPoint(-119.9489, 46.7592, 0, SpatialReferences.Wgs84);
             Camera initialCamera = new Camera(initialLocation, 15000, 40, 60, 0);
             _mySceneView.SetViewpointCamera(initialCamera);
-
-            // Update terrain exaggeration based on the slider value.
-            _terrainSlider.ValueChanged += (sender, e) =>
-            {
-                elevationSurface.ElevationExaggeration = _terrainSlider.Value;
-            };
         }
+
+        private void TerrainSlider_ValueChanged(object sender, EventArgs e) => _elevationSurface.ElevationExaggeration = _terrainSlider.Value;
 
         public override void LoadView()
         {
@@ -82,7 +81,7 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem(_terrainSlider) { Width = 250 },
+                new UIBarButtonItem(_terrainSlider) {Width = 250},
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -101,6 +100,22 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
         {
             base.ViewDidLoad();
             Initialize();
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _terrainSlider.ValueChanged += TerrainSlider_ValueChanged;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _terrainSlider.ValueChanged -= TerrainSlider_ValueChanged;
         }
     }
 }

@@ -58,17 +58,16 @@ namespace ArcGISRuntime.Samples.FindServiceArea
 
             // Create graphics overlays for all of the elements of the map.
             _myMapView.GraphicsOverlays.Add(new GraphicsOverlay());
+        }
 
-            // Add a new behavior for double taps on the MapView.
-            _myMapView.GeoViewDoubleTapped += (s, e) =>
+        private void MapView_DoubleTapped(object sender, GeoViewInputEventArgs e)
+        {
+            // If the sketch editor complete command is enabled, a sketch is in progress.
+            if (_myMapView.SketchEditor.CompleteCommand.CanExecute(null))
             {
-                // If the sketch editor complete command is enabled, a sketch is in progress.
-                if (_myMapView.SketchEditor.CompleteCommand.CanExecute(null))
-                {
-                    // Set the event as handled.
-                    e.Handled = true;
-                }
-            };
+                // Set the event as handled.
+                e.Handled = true;
+            }
         }
 
         private void AddClick(object sender, EventArgs e)
@@ -306,10 +305,14 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, AddClick);
-            _doneButton = new UIBarButtonItem(UIBarButtonSystemItem.Done, DoneClick);
-            _showButton = new UIBarButtonItem("Solve", UIBarButtonItemStyle.Plain, ShowServiceAreas_Click);
-            _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, Reset_Click);
+            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add);
+            _doneButton = new UIBarButtonItem(UIBarButtonSystemItem.Done);
+
+            _showButton = new UIBarButtonItem();
+            _showButton.Title = "Solve";
+
+            _resetButton = new UIBarButtonItem();
+            _resetButton.Title = "Reset";
 
             _toolbar = new UIToolbar();
             _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -336,6 +339,30 @@ namespace ArcGISRuntime.Samples.FindServiceArea
                 _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _addButton.Clicked += AddClick;
+            _doneButton.Clicked += DoneClick;
+            _showButton.Clicked += ShowServiceAreas_Click;
+            _resetButton.Clicked += Reset_Click;
+            _myMapView.GeoViewDoubleTapped += MapView_DoubleTapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _addButton.Clicked -= AddClick;
+            _doneButton.Clicked -= DoneClick;
+            _showButton.Clicked -= ShowServiceAreas_Click;
+            _resetButton.Clicked -= Reset_Click;
+            _myMapView.GeoViewDoubleTapped -= MapView_DoubleTapped;
         }
     }
 }

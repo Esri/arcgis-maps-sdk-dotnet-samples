@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
         "Tap on the map. The nearest point/coordinate and nearest vertex in the polygon will be shown.")]
     public class NearestVertex : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UILabel _distanceLabel;
 
@@ -87,9 +87,6 @@ namespace ArcGISRuntime.Samples.NearestVertex
             _graphicsOverlay.Graphics.Add(_tappedLocationGraphic);
             _graphicsOverlay.Graphics.Add(_nearestVertexGraphic);
             _graphicsOverlay.Graphics.Add(_nearestCoordinateGraphic);
-
-            // Listen for taps; the spatial relationships will be updated in the handler.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
             // Center the map on the polygon.
             MapPoint centerPoint = new MapPoint(-4487263.495911, 3699176.480377, SpatialReferences.WebMercator);
@@ -154,7 +151,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
             View.AddSubviews(_myMapView, _distanceLabel);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -166,6 +163,22 @@ namespace ArcGISRuntime.Samples.NearestVertex
                 _distanceLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _distanceLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
         }
     }
 }

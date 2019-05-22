@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using System;
 using System.Drawing;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -33,6 +34,7 @@ namespace ArcGISRuntimeXamarin.Samples.ScenePropertiesExpressions
         private UISlider _pitchSlider;
         private UILabel _pitchValueLabel;
         private UILabel _headingValueLabel;
+        private Graphic _cone;
 
         public ScenePropertiesExpressions()
         {
@@ -66,22 +68,22 @@ namespace ArcGISRuntimeXamarin.Samples.ScenePropertiesExpressions
             SimpleMarkerSceneSymbol coneSymbol = SimpleMarkerSceneSymbol.CreateCone(Color.Red, 100, 100);
             coneSymbol.Pitch = -90;
             MapPoint conePoint = new MapPoint(83.9, 28.41, 200, SpatialReferences.Wgs84);
-            Graphic cone = new Graphic(conePoint, coneSymbol);
+            _cone = new Graphic(conePoint, coneSymbol);
 
             // Add the cone graphic to the overlay.
-            overlay.Graphics.Add(cone);
+            overlay.Graphics.Add(_cone);
+        }
 
-            // Listen for changes in slider values and update graphic properties.
-            _headingSlider.ValueChanged += (sender, e) =>
-            {
-                cone.Attributes["HEADING"] = _headingSlider.Value;
-                _headingValueLabel.Text = _headingSlider.Value.ToString("###");
-            };
-            _pitchSlider.ValueChanged += (sender, e) =>
-            {
-                cone.Attributes["PITCH"] = _pitchSlider.Value;
-                _pitchValueLabel.Text = _pitchSlider.Value.ToString("###");
-            };
+        private void HeightSlider_ValueChanged(object sender, EventArgs e)
+        {
+            _cone.Attributes["HEADING"] = _headingSlider.Value;
+            _headingValueLabel.Text = _headingSlider.Value.ToString("###");
+        }
+
+        private void PitchSlider_ValueChanged(object sender, EventArgs e)
+        {
+            _cone.Attributes["PITCH"] = _pitchSlider.Value;
+            _pitchValueLabel.Text = _pitchSlider.Value.ToString("###");
         }
 
         public override void LoadView()
@@ -157,6 +159,24 @@ namespace ArcGISRuntimeXamarin.Samples.ScenePropertiesExpressions
         {
             base.ViewDidLoad();
             Initialize();
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _headingSlider.ValueChanged += HeightSlider_ValueChanged;
+            _pitchSlider.ValueChanged += PitchSlider_ValueChanged;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _headingSlider.ValueChanged -= HeightSlider_ValueChanged;
+            _pitchSlider.ValueChanged -= PitchSlider_ValueChanged;
         }
     }
 }

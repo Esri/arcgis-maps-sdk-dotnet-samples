@@ -27,8 +27,12 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         "Use the buttons in the toolbar to change grid settings. Changes take effect immediately.")]
     public class DisplayGrid : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
+        private UIBarButtonItem _typeButton;
+        private UIBarButtonItem _lineColorButton;
+        private UIBarButtonItem _positionButton;
+        private UIBarButtonItem _labelColorButton;
 
         // Fields for storing the user's grid preferences.
         private string _selectedGridType = "LatLong";
@@ -259,23 +263,35 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
         public override void LoadView()
         {
-            // Add the views.
+            // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _typeButton = new UIBarButtonItem();
+            _typeButton.Title = "Grid type";
+
+            _lineColorButton = new UIBarButtonItem();
+            _lineColorButton.Title = "Line color";
+
+            _positionButton = new UIBarButtonItem();
+            _positionButton.Title = "Positions";
+
+            _labelColorButton = new UIBarButtonItem();
+            _labelColorButton.Title = "Text color";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("Grid type", UIBarButtonItemStyle.Plain, GridTypeButton_Click),
+                _typeButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Line color", UIBarButtonItemStyle.Plain, GridColorButton_Click),
+                _lineColorButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Positions", UIBarButtonItemStyle.Plain, LabelPositionButton_Click),
+                _positionButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Text color", UIBarButtonItemStyle.Plain, LabelColorButton_Click)
+                _labelColorButton
             };
 
             // Add the views.
@@ -293,6 +309,28 @@ namespace ArcGISRuntime.Samples.DisplayGrid
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _typeButton.Clicked += GridTypeButton_Click;
+            _lineColorButton.Clicked += GridColorButton_Click;
+            _positionButton.Clicked += LabelPositionButton_Click;
+            _labelColorButton.Clicked += LabelColorButton_Click;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _typeButton.Clicked -= GridTypeButton_Click;
+            _lineColorButton.Clicked -= GridColorButton_Click;
+            _positionButton.Clicked -= LabelPositionButton_Click;
+            _labelColorButton.Clicked -= LabelColorButton_Click;
         }
     }
 }

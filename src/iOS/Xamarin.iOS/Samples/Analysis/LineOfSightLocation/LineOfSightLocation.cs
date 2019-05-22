@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
         "Featured")]
     public class LineOfSightLocation : UIViewController
     {
-        // Hold a reference to the SceneView.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
 
         // URL for an image service to use as an elevation source.
@@ -77,7 +77,6 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
             AnalysisOverlay lineOfSightOverlay = new AnalysisOverlay();
             lineOfSightOverlay.Analyses.Add(_lineOfSightAnalysis);
             _mySceneView.AnalysisOverlays.Add(lineOfSightOverlay);
-            _mySceneView.GeoViewTapped += SceneViewTapped;
         }
 
         private void SceneViewTapped(object sender, GeoViewInputEventArgs e)
@@ -128,13 +127,29 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
             View.AddSubviews(_mySceneView);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _mySceneView.GeoViewTapped += SceneViewTapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _mySceneView.GeoViewTapped -= SceneViewTapped;
         }
     }
 }

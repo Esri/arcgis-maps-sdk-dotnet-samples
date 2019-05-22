@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         "Tap on the map to see the point in several coordinate systems. Update one of the coordinates and select 'recalculate' to see the point converted into other coordinate systems. ")]
     public class FormatCoordinates : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UITextField _selectedField;
         private UITextField _utmEntry;
@@ -58,10 +58,9 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
 
             // Update the UI with the initial point.
             UpdateUiFromMapPoint(startingPoint);
-
-            // Subscribe to map tap events to enable tapping on map to update coordinates.
-            _myMapView.GeoViewTapped += (sender, args) => UpdateUiFromMapPoint(args.Location);
         }
+
+        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e) => UpdateUiFromMapPoint(e.Location);
 
         private void InputValueChanged(object sender, EventArgs e)
         {
@@ -199,15 +198,6 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             {
                 tf.TranslatesAutoresizingMaskIntoConstraints = false;
                 tf.BorderStyle = UITextBorderStyle.RoundedRect;
-
-                // Allow returning to dismiss the keyboard.
-                tf.ShouldReturn += field =>
-                {
-                    field.ResignFirstResponder();
-                    // Recalculate fields.
-                    RecalculateFields(field);
-                    return true;
-                };
             }
 
             UIStackView formView = new UIStackView(new UIView[]
@@ -247,6 +237,14 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             ApplyConstraints();
         }
 
+        private bool HandleTextField(UITextField textField)
+        {
+            textField.ResignFirstResponder();
+            // Recalculate fields.
+            RecalculateFields(textField);
+            return true;
+        }
+
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
         {
             base.TraitCollectionDidChange(previousTraitCollection);
@@ -270,6 +268,38 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             {
                 // Update layout for portrait.
                 NSLayoutConstraint.ActivateConstraints(_portraitConstraints);
+            }
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+            _utmEntry.EditingDidBegin += InputValueChanged;
+            _dmsEntry.EditingDidBegin += InputValueChanged;
+            _ddEntry.EditingDidBegin += InputValueChanged;
+            _usngEntry.EditingDidBegin += InputValueChanged;
+            foreach (UITextField tf in new[] {_ddEntry, _dmsEntry, _utmEntry, _usngEntry})
+            {
+                tf.ShouldReturn += HandleTextField;
+            }
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
+            _utmEntry.EditingDidBegin -= InputValueChanged;
+            _dmsEntry.EditingDidBegin -= InputValueChanged;
+            _ddEntry.EditingDidBegin -= InputValueChanged;
+            _usngEntry.EditingDidBegin -= InputValueChanged;
+            foreach (UITextField tf in new[] {_ddEntry, _dmsEntry, _utmEntry, _usngEntry})
+            {
+                tf.ShouldReturn -= HandleTextField;
             }
         }
     }

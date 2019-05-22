@@ -26,8 +26,9 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         "")]
     public class ChangeViewpoint : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
+        private UISegmentedControl _viewpointsButton;
 
         // Coordinates for London.
         private readonly MapPoint _londonCoords = new MapPoint(-13881.7678417696, 6710726.57374296, SpatialReferences.WebMercator);
@@ -68,10 +69,9 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
 
         private async void ViewpointButton_ValueChanged(object sender, EventArgs e)
         {
-            UISegmentedControl segmentedControl = (UISegmentedControl) sender;
             try
             {
-                switch (segmentedControl.SelectedSegment)
+                switch (_viewpointsButton.SelectedSegment)
                 {
                     case 0:
                         // Set Viewpoint using Redlands envelope defined above and a padding of 20.
@@ -102,7 +102,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
             }
 
             // Reset the segment button.
-            segmentedControl.SelectedSegment = -1;
+            _viewpointsButton.SelectedSegment = -1;
         }
 
         public override void ViewDidLoad()
@@ -119,7 +119,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            UISegmentedControl _viewpointsButton = new UISegmentedControl("Geometry", "Center & Scale", "Animate")
+            _viewpointsButton = new UISegmentedControl("Geometry", "Center & Scale", "Animate")
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
                 TintColor = UIColor.White,
@@ -128,7 +128,6 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
                 ClipsToBounds = true,
                 Layer = {CornerRadius = 5}
             };
-            _viewpointsButton.ValueChanged += ViewpointButton_ValueChanged;
 
             // Add the views.
             View.AddSubviews(_myMapView, _viewpointsButton);
@@ -145,6 +144,22 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
                 _viewpointsButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
                 _viewpointsButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _viewpointsButton.ValueChanged += ViewpointButton_ValueChanged;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _viewpointsButton.ValueChanged -= ViewpointButton_ValueChanged;
         }
     }
 }

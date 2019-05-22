@@ -28,9 +28,11 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         "Featured")]
     public class DistanceMeasurement : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
         private UILabel _resultLabel;
+        private UIBarButtonItem _helpButton;
+        private UIBarButtonItem _changeUnitsButton;
 
         // URLs to various services used to provide an interesting scene for the sample.
         private readonly Uri _buildingService = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
@@ -174,18 +176,24 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
+            _helpButton = new UIBarButtonItem();
+            _helpButton.Title = "Help";
+
+            _changeUnitsButton = new UIBarButtonItem();
+            _changeUnitsButton.Title = "Change units";
+
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("Help", UIBarButtonItemStyle.Plain, ShowHelp_Click),
+                _helpButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Change units", UIBarButtonItemStyle.Plain, UnitChangeButton_TouchUpInside)
+                _changeUnitsButton
             };
 
             // Add the views.
             View.AddSubviews(_mySceneView, toolbar, _resultLabel);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -201,6 +209,25 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
                 _resultLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _resultLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _helpButton.Clicked += ShowHelp_Click;
+            _changeUnitsButton.Clicked += UnitChangeButton_TouchUpInside;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _mySceneView.GeoViewTapped -= MySceneView_GeoViewTapped;
+            _helpButton.Clicked -= ShowHelp_Click;
+            _changeUnitsButton.Clicked -= UnitChangeButton_TouchUpInside;
         }
     }
 }

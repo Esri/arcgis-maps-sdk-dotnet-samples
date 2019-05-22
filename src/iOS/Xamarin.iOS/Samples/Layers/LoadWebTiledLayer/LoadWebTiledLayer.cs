@@ -23,7 +23,7 @@ namespace ArcGISRuntime.Samples.LoadWebTiledLayer
         "")]
     public class LoadWebTiledLayer : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // Templated URL to the tile service.
@@ -76,7 +76,7 @@ namespace ArcGISRuntime.Samples.LoadWebTiledLayer
             View.AddSubviews(_myMapView);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),

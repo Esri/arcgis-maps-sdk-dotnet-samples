@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.RenderSimpleMarkers
         "")]
     public class RenderSimpleMarkers : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public RenderSimpleMarkers()

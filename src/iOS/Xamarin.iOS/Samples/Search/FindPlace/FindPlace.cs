@@ -35,7 +35,7 @@ namespace ArcGISRuntime.Samples.FindPlace
     [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public class FindPlace : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UITextField _searchBox;
         private UITextField _locationBox;
@@ -81,17 +81,6 @@ namespace ArcGISRuntime.Samples.FindPlace
             _searchBox.Enabled = true;
             _searchButton.Enabled = true;
             _searchInViewButton.Enabled = true;
-
-            // Enable tap-for-info pattern on results.
-            _myMapView.GeoViewTapped += MapView_GeoViewTapped;
-
-            // Listen for taps on the search buttons.
-            _searchButton.TouchUpInside += SearchButton_Touched;
-            _searchInViewButton.TouchUpInside += SearchRestrictedButton_Touched;
-
-            // Listen for text-changed events.
-            _searchBox.AllEditingEvents += SearchBox_TextChanged;
-            _locationBox.AllEditingEvents += LocationBox_TextChanged;
         }
 
         private void LocationDisplay_LocationChanged(object sender, Esri.ArcGISRuntime.Location.Location e)
@@ -517,12 +506,6 @@ namespace ArcGISRuntime.Samples.FindPlace
             _searchBox.BorderStyle = UITextBorderStyle.RoundedRect;
             _searchBox.LeftView = new UIView(new CGRect(0, 0, 5, 20));
             _searchBox.LeftViewMode = UITextFieldViewMode.Always;
-            // Allow pressing 'return' to dismiss the keyboard.
-            _searchBox.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
 
             _locationBox = new UITextField();
             _locationBox.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -530,12 +513,6 @@ namespace ArcGISRuntime.Samples.FindPlace
             _locationBox.BorderStyle = UITextBorderStyle.RoundedRect;
             _locationBox.LeftView = new UIView(new CGRect(0, 0, 5, 20));
             _locationBox.LeftViewMode = UITextFieldViewMode.Always;
-            // Allow pressing 'return' to dismiss the keyboard.
-            _locationBox.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
 
             _searchButton = new UIButton(UIButtonType.RoundedRect);
             _searchButton.BackgroundColor = UIColor.White;
@@ -615,6 +592,41 @@ namespace ArcGISRuntime.Samples.FindPlace
                 _suggestionView.HeightAnchor.ConstraintEqualTo(_suggestionView.RowHeight * 4)
             });
         }
+
+        private bool HandleTextField(UITextField textField)
+        {
+            // This method allows pressing 'return' to dismiss the software keyboard.
+            textField.ResignFirstResponder();
+            return true;
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MapView_GeoViewTapped;
+            _searchButton.TouchUpInside += SearchButton_Touched;
+            _searchInViewButton.TouchUpInside += SearchRestrictedButton_Touched;
+            _searchBox.AllEditingEvents += SearchBox_TextChanged;
+            _locationBox.AllEditingEvents += LocationBox_TextChanged;
+            _searchBox.ShouldReturn += HandleTextField;
+            _locationBox.ShouldReturn += HandleTextField;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MapView_GeoViewTapped;
+            _searchButton.TouchUpInside -= SearchButton_Touched;
+            _searchInViewButton.TouchUpInside -= SearchRestrictedButton_Touched;
+            _searchBox.AllEditingEvents -= SearchBox_TextChanged;
+            _locationBox.AllEditingEvents -= LocationBox_TextChanged;
+            _searchBox.ShouldReturn -= HandleTextField;
+            _locationBox.ShouldReturn -= HandleTextField;
+        }
     }
 
     /// <summary>
@@ -630,7 +642,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         private const string CellId = "TableCell";
 
         // Hold a reference to the owning view controller; this will be the active instance of FindPlace.
-        private FindPlace Owner { get; }
+        [Weak] private FindPlace Owner;
 
         public SuggestionSource(List<string> items, FindPlace owner)
         {

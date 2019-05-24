@@ -50,6 +50,7 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
         private Symbol _routeSymbol;
         private Symbol _barrierSymbol;
 
+        // URL to the network analysis service.
         private const string RouteServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route";
 
         public RouteAroundBarriers()
@@ -119,6 +120,7 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
                     // Create the text symbol for showing the stop.
                     TextSymbol stopSymbol = new TextSymbol(stopName, System.Drawing.Color.White, 15,
                         Symbology.HorizontalAlignment.Center, Symbology.VerticalAlignment.Middle);
+                    stopSymbol.OffsetY = 15;
 
                     CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] { pushpinMarker, stopSymbol });
 
@@ -278,6 +280,8 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
             pinSymbol.Width = 50;
             pinSymbol.Height = 50;
+            pinSymbol.LeaderOffsetX = 30;
+            pinSymbol.OffsetY = 14;
 
             return pinSymbol;
         }

@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -12,25 +12,22 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Windows;
-using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
-using Symbology = Esri.ArcGISRuntime.Symbology;
+using Xamarin.Forms;
 
-namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
+namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Route around barriers",
         "Network Analysis",
         "Find a route that reaches all stops without crossing any barriers.",
         "")]
-    public partial class RouteAroundBarriers
+    public partial class RouteAroundBarriers : ContentPage
     {
         // Track the current state of the sample.
         private SampleState _currentSampleState;
@@ -52,6 +49,8 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
 
         // URL to the network analysis service.
         private const string RouteServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route";
+
+        private ContentPage _directionsPage;
 
         public RouteAroundBarriers()
         {
@@ -96,7 +95,7 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
         private async void HandleMapTap(MapPoint mapLocation)
         {
             // Normalize geometry - important for geometries that will be sent to a server for processing.
-            mapLocation = (MapPoint) GeometryEngine.NormalizeCentralMeridian(mapLocation);
+            mapLocation = (MapPoint)GeometryEngine.NormalizeCentralMeridian(mapLocation);
 
             switch (_currentSampleState)
             {
@@ -119,12 +118,12 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
 
                     // Create the text symbol for showing the stop.
                     TextSymbol stopSymbol = new TextSymbol(stopName, System.Drawing.Color.White, 15,
-                        Symbology.HorizontalAlignment.Center, Symbology.VerticalAlignment.Middle);
+                        HorizontalAlignment.Center, VerticalAlignment.Middle);
                     stopSymbol.OffsetY = 15;
 
                     CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] { pushpinMarker, stopSymbol });
 
-                   // Create the graphic to show the stop.
+                    // Create the graphic to show the stop.
                     Graphic stopGraphic = new Graphic(mapLocation, combinedSymbol);
 
                     // Add the graphic to the overlay - this will cause it to appear on the map.
@@ -160,7 +159,7 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
             foreach (Graphic stopGraphic in _stopsOverlay.Graphics)
             {
                 // Note: this assumes that only points were added to the stops overlay.
-                MapPoint stopPoint = (MapPoint) stopGraphic.Geometry;
+                MapPoint stopPoint = (MapPoint)stopGraphic.Geometry;
 
                 // Create the stop from the graphic's geometry.
                 Stop routeStop = new Stop(stopPoint);
@@ -183,7 +182,7 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
             foreach (Graphic barrierGraphic in _barriersOverlay.Graphics)
             {
                 // Get the polygon from the graphic.
-                Polygon barrierPolygon = (Polygon) barrierGraphic.Geometry;
+                Polygon barrierPolygon = (Polygon)barrierGraphic.Geometry;
 
                 // Create a barrier from the polygon.
                 PolygonBarrier routeBarrier = new PolygonBarrier(barrierPolygon);
@@ -197,13 +196,13 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
             _routeParameters.SetPolygonBarriers(routeBarriers);
 
             // If the user allows stops to be re-ordered, the service will find the optimal order.
-            _routeParameters.FindBestSequence = AllowReorderStopsCheckbox.IsChecked == true;
+            _routeParameters.FindBestSequence = AllowReorderStopsCheckbox.IsToggled;
 
             // If the user has allowed re-ordering, but has a definite start point, tell the service to preserve the first stop.
-            _routeParameters.PreserveFirstStop = PreserveFirstStopCheckbox.IsChecked == true;
+            _routeParameters.PreserveFirstStop = PreserveFirstStopCheckbox.IsToggled;
 
             // If the user has allowed re-ordering, but has a definite end point, tell the service to preserve the last stop.
-            _routeParameters.PreserveLastStop = PreserveLastStopCheckbox.IsChecked == true;
+            _routeParameters.PreserveLastStop = PreserveLastStopCheckbox.IsToggled;
         }
 
         private async void CalculateAndShowRoute()
@@ -238,32 +237,53 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
 
         private void PrepareDirectionsList(IReadOnlyList<DirectionManeuver> directions)
         {
-            // Show the text for each step on the route in the UI.
-            DirectionsListBox.ItemsSource = directions;
+            // Create the Xamarin.Forms page for showing the directions.
+            _directionsPage = new ContentPage();
+
+            // Create the list view for showing directions.
+            ListView directionsList = new ListView();
+
+            // Populate the list view with directions text.
+            directionsList.ItemsSource = directions.Select(directionObject => directionObject.DirectionText);
+
+            // Add the list view to the page.
+            _directionsPage.Content = directionsList;
         }
 
-        private void MyMapView_OnGeoViewTapped(object sender, GeoViewInputEventArgs e) => HandleMapTap(e.Location);
+        private void MyMapView_OnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e) => HandleMapTap(e.Location);
 
-        private void AddStop_Clicked(object sender, RoutedEventArgs e) => UpdateInterfaceState(SampleState.AddingStops);
+        private void AddStop_Clicked(object sender, EventArgs e) => UpdateInterfaceState(SampleState.AddingStops);
 
-        private void AddBarrier_Clicked(object sender, RoutedEventArgs e) => UpdateInterfaceState(SampleState.AddingBarriers);
+        private void AddBarrier_Clicked(object sender, EventArgs e) => UpdateInterfaceState(SampleState.AddingBarriers);
 
-        private void ResetRoute_Clicked(object sender, RoutedEventArgs e)
+        private void ResetRoute_Clicked(object sender, EventArgs e)
         {
             UpdateInterfaceState(SampleState.NotReady);
             _stopsOverlay.Graphics.Clear();
             _barriersOverlay.Graphics.Clear();
             _routeOverlay.Graphics.Clear();
-            DirectionsListBox.ItemsSource = null;
+            _directionsPage = null;
             UpdateInterfaceState(SampleState.Ready);
         }
 
-        private void RouteButton_Clicked(object sender, RoutedEventArgs e)
+        private void RouteButton_Clicked(object sender, EventArgs e)
         {
             UpdateInterfaceState(SampleState.Routing);
             ConfigureRouteParameters();
             CalculateAndShowRoute();
             UpdateInterfaceState(SampleState.Ready);
+        }
+        
+        private void ShowDirections_Clicked(object sender, EventArgs e)
+        {
+            if (_directionsPage != null)
+            {
+                this.Navigation.PushAsync(_directionsPage);
+            }
+            else
+            {
+                ShowMessage("Route not ready", "Add stops and barriers, then select 'Route' to calculate the route before accessing directions.");
+            }
         }
 
         private async Task<PictureMarkerSymbol> GetPictureMarker()
@@ -299,7 +319,7 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
                     AllowReorderStopsCheckbox.IsEnabled = false;
                     PreserveFirstStopCheckbox.IsEnabled = false;
                     PreserveLastStopCheckbox.IsEnabled = false;
-                    DirectionsListBox.IsEnabled = false;
+                    ShowDirectionsButton.IsEnabled = false;
                     CalculateRouteButton.IsEnabled = false;
                     StatusLabel.Text = "Preparing sample...";
                     break;
@@ -316,13 +336,13 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
                     AllowReorderStopsCheckbox.IsEnabled = true;
                     PreserveLastStopCheckbox.IsEnabled = true;
                     PreserveFirstStopCheckbox.IsEnabled = true;
-                    DirectionsListBox.IsEnabled = true;
+                    ShowDirectionsButton.IsEnabled = true;
                     CalculateRouteButton.IsEnabled = true;
                     StatusLabel.Text = "Click 'Add stop' or 'Add barrier', then tap on the map to add stops and barriers.";
-                    BusyOverlay.Visibility = Visibility.Collapsed;
+                    BusyOverlay.IsVisible = false;
                     break;
                 case SampleState.Routing:
-                    BusyOverlay.Visibility = Visibility.Visible;
+                    BusyOverlay.IsVisible = true;
                     break;
             }
         }
@@ -337,6 +357,9 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
             Routing
         }
 
-        private void ShowMessage(string title, string detail) => MessageBox.Show(detail, title);
+        private async void ShowMessage(string title, string detail)
+        {
+            await ((Page)Parent).DisplayAlert(title, detail, "OK");
+        }
     }
 }

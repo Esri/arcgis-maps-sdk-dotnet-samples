@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -19,11 +19,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Windows;
-using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 using Symbology = Esri.ArcGISRuntime.Symbology;
 
-namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
+namespace ArcGISRuntime.UWP.Samples.RouteAroundBarriers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Route around barriers",
@@ -96,7 +96,7 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
         private async void HandleMapTap(MapPoint mapLocation)
         {
             // Normalize geometry - important for geometries that will be sent to a server for processing.
-            mapLocation = (MapPoint) GeometryEngine.NormalizeCentralMeridian(mapLocation);
+            mapLocation = (MapPoint)GeometryEngine.NormalizeCentralMeridian(mapLocation);
 
             switch (_currentSampleState)
             {
@@ -124,7 +124,7 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
 
                     CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] { pushpinMarker, stopSymbol });
 
-                   // Create the graphic to show the stop.
+                    // Create the graphic to show the stop.
                     Graphic stopGraphic = new Graphic(mapLocation, combinedSymbol);
 
                     // Add the graphic to the overlay - this will cause it to appear on the map.
@@ -160,7 +160,7 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
             foreach (Graphic stopGraphic in _stopsOverlay.Graphics)
             {
                 // Note: this assumes that only points were added to the stops overlay.
-                MapPoint stopPoint = (MapPoint) stopGraphic.Geometry;
+                MapPoint stopPoint = (MapPoint)stopGraphic.Geometry;
 
                 // Create the stop from the graphic's geometry.
                 Stop routeStop = new Stop(stopPoint);
@@ -183,7 +183,7 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
             foreach (Graphic barrierGraphic in _barriersOverlay.Graphics)
             {
                 // Get the polygon from the graphic.
-                Polygon barrierPolygon = (Polygon) barrierGraphic.Geometry;
+                Polygon barrierPolygon = (Polygon)barrierGraphic.Geometry;
 
                 // Create a barrier from the polygon.
                 PolygonBarrier routeBarrier = new PolygonBarrier(barrierPolygon);
@@ -337,6 +337,9 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
             Routing
         }
 
-        private void ShowMessage(string title, string detail) => MessageBox.Show(detail, title);
+        private async void ShowMessage(string title, string detail)
+        {
+            await new MessageDialog(detail, title).ShowAsync();
+        }
     }
 }

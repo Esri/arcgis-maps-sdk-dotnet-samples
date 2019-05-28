@@ -19,6 +19,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Color = System.Drawing.Color;
 
 namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
 {
@@ -60,36 +61,45 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
 
         private async void Initialize()
         {
-            // Update interface state.
-            UpdateInterfaceState(SampleState.NotReady);
+            try
+            {
+                // Update interface state.
+                UpdateInterfaceState(SampleState.NotReady);
 
-            // Create the map with a basemap.
-            Map sampleMap = new Map(Basemap.CreateTopographicVector());
-            sampleMap.InitialViewpoint = new Viewpoint(32.7157, -117.1611, 1e5);
-            MyMapView.Map = sampleMap;
+                // Create the map with a basemap.
+                Map sampleMap = new Map(Basemap.CreateTopographicVector());
+                sampleMap.InitialViewpoint = new Viewpoint(32.7157, -117.1611, 1e5);
+                MyMapView.Map = sampleMap;
 
-            // Create the graphics overlays. These will manage rendering of route, direction, stop, and barrier graphics.
-            _routeOverlay = new GraphicsOverlay();
-            _stopsOverlay = new GraphicsOverlay();
-            _barriersOverlay = new GraphicsOverlay();
+                // Create the graphics overlays. These will manage rendering of route, direction, stop, and barrier graphics.
+                _routeOverlay = new GraphicsOverlay();
+                _stopsOverlay = new GraphicsOverlay();
+                _barriersOverlay = new GraphicsOverlay();
 
-            // Add graphics overlays to the map view.
-            MyMapView.GraphicsOverlays.Add(_routeOverlay);
-            MyMapView.GraphicsOverlays.Add(_stopsOverlay);
-            MyMapView.GraphicsOverlays.Add(_barriersOverlay);
+                // Add graphics overlays to the map view.
+                MyMapView.GraphicsOverlays.Add(_routeOverlay);
+                MyMapView.GraphicsOverlays.Add(_stopsOverlay);
+                MyMapView.GraphicsOverlays.Add(_barriersOverlay);
 
-            // Create and initialize the route task.
-            _routeTask = await RouteTask.CreateAsync(new Uri(RouteServiceUrl));
+                // Create and initialize the route task.
+                _routeTask = await RouteTask.CreateAsync(new Uri(RouteServiceUrl));
 
-            // Get the route parameters from the route task.
-            _routeParameters = await _routeTask.CreateDefaultParametersAsync();
+                // Get the route parameters from the route task.
+                _routeParameters = await _routeTask.CreateDefaultParametersAsync();
 
-            // Prepare symbols.
-            _routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Blue, 2);
-            _barrierSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Cross, System.Drawing.Color.Red, null);
+                // Prepare symbols.
+                _routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Blue, 2);
+                _barrierSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Cross, Color.Red, null);
 
-            // Enable the UI.
-            UpdateInterfaceState(SampleState.Ready);
+                // Enable the UI.
+                UpdateInterfaceState(SampleState.Ready);
+            }
+            catch (Exception e)
+            {
+                UpdateInterfaceState(SampleState.NotReady);
+                System.Diagnostics.Debug.WriteLine(e);
+                ShowMessage("Couldn't load sample", "Couldn't start the sample. See the debug output for detail.");
+            }
         }
 
         private async void HandleMapTap(MapPoint mapLocation)
@@ -132,17 +142,19 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             }
         }
 
-        private void ConfigureRouteParameters()
+        private void ConfigureThenRoute()
         {
             // Guard against error conditions.
             if (_routeParameters == null)
             {
                 ShowMessage("Not ready yet", "Sample isn't ready yet; define route parameters first.");
+                return;
             }
 
             if (_stopsOverlay.Graphics.Count < 2)
             {
                 ShowMessage("Not enough stops", "Add at least two stops before trying to route.");
+                return;
             }
 
             // Clear any existing route from the map.
@@ -203,6 +215,9 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
 
             // If the user has allowed re-ordering, but has a definite end point, tell the service to preserve the last stop.
             _routeParameters.PreserveLastStop = PreserveLastStopCheckbox.IsToggled;
+
+            // Calculate and show the route.
+            CalculateAndShowRoute();
         }
 
         private async void CalculateAndShowRoute()
@@ -269,8 +284,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
         private void RouteButton_Clicked(object sender, EventArgs e)
         {
             UpdateInterfaceState(SampleState.Routing);
-            ConfigureRouteParameters();
-            CalculateAndShowRoute();
+            ConfigureThenRoute();
             UpdateInterfaceState(SampleState.Ready);
         }
         

@@ -17,7 +17,6 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -34,7 +33,6 @@
                         Clicked="AddStop_Clicked" />
                 <Button x:Name="AddBarrierButton"
                         Text="Add barrier"
-                        Margin="5,0,5,0"
                         Grid.Row="1" Grid.Column="1"
                         Clicked="AddBarrier_Clicked" />
                 <Button x:Name="ResetRoutingButton"
@@ -64,15 +62,15 @@
                 </StackLayout>
                 <Button x:Name="CalculateRouteButton"
                         Text="Route"
-                        Margin="0,5,0,5"
-                        Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"
+                        Grid.Row="5" Grid.Column="0"
                         Clicked="RouteButton_Clicked" />
                 <Button x:Name="ShowDirectionsButton"
                         Text="Show directions"
-                        Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3"
+                        Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
                         Clicked="ShowDirections_Clicked"/>
                 <Grid x:Name="BusyOverlay"
-                      Grid.Row="0" Grid.RowSpan="7" Grid.Column="0" Grid.ColumnSpan="3"
+                      Grid.Row="0" Grid.RowSpan="6" Grid.Column="0" Grid.ColumnSpan="3"
+                      HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
                       IsVisible="False"
                       BackgroundColor="#aa000000">
                     <Label Text="Calculating route"

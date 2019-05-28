@@ -159,6 +159,24 @@
   </ItemGroup>
   <!-- Image Assets -->
   <ItemGroup>
+    <ImageAsset Include="Resources\Images.xcassets\DirectionsList.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\DirectionsList.imageset\iOS7_Toolbar_OpenDirectionsTool22.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\DirectionsList.imageset\iOS7_Toolbar_OpenDirectionsTool44.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\Settings.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\Settings.imageset\iOS7_TabBar_BAO-Nav_Settings30.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\Settings.imageset\iOS7_TabBar_BAO-Nav_Settings60.png">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -230,6 +248,7 @@
   <ItemGroup>
     <!-- Screenshots -->
 	<None Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.jpg" />
+    <None Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.jpg" />
     <None Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
     <None Include="Samples\Layers\GroupLayers\GroupLayers.jpg" />
     <None Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.jpg" />
@@ -393,6 +412,7 @@
   <ItemGroup>
     <!-- Sample Code -->
 	<Compile Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.cs" />
+    <Compile Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.cs" />
     <Compile Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.cs" />
     <Compile Include="Samples\Layers\GroupLayers\GroupLayers.cs" />
     <Compile Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.cs" />
@@ -613,6 +633,9 @@
     <PackageReference Include="Xamarin.Auth">
       <Version>1.6.0.4</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
   </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

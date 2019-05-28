@@ -10,7 +10,7 @@ You can define barriers to avoid unsafe areas, for example flooded roads, when p
 
 ## How to use the sample
 
-Click 'Add stop' to add stops to the route. Click 'Add barrier' to add areas that can't be crossed by the route. Click 'Route' to find the route and display it.
+Tap 'Stop' to add stops to the route. Tap 'Barrier' to add areas that can't be crossed by the route. Tap 'Route' to find the route. Tap the road sign to show the list of directions. Tap the settings cog to configure route parameters.
 
 ## How it works
 

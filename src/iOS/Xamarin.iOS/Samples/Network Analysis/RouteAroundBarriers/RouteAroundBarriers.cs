@@ -277,6 +277,11 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
                 System.Diagnostics.Debug.Write(e);
                 ShowMessage("Routing error", $"Couldn't calculate route. See debug output for details. Message: {e.Message}");
             }
+            finally
+            {
+                // Update the interface now that routing is finished.
+                UpdateInterfaceState(SampleState.Ready);
+            }
         }
 
         private void PrepareDirectionsList(IReadOnlyList<DirectionManeuver> directions)
@@ -296,7 +301,6 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
         {
             UpdateInterfaceState(SampleState.Routing);
             ConfigureThenRoute();
-            UpdateInterfaceState(SampleState.Ready);
         }
 
         private void HandleResetClicked(object sender, EventArgs e)

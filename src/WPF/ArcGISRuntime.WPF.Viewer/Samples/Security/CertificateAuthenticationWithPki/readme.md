@@ -6,7 +6,7 @@ Access secured portals using a certificate.
 
 ## Use case
 
-Many enterprises use PKI (Public Key Infrastructure) to secure resources without requiring users to remember passwords. One common form of certificate authentication involves using a smart card, which stores certificates and provides them on demand. for example, the United States Department of Defense issues [Common Access Cards](https://www.cac.mil/common-access-card/), which enables access to DoD computer systems.
+PKI (Public Key Infrastructure) is a certificate authentication method to secure resources without requiring users to remember passwords. Government agencies commonly issue smart cards using PKI to access computer systems.
 
 ## How to use the sample
 

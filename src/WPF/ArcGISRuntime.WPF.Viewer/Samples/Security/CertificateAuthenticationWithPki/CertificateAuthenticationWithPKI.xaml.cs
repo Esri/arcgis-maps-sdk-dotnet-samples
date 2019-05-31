@@ -10,7 +10,10 @@
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using System;
+using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.CertificateAuthenticationWithPKI
 {
@@ -22,12 +25,14 @@ namespace ArcGISRuntime.WPF.Samples.CertificateAuthenticationWithPKI
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class CertificateAuthenticationWithPKI
     {
+        private string _serverUrl = "";
+
         public CertificateAuthenticationWithPKI()
         {
             InitializeComponent();
         }
 
-        public Credential CreateCertCredential(CredentialRequestInfo info)
+        private async Task<Credential> CreateCertCredential(CredentialRequestInfo info)
         {
             // Handle challenges for a secured resource by prompting for a client certificate.
             Credential credential = null;
@@ -53,7 +58,7 @@ namespace ArcGISRuntime.WPF.Samples.CertificateAuthenticationWithPKI
                     // Create a new CertificateCredential using the chosen certificate.
                     credential = new Esri.ArcGISRuntime.Security.CertificateCredential(selection[0])
                     {
-                        ServiceUri = new Uri(PortalUrlTextbox.Text)
+                        ServiceUri = new Uri(_serverUrl)
                     };
                 }
             }
@@ -66,22 +71,46 @@ namespace ArcGISRuntime.WPF.Samples.CertificateAuthenticationWithPKI
             return credential;
         }
 
-        private async void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                // Explicitly create the credential.
-                Credential cred = CreateCertCredential(null);
+                // Store the server url for later reference.
+                _serverUrl = PortalUrlTextbox.Text;
 
-                // Create the portal with the credential.
-                ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(PortalUrlTextbox.Text), null, cred, new System.Threading.CancellationToken());
+                // Configure the challenge handler.
+                AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCertCredential);
 
-                // Update the UI with the logged in user's name.
+                // Create the portal.
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(_serverUrl));
+
+                // Update the UI with the logged in user.
                 LoggedInUserName.Text = portal.User.FullName;
+            }
+            catch (HttpRequestException ex)
+            {
+                if (ex.Message.Contains("404"))
+                {
+                    MessageBox.Show("404: Not Found");
+                }
+                else if (ex.Message.Contains("403"))
+                {
+                    MessageBox.Show("403: Not authorized; did you use the right certificate?");
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine(ex);
+                    MessageBox.Show("Couldn't authenticate. See debug output for details.");
+                }
+            }
+            catch (UriFormatException)
+            {
+                MessageBox.Show("Couldn't authenticate. Enter a valid URL first.");
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex);
+                MessageBox.Show("Couldn't authenticate. See debug output for details.");
             }
         }
     }

@@ -53,6 +53,7 @@
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -94,9 +95,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.xaml.cs">
-		<DependentUpon>SymbolsFromMobileStyle.xaml</DependentUpon>
-	</Compile>
+    <Compile Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.xaml.cs">
+      <DependentUpon>CertificateAuthenticationWithPKI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.xaml.cs">
+      <DependentUpon>SymbolsFromMobileStyle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml.cs">
       <DependentUpon>DownloadPreplannedMap.xaml</DependentUpon>
     </Compile>
@@ -620,10 +624,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<Page Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
+    <Page Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1323,9 +1331,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<Content Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.jpg">
-		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Content>
+    <Content Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

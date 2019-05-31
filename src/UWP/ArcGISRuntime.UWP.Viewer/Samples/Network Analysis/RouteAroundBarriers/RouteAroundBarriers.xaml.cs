@@ -154,7 +154,7 @@ namespace ArcGISRuntime.UWP.Samples.RouteAroundBarriers
 
             if (_stopsOverlay.Graphics.Count < 2)
             {
-                ShowMessage("Not enough stops", "Add at least two stops before trying to route.");
+                ShowMessage("Not enough stops", "Add at least two stops before solving a route.");
                 return;
             }
 

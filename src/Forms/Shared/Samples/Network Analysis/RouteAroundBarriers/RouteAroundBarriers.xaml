@@ -7,7 +7,8 @@
     <RelativeLayout>
         <esriUI:MapView x:Name="MyMapView" Style="{StaticResource MapWithFormStyle}"
                         BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        GeoViewTapped="MyMapView_OnGeoViewTapped"/>
+                        GeoViewTapped="MyMapView_OnGeoViewTapped" 
+                        ViewInsets="0,250,0,0"/>
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <Grid>
                 <Grid.RowDefinitions>

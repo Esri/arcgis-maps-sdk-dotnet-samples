@@ -4,6 +4,8 @@ This sample illustrates the use of Windows credentials to access services hosted
 When accessing an item secured with IWA from a WPF app, default credentials (the current user's login) are sent to the portal. 
 Platforms such as Android, iOS, and Universal Windows Platform (UWP) require credentials to be entered explicitly.
 
+See [Use the Authentication Manager](https://developers.arcgis.com/net/latest/ios/guide/use-the-authentication-manager.htm) in the developers guide for more information.
+
 <img src="IntegratedWindowsAuth.jpg"/>     
 
      

@@ -119,6 +119,8 @@
     <!-- Screenshots -->
 	<Content Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.jpg" />
 	<Content Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.jpg" />
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
+    <Content Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.jpg" />
     <Content Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
     <Content Include="Samples\Layers\GroupLayers\GroupLayers.jpg" />
     <Content Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.jpg" />
@@ -337,6 +339,9 @@
 	<Compile Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.xaml.cs">
 		<DependentUpon>SymbolsFromMobileStyle.xaml</DependentUpon>
 	</Compile>
+    <Compile Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.xaml.cs">
+      <DependentUpon>RouteAroundBarriers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml.cs">
       <DependentUpon>DownloadPreplannedMap.xaml</DependentUpon>
     </Compile>
@@ -848,6 +853,10 @@
 		<Generator>MSBuild:Compile</Generator>
 		<SubType>Designer</SubType>
 	</Page>
+    <Page Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

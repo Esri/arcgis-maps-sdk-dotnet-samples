@@ -91,10 +91,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />    
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.xaml.cs">
+      <DependentUpon>RouteAroundBarriers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.xaml.cs">
       <DependentUpon>CertificateAuthenticationWithPKI.xaml</DependentUpon>
     </Compile>
@@ -624,6 +628,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1331,6 +1339,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

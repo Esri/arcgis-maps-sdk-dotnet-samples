@@ -1,0 +1,58 @@
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             x:Class="ArcGISRuntimeXamarin.Samples.OfflineRouting.OfflineRouting">
+    <RelativeLayout>
+        <esriUI:MapView x:Name="MyMapView" Style="{StaticResource MapWithFormStyle}"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        ViewInsets="0,250,0,0" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition>
+                        <RowDefinition.Height>
+                            <OnPlatform x:TypeArguments="GridLength">
+                                <On Platform="UWP" Value="45" />
+                                <On Platform="Android, iOS" Value="Auto" />
+                            </OnPlatform>
+                        </RowDefinition.Height>
+                    </RowDefinition>
+                    <RowDefinition>
+                        <RowDefinition.Height>
+                            <OnPlatform x:TypeArguments="GridLength">
+                                <On Platform="UWP" Value="45" />
+                                <On Platform="Android, iOS" Value="Auto" />
+                            </OnPlatform>
+                        </RowDefinition.Height>
+                    </RowDefinition>
+                    <RowDefinition>
+                        <RowDefinition.Height>
+                            <OnPlatform x:TypeArguments="GridLength">
+                                <On Platform="UWP" Value="30" />
+                                <On Platform="Android, iOS" Value="Auto" />
+                            </OnPlatform>
+                        </RowDefinition.Height>
+                    </RowDefinition>
+                </Grid.RowDefinitions>
+                <Label
+                    Text="Click the map to add a stop. Route lines will be displayed on-the-fly."
+                    Grid.Row="0" />
+                <Picker x:Name="TravelModesCombo"
+                        Grid.Row="1"
+                        Margin="0,5,0,5"
+                        ItemDisplayBinding="{Binding Name}">
+                    <Picker.TextColor>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="Android" Value="Black" />
+                        </OnPlatform>
+                    </Picker.TextColor>
+                </Picker>
+                <Button Text="Reset"
+                        Grid.Row="2"
+                        Clicked="ResetButton_Click" />
+            </Grid>
+        </resources:ResponsiveFormContainer>
+    </RelativeLayout>
+</ContentPage>

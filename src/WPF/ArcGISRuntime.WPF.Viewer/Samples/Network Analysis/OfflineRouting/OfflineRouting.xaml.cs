@@ -37,13 +37,21 @@ namespace ArcGISRuntime.WPF.Samples.OfflineRouting
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("567e14f3420d40c5a206e5c0284cf8fc")]
     public partial class OfflineRouting
     {
+        // Graphics overlays for holding graphics.
         private GraphicsOverlay _stopsOverlay;
         private GraphicsOverlay _routeOverlay;
+
+        // Route task and parameters.
         private RouteTask _offlineRouteTask;
         private RouteParameters _offlineRouteParameters;
-        private Graphic _selectedStopGraphic;
-        private IEnumerable<TravelMode> _availableTravelModes;
 
+        // List of travel modes, like 'Fastest' and 'Shortest'.
+        private List<TravelMode> _availableTravelModes;
+
+        // Track the graphic being interacted with.
+        private Graphic _selectedStopGraphic;
+
+        // The area covered by the geodatabase used for offline routing.
         private readonly Envelope _routableArea = new Envelope(new MapPoint(-13045352.223196, 3864910.900750, 0, SpatialReferences.WebMercator),
             new MapPoint(-13024588.857198, 3838880.505604, 0, SpatialReferences.WebMercator));
 
@@ -95,7 +103,7 @@ namespace ArcGISRuntime.WPF.Samples.OfflineRouting
                 _offlineRouteTask = await RouteTask.CreateAsync(networkGeodatabasePath, "Streets_ND");
 
                 // Get the list of available travel modes.
-                _availableTravelModes = _offlineRouteTask.RouteTaskInfo.TravelModes;
+                _availableTravelModes = _offlineRouteTask.RouteTaskInfo.TravelModes.ToList();
 
                 // Update the UI with the travel modes list.
                 TravelModesCombo.ItemsSource = _availableTravelModes;
@@ -255,8 +263,16 @@ namespace ArcGISRuntime.WPF.Samples.OfflineRouting
 
         private void MapView_Tapped(object sender, GeoViewInputEventArgs e)
         {
+            // Make sure the stop is valid before proceeding.
+            if (!GeometryEngine.Contains(_routableArea, e.Location))
+            {
+                ShowMessage("Can't add stop.", "That location is outside of the area where offline routing data is available.");
+                return;
+            }
+
             if (_selectedStopGraphic == null)
             {
+                // Select or add the stop.
                 SelectOrAddStop(e.Position);
             }
             else

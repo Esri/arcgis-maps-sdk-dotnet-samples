@@ -6,7 +6,7 @@ Solve a route on-the-fly using offline data.
 
 ## How to use the sample
 
-Click near a road to start adding a stop to the route, click again to place it on the map. A number graphic will show its order in the route. After adding at least 2 stops, a route will display. Choose "Fastest" or "Shortest" to control how the route is optimized. Click stops to select them, click again to re-place them. The route will update on-the-fly while moving stops. The green box marks the boundary of the routable area provided by the offline data.
+Tap near a road to add a stop to the route. A number graphic will show its order in the route. After adding at least 2 stops, a route will display. Choose "Fastest" or "Shortest" to control how the route is optimized. The green box marks the boundary of the routable area provided by the offline data.
 
 ## How it works
 

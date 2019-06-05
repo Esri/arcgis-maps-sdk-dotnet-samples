@@ -31,12 +31,18 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("567e14f3420d40c5a206e5c0284cf8fc")]
     public partial class OfflineRouting : ContentPage
     {
+        // Graphics overlays for holding graphics.
         private GraphicsOverlay _stopsOverlay;
         private GraphicsOverlay _routeOverlay;
+
+        // Route task and parameters.
         private RouteTask _offlineRouteTask;
         private RouteParameters _offlineRouteParameters;
-        private IEnumerable<TravelMode> _availableTravelModes;
 
+        // List of travel modes, like 'Fastest' and 'Shortest'.
+        private List<TravelMode> _availableTravelModes;
+
+        // The area covered by the geodatabase used for offline routing.
         private readonly Envelope _routableArea = new Envelope(new MapPoint(-13045352.223196, 3864910.900750, 0, SpatialReferences.WebMercator),
             new MapPoint(-13024588.857198, 3838880.505604, 0, SpatialReferences.WebMercator));
 
@@ -88,7 +94,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
                 _offlineRouteTask = await RouteTask.CreateAsync(networkGeodatabasePath, "Streets_ND");
 
                 // Get the list of available travel modes.
-                _availableTravelModes = _offlineRouteTask.RouteTaskInfo.TravelModes;
+                _availableTravelModes = _offlineRouteTask.RouteTaskInfo.TravelModes.ToList();
 
                 // Update the UI with the travel modes list.
                 TravelModesCombo.ItemsSource = _availableTravelModes.ToList();
@@ -233,13 +239,14 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
 
         private void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
-            // Return if the location is outside the routable area.
+            // Make sure the stop is valid before proceeding.
             if (!GeometryEngine.Contains(_routableArea, e.Location))
             {
-                ShowMessage("Can't route here", "Please only add stops within the area available for routing offline.");
+                ShowMessage("Can't add stop.", "That location is outside of the area where offline routing data is available.");
                 return;
             }
 
+            // Add the stop for the tapped position.
             AddStop(e.Position);
 
             // Update the route with the final list of stops.
@@ -250,11 +257,13 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
         {
             try
             {
+                // Enforce selection to prevent errors.
                 if (TravelModesCombo.SelectedItem == null)
                 {
                     TravelModesCombo.SelectedItem = _availableTravelModes.First();
                 }
 
+                // Update the route.
                 UpdateRoute((TravelMode) TravelModesCombo.SelectedItem);
             }
             catch (Exception ex)

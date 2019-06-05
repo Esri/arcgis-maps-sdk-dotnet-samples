@@ -43,12 +43,18 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
         private UIBarButtonItem _resetButton;
         private UISegmentedControl _travelModeSegment;
 
+        // Graphics overlays for holding graphics.
         private GraphicsOverlay _stopsOverlay;
         private GraphicsOverlay _routeOverlay;
+
+        // Route task and parameters.
         private RouteTask _offlineRouteTask;
         private RouteParameters _offlineRouteParameters;
+
+        // List of travel modes, like 'Fastest' and 'Shortest'.
         private List<TravelMode> _availableTravelModes;
 
+        // The area covered by the geodatabase used for offline routing.
         private readonly Envelope _routableArea = new Envelope(new MapPoint(-13045352.223196, 3864910.900750, 0, SpatialReferences.WebMercator),
             new MapPoint(-13024588.857198, 3838880.505604, 0, SpatialReferences.WebMercator));
 
@@ -269,7 +275,10 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
         {
             try
             {
+                // Get the selected travel mode.
                 TravelMode selectedTravelMode = _availableTravelModes[(int) _travelModeSegment.SelectedSegment];
+
+                // Update the route.
                 UpdateRoute(selectedTravelMode);
             }
             catch (Exception ex)
@@ -348,8 +357,10 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
         {
             base.ViewWillAppear(animated);
 
+            // Hook up the reset button click event when the sample appears.
             _resetButton.Clicked += ResetButton_Click;
 
+            // Hook up the other events only when the sample appears and the sample is ready.
             if (_sampleReady)
             {
                 _myMapView.GeoViewTapped += MapView_Tapped;
@@ -361,6 +372,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
         {
             base.ViewDidDisappear(animated);
 
+            // Disconnect events when leaving the sample.
             _myMapView.GeoViewTapped -= MapView_Tapped;
             _travelModeSegment.ValueChanged -= TravelMode_SelectionChanged;
             _resetButton.Clicked -= ResetButton_Click;

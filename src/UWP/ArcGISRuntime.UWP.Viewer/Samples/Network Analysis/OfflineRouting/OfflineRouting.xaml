@@ -11,9 +11,10 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <TextBlock
-                    Text="Click the map to add a stop. Click again to finish placing it. Click existing stops to move them. Route lines will be displayed on-the-fly."
+                    Text="Click the map to add a stop. Click again to finish placing it. Route lines will be displayed on-the-fly."
                     Grid.Row="0" Grid.Column="0"
                     FontWeight="SemiBold" TextWrapping="Wrap" />
                 <ComboBox x:Name="TravelModesCombo"
@@ -29,6 +30,10 @@
                         Grid.Row="2" Grid.Column="0"
                         HorizontalAlignment="Stretch"
                         Click="ResetButton_Click" />
+                <TextBlock x:Name="ErrorTextBlock"
+                           Grid.Row="3"
+                           TextWrapping="Wrap"
+                           Foreground="Red" />
             </Grid>
         </Border>
     </Grid>

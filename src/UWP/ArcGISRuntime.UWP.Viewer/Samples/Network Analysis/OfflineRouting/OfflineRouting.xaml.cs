@@ -142,6 +142,9 @@ namespace ArcGISRuntime.UWP.Samples.OfflineRouting
         {
             _routeOverlay.Graphics.Clear();
             _stopsOverlay.Graphics.Clear();
+
+            // Reset the error message.
+            ErrorTextBlock.Text = "";
         }
 
         private async void UpdateRoute(TravelMode selectedTravelMode)
@@ -188,50 +191,40 @@ namespace ArcGISRuntime.UWP.Samples.OfflineRouting
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                ShowMessage("Couldn't update route", "There was an error updating the route. See debug output for details. Stop selection has been reset.");
+                ShowMessage("Couldn't update route", "There was an error updating the route. See debug output for details.");
                 _selectedStopGraphic = null;
             }
         }
 
-        private async void SelectOrAddStop(Point tappedPosition)
+        private async void AddStop(Point tappedPosition)
         {
             try
             {
-                // First try to identify.
-                IdentifyGraphicsOverlayResult result = await MyMapView.IdentifyGraphicsOverlayAsync(_stopsOverlay, tappedPosition, 4, false);
+                // Get the location on the map.
+                MapPoint tappedLocation = MyMapView.ScreenToLocation(tappedPosition);
 
-                if (result.Graphics.Any())
-                {
-                    _selectedStopGraphic = result.Graphics.First();
-                }
-                else
-                {
-                    // Get the location on the map.
-                    MapPoint tappedLocation = MyMapView.ScreenToLocation(tappedPosition);
+                // Name the stop by its number.
+                string stopName = $"{_stopsOverlay.Graphics.Count + 1}";
 
-                    // Name the stop by its number.
-                    string stopName = $"{_stopsOverlay.Graphics.Count + 1}";
+                // Create a pushpin marker for the stop.
+                PictureMarkerSymbol pushpinMarker = await GetPictureMarker();
 
-                    // Create a pushpin marker for the stop.
-                    PictureMarkerSymbol pushpinMarker = await GetPictureMarker();
+                // Create the text symbol for labeling the stop.
+                TextSymbol stopSymbol = new TextSymbol(stopName, System.Drawing.Color.White, 15,
+                    Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center, Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
+                stopSymbol.OffsetY = 15;
 
-                    // Create the text symbol for labeling the stop.
-                    TextSymbol stopSymbol = new TextSymbol(stopName, System.Drawing.Color.White, 15,
-                        Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center, Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
-                    stopSymbol.OffsetY = 15;
+                // Create a combined symbol with the pushpin and the label.
+                CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] {pushpinMarker, stopSymbol});
 
-                    // Create a combined symbol with the pushpin and the label.
-                    CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] {pushpinMarker, stopSymbol});
+                // Create the graphic from the geometry and the symbology.
+                Graphic newStopGraphic = new Graphic(tappedLocation, combinedSymbol);
 
-                    // Create the graphic from the geometry and the symbology.
-                    Graphic newStopGraphic = new Graphic(tappedLocation, combinedSymbol);
+                // Update the selection.
+                _selectedStopGraphic = newStopGraphic;
 
-                    // Update the selection.
-                    _selectedStopGraphic = newStopGraphic;
-
-                    // Add the stop to the overlay.
-                    _stopsOverlay.Graphics.Add(newStopGraphic);
-                }
+                // Add the stop to the overlay.
+                _stopsOverlay.Graphics.Add(newStopGraphic);
             }
             catch (Exception e)
             {
@@ -264,6 +257,9 @@ namespace ArcGISRuntime.UWP.Samples.OfflineRouting
 
         private void MapView_Tapped(object sender, GeoViewInputEventArgs e)
         {
+            // Reset the error message.
+            ErrorTextBlock.Text = "";
+
             // Make sure the stop is valid before proceeding.
             if (!GeometryEngine.Contains(_routableArea, e.Location))
             {
@@ -271,10 +267,14 @@ namespace ArcGISRuntime.UWP.Samples.OfflineRouting
                 return;
             }
 
-            if (_selectedStopGraphic == null)
+            if (_selectedStopGraphic == null && _stopsOverlay.Graphics.Count < 5)
             {
                 // Select or add a stop.
-                SelectOrAddStop(e.Position);
+                AddStop(e.Position);
+            }
+            else if (_selectedStopGraphic == null)
+            {
+                ShowMessage("Can't add stop.", "Don't add more than 5 stops.");
             }
             else
             {
@@ -333,17 +333,9 @@ namespace ArcGISRuntime.UWP.Samples.OfflineRouting
             }
         }
 
-        private async void ShowMessage(string title, string detail)
+        private void ShowMessage(string title, string detail)
         {
-            try
-            {
-                await new MessageDialog(detail, title).ShowAsync();
-            }
-            catch (Exception e)
-            {
-                // Yes, this actually happens in real life. <3 UWP
-                Debug.WriteLine(e);
-            }
+            ErrorTextBlock.Text = detail;
         }
     }
 }

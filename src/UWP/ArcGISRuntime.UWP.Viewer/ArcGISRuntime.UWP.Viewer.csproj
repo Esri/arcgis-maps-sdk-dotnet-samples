@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<Content Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.jpg" />
 	<Content Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.jpg" />
 	<Content Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.jpg" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
@@ -333,6 +334,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml.cs">
+		<DependentUpon>OfflineRouting.xaml</DependentUpon>
+	</Compile>
 	<Compile Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.xaml.cs">
 		<DependentUpon>CertificateAuthenticationWithPKI.xaml</DependentUpon>
 	</Compile>
@@ -845,6 +849,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<Page Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml">
+		<Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
 	<Page Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.xaml">
 		<Generator>MSBuild:Compile</Generator>
 		<SubType>Designer</SubType>

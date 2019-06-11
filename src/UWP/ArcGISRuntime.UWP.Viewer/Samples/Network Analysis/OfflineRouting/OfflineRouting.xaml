@@ -14,7 +14,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <TextBlock
-                    Text="Click the map to add a stop. Click again to finish placing it. Route lines will be displayed on-the-fly."
+                    Text="Click the map to add up to 5 stops. Click again to finish placing it. Route lines will be displayed on-the-fly."
                     Grid.Row="0" Grid.Column="0"
                     FontWeight="SemiBold" TextWrapping="Wrap" />
                 <ComboBox x:Name="TravelModesCombo"

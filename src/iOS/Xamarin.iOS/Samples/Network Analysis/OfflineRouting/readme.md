@@ -6,7 +6,7 @@ Solve a route on-the-fly using offline data.
 
 ## How to use the sample
 
-Tap near a road to add a stop to the route. A number graphic will show its order in the route. After adding at least 2 stops, a route will display. Choose "Fastest" or "Shortest" to control how the route is optimized. The green box marks the boundary of the routable area provided by the offline data.
+Tap near a road to add a stop to the route. A number graphic will show its order in the route. After adding at least 2 stops, a route will display. Choose "Fastest" or "Shortest" to control how the route is optimized. The green box marks the boundary of the routable area provided by the offline data. This sample limits routes to 5 stops for performance reasons.
 
 ## How it works
 

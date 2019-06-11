@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
-using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -23,7 +22,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -274,7 +272,7 @@ namespace ArcGISRuntime.UWP.Samples.OfflineRouting
             }
             else if (_selectedStopGraphic == null)
             {
-                ShowMessage("Can't add stop.", "Don't add more than 5 stops.");
+                ShowMessage("Can't add stop.", "Sample limits to 5 stops per route.");
             }
             else
             {

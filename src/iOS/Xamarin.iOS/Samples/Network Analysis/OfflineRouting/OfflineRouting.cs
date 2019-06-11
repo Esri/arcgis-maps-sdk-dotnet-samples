@@ -255,6 +255,13 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
 
         private void MapView_Tapped(object sender, GeoViewInputEventArgs e)
         {
+            // Make sure the user isn't adding too many stops.
+            if (_stopsOverlay.Graphics.Count >= 5)
+            {
+                ShowMessage("Can't add stop.", "Sample limits to 5 stops per route.");
+                return;
+            }
+
             // Make sure the stop is valid before proceeding.
             if (!GeometryEngine.Contains(_routableArea, e.Location))
             {

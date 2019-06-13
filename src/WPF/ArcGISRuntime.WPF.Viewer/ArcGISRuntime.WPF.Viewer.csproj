@@ -100,6 +100,9 @@
     <Compile Include="Samples\Layers\GroupLayers\GroupLayers.xaml.cs">
       <DependentUpon>GroupLayers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Map\GetElevationAtAPoint\GetElevationAtAPoint.xaml.cs">
+      <DependentUpon>GetElevationAtAPoint.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.xaml.cs">
       <DependentUpon>OfflineBasemapByReference.xaml</DependentUpon>
     </Compile>
@@ -622,6 +625,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\GroupLayers\GroupLayers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\GetElevationAtAPoint\GetElevationAtAPoint.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1322,6 +1329,9 @@
     <Content Include="Samples\Layers\GroupLayers\GroupLayers.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Samples\Map\GetElevationAtAPoint\GetElevationAtAPoint.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1928,6 +1938,7 @@
       <Version>2.1.2</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

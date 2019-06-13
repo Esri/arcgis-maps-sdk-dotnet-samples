@@ -1,21 +1,37 @@
-# Open a scene (Portal item)
+# Get elevation at a point
 
-This sample demonstrates how to open a scene from a Portal item. Just like Web Maps are the ArcGIS format for maps, Web Scenes are the ArcGIS format for scenes. These scenes can be stored in ArcGIS Online or Portal. 
+Get the elevation for a given point on a surface in a scene. 
 
-![](OpenScene.jpg)
+![](GetElevationAtAPoint.jpg)
+
+## Use case
+
+Knowing the elevation at a given point in a landscape can aid in navigation, planning and survey in the field.
 
 ## How to use the sample
 
-When the sample loads, a scene from ArcGIS Online will be displayed. 
+Tap anywhere on the surface to get the elevation at that point. Elevation is reported in meters since the scene view is in WGS84.
 
 ## How it works
 
-This sample uses the scene portal item constructor to open a scene from ArcGIS Online.
+1. Create a SceneView and Scene with an imagery base map.
+2. Set an ArcGISTiledElevationService as the elevation source of the scene's base surface.
+3. Use the screenToBaseSurface(screenPoint) method on the scene view to convert the tapped screen point into a point on surface.
+4. Use the getElevationAsync(surfacePoint) method on the base surface to asynchronously get the elevation.
 
 ## Relevant API
 
-* `Scene.LoadAsync`
+* `ArcGISTiledElevationSource`
+* `BaseSurface`
+* `ElevationSourcesList`
+* `SceneView`
+
+## Additional Information
+
+getElevationAsync(surfacePoint) retrieves the most accurate available elevation value at a given point. To do this, the method must go to the server or local raster file and load the highest level of detail of data for the target location and return the elevation value.
+
+If multiple elevation sources are present in the surface, the top most visible elevation source with a valid elevation in the given location is used to determine the result.
 
 ## Tags
 
-Scenes, Web Scene, Portal
+elevation, point, surface

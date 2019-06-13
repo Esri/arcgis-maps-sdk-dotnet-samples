@@ -1329,9 +1329,9 @@
     <Content Include="Samples\Layers\GroupLayers\GroupLayers.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Samples\Map\GetElevationAtAPoint\GetElevationAtAPoint.jpg">
+    <Content Include="Samples\Map\GetElevationAtAPoint\GetElevationAtAPoint.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Content Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

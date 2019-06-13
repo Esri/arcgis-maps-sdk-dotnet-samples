@@ -57,9 +57,6 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             // Add the layer to the map.
             _myMapView.Map.OperationalLayers.Add(_damageLayer);
 
-            // Listen for user taps on the map.
-            _myMapView.GeoViewTapped += MapView_Tapped;
-
             // Zoom to the United States.
             _myMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
         }
@@ -154,6 +151,22 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             base.ViewDidLoad();
             Initialize();
         }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MapView_Tapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MapView_Tapped;
+        }
     }
 
     public class AttachmentsTableView : UITableViewController
@@ -227,7 +240,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             }
 
             // These methods tell the table view what to show.
+
             #region table view source overrides
+
             public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
             {
                 // Gets a cell for the specified row.
@@ -314,12 +329,15 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                 {
                     return UITableViewCellEditingStyle.Delete;
                 }
+
                 // Otherwise, this is the insert row, so use the 'Insert' editing style.
                 return UITableViewCellEditingStyle.Insert;
             }
+
             #endregion table view source overrides
 
             #region attachment actions
+
             private async void AddAttachment(UITableView tableView)
             {
                 // Get the image to upload.
@@ -400,7 +418,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                     imagePreviewVC.View = new UIView {BackgroundColor = UIColor.White};
                     imagePreviewVC.View.AddSubview(imageView);
                     imagePreviewVC.Title = "Attachment preview";
-                    NSLayoutConstraint.ActivateConstraints(new []
+                    NSLayoutConstraint.ActivateConstraints(new[]
                     {
                         imageView.TopAnchor.ConstraintEqualTo(imagePreviewVC.View.SafeAreaLayoutGuide.TopAnchor),
                         imageView.LeftAnchor.ConstraintEqualTo(imagePreviewVC.View.SafeAreaLayoutGuide.LeftAnchor),
@@ -416,9 +434,11 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                     _viewController.ShowMessage("This sample can only show image attachments", "Can't show attachment");
                 }
             }
+
             #endregion attachment actions
 
             #region file picker
+
             // Note: this code is adapted from https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/dependency-service/photo-picker
             private Task<Stream> GetImageStreamAsync()
             {
@@ -487,6 +507,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                 _imagePicker.FinishedPickingMedia -= OnImagePickerFinishedPickingMedia;
                 _imagePicker.Canceled -= OnImagePickerCancelled;
             }
+
             #endregion file picker
         }
     }

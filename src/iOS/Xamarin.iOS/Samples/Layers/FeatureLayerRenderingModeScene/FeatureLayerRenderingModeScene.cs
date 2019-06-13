@@ -25,10 +25,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
         "Press the 'Animated Zoom' button to trigger a zoom. Observe the differences between the two scenes.")]
     public class FeatureLayerRenderingModeScene : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private SceneView _staticSceneView;
         private SceneView _dynamicSceneView;
         private UIStackView _stackView;
+        private UIBarButtonItem _zoomButton;
 
         // Points for demonstrating zoom.
         private readonly MapPoint _zoomedOutPoint = new MapPoint(-118.37, 34.46, SpatialReferences.Wgs84);
@@ -128,12 +129,15 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
             _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
             _stackView.Distribution = UIStackViewDistribution.FillEqually;
 
+            _zoomButton = new UIBarButtonItem();
+            _zoomButton.Title = "Zoom";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Zoom", UIBarButtonItemStyle.Plain, _zoomButton_TouchUpInside),
+                _zoomButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -193,6 +197,22 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
             {
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _zoomButton.Clicked += _zoomButton_TouchUpInside;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _zoomButton.Clicked -= _zoomButton_TouchUpInside;
         }
     }
 }

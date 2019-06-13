@@ -152,7 +152,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             {
                 case GeometryType.Point:
                 case GeometryType.Multipoint:
-                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, GetRandomColor(),4));
+                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, GetRandomColor(), 4));
                 case GeometryType.Polygon:
                 case GeometryType.Envelope:
                     return new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, GetRandomColor(180), null));
@@ -186,14 +186,13 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             _chooseLayersButton = new UIBarButtonItem();
             _chooseLayersButton.Title = "Choose layer";
             _chooseLayersButton.Enabled = false;
-            _chooseLayersButton.Clicked += ShowLayerOptions;
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(_toggleAxisOrderSwitch),
-                new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace) { Width = 8 }, 
+                new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace) {Width = 8},
                 new UIBarButtonItem(axisOrderLabel),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _chooseLayersButton
@@ -228,6 +227,22 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
         {
             base.ViewDidLoad();
             Initialize();
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _chooseLayersButton.Clicked += ShowLayerOptions;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _chooseLayersButton.Clicked -= ShowLayerOptions;
         }
     }
 }

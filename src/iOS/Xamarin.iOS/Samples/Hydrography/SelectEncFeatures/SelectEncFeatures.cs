@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
         "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.")]
     public class SelectEncFeatures : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public SelectEncFeatures()
@@ -80,9 +80,6 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
 
                 // Set the viewpoint
                 _myMapView.SetViewpoint(new Viewpoint(fullExtent));
-
-                // Subscribe to tap events (in order to use them to identify and select features).
-                _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
             }
             catch (Exception e)
             {
@@ -174,6 +171,22 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
         }
     }
 }

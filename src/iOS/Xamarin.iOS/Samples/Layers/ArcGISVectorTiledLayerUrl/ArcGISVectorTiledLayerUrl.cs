@@ -26,8 +26,9 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
         "")]
     public class ArcGISVectorTiledLayerUrl : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
+        private UIBarButtonItem _chooseLayerButton;
 
         // Dictionary maps layer names to URLs.
         private readonly Dictionary<string, Uri> _layerUrls = new Dictionary<string, Uri>
@@ -74,7 +75,7 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
             var popoverPresentationController = layerSelectionAlert.PopoverPresentationController;
             if (popoverPresentationController != null)
             {
-                popoverPresentationController.BarButtonItem = (UIBarButtonItem)sender;
+                popoverPresentationController.BarButtonItem = (UIBarButtonItem) sender;
             }
 
             // Show the alert.
@@ -104,12 +105,15 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _chooseLayerButton = new UIBarButtonItem();
+            _chooseLayerButton.Title = "Choose a layer";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Choose a layer", UIBarButtonItemStyle.Plain, LayerSelectionButtonClick),
+                _chooseLayerButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -128,6 +132,22 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _chooseLayerButton.Clicked += LayerSelectionButtonClick;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _chooseLayerButton.Clicked -= LayerSelectionButtonClick;
         }
     }
 }

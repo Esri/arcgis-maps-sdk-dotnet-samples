@@ -28,9 +28,10 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         "")]
     public class RasterRenderingRule : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UILabel _selectionLabel;
+        private UIBarButtonItem _changeRuleButton;
 
         // Hold a reference to a read-only list for the various rendering rules of the image service raster.
         private IReadOnlyList<RenderingRuleInfo> _renderRuleInfos;
@@ -140,12 +141,15 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _changeRuleButton = new UIBarButtonItem();
+            _changeRuleButton.Title = "Change rendering rule";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Change rendering rule", UIBarButtonItemStyle.Plain, ChangeRenderingRule_Clicked),
+                _changeRuleButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -180,6 +184,22 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
                 _selectionLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _selectionLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _changeRuleButton.Clicked += ChangeRenderingRule_Clicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _changeRuleButton.Clicked -= ChangeRenderingRule_Clicked;
         }
     }
 }

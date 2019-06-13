@@ -28,8 +28,9 @@ namespace ArcGISRuntime.Samples.ConvexHullList
         "Analysis", "ConvexHull", "GeometryEngine")]
     public class ConvexHullList : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
+        private UIBarButtonItem _convexHullButton;
 
         // Graphics overlay to display the graphics.
         private GraphicsOverlay _graphicsOverlay;
@@ -212,12 +213,15 @@ namespace ArcGISRuntime.Samples.ConvexHullList
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _convexHullButton = new UIBarButtonItem();
+            _convexHullButton.Title = "Create convex hull";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Create convex hull", UIBarButtonItemStyle.Plain, CreateConvexHull_Click),
+                _convexHullButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -236,6 +240,22 @@ namespace ArcGISRuntime.Samples.ConvexHullList
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _convexHullButton.Clicked += CreateConvexHull_Click;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _convexHullButton.Clicked -= CreateConvexHull_Click;
         }
     }
 }

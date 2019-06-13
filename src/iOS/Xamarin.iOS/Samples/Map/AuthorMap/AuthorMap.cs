@@ -31,8 +31,12 @@ namespace ArcGISRuntime.Samples.AuthorMap
         "1. Pan and zoom to the extent you would like for your map. \n2. Choose a basemap from the list of available basemaps. \n3. Choose one or more operational layers to include. \n4. Click 'Save ...' to apply your changes. \n5. Provide info for the new portal item, such as a Title, Description, and Tags. \n6. Click 'Save Map'. \n7. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder. \n8. You can make additional changes, update the map, and then re-save to store changes in the portal item.")]
     public class AuthorMap : UIViewController, IOAuthAuthorizeHandler
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
+        private UIBarButtonItem _newMapButton;
+        private UIBarButtonItem _basemapButton;
+        private UIBarButtonItem _layersButton;
+        private UIBarButtonItem _saveButton;
 
         // Map metadata.
         private string _title = "My new map";
@@ -72,6 +76,9 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         // URL used by the server for authorization.
         private const string AuthorizeUrl = "https://www.arcgis.com/sharing/oauth2/authorize";
+
+        // Hold a reference to the authenticator.
+        private OAuth2Authenticator _auth;
 
         public AuthorMap()
         {
@@ -336,17 +343,29 @@ namespace ArcGISRuntime.Samples.AuthorMap
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _newMapButton = new UIBarButtonItem();
+            _newMapButton.Title = "New map";
+
+            _basemapButton = new UIBarButtonItem();
+            _basemapButton.Title = "Basemap";
+
+            _layersButton = new UIBarButtonItem();
+            _layersButton.Title = "Layers";
+
+            _saveButton = new UIBarButtonItem();
+            _saveButton.Title = "Save";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("New map", UIBarButtonItemStyle.Plain, NewMapClicked),
+                _newMapButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Basemap", UIBarButtonItemStyle.Plain, ShowBasemapClicked),
+                _basemapButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Layers", UIBarButtonItemStyle.Plain, ShowLayerListClicked),
+                _layersButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Save", UIBarButtonItemStyle.Plain, SaveMapClicked)
+                _saveButton
             };
 
             _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
@@ -376,6 +395,28 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 _activityIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _activityIndicator.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _newMapButton.Clicked += NewMapClicked;
+            _basemapButton.Clicked += ShowBasemapClicked;
+            _layersButton.Clicked += ShowLayerListClicked;
+            _saveButton.Clicked += SaveMapClicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _newMapButton.Clicked -= NewMapClicked;
+            _basemapButton.Clicked -= ShowBasemapClicked;
+            _layersButton.Clicked -= ShowLayerListClicked;
+            _saveButton.Clicked -= SaveMapClicked;
         }
 
         #region OAuth helpers
@@ -453,10 +494,10 @@ namespace ArcGISRuntime.Samples.AuthorMap
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
-            OAuth2Authenticator auth = new OAuth2Authenticator(
+            _auth = new OAuth2Authenticator(
                 clientId: _appClientId,
                 scope: "",
-                authorizeUrl: new Uri(AuthorizeUrl),
+                authorizeUrl: authorizeUri,
                 redirectUrl: new Uri(_oAuthRedirectUrl))
             {
                 ShowErrors = false,
@@ -465,24 +506,26 @@ namespace ArcGISRuntime.Samples.AuthorMap
             };
 
             // Define a handler for the OAuth2Authenticator.Completed event.
-            auth.Completed += (sender, authArgs) =>
+            _auth.Completed += (o, authArgs) =>
             {
                 try
                 {
                     // Dismiss the OAuth UI when complete.
-                    DismissViewController(true, null);
+                    InvokeOnMainThread(() => { UIApplication.SharedApplication.KeyWindow.RootViewController.DismissViewController(true, null); });
 
-                    // Throw an exception if the user could not be authenticated.
-                    if (!authArgs.IsAuthenticated)
+                    // Check if the user is authenticated.
+                    if (authArgs.IsAuthenticated)
+                    {
+                        // If authorization was successful, get the user's account.
+                        Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
+
+                        // Set the result (Credential) for the TaskCompletionSource.
+                        _taskCompletionSource.SetResult(authenticatedAccount.Properties);
+                    }
+                    else
                     {
                         throw new Exception("Unable to authenticate user.");
                     }
-
-                    // If authorization was successful, get the user's account.
-                    Account authenticatedAccount = authArgs.Account;
-
-                    // Set the result (Credential) for the TaskCompletionSource.
-                    _taskCompletionSource.SetResult(authenticatedAccount.Properties);
                 }
                 catch (Exception ex)
                 {
@@ -490,28 +533,31 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     _taskCompletionSource.TrySetException(ex);
 
                     // Cancel authentication.
-                    auth.OnCancelled();
+                    _auth.OnCancelled();
                 }
             };
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
-            auth.Error += (sender, errArgs) =>
+            _auth.Error += (o, errArgs) =>
             {
+                // If the user cancels, the Error event is raised but there is no exception ... best to check first.
                 if (errArgs.Exception != null)
                 {
                     _taskCompletionSource.TrySetException(errArgs.Exception);
                 }
                 else
                 {
-                    _taskCompletionSource.TrySetException(new Exception(errArgs.Message));
+                    // Login canceled: dismiss the OAuth login.
+                    _taskCompletionSource?.TrySetCanceled();
                 }
 
                 // Cancel authentication.
-                auth.OnCancelled();
+                _auth.OnCancelled();
+                _auth = null;
             };
 
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password.
-            InvokeOnMainThread(() => { PresentViewController(auth.GetUI(), true, null); });
+            InvokeOnMainThread(() => { UIApplication.SharedApplication.KeyWindow.RootViewController.PresentViewController(_auth.GetUI(), true, null); });
 
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;

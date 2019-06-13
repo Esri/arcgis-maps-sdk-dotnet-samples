@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.RenderUniqueValues
         "")]
     public class RenderUniqueValues : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public RenderUniqueValues()

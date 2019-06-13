@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
         "1. Pan and zoom until the area you want tiles for is within the red box.\n2. Click 'Export Tiles'.\n3. Pan and zoom to see the area covered by the downloaded tiles in the preview box.")]
     public class ExportTiles : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _exportTilesButton;
         private UIActivityIndicatorView _statusIndicator;
@@ -78,9 +78,6 @@ namespace ArcGISRuntime.Samples.ExportTiles
 
                 // Add the graphics overlay to the map view.
                 _myMapView.GraphicsOverlays.Add(extentOverlay);
-
-                // Subscribe to changes in the mapview's viewpoint so the preview box can be kept in position.
-                _myMapView.ViewpointChanged += MyMapView_ViewpointChanged;
 
                 // Update the graphic - needed in case the user decides not to interact before pressing the button.
                 UpdateMapExtentGraphic();
@@ -299,7 +296,8 @@ namespace ArcGISRuntime.Samples.ExportTiles
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _exportTilesButton = new UIBarButtonItem("Export tiles", UIBarButtonItemStyle.Plain, MyExportButton_Click);
+            _exportTilesButton = new UIBarButtonItem();
+            _exportTilesButton.Title = "Export tiles";
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -319,7 +317,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
             View.AddSubviews(_myMapView, toolbar, _statusIndicator);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -335,6 +333,24 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 _statusIndicator.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _statusIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.ViewpointChanged += MyMapView_ViewpointChanged;
+            _exportTilesButton.Clicked += MyExportButton_Click;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.ViewpointChanged -= MyMapView_ViewpointChanged;
+            _exportTilesButton.Clicked -= MyExportButton_Click;
         }
     }
 }

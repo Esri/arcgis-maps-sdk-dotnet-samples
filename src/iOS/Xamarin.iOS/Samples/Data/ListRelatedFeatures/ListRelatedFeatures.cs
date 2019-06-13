@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
         "Click on a feature to identify it. Related features will be listed in the window above the map.")]
     public class ListRelatedFeatures : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UITableView _tableView;
         private NSLayoutConstraint[] _portraitConstraints;
@@ -70,9 +70,6 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
 
                 // Update the selection color.
                 _myMapView.SelectionProperties.Color = Color.Yellow;
-
-                // Listen for GeoViewTapped events.
-                _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
             }
             catch (Exception e)
             {
@@ -219,6 +216,22 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
             {
                 NSLayoutConstraint.ActivateConstraints(_portraitConstraints);
             }
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
         }
     }
 

@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
         "")]
     public class FeatureCollectionLayerFromPortal : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // Portal item Id to load features from.

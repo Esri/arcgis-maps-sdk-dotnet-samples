@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
         "")]
     public class ListGeodatabaseVersions : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private UIActivityIndicatorView _progressBar;
         private UITextView _geodatabaseListField;
 
@@ -157,7 +157,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             View.AddSubviews(_geodatabaseListField, _progressBar);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _geodatabaseListField.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _geodatabaseListField.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),

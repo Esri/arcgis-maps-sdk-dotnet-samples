@@ -48,6 +48,9 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
         private const string OAuthRedirectUrl = @"my-ags-app://auth";
 
+        // Hold a reference to the authenticator.
+        private Xamarin.Auth.OAuth2Authenticator _auth;
+
         // NOTE: to use a custom URL scheme like the one above, you need to add it to CFBundleURLSchemes in info.plist.
         // For example -
         //  <key>CFBundleURLSchemes</key>
@@ -64,12 +67,16 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
 
         public override void LoadView()
         {
+            // Create the views.
+            View = new UIView();
+
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            View = new UIView();
+            // Add the views.
             View.AddSubviews(_myMapView);
 
+            // Lay out the views.
             _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
             _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
@@ -79,8 +86,6 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            // Create the UI, setup the control references and execute initialization.
             Initialize();
         }
 
@@ -180,7 +185,7 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
-            Xamarin.Auth.OAuth2Authenticator auth = new OAuth2Authenticator(
+            _auth = new OAuth2Authenticator(
                 clientId: AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
@@ -191,7 +196,7 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
             };
 
             // Define a handler for the OAuth2Authenticator.Completed event.
-            auth.Completed += (sender, authArgs) =>
+            _auth.Completed += (object sender, AuthenticatorCompletedEventArgs args) =>
             {
                 try
                 {
@@ -199,13 +204,13 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
                     this.DismissViewController(true, null);
 
                     // Throw an exception if the user could not be authenticated.
-                    if (!authArgs.IsAuthenticated)
+                    if (!args.IsAuthenticated)
                     {
                         throw new Exception("Unable to authenticate user.");
                     }
 
                     // If authorization was successful, get the user's account.
-                    Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
+                    Xamarin.Auth.Account authenticatedAccount = args.Account;
 
                     // Set the result (Credential) for the TaskCompletionSource.
                     _taskCompletionSource.SetResult(authenticatedAccount.Properties);
@@ -218,20 +223,20 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
             };
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
-            auth.Error += (sndr, errArgs) =>
+            _auth.Error += (object sender, AuthenticatorErrorEventArgs args) =>
             {
-                if (errArgs.Exception != null)
+                if (args.Exception != null)
                 {
-                    _taskCompletionSource.TrySetException(errArgs.Exception);
+                    _taskCompletionSource.TrySetException(args.Exception);
                 }
                 else
                 {
-                    _taskCompletionSource.TrySetException(new Exception(errArgs.Message));
+                    _taskCompletionSource.TrySetException(new Exception(args.Message));
                 }
             };
 
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password.
-            InvokeOnMainThread(() => { this.PresentViewController(auth.GetUI(), true, null); });
+            InvokeOnMainThread(() => { this.PresentViewController(_auth.GetUI(), true, null); });
 
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;

@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         "Featured")]
     public class ListTransformations : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private UILabel _inWkidLabel;
         private UILabel _outWkidLabel;
         private UIPickerView _transformationsPicker;
@@ -97,6 +97,9 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
         private void MyMap_Loaded(object sender, EventArgs e)
         {
+            // Unsubscribe from event.
+            ((Map) sender).Loaded -= MyMap_Loaded;
+
             // Get the map's spatial reference.
             SpatialReference mapSpatialReference = ((Map) sender).SpatialReference;
 
@@ -139,7 +142,12 @@ namespace ArcGISRuntime.Samples.ListTransformations
             // Create a picker model to display the updated transformations.
             TransformationsPickerModel pickerModel = new TransformationsPickerModel(transformations, defaultTransform);
 
-            // Handle the selection event to work with the selected transformation.
+            // Handle the selection event to work with the selected transformation, avoiding duplicate subscriptions.
+            if (_transformationsPicker?.Model != null && _transformationsPicker.Model is TransformationsPickerModel tm)
+            {
+                tm.TransformationSelected -= TransformationsPicker_TransformationSelected;
+            }
+
             pickerModel.TransformationSelected += TransformationsPicker_TransformationSelected;
 
             // Apply the model to the picker.
@@ -238,7 +246,6 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
             _useExtentSwitch = new UISwitch();
             _useExtentSwitch.TranslatesAutoresizingMaskIntoConstraints = false;
-            _useExtentSwitch.ValueChanged += UseExtentSwitch_ValueChanged;
             UILabel useExtentSwitchLabel = new UILabel();
             useExtentSwitchLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             useExtentSwitchLabel.Text = "Use extent";
@@ -267,7 +274,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             View.AddSubviews(_outerStackView);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _outerStackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _outerStackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
@@ -300,6 +307,27 @@ namespace ArcGISRuntime.Samples.ListTransformations
                 _outerStackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor).Active = true;
                 _outerStackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor).Active = true;
                 _outerStackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor).Active = true;
+            }
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _useExtentSwitch.ValueChanged += UseExtentSwitch_ValueChanged;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _useExtentSwitch.ValueChanged -= UseExtentSwitch_ValueChanged;
+
+            if (_transformationsPicker?.Model != null && _transformationsPicker.Model is TransformationsPickerModel tm)
+            {
+                tm.TransformationSelected -= TransformationsPicker_TransformationSelected;
             }
         }
     }

@@ -408,7 +408,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
         private const string CellId = "KmlContentCell";
 
         // Hold a reference to the owning view controller; this will be the active instance of ListKmlContents.
-        private ListKmlContents Owner { get; }
+        [Weak] public ListKmlContents Owner;
 
         public LayerListSource(List<LayerDisplayVM> items, ListKmlContents owner)
         {

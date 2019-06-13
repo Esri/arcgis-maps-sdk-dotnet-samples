@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
         "")]
     public class SceneLayerSelection : UIViewController
     {
-        // Hold a reference to the SceneView.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
 
         public SceneLayerSelection()
@@ -64,9 +64,6 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
 
                 // Set the viewpoint with the camera.
                 _mySceneView.SetViewpointCamera(viewCamera);
-
-                // Listen for taps.
-                _mySceneView.GeoViewTapped += SceneViewTapped;
             }
             catch (Exception e)
             {
@@ -133,6 +130,22 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _mySceneView.GeoViewTapped += SceneViewTapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _mySceneView.GeoViewTapped -= SceneViewTapped;
         }
     }
 }

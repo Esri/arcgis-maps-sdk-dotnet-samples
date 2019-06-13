@@ -15,7 +15,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
 {
     public class DateSelectionViewController : UIViewController
     {
-        // Hold references to the UI controls
+        // Hold references to UI controls.
         public readonly UIDatePicker StartPicker;
         public readonly UIDatePicker EndPicker;
         private UIStackView _outerStackView;
@@ -49,7 +49,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             StartPicker.TranslatesAutoresizingMaskIntoConstraints = false;
             StartPicker.Mode = UIDatePickerMode.Date;
 
-            UIStackView startStack = new UIStackView(new UIView[] { startLabel, StartPicker });
+            UIStackView startStack = new UIStackView(new UIView[] {startLabel, StartPicker});
             startStack.TranslatesAutoresizingMaskIntoConstraints = false;
             startStack.Axis = UILayoutConstraintAxis.Vertical;
             _outerStackView.AddArrangedSubview(startStack);
@@ -61,22 +61,22 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             EndPicker.TranslatesAutoresizingMaskIntoConstraints = false;
             EndPicker.Mode = UIDatePickerMode.Date;
 
-            UIStackView endStack = new UIStackView(new UIView[] { endLabel, EndPicker });
+            UIStackView endStack = new UIStackView(new UIView[] {endLabel, EndPicker});
             endStack.TranslatesAutoresizingMaskIntoConstraints = false;
             endStack.Axis = UILayoutConstraintAxis.Vertical;
             _outerStackView.AddArrangedSubview(endStack);
 
             UIView spacer = new UIView();
             spacer.TranslatesAutoresizingMaskIntoConstraints = false;
-            spacer.SetContentHuggingPriority((float)UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Vertical);
-            spacer.SetContentHuggingPriority((float)UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
+            spacer.SetContentHuggingPriority((float) UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Vertical);
+            spacer.SetContentHuggingPriority((float) UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
             _outerStackView.AddArrangedSubview(spacer);
 
             // Add the views.
             View.AddSubview(_outerStackView);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _outerStackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 8),
                 _outerStackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -8),

@@ -27,10 +27,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
         "")]
     public class FeatureLayerRenderingModeMap : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _staticMapView;
         private MapView _dynamicMapView;
         private UIStackView _stackView;
+        private UIBarButtonItem _zoomButton;
 
         // Hold references to the two views.
         private Viewpoint _zoomOutPoint;
@@ -133,12 +134,15 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
             _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
             _stackView.Distribution = UIStackViewDistribution.FillEqually;
 
+            _zoomButton = new UIBarButtonItem();
+            _zoomButton.Title = "Zoom";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Zoom", UIBarButtonItemStyle.Plain, OnZoomClick),
+                _zoomButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -198,6 +202,22 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
             {
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _zoomButton.Clicked += OnZoomClick;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _zoomButton.Clicked -= OnZoomClick;
         }
     }
 }

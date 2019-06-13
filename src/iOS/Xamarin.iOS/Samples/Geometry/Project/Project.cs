@@ -45,9 +45,6 @@ namespace ArcGISRuntimeXamarin.Samples.Project
             overlay.Renderer = new SimpleRenderer(markerSymbol);
             _myMapView.GraphicsOverlays.Add(overlay);
 
-            // Respond to user taps.
-            _myMapView.GeoViewTapped += MapView_Tapped;
-
             // Zoom to Minneapolis.
             Envelope startingEnvelope = new Envelope(-10995912.335747, 5267868.874421, -9880363.974046, 5960699.183877,
                 SpatialReferences.WebMercator);
@@ -101,6 +98,22 @@ namespace ArcGISRuntimeXamarin.Samples.Project
         {
             base.ViewDidLoad();
             Initialize();
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MapView_Tapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MapView_Tapped;
         }
     }
 }

@@ -34,7 +34,7 @@ namespace ArcGISRuntime.Samples.FindAddress
     [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public class FindAddress : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UISearchBar _addressSearchBar;
 
@@ -233,15 +233,11 @@ namespace ArcGISRuntime.Samples.FindAddress
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            // Enable tap-for-callout pattern on results.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
             _addressSearchBar = new UISearchBar();
             _addressSearchBar.TranslatesAutoresizingMaskIntoConstraints = false;
             _addressSearchBar.UserInteractionEnabled = false;
             _addressSearchBar.ShowsSearchResultsButton = true;
-            _addressSearchBar.ListButtonClicked += AddressSearch_ListButtonClicked;
-            _addressSearchBar.SearchButtonClicked += AddressSearchBar_Clicked;
 
             // Add the views.
             View.AddSubviews(_myMapView, _addressSearchBar);
@@ -258,6 +254,26 @@ namespace ArcGISRuntime.Samples.FindAddress
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
                 _myMapView.TopAnchor.ConstraintEqualTo(_addressSearchBar.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _addressSearchBar.ListButtonClicked += AddressSearch_ListButtonClicked;
+            _addressSearchBar.SearchButtonClicked += AddressSearchBar_Clicked;
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
+            _addressSearchBar.ListButtonClicked -= AddressSearch_ListButtonClicked;
+            _addressSearchBar.SearchButtonClicked -= AddressSearchBar_Clicked;
         }
     }
 }

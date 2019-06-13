@@ -24,8 +24,11 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         "")]
     public class ManageBookmarks : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
+        private UIBarButtonItem _bookmarksButton;
+        private UIBarButtonItem _addButton;
+        private UIAlertController _textInputAlertController;
 
         public ManageBookmarks()
         {
@@ -87,44 +90,46 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private void OnAddBookmarksButtonClicked(object sender, EventArgs e)
         {
             // Create Alert for naming the bookmark.
-            var textInputAlertController = UIAlertController.Create("Provide the bookmark name", "", UIAlertControllerStyle.Alert);
-
-            // Add Text Input.
-            textInputAlertController.AddTextField(textField => { });
-
-            // Add Actions.
-            var cancelAction = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null);
-            var okayAction = UIAlertAction.Create("Done", UIAlertActionStyle.Default, alertAction =>
+            if (_textInputAlertController == null)
             {
-                // Get the name from the text field.
-                string name = textInputAlertController.TextFields[0].Text;
+                _textInputAlertController = UIAlertController.Create("Provide the bookmark name", "", UIAlertControllerStyle.Alert);
 
-                // Exit if the name is empty.
-                if (String.IsNullOrEmpty(name))
-                    return;
+                // Add Text Input.
+                _textInputAlertController.AddTextField(textField => { });
 
-                // Check to see if there is a bookmark with same name.
-                bool doesNameExist = _myMapView.Map.Bookmarks.Any(b => b.Name == name);
-                if (doesNameExist)
-                    return;
-
-                // Create a new bookmark.
-                Bookmark myBookmark = new Bookmark
+                void HandleAlertAction(UIAlertAction action)
                 {
-                    Name = name,
-                    // Get the current viewpoint from map and assign it to bookmark .
-                    Viewpoint = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)
-                };
+                    // Get the name from the text field.
+                    string name = _textInputAlertController.TextFields[0].Text;
 
-                // Add the bookmark to bookmark collection of the map.
-                _myMapView.Map.Bookmarks.Add(myBookmark);
-            });
+                    // Exit if the name is empty.
+                    if (String.IsNullOrEmpty(name))
+                        return;
 
-            textInputAlertController.AddAction(cancelAction);
-            textInputAlertController.AddAction(okayAction);
+                    // Check to see if there is a bookmark with same name.
+                    bool doesNameExist = _myMapView.Map.Bookmarks.Any(b => b.Name == name);
+                    if (doesNameExist)
+                        return;
+
+                    // Create a new bookmark.
+                    Bookmark myBookmark = new Bookmark
+                    {
+                        Name = name,
+                        // Get the current viewpoint from map and assign it to bookmark .
+                        Viewpoint = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)
+                    };
+
+                    // Add the bookmark to bookmark collection of the map.
+                    _myMapView.Map.Bookmarks.Add(myBookmark);
+                }
+
+                // Add Actions.
+                _textInputAlertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
+                _textInputAlertController.AddAction(UIAlertAction.Create("Done", UIAlertActionStyle.Default, HandleAlertAction));
+            }
 
             // Show the alert.
-            PresentViewController(textInputAlertController, true, null);
+            PresentViewController(_textInputAlertController, true, null);
         }
 
         private void OnShowBookmarksButtonClicked(object sender, EventArgs e)
@@ -157,13 +162,18 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _bookmarksButton = new UIBarButtonItem();
+            _bookmarksButton.Title = "Bookmarks";
+
+            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add);
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("Bookmarks", UIBarButtonItemStyle.Plain, OnShowBookmarksButtonClicked),
+                _bookmarksButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem(UIBarButtonSystemItem.Add, OnAddBookmarksButtonClicked)
+                _addButton
             };
 
             // Add the views.
@@ -181,6 +191,27 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _bookmarksButton.Clicked += OnShowBookmarksButtonClicked;
+            _addButton.Clicked += OnAddBookmarksButtonClicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _bookmarksButton.Clicked -= OnShowBookmarksButtonClicked;
+            _addButton.Clicked -= OnAddBookmarksButtonClicked;
+
+            // Remove the reference to the alert controller, preventing a memory leak.
+            _textInputAlertController = null;
         }
     }
 }

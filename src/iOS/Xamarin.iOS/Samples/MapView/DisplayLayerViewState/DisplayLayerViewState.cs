@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         "")]
     public class DisplayLayerViewState : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UITableView _tableView;
 
@@ -103,7 +103,6 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             // Create the table view source and pass the list of models to it.
             _tableView.Source = new LayerViewStatusTableSource(_layerStatusModels);
 
-            // Event for layer view state changed.
             _myMapView.LayerViewStateChanged += OnLayerViewStateChanged;
 
             // Provide used Map to the MapView.
@@ -126,15 +125,20 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
 
         public override void LoadView()
         {
-            _myMapView = new MapView();
-            _tableView = new UITableView();
-            _tableView.RowHeight = 40;
-
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
-            _tableView.TranslatesAutoresizingMaskIntoConstraints = false;
-
+            // Create the views.
             View = new UIView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _tableView = new UITableView();
+            _tableView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _tableView.RowHeight = 40;
+            
+            // Add the views.
             View.AddSubviews(_myMapView, _tableView);
+
+            // Layout happens in TraitCollectionDidChange.
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
@@ -180,6 +184,23 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             _myMapView.LeadingAnchor.ConstraintEqualTo(_tableView.TrailingAnchor).Active = true;
             _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor).Active = true;
             _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            
+            // Subscribe to events, removing any existing subscriptions.
+            _myMapView.LayerViewStateChanged -= OnLayerViewStateChanged;
+            _myMapView.LayerViewStateChanged += OnLayerViewStateChanged;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.LayerViewStateChanged -= OnLayerViewStateChanged;
         }
     }
 

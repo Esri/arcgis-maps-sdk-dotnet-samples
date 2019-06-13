@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
         "")]
     public class ServiceFeatureTableManualCache : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // Hold a reference to the service feature table.
@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
             };
 
             // When feature table is loaded, populate data.
-            _incidentsFeatureTable.LoadStatusChanged += OnLoadedPopulateData;
+            _incidentsFeatureTable.Loaded += OnLoadedPopulateData;
 
             // Create FeatureLayer that uses the created table.
             FeatureLayer incidentsFeatureLayer = new FeatureLayer(_incidentsFeatureTable);
@@ -68,11 +68,10 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
             _myMapView.Map = myMap;
         }
 
-        private async void OnLoadedPopulateData(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
+        private async void OnLoadedPopulateData(object sender, EventArgs e)
         {
-            // If layer isn't loaded, do nothing.
-            if (e.Status != Esri.ArcGISRuntime.LoadStatus.Loaded)
-                return;
+            // Unsubscribe from event.
+            _incidentsFeatureTable.Loaded -= OnLoadedPopulateData;
 
             // Create new query object that contains parameters to query specific request types.
             QueryParameters queryParameters = new QueryParameters

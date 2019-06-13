@@ -43,11 +43,14 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         // A list of all service request comment records (non-spatial features).
         private readonly List<ArcGISFeature> _serviceRequestComments = new List<ArcGISFeature>();
 
+        // Hold a reference to the comments table source.
+        private ServiceRequestCommentsTableSource _commentsTableSource;
+
         public MapImageLayerTables()
         {
             Title = "Query map image layer tables";
         }
-        
+
         private async void Initialize()
         {
             // Create a new Map with a vector streets basemap.
@@ -90,13 +93,13 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
                 }
 
                 // Create the table view source that uses the list of features.
-                ServiceRequestCommentsTableSource commentsTableSource = new ServiceRequestCommentsTableSource(_serviceRequestComments);
-
-                // Handle a new selection in the table source.
-                commentsTableSource.ServiceRequestCommentSelected += CommentsTableSource_ServiceRequestCommentSelected;
+                _commentsTableSource = new ServiceRequestCommentsTableSource(_serviceRequestComments);
 
                 // Assign the table view source to the table view control.
-                _tableView.Source = commentsTableSource;
+                _tableView.Source = _commentsTableSource;
+
+                // Subscribe to event.
+                _commentsTableSource.ServiceRequestCommentSelected += CommentsTableSource_ServiceRequestCommentSelected;
 
                 // Create a graphics overlay to show selected features and add it to the map view.
                 _selectedFeaturesOverlay = new GraphicsOverlay();
@@ -204,7 +207,8 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             // Add the views.
             View.AddSubviews(_stackView);
 
-            NSLayoutConstraint.ActivateConstraints(new []
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -227,6 +231,27 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
                 // Update layout for portrait.
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events, removing any existing subscriptions.
+            if (_commentsTableSource != null)
+            {
+                // Avoid duplicate subscription.
+                _commentsTableSource.ServiceRequestCommentSelected -= CommentsTableSource_ServiceRequestCommentSelected;
+                _commentsTableSource.ServiceRequestCommentSelected += CommentsTableSource_ServiceRequestCommentSelected;
+            }
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _commentsTableSource.ServiceRequestCommentSelected -= CommentsTableSource_ServiceRequestCommentSelected;
         }
     }
 

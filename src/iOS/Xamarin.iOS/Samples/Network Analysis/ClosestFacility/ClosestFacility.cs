@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
         "Tap to find the route to the nearest hospital.")]
     public class ClosestFacility : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // Holds locations of hospitals around San Diego.
@@ -64,9 +64,6 @@ namespace ArcGISRuntime.Samples.ClosestFacility
 
         private async void Initialize()
         {
-            // Hook up the DrawStatusChanged event.
-            _myMapView.DrawStatusChanged += OnDrawStatusChanged;
-
             // Construct the map and set the MapView.Map property.
             Map map = new Map(Basemap.CreateLightGrayCanvasVector());
             _myMapView.Map = map;
@@ -122,18 +119,6 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             catch (Exception e)
             {
                 new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
-            }
-        }
-
-        private void OnDrawStatusChanged(object sender, DrawStatusChangedEventArgs e)
-        {
-            if (e.Status == DrawStatus.Completed)
-            {
-                // Link the action of tapping on the map with the MyMapView_GeoViewTapped method.
-                _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
-
-                // Remove this method from DrawStatusChanged events.
-                _myMapView.DrawStatusChanged -= OnDrawStatusChanged;
             }
         }
 
@@ -237,6 +222,22 @@ namespace ArcGISRuntime.Samples.ClosestFacility
                 helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 helpLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
         }
     }
 }

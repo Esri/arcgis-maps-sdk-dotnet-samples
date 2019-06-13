@@ -33,6 +33,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
         // Hold references to UI controls.
         private MapView _myMapView;
         private BlendSettingsController _settingsVC;
+        private UIBarButtonItem _updateButton;
 
         public ChangeBlendRenderer()
         {
@@ -109,12 +110,15 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _updateButton = new UIBarButtonItem();
+            _updateButton.Title = "Update renderer";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Update renderer", UIBarButtonItemStyle.Plain, UpdateRenderer_Clicked)
+                _updateButton
             };
 
             // Add the views.
@@ -134,6 +138,22 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
             });
         }
 
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _updateButton.Clicked += UpdateRenderer_Clicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _updateButton.Clicked -= UpdateRenderer_Clicked;
+        }
+
         // Force popover to display on iPhone.
         private class PpDelegate : UIPopoverPresentationControllerDelegate
         {
@@ -147,7 +167,7 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 
     public class BlendSettingsController : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private readonly Map _map;
         private UISegmentedControl _slopeTypesPicker;
         private UISegmentedControl _colorRampsPicker;

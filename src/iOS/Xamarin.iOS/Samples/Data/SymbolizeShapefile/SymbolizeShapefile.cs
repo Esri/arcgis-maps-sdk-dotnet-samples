@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
         "Click the button to switch renderers. ")]
     public class SymbolizeShapefile : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _changeRendererButton;
 
@@ -96,7 +96,7 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
             }
         }
 
-        private void Button_Clicked(object sender, System.EventArgs e)
+        private void ChangeRenderer_Clicked(object sender, System.EventArgs e)
         {
             // Toggle the renderer.
             if (_shapefileFeatureLayer.Renderer == _defaultRenderer)
@@ -123,8 +123,9 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _changeRendererButton =
-                new UIBarButtonItem("Change renderer", UIBarButtonItemStyle.Plain, Button_Clicked) {Enabled = false};
+            _changeRendererButton = new UIBarButtonItem();
+            _changeRendererButton.Title = "Change renderer";
+            _changeRendererButton.Enabled = false;
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -150,6 +151,22 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _changeRendererButton.Clicked += ChangeRenderer_Clicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _changeRendererButton.Clicked -= ChangeRenderer_Clicked;
         }
     }
 }

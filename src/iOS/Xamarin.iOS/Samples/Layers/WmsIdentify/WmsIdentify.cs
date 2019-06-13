@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         "Tap to identify a feature. Note: the service returns HTML regardless of whether there was an identify result. See the Forms implementation for an example heuristic for identifying empty results.")]
     public class WmsIdentify : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private WKWebView _webView;
         private UIStackView _stackView;
@@ -65,9 +65,6 @@ namespace ArcGISRuntime.Samples.WmsIdentify
 
                 // Zoom to the layer's extent.
                 _myMapView.SetViewpoint(new Viewpoint(_wmsLayer.FullExtent));
-
-                // Subscribe to tap events - starting point for feature identification.
-                _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
             }
             catch (Exception e)
             {
@@ -154,6 +151,22 @@ namespace ArcGISRuntime.Samples.WmsIdentify
                 // Portrait
                 _stackView.Axis = UILayoutConstraintAxis.Vertical;
             }
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= _myMapView_GeoViewTapped;
         }
     }
 }

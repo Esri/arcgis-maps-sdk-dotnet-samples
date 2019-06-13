@@ -37,6 +37,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
 
         // Constants for the service URL and layer name.
         private const string ServiceUrl = "https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer?service=wfs&request=getcapabilities";
+
         // Note that the layer name is defined by the service. The layer name can be accessed via WfsLayerInfo.Name. 
         private const string LayerName = "Seattle_Downtown_Features:Buildings";
 
@@ -71,13 +72,12 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
                 // Add the layer to the map.
                 _myMapView.Map.OperationalLayers.Add(wfsFeatureLayer);
 
-                // Use the navigation completed event to populate the table with the features needed for the current extent.
-                _myMapView.NavigationCompleted += MapView_NavigationCompleted;
-
                 // Zoom to a small area within the dataset by default.
                 MapPoint topLeft = new MapPoint(-122.341581, 47.617207, SpatialReferences.Wgs84);
                 MapPoint bottomRight = new MapPoint(-122.332662, 47.613758, SpatialReferences.Wgs84);
                 await _myMapView.SetViewpointGeometryAsync(new Envelope(topLeft, bottomRight));
+
+                UpdateForExtent();
             }
             catch (Exception e)
             {
@@ -86,7 +86,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
             }
         }
 
-        private async void MapView_NavigationCompleted(object sender, EventArgs e)
+        private void MapView_NavigationCompleted(object sender, EventArgs e) => UpdateForExtent();
+
+        private async void UpdateForExtent()
         {
             // Show the loading bar.
             _loadingProgressBar.StartAnimating();
@@ -127,7 +129,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
 
             _loadingProgressBar = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
             {
-                HidesWhenStopped = true, 
+                HidesWhenStopped = true,
                 BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
@@ -147,7 +149,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
             View.AddSubviews(_myMapView, helpLabel, _loadingProgressBar);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
@@ -168,6 +170,22 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
         {
             base.ViewDidLoad();
             Initialize();
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.NavigationCompleted += MapView_NavigationCompleted;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.NavigationCompleted -= MapView_NavigationCompleted;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
         "")]
     public class IdentifyGraphics : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // Graphics overlay to host graphics.
@@ -45,9 +45,6 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
 
             // Create graphics overlay with graphics.
             CreateOverlay();
-
-            // Respond to taps on the map.
-            _myMapView.GeoViewTapped += OnMapViewTapped;
         }
 
         private void CreateOverlay()
@@ -133,6 +130,22 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += OnMapViewTapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= OnMapViewTapped;
         }
     }
 }

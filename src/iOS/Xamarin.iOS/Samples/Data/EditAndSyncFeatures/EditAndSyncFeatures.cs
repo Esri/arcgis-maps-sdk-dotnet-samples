@@ -37,7 +37,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         "1. Pan and zoom to the area you would like to download point features for, ensuring that all point features are within the rectangle.\n2. Tap the 'generate' button. This will start the process of generating the offline geodatabase.\n3. Tap on a point feature within the area of the generated geodatabase. Then tap on the screen (anywhere within the range of the local geodatabase) to move the point to that location.\n4. Tap the 'Sync Geodatabase' button to synchronize the changes back to the feature service.\n\n Note that the basemap for this sample is downloaded from ArcGIS Online automatically.")]
     public class EditAndSyncFeatures : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIProgressView _progressBar;
         private UILabel _helpLabel;
@@ -66,6 +66,10 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
 
         // Hold a reference to the generated geodatabase.
         private Geodatabase _resultGdb;
+
+        // Hold references to the jobs.
+        private SyncGeodatabaseJob _gdbSyncJob;
+        private GenerateGeodatabaseJob _gdbGenJob;
 
         public EditAndSyncFeatures()
         {
@@ -102,12 +106,6 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
 
                 // Add graphics overlay to the map view.
                 _myMapView.GraphicsOverlays.Add(extentOverlay);
-
-                // Set up an event handler for 'tapped' events.
-                _myMapView.GeoViewTapped += GeoViewTapped;
-
-                // Set up an event handler for when the viewpoint (extent) changes.
-                _myMapView.ViewpointChanged += MapViewExtentChanged;
 
                 // Create a task for generating a geodatabase (GeodatabaseSyncTask).
                 _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
@@ -243,6 +241,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                             // Update the help label.
                             _helpLabel.Text = "3. Tap on the map to move the point";
                         }
+
                         break;
                 }
             }
@@ -315,30 +314,25 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
 
             // Create a generate geodatabase job.
-            GenerateGeodatabaseJob generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
+            _gdbGenJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
-            // Handle the progress changed event with an inline (lambda) function to show the progress bar.
-            generateGdbJob.ProgressChanged += (sender, e) =>
-            {
-                // Get the job.
-                GenerateGeodatabaseJob job = (GenerateGeodatabaseJob) sender;
-
-                // Update the progress bar.
-                UpdateProgressBar(job.Progress);
-            };
+            // Handle the progress changed event.
+            _gdbGenJob.ProgressChanged += GenerateGdbJob_ProgressChanged;
 
             // Show the progress bar.
             _progressBar.Hidden = false;
 
             // Start the job.
-            generateGdbJob.Start();
+            _gdbGenJob.Start();
 
             // Get the result.
-            _resultGdb = await generateGdbJob.GetResultAsync();
+            _resultGdb = await _gdbGenJob.GetResultAsync();
 
             // Do the rest of the work.
-            HandleGenerationCompleted(generateGdbJob);
+            HandleGenerationCompleted(_gdbGenJob);
         }
+
+        private void GenerateGdbJob_ProgressChanged(object sender, EventArgs e) => UpdateProgressBar(_gdbGenJob.Progress);
 
         private async void HandleGenerationCompleted(GenerateGeodatabaseJob job)
         {
@@ -435,23 +429,25 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             }
 
             // Create job.
-            SyncGeodatabaseJob job = _gdbSyncTask.SyncGeodatabase(parameters, _resultGdb);
+            _gdbSyncJob = _gdbSyncTask.SyncGeodatabase(parameters, _resultGdb);
 
             // Subscribe to progress updates.
-            job.ProgressChanged += (o, e) =>
-            {
-                // Update the progress bar.
-                UpdateProgressBar(job.Progress);
-            };
+            _gdbSyncJob.ProgressChanged += Job_ProgressChanged;
 
             // Start the sync.
-            job.Start();
+            _gdbSyncJob.Start();
 
             // Get the result.
-            await job.GetResultAsync();
+            await _gdbSyncJob.GetResultAsync();
 
             // Do the rest of the work.
-            HandleSyncCompleted(job);
+            HandleSyncCompleted(_gdbSyncJob);
+        }
+
+        private void Job_ProgressChanged(object sender, EventArgs e)
+        {
+            // Update the progress bar.
+            UpdateProgressBar(_gdbSyncJob.Progress);
         }
 
         private void HandleSyncCompleted(SyncGeodatabaseJob job)
@@ -558,9 +554,11 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             // Create the views.
             View = new UIView {BackgroundColor = UIColor.White};
 
-            _generateButton = new UIBarButtonItem("Generate", UIBarButtonItemStyle.Plain, GenerateButton_Clicked);
+            _generateButton = new UIBarButtonItem();
+            _generateButton.Title = "Generate";
             _generateButton.Enabled = false;
-            _syncButton = new UIBarButtonItem("Synchronize", UIBarButtonItemStyle.Plain, SyncButton_Click);
+            _syncButton = new UIBarButtonItem();
+            _syncButton.Title = "Synchronize";
             _syncButton.Enabled = false;
 
             UIToolbar toolbar = new UIToolbar();
@@ -594,7 +592,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             View.AddSubviews(_myMapView, _helpLabel, _progressBar, toolbar);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
@@ -615,6 +613,34 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 _progressBar.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
                 _progressBar.HeightAnchor.ConstraintEqualTo(8)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += GeoViewTapped;
+            _myMapView.ViewpointChanged += MapViewExtentChanged;
+
+            if (_gdbSyncJob != null) _gdbSyncJob.ProgressChanged -= Job_ProgressChanged;
+            if (_gdbGenJob != null) _gdbGenJob.ProgressChanged -= GenerateGdbJob_ProgressChanged;
+
+            _generateButton.Clicked += GenerateButton_Clicked;
+            _syncButton.Clicked += SyncButton_Click;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= GeoViewTapped;
+            _myMapView.ViewpointChanged -= MapViewExtentChanged;
+            if (_gdbSyncJob != null) _gdbSyncJob.ProgressChanged -= Job_ProgressChanged;
+            if (_gdbGenJob != null) _gdbGenJob.ProgressChanged -= GenerateGdbJob_ProgressChanged;
+            _generateButton.Clicked -= GenerateButton_Clicked;
+            _syncButton.Clicked -= SyncButton_Click;
         }
     }
 }

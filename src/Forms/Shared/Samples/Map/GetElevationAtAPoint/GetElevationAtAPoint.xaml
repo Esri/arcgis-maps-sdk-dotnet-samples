@@ -1,9 +1,12 @@
 ﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
              x:Class="ArcGISRuntimeXamarin.Samples.GetElevationAtAPoint.GetElevationAtAPoint">
-  <Grid>
-    <esriUI:SceneView x:Name="MySceneView"/>
-  </Grid>
+    <StackLayout Orientation="Vertical">
+        <Label Text="Tap to find the elevation for a point.d"
+               VerticalOptions="Start" />
+        <esriUI:SceneView x:Name="MySceneView"
+                          VerticalOptions="FillAndExpand" />
+    </StackLayout>
 </ContentPage>

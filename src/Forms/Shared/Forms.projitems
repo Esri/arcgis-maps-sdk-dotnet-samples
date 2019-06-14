@@ -11,6 +11,7 @@
   <ItemGroup>
     <!-- Screenshots -->
 	<None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\OfflineRouting\OfflineRouting.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
@@ -181,6 +182,11 @@
 		<DependentUpon>OfflineRouting.xaml</DependentUpon>
 		<SubType>Code</SubType>
 	</Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\FakeLocationDataSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml.cs">
+      <DependentUpon>ShowLocationHistory.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.xaml.cs">
       <DependentUpon>RouteAroundBarriers.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -745,6 +751,9 @@
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml">
 		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	</EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_blue.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

@@ -6,6 +6,10 @@
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:SceneView x:Name="MySceneView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <TextBlock Text="Tap to find the elevation for a point."
+                       TextAlignment="Center" TextWrapping="Wrap" FontWeight="SemiBold" />
+        </Border>
     </Grid>
 </UserControl>
 

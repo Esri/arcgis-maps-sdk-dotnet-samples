@@ -54,7 +54,7 @@ namespace ArcGISRuntime.WPF.Samples.GetElevationAtAPoint
         private void Initialize()
         {
             // Create the camera for the scene.
-            Camera camera = new Camera(_observerPoint, 15000.0, 10.0, 80.0, 0.0);
+            Camera camera = new Camera(_observerPoint, 20000.0, 10.0, 70.0, 0.0);
 
             // Create a scene.
             Scene myScene = new Scene(Basemap.CreateImageryWithLabels())
@@ -106,7 +106,7 @@ namespace ArcGISRuntime.WPF.Samples.GetElevationAtAPoint
 
                     // Set the text displaying the elevation.
                     _elevationTextSymbol.Text = $"{Math.Round(elevation)} m";
-                    _elevationTextGraphic.Geometry = new MapPoint(e.Location.X, e.Location.Y, e.Location.Z + 800);
+                    _elevationTextGraphic.Geometry = new MapPoint(e.Location.X, e.Location.Y, e.Location.Z + 850);
 
                     // Add the text to the graphics overlay.
                     _overlay.Graphics.Add(_elevationTextGraphic);

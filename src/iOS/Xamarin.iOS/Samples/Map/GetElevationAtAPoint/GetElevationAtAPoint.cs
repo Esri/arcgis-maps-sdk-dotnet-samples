@@ -7,14 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
+using System;
+using System.Drawing;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
@@ -26,12 +24,29 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtAPoint
         "Get elevation at a point",
         "Map",
         "Retreive the elevation of a point on a surface",
-        "")]
+        "Tap anywhere on the surface to get the elevation at that point. Elevation is reported in meters since the scene view is in WGS84.")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class GetElevationAtAPoint : UIViewController
     {
         // Hold references to UI controls.
         private SceneView _mySceneView;
+
+        // URL of the elevation service - provides elevation component of the scene.
+        private readonly Uri _elevationUri = new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+
+        // Starting point of the observer.
+        private readonly MapPoint _observerPoint = new MapPoint(83.9, 28.42, SpatialReferences.Wgs84);
+
+        // Graphics overlay.
+        private GraphicsOverlay _overlay;
+
+        // Surface (for elevation).
+        private Surface _baseSurface;
+
+        // Create symbols for the text and marker.
+        private SimpleMarkerSceneSymbol _elevationMarker;
+        private TextSymbol _elevationTextSymbol;
+        private readonly Graphic _elevationTextGraphic = new Graphic();
 
         public GetElevationAtAPoint()
         {
@@ -40,6 +55,39 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtAPoint
 
         private void Initialize()
         {
+            // Create the camera for the scene.
+            Camera camera = new Camera(_observerPoint, 20000.0, 10.0, 70.0, 0.0);
+
+            // Create a scene.
+            Scene myScene = new Scene(Basemap.CreateImageryWithLabels())
+            {
+                // Set the initial viewpoint.
+                InitialViewpoint = new Viewpoint(_observerPoint, 1000000, camera)
+            };
+
+            // Create the marker for showing where the user taps.
+            _elevationMarker = SimpleMarkerSceneSymbol.CreateCylinder(Color.Red, 10, 750);
+
+            // Create the text for displaying the elevation value.
+            _elevationTextSymbol = new TextSymbol("", Color.Red, 20, Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center, Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
+            _elevationTextGraphic.Symbol = _elevationTextSymbol;
+
+            // Create the base surface.
+            _baseSurface = new Surface();
+            _baseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_elevationUri));
+
+            // Add the base surface to the scene.
+            myScene.BaseSurface = _baseSurface;
+
+            // Graphics overlay for displaying points.
+            _overlay = new GraphicsOverlay
+            {
+                SceneProperties = new LayerSceneProperties(SurfacePlacement.Absolute)
+            };
+            _mySceneView.GraphicsOverlays.Add(_overlay);
+
+            // Add the scene to the view.
+            _mySceneView.Scene = myScene;
         }
 
         public override void LoadView()

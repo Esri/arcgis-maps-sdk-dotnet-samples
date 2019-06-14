@@ -6,11 +6,25 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Margin="50">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="50" />
-        </Grid.RowDefinitions>
-        <Label Grid.Row="0" FontSize="48">Downloading Data</Label>
-        <ProgressBar Grid.Row="1" IsIndeterminate="True" />
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Content="Downloading sample data"
+                   Grid.Row="0" Grid.ColumnSpan="2"
+                   FontSize="48" />
+            <ProgressBar Grid.Row="1" Grid.Column="0"
+                         IsIndeterminate="True" 
+                         Margin="10" />
+            <Button Content="Cancel" 
+                    Grid.Row="1" Grid.Column="1"
+                    Margin="10"
+                    Click="Cancel_Click" />
+        </Grid>
     </Grid>
 </UserControl>

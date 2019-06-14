@@ -26,7 +26,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
         "Browse a WFS service for layers",
         "Layers",
         "Browse for layers in a WFS service.",
-        "")]
+        "", "Featured")]
     public partial class BrowseWfsLayers
     {
         // URL to the WFS service.

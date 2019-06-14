@@ -16,7 +16,7 @@ namespace ArcGISRuntime.WPF.Samples.CreateTerrainSurfaceFromTilePackage
         "Create terrain surface from a tile package",
         "Map",
         "Use a terrain surface with elevation described by a local tile package.",
-        "")]
+        "", "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("cce37043eb0440c7a5c109cf8aad5500")]
     public partial class CreateTerrainSurfaceFromTilePackage
     {

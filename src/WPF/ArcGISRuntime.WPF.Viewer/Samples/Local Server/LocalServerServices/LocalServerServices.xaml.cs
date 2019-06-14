@@ -21,8 +21,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
         "Local Server services",
         "Local Server",
         "This sample demonstrates how to control local server and manage running services.",
-        "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions. \n Sample data is downloaded automatically once local server is started. It may take some time for sample data to load. The list of services will be enabled once the download has finished.",
-        "Featured")]
+        "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions. \n Sample data is downloaded automatically once local server is started. It may take some time for sample data to load. The list of services will be enabled once the download has finished.")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("dee5d8060a6048a4b063484199a9546b", "4e94fec734434d1288e6ebe36c3c461f", "da9e565a52ca41c1937cff1a01017068")]
     public partial class LocalServerServices
     {

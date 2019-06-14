@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -73,6 +74,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 CategoriesList.ItemsSource = category.Items;
                 DetailsRegion.Visibility = Visibility.Collapsed;
                 CategoriesRegion.Visibility = Visibility.Visible;
+                CategoriesHeader.Text = category.Name;
             }
             else if (sample != null)
             {
@@ -86,8 +88,10 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             if (selectedSample == null) return;
 
+            SampleTitleBlock.Text = selectedSample.SampleName;
             SampleManager.Current.SelectedSample = selectedSample;
             DescriptionContainer.SetSample(selectedSample);
+            ShowSampleTab();
 
             // Call a function to clear any existing credentials from AuthenticationManager
             ClearCredentials();
@@ -96,22 +100,31 @@ namespace ArcGISRuntime.Samples.Desktop
             {
                 if (selectedSample.OfflineDataItems != null)
                 {
+                    CancellationTokenSource cancellationSource = new CancellationTokenSource();
+
                     // Show waiting page
-                    SampleContainer.Content = new WPF.Viewer.WaitPage();
+                    SampleContainer.Content = new WPF.Viewer.WaitPage(cancellationSource);
 
                     // Wait for offline data to complete
-                    await DataManager.EnsureSampleDataPresent(selectedSample);
+                    await DataManager.EnsureSampleDataPresent(selectedSample, cancellationSource.Token);
                 }
 
                 // Show the sample
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
                 SourceCodeContainer.LoadSourceCode();
             }
+            catch (OperationCanceledException)
+            {
+                CategoriesRegion.Visibility = Visibility.Visible;
+                SampleContainer.Visibility = Visibility.Collapsed;
+                return;
+            }
             catch (Exception exception)
             {
                 // failed to create new instance of the sample
                 SampleContainer.Content = new WPF.Viewer.ErrorPage(exception);
             }
+
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SampleContainer.Visibility = Visibility.Visible;
         }
@@ -143,28 +156,53 @@ namespace ArcGISRuntime.Samples.Desktop
             }
         }
 
-        private void LiveSample_Click(object sender, RoutedEventArgs e)
+        private void CloseCategoryLeaves()
         {
+            if (Categories.Items.Count > 0)
+            {
+                var firstTreeViewItem = Categories.Items[0] as TreeViewItem;
+                if (firstTreeViewItem != null) firstTreeViewItem.IsSelected = true;
+
+                foreach (var item in Categories.Items)
+                {
+                    var treeViewItem = item as TreeViewItem;
+                    if (treeViewItem != null) treeViewItem.IsExpanded = false;
+                }
+            }
+        }
+
+        private void ShowSampleTab()
+        {
+            SampleRadTab.IsChecked = true;
             SampleContainer.Visibility = Visibility.Visible;
             DescriptionContainer.Visibility = Visibility.Collapsed;
             CategoriesRegion.Visibility = Visibility.Collapsed;
-            SourceCodeContainer.Visibility = Visibility.Collapsed;
+            SourceCodeContainer.Visibility = Visibility.Collapsed; 
         }
 
-        private void Description_Click(object sender, RoutedEventArgs e)
+        private void ShowDescriptionTab()
         {
+            DetailsRadTab.IsChecked = true;
             SampleContainer.Visibility = Visibility.Collapsed;
             DescriptionContainer.Visibility = Visibility.Visible;
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SourceCodeContainer.Visibility = Visibility.Collapsed;
         }
-        private void SourceCode_Click(object sender, RoutedEventArgs e)
+
+        private void ShowSourceTab()
         {
+            SourceRadTab.IsChecked = true;
             SampleContainer.Visibility = Visibility.Collapsed;
             DescriptionContainer.Visibility = Visibility.Collapsed;
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SourceCodeContainer.Visibility = Visibility.Visible;
         }
+
+        private void LiveSample_Click(object sender, RoutedEventArgs e) => ShowSampleTab();
+
+        private void Description_Click(object sender, RoutedEventArgs e) => ShowDescriptionTab();
+
+        private void SourceCode_Click(object sender, RoutedEventArgs e) => ShowSourceTab();
 
         private async void SearchFilterBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
@@ -180,13 +218,27 @@ namespace ArcGISRuntime.Samples.Desktop
             // Set category data context
             Categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(results);
 
-            // Open all
-            OpenCategoryLeaves();
+            // Open all if query isn't empty
+            if (!String.IsNullOrWhiteSpace(SearchFilterBox.SearchText))
+            {
+                OpenCategoryLeaves();
+            }
+            else
+            {
+                CloseCategoryLeaves();
+            }
         }
 
         private bool SampleSearchFunc(SampleInfo sample)
         {
-            return SampleManager.Current.SampleSearchFunc(sample, SearchFilterBox.Text);
+            return SampleManager.Current.SampleSearchFunc(sample, SearchFilterBox.SearchText);
+        }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow settingsWindow = new SettingsWindow();
+            settingsWindow.Owner = this;
+            settingsWindow.Show();
         }
     }
 }

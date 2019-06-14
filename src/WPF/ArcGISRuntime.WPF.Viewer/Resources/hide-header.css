@@ -1,0 +1,5 @@
+﻿/* Disables display of the h1 element - used to avoid duplicate title on sample pages. */
+
+h1 {
+    display: none;
+}

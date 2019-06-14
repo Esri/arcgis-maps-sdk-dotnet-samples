@@ -21,8 +21,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
         "Local Server feature layer",
         "Local Server",
         "This sample demonstrates how to display a Feature Layer service by a Local Server feature service.",
-        "Sample data is downloaded automatically from ArcGIS Online by the sample viewer.",
-        "Featured")]
+        "Sample data is downloaded automatically from ArcGIS Online by the sample viewer.")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("4e94fec734434d1288e6ebe36c3c461f")]
     public partial class LocalServerFeatureLayer
     {

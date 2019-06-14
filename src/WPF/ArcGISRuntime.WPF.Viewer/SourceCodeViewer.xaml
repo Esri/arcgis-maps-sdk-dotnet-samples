@@ -3,19 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewer="clr-namespace:ArcGISRuntime.WPF.Viewer"
              mc:Ignorable="d"
              Background="{StaticResource PrimaryBackgroundColor}"
              d:DesignHeight="300" d:DesignWidth="300">
-
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <ComboBox x:Name="FileSelection"
-                          Grid.Row="0"
-                          SelectionChanged="SelectionChanged" />
-        <WebBrowser x:Name="sourceCodeBrowser"
-                    Grid.Row="1" />
+        <TabControl ItemsSource="{Binding SourceFiles, Mode=OneWay}"
+                    SelectedItem="{Binding SelectedSourceFile, Mode=TwoWay}">
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <WebBrowser viewer:BrowserBehavior.Html="{Binding HtmlContent}" />
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+        </TabControl>
+        <StatusBar Grid.Row="1">
+            <StatusBarItem>
+                <TextBlock Text="{Binding SelectedSourceFile.Path, Mode=OneWay}" />
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </UserControl>

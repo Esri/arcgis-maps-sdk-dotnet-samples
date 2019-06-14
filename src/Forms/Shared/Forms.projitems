@@ -10,7 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\OfflineRouting\OfflineRouting.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\OfflineRouting\OfflineRouting.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
@@ -177,10 +178,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml.cs">
-		<DependentUpon>OfflineRouting.xaml</DependentUpon>
-		<SubType>Code</SubType>
-	</Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml.cs">
+      <DependentUpon>FindServiceAreasForMultipleFacilities.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml.cs">
+      <DependentUpon>OfflineRouting.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.xaml.cs">
       <DependentUpon>RouteAroundBarriers.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -742,9 +747,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml">
-		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	</EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_blue.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

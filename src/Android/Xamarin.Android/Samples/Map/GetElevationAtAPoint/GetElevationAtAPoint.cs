@@ -19,6 +19,12 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
+using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.UI;
+using System;
+using System.Drawing;
 
 namespace ArcGISRuntimeXamarin.Samples.GetElevationAtAPoint
 {
@@ -27,12 +33,29 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtAPoint
         "Get elevation at a point",
         "Map",
         "Retreive the elevation of a point on a surface",
-        "")]
+        "Tap anywhere on the surface to get the elevation at that point. Elevation is reported in meters since the scene view is in WGS84.")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class GetElevationAtAPoint : Activity
     {
         // Hold references to the UI controls.
         private SceneView _mySceneView;
+
+        // URL of the elevation service - provides elevation component of the scene.
+        private readonly Uri _elevationUri = new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+
+        // Starting point of the observer.
+        private readonly MapPoint _observerPoint = new MapPoint(83.9, 28.42, SpatialReferences.Wgs84);
+
+        // Graphics overlay.
+        private GraphicsOverlay _overlay;
+
+        // Surface (for elevation).
+        private Surface _baseSurface;
+
+        // Create symbols for the text and marker.
+        private SimpleMarkerSceneSymbol _elevationMarker;
+        private TextSymbol _elevationTextSymbol;
+        private readonly Graphic _elevationTextGraphic = new Graphic();
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -42,10 +65,8 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtAPoint
 
             CreateLayout();
             Initialize();
-        }
 
-        private void Initialize()
-        {
+            _mySceneView.GeoViewTapped += MySceneViewTappedAsync;
         }
 
         private void CreateLayout()
@@ -53,12 +74,91 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtAPoint
             // Create a new vertical layout for the app.
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
+            // Create a TextView for instructions.
+            TextView sampleInstructionsTextView = new TextView(this)
+            {
+                Text = "Tap to find the elevation for a point."
+            };
+            layout.AddView(sampleInstructionsTextView);
+
             // Add the map view to the layout.
             _mySceneView = new SceneView();
             layout.AddView(_mySceneView);
 
             // Show the layout in the app.
             SetContentView(layout);
+        }
+
+        private void Initialize()
+        {
+            // Create the camera for the scene.
+            Camera camera = new Camera(_observerPoint, 20000.0, 10.0, 70.0, 0.0);
+
+            // Create a scene.
+            Scene myScene = new Scene(Basemap.CreateImageryWithLabels())
+            {
+                // Set the initial viewpoint.
+                InitialViewpoint = new Viewpoint(_observerPoint, 1000000, camera)
+            };
+
+            // Create the marker for showing where the user taps.
+            _elevationMarker = SimpleMarkerSceneSymbol.CreateCylinder(Color.Red, 10, 750);
+
+            // Create the text for displaying the elevation value.
+            _elevationTextSymbol = new TextSymbol("", Color.Red, 20, Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center, Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
+            _elevationTextGraphic.Symbol = _elevationTextSymbol;
+
+            // Create the base surface.
+            _baseSurface = new Surface();
+            _baseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_elevationUri));
+
+            // Add the base surface to the scene.
+            myScene.BaseSurface = _baseSurface;
+
+            // Graphics overlay for displaying points.
+            _overlay = new GraphicsOverlay
+            {
+                SceneProperties = new LayerSceneProperties(SurfacePlacement.Absolute)
+            };
+            _mySceneView.GraphicsOverlays.Add(_overlay);
+
+            // Add the scene to the view.
+            _mySceneView.Scene = myScene;
+        }
+
+        private async void MySceneViewTappedAsync(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        {
+            try
+            {
+                // Remove this method from the event handler to prevent concurrent calls.
+                _mySceneView.GeoViewTapped -= MySceneViewTappedAsync;
+
+                // Check that the point is on the surface.
+                if (e.Location != null)
+                {
+                    // Clear any existing graphics from the graphics overlay.
+                    _overlay.Graphics.Clear();
+
+                    // Get the elevation value.
+                    double elevation = await _baseSurface.GetElevationAsync(e.Location);
+
+                    // Set the text displaying the elevation.
+                    _elevationTextSymbol.Text = $"{Math.Round(elevation)} m";
+                    _elevationTextGraphic.Geometry = new MapPoint(e.Location.X, e.Location.Y, e.Location.Z + 850);
+
+                    // Add the text to the graphics overlay.
+                    _overlay.Graphics.Add(_elevationTextGraphic);
+
+                    // Add the marker indicating where the user tapped.
+                    _overlay.Graphics.Add(new Graphic(e.Location, _elevationMarker));
+                }
+
+                // Re-add to the event handler.
+                _mySceneView.GeoViewTapped += MySceneViewTappedAsync;
+            }
+            catch
+            {
+            }
         }
     }
 }

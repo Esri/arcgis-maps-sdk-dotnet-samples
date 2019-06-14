@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtAPoint\GetElevationAtAPoint.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\GroupLayers\GroupLayers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.jpg" />
@@ -174,6 +175,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtAPoint\GetElevationAtAPoint.xaml.cs">
+		<DependentUpon>GetElevationAtAPoint.xaml</DependentUpon>
+		<SubType>Code</SubType>
+	</Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml.cs">
       <DependentUpon>DownloadPreplannedMap.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -728,6 +733,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtAPoint\GetElevationAtAPoint.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

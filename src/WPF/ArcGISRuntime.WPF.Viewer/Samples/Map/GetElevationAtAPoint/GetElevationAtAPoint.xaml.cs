@@ -29,8 +29,11 @@ namespace ArcGISRuntime.WPF.Samples.GetElevationAtAPoint
         // Starting point of the observer.
         private readonly MapPoint _observerPoint = new MapPoint(83.9, 28.42, SpatialReferences.Wgs84);
 
-        // Create the graphics overlay.d
+        // Graphics overlay.
         private GraphicsOverlay _overlay;
+
+        // Surface (for elevation).
+        private Surface _baseSurface;
 
         // Create symbols for the text and marker.
         private SimpleMarkerSceneSymbol _elevationMarker;
@@ -51,9 +54,9 @@ namespace ArcGISRuntime.WPF.Samples.GetElevationAtAPoint
         private void Initialize()
         {
             // Create the camera for the scene.
-            Camera camera = new Camera(_observerPoint, 30000.0, 10.0, 80.0, 0.0);
+            Camera camera = new Camera(_observerPoint, 15000.0, 10.0, 80.0, 0.0);
 
-            // Create scene.
+            // Create a scene.
             Scene myScene = new Scene(Basemap.CreateImageryWithLabels())
             {
                 // Set the initial viewpoint.
@@ -67,10 +70,14 @@ namespace ArcGISRuntime.WPF.Samples.GetElevationAtAPoint
             _elevationTextSymbol = new TextSymbol("", Color.Red, 20, Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center, Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
             _elevationTextGraphic.Symbol = _elevationTextSymbol;
 
-            // Add base surface for elevation data.
-            myScene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_elevationUri));
+            // Create the base surface.
+            _baseSurface = new Surface();
+            _baseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_elevationUri));
 
-            // Create the graphics overlay.
+            // Add the base surface to the scene.
+            myScene.BaseSurface = _baseSurface;
+
+            // Graphics overlay for displaying points.
             _overlay = new GraphicsOverlay
             {
                 SceneProperties = new LayerSceneProperties(SurfacePlacement.Absolute)
@@ -83,24 +90,36 @@ namespace ArcGISRuntime.WPF.Samples.GetElevationAtAPoint
 
         private async void SceneViewTappedAsync(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
-            // Check that the point is on the surface.
-            if (e.Location != null)
+            try
             {
-                // Clear any existing graphics from the graphics overlay.
-                _overlay.Graphics.Clear();
+                // Remove this method from the event handler to prevent concurrent calls.
+                MySceneView.GeoViewTapped -= SceneViewTappedAsync;
 
-                // Get the elevation value.
-                double elevation = await MySceneView.Scene.BaseSurface.GetElevationAsync(e.Location);
+                // Check that the point is on the surface.
+                if (e.Location != null)
+                {
+                    // Clear any existing graphics from the graphics overlay.
+                    _overlay.Graphics.Clear();
 
-                // Set the text displaying the elevation.
-                _elevationTextSymbol.Text = (Math.Round(elevation) + " m");
-                _elevationTextGraphic.Geometry = new MapPoint(e.Location.X, e.Location.Y, e.Location.Z + 800);
+                    // Get the elevation value.
+                    double elevation = await _baseSurface.GetElevationAsync(e.Location);
 
-                // Add the text to the graphics overlay.
-                _overlay.Graphics.Add(_elevationTextGraphic);
+                    // Set the text displaying the elevation.
+                    _elevationTextSymbol.Text = $"{Math.Round(elevation)} m";
+                    _elevationTextGraphic.Geometry = new MapPoint(e.Location.X, e.Location.Y, e.Location.Z + 800);
 
-                // Add the marker indicating where the user tapped.
-                _overlay.Graphics.Add(new Graphic(e.Location, _elevationMarker));
+                    // Add the text to the graphics overlay.
+                    _overlay.Graphics.Add(_elevationTextGraphic);
+
+                    // Add the marker indicating where the user tapped.
+                    _overlay.Graphics.Add(new Graphic(e.Location, _elevationMarker));
+                }
+
+                // Re-add to the event handler.
+                MySceneView.GeoViewTapped += SceneViewTappedAsync;
+            }
+            catch
+            {
             }
         }
     }

@@ -16,8 +16,7 @@ Tap anywhere on the surface to get the elevation at that point. Elevation is rep
 
 1. Create a SceneView and Scene with an imagery base map.
 2. Set an ArcGISTiledElevationService as the elevation source of the scene's base surface.
-3. Use the screenToBaseSurface(screenPoint) method on the scene view to convert the tapped screen point into a point on surface.
-4. Use the getElevationAsync(surfacePoint) method on the base surface to asynchronously get the elevation.
+3. Use the GetElevationAsync(surfacePoint) method on the base surface to asynchronously get the elevation.
 
 ## Relevant API
 
@@ -28,7 +27,7 @@ Tap anywhere on the surface to get the elevation at that point. Elevation is rep
 
 ## Additional Information
 
-getElevationAsync(surfacePoint) retrieves the most accurate available elevation value at a given point. To do this, the method must go to the server or local raster file and load the highest level of detail of data for the target location and return the elevation value.
+`GetElevationAsync(surfacePoint)` retrieves the most accurate available elevation value at a given point. To do this, the method must go to the server or local raster file and load the highest level of detail of data for the target location and return the elevation value.
 
 If multiple elevation sources are present in the surface, the top most visible elevation source with a valid elevation in the given location is used to determine the result.
 

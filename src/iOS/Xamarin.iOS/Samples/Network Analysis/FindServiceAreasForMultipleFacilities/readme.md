@@ -6,11 +6,11 @@ Find the service areas of several facilities from a feature service.
 
 ## Use case
 
-A service area is a region which can be accessed from a facility as limited by one or more factors, such as travel time, distance, or cost. When analyzing the service area of multiple facilities, this workflow can be used to identify gaps in service area coverage, or significant overlaps, helping to optimize the distribution of facilities. For example, a city's health service may identify areas of a city that can be effectively accessed from particular hospitals, and with this optimize distribution of staff and resources.
+A service area is a region which can be accessed from a facility as limited by one or more factors, such as travel time, distance, or cost. When analyzing the service area of multiple facilities, this workflow can be used to identify gaps in service area coverage, or significant overlaps, helping to optimize the distribution of facilities. For example, a city's health service may identify areas of a city that can be served effectively from particular hospitals, and with this optimize distribution of staff and resources.
 
 ## How to use the sample
 
-Click 'find service areas' to calculate and display the service area of each facility on the map. The polygons displayed around each facility represent the service area, with colors representing a cutoff for impedance (in this case, travel time).
+Click 'find service areas' to calculate and display the service area of each facility on the map. The polygons displayed around each facility represents the service area; in dark orange is the area that is within 3 minutes away from the hospital by car. Light orange is the area that is within 5 minutes away from the hospital by car.
 
 ## How it works
 
@@ -24,7 +24,7 @@ Click 'find service areas' to calculate and display the service area of each fac
 
 ## About the data
 
-This sample uses a street map of San Diego, in combination with a feature service with facilities (used here to represent hospitals).
+This sample uses a street map of San Diego, in combination with a feature service with facilities (used here to represent hospitals). Additionally a street network is used on the server for calculating the service area.
 
 ## Relevant API
 

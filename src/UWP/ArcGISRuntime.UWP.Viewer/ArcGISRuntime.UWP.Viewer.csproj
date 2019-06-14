@@ -117,9 +117,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<Content Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
-	<Content Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.jpg" />
-	<Content Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.jpg" />
+    <Content Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
+    <Content Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.jpg" />
+    <Content Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.jpg" />
+    <Content Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.jpg" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
     <Content Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.jpg" />
     <Content Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
@@ -334,15 +335,18 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml.cs">
-		<DependentUpon>FindServiceAreasForMultipleFacilities.xaml</DependentUpon>
-	</Compile>
-	<Compile Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.xaml.cs">
-		<DependentUpon>CertificateAuthenticationWithPKI.xaml</DependentUpon>
-	</Compile>
-	<Compile Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.xaml.cs">
-		<DependentUpon>SymbolsFromMobileStyle.xaml</DependentUpon>
-	</Compile>
+    <Compile Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml.cs">
+      <DependentUpon>FindServiceAreasForMultipleFacilities.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml.cs">
+      <DependentUpon>OfflineRouting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.xaml.cs">
+      <DependentUpon>CertificateAuthenticationWithPKI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.xaml.cs">
+      <DependentUpon>SymbolsFromMobileStyle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.xaml.cs">
       <DependentUpon>RouteAroundBarriers.xaml</DependentUpon>
     </Compile>
@@ -849,18 +853,22 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<Page Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
-	<Page Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
-	<Page Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
+    <Page Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

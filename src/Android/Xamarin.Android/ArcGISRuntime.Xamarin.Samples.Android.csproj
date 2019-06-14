@@ -77,7 +77,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
+	  <None Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
+    <None Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.jpg" />
     <None Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.jpg" />
     <None Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.jpg" />
     <None Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
@@ -245,7 +246,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.cs" />
+	  <Compile Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.cs" />
+    <Compile Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.cs" />
     <Compile Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.cs" />
     <Compile Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.cs" />
     <Compile Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.cs" />
@@ -528,6 +530,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\RouteAroundBarriers.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\OfflineRouting.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

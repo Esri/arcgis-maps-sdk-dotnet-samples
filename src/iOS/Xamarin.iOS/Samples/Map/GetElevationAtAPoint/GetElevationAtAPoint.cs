@@ -114,6 +114,43 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtAPoint
         {
             base.ViewDidLoad();
             Initialize();
+            // Handle taps on the scene view for getting elevation.
+            _mySceneView.GeoViewTapped += SceneViewTappedAsync;
+        }
+
+        private async void SceneViewTappedAsync(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        {
+            try
+            {
+                // Remove this method from the event handler to prevent concurrent calls.
+                _mySceneView.GeoViewTapped -= SceneViewTappedAsync;
+
+                // Check that the point is on the surface.
+                if (e.Location != null)
+                {
+                    // Clear any existing graphics from the graphics overlay.
+                    _overlay.Graphics.Clear();
+
+                    // Get the elevation value.
+                    double elevation = await _baseSurface.GetElevationAsync(e.Location);
+
+                    // Set the text displaying the elevation.
+                    _elevationTextSymbol.Text = $"{Math.Round(elevation)} m";
+                    _elevationTextGraphic.Geometry = new MapPoint(e.Location.X, e.Location.Y, e.Location.Z + 850);
+
+                    // Add the text to the graphics overlay.
+                    _overlay.Graphics.Add(_elevationTextGraphic);
+
+                    // Add the marker indicating where the user tapped.
+                    _overlay.Graphics.Add(new Graphic(e.Location, _elevationMarker));
+                }
+
+                // Re-add to the event handler.
+                _mySceneView.GeoViewTapped += SceneViewTappedAsync;
+            }
+            catch
+            {
+            }
         }
     }
 }

@@ -48,7 +48,7 @@ namespace ArcGISRuntime.WPF.Samples.GetElevationAtAPoint
             Initialize();
 
             // Handle taps on the scene view for getting elevation.
-            MySceneView.GeoViewTapped += SceneViewTappedAsync;
+            MySceneView.GeoViewTapped += SceneViewTapped;
         }
 
         private void Initialize()
@@ -88,12 +88,12 @@ namespace ArcGISRuntime.WPF.Samples.GetElevationAtAPoint
             MySceneView.Scene = myScene;
         }
 
-        private async void SceneViewTappedAsync(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        private async void SceneViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
             try
             {
                 // Remove this method from the event handler to prevent concurrent calls.
-                MySceneView.GeoViewTapped -= SceneViewTappedAsync;
+                MySceneView.GeoViewTapped -= SceneViewTapped;
 
                 // Check that the point is on the surface.
                 if (e.Location != null)
@@ -116,7 +116,7 @@ namespace ArcGISRuntime.WPF.Samples.GetElevationAtAPoint
                 }
 
                 // Re-add to the event handler.
-                MySceneView.GeoViewTapped += SceneViewTappedAsync;
+                MySceneView.GeoViewTapped += SceneViewTapped;
             }
             catch
             {

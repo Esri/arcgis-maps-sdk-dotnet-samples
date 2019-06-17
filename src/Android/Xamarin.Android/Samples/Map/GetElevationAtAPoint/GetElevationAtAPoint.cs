@@ -58,7 +58,7 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtAPoint
             CreateLayout();
             Initialize();
 
-            _mySceneView.GeoViewTapped += MySceneViewTappedAsync;
+            _mySceneView.GeoViewTapped += SceneViewTapped;
         }
 
         private void CreateLayout()
@@ -118,12 +118,12 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtAPoint
             _mySceneView.Scene = myScene;
         }
 
-        private async void MySceneViewTappedAsync(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        private async void SceneViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
             try
             {
                 // Remove this method from the event handler to prevent concurrent calls.
-                _mySceneView.GeoViewTapped -= MySceneViewTappedAsync;
+                _mySceneView.GeoViewTapped -= SceneViewTapped;
 
                 // Check that the point is on the surface.
                 if (e.Location != null)
@@ -146,7 +146,7 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtAPoint
                 }
 
                 // Re-add to the event handler.
-                _mySceneView.GeoViewTapped += MySceneViewTappedAsync;
+                _mySceneView.GeoViewTapped += SceneViewTapped;
             }
             catch
             {

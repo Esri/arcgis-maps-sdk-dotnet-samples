@@ -98,6 +98,17 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtAPoint
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            UILabel helpLabel = new UILabel
+            {
+                Text = "Tap to find the elevation for a point.",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
             // Add the views.
             View.AddSubviews(_mySceneView);
 

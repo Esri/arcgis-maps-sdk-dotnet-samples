@@ -41,6 +41,9 @@ namespace ArcGISRuntime.UWP.Samples.ShowLocationHistory
         // Polyline builder to more efficiently manage large location history graphic.
         private PolylineBuilder _polylineBuilder;
 
+        // Track previous location to ensure the route line appears behind the animating location symbol.
+        private MapPoint _lastPosition;
+
         public ShowLocationHistory()
         {
             InitializeComponent();
@@ -134,14 +137,18 @@ namespace ArcGISRuntime.UWP.Samples.ShowLocationHistory
 
         private void LocationDataSourceOnLocationChanged(object sender, Location e)
         {
-            // Add the location to the history.
-            _polylineBuilder.AddPoint(e.Position);
-
-            // Show the location point.
-            _locationHistoryOverlay.Graphics.Add(new Graphic(e.Position));
-
             // Remove the old line.
             _locationHistoryLineOverlay.Graphics.Clear();
+
+            // Add any previous position to the history.
+            if (_lastPosition != null)
+            {
+                _polylineBuilder.AddPoint(_lastPosition);
+                _locationHistoryOverlay.Graphics.Add(new Graphic(_lastPosition));
+            }
+
+            // Store the current position.
+            _lastPosition = e.Position;
 
             // Add the updated line.
             _locationHistoryLineOverlay.Graphics.Add(new Graphic(_polylineBuilder.ToGeometry()));

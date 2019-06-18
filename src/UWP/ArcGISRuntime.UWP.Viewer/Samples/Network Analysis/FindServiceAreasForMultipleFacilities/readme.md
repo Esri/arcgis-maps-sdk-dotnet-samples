@@ -10,7 +10,7 @@ A service area is a region which can be accessed from a facility as limited by o
 
 ## How to use the sample
 
-Click 'find service areas' to calculate and display the service area of each facility on the map. The polygons displayed around each facility represents the service area; in dark orange is the area that is within 3 minutes away from the hospital by car. Light orange is the area that is within 5 minutes away from the hospital by car.
+Click 'find service areas' to calculate and display the service area of each facility on the map. The polygons displayed around each facility represents the service area; in red is the area that is within 3 minutes away from the hospital by car. Light orange is the area that is within 5 minutes away from the hospital by car.
 
 ## How it works
 

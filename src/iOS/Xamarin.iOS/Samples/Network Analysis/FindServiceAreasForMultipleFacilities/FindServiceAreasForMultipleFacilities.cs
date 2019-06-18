@@ -121,6 +121,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindServiceAreasForMultipleFacilities
                 serviceAreaParameters.DefaultImpedanceCutoffs.Clear();
                 serviceAreaParameters.DefaultImpedanceCutoffs.Add(0);
                 serviceAreaParameters.DefaultImpedanceCutoffs.Add(3);
+                serviceAreaParameters.DefaultImpedanceCutoffs.Add(5);
 
                 // A query that finds all of the relevant facilities from the facilities feature service.
                 QueryParameters facilityQueryParameters = new QueryParameters();

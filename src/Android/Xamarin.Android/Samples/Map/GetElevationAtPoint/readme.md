@@ -2,7 +2,7 @@
 
 Get the elevation for a given point on a surface in a scene. 
 
-![](GetElevationAtAPoint.jpg)
+![](GetElevationAtPoint.jpg)
 
 ## Use case
 

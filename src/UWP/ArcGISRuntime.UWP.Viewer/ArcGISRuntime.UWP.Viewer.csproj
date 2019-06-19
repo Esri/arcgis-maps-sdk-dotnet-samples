@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<Content Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
 	<Content Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
     <Content Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
     <Content Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.jpg" />
@@ -336,6 +337,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\MapView\ChooseCameraController\ChooseCameraController.xaml.cs">
+		<DependentUpon>ChooseCameraController.xaml</DependentUpon>
+	</Compile>
 	<Compile Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
 		<DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
 	</Compile>
@@ -857,6 +861,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<Page Include="Samples\MapView\ChooseCameraController\ChooseCameraController.xaml">
+		<Generator>MSBuild:Compile</Generator>
+		<SubType>Designer</SubType>
+	</Page>
 	<Page Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml">
 		<Generator>MSBuild:Compile</Generator>
 		<SubType>Designer</SubType>

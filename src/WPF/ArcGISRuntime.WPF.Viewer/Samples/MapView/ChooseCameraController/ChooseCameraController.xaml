@@ -9,13 +9,19 @@
                 <RadioButton x:Name="OrbitPlaneButton"
                                  GroupName="ColorScheme"
                                  Content="Orbit camera around plane"
+                                 Checked="Setting_Checked"
+                             IsEnabled="False"
                                  IsChecked="True" />
                 <RadioButton x:Name="OrbitCraterButton"
                                  GroupName="ColorScheme"
-                                 Content="Orbit camera around crater" />
+                                 Content="Orbit camera around crater"
+                                 Checked="Setting_Checked"
+                             IsEnabled="False"/>
                 <RadioButton x:Name="FreePanButton"
                                  GroupName="ColorScheme"
-                                 Content="Free pan around the globe" />
+                                 Content="Free pan around the globe"
+                                 Checked="Setting_Checked"
+                             IsEnabled="False"/>
             </StackPanel>
         </Border>
     </Grid>

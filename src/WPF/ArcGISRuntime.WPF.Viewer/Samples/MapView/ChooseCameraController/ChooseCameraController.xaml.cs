@@ -22,15 +22,15 @@ namespace ArcGISRuntime.WPF.Samples.ChooseCameraController
         "Choose camera controller",
         "MapView",
         "Control the behavior of the camera in a scene.",
-        "Select a radiio button to change the camera controller.")]
+        "Select a radio button to change the camera controller.")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("681d6f7694644709a7c830ec57a2d72b")]
     public partial class ChooseCameraController
     {
         // Path for elevation data.
-        private Uri _elevationUri = new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+        private readonly Uri _elevationUri = new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
         // Path for the plane model.
-        private Uri _modelUri = new Uri(DataManager.GetDataFolder("681d6f7694644709a7c830ec57a2d72b", "Bristol.dae"));
+        private readonly Uri _modelUri = new Uri(DataManager.GetDataFolder("681d6f7694644709a7c830ec57a2d72b", "Bristol.dae"));
 
         // Geo element camera controller.
         private OrbitGeoElementCameraController _orbitPlaneCameraController;
@@ -75,7 +75,7 @@ namespace ArcGISRuntime.WPF.Samples.ChooseCameraController
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
-                MessageBox.Show("Loading plane model failed. Sample failed to initalize.");
+                MessageBox.Show("Loading plane model failed. Sample failed to initialize.");
                 return;
             }
 
@@ -100,10 +100,10 @@ namespace ArcGISRuntime.WPF.Samples.ChooseCameraController
             // Set the starting camera controller.
             MySceneView.CameraController = _orbitPlaneCameraController;
 
-            // Add events for the radio buttons.
-            OrbitPlaneButton.Checked += Setting_Checked;
-            OrbitCraterButton.Checked += Setting_Checked;
-            FreePanButton.Checked += Setting_Checked;
+            // Enable all of the radio buttons.
+            OrbitPlaneButton.IsEnabled = true;
+            OrbitCraterButton.IsEnabled = true;
+            FreePanButton.IsEnabled = true;
 
             // Add the scene to the view.
             MySceneView.Scene = myScene;
@@ -113,17 +113,17 @@ namespace ArcGISRuntime.WPF.Samples.ChooseCameraController
         {
             switch (((RadioButton)sender).Name)
             {
-                case "OrbitPlaneButton":
+                case nameof(OrbitPlaneButton):
                     // Switch to the plane camera controller.
                     MySceneView.CameraController = _orbitPlaneCameraController;
                     break;
 
-                case "OrbitCraterButton":
+                case nameof(OrbitCraterButton):
                     // Switch to the crater camera controller.
                     MySceneView.CameraController = _orbitCraterCameraController;
                     break;
 
-                case "FreePanButton":
+                case nameof(FreePanButton):
                     // Switch to a globe camera controller, which is free pan.
                     MySceneView.CameraController = new GlobeCameraController();
                     break;

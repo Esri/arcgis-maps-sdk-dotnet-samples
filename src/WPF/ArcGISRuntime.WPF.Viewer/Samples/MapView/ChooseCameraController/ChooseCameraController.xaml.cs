@@ -23,7 +23,7 @@ namespace ArcGISRuntime.WPF.Samples.ChooseCameraController
         "MapView",
         "Control the behavior of the camera in a scene.",
         "Select a radiio button to change the camera controller.")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("290f0c571c394461a8b58b6775d0bd63", "681d6f7694644709a7c830ec57a2d72b", "e87c154fb9c2487f999143df5b08e9b1", "5a9b60cee9ba41e79640a06bcdf8084d", "12509ffdc684437f8f2656b0129d2c13")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("681d6f7694644709a7c830ec57a2d72b")]
     public partial class ChooseCameraController
     {
         // Path for elevation data.
@@ -31,9 +31,6 @@ namespace ArcGISRuntime.WPF.Samples.ChooseCameraController
 
         // Path for the plane model.
         private Uri _modelUri = new Uri(DataManager.GetDataFolder("681d6f7694644709a7c830ec57a2d72b", "Bristol.dae"));
-
-        // Location at the crater.
-        private MapPoint _targetLocation = new MapPoint(-109.929589, 38.437304, 1700, SpatialReferences.Wgs84);
 
         // Geo element camera controller.
         private OrbitGeoElementCameraController _orbitPlaneCameraController;
@@ -66,12 +63,24 @@ namespace ArcGISRuntime.WPF.Samples.ChooseCameraController
             };
             MySceneView.GraphicsOverlays.Add(sceneGraphicsOverlay);
 
+            // Location at the crater.
+            MapPoint craterLocation = new MapPoint(-109.929589, 38.437304, 1700, SpatialReferences.Wgs84);
+
             // Create the plane symbol and make it 10x larger (to be the right size relative to the scene).
-            ModelSceneSymbol planeSymbol = await ModelSceneSymbol.CreateAsync(_modelUri, 10.0);
-            planeSymbol.Heading = 45;
+            ModelSceneSymbol planeSymbol;
+            try
+            {
+                planeSymbol = await ModelSceneSymbol.CreateAsync(_modelUri, 10.0);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                MessageBox.Show("Loading plane model failed. Sample failed to initalize.");
+                return;
+            }
 
             // Create a graphic using the plane symbol.
-            Graphic planeGraphic = new Graphic(new MapPoint(_targetLocation.X, _targetLocation.Y, 5000.0, SpatialReferences.Wgs84), planeSymbol);
+            Graphic planeGraphic = new Graphic(new MapPoint(craterLocation.X, craterLocation.Y, 5000.0, SpatialReferences.Wgs84), planeSymbol);
             sceneGraphicsOverlay.Graphics.Add(planeGraphic);
 
             // Instantiate a new camera controller which orbits a geo element.
@@ -82,7 +91,7 @@ namespace ArcGISRuntime.WPF.Samples.ChooseCameraController
             };
 
             // Instantiate a new camera controller which orbits a location.
-            _orbitCraterCameraController = new OrbitLocationCameraController(_targetLocation, 5000.0)
+            _orbitCraterCameraController = new OrbitLocationCameraController(craterLocation, 6000.0)
             {
                 CameraPitchOffset = 3,
                 CameraHeadingOffset = 150

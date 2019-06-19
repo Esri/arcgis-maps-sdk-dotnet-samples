@@ -75,7 +75,7 @@ namespace ArcGISRuntime.WPF.Samples.ChooseCameraController
             sceneGraphicsOverlay.Graphics.Add(planeGraphic);
 
             // Instantiate a new camera controller which orbits a geo element.
-            _orbitPlaneCameraController = new OrbitGeoElementCameraController(planeGraphic, 100.0)
+            _orbitPlaneCameraController = new OrbitGeoElementCameraController(planeGraphic, 300.0)
             {
                 CameraPitchOffset = 30,
                 CameraHeadingOffset = 150

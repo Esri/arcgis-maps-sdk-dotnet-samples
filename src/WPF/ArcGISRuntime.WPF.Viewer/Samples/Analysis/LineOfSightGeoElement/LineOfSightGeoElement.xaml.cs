@@ -40,6 +40,9 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
         // Graphic to represent the observation point
         private Graphic _observerGraphic;
 
+        //
+        private ModelSceneSymbol taxiSymbol;
+
         // Graphic to represent the observed target
         private Graphic _taxiGraphic;
 
@@ -100,7 +103,7 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
             {
                 // Add the taxi to the scene
                 // Create the model symbol for the taxi
-                ModelSceneSymbol taxiSymbol = await ModelSceneSymbol.CreateAsync(new Uri(GetModelUri()));
+                taxiSymbol = await ModelSceneSymbol.CreateAsync(new Uri(GetModelUri()));
                 // Set the anchor position for the mode; ensures that the model appears above the ground
                 taxiSymbol.AnchorPosition = SceneSymbolAnchorPosition.Bottom;
                 // Create the graphic from the taxi starting point and the symbol
@@ -177,6 +180,12 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
             MapPoint intermediatePoint = InterpolatedPoint(starting, ending, progress);
             // Update the taxi geometry
             _taxiGraphic.Geometry = intermediatePoint;
+            // Update the taxi rotation
+            double rotation = Math.Atan( (ending.X - starting.X) / (ending.Y - starting.Y)) * 180.0 / Math.PI;
+            if (ending.Y < starting.Y) { rotation = (rotation + 180) % 360; }
+            if ((ending.X - starting.X) > 0 == (ending.Y - starting.Y) > 0) { rotation -= 10; } else { rotation += 7; }
+            Console.WriteLine("end-strt x: " + (ending.X - starting.X).ToString() + " end-strt y: " + (ending.Y - starting.Y).ToString() + " rotation: " + rotation.ToString());
+            taxiSymbol.Heading = rotation;
         }
 
         private MapPoint InterpolatedPoint(MapPoint firstPoint, MapPoint secondPoint, double progress)

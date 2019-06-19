@@ -178,6 +178,14 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtPoint
             _mySceneView.GeoViewTapped += SceneViewTapped;
         }
 
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from event.
+            _mySceneView.GeoViewTapped -= SceneViewTapped;
+        }
+
         private void CreateErrorDialog(string message)
         {
             // Create Alert.

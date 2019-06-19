@@ -20,7 +20,7 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtPoint
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Get elevation at a point",
         "Map",
-        "Retreive the elevation of a point on a surface",
+        "Retrieve the elevation of a point on a surface",
         "Tap anywhere on the surface to get the elevation at that point. Elevation is reported in meters since the scene view is in WGS84.")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class GetElevationAtPoint : ContentPage

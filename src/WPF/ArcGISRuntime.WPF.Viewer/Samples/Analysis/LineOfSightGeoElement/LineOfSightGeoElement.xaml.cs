@@ -180,12 +180,10 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
             MapPoint intermediatePoint = InterpolatedPoint(starting, ending, progress);
             // Update the taxi geometry
             _taxiGraphic.Geometry = intermediatePoint;
+
             // Update the taxi rotation
-            double rotation = Math.Atan( (ending.X - starting.X) / (ending.Y - starting.Y)) * 180.0 / Math.PI;
-            if (ending.Y < starting.Y) { rotation = (rotation + 180) % 360; }
-            if ((ending.X - starting.X) > 0 == (ending.Y - starting.Y) > 0) { rotation -= 10; } else { rotation += 7; }
-            Console.WriteLine("end-strt x: " + (ending.X - starting.X).ToString() + " end-strt y: " + (ending.Y - starting.Y).ToString() + " rotation: " + rotation.ToString());
-            taxiSymbol.Heading = rotation;
+            GeodeticDistanceResult distance = GeometryEngine.DistanceGeodetic(intermediatePoint, ending, LinearUnits.Meters, AngularUnits.Degrees, GeodeticCurveType.Geodesic);
+            taxiSymbol.Heading = distance.Azimuth1;
         }
 
         private MapPoint InterpolatedPoint(MapPoint firstPoint, MapPoint secondPoint, double progress)
@@ -197,7 +195,7 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
             // Scale the difference by the progress towards the destination
             MapPoint scaled = new MapPoint(difference.X * progress, difference.Y * progress, difference.Z * progress);
             // Add the scaled progress to the starting point
-            return new MapPoint(firstPoint.X + scaled.X, firstPoint.Y + scaled.Y, firstPoint.Z + scaled.Z);
+            return new MapPoint(firstPoint.X + scaled.X, firstPoint.Y + scaled.Y, firstPoint.Z + scaled.Z, SpatialReferences.Wgs84);
         }
 
         private async void Geoline_TargetVisibilityChanged(object sender, EventArgs e)

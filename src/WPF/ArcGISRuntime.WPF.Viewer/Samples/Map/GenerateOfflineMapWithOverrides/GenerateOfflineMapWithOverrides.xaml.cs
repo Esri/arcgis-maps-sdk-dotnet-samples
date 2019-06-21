@@ -32,7 +32,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMapWithOverrides
         "Generate offline map (overrides)",
         "Map",
         "Take a web map offline with additional options for each layer.",
-        "")]
+        "", "Featured")]
     public partial class GenerateOfflineMapWithOverrides
     {
         // The job to generate an offline map.

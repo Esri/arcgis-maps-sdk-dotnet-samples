@@ -32,7 +32,7 @@ namespace ArcGISRuntime.WPF.Samples.OfflineBasemapByReference
         "Generate offline map with local basemap",
         "Map",
         "Use the OfflineMapTask to take a web map offline while using a basemap previously taken offline.",
-        "")]
+        "", "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("628e8e3521cf45e9a28a12fe10c02c4d")]
     public partial class OfflineBasemapByReference
     {

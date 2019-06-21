@@ -17,7 +17,7 @@ namespace ArcGISRuntime.WPF.Samples.ViewPointCloudDataOffline
         "View point cloud data offline",
         "Data",
         "Display local 3D point cloud data.",
-        "")]
+        "", "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("34da965ca51d4c68aa9b3a38edb29e00")]
     public partial class ViewPointCloudDataOffline
     {

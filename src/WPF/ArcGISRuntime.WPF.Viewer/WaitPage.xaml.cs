@@ -7,6 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System.Threading;
+using System.Windows;
+
 namespace ArcGISRuntime.WPF.Viewer
 {
     /// <summary>
@@ -14,9 +17,21 @@ namespace ArcGISRuntime.WPF.Viewer
     /// </summary>
     public partial class WaitPage
     {
+        private CancellationTokenSource _cancellationTokenSource;
         public WaitPage()
         {
             InitializeComponent();
+        }
+
+        public WaitPage(CancellationTokenSource cancellation)
+        {
+            InitializeComponent();
+            _cancellationTokenSource = cancellation;
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            _cancellationTokenSource.Cancel(true);
         }
     }
 }

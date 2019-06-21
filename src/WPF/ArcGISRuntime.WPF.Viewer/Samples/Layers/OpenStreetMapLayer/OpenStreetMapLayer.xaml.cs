@@ -15,7 +15,7 @@ namespace ArcGISRuntime.WPF.Samples.OpenStreetMapLayer
         "OpenStreetMap layer",
         "Layers",
         "Display an OpenStreetMap layer as a basemap.",
-        "")]
+        "", "Featured")]
     public partial class OpenStreetMapLayer
     {
         public OpenStreetMapLayer()

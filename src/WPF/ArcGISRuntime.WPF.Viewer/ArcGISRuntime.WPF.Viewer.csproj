@@ -41,9 +41,52 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>7</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Assets\ApplicationIcons\windows-desktop-256.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <!-- References -->
   <ItemGroup>
@@ -71,6 +114,12 @@
   <ItemGroup>
     <None Include="ArcGISLocalServer_100.5.AGSDeployment" />
     <None Include="Readme.md" />
+    <Content Include="Resources\hide-header.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\licenses.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Assets\ApplicationIcons\windows-desktop-128.png" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-16.png" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-256.ico" />
@@ -91,17 +140,23 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />    
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml.cs">
-		<DependentUpon>OfflineRouting.xaml</DependentUpon>
+	<Compile Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
+		<DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
 	</Compile>
     <Compile Include="Samples\Location\ShowLocationHistory\FakeLocationDataSource.cs" />
     <Compile Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml.cs">
       <DependentUpon>ShowLocationHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml.cs">
+      <DependentUpon>FindServiceAreasForMultipleFacilities.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml.cs">
+      <DependentUpon>OfflineRouting.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.xaml.cs">
       <DependentUpon>RouteAroundBarriers.xaml</DependentUpon>
@@ -635,11 +690,19 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<Page Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
+    <Page Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1347,6 +1410,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WaitPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1354,10 +1421,16 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<Content Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.jpg">
-		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Content>
+    <Content Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.jpg">
@@ -1893,6 +1966,13 @@
   </ItemGroup>
   <!-- Sample Viewer code (not samples) -->
   <ItemGroup>
+    <Resource Include="Resources\ic_menu_closeclear_light.png" />
+    <Resource Include="Resources\ic_menu_find_light.png" />
+    <Resource Include="Resources\ic_menu_settings_dark.png" />
+    <Page Include="Controls\SearchTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1901,6 +1981,9 @@
       <DependentUpon>ErrorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ToTreeViewItem.cs" />
+    <Compile Include="SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WaitPage.xaml.cs">
       <DependentUpon>WaitPage.xaml</DependentUpon>
     </Compile>
@@ -1920,6 +2003,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controls\SearchTextBox.xaml.cs">
+      <DependentUpon>SearchTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\TreeViewLeftMarginMultiplierConverter.cs" />
+    <Compile Include="Helpers\TreeViewItemExtensions.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\SampleToBitmapConverter.cs" />
     <Compile Include="Description.xaml.cs">

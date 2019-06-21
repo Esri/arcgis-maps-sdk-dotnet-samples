@@ -16,7 +16,7 @@ namespace ArcGISRuntime.WPF.Samples.ViewContentBeneathSurface
         "View content beneath terrain surface",
         "Map",
         "See through terrain in a scene and move the camera underground.",
-        "")]
+        "", "Featured")]
     public partial class ViewContentBeneathSurface
     {
         public ViewContentBeneathSurface()

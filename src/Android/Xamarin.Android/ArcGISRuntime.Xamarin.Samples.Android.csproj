@@ -78,6 +78,8 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
+    <None Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
+	  <None Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
     <None Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.jpg" />
     <None Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.jpg" />
     <None Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.jpg" />
@@ -248,6 +250,8 @@
     <!-- Sample Code -->
     <Compile Include="Samples\Location\ShowLocationHistory\FakeLocationDataSource.cs" />
     <Compile Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.cs" />
+    <Compile Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.cs" />
+	  <Compile Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.cs" />
     <Compile Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.cs" />
     <Compile Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.cs" />
     <Compile Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.cs" />

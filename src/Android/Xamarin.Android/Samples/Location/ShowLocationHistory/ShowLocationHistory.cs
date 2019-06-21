@@ -83,7 +83,7 @@ namespace ArcGISRuntimeXamarin.Samples.ShowLocationHistory
 
             // Create and add graphics overlay for displaying the trail.
             _locationHistoryLineOverlay = new GraphicsOverlay();
-            SimpleLineSymbol locationLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Blue, 2);
+            SimpleLineSymbol locationLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Lime, 2);
             _locationHistoryLineOverlay.Renderer = new SimpleRenderer(locationLineSymbol);
             _myMapView.GraphicsOverlays.Add(_locationHistoryLineOverlay);
 

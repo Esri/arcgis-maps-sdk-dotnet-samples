@@ -35,7 +35,7 @@ Click, 'Start tracking' to start tracking your location, which will appear as po
 
 ## About the data
 
-The sample uses a dark gray basemap with blue and red graphics. A custom location data source that provides fake/random location data is provided to enable easier testing and allow the sample to be useful on desktop/non-mobile devices.
+The sample uses a dark gray basemap with lime and red graphics. A custom location data source that provides fake/random location data is provided to enable easier testing and allow the sample to be useful on desktop/non-mobile devices.
 
 ## Tags
 

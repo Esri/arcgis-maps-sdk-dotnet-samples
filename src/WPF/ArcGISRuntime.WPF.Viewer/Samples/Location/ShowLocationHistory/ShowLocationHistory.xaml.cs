@@ -59,7 +59,7 @@ namespace ArcGISRuntime.WPF.Samples.ShowLocationHistory
 
             // Create and add graphics overlay for displaying the trail.
             _locationHistoryLineOverlay = new GraphicsOverlay();
-            SimpleLineSymbol locationLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Blue, 2);
+            SimpleLineSymbol locationLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Lime, 2);
             _locationHistoryLineOverlay.Renderer = new SimpleRenderer(locationLineSymbol);
             MyMapView.GraphicsOverlays.Add(_locationHistoryLineOverlay);
 

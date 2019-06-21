@@ -37,6 +37,9 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
         // Location camera controller.
         private OrbitLocationCameraController _orbitCraterCameraController;
 
+        // Text labels for the user interface.
+        private string[] _controllers = { "Orbit camera around plane", "Orbit camera around crater", "Free pan around the globe" };
+
         public ChooseCameraController()
         {
             InitializeComponent();
@@ -99,17 +102,13 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
             // Set the starting camera controller.
             MySceneView.CameraController = _orbitPlaneCameraController;
 
-            // Set the options for the picker.
-            CameraPicker.ItemsSource = new string[3] { "Orbit camera around plane", "Orbit camera around crater", "Free pan around the globe" };
-            CameraPicker.SelectedIndex = 0;
-
             // Add the scene to the view.
             MySceneView.Scene = myScene;
         }
 
-        private void Setting_Checked(object sender, EventArgs e)
+        private void ChangeCameraController(string cameraControllerLabel)
         {
-            switch (((Picker)sender).SelectedItem.ToString())
+            switch (cameraControllerLabel)
             {
                 case "Orbit camera around plane":
                     // Switch to the plane camera controller.
@@ -125,6 +124,24 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
                     // Switch to a globe camera controller, which is free pan.
                     MySceneView.CameraController = new GlobeCameraController();
                     break;
+            }
+        }
+        private async void OnButtonClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                // Show sheet and get the camera controller from the selection.
+                string selectedCamera =
+                    await ((Page)Parent).DisplayActionSheet("Select camera controller", "Cancel", null, _controllers);
+
+                // If selected cancel then do nothing.
+                if (selectedCamera == "Cancel") return;
+
+                ChangeCameraController(selectedCamera);
+            }
+            catch (Exception ex)
+            {
+                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
     }

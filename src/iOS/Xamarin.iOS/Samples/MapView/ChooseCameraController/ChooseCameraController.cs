@@ -111,12 +111,10 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
             _mySceneView.Scene = myScene;
         }
 
-        private void Setting_Checked(object sender, EventArgs e)
+        private void ChangeCameraController(string setting)
         {
-            UISegmentedControl control = (UISegmentedControl)sender;
-
             // Switch on the selected text.
-            switch (control.TitleAt(control.SelectedSegment))
+            switch (setting)
             {
                 case "Orbit plane":
                     // Switch to the plane camera controller.
@@ -184,7 +182,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
             base.ViewWillAppear(animated);
 
             // Subscribe to events.
-            _operationPicker.ValueChanged += Setting_Checked;
+            _operationPicker.ValueChanged += Segment_Selected;
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -192,7 +190,16 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from events, per best practice.
-            _operationPicker.ValueChanged -= Setting_Checked;
+            _operationPicker.ValueChanged -= Segment_Selected;
+        }
+
+        private void Segment_Selected(object sender, EventArgs e)
+        {
+            // Get the string of the selected item.
+            UISegmentedControl control = (UISegmentedControl)sender;
+
+            // Change the camera controller.
+            ChangeCameraController(control.TitleAt(control.SelectedSegment));
         }
 
         private void CreateErrorDialog(string message)

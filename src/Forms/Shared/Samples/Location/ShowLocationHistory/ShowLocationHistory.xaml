@@ -1,0 +1,18 @@
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntimeXamarin.Samples.ShowLocationHistory.ShowLocationHistory">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button x:Name="LocationTrackingButton"
+                Grid.Row="0"
+                Text="Start tracking"
+                IsEnabled="False"
+                Clicked="StartTracking_Tapped" />
+        <esriUI:MapView x:Name="MyMapView"
+                        Grid.Row="1" />
+    </Grid>
+</ContentPage>

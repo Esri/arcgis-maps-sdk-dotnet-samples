@@ -117,7 +117,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<Content Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
+    <Content Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
+    <Content Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
     <Content Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
     <Content Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.jpg" />
     <Content Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.jpg" />
@@ -336,9 +337,13 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
-		<DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
-	</Compile>
+    <Compile Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
+      <DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Location\ShowLocationHistory\FakeLocationDataSource.cs" />
+    <Compile Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml.cs">
+      <DependentUpon>ShowLocationHistory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml.cs">
       <DependentUpon>FindServiceAreasForMultipleFacilities.xaml</DependentUpon>
     </Compile>
@@ -861,6 +866,10 @@
 		<Generator>MSBuild:Compile</Generator>
 		<SubType>Designer</SubType>
 	</Page>
+    <Page Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

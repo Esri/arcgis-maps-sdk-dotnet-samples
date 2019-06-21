@@ -3,24 +3,26 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
 using Android.OS;
+using Android.Widget;
+using ArcGISRuntime;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using ArcGISRuntime.Samples.Managers;
-using Android;
+using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
 namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Choose camera controller",
         "MapView",
@@ -30,23 +32,8 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("681d6f7694644709a7c830ec57a2d72b")]
     public class ChooseCameraController : Activity
     {
-        // Hold references to the UI controls.
+        // View for the scene.
         private SceneView _mySceneView;
-
-        protected override void OnCreate(Bundle bundle)
-        {
-            base.OnCreate(bundle);
-
-            Title = "Choose camera controller";
-
-            CreateLayout();
-            Initialize();
-        }
-        private void CreateLayout()
-        {
-            //SetContentView(2130903071);
-            SetContentView(Resource.Layout.ChooseCameraController);
-        }
 
         // Path for elevation data.
         private readonly Uri _elevationUri = new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
@@ -60,9 +47,18 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
         // Location camera controller.
         private OrbitLocationCameraController _orbitCraterCameraController;
 
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
+
+            Title = "Choose camera controller";
+
+            CreateLayout();
+            Initialize();
+        }
+
         public ChooseCameraController()
         {
-            Initialize();
         }
 
         private async void Initialize()
@@ -77,13 +73,12 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
             // Add the surface to the scene.
             myScene.BaseSurface = surface;
 
-
             // Create a graphics overlay for the scene.
             GraphicsOverlay sceneGraphicsOverlay = new GraphicsOverlay()
             {
                 SceneProperties = new LayerSceneProperties(SurfacePlacement.Absolute)
             };
-            //_mySceneView.GraphicsOverlays.Add(sceneGraphicsOverlay);
+            _mySceneView.GraphicsOverlays.Add(sceneGraphicsOverlay);
 
             // Location at the crater.
             MapPoint craterLocation = new MapPoint(-109.929589, 38.437304, 1700, SpatialReferences.Wgs84);
@@ -120,40 +115,58 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
             };
 
             // Set the starting camera controller.
-            //_mySceneView.CameraController = _orbitPlaneCameraController;
-
-            // Enable all of the radio buttons.
-           // OrbitPlaneButton.IsEnabled = true;
-           // OrbitCraterButton.IsEnabled = true;
-            //FreePanButton.IsEnabled = true;
+            _mySceneView.CameraController = _orbitPlaneCameraController;
 
             // Add the scene to the view.
-            //_mySceneView.Scene = myScene;
+            _mySceneView.Scene = myScene;
         }
-        /*
-        private void Setting_Checked(object sender, EventArgs e)
+
+        private void ChangeCameraController(string camera)
         {
-            switch (((RadioButton)sender).Name)
+            switch (camera)
             {
-                case nameof(OrbitPlaneButton):
+                case "Orbit camera around plane":
                     // Switch to the plane camera controller.
-                    MySceneView.CameraController = _orbitPlaneCameraController;
+                    _mySceneView.CameraController = _orbitPlaneCameraController;
                     break;
 
-                case nameof(OrbitCraterButton):
+                case "Orbit camera around crater":
                     // Switch to the crater camera controller.
-                    MySceneView.CameraController = _orbitCraterCameraController;
+                    _mySceneView.CameraController = _orbitCraterCameraController;
                     break;
 
-                case nameof(FreePanButton):
+                case "Free pan around the globe":
                     // Switch to a globe camera controller, which is free pan.
-                    MySceneView.CameraController = new GlobeCameraController();
+                    _mySceneView.CameraController = new GlobeCameraController();
                     break;
             }
         }
-        */
 
-        
+        private void CreateLayout()
+        {
+            // Load the layout for the sample from the .axml file.
+            SetContentView(Resource.Layout.ChooseCameraController);
+
+            // Update control references to point to the controls defined in the layout.
+            _mySceneView = FindViewById<SceneView>(Resource.Id.chooseCamera_SceneView);
+            RadioButton planeButton = FindViewById<RadioButton>(Resource.Id.PlaneButton);
+            RadioButton craterButton = FindViewById<RadioButton>(Resource.Id.CraterButton);
+            RadioButton freeButton = FindViewById<RadioButton>(Resource.Id.FreeButton);
+
+            // Select the first option.
+            planeButton.Checked = true;
+
+            // Add listeners to all of the buttons.
+            planeButton.Click += Setting_Checked;
+            craterButton.Click += Setting_Checked;
+            freeButton.Click += Setting_Checked;
+        }
+
+        private void Setting_Checked(object sender, EventArgs e)
+        {
+            ChangeCameraController(((RadioButton)sender).Text);
+        }
+
         private void CreateErrorDialog(string message)
         {
             // Create a dialog to show message to user.

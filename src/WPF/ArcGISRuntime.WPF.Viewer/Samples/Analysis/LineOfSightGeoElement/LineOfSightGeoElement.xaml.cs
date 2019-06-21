@@ -40,9 +40,6 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
         // Graphic to represent the observation point
         private Graphic _observerGraphic;
 
-        //
-        private ModelSceneSymbol taxiSymbol;
-
         // Graphic to represent the observed target
         private Graphic _taxiGraphic;
 
@@ -103,7 +100,7 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
             {
                 // Add the taxi to the scene
                 // Create the model symbol for the taxi
-                taxiSymbol = await ModelSceneSymbol.CreateAsync(new Uri(GetModelUri()));
+                ModelSceneSymbol taxiSymbol = await ModelSceneSymbol.CreateAsync(new Uri(GetModelUri()));
                 // Set the anchor position for the mode; ensures that the model appears above the ground
                 taxiSymbol.AnchorPosition = SceneSymbolAnchorPosition.Bottom;
                 // Create the graphic from the taxi starting point and the symbol
@@ -183,7 +180,7 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
 
             // Update the taxi rotation
             GeodeticDistanceResult distance = GeometryEngine.DistanceGeodetic(intermediatePoint, ending, LinearUnits.Meters, AngularUnits.Degrees, GeodeticCurveType.Geodesic);
-            taxiSymbol.Heading = distance.Azimuth1;
+            ((ModelSceneSymbol)_taxiGraphic.Symbol).Heading = distance.Azimuth1;
         }
 
         private MapPoint InterpolatedPoint(MapPoint firstPoint, MapPoint secondPoint, double progress)

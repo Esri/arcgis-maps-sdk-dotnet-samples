@@ -178,8 +178,8 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
             // Update the taxi geometry
             _taxiGraphic.Geometry = intermediatePoint;
 
-            // Update the taxi rotation
-            GeodeticDistanceResult distance = GeometryEngine.DistanceGeodetic(intermediatePoint, ending, LinearUnits.Meters, AngularUnits.Degrees, GeodeticCurveType.Geodesic);
+            // Update the taxi rotation.
+            GeodeticDistanceResult distance = GeometryEngine.DistanceGeodetic(starting, ending, LinearUnits.Meters, AngularUnits.Degrees, GeodeticCurveType.Geodesic);
             ((ModelSceneSymbol)_taxiGraphic.Symbol).Heading = distance.Azimuth1;
         }
 
@@ -192,7 +192,7 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
             // Scale the difference by the progress towards the destination
             MapPoint scaled = new MapPoint(difference.X * progress, difference.Y * progress, difference.Z * progress);
             // Add the scaled progress to the starting point
-            return new MapPoint(firstPoint.X + scaled.X, firstPoint.Y + scaled.Y, firstPoint.Z + scaled.Z, SpatialReferences.Wgs84);
+            return new MapPoint(firstPoint.X + scaled.X, firstPoint.Y + scaled.Y, firstPoint.Z + scaled.Z);
         }
 
         private async void Geoline_TargetVisibilityChanged(object sender, EventArgs e)

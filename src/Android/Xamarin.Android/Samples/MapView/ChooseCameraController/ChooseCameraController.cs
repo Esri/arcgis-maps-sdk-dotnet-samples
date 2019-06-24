@@ -60,10 +60,6 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
             Initialize();
         }
 
-        public ChooseCameraController()
-        {
-        }
-
         private async void Initialize()
         {
             // Create a scene.

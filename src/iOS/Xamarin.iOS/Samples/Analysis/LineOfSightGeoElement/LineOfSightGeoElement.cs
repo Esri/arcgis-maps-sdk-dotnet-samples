@@ -178,6 +178,10 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             double progress = _frameIndex / (double) FrameMax;
             // Calculate the position of the taxi when it is {progress}% of the way through.
             _taxiGraphic.Geometry = InterpolatedPoint(starting, ending, progress);
+
+            // Update the taxi rotation.
+            GeodeticDistanceResult distance = GeometryEngine.DistanceGeodetic(starting, ending, LinearUnits.Meters, AngularUnits.Degrees, GeodeticCurveType.Geodesic);
+            ((ModelSceneSymbol)_taxiGraphic.Symbol).Heading = distance.Azimuth1;
         }
 
         private MapPoint InterpolatedPoint(MapPoint firstPoint, MapPoint secondPoint, double progress)

@@ -46,6 +46,10 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
         public ChooseCameraController()
         {
             InitializeComponent();
+        }
+        protected override void OnParentSet()
+        {
+            base.OnParentSet();
             Initialize();
         }
 
@@ -109,8 +113,9 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
             MySceneView.Scene = myScene;
         }
 
-        private void ChangeCameraController(string cameraControllerLabel)
+        private async void ChangeCameraController(string cameraControllerLabel)
         {
+            await ((Page)Parent).DisplayAlert("test", "switch test", "OK");
             switch (cameraControllerLabel)
             {
                 case "Orbit camera around plane":
@@ -140,6 +145,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
                 // If selected cancel then do nothing.
                 if (selectedCamera == "Cancel") return;
 
+                // Change the camera controller to the selected item.
                 ChangeCameraController(selectedCamera);
             }
             catch (Exception ex)

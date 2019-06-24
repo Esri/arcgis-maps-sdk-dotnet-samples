@@ -147,7 +147,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
             SetContentView(Resource.Layout.ChooseCameraController);
 
             // Update control references to point to the controls defined in the layout.
-            _mySceneView = FindViewById<SceneView>(Resource.Id.chooseCamera_SceneView);
+            _mySceneView = FindViewById<SceneView>(Resource.Id.SceneView);
             RadioButton planeButton = FindViewById<RadioButton>(Resource.Id.PlaneButton);
             RadioButton craterButton = FindViewById<RadioButton>(Resource.Id.CraterButton);
             RadioButton freeButton = FindViewById<RadioButton>(Resource.Id.FreeButton);

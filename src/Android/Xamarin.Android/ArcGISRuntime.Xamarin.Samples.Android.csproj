@@ -461,6 +461,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Animate3DGraphic.axml" />
     <AndroidResource Include="Resources\layout\Buffer.axml" />
+    <AndroidResource Include="Resources\layout\ChooseCameraController.axml"/>
     <AndroidResource Include="Resources\layout\DensifyAndGeneralize.axml" />
     <AndroidResource Include="Resources\layout\DisplayGrid.axml" />
     <AndroidResource Include="Resources\layout\DistanceMeasurement.axml" />
@@ -540,11 +541,6 @@
   <ItemGroup>
     <AndroidResource Include="Resources\layout\OfflineRouting.axml">
       <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\ChooseCameraController.axml">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
   </ItemGroup>
   <!-- Imports -->

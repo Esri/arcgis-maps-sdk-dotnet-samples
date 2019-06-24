@@ -32,7 +32,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
         private SceneView _mySceneView;
 
         // Segmented control for selecting camera controller.
-        private UISegmentedControl _operationPicker;
+        private UISegmentedControl _cameraPicker;
 
         // Path for elevation data.
         private readonly Uri _elevationUri = new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
@@ -138,24 +138,25 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
 
         public override void LoadView()
         {
-            // Create the views.
+            // Create the view.
             View = new UIView();
+            View.BackgroundColor = UIColor.White;
 
             // Create the scene.
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Add a segmented control for selecting the camera controller.
-            _operationPicker = new UISegmentedControl("Orbit plane", "Orbit crater", "Free pan");
-            _operationPicker.TranslatesAutoresizingMaskIntoConstraints = false;
-            _operationPicker.SelectedSegment = 0;
+            _cameraPicker = new UISegmentedControl("Orbit plane", "Orbit crater", "Free pan");
+            _cameraPicker.TranslatesAutoresizingMaskIntoConstraints = false;
+            _cameraPicker.SelectedSegment = 0;
 
             // Toolbar for the segmented control.
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem {CustomView = _operationPicker}
+                new UIBarButtonItem {CustomView = _cameraPicker}
             };
 
             // Add the views.
@@ -164,7 +165,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]{
                 _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
@@ -185,7 +186,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
             base.ViewWillAppear(animated);
 
             // Subscribe to events.
-            _operationPicker.ValueChanged += Segment_Selected;
+            _cameraPicker.ValueChanged += Segment_Selected;
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -193,7 +194,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from events, per best practice.
-            _operationPicker.ValueChanged -= Segment_Selected;
+            _cameraPicker.ValueChanged -= Segment_Selected;
         }
 
         private void Segment_Selected(object sender, EventArgs e)

@@ -37,6 +37,9 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
         // Location camera controller.
         private OrbitLocationCameraController _orbitCraterCameraController;
 
+        // Globe camera controller.
+        private readonly GlobeCameraController _globeCameraController = new GlobeCameraController();
+
         // Text labels for the user interface.
         private string[] _controllers = { "Orbit camera around plane", "Orbit camera around crater", "Free pan around the globe" };
 
@@ -122,7 +125,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
 
                 case "Free pan around the globe":
                     // Switch to a globe camera controller, which is free pan.
-                    MySceneView.CameraController = new GlobeCameraController();
+                    MySceneView.CameraController = _globeCameraController;
                     break;
             }
         }

@@ -39,6 +39,9 @@ namespace ArcGISRuntime.UWP.Samples.ChooseCameraController
         // Location camera controller.
         private OrbitLocationCameraController _orbitCraterCameraController;
 
+        // Globe camera controller.
+        private readonly GlobeCameraController _globeCameraController = new GlobeCameraController();
+
         public ChooseCameraController()
         {
             InitializeComponent();
@@ -126,7 +129,7 @@ namespace ArcGISRuntime.UWP.Samples.ChooseCameraController
 
                 case nameof(FreePanButton):
                     // Switch to a globe camera controller, which is free pan.
-                    MySceneView.CameraController = new GlobeCameraController();
+                    MySceneView.CameraController = _globeCameraController;
                     break;
             }
         }

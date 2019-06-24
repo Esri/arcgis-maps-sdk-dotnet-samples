@@ -70,6 +70,7 @@ namespace ArcGISRuntime.WPF.Samples.SelectEncFeatures
 
                     // Add the extent to the list of extents.
                     dataSetExtents.Add(myEncLayer.FullExtent);
+                    Console.WriteLine("Loop 1");
                 }
 
                 // Use the geometry engine to compute the full extent of the ENC Exchange Set.
@@ -108,25 +109,38 @@ namespace ArcGISRuntime.WPF.Samples.SelectEncFeatures
             try
             {
                 // Perform the identify operation.
-                IReadOnlyList<IdentifyLayerResult> results = await MyMapView.IdentifyLayersAsync(e.Position, 5, false);
+                IReadOnlyList<IdentifyLayerResult> results = await MyMapView.IdentifyLayersAsync(e.Position, 10, false);
+                Console.WriteLine("all results count" + results.Count());
 
                 // Return if there are no results.
                 if (results.Count < 1) { return; }
 
                 // Get the results that are from ENC layers.
                 IEnumerable<IdentifyLayerResult> encResults = results.Where(result => result.LayerContent is EncLayer);
-
+                Console.WriteLine("Enc results count"+encResults.Count());
                 // Get the ENC results that have features.
                 IEnumerable<IdentifyLayerResult> encResultsWithFeatures = encResults.Where(result => result.GeoElements.Count > 0);
-
+                foreach(IdentifyLayerResult encresultwf in encResultsWithFeatures)
+                {
+                    Console.WriteLine( ((EncLayer)encresultwf.LayerContent).Cell.Dataset.Name);
+                }
+                Console.WriteLine("Enc results wf count" + encResultsWithFeatures.Count());
                 // Get the first result with ENC features.
                 IdentifyLayerResult firstResult = encResultsWithFeatures.First();
 
+                List<GeoElement> betterResult = new List<GeoElement>();
+                foreach(IdentifyLayerResult result in encResultsWithFeatures)
+                {
+                    betterResult.AddRange(result.GeoElements);
+                    Console.WriteLine(result.ToString());
+                }
+                Console.WriteLine("Better results count" + betterResult.Count());
+
                 // Get the layer associated with this set of results.
                 EncLayer containingLayer = (EncLayer)firstResult.LayerContent;
-
+                
                 // Select the smallest (area) feature in the layer.
-                EncFeature smallestFeature = (EncFeature)firstResult.GeoElements.OrderBy(f => GeometryEngine.Area(f.Geometry)).First();
+                EncFeature smallestFeature = (EncFeature)betterResult.OrderBy(f => GeometryEngine.Area(f.Geometry)).First();
 
                 // Select the feature.
                 containingLayer.SelectFeature(smallestFeature);

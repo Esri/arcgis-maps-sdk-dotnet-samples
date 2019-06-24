@@ -80,7 +80,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
-                //MessageBox.Show("Loading plane model failed. Sample failed to initialize.");
+                await ((Page)Parent).DisplayAlert("Error", "Loading plane model failed. Sample failed to initialize.", "OK");
                 return;
             }
 

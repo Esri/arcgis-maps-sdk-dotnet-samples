@@ -22,8 +22,8 @@ namespace ArcGISRuntime.WPF.Samples.RasterColormapRenderer
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Raster colormap renderer",
         "Layers",
-        "Demonstrates how to use a colormap renderer on raster layer.",
-        "")]
+        "Apply a colormap renderer to a raster.",
+        "Pan and zoom to explore the effect of the colormap applied to the raster.")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
     public partial class RasterColormapRenderer
     {

@@ -1,29 +1,44 @@
 # Colormap renderer
 
-Demonstrates how to use a colormap renderer on raster layer.
-Colormap renderers can be used to replace values on a raster layer with a color based on the original brightness value.
+Apply a colormap renderer to a raster.
 
-![](RasterColorMapRenderer.jpg)
+![](RasterColormapRenderer.jpg)
+
+## Use case
+
+A colormap renderer transforms pixel values in a raster to display raster data based on specific colors, aiding in visual analysis of the data. For example, a forestry commission may want to quickly visualize areas above and below the tree-line line occurring at a know elevation on a raster containing elevation values. They could overlay a transparent colormap set to color those areas below the tree-line elevation green, and those above white.
+
+## How to use the sample
+
+Pan and zoom to explore the effect of the colormap applied to the raster.
 
 ## How it works
 To apply a `ColormapRenderer` to a `RasterLayer`:
 
-- Create a `Raster` from a raster file.
-- Create a `RasterLayer` from the raster.
-- Create an `IEnumerable<Color>` and use it as a colormap: colors at the beginning of the list replace the darkest values in the raster and colors at the end of the list replaced the brightest values of the raster.
-- Create a colormap renderer with the colormap and apply it to the raster layer with `rasterLayer.Renderer = colormapRenderer`.
+1. Create a `Raster` from a raster file.
+2. Create a `RasterLayer` from the raster.
+3. Create an `IEnumerable<Color>` representing colors. Colors at the beginning of the list replace the darkest values in the raster and colors at the end of the list replaced the brightest values of the raster.
+4. Create a `ColormapRenderer` with the color list: `ColormapRenderer(colors)`, and apply it to the raster layer with `rasterLayer.Renderer = colormapRenderer`.
 
-## Features
-- `Map`
-- `Basemap`
-- `ColormapRenderer`
-- `MapView`
-- `Raster`
-- `RasterLayer`
+## Relevant API
 
-## Offline Data
-Read more about how to set up the sample's offline data [here](http://links.esri.com/ArcGISRuntimeQtSamples).
+* `Map`
+* `Basemap`
+* `ColormapRenderer`
+* `MapView`
+* `Raster`
+* `RasterLayer`
+
+## Offline data
 
 Link | Local Location
 ---------|-------|
 |[ShastaBW.tif raster](https://www.arcgis.com/home/item.html?id=cc68728b5904403ba637e1f1cd2995ae)| `<userhome>`/ArcGIS/Runtime/Data/raster/ShastaBW.tif |
+
+## About the data
+
+The raster used in this sample shows an area in the south of the Shasta-Trinity National Forest, California.
+
+## Tags
+
+data, colormap, raster, renderer, visualization

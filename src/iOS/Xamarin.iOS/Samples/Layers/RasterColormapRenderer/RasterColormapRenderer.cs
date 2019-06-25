@@ -11,6 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
+using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,6 +21,7 @@ using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.RasterColormapRenderer
 {
+    [Register("RasterColormapRenderer")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Raster colormap renderer",
         "Layers",

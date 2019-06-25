@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
@@ -79,6 +80,8 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
             ModelSceneSymbol planeSymbol;
             try
             {
+                throw new Exception("Testing exception");
+
                 planeSymbol = await ModelSceneSymbol.CreateAsync(_modelUri, 10.0);
             }
             catch (Exception ex)

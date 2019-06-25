@@ -247,7 +247,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
+	  <None Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
+	  <None Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
     <None Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
     <None Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
     <None Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
@@ -416,7 +417,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.cs" />
+	  <Compile Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.cs" />
+	  <Compile Include="Samples\MapView\ChooseCameraController\ChooseCameraController.cs" />
     <Compile Include="Samples\Location\ShowLocationHistory\FakeLocationDataSource.cs" />
     <Compile Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.cs" />
     <Compile Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.cs" />

@@ -10,8 +10,9 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
-	<None Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\OfflineRouting\OfflineRouting.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.jpg" />
@@ -184,10 +185,15 @@
 		<DependentUpon>ChooseCameraController.xaml</DependentUpon>
 		<SubType>Code</SubType>
 	</Compile>
-	<Compile Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
-		<DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
-		<SubType>Code</SubType>
-	</Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
+      <DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\FakeLocationDataSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml.cs">
+      <DependentUpon>ShowLocationHistory.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml.cs">
       <DependentUpon>FindServiceAreasForMultipleFacilities.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -760,9 +766,12 @@
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.xaml">
 		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	</EmbeddedResource>
-	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml">
-		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	</EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

@@ -110,7 +110,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
             MySceneView.Scene = myScene;
         }
 
-        private async void ChangeCameraController(string cameraControllerLabel)
+        private void ChangeCameraController(string cameraControllerLabel)
         {
             switch (cameraControllerLabel)
             {

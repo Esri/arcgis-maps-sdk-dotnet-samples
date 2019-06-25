@@ -42,7 +42,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
         private readonly GlobeCameraController _globeCameraController = new GlobeCameraController();
 
         // Text labels for the user interface.
-        private string[] _controllers = { "Orbit camera around plane", "Orbit camera around crater", "Free pan around the globe" };
+        private readonly string[] _controllers = { "Orbit camera around plane", "Orbit camera around crater", "Free pan around the globe" };
 
         public ChooseCameraController()
         {

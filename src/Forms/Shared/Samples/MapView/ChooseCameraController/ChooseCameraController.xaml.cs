@@ -47,10 +47,6 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
         public ChooseCameraController()
         {
             InitializeComponent();
-        }
-        protected override void OnParentSet()
-        {
-            base.OnParentSet();
             Initialize();
         }
 
@@ -80,14 +76,12 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
             ModelSceneSymbol planeSymbol;
             try
             {
-                throw new Exception("Testing exception");
-
                 planeSymbol = await ModelSceneSymbol.CreateAsync(_modelUri, 10.0);
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
-                await ((Page)Parent).DisplayAlert("Error", "Loading plane model failed. Sample failed to initialize.", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", "Loading plane model failed. Sample failed to initialize.", "OK");
                 return;
             }
 
@@ -118,7 +112,6 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
 
         private async void ChangeCameraController(string cameraControllerLabel)
         {
-            await ((Page)Parent).DisplayAlert("test", "switch test", "OK");
             switch (cameraControllerLabel)
             {
                 case "Orbit camera around plane":

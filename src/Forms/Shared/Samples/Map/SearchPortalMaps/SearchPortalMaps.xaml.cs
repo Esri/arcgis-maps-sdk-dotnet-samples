@@ -134,7 +134,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             }
             catch (Exception e)
             {
-                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -174,7 +174,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
         
@@ -206,7 +206,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 Exception err = map.LoadError;
                 if (err != null)
                 {
-                    Device.BeginInvokeOnMainThread(() => ((Page)Parent).DisplayAlert(err.Message, "Map Load Error", "OK"));
+                    Device.BeginInvokeOnMainThread(() => Application.Current.MainPage.DisplayAlert(err.Message, "Map Load Error", "OK"));
                 }
             }
         }
@@ -243,7 +243,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             catch (Exception ex)
             {
                 // Login failure
-                await ((Page)Parent).DisplayAlert("Login Error", ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Login Error", ex.Message, "OK");
             }
 
             return loggedIn;

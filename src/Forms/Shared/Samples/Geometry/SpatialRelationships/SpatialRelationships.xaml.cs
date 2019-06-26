@@ -119,7 +119,7 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
 
             // Return if there are no results

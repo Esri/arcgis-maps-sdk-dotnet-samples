@@ -82,7 +82,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
     }

@@ -19,7 +19,6 @@
             <Setter Property="UseSystemFocusVisuals" Value="True"/>
             <Setter Property="Height" Value="48"/>
             <Setter Property="Template">
-
                 <Setter.Value>
                     <ControlTemplate TargetType="ToggleButton">
                         <Grid x:Name="RootGrid" Background="{TemplateBinding Background}" Margin="0,4,0,0">
@@ -38,7 +37,6 @@
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PrimaryColor}"/>
                                             </ObjectAnimationUsingKeyFrames>
-
                                         </Storyboard>
                                     </VisualState>
                                     <VisualState x:Name="Pressed">
@@ -114,67 +112,14 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style TargetType="PivotHeaderPanel">
+            <Setter Property="HorizontalAlignment" Value="Right" />
+        </Style>
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <!--
-        ============================
-        Adaptive triggers
-        ============================
-        -->
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <!--
-                ============================
-                Handle screen less than 780 effective pixels
-                ============================
-                -->
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="ApplicationTitle.FontSize" Value="16"/>
-                        <Setter Target="CommandBar.Visibility" Value="Visible"/>
-                        <Setter Target="Description.Visibility" Value="Collapsed"/>
-                        <Setter Target="LiveSample.Visibility" Value="Collapsed"/>
-                        <Setter Target="SourceButton.Visibility" Value="Collapsed"/>
-                        <Setter Target="SampleTitle.Margin" Value="12,0,0,0"/>
-                        <Setter Target="DescriptionText.(RelativePanel.Below)" Value="ThumbnailImage"></Setter>
-                        <Setter Target="DescriptionText.(RelativePanel.RightOf)" Value=""></Setter>
-                        <Setter Target="InstructionsHeader.(RelativePanel.Below)" Value="DescriptionText"></Setter>
-                    </VisualState.Setters>
-                </VisualState>
-                <!-- 
-                ============================
-                Handle screen over 780 effective pixels but less than 1024 effective pixels
-                ============================
-                -->
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="720" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="DescriptionText.(RelativePanel.Below)" Value="ThumbnailImage"></Setter>
-                        <Setter Target="DescriptionText.(RelativePanel.RightOf)" Value=""></Setter>
-                        <Setter Target="InstructionsHeader.(RelativePanel.Below)" Value="DescriptionText"></Setter>
-                    </VisualState.Setters>
-                </VisualState>
-                <!-- 
-                ============================
-                Handle screen over 1024 effective pixels
-                ============================
-                -->
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="1024" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -189,64 +134,20 @@
                    FontWeight="Bold" VerticalAlignment="Top"/>
         </Grid>
 
-        <RelativePanel x:Name="CommandArea" Height="48" Background="{StaticResource PrimaryBackgroundColor}" Grid.Row="1">
-            <TextBlock x:Name="SampleTitle" Margin="12,0,0,0"
-                       RelativePanel.AlignVerticalCenterWithPanel="True"
-                       Foreground="{StaticResource PrimaryColor}"
-                       Text="{Binding SampleName}"
-                       FontSize="24"></TextBlock>
-
-            <ToggleButton 
-                Checked="LiveSample_Checked"
-                Content="Live Sample"
-                x:Name="LiveSample" 
-                Margin="0,0,24,0" 
-                RelativePanel.LeftOf="Description" 
-                RelativePanel.AlignBottomWithPanel="True"  
-                Style="{StaticResource TabToggleButtonStyle}">
-            </ToggleButton>
-            <ToggleButton 
-                Checked="Description_Checked"
-                x:Name="Description"
-                Content="Description" 
-                RelativePanel.LeftOf="SourceButton" 
-                RelativePanel.AlignBottomWithPanel="True"
-                Margin="0,0,24,0" 
-                Style="{StaticResource TabToggleButtonStyle}">
-            </ToggleButton>
-            <ToggleButton 
-                Checked="SourceCode_Checked"
-                x:Name="SourceButton"
-                Content="Source code" 
-                RelativePanel.AlignRightWithPanel="True" 
-                RelativePanel.AlignBottomWithPanel="True"
-                Margin="0,0,48,0" 
-                Style="{StaticResource TabToggleButtonStyle}">
-            </ToggleButton>
-            <CommandBar
-                x:DeferLoadStrategy="Lazy"
-                x:Name="CommandBar"
-                RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Background="Transparent" Foreground="{StaticResource PrimaryColor}"
-                        Visibility="Collapsed">
-                <CommandBar.SecondaryCommands>
-                    <AppBarToggleButton Label="Live Sample" IsChecked="{Binding ElementName=LiveSample, Path=IsChecked,Mode=TwoWay}" Foreground="{StaticResource PrimaryColor}"></AppBarToggleButton>
-                    <AppBarToggleButton Label="Description" IsChecked="{Binding ElementName=Description, Path=IsChecked,Mode=TwoWay}" Foreground="{StaticResource PrimaryColor}"></AppBarToggleButton>
-                    <AppBarToggleButton Label="SourceCode" IsChecked="{Binding ElementName=SourceButton, Path=IsChecked,Mode=TwoWay}" Foreground="{StaticResource PrimaryColor}"></AppBarToggleButton>
-                </CommandBar.SecondaryCommands>
-            </CommandBar>
-        </RelativePanel>
-        <!-- 
-        ============================
-        Main content region
-        ============================
-        -->
-        <Grid Grid.Row="2">
-            <ContentControl Margin="5" x:Name="SampleContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-
-            <ContentControl Margin="5" Visibility="Collapsed" x:Name="DescriptionContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-                <WebView x:Name="DescriptionView" />
-            </ContentControl>
-            <local:SourceCode x:Name="SourceCodeContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-        </Grid>
+        <Pivot x:Name="rootPivot"
+               Grid.Row="1"
+               >
+            <PivotItem Header="{Binding SampleName}">
+                <ContentControl Margin="5" x:Name="SampleContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            </PivotItem>
+            <PivotItem Header="Description">
+                <ContentControl Margin="5" x:Name="DescriptionContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                    <WebView x:Name="DescriptionView" />
+                </ContentControl>
+            </PivotItem>
+            <PivotItem Header="Source Code">
+                <local:SourceCode x:Name="SourceCodeContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            </PivotItem>
+        </Pivot>
     </Grid>
 </Page>

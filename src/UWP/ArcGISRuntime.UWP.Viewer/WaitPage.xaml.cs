@@ -9,6 +9,9 @@
 
 using Windows.UI.Core;
 using Windows.UI.Xaml.Navigation;
+using System.Threading;
+using System.Windows;
+using Windows.UI.Xaml;
 
 namespace ArcGISRuntime.UWP.Viewer
 {
@@ -17,6 +20,8 @@ namespace ArcGISRuntime.UWP.Viewer
     /// </summary>
     public sealed partial class WaitPage
     {
+        private CancellationTokenSource _cancellationTokenSource;
+
         public WaitPage()
         {
             InitializeComponent();
@@ -28,6 +33,16 @@ namespace ArcGISRuntime.UWP.Viewer
 
             // Prevent user from going back
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+        }
+        public WaitPage(CancellationTokenSource cancellation)
+        {
+            InitializeComponent();
+            _cancellationTokenSource = cancellation;
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            _cancellationTokenSource.Cancel(true);
         }
     }
 }

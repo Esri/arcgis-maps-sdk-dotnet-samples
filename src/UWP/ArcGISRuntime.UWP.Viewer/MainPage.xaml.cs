@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation.Metadata;
 using Windows.UI.Core;
@@ -111,8 +112,12 @@ namespace ArcGISRuntime.UWP.Viewer
             {
                 if (selectedSample.OfflineDataItems != null)
                 {
+                    CancellationTokenSource cancellationSource = new CancellationTokenSource();
+
                     // Show the waiting page
                     Frame.Navigate(typeof(WaitPage));
+
+
                     // Wait for offline data to complete
                     await DataManager.EnsureSampleDataPresent(selectedSample);
                 }

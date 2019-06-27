@@ -5,12 +5,25 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+        HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" FontSize="48">Downloading Data</TextBlock>
-        <ProgressBar Grid.Row="1" IsIndeterminate="True" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
+                   FontSize="48" > Downloading sample data
+        </TextBlock>
+        <ProgressBar Grid.Row="1" Grid.Column="0"
+                         IsIndeterminate="True" 
+                         Margin="10" />
+        <Button Content="Cancel" 
+                    Grid.Row="1" Grid.Column="1"
+                    Margin="10"
+                    Click="Cancel_Click" />
     </Grid>
 </Page>

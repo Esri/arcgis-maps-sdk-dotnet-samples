@@ -10,6 +10,7 @@
     <AssemblyName>ArcGISRuntime</AssemblyName>
     <OutputPath>..\..\..\output\WPFCore\$(Configuration)\</OutputPath>
     <ApplicationIcon>Assets\ApplicationIcons\windows-desktop-256.ico</ApplicationIcon>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>

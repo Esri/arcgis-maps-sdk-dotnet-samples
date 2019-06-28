@@ -113,7 +113,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             }
             catch (Exception ex)
             {
-                await ((Page) Parent).DisplayAlert("Error selecting feature", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error selecting feature", ex.ToString(), "OK");
             }
         }
 
@@ -158,7 +158,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
 
                 if (!fileData.FileName.EndsWith(".jpg") && !fileData.FileName.EndsWith(".jpeg"))
                 {
-                    await ((Page) Parent).DisplayAlert("Try again!", "This sample only allows uploading jpg files.", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Try again!", "This sample only allows uploading jpg files.", "OK");
                     return;
                 }
 
@@ -179,11 +179,11 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                 _selectedFeature.Refresh();
                 AttachmentsListBox.ItemsSource = await _selectedFeature.GetAttachmentsAsync();
 
-                await ((Page) Parent).DisplayAlert("Success!", "Successfully added attachment", "OK");
+                await Application.Current.MainPage.DisplayAlert("Success!", "Successfully added attachment", "OK");
             }
             catch (Exception exception)
             {
-                await ((Page) Parent).DisplayAlert("Error adding attachment", exception.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error adding attachment", exception.ToString(), "OK");
             }
             finally
             {
@@ -217,11 +217,11 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                 AttachmentsListBox.ItemsSource = await _selectedFeature.GetAttachmentsAsync();
 
                 // Show success message.
-                await ((Page) Parent).DisplayAlert("Success!", "Successfully deleted attachment", "OK");
+                await Application.Current.MainPage.DisplayAlert("Success!", "Successfully deleted attachment", "OK");
             }
             catch (Exception exception)
             {
-                await ((Page) Parent).DisplayAlert("Error deleting attachment", exception.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error deleting attachment", exception.ToString(), "OK");
             }
             finally
             {
@@ -252,12 +252,12 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                 }
                 else
                 {
-                    await ((Page) Parent).DisplayAlert("Can't show attachment", "This sample can only show image attachments.", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Can't show attachment", "This sample can only show image attachments.", "OK");
                 }
             }
             catch (Exception exception)
             {
-                await ((Page) Parent).DisplayAlert("Error reading attachment", exception.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error reading attachment", exception.ToString(), "OK");
             }
         }
 

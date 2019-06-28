@@ -136,7 +136,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -232,7 +232,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -378,7 +378,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 }
 
                 // Show the message.
-                ((Page)Parent).DisplayAlert("Error", message, "OK");
+                Application.Current.MainPage.DisplayAlert("Error", message, "OK");
             }
         }
 
@@ -443,7 +443,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             // Tell the user about job completion.
             if (job.Status == JobStatus.Succeeded)
             {
-                ((Page)Parent).DisplayAlert("Alert", "Geodatabase synchronization succeeded.", "OK");
+                Application.Current.MainPage.DisplayAlert("Alert", "Geodatabase synchronization succeeded.", "OK");
             }
             // See if the job failed.
             else if (job.Status == JobStatus.Failed)
@@ -467,7 +467,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 }
 
                 // Show the message.
-               ((Page)Parent).DisplayAlert("Error", message, "OK");
+               Application.Current.MainPage.DisplayAlert("Error", message, "OK");
             }
         }
 
@@ -486,7 +486,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -516,7 +516,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Alert", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Alert", ex.ToString(), "OK");
             }
         }
     }

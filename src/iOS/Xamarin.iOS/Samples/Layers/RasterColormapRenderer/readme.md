@@ -31,9 +31,7 @@ To apply a `ColormapRenderer` to a `RasterLayer`:
 
 ## Offline data
 
-Link | Local Location
----------|-------|
-|[ShastaBW.tif raster](https://www.arcgis.com/home/item.html?id=cc68728b5904403ba637e1f1cd2995ae)| `<userhome>`/ArcGIS/Runtime/Data/raster/ShastaBW.tif |
+[ShastaBW.tif raster](https://www.arcgis.com/home/item.html?id=cc68728b5904403ba637e1f1cd2995ae)
 
 ## About the data
 

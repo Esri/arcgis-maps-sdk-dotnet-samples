@@ -1,5 +1,7 @@
 import json
 import os
+from distutils.dir_util import copy_tree
+from shutil import copyfile
 
 class sample_metadata:
     def __init__(self):
@@ -150,6 +152,74 @@ class sample_metadata:
 
         return
     
+    def emit_standalone_solution(self, platform, sample_dir, output_root, shared_project_path):
+        '''
+        Produces a standalone sample solution for the given sample
+        platform: one of: Android, iOS, UWP, WPF, XFA, XFI, XFU
+        output_root: output folder; should not be specific to the platform
+        sample_dir: path to the folder containing the sample's code
+        '''
+        # create output dir
+        output_dir = os.path.join(output_root, platform, self.formal_name)
+
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+        # copy template files over - find files in template
+        script_dir = os.path.split(os.path.realpath(__file__))[0]
+        template_dir = os.path.join(script_dir, "templates", "solutions", platform)
+        copy_tree(template_dir, output_dir)
+        
+        # copy sample files over
+        copy_tree(sample_dir, output_dir)
+
+        # copy any out-of-dir files over (e.g. Android layouts, download manager)
+        if len(self.source_files) > 0:
+            for file in self.source_files:
+                if ".." in file:
+                    source_path = os.path.join(sample_dir, file)
+                    dest_path = os.path.join(output_dir, os.path.split(file)[1])
+                    copyfile(source_path, dest_path)
+
+        # TODO
+
+        # accumulate list of source, xaml, axml, and resource files
+
+        # generate list of replacements
+        replacements = {}
+        replacements["$$project$$"] = self.formal_name
+        replacements["$$embedded_resources$$"] = "" # TODO
+        replacements["$$source_files$$"] = "" # TODO
+        replacements["$$xaml_files$$"] = "" # TODO
+        replacements["$$axml_files$$"] = "" # TODO
+
+        # rewrite files in output - replace template fields
+        sample_metadata.rewrite_files_in_place(output_dir, replacements)
+        return
+    
+    def rewrite_files_in_place(source_dir, replacements_dict):
+        for r, d, f in os.walk(source_dir):
+            for sample_dir in d:
+                sample_metadata.rewrite_files_in_place(os.path.join(r, sample_dir), replacements_dict)
+            for sample_file_name in f:
+                sample_file = os.path.join(r, sample_file_name)
+                extension = os.path.splitext(sample_file)[1]
+                if extension in [".cs", ".xaml", ".sln", ".md", ".csproj", ".shproj", ".axml"]:
+                    # open file, read into string
+                    original_contents_handle = open(sample_file, "r")
+                    original_contents = original_contents_handle.read()
+                    original_contents_handle.close()
+                    # make replacements
+                    new_content = original_contents
+                    for tag in replacements_dict.keys():
+                        new_content = new_content.replace(tag, replacements_dict[tag])
+                    # write out new file
+                    if new_content != original_contents:
+                        os.remove(sample_file)
+                        with open(sample_file, 'w') as rewrite_handle:
+                            rewrite_handle.write(new_content)
+
+    
     def splitall(path):
         ## Credits: taken verbatim from https://www.oreilly.com/library/view/python-cookbook/0596001673/ch04s16.html
         allparts = []
@@ -205,7 +275,7 @@ class sample_metadata:
             close_char_index = image_string.find("\"", open_char_index)
             
             # read between those chars
-            substring = image_string[open_char_index:close_char_index - 1]
+            substring = image_string[open_char_index:close_char_index]
             return substring
     
     def populate_heading(self, heading_part, body_parts):

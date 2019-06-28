@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
@@ -181,10 +182,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.xaml.cs">
-		<DependentUpon>ChooseCameraController.xaml</DependentUpon>
-		<SubType>Code</SubType>
-	</Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml.cs">
+      <DependentUpon>RasterColormapRenderer.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.xaml.cs">
+      <DependentUpon>ChooseCameraController.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
       <DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -763,7 +768,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.xaml">
+	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml">
+	  <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
+  <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.xaml">
 		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	</EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml">

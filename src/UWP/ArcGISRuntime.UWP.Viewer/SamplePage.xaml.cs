@@ -55,6 +55,30 @@ namespace ArcGISRuntime.UWP.Viewer
             await StatusBar.GetForCurrentView().HideAsync();
         }
 
+        private void LiveSample_Checked(object sender, RoutedEventArgs e)
+        {
+            // Make sure that only one is selected.
+            DescriptionContainer.Visibility = Visibility.Collapsed;
+            SampleContainer.Visibility = Visibility.Visible;
+            SourceCodeContainer.Visibility = Visibility.Collapsed;
+        }
+
+        private void Description_Checked(object sender, RoutedEventArgs e)
+        {
+            // Make sure that only one is selected.
+            DescriptionContainer.Visibility = Visibility.Visible;
+            SampleContainer.Visibility = Visibility.Collapsed;
+            SourceCodeContainer.Visibility = Visibility.Collapsed;
+        }
+
+        private void SourceCode_Checked(object sender, RoutedEventArgs e)
+        {
+            // Make sure that only one is selected.
+            DescriptionContainer.Visibility = Visibility.Collapsed;
+            SampleContainer.Visibility = Visibility.Collapsed;
+            SourceCodeContainer.Visibility = Visibility.Visible;
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);

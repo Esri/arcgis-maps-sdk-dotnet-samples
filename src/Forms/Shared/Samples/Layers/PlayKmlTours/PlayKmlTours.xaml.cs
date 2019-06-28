@@ -84,7 +84,7 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
             catch (Exception e)
             {
                 Debug.WriteLine(e.ToString());
-                await ((Page) Parent).DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 

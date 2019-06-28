@@ -110,7 +110,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             catch (Exception exception)
             {
                 Debug.WriteLine(exception);
-                await ((Page)Parent).DisplayAlert("Failed to load layer", exception.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Failed to load layer", exception.ToString(), "OK");
             }
             finally
             {

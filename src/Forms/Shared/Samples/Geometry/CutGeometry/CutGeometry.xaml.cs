@@ -114,7 +114,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
             catch (Exception ex)
             {
                 // Display an error message if there is a problem generating cut operation.
-                ((Page)Parent).DisplayAlert("Geometry Engine Failed", "Error performing cut: " + ex.Message, "OK");
+                Application.Current.MainPage.DisplayAlert("Geometry Engine Failed", "Error performing cut: " + ex.Message, "OK");
             }
         }
 

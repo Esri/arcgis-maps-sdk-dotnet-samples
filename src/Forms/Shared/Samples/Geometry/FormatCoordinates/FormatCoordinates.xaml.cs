@@ -167,7 +167,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             catch (Exception ex)
             {
                 // The coordinate is malformed, warn and return
-                ((Page)Parent).DisplayAlert("Invalid Format", ex.Message, "OK");
+                Application.Current.MainPage.DisplayAlert("Invalid Format", ex.Message, "OK");
                 return;
             }
 

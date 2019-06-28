@@ -114,7 +114,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -221,7 +221,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 await _gdbSyncTask.UnregisterGeodatabaseAsync(resultGdb);
 
                 // Tell the user that the geodatabase was unregistered.
-                await ((Page)Parent).DisplayAlert("Alert", "Since no edits will be made, the local geodatabase has been unregistered per best practice.", "OK");
+                await Application.Current.MainPage.DisplayAlert("Alert", "Since no edits will be made, the local geodatabase has been unregistered per best practice.", "OK");
 
                 // Re-enable generate button.
                 myGenerateButton.IsEnabled = true;
@@ -244,7 +244,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                     message += ": " + String.Join("\n", job.Messages.Select(m => m.Message));
                 }
 
-                await ((Page)Parent).DisplayAlert("Alert", message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Alert", message, "OK");
             }
         }
 
@@ -263,7 +263,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 

@@ -133,7 +133,7 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             }
             catch (Exception exception)
             {
-                await ((Page)Parent).DisplayAlert("Error", "An exception has occurred.\n" + exception.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", "An exception has occurred.\n" + exception.Message, "OK");
             }
         }
 
@@ -193,7 +193,7 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             }
             catch (Esri.ArcGISRuntime.Http.ArcGISWebException exception)
             {
-                await ((Page)Parent).DisplayAlert("Error", "An ArcGIS web exception occurred.\n" + exception.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", "An ArcGIS web exception occurred.\n" + exception.Message, "OK");
             }
         }
 

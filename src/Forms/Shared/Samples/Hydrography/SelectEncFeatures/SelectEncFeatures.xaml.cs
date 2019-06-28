@@ -83,7 +83,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             }
             catch (Exception e)
             {
-                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -136,7 +136,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 

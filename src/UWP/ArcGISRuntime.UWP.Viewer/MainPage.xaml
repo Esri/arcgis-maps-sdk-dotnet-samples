@@ -178,10 +178,6 @@
                       IsChecked="{Binding IsPaneOpen, ElementName=RootSplitView, Mode=TwoWay}"
                       RelativePanel.AlignLeftWithPanel="True" />
 
-
-
-
-
             <TextBlock x:Name="CategoryTitle" 
                        Margin="0,0,0,0"
                        RelativePanel.RightOf="TogglePaneButton"
@@ -221,7 +217,8 @@
                 </ListView>
             </SplitView.Pane>
             <SplitView.Content>
-                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource SecondaryBackgroundColor}">
+                <Grid x:Name="MainGrid"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource SecondaryBackgroundColor}">
                     <!--HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"-->
 
                     <GridView x:Name="SamplesGridView" 

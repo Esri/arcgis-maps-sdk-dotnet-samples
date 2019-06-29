@@ -88,6 +88,7 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private void OnCategoriesSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            RootSplitView.Content = MainGrid;
             if (e.AddedItems.Count > 0)
             {
                 if (RootSplitView.DisplayMode != SplitViewDisplayMode.Inline)
@@ -115,21 +116,14 @@ namespace ArcGISRuntime.UWP.Viewer
                     CancellationTokenSource cancellationSource = new CancellationTokenSource();
 
                     // Show the waiting page
-                    Frame.Navigate(typeof(WaitPage));
-
+                    RootSplitView.Content = new WaitPage(cancellationSource);
 
                     // Wait for offline data to complete
-                    await DataManager.EnsureSampleDataPresent(selectedSample);
+                    await DataManager.EnsureSampleDataPresent(selectedSample, cancellationSource.Token);
                 }
                 // Show the sample
-                Frame.Navigate(typeof(SamplePage));
-
-                // Only remove download page from navigation stack if it was shown
-                if (selectedSample.OfflineDataItems != null)
-                {
-                    // Remove the wait page from the stack
-                    Frame.BackStack.Remove(Frame.BackStack.First(m => m.SourcePageType == typeof(WaitPage)));
-                }
+                //Frame.Navigate(typeof(SamplePage));
+                RootSplitView.Content = new SamplePage();
             }
             catch (Exception exception)
             {

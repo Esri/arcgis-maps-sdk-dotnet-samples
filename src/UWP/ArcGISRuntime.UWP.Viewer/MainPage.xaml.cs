@@ -119,11 +119,13 @@ namespace ArcGISRuntime.UWP.Viewer
                     RootSplitView.Content = new WaitPage(cancellationSource);
 
                     // Wait for offline data to complete
-                    await DataManager.EnsureSampleDataPresent(selectedSample, cancellationSource.Token);
+                    await DataManager.EnsureSampleDataPresent(selectedSample);
                 }
                 // Show the sample
                 //Frame.Navigate(typeof(SamplePage));
+                Categories.SelectedItem = null;
                 RootSplitView.Content = new SamplePage();
+                
             }
             catch (Exception exception)
             {

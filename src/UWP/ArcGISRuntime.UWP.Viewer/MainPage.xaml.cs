@@ -18,6 +18,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation.Metadata;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -88,7 +89,7 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private void OnCategoriesSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RootSplitView.Content = MainGrid;
+            RootSplitView.Content = SampleSelectionGrid;
             if (e.AddedItems.Count > 0)
             {
                 if (RootSplitView.DisplayMode != SplitViewDisplayMode.Inline)
@@ -119,18 +120,19 @@ namespace ArcGISRuntime.UWP.Viewer
                     RootSplitView.Content = new WaitPage(cancellationSource);
 
                     // Wait for offline data to complete
-                    await DataManager.EnsureSampleDataPresent(selectedSample);
+                    await DataManager.EnsureSampleDataPresent(selectedSample, cancellationSource.Token);
                 }
                 // Show the sample
                 //Frame.Navigate(typeof(SamplePage));
                 Categories.SelectedItem = null;
-                RootSplitView.Content = new SamplePage();
-                
+                RootSplitView.Content = new SamplePage();  
             }
             catch (Exception exception)
             {
                 // failed to create new instance of the sample
-                Frame.Navigate(typeof(ErrorPage), exception);
+                //Frame.Navigate(typeof(ErrorPage), exception);
+                RootSplitView.Content = SampleSelectionGrid;
+                await new MessageDialog(exception.Message).ShowAsync();
             }
         }
 

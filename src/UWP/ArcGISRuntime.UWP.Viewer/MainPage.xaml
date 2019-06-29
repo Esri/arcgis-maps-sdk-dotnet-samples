@@ -217,7 +217,7 @@
                 </ListView>
             </SplitView.Pane>
             <SplitView.Content>
-                <Grid x:Name="MainGrid"
+                <Grid x:Name="SampleSelectionGrid"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource SecondaryBackgroundColor}">
                     <!--HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"-->
 

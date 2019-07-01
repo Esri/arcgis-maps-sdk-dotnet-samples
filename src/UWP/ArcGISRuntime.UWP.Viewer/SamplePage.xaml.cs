@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using Windows.Foundation.Metadata;
 using Windows.UI.Core;
@@ -33,8 +34,11 @@ namespace ArcGISRuntime.UWP.Viewer
             // Load and show the sample.
             SampleContainer.Content = SampleManager.Current.SampleToControl(SampleManager.Current.SelectedSample);
 
-            // Default to the live sample view.
-            LiveSample.IsChecked = true;
+            if(App.Current.RequestedTheme == Windows.UI.Xaml.ApplicationTheme.Dark)
+            {
+                DescriptionView.RequestedTheme = Windows.UI.Xaml.ElementTheme.Dark;
+                //_markdownRenderer.Options.
+            }
 
             string folderPath = SampleManager.Current.SelectedSample.Path;
             string cssPath = "ms-appx-web:///Resources\\github-markdown.css";
@@ -55,42 +59,34 @@ namespace ArcGISRuntime.UWP.Viewer
             await StatusBar.GetForCurrentView().HideAsync();
         }
 
-        private void LiveSample_Checked(object sender, RoutedEventArgs e)
-        {
-            // Make sure that only one is selected.
-            Description.IsChecked = false;
-            SourceButton.IsChecked = false;
-            DescriptionContainer.Visibility = Visibility.Collapsed;
-            SampleContainer.Visibility = Visibility.Visible;
-            SourceCodeContainer.Visibility = Visibility.Collapsed;
-        }
-
-        private void Description_Checked(object sender, RoutedEventArgs e)
-        {
-            // Make sure that only one is selected.
-            LiveSample.IsChecked = false;
-            SourceButton.IsChecked = false;
-            DescriptionContainer.Visibility = Visibility.Visible;
-            SampleContainer.Visibility = Visibility.Collapsed;
-            SourceCodeContainer.Visibility = Visibility.Collapsed;
-        }
-
-        private void SourceCode_Checked(object sender, RoutedEventArgs e)
-        {
-            // Make sure that only one is selected.
-            Description.IsChecked = false;
-            LiveSample.IsChecked = false;
-            DescriptionContainer.Visibility = Visibility.Collapsed;
-            SampleContainer.Visibility = Visibility.Collapsed;
-            SourceCodeContainer.Visibility = Visibility.Visible;
-        }
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
             // Prevent user from going back
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+        }
+
+        private void TabChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
+        {
+            switch(((TabViewItem)Tabs.SelectedItem).Header.ToString())
+            {
+                case "Live Sample":
+                    SampleContainer.Visibility = Visibility.Visible;
+                    DescriptionContainer.Visibility = Visibility.Collapsed;
+                    SourceCodeContainer.Visibility = Visibility.Collapsed;
+                    break;
+                case "Description":
+                    SampleContainer.Visibility = Visibility.Collapsed;
+                    DescriptionContainer.Visibility = Visibility.Visible;
+                    SourceCodeContainer.Visibility = Visibility.Collapsed;
+                    break;
+                case "Source Code":
+                    SampleContainer.Visibility = Visibility.Collapsed;
+                    DescriptionContainer.Visibility = Visibility.Collapsed;
+                    SourceCodeContainer.Visibility = Visibility.Visible;
+                    break;
+            }
         }
     }
 }

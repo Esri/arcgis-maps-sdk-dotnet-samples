@@ -2,9 +2,11 @@ import json
 import os
 from distutils.dir_util import copy_tree
 from shutil import copyfile
+import re
+import requests
 
 class sample_metadata:
-    def __init__(self):
+    def reset_props(self):
         self.formal_name = ""
         self.friendly_name = ""
         self.sample_unique_id = ""
@@ -16,7 +18,7 @@ class sample_metadata:
         self.images = []
         self.source_files = []
         self.redirect_from = []
-        self.offline_data = ""
+        self.offline_data = []
         self.description = ""
         self.how_to_use = []
         self.how_it_works = ""
@@ -24,6 +26,9 @@ class sample_metadata:
         self.data_statement = ""
         self.additional_info = ""
         self.ignore = False
+
+    def __init__(self):
+        self.reset_props()
     
     def populate_from_folder(self, folder_path):
         # check for readme in folder
@@ -56,18 +61,28 @@ class sample_metadata:
 
         return
     
-    def populate_from_readme(self, path_to_readme):
+    def populate_from_readme(self, platform, path_to_readme):
         # formal name is the name of the folder containing the json
         pathparts = sample_metadata.splitall(path_to_readme)
         self.formal_name = pathparts[-2]
+
+        # populate redirect_from; it is based on a pattern
+        redirect_string = f"/net/latest/{platform.lower()}/sample-code/{self.formal_name.lower()}.htm"
+        self.redirect_from.append(redirect_string)
 
         # category is the name of the folder containing the sample folder
         self.category = pathparts[-3]
 
         # read the readme content into a string
-        readme_file = open(path_to_readme, "r")
-        readme_contents = readme_file.read()
-        readme_file.close()
+        readme_contents = ""
+        try:
+            readme_file = open(path_to_readme, "r")
+            readme_contents = readme_file.read()
+            readme_file.close()
+        except Exception as err:
+            # not a sample, skip
+            print(f"Error populating sample from readme - {path_to_readme} - {err}")
+            return
 
         # break into sections
         readme_parts = readme_contents.split("\n\n") # a blank line is two newlines
@@ -75,6 +90,9 @@ class sample_metadata:
         # extract human-readable name
         self.friendly_name = readme_parts[0].strip("#").strip()
         
+        if len(readme_parts) < 3:
+            # can't handle this, return early
+            return
         if len(readme_parts) < 5: # old style readme
             # Take just the first description paragraph
             self.description = readme_parts[1]
@@ -107,29 +125,116 @@ class sample_metadata:
                 self.populate_heading(current_heading, para_part_accumulator)
 
         return
+    
+    def try_replace_with_common_readme(self, platform, path_to_common_dir, path_to_net_readme):
+        '''
+        Will read the common readme and replace the sample's readme if found wanting
+        path_to_common_dir is the path to the samples design folder
+        Precondition: populate_from_readme already called
+        '''
+        # skip if the existing readme is good enough; it is assumed that any sample with tags already has a good readme
+        if len(self.keywords) > 0:
+            return
+        
+        # determine if matching readme exists; if not, return early
+        match_name = None
+        dirs = os.listdir(path_to_common_dir)
+        for dir in dirs:
+            if dir.lower() == self.formal_name.lower():
+                match_name = dir
+        if match_name == None:
+            return
+        
+        # create a new sample_metadata, call populate from readme on the design readme
+        readme_path = os.path.join(path_to_common_dir, match_name, "readme.md")
+        if not os.path.exists(readme_path):
+            return
+        compare_sample = sample_metadata()
+        compare_sample.populate_from_readme(platform, readme_path)
+
+        # fix the image content
+        compare_sample.images = [f"{compare_sample.formal_name}.jpg"]
+
+        # fix the category
+        compare_sample.category = self.category
+
+        # call flush_to_readme on the newly created sample object, flag it for review
+        compare_sample.keywords.append("@@TODO")
+        compare_sample.flush_to_readme(path_to_net_readme)
+
+        # re-read to pick up any new info
+        self.reset_props()
+        self.populate_from_readme(path_to_net_readme)
 
     def flush_to_readme(self, path_to_readme):
-        # read in readme template
-        template_text = ""
+        template_text = f"# {self.friendly_name}\n\n"
 
-        # replace the name
+        # add the description
+        if self.description != "":
+            template_text += f"{self.description}\n\n"
 
-        # replace the image
+        # add the image
+        if len(self.images) > 0:
+            template_text += f"![screenshot]({self.images[0]})\n\n"
 
-        # replace or remove 'How to use the sample' - how_to_use
+        # add "Use case" - use_case
+        if self.use_case != "":
+            template_text += "## Use case\n\n"
+            template_text += f"{self.use_case}\n\n"
 
-        # replace or remove 'How it works' - how_it_works
+        # add 'How to use the sample' - how_to_use
+        if self.how_to_use != "":
+            template_text += "## How to use the sample\n\n"
+            template_text += f"{self.how_to_use}\n\n"
 
-        # replace or remove 'Relevant API' - relevant_api
+        # add 'How it works' - how_it_works
+        if len(self.how_it_works) > 0:
+            template_text += "## How it works\n\n"
+            stepIndex = 1
+            for step in self.how_it_works:
+                template_text += f"{stepIndex}. {step}\n"
+                stepIndex += 1
+            template_text += "\n"
 
-        # replace or remove 'Offline data' - offline_data
+        # add 'Relevant API' - relevant_api
+        if len(self.relevant_api) > 0:
+            template_text += "## Relevant API\n\n"
+            for api in self.relevant_api:
+                template_text += f"* {api}\n"
+            template_text += "\n"
 
-        # replace or remove 'About the data' - data_statement
+        # add 'Offline data' - offline_data
+        if len(self.offline_data) > 0:
+            template_text += "## Offline data\n\n"
+            template_text += "This sample downloads the following items from ArcGIS Online automaticall.\n\n"
+            for item in self.offline_data:
+                # get the item's name from AGOL
+                request_url = f"https://www.arcgis.com/sharing/rest/content/items/{item}?f=json"
+                agol_result = requests.get(url=request_url)
+                data = agol_result.json()
+                name = data["name"]
+                # write out line
+                template_text += f"* [{name}](https://www.arcgis.com/home/item.html?id={item}) - {data['snippet']}\n"
+            template_text += "\n"
 
-        # replace or remove 'Additional information' - additional_info
+        # add 'About the data' - data_statement
+        if self.data_statement != "":
+            template_text += "## About the data\n\n"
+            template_text += f"{self.data_statement}\n\n"
 
-        # replace or remove 'Tags' - keywords
+        # add 'Additional information' - additional_info
+        if self.additional_info != "":
+            template_text += "## Additional information\n\n"
+            template_text += f"{self.additional_info}\n\n"
 
+        # add 'Tags' - keywords
+        template_text += "## Tags\n\n"
+        template_text += ", ".join(self.keywords)
+        template_text += "\n"
+
+        # write the output
+        with open(path_to_readme, 'w+') as file:
+            file.write(template_text)
         return
     
     def flush_to_json(self, path_to_json):
@@ -181,7 +286,7 @@ class sample_metadata:
                     dest_path = os.path.join(output_dir, os.path.split(file)[1])
                     copyfile(source_path, dest_path)
 
-        # TODO
+        # TODO - emit sampleName.sample metadata xml file
 
         # accumulate list of source, xaml, axml, and resource files
 
@@ -206,9 +311,17 @@ class sample_metadata:
                 extension = os.path.splitext(sample_file)[1]
                 if extension in [".cs", ".xaml", ".sln", ".md", ".csproj", ".shproj", ".axml"]:
                     # open file, read into string
-                    original_contents_handle = open(sample_file, "r")
-                    original_contents = original_contents_handle.read()
-                    original_contents_handle.close()
+                    original_contents = ""
+                    try:
+                        with open(sample_file, "r") as handle:
+                            original_contents = handle.read()
+                    except UnicodeDecodeError:
+                        try:
+                            with open(sample_file, "r", encoding='utf-8') as handle:
+                                original_contents = handle.read()
+                        except UnicodeDecodeError:
+                            with open(sample_file, "r", encoding='utf-16') as handle:
+                                original_contents = handle.read()
                     # make replacements
                     new_content = original_contents
                     for tag in replacements_dict.keys():
@@ -216,9 +329,16 @@ class sample_metadata:
                     # write out new file
                     if new_content != original_contents:
                         os.remove(sample_file)
-                        with open(sample_file, 'w') as rewrite_handle:
-                            rewrite_handle.write(new_content)
-
+                        try:
+                            with open(sample_file, 'w') as rewrite_handle:
+                                rewrite_handle.write(new_content)
+                        except UnicodeEncodeError:
+                            try:
+                                with open(sample_file, 'w', encoding="utf-8") as rewrite_handle:
+                                    rewrite_handle.write(new_content)
+                            except UnicodeEncodeError:
+                                with open(sample_file, 'w', encoding="utf-16") as rewrite_handle:
+                                    rewrite_handle.write(new_content)
     
     def splitall(path):
         ## Credits: taken verbatim from https://www.oreilly.com/library/view/python-cookbook/0596001673/ch04s16.html
@@ -303,8 +423,13 @@ class sample_metadata:
 
         # how it works
         if "works" in heading_parts and "how" in heading_parts:
-            content = "\n".join(body_parts)
-            self.how_it_works = content
+            step_strings = []
+            lines = body_parts[0].split("\n")
+            cleaned_lines = []
+            for line in lines:
+                line_parts = line.split('.')
+                cleaned_lines.append(".".join(line_parts[1:]).strip())
+            self.how_it_works = cleaned_lines
             return
         
         # relevant API
@@ -313,14 +438,17 @@ class sample_metadata:
             lines = body_parts[0].split("\n")
             cleaned_lines = []
             for line in lines:
-                cleaned_lines.append(line.strip("*").strip("-").strip())
+                cleaned_lines.append(line.strip("*").strip("-").strip("`").strip())
             self.relevant_api = cleaned_lines
             return
 
         # offline data
         if "offline" in heading_parts:
             content = "\n".join(body_parts)
-            self.offline_data = content
+            # extract any guids - these are AGOL items
+            regex = re.compile('[0-9a-f]{8}[0-9a-f]{4}[1-5][0-9a-f]{3}[89ab][0-9a-f]{3}[0-9a-f]{12}', re.I)
+            matches = re.findall(regex, content)
+            self.offline_data = matches
             return
 
         # about the data

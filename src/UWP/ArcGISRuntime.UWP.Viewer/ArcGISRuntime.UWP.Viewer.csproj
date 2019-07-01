@@ -1635,6 +1635,12 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.9</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>5.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Monaco.Editor">
+      <Version>0.8.1-alpha</Version>
+    </PackageReference>
   </ItemGroup>
   <!-- Source Code Viewer -->
   <ItemGroup>

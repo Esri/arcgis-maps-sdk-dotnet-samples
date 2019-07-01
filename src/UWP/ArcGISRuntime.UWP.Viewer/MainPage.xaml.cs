@@ -37,6 +37,7 @@ namespace ArcGISRuntime.UWP.Viewer
 
             // Use required cache mode so we create only one page
             NavigationCacheMode = Navigation.NavigationCacheMode.Required;
+
             // Get current view that provides access to the back button
             _currentView = SystemNavigationManager.GetForCurrentView();
             _currentView.BackRequested += OnFrameNavigationRequested;
@@ -123,14 +124,12 @@ namespace ArcGISRuntime.UWP.Viewer
                     await DataManager.EnsureSampleDataPresent(selectedSample, cancellationSource.Token);
                 }
                 // Show the sample
-                //Frame.Navigate(typeof(SamplePage));
                 Categories.SelectedItem = null;
                 RootSplitView.Content = new SamplePage();  
             }
             catch (Exception exception)
             {
                 // failed to create new instance of the sample
-                //Frame.Navigate(typeof(ErrorPage), exception);
                 RootSplitView.Content = SampleSelectionGrid;
                 await new MessageDialog(exception.Message).ShowAsync();
             }
@@ -216,6 +215,5 @@ namespace ArcGISRuntime.UWP.Viewer
         {
             return SampleManager.Current.SampleSearchFunc(sample, SearchBox.Text);
         }
-
     }
 }

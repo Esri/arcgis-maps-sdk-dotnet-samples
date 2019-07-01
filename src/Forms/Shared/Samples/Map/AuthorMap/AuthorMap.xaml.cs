@@ -27,6 +27,7 @@ using UIKit;
 
 #if __ANDROID__
 using Android.App;
+using Application = Xamarin.Forms.Application;
 using Xamarin.Auth;
 #endif
 
@@ -221,7 +222,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     await myMap.SaveAsAsync(agsOnline, null, title, description, tags, thumbnailImage);
 
                     // Report a successful save
-                    await ((Page)Parent).DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
                 }
                 else
                 {
@@ -236,13 +237,13 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     await myMap.SaveAsync();
 
                     // Report update was successful
-                    await ((Page)Parent).DisplayAlert("Updates Saved", "Saved changes to '" + myMap.Item.Title + "'", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Updates Saved", "Saved changes to '" + myMap.Item.Title + "'", "OK");
                 }
             }
             catch (Exception ex)
             {
                 // Show the exception message
-                await ((Page)Parent).DisplayAlert("Unable to save map", ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Unable to save map", ex.Message, "OK");
             }
             finally
             {

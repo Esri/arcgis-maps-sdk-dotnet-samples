@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
     <Content Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
     <Content Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
     <Content Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
@@ -338,6 +339,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml.cs">
+      <DependentUpon>RasterColormapRenderer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\MapView\ChooseCameraController\ChooseCameraController.xaml.cs">
       <DependentUpon>ChooseCameraController.xaml</DependentUpon>
     </Compile>
@@ -866,6 +870,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\MapView\ChooseCameraController\ChooseCameraController.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -100,7 +100,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             catch (Exception ex)
             {
                 // Report exceptions.
-                await ((Page)Parent).DisplayAlert("Error", "Error drawing facility:\n" + ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", "Error drawing facility:\n" + ex.Message, "OK");
             }
         }
 
@@ -143,7 +143,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             catch (Exception ex)
             {
                 // Report exceptions.
-                await ((Page)Parent).DisplayAlert("Error", "Error drawing barrier:\n" + ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", "Error drawing barrier:\n" + ex.Message, "OK");
             }
         }
 
@@ -168,7 +168,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             // Check that there is at least 1 facility to find a service area for.
             if (!serviceAreaFacilities.Any())
             {
-                await ((Page)Parent).DisplayAlert("Error", "Must have at least one Facility!", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", "Must have at least one Facility!", "OK");
                 return;
             }
 
@@ -243,11 +243,11 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             {
                 if (exception.Message.ToString().Equals("Unable to complete operation."))
                 {
-                    await ((Page)Parent).DisplayAlert("Error", "Facility not within San Diego area!", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Error", "Facility not within San Diego area!", "OK");
                 }
                 else
                 {
-                    await ((Page)Parent).DisplayAlert("Error", "An ArcGIS web exception occurred. \n" + exception.Message, "OK");
+                    await Application.Current.MainPage.DisplayAlert("Error", "An ArcGIS web exception occurred. \n" + exception.Message, "OK");
                 }
             }
         }

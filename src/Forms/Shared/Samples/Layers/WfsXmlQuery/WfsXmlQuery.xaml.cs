@@ -84,7 +84,7 @@ namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
             catch (Exception e)
             {
                 Debug.WriteLine(e.ToString());
-                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "Couldn't populate table with XML query.");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "Couldn't populate table with XML query.");
             }
         }
     }

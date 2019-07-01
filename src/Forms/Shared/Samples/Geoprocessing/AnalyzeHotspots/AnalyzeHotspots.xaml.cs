@@ -54,7 +54,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             }
             catch (Exception e)
             {
-                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -71,7 +71,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             if (EndDate.Date <= StartDate.Date.AddDays(1))
             {
                 // Show error message
-                await ((Page)Parent).DisplayAlert("Invalid date range", "Please select valid time range. There has to be at least one day in between To and From dates.", "OK");
+                await Application.Current.MainPage.DisplayAlert("Invalid date range", "Please select valid time range. There has to be at least one day in between To and From dates.", "OK");
 
                 // Remove the busy activity indication
                 MyActivityIndicator.IsRunning = false;
@@ -114,11 +114,11 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
                 // Display error messages if the geoprocessing task fails
                 if (_hotspotJob.Status == JobStatus.Failed && _hotspotJob.Error != null)
                 {
-                    await ((Page)Parent).DisplayAlert("Geoprocessing error", "Executing geoprocessing failed. " + _hotspotJob.Error.Message, "OK");
+                    await Application.Current.MainPage.DisplayAlert("Geoprocessing error", "Executing geoprocessing failed. " + _hotspotJob.Error.Message, "OK");
                 }
                 else
                 {
-                    await ((Page)Parent).DisplayAlert("Sample error", "An error occurred. " + ex.ToString(), "OK");
+                    await Application.Current.MainPage.DisplayAlert("Sample error", "An error occurred. " + ex.ToString(), "OK");
                 }
             }
             finally

@@ -75,7 +75,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await ((Page) Parent).DisplayAlert("Couldn't start location", ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Couldn't start location", ex.Message, "OK");
             }
 
             // Initialize the LocatorTask with the provided service Uri.
@@ -299,7 +299,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            ((Page)Parent).DisplayAlert("Alert", message, "OK");
+            Application.Current.MainPage.DisplayAlert("Alert", message, "OK");
         }
 
         private async void MyLocationBox_TextChanged(object sender, TextChangedEventArgs e)

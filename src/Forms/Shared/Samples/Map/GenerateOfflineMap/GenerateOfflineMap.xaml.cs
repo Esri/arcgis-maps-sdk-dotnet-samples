@@ -30,6 +30,7 @@ using UIKit;
 
 #if __ANDROID__
 using Android.App;
+using Application = Xamarin.Forms.Application;
 using Xamarin.Auth;
 using System.IO;
 #endif
@@ -102,7 +103,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Alert", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Alert", ex.ToString(), "OK");
             }
         }
 
@@ -161,7 +162,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
                 // Check for job failure (writing the output was denied, e.g.).
                 if (_generateOfflineMapJob.Status != JobStatus.Succeeded)
                 {
-                    await ((Page)Parent).DisplayAlert("Alert", "Generate offline map package failed.", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Alert", "Generate offline map package failed.", "OK");
                     busyIndicator.IsVisible = false;
                 }
 
@@ -177,7 +178,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
 
                     // Show layer errors.
                     string errorText = errorBuilder.ToString();
-                    await ((Page)Parent).DisplayAlert("Alert", errorText, "OK");
+                    await Application.Current.MainPage.DisplayAlert("Alert", errorText, "OK");
                 }
 
                 // Display the offline map.
@@ -198,12 +199,12 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             catch (TaskCanceledException)
             {
                 // Generate offline map task was canceled.
-                await ((Page)Parent).DisplayAlert("Alert", "Taking map offline was canceled", "OK");
+                await Application.Current.MainPage.DisplayAlert("Alert", "Taking map offline was canceled", "OK");
             }
             catch (Exception ex)
             {
                 // Exception while taking the map offline.
-                await ((Page)Parent).DisplayAlert("Alert", ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Alert", ex.Message, "OK");
             }
             finally
             {

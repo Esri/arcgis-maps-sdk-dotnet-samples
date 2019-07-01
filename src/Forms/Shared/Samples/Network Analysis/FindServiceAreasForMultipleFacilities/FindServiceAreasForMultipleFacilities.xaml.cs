@@ -185,7 +185,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindServiceAreasForMultipleFacilities
 
         private async void ShowMessage(string title, string detail)
         {
-            await ((Page) Parent).DisplayAlert(title, detail, "OK");
+            await Application.Current.MainPage.DisplayAlert(title, detail, "OK");
         }
     }
 }

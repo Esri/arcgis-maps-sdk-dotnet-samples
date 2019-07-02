@@ -11,12 +11,10 @@ using ArcGISRuntime.Samples.Managers;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using Windows.Foundation.Metadata;
-using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
 
 namespace ArcGISRuntime.UWP.Viewer
 {
@@ -54,6 +52,7 @@ namespace ArcGISRuntime.UWP.Viewer
             // Set readme in the mark down block.
             MarkDownBlock.Text = markdowntext;
 
+            // Remove the background from the mark down renderer.
             MarkDownBlock.Background = new SolidColorBrush() { Opacity = 0 };
 
             SourceCodeContainer.LoadSourceCode();
@@ -64,14 +63,6 @@ namespace ArcGISRuntime.UWP.Viewer
             // Check if the phone contract is available (mobile) and hide status bar if it is there.
             if (!ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0)) return;
             await StatusBar.GetForCurrentView().HideAsync();
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-
-            // Prevent user from going back
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
         }
 
         private void TabChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)

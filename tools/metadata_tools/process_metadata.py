@@ -18,6 +18,22 @@ def get_platform_samples_root(platform, sample_root):
         return os.path.join(sample_root, "Forms", "Shared", "Samples")    
     raise AssertionError(None, None)
 
+def get_relative_path_to_samples_from_platform_root(platform):
+    '''
+    Returns the path from the platform's readme.md file to the folder containing the sample categories
+    For use in sample TOC generation
+    '''
+    if platform == "UWP":
+        return "ArcGISRuntime.UWP.Viewer/Samples"
+    elif platform == "WPF":
+        return "ArcGISRuntime.WPF.Viewer/Samples"
+    elif platform == "Forms" or platform in ["XFA", "XFI", "XFU"]:
+        return "Shared/Samples"
+    elif platform == "iOS":
+        return "Xamarin.iOS/Samples"
+    elif platform == "Android":
+        return "Xamarin.Android/Samples"
+
 def plat_to_msbuild_string(platform):
     if platform in ["XFU", "UWP"]:
         return "/p:Configuration=Debug,Platform=\"x86\" /p:AppxPackageSigningEnabled=false"
@@ -48,6 +64,23 @@ def write_build_script(list_of_samples, platform, output_dir):
     with open(file_name, 'w+') as output_file:
         output_file.write(output_string)
 
+def write_samples_toc(platform_dir, relative_path_to_samples, samples_in_categories):
+    '''
+    sample_in_categories is a dictionary of categories, each key is a list of sample_metadata
+    platform_dir is where the readme.md file should be written
+    '''
+    readme_text = "# Table of contents\n\n"
+
+    for category in samples_in_categories.keys():
+        readme_text += f"## {category}\n\n"
+        for sample in samples_in_categories[category]:
+            readme_text += f"* [{sample.friendly_name}]({relative_path_to_samples}/{sample.category}/{sample.formal_name}) - {sample.description}\n"
+        readme_text += "\n"
+    
+    readme_path = os.path.join(platform_dir, "readme.md")
+    with open(readme_path, 'w+') as file:
+        file.write(readme_text)
+
 def main():
     # Take the path to the samples root (ending in src)
     sample_root = "C:\\SamplesDotNET\\src" # TODO
@@ -58,7 +91,8 @@ def main():
 
     for platform in ["UWP", "WPF", "Android", "XFI", "XFA", "XFU", "iOS"]:
         # make a list of samples, so that build_all_csproj.bat can be produced
-        list_of_samples = []
+        list_of_sample_dirs = []
+        list_of_samples = {}
         skipped_categories = False
         for r, d, f in os.walk(get_platform_samples_root(platform, sample_root)):
             if not skipped_categories:
@@ -72,9 +106,16 @@ def main():
                 sample.try_replace_with_common_readme(platform, common_dir_path, path_to_readme)
                 sample.flush_to_json(os.path.join(r, sample_dir, "readme.metadata.json"))
                 sample.emit_standalone_solution(platform, os.path.join(r, sample_dir), output_root, shared_project_path)
-                list_of_samples.append(sample_dir)
+                list_of_sample_dirs.append(sample_dir)
+                # track samples in each category to enable TOC generation
+                if sample.category in list_of_samples.keys():
+                    list_of_samples[sample.category].append(sample)
+                else:
+                    list_of_samples[sample.category] = [sample]
         # write out build_all_csproj.bat
-        write_build_script(list_of_samples, platform, os.path.join(output_root, platform))
+        write_build_script(list_of_sample_dirs, platform, os.path.join(output_root, platform))
+        # write out samples TOC
+        write_samples_toc(get_platform_samples_root(platform, sample_root), get_relative_path_to_samples_from_platform_root(platform), list_of_samples)
     return
 
 if __name__ == "__main__":

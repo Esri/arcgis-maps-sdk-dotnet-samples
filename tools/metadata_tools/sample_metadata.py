@@ -88,7 +88,10 @@ class sample_metadata:
         readme_parts = readme_contents.split("\n\n") # a blank line is two newlines
 
         # extract human-readable name
-        self.friendly_name = readme_parts[0].strip("#").strip()
+        title_line = readme_parts[0].strip()
+        if not title_line.startswith("#"):
+            title_line = title_line.split("#")[1]
+        self.friendly_name = title_line.strip("#").strip()
         
         if len(readme_parts) < 3:
             # can't handle this, return early
@@ -158,13 +161,12 @@ class sample_metadata:
         # fix the category
         compare_sample.category = self.category
 
-        # call flush_to_readme on the newly created sample object, flag it for review
-        compare_sample.keywords.append("@@TODO")
+        # call flush_to_readme on the newly created sample object
         compare_sample.flush_to_readme(path_to_net_readme)
 
         # re-read to pick up any new info
         self.reset_props()
-        self.populate_from_readme(path_to_net_readme)
+        self.populate_from_readme(platform, path_to_net_readme)
 
     def flush_to_readme(self, path_to_readme):
         template_text = f"# {self.friendly_name}\n\n"
@@ -183,7 +185,7 @@ class sample_metadata:
             template_text += f"{self.use_case}\n\n"
 
         # add 'How to use the sample' - how_to_use
-        if self.how_to_use != "":
+        if self.how_to_use != "" and len(self.how_to_use) > 0:
             template_text += "## How to use the sample\n\n"
             template_text += f"{self.how_to_use}\n\n"
 
@@ -192,8 +194,11 @@ class sample_metadata:
             template_text += "## How it works\n\n"
             stepIndex = 1
             for step in self.how_it_works:
-                template_text += f"{stepIndex}. {step}\n"
-                stepIndex += 1
+                if not step.startswith("***"): # numbered steps
+                    template_text += f"{stepIndex}. {step}\n"
+                    stepIndex += 1
+                else: # sub-bullets
+                    template_text += f"    * {step.strip('***')}\n"
             template_text += "\n"
 
         # add 'Relevant API' - relevant_api
@@ -206,7 +211,7 @@ class sample_metadata:
         # add 'Offline data' - offline_data
         if len(self.offline_data) > 0:
             template_text += "## Offline data\n\n"
-            template_text += "This sample downloads the following items from ArcGIS Online automaticall.\n\n"
+            template_text += "This sample downloads the following items from ArcGIS Online automatically:\n\n"
             for item in self.offline_data:
                 # get the item's name from AGOL
                 request_url = f"https://www.arcgis.com/sharing/rest/content/items/{item}?f=json"
@@ -411,13 +416,13 @@ class sample_metadata:
 
         # use case
         if "use" in heading_parts and "case" in heading_parts:
-            content = "\n".join(body_parts)
+            content = "\n\n".join(body_parts)
             self.use_case = content
             return
 
         # how to use
         if "use" in heading_parts and "how" in heading_parts:
-            content = "\n".join(body_parts)
+            content = "\n\n".join(body_parts)
             self.how_to_use = content
             return
 
@@ -427,8 +432,12 @@ class sample_metadata:
             lines = body_parts[0].split("\n")
             cleaned_lines = []
             for line in lines:
-                line_parts = line.split('.')
-                cleaned_lines.append(".".join(line_parts[1:]).strip())
+                if not line.strip().startswith("*"): # numbered steps
+                    line_parts = line.split('.')
+                    cleaned_lines.append(".".join(line_parts[1:]).strip())
+                else: # sub-bullets
+                    cleaned_line = line.strip().strip("*").strip()
+                    cleaned_lines.append(f"***{cleaned_line}")
             self.how_it_works = cleaned_lines
             return
         
@@ -438,7 +447,9 @@ class sample_metadata:
             lines = body_parts[0].split("\n")
             cleaned_lines = []
             for line in lines:
-                cleaned_lines.append(line.strip("*").strip("-").strip("`").strip())
+                # removes nonsense formatting and controls for Qt content sneaking in
+                cleaned_lines.append(line.strip("*").strip("-").strip("`").strip().strip("`").replace("::", "."))
+            cleaned_lines.sort()
             self.relevant_api = cleaned_lines
             return
 
@@ -453,13 +464,13 @@ class sample_metadata:
 
         # about the data
         if "data" in heading_parts and "about" in heading_parts:
-            content = "\n".join(body_parts)
+            content = "\n\n".join(body_parts)
             self.data_statement = content
             return
 
         # additional info
         if "additional" in heading_parts:
-            content = "\n".join(body_parts)
+            content = "\n\n".join(body_parts)
             self.additional_info = content
             return
 
@@ -469,5 +480,6 @@ class sample_metadata:
             cleaned_tags = []
             for tag in tags:
                 cleaned_tags.append(tag.strip())
+            cleaned_tags.sort()
             self.keywords = cleaned_tags
             return

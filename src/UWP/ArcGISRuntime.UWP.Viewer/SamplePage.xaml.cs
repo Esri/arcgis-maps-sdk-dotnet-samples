@@ -14,14 +14,14 @@ using Windows.Foundation.Metadata;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 namespace ArcGISRuntime.UWP.Viewer
 {
     public sealed partial class SamplePage
     {
-        private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
-
         public SamplePage()
         {
             InitializeComponent();
@@ -34,21 +34,28 @@ namespace ArcGISRuntime.UWP.Viewer
             // Load and show the sample.
             SampleContainer.Content = SampleManager.Current.SampleToControl(SampleManager.Current.SelectedSample);
 
-            if(App.Current.RequestedTheme == Windows.UI.Xaml.ApplicationTheme.Dark)
+            if (App.Current.RequestedTheme == Windows.UI.Xaml.ApplicationTheme.Dark)
             {
-                DescriptionView.RequestedTheme = Windows.UI.Xaml.ElementTheme.Dark;
-                //_markdownRenderer.Options.
+                // Do dark stuff
             }
 
-            string folderPath = SampleManager.Current.SelectedSample.Path;
-            string cssPath = "ms-appx-web:///Resources\\github-markdown.css";
-            string basePath = $"ms-appx-web:///{folderPath.Substring(folderPath.LastIndexOf("Samples"))}";
-            string readmePath = System.IO.Path.Combine(folderPath, "Readme.md");
-            string readmeContent = System.IO.File.ReadAllText(readmePath);
-            readmeContent = _markdownRenderer.Parse(readmeContent);
-            readmeContent = readmeContent.Replace("src='", "src=\"").Replace(".jpg'", ".jpg\"").Replace("src=\"", $"src=\"{basePath}\\");
-            string htmlString = "<!doctype html><head><link rel=\"stylesheet\" href=\"" + cssPath + "\" /></head><body class=\"markdown-body\">" + readmeContent + "</body>";
-            DescriptionView.NavigateToString(htmlString);
+            // Set file path for the readme.
+            string readmePath = System.IO.Path.Combine(SampleManager.Current.SelectedSample.Path, "Readme.md");
+
+            //DescriptionView.NavigateToString(htmlString);
+            string markdowntext = System.IO.File.ReadAllText(readmePath);
+
+            // Take off first line (the title header)
+            markdowntext = markdowntext.Substring(markdowntext.IndexOf('\n') + 1);
+
+            // Fix image links from the old readme format.
+            markdowntext = markdowntext.Replace("<img src=\"", "![](").Replace("\" width=\"350\"/>", ")");
+
+            // Set readme in the mark down block.
+            MarkDownBlock.Text = markdowntext;
+
+            MarkDownBlock.Background = new SolidColorBrush() { Opacity = 0 };
+
             SourceCodeContainer.LoadSourceCode();
         }
 
@@ -69,24 +76,32 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private void TabChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
-            switch(((TabViewItem)Tabs.SelectedItem).Header.ToString())
+            switch (((TabViewItem)Tabs.SelectedItem).Header.ToString())
             {
                 case "Live Sample":
                     SampleContainer.Visibility = Visibility.Visible;
                     DescriptionContainer.Visibility = Visibility.Collapsed;
                     SourceCodeContainer.Visibility = Visibility.Collapsed;
                     break;
+
                 case "Description":
                     SampleContainer.Visibility = Visibility.Collapsed;
                     DescriptionContainer.Visibility = Visibility.Visible;
                     SourceCodeContainer.Visibility = Visibility.Collapsed;
                     break;
+
                 case "Source Code":
                     SampleContainer.Visibility = Visibility.Collapsed;
                     DescriptionContainer.Visibility = Visibility.Collapsed;
                     SourceCodeContainer.Visibility = Visibility.Visible;
                     break;
             }
+        }
+
+        private void MarkDownBlock_ImageResolving(object sender, ImageResolvingEventArgs e)
+        {
+            e.Image = new BitmapImage(new Uri(System.IO.Path.Combine(SampleManager.Current.SelectedSample.Path, e.Url)));
+            e.Handled = true;
         }
     }
 }

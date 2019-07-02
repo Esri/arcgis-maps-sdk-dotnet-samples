@@ -6,12 +6,12 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
         <TextBlock Text="{Binding SampleName}"
                    Grid.Row="0"
@@ -20,30 +20,30 @@
                    VerticalAlignment="Center"
                    Margin="5"
                    FontWeight="Bold"
-                   FontSize="20"/>
+                   FontSize="20" />
         <controls:TabView x:Name="Tabs"
                           Grid.Row="0"
                           Grid.Column="1"
                           SelectionChanged="TabChanged"
                           HorizontalAlignment="Right"
-                          TabWidthBehavior="Actual"
-                          >
+                          TabWidthBehavior="Actual">
             <controls:TabViewItem Header="Live Sample"
-                                  FontSize="20"/>
+                                  FontSize="20" />
             <controls:TabViewItem Header="Description"
-                                  FontSize="20"/>
+                                  FontSize="20" />
             <controls:TabViewItem Header="Source Code"
-                                  FontSize="20"/>
+                                  FontSize="20" />
         </controls:TabView>
 
         <Grid Grid.Row="1"
               Grid.ColumnSpan="2">
-            <ContentControl Margin="5" x:Name="SampleContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RequestedTheme="Light"/>
-            <ContentControl Margin="5" x:Name="DescriptionContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Visibility="Collapsed">
-                <WebView x:Name="DescriptionView" />
-            </ContentControl>
-            <local:SourceCode Margin="5" x:Name="SourceCodeContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Visibility="Collapsed"/>
+            <ContentControl Margin="5" x:Name="SampleContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RequestedTheme="Light" />
+            <ScrollViewer Margin="5" x:Name="DescriptionContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Visibility="Collapsed">
+                <controls:MarkdownTextBlock x:Name="MarkDownBlock"
+                                            ImageResolving="MarkDownBlock_ImageResolving"
+                                            ImageMaxWidth="350" />
+            </ScrollViewer>
+            <local:SourceCode Margin="5" x:Name="SourceCodeContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Visibility="Collapsed" />
         </Grid>
     </Grid>
-    
 </Page>
